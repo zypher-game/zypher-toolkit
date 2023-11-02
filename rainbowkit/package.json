@@ -42,6 +42,9 @@
   "author": "Rainbow",
   "license": "MIT",
   "peerDependencies": {
+    "@vanilla-extract/css": "1.9.1",
+    "@vanilla-extract/dynamic": "2.0.2",
+    "@vanilla-extract/sprinkles": "1.5.0",
     "react": ">=17",
     "react-dom": ">=17",
     "wagmi": "~1.0.1 || ~1.1.0 || ~1.2.0 || ~1.3.0"
@@ -63,15 +66,13 @@
     "postcss": "^8.4.4",
     "viem": "~1.6.7",
     "vitest": "^0.32.4",
-    "@wagmi/core": "~1.3.9",
-    "@vanilla-extract/css": "1.9.1",
-    "@vanilla-extract/dynamic": "2.0.2",
-    "@vanilla-extract/sprinkles": "1.5.0",
+    "@wagmi/core": "~1.3.9"
+  },
+  "dependencies": {
     "clsx": "1.1.1",
     "qrcode": "1.5.0",
     "react-remove-scroll": "2.5.4"
   },
-  "dependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rainbow-me/rainbowkit.git",
