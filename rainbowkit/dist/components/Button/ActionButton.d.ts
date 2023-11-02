@@ -1,5 +1,4 @@
-import React from 'react';
-declare type Size = 'small' | 'medium' | 'large';
+type Size = 'small' | 'medium' | 'large';
 export declare function ActionButton({ disabled, href, label, onClick, rel, size, target, testId, type, }: {
     href?: string;
     label: string;
@@ -10,5 +9,5 @@ export declare function ActionButton({ disabled, href, label, onClick, rel, size
     type?: 'primary' | 'secondary';
     disabled?: boolean;
     testId?: string;
-}): React.JSX.Element;
+}): any;
 export {};

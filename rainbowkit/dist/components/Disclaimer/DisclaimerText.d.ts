@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 export declare const DisclaimerText: ({ children }: {
     children: ReactNode;
-}) => React.JSX.Element;
+}) => any;

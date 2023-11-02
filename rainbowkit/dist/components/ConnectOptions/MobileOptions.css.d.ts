@@ -1,1 +1,1 @@
-export declare const scroll: string;
+export declare const scroll: any;

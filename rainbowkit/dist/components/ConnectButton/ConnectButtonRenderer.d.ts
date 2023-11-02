@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { AuthenticationStatus } from '../RainbowKitProvider/AuthenticationContext';
 export interface ConnectButtonRendererProps {
     children: (renderProps: {
@@ -31,7 +31,7 @@ export interface ConnectButtonRendererProps {
         connectModalOpen: boolean;
     }) => ReactNode;
 }
-export declare function ConnectButtonRenderer({ children, }: ConnectButtonRendererProps): React.JSX.Element;
+export declare function ConnectButtonRenderer({ children, }: ConnectButtonRendererProps): any;
 export declare namespace ConnectButtonRenderer {
     var displayName: string;
 }

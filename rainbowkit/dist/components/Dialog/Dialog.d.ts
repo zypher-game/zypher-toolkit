@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 interface DialogProps {
     open: boolean;
     onClose: () => void;
@@ -6,5 +6,5 @@ interface DialogProps {
     onMountAutoFocus?: (event: Event) => void;
     children: ReactNode;
 }
-export declare function Dialog({ children, onClose, open, titleId }: DialogProps): React.JSX.Element;
+export declare function Dialog({ children, onClose, open, titleId }: DialogProps): any;
 export {};

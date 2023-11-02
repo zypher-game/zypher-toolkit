@@ -1,6 +1,6 @@
 import { Connector } from 'wagmi';
-export declare type InstructionStepName = 'install' | 'create' | 'scan' | 'refresh';
-declare type RainbowKitConnector<C extends Connector = Connector> = {
+export type InstructionStepName = 'install' | 'create' | 'scan' | 'refresh';
+type RainbowKitConnector<C extends Connector = Connector> = {
     connector: C;
     mobile?: {
         getUri?: () => Promise<string>;
@@ -30,7 +30,7 @@ declare type RainbowKitConnector<C extends Connector = Connector> = {
         };
     };
 };
-export declare type Wallet<C extends Connector = Connector> = {
+export type Wallet<C extends Connector = Connector> = {
     id: string;
     name: string;
     shortName?: string;
@@ -60,11 +60,11 @@ export declare type Wallet<C extends Connector = Connector> = {
     }) => boolean;
     createConnector: () => RainbowKitConnector<C>;
 };
-export declare type WalletList = {
+export type WalletList = {
     groupName: string;
     wallets: Wallet[];
 }[];
-export declare type WalletInstance = Omit<Wallet, 'createConnector' | 'hidden'> & ReturnType<Wallet['createConnector']> & {
+export type WalletInstance = Omit<Wallet, 'createConnector' | 'hidden'> & ReturnType<Wallet['createConnector']> & {
     index: number;
     groupIndex: number;
     groupName: string;

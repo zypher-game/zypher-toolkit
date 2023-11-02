@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-export declare type AuthenticationStatus = 'loading' | 'unauthenticated' | 'authenticated';
+import { ReactNode } from 'react';
+export type AuthenticationStatus = 'loading' | 'unauthenticated' | 'authenticated';
 export interface AuthenticationAdapter<Message> {
     getNonce: () => Promise<string>;
     createMessage: (args: {
@@ -25,7 +25,7 @@ interface RainbowKitAuthenticationProviderProps<Message> extends AuthenticationC
     enabled?: boolean;
     children: ReactNode;
 }
-export declare function RainbowKitAuthenticationProvider<Message = unknown>({ adapter, children, enabled, status, }: RainbowKitAuthenticationProviderProps<Message>): React.JSX.Element;
-export declare function useAuthenticationAdapter(): AuthenticationAdapter<any>;
-export declare function useAuthenticationStatus(): AuthenticationStatus | null;
+export declare function RainbowKitAuthenticationProvider<Message = unknown>({ adapter, children, enabled, status, }: RainbowKitAuthenticationProviderProps<Message>): any;
+export declare function useAuthenticationAdapter(): any;
+export declare function useAuthenticationStatus(): any;
 export {};

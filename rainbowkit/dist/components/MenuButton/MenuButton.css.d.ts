@@ -1,1 +1,1 @@
-export declare const unsetBackgroundOnHover: string;
+export declare const unsetBackgroundOnHover: any;

@@ -1,2 +1,1 @@
-import React from 'react';
-export declare const DisconnectIcon: () => React.JSX.Element;
+export declare const DisconnectIcon: () => any;

@@ -1,2 +1,1 @@
-import React from 'react';
-export declare const CopyIcon: () => React.JSX.Element;
+export declare const CopyIcon: () => any;

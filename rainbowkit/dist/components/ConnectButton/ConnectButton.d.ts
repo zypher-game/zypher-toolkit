@@ -1,15 +1,14 @@
-import React from 'react';
 import { ResponsiveValue } from '../../css/sprinkles.css';
 import { ConnectButtonRenderer } from './ConnectButtonRenderer';
-declare type AccountStatus = 'full' | 'avatar' | 'address';
-declare type ChainStatus = 'full' | 'icon' | 'name' | 'none';
+type AccountStatus = 'full' | 'avatar' | 'address';
+type ChainStatus = 'full' | 'icon' | 'name' | 'none';
 export interface ConnectButtonProps {
     accountStatus?: ResponsiveValue<AccountStatus>;
     showBalance?: ResponsiveValue<boolean>;
     chainStatus?: ResponsiveValue<ChainStatus>;
     label?: string;
 }
-export declare function ConnectButton({ accountStatus, chainStatus, label, showBalance }: ConnectButtonProps): React.JSX.Element;
+export declare function ConnectButton({ accountStatus, chainStatus, label, showBalance }: ConnectButtonProps): any;
 export declare namespace ConnectButton {
     var __defaultProps: {
         readonly accountStatus: "full";

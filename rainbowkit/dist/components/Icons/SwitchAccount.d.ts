@@ -1,2 +1,1 @@
-import React from 'react';
-export declare const SwitchAccountIcon: () => React.JSX.Element;
+export declare const SwitchAccountIcon: () => any;

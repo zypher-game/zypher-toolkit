@@ -1,2 +1,2 @@
-export declare const DropdownIconClassName: string;
-export declare const ExternalLinkClassName: string;
+export declare const DropdownIconClassName: any;
+export declare const ExternalLinkClassName: any;

@@ -1,1 +1,1 @@
-export declare const useIsMounted: () => boolean;
+export declare const useIsMounted: () => any;

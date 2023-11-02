@@ -1,5 +1,5 @@
 import React, { ReactNode } from 'react';
-export declare type DisclaimerComponent = React.FunctionComponent<{
+export type DisclaimerComponent = React.FunctionComponent<{
     Text: React.FunctionComponent<{
         children: ReactNode;
     }>;
@@ -9,12 +9,8 @@ export declare type DisclaimerComponent = React.FunctionComponent<{
     }>;
 }>;
 export declare const defaultAppInfo: {
-    appName: undefined;
-    disclaimer: undefined;
+    appName: any;
+    disclaimer: any;
     learnMoreUrl: string;
 };
-export declare const AppContext: React.Context<{
-    appName?: string | undefined;
-    learnMoreUrl?: string | undefined;
-    disclaimer?: DisclaimerComponent | undefined;
-}>;
+export declare const AppContext: any;

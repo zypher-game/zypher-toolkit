@@ -1,7 +1,6 @@
-import React from 'react';
 import { BoxProps } from '../Box/Box';
 import { AsyncImageSrc } from './useAsyncImage';
-declare type CustomBorderColor = {
+type CustomBorderColor = {
     custom: string;
 };
 interface AsyncImageProps {
@@ -14,5 +13,5 @@ interface AsyncImageProps {
     borderColor?: BoxProps['borderColor'] | CustomBorderColor;
     boxShadow?: BoxProps['boxShadow'];
 }
-export declare function AsyncImage({ alt, background, borderColor, borderRadius, boxShadow, height, src: srcProp, width }: AsyncImageProps): React.JSX.Element;
+export declare function AsyncImage({ alt, background, borderColor, borderRadius, boxShadow, height, src: srcProp, width }: AsyncImageProps): any;
 export {};

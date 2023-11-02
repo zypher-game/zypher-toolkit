@@ -6,14 +6,14 @@ export interface RainbowKitChain {
     iconUrl?: string | (() => Promise<string>) | null;
     iconBackground?: string;
 }
-export declare type Chain = WagmiChain & RainbowKitChain;
+export type Chain = WagmiChain & RainbowKitChain;
 interface RainbowKitChainProviderProps {
     chains: RainbowKitChain[];
     initialChain?: RainbowKitChain | number;
     children: ReactNode;
 }
 export declare function RainbowKitChainProvider({ chains, children, initialChain }: RainbowKitChainProviderProps): React.JSX.Element;
-export declare const useRainbowKitChains: () => RainbowKitChain[];
-export declare const useInitialChainId: () => number | undefined;
-export declare const useRainbowKitChainsById: () => Record<number, RainbowKitChain>;
+export declare const useRainbowKitChains: () => any;
+export declare const useInitialChainId: () => any;
+export declare const useRainbowKitChainsById: () => any;
 export {};

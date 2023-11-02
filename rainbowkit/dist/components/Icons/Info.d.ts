@@ -1,2 +1,1 @@
-import React from 'react';
-export declare const InfoIcon: () => React.JSX.Element;
+export declare const InfoIcon: () => any;

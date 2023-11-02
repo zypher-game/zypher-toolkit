@@ -1,5 +1,5 @@
 import React from 'react';
-declare type Props = {
+type Props = {
     onClick?: React.MouseEventHandler<HTMLElement> | undefined;
     as?: React.ElementType<any>;
     currentlySelected?: boolean;
@@ -11,7 +11,7 @@ declare type Props = {
     testId?: string;
 };
 export declare const ModalSelection: {
-    ({ as, currentlySelected, iconBackground, iconUrl, name, onClick, ready, recent, testId, ...urlProps }: Props): React.JSX.Element;
+    ({ as, currentlySelected, iconBackground, iconUrl, name, onClick, ready, recent, testId, ...urlProps }: Props): any;
     displayName: string;
 };
 export {};

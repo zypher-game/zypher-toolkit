@@ -1,2 +1,1 @@
-import React from 'react';
-export declare const BackIcon: () => React.JSX.Element;
+export declare const BackIcon: () => any;

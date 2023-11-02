@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { BoxProps } from '../Box/Box';
 interface DialogContentProps {
     children: ReactNode;
@@ -7,5 +7,5 @@ interface DialogContentProps {
     marginTop?: BoxProps['marginTop'];
     wide?: boolean;
 }
-export declare function DialogContent({ bottomSheetOnMobile, children, marginTop, padding, wide, }: DialogContentProps): React.JSX.Element;
+export declare function DialogContent({ bottomSheetOnMobile, children, marginTop, padding, wide, }: DialogContentProps): any;
 export {};

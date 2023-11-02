@@ -1,4 +1,3 @@
-import React from 'react';
 export declare enum WalletStep {
     None = "NONE",
     LearnCompact = "LEARN_COMPACT",
@@ -11,4 +10,4 @@ export declare enum WalletStep {
 }
 export declare function DesktopOptions({ onClose }: {
     onClose: () => void;
-}): React.JSX.Element;
+}): any;

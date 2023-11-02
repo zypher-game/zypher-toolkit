@@ -7,7 +7,7 @@ import { RainbowKitChain } from './RainbowKitChainContext';
 export declare const useThemeRootProps: () => {
     "data-rk": string;
 };
-export declare type Theme = ThemeVars | {
+export type Theme = ThemeVars | {
     lightMode: ThemeVars;
     darkMode: ThemeVars;
 };

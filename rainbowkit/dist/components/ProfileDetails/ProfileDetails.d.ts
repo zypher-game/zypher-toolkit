@@ -1,4 +1,3 @@
-import React from 'react';
 import { useAccount, useBalance, useEnsAvatar, useEnsName } from 'wagmi';
 interface ProfileDetailsProps {
     address: ReturnType<typeof useAccount>['address'];
@@ -8,5 +7,5 @@ interface ProfileDetailsProps {
     onClose: () => void;
     onDisconnect: () => void;
 }
-export declare function ProfileDetails({ address, balanceData, ensAvatar, ensName, onClose, onDisconnect }: ProfileDetailsProps): React.JSX.Element | null;
+export declare function ProfileDetails({ address, balanceData, ensAvatar, ensName, onClose, onDisconnect }: ProfileDetailsProps): any;
 export {};

@@ -1,3 +1,3 @@
-export declare const CloseIconClassName: string;
-export declare const SpinnerIconClassName: string;
-export declare const SpinnerIconPathClassName: string;
+export declare const CloseIconClassName: any;
+export declare const SpinnerIconClassName: any;
+export declare const SpinnerIconPathClassName: any;

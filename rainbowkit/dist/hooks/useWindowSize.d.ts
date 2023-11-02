@@ -1,4 +1,1 @@
-export declare const useWindowSize: () => {
-    width: number | undefined;
-    height: number | undefined;
-};
+export declare const useWindowSize: () => any;

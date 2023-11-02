@@ -1,2 +1,1 @@
-import React from 'react';
-export declare const ExternalLinkIcon: () => React.JSX.Element;
+export declare const ExternalLinkIcon: () => any;
