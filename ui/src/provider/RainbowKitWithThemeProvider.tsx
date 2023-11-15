@@ -1,6 +1,6 @@
 import "../utils/i18n";
-import "../../node_modules/@my/rainbowkit/index.css";
-import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
+import "../../node_modules/@zypher-game/toolkit/rainbowkit/dist/index.css";
+import { darkTheme, RainbowKitProvider } from "@zypher-game/toolkit/rainbowkit";
 import React, { FC, ReactNode, useMemo } from "react";
 
 import { appInfo } from "../constant/constant";

@@ -20,8 +20,8 @@ exports.wagmiConfig =
   exports.getViemClients =
   exports.viemClients =
     void 0;
-var rainbowkit_1 = require("@my/rainbowkit");
-var wallets_1 = require("@my/rainbowkit/wallets");
+var rainbowkit_1 = require("@zypher-game/toolkit/rainbowkit");
+var wallets_1 = require("@zypher-game/toolkit/rainbowkit/wallets");
 var lodash_1 = require("lodash");
 var viem_1 = require("viem");
 var wagmi_1 = require("wagmi");

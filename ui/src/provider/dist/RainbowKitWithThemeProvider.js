@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 require("../utils/i18n");
-var rainbowkit_1 = require("@my/rainbowkit");
+var rainbowkit_1 = require("@zypher-game/toolkit/rainbowkit");
 var react_1 = require("react");
 var constant_1 = require("../constant/constant");
 var wagmi_1 = require("wagmi");

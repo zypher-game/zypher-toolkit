@@ -1,5 +1,5 @@
-import { useWalletConnectors } from "@my/rainbowkit";
-import { WalletConnector } from "@my/rainbowkit/wallets/useWalletConnectors";
+import { useWalletConnectors } from "@zypher-game/toolkit/rainbowkit";
+import { WalletConnector } from "@zypher-game/toolkit/rainbowkit/wallets/useWalletConnectors";
 import { useMemo } from "react";
 
 export const useActiveWallet = (): WalletConnector | undefined => {

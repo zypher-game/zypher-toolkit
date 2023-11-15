@@ -1,4 +1,4 @@
-import { useChainModal } from "@my/rainbowkit";
+import { useChainModal } from "@zypher-game/toolkit/rainbowkit";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 

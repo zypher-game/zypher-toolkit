@@ -1296,7 +1296,7 @@ import classnames12 from "classnames";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import { ConnectButton } from "@rainbowkit";
+import { ConnectButton } from "@zypher-game/toolkit/rainbowkit";
 import classnames11 from "classnames";
 import { memo as memo21, useMemo as useMemo10 } from "react";
 
@@ -1306,7 +1306,7 @@ import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 import styled6 from "styled-components";
 
 // src/hooks/useActiveWeb3React.ts
-import { useChainId } from "@my/rainbowkit";
+import { useChainId } from "@zypher-game/toolkit/rainbowkit";
 import { useMemo as useMemo7 } from "react";
 import { useAccount, usePublicClient } from "wagmi";
 function useActiveWeb3React() {
@@ -1329,7 +1329,7 @@ import { useRecoilState as useRecoilState4 } from "recoil";
 import { useDisconnect } from "wagmi";
 
 // src/hooks/useActiveWallet.ts
-import { useWalletConnectors } from "@my/rainbowkit";
+import { useWalletConnectors } from "@zypher-game/toolkit/rainbowkit";
 import { useMemo as useMemo8 } from "react";
 var useActiveWallet = () => {
   const wallets = useWalletConnectors();
@@ -1555,12 +1555,12 @@ var PointsIcon = memo10(
 );
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import { useChainModal as useChainModal2 } from "@my/rainbowkit";
+import { useChainModal as useChainModal2 } from "@zypher-game/toolkit/rainbowkit";
 import { memo as memo11 } from "react";
 import styled4 from "styled-components";
 
 // src/hooks/useInitRainbowFn.ts
-import { useChainModal } from "@my/rainbowkit";
+import { useChainModal } from "@zypher-game/toolkit/rainbowkit";
 import { useEffect as useEffect5 } from "react";
 import { useSetRecoilState as useSetRecoilState3 } from "recoil";
 var useInitRainbowFn = () => {
@@ -1652,7 +1652,7 @@ var ChainSelectorWidget = memo11(({ className }) => {
 var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-import { useAsyncImage } from "@my/rainbowkit";
+import { useAsyncImage } from "@zypher-game/toolkit/rainbowkit";
 import { memo as memo12 } from "react";
 var PcUserInfo = memo12(
   ({
@@ -2059,7 +2059,7 @@ import {
   tokenPocketWallet,
   walletConnectWallet,
   connectorsForWallets
-} from "@my/rainbowkit";
+} from "@zypher-game/toolkit/rainbowkit";
 import { createPublicClient, fallback, http } from "viem";
 import { configureChains, createConfig } from "wagmi";
 import * as chainList from "wagmi/chains";
@@ -2804,7 +2804,7 @@ var Account = memo19(
 var Rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-import { useChainModal as useChainModal3 } from "@rainbowkit";
+import { useChainModal as useChainModal3 } from "@zypher-game/toolkit/rainbowkit";
 import { memo as memo20 } from "react";
 import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 var WrongNetwork = memo20(() => {
@@ -2875,7 +2875,7 @@ var Header = (props) => {
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
+import { darkTheme, RainbowKitProvider } from "@zypher-game/toolkit/rainbowkit";
 import { useMemo as useMemo11 } from "react";
 import { WagmiConfig } from "wagmi";
 var RainbowKitWithThemeProvider = ({ children, env }) => {
@@ -2939,7 +2939,10 @@ window.addEventListener("load", async () => {
 });
 
 // src/index.ts
-import { useConnectModal, useChainModal as useChainModal4 } from "@my/rainbowkit";
+import {
+  useConnectModal,
+  useChainModal as useChainModal4
+} from "@zypher-game/toolkit/rainbowkit";
 export {
   Balance_default as Balance,
   BlockExplorerUrls,
