@@ -17,10 +17,7 @@
     "allowJs": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
-    "strict": true,
-    "paths": {
-      "@/*": ["./src/*"]
-    }
+    "strict": true
   },
   "include": [
     "src/**/*",

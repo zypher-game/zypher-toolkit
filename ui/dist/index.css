@@ -1,4 +1,4 @@
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/SideBar/sidebar.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/sidebar.module.stylus */
 .sidebarWrap {
   padding: 136px 24px 40px;
   overflow-y: scroll;
@@ -183,7 +183,7 @@
   background: #191919;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/DialogComponents/DialogTitle.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.module.stylus */
 .dialog_title_modalTitleInner {
   position: relative;
   display: flex;
@@ -211,7 +211,7 @@
   fill: var(--var-text-light);
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/Header/header.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/header.module.stylus */
 .header_header {
   border-bottom: 1px solid var(--var-header-border);
   position: relative;
@@ -267,7 +267,7 @@
   size: 16px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.module.stylus */
 .account_info_dialog_dialog .account_info_dialog_modalMain {
   padding: 20px 32px 33px;
 }
@@ -277,7 +277,7 @@
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/PlayerAvatar/index.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PlayerAvatar/index.module.stylus */
 .player_playerAvatar {
   display: inline-flex;
   flex-direction: column;
@@ -383,7 +383,7 @@
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.module.stylus */
 .m_user_m_content .m_user_border {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -444,7 +444,7 @@
   margin: 0;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.module.stylus */
 .pc_user_pc_content {
   display: flex;
   justify-content: space-between;
@@ -532,7 +532,7 @@
   border: 1px solid var(--var-btn-hover);
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/Balance/balance.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/Balance/balance.module.stylus */
 .balance_item_balance {
   padding: 0 14px;
   display: flex;
@@ -562,7 +562,7 @@
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.module.stylus */
 .points_dialog_zindex {
   z-index: 1001 !important;
 }
@@ -676,7 +676,7 @@
   height: 14px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/PointsDialog/PointsDialog.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/PointsDialog.module.stylus */
 .dialog .pointsIcon {
   width: 20px;
 }
@@ -856,7 +856,7 @@
   margin-left: 6px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/Header/rainbow_account/rainbow_connectWallet.module.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/rainbow_connectWallet.module.stylus */
 .connect_connectWallet {
   cursor: pointer;
   display: flex;

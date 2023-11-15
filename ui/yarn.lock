@@ -2183,7 +2183,7 @@
   resolved "https://registry.yarnpkg.com/@zypher-game/events/-/events-0.231025.34125.tgz#eeb659653707c2961a803301b834d69a4e7206c4"
   integrity sha512-Sh/Fib1DInDaKj5JUBCBu1BYUsikvcOkzcMNqygHBLFET0VCnymc1wjWIdoedAWVP07dMnZUSEGf1HOxMRqVzQ==
 
-"@zypher-game/rainbowkit@./rainbowkit/dist":
+"@zypher-game/rainbowkit@../rainbowkit/dist":
   version "0.0.0"
 
 JSONStream@^1.3.5:
