@@ -1,4 +1,4 @@
-import { useChainId } from "@zypher-game/rainbowkit";
+import { useChainId } from "@my/rainbowkit";
 import { useMemo } from "react";
 import { PublicClient, useAccount, usePublicClient } from "wagmi";
 

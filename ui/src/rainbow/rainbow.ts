@@ -6,7 +6,7 @@ import {
   walletConnectWallet,
   Chain,
   connectorsForWallets,
-} from "@zypher-game/rainbowkit";
+} from "@my/rainbowkit";
 import { sample } from "../utils/lodash";
 import { createPublicClient, fallback, http, PublicClient } from "viem";
 import { configureChains, createConfig } from "wagmi";
