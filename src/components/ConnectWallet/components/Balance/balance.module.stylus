@@ -1,0 +1,19 @@
+.balance_item_balance
+  padding: 0 14px
+  display: flex
+  align-items: center
+  color: white
+  font-weight: 500
+  font-size: 16px
+  @media screen and (max-width: 768px)
+    padding: 0 8px
+    font-size: 12px
+
+  .balance_item_img, img
+    width: 24px
+    height: 24px
+    margin-left: 10px
+    @media screen and (max-width: 768px)
+      width: 20px
+      height: 24px
+      margin-left: 4px

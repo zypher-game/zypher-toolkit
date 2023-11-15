@@ -1,0 +1,72 @@
+.player_playerAvatar
+  display: inline-flex
+  flex-direction: column
+  align-items: center
+  font-family: 'Poppins'
+  font-style: normal
+  font-weight: 400
+  font-size: 14px
+  line-height: 22px
+  text-align: center
+  color: #62380C
+
+  .player_avatar
+    background: #FFE8C4
+    border: 2px solid #62380C
+    border-radius: 50%
+
+    &.player_highLight
+      animation: borderColor 1s infinite
+      animation-direction: alternate
+
+    :global(.icon)
+      size: 50px
+  .player_avatar_account
+    color: #fff;
+    font-size: 16px;
+    @media screen and (max-width: 768px)
+      font-size: 12px
+.player_winner
+  position:relative
+  &:after
+    content: ''
+    position:absolute
+    top: -16px
+    right: -5px  
+    width: 27px;
+    height: 25px;
+    background: url('https://static.zypher.game/img/layout/crown.svg') no-repeat
+.player_playerAvatarList
+  .player_outerCircle
+    background: linear-gradient(180deg, #F1A541 0%, #D48A2B 45.31%, #9F5A03 100%);
+    box-shadow: 0px 1px 1px #CD9862;
+    border-radius: 50%;
+    width:64px;
+    height:64px
+    display: flex
+    align-items: center
+    justify-content: center
+    padding:3px
+  .player_centreCircle
+   
+    background: linear-gradient(180deg, #AE6306 0%, #D68B2B 29.69%, #E79B3B 100%);
+    border-radius: 50%;
+  .player_innerCircle
+    background: #613C17;
+    margin:2px
+    box-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.25);
+    border-radius: 50%;
+    
+   
+   .player_avatar
+    width: 100%
+    height:100%
+    background: #FFE8C4
+    border-radius: 50%
+
+@keyframes borderColor
+  from
+    border-color: rgba(220, 0, 151, 1)
+
+  to
+    border-color: rgba(220, 0, 151, 0.5)

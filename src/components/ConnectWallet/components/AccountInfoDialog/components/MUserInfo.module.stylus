@@ -1,0 +1,51 @@
+.m_user_m_content
+  .m_user_border
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    padding: 16px
+    margin-bottom: 16px
+    &.m_user_chain
+      display: flex
+      flex-direction: row
+      justify-content: space-between
+      align-items: center
+      :global(.img)
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        gap: 10px
+    .m_user_account
+      flex-direction: row;
+      gap: 9px;
+      p
+        font-size: 20px;
+        font-weight: 500;
+        color: #fff;
+  .m_user_tit
+    color: #5F5D77;
+    font-size: 14px;
+    line-height: 16px;
+  .m_user_userInfoInner
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 16px 0
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+
+  .m_user_item
+    margin-top: 16px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    color: #fff
+    font-size: 14px;
+    font-weight: 600;
+    .m_user_fl
+      display: flex
+      justify-content: space-between
+      align-items: center
+      gap: 10px
+    img
+      width: 24px
+      height: 24px
+      margin: 0

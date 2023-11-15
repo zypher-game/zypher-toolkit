@@ -1,0 +1,52 @@
+.connect_connectWallet
+    cursor: pointer
+    display: flex
+    align-items: center
+    gap: 20px
+    @media screen and (max-width: 768px)
+        gap: 10px
+    &.connect_bgWallet
+        & > div
+            background-color: rgba(19, 17, 17, 0.5)
+            border: none
+            &:hover
+                background-color: rgba(0,0,0,0.6)
+                border: none
+            @media screen and (max-width: 768px)
+                border: 1px solid rgba(255,255,255,0.2)
+                &:hover
+                    border: 1px solid rgba(255,255,255,0.2)
+
+    & > div
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        border-radius: 24px
+        height: 38px;
+        line-height: 38px
+        transition: all 0.3s
+        @media screen and (max-width: 768px)
+            height: 28px;
+            line-height: 28px
+        &:hover
+            border: 1px solid var(--var-btn-hover)
+    
+
+    div.connect_connect
+        border-radius: 8px;
+        background-color: #6673FF;
+        border: 1px solid #6673FF
+        &:hover
+            background-color: var(--var-btn-hover)
+            border: 1px solid var(--var-btn-hover)
+        p
+            flex: 1
+            text-align: center
+            font-family: 'Poppins'
+            font-weight: 600
+            color: var(--var-text-light)
+            transition: all 0.3s
+            padding: 0 14px
+            
+            @media screen and (max-width: 768px)
+                padding: 0 12px
+
+  

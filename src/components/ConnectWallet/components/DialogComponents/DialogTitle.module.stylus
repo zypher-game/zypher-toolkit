@@ -1,0 +1,25 @@
+
+.dialog_title_modalTitleInner
+  position: relative
+  display: flex
+  justify-content: space-between
+  align-items: center
+  height: 62px
+  padding: 20px 32px
+  background: #1c1c1c;
+  border-radius: 20px 20px 0 0
+ 
+  .dialog_title_title
+    font-family: 'Poppins'
+    font-style: normal
+    font-weight: 500
+    font-size: 16px
+    color: var(--var-text-light)
+    line-height: 24px;
+  span
+    display: block
+    cursor: pointer
+    :global(.icon)
+      size: 14px
+      fill: var(--var-text-light)
+

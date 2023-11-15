@@ -1,0 +1,6 @@
+.account_info_dialog_dialog
+    .account_info_dialog_modalMain
+        padding: 20px 32px 33px
+        @media screen and (max-width: 768px)
+            padding: 82px 32px 33px
+      

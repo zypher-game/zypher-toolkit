@@ -1,0 +1,150 @@
+.sidebarWrap
+  padding: 136px 24px 40px
+  overflow-y: scroll;
+  @media screen and (max-width: 768px)
+    padding-top: 24px
+  p
+    color: #fff
+    font-size: 14px
+    white-space: nowrap; /* 禁止换行 */
+    overflow: hidden; /* 隐藏溢出部分 */
+    text-overflow: ellipsis; /* 使用省略号显示溢出的文本 */
+    font-family: "Poppins";
+  .logo
+    position: fixed
+    top: 0
+    left: 0
+    width: 312px
+    background-color: #131313
+    display: flex
+    justify-content: start
+    align-items: center
+    padding: 28px 24px
+    gap: 8px
+    z-index: 9
+    border-right: 1px solid rgba(255,255,255,0.1)
+    @media screen and (max-width: 1440px)
+      width: 250px
+
+  .line
+    margin-top: 24px
+    margin-bottom: 28px
+    width: 100%
+    height: 1px
+    background: rgba(255, 255, 255, 0.10);
+  .sideBarTitle
+    display: flex
+    justify-content: start
+    align-items: center
+    gap: 8px
+    margin-bottom: 20px
+    p
+      font-weight: 500;
+      opacity: 0.7
+    img
+      display: block
+      width: 24px
+      height: 24px
+  .gamelist
+    display: flex
+    justify-content: start
+    align-items: center
+    flex-wrap: wrap;
+    gap: 22px
+  .activitiesList
+    display: flex
+    flex-direction: column
+    gap: 22px
+    @media screen and (max-width: 768px)
+      flex-direction: row
+      justify-content: start
+      align-items: center
+      flex-wrap: wrap;
+      img
+        border-radius: 7.2px;
+        background: #282828;
+        padding: 4px;
+      .verListItme
+        &.item_on
+          img
+            background: #6673FF;
+          p
+            color: #fff
+  .horListItme
+    width: 100%
+    display: flex
+    justify-content: start
+    align-items: center
+    border-radius: 6px;
+    background: rgba(255,255,255, 0.06)
+    height: 40px
+    padding: 0 10px
+    gap: 8px
+    cursor: pointer
+    &.item_on
+      background: #6673FF;
+    &.horListItmeDisable
+      opacity: 0.5
+      cursor: not-allowed
+  .verListItme
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    max-width: 48px
+    cursor: pointer
+    &.item_on
+      p
+        color: #6673FF;
+    &.verListItmeDisable
+      opacity: 0.5
+      cursor: not-allowed
+    p
+      line-height: 18px
+      font-size: 12px
+      width: 57px
+      text-align: center
+      margin-top: 8px
+    img
+      display: block
+      width: 48px
+      height: 48px
+  .communityLink
+    display: flex
+    flex-wrap: wrap;
+    justify-content: start
+    align-items: center
+    gap: 25px
+    img
+      display: block
+      width: 32px
+      height: 32px
+  .language
+    position: relative
+    .languageItme
+      padding: 0 16px
+      justify-content: space-between
+    .arrow 
+      width: 5px;
+      height: 5px;
+      border-right: 1px solid #fff;
+      border-bottom: 1px solid #fff;
+    .languageItmeTip
+      position: absolute;
+      top: 48px;
+      right: 0;
+      border-radius: 6px;
+      background: #191919;
+      overflow: hidden
+      min-width: 160px
+      z-index: 9
+      li
+        height 38px
+        line-height: 38px
+        padding: 0 16px;
+        color: rgba(255, 255, 255, 0.60);
+        background: #000;
+        cursor: pointer
+        &.languageItmeOn
+          color: #fff
+          background: #191919;

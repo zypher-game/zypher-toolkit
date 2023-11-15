@@ -1,0 +1,91 @@
+.points_dialog_zindex
+  z-index: 1001 !important
+.points_dialog_dialogContent
+  background-color: #131313
+  border-radius: 20px
+  color: #fff
+  font-size: 14px;
+  padding: 0
+  overflow: hidden
+  width: 440px
+  @media screen and (max-width: 468px)
+    width: 320px
+  .points_dialog_cursor
+    cursor pointer
+  .points_dialog_dialogHeader
+    background-color: #1c1c1c
+    font-size: 16px
+    font-weight: 500
+    padding: 20px
+    display: flex
+    justify-content: space-between
+    h3
+      color: #fff
+      padding: 0
+      margin: 0
+.points_dialog_dialogContainer
+  padding: 20px 20px 0
+  max-height: 70vh
+  overflow-y: scroll
+  color: #fff
+  font-size: 14px;
+  h4
+    font-weight: 700;
+    color: #fff
+    p
+      font-weight: 400
+      display: inline-block
+  p
+    font-size: 14px
+    font-weight: 400
+    margin-bottom: 30px
+    line-height: 24px
+    &:last-child
+      margin-bottom: 0
+
+    strong
+      color: #65EDBC
+      font-size: 14px
+      font-weight: 600
+    a
+      color: #666BFF;
+      text-decoration-line: underline;
+      &.fontWhite
+        color: #fff
+    em
+      display: inline-block
+      vertical-align: top
+      width 4px
+      height 4px
+      background-color: #fff
+      border-radius: 50%
+      margin-right: 8px
+      margin-top: 10px;
+    i
+      width: 90%
+      display: inline-block
+      vertical-align: top
+.points_dialog_btnWrap
+  margin: 20px 20px 30px;
+.points_dialog_btn
+  display block
+  color: #fff
+  background: #6673FF
+  width: 100%
+  height: 40px
+  border-radius: 12px
+  margin: 0 auto
+  border: none
+  font-weight: 600
+  font-size: 16px
+  &:hover
+    background: #6673FF
+    color: #fff
+.points_dialog_flex
+  display: flex
+  align-items: center
+  gap: 8px
+  svg
+    width: 14px;
+    height: 14px
+    
