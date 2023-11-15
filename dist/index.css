@@ -1,0 +1,3107 @@
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/SideBar/sidebar.module.stylus */
+.sidebarWrap {
+  padding: 136px 24px 40px;
+  overflow-y: scroll;
+}
+@media screen and (max-width: 768px) {
+  .sidebarWrap {
+    padding-top: 24px;
+  }
+}
+.sidebarWrap p {
+  color: #fff;
+  font-size: 14px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: "Poppins";
+}
+.sidebarWrap .logo {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 312px;
+  background-color: #131313;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 28px 24px;
+  gap: 8px;
+  z-index: 9;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+@media screen and (max-width: 1440px) {
+  .sidebarWrap .logo {
+    width: 250px;
+  }
+}
+.sidebarWrap .line {
+  margin-top: 24px;
+  margin-bottom: 28px;
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.1);
+}
+.sidebarWrap .sideBarTitle {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+.sidebarWrap .sideBarTitle p {
+  font-weight: 500;
+  opacity: 0.7;
+}
+.sidebarWrap .sideBarTitle img {
+  display: block;
+  width: 24px;
+  height: 24px;
+}
+.sidebarWrap .gamelist {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+.sidebarWrap .activitiesList {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+@media screen and (max-width: 768px) {
+  .sidebarWrap .activitiesList {
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .sidebarWrap .activitiesList img {
+    border-radius: 7.2px;
+    background: #282828;
+    padding: 4px;
+  }
+  .sidebarWrap .activitiesList .verListItme.item_on img {
+    background: #6673ff;
+  }
+  .sidebarWrap .activitiesList .verListItme.item_on p {
+    color: #fff;
+  }
+}
+.sidebarWrap .horListItme {
+  width: 100%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  height: 40px;
+  padding: 0 10px;
+  gap: 8px;
+  cursor: pointer;
+}
+.sidebarWrap .horListItme.item_on {
+  background: #6673ff;
+}
+.sidebarWrap .horListItme.horListItmeDisable {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sidebarWrap .verListItme {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 48px;
+  cursor: pointer;
+}
+.sidebarWrap .verListItme.item_on p {
+  color: #6673ff;
+}
+.sidebarWrap .verListItme.verListItmeDisable {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+.sidebarWrap .verListItme p {
+  line-height: 18px;
+  font-size: 12px;
+  width: 57px;
+  text-align: center;
+  margin-top: 8px;
+}
+.sidebarWrap .verListItme img {
+  display: block;
+  width: 48px;
+  height: 48px;
+}
+.sidebarWrap .communityLink {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+  align-items: center;
+  gap: 25px;
+}
+.sidebarWrap .communityLink img {
+  display: block;
+  width: 32px;
+  height: 32px;
+}
+.sidebarWrap .language {
+  position: relative;
+}
+.sidebarWrap .language .languageItme {
+  padding: 0 16px;
+  justify-content: space-between;
+}
+.sidebarWrap .language .arrow {
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+.sidebarWrap .language .languageItmeTip {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  border-radius: 6px;
+  background: #191919;
+  overflow: hidden;
+  min-width: 160px;
+  z-index: 9;
+}
+.sidebarWrap .language .languageItmeTip li {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 16px;
+  color: rgba(255, 255, 255, 0.6);
+  background: #000;
+  cursor: pointer;
+}
+.sidebarWrap .language .languageItmeTip li.languageItmeOn {
+  color: #fff;
+  background: #191919;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/DialogComponents/DialogTitle.module.stylus */
+.dialog_title_modalTitleInner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+  padding: 20px 32px;
+  background: #1c1c1c;
+  border-radius: 20px 20px 0 0;
+}
+.dialog_title_modalTitleInner .dialog_title_title {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--var-text-light);
+  line-height: 24px;
+}
+.dialog_title_modalTitleInner span {
+  display: block;
+  cursor: pointer;
+}
+.dialog_title_modalTitleInner span :global(.icon) {
+  size: 14px;
+  fill: var(--var-text-light);
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/Header/header.module.stylus */
+.header_header {
+  border-bottom: 1px solid var(--var-header-border);
+  position: relative;
+  z-index: 1;
+  clear: both;
+  vertical-align: middle;
+}
+.header_header .header_left {
+  float: left;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 16px;
+}
+.header_header .header_right {
+  float: right;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding: 0 40px;
+}
+@media screen and (max-width: 768px) {
+  .header_header .header_right {
+    padding: 0 16px 0 0;
+  }
+}
+.header_header .header_right .header_btn {
+  cursor: pointer;
+  border-radius: 8px;
+  size: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  color: var(--var-btn);
+}
+@media screen and (max-width: 768px) {
+  .header_header .header_right .header_btn {
+    size: 28px;
+  }
+}
+.header_header .header_right .header_btn :global(.icon) {
+  fill: #fff;
+  size: 30px;
+}
+.header_header .header_right .header_btn :global(.icon):hover {
+  fill: #fff;
+}
+.header_header .header_right .header_btn .header_icon {
+  size: 24px;
+}
+.header_header .header_right .header_btn .header_icon.close {
+  size: 16px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.module.stylus */
+.account_info_dialog_dialog .account_info_dialog_modalMain {
+  padding: 20px 32px 33px;
+}
+@media screen and (max-width: 768px) {
+  .account_info_dialog_dialog .account_info_dialog_modalMain {
+    padding: 82px 32px 33px;
+  }
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/PlayerAvatar/index.module.stylus */
+.player_playerAvatar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  color: #62380c;
+}
+.player_playerAvatar .player_avatar {
+  background: #ffe8c4;
+  border: 2px solid #62380c;
+  border-radius: 50%;
+}
+.player_playerAvatar .player_avatar.player_highLight {
+  animation: borderColor 1s infinite;
+  animation-direction: alternate;
+}
+.player_playerAvatar .player_avatar :global(.icon) {
+  size: 50px;
+}
+.player_playerAvatar .player_avatar_account {
+  color: #fff;
+  font-size: 16px;
+}
+@media screen and (max-width: 768px) {
+  .player_playerAvatar .player_avatar_account {
+    font-size: 12px;
+  }
+}
+.player_winner {
+  position: relative;
+}
+.player_winner:after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  right: -5px;
+  width: 27px;
+  height: 25px;
+  background: url(https://static.zypher.game/img/layout/crown.svg) no-repeat;
+}
+.player_playerAvatarList .player_outerCircle {
+  background: linear-gradient(180deg, #f1a541 0%, #d48a2b 45.31%, #9f5a03 100%);
+  box-shadow: 0px 1px 1px #cd9862;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+}
+.player_playerAvatarList .player_centreCircle {
+  background: linear-gradient(180deg, #ae6306 0%, #d68b2b 29.69%, #e79b3b 100%);
+  border-radius: 50%;
+}
+.player_playerAvatarList .player_innerCircle {
+  background: #613c17;
+  margin: 2px;
+  box-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+}
+.player_playerAvatarList .player_avatar {
+  width: 100%;
+  height: 100%;
+  background: #ffe8c4;
+  border-radius: 50%;
+}
+@-moz-keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+@-webkit-keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+@-o-keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+@keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.module.stylus */
+.m_user_m_content .m_user_border {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.m_user_m_content .m_user_border.m_user_chain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.m_user_m_content .m_user_border.m_user_chain :global(.img) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.m_user_m_content .m_user_border .m_user_account {
+  flex-direction: row;
+  gap: 9px;
+}
+.m_user_m_content .m_user_border .m_user_account p {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+}
+.m_user_m_content .m_user_tit {
+  color: #5f5d77;
+  font-size: 14px;
+  line-height: 16px;
+}
+.m_user_m_content .m_user_userInfoInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.m_user_m_content .m_user_item {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.m_user_m_content .m_user_item .m_user_fl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.m_user_m_content .m_user_item img {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.module.stylus */
+.pc_user_pc_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pc_user_pc_content .pc_user_box {
+  border-radius: 8px;
+}
+.pc_user_pc_content .pc_user_box .pc_user_tit {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--var-text-dark-grey);
+}
+.pc_user_pc_content .pc_user_box .pc_user_info {
+  margin: 16px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc_user_pc_content .pc_user_box .pc_user_info img {
+  width: 24px;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_pc_content .pc_user_box .pc_user_info img {
+    width: 20px;
+  }
+}
+.pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
+  color: var(--var-text-light);
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0 0 0 10px;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
+    font-size: 18px;
+  }
+}
+.pc_user_pc_content .pc_user_box .pc_user_info span,
+.pc_user_pc_content .pc_user_box .pc_user_info a {
+  cursor: pointer;
+  padding: 0 0 0 15px;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_pc_content .pc_user_box .pc_user_info span,
+  .pc_user_pc_content .pc_user_box .pc_user_info a {
+    padding: 0 0 0 8px;
+  }
+}
+.pc_user_pc_content .pc_user_box .pc_user_info span :global(.icon),
+.pc_user_pc_content .pc_user_box .pc_user_info a :global(.icon) {
+  size: 12px;
+  fill: var(--var-text-dark-grey);
+}
+.pc_user_disconnect_btn {
+  color: var(--var-btn);
+  border: 1px solid var(--var-btn);
+  border-radius: 4px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_disconnect_btn {
+    padding: 0 5px;
+    height: 26px;
+    font-size: 12px;
+  }
+}
+.pc_user_disconnect_btn:hover {
+  color: var(--var-btn-hover);
+  border: 1px solid var(--var-btn-hover);
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/Balance/balance.module.stylus */
+.balance_item_balance {
+  padding: 0 14px;
+  display: flex;
+  align-items: center;
+  color: #fff;
+  font-weight: 500;
+  font-size: 16px;
+}
+@media screen and (max-width: 768px) {
+  .balance_item_balance {
+    padding: 0 8px;
+    font-size: 12px;
+  }
+}
+.balance_item_balance .balance_item_img,
+.balance_item_balance img {
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+}
+@media screen and (max-width: 768px) {
+  .balance_item_balance .balance_item_img,
+  .balance_item_balance img {
+    width: 20px;
+    height: 24px;
+    margin-left: 4px;
+  }
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.module.stylus */
+.points_dialog_zindex {
+  z-index: 1001 !important;
+}
+.points_dialog_dialogContent {
+  background-color: #131313;
+  border-radius: 20px;
+  color: #fff;
+  font-size: 14px;
+  padding: 0;
+  overflow: hidden;
+  width: 440px;
+}
+@media screen and (max-width: 468px) {
+  .points_dialog_dialogContent {
+    width: 320px;
+  }
+}
+.points_dialog_dialogContent .points_dialog_cursor {
+  cursor: pointer;
+}
+.points_dialog_dialogContent .points_dialog_dialogHeader {
+  background-color: #1c1c1c;
+  font-size: 16px;
+  font-weight: 500;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+.points_dialog_dialogContent .points_dialog_dialogHeader h3 {
+  color: #fff;
+  padding: 0;
+  margin: 0;
+}
+.points_dialog_dialogContainer {
+  padding: 20px 20px 0;
+  max-height: 70vh;
+  overflow-y: scroll;
+  color: #fff;
+  font-size: 14px;
+}
+.points_dialog_dialogContainer h4 {
+  font-weight: 700;
+  color: #fff;
+}
+.points_dialog_dialogContainer h4 p {
+  font-weight: 400;
+  display: inline-block;
+}
+.points_dialog_dialogContainer p {
+  font-size: 14px;
+  font-weight: 400;
+  margin-bottom: 30px;
+  line-height: 24px;
+}
+.points_dialog_dialogContainer p:last-child {
+  margin-bottom: 0;
+}
+.points_dialog_dialogContainer p strong {
+  color: #65edbc;
+  font-size: 14px;
+  font-weight: 600;
+}
+.points_dialog_dialogContainer p a {
+  color: #666bff;
+  text-decoration-line: underline;
+}
+.points_dialog_dialogContainer p a.fontWhite {
+  color: #fff;
+}
+.points_dialog_dialogContainer p em {
+  display: inline-block;
+  vertical-align: top;
+  width: 4px;
+  height: 4px;
+  background-color: #fff;
+  border-radius: 50%;
+  margin-right: 8px;
+  margin-top: 10px;
+}
+.points_dialog_dialogContainer p i {
+  width: 90%;
+  display: inline-block;
+  vertical-align: top;
+}
+.points_dialog_btnWrap {
+  margin: 20px 20px 30px;
+}
+.points_dialog_btn {
+  display: block;
+  color: #fff;
+  background: #6673ff;
+  width: 100%;
+  height: 40px;
+  border-radius: 12px;
+  margin: 0 auto;
+  border: none;
+  font-weight: 600;
+  font-size: 16px;
+}
+.points_dialog_btn:hover {
+  background: #6673ff;
+  color: #fff;
+}
+.points_dialog_flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.points_dialog_flex svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/ConnectWallet/components/PointsDialog/PointsDialog.module.stylus */
+.dialog .pointsIcon {
+  width: 20px;
+}
+.dialog .modalMain {
+  padding: 20px 32px 33px;
+}
+@media screen and (max-width: 768px) {
+  .dialog .modalMain {
+    padding: 20px 23px 33px;
+    height: 80vh;
+  }
+}
+.dialog .modalTitleInner {
+  position: relative;
+  flex-direction: column;
+  height: auto;
+}
+.dialog .modalTitleInner > span {
+  position: absolute;
+  top: 29px;
+  right: 30px;
+}
+.dialog .modalTitleInner p:nth-child(1) {
+  font-weight: 600;
+  line-height: 32px;
+}
+.dialog .modalTitleInner .title {
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  line-height: 32px;
+}
+.dialog .modalTitleInner svg {
+  fill: #fff;
+  cursor: pointer;
+}
+.dialog .balanceTitle {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.dialog .balanceTitle p {
+  margin: 0;
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.6);
+}
+.dialog .balanceTitle p strong {
+  color: #fff;
+  font-weight: 400;
+}
+.dialog .loading {
+  padding: 72px 0 115px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.dialog .loading svg {
+  width: 64px;
+  height: 64px;
+  fill: #6673ff;
+}
+.dialog .loading p {
+  color: #fff;
+  font-weight: 500;
+  font-size: 14px;
+  opacity: 0.6;
+  margin-top: 64px;
+}
+.dialog .table {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 19px;
+}
+@media screen and (max-width: 768px) {
+  .dialog .table {
+    gap: 16px;
+  }
+}
+.dialog .table .points {
+  position: relative;
+  min-width: 120px;
+  flex: 1;
+  height: 160px;
+  text-align: center;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  padding-top: 20px;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .dialog .table .points {
+    min-width: 95px;
+    padding-top: 15px;
+    height: 140px;
+  }
+}
+.dialog .table .points.points_1 .points_img {
+  top: 50%;
+  width: 65px;
+}
+.dialog .table .points.points_6 .points_img,
+.dialog .table .points.points_7 .points_img {
+  top: 50%;
+  width: 80px;
+}
+.dialog .table .points .points_img {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 80px;
+}
+.dialog .table .points .discount {
+  position: absolute;
+  top: -20px;
+  right: -28px;
+  width: 70px;
+  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotate(31deg);
+}
+.dialog .table .points .discount .discount_img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.dialog .table .points .discount p {
+  position: relative;
+  z-index: 2;
+  color: #fff;
+  font-family: PoetsenOne;
+  font-size: 14px;
+  line-height: 11px;
+  margin: 0;
+}
+.dialog .table .points h3 {
+  color: #f5a027;
+  font-family: PoetsenOne;
+  font-size: 14px;
+  position: relative;
+  z-index: 2;
+}
+.dialog .table .points .bottom {
+  width: 100%;
+  background-color: #6673ff;
+  border-radius: 0 0 10px 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 0;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+.dialog .table .points .bottom p {
+  margin: 0;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.dialog .table .points .bottom img {
+  width: 16px;
+  height: 16px;
+  margin-left: 6px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/src/components/Header/rainbow_account/rainbow_connectWallet.module.stylus */
+.connect_connectWallet {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+@media screen and (max-width: 768px) {
+  .connect_connectWallet {
+    gap: 10px;
+  }
+}
+.connect_connectWallet.connect_bgWallet > div {
+  background-color: rgba(19, 17, 17, 0.5);
+  border: none;
+}
+.connect_connectWallet.connect_bgWallet > div:hover {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+}
+@media screen and (max-width: 768px) {
+  .connect_connectWallet.connect_bgWallet > div {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  .connect_connectWallet.connect_bgWallet > div:hover {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+}
+.connect_connectWallet > div {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  height: 38px;
+  line-height: 38px;
+  transition: all 0.3s;
+}
+@media screen and (max-width: 768px) {
+  .connect_connectWallet > div {
+    height: 28px;
+    line-height: 28px;
+  }
+}
+.connect_connectWallet > div:hover {
+  border: 1px solid var(--var-btn-hover);
+}
+.connect_connectWallet div.connect_connect {
+  border-radius: 8px;
+  background-color: #6673ff;
+  border: 1px solid #6673ff;
+}
+.connect_connectWallet div.connect_connect:hover {
+  background-color: var(--var-btn-hover);
+  border: 1px solid var(--var-btn-hover);
+}
+.connect_connectWallet div.connect_connect p {
+  flex: 1;
+  text-align: center;
+  font-family: "Poppins";
+  font-weight: 600;
+  color: var(--var-text-light);
+  transition: all 0.3s;
+  padding: 0 14px;
+}
+@media screen and (max-width: 768px) {
+  .connect_connectWallet div.connect_connect p {
+    padding: 0 12px;
+  }
+}
+
+/* node_modules/@zypher-game/rainbowkit/index.css */
+[data-rk] .iekbcc0 {
+  border: 0;
+  box-sizing: border-box;
+  font-size: 100%;
+  line-height: normal;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  vertical-align: baseline;
+  -webkit-tap-highlight-color: transparent;
+}
+[data-rk] .iekbcc1 {
+  list-style: none;
+}
+[data-rk] .iekbcc2 {
+  quotes: none;
+}
+[data-rk] .iekbcc2:before,
+[data-rk] .iekbcc2:after {
+  content: "";
+}
+[data-rk] .iekbcc3 {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+[data-rk] .iekbcc4 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+[data-rk] .iekbcc5 {
+  outline: none;
+}
+[data-rk] .iekbcc5::-moz-placeholder {
+  opacity: 1;
+}
+[data-rk] .iekbcc5::placeholder {
+  opacity: 1;
+}
+[data-rk] .iekbcc6 {
+  background-color: transparent;
+  color: inherit;
+}
+[data-rk] .iekbcc7:disabled {
+  opacity: 1;
+}
+[data-rk] .iekbcc7::-ms-expand {
+  display: none;
+}
+[data-rk] .iekbcc8::-ms-clear {
+  display: none;
+}
+[data-rk] .iekbcc8::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+}
+[data-rk] .iekbcc9 {
+  background: none;
+  cursor: pointer;
+  text-align: left;
+}
+[data-rk] .iekbcca {
+  color: inherit;
+  text-decoration: none;
+}
+[data-rk] .ju367v0 {
+  align-items: flex-start;
+}
+[data-rk] .ju367v2 {
+  align-items: flex-end;
+}
+[data-rk] .ju367v4 {
+  align-items: center;
+}
+[data-rk] .ju367v6 {
+  display: none;
+}
+[data-rk] .ju367v8 {
+  display: block;
+}
+[data-rk] .ju367va {
+  display: flex;
+}
+[data-rk] .ju367vc {
+  display: inline;
+}
+[data-rk] .ju367ve {
+  align-self: flex-start;
+}
+[data-rk] .ju367vf {
+  align-self: flex-end;
+}
+[data-rk] .ju367vg {
+  align-self: center;
+}
+[data-rk] .ju367vh {
+  background-size: cover;
+}
+[data-rk] .ju367vi {
+  border-radius: 1px;
+}
+[data-rk] .ju367vj {
+  border-radius: 6px;
+}
+[data-rk] .ju367vk {
+  border-radius: 10px;
+}
+[data-rk] .ju367vl {
+  border-radius: 13px;
+}
+[data-rk] .ju367vm {
+  border-radius: var(--rk-radii-actionButton);
+}
+[data-rk] .ju367vn {
+  border-radius: var(--rk-radii-connectButton);
+}
+[data-rk] .ju367vo {
+  border-radius: var(--rk-radii-menuButton);
+}
+[data-rk] .ju367vp {
+  border-radius: var(--rk-radii-modal);
+}
+[data-rk] .ju367vq {
+  border-radius: var(--rk-radii-modalMobile);
+}
+[data-rk] .ju367vr {
+  border-radius: 25%;
+}
+[data-rk] .ju367vs {
+  border-radius: 9999px;
+}
+[data-rk] .ju367vt {
+  border-style: solid;
+}
+[data-rk] .ju367vu {
+  border-width: 0px;
+}
+[data-rk] .ju367vv {
+  border-width: 1px;
+}
+[data-rk] .ju367vw {
+  border-width: 2px;
+}
+[data-rk] .ju367vx {
+  border-width: 3px;
+}
+[data-rk] .ju367vy {
+  border-width: 4px;
+}
+[data-rk] .ju367vz {
+  cursor: pointer;
+}
+[data-rk] .ju367v10 {
+  flex-direction: row;
+}
+[data-rk] .ju367v11 {
+  flex-direction: column;
+}
+[data-rk] .ju367v12 {
+  font-family: var(--rk-fonts-body);
+}
+[data-rk] .ju367v13 {
+  font-size: 12px;
+  line-height: 18px;
+}
+[data-rk] .ju367v14 {
+  font-size: 13px;
+  line-height: 18px;
+}
+[data-rk] .ju367v15 {
+  font-size: 14px;
+  line-height: 18px;
+}
+[data-rk] .ju367v16 {
+  font-size: 16px;
+  line-height: 20px;
+}
+[data-rk] .ju367v17 {
+  font-size: 18px;
+  line-height: 24px;
+}
+[data-rk] .ju367v18 {
+  font-size: 20px;
+  line-height: 24px;
+}
+[data-rk] .ju367v19 {
+  font-size: 23px;
+  line-height: 29px;
+}
+[data-rk] .ju367v1a {
+  font-weight: 400;
+}
+[data-rk] .ju367v1b {
+  font-weight: 500;
+}
+[data-rk] .ju367v1c {
+  font-weight: 600;
+}
+[data-rk] .ju367v1d {
+  font-weight: 700;
+}
+[data-rk] .ju367v1e {
+  font-weight: 800;
+}
+[data-rk] .ju367v1f {
+  gap: 0;
+}
+[data-rk] .ju367v1g {
+  gap: 1px;
+}
+[data-rk] .ju367v1h {
+  gap: 2px;
+}
+[data-rk] .ju367v1i {
+  gap: 3px;
+}
+[data-rk] .ju367v1j {
+  gap: 4px;
+}
+[data-rk] .ju367v1k {
+  gap: 5px;
+}
+[data-rk] .ju367v1l {
+  gap: 6px;
+}
+[data-rk] .ju367v1m {
+  gap: 8px;
+}
+[data-rk] .ju367v1n {
+  gap: 10px;
+}
+[data-rk] .ju367v1o {
+  gap: 12px;
+}
+[data-rk] .ju367v1p {
+  gap: 14px;
+}
+[data-rk] .ju367v1q {
+  gap: 16px;
+}
+[data-rk] .ju367v1r {
+  gap: 18px;
+}
+[data-rk] .ju367v1s {
+  gap: 20px;
+}
+[data-rk] .ju367v1t {
+  gap: 24px;
+}
+[data-rk] .ju367v1u {
+  gap: 28px;
+}
+[data-rk] .ju367v1v {
+  gap: 32px;
+}
+[data-rk] .ju367v1w {
+  gap: 36px;
+}
+[data-rk] .ju367v1x {
+  gap: 44px;
+}
+[data-rk] .ju367v1y {
+  gap: 64px;
+}
+[data-rk] .ju367v1z {
+  gap: -1px;
+}
+[data-rk] .ju367v20 {
+  height: 1px;
+}
+[data-rk] .ju367v21 {
+  height: 2px;
+}
+[data-rk] .ju367v22 {
+  height: 4px;
+}
+[data-rk] .ju367v23 {
+  height: 8px;
+}
+[data-rk] .ju367v24 {
+  height: 9px;
+}
+[data-rk] .ju367v25 {
+  height: 12px;
+}
+[data-rk] .ju367v26 {
+  height: 20px;
+}
+[data-rk] .ju367v27 {
+  height: 24px;
+}
+[data-rk] .ju367v28 {
+  height: 28px;
+}
+[data-rk] .ju367v29 {
+  height: 30px;
+}
+[data-rk] .ju367v2a {
+  height: 32px;
+}
+[data-rk] .ju367v2b {
+  height: 34px;
+}
+[data-rk] .ju367v2c {
+  height: 36px;
+}
+[data-rk] .ju367v2d {
+  height: 40px;
+}
+[data-rk] .ju367v2e {
+  height: 44px;
+}
+[data-rk] .ju367v2f {
+  height: 48px;
+}
+[data-rk] .ju367v2g {
+  height: 54px;
+}
+[data-rk] .ju367v2h {
+  height: 60px;
+}
+[data-rk] .ju367v2i {
+  height: 200px;
+}
+[data-rk] .ju367v2j {
+  height: 100%;
+}
+[data-rk] .ju367v2k {
+  height: -moz-max-content;
+  height: max-content;
+}
+[data-rk] .ju367v2l {
+  justify-content: flex-start;
+}
+[data-rk] .ju367v2m {
+  justify-content: flex-end;
+}
+[data-rk] .ju367v2n {
+  justify-content: center;
+}
+[data-rk] .ju367v2o {
+  justify-content: space-between;
+}
+[data-rk] .ju367v2p {
+  justify-content: space-around;
+}
+[data-rk] .ju367v2q {
+  text-align: left;
+}
+[data-rk] .ju367v2r {
+  text-align: center;
+}
+[data-rk] .ju367v2s {
+  text-align: inherit;
+}
+[data-rk] .ju367v2t {
+  margin-bottom: 0;
+}
+[data-rk] .ju367v2u {
+  margin-bottom: 1px;
+}
+[data-rk] .ju367v2v {
+  margin-bottom: 2px;
+}
+[data-rk] .ju367v2w {
+  margin-bottom: 3px;
+}
+[data-rk] .ju367v2x {
+  margin-bottom: 4px;
+}
+[data-rk] .ju367v2y {
+  margin-bottom: 5px;
+}
+[data-rk] .ju367v2z {
+  margin-bottom: 6px;
+}
+[data-rk] .ju367v30 {
+  margin-bottom: 8px;
+}
+[data-rk] .ju367v31 {
+  margin-bottom: 10px;
+}
+[data-rk] .ju367v32 {
+  margin-bottom: 12px;
+}
+[data-rk] .ju367v33 {
+  margin-bottom: 14px;
+}
+[data-rk] .ju367v34 {
+  margin-bottom: 16px;
+}
+[data-rk] .ju367v35 {
+  margin-bottom: 18px;
+}
+[data-rk] .ju367v36 {
+  margin-bottom: 20px;
+}
+[data-rk] .ju367v37 {
+  margin-bottom: 24px;
+}
+[data-rk] .ju367v38 {
+  margin-bottom: 28px;
+}
+[data-rk] .ju367v39 {
+  margin-bottom: 32px;
+}
+[data-rk] .ju367v3a {
+  margin-bottom: 36px;
+}
+[data-rk] .ju367v3b {
+  margin-bottom: 44px;
+}
+[data-rk] .ju367v3c {
+  margin-bottom: 64px;
+}
+[data-rk] .ju367v3d {
+  margin-bottom: -1px;
+}
+[data-rk] .ju367v3e {
+  margin-left: 0;
+}
+[data-rk] .ju367v3f {
+  margin-left: 1px;
+}
+[data-rk] .ju367v3g {
+  margin-left: 2px;
+}
+[data-rk] .ju367v3h {
+  margin-left: 3px;
+}
+[data-rk] .ju367v3i {
+  margin-left: 4px;
+}
+[data-rk] .ju367v3j {
+  margin-left: 5px;
+}
+[data-rk] .ju367v3k {
+  margin-left: 6px;
+}
+[data-rk] .ju367v3l {
+  margin-left: 8px;
+}
+[data-rk] .ju367v3m {
+  margin-left: 10px;
+}
+[data-rk] .ju367v3n {
+  margin-left: 12px;
+}
+[data-rk] .ju367v3o {
+  margin-left: 14px;
+}
+[data-rk] .ju367v3p {
+  margin-left: 16px;
+}
+[data-rk] .ju367v3q {
+  margin-left: 18px;
+}
+[data-rk] .ju367v3r {
+  margin-left: 20px;
+}
+[data-rk] .ju367v3s {
+  margin-left: 24px;
+}
+[data-rk] .ju367v3t {
+  margin-left: 28px;
+}
+[data-rk] .ju367v3u {
+  margin-left: 32px;
+}
+[data-rk] .ju367v3v {
+  margin-left: 36px;
+}
+[data-rk] .ju367v3w {
+  margin-left: 44px;
+}
+[data-rk] .ju367v3x {
+  margin-left: 64px;
+}
+[data-rk] .ju367v3y {
+  margin-left: -1px;
+}
+[data-rk] .ju367v3z {
+  margin-right: 0;
+}
+[data-rk] .ju367v40 {
+  margin-right: 1px;
+}
+[data-rk] .ju367v41 {
+  margin-right: 2px;
+}
+[data-rk] .ju367v42 {
+  margin-right: 3px;
+}
+[data-rk] .ju367v43 {
+  margin-right: 4px;
+}
+[data-rk] .ju367v44 {
+  margin-right: 5px;
+}
+[data-rk] .ju367v45 {
+  margin-right: 6px;
+}
+[data-rk] .ju367v46 {
+  margin-right: 8px;
+}
+[data-rk] .ju367v47 {
+  margin-right: 10px;
+}
+[data-rk] .ju367v48 {
+  margin-right: 12px;
+}
+[data-rk] .ju367v49 {
+  margin-right: 14px;
+}
+[data-rk] .ju367v4a {
+  margin-right: 16px;
+}
+[data-rk] .ju367v4b {
+  margin-right: 18px;
+}
+[data-rk] .ju367v4c {
+  margin-right: 20px;
+}
+[data-rk] .ju367v4d {
+  margin-right: 24px;
+}
+[data-rk] .ju367v4e {
+  margin-right: 28px;
+}
+[data-rk] .ju367v4f {
+  margin-right: 32px;
+}
+[data-rk] .ju367v4g {
+  margin-right: 36px;
+}
+[data-rk] .ju367v4h {
+  margin-right: 44px;
+}
+[data-rk] .ju367v4i {
+  margin-right: 64px;
+}
+[data-rk] .ju367v4j {
+  margin-right: -1px;
+}
+[data-rk] .ju367v4k {
+  margin-top: 0;
+}
+[data-rk] .ju367v4l {
+  margin-top: 1px;
+}
+[data-rk] .ju367v4m {
+  margin-top: 2px;
+}
+[data-rk] .ju367v4n {
+  margin-top: 3px;
+}
+[data-rk] .ju367v4o {
+  margin-top: 4px;
+}
+[data-rk] .ju367v4p {
+  margin-top: 5px;
+}
+[data-rk] .ju367v4q {
+  margin-top: 6px;
+}
+[data-rk] .ju367v4r {
+  margin-top: 8px;
+}
+[data-rk] .ju367v4s {
+  margin-top: 10px;
+}
+[data-rk] .ju367v4t {
+  margin-top: 12px;
+}
+[data-rk] .ju367v4u {
+  margin-top: 14px;
+}
+[data-rk] .ju367v4v {
+  margin-top: 16px;
+}
+[data-rk] .ju367v4w {
+  margin-top: 18px;
+}
+[data-rk] .ju367v4x {
+  margin-top: 20px;
+}
+[data-rk] .ju367v4y {
+  margin-top: 24px;
+}
+[data-rk] .ju367v4z {
+  margin-top: 28px;
+}
+[data-rk] .ju367v50 {
+  margin-top: 32px;
+}
+[data-rk] .ju367v51 {
+  margin-top: 36px;
+}
+[data-rk] .ju367v52 {
+  margin-top: 44px;
+}
+[data-rk] .ju367v53 {
+  margin-top: 64px;
+}
+[data-rk] .ju367v54 {
+  margin-top: -1px;
+}
+[data-rk] .ju367v55 {
+  max-width: 1px;
+}
+[data-rk] .ju367v56 {
+  max-width: 2px;
+}
+[data-rk] .ju367v57 {
+  max-width: 4px;
+}
+[data-rk] .ju367v58 {
+  max-width: 8px;
+}
+[data-rk] .ju367v59 {
+  max-width: 9px;
+}
+[data-rk] .ju367v5a {
+  max-width: 12px;
+}
+[data-rk] .ju367v5b {
+  max-width: 20px;
+}
+[data-rk] .ju367v5c {
+  max-width: 24px;
+}
+[data-rk] .ju367v5d {
+  max-width: 28px;
+}
+[data-rk] .ju367v5e {
+  max-width: 30px;
+}
+[data-rk] .ju367v5f {
+  max-width: 32px;
+}
+[data-rk] .ju367v5g {
+  max-width: 34px;
+}
+[data-rk] .ju367v5h {
+  max-width: 36px;
+}
+[data-rk] .ju367v5i {
+  max-width: 40px;
+}
+[data-rk] .ju367v5j {
+  max-width: 44px;
+}
+[data-rk] .ju367v5k {
+  max-width: 48px;
+}
+[data-rk] .ju367v5l {
+  max-width: 54px;
+}
+[data-rk] .ju367v5m {
+  max-width: 60px;
+}
+[data-rk] .ju367v5n {
+  max-width: 200px;
+}
+[data-rk] .ju367v5o {
+  max-width: 100%;
+}
+[data-rk] .ju367v5p {
+  max-width: -moz-max-content;
+  max-width: max-content;
+}
+[data-rk] .ju367v5q {
+  min-width: 1px;
+}
+[data-rk] .ju367v5r {
+  min-width: 2px;
+}
+[data-rk] .ju367v5s {
+  min-width: 4px;
+}
+[data-rk] .ju367v5t {
+  min-width: 8px;
+}
+[data-rk] .ju367v5u {
+  min-width: 9px;
+}
+[data-rk] .ju367v5v {
+  min-width: 12px;
+}
+[data-rk] .ju367v5w {
+  min-width: 20px;
+}
+[data-rk] .ju367v5x {
+  min-width: 24px;
+}
+[data-rk] .ju367v5y {
+  min-width: 28px;
+}
+[data-rk] .ju367v5z {
+  min-width: 30px;
+}
+[data-rk] .ju367v60 {
+  min-width: 32px;
+}
+[data-rk] .ju367v61 {
+  min-width: 34px;
+}
+[data-rk] .ju367v62 {
+  min-width: 36px;
+}
+[data-rk] .ju367v63 {
+  min-width: 40px;
+}
+[data-rk] .ju367v64 {
+  min-width: 44px;
+}
+[data-rk] .ju367v65 {
+  min-width: 48px;
+}
+[data-rk] .ju367v66 {
+  min-width: 54px;
+}
+[data-rk] .ju367v67 {
+  min-width: 60px;
+}
+[data-rk] .ju367v68 {
+  min-width: 200px;
+}
+[data-rk] .ju367v69 {
+  min-width: 100%;
+}
+[data-rk] .ju367v6a {
+  min-width: -moz-max-content;
+  min-width: max-content;
+}
+[data-rk] .ju367v6b {
+  overflow: hidden;
+}
+[data-rk] .ju367v6c {
+  padding-bottom: 0;
+}
+[data-rk] .ju367v6d {
+  padding-bottom: 1px;
+}
+[data-rk] .ju367v6e {
+  padding-bottom: 2px;
+}
+[data-rk] .ju367v6f {
+  padding-bottom: 3px;
+}
+[data-rk] .ju367v6g {
+  padding-bottom: 4px;
+}
+[data-rk] .ju367v6h {
+  padding-bottom: 5px;
+}
+[data-rk] .ju367v6i {
+  padding-bottom: 6px;
+}
+[data-rk] .ju367v6j {
+  padding-bottom: 8px;
+}
+[data-rk] .ju367v6k {
+  padding-bottom: 10px;
+}
+[data-rk] .ju367v6l {
+  padding-bottom: 12px;
+}
+[data-rk] .ju367v6m {
+  padding-bottom: 14px;
+}
+[data-rk] .ju367v6n {
+  padding-bottom: 16px;
+}
+[data-rk] .ju367v6o {
+  padding-bottom: 18px;
+}
+[data-rk] .ju367v6p {
+  padding-bottom: 20px;
+}
+[data-rk] .ju367v6q {
+  padding-bottom: 24px;
+}
+[data-rk] .ju367v6r {
+  padding-bottom: 28px;
+}
+[data-rk] .ju367v6s {
+  padding-bottom: 32px;
+}
+[data-rk] .ju367v6t {
+  padding-bottom: 36px;
+}
+[data-rk] .ju367v6u {
+  padding-bottom: 44px;
+}
+[data-rk] .ju367v6v {
+  padding-bottom: 64px;
+}
+[data-rk] .ju367v6w {
+  padding-bottom: -1px;
+}
+[data-rk] .ju367v6x {
+  padding-left: 0;
+}
+[data-rk] .ju367v6y {
+  padding-left: 1px;
+}
+[data-rk] .ju367v6z {
+  padding-left: 2px;
+}
+[data-rk] .ju367v70 {
+  padding-left: 3px;
+}
+[data-rk] .ju367v71 {
+  padding-left: 4px;
+}
+[data-rk] .ju367v72 {
+  padding-left: 5px;
+}
+[data-rk] .ju367v73 {
+  padding-left: 6px;
+}
+[data-rk] .ju367v74 {
+  padding-left: 8px;
+}
+[data-rk] .ju367v75 {
+  padding-left: 10px;
+}
+[data-rk] .ju367v76 {
+  padding-left: 12px;
+}
+[data-rk] .ju367v77 {
+  padding-left: 14px;
+}
+[data-rk] .ju367v78 {
+  padding-left: 16px;
+}
+[data-rk] .ju367v79 {
+  padding-left: 18px;
+}
+[data-rk] .ju367v7a {
+  padding-left: 20px;
+}
+[data-rk] .ju367v7b {
+  padding-left: 24px;
+}
+[data-rk] .ju367v7c {
+  padding-left: 28px;
+}
+[data-rk] .ju367v7d {
+  padding-left: 32px;
+}
+[data-rk] .ju367v7e {
+  padding-left: 36px;
+}
+[data-rk] .ju367v7f {
+  padding-left: 44px;
+}
+[data-rk] .ju367v7g {
+  padding-left: 64px;
+}
+[data-rk] .ju367v7h {
+  padding-left: -1px;
+}
+[data-rk] .ju367v7i {
+  padding-right: 0;
+}
+[data-rk] .ju367v7j {
+  padding-right: 1px;
+}
+[data-rk] .ju367v7k {
+  padding-right: 2px;
+}
+[data-rk] .ju367v7l {
+  padding-right: 3px;
+}
+[data-rk] .ju367v7m {
+  padding-right: 4px;
+}
+[data-rk] .ju367v7n {
+  padding-right: 5px;
+}
+[data-rk] .ju367v7o {
+  padding-right: 6px;
+}
+[data-rk] .ju367v7p {
+  padding-right: 8px;
+}
+[data-rk] .ju367v7q {
+  padding-right: 10px;
+}
+[data-rk] .ju367v7r {
+  padding-right: 12px;
+}
+[data-rk] .ju367v7s {
+  padding-right: 14px;
+}
+[data-rk] .ju367v7t {
+  padding-right: 16px;
+}
+[data-rk] .ju367v7u {
+  padding-right: 18px;
+}
+[data-rk] .ju367v7v {
+  padding-right: 20px;
+}
+[data-rk] .ju367v7w {
+  padding-right: 24px;
+}
+[data-rk] .ju367v7x {
+  padding-right: 28px;
+}
+[data-rk] .ju367v7y {
+  padding-right: 32px;
+}
+[data-rk] .ju367v7z {
+  padding-right: 36px;
+}
+[data-rk] .ju367v80 {
+  padding-right: 44px;
+}
+[data-rk] .ju367v81 {
+  padding-right: 64px;
+}
+[data-rk] .ju367v82 {
+  padding-right: -1px;
+}
+[data-rk] .ju367v83 {
+  padding-top: 0;
+}
+[data-rk] .ju367v84 {
+  padding-top: 1px;
+}
+[data-rk] .ju367v85 {
+  padding-top: 2px;
+}
+[data-rk] .ju367v86 {
+  padding-top: 3px;
+}
+[data-rk] .ju367v87 {
+  padding-top: 4px;
+}
+[data-rk] .ju367v88 {
+  padding-top: 5px;
+}
+[data-rk] .ju367v89 {
+  padding-top: 6px;
+}
+[data-rk] .ju367v8a {
+  padding-top: 8px;
+}
+[data-rk] .ju367v8b {
+  padding-top: 10px;
+}
+[data-rk] .ju367v8c {
+  padding-top: 12px;
+}
+[data-rk] .ju367v8d {
+  padding-top: 14px;
+}
+[data-rk] .ju367v8e {
+  padding-top: 16px;
+}
+[data-rk] .ju367v8f {
+  padding-top: 18px;
+}
+[data-rk] .ju367v8g {
+  padding-top: 20px;
+}
+[data-rk] .ju367v8h {
+  padding-top: 24px;
+}
+[data-rk] .ju367v8i {
+  padding-top: 28px;
+}
+[data-rk] .ju367v8j {
+  padding-top: 32px;
+}
+[data-rk] .ju367v8k {
+  padding-top: 36px;
+}
+[data-rk] .ju367v8l {
+  padding-top: 44px;
+}
+[data-rk] .ju367v8m {
+  padding-top: 64px;
+}
+[data-rk] .ju367v8n {
+  padding-top: -1px;
+}
+[data-rk] .ju367v8o {
+  position: absolute;
+}
+[data-rk] .ju367v8p {
+  position: fixed;
+}
+[data-rk] .ju367v8q {
+  position: relative;
+}
+[data-rk] .ju367v8r {
+  right: 0;
+}
+[data-rk] .ju367v8s {
+  transition: 0.125s ease;
+}
+[data-rk] .ju367v8t {
+  transition: transform 0.125s ease;
+}
+[data-rk] .ju367v8u {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+[data-rk] .ju367v8v {
+  width: 1px;
+}
+[data-rk] .ju367v8w {
+  width: 2px;
+}
+[data-rk] .ju367v8x {
+  width: 4px;
+}
+[data-rk] .ju367v8y {
+  width: 8px;
+}
+[data-rk] .ju367v8z {
+  width: 9px;
+}
+[data-rk] .ju367v90 {
+  width: 12px;
+}
+[data-rk] .ju367v91 {
+  width: 20px;
+}
+[data-rk] .ju367v92 {
+  width: 24px;
+}
+[data-rk] .ju367v93 {
+  width: 28px;
+}
+[data-rk] .ju367v94 {
+  width: 30px;
+}
+[data-rk] .ju367v95 {
+  width: 32px;
+}
+[data-rk] .ju367v96 {
+  width: 34px;
+}
+[data-rk] .ju367v97 {
+  width: 36px;
+}
+[data-rk] .ju367v98 {
+  width: 40px;
+}
+[data-rk] .ju367v99 {
+  width: 44px;
+}
+[data-rk] .ju367v9a {
+  width: 48px;
+}
+[data-rk] .ju367v9b {
+  width: 54px;
+}
+[data-rk] .ju367v9c {
+  width: 60px;
+}
+[data-rk] .ju367v9d {
+  width: 200px;
+}
+[data-rk] .ju367v9e {
+  width: 100%;
+}
+[data-rk] .ju367v9f {
+  width: -moz-max-content;
+  width: max-content;
+}
+[data-rk] .ju367v9g {
+  -webkit-backdrop-filter: var(--rk-blurs-modalOverlay);
+  backdrop-filter: var(--rk-blurs-modalOverlay);
+}
+[data-rk] .ju367v9h {
+  background: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367v9i:hover {
+  background: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367v9j:active {
+  background: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367v9k {
+  background: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367v9l:hover {
+  background: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367v9m:active {
+  background: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367v9n {
+  background: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367v9o:hover {
+  background: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367v9p:active {
+  background: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367v9q {
+  background: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367v9r:hover {
+  background: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367v9s:active {
+  background: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367v9t {
+  background: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367v9u:hover {
+  background: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367v9v:active {
+  background: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367v9w {
+  background: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367v9x:hover {
+  background: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367v9y:active {
+  background: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367v9z {
+  background: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367va0:hover {
+  background: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367va1:active {
+  background: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367va2 {
+  background: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367va3:hover {
+  background: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367va4:active {
+  background: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367va5 {
+  background: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367va6:hover {
+  background: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367va7:active {
+  background: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367va8 {
+  background: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367va9:hover {
+  background: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vaa:active {
+  background: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vab {
+  background: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vac:hover {
+  background: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vad:active {
+  background: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vae {
+  background: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vaf:hover {
+  background: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vag:active {
+  background: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vah {
+  background: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vai:hover {
+  background: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vaj:active {
+  background: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vak {
+  background: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367val:hover {
+  background: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vam:active {
+  background: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367van {
+  background: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vao:hover {
+  background: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vap:active {
+  background: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vaq {
+  background: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367var:hover {
+  background: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vas:active {
+  background: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vat {
+  background: var(--rk-colors-error);
+}
+[data-rk] .ju367vau:hover {
+  background: var(--rk-colors-error);
+}
+[data-rk] .ju367vav:active {
+  background: var(--rk-colors-error);
+}
+[data-rk] .ju367vaw {
+  background: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vax:hover {
+  background: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vay:active {
+  background: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vaz {
+  background: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vb0:hover {
+  background: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vb1:active {
+  background: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vb2 {
+  background: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vb3:hover {
+  background: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vb4:active {
+  background: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vb5 {
+  background: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vb6:hover {
+  background: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vb7:active {
+  background: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vb8 {
+  background: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vb9:hover {
+  background: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vba:active {
+  background: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vbb {
+  background: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367vbc:hover {
+  background: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367vbd:active {
+  background: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367vbe {
+  background: var(--rk-colors-modalText);
+}
+[data-rk] .ju367vbf:hover {
+  background: var(--rk-colors-modalText);
+}
+[data-rk] .ju367vbg:active {
+  background: var(--rk-colors-modalText);
+}
+[data-rk] .ju367vbh {
+  background: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367vbi:hover {
+  background: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367vbj:active {
+  background: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367vbk {
+  background: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vbl:hover {
+  background: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vbm:active {
+  background: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vbn {
+  background: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vbo:hover {
+  background: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vbp:active {
+  background: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vbq {
+  background: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vbr:hover {
+  background: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vbs:active {
+  background: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vbt {
+  background: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vbu:hover {
+  background: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vbv:active {
+  background: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vbw {
+  background: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vbx:hover {
+  background: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vby:active {
+  background: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vbz {
+  background: var(--rk-colors-standby);
+}
+[data-rk] .ju367vc0:hover {
+  background: var(--rk-colors-standby);
+}
+[data-rk] .ju367vc1:active {
+  background: var(--rk-colors-standby);
+}
+[data-rk] .ju367vc2 {
+  background: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367vc3:hover {
+  background: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367vc4:active {
+  background: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367vc5 {
+  border-color: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367vc6:hover {
+  border-color: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367vc7:active {
+  border-color: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367vc8 {
+  border-color: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367vc9:hover {
+  border-color: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367vca:active {
+  border-color: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367vcb {
+  border-color: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367vcc:hover {
+  border-color: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367vcd:active {
+  border-color: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367vce {
+  border-color: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367vcf:hover {
+  border-color: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367vcg:active {
+  border-color: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367vch {
+  border-color: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367vci:hover {
+  border-color: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367vcj:active {
+  border-color: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367vck {
+  border-color: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367vcl:hover {
+  border-color: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367vcm:active {
+  border-color: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367vcn {
+  border-color: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367vco:hover {
+  border-color: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367vcp:active {
+  border-color: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367vcq {
+  border-color: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367vcr:hover {
+  border-color: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367vcs:active {
+  border-color: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367vct {
+  border-color: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367vcu:hover {
+  border-color: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367vcv:active {
+  border-color: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367vcw {
+  border-color: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vcx:hover {
+  border-color: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vcy:active {
+  border-color: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vcz {
+  border-color: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vd0:hover {
+  border-color: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vd1:active {
+  border-color: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vd2 {
+  border-color: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vd3:hover {
+  border-color: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vd4:active {
+  border-color: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vd5 {
+  border-color: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vd6:hover {
+  border-color: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vd7:active {
+  border-color: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vd8 {
+  border-color: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vd9:hover {
+  border-color: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vda:active {
+  border-color: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vdb {
+  border-color: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vdc:hover {
+  border-color: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vdd:active {
+  border-color: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vde {
+  border-color: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vdf:hover {
+  border-color: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vdg:active {
+  border-color: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vdh {
+  border-color: var(--rk-colors-error);
+}
+[data-rk] .ju367vdi:hover {
+  border-color: var(--rk-colors-error);
+}
+[data-rk] .ju367vdj:active {
+  border-color: var(--rk-colors-error);
+}
+[data-rk] .ju367vdk {
+  border-color: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vdl:hover {
+  border-color: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vdm:active {
+  border-color: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vdn {
+  border-color: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vdo:hover {
+  border-color: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vdp:active {
+  border-color: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vdq {
+  border-color: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vdr:hover {
+  border-color: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vds:active {
+  border-color: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vdt {
+  border-color: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vdu:hover {
+  border-color: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vdv:active {
+  border-color: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vdw {
+  border-color: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vdx:hover {
+  border-color: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vdy:active {
+  border-color: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vdz {
+  border-color: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367ve0:hover {
+  border-color: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367ve1:active {
+  border-color: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367ve2 {
+  border-color: var(--rk-colors-modalText);
+}
+[data-rk] .ju367ve3:hover {
+  border-color: var(--rk-colors-modalText);
+}
+[data-rk] .ju367ve4:active {
+  border-color: var(--rk-colors-modalText);
+}
+[data-rk] .ju367ve5 {
+  border-color: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367ve6:hover {
+  border-color: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367ve7:active {
+  border-color: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367ve8 {
+  border-color: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367ve9:hover {
+  border-color: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vea:active {
+  border-color: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367veb {
+  border-color: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vec:hover {
+  border-color: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367ved:active {
+  border-color: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vee {
+  border-color: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vef:hover {
+  border-color: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367veg:active {
+  border-color: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367veh {
+  border-color: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vei:hover {
+  border-color: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vej:active {
+  border-color: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vek {
+  border-color: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vel:hover {
+  border-color: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vem:active {
+  border-color: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367ven {
+  border-color: var(--rk-colors-standby);
+}
+[data-rk] .ju367veo:hover {
+  border-color: var(--rk-colors-standby);
+}
+[data-rk] .ju367vep:active {
+  border-color: var(--rk-colors-standby);
+}
+[data-rk] .ju367veq {
+  border-color: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367ver:hover {
+  border-color: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367ves:active {
+  border-color: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367vet {
+  box-shadow: var(--rk-shadows-connectButton);
+}
+[data-rk] .ju367veu:hover {
+  box-shadow: var(--rk-shadows-connectButton);
+}
+[data-rk] .ju367vev:active {
+  box-shadow: var(--rk-shadows-connectButton);
+}
+[data-rk] .ju367vew {
+  box-shadow: var(--rk-shadows-dialog);
+}
+[data-rk] .ju367vex:hover {
+  box-shadow: var(--rk-shadows-dialog);
+}
+[data-rk] .ju367vey:active {
+  box-shadow: var(--rk-shadows-dialog);
+}
+[data-rk] .ju367vez {
+  box-shadow: var(--rk-shadows-profileDetailsAction);
+}
+[data-rk] .ju367vf0:hover {
+  box-shadow: var(--rk-shadows-profileDetailsAction);
+}
+[data-rk] .ju367vf1:active {
+  box-shadow: var(--rk-shadows-profileDetailsAction);
+}
+[data-rk] .ju367vf2 {
+  box-shadow: var(--rk-shadows-selectedOption);
+}
+[data-rk] .ju367vf3:hover {
+  box-shadow: var(--rk-shadows-selectedOption);
+}
+[data-rk] .ju367vf4:active {
+  box-shadow: var(--rk-shadows-selectedOption);
+}
+[data-rk] .ju367vf5 {
+  box-shadow: var(--rk-shadows-selectedWallet);
+}
+[data-rk] .ju367vf6:hover {
+  box-shadow: var(--rk-shadows-selectedWallet);
+}
+[data-rk] .ju367vf7:active {
+  box-shadow: var(--rk-shadows-selectedWallet);
+}
+[data-rk] .ju367vf8 {
+  box-shadow: var(--rk-shadows-walletLogo);
+}
+[data-rk] .ju367vf9:hover {
+  box-shadow: var(--rk-shadows-walletLogo);
+}
+[data-rk] .ju367vfa:active {
+  box-shadow: var(--rk-shadows-walletLogo);
+}
+[data-rk] .ju367vfb {
+  color: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367vfc:hover {
+  color: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367vfd:active {
+  color: var(--rk-colors-accentColor);
+}
+[data-rk] .ju367vfe {
+  color: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367vff:hover {
+  color: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367vfg:active {
+  color: var(--rk-colors-accentColorForeground);
+}
+[data-rk] .ju367vfh {
+  color: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367vfi:hover {
+  color: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367vfj:active {
+  color: var(--rk-colors-actionButtonBorder);
+}
+[data-rk] .ju367vfk {
+  color: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367vfl:hover {
+  color: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367vfm:active {
+  color: var(--rk-colors-actionButtonBorderMobile);
+}
+[data-rk] .ju367vfn {
+  color: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367vfo:hover {
+  color: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367vfp:active {
+  color: var(--rk-colors-actionButtonSecondaryBackground);
+}
+[data-rk] .ju367vfq {
+  color: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367vfr:hover {
+  color: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367vfs:active {
+  color: var(--rk-colors-closeButton);
+}
+[data-rk] .ju367vft {
+  color: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367vfu:hover {
+  color: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367vfv:active {
+  color: var(--rk-colors-closeButtonBackground);
+}
+[data-rk] .ju367vfw {
+  color: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367vfx:hover {
+  color: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367vfy:active {
+  color: var(--rk-colors-connectButtonBackground);
+}
+[data-rk] .ju367vfz {
+  color: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367vg0:hover {
+  color: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367vg1:active {
+  color: var(--rk-colors-connectButtonBackgroundError);
+}
+[data-rk] .ju367vg2 {
+  color: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vg3:hover {
+  color: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vg4:active {
+  color: var(--rk-colors-connectButtonInnerBackground);
+}
+[data-rk] .ju367vg5 {
+  color: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vg6:hover {
+  color: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vg7:active {
+  color: var(--rk-colors-connectButtonText);
+}
+[data-rk] .ju367vg8 {
+  color: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vg9:hover {
+  color: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vga:active {
+  color: var(--rk-colors-connectButtonTextError);
+}
+[data-rk] .ju367vgb {
+  color: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vgc:hover {
+  color: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vgd:active {
+  color: var(--rk-colors-connectionIndicator);
+}
+[data-rk] .ju367vge {
+  color: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vgf:hover {
+  color: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vgg:active {
+  color: var(--rk-colors-connectionIndicatorBorder);
+}
+[data-rk] .ju367vgh {
+  color: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vgi:hover {
+  color: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vgj:active {
+  color: var(--rk-colors-downloadBottomCardBackground);
+}
+[data-rk] .ju367vgk {
+  color: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vgl:hover {
+  color: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vgm:active {
+  color: var(--rk-colors-downloadTopCardBackground);
+}
+[data-rk] .ju367vgn {
+  color: var(--rk-colors-error);
+}
+[data-rk] .ju367vgo:hover {
+  color: var(--rk-colors-error);
+}
+[data-rk] .ju367vgp:active {
+  color: var(--rk-colors-error);
+}
+[data-rk] .ju367vgq {
+  color: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vgr:hover {
+  color: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vgs:active {
+  color: var(--rk-colors-generalBorder);
+}
+[data-rk] .ju367vgt {
+  color: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vgu:hover {
+  color: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vgv:active {
+  color: var(--rk-colors-generalBorderDim);
+}
+[data-rk] .ju367vgw {
+  color: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vgx:hover {
+  color: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vgy:active {
+  color: var(--rk-colors-menuItemBackground);
+}
+[data-rk] .ju367vgz {
+  color: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vh0:hover {
+  color: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vh1:active {
+  color: var(--rk-colors-modalBackdrop);
+}
+[data-rk] .ju367vh2 {
+  color: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vh3:hover {
+  color: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vh4:active {
+  color: var(--rk-colors-modalBackground);
+}
+[data-rk] .ju367vh5 {
+  color: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367vh6:hover {
+  color: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367vh7:active {
+  color: var(--rk-colors-modalBorder);
+}
+[data-rk] .ju367vh8 {
+  color: var(--rk-colors-modalText);
+}
+[data-rk] .ju367vh9:hover {
+  color: var(--rk-colors-modalText);
+}
+[data-rk] .ju367vha:active {
+  color: var(--rk-colors-modalText);
+}
+[data-rk] .ju367vhb {
+  color: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367vhc:hover {
+  color: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367vhd:active {
+  color: var(--rk-colors-modalTextDim);
+}
+[data-rk] .ju367vhe {
+  color: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vhf:hover {
+  color: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vhg:active {
+  color: var(--rk-colors-modalTextSecondary);
+}
+[data-rk] .ju367vhh {
+  color: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vhi:hover {
+  color: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vhj:active {
+  color: var(--rk-colors-profileAction);
+}
+[data-rk] .ju367vhk {
+  color: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vhl:hover {
+  color: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vhm:active {
+  color: var(--rk-colors-profileActionHover);
+}
+[data-rk] .ju367vhn {
+  color: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vho:hover {
+  color: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vhp:active {
+  color: var(--rk-colors-profileForeground);
+}
+[data-rk] .ju367vhq {
+  color: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vhr:hover {
+  color: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vhs:active {
+  color: var(--rk-colors-selectedOptionBorder);
+}
+[data-rk] .ju367vht {
+  color: var(--rk-colors-standby);
+}
+[data-rk] .ju367vhu:hover {
+  color: var(--rk-colors-standby);
+}
+[data-rk] .ju367vhv:active {
+  color: var(--rk-colors-standby);
+}
+[data-rk] .ju367vhw {
+  color: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367vhx:hover {
+  color: var(--rk-colors-standbyBorder);
+}
+[data-rk] .ju367vhy:active {
+  color: var(--rk-colors-standbyBorder);
+}
+@media screen and (min-width: 768px) {
+  [data-rk] .ju367v1 {
+    align-items: flex-start;
+  }
+  [data-rk] .ju367v3 {
+    align-items: flex-end;
+  }
+  [data-rk] .ju367v5 {
+    align-items: center;
+  }
+  [data-rk] .ju367v7 {
+    display: none;
+  }
+  [data-rk] .ju367v9 {
+    display: block;
+  }
+  [data-rk] .ju367vb {
+    display: flex;
+  }
+  [data-rk] .ju367vd {
+    display: inline;
+  }
+}
+[data-rk] ._12cbo8i3,
+[data-rk] ._12cbo8i3::after {
+  --_12cbo8i0: 1;
+  --_12cbo8i1: 1;
+}
+[data-rk] ._12cbo8i3:hover {
+  transform: scale(var(--_12cbo8i0));
+}
+[data-rk] ._12cbo8i3:active {
+  transform: scale(var(--_12cbo8i1));
+}
+[data-rk] ._12cbo8i3:active::after {
+  content: "";
+  bottom: -1px;
+  display: block;
+  left: -1px;
+  position: absolute;
+  right: -1px;
+  top: -1px;
+  transform: scale(calc((1 / var(--_12cbo8i1)) * var(--_12cbo8i0)));
+}
+[data-rk] ._12cbo8i4,
+[data-rk] ._12cbo8i4::after {
+  --_12cbo8i0: 1.025;
+}
+[data-rk] ._12cbo8i5,
+[data-rk] ._12cbo8i5::after {
+  --_12cbo8i0: 1.1;
+}
+[data-rk] ._12cbo8i6,
+[data-rk] ._12cbo8i6::after {
+  --_12cbo8i1: 0.95;
+}
+[data-rk] ._12cbo8i7,
+[data-rk] ._12cbo8i7::after {
+  --_12cbo8i1: 0.9;
+}
+[data-rk] .g5kl0l0 {
+  border-color: transparent;
+}
+@keyframes _1luule41 {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+[data-rk] ._1luule42 {
+  animation: _1luule41 3s infinite linear;
+}
+[data-rk] ._1luule43 {
+  background: conic-gradient(from 180deg at 50% 50%, rgba(72, 146, 254, 0) 0deg, currentColor 282.04deg, rgba(72, 146, 254, 0) 319.86deg, rgba(72, 146, 254, 0) 360deg);
+  height: 21px;
+  width: 21px;
+}
+[data-rk] ._1vwt0cg0 {
+  background: white;
+}
+[data-rk] ._1vwt0cg2 {
+  max-height: 454px;
+  overflow-y: auto;
+}
+[data-rk] ._1vwt0cg3 {
+  min-width: 246px;
+}
+[data-rk] ._1vwt0cg4 {
+  min-width: 100%;
+}
+@media screen and (min-width: 768px) {
+  [data-rk] ._1vwt0cg3 {
+    min-width: 287px;
+  }
+}
+[data-rk] ._1am14410 {
+  overflow: auto;
+  scrollbar-width: none;
+  transform: translateZ(0);
+}
+[data-rk] ._1am14410::-webkit-scrollbar {
+  display: none;
+}
+[data-rk] ._1ckjpok1 {
+  box-sizing: content-box;
+  max-width: 100vw;
+  width: 360px;
+}
+[data-rk] ._1ckjpok2 {
+  width: 100vw;
+}
+[data-rk] ._1ckjpok3 {
+  width: 768px;
+}
+[data-rk] ._1ckjpok4 {
+  min-width: 368px;
+  width: 368px;
+}
+[data-rk] ._1ckjpok6 {
+  border-width: 0px;
+  box-sizing: border-box;
+  width: 100vw;
+}
+@media screen and (min-width: 768px) {
+  [data-rk] ._1ckjpok1 {
+    width: 360px;
+  }
+  [data-rk] ._1ckjpok2 {
+    width: 480px;
+  }
+  [data-rk] ._1ckjpok3 {
+    width: 720px;
+  }
+  [data-rk] ._1ckjpok4 {
+    min-width: 368px;
+    width: 368px;
+  }
+}
+@media screen and (max-width: 767px) {
+  [data-rk] ._1ckjpok7 {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-top: -200px;
+    padding-bottom: 200px;
+    top: 200px;
+  }
+}
+@keyframes _9pm4ki0 {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+@keyframes _9pm4ki1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+[data-rk] ._9pm4ki3 {
+  animation: _9pm4ki1 150ms ease;
+  bottom: -200px;
+  left: -200px;
+  padding: 200px;
+  right: -200px;
+  top: -200px;
+  transform: translateZ(0);
+  z-index: 2147483646;
+}
+[data-rk] ._9pm4ki5 {
+  animation: _9pm4ki0 350ms cubic-bezier(.15, 1.15, 0.6, 1.00), _9pm4ki1 150ms ease;
+  max-width: 100vw;
+}
+[data-rk] .v9horb0:hover {
+  background: unset;
+}
