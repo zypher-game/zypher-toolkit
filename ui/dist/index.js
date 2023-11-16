@@ -3195,12 +3195,10 @@ var rainbow_account_default = Account;
 import { useChainModal as useChainModal3 } from "@my/rainbowkit";
 import React27, { memo as memo20 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
-import { useCustomTranslation as useCustomTranslation2 } from "ui/src/hooks/useCustomTranslation";
-import { LngNs as LngNs2 } from "ui/src/utils/i18n";
 var WrongNetwork = memo20(() => {
   const { openChainModal } = useChainModal3();
   const setAccountInfoDialogOpen = useSetRecoilState9(accountInfoDialogState);
-  const { t } = useCustomTranslation2([LngNs2.common]);
+  const { t } = useCustomTranslation([LngNs.common]);
   useInitRainbowFn();
   return /* @__PURE__ */ React27.createElement("div", {
     onClick: () => {
@@ -3215,15 +3213,13 @@ var WrongNetwork = memo20(() => {
 var WrongNetwork_default = WrongNetwork;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import { useCustomTranslation as useCustomTranslation3 } from "ui/src/hooks/useCustomTranslation";
-import { LngNs as LngNs3 } from "ui/src/utils/i18n";
 var RainbowConnectWallet = memo21((props) => {
   const { className, env, copy, dispatch, setSuccessToast, setErrorToast } = props;
   const isPathLocation = useMemo10(() => {
     const arr = window.location.hostname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, []);
-  const { t } = useCustomTranslation3([LngNs3.common]);
+  const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React28.createElement("div", {
     className: classnames11(
       "connect_connectWallet",

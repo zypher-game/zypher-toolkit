@@ -7,8 +7,8 @@ import { useInitRainbowFn } from "../../../hooks/useInitRainbowFn";
 
 import { accountInfoDialogState } from "../../ConnectWallet/state/connectWalletState";
 import "./rainbow_connectWallet.module.stylus";
-import { useCustomTranslation } from "ui/src/hooks/useCustomTranslation";
-import { LngNs } from "ui/src/utils/i18n";
+import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
+import { LngNs } from "../../../utils/i18n";
 
 const WrongNetwork = memo(() => {
   const { openChainModal } = useChainModal();

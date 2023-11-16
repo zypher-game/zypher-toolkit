@@ -8,8 +8,8 @@ import { ChainId } from "../../../constant/constant";
 import Account from "./rainbow_account";
 import "./rainbow_connectWallet.module.stylus";
 import WrongNetwork from "./WrongNetwork";
-import { useCustomTranslation } from "ui/src/hooks/useCustomTranslation";
-import { LngNs } from "ui/src/utils/i18n";
+import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
+import { LngNs } from "../../../utils/i18n";
 
 interface IProps {
   env: string;
