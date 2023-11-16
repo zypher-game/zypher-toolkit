@@ -1,4 +1,4 @@
-import { useAsyncImage } from "@zypher-game/toolkit/rainbowkit";
+import { useAsyncImage } from "@my/rainbowkit";
 import { isEqual } from "../../../../../utils/lodash";
 
 import React, { memo } from "react";

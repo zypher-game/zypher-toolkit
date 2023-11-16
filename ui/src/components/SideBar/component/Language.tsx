@@ -18,6 +18,10 @@ export const languageList = [
     keyValue: "en_US",
   },
   {
+    label: "한국어",
+    keyValue: "ko_KR",
+  },
+  {
     label: "中文繁體",
     keyValue: "zh_TW",
   },

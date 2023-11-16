@@ -14,7 +14,7 @@ import { useWalletClient as useWalletClient2 } from "wagmi";
 // src/components/SideBar/index.tsx
 import classnames2 from "classnames";
 import cx from "classnames";
-import { memo as memo7, useMemo as useMemo4 } from "react";
+import React9, { memo as memo7, useMemo as useMemo4 } from "react";
 
 // src/hooks/useNavItem.tsx
 import { useEffect as useEffect3, useMemo } from "react";
@@ -145,7 +145,7 @@ function isEqual(value1, value2) {
 }
 
 // src/components/SideBar/component/Language.tsx
-import { memo, useCallback, useState } from "react";
+import React2, { memo, useCallback, useState } from "react";
 
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
@@ -468,12 +468,13 @@ var IContractName = /* @__PURE__ */ ((IContractName2) => {
   return IContractName2;
 })(IContractName || {});
 var zkBingoV0 = (chainId, name) => {
+  var _a, _b, _c;
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = zkBingoContracts?.[chainId]?.[_repo];
+    const address = (_b = (_a = zkBingoContracts) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -482,7 +483,7 @@ var zkBingoV0 = (chainId, name) => {
     } else if (name === "points" /* Points */) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === "ZypherGameToken" /* ZypherGameToken */) {
-      returnAddress = address.ZypherGameToken ?? address.ZkBingoToken;
+      returnAddress = (_c = address.ZypherGameToken) != null ? _c : address.ZkBingoToken;
     } else if (name === "reward" /* Reward */) {
       returnAddress = address.Reward;
     } else if (name === "ZkBingoFee" /* Fee */) {
@@ -496,12 +497,13 @@ var zkBingoV0 = (chainId, name) => {
   }
 };
 var zkBingo = (chainId, name) => {
+  var _a, _b, _c;
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = zkBingoContractsV1?.[chainId]?.[_repo];
+    const address = (_b = (_a = zkBingoContractsV1) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -510,7 +512,7 @@ var zkBingo = (chainId, name) => {
     } else if (name === "points" /* Points */) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === "ZypherGameToken" /* ZypherGameToken */) {
-      returnAddress = address.ZypherGameToken ?? address.ZkBingoToken;
+      returnAddress = (_c = address.ZypherGameToken) != null ? _c : address.ZkBingoToken;
     } else if (name === "reward" /* Reward */) {
       returnAddress = address.Reward;
     } else if (name === "ZkBingoFee" /* Fee */) {
@@ -533,6 +535,10 @@ var languageList = [
     keyValue: "en_US"
   },
   {
+    label: "\uD55C\uAD6D\uC5B4",
+    keyValue: "ko_KR"
+  },
+  {
     label: "\u4E2D\u6587\u7E41\u9AD4",
     keyValue: "zh_TW"
   }
@@ -549,13 +555,20 @@ var Language = memo(
       setShow(false);
       storage_default.set("language", item.keyValue);
     }, []);
-    return <div className={className}>
-      <div className={className_item} onClick={handle}>
-        <p>{t("language")}</p>
-        <img src={preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`} />
-      </div>
-      {show ? <ul className={className_itemtip}>{languageList.map((v) => <li key={v.label} className={className_on} onClick={() => changeLanguageHandle(v)}>{v.label}</li>)}</ul> : null}
-    </div>;
+    return /* @__PURE__ */ React2.createElement("div", {
+      className
+    }, /* @__PURE__ */ React2.createElement("div", {
+      className: className_item,
+      onClick: handle
+    }, /* @__PURE__ */ React2.createElement("p", null, t("language")), /* @__PURE__ */ React2.createElement("img", {
+      src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
+    })), show ? /* @__PURE__ */ React2.createElement("ul", {
+      className: className_itemtip
+    }, languageList.map((v) => /* @__PURE__ */ React2.createElement("li", {
+      key: v.label,
+      className: className_on,
+      onClick: () => changeLanguageHandle(v)
+    }, v.label))) : null);
   },
   isEqual
 );
@@ -591,7 +604,7 @@ i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 import { useCallback as useCallback2, useContext, useEffect as useEffect2, useState as useState2 } from "react";
 
 // src/provider/IsMobileProvider.tsx
-import { createContext, useEffect } from "react";
+import React3, { createContext, useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 
 // src/utils/localStorageEffect.ts
@@ -636,7 +649,9 @@ var IsMobileProvider = ({ children }) => {
       setIsMobile(nowIsMobile);
     }
   }, [size.width, isMobile]);
-  return <IsMobileContext.Provider value={isMobile}>{children}</IsMobileContext.Provider>;
+  return /* @__PURE__ */ React3.createElement(IsMobileContext.Provider, {
+    value: isMobile
+  }, children);
 };
 var IsMdProvider = ({ children }) => {
   const [isWMd, setIsWMd] = useRecoilState(isWMdState);
@@ -647,7 +662,9 @@ var IsMdProvider = ({ children }) => {
       setIsWMd(nowIsMdMobile);
     }
   }, [size.width, isWMd]);
-  return <IsMdContext.Provider value={isWMd}>{children}</IsMdContext.Provider>;
+  return /* @__PURE__ */ React3.createElement(IsMdContext.Provider, {
+    value: isWMd
+  }, children);
 };
 
 // src/hooks/useWindowSize.ts
@@ -848,21 +865,47 @@ var useNavItem = () => {
 };
 
 // src/components/SideBar/component/CommunityLink.tsx
-import { memo as memo2 } from "react";
+import React4, { memo as memo2 } from "react";
 var CommunityLink = memo2(({ className }) => {
-  return <div className={className}>
-    <a href="https://twitter.com/Zypher_Games" target="_blank" rel="noreferrer"><img src={preStaticUrl + "/img/layout/twitter.svg"} /></a>
-    <a href="https://discord.com/invite/MKJZhS4p2T" target="_blank" rel="noreferrer"><img src={preStaticUrl + "/img/layout/discord.svg"} /></a>
-    <a href="http://medium.com/@ZypherGames" target="_blank" rel="noreferrer"><img src={preStaticUrl + "/img/layout/medium.svg"} /></a>
-    <a href="https://github.com/zypher-game" target="_blank" rel="noreferrer"><img src={preStaticUrl + "/img/layout/github.svg"} /></a>
-    <a href="https://interesting-crop-c73.notion.site/ZypherGames-Basecamp-58f3fc6362dc473db187dcec0b63e74e" target="_blank" rel="noreferrer"><img src={preStaticUrl + "/img/layout/gitbook.svg"} /></a>
-  </div>;
+  return /* @__PURE__ */ React4.createElement("div", {
+    className
+  }, /* @__PURE__ */ React4.createElement("a", {
+    href: "https://twitter.com/Zypher_Games",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React4.createElement("img", {
+    src: preStaticUrl + "/img/layout/twitter.svg"
+  })), /* @__PURE__ */ React4.createElement("a", {
+    href: "https://discord.com/invite/MKJZhS4p2T",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React4.createElement("img", {
+    src: preStaticUrl + "/img/layout/discord.svg"
+  })), /* @__PURE__ */ React4.createElement("a", {
+    href: "http://medium.com/@ZypherGames",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React4.createElement("img", {
+    src: preStaticUrl + "/img/layout/medium.svg"
+  })), /* @__PURE__ */ React4.createElement("a", {
+    href: "https://github.com/zypher-game",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React4.createElement("img", {
+    src: preStaticUrl + "/img/layout/github.svg"
+  })), /* @__PURE__ */ React4.createElement("a", {
+    href: "https://interesting-crop-c73.notion.site/ZypherGames-Basecamp-58f3fc6362dc473db187dcec0b63e74e",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React4.createElement("img", {
+    src: preStaticUrl + "/img/layout/gitbook.svg"
+  })));
 }, isEqual);
 var CommunityLink_default = CommunityLink;
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames from "classnames";
-import { memo as memo3, useCallback as useCallback3, useMemo as useMemo2 } from "react";
+import React5, { memo as memo3, useCallback as useCallback3, useMemo as useMemo2 } from "react";
 import { useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
 var useLink = (link, isMobile) => {
   const selectedKey = useRecoilValue(defaultSelectedKey);
@@ -904,21 +947,23 @@ var LinkItem1 = memo3(
     ...link
   }) => {
     const { isOn, linkClickHandle } = useLink(link, isMobile);
-    return <div onClick={linkClickHandle} className={classnames(
-      className,
-      link.disabled ? className_disable : "",
-      isOn ? className_on : ""
-    )}>
-      <img src={preStaticUrl + `/img/layout/${link.icon}`} />
-      <p>{link.label}</p>
-    </div>;
+    return /* @__PURE__ */ React5.createElement("div", {
+      onClick: linkClickHandle,
+      className: classnames(
+        className,
+        link.disabled ? className_disable : "",
+        isOn ? className_on : ""
+      )
+    }, /* @__PURE__ */ React5.createElement("img", {
+      src: preStaticUrl + `/img/layout/${link.icon}`
+    }), /* @__PURE__ */ React5.createElement("p", null, link.label));
   },
   isEqual
 );
 var LinkItemA_default = LinkItem1;
 
 // src/components/SideBar/component/SideBarActivitiesList.tsx
-import { memo as memo4, useMemo as useMemo3 } from "react";
+import React6, { memo as memo4, useMemo as useMemo3 } from "react";
 var SideBarActivitiesList = memo4(
   ({
     className_on,
@@ -942,14 +987,23 @@ var SideBarActivitiesList = memo4(
         listItem: className_listItemHor
       };
     }, [isMobile]);
-    return <div className={className_list}>{list.map((v) => <LinkItemA_default className_on={className_on} className_disable={listItemDisable} isMobile={isMobile} key={v.keyValue} className={listItem} {...v} />)}</div>;
+    return /* @__PURE__ */ React6.createElement("div", {
+      className: className_list
+    }, list.map((v) => /* @__PURE__ */ React6.createElement(LinkItemA_default, {
+      className_on,
+      className_disable: listItemDisable,
+      isMobile,
+      key: v.keyValue,
+      className: listItem,
+      ...v
+    })));
   },
   isEqual
 );
 var SideBarActivitiesList_default = SideBarActivitiesList;
 
 // src/components/SideBar/component/SideBarGamesList.tsx
-import { memo as memo5 } from "react";
+import React7, { memo as memo5 } from "react";
 var SideBarGamesList = memo5(
   ({
     className_on,
@@ -959,21 +1013,32 @@ var SideBarGamesList = memo5(
     list,
     isMobile
   }) => {
-    return <div className={className_list}>{list.map((v) => <LinkItemA_default isMobile={isMobile} className_on={className_on} className_disable={className_listItemDisable} key={v.keyValue} className={className_listItem} {...v} />)}</div>;
+    return /* @__PURE__ */ React7.createElement("div", {
+      className: className_list
+    }, list.map((v) => /* @__PURE__ */ React7.createElement(LinkItemA_default, {
+      isMobile,
+      className_on,
+      className_disable: className_listItemDisable,
+      key: v.keyValue,
+      className: className_listItem,
+      ...v
+    })));
   },
   isEqual
 );
 var SideBarGamesList_default = SideBarGamesList;
 
 // src/components/SideBar/component/SideBarTitle.tsx
-import { memo as memo6 } from "react";
+import React8, { memo as memo6 } from "react";
 var SideBarTitle = memo6(
   ({ className, logo_url_name, logo_title }) => {
     const { t } = useCustomTranslation([LngNs.siderBar]);
-    return <div className={className}>
-      <img src={preStaticUrl + `/img/layout/${logo_url_name}.svg`} title={t(logo_title)} />
-      <p>{t(logo_title)}</p>
-    </div>;
+    return /* @__PURE__ */ React8.createElement("div", {
+      className
+    }, /* @__PURE__ */ React8.createElement("img", {
+      src: preStaticUrl + `/img/layout/${logo_url_name}.svg`,
+      title: t(logo_title)
+    }), /* @__PURE__ */ React8.createElement("p", null, t(logo_title)));
   },
   isEqual
 );
@@ -981,10 +1046,11 @@ var SideBarTitle_default = SideBarTitle;
 
 // src/components/SideBar/index.tsx
 var MobileLogo = memo7(({ isMobile }) => {
-  return <div>
-    <img src={preStaticUrl + "/img/layout/logo-min.svg"} />
-    <img src={preStaticUrl + "/img/layout/ai.svg"} />
-  </div>;
+  return /* @__PURE__ */ React9.createElement("div", null, /* @__PURE__ */ React9.createElement("img", {
+    src: preStaticUrl + "/img/layout/logo-min.svg"
+  }), /* @__PURE__ */ React9.createElement("img", {
+    src: preStaticUrl + "/img/layout/ai.svg"
+  }));
 });
 var SideBar = (props) => {
   const { isMobile } = props;
@@ -1001,29 +1067,72 @@ var SideBar = (props) => {
       )
     };
   }, [items, isMobile]);
-  return <div className={classnames2(`${props.className}`, "sidebarWrap")}>
-    {isMobile ? null : <a href="https://zypher.game/" target="_black" className={cx("logo")}>
-      <img src={preStaticUrl + "/img/layout/logo.svg"} />
-      <img src={preStaticUrl + "/img/layout/ai.svg"} />
-    </a>}
-    <div className="sidebar">
-      {isMobile ? null : <>
-        <LinkItemA_default className_on="item_on" className_disable="horListItmeDisable" className="horListItme" isMobile={isMobile} {...items[0]} />
-        <div className="line" />
-      </>}
-      <SideBarTitle_default logo_title="Games" logo_url_name="games" className="sideBarTitle" />
-      <SideBarGamesList_default className_on="item_on" className_list="gamelist" className_listItem="verListItme" className_listItemDisable="verListItmeDisable" list={sideBarGamesLinkList} isMobile={isMobile} />
-      <div className="line" />
-      <SideBarTitle_default logo_title="Activities" logo_url_name="activities" className="sideBarTitle" />
-      <SideBarActivitiesList_default isMobile={isMobile} className_on="item_on" className_list="activitiesList" className_listItemHorDisable="horListItmeDisable" className_listItemHor="horListItme" className_listItemVerDisable="verListItmeDisable" className_listItemVer="verListItme" list={sideBarActivitiesLinkList} />
-      <div className="line" />
-      <SideBarTitle_default logo_title="Language" logo_url_name="language" className="sideBarTitle" />
-      <Language_default className="language" className_item={classnames2("horListItme", "languageItme")} className_itemtip="languageItmeTip" className_on="languageItmeOn" />
-      <div className="line" />
-      <SideBarTitle_default logo_title="Links" logo_url_name="links" className="sideBarTitle" />
-      <CommunityLink_default className="communityLink" />
-    </div>
-  </div>;
+  return /* @__PURE__ */ React9.createElement("div", {
+    className: classnames2(`${props.className}`, "sidebarWrap")
+  }, isMobile ? null : /* @__PURE__ */ React9.createElement("a", {
+    href: "https://zypher.game/",
+    target: "_black",
+    className: cx("logo")
+  }, /* @__PURE__ */ React9.createElement("img", {
+    src: preStaticUrl + "/img/layout/logo.svg"
+  }), /* @__PURE__ */ React9.createElement("img", {
+    src: preStaticUrl + "/img/layout/ai.svg"
+  })), /* @__PURE__ */ React9.createElement("div", {
+    className: "sidebar"
+  }, isMobile ? null : /* @__PURE__ */ React9.createElement(React9.Fragment, null, /* @__PURE__ */ React9.createElement(LinkItemA_default, {
+    className_on: "item_on",
+    className_disable: "horListItmeDisable",
+    className: "horListItme",
+    isMobile,
+    ...items[0]
+  }), /* @__PURE__ */ React9.createElement("div", {
+    className: "line"
+  })), /* @__PURE__ */ React9.createElement(SideBarTitle_default, {
+    logo_title: "Games",
+    logo_url_name: "games",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React9.createElement(SideBarGamesList_default, {
+    className_on: "item_on",
+    className_list: "gamelist",
+    className_listItem: "verListItme",
+    className_listItemDisable: "verListItmeDisable",
+    list: sideBarGamesLinkList,
+    isMobile
+  }), /* @__PURE__ */ React9.createElement("div", {
+    className: "line"
+  }), /* @__PURE__ */ React9.createElement(SideBarTitle_default, {
+    logo_title: "Activities",
+    logo_url_name: "activities",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React9.createElement(SideBarActivitiesList_default, {
+    isMobile,
+    className_on: "item_on",
+    className_list: "activitiesList",
+    className_listItemHorDisable: "horListItmeDisable",
+    className_listItemHor: "horListItme",
+    className_listItemVerDisable: "verListItmeDisable",
+    className_listItemVer: "verListItme",
+    list: sideBarActivitiesLinkList
+  }), /* @__PURE__ */ React9.createElement("div", {
+    className: "line"
+  }), /* @__PURE__ */ React9.createElement(SideBarTitle_default, {
+    logo_title: "Language",
+    logo_url_name: "language",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React9.createElement(Language_default, {
+    className: "language",
+    className_item: classnames2("horListItme", "languageItme"),
+    className_itemtip: "languageItmeTip",
+    className_on: "languageItmeOn"
+  }), /* @__PURE__ */ React9.createElement("div", {
+    className: "line"
+  }), /* @__PURE__ */ React9.createElement(SideBarTitle_default, {
+    logo_title: "Links",
+    logo_url_name: "links",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React9.createElement(CommunityLink_default, {
+    className: "communityLink"
+  })));
 };
 var SideBar_default = SideBar;
 
@@ -1163,20 +1272,25 @@ var usePointsBalanceStr = () => {
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames6 from "classnames";
-import { memo as memo9, useCallback as useCallback5, useEffect as useEffect4, useMemo as useMemo6 } from "react";
+import React13, { memo as memo9, useCallback as useCallback5, useEffect as useEffect4, useMemo as useMemo6 } from "react";
 import { useRecoilState as useRecoilState3 } from "recoil";
 import styled from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames4 from "classnames";
-import { memo as memo8, useCallback as useCallback4 } from "react";
+import React11, { memo as memo8, useCallback as useCallback4 } from "react";
 
 // src/components/icons/index.tsx
+import React10 from "react";
 import classnames3 from "classnames";
 var Icon = (props) => {
-  return <img className={classnames3("icon", props.className)} src={preStaticUrl + `/img/icon/${props.name}.svg`} alt="" />;
+  return /* @__PURE__ */ React10.createElement("img", {
+    className: classnames3("icon", props.className),
+    src: preStaticUrl + `/img/icon/${props.name}.svg`,
+    alt: ""
+  });
 };
-var Icons_default = Icon;
+var icons_default = Icon;
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 var DialogTitle = memo8(
@@ -1184,11 +1298,15 @@ var DialogTitle = memo8(
     const closeHandle = useCallback4(() => {
       setDialogOpen(false);
     }, [setDialogOpen]);
-    return <div className={classnames4("dialog_title_modalTitleInner", classNames)}>
-      <p className="dialog_title_title">{label}</p>
-      {children ? children : null}
-      <span onClick={closeHandle}><Icons_default name="close" /></span>
-    </div>;
+    return /* @__PURE__ */ React11.createElement("div", {
+      className: classnames4("dialog_title_modalTitleInner", classNames)
+    }, /* @__PURE__ */ React11.createElement("p", {
+      className: "dialog_title_title"
+    }, label), children ? children : null, /* @__PURE__ */ React11.createElement("span", {
+      onClick: closeHandle
+    }, /* @__PURE__ */ React11.createElement(icons_default, {
+      name: "close"
+    })));
   }
 );
 var DialogTitle_default = DialogTitle;
@@ -1207,6 +1325,7 @@ var getChainNameText = (chainId) => {
 };
 
 // src/components/Modal/Modal.tsx
+import React12 from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames5 from "classnames";
@@ -1222,7 +1341,14 @@ var Modal = ({
   transitionName,
   children
 }) => {
-  return <DialogOverlay isOpen={open} onDismiss={onCancel} className={classnames5("customDialog", "bottom", wrapClassName)} aria-label="Modal"><DialogContent style={{ width }}>{children}</DialogContent></DialogOverlay>;
+  return /* @__PURE__ */ React12.createElement(DialogOverlay, {
+    isOpen: open,
+    onDismiss: onCancel,
+    className: classnames5("customDialog", "bottom", wrapClassName),
+    "aria-label": "Modal"
+  }, /* @__PURE__ */ React12.createElement(DialogContent, {
+    style: { width }
+  }, children));
 };
 var Modal_default = Modal;
 
@@ -1271,42 +1397,46 @@ var LinkToBetaDialog = memo9(() => {
       setLinkToBetaDialogChainId(void 0);
     }
   }, [linkToBetaDialogOpen]);
-  return <Modal_default open={linkToBetaDialogOpen} onCancel={() => setLinkToBetaDialogOpen(false)} footer={null} wrapClassName={classnames6("customDialog")} destroyOnClose={true} closable={false} width={isMobile ? "100%" : 360} centered={isMobile ? false : true}>
-    <DialogTitle_default label="Switch Networks" setDialogOpen={setLinkToBetaDialogOpen} classNames={isMobile ? "modalTitleInner" : ""} />
-    <Content>
-      <WarningOutlined style={{ color: "#6673FF", fontSize: "50px" }} />
-      <Text>
-        {linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : ""}
-        {" is currently only deployed in "}
-        {ToUrlName[1]}
-        {"."}
-      </Text>
-    </Content>
-    <div style={{ padding: "0 20px 30px" }}><DialogButton onClick={handleButtonClick}>
-      {"Go to "}
-      {ToUrlName[0]}
-      {" Version"}
-    </DialogButton></div>
-  </Modal_default>;
+  return /* @__PURE__ */ React13.createElement(Modal_default, {
+    open: linkToBetaDialogOpen,
+    onCancel: () => setLinkToBetaDialogOpen(false),
+    footer: null,
+    wrapClassName: classnames6("customDialog"),
+    destroyOnClose: true,
+    closable: false,
+    width: isMobile ? "100%" : 360,
+    centered: isMobile ? false : true
+  }, /* @__PURE__ */ React13.createElement(DialogTitle_default, {
+    label: "Switch Networks",
+    setDialogOpen: setLinkToBetaDialogOpen,
+    classNames: isMobile ? "modalTitleInner" : ""
+  }), /* @__PURE__ */ React13.createElement(Content, null, /* @__PURE__ */ React13.createElement(WarningOutlined, {
+    style: { color: "#6673FF", fontSize: "50px" }
+  }), /* @__PURE__ */ React13.createElement(Text, null, linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "", " is currently only deployed in ", ToUrlName[1], ".")), /* @__PURE__ */ React13.createElement("div", {
+    style: { padding: "0 20px 30px" }
+  }, /* @__PURE__ */ React13.createElement(DialogButton, {
+    onClick: handleButtonClick
+  }, "Go to ", ToUrlName[0], " Version")));
 }, isEqual);
 var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames12 from "classnames";
+import React29 from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import { ConnectButton } from "@zypher-game/toolkit/rainbowkit";
+import { ConnectButton } from "@my/rainbowkit";
 import classnames11 from "classnames";
-import { memo as memo21, useMemo as useMemo10 } from "react";
+import React28, { memo as memo21, useMemo as useMemo10 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import { memo as memo19, useCallback as useCallback13 } from "react";
+import React26, { memo as memo19, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 import styled6 from "styled-components";
 
 // src/hooks/useActiveWeb3React.ts
-import { useChainId } from "@zypher-game/toolkit/rainbowkit";
+import { useChainId } from "@my/rainbowkit";
 import { useMemo as useMemo7 } from "react";
 import { useAccount, usePublicClient } from "wagmi";
 function useActiveWeb3React() {
@@ -1324,19 +1454,19 @@ function useActiveWeb3React() {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames8 from "classnames";
-import { memo as memo14, useCallback as useCallback6 } from "react";
+import React20, { memo as memo14, useCallback as useCallback6 } from "react";
 import { useRecoilState as useRecoilState4 } from "recoil";
 import { useDisconnect } from "wagmi";
 
 // src/hooks/useActiveWallet.ts
-import { useWalletConnectors } from "@zypher-game/toolkit/rainbowkit";
+import { useWalletConnectors } from "@my/rainbowkit";
 import { useMemo as useMemo8 } from "react";
 var useActiveWallet = () => {
   const wallets = useWalletConnectors();
   return useMemo8(() => {
     if (wallets) {
       const wall = wallets.filter((v) => v.ready && v.recent);
-      return wall?.[0];
+      return wall == null ? void 0 : wall[0];
     }
     return void 0;
   }, [wallets]);
@@ -1344,24 +1474,33 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames7 from "classnames";
-import { memo as memo13, useMemo as useMemo9 } from "react";
+import React19, { memo as memo13, useMemo as useMemo9 } from "react";
 
 // src/components/CurrencyLogo/index.tsx
-import { useState as useState3 } from "react";
+import React14, { useState as useState3 } from "react";
 var Logo = ({ src, alt, ...rest }) => {
   const [bad, setBad] = useState3(false);
   if (src && !bad) {
-    return <img {...rest} alt={alt} src={src} onError={() => {
-      setBad(true);
-    }} />;
+    return /* @__PURE__ */ React14.createElement("img", {
+      ...rest,
+      alt,
+      src,
+      onError: () => {
+        setBad(true);
+      }
+    });
   }
-  return <div {...rest}><Icons_default name="help" /></div>;
+  return /* @__PURE__ */ React14.createElement("div", {
+    ...rest
+  }, /* @__PURE__ */ React14.createElement(icons_default, {
+    name: "help"
+  }));
 };
 var CurrencyLogo_default = Logo;
 
 // src/components/PlayerAvatar/index.tsx
 import cx2 from "classnames";
-import React12 from "react";
+import React16 from "react";
 import styled2 from "styled-components";
 
 // src/utils/generateAvatar.ts
@@ -1377,7 +1516,7 @@ function hashToSeed(ethereumAddress) {
   return 0;
 }
 var generateAvatar_default = (account) => {
-  const seed = hashToSeed(account?.toLowerCase());
+  const seed = hashToSeed(account == null ? void 0 : account.toLowerCase());
   const selectedAvatar = [
     preStaticUrl + "/img/avatar1.png",
     preStaticUrl + "/img/avatar2.png",
@@ -1412,14 +1551,21 @@ var generateAvatar_default = (account) => {
 };
 
 // src/components/Avatar/Avatar.tsx
+import React15 from "react";
 var Avatar = ({ src, altText, style, size = 64 }) => {
-  return <div style={{
-    width: size,
-    height: size,
-    borderRadius: "50%",
-    overflow: "hidden",
-    ...style
-  }}><img src={src} alt={altText} style={{ width: "100%", height: "100%", objectFit: "cover" }} /></div>;
+  return /* @__PURE__ */ React15.createElement("div", {
+    style: {
+      width: size,
+      height: size,
+      borderRadius: "50%",
+      overflow: "hidden",
+      ...style
+    }
+  }, /* @__PURE__ */ React15.createElement("img", {
+    src,
+    alt: altText,
+    style: { width: "100%", height: "100%", objectFit: "cover" }
+  }));
 };
 var Avatar_default = Avatar;
 
@@ -1429,29 +1575,37 @@ var PlayerAvatar = ({
   showAccount = false,
   size = 60,
   border = false,
-  AvatarBorder = React12.Fragment,
-  AccountTextFrComp = React12.Fragment,
+  AvatarBorder = React16.Fragment,
+  AccountTextFrComp = React16.Fragment,
   className,
   preLen,
   endLen,
   otherStr
 }) => {
   const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-  return <div className={cx2(className, "player_playerAvatar")}>
-    {account ? <AvatarBorder><Avatar_default size={size} src={selectedAvatar} style={border ? {
+  return /* @__PURE__ */ React16.createElement("div", {
+    className: cx2(className, "player_playerAvatar")
+  }, account ? /* @__PURE__ */ React16.createElement(AvatarBorder, null, /* @__PURE__ */ React16.createElement(Avatar_default, {
+    size,
+    src: selectedAvatar,
+    style: border ? {
       background: selectedBackground,
       border: "2px solid #62380C"
-    } : { background: selectedBackground }} /></AvatarBorder> : <div className="player_avatar" style={{
+    } : { background: selectedBackground }
+  })) : /* @__PURE__ */ React16.createElement("div", {
+    className: "player_avatar",
+    style: {
       width: `${size}px`,
       height: `${size}px`,
       overflow: "hidden",
       background: "rgba(138, 138, 138, 1)"
-    }}><Avatar_default size={size} src={preStaticUrl + `/img/default_avatar.png`} /></div>}
-    {showAccount && <p className={className?.includes("account") ? "player_avatar_account" : ""}>
-      {account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : "waiting"}
-      <AccountTextFrComp />
-    </p>}
-  </div>;
+    }
+  }, /* @__PURE__ */ React16.createElement(Avatar_default, {
+    size,
+    src: preStaticUrl + `/img/default_avatar.png`
+  })), showAccount && /* @__PURE__ */ React16.createElement("p", {
+    className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
+  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : "waiting", /* @__PURE__ */ React16.createElement(AccountTextFrComp, null)));
 };
 var OuterCircle = styled2.div`
   background: ${({ isGrey, isGreen }) => {
@@ -1549,18 +1703,23 @@ var PointsImg = styled3.img`
 `;
 var PointsIcon = memo10(
   ({ isMobile, classname }) => {
-    return <PointsImg isMobile={isMobile} src={preStaticUrl + `/img/home/data_points.svg`} alt="" className={classname} />;
+    return /* @__PURE__ */ React.createElement(PointsImg, {
+      isMobile,
+      src: preStaticUrl + `/img/home/data_points.svg`,
+      alt: "",
+      className: classname
+    });
   },
   isEqual
 );
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import { useChainModal as useChainModal2 } from "@zypher-game/toolkit/rainbowkit";
-import { memo as memo11 } from "react";
+import { useChainModal as useChainModal2 } from "@my/rainbowkit";
+import React17, { memo as memo11 } from "react";
 import styled4 from "styled-components";
 
 // src/hooks/useInitRainbowFn.ts
-import { useChainModal } from "@zypher-game/toolkit/rainbowkit";
+import { useChainModal } from "@my/rainbowkit";
 import { useEffect as useEffect5 } from "react";
 import { useSetRecoilState as useSetRecoilState3 } from "recoil";
 var useInitRainbowFn = () => {
@@ -1641,19 +1800,24 @@ var ChainSelectorWidget = memo11(({ className }) => {
   const isMobile = useIsMobile();
   const { openChainModal } = useChainModal2();
   useInitRainbowFn();
-  return chainId ? <Wrapper className={className} onClick={openChainModal} style={{ cursor: "pointer" }}>
-    <div className="img">
-      <img src={ChainImage[chainId]} alt={ChainName[chainId]} />
-      <p>{ChainName[chainId]}</p>
-    </div>
-    <StatusI isMobile={isMobile} />
-  </Wrapper> : null;
+  return chainId ? /* @__PURE__ */ React17.createElement(Wrapper, {
+    className,
+    onClick: openChainModal,
+    style: { cursor: "pointer" }
+  }, /* @__PURE__ */ React17.createElement("div", {
+    className: "img"
+  }, /* @__PURE__ */ React17.createElement("img", {
+    src: ChainImage[chainId],
+    alt: ChainName[chainId]
+  }), /* @__PURE__ */ React17.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React17.createElement(StatusI, {
+    isMobile
+  })) : null;
 }, isEqual);
 var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-import { useAsyncImage } from "@zypher-game/toolkit/rainbowkit";
-import { memo as memo12 } from "react";
+import { useAsyncImage } from "@my/rainbowkit";
+import React18, { memo as memo12 } from "react";
 var PcUserInfo = memo12(
   ({
     connectName,
@@ -1663,24 +1827,42 @@ var PcUserInfo = memo12(
     cancel,
     copy
   }) => {
+    var _a;
     const src = useAsyncImage(connectIcon);
-    return <div className="pc_user_pc_content">
-      <div className="pc_user_box">
-        <div className="pc_user_tit">{`Connected with ${connectName}`}</div>
-        <div className="pc_user_info">
-          {connectIcon && <img src={src} alt={connectName} />}
-          <div className="pc_user_text">{getShortenAddress(account)}</div>
-          <span onClick={() => copy(account)}><Icons_default name="copy" /></span>
-          {BlockExplorerUrls[chainId] && <a href={`${BlockExplorerUrls[chainId] ?? [0]}/address/${account}`} target="_blank" rel="noreferrer"><Icons_default name="link" /></a>}
-        </div>
-      </div>
-      <DisconnectBtn cancel={cancel} />
-    </div>;
+    return /* @__PURE__ */ React18.createElement("div", {
+      className: "pc_user_pc_content"
+    }, /* @__PURE__ */ React18.createElement("div", {
+      className: "pc_user_box"
+    }, /* @__PURE__ */ React18.createElement("div", {
+      className: "pc_user_tit"
+    }, `Connected with ${connectName}`), /* @__PURE__ */ React18.createElement("div", {
+      className: "pc_user_info"
+    }, connectIcon && /* @__PURE__ */ React18.createElement("img", {
+      src,
+      alt: connectName
+    }), /* @__PURE__ */ React18.createElement("div", {
+      className: "pc_user_text"
+    }, getShortenAddress(account)), /* @__PURE__ */ React18.createElement("span", {
+      onClick: () => copy(account)
+    }, /* @__PURE__ */ React18.createElement(icons_default, {
+      name: "copy"
+    })), BlockExplorerUrls[chainId] && /* @__PURE__ */ React18.createElement("a", {
+      href: `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React18.createElement(icons_default, {
+      name: "link"
+    })))), /* @__PURE__ */ React18.createElement(DisconnectBtn, {
+      cancel
+    }));
   },
   isEqual
 );
 var DisconnectBtn = memo12(({ cancel }) => {
-  return <p className="pc_user_disconnect_btn" onClick={cancel}>Disconnect</p>;
+  return /* @__PURE__ */ React18.createElement("p", {
+    className: "pc_user_disconnect_btn",
+    onClick: cancel
+  }, "Disconnect");
 }, isEqual);
 var PcUserInfo_default = PcUserInfo;
 
@@ -1693,33 +1875,46 @@ var MUserInfo = memo13(({ account, chainId, cancel }) => {
     return [
       {
         balanceStr: pointsBalanceStr,
-        logo: <PointsIcon isMobile={isMobile} />,
+        logo: /* @__PURE__ */ React19.createElement(PointsIcon, {
+          isMobile
+        }),
         symbol: "Gold Points"
       },
       {
         balanceStr: nativeBalanceStr,
-        logo: <CurrencyLogo_default className="m_user_img" src={CurrencyLogo[chainId]} />,
+        logo: /* @__PURE__ */ React19.createElement(CurrencyLogo_default, {
+          className: "m_user_img",
+          src: CurrencyLogo[chainId]
+        }),
         symbol: Currency[chainId]
       }
     ];
   }, []);
-  return <div className="m_user_m_content">
-    <ChainSelectorWidget_default className={classnames7("m_user_border", "m_user_chain")} />
-    <div className="m_user_border">
-      <p className="m_user_tit">Your Wallet</p>
-      <div className="m_user_userInfoInner">
-        <PlayerAvatar_default className="m_user_account" account={account} size={24} showAccount={true} />
-        <DisconnectBtn cancel={cancel} />
-      </div>
-      <div className="m_user_balance">{list.map((v) => <div key={v.symbol} className="m_user_item">
-        <div className="m_user_fl">
-          {v.logo}
-          <p>{v.symbol}</p>
-        </div>
-        <p>{v.balanceStr}</p>
-      </div>)}</div>
-    </div>
-  </div>;
+  return /* @__PURE__ */ React19.createElement("div", {
+    className: "m_user_m_content"
+  }, /* @__PURE__ */ React19.createElement(ChainSelectorWidget_default, {
+    className: classnames7("m_user_border", "m_user_chain")
+  }), /* @__PURE__ */ React19.createElement("div", {
+    className: "m_user_border"
+  }, /* @__PURE__ */ React19.createElement("p", {
+    className: "m_user_tit"
+  }, "Your Wallet"), /* @__PURE__ */ React19.createElement("div", {
+    className: "m_user_userInfoInner"
+  }, /* @__PURE__ */ React19.createElement(PlayerAvatar_default, {
+    className: "m_user_account",
+    account,
+    size: 24,
+    showAccount: true
+  }), /* @__PURE__ */ React19.createElement(DisconnectBtn, {
+    cancel
+  })), /* @__PURE__ */ React19.createElement("div", {
+    className: "m_user_balance"
+  }, list.map((v) => /* @__PURE__ */ React19.createElement("div", {
+    key: v.symbol,
+    className: "m_user_item"
+  }, /* @__PURE__ */ React19.createElement("div", {
+    className: "m_user_fl"
+  }, v.logo, /* @__PURE__ */ React19.createElement("p", null, v.symbol)), /* @__PURE__ */ React19.createElement("p", null, v.balanceStr))))));
 }, isEqual);
 var MUserInfo_default = MUserInfo;
 
@@ -1736,21 +1931,46 @@ var AccountInfoDialog = memo14(({ copy }) => {
     disconnect();
     setAccountInfoDialogOpen(false);
   }, [disconnect]);
-  return account && chainId ? <><Modal_default open={accountInfoDialogOpen} onCancel={() => setAccountInfoDialogOpen(false)} footer={null} wrapClassName={classnames8(
-    "customDialog",
-    "bottom",
-    "account_info_dialog_dialog"
-  )} destroyOnClose={true} closable={false} width={isMobile ? "100%" : 440} centered={isMobile ? false : true} transitionName={isMobile ? "ant-slide-down" : void 0}>
-    <DialogTitle_default label="Your Wallet" setDialogOpen={setAccountInfoDialogOpen} classNames={isMobile ? "modalTitleInner" : ""} />
-    <div className="account_info_dialog_modalMain">{isMobile ? <MUserInfo_default copy={copy} account={account} chainId={chainId} cancel={cancel} /> : <PcUserInfo_default copy={copy} account={account} chainId={chainId} cancel={cancel} connectName={wallet?.name} connectIcon={wallet?.iconUrl} />}</div>
-  </Modal_default></> : null;
+  return account && chainId ? /* @__PURE__ */ React20.createElement(React20.Fragment, null, /* @__PURE__ */ React20.createElement(Modal_default, {
+    open: accountInfoDialogOpen,
+    onCancel: () => setAccountInfoDialogOpen(false),
+    footer: null,
+    wrapClassName: classnames8(
+      "customDialog",
+      "bottom",
+      "account_info_dialog_dialog"
+    ),
+    destroyOnClose: true,
+    closable: false,
+    width: isMobile ? "100%" : 440,
+    centered: isMobile ? false : true,
+    transitionName: isMobile ? "ant-slide-down" : void 0
+  }, /* @__PURE__ */ React20.createElement(DialogTitle_default, {
+    label: "Your Wallet",
+    setDialogOpen: setAccountInfoDialogOpen,
+    classNames: isMobile ? "modalTitleInner" : ""
+  }), /* @__PURE__ */ React20.createElement("div", {
+    className: "account_info_dialog_modalMain"
+  }, isMobile ? /* @__PURE__ */ React20.createElement(MUserInfo_default, {
+    copy,
+    account,
+    chainId,
+    cancel
+  }) : /* @__PURE__ */ React20.createElement(PcUserInfo_default, {
+    copy,
+    account,
+    chainId,
+    cancel,
+    connectName: wallet == null ? void 0 : wallet.name,
+    connectIcon: wallet == null ? void 0 : wallet.iconUrl
+  })))) : null;
 });
 var AccountInfoDialog_default = AccountInfoDialog;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs2 from "bignumber.js";
-import { memo as memo16, useCallback as useCallback8, useEffect as useEffect6, useState as useState4 } from "react";
+import React22, { memo as memo16, useCallback as useCallback8, useEffect as useEffect6, useState as useState4 } from "react";
 import { useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState4 } from "recoil";
 import styled5 from "styled-components";
 
@@ -2059,7 +2279,7 @@ import {
   tokenPocketWallet,
   walletConnectWallet,
   connectorsForWallets
-} from "@zypher-game/toolkit/rainbowkit";
+} from "@my/rainbowkit";
 import { createPublicClient, fallback, http } from "viem";
 import { configureChains, createConfig } from "wagmi";
 import * as chainList from "wagmi/chains";
@@ -2067,6 +2287,7 @@ import { publicProvider } from "wagmi/providers/public";
 var WagmiChainList = Object.values(chainList);
 var getSupportedChainIdList = (env) => {
   return supportedChainIds(env).map((chainId) => {
+    var _a;
     const chainFilter = WagmiChainList.filter((v) => v.id === chainId);
     if (chainFilter && chainFilter.length) {
       const chainLocal = chainFilter[0];
@@ -2094,7 +2315,7 @@ var getSupportedChainIdList = (env) => {
       blockExplorers: {
         default: {
           name: `${ChainName[chainId]} Explorer`,
-          url: sample(BlockExplorerUrls[chainId]) ?? ""
+          url: (_a = sample(BlockExplorerUrls[chainId])) != null ? _a : ""
         }
       },
       testnet: isTestnet[chainId]
@@ -2186,13 +2407,13 @@ var getContract = ({
   const c = viemGetContract({
     abi: abi2,
     address,
-    publicClient: publicClient ?? getViemClients({ env, chainId: chainId ?? defaultChainId }),
+    publicClient: publicClient != null ? publicClient : getViemClients({ env, chainId: chainId != null ? chainId : defaultChainId }),
     walletClient: signer
   });
   return {
     ...c,
-    account: signer?.account,
-    chain: signer?.chain
+    account: signer == null ? void 0 : signer.account,
+    chain: signer == null ? void 0 : signer.chain
   };
 };
 function isAddress(value) {
@@ -2236,7 +2457,7 @@ var erc20_default = erc20Contract;
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
 import classnames9 from "classnames";
-import { memo as memo15, useCallback as useCallback7 } from "react";
+import React21, { memo as memo15, useCallback as useCallback7 } from "react";
 var BalanceItem = memo15(
   ({ className, loading, balanceStr, logo, preChild, onClick }) => {
     const onClickHandle = useCallback7(() => {
@@ -2244,17 +2465,14 @@ var BalanceItem = memo15(
         onClick();
       }
     }, [onClick]);
-    return <div className={classnames9(`${className}`, "balance_item_balance")} onClick={onClickHandle}>
-      {preChild}
-      {loading ? <LoadingOutlined /> : <>
-        {balanceStr}
-        {logo}
-      </>}
-    </div>;
+    return /* @__PURE__ */ React21.createElement("div", {
+      className: classnames9(`${className}`, "balance_item_balance"),
+      onClick: onClickHandle
+    }, preChild, loading ? /* @__PURE__ */ React21.createElement(LoadingOutlined, null) : /* @__PURE__ */ React21.createElement(React21.Fragment, null, balanceStr, logo));
   },
   isEqual
 );
-var BalanceItem_default = BalanceItem;
+var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 var Refresh = styled5.div`
@@ -2278,7 +2496,7 @@ var Refresh = styled5.div`
     }
   }
 `;
-var AddIcon = styled5(Icons_default)`
+var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile }) => isMobile ? "4px" : "10px"};
   width: ${({ isMobile }) => isMobile ? "20px" : "24px"};
 `;
@@ -2327,17 +2545,36 @@ var Balance = memo16((props) => {
   }, [account, chainId, refreshBalance]);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
-  return <>
-    <Refresh onClick={fetchBalanceOf} isMobile={isMobile}><SyncOutlined /></Refresh>
-    <BalanceItem_default onClick={showPointsModal} logo={<PointsIcon isMobile={isMobile} />} balanceStr={pointsBalanceStr} loading={loading} className={props.className} preChild={<AddIcon name="add" isMobile={isMobile} />} />
-    {!isMobile && <BalanceItem_default logo={<CurrencyLogo_default className="balance_item_img" src={CurrencyLogo[chainId || 97]} />} balanceStr={nativeBalanceStr} loading={loading} className={props.className} />}
-  </>;
+  return /* @__PURE__ */ React22.createElement(React22.Fragment, null, /* @__PURE__ */ React22.createElement(Refresh, {
+    onClick: fetchBalanceOf,
+    isMobile
+  }, /* @__PURE__ */ React22.createElement(SyncOutlined, null)), /* @__PURE__ */ React22.createElement(balanceItem_default, {
+    onClick: showPointsModal,
+    logo: /* @__PURE__ */ React22.createElement(PointsIcon, {
+      isMobile
+    }),
+    balanceStr: pointsBalanceStr,
+    loading,
+    className: props.className,
+    preChild: /* @__PURE__ */ React22.createElement(AddIcon, {
+      name: "add",
+      isMobile
+    })
+  }), !isMobile && /* @__PURE__ */ React22.createElement(balanceItem_default, {
+    logo: /* @__PURE__ */ React22.createElement(CurrencyLogo_default, {
+      className: "balance_item_img",
+      src: CurrencyLogo[chainId || 97]
+    }),
+    balanceStr: nativeBalanceStr,
+    loading,
+    className: props.className
+  }));
 }, isEqual);
 var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames10 from "classnames";
-import { memo as memo18, useEffect as useEffect7, useState as useState6 } from "react";
+import React24, { memo as memo18, useEffect as useEffect7, useState as useState6 } from "react";
 import { useRecoilState as useRecoilState7, useRecoilValue as useRecoilValue6 } from "recoil";
 
 // src/hooks/usePoint.ts
@@ -2394,7 +2631,7 @@ var useAccountInvitation = (env) => {
             tx_hash: tx.transactionHash
           };
           if (invitationAddres && invitationAddres.address !== "" && invitationAddres.address.toLowerCase() !== params.user_addr.toLowerCase()) {
-            params.sharer_addr = invitationAddres?.address;
+            params.sharer_addr = invitationAddres == null ? void 0 : invitationAddres.address;
           }
           const apiUrl = getApilUrl(env);
           const res = await request(apiUrl.accountInfoUpdate, {
@@ -2430,8 +2667,9 @@ import { waitForTransaction } from "wagmi/actions";
 // src/hooks/useActiveChainId.ts
 import { useNetwork } from "wagmi";
 var useActiveChainId = (env) => {
+  var _a;
   const { chain } = useNetwork();
-  const chainId = chain?.id ?? void 0;
+  const chainId = (_a = chain == null ? void 0 : chain.id) != null ? _a : void 0;
   const isError = !Object.values(supportedChainIds(env)).includes(
     Number(chainId)
   );
@@ -2471,7 +2709,7 @@ var ZkBingoPointsContract = (chainId, env, address, signer) => {
   return getContract({
     env,
     abi,
-    address: address ?? zkBingo(chainId, "points" /* Points */),
+    address: address != null ? address : zkBingo(chainId, "points" /* Points */),
     signer,
     chainId
   });
@@ -2615,27 +2853,22 @@ var useSwapPoint = ({
 };
 
 // src/components/ConnectWallet/components/PointsDialog/PoinsWarn.tsx
-import { memo as memo17 } from "react";
+import React23, { memo as memo17 } from "react";
 import { useRecoilState as useRecoilState6 } from "recoil";
 var PoinsWarn = memo17(({ handleNext }) => {
   const { t } = useCustomTranslation([LngNs.points]);
   const [hidePointsWarn, setHidePointsWarn] = useRecoilState6(hidePointsWarnState);
-  return <div className="points_dialog_dialogContainer">
-    <p>{t("poinsWarnText01")}</p>
-    <p>
-      <em />
-      <i>{t("poinsWarnText02")}</i>
-      <br />
-      <em />
-      <i>{t("poinsWarnText03")}</i>
-    </p>
-    <p>{t("poinsWarnText04")}</p>
-    <p className="points_dialog_flex" onClick={() => setHidePointsWarn(!hidePointsWarn)}>
-      <Icons_default name={hidePointsWarn ? "checked" : "check"} />
-      {t("poinsWarnText05")}
-    </p>
-    <button className="points_dialog_btn" onClick={handleNext}>{t("Ok")}</button>
-  </div>;
+  return /* @__PURE__ */ React23.createElement("div", {
+    className: "points_dialog_dialogContainer"
+  }, /* @__PURE__ */ React23.createElement("p", null, t("poinsWarnText01")), /* @__PURE__ */ React23.createElement("p", null, /* @__PURE__ */ React23.createElement("em", null), /* @__PURE__ */ React23.createElement("i", null, t("poinsWarnText02")), /* @__PURE__ */ React23.createElement("br", null), /* @__PURE__ */ React23.createElement("em", null), /* @__PURE__ */ React23.createElement("i", null, t("poinsWarnText03"))), /* @__PURE__ */ React23.createElement("p", null, t("poinsWarnText04")), /* @__PURE__ */ React23.createElement("p", {
+    className: "points_dialog_flex",
+    onClick: () => setHidePointsWarn(!hidePointsWarn)
+  }, /* @__PURE__ */ React23.createElement(icons_default, {
+    name: hidePointsWarn ? "checked" : "check"
+  }), t("poinsWarnText05")), /* @__PURE__ */ React23.createElement("button", {
+    className: "points_dialog_btn",
+    onClick: handleNext
+  }, t("Ok")));
 }, isEqual);
 var PoinsWarn_default = PoinsWarn;
 
@@ -2664,48 +2897,70 @@ var PointsDialog = memo18(
         }, 800);
       }
     }, [chainId]);
-    return <Modal_default open={pointsDialogOpen} onCancel={() => setPointsDialogOpen(false)} footer={null} wrapClassName={classnames10("customDialog", "bottom", "dialog")} width={isMobile ? "100%" : 604} destroyOnClose={true} closable={false} centered={isMobile ? false : true} transitionName={isMobile ? "ant-slide-down" : void 0}>
-      <DialogTitle_default label="Recharge Points" setDialogOpen={setPointsDialogOpen} classNames="modalTitleInner" />
-      <div className="modalMain">{pointsWarn === 1 ? <PoinsWarn_default isLoading={isLoading} handleNext={swapPointHandle} /> : isLoading ? <IsLoading /> : <>
-        <div className="balanceTitle">
-          <p>
-            {"Balance: "}
-            <strong>{pointsBalanceStr}</strong>
-          </p>
-          <PointsIcon isMobile={isMobile} classname="pointsIcon" />
-        </div>
-        <PointsTable pointsList={pointsList} chainId={chainId} onClick={swapPointHandle} />
-      </>}</div>
-    </Modal_default>;
+    return /* @__PURE__ */ React24.createElement(Modal_default, {
+      open: pointsDialogOpen,
+      onCancel: () => setPointsDialogOpen(false),
+      footer: null,
+      wrapClassName: classnames10("customDialog", "bottom", "dialog"),
+      width: isMobile ? "100%" : 604,
+      destroyOnClose: true,
+      closable: false,
+      centered: isMobile ? false : true,
+      transitionName: isMobile ? "ant-slide-down" : void 0
+    }, /* @__PURE__ */ React24.createElement(DialogTitle_default, {
+      label: "Recharge Points",
+      setDialogOpen: setPointsDialogOpen,
+      classNames: "modalTitleInner"
+    }), /* @__PURE__ */ React24.createElement("div", {
+      className: "modalMain"
+    }, pointsWarn === 1 ? /* @__PURE__ */ React24.createElement(PoinsWarn_default, {
+      isLoading,
+      handleNext: swapPointHandle
+    }) : isLoading ? /* @__PURE__ */ React24.createElement(IsLoading, null) : /* @__PURE__ */ React24.createElement(React24.Fragment, null, /* @__PURE__ */ React24.createElement("div", {
+      className: "balanceTitle"
+    }, /* @__PURE__ */ React24.createElement("p", null, "Balance: ", /* @__PURE__ */ React24.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React24.createElement(PointsIcon, {
+      isMobile,
+      classname: "pointsIcon"
+    })), /* @__PURE__ */ React24.createElement(PointsTable, {
+      pointsList,
+      chainId,
+      onClick: swapPointHandle
+    }))));
   },
   isEqual
 );
 var IsLoading = memo18(() => {
   const { t } = useCustomTranslation([LngNs.points]);
-  return <div className="loading">
-    <Icons_default name="loading02" />
-    <p>{t("IsLoadingText1")}</p>
-  </div>;
+  return /* @__PURE__ */ React24.createElement("div", {
+    className: "loading"
+  }, /* @__PURE__ */ React24.createElement(icons_default, {
+    name: "loading02"
+  }), /* @__PURE__ */ React24.createElement("p", null, t("IsLoadingText1")));
 }, isEqual);
 var PointsTable = memo18(
   ({ pointsList, chainId, onClick }) => {
-    return <div className="table">{pointsList.map((v, index) => <div className={classnames10("points", `points_${v.index}`)} key={v.index} onClick={() => onClick(index)}>
-      <h3>{v.pointAmountStr}</h3>
-      <img className="points_img" src={preStaticUrl + `/img/points/points_${v.index}.png`} alt="points" />
-      <div className="bottom">
-        <p>{v.priceStr}</p>
-        <CurrencyLogo_default className="img" src={CurrencyLogo[chainId || 97]} />
-      </div>
-      {v.discount && <div className="discount">
-        <img className="discount_img" src={preStaticUrl + `/img/points/discord.svg`} alt="points" />
-        <p>
-          {v.discount}
-          {"% "}
-          <br />
-          {"OFF"}
-        </p>
-      </div>}
-    </div>)}</div>;
+    return /* @__PURE__ */ React24.createElement("div", {
+      className: "table"
+    }, pointsList.map((v, index) => /* @__PURE__ */ React24.createElement("div", {
+      className: classnames10("points", `points_${v.index}`),
+      key: v.index,
+      onClick: () => onClick(index)
+    }, /* @__PURE__ */ React24.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React24.createElement("img", {
+      className: "points_img",
+      src: preStaticUrl + `/img/points/points_${v.index}.png`,
+      alt: "points"
+    }), /* @__PURE__ */ React24.createElement("div", {
+      className: "bottom"
+    }, /* @__PURE__ */ React24.createElement("p", null, v.priceStr), /* @__PURE__ */ React24.createElement(CurrencyLogo_default, {
+      className: "img",
+      src: CurrencyLogo[chainId || 97]
+    })), v.discount && /* @__PURE__ */ React24.createElement("div", {
+      className: "discount"
+    }, /* @__PURE__ */ React24.createElement("img", {
+      className: "discount_img",
+      src: preStaticUrl + `/img/points/discord.svg`,
+      alt: "points"
+    }), /* @__PURE__ */ React24.createElement("p", null, v.discount, "% ", /* @__PURE__ */ React24.createElement("br", null), "OFF")))));
   },
   isEqual
 );
@@ -2714,7 +2969,7 @@ var PointsDialog_default = PointsDialog;
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { CloseOutlined } from "@ant-design/icons";
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
-import { useCallback as useCallback12 } from "react";
+import React25, { useCallback as useCallback12 } from "react";
 import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState8 } from "recoil";
 var PointsRuleDialog = () => {
   const { t } = useCustomTranslation([LngNs.common, LngNs.points]);
@@ -2723,38 +2978,38 @@ var PointsRuleDialog = () => {
   const handleCancel = useCallback12(() => {
     setIsModalOpen(false);
   }, []);
-  return <><DialogOverlay2 isOpen={isModalOpen} onDismiss={handleCancel} className="points_dialog_zindex"><DialogContent2 className="points_dialog_dialogContent">
-    <div className="points_dialog_dialogHeader">
-      <h3>{t("Rules")}</h3>
-      <div className="points_dialog_cursor" onClick={handleCancel}><CloseOutlined /></div>
-    </div>
-    <div className="points_dialog_dialogContainer">
-      <h4>{t("PointsRuleText01")}</h4>
-      <p>{t("PointsRuleText02")}</p>
-      <p>
-        <em />
-        <i>{t("PointsRuleText03")}</i>
-        <br />
-        <em />
-        <i>{t("PointsRuleText04")}</i>
-        <br />
-        <em />
-        <i>{t("PointsRuleText04")}</i>
-        <br />
-        <em />
-        {" "}
-        <i>{t("PointsRuleText06")}</i>
-      </p>
-      <p>{t("PointsRuleText07", {
-        Link: <a href="https://medium.com/@ZypherGames/upcoming-announcement-44e69204adb1" target="_blank" rel="noreferrer">{t("PointsRuleText08")}</a>
-      })}</p>
-      <h4>{t("PointsRuleText09")}</h4>
-      <p>{(t("PointsRuleText10"), {
-        Discord: <a href="https://discord.com/invite/MKJZhS4p2T" target="_blank" className="points_dialog_fontWhite" rel="noreferrer">Discord</a>
-      })}</p>
-    </div>
-    <div className="points_dialog_btnWrap"><button className="points_dialog_btn" onClick={handleCancel}>{t("Ok")}</button></div>
-  </DialogContent2></DialogOverlay2></>;
+  return /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(DialogOverlay2, {
+    isOpen: isModalOpen,
+    onDismiss: handleCancel,
+    className: "points_dialog_zindex"
+  }, /* @__PURE__ */ React25.createElement(DialogContent2, {
+    className: "points_dialog_dialogContent"
+  }, /* @__PURE__ */ React25.createElement("div", {
+    className: "points_dialog_dialogHeader"
+  }, /* @__PURE__ */ React25.createElement("h3", null, t("Rules")), /* @__PURE__ */ React25.createElement("div", {
+    className: "points_dialog_cursor",
+    onClick: handleCancel
+  }, /* @__PURE__ */ React25.createElement(CloseOutlined, null))), /* @__PURE__ */ React25.createElement("div", {
+    className: "points_dialog_dialogContainer"
+  }, /* @__PURE__ */ React25.createElement("h4", null, t("PointsRuleText01")), /* @__PURE__ */ React25.createElement("p", null, t("PointsRuleText02")), /* @__PURE__ */ React25.createElement("p", null, /* @__PURE__ */ React25.createElement("em", null), /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText03")), /* @__PURE__ */ React25.createElement("br", null), /* @__PURE__ */ React25.createElement("em", null), /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React25.createElement("br", null), /* @__PURE__ */ React25.createElement("em", null), /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React25.createElement("br", null), /* @__PURE__ */ React25.createElement("em", null), " ", /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText06"))), /* @__PURE__ */ React25.createElement("p", null, t("PointsRuleText07", {
+    Link: /* @__PURE__ */ React25.createElement("a", {
+      href: "https://medium.com/@ZypherGames/upcoming-announcement-44e69204adb1",
+      target: "_blank",
+      rel: "noreferrer"
+    }, t("PointsRuleText08"))
+  })), /* @__PURE__ */ React25.createElement("h4", null, t("PointsRuleText09")), /* @__PURE__ */ React25.createElement("p", null, (t("PointsRuleText10"), {
+    Discord: /* @__PURE__ */ React25.createElement("a", {
+      href: "https://discord.com/invite/MKJZhS4p2T",
+      target: "_blank",
+      className: "points_dialog_fontWhite",
+      rel: "noreferrer"
+    }, "Discord")
+  }))), /* @__PURE__ */ React25.createElement("div", {
+    className: "points_dialog_btnWrap"
+  }, /* @__PURE__ */ React25.createElement("button", {
+    className: "points_dialog_btn",
+    onClick: handleCancel
+  }, t("Ok"))))));
 };
 var PointsRuleDialog_default = PointsRuleDialog;
 
@@ -2790,33 +3045,47 @@ var Account = memo19(
       setAccountInfoDialogState(true);
     }, [setAccountInfoDialogState]);
     const { account } = useActiveWeb3React();
-    return <>
-      <Balance_default env={env} isMobile={isMobile} showPointsModal={showPointsModal} />
-      <AddressWrap onClick={showLogoutModal}><PlayerAvatar_default className="account" account={account} size={isMobile ? 26 : 36} showAccount={isMobile ? false : true} /></AddressWrap>
-      {!isMobile && <ChainSelectorWidget_default />}
-      <AccountInfoDialog_default copy={copy} />
-      <PointsDialog_default env={env} dispatch={dispatch} setSuccessToast={setSuccessToast} setErrorToast={setErrorToast} />
-      <PointsRuleDialog_default />
-    </>;
+    return /* @__PURE__ */ React26.createElement(React26.Fragment, null, /* @__PURE__ */ React26.createElement(Balance_default, {
+      env,
+      isMobile,
+      showPointsModal
+    }), /* @__PURE__ */ React26.createElement(AddressWrap, {
+      onClick: showLogoutModal
+    }, /* @__PURE__ */ React26.createElement(PlayerAvatar_default, {
+      className: "account",
+      account,
+      size: isMobile ? 26 : 36,
+      showAccount: isMobile ? false : true
+    })), !isMobile && /* @__PURE__ */ React26.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React26.createElement(AccountInfoDialog_default, {
+      copy
+    }), /* @__PURE__ */ React26.createElement(PointsDialog_default, {
+      env,
+      dispatch,
+      setSuccessToast,
+      setErrorToast
+    }), /* @__PURE__ */ React26.createElement(PointsRuleDialog_default, null));
   },
   isEqual
 );
-var Rainbow_account_default = Account;
+var rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-import { useChainModal as useChainModal3 } from "@zypher-game/toolkit/rainbowkit";
-import { memo as memo20 } from "react";
+import { useChainModal as useChainModal3 } from "@my/rainbowkit";
+import React27, { memo as memo20 } from "react";
 import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 var WrongNetwork = memo20(() => {
   const { openChainModal } = useChainModal3();
   const setAccountInfoDialogOpen = useSetRecoilState10(accountInfoDialogState);
   useInitRainbowFn();
-  return <div onClick={() => {
-    if (openChainModal) {
-      openChainModal();
-      setAccountInfoDialogOpen(false);
-    }
-  }} className="connect_connect"><p>Wrong network</p></div>;
+  return /* @__PURE__ */ React27.createElement("div", {
+    onClick: () => {
+      if (openChainModal) {
+        openChainModal();
+        setAccountInfoDialogOpen(false);
+      }
+    },
+    className: "connect_connect"
+  }, /* @__PURE__ */ React27.createElement("p", null, "Wrong network"));
 }, isEqual);
 var WrongNetwork_default = WrongNetwork;
 
@@ -2827,15 +3096,26 @@ var RainbowConnectWallet = memo21((props) => {
     const arr = window.location.hostname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, []);
-  return <div className={classnames11(
-    "connect_connectWallet",
-    isPathLocation ? "connect_bgWallet" : "",
-    className
-  )}><ConnectButton.Custom>{({ chain, openConnectModal, mounted }) => {
-    return <>{!mounted || !chain ? <div onClick={openConnectModal} className="connect_connect"><p>Connect Wallet</p></div> : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? <WrongNetwork_default /> : <Rainbow_account_default copy={copy} env={env} dispatch={dispatch} setSuccessToast={setSuccessToast} setErrorToast={setErrorToast} />}</>;
-  }}</ConnectButton.Custom></div>;
+  return /* @__PURE__ */ React28.createElement("div", {
+    className: classnames11(
+      "connect_connectWallet",
+      isPathLocation ? "connect_bgWallet" : "",
+      className
+    )
+  }, /* @__PURE__ */ React28.createElement(ConnectButton.Custom, null, ({ chain, openConnectModal, mounted }) => {
+    return /* @__PURE__ */ React28.createElement(React28.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React28.createElement("div", {
+      onClick: openConnectModal,
+      className: "connect_connect"
+    }, /* @__PURE__ */ React28.createElement("p", null, "Connect Wallet")) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
+      copy,
+      env,
+      dispatch,
+      setSuccessToast,
+      setErrorToast
+    }));
+  }));
 }, isEqual);
-var Rainbow_connectWallet_default = RainbowConnectWallet;
+var rainbow_connectWallet_default = RainbowConnectWallet;
 
 // src/components/Header/state.ts
 import { atom as atom5 } from "recoil";
@@ -2863,20 +3143,41 @@ var Header = (props) => {
     setErrorToast,
     copy
   } = props;
-  return <header className={classnames12("header_header", props.className)} style={{ position: "sticky", top: 0, zIndex: 1, width: "100%" }}>
-    {isMobile && <div className="header_left"><MobileLogo isMobile={isMobile} /></div>}
-    <div className="header_right">
-      <Rainbow_connectWallet_default copy={copy} isMobile={isMobile} env={env} dispatch={dispatch} setSuccessToast={setSuccessToast} setErrorToast={setErrorToast} />
-      {isMobile && !hideMenu ? <>{collapsed ? <div className="header_btn" onClick={() => setSiderCollapse(false)}><Icons_default className={classnames12("header_icon")} name="menu" /></div> : <div className="header_btn" onClick={() => setSiderCollapse(true)}><Icons_default className={classnames12("header_icon", "header_close")} name="close" /></div>}</> : null}
-    </div>
-    <LinkToBetaDialog_default />
-  </header>;
+  return /* @__PURE__ */ React29.createElement("header", {
+    className: classnames12("header_header", props.className),
+    style: { position: "sticky", top: 0, zIndex: 1, width: "100%" }
+  }, isMobile && /* @__PURE__ */ React29.createElement("div", {
+    className: "header_left"
+  }, /* @__PURE__ */ React29.createElement(MobileLogo, {
+    isMobile
+  })), /* @__PURE__ */ React29.createElement("div", {
+    className: "header_right"
+  }, /* @__PURE__ */ React29.createElement(rainbow_connectWallet_default, {
+    copy,
+    isMobile,
+    env,
+    dispatch,
+    setSuccessToast,
+    setErrorToast
+  }), isMobile && !hideMenu ? /* @__PURE__ */ React29.createElement(React29.Fragment, null, collapsed ? /* @__PURE__ */ React29.createElement("div", {
+    className: "header_btn",
+    onClick: () => setSiderCollapse(false)
+  }, /* @__PURE__ */ React29.createElement(icons_default, {
+    className: classnames12("header_icon"),
+    name: "menu"
+  })) : /* @__PURE__ */ React29.createElement("div", {
+    className: "header_btn",
+    onClick: () => setSiderCollapse(true)
+  }, /* @__PURE__ */ React29.createElement(icons_default, {
+    className: classnames12("header_icon", "header_close"),
+    name: "close"
+  }))) : null), /* @__PURE__ */ React29.createElement(LinkToBetaDialog_default, null));
 };
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import { darkTheme, RainbowKitProvider } from "@zypher-game/toolkit/rainbowkit";
-import { useMemo as useMemo11 } from "react";
+import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
+import React30, { useMemo as useMemo11 } from "react";
 import { WagmiConfig } from "wagmi";
 var RainbowKitWithThemeProvider = ({ children, env }) => {
   const { wagmiConfig, chains, computedTheme } = useMemo11(() => {
@@ -2898,7 +3199,13 @@ var RainbowKitWithThemeProvider = ({ children, env }) => {
   if (!wagmiConfig || !chains || !computedTheme) {
     return null;
   }
-  return <WagmiConfig config={wagmiConfig}><RainbowKitProvider chains={chains} appInfo={appInfo} theme={computedTheme}>{children}</RainbowKitProvider></WagmiConfig>;
+  return /* @__PURE__ */ React30.createElement(WagmiConfig, {
+    config: wagmiConfig
+  }, /* @__PURE__ */ React30.createElement(RainbowKitProvider, {
+    chains,
+    appInfo,
+    theme: computedTheme
+  }, children));
 };
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
@@ -2939,10 +3246,7 @@ window.addEventListener("load", async () => {
 });
 
 // src/index.ts
-import {
-  useConnectModal,
-  useChainModal as useChainModal4
-} from "@zypher-game/toolkit/rainbowkit";
+import { useConnectModal, useChainModal as useChainModal4 } from "@my/rainbowkit";
 export {
   Balance_default as Balance,
   BlockExplorerUrls,

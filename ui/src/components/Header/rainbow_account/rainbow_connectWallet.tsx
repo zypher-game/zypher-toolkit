@@ -1,4 +1,4 @@
-import { ConnectButton } from "@zypher-game/toolkit/rainbowkit";
+import { ConnectButton } from "@my/rainbowkit";
 import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useMemo } from "react";

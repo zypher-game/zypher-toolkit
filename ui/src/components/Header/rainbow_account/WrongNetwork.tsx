@@ -1,4 +1,4 @@
-import { useChainModal } from "@zypher-game/toolkit/rainbowkit";
+import { useChainModal } from "@my/rainbowkit";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo } from "react";
 import { useSetRecoilState } from "recoil";
