@@ -150,7 +150,7 @@ import React, { memo, useCallback, useState } from "react";
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
 var useCustomTranslation = (namespaces) => {
-  const { t, i18n: i18n2 } = useBaseTranslation([LngNs.common, ...namespaces]);
+  const { t, i18n: i18n2 } = useBaseTranslation(namespaces);
   return { t, i18n: i18n2 };
 };
 
