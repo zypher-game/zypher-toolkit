@@ -1450,6 +1450,10 @@ var DialogButton = styled.div`
   text-align: center;
   font-family: Poppins;
   font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 var Text = styled.div`
   color: #fff;
