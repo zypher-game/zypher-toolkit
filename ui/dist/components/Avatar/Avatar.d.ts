@@ -3,7 +3,7 @@ interface AvatarProps {
     src: string;
     altText?: string;
     size?: number;
-    style: any;
+    style?: any;
 }
 declare const Avatar: React.FC<AvatarProps>;
 export default Avatar;

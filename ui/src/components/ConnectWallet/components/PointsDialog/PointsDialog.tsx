@@ -1,7 +1,7 @@
 import classnames from "classnames";
 import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useEffect, useState } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 
 import CurrencyLogo from "../../../CurrencyLogo";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";

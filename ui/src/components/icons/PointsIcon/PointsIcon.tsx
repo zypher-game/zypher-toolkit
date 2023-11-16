@@ -1,3 +1,4 @@
+import React from "react";
 import { preStaticUrl } from "../../../constant/constant";
 import { isEqual } from "../../../utils/lodash";
 import { FC, memo } from "react";

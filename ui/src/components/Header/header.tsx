@@ -19,6 +19,7 @@ interface IProps {
   className?: string;
   hideMenu?: boolean;
   copy: any;
+  useNavigate: any;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
@@ -32,6 +33,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     setSuccessToast,
     setErrorToast,
     copy,
+    useNavigate,
   } = props;
   return (
     <header
@@ -40,7 +42,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     >
       {isMobile && (
         <div className={"header_left"}>
-          <MobileLogo isMobile={isMobile} />
+          <MobileLogo isMobile={isMobile} useNavigate={useNavigate} />
         </div>
       )}
       <div className={"header_right"}>

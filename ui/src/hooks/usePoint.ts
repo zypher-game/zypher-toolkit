@@ -59,6 +59,7 @@ export const pointsListDefault = (
   } catch (e) {
     console.error("pointsListDefault: ", e);
   }
+  return undefined;
 };
 
 type ISwapPoint = {

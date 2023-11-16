@@ -117,7 +117,7 @@ export const getWagmiConfig = (env: string) => {
 //   transport
 // })
 
-export const viemClients = (env: string) => {
+export const viemClients = (env: string): Record<ChainId, PublicClient> => {
   const { chains } = getConfigureChains(env);
   return chains.reduce((prev, cur) => {
     return {
@@ -150,6 +150,6 @@ export const getViemClients = ({
 }: {
   env: string;
   chainId: ChainId;
-}) => {
+}): PublicClient => {
   return viemClients(env)[chainId];
 };

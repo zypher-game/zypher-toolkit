@@ -4,10 +4,15 @@ interface AvatarProps {
   src: string;
   altText?: string;
   size?: number;
-  style: any;
+  style?: any;
 }
 
-const Avatar: React.FC<AvatarProps> = ({ src, altText, style, size = 64 }) => {
+const Avatar: React.FC<AvatarProps> = ({
+  src,
+  altText,
+  style = {},
+  size = 64,
+}) => {
   return (
     <div
       style={{

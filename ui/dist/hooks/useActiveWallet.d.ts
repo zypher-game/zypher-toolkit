@@ -1,2 +1,2 @@
-import { WalletConnector } from "@my/rainbowkit/wallets/useWalletConnectors";
+import { WalletConnector } from "@my/rainbowkit";
 export declare const useActiveWallet: () => WalletConnector | undefined;

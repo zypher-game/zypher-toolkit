@@ -8,12 +8,13 @@ import { LngNs } from "./../..../../../../../utils/i18n";
 
 import { pointsRuleDialogState } from "../../state/connectWalletState";
 import "./PointsRuleDialog.module.stylus";
+import { Trans } from "react-i18next";
 
 type Props = {
   onClose?: () => void;
 };
 const PointsRuleDialog: React.FC<Props> = () => {
-  const { t } = useCustomTranslation([LngNs.common, LngNs.points]);
+  const { t } = useCustomTranslation([LngNs.points]);
   const isModalOpen = useRecoilValue(pointsRuleDialogState);
   const setIsModalOpen = useSetRecoilState(pointsRuleDialogState);
 
@@ -50,35 +51,25 @@ const PointsRuleDialog: React.FC<Props> = () => {
               <em /> <i>{t("PointsRuleText06")}</i>
             </p>
             <p>
-              {t("PointsRuleText07", {
-                Link: (
-                  <a
-                    href="https://medium.com/@ZypherGames/upcoming-announcement-44e69204adb1"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    {t("PointsRuleText08")}
-                  </a>
-                ),
-              })}
+              <Trans
+                i18nKey="PointsRuleText07"
+                defaults="*Note: Exact bonus percentages and further specifics on the airdrop schedule can be found here <bold>Link</bold>"
+                values={{ Link: t("Link") }}
+                components={{ bold: <strong /> }}
+              />
             </p>
             <h4>{t("PointsRuleText09")}</h4>
             <p>
-              {
-                (t("PointsRuleText10"),
-                {
-                  Discord: (
-                    <a
-                      href="https://discord.com/invite/MKJZhS4p2T"
-                      target="_blank"
-                      className={"points_dialog_fontWhite"}
-                      rel="noreferrer"
-                    >
-                      Discord
-                    </a>
-                  ),
-                })
-              }
+              <Trans i18nKey="PointsRuleText10">
+                <a
+                  href="https://discord.com/invite/MKJZhS4p2T"
+                  target="_blank"
+                  className={"points_dialog_fontWhite"}
+                  rel="noreferrer"
+                >
+                  Discord
+                </a>
+              </Trans>
             </p>
           </div>
           <div className={"points_dialog_btnWrap"}>
