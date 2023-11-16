@@ -1409,11 +1409,11 @@ var getChainNameText = (chainId) => {
 
 // src/components/Modal/Modal.tsx
 import React11 from "react";
-import { DialogContent, DialogOverlay } from "@reach/dialog";
+import { DialogContent, Dialog } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames5 from "classnames";
 import styled from "styled-components";
-var DialogOverlayModal = styled(DialogOverlay)`
+var DialogOverlayModal = styled(Dialog)`
   padding: 0;
   background: #131313;
   border-radius: 20px;
@@ -3102,7 +3102,7 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { CloseOutlined } from "@ant-design/icons";
-import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
+import { DialogContent as DialogContent2, DialogOverlay } from "@reach/dialog";
 import React25, { useCallback as useCallback12 } from "react";
 import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState7 } from "recoil";
 import { Trans } from "react-i18next";
@@ -3113,7 +3113,7 @@ var PointsRuleDialog = () => {
   const handleCancel = useCallback12(() => {
     setIsModalOpen(false);
   }, []);
-  return /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(DialogOverlay2, {
+  return /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(DialogOverlay, {
     isOpen: isModalOpen,
     onDismiss: handleCancel,
     className: "points_dialog_zindex"
