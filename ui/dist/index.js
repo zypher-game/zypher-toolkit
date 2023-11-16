@@ -1224,6 +1224,21 @@ import { useRecoilValue as useRecoilValue2 } from "recoil";
 import BigNumber from "bignumber.js";
 import { utils } from "ethers";
 BigNumber.config({ EXPONENTIAL_AT: 1e9 });
+var eX = (value, x) => {
+  return new BigNumber(`${value}e${x}`);
+};
+function pow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
+}
+function bnPow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
+}
 var formatDecimal = (number, decimal = 2) => {
   if (number === void 0) {
     return "";
@@ -1245,7 +1260,7 @@ var formatMoney = (value, n = 2) => {
     if (value === 0) {
       return Number("0").toFixed(n);
     }
-    const isNegative = value < 0;
+    const isNegative = Number(value) < 0;
     const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
     const l = v.split(".")[0].split("").reverse();
     const r = v.split(".")[1];
@@ -1268,8 +1283,67 @@ function getShortenAddress(address, preLen = 6, endLen = 4) {
     return "";
   }
   const firstCharacters = address.substring(0, preLen);
-  const lastCharacters = address.substring(address.length - endLen, address.length);
+  const lastCharacters = address.substring(
+    address.length - endLen,
+    address.length
+  );
   return `${firstCharacters}...${lastCharacters}`;
+}
+function getShortenAddress2(address) {
+  const firstCharacters = address.substring(0, 10);
+  const lastCharacters = address.substring(address.length - 10, address.length);
+  return `${firstCharacters}****${lastCharacters}`;
+}
+function filterInput(val) {
+  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
+  return Number(v) >= 0 ? v : "";
+}
+var convertToLargeNumberRepresentation = (value) => {
+  if (!value) {
+    return "0";
+  } else if (+value >= 1e5) {
+    return `${eX(value.toString(), -6)}M`;
+  } else if (+value >= 100) {
+    return `${eX(value.toString(), -3)}K`;
+  } else {
+    return value.toString();
+  }
+};
+var tCanvas;
+function measureText(text, font) {
+  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
+  const context = canvas.getContext("2d");
+  if (context) {
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+  return 0;
+}
+var splitArrByLen = (arr, len) => {
+  const t = [];
+  let index = 0;
+  while (index < arr.length) {
+    t.push(arr.slice(index, index += len));
+  }
+  return t;
+};
+var Units = [
+  ["B", 1e9],
+  ["M", 1e6],
+  ["K", 1e3]
+];
+function formatCurrency(amount, precision = 2) {
+  var _a;
+  const [unit, base] = (_a = Units.find(
+    ([, min]) => Number(amount) >= Number(min)
+  )) != null ? _a : ["", 1];
+  return `${utils.commify(
+    (amount / base).toFixed(precision)
+  )}${unit}`;
+}
+function formatSymbol(symbol) {
+  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
 }
 
 // src/components/ConnectWallet/hooks/connectWalletHooks.ts
@@ -1708,6 +1782,32 @@ var OuterCircle = styled2.div`
     }
   }
 `;
+var PlayerAvatarList = ({
+  account,
+  size,
+  isGreen = false,
+  isGrey = false,
+  winner
+}) => {
+  const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
+  return /* @__PURE__ */ React16.createElement(OuterCircle, {
+    size,
+    isGreen,
+    isGrey,
+    winner
+  }, /* @__PURE__ */ React16.createElement("div", {
+    className: "center-circle "
+  }, /* @__PURE__ */ React16.createElement("div", {
+    className: "inner-circle"
+  }, account ? /* @__PURE__ */ React16.createElement("img", {
+    width: "100%",
+    src: selectedAvatar,
+    style: { background: selectedBackground }
+  }) : /* @__PURE__ */ React16.createElement("img", {
+    width: "100%",
+    src: preStaticUrl + `/img/default_avatar.png`
+  }))));
+};
 var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/icons/PointsIcon/PointsIcon.tsx
@@ -3290,7 +3390,9 @@ export {
   LngNs,
   AccountInfoDialog_default as LogoutDialog,
   PlayerAvatar_default as PlayerAvatar,
+  PlayerAvatarList,
   PointsDialog_default as PointsDialog,
+  PointsIcon,
   PointsRuleDialog_default as PointsRuleDialog,
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
@@ -3300,28 +3402,42 @@ export {
   appInfo,
   atom6 as atom,
   blankLinkList,
+  bnPow10,
   changeLanguage2 as changeLanguage,
   connectorState,
+  convertToLargeNumberRepresentation,
   defaultChainId,
   divisor6xBigNumber,
   divisorBigNumber,
+  eX,
   erc20_default as erc20Contract,
+  filterInput,
+  formatCurrency,
+  formatDecimal,
+  formatMoney,
+  formatSymbol,
   getContract,
   getContractFromRpc,
   getProvider,
+  getShortenAddress,
+  getShortenAddress2,
   hidePointsWarnState,
   isTestnet,
   linkToBetaDialogChainIdState,
   linkToBetaDialogState,
   localStorageEffect,
+  measureText,
   nativeBalanceState,
   pointsBalanceState,
   pointsDialogState,
   pointsRuleDialogState,
   pointsWarnState,
+  pow10,
   preStaticUrl,
   refreshBalanceState,
+  request,
   selector,
+  splitArrByLen,
   supportedChainIds,
   txStatus,
   useAccountInvitation,

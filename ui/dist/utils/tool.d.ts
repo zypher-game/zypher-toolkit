@@ -1,4 +1,4 @@
-import BigNumber from 'bignumber.js';
+import BigNumber from "bignumber.js";
 export declare const eX: (value: any, x: any) => BigNumber;
 export declare function pow10(num: number | string | BigNumber | undefined, decimals?: number): BigNumber;
 export declare function bnPow10(num: number | string | BigNumber | undefined, decimals?: number): BigNumber;
