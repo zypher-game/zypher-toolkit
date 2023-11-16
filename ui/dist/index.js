@@ -1357,7 +1357,7 @@ import { WarningOutlined } from "@ant-design/icons";
 import classnames6 from "classnames";
 import React12, { memo as memo9, useCallback as useCallback5, useEffect as useEffect4, useMemo as useMemo6 } from "react";
 import { useRecoilState as useRecoilState3 } from "recoil";
-import styled2 from "styled-components";
+import styled from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames4 from "classnames";
@@ -1409,15 +1409,9 @@ var getChainNameText = (chainId) => {
 
 // src/components/Modal/Modal.tsx
 import React11 from "react";
-import { DialogContent, Dialog } from "@reach/dialog";
+import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames5 from "classnames";
-import styled from "styled-components";
-var DialogOverlayModal = styled(Dialog)`
-  padding: 0;
-  background: #131313;
-  border-radius: 20px;
-`;
 var Modal = ({
   open,
   onCancel,
@@ -1430,7 +1424,7 @@ var Modal = ({
   transitionName,
   children
 }) => {
-  return /* @__PURE__ */ React11.createElement(DialogOverlayModal, {
+  return /* @__PURE__ */ React11.createElement(DialogOverlay, {
     isOpen: open,
     onDismiss: onCancel,
     className: classnames5("customDialog", "bottom", wrapClassName),
@@ -1442,11 +1436,11 @@ var Modal = ({
 var Modal_default = Modal;
 
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
-var Content = styled2.div`
+var Content = styled.div`
   text-align: center;
   padding: 50px;
 `;
-var DialogButton = styled2.div`
+var DialogButton = styled.div`
   border-radius: 12px;
   background: #6673ff;
   height: 48px;
@@ -1461,7 +1455,7 @@ var DialogButton = styled2.div`
   justify-content: center;
   align-items: center;
 `;
-var Text = styled2.div`
+var Text = styled.div`
   color: #fff;
   text-align: center;
   font-family: Poppins;
@@ -1532,7 +1526,7 @@ import React28, { memo as memo21, useMemo as useMemo10 } from "react";
 // src/components/Header/rainbow_account/rainbow_account.tsx
 import React26, { memo as memo19, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState8 } from "recoil";
-import styled7 from "styled-components";
+import styled6 from "styled-components";
 
 // src/hooks/useActiveWeb3React.ts
 import { useChainId } from "@my/rainbowkit";
@@ -1599,7 +1593,7 @@ var CurrencyLogo_default = Logo;
 // src/components/PlayerAvatar/index.tsx
 import cx2 from "classnames";
 import React15 from "react";
-import styled3 from "styled-components";
+import styled2 from "styled-components";
 
 // src/utils/generateAvatar.ts
 function hashToSeed(ethereumAddress) {
@@ -1710,7 +1704,7 @@ var PlayerAvatar = ({
     className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
   }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : "waiting", /* @__PURE__ */ React15.createElement(AccountTextFrComp, null)));
 };
-var OuterCircle = styled3.div`
+var OuterCircle = styled2.div`
   background: ${({ isGrey, isGreen }) => {
   if (isGreen) {
     return "linear-gradient(180deg, #8FCA3A 0%, #59B11C 32.81%, #259900 100%)";
@@ -1825,8 +1819,8 @@ var PlayerAvatar_default = PlayerAvatar;
 // src/components/icons/PointsIcon/PointsIcon.tsx
 import React16 from "react";
 import { memo as memo10 } from "react";
-import styled4 from "styled-components";
-var PointsImg = styled4.img`
+import styled3 from "styled-components";
+var PointsImg = styled3.img`
   display: inline-block;
   width: ${({ isMobile }) => isMobile ? "20px" : "30px"};
   margin-left: ${({ isMobile }) => isMobile ? "4px" : "10px"};
@@ -1846,7 +1840,7 @@ var PointsIcon = memo10(
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
 import { useChainModal as useChainModal2 } from "@my/rainbowkit";
 import React17, { memo as memo11 } from "react";
-import styled5 from "styled-components";
+import styled4 from "styled-components";
 
 // src/hooks/useInitRainbowFn.ts
 import { useChainModal } from "@my/rainbowkit";
@@ -1877,7 +1871,7 @@ var useInitRainbowFn = () => {
 };
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-var StatusI = styled5.i`
+var StatusI = styled4.i`
   box-sizing: content-box;
   display: inline-block;
   width: ${({ isMobile }) => isMobile ? "5px" : "6px"};
@@ -1899,7 +1893,7 @@ var StatusI = styled5.i`
     border-radius: 50%;
   }
 `;
-var Wrapper = styled5.div`
+var Wrapper = styled4.div`
   color: #fff;
   font-size: 16px;
   padding: 5px 15px;
@@ -2105,7 +2099,7 @@ import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs2 from "bignumber.js";
 import React22, { memo as memo16, useCallback as useCallback8, useEffect as useEffect6, useState as useState4 } from "react";
 import { useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState4 } from "recoil";
-import styled6 from "styled-components";
+import styled5 from "styled-components";
 
 // src/contract/abi/erc20Abi.json
 var erc20Abi_default = [
@@ -2608,7 +2602,7 @@ var BalanceItem = memo15(
 var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
-var Refresh = styled6.div`
+var Refresh = styled5.div`
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -2629,7 +2623,7 @@ var Refresh = styled6.div`
     }
   }
 `;
-var AddIcon = styled6(icons_default)`
+var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile }) => isMobile ? "4px" : "10px"};
   width: ${({ isMobile }) => isMobile ? "20px" : "24px"};
 `;
@@ -3102,7 +3096,7 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { CloseOutlined } from "@ant-design/icons";
-import { DialogContent as DialogContent2, DialogOverlay } from "@reach/dialog";
+import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
 import React25, { useCallback as useCallback12 } from "react";
 import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState7 } from "recoil";
 import { Trans } from "react-i18next";
@@ -3113,7 +3107,7 @@ var PointsRuleDialog = () => {
   const handleCancel = useCallback12(() => {
     setIsModalOpen(false);
   }, []);
-  return /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(DialogOverlay, {
+  return /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(DialogOverlay2, {
     isOpen: isModalOpen,
     onDismiss: handleCancel,
     className: "points_dialog_zindex"
@@ -3148,7 +3142,7 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-var AddressWrap = styled7.div`
+var AddressWrap = styled6.div`
   display: flex;
   gap: 10px;
   align-items: center;
