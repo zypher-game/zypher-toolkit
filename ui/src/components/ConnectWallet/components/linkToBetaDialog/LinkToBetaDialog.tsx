@@ -15,6 +15,8 @@ import DialogTitle from "../DialogComponents/DialogTitle";
 import { getChainNameText } from "./localPathUrl";
 import { ChainName } from "../../../../constant/constant";
 import Modal from "../../../../components/Modal/Modal";
+import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
+import { LngNs } from "../../../../utils/i18n";
 
 const Content = styled.div`
   text-align: center;
@@ -61,6 +63,7 @@ const LinkToBetaDialog = memo(() => {
       setLinkToBetaDialogChainId(undefined);
     }
   }, [linkToBetaDialogOpen]);
+  const { t } = useCustomTranslation([LngNs.common]);
   return (
     <Modal
       open={linkToBetaDialogOpen}
@@ -73,20 +76,26 @@ const LinkToBetaDialog = memo(() => {
       centered={isMobile ? false : true}
     >
       <DialogTitle
-        label="Switch Networks"
+        label={t("Switch Networks")}
         setDialogOpen={setLinkToBetaDialogOpen}
         classNames={isMobile ? "modalTitleInner" : ""}
       />
       <Content>
         <WarningOutlined style={{ color: "#6673FF", fontSize: "50px" }} />
         <Text>
-          {linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : ""} is
-          currently only deployed in {ToUrlName[1]}.
+          {t("linkToBeta", {
+            chainName: linkToBetaDialogChainId
+              ? ChainName[linkToBetaDialogChainId]
+              : "",
+            toUrlName: ToUrlName[1],
+          })}
         </Text>
       </Content>
       <div style={{ padding: "0 20px 30px" }}>
         <DialogButton onClick={handleButtonClick}>
-          Go to {ToUrlName[0]} Version
+          {t("GotoVersion", {
+            toUrlName: ToUrlName[0],
+          })}
         </DialogButton>
       </div>
     </Modal>

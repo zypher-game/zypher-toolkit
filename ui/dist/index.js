@@ -1480,6 +1480,7 @@ var LinkToBetaDialog = memo9(() => {
       setLinkToBetaDialogChainId(void 0);
     }
   }, [linkToBetaDialogOpen]);
+  const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React12.createElement(Modal_default, {
     open: linkToBetaDialogOpen,
     onCancel: () => setLinkToBetaDialogOpen(false),
@@ -1490,16 +1491,21 @@ var LinkToBetaDialog = memo9(() => {
     width: isMobile ? "100%" : 360,
     centered: isMobile ? false : true
   }, /* @__PURE__ */ React12.createElement(DialogTitle_default, {
-    label: "Switch Networks",
+    label: t("Switch Networks"),
     setDialogOpen: setLinkToBetaDialogOpen,
     classNames: isMobile ? "modalTitleInner" : ""
   }), /* @__PURE__ */ React12.createElement(Content, null, /* @__PURE__ */ React12.createElement(WarningOutlined, {
     style: { color: "#6673FF", fontSize: "50px" }
-  }), /* @__PURE__ */ React12.createElement(Text, null, linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "", " is currently only deployed in ", ToUrlName[1], ".")), /* @__PURE__ */ React12.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement(Text, null, t("linkToBeta", {
+    chainName: linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "",
+    toUrlName: ToUrlName[1]
+  }))), /* @__PURE__ */ React12.createElement("div", {
     style: { padding: "0 20px 30px" }
   }, /* @__PURE__ */ React12.createElement(DialogButton, {
     onClick: handleButtonClick
-  }, "Go to ", ToUrlName[0], " Version")));
+  }, t("GotoVersion", {
+    toUrlName: ToUrlName[0]
+  }))));
 }, isEqual);
 var LinkToBetaDialog_default = LinkToBetaDialog;
 
@@ -3189,9 +3195,12 @@ var rainbow_account_default = Account;
 import { useChainModal as useChainModal3 } from "@my/rainbowkit";
 import React27, { memo as memo20 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
+import { useCustomTranslation as useCustomTranslation2 } from "ui/src/hooks/useCustomTranslation";
+import { LngNs as LngNs2 } from "ui/src/utils/i18n";
 var WrongNetwork = memo20(() => {
   const { openChainModal } = useChainModal3();
   const setAccountInfoDialogOpen = useSetRecoilState9(accountInfoDialogState);
+  const { t } = useCustomTranslation2([LngNs2.common]);
   useInitRainbowFn();
   return /* @__PURE__ */ React27.createElement("div", {
     onClick: () => {
@@ -3201,17 +3210,20 @@ var WrongNetwork = memo20(() => {
       }
     },
     className: "connect_connect"
-  }, /* @__PURE__ */ React27.createElement("p", null, "Wrong network"));
+  }, /* @__PURE__ */ React27.createElement("p", null, t("Wrong network")));
 }, isEqual);
 var WrongNetwork_default = WrongNetwork;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
+import { useCustomTranslation as useCustomTranslation3 } from "ui/src/hooks/useCustomTranslation";
+import { LngNs as LngNs3 } from "ui/src/utils/i18n";
 var RainbowConnectWallet = memo21((props) => {
   const { className, env, copy, dispatch, setSuccessToast, setErrorToast } = props;
   const isPathLocation = useMemo10(() => {
     const arr = window.location.hostname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, []);
+  const { t } = useCustomTranslation3([LngNs3.common]);
   return /* @__PURE__ */ React28.createElement("div", {
     className: classnames11(
       "connect_connectWallet",
@@ -3222,7 +3234,7 @@ var RainbowConnectWallet = memo21((props) => {
     return /* @__PURE__ */ React28.createElement(React28.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React28.createElement("div", {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React28.createElement("p", null, "Connect Wallet")) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
+    }, /* @__PURE__ */ React28.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,

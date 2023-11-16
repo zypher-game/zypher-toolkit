@@ -8,6 +8,8 @@ import { ChainId } from "../../../constant/constant";
 import Account from "./rainbow_account";
 import "./rainbow_connectWallet.module.stylus";
 import WrongNetwork from "./WrongNetwork";
+import { useCustomTranslation } from "ui/src/hooks/useCustomTranslation";
+import { LngNs } from "ui/src/utils/i18n";
 
 interface IProps {
   env: string;
@@ -25,7 +27,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
     const arr = window.location.hostname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, []);
-
+  const { t } = useCustomTranslation([LngNs.common]);
   return (
     <div
       className={classnames(
@@ -40,7 +42,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <div onClick={openConnectModal} className={"connect_connect"}>
-                  <p>Connect Wallet</p>
+                  <p>{t("Connect Wallet")}</p>
                 </div>
               ) : chain &&
                 (chain.unsupported ||

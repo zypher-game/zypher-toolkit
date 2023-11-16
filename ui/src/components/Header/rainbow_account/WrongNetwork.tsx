@@ -7,10 +7,13 @@ import { useInitRainbowFn } from "../../../hooks/useInitRainbowFn";
 
 import { accountInfoDialogState } from "../../ConnectWallet/state/connectWalletState";
 import "./rainbow_connectWallet.module.stylus";
+import { useCustomTranslation } from "ui/src/hooks/useCustomTranslation";
+import { LngNs } from "ui/src/utils/i18n";
 
 const WrongNetwork = memo(() => {
   const { openChainModal } = useChainModal();
   const setAccountInfoDialogOpen = useSetRecoilState(accountInfoDialogState);
+  const { t } = useCustomTranslation([LngNs.common]);
   useInitRainbowFn();
   return (
     <div
@@ -22,7 +25,7 @@ const WrongNetwork = memo(() => {
       }}
       className={"connect_connect"}
     >
-      <p>Wrong network</p>
+      <p>{t("Wrong network")}</p>
     </div>
   );
 }, isEqual);
