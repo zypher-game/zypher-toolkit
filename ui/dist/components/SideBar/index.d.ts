@@ -2,6 +2,7 @@ import React from "react";
 import "./sidebar.module.stylus";
 interface IProps {
     isMobile: boolean;
+    useNavigate: any;
     className?: string;
 }
 export declare const MobileLogo: React.MemoExoticComponent<({ isMobile }: IProps) => React.JSX.Element>;

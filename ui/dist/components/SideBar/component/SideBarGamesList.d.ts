@@ -6,6 +6,7 @@ type IProps = {
     className_listItemDisable: string;
     className_listItem: string;
     list: INavLink[];
+    useNavigate: any;
     isMobile: boolean;
 };
 declare const SideBarGamesList: FC<IProps>;

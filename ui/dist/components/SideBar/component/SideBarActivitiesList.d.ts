@@ -8,6 +8,7 @@ type IProps = {
     className_listItemVerDisable: string;
     className_listItemVer: string;
     isMobile: boolean;
+    useNavigate: any;
     list: INavLink[];
 };
 declare const SideBarActivitiesList: FC<IProps>;

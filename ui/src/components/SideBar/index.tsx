@@ -20,6 +20,7 @@ import "./sidebar.module.stylus";
 
 interface IProps {
   isMobile: boolean;
+  useNavigate: any;
   className?: string;
 }
 export const MobileLogo = memo(({ isMobile }: IProps) => {
@@ -31,7 +32,7 @@ export const MobileLogo = memo(({ isMobile }: IProps) => {
   );
 });
 const SideBar: React.FC<IProps> = (props: IProps) => {
-  const { isMobile } = props;
+  const { isMobile, useNavigate } = props;
   const items = useNavItem();
   usePathname();
   const {
@@ -67,6 +68,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
               className_disable={"horListItmeDisable"}
               className={"horListItme"}
               isMobile={isMobile}
+              useNavigate={useNavigate}
               {...items[0]}
             />
             <div className={"line"} />
@@ -84,6 +86,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           className_listItemDisable={"verListItmeDisable"}
           list={sideBarGamesLinkList}
           isMobile={isMobile}
+          useNavigate={useNavigate}
         />
         <div className={"line"} />
         <SideBarTitle
@@ -92,6 +95,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           className={"sideBarTitle"}
         />
         <SideBarActivitiesList
+          useNavigate={useNavigate}
           isMobile={isMobile}
           className_on={"item_on"}
           className_list={"activitiesList"}

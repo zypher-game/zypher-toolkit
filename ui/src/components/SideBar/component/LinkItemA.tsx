@@ -1,11 +1,9 @@
 import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
 import React, { FC, memo, useCallback, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { INavLink } from "../../../hooks/useNavItem";
-import { useIsMobile } from "../../../hooks/useWindowSize";
 import { preStaticUrl } from "../../../constant/constant";
 
 import { defaultSelectedKey, siderCollapseState } from "../state";
@@ -14,11 +12,13 @@ interface IProps extends INavLink {
   className: string;
   isMobile: boolean;
   className_on: string;
+  useNavigate: any;
 }
-const useLink = (link: INavLink, isMobile: boolean) => {
+const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
   const selectedKey = useRecoilValue(defaultSelectedKey);
   const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
   const setSiderCollapse = useSetRecoilState(siderCollapseState);
+  const navigate = useNavigate();
   const isOn = useMemo(() => {
     if (selectedKey === link.keyValue) {
       return true;
@@ -31,15 +31,23 @@ const useLink = (link: INavLink, isMobile: boolean) => {
         return;
       }
       event.preventDefault();
-      setDefaultSelectedKey(link.keyValue);
       if (isMobile) {
         setSiderCollapse(true);
       }
       setTimeout(() => {
-        window.location.href = "/#" + link.link;
+        try {
+          if (link.link.indexOf("http") > -1) {
+            window.open(link.link, "_blank");
+          } else {
+            setDefaultSelectedKey(link.keyValue);
+            navigate(link.link);
+          }
+        } catch (e) {
+          window.location.href = "/#" + link.link;
+        }
       }, 200);
     },
-    [isMobile]
+    [navigate, isMobile]
   );
   return {
     isOn,
@@ -52,9 +60,10 @@ const LinkItem1: FC<IProps> = memo(
     className_on,
     isMobile,
     className_disable,
+    useNavigate,
     ...link
   }: IProps) => {
-    const { isOn, linkClickHandle } = useLink(link, isMobile);
+    const { isOn, linkClickHandle } = useLink(link, isMobile, useNavigate);
     return (
       <div
         onClick={linkClickHandle}

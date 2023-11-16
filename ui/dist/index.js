@@ -907,10 +907,11 @@ var CommunityLink_default = CommunityLink;
 import classnames from "classnames";
 import React5, { memo as memo3, useCallback as useCallback3, useMemo as useMemo2 } from "react";
 import { useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
-var useLink = (link, isMobile) => {
+var useLink = (link, isMobile, useNavigate) => {
   const selectedKey = useRecoilValue(defaultSelectedKey);
   const setDefaultSelectedKey = useSetRecoilState2(defaultSelectedKey);
   const setSiderCollapse = useSetRecoilState2(siderCollapseState);
+  const navigate = useNavigate();
   const isOn = useMemo2(() => {
     if (selectedKey === link.keyValue) {
       return true;
@@ -923,15 +924,23 @@ var useLink = (link, isMobile) => {
         return;
       }
       event.preventDefault();
-      setDefaultSelectedKey(link.keyValue);
       if (isMobile) {
         setSiderCollapse(true);
       }
       setTimeout(() => {
-        window.location.href = "/#" + link.link;
+        try {
+          if (link.link.indexOf("http") > -1) {
+            window.open(link.link, "_blank");
+          } else {
+            setDefaultSelectedKey(link.keyValue);
+            navigate(link.link);
+          }
+        } catch (e) {
+          window.location.href = "/#" + link.link;
+        }
       }, 200);
     },
-    [isMobile]
+    [navigate, isMobile]
   );
   return {
     isOn,
@@ -944,9 +953,10 @@ var LinkItem1 = memo3(
     className_on,
     isMobile,
     className_disable,
+    useNavigate,
     ...link
   }) => {
-    const { isOn, linkClickHandle } = useLink(link, isMobile);
+    const { isOn, linkClickHandle } = useLink(link, isMobile, useNavigate);
     return /* @__PURE__ */ React5.createElement("div", {
       onClick: linkClickHandle,
       className: classnames(
@@ -973,7 +983,8 @@ var SideBarActivitiesList = memo4(
     className_listItemVerDisable,
     className_listItemVer,
     list,
-    isMobile
+    isMobile,
+    useNavigate
   }) => {
     const { listItemDisable, listItem } = useMemo3(() => {
       if (isMobile) {
@@ -990,6 +1001,7 @@ var SideBarActivitiesList = memo4(
     return /* @__PURE__ */ React6.createElement("div", {
       className: className_list
     }, list.map((v) => /* @__PURE__ */ React6.createElement(LinkItemA_default, {
+      useNavigate,
       className_on,
       className_disable: listItemDisable,
       isMobile,
@@ -1010,12 +1022,14 @@ var SideBarGamesList = memo5(
     className_list,
     className_listItemDisable,
     className_listItem,
+    useNavigate,
     list,
     isMobile
   }) => {
     return /* @__PURE__ */ React7.createElement("div", {
       className: className_list
     }, list.map((v) => /* @__PURE__ */ React7.createElement(LinkItemA_default, {
+      useNavigate,
       isMobile,
       className_on,
       className_disable: className_listItemDisable,
@@ -1053,7 +1067,7 @@ var MobileLogo = memo7(({ isMobile }) => {
   }));
 });
 var SideBar = (props) => {
-  const { isMobile } = props;
+  const { isMobile, useNavigate } = props;
   const items = useNavItem();
   usePathname();
   const {
@@ -1084,6 +1098,7 @@ var SideBar = (props) => {
     className_disable: "horListItmeDisable",
     className: "horListItme",
     isMobile,
+    useNavigate,
     ...items[0]
   }), /* @__PURE__ */ React9.createElement("div", {
     className: "line"
@@ -1097,7 +1112,8 @@ var SideBar = (props) => {
     className_listItem: "verListItme",
     className_listItemDisable: "verListItmeDisable",
     list: sideBarGamesLinkList,
-    isMobile
+    isMobile,
+    useNavigate
   }), /* @__PURE__ */ React9.createElement("div", {
     className: "line"
   }), /* @__PURE__ */ React9.createElement(SideBarTitle_default, {
@@ -1105,6 +1121,7 @@ var SideBar = (props) => {
     logo_url_name: "activities",
     className: "sideBarTitle"
   }), /* @__PURE__ */ React9.createElement(SideBarActivitiesList_default, {
+    useNavigate,
     isMobile,
     className_on: "item_on",
     className_list: "activitiesList",
