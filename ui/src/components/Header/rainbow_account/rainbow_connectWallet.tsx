@@ -19,10 +19,18 @@ interface IProps {
   isMobile: boolean;
   className?: string;
   copy: any;
+  useDisconnect: any;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
-  const { className, env, copy, dispatch, setSuccessToast, setErrorToast } =
-    props;
+  const {
+    className,
+    env,
+    copy,
+    useDisconnect,
+    dispatch,
+    setSuccessToast,
+    setErrorToast,
+  } = props;
   const isPathLocation = useMemo(() => {
     const arr = window.location.hostname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
@@ -56,6 +64,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   dispatch={dispatch}
                   setSuccessToast={setSuccessToast}
                   setErrorToast={setErrorToast}
+                  useDisconnect={useDisconnect}
                 />
               )}
             </>

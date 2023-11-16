@@ -20,6 +20,7 @@ interface IProps {
   hideMenu?: boolean;
   copy: any;
   useNavigate: any;
+  useDisconnect: any;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
@@ -33,6 +34,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     setSuccessToast,
     setErrorToast,
     copy,
+    useDisconnect,
     useNavigate,
   } = props;
   return (
@@ -54,6 +56,7 @@ const Header = (props: IProps): React.ReactElement | null => {
           dispatch={dispatch}
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
+          useDisconnect={useDisconnect}
         />
         {isMobile && !hideMenu ? (
           <>

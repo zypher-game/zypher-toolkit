@@ -1549,7 +1549,6 @@ function useActiveWeb3React() {
 import classnames8 from "classnames";
 import React20, { memo as memo14, useCallback as useCallback6 } from "react";
 import { useRecoilState as useRecoilState4 } from "recoil";
-import { useDisconnect } from "wagmi";
 
 // src/hooks/useActiveWallet.ts
 import { useWalletConnectors } from "@my/rainbowkit";
@@ -1984,10 +1983,11 @@ var PcUserInfo = memo12(
   isEqual
 );
 var DisconnectBtn = memo12(({ cancel }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React18.createElement("p", {
     className: "pc_user_disconnect_btn",
     onClick: cancel
-  }, "Disconnect");
+  }, t("Disconnect"));
 }, isEqual);
 var PcUserInfo_default = PcUserInfo;
 
@@ -2044,52 +2044,54 @@ var MUserInfo = memo13(({ account, chainId, cancel }) => {
 var MUserInfo_default = MUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
-var AccountInfoDialog = memo14(({ copy }) => {
-  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState4(
-    accountInfoDialogState
-  );
-  const { account, chainId } = useActiveWeb3React();
-  const isMobile = useIsMobile();
-  const { disconnect } = useDisconnect();
-  const wallet = useActiveWallet();
-  const cancel = useCallback6(() => {
-    disconnect();
-    setAccountInfoDialogOpen(false);
-  }, [disconnect]);
-  return account && chainId ? /* @__PURE__ */ React20.createElement(React20.Fragment, null, /* @__PURE__ */ React20.createElement(Modal_default, {
-    open: accountInfoDialogOpen,
-    onCancel: () => setAccountInfoDialogOpen(false),
-    footer: null,
-    wrapClassName: classnames8(
-      "customDialog",
-      "bottom",
-      "account_info_dialog_dialog"
-    ),
-    destroyOnClose: true,
-    closable: false,
-    width: isMobile ? "100%" : 440,
-    centered: isMobile ? false : true,
-    transitionName: isMobile ? "ant-slide-down" : void 0
-  }, /* @__PURE__ */ React20.createElement(DialogTitle_default, {
-    label: "Your Wallet",
-    setDialogOpen: setAccountInfoDialogOpen,
-    classNames: isMobile ? "modalTitleInner" : ""
-  }), /* @__PURE__ */ React20.createElement("div", {
-    className: "account_info_dialog_modalMain"
-  }, isMobile ? /* @__PURE__ */ React20.createElement(MUserInfo_default, {
-    copy,
-    account,
-    chainId,
-    cancel
-  }) : /* @__PURE__ */ React20.createElement(PcUserInfo_default, {
-    copy,
-    account,
-    chainId,
-    cancel,
-    connectName: wallet == null ? void 0 : wallet.name,
-    connectIcon: wallet == null ? void 0 : wallet.iconUrl
-  })))) : null;
-});
+var AccountInfoDialog = memo14(
+  ({ copy, useDisconnect }) => {
+    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState4(
+      accountInfoDialogState
+    );
+    const { account, chainId } = useActiveWeb3React();
+    const isMobile = useIsMobile();
+    const { disconnect } = useDisconnect();
+    const wallet = useActiveWallet();
+    const cancel = useCallback6(() => {
+      disconnect();
+      setAccountInfoDialogOpen(false);
+    }, [disconnect]);
+    return account && chainId ? /* @__PURE__ */ React20.createElement(React20.Fragment, null, /* @__PURE__ */ React20.createElement(Modal_default, {
+      open: accountInfoDialogOpen,
+      onCancel: () => setAccountInfoDialogOpen(false),
+      footer: null,
+      wrapClassName: classnames8(
+        "customDialog",
+        "bottom",
+        "account_info_dialog_dialog"
+      ),
+      destroyOnClose: true,
+      closable: false,
+      width: isMobile ? "100%" : 440,
+      centered: isMobile ? false : true,
+      transitionName: isMobile ? "ant-slide-down" : void 0
+    }, /* @__PURE__ */ React20.createElement(DialogTitle_default, {
+      label: "Your Wallet",
+      setDialogOpen: setAccountInfoDialogOpen,
+      classNames: isMobile ? "modalTitleInner" : ""
+    }), /* @__PURE__ */ React20.createElement("div", {
+      className: "account_info_dialog_modalMain"
+    }, isMobile ? /* @__PURE__ */ React20.createElement(MUserInfo_default, {
+      copy,
+      account,
+      chainId,
+      cancel
+    }) : /* @__PURE__ */ React20.createElement(PcUserInfo_default, {
+      copy,
+      account,
+      chainId,
+      cancel,
+      connectName: wallet == null ? void 0 : wallet.name,
+      connectIcon: wallet == null ? void 0 : wallet.iconUrl
+    })))) : null;
+  }
+);
 var AccountInfoDialog_default = AccountInfoDialog;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
@@ -3159,7 +3161,8 @@ var Account = memo19(
     dispatch,
     setSuccessToast,
     setErrorToast,
-    copy
+    copy,
+    useDisconnect
   }) => {
     const isMobile = useIsMobile();
     const setPointsDialogState = useSetRecoilState8(pointsDialogState);
@@ -3183,7 +3186,8 @@ var Account = memo19(
       size: isMobile ? 26 : 36,
       showAccount: isMobile ? false : true
     })), !isMobile && /* @__PURE__ */ React26.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React26.createElement(AccountInfoDialog_default, {
-      copy
+      copy,
+      useDisconnect
     }), /* @__PURE__ */ React26.createElement(PointsDialog_default, {
       env,
       dispatch,
@@ -3218,7 +3222,15 @@ var WrongNetwork_default = WrongNetwork;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 var RainbowConnectWallet = memo21((props) => {
-  const { className, env, copy, dispatch, setSuccessToast, setErrorToast } = props;
+  const {
+    className,
+    env,
+    copy,
+    useDisconnect,
+    dispatch,
+    setSuccessToast,
+    setErrorToast
+  } = props;
   const isPathLocation = useMemo10(() => {
     const arr = window.location.hostname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
@@ -3239,7 +3251,8 @@ var RainbowConnectWallet = memo21((props) => {
       env,
       dispatch,
       setSuccessToast,
-      setErrorToast
+      setErrorToast,
+      useDisconnect
     }));
   }));
 }, isEqual);
@@ -3270,6 +3283,7 @@ var Header = (props) => {
     setSuccessToast,
     setErrorToast,
     copy,
+    useDisconnect,
     useNavigate
   } = props;
   return /* @__PURE__ */ React29.createElement("header", {
@@ -3288,7 +3302,8 @@ var Header = (props) => {
     env,
     dispatch,
     setSuccessToast,
-    setErrorToast
+    setErrorToast,
+    useDisconnect
   }), isMobile && !hideMenu ? /* @__PURE__ */ React29.createElement(React29.Fragment, null, collapsed ? /* @__PURE__ */ React29.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(false)

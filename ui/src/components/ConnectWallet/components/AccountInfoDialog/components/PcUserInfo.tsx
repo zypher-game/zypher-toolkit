@@ -8,6 +8,8 @@ import Icon from "../../../../../components/icons";
 import * as config from "../../../../../constant/constant";
 
 import "./PcUserInfo.module.stylus";
+import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
+import { LngNs } from "../../../../../utils/i18n";
 type IDisconnectBtnProps = {
   cancel: any;
 };
@@ -59,9 +61,10 @@ const PcUserInfo = memo(
 );
 
 export const DisconnectBtn = memo(({ cancel }: IDisconnectBtnProps) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   return (
     <p className={"pc_user_disconnect_btn"} onClick={cancel}>
-      Disconnect
+      {t("Disconnect")}
     </p>
   );
 }, isEqual);
