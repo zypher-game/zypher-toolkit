@@ -12,6 +12,7 @@ import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
 
 interface IProps {
+  useLocation: any;
   env: string;
   dispatch: any;
   setSuccessToast: any;
@@ -19,22 +20,22 @@ interface IProps {
   isMobile: boolean;
   className?: string;
   copy: any;
-  useDisconnect: any;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const {
+    useLocation,
     className,
     env,
     copy,
-    useDisconnect,
     dispatch,
     setSuccessToast,
     setErrorToast,
   } = props;
+  const location = useLocation();
   const isPathLocation = useMemo(() => {
-    const arr = window.location.hostname.split("/");
+    const arr = location.pathname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
-  }, []);
+  }, [location]);
   const { t } = useCustomTranslation([LngNs.common]);
   return (
     <div
@@ -64,7 +65,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   dispatch={dispatch}
                   setSuccessToast={setSuccessToast}
                   setErrorToast={setErrorToast}
-                  useDisconnect={useDisconnect}
                 />
               )}
             </>

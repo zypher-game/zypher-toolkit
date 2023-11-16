@@ -2,6 +2,7 @@ import React from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames from "classnames";
+import styled from "styled-components";
 
 interface ModalProps {
   open: boolean;
@@ -15,7 +16,11 @@ interface ModalProps {
   transitionName?: string;
   children: React.ReactNode;
 }
-
+const DialogOverlayModal = styled(DialogOverlay)`
+  padding: 0;
+  background: #131313;
+  border-radius: 20px;
+`;
 const Modal: React.FC<ModalProps> = ({
   open,
   onCancel,
@@ -29,7 +34,7 @@ const Modal: React.FC<ModalProps> = ({
   children,
 }) => {
   return (
-    <DialogOverlay
+    <DialogOverlayModal
       isOpen={open}
       onDismiss={onCancel}
       className={classnames("customDialog", "bottom", wrapClassName)}
@@ -37,7 +42,7 @@ const Modal: React.FC<ModalProps> = ({
       aria-label="Modal"
     >
       <DialogContent style={{ width: width }}>{children}</DialogContent>
-    </DialogOverlay>
+    </DialogOverlayModal>
   );
 };
 

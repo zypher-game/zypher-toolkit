@@ -20,7 +20,7 @@ interface IProps {
   hideMenu?: boolean;
   copy: any;
   useNavigate: any;
-  useDisconnect: any;
+  useLocation: any;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
@@ -34,8 +34,8 @@ const Header = (props: IProps): React.ReactElement | null => {
     setSuccessToast,
     setErrorToast,
     copy,
-    useDisconnect,
     useNavigate,
+    useLocation,
   } = props;
   return (
     <header
@@ -50,13 +50,13 @@ const Header = (props: IProps): React.ReactElement | null => {
       <div className={"header_right"}>
         {/* <ConnectWallet isMobile={isMobile} /> */}
         <RainbowConnectWallet
+          useLocation={useLocation}
           copy={copy}
           isMobile={isMobile}
           env={env}
           dispatch={dispatch}
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
-          useDisconnect={useDisconnect}
         />
         {isMobile && !hideMenu ? (
           <>

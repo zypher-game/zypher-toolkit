@@ -1,6 +1,7 @@
 import React from "react";
 import "./rainbow_connectWallet.module.stylus";
 interface IProps {
+    useLocation: any;
     env: string;
     dispatch: any;
     setSuccessToast: any;
@@ -8,7 +9,6 @@ interface IProps {
     isMobile: boolean;
     className?: string;
     copy: any;
-    useDisconnect: any;
 }
 declare const RainbowConnectWallet: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default RainbowConnectWallet;

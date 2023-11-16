@@ -1357,7 +1357,7 @@ import { WarningOutlined } from "@ant-design/icons";
 import classnames6 from "classnames";
 import React12, { memo as memo9, useCallback as useCallback5, useEffect as useEffect4, useMemo as useMemo6 } from "react";
 import { useRecoilState as useRecoilState3 } from "recoil";
-import styled from "styled-components";
+import styled2 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames4 from "classnames";
@@ -1412,6 +1412,12 @@ import React11 from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames5 from "classnames";
+import styled from "styled-components";
+var DialogOverlayModal = styled(DialogOverlay)`
+  padding: 0;
+  background: #131313;
+  border-radius: 20px;
+`;
 var Modal = ({
   open,
   onCancel,
@@ -1424,7 +1430,7 @@ var Modal = ({
   transitionName,
   children
 }) => {
-  return /* @__PURE__ */ React11.createElement(DialogOverlay, {
+  return /* @__PURE__ */ React11.createElement(DialogOverlayModal, {
     isOpen: open,
     onDismiss: onCancel,
     className: classnames5("customDialog", "bottom", wrapClassName),
@@ -1436,11 +1442,11 @@ var Modal = ({
 var Modal_default = Modal;
 
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
-var Content = styled.div`
+var Content = styled2.div`
   text-align: center;
   padding: 50px;
 `;
-var DialogButton = styled.div`
+var DialogButton = styled2.div`
   border-radius: 12px;
   background: #6673ff;
   height: 48px;
@@ -1455,7 +1461,7 @@ var DialogButton = styled.div`
   justify-content: center;
   align-items: center;
 `;
-var Text = styled.div`
+var Text = styled2.div`
   color: #fff;
   text-align: center;
   font-family: Poppins;
@@ -1526,7 +1532,7 @@ import React28, { memo as memo21, useMemo as useMemo10 } from "react";
 // src/components/Header/rainbow_account/rainbow_account.tsx
 import React26, { memo as memo19, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState8 } from "recoil";
-import styled6 from "styled-components";
+import styled7 from "styled-components";
 
 // src/hooks/useActiveWeb3React.ts
 import { useChainId } from "@my/rainbowkit";
@@ -1593,7 +1599,7 @@ var CurrencyLogo_default = Logo;
 // src/components/PlayerAvatar/index.tsx
 import cx2 from "classnames";
 import React15 from "react";
-import styled2 from "styled-components";
+import styled3 from "styled-components";
 
 // src/utils/generateAvatar.ts
 function hashToSeed(ethereumAddress) {
@@ -1704,7 +1710,7 @@ var PlayerAvatar = ({
     className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
   }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : "waiting", /* @__PURE__ */ React15.createElement(AccountTextFrComp, null)));
 };
-var OuterCircle = styled2.div`
+var OuterCircle = styled3.div`
   background: ${({ isGrey, isGreen }) => {
   if (isGreen) {
     return "linear-gradient(180deg, #8FCA3A 0%, #59B11C 32.81%, #259900 100%)";
@@ -1819,8 +1825,8 @@ var PlayerAvatar_default = PlayerAvatar;
 // src/components/icons/PointsIcon/PointsIcon.tsx
 import React16 from "react";
 import { memo as memo10 } from "react";
-import styled3 from "styled-components";
-var PointsImg = styled3.img`
+import styled4 from "styled-components";
+var PointsImg = styled4.img`
   display: inline-block;
   width: ${({ isMobile }) => isMobile ? "20px" : "30px"};
   margin-left: ${({ isMobile }) => isMobile ? "4px" : "10px"};
@@ -1840,7 +1846,7 @@ var PointsIcon = memo10(
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
 import { useChainModal as useChainModal2 } from "@my/rainbowkit";
 import React17, { memo as memo11 } from "react";
-import styled4 from "styled-components";
+import styled5 from "styled-components";
 
 // src/hooks/useInitRainbowFn.ts
 import { useChainModal } from "@my/rainbowkit";
@@ -1871,7 +1877,7 @@ var useInitRainbowFn = () => {
 };
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-var StatusI = styled4.i`
+var StatusI = styled5.i`
   box-sizing: content-box;
   display: inline-block;
   width: ${({ isMobile }) => isMobile ? "5px" : "6px"};
@@ -1893,7 +1899,7 @@ var StatusI = styled4.i`
     border-radius: 50%;
   }
 `;
-var Wrapper = styled4.div`
+var Wrapper = styled5.div`
   color: #fff;
   font-size: 16px;
   padding: 5px 15px;
@@ -2044,54 +2050,54 @@ var MUserInfo = memo13(({ account, chainId, cancel }) => {
 var MUserInfo_default = MUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
-var AccountInfoDialog = memo14(
-  ({ copy, useDisconnect }) => {
-    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState4(
-      accountInfoDialogState
-    );
-    const { account, chainId } = useActiveWeb3React();
-    const isMobile = useIsMobile();
-    const { disconnect } = useDisconnect();
-    const wallet = useActiveWallet();
-    const cancel = useCallback6(() => {
-      disconnect();
-      setAccountInfoDialogOpen(false);
-    }, [disconnect]);
-    return account && chainId ? /* @__PURE__ */ React20.createElement(React20.Fragment, null, /* @__PURE__ */ React20.createElement(Modal_default, {
-      open: accountInfoDialogOpen,
-      onCancel: () => setAccountInfoDialogOpen(false),
-      footer: null,
-      wrapClassName: classnames8(
-        "customDialog",
-        "bottom",
-        "account_info_dialog_dialog"
-      ),
-      destroyOnClose: true,
-      closable: false,
-      width: isMobile ? "100%" : 440,
-      centered: isMobile ? false : true,
-      transitionName: isMobile ? "ant-slide-down" : void 0
-    }, /* @__PURE__ */ React20.createElement(DialogTitle_default, {
-      label: "Your Wallet",
-      setDialogOpen: setAccountInfoDialogOpen,
-      classNames: isMobile ? "modalTitleInner" : ""
-    }), /* @__PURE__ */ React20.createElement("div", {
-      className: "account_info_dialog_modalMain"
-    }, isMobile ? /* @__PURE__ */ React20.createElement(MUserInfo_default, {
-      copy,
-      account,
-      chainId,
-      cancel
-    }) : /* @__PURE__ */ React20.createElement(PcUserInfo_default, {
-      copy,
-      account,
-      chainId,
-      cancel,
-      connectName: wallet == null ? void 0 : wallet.name,
-      connectIcon: wallet == null ? void 0 : wallet.iconUrl
-    })))) : null;
-  }
-);
+import { useDisconnect } from "wagmi";
+var AccountInfoDialog = memo14(({ copy }) => {
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState4(
+    accountInfoDialogState
+  );
+  const { account, chainId } = useActiveWeb3React();
+  const isMobile = useIsMobile();
+  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
+  const cancel = useCallback6(() => {
+    setAccountInfoDialogOpen(false);
+    disconnect();
+    window.location.reload();
+  }, [disconnect]);
+  return account && chainId ? /* @__PURE__ */ React20.createElement(React20.Fragment, null, /* @__PURE__ */ React20.createElement(Modal_default, {
+    open: accountInfoDialogOpen,
+    onCancel: () => setAccountInfoDialogOpen(false),
+    footer: null,
+    wrapClassName: classnames8(
+      "customDialog",
+      "bottom",
+      "account_info_dialog_dialog"
+    ),
+    destroyOnClose: true,
+    closable: false,
+    width: isMobile ? "100%" : 440,
+    centered: isMobile ? false : true,
+    transitionName: isMobile ? "ant-slide-down" : void 0
+  }, /* @__PURE__ */ React20.createElement(DialogTitle_default, {
+    label: "Your Wallet",
+    setDialogOpen: setAccountInfoDialogOpen,
+    classNames: isMobile ? "modalTitleInner" : ""
+  }), /* @__PURE__ */ React20.createElement("div", {
+    className: "account_info_dialog_modalMain"
+  }, isMobile ? /* @__PURE__ */ React20.createElement(MUserInfo_default, {
+    copy,
+    account,
+    chainId,
+    cancel
+  }) : /* @__PURE__ */ React20.createElement(PcUserInfo_default, {
+    copy,
+    account,
+    chainId,
+    cancel,
+    connectName: wallet == null ? void 0 : wallet.name,
+    connectIcon: wallet == null ? void 0 : wallet.iconUrl
+  })))) : null;
+});
 var AccountInfoDialog_default = AccountInfoDialog;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
@@ -2099,7 +2105,7 @@ import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs2 from "bignumber.js";
 import React22, { memo as memo16, useCallback as useCallback8, useEffect as useEffect6, useState as useState4 } from "react";
 import { useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState4 } from "recoil";
-import styled5 from "styled-components";
+import styled6 from "styled-components";
 
 // src/contract/abi/erc20Abi.json
 var erc20Abi_default = [
@@ -2602,7 +2608,7 @@ var BalanceItem = memo15(
 var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
-var Refresh = styled5.div`
+var Refresh = styled6.div`
   color: #fff;
   border-radius: 50%;
   display: flex;
@@ -2623,7 +2629,7 @@ var Refresh = styled5.div`
     }
   }
 `;
-var AddIcon = styled5(icons_default)`
+var AddIcon = styled6(icons_default)`
   margin-right: ${({ isMobile }) => isMobile ? "4px" : "10px"};
   width: ${({ isMobile }) => isMobile ? "20px" : "24px"};
 `;
@@ -3142,7 +3148,7 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-var AddressWrap = styled6.div`
+var AddressWrap = styled7.div`
   display: flex;
   gap: 10px;
   align-items: center;
@@ -3161,8 +3167,7 @@ var Account = memo19(
     dispatch,
     setSuccessToast,
     setErrorToast,
-    copy,
-    useDisconnect
+    copy
   }) => {
     const isMobile = useIsMobile();
     const setPointsDialogState = useSetRecoilState8(pointsDialogState);
@@ -3186,8 +3191,7 @@ var Account = memo19(
       size: isMobile ? 26 : 36,
       showAccount: isMobile ? false : true
     })), !isMobile && /* @__PURE__ */ React26.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React26.createElement(AccountInfoDialog_default, {
-      copy,
-      useDisconnect
+      copy
     }), /* @__PURE__ */ React26.createElement(PointsDialog_default, {
       env,
       dispatch,
@@ -3223,18 +3227,19 @@ var WrongNetwork_default = WrongNetwork;
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 var RainbowConnectWallet = memo21((props) => {
   const {
+    useLocation,
     className,
     env,
     copy,
-    useDisconnect,
     dispatch,
     setSuccessToast,
     setErrorToast
   } = props;
+  const location2 = useLocation();
   const isPathLocation = useMemo10(() => {
-    const arr = window.location.hostname.split("/");
+    const arr = location2.pathname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
-  }, []);
+  }, [location2]);
   const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React28.createElement("div", {
     className: classnames11(
@@ -3251,8 +3256,7 @@ var RainbowConnectWallet = memo21((props) => {
       env,
       dispatch,
       setSuccessToast,
-      setErrorToast,
-      useDisconnect
+      setErrorToast
     }));
   }));
 }, isEqual);
@@ -3283,8 +3287,8 @@ var Header = (props) => {
     setSuccessToast,
     setErrorToast,
     copy,
-    useDisconnect,
-    useNavigate
+    useNavigate,
+    useLocation
   } = props;
   return /* @__PURE__ */ React29.createElement("header", {
     className: classnames12("header_header", props.className),
@@ -3297,13 +3301,13 @@ var Header = (props) => {
   })), /* @__PURE__ */ React29.createElement("div", {
     className: "header_right"
   }, /* @__PURE__ */ React29.createElement(rainbow_connectWallet_default, {
+    useLocation,
     copy,
     isMobile,
     env,
     dispatch,
     setSuccessToast,
-    setErrorToast,
-    useDisconnect
+    setErrorToast
   }), isMobile && !hideMenu ? /* @__PURE__ */ React29.createElement(React29.Fragment, null, collapsed ? /* @__PURE__ */ React29.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(false)

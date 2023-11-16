@@ -37,14 +37,12 @@ const Account = memo(
     setSuccessToast,
     setErrorToast,
     copy,
-    useDisconnect,
   }: {
     env: string;
     dispatch: any;
     setSuccessToast: any;
     copy: any;
     setErrorToast: any;
-    useDisconnect: any;
   }) => {
     const isMobile = useIsMobile();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
@@ -72,7 +70,7 @@ const Account = memo(
           />
         </AddressWrap>
         {!isMobile && <ChainSelectorWidget />}
-        <LogoutDialog copy={copy} useDisconnect={useDisconnect} />
+        <LogoutDialog copy={copy} />
         <PointsDialog
           env={env}
           dispatch={dispatch}

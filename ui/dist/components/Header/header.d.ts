@@ -9,7 +9,7 @@ interface IProps {
     hideMenu?: boolean;
     copy: any;
     useNavigate: any;
-    useDisconnect: any;
+    useLocation: any;
 }
 declare const Header: (props: IProps) => React.ReactElement | null;
 export default Header;
