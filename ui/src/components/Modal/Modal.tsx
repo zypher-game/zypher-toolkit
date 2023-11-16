@@ -2,7 +2,7 @@ import React from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames from "classnames";
-
+import "./Modal.stylus";
 interface ModalProps {
   open: boolean;
   onCancel: () => void;

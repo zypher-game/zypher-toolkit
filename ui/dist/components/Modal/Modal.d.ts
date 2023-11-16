@@ -1,5 +1,6 @@
 import React from "react";
 import "@reach/dialog/styles.css";
+import "./Modal.stylus";
 interface ModalProps {
     open: boolean;
     onCancel: () => void;

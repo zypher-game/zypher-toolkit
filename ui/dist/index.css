@@ -211,6 +211,13 @@
   fill: var(--var-text-light);
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Modal/Modal.stylus */
+.customDialog [data-reach-dialog-content] {
+  padding: 0;
+  background: #131313;
+  border-radius: 20px;
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/header.module.stylus */
 .header_header {
   border-bottom: 1px solid var(--var-header-border);
