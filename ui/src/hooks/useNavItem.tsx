@@ -143,14 +143,14 @@ export const useNavItem = (): INavLink[] => {
         disabled: false,
         type: INavLinkType.Activities,
       },
-      {
-        label: t("Defense"),
-        keyValue: "9",
-        icon: "defense.svg",
-        link: "/defense",
-        disabled: false,
-        type: INavLinkType.Activities,
-      },
+      // {
+      //   label: t("Defense"),
+      //   keyValue: "9",
+      //   icon: "defense.svg",
+      //   link: "/defense",
+      //   disabled: false,
+      //   type: INavLinkType.Activities,
+      // },
       // {
       //   label: t('Invitation 🔥'),
       //   keyValue: '7',

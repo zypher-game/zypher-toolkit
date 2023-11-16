@@ -845,14 +845,6 @@ var useNavItem = () => {
         type: "Activities" /* Activities */
       },
       {
-        label: t("Defense"),
-        keyValue: "9",
-        icon: "defense.svg",
-        link: "/defense",
-        disabled: false,
-        type: "Activities" /* Activities */
-      },
-      {
         label: t("Ranking"),
         keyValue: "8",
         icon: "ranking.svg",
