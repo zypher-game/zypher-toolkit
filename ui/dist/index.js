@@ -1463,6 +1463,7 @@ var Text = styled.div`
   padding-top: 30px;
 `;
 var LinkToBetaDialog = memo9(() => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState3(
     linkToBetaDialogState
   );
@@ -1484,7 +1485,6 @@ var LinkToBetaDialog = memo9(() => {
       setLinkToBetaDialogChainId(void 0);
     }
   }, [linkToBetaDialogOpen]);
-  const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React12.createElement(Modal_default, {
     open: linkToBetaDialogOpen,
     onCancel: () => setLinkToBetaDialogOpen(false),
@@ -2056,7 +2056,6 @@ var AccountInfoDialog = memo14(({ copy }) => {
   const cancel = useCallback6(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
-    window.location.reload();
   }, [disconnect]);
   return account && chainId ? /* @__PURE__ */ React20.createElement(React20.Fragment, null, /* @__PURE__ */ React20.createElement(Modal_default, {
     open: accountInfoDialogOpen,
@@ -3202,9 +3201,9 @@ import { useChainModal as useChainModal3 } from "@my/rainbowkit";
 import React27, { memo as memo20 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 var WrongNetwork = memo20(() => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal3();
   const setAccountInfoDialogOpen = useSetRecoilState9(accountInfoDialogState);
-  const { t } = useCustomTranslation([LngNs.common]);
   useInitRainbowFn();
   return /* @__PURE__ */ React27.createElement("div", {
     onClick: () => {
@@ -3220,6 +3219,7 @@ var WrongNetwork_default = WrongNetwork;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 var RainbowConnectWallet = memo21((props) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const {
     useLocation,
     className,
@@ -3234,7 +3234,6 @@ var RainbowConnectWallet = memo21((props) => {
     const arr = location2.pathname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location2]);
-  const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React28.createElement("div", {
     className: classnames11(
       "connect_connectWallet",

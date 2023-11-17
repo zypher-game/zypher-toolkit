@@ -46,6 +46,7 @@ const Text = styled.div`
 `;
 
 const LinkToBetaDialog = memo(() => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState(
     linkToBetaDialogState
   );
@@ -67,7 +68,6 @@ const LinkToBetaDialog = memo(() => {
       setLinkToBetaDialogChainId(undefined);
     }
   }, [linkToBetaDialogOpen]);
-  const { t } = useCustomTranslation([LngNs.common]);
   return (
     <Modal
       open={linkToBetaDialogOpen}

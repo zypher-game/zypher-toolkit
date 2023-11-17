@@ -25,7 +25,6 @@ const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
   const cancel = useCallback(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
-    window.location.reload();
   }, [disconnect]);
   return account && chainId ? (
     <>

@@ -22,6 +22,7 @@ interface IProps {
   copy: any;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const {
     useLocation,
     className,
@@ -36,7 +37,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
     const arr = location.pathname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location]);
-  const { t } = useCustomTranslation([LngNs.common]);
   return (
     <div
       className={classnames(
