@@ -5,6 +5,7 @@ import { initReactI18next } from "react-i18next";
 
 import language from "./language";
 import { languageList } from "../components/SideBar/component/Language";
+import { preStaticUrl } from "../constant/constant";
 const _lng = language.split("-").join("_");
 export const lng = languageList.map((v) => v.keyValue).filter((v) => v === _lng)
   .length
@@ -29,7 +30,7 @@ i18n
   .init({
     fallbackLng: "en_US",
     backend: {
-      loadPath: "https://static.zypher.game/i18n/{{lng}}/{{ns}}.json",
+      loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json",
     },
     lng,
     ns: Object.values(LngNs),

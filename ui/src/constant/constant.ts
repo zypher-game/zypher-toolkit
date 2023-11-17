@@ -11,7 +11,18 @@ export const appInfo = {
 export const divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 export const txStatus = "success"; // '1'
-export const preStaticUrl = "https://static.zypher.game";
+
+export const isPro = (): boolean => {
+  const localpath = window.location.hostname;
+  if (localpath.indexOf("app") > -1) {
+    return true;
+  }
+  return false;
+};
+
+export const preStaticUrl = isPro()
+  ? "https://static-dev.zypher.game"
+  : "https://static.zypher.game";
 export enum ChainId {
   Mainnet = 56,
   Testnet = 97,

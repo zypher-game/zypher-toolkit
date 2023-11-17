@@ -51,7 +51,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <div onClick={openConnectModal} className={"connect_connect"}>
-                  <p>{t("Connect Wallet")}</p>
+                  <p>{t("Connect wallet")}</p>
                 </div>
               ) : chain &&
                 (chain.unsupported ||

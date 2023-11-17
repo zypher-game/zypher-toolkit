@@ -6,7 +6,8 @@ export declare const appInfo: {
 export declare const divisor6xBigNumber: BigNumberjs;
 export declare const divisorBigNumber: BigNumberjs;
 export declare const txStatus = "success";
-export declare const preStaticUrl = "https://static.zypher.game";
+export declare const isPro: () => boolean;
+export declare const preStaticUrl: string;
 export declare enum ChainId {
     Mainnet = 56,
     Testnet = 97,

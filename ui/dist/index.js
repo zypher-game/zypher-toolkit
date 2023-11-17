@@ -166,7 +166,14 @@ var appInfo = {
 var divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
-var preStaticUrl = "https://static.zypher.game";
+var isPro = () => {
+  const localpath = window.location.hostname;
+  if (localpath.indexOf("app") > -1) {
+    return true;
+  }
+  return false;
+};
+var preStaticUrl = isPro() ? "https://static-dev.zypher.game" : "https://static.zypher.game";
 var ChainId = /* @__PURE__ */ ((ChainId6) => {
   ChainId6[ChainId6["Mainnet"] = 56] = "Mainnet";
   ChainId6[ChainId6["Testnet"] = 97] = "Testnet";
@@ -590,7 +597,7 @@ var LngNs = {
 i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
   fallbackLng: "en_US",
   backend: {
-    loadPath: "https://static.zypher.game/i18n/{{lng}}/{{ns}}.json"
+    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
   },
   lng,
   ns: Object.values(LngNs),
@@ -3244,7 +3251,7 @@ var RainbowConnectWallet = memo21((props) => {
     return /* @__PURE__ */ React28.createElement(React28.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React28.createElement("div", {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React28.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
+    }, /* @__PURE__ */ React28.createElement("p", null, t("Connect wallet"))) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,
