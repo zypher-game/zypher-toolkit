@@ -2059,9 +2059,8 @@ var MUserInfo_default = MUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import { useDisconnect } from "wagmi";
-import { useCustomTranslation as useCustomTranslation2 } from "ui/src/hooks/useCustomTranslation";
 var AccountInfoDialog = memo14(({ copy }) => {
-  const { t } = useCustomTranslation2([LngNs.common]);
+  const { t } = useCustomTranslation([LngNs.common]);
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState4(
     accountInfoDialogState
   );

@@ -13,7 +13,7 @@ import MUserInfo from "./components/MUserInfo";
 import PcUserInfo from "./components/PcUserInfo";
 import Modal from "../../../../components/Modal/Modal";
 import { useDisconnect } from "wagmi";
-import { useCustomTranslation } from "ui/src/hooks/useCustomTranslation";
+import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../utils/i18n";
 
 const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
