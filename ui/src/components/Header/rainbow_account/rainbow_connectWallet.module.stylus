@@ -8,7 +8,7 @@
     &.connect_bgWallet
         & > div
             background-color: rgba(19, 17, 17, 0.5)
-            border: 1px solid rgba(19, 17, 17, 0.5);
+            border: 1px solid transparent;
             &:hover
                 border: 1px solid var(--var-btn-hover)
             @media screen and (max-width: 768px)
