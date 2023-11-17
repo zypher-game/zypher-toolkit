@@ -46,7 +46,7 @@
         justify-content: center
         align-items: center
         flex-direction: column
-        svg
+        img
             width: 64px
             height: 64px
             fill: #6673FF

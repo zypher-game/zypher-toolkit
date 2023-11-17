@@ -746,7 +746,7 @@
   align-items: center;
   flex-direction: column;
 }
-.dialog .loading svg {
+.dialog .loading img {
   width: 64px;
   height: 64px;
   fill: #6673ff;

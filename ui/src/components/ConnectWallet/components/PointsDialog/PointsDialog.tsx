@@ -43,6 +43,7 @@ type IProps = {
 };
 const PointsDialog = memo(
   ({ env, dispatch, setSuccessToast, setErrorToast }: IProps) => {
+    const { t } = useCustomTranslation([LngNs.points]);
     const [pointsDialogOpen, setPointsDialogOpen] =
       useRecoilState(pointsDialogState);
     const pointsWarn = useRecoilValue(pointsWarnState);
@@ -81,7 +82,7 @@ const PointsDialog = memo(
         transitionName={isMobile ? "ant-slide-down" : undefined}
       >
         <DialogTitle
-          label="Recharge Points"
+          label={t("Recharge Points")}
           setDialogOpen={setPointsDialogOpen}
           classNames={"modalTitleInner"}
         >

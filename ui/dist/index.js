@@ -3017,6 +3017,7 @@ var PoinsWarn_default = PoinsWarn;
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 var PointsDialog = memo18(
   ({ env, dispatch, setSuccessToast, setErrorToast }) => {
+    const { t } = useCustomTranslation([LngNs.points]);
     const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState7(pointsDialogState);
     const pointsWarn = useRecoilValue6(pointsWarnState);
     const { chainId } = useActiveWeb3React();
@@ -3050,7 +3051,7 @@ var PointsDialog = memo18(
       centered: isMobile ? false : true,
       transitionName: isMobile ? "ant-slide-down" : void 0
     }, /* @__PURE__ */ React24.createElement(DialogTitle_default, {
-      label: "Recharge Points",
+      label: t("Recharge Points"),
       setDialogOpen: setPointsDialogOpen,
       classNames: "modalTitleInner"
     }), /* @__PURE__ */ React24.createElement("div", {
