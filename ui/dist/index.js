@@ -173,7 +173,7 @@ var isPro = () => {
   }
   return false;
 };
-var preStaticUrl = isPro() ? "https://static-dev.zypher.game" : "https://static.zypher.game";
+var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
 var ChainId = /* @__PURE__ */ ((ChainId6) => {
   ChainId6[ChainId6["Mainnet"] = 56] = "Mainnet";
   ChainId6[ChainId6["Testnet"] = 97] = "Testnet";

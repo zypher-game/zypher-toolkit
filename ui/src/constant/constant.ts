@@ -21,8 +21,8 @@ export const isPro = (): boolean => {
 };
 
 export const preStaticUrl = isPro()
-  ? "https://static-dev.zypher.game"
-  : "https://static.zypher.game";
+  ? "https://static.zypher.game"
+  : "https://static-dev.zypher.game";
 export enum ChainId {
   Mainnet = 56,
   Testnet = 97,
