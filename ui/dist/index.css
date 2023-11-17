@@ -878,10 +878,10 @@
 }
 .connect_connectWallet.connect_bgWallet > div {
   background-color: rgba(19, 17, 17, 0.5);
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 .connect_connectWallet.connect_bgWallet > div:hover {
-  background-color: rgba(0, 0, 0, 0.6);
+  border: 1px solid var(--var-btn-hover);
   border: none;
 }
 @media screen and (max-width: 768px) {
