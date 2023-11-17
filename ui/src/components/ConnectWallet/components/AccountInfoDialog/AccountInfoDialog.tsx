@@ -13,8 +13,11 @@ import MUserInfo from "./components/MUserInfo";
 import PcUserInfo from "./components/PcUserInfo";
 import Modal from "../../../../components/Modal/Modal";
 import { useDisconnect } from "wagmi";
+import { useCustomTranslation } from "ui/src/hooks/useCustomTranslation";
+import { LngNs } from "../../../../utils/i18n";
 
 const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
     accountInfoDialogState
   );
@@ -44,7 +47,7 @@ const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
         transitionName={isMobile ? "ant-slide-down" : undefined}
       >
         <DialogTitle
-          label="Your Wallet"
+          label={t("Your Wallet")}
           setDialogOpen={setAccountInfoDialogOpen}
           classNames={isMobile ? "modalTitleInner" : ""}
         />

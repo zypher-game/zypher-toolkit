@@ -2059,7 +2059,9 @@ var MUserInfo_default = MUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import { useDisconnect } from "wagmi";
+import { useCustomTranslation as useCustomTranslation2 } from "ui/src/hooks/useCustomTranslation";
 var AccountInfoDialog = memo14(({ copy }) => {
+  const { t } = useCustomTranslation2([LngNs.common]);
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState4(
     accountInfoDialogState
   );
@@ -2086,7 +2088,7 @@ var AccountInfoDialog = memo14(({ copy }) => {
     centered: isMobile ? false : true,
     transitionName: isMobile ? "ant-slide-down" : void 0
   }, /* @__PURE__ */ React20.createElement(DialogTitle_default, {
-    label: "Your Wallet",
+    label: t("Your Wallet"),
     setDialogOpen: setAccountInfoDialogOpen,
     classNames: isMobile ? "modalTitleInner" : ""
   }), /* @__PURE__ */ React20.createElement("div", {
