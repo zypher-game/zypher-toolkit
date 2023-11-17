@@ -34,6 +34,7 @@
         border-radius: 8px;
         background-color: #6673FF;
         border: 1px solid #6673FF
+        min-width: 158px
         &:hover
             background-color: var(--var-btn-hover)
             border: 1px solid var(--var-btn-hover)

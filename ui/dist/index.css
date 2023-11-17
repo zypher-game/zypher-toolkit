@@ -912,6 +912,7 @@
   border-radius: 8px;
   background-color: #6673ff;
   border: 1px solid #6673ff;
+  min-width: 158px;
 }
 .connect_connectWallet div.connect_connect:hover {
   background-color: var(--var-btn-hover);

@@ -3258,7 +3258,7 @@ var RainbowConnectWallet = memo21((props) => {
     return /* @__PURE__ */ React28.createElement(React28.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React28.createElement("div", {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React28.createElement("p", null, t("Connect wallet"))) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
+    }, /* @__PURE__ */ React28.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React28.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React28.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,
