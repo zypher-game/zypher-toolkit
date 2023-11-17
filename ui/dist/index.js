@@ -3061,7 +3061,7 @@ var PointsDialog = memo18(
       handleNext: swapPointHandle
     }) : isLoading ? /* @__PURE__ */ React24.createElement(IsLoading, null) : /* @__PURE__ */ React24.createElement(React24.Fragment, null, /* @__PURE__ */ React24.createElement("div", {
       className: "balanceTitle"
-    }, /* @__PURE__ */ React24.createElement("p", null, t("Balance:"), " ", /* @__PURE__ */ React24.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React24.createElement(PointsIcon, {
+    }, /* @__PURE__ */ React24.createElement("p", null, t("Balance"), ": ", /* @__PURE__ */ React24.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React24.createElement(PointsIcon, {
       isMobile,
       classname: "pointsIcon"
     })), /* @__PURE__ */ React24.createElement(PointsTable, {
