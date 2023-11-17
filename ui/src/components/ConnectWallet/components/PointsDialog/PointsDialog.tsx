@@ -105,7 +105,7 @@ const PointsDialog = memo(
             <>
               <div className={"balanceTitle"}>
                 <p>
-                  Balance: <strong>{pointsBalanceStr}</strong>
+                  {t("Balance:")} <strong>{pointsBalanceStr}</strong>
                 </p>
                 <PointsIcon isMobile={isMobile} classname={"pointsIcon"} />
               </div>
