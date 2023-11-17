@@ -1,6 +1,6 @@
-export declare const dialogContent: any;
-export declare const dialogContentWideMobile: any;
-export declare const dialogContentWideDesktop: any;
-export declare const dialogContentCompactMode: any;
-export declare const dialogContentMobile: any;
-export declare const bottomSheetOverrides: any;
+export declare const dialogContent: string;
+export declare const dialogContentWideMobile: string;
+export declare const dialogContentWideDesktop: string;
+export declare const dialogContentCompactMode: string;
+export declare const dialogContentMobile: string;
+export declare const bottomSheetOverrides: string;

@@ -1,14 +1,14 @@
-export declare const base: any;
+export declare const base: string;
 export declare const element: {
-    a: any;
-    blockquote: any;
-    button: any;
-    input: any;
-    mark: any;
-    ol: any;
-    q: any;
-    select: any;
-    table: any;
-    textarea: any;
-    ul: any;
+    a: string;
+    blockquote: string;
+    button: string;
+    input: string;
+    mark: string;
+    ol: string;
+    q: string;
+    select: string;
+    table: string;
+    textarea: string;
+    ul: string;
 };

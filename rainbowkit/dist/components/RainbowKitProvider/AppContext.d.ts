@@ -9,8 +9,8 @@ export type DisclaimerComponent = React.FunctionComponent<{
     }>;
 }>;
 export declare const defaultAppInfo: {
-    appName: any;
-    disclaimer: any;
+    appName: undefined;
+    disclaimer: undefined;
     learnMoreUrl: string;
 };
 export declare const AppContext: any;

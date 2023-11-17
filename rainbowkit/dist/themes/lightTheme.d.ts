@@ -43,15 +43,15 @@ export declare const lightTheme: {
             selectedWallet: string;
             walletLogo: string;
         };
+        fonts: {
+            body: string;
+        };
         radii: {
             actionButton: string;
             connectButton: string;
             menuButton: string;
             modal: string;
             modalMobile: string;
-        };
-        fonts: {
-            body: string;
         };
         blurs: {
             modalOverlay: string;

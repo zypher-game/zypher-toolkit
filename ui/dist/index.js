@@ -1959,6 +1959,7 @@ var PcUserInfo = memo12(
     copy
   }) => {
     var _a;
+    const { t } = useCustomTranslation([LngNs.common]);
     const src = useAsyncImage(connectIcon);
     return /* @__PURE__ */ React18.createElement("div", {
       className: "pc_user_pc_content"
@@ -1966,7 +1967,12 @@ var PcUserInfo = memo12(
       className: "pc_user_box"
     }, /* @__PURE__ */ React18.createElement("div", {
       className: "pc_user_tit"
-    }, `Connected with ${connectName}`), /* @__PURE__ */ React18.createElement("div", {
+    }, t(
+      "Connected with",
+      {
+        walletName: connectName
+      }
+    )), /* @__PURE__ */ React18.createElement("div", {
       className: "pc_user_info"
     }, connectIcon && /* @__PURE__ */ React18.createElement("img", {
       src,
@@ -2000,6 +2006,7 @@ var PcUserInfo_default = PcUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 var MUserInfo = memo13(({ account, chainId, cancel }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
   const isMobile = useIsMobile();
@@ -2030,7 +2037,7 @@ var MUserInfo = memo13(({ account, chainId, cancel }) => {
     className: "m_user_border"
   }, /* @__PURE__ */ React19.createElement("p", {
     className: "m_user_tit"
-  }, "Your Wallet"), /* @__PURE__ */ React19.createElement("div", {
+  }, t("Your Wallet")), /* @__PURE__ */ React19.createElement("div", {
     className: "m_user_userInfoInner"
   }, /* @__PURE__ */ React19.createElement(PlayerAvatar_default, {
     className: "m_user_account",

@@ -1,4 +1,4 @@
 export declare function useMainnet(): {
-    chainId: any;
-    enabled: any;
+    chainId: 1;
+    enabled: boolean;
 };

@@ -1,3 +1,3 @@
-export declare const base: any;
-export declare const hover: any;
-export declare const active: any;
+export declare const base: string;
+export declare const hover: Record<"grow" | "growLg", string>;
+export declare const active: Record<"shrink" | "shrinkSm", string>;

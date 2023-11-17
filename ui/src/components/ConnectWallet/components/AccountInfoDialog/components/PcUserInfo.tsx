@@ -29,11 +29,20 @@ const PcUserInfo = memo(
     cancel,
     copy,
   }: IUserInfoProps) => {
+    const { t } = useCustomTranslation([LngNs.common]);
     const src = useAsyncImage(connectIcon);
     return (
       <div className={"pc_user_pc_content"}>
         <div className={"pc_user_box"}>
-          <div className={"pc_user_tit"}>{`Connected with ${connectName}`}</div>
+          <div className={"pc_user_tit"}>
+            {t(
+              "Connected with",
+
+              {
+                walletName: connectName,
+              }
+            )}
+          </div>
           <div className={"pc_user_info"}>
             {connectIcon && <img src={src} alt={connectName} />}
             <div className={"pc_user_text"}>{getShortenAddress(account)}</div>

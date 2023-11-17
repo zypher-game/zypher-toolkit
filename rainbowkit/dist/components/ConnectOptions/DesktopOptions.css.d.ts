@@ -1,4 +1,4 @@
-export declare const QRCodeBackgroundClassName: any;
-export declare const ScrollClassName: any;
-export declare const sidebar: any;
-export declare const sidebarCompactMode: any;
+export declare const QRCodeBackgroundClassName: string;
+export declare const ScrollClassName: string;
+export declare const sidebar: string;
+export declare const sidebarCompactMode: string;

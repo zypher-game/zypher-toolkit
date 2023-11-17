@@ -1,10 +1,10 @@
-import React from 'react';
-import { useAccount, useBalance, useDisconnect } from 'wagmi';
-import { useMainnetEnsAvatar } from '../../hooks/useMainnetEnsAvatar';
-import { useMainnetEnsName } from '../../hooks/useMainnetEnsName';
-import { Dialog } from '../Dialog/Dialog';
-import { DialogContent } from '../Dialog/DialogContent';
-import { ProfileDetails } from '../ProfileDetails/ProfileDetails';
+import React from "react";
+import { useAccount, useBalance, useDisconnect } from "wagmi";
+import { useMainnetEnsAvatar } from "../../hooks/useMainnetEnsAvatar";
+import { useMainnetEnsName } from "../../hooks/useMainnetEnsName";
+import { Dialog } from "../Dialog/Dialog";
+import { DialogContent } from "../Dialog/DialogContent";
+import { ProfileDetails } from "../ProfileDetails/ProfileDetails";
 
 export interface AccountModalProps {
   open: boolean;
@@ -17,12 +17,11 @@ export function AccountModal({ onClose, open }: AccountModalProps) {
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
   const { disconnect } = useDisconnect();
+  const titleId = "rk_account_modal_title";
 
   if (!address) {
     return null;
   }
-
-  const titleId = 'rk_account_modal_title';
 
   return (
     <>

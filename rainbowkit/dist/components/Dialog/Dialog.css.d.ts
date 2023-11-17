@@ -1,2 +1,2 @@
-export declare const overlay: any;
-export declare const content: any;
+export declare const overlay: string;
+export declare const content: string;

@@ -1,1 +1,1 @@
-export declare const transparentBorder: any;
+export declare const transparentBorder: string;

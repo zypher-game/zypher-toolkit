@@ -18,8 +18,11 @@ import {
 import ChainSelectorWidget from "../../ChainSelector/ChainSelectorWidget";
 import "./MUserInfo.module.stylus";
 import { DisconnectBtn, IUserInfoProps } from "./PcUserInfo";
+import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
+import { LngNs } from "../../../../../utils/i18n";
 
 const MUserInfo = memo(({ account, chainId, cancel }: IUserInfoProps) => {
+  const { t } = useCustomTranslation([LngNs.common]);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
   const isMobile = useIsMobile();
@@ -48,7 +51,7 @@ const MUserInfo = memo(({ account, chainId, cancel }: IUserInfoProps) => {
         className={classnames("m_user_border", "m_user_chain")}
       />
       <div className={"m_user_border"}>
-        <p className={"m_user_tit"}>Your Wallet</p>
+        <p className={"m_user_tit"}>{t("Your Wallet")}</p>
         <div className={"m_user_userInfoInner"}>
           <PlayerAvatar
             className={"m_user_account"}
