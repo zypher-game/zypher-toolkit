@@ -9,6 +9,8 @@ import { preStaticUrl } from "../../constant/constant";
 
 import "./index.module.stylus";
 import Avatar from "../Avatar/Avatar";
+import { useCustomTranslation } from "../../hooks/useCustomTranslation";
+import { LngNs } from "../../utils/i18n";
 
 interface IPlayerAvatar {
   className?: string;
@@ -37,6 +39,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = ({
   endLen,
   otherStr,
 }) => {
+  const { t } = useCustomTranslation([LngNs.zBingo]);
   const { selectedAvatar, selectedBackground } = generateAvatar(account);
   return (
     <div className={cx(className, "player_playerAvatar")}>
@@ -79,7 +82,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = ({
             ? `${getShortenAddress(account, preLen, endLen)}${
                 otherStr ? ` ${otherStr}` : ""
               }`
-            : "waiting"}
+            : t("waiting")}
           <AccountTextFrComp />
         </p>
       )}

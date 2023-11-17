@@ -1686,6 +1686,7 @@ var PlayerAvatar = ({
   endLen,
   otherStr
 }) => {
+  const { t } = useCustomTranslation([LngNs.zBingo]);
   const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
   return /* @__PURE__ */ React15.createElement("div", {
     className: cx2(className, "player_playerAvatar")
@@ -1709,7 +1710,7 @@ var PlayerAvatar = ({
     src: preStaticUrl + `/img/default_avatar.png`
   })), showAccount && /* @__PURE__ */ React15.createElement("p", {
     className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
-  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : "waiting", /* @__PURE__ */ React15.createElement(AccountTextFrComp, null)));
+  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : t("waiting"), /* @__PURE__ */ React15.createElement(AccountTextFrComp, null)));
 };
 var OuterCircle = styled2.div`
   background: ${({ isGrey, isGreen }) => {
