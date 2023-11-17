@@ -3138,11 +3138,12 @@ var PointsRuleDialog = () => {
     className: "points_dialog_dialogContainer"
   }, /* @__PURE__ */ React25.createElement("h4", null, t("PointsRuleText01")), /* @__PURE__ */ React25.createElement("p", null, t("PointsRuleText02")), /* @__PURE__ */ React25.createElement("p", null, /* @__PURE__ */ React25.createElement("em", null), /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText03")), /* @__PURE__ */ React25.createElement("br", null), /* @__PURE__ */ React25.createElement("em", null), /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React25.createElement("br", null), /* @__PURE__ */ React25.createElement("em", null), /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React25.createElement("br", null), /* @__PURE__ */ React25.createElement("em", null), " ", /* @__PURE__ */ React25.createElement("i", null, t("PointsRuleText06"))), /* @__PURE__ */ React25.createElement("p", null, /* @__PURE__ */ React25.createElement(Trans, {
     i18nKey: "PointsRuleText07",
-    defaults: "*Note: Exact bonus percentages and further specifics on the airdrop schedule can be found here <bold>Link</bold>",
+    defaults: t("PointsRuleText07"),
     values: { Link: t("Link") },
     components: { bold: /* @__PURE__ */ React25.createElement("strong", null) }
   })), /* @__PURE__ */ React25.createElement("h4", null, t("PointsRuleText09")), /* @__PURE__ */ React25.createElement("p", null, /* @__PURE__ */ React25.createElement(Trans, {
-    i18nKey: "PointsRuleText10"
+    i18nKey: "PointsRuleText10",
+    defaults: t("PointsRuleText10")
   }, /* @__PURE__ */ React25.createElement("a", {
     href: "https://discord.com/invite/MKJZhS4p2T",
     target: "_blank",

@@ -53,14 +53,17 @@ const PointsRuleDialog: React.FC<Props> = () => {
             <p>
               <Trans
                 i18nKey="PointsRuleText07"
-                defaults="*Note: Exact bonus percentages and further specifics on the airdrop schedule can be found here <bold>Link</bold>"
+                defaults={t("PointsRuleText07")}
                 values={{ Link: t("Link") }}
                 components={{ bold: <strong /> }}
               />
             </p>
             <h4>{t("PointsRuleText09")}</h4>
             <p>
-              <Trans i18nKey="PointsRuleText10">
+              <Trans
+                i18nKey="PointsRuleText10"
+                defaults={t("PointsRuleText10")}
+              >
                 <a
                   href="https://discord.com/invite/MKJZhS4p2T"
                   target="_blank"
