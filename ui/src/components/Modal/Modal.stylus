@@ -2,3 +2,4 @@
   padding: 0;
   background: #131313;
   border-radius: 20px
+  z-index: 9999
