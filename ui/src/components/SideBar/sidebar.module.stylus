@@ -17,7 +17,7 @@
     width: 312px
     background-color: #131313
     display: flex
-    justify-content: start
+    justify-content: flex-start
     align-items: center
     padding: 28px 24px
     gap: 8px
@@ -34,7 +34,7 @@
     background: rgba(255, 255, 255, 0.10);
   .sideBarTitle
     display: flex
-    justify-content: start
+    justify-content: flex-start
     align-items: center
     gap: 8px
     margin-bottom: 20px
@@ -47,7 +47,7 @@
       height: 24px
   .gamelist
     display: flex
-    justify-content: start
+    justify-content: flex-start
     align-items: center
     flex-wrap: wrap;
     gap: 22px
@@ -57,7 +57,7 @@
     gap: 22px
     @media screen and (max-width: 768px)
       flex-direction: row
-      justify-content: start
+      justify-content: flex-start
       align-items: center
       flex-wrap: wrap;
       img
@@ -73,7 +73,7 @@
   .horListItme
     width: 100%
     display: flex
-    justify-content: start
+    justify-content: flex-start
     align-items: center
     border-radius: 6px;
     background: rgba(255,255,255, 0.06)
@@ -112,7 +112,7 @@
   .communityLink
     display: flex
     flex-wrap: wrap;
-    justify-content: start
+    justify-content: flex-start
     align-items: center
     gap: 25px
     img
