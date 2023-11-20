@@ -770,6 +770,8 @@ var usePathname = () => {
         return setDefaultSelectedKey("9");
       case "shop":
         return setDefaultSelectedKey("5");
+      case "DP":
+        return setDefaultSelectedKey("15");
       default:
         setDefaultSelectedKey("1");
     }
@@ -856,6 +858,14 @@ var useNavItem = () => {
         keyValue: "8",
         icon: "ranking.svg",
         link: "/ranking",
+        disabled: false,
+        type: "Activities" /* Activities */
+      },
+      {
+        label: t("DP"),
+        keyValue: "15",
+        icon: "dp.svg",
+        link: "/dp",
         disabled: false,
         type: "Activities" /* Activities */
       }

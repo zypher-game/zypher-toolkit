@@ -47,6 +47,18 @@ export const usePathname = () => {
     switch (pathName) {
       case "zBingo":
         return setDefaultSelectedKey("2");
+      // case "TCG":
+      //   return setDefaultSelectedKey("14");
+      // case "Murder Mystery":
+      //   return setDefaultSelectedKey("13");
+      // case "Candy Crush":
+      //   return setDefaultSelectedKey("12");
+      // case "zMahjong":
+      //   return setDefaultSelectedKey("11");
+      // case "z2048":
+      //   return setDefaultSelectedKey("10");
+      // case "zAce":
+      //   return setDefaultSelectedKey("6");
       case "profile":
         return setDefaultSelectedKey("3");
       case "gbBox":
@@ -59,6 +71,8 @@ export const usePathname = () => {
         return setDefaultSelectedKey("9");
       case "shop":
         return setDefaultSelectedKey("5");
+      case "DP":
+        return setDefaultSelectedKey("15");
       default:
         setDefaultSelectedKey("1");
     }
@@ -164,6 +178,14 @@ export const useNavItem = (): INavLink[] => {
         keyValue: "8",
         icon: "ranking.svg",
         link: "/ranking",
+        disabled: false,
+        type: INavLinkType.Activities,
+      },
+      {
+        label: t("DP"),
+        keyValue: "15",
+        icon: "dp.svg",
+        link: "/dp",
         disabled: false,
         type: INavLinkType.Activities,
       },
