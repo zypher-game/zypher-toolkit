@@ -3,6 +3,7 @@ import { useWalletClient } from "wagmi";
 export { useWalletClient };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
 export { default as SideBar } from "./components/SideBar";
+export { defaultSelectedKey } from "./components/SideBar/state";
 export { IConnectorState, connectorState, walletModalOpenState, ChainSelector, refreshBalanceState, pointsDialogState, pointsWarnState, hidePointsWarnState, pointsRuleDialogState, accountInfoDialogState, linkToBetaDialogState, linkToBetaDialogChainIdState, nativeBalanceState, pointsBalanceState, } from "./components/ConnectWallet/state/connectWalletState";
 export { useNativeBalanceStr, usePointsBalanceStr, } from "./components/ConnectWallet/hooks/connectWalletHooks";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";

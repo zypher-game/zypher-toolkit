@@ -20,6 +20,7 @@ export {
 };
 
 export { default as SideBar } from "./components/SideBar";
+export { defaultSelectedKey } from "./components/SideBar/state";
 export {
   IConnectorState,
   connectorState,

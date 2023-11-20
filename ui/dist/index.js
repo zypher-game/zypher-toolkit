@@ -3293,11 +3293,6 @@ var siderCollapseState2 = atom5({
   default: false,
   effects_UNSTABLE: [localStorageEffect("siderCollapseState")]
 });
-var defaultSelectedKey2 = atom5({
-  key: "defaultSelectedKeys",
-  default: "",
-  effects_UNSTABLE: [localStorageEffect("defaultSelectedKeys")]
-});
 
 // src/components/Header/header.tsx
 var Header = (props) => {
@@ -3463,6 +3458,7 @@ export {
   connectorState,
   convertToLargeNumberRepresentation,
   defaultChainId,
+  defaultSelectedKey,
   divisor6xBigNumber,
   divisorBigNumber,
   eX,

@@ -7,9 +7,3 @@ export const siderCollapseState = atom({
   default: false,
   effects_UNSTABLE: [localStorageEffect("siderCollapseState")],
 });
-
-export const defaultSelectedKey = atom({
-  key: "defaultSelectedKeys",
-  default: "",
-  effects_UNSTABLE: [localStorageEffect("defaultSelectedKeys")],
-});
