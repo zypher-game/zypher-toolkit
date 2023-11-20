@@ -3260,6 +3260,9 @@ var RainbowConnectWallet = memo21((props) => {
   const location2 = useLocation();
   const isPathLocation = useMemo10(() => {
     const arr = location2.pathname.split("/");
+    if (arr[1] === "") {
+      return window.location.href.indexOf("/bingo/") > -1;
+    }
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location2]);
   return /* @__PURE__ */ React28.createElement("div", {
