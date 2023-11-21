@@ -732,8 +732,8 @@ var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
   return INavLinkType2;
 })(INavLinkType || {});
 var LinkList = [
-  "/#/zBingo",
-  "https://app.zypher.game/2048/",
+  window.location.origin + "/bingo/",
+  window.location.origin + "/2048/",
   "https://test-poker.zypher.game/",
   "https://test.zypher.game/CryptoRumble/",
   "",
@@ -793,7 +793,7 @@ var useNavItem = () => {
         label: t("zBingo"),
         keyValue: "2",
         icon: "zBingo.png",
-        link: "/zBingo",
+        link: LinkList[0],
         disabled: false,
         type: "Games" /* Games */
       },
