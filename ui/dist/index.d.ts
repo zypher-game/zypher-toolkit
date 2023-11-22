@@ -27,7 +27,7 @@ export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
 export { useInitRainbowFn } from "./hooks/useInitRainbowFn";
 export { useGetInvitationAddress } from "./hooks/useGetInvitationAddress";
-export { useRecentGamesFromGraph } from "./hooks/useRecentGamesFromGraph";
+export { useRecentGamesFromGraph, graphqlApiUrl, chainIdPre, getStatus, formatDataFromGraph, getRecentGameById, } from "./hooks/useRecentGamesFromGraph";
 export { useInterval } from "./hooks/useInterval";
 export { LinkList, blankLinkList, INavLink, INavLinkType, useNavItem, usePathname, } from "./hooks/useNavItem";
 export { useSwapPoint } from "./hooks/usePoint";
