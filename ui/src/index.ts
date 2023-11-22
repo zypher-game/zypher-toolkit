@@ -98,7 +98,8 @@ export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
 export { useInitRainbowFn } from "./hooks/useInitRainbowFn";
 export { useGetInvitationAddress } from "./hooks/useGetInvitationAddress";
-
+export { useRecentGamesFromGraph } from "./hooks/useRecentGamesFromGraph";
+export { useInterval } from "./hooks/useInterval";
 export {
   LinkList,
   blankLinkList,
@@ -122,6 +123,8 @@ export { getProvider } from "./connectors/contract";
 export { getContract, getContractFromRpc } from "./connectors/contractV2";
 export { default as erc20Contract } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
+export { default as MulticallContract } from "./contract/multicall";
+
 import { useConnectModal, useChainModal } from "@my/rainbowkit";
 export { useConnectModal, useChainModal };
 export {
@@ -140,3 +143,20 @@ export {
   splitArrByLen,
 } from "./utils/tool";
 export { request } from "./utils/request";
+export {
+  getUTCSeconds,
+  timestampToDateStr,
+  getFormattedTime,
+  isTimeout,
+  getFormattedTimeMobile,
+} from "./utils/data";
+export { getChainId } from "./utils/getChainId";
+export {
+  IGameStatus,
+  IGameName,
+  IBingoInfo,
+  IPlayer,
+  IRecentGame,
+  IGameIdInfo,
+  IGameList,
+} from "./types/gameList.types";

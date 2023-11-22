@@ -58,9 +58,11 @@
     "react-router-dom": "^6.11.0",
     "recoil": "^0.5.2",
     "recursive-readdir-files": "^2.0.7",
+    "ethereum-multicall": "^2.12.0",
     "wagmi": "~1.3.10"
   },
   "devDependencies": {
+    "ethereum-multicall": "^2.12.0",
     "@ant-design/icons": "^4.7.0",
     "@reach/dialog": "^0.18.0",
     "@testing-library/jest-dom": "^5.16.5",

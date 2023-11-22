@@ -174,26 +174,26 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId6) => {
-  ChainId6[ChainId6["Mainnet"] = 56] = "Mainnet";
-  ChainId6[ChainId6["Testnet"] = 97] = "Testnet";
-  ChainId6[ChainId6["Arbitrum"] = 42161] = "Arbitrum";
-  ChainId6[ChainId6["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
-  ChainId6[ChainId6["LineaTestnet"] = 59140] = "LineaTestnet";
-  ChainId6[ChainId6["LineaMainnet"] = 59144] = "LineaMainnet";
-  ChainId6[ChainId6["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
-  ChainId6[ChainId6["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
-  ChainId6[ChainId6["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
-  ChainId6[ChainId6["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
-  ChainId6[ChainId6["OPBNBTEST"] = 5611] = "OPBNBTEST";
-  ChainId6[ChainId6["OPBNB"] = 204] = "OPBNB";
-  ChainId6[ChainId6["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
-  ChainId6[ChainId6["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
-  ChainId6[ChainId6["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
-  ChainId6[ChainId6["ComboTestnet"] = 91715] = "ComboTestnet";
-  ChainId6[ChainId6["Mantle"] = 5e3] = "Mantle";
-  ChainId6[ChainId6["MantleTestnet"] = 5001] = "MantleTestnet";
-  return ChainId6;
+var ChainId = /* @__PURE__ */ ((ChainId7) => {
+  ChainId7[ChainId7["Mainnet"] = 56] = "Mainnet";
+  ChainId7[ChainId7["Testnet"] = 97] = "Testnet";
+  ChainId7[ChainId7["Arbitrum"] = 42161] = "Arbitrum";
+  ChainId7[ChainId7["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
+  ChainId7[ChainId7["LineaTestnet"] = 59140] = "LineaTestnet";
+  ChainId7[ChainId7["LineaMainnet"] = 59144] = "LineaMainnet";
+  ChainId7[ChainId7["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
+  ChainId7[ChainId7["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
+  ChainId7[ChainId7["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
+  ChainId7[ChainId7["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
+  ChainId7[ChainId7["OPBNBTEST"] = 5611] = "OPBNBTEST";
+  ChainId7[ChainId7["OPBNB"] = 204] = "OPBNB";
+  ChainId7[ChainId7["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
+  ChainId7[ChainId7["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
+  ChainId7[ChainId7["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
+  ChainId7[ChainId7["ComboTestnet"] = 91715] = "ComboTestnet";
+  ChainId7[ChainId7["Mantle"] = 5e3] = "Mantle";
+  ChainId7[ChainId7["MantleTestnet"] = 5001] = "MantleTestnet";
+  return ChainId7;
 })(ChainId || {});
 var defaultChainId = 204 /* OPBNB */;
 var supportedChainIds = (env) => {
@@ -3411,8 +3411,98 @@ var useGetInvitationAddress = () => {
   }, []);
 };
 
-// src/index.ts
-import { changeLanguage as changeLanguage2 } from "i18next";
+// src/hooks/useRecentGamesFromGraph.ts
+import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
+import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
+import { useCallback as useCallback14, useEffect as useEffect11, useState as useState8 } from "react";
+
+// src/types/gameList.types.ts
+var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
+  IGameStatus2["Live"] = "live";
+  IGameStatus2["End"] = "end";
+  IGameStatus2["Overtime"] = "overtime";
+  IGameStatus2["Invalid"] = "invalid";
+  return IGameStatus2;
+})(IGameStatus || {});
+var IGameName = /* @__PURE__ */ ((IGameName2) => {
+  IGameName2["zBingo"] = "zBingo";
+  return IGameName2;
+})(IGameName || {});
+
+// src/hooks/useInterval.ts
+import { useEffect as useEffect10, useRef } from "react";
+function useInterval(callback, delay, leading = true) {
+  const savedCallback = useRef();
+  useEffect10(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+  useEffect10(() => {
+    function tick() {
+      const current = savedCallback.current;
+      current && current();
+    }
+    if (delay !== null) {
+      if (leading)
+        tick();
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+    return void 0;
+  }, [delay, leading]);
+}
+
+// src/hooks/useRecentGamesFromGraph.ts
+import BigNumberjs4 from "bignumber.js";
+import { ethers as ethers4 } from "ethers";
+
+// src/utils/data.ts
+var getUTCSeconds = () => {
+  const now = new Date();
+  const utcSeconds = Math.floor(now.getTime() / 1e3);
+  return utcSeconds;
+};
+var SECONDS_PER_DAY = 24 * 60 * 60;
+var OFFSET19700101 = 2440588;
+function timestampToDateStr(timestamp) {
+  const _days = Math.floor(timestamp / SECONDS_PER_DAY);
+  let L = _days + 68569 + OFFSET19700101;
+  const N = Math.floor(4 * L / 146097);
+  L = L - Math.floor((146097 * N + 3) / 4);
+  let year = Math.floor(4e3 * (L + 1) / 1461001);
+  L = L - Math.floor(1461 * year / 4) + 31;
+  let month = Math.floor(80 * L / 2447);
+  const day = L - Math.floor(2447 * month / 80);
+  L = Math.floor(month / 11);
+  month = month + 2 - 12 * L;
+  year = 100 * (N - 49) + year + L;
+  return `${year.toFixed(0)}${month.toFixed(0)}${day.toFixed(0)}`;
+}
+var getFormattedTime = (timestamp) => {
+  const date = new Date(timestamp * 1e3);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${day}/${month}`;
+  return formattedTime;
+};
+function isTimeout(startedAt, timeout) {
+  const currentTime = Math.floor(Date.now() / 1e3);
+  const elapsedSeconds = currentTime - startedAt;
+  return elapsedSeconds > timeout;
+}
+var getFormattedTimeMobile = (timestamp) => {
+  const date = new Date(timestamp * 1e3);
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const formattedTime = `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${day}-${month}`;
+  return formattedTime;
+};
+
+// src/contract/multicall.ts
+import { Multicall } from "ethereum-multicall";
 
 // src/connectors/contract.ts
 import { Contract as Contract2, providers } from "ethers";
@@ -3447,7 +3537,312 @@ window.addEventListener("load", async () => {
   setProvider();
 });
 
+// src/utils/getChainId.ts
+var getChainId = async () => {
+  const provider = await getProvider();
+  const network = await provider.getNetwork();
+  const isError = !Object.values(ChainId).includes(network.chainId);
+  if (isError) {
+    throw new Error("Network not supported");
+  }
+  return network.chainId;
+};
+
+// src/contract/multicall.ts
+var MulticallContract = async (chainIdParams) => {
+  try {
+    const chainId = chainIdParams != null ? chainIdParams : await getChainId();
+    const provider = await getProvider(sample(ChainRpcUrls[chainId]));
+    return new Multicall({
+      ethersProvider: provider,
+      tryAggregate: false,
+      multicallCustomContractAddress: sample(
+        CurrencyContract[chainId].multicall
+      )
+    });
+  } catch (error) {
+    console.error("Getting multicall failure:", error);
+    return void 0;
+  }
+};
+var multicall_default = MulticallContract;
+
+// src/hooks/useRecentGamesFromGraph.ts
+var useRecentGamesFromGraph = ({
+  env
+}) => {
+  const [list, setList] = useState8();
+  const [hasError, setHasError] = useState8(false);
+  const fetchGameInfos = useCallback14(async () => {
+    var _a, _b;
+    try {
+      const value_pre = await batchRequestFromGraph({ env });
+      const value = value_pre.filter((v) => !!v);
+      if (value.length) {
+        const gameList = /* @__PURE__ */ new Map();
+        for (let i = 0; i < value.length; i++) {
+          if (value[i] && ((_a = value[i]) == null ? void 0 : _a[0].chainId)) {
+            const chainId = (_b = value[i]) == null ? void 0 : _b[0].chainId;
+            const mapValue = value[i];
+            gameList.set(chainId, mapValue);
+          }
+          if (gameList.size) {
+            setList(gameList);
+          }
+        }
+      }
+    } catch (e) {
+      console.error("fetchGameInfos error: ", e);
+      setHasError(true);
+    }
+  }, []);
+  useEffect11(() => {
+    fetchGameInfos();
+  }, []);
+  useInterval(fetchGameInfos, 5e4);
+  fetchGameInfos;
+  return {
+    list,
+    hasError
+  };
+};
+var graphqlApiUrl = {
+  [59144 /* LineaMainnet */]: "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
+  [59140 /* LineaTestnet */]: "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
+  [204 /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  [5611 /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  [421613 /* ArbitrumGoerli */]: "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo"
+};
+var chainIdPre = {
+  [56 /* Mainnet */]: "BNB",
+  [97 /* Testnet */]: "BT",
+  [42161 /* Arbitrum */]: "AO",
+  [421613 /* ArbitrumGoerli */]: "AGT",
+  [421611 /* ArbitrumRinkeby */]: "ARBR",
+  [59140 /* LineaTestnet */]: "LT",
+  [59144 /* LineaMainnet */]: "LM",
+  [80001 /* POLYGON_MUMBAI */]: "PM",
+  [1442 /* POLYGON_ZKEVM */]: "PZT",
+  [204 /* OPBNB */]: "OB",
+  [534351 /* ScrollSepoliaTestnet */]: "SST",
+  [534353 /* ScrollAlphaTestnet */]: "SAT",
+  [5611 /* OPBNBTEST */]: "OBT",
+  [169 /* MantaPacificMainnet */]: "MPM",
+  [3441005 /* MantaPacificTestnet */]: "MPT",
+  [91715 /* ComboTestnet */]: "CbT",
+  [5e3 /* Mantle */]: "MTM",
+  [5001 /* MantleTestnet */]: "MTT"
+};
+function getStatus(status) {
+  if (status === 0) {
+    return "invalid" /* Invalid */;
+  } else if (status === 1) {
+    return "live" /* Live */;
+  } else if (status === 2) {
+    return "end" /* End */;
+  } else if (status === 3) {
+    return "overtime" /* Overtime */;
+  }
+  return "invalid" /* Invalid */;
+}
+function formatDataFromGraph({
+  chainId,
+  data,
+  recentGames
+}) {
+  return data.map((v, index) => {
+    const {
+      cardAddr,
+      endedAt,
+      feeRatio,
+      feeAmount,
+      joinAmount,
+      id: idHex,
+      lobbyAddr,
+      pCount,
+      startedAt,
+      status: statusNumber,
+      winAmount,
+      winCardId,
+      winner
+    } = v || {};
+    let status = getStatus(statusNumber);
+    const id = parseInt(idHex, 16).toString();
+    let winnerOrPlayers = `${pCount} players`;
+    let inputPerPlayer = joinAmount ? new BigNumberjs4(ethers4.utils.formatEther(joinAmount)).dividedBy(new BigNumberjs4(pCount)).toNumber() : "-";
+    let win = "-";
+    let multiplier = "-";
+    let cardNumbers;
+    let selectedNumbers;
+    if (status === "end" /* End */ && recentGames.size) {
+      winnerOrPlayers = winner;
+      const poolWin = new BigNumberjs4(ethers4.utils.formatEther(winAmount));
+      win = formatMoney(poolWin.toNumber());
+      multiplier = formatMoney(
+        poolWin.dividedBy(new BigNumberjs4(inputPerPlayer)).toNumber()
+      );
+      cardNumbers = recentGames.get(
+        "cardNumbers" + cardAddr.toLowerCase() + winCardId
+      );
+      selectedNumbers = recentGames.get(
+        "selectedNumbers" + lobbyAddr.toLowerCase() + id
+      );
+    }
+    if (status === "live" /* Live */) {
+      const timeout = 30 * 60;
+      if (isTimeout(startedAt, timeout)) {
+        status = "overtime" /* Overtime */;
+      }
+    }
+    inputPerPlayer = inputPerPlayer !== "-" ? formatMoney(Number(inputPerPlayer), 0) : "-";
+    return {
+      chainId,
+      status,
+      startTimeNumber: `${startedAt}`,
+      startTime: getFormattedTime(startedAt),
+      startTimeMobile: getFormattedTimeMobile(startedAt),
+      game: "zBingo" /* zBingo */,
+      winner,
+      cardAddr,
+      endedAt,
+      feeAmount,
+      feeRatio,
+      lobbyAddr,
+      roomID: id,
+      roomIDStr: chainIdPre[chainId] + "B#" + id,
+      bingoInfo: {
+        cardNumbers,
+        selectedNumbers
+      },
+      inputPerPlayer,
+      multiplier,
+      win,
+      winnerOrPlayers
+    };
+  });
+}
+async function batchRequestFromGraph({
+  env
+}) {
+  const requests = supportedChainIds(env).map(async (chainIdLocal) => {
+    var _a;
+    const api = graphqlApiUrl[chainIdLocal];
+    if (!api) {
+      return void 0;
+    }
+    const result = await request(api, {
+      method: "POST",
+      data: JSON.stringify({
+        query: `query MyQuery {
+          gameInfos(orderBy: startedAt, orderDirection: desc, first: 40) {
+            cardAddr
+            endedAt
+            feeAmount
+            feeRatio
+            id
+            joinAmount
+            lobbyAddr
+            pCount
+            source
+            startedAt
+            status
+            winAmount
+            winCardId
+            winner
+          }
+        }`,
+        variables: {},
+        operationName: "MyQuery"
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    });
+    if (result.data && result.data.data && result.data.data.gameInfos) {
+      if (result.data.data.gameInfos.length) {
+        const gameIdList = result.data.data.gameInfos.map(
+          (v) => parseInt(v.id, 16).toString()
+        );
+        const lobbyAddrList = result.data.data.gameInfos.map(
+          (v) => v.lobbyAddr
+        );
+        const endFilter = result.data.data.gameInfos.filter((v) => getStatus(v.status) === "end" /* End */).map((v) => ({ winCardId: v.winCardId, cardAddr: v.cardAddr }));
+        const winCardIdList = endFilter.map((v) => v.winCardId);
+        const cardAddrList = endFilter.map((v) => v.cardAddr);
+        const recentGames = (_a = await getRecentGameById({
+          chainId: chainIdLocal,
+          lobbyAddrList,
+          gameIdList,
+          cardAddrList,
+          winCardIdList
+        })) != null ? _a : /* @__PURE__ */ new Map();
+        return formatDataFromGraph({
+          chainId: chainIdLocal,
+          data: result.data.data.gameInfos,
+          recentGames
+        });
+      }
+    }
+    return void 0;
+  });
+  return Promise.all(requests);
+}
+var getRecentGameById = async ({
+  chainId,
+  lobbyAddrList,
+  gameIdList,
+  cardAddrList,
+  winCardIdList
+}) => {
+  try {
+    const paramsGameId = gameIdList.map((gameId, index) => ({
+      reference: "selectedNumbers" + lobbyAddrList[index].toLowerCase() + gameId,
+      contractAddress: lobbyAddrList[index],
+      abi: ZkBingoLobbyAbi,
+      calls: [
+        {
+          methodName: "getSelectedNumbers",
+          reference: "getSelectedNumbers",
+          methodParameters: [gameId]
+        }
+      ]
+    }));
+    const paramsCardId = winCardIdList.map((winCardId, index) => ({
+      reference: "cardNumbers" + cardAddrList[index].toLowerCase() + winCardId,
+      contractAddress: cardAddrList[index],
+      abi: ZkBingoCardAbi,
+      calls: [
+        {
+          methodName: "getCardNumbers",
+          reference: "getCardNumbers",
+          methodParameters: [winCardId]
+        }
+      ]
+    }));
+    const multicall = await multicall_default(chainId);
+    if (multicall) {
+      const { results } = await multicall.call([
+        ...paramsGameId,
+        ...paramsCardId
+      ]);
+      if (results) {
+        const map = /* @__PURE__ */ new Map();
+        Object.values(results).map((v) => {
+          const num = v["callsReturnContext"][0]["returnValues"];
+          map.set(v["originalContractCallContext"]["reference"], num);
+        });
+        return map;
+      }
+    }
+    return void 0;
+  } catch (err) {
+    console.error("getRecentGameById err: ", err);
+    return void 0;
+  }
+};
+
 // src/index.ts
+import { changeLanguage as changeLanguage2 } from "i18next";
 import { useConnectModal, useChainModal as useChainModal4 } from "@my/rainbowkit";
 export {
   Balance_default as Balance,
@@ -3465,6 +3860,8 @@ export {
   CurrencyLogo,
   header_default as Header,
   IContractName,
+  IGameName,
+  IGameStatus,
   INavLinkType,
   IsMdContext,
   IsMdProvider,
@@ -3474,6 +3871,7 @@ export {
   LinkToBetaDialog_default as LinkToBetaDialog,
   LngNs,
   AccountInfoDialog_default as LogoutDialog,
+  multicall_default as MulticallContract,
   PlayerAvatar_default as PlayerAvatar,
   PlayerAvatarList,
   PointsDialog_default as PointsDialog,
@@ -3502,13 +3900,18 @@ export {
   formatDecimal,
   formatMoney,
   formatSymbol,
+  getChainId,
   getContract,
   getContractFromRpc,
+  getFormattedTime,
+  getFormattedTimeMobile,
   getProvider,
   getShortenAddress,
   getShortenAddress2,
+  getUTCSeconds,
   hidePointsWarnState,
   isTestnet,
+  isTimeout,
   linkToBetaDialogChainIdState,
   linkToBetaDialogState,
   localStorageEffect,
@@ -3525,6 +3928,7 @@ export {
   selector,
   splitArrByLen,
   supportedChainIds,
+  timestampToDateStr,
   txStatus,
   useAccountInvitation,
   useActiveChainId,
@@ -3536,6 +3940,7 @@ export {
   useCustomTranslation,
   useGetInvitationAddress,
   useInitRainbowFn,
+  useInterval,
   useIsMd,
   useIsMobile,
   useNativeBalanceStr,
@@ -3543,6 +3948,7 @@ export {
   usePathname,
   usePointsBalanceStr,
   usePublicNodeWaitForTransaction,
+  useRecentGamesFromGraph,
   useRecoilState8 as useRecoilState,
   useRecoilValue9 as useRecoilValue,
   useResetRecoilState,
