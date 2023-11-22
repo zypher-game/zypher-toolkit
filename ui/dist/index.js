@@ -1,7 +1,7 @@
 "use client";
 // src/index.ts
 import {
-  useSetRecoilState as useSetRecoilState11,
+  useSetRecoilState as useSetRecoilState12,
   atom as atom6,
   selector,
   RecoilRoot,
@@ -3389,6 +3389,28 @@ var useCurrentLanguage = () => {
   return currentLanguage;
 };
 
+// src/hooks/useGetInvitationAddress.tsx
+import { useSetRecoilState as useSetRecoilState11 } from "recoil";
+import { useEffect as useEffect9 } from "react";
+import { ethers as ethers3 } from "ethers";
+var useGetInvitationAddress = () => {
+  const setInvitationAddressState = useSetRecoilState11(invitationAddressState);
+  useEffect9(() => {
+    const urlObj = new URL(window.location.href);
+    const shareParam = urlObj.searchParams.get("share");
+    const chain_id = urlObj.searchParams.get("chain_id");
+    if (shareParam == null ? void 0 : shareParam.startsWith("0x")) {
+      const isValidAddress = ethers3.utils.isAddress(shareParam);
+      if (isValidAddress) {
+        setInvitationAddressState({
+          address: shareParam,
+          chainId: Number(chain_id)
+        });
+      }
+    }
+  }, []);
+};
+
 // src/index.ts
 import { changeLanguage as changeLanguage2 } from "i18next";
 
@@ -3512,6 +3534,7 @@ export {
   useConnectModal,
   useCurrentLanguage,
   useCustomTranslation,
+  useGetInvitationAddress,
   useInitRainbowFn,
   useIsMd,
   useIsMobile,
@@ -3523,7 +3546,7 @@ export {
   useRecoilState8 as useRecoilState,
   useRecoilValue9 as useRecoilValue,
   useResetRecoilState,
-  useSetRecoilState11 as useSetRecoilState,
+  useSetRecoilState12 as useSetRecoilState,
   useSwapPoint,
   useWalletClient2 as useWalletClient,
   useWindowSize,

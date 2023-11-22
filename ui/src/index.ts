@@ -97,6 +97,8 @@ export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
 export { useInitRainbowFn } from "./hooks/useInitRainbowFn";
+export { useGetInvitationAddress } from "./hooks/useGetInvitationAddress";
+
 export {
   LinkList,
   blankLinkList,
