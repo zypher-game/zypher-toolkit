@@ -150,8 +150,8 @@ import React, { memo, useCallback, useState } from "react";
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
 var useCustomTranslation = (namespaces) => {
-  const { t, i18n: i18n2 } = useBaseTranslation(namespaces);
-  return { t, i18n: i18n2 };
+  const { t, i18n: i18n3 } = useBaseTranslation(namespaces);
+  return { t, i18n: i18n3 };
 };
 
 // src/constant/constant.ts
@@ -3377,6 +3377,18 @@ var RainbowKitWithThemeProvider = ({ children, env }) => {
 };
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
+// src/hooks/useCurrentLanguage.ts
+import i18n2 from "i18next";
+import { useEffect as useEffect8, useState as useState7 } from "react";
+var useCurrentLanguage = () => {
+  const [currentLanguage, setCurrentLanguage] = useState7(i18n2.language);
+  const { t } = useCustomTranslation([LngNs.common]);
+  useEffect8(() => {
+    setCurrentLanguage(i18n2.language);
+  }, [t("language")]);
+  return currentLanguage;
+};
+
 // src/index.ts
 import { changeLanguage as changeLanguage2 } from "i18next";
 
@@ -3498,6 +3510,7 @@ export {
   useActiveWeb3React,
   useChainModal4 as useChainModal,
   useConnectModal,
+  useCurrentLanguage,
   useCustomTranslation,
   useInitRainbowFn,
   useIsMd,

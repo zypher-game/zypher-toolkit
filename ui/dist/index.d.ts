@@ -22,6 +22,7 @@ export { localStorageEffect } from "./utils/localStorageEffect";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useActiveChainId } from "./hooks/useActiveChainId";
 export { useActiveWallet } from "./hooks/useActiveWallet";
+export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
 export { useInitRainbowFn } from "./hooks/useInitRainbowFn";
