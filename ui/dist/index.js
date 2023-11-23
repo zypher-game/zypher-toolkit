@@ -597,7 +597,7 @@ var LngNs = {
 i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
   fallbackLng: "en_US",
   backend: {
-    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
+    loadPath: preStaticUrl + "/i18nv1/{{lng}}/{{ns}}.json"
   },
   lng,
   ns: Object.values(LngNs),
@@ -858,14 +858,6 @@ var useNavItem = () => {
         keyValue: "8",
         icon: "ranking.svg",
         link: "/ranking",
-        disabled: false,
-        type: "Activities" /* Activities */
-      },
-      {
-        label: t("DP"),
-        keyValue: "15",
-        icon: "dp.svg",
-        link: "/dp",
         disabled: false,
         type: "Activities" /* Activities */
       }
