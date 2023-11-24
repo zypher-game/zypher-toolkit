@@ -13,7 +13,7 @@ export enum INavLinkType {
 }
 
 export const LinkList = [
-  "/#/zBingo",
+  "/zBingo",
   // window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
   "https://test.zypher.game/zace/",
