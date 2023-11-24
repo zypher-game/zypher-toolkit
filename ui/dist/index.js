@@ -734,14 +734,14 @@ var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
 var LinkList = [
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  "https://test-poker.zypher.game/",
+  "https://test.zypher.game/zace/",
   "https://test.zypher.game/CryptoRumble/",
   "",
   "",
   ""
 ];
 var blankLinkList = [
-  false,
+  true,
   true,
   true,
   true,
@@ -770,7 +770,7 @@ var usePathname = () => {
         return setDefaultSelectedKey("9");
       case "shop":
         return setDefaultSelectedKey("5");
-      case "DP":
+      case "dp":
         return setDefaultSelectedKey("15");
       default:
         setDefaultSelectedKey("1");
