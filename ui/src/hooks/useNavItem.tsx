@@ -71,7 +71,7 @@ export const usePathname = () => {
         return setDefaultSelectedKey("9");
       case "shop":
         return setDefaultSelectedKey("5");
-      case "DP":
+      case "dp":
         return setDefaultSelectedKey("15");
       default:
         setDefaultSelectedKey("1");
@@ -181,14 +181,14 @@ export const useNavItem = (): INavLink[] => {
         disabled: false,
         type: INavLinkType.Activities,
       },
-      // {
-      //   label: t("DP"),
-      //   keyValue: "15",
-      //   icon: "dp.svg",
-      //   link: "/dp",
-      //   disabled: false,
-      //   type: INavLinkType.Activities,
-      // },
+      {
+        label: t("DP"),
+        keyValue: "15",
+        icon: "dp.svg",
+        link: "/dp",
+        disabled: false,
+        type: INavLinkType.Activities,
+      },
       // { label: t('GB )Box', keyValue: '4', icon: "gbBox.svg", link: '/gbBox', disabled: false, type: INavLinkType.Activities },
       // { label: t('Shop'), keyValue: '5', icon: 'shop.svg', link: '/shop', disabled: true, type: INavLinkType.Activities }
     ];
