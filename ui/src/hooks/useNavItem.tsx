@@ -16,7 +16,7 @@ export const LinkList = [
   "/zBingo",
   // window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  "https://test.zypher.game/zace/",
+  "https://test.zypher.game/zAce/",
   "https://test.zypher.game/CryptoRumble/",
   "", //game_tcg.jpg
   "", //game_mahjong.jpg

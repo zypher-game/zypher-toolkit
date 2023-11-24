@@ -734,7 +734,7 @@ var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
 var LinkList = [
   "/zBingo",
   window.location.origin + "/2048/",
-  "https://test.zypher.game/zace/",
+  "https://test.zypher.game/zAce/",
   "https://test.zypher.game/CryptoRumble/",
   "",
   "",
