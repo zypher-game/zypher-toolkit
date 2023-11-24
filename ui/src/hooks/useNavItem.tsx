@@ -15,14 +15,14 @@ export enum INavLinkType {
 export const LinkList = [
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  "https://test-poker.zypher.game/",
+  "https://test.zypher.game/zace/",
   "https://test.zypher.game/CryptoRumble/",
   "", //game_tcg.jpg
   "", //game_mahjong.jpg
   "", //game_muder.jpg
 ];
 export const blankLinkList = [
-  false,
+  true,
   true,
   true,
   true,
@@ -181,14 +181,14 @@ export const useNavItem = (): INavLink[] => {
         disabled: false,
         type: INavLinkType.Activities,
       },
-      {
-        label: t("DP"),
-        keyValue: "15",
-        icon: "dp.svg",
-        link: "/dp",
-        disabled: false,
-        type: INavLinkType.Activities,
-      },
+      // {
+      //   label: t("DP"),
+      //   keyValue: "15",
+      //   icon: "dp.svg",
+      //   link: "/dp",
+      //   disabled: false,
+      //   type: INavLinkType.Activities,
+      // },
       // { label: t('GB )Box', keyValue: '4', icon: "gbBox.svg", link: '/gbBox', disabled: false, type: INavLinkType.Activities },
       // { label: t('Shop'), keyValue: '5', icon: 'shop.svg', link: '/shop', disabled: true, type: INavLinkType.Activities }
     ];
