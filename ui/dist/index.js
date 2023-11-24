@@ -741,7 +741,7 @@ var LinkList = [
   ""
 ];
 var blankLinkList = [
-  true,
+  false,
   true,
   true,
   true,

@@ -22,7 +22,7 @@ export const LinkList = [
   "", //game_muder.jpg
 ];
 export const blankLinkList = [
-  true,
+  false,
   true,
   true,
   true,
