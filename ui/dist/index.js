@@ -2871,10 +2871,10 @@ var ChainPointPrice = {
 var pointsListDefault = (chainId) => {
   try {
     return [
+      ["1000"],
       ["10000"],
       ["30000"],
       ["50000"],
-      ["60000"],
       ["80000"],
       ["100000 ", "2"],
       ["300000", "5"],
