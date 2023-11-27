@@ -47,8 +47,8 @@ export const formatMoney = (value: number | string, n = 2): string => {
     if (isNaN(Number(value))) {
       return Number(0).toFixed(n > 0 ? n : 0);
     }
-    if (value === 0) {
-      return Number("0").toFixed(n);
+    if (value === 0 || value === "0") {
+      return Number(0).toFixed(n);
     }
     const isNegative = Number(value) < 0;
     const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
