@@ -13,8 +13,8 @@ export enum INavLinkType {
 }
 
 export const LinkList = [
-  "/zBingo",
-  // window.location.origin + "/bingo/",
+  // "/zBingo",
+  window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
   "https://test.zypher.game/zAce/",
   "https://test.zypher.game/CryptoRumble/",
@@ -182,14 +182,14 @@ export const useNavItem = (): INavLink[] => {
         disabled: false,
         type: INavLinkType.Activities,
       },
-      // {
-      //   label: t("DP"),
-      //   keyValue: "15",
-      //   icon: "dp.svg",
-      //   link: "/dp",
-      //   disabled: false,
-      //   type: INavLinkType.Activities,
-      // },
+      {
+        label: t("Depository Pass"),
+        keyValue: "15",
+        icon: "dp.svg",
+        link: "/dp",
+        disabled: false,
+        type: INavLinkType.Activities,
+      },
       // { label: t('GB )Box', keyValue: '4', icon: "gbBox.svg", link: '/gbBox', disabled: false, type: INavLinkType.Activities },
       // { label: t('Shop'), keyValue: '5', icon: 'shop.svg', link: '/shop', disabled: true, type: INavLinkType.Activities }
     ];
