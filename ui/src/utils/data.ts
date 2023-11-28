@@ -6,7 +6,7 @@ export const getUTCSeconds = () => {
 const SECONDS_PER_DAY = 24 * 60 * 60;
 const OFFSET19700101 = 2440588;
 
-export function timestampToDateStr(timestamp: number): string {
+export function timestampToDateStr(timestamp: number, split?: string): string {
   const _days = Math.floor(timestamp / SECONDS_PER_DAY);
   let L = _days + 68569 + OFFSET19700101;
   const N = Math.floor((4 * L) / 146097);
@@ -19,7 +19,9 @@ export function timestampToDateStr(timestamp: number): string {
   month = month + 2 - 12 * L;
   year = 100 * (N - 49) + year + L;
 
-  return `${year.toFixed(0)}${month.toFixed(0)}${day.toFixed(0)}`;
+  return `${year.toFixed(0)}${split}${month.toFixed(0)}${split}${day.toFixed(
+    0
+  )}`;
 }
 
 export const getFormattedTime = (timestamp: number): string => {

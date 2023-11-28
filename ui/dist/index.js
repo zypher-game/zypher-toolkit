@@ -3455,7 +3455,7 @@ var getUTCSeconds = () => {
 };
 var SECONDS_PER_DAY = 24 * 60 * 60;
 var OFFSET19700101 = 2440588;
-function timestampToDateStr(timestamp) {
+function timestampToDateStr(timestamp, split) {
   const _days = Math.floor(timestamp / SECONDS_PER_DAY);
   let L = _days + 68569 + OFFSET19700101;
   const N = Math.floor(4 * L / 146097);
@@ -3467,7 +3467,9 @@ function timestampToDateStr(timestamp) {
   L = Math.floor(month / 11);
   month = month + 2 - 12 * L;
   year = 100 * (N - 49) + year + L;
-  return `${year.toFixed(0)}${month.toFixed(0)}${day.toFixed(0)}`;
+  return `${year.toFixed(0)}${split}${month.toFixed(0)}${split}${day.toFixed(
+    0
+  )}`;
 }
 var getFormattedTime = (timestamp) => {
   const date = new Date(timestamp * 1e3);
