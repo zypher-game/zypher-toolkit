@@ -598,7 +598,7 @@ var LngNs = {
 i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
   fallbackLng: "en_US",
   backend: {
-    loadPath: preStaticUrl + "/i18nv1/{{lng}}/{{ns}}.json"
+    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
   },
   lng,
   ns: Object.values(LngNs),
