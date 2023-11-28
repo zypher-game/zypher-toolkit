@@ -592,7 +592,8 @@ var LngNs = {
   home: "home",
   zBingo: "zBingo",
   invitation: "invitation",
-  profile: "profile"
+  profile: "profile",
+  dp: "dp"
 };
 i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
   fallbackLng: "en_US",

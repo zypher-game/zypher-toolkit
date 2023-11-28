@@ -8,4 +8,5 @@ export declare const LngNs: {
     zBingo: string;
     invitation: string;
     profile: string;
+    dp: string;
 };

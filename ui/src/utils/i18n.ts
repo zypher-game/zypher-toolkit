@@ -21,6 +21,7 @@ export const LngNs = {
   zBingo: "zBingo",
   invitation: "invitation",
   profile: "profile",
+  dp: "dp",
 };
 
 i18n
