@@ -472,6 +472,9 @@ var IContractName = /* @__PURE__ */ ((IContractName2) => {
   IContractName2["Reward"] = "reward";
   IContractName2["Fee"] = "ZkBingoFee";
   IContractName2["Monster"] = "Monster";
+  IContractName2["Z2048SBT"] = "Z2048SBT";
+  IContractName2["ZkGame2048"] = "ZkGame2048";
+  IContractName2["ZkGame2048API"] = "ZkGame2048API";
   return IContractName2;
 })(IContractName || {});
 var zkBingoV0 = (chainId, name) => {
@@ -3604,7 +3607,6 @@ var useRecentGamesFromGraph = ({
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 5e4);
-  fetchGameInfos;
   return {
     list,
     hasError

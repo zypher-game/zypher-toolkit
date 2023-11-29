@@ -51,7 +51,6 @@ export const useRecentGamesFromGraph = ({
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 50000);
-  fetchGameInfos;
   return {
     list: list,
     hasError: hasError,

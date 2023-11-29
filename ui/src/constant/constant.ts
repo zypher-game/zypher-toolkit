@@ -349,6 +349,9 @@ export enum IContractName {
   Reward = "reward",
   Fee = "ZkBingoFee",
   Monster = "Monster",
+  Z2048SBT = "Z2048SBT",
+  ZkGame2048 = "ZkGame2048",
+  ZkGame2048API = "ZkGame2048API",
 }
 export const zkBingoV0 = (
   chainId: number | undefined,

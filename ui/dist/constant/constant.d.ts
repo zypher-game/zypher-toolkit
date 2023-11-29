@@ -53,7 +53,10 @@ export declare enum IContractName {
     ZypherGameToken = "ZypherGameToken",
     Reward = "reward",
     Fee = "ZkBingoFee",
-    Monster = "Monster"
+    Monster = "Monster",
+    Z2048SBT = "Z2048SBT",
+    ZkGame2048 = "ZkGame2048",
+    ZkGame2048API = "ZkGame2048API"
 }
 export declare const zkBingoV0: (chainId: number | undefined, name: IContractName) => Address;
 export declare const zkBingo: (chainId: number | undefined, name: IContractName) => Address;
