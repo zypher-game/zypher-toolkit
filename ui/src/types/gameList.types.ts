@@ -9,6 +9,7 @@ export enum IGameStatus {
 }
 export enum IGameName {
   zBingo = "zBingo",
+  z2048 = "z2048",
 }
 export type IBingoInfo = {
   cardNumbers: number[][];

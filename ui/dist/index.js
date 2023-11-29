@@ -3427,6 +3427,7 @@ var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
 })(IGameStatus || {});
 var IGameName = /* @__PURE__ */ ((IGameName2) => {
   IGameName2["zBingo"] = "zBingo";
+  IGameName2["z2048"] = "z2048";
   return IGameName2;
 })(IGameName || {});
 
