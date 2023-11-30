@@ -424,8 +424,7 @@ var CurrencyContract = {
   [59140 /* LineaTestnet */]: {
     multicall: [
       "0xBA736a65D287D63012caF07558CA33abC925ea64",
-      "0xae2F2660EdEf3197648cC89432a197a000b97EC3",
-      "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a"
+      "0xae2F2660EdEf3197648cC89432a197a000b97EC3"
     ]
   },
   [59144 /* LineaMainnet */]: {
@@ -2658,6 +2657,7 @@ var Refresh = styled5.div`
 `;
 var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile }) => isMobile ? "4px" : "10px"};
+  margin-left: 0;
   width: ${({ isMobile }) => isMobile ? "20px" : "24px"};
 `;
 var Balance = memo16((props) => {

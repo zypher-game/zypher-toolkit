@@ -300,7 +300,7 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: [
       "0xBA736a65D287D63012caF07558CA33abC925ea64",
       "0xae2F2660EdEf3197648cC89432a197a000b97EC3",
-      "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a",
+      // "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a",
     ],
   },
   [ChainId.LineaMainnet]: {
