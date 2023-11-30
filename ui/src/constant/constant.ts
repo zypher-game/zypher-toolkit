@@ -297,7 +297,11 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: [MulticallV3],
   },
   [ChainId.LineaTestnet]: {
-    multicall: [MulticallV3],
+    multicall: [
+      "0xBA736a65D287D63012caF07558CA33abC925ea64",
+      "0xae2F2660EdEf3197648cC89432a197a000b97EC3",
+      "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a",
+    ],
   },
   [ChainId.LineaMainnet]: {
     multicall: [MulticallV3],
@@ -319,7 +323,7 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: [MulticallV3],
   },
   [ChainId.ScrollSepoliaTestnet]: {
-    multicall: [MulticallV3],
+    multicall: [MulticallV3, "0xA10417e9210E8Ad2e8665e11b5E78d804956eb6E"],
   },
   [ChainId.ScrollAlphaTestnet]: {
     multicall: [MulticallV3],

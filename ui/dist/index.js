@@ -422,7 +422,11 @@ var CurrencyContract = {
     multicall: [MulticallV3]
   },
   [59140 /* LineaTestnet */]: {
-    multicall: [MulticallV3]
+    multicall: [
+      "0xBA736a65D287D63012caF07558CA33abC925ea64",
+      "0xae2F2660EdEf3197648cC89432a197a000b97EC3",
+      "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a"
+    ]
   },
   [59144 /* LineaMainnet */]: {
     multicall: [MulticallV3]
@@ -443,7 +447,7 @@ var CurrencyContract = {
     multicall: [MulticallV3]
   },
   [534351 /* ScrollSepoliaTestnet */]: {
-    multicall: [MulticallV3]
+    multicall: [MulticallV3, "0xA10417e9210E8Ad2e8665e11b5E78d804956eb6E"]
   },
   [534353 /* ScrollAlphaTestnet */]: {
     multicall: [MulticallV3]
