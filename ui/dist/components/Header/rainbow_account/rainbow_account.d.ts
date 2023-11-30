@@ -1,5 +1,6 @@
 import React from "react";
-declare const Account: React.MemoExoticComponent<({ env, dispatch, setSuccessToast, setErrorToast, copy, }: {
+declare const Account: React.MemoExoticComponent<({ showLang, env, dispatch, setSuccessToast, setErrorToast, copy, }: {
+    showLang: boolean;
     env: string;
     dispatch: any;
     setSuccessToast: any;

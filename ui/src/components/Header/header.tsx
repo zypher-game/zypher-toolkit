@@ -21,6 +21,7 @@ interface IProps {
   copy: any;
   useNavigate: any;
   useLocation: any;
+  showLang: boolean;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
@@ -36,6 +37,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     copy,
     useNavigate,
     useLocation,
+    showLang,
   } = props;
   return (
     <header
@@ -50,6 +52,7 @@ const Header = (props: IProps): React.ReactElement | null => {
       <div className={"header_right"}>
         {/* <ConnectWallet isMobile={isMobile} /> */}
         <RainbowConnectWallet
+          showLang={showLang}
           useLocation={useLocation}
           copy={copy}
           isMobile={isMobile}

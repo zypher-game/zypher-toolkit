@@ -20,6 +20,7 @@ interface IProps {
   isMobile: boolean;
   className?: string;
   copy: any;
+  showLang: boolean;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
@@ -31,6 +32,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
     dispatch,
     setSuccessToast,
     setErrorToast,
+    showLang,
   } = props;
   const location = useLocation();
   const isPathLocation = useMemo(() => {
@@ -68,6 +70,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   dispatch={dispatch}
                   setSuccessToast={setSuccessToast}
                   setErrorToast={setErrorToast}
+                  showLang={showLang}
                 />
               )}
             </>

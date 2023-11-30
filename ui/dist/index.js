@@ -12,8 +12,7 @@ import {
 import { useWalletClient as useWalletClient2 } from "wagmi";
 
 // src/components/SideBar/index.tsx
-import classnames2 from "classnames";
-import cx from "classnames";
+import classnames3 from "classnames";
 import React8, { memo as memo7, useMemo as useMemo4 } from "react";
 
 // src/hooks/useNavItem.tsx
@@ -542,23 +541,36 @@ var zkBingo = (chainId, name) => {
 };
 
 // src/components/SideBar/component/Language.tsx
+import { useCurrentLanguage } from "ui/src/hooks/useCurrentLanguage";
+import classnames from "classnames";
 var languageList = [
   {
     label: "English",
-    keyValue: "en_US"
+    keyValue: "en_US",
+    img: preStaticUrl + "/img/layout/en_US.png"
   },
   {
     label: "\uD55C\uAD6D\uC5B4",
-    keyValue: "ko_KR"
+    keyValue: "ko_KR",
+    img: preStaticUrl + "/img/layout/ko_KR.png"
   },
   {
     label: "\u4E2D\u6587\u7E41\u9AD4",
-    keyValue: "zh_TW"
+    keyValue: "zh_TW",
+    img: preStaticUrl + "/img/layout/zh_TW.png"
   }
 ];
 var Language = memo(
-  ({ className, className_item, className_itemtip, className_on }) => {
+  ({
+    className_top,
+    className,
+    className_item,
+    className_itemtip,
+    className_on,
+    type
+  }) => {
     const [show, setShow] = useState(false);
+    const lang = useCurrentLanguage();
     const { t } = useCustomTranslation([LngNs.common]);
     const handle = useCallback(() => {
       setShow(!show);
@@ -568,6 +580,24 @@ var Language = memo(
       setShow(false);
       storage_default.set("language", item.keyValue);
     }, []);
+    if (type === "top") {
+      return /* @__PURE__ */ React.createElement("div", {
+        className: classnames(className_top, className)
+      }, /* @__PURE__ */ React.createElement("div", {
+        className: className_item,
+        onClick: handle
+      }, /* @__PURE__ */ React.createElement("img", {
+        src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
+      }), /* @__PURE__ */ React.createElement("img", {
+        src: preStaticUrl + `/img/layout/${lang}.png`
+      })), show ? /* @__PURE__ */ React.createElement("ul", {
+        className: className_itemtip
+      }, languageList.map((v) => /* @__PURE__ */ React.createElement("li", {
+        key: v.label,
+        className: className_on,
+        onClick: () => changeLanguageHandle(v)
+      }, v.label))) : null);
+    }
     return /* @__PURE__ */ React.createElement("div", {
       className
     }, /* @__PURE__ */ React.createElement("div", {
@@ -920,7 +950,7 @@ var CommunityLink = memo2(({ className }) => {
 var CommunityLink_default = CommunityLink;
 
 // src/components/SideBar/component/LinkItemA.tsx
-import classnames from "classnames";
+import classnames2 from "classnames";
 import React4, { memo as memo3, useCallback as useCallback3, useMemo as useMemo2 } from "react";
 import { useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
 var useLink = (link, isMobile, useNavigate) => {
@@ -975,7 +1005,7 @@ var LinkItem1 = memo3(
     const { isOn, linkClickHandle } = useLink(link, isMobile, useNavigate);
     return /* @__PURE__ */ React4.createElement("div", {
       onClick: linkClickHandle,
-      className: classnames(
+      className: classnames2(
         className,
         link.disabled ? className_disable : "",
         isOn ? className_on : ""
@@ -1098,11 +1128,11 @@ var SideBar = (props) => {
     };
   }, [items, isMobile]);
   return /* @__PURE__ */ React8.createElement("div", {
-    className: classnames2(`${props.className}`, "sidebarWrap")
+    className: classnames3(`${props.className}`, "sidebarWrap")
   }, isMobile ? null : /* @__PURE__ */ React8.createElement("a", {
     href: "https://zypher.game/",
     target: "_black",
-    className: cx("logo")
+    className: classnames3("logo")
   }, /* @__PURE__ */ React8.createElement("img", {
     src: preStaticUrl + "/img/layout/logo.svg"
   }), /* @__PURE__ */ React8.createElement("img", {
@@ -1154,9 +1184,10 @@ var SideBar = (props) => {
     className: "sideBarTitle"
   }), /* @__PURE__ */ React8.createElement(Language_default, {
     className: "language",
-    className_item: classnames2("horListItme", "languageItme"),
+    className_item: classnames3("horListItme", "languageItme"),
     className_itemtip: "languageItmeTip",
-    className_on: "languageItmeOn"
+    className_on: "languageItmeOn",
+    type: "side"
   }), /* @__PURE__ */ React8.createElement("div", {
     className: "line"
   }), /* @__PURE__ */ React8.createElement(SideBarTitle_default, {
@@ -1378,21 +1409,21 @@ var usePointsBalanceStr = () => {
 
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
-import classnames6 from "classnames";
+import classnames7 from "classnames";
 import React12, { memo as memo9, useCallback as useCallback5, useEffect as useEffect4, useMemo as useMemo6 } from "react";
 import { useRecoilState as useRecoilState3 } from "recoil";
 import styled from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
-import classnames4 from "classnames";
+import classnames5 from "classnames";
 import React10, { memo as memo8, useCallback as useCallback4 } from "react";
 
 // src/components/icons/index.tsx
 import React9 from "react";
-import classnames3 from "classnames";
+import classnames4 from "classnames";
 var Icon = (props) => {
   return /* @__PURE__ */ React9.createElement("img", {
-    className: classnames3("icon", props.className),
+    className: classnames4("icon", props.className),
     src: preStaticUrl + `/img/icon/${props.name}.svg`,
     alt: ""
   });
@@ -1406,7 +1437,7 @@ var DialogTitle = memo8(
       setDialogOpen(false);
     }, [setDialogOpen]);
     return /* @__PURE__ */ React10.createElement("div", {
-      className: classnames4("dialog_title_modalTitleInner", classNames)
+      className: classnames5("dialog_title_modalTitleInner", classNames)
     }, /* @__PURE__ */ React10.createElement("p", {
       className: "dialog_title_title"
     }, label), children ? children : null, /* @__PURE__ */ React10.createElement("span", {
@@ -1435,7 +1466,7 @@ var getChainNameText = (chainId) => {
 import React11 from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
-import classnames5 from "classnames";
+import classnames6 from "classnames";
 var Modal = ({
   open,
   onCancel,
@@ -1451,7 +1482,7 @@ var Modal = ({
   return /* @__PURE__ */ React11.createElement(DialogOverlay, {
     isOpen: open,
     onDismiss: onCancel,
-    className: classnames5("customDialog", "bottom", wrapClassName),
+    className: classnames6("customDialog", "bottom", wrapClassName),
     "aria-label": "Modal"
   }, /* @__PURE__ */ React11.createElement(DialogContent, {
     style: { width }
@@ -1513,7 +1544,7 @@ var LinkToBetaDialog = memo9(() => {
     open: linkToBetaDialogOpen,
     onCancel: () => setLinkToBetaDialogOpen(false),
     footer: null,
-    wrapClassName: classnames6("customDialog"),
+    wrapClassName: classnames7("customDialog"),
     destroyOnClose: true,
     closable: false,
     width: isMobile ? "100%" : 360,
@@ -1538,19 +1569,20 @@ var LinkToBetaDialog = memo9(() => {
 var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
-import classnames12 from "classnames";
+import classnames14 from "classnames";
 import React29 from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import { ConnectButton } from "@my/rainbowkit";
-import classnames11 from "classnames";
+import classnames13 from "classnames";
 import React28, { memo as memo21, useMemo as useMemo10 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
 import React26, { memo as memo19, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState8 } from "recoil";
 import styled6 from "styled-components";
+import classnames12 from "classnames";
 
 // src/hooks/useActiveWeb3React.ts
 import { useChainId } from "@my/rainbowkit";
@@ -1570,7 +1602,7 @@ function useActiveWeb3React() {
 }
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
-import classnames8 from "classnames";
+import classnames9 from "classnames";
 import React20, { memo as memo14, useCallback as useCallback6 } from "react";
 import { useRecoilState as useRecoilState4 } from "recoil";
 
@@ -1589,7 +1621,7 @@ var useActiveWallet = () => {
 };
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
-import classnames7 from "classnames";
+import classnames8 from "classnames";
 import React19, { memo as memo13, useMemo as useMemo9 } from "react";
 
 // src/components/CurrencyLogo/index.tsx
@@ -1615,7 +1647,7 @@ var Logo = ({ src, alt, ...rest }) => {
 var CurrencyLogo_default = Logo;
 
 // src/components/PlayerAvatar/index.tsx
-import cx2 from "classnames";
+import cx from "classnames";
 import React15 from "react";
 import styled2 from "styled-components";
 
@@ -1706,7 +1738,7 @@ var PlayerAvatar = ({
   const { t } = useCustomTranslation([LngNs.zBingo]);
   const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
   return /* @__PURE__ */ React15.createElement("div", {
-    className: cx2(className, "player_playerAvatar")
+    className: cx(className, "player_playerAvatar")
   }, account ? /* @__PURE__ */ React15.createElement(AvatarBorder, null, /* @__PURE__ */ React15.createElement(Avatar_default, {
     size,
     src: selectedAvatar,
@@ -2050,7 +2082,7 @@ var MUserInfo = memo13(({ account, chainId, cancel }) => {
   return /* @__PURE__ */ React19.createElement("div", {
     className: "m_user_m_content"
   }, /* @__PURE__ */ React19.createElement(ChainSelectorWidget_default, {
-    className: classnames7("m_user_border", "m_user_chain")
+    className: classnames8("m_user_border", "m_user_chain")
   }), /* @__PURE__ */ React19.createElement("div", {
     className: "m_user_border"
   }, /* @__PURE__ */ React19.createElement("p", {
@@ -2094,7 +2126,7 @@ var AccountInfoDialog = memo14(({ copy }) => {
     open: accountInfoDialogOpen,
     onCancel: () => setAccountInfoDialogOpen(false),
     footer: null,
-    wrapClassName: classnames8(
+    wrapClassName: classnames9(
       "customDialog",
       "bottom",
       "account_info_dialog_dialog"
@@ -2615,7 +2647,7 @@ var erc20_default = erc20Contract;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
-import classnames9 from "classnames";
+import classnames10 from "classnames";
 import React21, { memo as memo15, useCallback as useCallback7 } from "react";
 var BalanceItem = memo15(
   ({ className, loading, balanceStr, logo, preChild, onClick }) => {
@@ -2625,7 +2657,7 @@ var BalanceItem = memo15(
       }
     }, [onClick]);
     return /* @__PURE__ */ React21.createElement("div", {
-      className: classnames9(`${className}`, "balance_item_balance"),
+      className: classnames10(`${className}`, "balance_item_balance"),
       onClick: onClickHandle
     }, preChild, loading ? /* @__PURE__ */ React21.createElement(LoadingOutlined, null) : /* @__PURE__ */ React21.createElement(React21.Fragment, null, balanceStr, logo));
   },
@@ -2733,7 +2765,7 @@ var Balance = memo16((props) => {
 var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
-import classnames10 from "classnames";
+import classnames11 from "classnames";
 import React24, { memo as memo18, useEffect as useEffect7, useState as useState6 } from "react";
 import { useRecoilState as useRecoilState7, useRecoilValue as useRecoilValue6 } from "recoil";
 
@@ -3063,7 +3095,7 @@ var PointsDialog = memo18(
       open: pointsDialogOpen,
       onCancel: () => setPointsDialogOpen(false),
       footer: null,
-      wrapClassName: classnames10("customDialog", "bottom", "dialog"),
+      wrapClassName: classnames11("customDialog", "bottom", "dialog"),
       width: isMobile ? "100%" : 604,
       destroyOnClose: true,
       closable: false,
@@ -3104,7 +3136,7 @@ var PointsTable = memo18(
     return /* @__PURE__ */ React24.createElement("div", {
       className: "table"
     }, pointsList.map((v, index) => /* @__PURE__ */ React24.createElement("div", {
-      className: classnames10("points", `points_${v.index}`),
+      className: classnames11("points", `points_${v.index}`),
       key: v.index,
       onClick: () => onClick(index)
     }, /* @__PURE__ */ React24.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React24.createElement("img", {
@@ -3192,6 +3224,7 @@ var AddressWrap = styled6.div`
 `;
 var Account = memo19(
   ({
+    showLang,
     env,
     dispatch,
     setSuccessToast,
@@ -3208,7 +3241,14 @@ var Account = memo19(
       setAccountInfoDialogState(true);
     }, [setAccountInfoDialogState]);
     const { account } = useActiveWeb3React();
-    return /* @__PURE__ */ React26.createElement(React26.Fragment, null, /* @__PURE__ */ React26.createElement(Balance_default, {
+    return /* @__PURE__ */ React26.createElement(React26.Fragment, null, showLang ? /* @__PURE__ */ React26.createElement(Language_default, {
+      className_top: "language_top",
+      className: "language",
+      className_item: classnames12("horListItme", "languageItme"),
+      className_itemtip: "languageItmeTip",
+      className_on: "languageItmeOn",
+      type: "top"
+    }) : null, /* @__PURE__ */ React26.createElement(Balance_default, {
       env,
       isMobile,
       showPointsModal
@@ -3263,7 +3303,8 @@ var RainbowConnectWallet = memo21((props) => {
     copy,
     dispatch,
     setSuccessToast,
-    setErrorToast
+    setErrorToast,
+    showLang
   } = props;
   const location2 = useLocation();
   const isPathLocation = useMemo10(() => {
@@ -3274,7 +3315,7 @@ var RainbowConnectWallet = memo21((props) => {
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location2]);
   return /* @__PURE__ */ React28.createElement("div", {
-    className: classnames11(
+    className: classnames13(
       "connect_connectWallet",
       isPathLocation ? "connect_bgWallet" : "",
       className
@@ -3288,7 +3329,8 @@ var RainbowConnectWallet = memo21((props) => {
       env,
       dispatch,
       setSuccessToast,
-      setErrorToast
+      setErrorToast,
+      showLang
     }));
   }));
 }, isEqual);
@@ -3315,10 +3357,11 @@ var Header = (props) => {
     setErrorToast,
     copy,
     useNavigate,
-    useLocation
+    useLocation,
+    showLang
   } = props;
   return /* @__PURE__ */ React29.createElement("header", {
-    className: classnames12("header_header", props.className),
+    className: classnames14("header_header", props.className),
     style: { position: "sticky", top: 0, zIndex: 1, width: "100%" }
   }, isMobile && /* @__PURE__ */ React29.createElement("div", {
     className: "header_left"
@@ -3328,6 +3371,7 @@ var Header = (props) => {
   })), /* @__PURE__ */ React29.createElement("div", {
     className: "header_right"
   }, /* @__PURE__ */ React29.createElement(rainbow_connectWallet_default, {
+    showLang,
     useLocation,
     copy,
     isMobile,
@@ -3339,13 +3383,13 @@ var Header = (props) => {
     className: "header_btn",
     onClick: () => setSiderCollapse(false)
   }, /* @__PURE__ */ React29.createElement(icons_default, {
-    className: classnames12("header_icon"),
+    className: classnames14("header_icon"),
     name: "menu"
   })) : /* @__PURE__ */ React29.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(true)
   }, /* @__PURE__ */ React29.createElement(icons_default, {
-    className: classnames12("header_icon", "header_close"),
+    className: classnames14("header_icon", "header_close"),
     name: "close"
   }))) : null), /* @__PURE__ */ React29.createElement(LinkToBetaDialog_default, null));
 };
@@ -3388,7 +3432,7 @@ var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 // src/hooks/useCurrentLanguage.ts
 import i18n2 from "i18next";
 import { useEffect as useEffect8, useState as useState7 } from "react";
-var useCurrentLanguage = () => {
+var useCurrentLanguage2 = () => {
   const [currentLanguage, setCurrentLanguage] = useState7(i18n2.language);
   const { t } = useCustomTranslation([LngNs.common]);
   useEffect8(() => {
@@ -3951,7 +3995,7 @@ export {
   useActiveWeb3React,
   useChainModal4 as useChainModal,
   useConnectModal,
-  useCurrentLanguage,
+  useCurrentLanguage2 as useCurrentLanguage,
   useCustomTranslation,
   useGetInvitationAddress,
   useInitRainbowFn,

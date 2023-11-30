@@ -9,6 +9,7 @@ interface IProps {
     isMobile: boolean;
     className?: string;
     copy: any;
+    showLang: boolean;
 }
 declare const RainbowConnectWallet: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default RainbowConnectWallet;

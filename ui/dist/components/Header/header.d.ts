@@ -10,6 +10,7 @@ interface IProps {
     copy: any;
     useNavigate: any;
     useLocation: any;
+    showLang: boolean;
 }
 declare const Header: (props: IProps) => React.ReactElement | null;
 export default Header;

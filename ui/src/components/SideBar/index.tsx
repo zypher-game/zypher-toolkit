@@ -1,5 +1,4 @@
 import classnames from "classnames";
-import cx from "classnames";
 import React, { memo, useMemo } from "react";
 
 import {
@@ -55,7 +54,11 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
   return (
     <div className={classnames(`${props.className}`, "sidebarWrap")}>
       {isMobile ? null : (
-        <a href={"https://zypher.game/"} target="_black" className={cx("logo")}>
+        <a
+          href={"https://zypher.game/"}
+          target="_black"
+          className={classnames("logo")}
+        >
           <img src={preStaticUrl + "/img/layout/logo.svg"} />
           <img src={preStaticUrl + "/img/layout/ai.svg"} />
         </a>
@@ -116,6 +119,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           className_item={classnames("horListItme", "languageItme")}
           className_itemtip={"languageItmeTip"}
           className_on={"languageItmeOn"}
+          type={"side"}
         />
         <div className={"line"} />
         <SideBarTitle
