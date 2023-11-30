@@ -5,7 +5,7 @@ import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
 import storage from "../../../utils/storage";
 import { preStaticUrl } from "../../../constant/constant";
-import { useCurrentLanguage } from "ui/src/hooks/useCurrentLanguage";
+import { useCurrentLanguage } from "../../../hooks/useCurrentLanguage";
 import classnames from "classnames";
 
 type IProps = {

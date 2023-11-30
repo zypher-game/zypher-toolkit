@@ -16,11 +16,11 @@ import classnames3 from "classnames";
 import React8, { memo as memo7, useMemo as useMemo4 } from "react";
 
 // src/hooks/useNavItem.tsx
-import { useEffect as useEffect3, useMemo } from "react";
+import { useEffect as useEffect4, useMemo } from "react";
 import { useSetRecoilState } from "recoil";
 
 // src/utils/i18n.ts
-import i18n from "i18next";
+import i18n2 from "i18next";
 import LanguageDetector from "i18next-browser-languagedetector";
 import Backend from "i18next-http-backend";
 import { initReactI18next } from "react-i18next";
@@ -144,7 +144,7 @@ function isEqual(value1, value2) {
 }
 
 // src/components/SideBar/component/Language.tsx
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useState as useState2 } from "react";
 
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
@@ -540,8 +540,19 @@ var zkBingo = (chainId, name) => {
   }
 };
 
+// src/hooks/useCurrentLanguage.ts
+import i18n from "i18next";
+import { useEffect, useState } from "react";
+var useCurrentLanguage = () => {
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const { t } = useCustomTranslation([LngNs.common]);
+  useEffect(() => {
+    setCurrentLanguage(i18n.language);
+  }, [t("language")]);
+  return currentLanguage;
+};
+
 // src/components/SideBar/component/Language.tsx
-import { useCurrentLanguage } from "ui/src/hooks/useCurrentLanguage";
 import classnames from "classnames";
 var languageList = [
   {
@@ -569,7 +580,7 @@ var Language = memo(
     className_on,
     type
   }) => {
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState2(false);
     const lang = useCurrentLanguage();
     const { t } = useCustomTranslation([LngNs.common]);
     const handle = useCallback(() => {
@@ -631,7 +642,7 @@ var LngNs = {
   profile: "profile",
   dp: "dp"
 };
-i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
+i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
   fallbackLng: "en_US",
   backend: {
     loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
@@ -645,10 +656,10 @@ i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 });
 
 // src/hooks/useWindowSize.ts
-import { useCallback as useCallback2, useContext, useEffect as useEffect2, useState as useState2 } from "react";
+import { useCallback as useCallback2, useContext, useEffect as useEffect3, useState as useState3 } from "react";
 
 // src/provider/IsMobileProvider.tsx
-import React2, { createContext, useEffect } from "react";
+import React2, { createContext, useEffect as useEffect2 } from "react";
 import { atom, useRecoilState } from "recoil";
 
 // src/utils/localStorageEffect.ts
@@ -687,7 +698,7 @@ var IsMdContext = createContext(void 0);
 var IsMobileProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useRecoilState(isMobileState);
   const size = useWindowSize();
-  useEffect(() => {
+  useEffect2(() => {
     const nowIsMobile = size.width < 768;
     if (isMobile !== nowIsMobile) {
       setIsMobile(nowIsMobile);
@@ -700,7 +711,7 @@ var IsMobileProvider = ({ children }) => {
 var IsMdProvider = ({ children }) => {
   const [isWMd, setIsWMd] = useRecoilState(isWMdState);
   const size = useWindowSize();
-  useEffect(() => {
+  useEffect2(() => {
     const nowIsMdMobile = size.width < 950;
     if (isWMd !== nowIsMdMobile) {
       setIsWMd(nowIsMdMobile);
@@ -714,7 +725,7 @@ var IsMdProvider = ({ children }) => {
 // src/hooks/useWindowSize.ts
 import { useRecoilState as useRecoilState2 } from "recoil";
 function useWindowSize() {
-  const [size, setSize] = useState2({
+  const [size, setSize] = useState3({
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight
   });
@@ -724,7 +735,7 @@ function useWindowSize() {
       height: document.documentElement.clientHeight
     });
   }, []);
-  useEffect2(() => {
+  useEffect3(() => {
     window.addEventListener("resize", onResize);
     return () => {
       window.removeEventListener("resize", onResize);
@@ -789,7 +800,7 @@ var blankLinkList = [
 var usePathname = () => {
   const isMobile = useIsMobile();
   const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
-  useEffect3(() => {
+  useEffect4(() => {
     const path = window.location.hash.split("/");
     const pathName = path[1];
     switch (pathName) {
@@ -1410,7 +1421,7 @@ var usePointsBalanceStr = () => {
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames7 from "classnames";
-import React12, { memo as memo9, useCallback as useCallback5, useEffect as useEffect4, useMemo as useMemo6 } from "react";
+import React12, { memo as memo9, useCallback as useCallback5, useEffect as useEffect5, useMemo as useMemo6 } from "react";
 import { useRecoilState as useRecoilState3 } from "recoil";
 import styled from "styled-components";
 
@@ -1535,7 +1546,7 @@ var LinkToBetaDialog = memo9(() => {
   const handleButtonClick = useCallback5(() => {
     window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
   }, [ToUrlName]);
-  useEffect4(() => {
+  useEffect5(() => {
     if (!linkToBetaDialogOpen) {
       setLinkToBetaDialogChainId(void 0);
     }
@@ -1625,9 +1636,9 @@ import classnames8 from "classnames";
 import React19, { memo as memo13, useMemo as useMemo9 } from "react";
 
 // src/components/CurrencyLogo/index.tsx
-import React13, { useState as useState3 } from "react";
+import React13, { useState as useState4 } from "react";
 var Logo = ({ src, alt, ...rest }) => {
-  const [bad, setBad] = useState3(false);
+  const [bad, setBad] = useState4(false);
   if (src && !bad) {
     return /* @__PURE__ */ React13.createElement("img", {
       ...rest,
@@ -1901,7 +1912,7 @@ import styled4 from "styled-components";
 
 // src/hooks/useInitRainbowFn.ts
 import { useChainModal } from "@my/rainbowkit";
-import { useEffect as useEffect5 } from "react";
+import { useEffect as useEffect6 } from "react";
 import { useSetRecoilState as useSetRecoilState3 } from "recoil";
 var useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();
@@ -1909,7 +1920,7 @@ var useInitRainbowFn = () => {
   const setLinkToBetaDialogChainIdState = useSetRecoilState3(
     linkToBetaDialogChainIdState
   );
-  useEffect5(() => {
+  useEffect6(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
         if (_c === 42161 /* Arbitrum */ || _c === 169 /* MantaPacificMainnet */) {
@@ -2161,7 +2172,7 @@ var AccountInfoDialog_default = AccountInfoDialog;
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs2 from "bignumber.js";
-import React22, { memo as memo16, useCallback as useCallback8, useEffect as useEffect6, useState as useState4 } from "react";
+import React22, { memo as memo16, useCallback as useCallback8, useEffect as useEffect7, useState as useState5 } from "react";
 import { useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState4 } from "recoil";
 import styled5 from "styled-components";
 
@@ -2695,7 +2706,7 @@ var AddIcon = styled5(icons_default)`
 var Balance = memo16((props) => {
   const { showPointsModal, isMobile, env } = props;
   const { chainId, account, provider } = useActiveWeb3React();
-  const [loading, setLoading] = useState4(false);
+  const [loading, setLoading] = useState5(false);
   const setNativeBalance = useSetRecoilState4(nativeBalanceState);
   const setPointsBalance = useSetRecoilState4(pointsBalanceState);
   const refreshBalance = useRecoilValue3(refreshBalanceState);
@@ -2730,7 +2741,7 @@ var Balance = memo16((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider]);
-  useEffect6(() => {
+  useEffect7(() => {
     if (account && chainId) {
       fetchBalanceOf();
     }
@@ -2766,7 +2777,7 @@ var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames11 from "classnames";
-import React24, { memo as memo18, useEffect as useEffect7, useState as useState6 } from "react";
+import React24, { memo as memo18, useEffect as useEffect8, useState as useState7 } from "react";
 import { useRecoilState as useRecoilState7, useRecoilValue as useRecoilValue6 } from "recoil";
 
 // src/hooks/usePoint.ts
@@ -2849,7 +2860,7 @@ var useAccountInvitation = (env) => {
 };
 
 // src/hooks/usePoint.ts
-import { useCallback as useCallback11, useState as useState5 } from "react";
+import { useCallback as useCallback11, useState as useState6 } from "react";
 import { useRecoilState as useRecoilState5, useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState6 } from "recoil";
 
 // src/hooks/usePublicNodeWaitForTransaction.ts
@@ -2954,13 +2965,13 @@ var useSwapPoint = ({
 }) => {
   const { account, chainId } = useActiveWeb3React();
   const { postAccountUpdate } = useAccountInvitation(env);
-  const [isLoading, setIsLoading] = useState5(false);
+  const [isLoading, setIsLoading] = useState6(false);
   const setPointsDialogOpen = useSetRecoilState6(pointsDialogState);
   const [refreshBalance, setRefreshBalanceState] = useRecoilState5(refreshBalanceState);
   const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
   const hidePointsWarn = useRecoilValue5(hidePointsWarnState);
   const [pointsWarn, setPointsWarn] = useRecoilState5(pointsWarnState);
-  const [choseIndex, setChoseIndex] = useState5();
+  const [choseIndex, setChoseIndex] = useState6();
   const { data: walletClient } = useWalletClient();
   const swapPointHandle = useCallback11(
     async (index) => {
@@ -3074,14 +3085,14 @@ var PointsDialog = memo18(
     const { chainId } = useActiveWeb3React();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile = useIsMobile();
-    const [pointsList, setPointsList] = useState6([]);
+    const [pointsList, setPointsList] = useState7([]);
     const { isLoading, swapPointHandle } = useSwapPoint({
       env,
       dispatch,
       setSuccessToast,
       setErrorToast
     });
-    useEffect7(() => {
+    useEffect8(() => {
       if (chainId) {
         setTimeout(() => {
           const list = pointsListDefault(chainId);
@@ -3428,18 +3439,6 @@ var RainbowKitWithThemeProvider = ({ children, env }) => {
   }, children));
 };
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
-
-// src/hooks/useCurrentLanguage.ts
-import i18n2 from "i18next";
-import { useEffect as useEffect8, useState as useState7 } from "react";
-var useCurrentLanguage2 = () => {
-  const [currentLanguage, setCurrentLanguage] = useState7(i18n2.language);
-  const { t } = useCustomTranslation([LngNs.common]);
-  useEffect8(() => {
-    setCurrentLanguage(i18n2.language);
-  }, [t("language")]);
-  return currentLanguage;
-};
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
@@ -3995,7 +3994,7 @@ export {
   useActiveWeb3React,
   useChainModal4 as useChainModal,
   useConnectModal,
-  useCurrentLanguage2 as useCurrentLanguage,
+  useCurrentLanguage,
   useCustomTranslation,
   useGetInvitationAddress,
   useInitRainbowFn,
