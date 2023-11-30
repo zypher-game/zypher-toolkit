@@ -586,19 +586,20 @@ var Language = memo(({ type }) => {
   return /* @__PURE__ */ React.createElement("div", {
     className: classnames(type === "top" ? "language_top" : "", "language")
   }, /* @__PURE__ */ React.createElement("div", {
-    className: classnames("horListItme", "languageItme"),
+    className: classnames("horListItem", "languageItem"),
     onClick: handle
   }, type === "top" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("img", {
     src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
   }), /* @__PURE__ */ React.createElement("img", {
-    src: preStaticUrl + `/img/layout/${lang}.png`
+    src: preStaticUrl + `/img/layout/${lang}.png`,
+    className: "img_lang"
   })) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, t("language")), /* @__PURE__ */ React.createElement("img", {
     src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
   }))), show ? /* @__PURE__ */ React.createElement("ul", {
-    className: "languageItmeTip"
+    className: "languageItemTip"
   }, languageList.map((v) => /* @__PURE__ */ React.createElement("li", {
     key: v.label,
-    className: "languageItmeOn",
+    className: "languageItemOn",
     onClick: () => changeLanguageHandle(v)
   }, v.label))) : null);
 }, isEqual);
@@ -1128,8 +1129,8 @@ var SideBar = (props) => {
     className: "sidebar"
   }, isMobile ? null : /* @__PURE__ */ React8.createElement(React8.Fragment, null, /* @__PURE__ */ React8.createElement(LinkItemA_default, {
     className_on: "item_on",
-    className_disable: "horListItmeDisable",
-    className: "horListItme",
+    className_disable: "horListItemDisable",
+    className: "horListItem",
     isMobile,
     useNavigate,
     ...items[0]
@@ -1142,8 +1143,8 @@ var SideBar = (props) => {
   }), /* @__PURE__ */ React8.createElement(SideBarGamesList_default, {
     className_on: "item_on",
     className_list: "gamelist",
-    className_listItem: "verListItme",
-    className_listItemDisable: "verListItmeDisable",
+    className_listItem: "verListItem",
+    className_listItemDisable: "verListItemDisable",
     list: sideBarGamesLinkList,
     isMobile,
     useNavigate
@@ -1158,10 +1159,10 @@ var SideBar = (props) => {
     isMobile,
     className_on: "item_on",
     className_list: "activitiesList",
-    className_listItemHorDisable: "horListItmeDisable",
-    className_listItemHor: "horListItme",
-    className_listItemVerDisable: "verListItmeDisable",
-    className_listItemVer: "verListItme",
+    className_listItemHorDisable: "horListItemDisable",
+    className_listItemHor: "horListItem",
+    className_listItemVerDisable: "verListItemDisable",
+    className_listItemVer: "verListItem",
     list: sideBarActivitiesLinkList
   }), /* @__PURE__ */ React8.createElement("div", {
     className: "line"

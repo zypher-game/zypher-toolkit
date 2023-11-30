@@ -68,8 +68,8 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           <>
             <LinkItem
               className_on={"item_on"}
-              className_disable={"horListItmeDisable"}
-              className={"horListItme"}
+              className_disable={"horListItemDisable"}
+              className={"horListItem"}
               isMobile={isMobile}
               useNavigate={useNavigate}
               {...items[0]}
@@ -85,8 +85,8 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
         <SideBarGamesList
           className_on={"item_on"}
           className_list={"gamelist"}
-          className_listItem={"verListItme"}
-          className_listItemDisable={"verListItmeDisable"}
+          className_listItem={"verListItem"}
+          className_listItemDisable={"verListItemDisable"}
           list={sideBarGamesLinkList}
           isMobile={isMobile}
           useNavigate={useNavigate}
@@ -102,10 +102,10 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           isMobile={isMobile}
           className_on={"item_on"}
           className_list={"activitiesList"}
-          className_listItemHorDisable={"horListItmeDisable"}
-          className_listItemHor={"horListItme"}
-          className_listItemVerDisable={"verListItmeDisable"}
-          className_listItemVer={"verListItme"}
+          className_listItemHorDisable={"horListItemDisable"}
+          className_listItemHor={"horListItem"}
+          className_listItemVerDisable={"verListItemDisable"}
+          className_listItemVer={"verListItem"}
           list={sideBarActivitiesLinkList}
         />
         <div className={"line"} />

@@ -1,8 +1,21 @@
+.language_top
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  div.languageItem
+    padding: 0 10px 0 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 .language
   position: relative
+  .img_lang
+    width: 24px
+    height: 24px
+    margin-left: 4px
   .language_top
     padding: 0 4px
-  .languageItme
+  .languageItem
     padding: 0 16px
     justify-content: space-between
   .arrow 
@@ -10,7 +23,7 @@
     height: 5px;
     border-right: 1px solid #fff;
     border-bottom: 1px solid #fff;
-  .languageItmeTip
+  .languageItemTip
     position: absolute;
     top: 48px;
     right: 0;
@@ -26,6 +39,6 @@
       color: rgba(255, 255, 255, 0.60);
       background: #000;
       cursor: pointer
-      &.languageItmeOn
+      &.languageItemOn
         color: #fff
         background: #191919;

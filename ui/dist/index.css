@@ -1,11 +1,27 @@
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/Language.stylus */
+.language_top {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.language_top div.languageItem {
+  padding: 0 10px 0 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .language {
   position: relative;
+}
+.language .img_lang {
+  width: 24px;
+  height: 24px;
+  margin-left: 4px;
 }
 .language .language_top {
   padding: 0 4px;
 }
-.language .languageItme {
+.language .languageItem {
   padding: 0 16px;
   justify-content: space-between;
 }
@@ -15,7 +31,7 @@
   border-right: 1px solid #fff;
   border-bottom: 1px solid #fff;
 }
-.language .languageItmeTip {
+.language .languageItemTip {
   position: absolute;
   top: 48px;
   right: 0;
@@ -25,7 +41,7 @@
   min-width: 160px;
   z-index: 9;
 }
-.language .languageItmeTip li {
+.language .languageItemTip li {
   height: 38px;
   line-height: 38px;
   padding: 0 16px;
@@ -33,7 +49,7 @@
   background: #000;
   cursor: pointer;
 }
-.language .languageItmeTip li.languageItmeOn {
+.language .languageItemTip li.languageItemOn {
   color: #fff;
   background: #191919;
 }
@@ -122,14 +138,14 @@
     background: #282828;
     padding: 4px;
   }
-  .sidebarWrap .activitiesList .verListItme.item_on img {
+  .sidebarWrap .activitiesList .verListItem.item_on img {
     background: #6673ff;
   }
-  .sidebarWrap .activitiesList .verListItme.item_on p {
+  .sidebarWrap .activitiesList .verListItem.item_on p {
     color: #fff;
   }
 }
-.sidebarWrap .horListItme {
+.sidebarWrap .horListItem {
   width: 100%;
   display: flex;
   justify-content: flex-start;
@@ -141,14 +157,14 @@
   gap: 8px;
   cursor: pointer;
 }
-.sidebarWrap .horListItme.item_on {
+.sidebarWrap .horListItem.item_on {
   background: #6673ff;
 }
-.sidebarWrap .horListItme.horListItmeDisable {
+.sidebarWrap .horListItem.horListItemDisable {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.sidebarWrap .verListItme {
+.sidebarWrap .verListItem {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -156,21 +172,21 @@
   max-width: 48px;
   cursor: pointer;
 }
-.sidebarWrap .verListItme.item_on p {
+.sidebarWrap .verListItem.item_on p {
   color: #6673ff;
 }
-.sidebarWrap .verListItme.verListItmeDisable {
+.sidebarWrap .verListItem.verListItemDisable {
   opacity: 0.5;
   cursor: not-allowed;
 }
-.sidebarWrap .verListItme p {
+.sidebarWrap .verListItem p {
   line-height: 18px;
   font-size: 12px;
   width: 57px;
   text-align: center;
   margin-top: 8px;
 }
-.sidebarWrap .verListItme img {
+.sidebarWrap .verListItem img {
   display: block;
   width: 48px;
   height: 48px;

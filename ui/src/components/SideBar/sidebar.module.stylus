@@ -64,13 +64,13 @@
         border-radius: 7.2px;
         background: #282828;
         padding: 4px;
-      .verListItme
+      .verListItem
         &.item_on
           img
             background: #6673FF;
           p
             color: #fff
-  .horListItme
+  .horListItem
     width: 100%
     display: flex
     justify-content: flex-start
@@ -83,10 +83,10 @@
     cursor: pointer
     &.item_on
       background: #6673FF;
-    &.horListItmeDisable
+    &.horListItemDisable
       opacity: 0.5
       cursor: not-allowed
-  .verListItme
+  .verListItem
     display: flex
     flex-direction: column
     justify-content: center
@@ -96,7 +96,7 @@
     &.item_on
       p
         color: #6673FF;
-    &.verListItmeDisable
+    &.verListItemDisable
       opacity: 0.5
       cursor: not-allowed
     p

@@ -45,7 +45,7 @@ const Language = memo(({ type }: IProps) => {
       className={classnames(type === "top" ? "language_top" : "", "language")}
     >
       <div
-        className={classnames("horListItme", "languageItme")}
+        className={classnames("horListItem", "languageItem")}
         onClick={handle}
       >
         {type === "top" ? (
@@ -56,7 +56,10 @@ const Language = memo(({ type }: IProps) => {
                 `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
               }
             />
-            <img src={preStaticUrl + `/img/layout/${lang}.png`} />
+            <img
+              src={preStaticUrl + `/img/layout/${lang}.png`}
+              className="img_lang"
+            />
           </>
         ) : (
           <>
@@ -71,11 +74,11 @@ const Language = memo(({ type }: IProps) => {
         )}
       </div>
       {show ? (
-        <ul className="languageItmeTip">
+        <ul className="languageItemTip">
           {languageList.map((v) => (
             <li
               key={v.label}
-              className="languageItmeOn"
+              className="languageItemOn"
               onClick={() => changeLanguageHandle(v)}
             >
               {v.label}
