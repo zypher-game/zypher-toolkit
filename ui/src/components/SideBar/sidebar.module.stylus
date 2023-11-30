@@ -119,32 +119,4 @@
       display: block
       width: 32px
       height: 32px
-  .language
-    position: relative
-    .languageItme
-      padding: 0 16px
-      justify-content: space-between
-    .arrow 
-      width: 5px;
-      height: 5px;
-      border-right: 1px solid #fff;
-      border-bottom: 1px solid #fff;
-    .languageItmeTip
-      position: absolute;
-      top: 48px;
-      right: 0;
-      border-radius: 6px;
-      background: #191919;
-      overflow: hidden
-      min-width: 160px
-      z-index: 9
-      li
-        height 38px
-        line-height: 38px
-        padding: 0 16px;
-        color: rgba(255, 255, 255, 0.60);
-        background: #000;
-        cursor: pointer
-        &.languageItmeOn
-          color: #fff
-          background: #191919;
+  

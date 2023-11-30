@@ -571,61 +571,37 @@ var languageList = [
     img: preStaticUrl + "/img/layout/zh_TW.png"
   }
 ];
-var Language = memo(
-  ({
-    className_top,
-    className,
-    className_item,
-    className_itemtip,
-    className_on,
-    type
-  }) => {
-    const [show, setShow] = useState2(false);
-    const lang = useCurrentLanguage();
-    const { t } = useCustomTranslation([LngNs.common]);
-    const handle = useCallback(() => {
-      setShow(!show);
-    }, [show]);
-    const changeLanguageHandle = useCallback((item) => {
-      changeLanguage(item.keyValue);
-      setShow(false);
-      storage_default.set("language", item.keyValue);
-    }, []);
-    if (type === "top") {
-      return /* @__PURE__ */ React.createElement("div", {
-        className: classnames(className_top, className)
-      }, /* @__PURE__ */ React.createElement("div", {
-        className: className_item,
-        onClick: handle
-      }, /* @__PURE__ */ React.createElement("img", {
-        src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
-      }), /* @__PURE__ */ React.createElement("img", {
-        src: preStaticUrl + `/img/layout/${lang}.png`
-      })), show ? /* @__PURE__ */ React.createElement("ul", {
-        className: className_itemtip
-      }, languageList.map((v) => /* @__PURE__ */ React.createElement("li", {
-        key: v.label,
-        className: className_on,
-        onClick: () => changeLanguageHandle(v)
-      }, v.label))) : null);
-    }
-    return /* @__PURE__ */ React.createElement("div", {
-      className
-    }, /* @__PURE__ */ React.createElement("div", {
-      className: className_item,
-      onClick: handle
-    }, /* @__PURE__ */ React.createElement("p", null, t("language")), /* @__PURE__ */ React.createElement("img", {
-      src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
-    })), show ? /* @__PURE__ */ React.createElement("ul", {
-      className: className_itemtip
-    }, languageList.map((v) => /* @__PURE__ */ React.createElement("li", {
-      key: v.label,
-      className: className_on,
-      onClick: () => changeLanguageHandle(v)
-    }, v.label))) : null);
-  },
-  isEqual
-);
+var Language = memo(({ type }) => {
+  const [show, setShow] = useState2(false);
+  const lang = useCurrentLanguage();
+  const { t } = useCustomTranslation([LngNs.common]);
+  const handle = useCallback(() => {
+    setShow(!show);
+  }, [show]);
+  const changeLanguageHandle = useCallback((item) => {
+    changeLanguage(item.keyValue);
+    setShow(false);
+    storage_default.set("language", item.keyValue);
+  }, []);
+  return /* @__PURE__ */ React.createElement("div", {
+    className: classnames(type === "top" ? "language_top" : "", "language")
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: classnames("horListItme", "languageItme"),
+    onClick: handle
+  }, type === "top" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("img", {
+    src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
+  }), /* @__PURE__ */ React.createElement("img", {
+    src: preStaticUrl + `/img/layout/${lang}.png`
+  })) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, t("language")), /* @__PURE__ */ React.createElement("img", {
+    src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
+  }))), show ? /* @__PURE__ */ React.createElement("ul", {
+    className: "languageItmeTip"
+  }, languageList.map((v) => /* @__PURE__ */ React.createElement("li", {
+    key: v.label,
+    className: "languageItmeOn",
+    onClick: () => changeLanguageHandle(v)
+  }, v.label))) : null);
+}, isEqual);
 var Language_default = Language;
 
 // src/utils/i18n.ts
@@ -1194,10 +1170,6 @@ var SideBar = (props) => {
     logo_url_name: "language",
     className: "sideBarTitle"
   }), /* @__PURE__ */ React8.createElement(Language_default, {
-    className: "language",
-    className_item: classnames3("horListItme", "languageItme"),
-    className_itemtip: "languageItmeTip",
-    className_on: "languageItmeOn",
     type: "side"
   }), /* @__PURE__ */ React8.createElement("div", {
     className: "line"
@@ -1580,20 +1552,19 @@ var LinkToBetaDialog = memo9(() => {
 var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
-import classnames14 from "classnames";
+import classnames13 from "classnames";
 import React29 from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import { ConnectButton } from "@my/rainbowkit";
-import classnames13 from "classnames";
+import classnames12 from "classnames";
 import React28, { memo as memo21, useMemo as useMemo10 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
 import React26, { memo as memo19, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState8 } from "recoil";
 import styled6 from "styled-components";
-import classnames12 from "classnames";
 
 // src/hooks/useActiveWeb3React.ts
 import { useChainId } from "@my/rainbowkit";
@@ -3253,11 +3224,6 @@ var Account = memo19(
     }, [setAccountInfoDialogState]);
     const { account } = useActiveWeb3React();
     return /* @__PURE__ */ React26.createElement(React26.Fragment, null, showLang ? /* @__PURE__ */ React26.createElement(Language_default, {
-      className_top: "language_top",
-      className: "language",
-      className_item: classnames12("horListItme", "languageItme"),
-      className_itemtip: "languageItmeTip",
-      className_on: "languageItmeOn",
       type: "top"
     }) : null, /* @__PURE__ */ React26.createElement(Balance_default, {
       env,
@@ -3326,7 +3292,7 @@ var RainbowConnectWallet = memo21((props) => {
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location2]);
   return /* @__PURE__ */ React28.createElement("div", {
-    className: classnames13(
+    className: classnames12(
       "connect_connectWallet",
       isPathLocation ? "connect_bgWallet" : "",
       className
@@ -3372,7 +3338,7 @@ var Header = (props) => {
     showLang
   } = props;
   return /* @__PURE__ */ React29.createElement("header", {
-    className: classnames14("header_header", props.className),
+    className: classnames13("header_header", props.className),
     style: { position: "sticky", top: 0, zIndex: 1, width: "100%" }
   }, isMobile && /* @__PURE__ */ React29.createElement("div", {
     className: "header_left"
@@ -3394,13 +3360,13 @@ var Header = (props) => {
     className: "header_btn",
     onClick: () => setSiderCollapse(false)
   }, /* @__PURE__ */ React29.createElement(icons_default, {
-    className: classnames14("header_icon"),
+    className: classnames13("header_icon"),
     name: "menu"
   })) : /* @__PURE__ */ React29.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(true)
   }, /* @__PURE__ */ React29.createElement(icons_default, {
-    className: classnames14("header_icon", "header_close"),
+    className: classnames13("header_icon", "header_close"),
     name: "close"
   }))) : null), /* @__PURE__ */ React29.createElement(LinkToBetaDialog_default, null));
 };

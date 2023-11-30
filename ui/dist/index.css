@@ -1,3 +1,43 @@
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/Language.stylus */
+.language {
+  position: relative;
+}
+.language .language_top {
+  padding: 0 4px;
+}
+.language .languageItme {
+  padding: 0 16px;
+  justify-content: space-between;
+}
+.language .arrow {
+  width: 5px;
+  height: 5px;
+  border-right: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+}
+.language .languageItmeTip {
+  position: absolute;
+  top: 48px;
+  right: 0;
+  border-radius: 6px;
+  background: #191919;
+  overflow: hidden;
+  min-width: 160px;
+  z-index: 9;
+}
+.language .languageItmeTip li {
+  height: 38px;
+  line-height: 38px;
+  padding: 0 16px;
+  color: rgba(255, 255, 255, 0.6);
+  background: #000;
+  cursor: pointer;
+}
+.language .languageItmeTip li.languageItmeOn {
+  color: #fff;
+  background: #191919;
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/sidebar.module.stylus */
 .sidebarWrap {
   padding: 136px 24px 40px;
@@ -146,41 +186,6 @@
   display: block;
   width: 32px;
   height: 32px;
-}
-.sidebarWrap .language {
-  position: relative;
-}
-.sidebarWrap .language .languageItme {
-  padding: 0 16px;
-  justify-content: space-between;
-}
-.sidebarWrap .language .arrow {
-  width: 5px;
-  height: 5px;
-  border-right: 1px solid #fff;
-  border-bottom: 1px solid #fff;
-}
-.sidebarWrap .language .languageItmeTip {
-  position: absolute;
-  top: 48px;
-  right: 0;
-  border-radius: 6px;
-  background: #191919;
-  overflow: hidden;
-  min-width: 160px;
-  z-index: 9;
-}
-.sidebarWrap .language .languageItmeTip li {
-  height: 38px;
-  line-height: 38px;
-  padding: 0 16px;
-  color: rgba(255, 255, 255, 0.6);
-  background: #000;
-  cursor: pointer;
-}
-.sidebarWrap .language .languageItmeTip li.languageItmeOn {
-  color: #fff;
-  background: #191919;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.module.stylus */

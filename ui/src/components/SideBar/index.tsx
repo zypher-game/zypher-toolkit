@@ -114,13 +114,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           logo_url_name="language"
           className={"sideBarTitle"}
         />
-        <Language
-          className={"language"}
-          className_item={classnames("horListItme", "languageItme")}
-          className_itemtip={"languageItmeTip"}
-          className_on={"languageItmeOn"}
-          type={"side"}
-        />
+        <Language type={"side"} />
         <div className={"line"} />
         <SideBarTitle
           logo_title="Links"

@@ -7,13 +7,8 @@ import storage from "../../../utils/storage";
 import { preStaticUrl } from "../../../constant/constant";
 import { useCurrentLanguage } from "../../../hooks/useCurrentLanguage";
 import classnames from "classnames";
-
+import "./Language.stylus";
 type IProps = {
-  className: string;
-  className_top?: string;
-  className_item: string;
-  className_itemtip: string;
-  className_on: string;
   type: "side" | "top";
 };
 export const languageList = [
@@ -33,30 +28,28 @@ export const languageList = [
     img: preStaticUrl + "/img/layout/zh_TW.png",
   },
 ];
-const Language = memo(
-  ({
-    className_top,
-    className,
-    className_item,
-    className_itemtip,
-    className_on,
-    type,
-  }: IProps) => {
-    const [show, setShow] = useState(false);
-    const lang = useCurrentLanguage();
-    const { t } = useCustomTranslation([LngNs.common]);
-    const handle = useCallback(() => {
-      setShow(!show);
-    }, [show]);
-    const changeLanguageHandle = useCallback((item) => {
-      changeLanguage(item.keyValue);
-      setShow(false);
-      storage.set("language", item.keyValue);
-    }, []);
-    if (type === "top") {
-      return (
-        <div className={classnames(className_top, className)}>
-          <div className={className_item} onClick={handle}>
+const Language = memo(({ type }: IProps) => {
+  const [show, setShow] = useState(false);
+  const lang = useCurrentLanguage();
+  const { t } = useCustomTranslation([LngNs.common]);
+  const handle = useCallback(() => {
+    setShow(!show);
+  }, [show]);
+  const changeLanguageHandle = useCallback((item) => {
+    changeLanguage(item.keyValue);
+    setShow(false);
+    storage.set("language", item.keyValue);
+  }, []);
+  return (
+    <div
+      className={classnames(type === "top" ? "language_top" : "", "language")}
+    >
+      <div
+        className={classnames("horListItme", "languageItme")}
+        onClick={handle}
+      >
+        {type === "top" ? (
+          <>
             <img
               src={
                 preStaticUrl +
@@ -64,50 +57,33 @@ const Language = memo(
               }
             />
             <img src={preStaticUrl + `/img/layout/${lang}.png`} />
-          </div>
-          {show ? (
-            <ul className={className_itemtip}>
-              {languageList.map((v) => (
-                <li
-                  key={v.label}
-                  className={className_on}
-                  onClick={() => changeLanguageHandle(v)}
-                >
-                  {v.label}
-                </li>
-              ))}
-            </ul>
-          ) : null}
-        </div>
-      );
-    }
-    return (
-      <div className={className}>
-        <div className={className_item} onClick={handle}>
-          <p>{t("language")}</p>
-          <img
-            src={
-              preStaticUrl +
-              `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
-            }
-          />
-        </div>
-        {show ? (
-          <ul className={className_itemtip}>
-            {languageList.map((v) => (
-              <li
-                key={v.label}
-                className={className_on}
-                onClick={() => changeLanguageHandle(v)}
-              >
-                {v.label}
-              </li>
-            ))}
-          </ul>
-        ) : null}
+          </>
+        ) : (
+          <>
+            <p>{t("language")}</p>
+            <img
+              src={
+                preStaticUrl +
+                `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
+              }
+            />
+          </>
+        )}
       </div>
-    );
-  },
-  isEqual
-);
+      {show ? (
+        <ul className="languageItmeTip">
+          {languageList.map((v) => (
+            <li
+              key={v.label}
+              className="languageItmeOn"
+              onClick={() => changeLanguageHandle(v)}
+            >
+              {v.label}
+            </li>
+          ))}
+        </ul>
+      ) : null}
+    </div>
+  );
+}, isEqual);
 export default Language;

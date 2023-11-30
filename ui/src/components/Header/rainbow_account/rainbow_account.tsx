@@ -2,7 +2,6 @@ import { isEqual } from "../../../utils/lodash";
 import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
-import classnames from "classnames";
 
 import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
 import { useIsMobile } from "../../../hooks/useWindowSize";
@@ -60,16 +59,7 @@ const Account = memo(
     const { account } = useActiveWeb3React();
     return (
       <>
-        {showLang ? (
-          <Language
-            className_top="language_top"
-            className={"language"}
-            className_item={classnames("horListItme", "languageItme")}
-            className_itemtip={"languageItmeTip"}
-            className_on={"languageItmeOn"}
-            type={"top"}
-          />
-        ) : null}
+        {showLang ? <Language type={"top"} /> : null}
         <Balance
           env={env}
           isMobile={isMobile}
