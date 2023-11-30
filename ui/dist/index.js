@@ -2657,7 +2657,7 @@ var Refresh = styled5.div`
 `;
 var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile }) => isMobile ? "4px" : "10px"};
-  margin-left: 0;
+  margin-left: 0 !important;
   width: ${({ isMobile }) => isMobile ? "20px" : "24px"};
 `;
 var Balance = memo16((props) => {

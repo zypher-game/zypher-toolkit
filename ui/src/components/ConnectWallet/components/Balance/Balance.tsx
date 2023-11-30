@@ -53,7 +53,7 @@ const Refresh = styled.div<{ isMobile: boolean }>`
 `;
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
-  margin-left: 0;
+  margin-left: 0 !important;
   width: ${({ isMobile }) => (isMobile ? "20px" : "24px")};
 `;
 interface IProps {
