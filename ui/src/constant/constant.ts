@@ -72,11 +72,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.LineaMainnet]: ["https://rpc.linea.build"],
   [ChainId.Arbitrum]: ["https://arb1.arbitrum.io/rpc"],
-  [ChainId.OPBNBTEST]: [
-    "https://opbnb-testnet-rpc.bnbchain.org",
-    "https://opbnb-testnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
-    "https://opbnb-testnet.nodereal.io/v1/e9a36765eb8a40b9bd12e680a1fd2bc5",
-  ],
+  [ChainId.OPBNBTEST]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
   [ChainId.OPBNB]: [
     "https://opbnb-mainnet-rpc.bnbchain.org",
     "https://opbnb-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",

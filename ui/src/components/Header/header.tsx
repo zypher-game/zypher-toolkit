@@ -35,7 +35,6 @@ const Header = (props: IProps): React.ReactElement | null => {
     setSuccessToast,
     setErrorToast,
     copy,
-    useNavigate,
     useLocation,
     showLang,
   } = props;
