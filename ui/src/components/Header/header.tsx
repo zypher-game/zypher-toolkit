@@ -46,7 +46,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     >
       {isMobile && (
         <div className={"header_left"}>
-          <MobileLogo isMobile={isMobile} useNavigate={useNavigate} />
+          <MobileLogo />
         </div>
       )}
       <div className={"header_right"}>

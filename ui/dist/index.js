@@ -1094,8 +1094,11 @@ var SideBarTitle = memo6(
 var SideBarTitle_default = SideBarTitle;
 
 // src/components/SideBar/index.tsx
-var MobileLogo = memo7(({ isMobile }) => {
-  return /* @__PURE__ */ React8.createElement("div", null, /* @__PURE__ */ React8.createElement("img", {
+var MobileLogo = memo7(() => {
+  return /* @__PURE__ */ React8.createElement("a", {
+    href: "/",
+    target: "_black"
+  }, /* @__PURE__ */ React8.createElement("img", {
     src: preStaticUrl + "/img/layout/logo-min.svg"
   }), /* @__PURE__ */ React8.createElement("img", {
     src: preStaticUrl + "/img/layout/ai.svg"
@@ -3345,10 +3348,7 @@ var Header = (props) => {
     style: { position: "sticky", top: 0, zIndex: 1, width: "100%" }
   }, isMobile && /* @__PURE__ */ React29.createElement("div", {
     className: "header_left"
-  }, /* @__PURE__ */ React29.createElement(MobileLogo, {
-    isMobile,
-    useNavigate
-  })), /* @__PURE__ */ React29.createElement("div", {
+  }, /* @__PURE__ */ React29.createElement(MobileLogo, null)), /* @__PURE__ */ React29.createElement("div", {
     className: "header_right"
   }, /* @__PURE__ */ React29.createElement(rainbow_connectWallet_default, {
     showLang,

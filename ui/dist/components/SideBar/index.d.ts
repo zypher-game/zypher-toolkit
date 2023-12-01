@@ -5,6 +5,6 @@ interface IProps {
     useNavigate: any;
     className?: string;
 }
-export declare const MobileLogo: React.MemoExoticComponent<({ isMobile }: IProps) => React.JSX.Element>;
+export declare const MobileLogo: React.MemoExoticComponent<() => React.JSX.Element>;
 declare const SideBar: React.FC<IProps>;
 export default SideBar;

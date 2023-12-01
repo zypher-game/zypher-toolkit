@@ -22,12 +22,12 @@ interface IProps {
   useNavigate: any;
   className?: string;
 }
-export const MobileLogo = memo(({ isMobile }: IProps) => {
+export const MobileLogo = memo(() => {
   return (
-    <div>
+    <a href={"/"} target="_black">
       <img src={preStaticUrl + "/img/layout/logo-min.svg"} />
       <img src={preStaticUrl + "/img/layout/ai.svg"} />
-    </div>
+    </a>
   );
 });
 const SideBar: React.FC<IProps> = (props: IProps) => {
