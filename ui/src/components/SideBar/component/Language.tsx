@@ -55,6 +55,7 @@ const Language = memo(({ type }: IProps) => {
                 preStaticUrl +
                 `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
               }
+              className="img_arr"
             />
             <img
               src={preStaticUrl + `/img/layout/${lang}.png`}

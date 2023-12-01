@@ -589,7 +589,8 @@ var Language = memo(({ type }) => {
     className: classnames("horListItem", "languageItem"),
     onClick: handle
   }, type === "top" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("img", {
-    src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
+    src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`,
+    className: "img_arr"
   }), /* @__PURE__ */ React.createElement("img", {
     src: preStaticUrl + `/img/layout/${lang}.png`,
     className: "img_lang"
@@ -2676,7 +2677,7 @@ var AddIcon = styled5(icons_default)`
   width: ${({ isMobile }) => isMobile ? "20px" : "24px"};
 `;
 var Balance = memo16((props) => {
-  const { showPointsModal, isMobile, env } = props;
+  const { showPointsModal, isMobile, env, showLang } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState5(false);
   const setNativeBalance = useSetRecoilState4(nativeBalanceState);
@@ -2723,7 +2724,9 @@ var Balance = memo16((props) => {
   return /* @__PURE__ */ React22.createElement(React22.Fragment, null, /* @__PURE__ */ React22.createElement(Refresh, {
     onClick: fetchBalanceOf,
     isMobile
-  }, /* @__PURE__ */ React22.createElement(SyncOutlined, null)), /* @__PURE__ */ React22.createElement(balanceItem_default, {
+  }, /* @__PURE__ */ React22.createElement(SyncOutlined, null)), showLang ? /* @__PURE__ */ React22.createElement(Language_default, {
+    type: "top"
+  }) : null, /* @__PURE__ */ React22.createElement(balanceItem_default, {
     onClick: showPointsModal,
     logo: /* @__PURE__ */ React22.createElement(PointsIcon, {
       isMobile
@@ -3224,9 +3227,8 @@ var Account = memo19(
       setAccountInfoDialogState(true);
     }, [setAccountInfoDialogState]);
     const { account } = useActiveWeb3React();
-    return /* @__PURE__ */ React26.createElement(React26.Fragment, null, showLang ? /* @__PURE__ */ React26.createElement(Language_default, {
-      type: "top"
-    }) : null, /* @__PURE__ */ React26.createElement(Balance_default, {
+    return /* @__PURE__ */ React26.createElement(React26.Fragment, null, /* @__PURE__ */ React26.createElement(Balance_default, {
+      showLang,
       env,
       isMobile,
       showPointsModal

@@ -16,7 +16,6 @@ import {
   pointsDialogState,
 } from "../../ConnectWallet/state/connectWalletState";
 import PlayerAvatar from "../../PlayerAvatar";
-import Language from "../../SideBar/component/Language";
 
 const AddressWrap = styled.div`
   display: flex;
@@ -59,8 +58,8 @@ const Account = memo(
     const { account } = useActiveWeb3React();
     return (
       <>
-        {showLang ? <Language type={"top"} /> : null}
         <Balance
+          showLang={showLang}
           env={env}
           isMobile={isMobile}
           showPointsModal={showPointsModal}

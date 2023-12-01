@@ -11,6 +11,7 @@ import erc20Contract from "../../../../contract/erc20";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
+import Language from "../../../SideBar/component/Language";
 import {
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
@@ -61,10 +62,11 @@ interface IProps {
   isMobile: boolean;
   className?: string;
   showPointsModal: any;
+  showLang: boolean;
 }
 
 const Balance = memo((props: IProps): React.ReactElement | null => {
-  const { showPointsModal, isMobile, env } = props;
+  const { showPointsModal, isMobile, env, showLang } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState(false);
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
@@ -116,6 +118,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       <Refresh onClick={fetchBalanceOf} isMobile={isMobile}>
         <SyncOutlined />
       </Refresh>
+      {showLang ? <Language type={"top"} /> : null}
       <BalanceItem
         onClick={showPointsModal}
         logo={<PointsIcon isMobile={isMobile} />}

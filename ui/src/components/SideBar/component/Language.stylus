@@ -9,10 +9,16 @@
     align-items: center;
 .language
   position: relative
-  .img_lang
+  .img_arr, .img_lang
     width: 24px
     height: 24px
+    @media screen and (max-width: 768px)
+      width: 20px
+      height: 20px
+  .img_lang
     margin-left: 4px
+    @media screen and (max-width: 768px)
+      margin-left: 2px
   .language_top
     padding: 0 4px
   .languageItem

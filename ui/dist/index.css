@@ -13,10 +13,25 @@
 .language {
   position: relative;
 }
+.language .img_arr,
 .language .img_lang {
   width: 24px;
   height: 24px;
+}
+@media screen and (max-width: 768px) {
+  .language .img_arr,
+  .language .img_lang {
+    width: 20px;
+    height: 20px;
+  }
+}
+.language .img_lang {
   margin-left: 4px;
+}
+@media screen and (max-width: 768px) {
+  .language .img_lang {
+    margin-left: 2px;
+  }
 }
 .language .language_top {
   padding: 0 4px;
