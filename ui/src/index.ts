@@ -44,6 +44,7 @@ export {
 
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
+export { siderCollapseState } from "./components/Header/state";
 export {
   default as PlayerAvatar,
   PlayerAvatarList,

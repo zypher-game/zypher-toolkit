@@ -3952,6 +3952,7 @@ export {
   refreshBalanceState,
   request,
   selector,
+  siderCollapseState,
   splitArrByLen,
   supportedChainIds,
   timestampToDateStr,

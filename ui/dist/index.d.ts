@@ -8,6 +8,7 @@ export { IConnectorState, connectorState, walletModalOpenState, ChainSelector, r
 export { useNativeBalanceStr, usePointsBalanceStr, } from "./components/ConnectWallet/hooks/connectWalletHooks";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
+export { siderCollapseState } from "./components/Header/state";
 export { default as PlayerAvatar, PlayerAvatarList, } from "./components/PlayerAvatar";
 export { default as LogoutDialog } from "./components/ConnectWallet/components/AccountInfoDialog";
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
