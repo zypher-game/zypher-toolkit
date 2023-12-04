@@ -39,6 +39,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     showLang,
   } = props;
   useEffect(() => {
+    console.log({ isMobile, collapsed });
     if (isMobile && collapsed === undefined) {
       setSiderCollapse(true);
     }
