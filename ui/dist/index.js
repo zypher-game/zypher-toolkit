@@ -735,11 +735,6 @@ var useIsMd = () => {
 
 // src/components/SideBar/state.ts
 import { atom as atom2 } from "recoil";
-var siderCollapseState = atom2({
-  key: "siderCollapseState",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("siderCollapseState")]
-});
 var defaultSelectedKey = atom2({
   key: "defaultSelectedKeys",
   default: "",
@@ -939,6 +934,16 @@ var CommunityLink_default = CommunityLink;
 import classnames2 from "classnames";
 import React4, { memo as memo3, useCallback as useCallback3, useMemo as useMemo2 } from "react";
 import { useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
+
+// src/components/Header/state.ts
+import { atom as atom3 } from "recoil";
+var siderCollapseState = atom3({
+  key: "siderCollapseState",
+  default: void 0,
+  effects_UNSTABLE: [localStorageEffect("siderCollapseState")]
+});
+
+// src/components/SideBar/component/LinkItemA.tsx
 var useLink = (link, isMobile, useNavigate) => {
   const selectedKey = useRecoilValue(defaultSelectedKey);
   const setDefaultSelectedKey = useSetRecoilState2(defaultSelectedKey);
@@ -1186,63 +1191,63 @@ var SideBar = (props) => {
 var SideBar_default = SideBar;
 
 // src/components/ConnectWallet/state/connectWalletState.ts
-import { atom as atom3 } from "recoil";
-var connectorState = atom3({
+import { atom as atom4 } from "recoil";
+var connectorState = atom4({
   key: "connectorState",
   default: {
     chainId: null,
     networkError: null
   }
 });
-var walletModalOpenState = atom3({
+var walletModalOpenState = atom4({
   key: "walletModalOpenState",
   default: false
 });
-var ChainSelector = atom3({
+var ChainSelector = atom4({
   key: "ChainSelector",
   default: false
 });
-var refreshBalanceState = atom3({
+var refreshBalanceState = atom4({
   key: "refreshBalance",
   default: "0"
 });
-var pointsDialogState = atom3({
+var pointsDialogState = atom4({
   key: "pointsDialog",
   default: false,
   effects_UNSTABLE: [localStorageEffect("pointsDialog")]
 });
-var pointsWarnState = atom3({
+var pointsWarnState = atom4({
   key: "pointsWarn",
   default: 0
 });
-var hidePointsWarnState = atom3({
+var hidePointsWarnState = atom4({
   key: "hidePointsWarn",
   default: false,
   effects_UNSTABLE: [localStorageEffect("hidePointsWarn")]
 });
-var pointsRuleDialogState = atom3({
+var pointsRuleDialogState = atom4({
   key: "pointsRuleDialog",
   default: false
 });
-var accountInfoDialogState = atom3({
+var accountInfoDialogState = atom4({
   key: "accountInfoDialog",
   default: false,
   effects_UNSTABLE: [localStorageEffect("accountInfoDialog")]
 });
-var linkToBetaDialogState = atom3({
+var linkToBetaDialogState = atom4({
   key: "linkToBetaDialog",
   default: false
 });
-var linkToBetaDialogChainIdState = atom3({
+var linkToBetaDialogChainIdState = atom4({
   key: "linkToBetaDialogChainIdState",
   default: void 0
 });
-var nativeBalanceState = atom3({
+var nativeBalanceState = atom4({
   key: "nativeBalance",
   default: 0,
   effects_UNSTABLE: [localStorageEffect("nativeBalance")]
 });
-var pointsBalanceState = atom3({
+var pointsBalanceState = atom4({
   key: "pointsBalance",
   default: 0,
   effects_UNSTABLE: [localStorageEffect("pointsBalance")]
@@ -1555,7 +1560,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames13 from "classnames";
-import React29 from "react";
+import React29, { useEffect as useEffect9 } from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -2759,7 +2764,7 @@ import { useRecoilState as useRecoilState7, useRecoilValue as useRecoilValue6 } 
 import BigNumberjs3 from "bignumber.js";
 
 // src/hooks/useAccountInvitation.ts
-import { atom as atom4, useRecoilValue as useRecoilValue4, useSetRecoilState as useSetRecoilState5 } from "recoil";
+import { atom as atom5, useRecoilValue as useRecoilValue4, useSetRecoilState as useSetRecoilState5 } from "recoil";
 import { useCallback as useCallback9 } from "react";
 
 // src/utils/request.ts
@@ -2780,7 +2785,7 @@ async function request(reqUrl, options = { method: "GET" }) {
 }
 
 // src/hooks/useAccountInvitation.ts
-var invitationAddressState = atom4({
+var invitationAddressState = atom5({
   key: "invitationAddressState",
   default: void 0,
   effects_UNSTABLE: [localStorageEffect("invitationAddressState")]
@@ -3316,19 +3321,11 @@ var RainbowConnectWallet = memo21((props) => {
 }, isEqual);
 var rainbow_connectWallet_default = RainbowConnectWallet;
 
-// src/components/Header/state.ts
-import { atom as atom5 } from "recoil";
-var siderCollapseState2 = atom5({
-  key: "siderCollapseState",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("siderCollapseState")]
-});
-
 // src/components/Header/header.tsx
 var Header = (props) => {
   const isMobile = useIsMobile();
-  const setSiderCollapse = useSetRecoilState10(siderCollapseState2);
-  const collapsed = useRecoilValue8(siderCollapseState2);
+  const setSiderCollapse = useSetRecoilState10(siderCollapseState);
+  const collapsed = useRecoilValue8(siderCollapseState);
   const {
     hideMenu = false,
     env,
@@ -3339,6 +3336,11 @@ var Header = (props) => {
     useLocation,
     showLang
   } = props;
+  useEffect9(() => {
+    if (isMobile && collapsed === void 0) {
+      setSiderCollapse(true);
+    }
+  }, [isMobile]);
   return /* @__PURE__ */ React29.createElement("header", {
     className: classnames13("header_header", props.className),
     style: { position: "sticky", top: 0, zIndex: 1, width: "100%" }
@@ -3407,11 +3409,11 @@ var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
-import { useEffect as useEffect9 } from "react";
+import { useEffect as useEffect10 } from "react";
 import { ethers as ethers3 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState11(invitationAddressState);
-  useEffect9(() => {
+  useEffect10(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -3430,7 +3432,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback14, useEffect as useEffect11, useState as useState8 } from "react";
+import { useCallback as useCallback14, useEffect as useEffect12, useState as useState8 } from "react";
 
 // src/types/gameList.types.ts
 var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
@@ -3447,13 +3449,13 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 })(IGameName || {});
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect10, useRef } from "react";
+import { useEffect as useEffect11, useRef } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef();
-  useEffect10(() => {
+  useEffect11(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect10(() => {
+  useEffect11(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();
@@ -3615,7 +3617,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect11(() => {
+  useEffect12(() => {
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 5e4);

@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React from "react";
+import React, { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
 import { useIsMobile } from "../../hooks/useWindowSize";
@@ -38,6 +38,11 @@ const Header = (props: IProps): React.ReactElement | null => {
     useLocation,
     showLang,
   } = props;
+  useEffect(() => {
+    if (isMobile && collapsed === undefined) {
+      setSiderCollapse(true);
+    }
+  }, [isMobile]);
   return (
     <header
       className={classnames("header_header", props.className)}

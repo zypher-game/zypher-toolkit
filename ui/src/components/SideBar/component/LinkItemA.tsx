@@ -6,7 +6,8 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { INavLink } from "../../../hooks/useNavItem";
 import { preStaticUrl } from "../../../constant/constant";
 
-import { defaultSelectedKey, siderCollapseState } from "../state";
+import { defaultSelectedKey } from "../state";
+import { siderCollapseState } from "../../Header/state";
 interface IProps extends INavLink {
   className_disable: string;
   className: string;
