@@ -878,14 +878,6 @@ var useNavItem = () => {
         link: "/ranking",
         disabled: false,
         type: "Activities" /* Activities */
-      },
-      {
-        label: t("Depository Pass"),
-        keyValue: "15",
-        icon: "dp.svg",
-        link: "/dp",
-        disabled: false,
-        type: "Activities" /* Activities */
       }
     ];
   }, [t]);
