@@ -70,7 +70,9 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
     "https://rpc.goerli.linea.build",
     "https://eth-goerli.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
   ],
-  [ChainId.LineaMainnet]: ["https://rpc.linea.build"],
+  [ChainId.LineaMainnet]: [
+    "https://linea-mainnet.infura.io/v3/ae4312e37d594fa0b59cfd5b809f766e",
+  ],
   [ChainId.Arbitrum]: ["https://arb1.arbitrum.io/rpc"],
   [ChainId.OPBNBTEST]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
   [ChainId.OPBNB]: [
