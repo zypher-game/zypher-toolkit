@@ -215,9 +215,7 @@ var ChainRpcUrls = {
     "https://rpc.goerli.linea.build",
     "https://eth-goerli.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3"
   ],
-  [59144 /* LineaMainnet */]: [
-    "https://linea-mainnet.infura.io/v3/ae4312e37d594fa0b59cfd5b809f766e"
-  ],
+  [59144 /* LineaMainnet */]: ["https://rpc.linea.build"],
   [42161 /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
   [5611 /* OPBNBTEST */]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
   [204 /* OPBNB */]: [
