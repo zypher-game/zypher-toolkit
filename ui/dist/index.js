@@ -3622,7 +3622,7 @@ var useRecentGamesFromGraph = ({
   };
 };
 var graphqlApiUrl = {
-  [59144 /* LineaMainnet */]: "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
+  [59144 /* LineaMainnet */]: "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
   [59140 /* LineaTestnet */]: "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
   [204 /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   [5611 /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",

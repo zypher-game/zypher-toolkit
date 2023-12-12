@@ -59,7 +59,8 @@ export const useRecentGamesFromGraph = ({
 
 export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.LineaMainnet]:
-    "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
+    // "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
+    "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
   [ChainId.LineaTestnet]:
     "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
   [ChainId.OPBNB]:
