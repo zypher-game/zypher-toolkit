@@ -21,12 +21,34 @@ const AddressWrap = styled.div`
   display: flex;
   gap: 10px;
   align-items: center;
+  position: relative;
   .account {
     display: flex;
     flex-direction: row-reverse;
     gap: 9px;
     p {
       padding-left: 14px;
+    }
+  }
+  .hat {
+    width: 58px;
+    height: 58px;
+    position: absolute;
+    right: -29px;
+    top: -23px;
+    z-index: 2;
+    transform-origin: left bottom;
+    animation: hat-animation 2s infinite;
+  }
+  @keyframes hat-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(6deg);
+    }
+    100% {
+      transform: rotate(0deg);
     }
   }
 `;
@@ -70,6 +92,10 @@ const Account = memo(
             account={account}
             size={isMobile ? 26 : 36}
             showAccount={isMobile ? false : true}
+          />
+          <img
+            className="hat"
+            src="https://static.zypher.game/img/layout/hat.png"
           />
         </AddressWrap>
         {!isMobile && <ChainSelectorWidget />}
