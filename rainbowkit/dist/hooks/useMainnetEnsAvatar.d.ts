@@ -1,1 +1,1 @@
-export declare function useMainnetEnsAvatar(name: string | null | undefined): string | null | undefined;
+export declare function useMainnetEnsAvatar(name: string | null | undefined): any;

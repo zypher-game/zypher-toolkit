@@ -8,7 +8,7 @@ import { useIsMobile } from "../../../../hooks/useWindowSize";
 
 import { accountInfoDialogState } from "../../state/connectWalletState";
 import DialogTitle from "../DialogComponents/DialogTitle";
-import "./AccountInfoDialog.module.stylus";
+import "./AccountInfoDialog.stylus";
 import MUserInfo from "./components/MUserInfo";
 import PcUserInfo from "./components/PcUserInfo";
 import Modal from "../../../../components/Modal/Modal";

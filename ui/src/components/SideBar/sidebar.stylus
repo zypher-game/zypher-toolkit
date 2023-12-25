@@ -99,16 +99,49 @@
     &.verListItemDisable
       opacity: 0.5
       cursor: not-allowed
+      .imageContainerWaves::before 
+        display: none
     p
       line-height: 18px
       font-size: 12px
       width: 57px
       text-align: center
       margin-top: 8px
-    img
+    &:nth-child(1) 
+      .imageContainerWaves::before 
+        animation-delay: -0.4s;
+    &:nth-child(2) 
+      .imageContainerWaves::before 
+        animation-delay: -0.8s;
+    &:nth-child(3) 
+      .imageContainerWaves::before 
+        animation-delay: -1.2s;
+    &:nth-child(4) 
+      .imageContainerWaves::before 
+        animation-delay: -1.6s;
+    .imageContainerWaves
       display: block
       width: 48px
       height: 48px
+      position: relative
+      overflow: hidden
+      border-radius: 8px
+      transform: translate3d(0, 0, 0);
+      img 
+        width: 100%;
+        height: 100%
+      &:before 
+        content: '';
+        position: absolute;
+        // background: linear-gradient(45deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.3) 50%, rgba(255, 255, 255, 0) 100%);
+        background-image: linear-gradient(40deg, transparent, rgba(255, 255, 255, 0.2) , transparent);
+        top: 0;
+        left: -150px;
+        height: 40%;
+        width: 200%;
+        transform: rotate(45deg)
+        animation: glow-animation 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+
   .communityLink
     display: flex
     flex-wrap: wrap;
@@ -120,3 +153,12 @@
       width: 32px
       height: 32px
   
+
+@keyframes glow-animation {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}

@@ -7,7 +7,7 @@ import { LngNs } from "../../../../utils/i18n";
 import Icon from "../../../../components/icons";
 
 import { hidePointsWarnState } from "../../state/connectWalletState";
-import "./PointsRuleDialog.module.stylus";
+import "./PointsRuleDialog.stylus";
 
 type IProps = {
   isLoading: boolean;

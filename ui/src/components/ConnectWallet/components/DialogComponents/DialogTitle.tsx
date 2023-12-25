@@ -3,7 +3,7 @@ import React, { FC, memo, useCallback } from "react";
 
 import Icon from "../../../icons";
 
-import "./DialogTitle.module.stylus";
+import "./DialogTitle.stylus";
 
 type IProps = {
   classNames?: string;

@@ -7,7 +7,7 @@ declare module "*.png" {
   const dataUrl: string;
   export default dataUrl;
 }
-declare module "*.module.stylus" {
+declare module "*.stylus" {
   const styles: { [className: string]: string };
   export default styles;
 }

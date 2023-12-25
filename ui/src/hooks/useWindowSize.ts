@@ -33,9 +33,14 @@ export const useIsMobile = (): boolean => {
 };
 
 export const useIsMd = (): boolean => {
-  const isMd = useContext(IsMdContext);
-  if (isMd === undefined) {
+  try {
+    const isMd = useContext(IsMdContext);
+    if (isMd === undefined) {
+      return false;
+    }
+    return isMd;
+  } catch (e) {
+    console.log(e);
     return false;
   }
-  return isMd;
 };

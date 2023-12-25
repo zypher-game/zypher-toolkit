@@ -1,5 +1,5 @@
 import React from "react";
-import "./header.module.stylus";
+import "./header.stylus";
 interface IProps {
     env: string;
     dispatch: any;

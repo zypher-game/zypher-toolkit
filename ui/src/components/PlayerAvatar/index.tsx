@@ -7,7 +7,7 @@ import generateAvatar from "../../utils/generateAvatar";
 import { getShortenAddress } from "../../utils/tool";
 import { preStaticUrl } from "../../constant/constant";
 
-import "./index.module.stylus";
+import "./index.stylus";
 import Avatar from "../Avatar/Avatar";
 import { useCustomTranslation } from "../../hooks/useCustomTranslation";
 import { LngNs } from "../../utils/i18n";

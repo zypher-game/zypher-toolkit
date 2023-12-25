@@ -1,5 +1,5 @@
 import React from "react";
-import "./PointsRuleDialog.module.stylus";
+import "./PointsRuleDialog.stylus";
 type Props = {
     onClose?: () => void;
 };

@@ -7,7 +7,7 @@ import { getShortenAddress } from "../../../../../utils/tool";
 import Icon from "../../../../../components/icons";
 import * as config from "../../../../../constant/constant";
 
-import "./PcUserInfo.module.stylus";
+import "./PcUserInfo.stylus";
 import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../../utils/i18n";
 type IDisconnectBtnProps = {

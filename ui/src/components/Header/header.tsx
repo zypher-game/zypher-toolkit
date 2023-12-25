@@ -7,7 +7,7 @@ import Icon from "../../components/icons";
 
 import LinkToBetaDialog from "../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 import { MobileLogo } from "../SideBar";
-import "./header.module.stylus";
+import "./header.stylus";
 import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { siderCollapseState } from "./state";
 

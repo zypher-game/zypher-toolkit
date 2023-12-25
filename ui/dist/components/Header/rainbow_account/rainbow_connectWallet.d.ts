@@ -1,5 +1,5 @@
 import React from "react";
-import "./rainbow_connectWallet.module.stylus";
+import "./rainbow_connectWallet.stylus";
 interface IProps {
     useLocation: any;
     env: string;

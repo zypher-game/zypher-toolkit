@@ -5,6 +5,7 @@ type IProps = {
     className_list: string;
     className_listItemDisable: string;
     className_listItem: string;
+    className_imageContainer: string;
     list: INavLink[];
     useNavigate: any;
     isMobile: boolean;

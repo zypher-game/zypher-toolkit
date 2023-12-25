@@ -6,11 +6,10 @@ import React, { memo, useMemo } from "react";
 import { ChainId } from "../../../constant/constant";
 
 import Account from "./rainbow_account";
-import "./rainbow_connectWallet.module.stylus";
+import "./rainbow_connectWallet.stylus";
 import WrongNetwork from "./WrongNetwork";
 import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
-
 interface IProps {
   useLocation: any;
   env: string;

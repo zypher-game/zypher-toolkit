@@ -1,5 +1,5 @@
 import React from "react";
-import "./index.module.stylus";
+import "./index.stylus";
 interface IPlayerAvatar {
     className?: string;
     account?: string;

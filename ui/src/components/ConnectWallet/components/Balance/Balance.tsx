@@ -28,7 +28,7 @@ import {
   pointsBalanceState,
   refreshBalanceState,
 } from "../../state/connectWalletState";
-import "./balance.module.stylus";
+import "./balance.stylus";
 import BalanceItem from "./balanceItem";
 
 const Refresh = styled.div<{ isMobile: boolean }>`

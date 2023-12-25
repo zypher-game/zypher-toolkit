@@ -16,7 +16,7 @@ import {
   usePointsBalanceStr,
 } from "../../../hooks/connectWalletHooks";
 import ChainSelectorWidget from "../../ChainSelector/ChainSelectorWidget";
-import "./MUserInfo.module.stylus";
+import "./MUserInfo.stylus";
 import { DisconnectBtn, IUserInfoProps } from "./PcUserInfo";
 import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../../utils/i18n";

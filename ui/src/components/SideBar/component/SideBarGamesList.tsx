@@ -9,6 +9,7 @@ type IProps = {
   className_list: string;
   className_listItemDisable: string;
   className_listItem: string;
+  className_imageContainer: string;
   list: INavLink[];
   useNavigate: any;
   isMobile: boolean;
@@ -19,6 +20,7 @@ const SideBarGamesList: FC<IProps> = memo(
     className_list,
     className_listItemDisable,
     className_listItem,
+    className_imageContainer,
     useNavigate,
     list,
     isMobile,
@@ -33,6 +35,7 @@ const SideBarGamesList: FC<IProps> = memo(
             className_disable={className_listItemDisable}
             key={v.keyValue}
             className={className_listItem}
+            className_imageContainer={className_imageContainer}
             {...v}
           />
         ))}

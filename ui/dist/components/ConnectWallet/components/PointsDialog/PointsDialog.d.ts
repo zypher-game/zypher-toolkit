@@ -1,5 +1,5 @@
 import React from "react";
-import "./PointsDialog.module.stylus";
+import "./PointsDialog.stylus";
 export interface IPointsItem {
     index: number;
     pointAmount: string;

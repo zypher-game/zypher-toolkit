@@ -7,7 +7,7 @@ import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
 import { LngNs } from "./../..../../../../../utils/i18n";
 
 import { pointsRuleDialogState } from "../../state/connectWalletState";
-import "./PointsRuleDialog.module.stylus";
+import "./PointsRuleDialog.stylus";
 import { Trans } from "react-i18next";
 
 type Props = {

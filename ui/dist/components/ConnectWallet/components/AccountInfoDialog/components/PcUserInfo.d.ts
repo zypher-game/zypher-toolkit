@@ -1,6 +1,6 @@
 import React from "react";
 import * as config from "../../../../../constant/constant";
-import "./PcUserInfo.module.stylus";
+import "./PcUserInfo.stylus";
 type IDisconnectBtnProps = {
     cancel: any;
 };

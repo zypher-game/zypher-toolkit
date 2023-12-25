@@ -1,5 +1,5 @@
 import React from "react";
-import "./PointsRuleDialog.module.stylus";
+import "./PointsRuleDialog.stylus";
 type IProps = {
     isLoading: boolean;
     handleNext: any;

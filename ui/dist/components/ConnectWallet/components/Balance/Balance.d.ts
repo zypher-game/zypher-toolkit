@@ -1,5 +1,5 @@
 import React from "react";
-import "./balance.module.stylus";
+import "./balance.stylus";
 interface IProps {
     env: string;
     isMobile: boolean;

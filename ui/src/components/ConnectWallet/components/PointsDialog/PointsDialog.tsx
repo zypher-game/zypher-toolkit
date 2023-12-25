@@ -23,7 +23,7 @@ import {
 } from "../../state/connectWalletState";
 import DialogTitle from "../DialogComponents/DialogTitle";
 import PoinsWarn from "./PoinsWarn";
-import "./PointsDialog.module.stylus";
+import "./PointsDialog.stylus";
 import { PointsIcon } from "../../../icons/PointsIcon/PointsIcon";
 import Modal from "../../../../components/Modal/Modal";
 

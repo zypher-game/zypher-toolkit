@@ -15,7 +15,7 @@ import LinkItem from "./component/LinkItemA";
 import SideBarActivitiesList from "./component/SideBarActivitiesList";
 import SideBarGamesList from "./component/SideBarGamesList";
 import SideBarTitle from "./component/SideBarTitle";
-import "./sidebar.module.stylus";
+import "./sidebar.stylus";
 
 interface IProps {
   isMobile: boolean;
@@ -90,6 +90,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           list={sideBarGamesLinkList}
           isMobile={isMobile}
           useNavigate={useNavigate}
+          className_imageContainer={"imageContainerWaves"}
         />
         <div className={"line"} />
         <SideBarTitle

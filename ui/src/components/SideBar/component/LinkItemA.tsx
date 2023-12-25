@@ -13,6 +13,7 @@ interface IProps extends INavLink {
   className: string;
   isMobile: boolean;
   className_on: string;
+  className_imageContainer?: string;
   useNavigate: any;
 }
 const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
@@ -61,6 +62,7 @@ const LinkItem1: FC<IProps> = memo(
     className_on,
     isMobile,
     className_disable,
+    className_imageContainer,
     useNavigate,
     ...link
   }: IProps) => {
@@ -74,7 +76,9 @@ const LinkItem1: FC<IProps> = memo(
           isOn ? className_on : ""
         )}
       >
-        <img src={preStaticUrl + `/img/layout/${link.icon}`} />
+        <div className={className_imageContainer}>
+          <img src={preStaticUrl + `/img/layout/${link.icon}`} />
+        </div>
         <p>{link.label}</p>
       </div>
     );

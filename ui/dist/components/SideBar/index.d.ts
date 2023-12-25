@@ -1,5 +1,5 @@
 import React from "react";
-import "./sidebar.module.stylus";
+import "./sidebar.stylus";
 interface IProps {
     isMobile: boolean;
     useNavigate: any;

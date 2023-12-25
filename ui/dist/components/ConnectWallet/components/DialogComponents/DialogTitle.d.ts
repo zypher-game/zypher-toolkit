@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import "./DialogTitle.module.stylus";
+import "./DialogTitle.stylus";
 type IProps = {
     classNames?: string;
     label: string;

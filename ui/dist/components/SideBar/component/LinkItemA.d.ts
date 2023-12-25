@@ -5,6 +5,7 @@ interface IProps extends INavLink {
     className: string;
     isMobile: boolean;
     className_on: string;
+    className_imageContainer?: string;
     useNavigate: any;
 }
 declare const LinkItem1: FC<IProps>;
