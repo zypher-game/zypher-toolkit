@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { INavLink } from "../../../hooks/useNavItem";
+import { INavLink } from "../../../hooks/useNavItem.type";
 interface IProps extends INavLink {
     className_disable: string;
     className: string;

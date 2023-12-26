@@ -1924,82 +1924,6 @@ var SmokeIndex = memo7(() => {
     className: "c"
   }), /* @__PURE__ */ React11.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
-    className: "c"
   }));
 }, isEqual);
 var SmokeIndex_default = SmokeIndex;
@@ -2315,12 +2239,20 @@ var LinkToBetaDialog = memo13(() => {
   const isMobile = useIsMobile();
   const ToUrlName = useMemo7(() => {
     if (linkToBetaDialogChainId) {
+      if (linkToBetaDialogChainId === 9980 /* Combo */) {
+        return ["https://app.zypher.game/2048/"];
+      }
       return getChainNameText(linkToBetaDialogChainId);
     }
     return "";
   }, [linkToBetaDialogChainId]);
   const handleButtonClick = useCallback8(() => {
-    window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
+    setLinkToBetaDialogOpen(false);
+    if (ToUrlName[0].startsWith("https")) {
+      return window.open(ToUrlName[0], "_blank");
+    } else {
+      return window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
+    }
   }, [ToUrlName]);
   useEffect6(() => {
     if (!linkToBetaDialogOpen) {
@@ -2638,7 +2570,7 @@ var useInitRainbowFn = () => {
   useEffect7(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
-        if (_c === 42161 /* Arbitrum */ || _c === 169 /* MantaPacificMainnet */) {
+        if (_c === 42161 /* Arbitrum */ || _c === 9980 /* Combo */ || _c === 169 /* MantaPacificMainnet */) {
           setLinkToBetaDialogState(true);
           setLinkToBetaDialogChainIdState(_c);
           closeChainModal();
@@ -3823,7 +3755,8 @@ var chainIdPre = {
   [3441005 /* MantaPacificTestnet */]: "MPT",
   [91715 /* ComboTestnet */]: "CbT",
   [5e3 /* Mantle */]: "MTM",
-  [5001 /* MantleTestnet */]: "MTT"
+  [5001 /* MantleTestnet */]: "MTT",
+  [9980 /* Combo */]: "Cb"
 };
 function getStatus(status) {
   if (status === 0) {

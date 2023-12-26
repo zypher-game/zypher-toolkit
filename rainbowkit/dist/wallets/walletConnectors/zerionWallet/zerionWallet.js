@@ -1,9 +1,9 @@
 "use client";
 import {
   zerionWallet
-} from "../chunk-7SEY2T2J.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-WC53SJBK.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   zerionWallet
 };

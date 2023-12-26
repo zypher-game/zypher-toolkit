@@ -1,9 +1,9 @@
 "use client";
 import {
   frontierWallet
-} from "../chunk-M3B4FDXM.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-TEBE7EKN.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   frontierWallet
 };

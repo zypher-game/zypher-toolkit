@@ -27,7 +27,7 @@ import {
   useConnectModal,
   useTransactionStore,
   useWalletConnectors
-} from "./chunk-36CWMPTB.js";
+} from "./chunk-HG6TSYQ5.js";
 import {
   lightTheme
 } from "./chunk-DAGN7GXN.js";

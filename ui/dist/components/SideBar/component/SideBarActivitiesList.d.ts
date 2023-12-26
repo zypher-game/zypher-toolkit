@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { INavLink } from "../../../hooks/useNavItem";
+import { INavLink } from "../../../hooks/useNavItem.type";
 type IProps = {
     className_on: string;
     className_list: string;

@@ -1,7 +1,7 @@
 import { isEqual } from "../../../utils/lodash";
 import React, { FC, memo, useMemo } from "react";
 
-import { INavLink } from "../../../hooks/useNavItem";
+import { INavLink } from "../../../hooks/useNavItem.type";
 
 import LinkItem from "./LinkItemA";
 type IProps = {
