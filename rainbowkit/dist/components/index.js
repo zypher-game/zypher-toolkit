@@ -2,7 +2,7 @@
 import {
   ConnectButton,
   RainbowKitProvider
-} from "../chunk-HG6TSYQ5.js";
+} from "../chunk-VWJVZG6W.js";
 import "../chunk-DAGN7GXN.js";
 import "../chunk-SWKUKXRF.js";
 export {

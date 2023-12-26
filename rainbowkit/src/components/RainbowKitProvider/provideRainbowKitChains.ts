@@ -58,7 +58,7 @@ const arbitrumIcon: IconMetadata = {
 };
 
 const comboIcon: IconMetadata = {
-  iconBackground: "#000",
+  iconBackground: "transparent",
   iconUrl: async () => (await import("./chainIcons/combo.svg")).default,
 };
 

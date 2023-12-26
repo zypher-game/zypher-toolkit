@@ -1,9 +1,9 @@
 "use client";
 import {
   walletConnectWallet
-} from "../chunk-JGD6PK24.js";
-import "../chunk-IY4T55P4.js";
+} from "../chunk-5CVBFBCV.js";
 import "../chunk-ZOLACFTK.js";
+import "../chunk-IY4T55P4.js";
 export {
   walletConnectWallet
 };
