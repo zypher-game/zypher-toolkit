@@ -56,28 +56,34 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId7) => {
-  ChainId7[ChainId7["Mainnet"] = 56] = "Mainnet";
-  ChainId7[ChainId7["Testnet"] = 97] = "Testnet";
-  ChainId7[ChainId7["Arbitrum"] = 42161] = "Arbitrum";
-  ChainId7[ChainId7["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
-  ChainId7[ChainId7["LineaTestnet"] = 59140] = "LineaTestnet";
-  ChainId7[ChainId7["LineaMainnet"] = 59144] = "LineaMainnet";
-  ChainId7[ChainId7["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
-  ChainId7[ChainId7["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
-  ChainId7[ChainId7["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
-  ChainId7[ChainId7["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
-  ChainId7[ChainId7["OPBNBTEST"] = 5611] = "OPBNBTEST";
-  ChainId7[ChainId7["OPBNB"] = 204] = "OPBNB";
-  ChainId7[ChainId7["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
-  ChainId7[ChainId7["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
-  ChainId7[ChainId7["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
-  ChainId7[ChainId7["Combo"] = 9980] = "Combo";
-  ChainId7[ChainId7["ComboTestnet"] = 91715] = "ComboTestnet";
-  ChainId7[ChainId7["Mantle"] = 5e3] = "Mantle";
-  ChainId7[ChainId7["MantleTestnet"] = 5001] = "MantleTestnet";
-  return ChainId7;
+var ChainId = /* @__PURE__ */ ((ChainId10) => {
+  ChainId10[ChainId10["Mainnet"] = 56] = "Mainnet";
+  ChainId10[ChainId10["Testnet"] = 97] = "Testnet";
+  ChainId10[ChainId10["Arbitrum"] = 42161] = "Arbitrum";
+  ChainId10[ChainId10["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
+  ChainId10[ChainId10["LineaTestnet"] = 59140] = "LineaTestnet";
+  ChainId10[ChainId10["LineaMainnet"] = 59144] = "LineaMainnet";
+  ChainId10[ChainId10["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
+  ChainId10[ChainId10["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
+  ChainId10[ChainId10["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
+  ChainId10[ChainId10["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
+  ChainId10[ChainId10["OPBNBTEST"] = 5611] = "OPBNBTEST";
+  ChainId10[ChainId10["OPBNB"] = 204] = "OPBNB";
+  ChainId10[ChainId10["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
+  ChainId10[ChainId10["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
+  ChainId10[ChainId10["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
+  ChainId10[ChainId10["Combo"] = 9980] = "Combo";
+  ChainId10[ChainId10["ComboTestnet"] = 91715] = "ComboTestnet";
+  ChainId10[ChainId10["Mantle"] = 5e3] = "Mantle";
+  ChainId10[ChainId10["MantleTestnet"] = 5001] = "MantleTestnet";
+  return ChainId10;
 })(ChainId || {});
+var UnSupportChainId = [
+  42161 /* Arbitrum */,
+  9980 /* Combo */,
+  5e3 /* Mantle */,
+  169 /* MantaPacificMainnet */
+];
 var defaultChainId = 204 /* OPBNB */;
 var supportedChainIds = (env) => {
   return env === "develop" ? [
@@ -87,12 +93,14 @@ var supportedChainIds = (env) => {
     5611 /* OPBNBTEST */,
     42161 /* Arbitrum */,
     169 /* MantaPacificMainnet */,
+    5e3 /* Mantle */,
     9980 /* Combo */
   ] : [
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
     42161 /* Arbitrum */,
     169 /* MantaPacificMainnet */,
+    5e3 /* Mantle */,
     9980 /* Combo */
   ];
 };
@@ -1028,8 +1036,8 @@ function useActiveWeb3React() {
   const provider = usePublicClient();
   return useMemo2(() => {
     return {
-      chainId: chainId === 42161 /* Arbitrum */ || chainId === 169 /* MantaPacificMainnet */ ? void 0 : chainId,
-      account: chainId === 42161 /* Arbitrum */ || chainId === 169 /* MantaPacificMainnet */ ? void 0 : address,
+      chainId: chainId && UnSupportChainId.includes(chainId) ? void 0 : chainId,
+      account: chainId && UnSupportChainId.includes(chainId) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -2570,7 +2578,7 @@ var useInitRainbowFn = () => {
   useEffect7(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
-        if (_c === 42161 /* Arbitrum */ || _c === 9980 /* Combo */ || _c === 169 /* MantaPacificMainnet */) {
+        if (_c && UnSupportChainId.includes(_c)) {
           setLinkToBetaDialogState(true);
           setLinkToBetaDialogChainIdState(_c);
           closeChainModal();
@@ -3426,7 +3434,7 @@ var RainbowConnectWallet = memo22((props) => {
     return /* @__PURE__ */ React29.createElement(React29.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React29.createElement("div", {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React29.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || chain.id === 42161 /* Arbitrum */ || chain.id === 169 /* MantaPacificMainnet */) ? /* @__PURE__ */ React29.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React29.createElement(rainbow_account_default, {
+    }, /* @__PURE__ */ React29.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || UnSupportChainId.includes(chain.id)) ? /* @__PURE__ */ React29.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React29.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,
@@ -4005,6 +4013,7 @@ export {
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   SideBar_default as SideBar,
+  UnSupportChainId,
   bingoPoints_default as ZkBingoPointsContract,
   accountInfoDialogState,
   appInfo,

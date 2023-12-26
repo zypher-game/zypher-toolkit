@@ -62,11 +62,11 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
 
   const chainClickHandle = useCallback(
     ({ isCurrentChain, chain }: { isCurrentChain: boolean; chain: Chain }) => {
-      console.log({ fn, isCurrentChain, chain, switchNetwork });
       if (
         chain.id === ChainId.Arbitrum ||
         chain.id === ChainId.Combo ||
-        chain.id === ChainId.MantaPacificMainnet
+        chain.id === ChainId.MantaPacificMainnet ||
+        chain.id === ChainId.Mantle
       ) {
         if (fn) {
           fn(chain.id);

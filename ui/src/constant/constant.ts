@@ -46,7 +46,12 @@ export enum ChainId {
   Mantle = 5_000,
   MantleTestnet = 5_001,
 }
-
+export const UnSupportChainId = [
+  ChainId.Arbitrum,
+  ChainId.Combo,
+  ChainId.Mantle,
+  ChainId.MantaPacificMainnet,
+];
 export const defaultChainId = ChainId.OPBNB;
 
 export const supportedChainIds = (env: string): ChainId[] => {
@@ -58,6 +63,7 @@ export const supportedChainIds = (env: string): ChainId[] => {
         ChainId.OPBNBTEST,
         ChainId.Arbitrum,
         ChainId.MantaPacificMainnet,
+        ChainId.Mantle,
         ChainId.Combo,
       ]
     : [
@@ -65,6 +71,7 @@ export const supportedChainIds = (env: string): ChainId[] => {
         ChainId.OPBNB,
         ChainId.Arbitrum,
         ChainId.MantaPacificMainnet,
+        ChainId.Mantle,
         ChainId.Combo,
       ];
 };

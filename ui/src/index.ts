@@ -39,6 +39,7 @@ export {
   ChainId,
   defaultChainId,
   supportedChainIds,
+  UnSupportChainId,
   ChainRpcUrls,
   ChainRpcWebSocketUrls,
   BlockExplorerUrls,

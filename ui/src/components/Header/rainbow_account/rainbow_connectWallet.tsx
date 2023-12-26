@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useMemo } from "react";
 
-import { ChainId } from "../../../constant/constant";
+import { ChainId, UnSupportChainId } from "../../../constant/constant";
 
 import Account from "./rainbow_account";
 import "./rainbow_connectWallet.stylus";
@@ -58,9 +58,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   <p>{t("Connect Wallet")}</p>
                 </div>
               ) : chain &&
-                (chain.unsupported ||
-                  chain.id === ChainId.Arbitrum ||
-                  chain.id === ChainId.MantaPacificMainnet) ? (
+                (chain.unsupported || UnSupportChainId.includes(chain.id)) ? (
                 <WrongNetwork />
               ) : (
                 <Account

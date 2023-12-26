@@ -2,7 +2,7 @@ import { useChainModal } from "@my/rainbowkit";
 import { useEffect } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { ChainId } from "../constant/constant";
+import { ChainId, UnSupportChainId } from "../constant/constant";
 
 import {
   linkToBetaDialogChainIdState,
@@ -18,11 +18,7 @@ export const useInitRainbowFn = () => {
   useEffect(() => {
     if (setFn && closeChainModal) {
       setFn((_c: any) => {
-        if (
-          _c === ChainId.Arbitrum ||
-          _c === ChainId.Combo ||
-          _c === ChainId.MantaPacificMainnet
-        ) {
+        if (_c && UnSupportChainId.includes(_c)) {
           setLinkToBetaDialogState(true);
           setLinkToBetaDialogChainIdState(_c as ChainId);
           closeChainModal();
