@@ -24,6 +24,7 @@ export declare enum ChainId {
     ScrollSepoliaTestnet = 534351,
     MantaPacificMainnet = 169,
     MantaPacificTestnet = 3441005,
+    Combo = 9980,
     ComboTestnet = 91715,
     Mantle = 5000,
     MantleTestnet = 5001

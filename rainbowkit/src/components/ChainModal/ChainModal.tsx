@@ -1,4 +1,4 @@
-import React, { Fragment, useCallback, useContext, useState } from "react";
+import React, { Fragment, useCallback, useContext } from "react";
 import { Chain, useDisconnect, useNetwork, useSwitchNetwork } from "wagmi";
 
 import { isMobile } from "../../utils/isMobile";
@@ -36,6 +36,7 @@ enum ChainId {
   ScrollSepoliaTestnet = 534351,
   MantaPacificMainnet = 169,
   MantaPacificTestnet = 3441005,
+  Combo = 9980,
   ComboTestnet = 91_715,
   Mantle = 5_000,
   MantleTestnet = 5_001,
@@ -61,9 +62,10 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
 
   const chainClickHandle = useCallback(
     ({ isCurrentChain, chain }: { isCurrentChain: boolean; chain: Chain }) => {
-      console.log({ isCurrentChain, chain, switchNetwork });
+      console.log({ fn, isCurrentChain, chain, switchNetwork });
       if (
         chain.id === ChainId.Arbitrum ||
+        chain.id === ChainId.Combo ||
         chain.id === ChainId.MantaPacificMainnet
       ) {
         if (fn) {

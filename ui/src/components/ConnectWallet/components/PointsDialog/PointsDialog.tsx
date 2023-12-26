@@ -26,15 +26,8 @@ import PoinsWarn from "./PoinsWarn";
 import "./PointsDialog.stylus";
 import { PointsIcon } from "../../../icons/PointsIcon/PointsIcon";
 import Modal from "../../../../components/Modal/Modal";
+import { IPointsItem } from "./PointsDialog.type";
 
-export interface IPointsItem {
-  index: number;
-  pointAmount: string;
-  pointAmountStr: string;
-  price: string;
-  priceStr: string;
-  discount: string | undefined;
-}
 type IProps = {
   env: string;
   dispatch: any;

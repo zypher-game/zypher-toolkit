@@ -3,11 +3,12 @@ import { isEqual } from "../../../utils/lodash";
 import React, { FC, memo, useCallback, useMemo } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { INavLink } from "../../../hooks/useNavItem";
+import { INavLink } from "../../../hooks/useNavItem.type";
 import { preStaticUrl } from "../../../constant/constant";
 
 import { defaultSelectedKey } from "../state";
 import { siderCollapseState } from "../../Header/state";
+import SmokeIndex from "./SmokeIndex";
 interface IProps extends INavLink {
   className_disable: string;
   className: string;
@@ -80,6 +81,7 @@ const LinkItem1: FC<IProps> = memo(
           <img src={preStaticUrl + `/img/layout/${link.icon}`} />
         </div>
         <p>{link.label}</p>
+        {isOn ? <SmokeIndex /> : null}
       </div>
     );
   },

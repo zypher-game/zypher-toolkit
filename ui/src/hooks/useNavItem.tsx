@@ -5,12 +5,7 @@ import { LngNs } from "../utils/i18n";
 import { useCustomTranslation } from "./useCustomTranslation";
 import { useIsMobile } from "./useWindowSize";
 import { defaultSelectedKey } from "../components/SideBar/state";
-export enum INavLinkType {
-  "Games" = "Games",
-  "Activities" = "Activities",
-  "Language" = "Language",
-  "Links" = "Links",
-}
+import { INavLink, INavLinkType } from "./useNavItem.type";
 
 export const LinkList = [
   // "/zBingo",
@@ -31,14 +26,7 @@ export const blankLinkList = [
   false, //game_mahjong.jpg
   false, //game_muder.jpg
 ];
-export type INavLink = {
-  label: string;
-  keyValue: string;
-  icon: string;
-  link: string;
-  disabled: boolean;
-  type: INavLinkType;
-};
+
 export const usePathname = () => {
   const isMobile = useIsMobile();
   const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);

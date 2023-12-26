@@ -7,6 +7,18 @@ import {
   useRecoilValue,
   useResetRecoilState,
 } from "recoil";
+export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
+export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
+export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
+export {
+  IGameStatus,
+  IGameName,
+  IBingoInfo,
+  IPlayer,
+  IRecentGame,
+  IGameIdInfo,
+  IGameList,
+} from "./types/gameList.types";
 import { useWalletClient } from "wagmi";
 export { useWalletClient };
 export {
@@ -18,15 +30,6 @@ export {
   useRecoilState,
   useResetRecoilState,
 };
-export {
-  IGameStatus,
-  IGameName,
-  IBingoInfo,
-  IPlayer,
-  IRecentGame,
-  IGameIdInfo,
-  IGameList,
-} from "./types/gameList.types";
 export {
   appInfo,
   divisor6xBigNumber,
@@ -51,16 +54,14 @@ export {
   zkBingo,
 } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
+
 export {
-  INavLink,
-  INavLinkType,
   LinkList,
   blankLinkList,
   useNavItem,
   usePathname,
 } from "./hooks/useNavItem";
 export {
-  IConnectorState,
   connectorState,
   walletModalOpenState,
   ChainSelector,
@@ -75,10 +76,7 @@ export {
   nativeBalanceState,
   pointsBalanceState,
 } from "./components/ConnectWallet/state/connectWalletState";
-export {
-  default as PointsDialog,
-  IPointsItem,
-} from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
+export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
 export { default as SideBar } from "./components/SideBar";
 export { defaultSelectedKey } from "./components/SideBar/state";
 

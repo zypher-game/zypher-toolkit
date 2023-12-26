@@ -41,6 +41,7 @@ export enum ChainId {
   ScrollSepoliaTestnet = 534351,
   MantaPacificMainnet = 169,
   MantaPacificTestnet = 3441005,
+  Combo = 9980,
   ComboTestnet = 91_715,
   Mantle = 5_000,
   MantleTestnet = 5_001,
@@ -57,12 +58,14 @@ export const supportedChainIds = (env: string): ChainId[] => {
         ChainId.OPBNBTEST,
         ChainId.Arbitrum,
         ChainId.MantaPacificMainnet,
+        ChainId.Combo,
       ]
     : [
         ChainId.LineaMainnet,
         ChainId.OPBNB,
         ChainId.Arbitrum,
         ChainId.MantaPacificMainnet,
+        ChainId.Combo,
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {
@@ -105,6 +108,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   [ChainId.MantaPacificTestnet]: [
     "https://manta-testnet.calderachain.xyz/http",
   ],
+  [ChainId.Combo]: ["https://rpc.combonetwork.io"],
   [ChainId.ComboTestnet]: [
     "https://combo-testnet.nodereal.io",
     // 'https://test-rpc.combonetwork.io'
@@ -140,6 +144,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.ComboTestnet]: ["https://combotrace-testnet.nodereal.io/"],
   [ChainId.Mantle]: ["https://explorer.mantle.xyz"],
   [ChainId.MantleTestnet]: ["https://explorer.testnet.mantle.xyz"],
+  [ChainId.Combo]: ["https://combotrace.nodereal.io"],
 };
 
 export const ChainBridge: { [key: number]: string } = {
@@ -163,11 +168,12 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.OPBNB]: "opBNB Mainnet",
   [ChainId.ScrollAlphaTestnet]: "Scroll Alpha Testnet",
   [ChainId.ScrollSepoliaTestnet]: "Scroll Sepolia Testnet",
-  [ChainId.MantaPacificMainnet]: "Manta Pacific Mainnet",
+  [ChainId.MantaPacificMainnet]: "Manta Pacific",
   [ChainId.MantaPacificTestnet]: "Manta Pacific Testnet",
   [ChainId.ComboTestnet]: "Combo Testnet",
   [ChainId.Mantle]: "Mantle",
   [ChainId.MantleTestnet]: "Mantle Testnet",
+  [ChainId.Combo]: "Combo",
 };
 export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Mainnet]: "bsc",
@@ -184,8 +190,9 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.OPBNBTEST]: "opBNB testnet",
   [ChainId.OPBNB]: "opBNB Mainnet",
   [ChainId.ScrollSepoliaTestnet]: "Scroll Sepolia Testnet",
-  [ChainId.MantaPacificMainnet]: "Manta Pacific Mainnet",
-  [ChainId.MantaPacificTestnet]: "Manta Pacific Testnet",
+  [ChainId.MantaPacificMainnet]: "Manta Pacific",
+  [ChainId.MantaPacificTestnet]: "Manta Pacific",
+  [ChainId.Combo]: "Combo",
   [ChainId.ComboTestnet]: "Combo Testnet",
   [ChainId.Mantle]: "Mantle",
   [ChainId.MantleTestnet]: "Mantle Testnet",
@@ -207,6 +214,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.ScrollAlphaTestnet]: true,
   [ChainId.MantaPacificMainnet]: false,
   [ChainId.MantaPacificTestnet]: true,
+  [ChainId.Combo]: false,
   [ChainId.ComboTestnet]: true,
   [ChainId.Mantle]: false,
   [ChainId.MantleTestnet]: true,
@@ -228,6 +236,7 @@ export const ChainImage: Record<ChainId, string> = {
   [ChainId.ScrollSepoliaTestnet]: preStaticUrl + "/img/scroll.svg",
   [ChainId.MantaPacificMainnet]: preStaticUrl + "/img/manta.svg",
   [ChainId.MantaPacificTestnet]: preStaticUrl + "/img/manta.svg",
+  [ChainId.Combo]: preStaticUrl + "/chain/9980.svg",
   [ChainId.ComboTestnet]: preStaticUrl + "/img/combo.svg",
   [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
   [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",
@@ -248,6 +257,7 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.ScrollSepoliaTestnet]: "ETH",
   [ChainId.MantaPacificMainnet]: "ETH",
   [ChainId.MantaPacificTestnet]: "ETH",
+  [ChainId.Combo]: "BNB",
   [ChainId.ComboTestnet]: "BNB",
   [ChainId.Mantle]: "MNT",
   [ChainId.MantleTestnet]: "MNT",
@@ -269,6 +279,7 @@ export const CurrencyLogo: Record<ChainId, string> = {
   [ChainId.ScrollAlphaTestnet]: preStaticUrl + "/img/ethereum.png",
   [ChainId.MantaPacificMainnet]: preStaticUrl + "/img/ethereum-logo.png",
   [ChainId.MantaPacificTestnet]: preStaticUrl + "/img/ethereum-logo.png",
+  [ChainId.Combo]: preStaticUrl + "/img/bnb.svg",
   [ChainId.ComboTestnet]: preStaticUrl + "/img/bnb.svg",
   [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
   [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",
@@ -330,6 +341,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   },
   [ChainId.MantaPacificTestnet]: {
     multicall: ["0xd4E91b4401EDb2BD95791462F4ccAaae4026540D"],
+  },
+  [ChainId.Combo]: {
+    multicall: ["0x7cE161f1BF228929626A1D41ffa468E16605AE6f"],
   },
   [ChainId.ComboTestnet]: {
     multicall: ["0x7cE161f1BF228929626A1D41ffa468E16605AE6f"],

@@ -1,8 +1,5 @@
 import { ChainId } from "../../../constant/constant";
-export type IConnectorState = {
-    chainId?: number | null;
-    networkError?: boolean | null;
-};
+import { IConnectorState } from "./connectWalletState.type";
 export declare const connectorState: import("recoil").RecoilState<IConnectorState>;
 export declare const walletModalOpenState: import("recoil").RecoilState<boolean>;
 export declare const ChainSelector: import("recoil").RecoilState<boolean>;

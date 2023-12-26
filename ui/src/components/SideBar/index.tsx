@@ -1,12 +1,8 @@
 import classnames from "classnames";
 import React, { memo, useMemo } from "react";
 
-import {
-  INavLink,
-  INavLinkType,
-  useNavItem,
-  usePathname,
-} from "../../hooks/useNavItem";
+import { INavLink, INavLinkType } from "../../hooks/useNavItem.type";
+import { useNavItem, usePathname } from "../../hooks/useNavItem";
 import { preStaticUrl } from "../../constant/constant";
 
 import CommunityLink from "./component/CommunityLink";

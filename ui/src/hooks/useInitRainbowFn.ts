@@ -18,7 +18,11 @@ export const useInitRainbowFn = () => {
   useEffect(() => {
     if (setFn && closeChainModal) {
       setFn((_c: any) => {
-        if (_c === ChainId.Arbitrum || _c === ChainId.MantaPacificMainnet) {
+        if (
+          _c === ChainId.Arbitrum ||
+          _c === ChainId.Combo ||
+          _c === ChainId.MantaPacificMainnet
+        ) {
           setLinkToBetaDialogState(true);
           setLinkToBetaDialogChainIdState(_c as ChainId);
           closeChainModal();

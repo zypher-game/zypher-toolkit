@@ -2,11 +2,7 @@ import { atom } from "recoil";
 
 import { localStorageEffect } from "../../../utils/localStorageEffect";
 import { ChainId } from "../../../constant/constant";
-
-export type IConnectorState = {
-  chainId?: number | null;
-  networkError?: boolean | null;
-};
+import { IConnectorState } from "./connectWalletState.type";
 
 export const connectorState = atom<IConnectorState>({
   key: "connectorState",

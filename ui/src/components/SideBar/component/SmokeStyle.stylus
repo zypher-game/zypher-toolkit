@@ -1,0 +1,433 @@
+.h 
+  text-align: center;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  position: absolute;
+  right: 0;
+  top: -30%
+  opacity 0.5
+.h .c 
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 400px;
+  position: absolute;
+  margin: auto;
+
+.h .c:nth-of-type(1) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 6px;
+  height: 1px;
+  right: 10px;
+  bottom: 10px;
+  -webkit-filter: blur(8.3333333333px);
+  transform-origin: 4px 2px;
+  animation: spin 3s 0.1s linear infinite;
+  background: rgba(44, 50, 187, 0.9875);
+
+.h .c:nth-of-type(2) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 12px;
+  height: 2px;
+  right: 20px;
+  bottom: 20px;
+  -webkit-filter: blur(8.6666666667px);
+  transform-origin: 8px 4px;
+  animation: spin 3s 0.2s linear infinite;
+  background: rgba(44, 50, 187, 0.975);
+
+.h .c:nth-of-type(3) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 18px;
+  height: 3px;
+  right: 30px;
+  bottom: 30px;
+  -webkit-filter: blur(9px);
+  transform-origin: 12px 6px;
+  animation: spin 3s 0.3s linear infinite;
+  background: rgba(44, 50, 187, 0.9625);
+
+.h .c:nth-of-type(4) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 24px;
+  height: 4px;
+  right: 40px;
+  bottom: 40px;
+  -webkit-filter: blur(9.3333333333px);
+  transform-origin: 16px 8px;
+  animation: spin 3s 0.4s linear infinite;
+  background: rgba(44, 50, 187, 0.95);
+
+.h .c:nth-of-type(5) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 30px;
+  height: 5px;
+  right: 50px;
+  bottom: 50px;
+  -webkit-filter: blur(9.6666666667px);
+  transform-origin: 20px 10px;
+  animation: spin 3s 0.5s linear infinite;
+  background: rgba(44, 50, 187, 0.9375);
+
+.h .c:nth-of-type(6) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 36px;
+  height: 6px;
+  right: 60px;
+  bottom: 60px;
+  -webkit-filter: blur(10px);
+  transform-origin: 24px 12px;
+  animation: spin 3s 0.6s linear infinite;
+  background: rgba(44, 50, 187, 0.925);
+
+.h .c:nth-of-type(7) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 42px;
+  height: 7px;
+  right: 70px;
+  bottom: 70px;
+  -webkit-filter: blur(10.3333333333px);
+  transform-origin: 28px 14px;
+  animation: spin 3s 0.7s linear infinite;
+  background: rgba(44, 50, 187, 0.9125);
+
+.h .c:nth-of-type(8) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 48px;
+  height: 8px;
+  right: 80px;
+  bottom: 80px;
+  -webkit-filter: blur(10.6666666667px);
+  transform-origin: 32px 16px;
+  animation: spin 3s 0.8s linear infinite;
+  background: rgba(44, 50, 187, 0.9);
+
+.h .c:nth-of-type(9) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 54px;
+  height: 9px;
+  right: 90px;
+  bottom: 90px;
+  -webkit-filter: blur(11px);
+  transform-origin: 36px 18px;
+  animation: spin 3s 0.9s linear infinite;
+  background: rgba(44, 50, 187, 0.8875);
+
+.h .c:nth-of-type(10) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 60px;
+  height: 10px;
+  right: 100px;
+  bottom: 100px;
+  -webkit-filter: blur(11.3333333333px);
+  transform-origin: 40px 20px;
+  animation: spin 3s 1s linear infinite;
+  background: rgba(44, 50, 187, 0.875);
+
+.h .c:nth-of-type(11) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 66px;
+  height: 11px;
+  right: 110px;
+  bottom: 110px;
+  -webkit-filter: blur(11.6666666667px);
+  transform-origin: 44px 22px;
+  animation: spin 3s 1.1s linear infinite;
+  background: rgba(44, 50, 187, 0.8625);
+
+.h .c:nth-of-type(12) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 72px;
+  height: 12px;
+  right: 120px;
+  bottom: 120px;
+  -webkit-filter: blur(12px);
+  transform-origin: 48px 24px;
+  animation: spin 3s 1.2s linear infinite;
+  background: rgba(44, 50, 187, 0.85);
+
+.h .c:nth-of-type(13) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 78px;
+  height: 13px;
+  right: 130px;
+  bottom: 130px;
+  -webkit-filter: blur(12.3333333333px);
+  transform-origin: 52px 26px;
+  animation: spin 3s 1.3s linear infinite;
+  background: rgba(44, 50, 187, 0.8375);
+
+.h .c:nth-of-type(14) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 84px;
+  height: 14px;
+  right: 140px;
+  bottom: 140px;
+  -webkit-filter: blur(12.6666666667px);
+  transform-origin: 56px 28px;
+  animation: spin 3s 1.4s linear infinite;
+  background: rgba(44, 50, 187, 0.825);
+
+.h .c:nth-of-type(15) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 90px;
+  height: 15px;
+  right: 150px;
+  bottom: 150px;
+  -webkit-filter: blur(13px);
+  transform-origin: 60px 30px;
+  animation: spin 3s 1.5s linear infinite;
+  background: rgba(44, 50, 187, 0.8125);
+
+.h .c:nth-of-type(16) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 96px;
+  height: 16px;
+  right: 160px;
+  bottom: 160px;
+  -webkit-filter: blur(13.3333333333px);
+  transform-origin: 64px 32px;
+  animation: spin 3s 1.6s linear infinite;
+  background: rgba(44, 50, 187, 0.8);
+
+.h .c:nth-of-type(17) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 102px;
+  height: 17px;
+  right: 170px;
+  bottom: 170px;
+  -webkit-filter: blur(13.6666666667px);
+  transform-origin: 68px 34px;
+  animation: spin 3s 1.7s linear infinite;
+  background: rgba(44, 50, 187, 0.7875);
+
+.h .c:nth-of-type(18) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 108px;
+  height: 18px;
+  right: 180px;
+  bottom: 180px;
+  -webkit-filter: blur(14px);
+  transform-origin: 72px 36px;
+  animation: spin 3s 1.8s linear infinite;
+  background: rgba(44, 50, 187, 0.775);
+
+.h .c:nth-of-type(19) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 114px;
+  height: 19px;
+  right: 190px;
+  bottom: 190px;
+  -webkit-filter: blur(14.3333333333px);
+  transform-origin: 76px 38px;
+  animation: spin 3s 1.9s linear infinite;
+  background: rgba(44, 50, 187, 0.7625);
+
+.h .c:nth-of-type(20) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 120px;
+  height: 20px;
+  right: 200px;
+  bottom: 200px;
+  -webkit-filter: blur(14.6666666667px);
+  transform-origin: 80px 40px;
+  animation: spin 3s 2s linear infinite;
+  background: rgba(44, 50, 187, 0.75);
+
+.h .c:nth-of-type(21) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 126px;
+  height: 21px;
+  right: 210px;
+  bottom: 210px;
+  -webkit-filter: blur(15px);
+  transform-origin: 84px 42px;
+  animation: spin 3s 2.1s linear infinite;
+  background: rgba(44, 50, 187, 0.7375);
+
+.h .c:nth-of-type(22) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 132px;
+  height: 22px;
+  right: 220px;
+  bottom: 220px;
+  -webkit-filter: blur(15.3333333333px);
+  transform-origin: 88px 44px;
+  animation: spin 3s 2.2s linear infinite;
+  background: rgba(44, 50, 187, 0.725);
+
+.h .c:nth-of-type(23) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 138px;
+  height: 23px;
+  right: 230px;
+  bottom: 230px;
+  -webkit-filter: blur(15.6666666667px);
+  transform-origin: 92px 46px;
+  animation: spin 3s 2.3s linear infinite;
+  background: rgba(44, 50, 187, 0.7125);
+
+.h .c:nth-of-type(24) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 144px;
+  height: 24px;
+  right: 240px;
+  bottom: 240px;
+  -webkit-filter: blur(16px);
+  transform-origin: 96px 48px;
+  animation: spin 3s 2.4s linear infinite;
+  background: rgba(44, 50, 187, 0.7);
+
+.h .c:nth-of-type(25) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 150px;
+  height: 25px;
+  right: 250px;
+  bottom: 250px;
+  -webkit-filter: blur(16.3333333333px);
+  transform-origin: 100px 50px;
+  animation: spin 3s 2.5s linear infinite;
+  background: rgba(44, 50, 187, 0.6875);
+
+.h .c:nth-of-type(26) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 156px;
+  height: 26px;
+  right: 260px;
+  bottom: 260px;
+  -webkit-filter: blur(16.6666666667px);
+  transform-origin: 104px 52px;
+  animation: spin 3s 2.6s linear infinite;
+  background: rgba(44, 50, 187, 0.675);
+
+.h .c:nth-of-type(27) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 162px;
+  height: 27px;
+  right: 270px;
+  bottom: 270px;
+  -webkit-filter: blur(17px);
+  transform-origin: 108px 54px;
+  animation: spin 3s 2.7s linear infinite;
+  background: rgba(44, 50, 187, 0.6625);
+
+.h .c:nth-of-type(28) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 168px;
+  height: 28px;
+  right: 280px;
+  bottom: 280px;
+  -webkit-filter: blur(17.3333333333px);
+  transform-origin: 112px 56px;
+  animation: spin 3s 2.8s linear infinite;
+  background: rgba(44, 50, 187, 0.65);
+
+.h .c:nth-of-type(29) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 174px;
+  height: 29px;
+  right: 290px;
+  bottom: 290px;
+  -webkit-filter: blur(17.6666666667px);
+  transform-origin: 116px 58px;
+  animation: spin 3s 2.9s linear infinite;
+  background: rgba(44, 50, 187, 0.6375);
+
+.h .c:nth-of-type(30) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 180px;
+  height: 30px;
+  right: 300px;
+  bottom: 300px;
+  -webkit-filter: blur(18px);
+  transform-origin: 120px 60px;
+  animation: spin 3s 3s linear infinite;
+  background: rgba(44, 50, 187, 0.625);
+
+.h .c:nth-of-type(31) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 186px;
+  height: 31px;
+  right: 310px;
+  bottom: 310px;
+  -webkit-filter: blur(18.3333333333px);
+  transform-origin: 124px 62px;
+  animation: spin 3s 3.1s linear infinite;
+  background: rgba(44, 50, 187, 0.6125);
+
+.h .c:nth-of-type(32) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 192px;
+  height: 32px;
+  right: 320px;
+  bottom: 320px;
+  -webkit-filter: blur(18.6666666667px);
+  transform-origin: 128px 64px;
+  animation: spin 3s 3.2s linear infinite;
+  background: rgba(44, 50, 187, 0.6);
+
+.h .c:nth-of-type(33) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 198px;
+  height: 33px;
+  right: 330px;
+  bottom: 330px;
+  -webkit-filter: blur(19px);
+  transform-origin: 132px 66px;
+  animation: spin 3s 3.3s linear infinite;
+  background: rgba(44, 50, 187, 0.5875);
+
+.h .c:nth-of-type(34) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 204px;
+  height: 34px;
+  right: 340px;
+  bottom: 340px;
+  -webkit-filter: blur(19.3333333333px);
+  transform-origin: 136px 68px;
+  animation: spin 3s 3.4s linear infinite;
+  background: rgba(44, 50, 187, 0.575);
+
+.h .c:nth-of-type(35) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 210px;
+  height: 35px;
+  right: 350px;
+  bottom: 350px;
+  -webkit-filter: blur(19.6666666667px);
+  transform-origin: 140px 70px;
+  animation: spin 3s 3.5s linear infinite;
+  background: rgba(44, 50, 187, 0.5625);
+
+.h .c:nth-of-type(36) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 216px;
+  height: 36px;
+  right: 360px;
+  bottom: 360px;
+  -webkit-filter: blur(20px);
+  transform-origin: 144px 72px;
+  animation: spin 3s 3.6s linear infinite;
+  background: rgba(44, 50, 187, 0.55);
+
+.h .c:nth-of-type(37) 
+  box-shadow: 3px 0px rgba(255, 255, 255, 0), 6px -5px rgba(10, 0, 0, 0);
+  width: 222px;
+  height: 37px;
+  right: 370px;
+  bottom: 370px;
+  -webkit-filter: blur(20.3333333333px);
+  transform-origin: 148px 74px;
+  animation: spin 3s 3.7s linear infinite;
+  background: rgba(44, 50, 187, 0.5375);
+
+@-webkit-keyframes spin 
+  0% 
+    transform: rotate(0deg);
+  100% 
+    transform: rotate(360deg);
+
+@keyframes spin 
+  0% 
+    transform: rotate(0deg);
+  100% 
+    transform: rotate(360deg);

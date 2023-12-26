@@ -13,7 +13,7 @@ import {
 } from "../../state/connectWalletState";
 import DialogTitle from "../DialogComponents/DialogTitle";
 import { getChainNameText } from "./localPathUrl";
-import { ChainName } from "../../../../constant/constant";
+import { ChainId, ChainName } from "../../../../constant/constant";
 import Modal from "../../../../components/Modal/Modal";
 import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../utils/i18n";
@@ -56,12 +56,20 @@ const LinkToBetaDialog = memo(() => {
   const isMobile = useIsMobile();
   const ToUrlName = useMemo(() => {
     if (linkToBetaDialogChainId) {
+      if (linkToBetaDialogChainId === ChainId.Combo) {
+        return ["https://app.zypher.game/2048/"];
+      }
       return getChainNameText(linkToBetaDialogChainId);
     }
     return "";
   }, [linkToBetaDialogChainId]);
   const handleButtonClick = useCallback(() => {
-    window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
+    setLinkToBetaDialogOpen(false);
+    if (ToUrlName[0].startsWith("https")) {
+      return window.open(ToUrlName[0], "_blank");
+    } else {
+      return window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
+    }
   }, [ToUrlName]);
   useEffect(() => {
     if (!linkToBetaDialogOpen) {
@@ -87,19 +95,23 @@ const LinkToBetaDialog = memo(() => {
       <Content>
         <WarningOutlined style={{ color: "#6673FF", fontSize: "50px" }} />
         <Text>
-          {t("linkToBeta", {
-            chainName: linkToBetaDialogChainId
-              ? ChainName[linkToBetaDialogChainId]
-              : "",
-            toUrlName: ToUrlName[1],
-          })}
+          {linkToBetaDialogChainId === ChainId.Combo
+            ? "Combo is currently only deployed in 2048."
+            : t("linkToBeta", {
+                chainName: linkToBetaDialogChainId
+                  ? ChainName[linkToBetaDialogChainId]
+                  : "",
+                toUrlName: ToUrlName[1],
+              })}
         </Text>
       </Content>
       <div style={{ padding: "0 20px 30px" }}>
         <DialogButton onClick={handleButtonClick}>
-          {t("GotoVersion", {
-            toUrlName: ToUrlName[0],
-          })}
+          {linkToBetaDialogChainId === ChainId.Combo
+            ? "Go to Play 2048"
+            : t("GotoVersion", {
+                toUrlName: ToUrlName[0],
+              })}
         </DialogButton>
       </div>
     </Modal>
