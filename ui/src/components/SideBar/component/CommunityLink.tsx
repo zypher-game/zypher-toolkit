@@ -29,7 +29,7 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
         <img src={preStaticUrl + "/img/layout/github.svg"} />
       </a>
       <a
-        href="https://interesting-crop-c73.notion.site/ZypherGames-Basecamp-58f3fc6362dc473db187dcec0b63e74e"
+        href="https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e"
         target="_blank"
         rel="noreferrer"
       >

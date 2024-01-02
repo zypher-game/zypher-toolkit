@@ -1861,7 +1861,7 @@ var CommunityLink = memo6(({ className }) => {
   }, /* @__PURE__ */ React10.createElement("img", {
     src: preStaticUrl + "/img/layout/github.svg"
   })), /* @__PURE__ */ React10.createElement("a", {
-    href: "https://interesting-crop-c73.notion.site/ZypherGames-Basecamp-58f3fc6362dc473db187dcec0b63e74e",
+    href: "https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React10.createElement("img", {
