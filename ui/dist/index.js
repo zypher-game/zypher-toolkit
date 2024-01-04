@@ -3313,27 +3313,27 @@ var AddressWrap = styled6.div`
       padding-left: 14px;
     }
   }
-  .hat {
-    width: 58px;
-    height: 58px;
-    position: absolute;
-    right: -29px;
-    top: -23px;
-    z-index: 2;
-    transform-origin: left bottom;
-    animation: hat-animation 2s infinite;
-  }
-  @keyframes hat-animation {
-    0% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(6deg);
-    }
-    100% {
-      transform: rotate(0deg);
-    }
-  }
+  // .hat {
+  //   width: 58px;
+  //   height: 58px;
+  //   position: absolute;
+  //   right: -29px;
+  //   top: -23px;
+  //   z-index: 2;
+  //   transform-origin: left bottom;
+  //   animation: hat-animation 2s infinite;
+  // }
+  // @keyframes hat-animation {
+  //   0% {
+  //     transform: rotate(0deg);
+  //   }
+  //   50% {
+  //     transform: rotate(6deg);
+  //   }
+  //   100% {
+  //     transform: rotate(0deg);
+  //   }
+  // }
 `;
 var Account = memo20(
   ({
@@ -3366,9 +3366,6 @@ var Account = memo20(
       account,
       size: isMobile ? 26 : 36,
       showAccount: isMobile ? false : true
-    }), /* @__PURE__ */ React27.createElement("img", {
-      className: "hat",
-      src: "https://static.zypher.game/img/layout/hat.png"
     })), !isMobile && /* @__PURE__ */ React27.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React27.createElement(AccountInfoDialog_default, {
       copy
     }), /* @__PURE__ */ React27.createElement(PointsDialog_default, {
