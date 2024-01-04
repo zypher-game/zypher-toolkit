@@ -243,7 +243,7 @@ export const ChainImage: Record<ChainId, string> = {
   [ChainId.ScrollSepoliaTestnet]: preStaticUrl + "/img/scroll.svg",
   [ChainId.MantaPacificMainnet]: preStaticUrl + "/img/manta.svg",
   [ChainId.MantaPacificTestnet]: preStaticUrl + "/img/manta.svg",
-  [ChainId.Combo]: preStaticUrl + "/chain/9980.svg",
+  [ChainId.Combo]: preStaticUrl + "/crypto/chain/9980.svg",
   [ChainId.ComboTestnet]: preStaticUrl + "/img/combo.svg",
   [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
   [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",

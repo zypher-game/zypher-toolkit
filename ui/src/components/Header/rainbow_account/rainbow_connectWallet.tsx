@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useMemo } from "react";
 
-import { ChainId, UnSupportChainId } from "../../../constant/constant";
+import { UnSupportChainId } from "../../../constant/constant";
 
 import Account from "./rainbow_account";
 import "./rainbow_connectWallet.stylus";
