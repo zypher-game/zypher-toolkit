@@ -3459,7 +3459,6 @@ var Header = (props) => {
     showLang
   } = props;
   useEffect9(() => {
-    console.log({ isMobile, collapsed });
     if (isMobile && collapsed === void 0) {
       setSiderCollapse(true);
     }

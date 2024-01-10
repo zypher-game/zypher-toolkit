@@ -398,6 +398,70 @@
   border-radius: 20px;
   z-index: 9999;
 }
+.customDialog {
+  --change-color: #367aff;
+}
+@media screen and (max-width: 768px) {
+  .customDialog .ant-modal {
+    width: 90%;
+  }
+  .customDialog.bottom {
+    height: calc(100vh - 44px);
+    max-height: calc(100vh - 44px);
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    top: auto;
+    border-radius: 20px 20px 0 0;
+    overflow-y: scroll;
+  }
+  .customDialog.bottom [data-reach-dialog-content] {
+    margin: 0;
+  }
+  .customDialog.bottom .ant-modal {
+    max-height: 100%;
+    flex: 1;
+    margin: 0;
+    max-width: 100vw;
+    top: 0;
+    padding-bottom: 0;
+  }
+  .customDialog.bottom .modalTitleInner {
+    position: fixed;
+    top: auto;
+    left: 0;
+    width: 100%;
+    z-index: 3;
+  }
+  .customDialog.bottom .ant-modal-content {
+    border: none;
+    border-radius: 20px 20px 0 0;
+  }
+}
+.customDialog .ant-modal-content {
+  background: var(--var-card);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.customDialog .ant-modal-content .ant-modal-body {
+  padding: 0;
+  overflow: hidden;
+}
+.customDialog .ant-modal-content .ant-modal-footer {
+  padding: 0;
+  border: 0;
+  position: relative;
+}
+.customDialog .ant-modal-content .ant-modal-footer .icon {
+  position: absolute;
+  bottom: -56px;
+  left: 50%;
+  transform: translateX(-50%);
+  size: 32px;
+  fill: #fff;
+  cursor: pointer;
+}
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/SmokeStyle.stylus */
 .h {

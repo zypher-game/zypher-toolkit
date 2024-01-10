@@ -3,3 +3,59 @@
   background: #131313;
   border-radius: 20px
   z-index: 9999
+.customDialog
+  --change-color: #367AFF
+  @media screen and (max-width: 768px)
+      .ant-modal
+          width: 90%
+        &.bottom
+            height: calc(100vh - 44px);
+            max-height: calc(100vh - 44px);
+            bottom: 0;
+            display: flex;
+            justify-content: flex-end;
+            align-items: flex-end;
+            top: auto;
+            border-radius: 20px 20px 0 0
+            overflow-y: scroll
+            // background: transparent
+            [data-reach-dialog-content]
+                margin: 0
+            .ant-modal
+                max-height: 100%;
+                flex: 1
+                margin: 0;
+                max-width: 100vw  
+                top: 0;
+                padding-bottom: 0
+            .modalTitleInner
+                position: fixed
+                top: auto
+                left: 0
+                width: 100%
+                z-index: 3
+            .ant-modal-content
+                border: none;
+                border-radius: 20px 20px 0 0
+  .ant-modal-content
+      background: var(--var-card)
+      border-radius: 20px
+      border: 1px solid rgba(255, 255, 255, 0.10);
+      .ant-modal-body
+          padding: 0
+          overflow: hidden
+
+      .ant-modal-footer
+          padding: 0
+          border: 0
+          position: relative
+
+          .icon
+              position: absolute
+              bottom: -56px
+              left: 50%
+              transform: translateX(-50%)
+              size: 32px
+              fill: #fff
+              cursor: pointer
+
