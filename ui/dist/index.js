@@ -94,6 +94,7 @@ var supportedChainIds = (env) => {
     42161 /* Arbitrum */,
     169 /* MantaPacificMainnet */,
     5e3 /* Mantle */,
+    91715 /* ComboTestnet */,
     9980 /* Combo */
   ] : [
     59144 /* LineaMainnet */,

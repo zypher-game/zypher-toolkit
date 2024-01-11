@@ -64,6 +64,7 @@ export const supportedChainIds = (env: string): ChainId[] => {
         ChainId.Arbitrum,
         ChainId.MantaPacificMainnet,
         ChainId.Mantle,
+        ChainId.ComboTestnet,
         ChainId.Combo,
       ]
     : [
