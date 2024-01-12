@@ -162,14 +162,14 @@ export const useNavItem = (): INavLink[] => {
       //   disabled: true,
       //   type: INavLinkType.Activities
       // },
-      {
-        label: t("Ranking"),
-        keyValue: "8",
-        icon: "ranking.svg",
-        link: "/ranking",
-        disabled: false,
-        type: INavLinkType.Activities,
-      },
+      // {
+      //   label: t("Ranking"),
+      //   keyValue: "8",
+      //   icon: "ranking.svg",
+      //   link: "/ranking",
+      //   disabled: false,
+      //   type: INavLinkType.Activities,
+      // },
       // {
       //   label: t("Depository Pass"),
       //   keyValue: "15",

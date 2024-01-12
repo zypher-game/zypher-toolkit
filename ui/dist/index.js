@@ -910,14 +910,6 @@ var useNavItem = () => {
         link: "/profile",
         disabled: false,
         type: "Activities" /* Activities */
-      },
-      {
-        label: t("Ranking"),
-        keyValue: "8",
-        icon: "ranking.svg",
-        link: "/ranking",
-        disabled: false,
-        type: "Activities" /* Activities */
       }
     ];
   }, [t]);
