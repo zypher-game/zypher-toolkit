@@ -46,6 +46,12 @@ export enum ChainId {
   Mantle = 5_000,
   MantleTestnet = 5_001,
 }
+export const DPSupportChainId = [
+  ChainId.LineaTestnet,
+  ChainId.LineaMainnet,
+  ChainId.OPBNBTEST,
+  ChainId.OPBNB,
+];
 export const UnSupportChainId = [
   ChainId.Arbitrum,
   ChainId.Combo,

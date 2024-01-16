@@ -29,6 +29,7 @@ export declare enum ChainId {
     Mantle = 5000,
     MantleTestnet = 5001
 }
+export declare const DPSupportChainId: ChainId[];
 export declare const UnSupportChainId: ChainId[];
 export declare const defaultChainId = ChainId.OPBNB;
 export declare const supportedChainIds: (env: string) => ChainId[];

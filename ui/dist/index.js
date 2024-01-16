@@ -56,28 +56,34 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId9) => {
-  ChainId9[ChainId9["Mainnet"] = 56] = "Mainnet";
-  ChainId9[ChainId9["Testnet"] = 97] = "Testnet";
-  ChainId9[ChainId9["Arbitrum"] = 42161] = "Arbitrum";
-  ChainId9[ChainId9["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
-  ChainId9[ChainId9["LineaTestnet"] = 59140] = "LineaTestnet";
-  ChainId9[ChainId9["LineaMainnet"] = 59144] = "LineaMainnet";
-  ChainId9[ChainId9["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
-  ChainId9[ChainId9["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
-  ChainId9[ChainId9["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
-  ChainId9[ChainId9["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
-  ChainId9[ChainId9["OPBNBTEST"] = 5611] = "OPBNBTEST";
-  ChainId9[ChainId9["OPBNB"] = 204] = "OPBNB";
-  ChainId9[ChainId9["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
-  ChainId9[ChainId9["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
-  ChainId9[ChainId9["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
-  ChainId9[ChainId9["Combo"] = 9980] = "Combo";
-  ChainId9[ChainId9["ComboTestnet"] = 91715] = "ComboTestnet";
-  ChainId9[ChainId9["Mantle"] = 5e3] = "Mantle";
-  ChainId9[ChainId9["MantleTestnet"] = 5001] = "MantleTestnet";
-  return ChainId9;
+var ChainId = /* @__PURE__ */ ((ChainId10) => {
+  ChainId10[ChainId10["Mainnet"] = 56] = "Mainnet";
+  ChainId10[ChainId10["Testnet"] = 97] = "Testnet";
+  ChainId10[ChainId10["Arbitrum"] = 42161] = "Arbitrum";
+  ChainId10[ChainId10["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
+  ChainId10[ChainId10["LineaTestnet"] = 59140] = "LineaTestnet";
+  ChainId10[ChainId10["LineaMainnet"] = 59144] = "LineaMainnet";
+  ChainId10[ChainId10["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
+  ChainId10[ChainId10["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
+  ChainId10[ChainId10["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
+  ChainId10[ChainId10["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
+  ChainId10[ChainId10["OPBNBTEST"] = 5611] = "OPBNBTEST";
+  ChainId10[ChainId10["OPBNB"] = 204] = "OPBNB";
+  ChainId10[ChainId10["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
+  ChainId10[ChainId10["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
+  ChainId10[ChainId10["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
+  ChainId10[ChainId10["Combo"] = 9980] = "Combo";
+  ChainId10[ChainId10["ComboTestnet"] = 91715] = "ComboTestnet";
+  ChainId10[ChainId10["Mantle"] = 5e3] = "Mantle";
+  ChainId10[ChainId10["MantleTestnet"] = 5001] = "MantleTestnet";
+  return ChainId10;
 })(ChainId || {});
+var DPSupportChainId = [
+  59140 /* LineaTestnet */,
+  59144 /* LineaMainnet */,
+  5611 /* OPBNBTEST */,
+  204 /* OPBNB */
+];
 var UnSupportChainId = [
   42161 /* Arbitrum */,
   9980 /* Combo */,
@@ -3220,7 +3226,7 @@ var Balance = memo19((props) => {
     isMobile
   }, /* @__PURE__ */ React25.createElement(SyncOutlined, null)), showLang ? /* @__PURE__ */ React25.createElement(Language_default, {
     type: "top"
-  }) : null, /* @__PURE__ */ React25.createElement(balanceItem_default, {
+  }) : null, DPSupportChainId.includes(chainId) ? /* @__PURE__ */ React25.createElement(balanceItem_default, {
     onClick: showPointsModal,
     logo: /* @__PURE__ */ React25.createElement(PointsIcon, {
       isMobile
@@ -3232,7 +3238,7 @@ var Balance = memo19((props) => {
       name: "add",
       isMobile
     })
-  }), !isMobile && /* @__PURE__ */ React25.createElement(balanceItem_default, {
+  }) : null, !isMobile && /* @__PURE__ */ React25.createElement(balanceItem_default, {
     logo: /* @__PURE__ */ React25.createElement(CurrencyLogo_default, {
       className: "balance_item_img",
       src: CurrencyLogo[chainId || 97]

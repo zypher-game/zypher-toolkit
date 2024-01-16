@@ -13,8 +13,10 @@ import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
 import Language from "../../../SideBar/component/Language";
 import {
+  ChainId,
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
+  DPSupportChainId,
   IContractName,
   zkBingo,
 } from "../../../../constant/constant";
@@ -119,14 +121,16 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
         <SyncOutlined />
       </Refresh>
       {showLang ? <Language type={"top"} /> : null}
-      <BalanceItem
-        onClick={showPointsModal}
-        logo={<PointsIcon isMobile={isMobile} />}
-        balanceStr={pointsBalanceStr}
-        loading={loading}
-        className={props.className}
-        preChild={<AddIcon name="add" isMobile={isMobile} />}
-      />
+      {DPSupportChainId.includes(chainId) ? (
+        <BalanceItem
+          onClick={showPointsModal}
+          logo={<PointsIcon isMobile={isMobile} />}
+          balanceStr={pointsBalanceStr}
+          loading={loading}
+          className={props.className}
+          preChild={<AddIcon name="add" isMobile={isMobile} />}
+        />
+      ) : null}
       {!isMobile && (
         <BalanceItem
           logo={
