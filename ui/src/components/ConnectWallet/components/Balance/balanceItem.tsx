@@ -59,6 +59,9 @@ export const BalanceCountUpItem = memo(
     useEffect(() => {
       if (mount === 1) {
         setPointsAnimState(true);
+        setTimeout(() => {
+          setPointsAnimState(false);
+        }, 3500);
         setMount(0);
       }
     }, [mount]);

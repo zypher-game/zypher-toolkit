@@ -3202,22 +3202,18 @@ import classnames11 from "classnames";
 import React27, { memo as memo21, useCallback as useCallback10, useEffect as useEffect9 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
-import React26, { memo as memo20, useEffect as useEffect8 } from "react";
+import React26, { memo as memo20 } from "react";
 import { useRecoilState as useRecoilState8 } from "recoil";
 var GetPointsSuccess = memo20(() => {
-  const [show, setShow] = useRecoilState8(pointsAnimState);
-  useEffect8(() => {
-    if (show) {
-      setTimeout(() => {
-        setShow(false);
-      }, 3500);
-    }
-  }, [show]);
-  return show ? /* @__PURE__ */ React26.createElement("div", {
-    className: "getpointpoints"
-  }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React26.createElement(PointsItem, {
-    key: index
-  }))) : null;
+  const [show] = useRecoilState8(pointsAnimState);
+  if (show) {
+    return /* @__PURE__ */ React26.createElement("div", {
+      className: "getpointpoints"
+    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React26.createElement(PointsItem, {
+      key: index
+    })));
+  }
+  return null;
 }, isEqual);
 var PointsItem = memo20(() => {
   return /* @__PURE__ */ React26.createElement("div", {
@@ -3266,6 +3262,9 @@ var BalanceCountUpItem = memo21(
     useEffect9(() => {
       if (mount === 1) {
         setPointsAnimState(true);
+        setTimeout(() => {
+          setPointsAnimState(false);
+        }, 3500);
         setMount(0);
       }
     }, [mount]);

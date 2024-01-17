@@ -5,21 +5,18 @@ import { pointsAnimState } from "../../state/connectWalletState";
 import { useRecoilState } from "recoil";
 import { preStaticUrl } from "../../../../constant/constant";
 const GetPointsSuccess = memo(() => {
-  const [show, setShow] = useRecoilState(pointsAnimState);
-  useEffect(() => {
-    if (show) {
-      setTimeout(() => {
-        setShow(false);
-      }, 3500);
-    }
-  }, [show]);
-  return show ? (
-    <div className="getpointpoints">
-      {new Array(3).fill("").map((c, index) => (
-        <PointsItem key={index} />
-      ))}
-    </div>
-  ) : null;
+  const [show] = useRecoilState(pointsAnimState);
+
+  if (show) {
+    return (
+      <div className="getpointpoints">
+        {new Array(3).fill("").map((c, index) => (
+          <PointsItem key={index} />
+        ))}
+      </div>
+    );
+  }
+  return null;
 }, isEqual);
 const PointsItem = memo(() => {
   return (
