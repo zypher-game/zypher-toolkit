@@ -2328,7 +2328,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames13 from "classnames";
-import React31, { useEffect as useEffect10 } from "react";
+import React31, { useEffect as useEffect9 } from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -2858,7 +2858,7 @@ var AccountInfoDialog_default = AccountInfoDialog;
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs3 from "bignumber.js";
-import React26, { memo as memo20, useCallback as useCallback11, useEffect as useEffect9, useState as useState7 } from "react";
+import React26, { memo as memo20, useCallback as useCallback11, useEffect as useEffect8, useState as useState7 } from "react";
 import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState6 } from "recoil";
 import styled5 from "styled-components";
 
@@ -3260,7 +3260,7 @@ var Balance = memo20((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider]);
-  useEffect9(() => {
+  useEffect8(() => {
     if (account && chainId) {
       fetchBalanceOf();
     }
@@ -3509,7 +3509,7 @@ var Header = (props) => {
     showLang,
     CountupNumber
   } = props;
-  useEffect10(() => {
+  useEffect9(() => {
     if (isMobile && collapsed === void 0) {
       setSiderCollapse(true);
     }
@@ -3583,11 +3583,11 @@ var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
-import { useEffect as useEffect11 } from "react";
+import { useEffect as useEffect10 } from "react";
 import { ethers as ethers3 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState11(invitationAddressState);
-  useEffect11(() => {
+  useEffect10(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -3606,16 +3606,16 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback14, useEffect as useEffect13, useState as useState8 } from "react";
+import { useCallback as useCallback14, useEffect as useEffect12, useState as useState8 } from "react";
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect12, useRef } from "react";
+import { useEffect as useEffect11, useRef } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef();
-  useEffect12(() => {
+  useEffect11(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect12(() => {
+  useEffect11(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();
@@ -3777,7 +3777,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect13(() => {
+  useEffect12(() => {
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 5e4);

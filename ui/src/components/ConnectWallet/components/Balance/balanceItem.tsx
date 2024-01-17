@@ -1,15 +1,9 @@
 import { LoadingOutlined } from "@ant-design/icons";
 import classnames from "classnames";
 import { isEqual } from "../../../../utils/lodash";
-import React, { memo, useCallback, useEffect } from "react";
+import React, { memo, useCallback,  } from "react";
 
 import "./balance.stylus";
-import GetPointsSuccess from "../PointsDialog/GetPointsSuccess";
-import {
-  pointsAnimNumState,
-  pointsAnimState,
-} from "../../state/connectWalletState";
-import { useRecoilState, useSetRecoilState } from "recoil";
 
 type IProps = {
   loading: boolean;
