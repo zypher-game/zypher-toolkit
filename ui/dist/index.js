@@ -3275,12 +3275,7 @@ var BalanceCountUpItem = memo21(
         "balance_item_balance_point"
       ),
       onClick: onClickHandle
-    }, preChild, loading ? /* @__PURE__ */ React27.createElement(LoadingOutlined, null) : /* @__PURE__ */ React27.createElement(React27.Fragment, null, balance || balance === 0 ? /* @__PURE__ */ React27.createElement(CountupNumber_default, {
-      value: balance,
-      decimals: 0,
-      duration: 1.5,
-      showDiv: false
-    }) : null, logo), /* @__PURE__ */ React27.createElement(GetPointsSuccess_default, null));
+    }, preChild, loading ? /* @__PURE__ */ React27.createElement(LoadingOutlined, null) : /* @__PURE__ */ React27.createElement(React27.Fragment, null, logo), /* @__PURE__ */ React27.createElement(GetPointsSuccess_default, null));
   },
   isEqual
 );
@@ -3358,6 +3353,7 @@ var Balance = memo22((props) => {
   }, [account, chainId, refreshBalance]);
   const pointsBalance = useRecoilValue6(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
+  console.log({ pointsBalance });
   return /* @__PURE__ */ React28.createElement(React28.Fragment, null, /* @__PURE__ */ React28.createElement(Refresh, {
     onClick: fetchBalanceOf,
     isMobile

@@ -110,7 +110,9 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   }, [account, chainId, refreshBalance]);
 
   const pointsBalance = useRecoilValue(pointsBalanceState);
+
   const nativeBalanceStr = useNativeBalanceStr();
+  console.log({ pointsBalance });
   return (
     <>
       <Refresh onClick={fetchBalanceOf} isMobile={isMobile}>

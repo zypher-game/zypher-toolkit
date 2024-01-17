@@ -80,14 +80,14 @@ export const BalanceCountUpItem = memo(
           <LoadingOutlined />
         ) : (
           <>
-            {balance || balance === 0 ? (
+            {/* {balance || balance === 0 ? (
               <CountupNumber
                 value={balance}
                 decimals={0}
                 duration={1.5}
                 showDiv={false}
               />
-            ) : null}
+            ) : null} */}
             {logo}
           </>
         )}
