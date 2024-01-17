@@ -8,7 +8,7 @@ type IProps = {
     preChild?: React.ReactNode;
     onClick?: any;
     balance?: number;
+    CountupNumber?: React.FC<any>;
 };
-declare const BalanceItem: React.MemoExoticComponent<({ className, loading, balanceStr, logo, preChild, onClick }: IProps) => React.JSX.Element>;
-export declare const BalanceCountUpItem: React.MemoExoticComponent<({ className, loading, balance, logo, preChild, onClick }: IProps) => React.JSX.Element>;
+declare const BalanceItem: React.MemoExoticComponent<({ className, loading, balanceStr, logo, preChild, onClick, CountupNumber, balance, }: IProps) => React.JSX.Element>;
 export default BalanceItem;

@@ -6,6 +6,7 @@ interface IProps {
     className?: string;
     showPointsModal: any;
     showLang: boolean;
+    CountupNumber?: React.FC<any>;
 }
 declare const Balance: React.MemoExoticComponent<(props: IProps) => React.ReactElement | null>;
 export default Balance;

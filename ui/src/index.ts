@@ -80,7 +80,6 @@ export {
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
 export { default as SideBar } from "./components/SideBar";
 export { defaultSelectedKey } from "./components/SideBar/state";
-export { default as CountupNumber } from "./components/CountupNumber/CountupNumber";
 export { default as DivWrap } from "./components/DivWrap/DivWrap";
 export {
   useNativeBalanceStr,

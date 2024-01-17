@@ -11,6 +11,7 @@ interface IProps {
     useNavigate: any;
     useLocation: any;
     showLang: boolean;
+    CountupNumber?: React.FC<any>;
 }
 declare const Header: (props: IProps) => React.ReactElement | null;
 export default Header;

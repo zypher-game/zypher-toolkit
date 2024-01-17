@@ -13,7 +13,6 @@ export { connectorState, walletModalOpenState, ChainSelector, refreshBalanceStat
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
 export { default as SideBar } from "./components/SideBar";
 export { defaultSelectedKey } from "./components/SideBar/state";
-export { default as CountupNumber } from "./components/CountupNumber/CountupNumber";
 export { default as DivWrap } from "./components/DivWrap/DivWrap";
 export { useNativeBalanceStr, usePointsBalanceStr, } from "./components/ConnectWallet/hooks/connectWalletHooks";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";

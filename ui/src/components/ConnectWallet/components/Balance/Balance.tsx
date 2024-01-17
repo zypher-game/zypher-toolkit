@@ -27,7 +27,7 @@ import {
   refreshBalanceState,
 } from "../../state/connectWalletState";
 import "./balance.stylus";
-import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
+import BalanceItem from "./balanceItem";
 
 const Refresh = styled.div<{ isMobile: boolean }>`
   color: #fff;
@@ -61,10 +61,11 @@ interface IProps {
   className?: string;
   showPointsModal: any;
   showLang: boolean;
+  CountupNumber?: React.FC<any>;
 }
 
 const Balance = memo((props: IProps): React.ReactElement | null => {
-  const { showPointsModal, isMobile, env, showLang } = props;
+  const { showPointsModal, isMobile, env, showLang, CountupNumber } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState(false);
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
@@ -112,7 +113,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const pointsBalance = useRecoilValue(pointsBalanceState);
 
   const nativeBalanceStr = useNativeBalanceStr();
-  console.log({ pointsBalance });
+
   return (
     <>
       <Refresh onClick={fetchBalanceOf} isMobile={isMobile}>
@@ -120,12 +121,13 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       </Refresh>
       {showLang ? <Language type={"top"} /> : null}
       {DPSupportChainId.includes(chainId) ? (
-        <BalanceCountUpItem
+        <BalanceItem
           onClick={showPointsModal}
           logo={<PointsIcon isMobile={isMobile} />}
           balance={pointsBalance}
           loading={loading}
           className={props.className}
+          CountupNumber={CountupNumber}
           preChild={<AddIcon name="add" isMobile={isMobile} />}
         />
       ) : null}

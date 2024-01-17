@@ -10,6 +10,7 @@ interface IProps {
     className?: string;
     copy: any;
     showLang: boolean;
+    CountupNumber?: React.FC<any>;
 }
 declare const RainbowConnectWallet: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default RainbowConnectWallet;

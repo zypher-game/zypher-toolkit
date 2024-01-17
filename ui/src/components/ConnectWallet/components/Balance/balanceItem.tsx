@@ -4,7 +4,6 @@ import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useCallback, useEffect } from "react";
 
 import "./balance.stylus";
-import CountupNumber from "../../../CountupNumber/CountupNumber";
 import GetPointsSuccess from "../PointsDialog/GetPointsSuccess";
 import {
   pointsAnimNumState,
@@ -20,9 +19,19 @@ type IProps = {
   preChild?: React.ReactNode;
   onClick?: any;
   balance?: number;
+  CountupNumber?: React.FC<any>;
 };
 const BalanceItem = memo(
-  ({ className, loading, balanceStr, logo, preChild, onClick }: IProps) => {
+  ({
+    className,
+    loading,
+    balanceStr,
+    logo,
+    preChild,
+    onClick,
+    CountupNumber,
+    balance,
+  }: IProps) => {
     const onClickHandle = useCallback(() => {
       if (onClick) {
         onClick();
@@ -38,63 +47,23 @@ const BalanceItem = memo(
           <LoadingOutlined />
         ) : (
           <>
-            {balanceStr}
-            {logo}
-          </>
-        )}
-      </div>
-    );
-  },
-  isEqual
-);
-export const BalanceCountUpItem = memo(
-  ({ className, loading, balance, logo, preChild, onClick }: IProps) => {
-    const setPointsAnimState = useSetRecoilState(pointsAnimState);
-    const [mount, setMount] = useRecoilState(pointsAnimNumState);
-    const onClickHandle = useCallback(() => {
-      if (onClick) {
-        onClick();
-      }
-    }, [onClick]);
-    useEffect(() => {
-      if (mount === 1) {
-        setPointsAnimState(true);
-        setTimeout(() => {
-          setPointsAnimState(false);
-        }, 3500);
-        setMount(0);
-      }
-    }, [mount]);
-
-    return (
-      <div
-        className={classnames(
-          `${className}`,
-          "balance_item_balance",
-          "balance_item_balance_point"
-        )}
-        onClick={onClickHandle}
-      >
-        {preChild}
-        {loading ? (
-          <LoadingOutlined />
-        ) : (
-          <>
-            {/* {balance || balance === 0 ? (
+            {CountupNumber && (balance || balance === 0) ? (
               <CountupNumber
                 value={balance}
                 decimals={0}
                 duration={1.5}
                 showDiv={false}
               />
-            ) : null} */}
+            ) : (
+              balanceStr
+            )}
             {logo}
           </>
         )}
-        <GetPointsSuccess />
       </div>
     );
   },
   isEqual
 );
+
 export default BalanceItem;

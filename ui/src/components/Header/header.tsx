@@ -22,6 +22,7 @@ interface IProps {
   useNavigate: any;
   useLocation: any;
   showLang: boolean;
+  CountupNumber?: React.FC<any>;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
@@ -37,6 +38,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     copy,
     useLocation,
     showLang,
+    CountupNumber,
   } = props;
   useEffect(() => {
     if (isMobile && collapsed === undefined) {
@@ -64,6 +66,7 @@ const Header = (props: IProps): React.ReactElement | null => {
           dispatch={dispatch}
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
+          CountupNumber={CountupNumber}
         />
         {isMobile && !hideMenu ? (
           <>

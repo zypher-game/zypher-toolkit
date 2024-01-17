@@ -60,12 +60,14 @@ const Account = memo(
     setSuccessToast,
     setErrorToast,
     copy,
+    CountupNumber,
   }: {
     showLang: boolean;
     env: string;
     dispatch: any;
     setSuccessToast: any;
     copy: any;
+    CountupNumber?: React.FC<any>;
     setErrorToast: any;
   }) => {
     const isMobile = useIsMobile();
@@ -81,6 +83,7 @@ const Account = memo(
     return (
       <>
         <Balance
+          CountupNumber={CountupNumber}
           showLang={showLang}
           env={env}
           isMobile={isMobile}

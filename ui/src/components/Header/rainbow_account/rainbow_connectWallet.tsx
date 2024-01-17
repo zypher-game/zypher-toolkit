@@ -20,6 +20,7 @@ interface IProps {
   className?: string;
   copy: any;
   showLang: boolean;
+  CountupNumber?: React.FC<any>;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
@@ -32,6 +33,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
     setSuccessToast,
     setErrorToast,
     showLang,
+    CountupNumber,
   } = props;
   const location = useLocation();
   const isPathLocation = useMemo(() => {
@@ -68,6 +70,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   setSuccessToast={setSuccessToast}
                   setErrorToast={setErrorToast}
                   showLang={showLang}
+                  CountupNumber={CountupNumber}
                 />
               )}
             </>
