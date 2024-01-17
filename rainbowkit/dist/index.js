@@ -1,10 +1,10 @@
 "use client";
 import {
-  darkTheme
-} from "./chunk-YV6YBPXO.js";
-import {
   midnightTheme
 } from "./chunk-KWMHQFSF.js";
+import {
+  darkTheme
+} from "./chunk-YV6YBPXO.js";
 import {
   ConnectButton,
   DesktopOptions,
@@ -27,7 +27,7 @@ import {
   useConnectModal,
   useTransactionStore,
   useWalletConnectors
-} from "./chunk-GRJLC2A4.js";
+} from "./chunk-WTOVYV3J.js";
 import {
   lightTheme
 } from "./chunk-DAGN7GXN.js";

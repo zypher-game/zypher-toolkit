@@ -18,6 +18,7 @@ import { useWalletClient } from "wagmi";
 import ZkBingoPointsContract from "../contract/bingoPoints";
 import { IContractName, txStatus, zkBingo } from "../constant/constant";
 import { ethers } from "ethers";
+import { pointsAnimNumState } from "../components/ConnectWallet/state/connectWalletState";
 const ChainPointPrice = {
   [ChainId.LineaMainnet]: 1 / 2_000_000,
   [ChainId.LineaTestnet]: 1 / 2_000_000,
@@ -82,9 +83,9 @@ export const useSwapPoint = ({
   const { postAccountUpdate } = useAccountInvitation(env);
   const [isLoading, setIsLoading] = useState(false);
   const setPointsDialogOpen = useSetRecoilState(pointsDialogState);
+  const setPointsAnimNumState = useSetRecoilState(pointsAnimNumState);
   const [refreshBalance, setRefreshBalanceState] =
     useRecoilState(refreshBalanceState);
-  // const pointsContract = useBingoPointsContract()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env);
 
   const hidePointsWarn = useRecoilValue(hidePointsWarnState);
@@ -130,13 +131,16 @@ export const useSwapPoint = ({
               const nativeSwapTx: TransactionReceipt | undefined =
                 await waitForTransaction({ confirmations: 1, hash });
               if (nativeSwapTx && nativeSwapTx.status === txStatus) {
-                postAccountUpdate({ tx: nativeSwapTx });
-                setRefreshBalanceState(refreshBalance + 1);
+                setPointsAnimNumState(1);
                 setSuccessToast(dispatch, {
                   title: "",
                   message: "Recharge successful",
                 });
-                setPointsDialogOpen(false);
+                setTimeout(() => {
+                  setPointsDialogOpen(false);
+                  postAccountUpdate({ tx: nativeSwapTx });
+                  setRefreshBalanceState(refreshBalance + 1);
+                }, 500);
               } else {
                 throw Object.assign(
                   new Error("NativeSwap Transaction Failed"),

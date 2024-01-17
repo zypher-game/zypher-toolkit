@@ -5,6 +5,8 @@ export declare const walletModalOpenState: import("recoil").RecoilState<boolean>
 export declare const ChainSelector: import("recoil").RecoilState<boolean>;
 export declare const refreshBalanceState: import("recoil").RecoilState<string>;
 export declare const pointsDialogState: import("recoil").RecoilState<boolean>;
+export declare const pointsAnimState: import("recoil").RecoilState<boolean>;
+export declare const pointsAnimNumState: import("recoil").RecoilState<number>;
 export declare const pointsWarnState: import("recoil").RecoilState<number>;
 export declare const hidePointsWarnState: import("recoil").RecoilState<boolean>;
 export declare const pointsRuleDialogState: import("recoil").RecoilState<boolean>;

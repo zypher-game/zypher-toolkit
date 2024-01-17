@@ -79,6 +79,9 @@
                 min-width: 95px
                 padding-top: 15px;
                 height: 140px
+            &:hover 
+                .points_img
+                    transform: translate(-50%, -60%) scale(1.1);
             &.points_1
                 .points_img
                     top: 50%
@@ -94,6 +97,7 @@
                 left: 50%
                 transform: translate(-50%, -50%)
                 width 80px
+                transition: transform 0.3s ease
             .discount
                 position: absolute
                 top: -20px

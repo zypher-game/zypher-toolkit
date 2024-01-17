@@ -31,6 +31,14 @@ export const pointsDialogState = atom({
   default: false,
   effects_UNSTABLE: [localStorageEffect("pointsDialog")],
 });
+export const pointsAnimState = atom({
+  key: "pointsAnim",
+  default: false,
+});
+export const pointsAnimNumState = atom({
+  key: "pointsAnimNum",
+  default: 0,
+});
 export const pointsWarnState = atom({
   key: "pointsWarn",
   default: 0, // 0 显示提示   1 显示提示 2 隐藏
