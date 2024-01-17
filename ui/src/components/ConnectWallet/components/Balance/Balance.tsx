@@ -27,7 +27,7 @@ import {
   refreshBalanceState,
 } from "../../state/connectWalletState";
 import "./balance.stylus";
-import BalanceItem from "./balanceItem";
+import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 
 const Refresh = styled.div<{ isMobile: boolean }>`
   color: #fff;
@@ -121,7 +121,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       </Refresh>
       {showLang ? <Language type={"top"} /> : null}
       {DPSupportChainId.includes(chainId) ? (
-        <BalanceItem
+        <BalanceCountUpItem
           onClick={showPointsModal}
           logo={<PointsIcon isMobile={isMobile} />}
           balance={pointsBalance}

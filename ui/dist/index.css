@@ -1512,6 +1512,145 @@
   }
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.stylus */
+.getpointpoints {
+  position: absolute;
+  z-index: 10000;
+  top: 0;
+  right: 0;
+}
+.getpointcoin {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  transform-style: preserve-3d;
+  transform-origin: center center;
+  animation: rotate3d 1s ease-in-out;
+  opacity: 0;
+}
+.getpointcoin:nth-child(1) {
+  animation-delay: 0.5s;
+}
+.getpointcoin:nth-child(2) {
+  animation-delay: 0.8s;
+}
+.getpointcoin:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.getpointcoin:nth-child(4) {
+  animation-delay: 1s;
+}
+.getpointcoin_middle {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background-color: #db700e;
+  border-radius: 50%;
+}
+.getpointcoin_front,
+.getpointcoin_back {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50px;
+  height: 50px;
+  background: #ffb324;
+  padding: 10px;
+  border-radius: 50%;
+}
+.getpointcoin_front img,
+.getpointcoin_back img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.getpointcoin_front {
+  transform: translateZ(2px);
+}
+.getpointcoin_back {
+  transform: translateZ(-2px) rotateY(180deg);
+}
+@-moz-keyframes rotate3d {
+  0% {
+    opacity: 0;
+    top: 400px;
+    right: 10vw;
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: perspective(1000px) rotateY(-45deg) scale(0.5);
+  }
+  100% {
+    top: 0;
+    right: 0;
+    transform: perspective(1000px) rotateY(0deg) scale(0.3);
+  }
+}
+@-webkit-keyframes rotate3d {
+  0% {
+    opacity: 0;
+    top: 400px;
+    right: 10vw;
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: perspective(1000px) rotateY(-45deg) scale(0.5);
+  }
+  100% {
+    top: 0;
+    right: 0;
+    transform: perspective(1000px) rotateY(0deg) scale(0.3);
+  }
+}
+@-o-keyframes rotate3d {
+  0% {
+    opacity: 0;
+    top: 400px;
+    right: 10vw;
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: perspective(1000px) rotateY(-45deg) scale(0.5);
+  }
+  100% {
+    top: 0;
+    right: 0;
+    transform: perspective(1000px) rotateY(0deg) scale(0.3);
+  }
+}
+@keyframes rotate3d {
+  0% {
+    opacity: 0;
+    top: 400px;
+    right: 10vw;
+    transform: perspective(1000px) rotateY(0deg) scale(1);
+  }
+  10% {
+    opacity: 1;
+  }
+  20% {
+    transform: perspective(1000px) rotateY(-45deg) scale(0.5);
+  }
+  100% {
+    top: 0;
+    right: 0;
+    transform: perspective(1000px) rotateY(0deg) scale(0.3);
+  }
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */
 .connect_connectWallet {
   cursor: pointer;
