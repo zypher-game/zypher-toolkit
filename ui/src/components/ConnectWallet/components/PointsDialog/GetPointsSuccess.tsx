@@ -3,7 +3,7 @@ import { isEqual } from "../../../../utils/lodash";
 import "./GetPointsSuccess.stylus";
 import { pointsAnimState } from "../../state/connectWalletState";
 import { useRecoilState } from "recoil";
-import { preStaticUrl } from "ui/src/constant/constant";
+import { preStaticUrl } from "../../../../constant/constant";
 const GetPointsSuccess = memo(() => {
   const [show, setShow] = useRecoilState(pointsAnimState);
   useEffect(() => {
@@ -14,7 +14,7 @@ const GetPointsSuccess = memo(() => {
     }
   }, [show]);
   return show ? (
-    <div className="points">
+    <div className="getpointpoints">
       {new Array(3).fill("").map((c, index) => (
         <PointsItem key={index} />
       ))}
@@ -23,13 +23,13 @@ const GetPointsSuccess = memo(() => {
 }, isEqual);
 const PointsItem = memo(() => {
   return (
-    <div className="coin">
-      <div className="coin_front">
+    <div className="getpointcoin">
+      <div className="getpointcoin_front">
         <img src={preStaticUrl + "/img/layout/star.png"} alt="star" />
       </div>
-      <div className="coin_middle"></div>
+      <div className="getpointcoin_middle"></div>
 
-      <div className="coin_back">
+      <div className="getpointcoin_back">
         <img src={preStaticUrl + "/img/layout/star.png"} alt="star" />
       </div>
     </div>

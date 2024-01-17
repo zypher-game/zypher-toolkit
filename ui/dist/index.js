@@ -3204,7 +3204,6 @@ import React27, { memo as memo21, useCallback as useCallback10, useEffect as use
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React26, { memo as memo20, useEffect as useEffect8 } from "react";
 import { useRecoilState as useRecoilState8 } from "recoil";
-import { preStaticUrl as preStaticUrl2 } from "ui/src/constant/constant";
 var GetPointsSuccess = memo20(() => {
   const [show, setShow] = useRecoilState8(pointsAnimState);
   useEffect8(() => {
@@ -3215,25 +3214,25 @@ var GetPointsSuccess = memo20(() => {
     }
   }, [show]);
   return show ? /* @__PURE__ */ React26.createElement("div", {
-    className: "points"
+    className: "getpointpoints"
   }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React26.createElement(PointsItem, {
     key: index
   }))) : null;
 }, isEqual);
 var PointsItem = memo20(() => {
   return /* @__PURE__ */ React26.createElement("div", {
-    className: "coin"
+    className: "getpointcoin"
   }, /* @__PURE__ */ React26.createElement("div", {
-    className: "coin_front"
+    className: "getpointcoin_front"
   }, /* @__PURE__ */ React26.createElement("img", {
-    src: preStaticUrl2 + "/img/layout/star.png",
+    src: preStaticUrl + "/img/layout/star.png",
     alt: "star"
   })), /* @__PURE__ */ React26.createElement("div", {
-    className: "coin_middle"
+    className: "getpointcoin_middle"
   }), /* @__PURE__ */ React26.createElement("div", {
-    className: "coin_back"
+    className: "getpointcoin_back"
   }, /* @__PURE__ */ React26.createElement("img", {
-    src: preStaticUrl2 + "/img/layout/star.png",
+    src: preStaticUrl + "/img/layout/star.png",
     alt: "star"
   })));
 }, isEqual);
