@@ -3,8 +3,8 @@ export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameIdInfo, IGameList, } from "./types/gameList.types";
-import { useWalletClient } from "wagmi";
-export { useWalletClient };
+import { useWalletClient, useSwitchNetwork } from "wagmi";
+export { useWalletClient, useSwitchNetwork };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
 export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, defaultChainId, supportedChainIds, UnSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";

@@ -74,6 +74,7 @@ export const BalanceCountUpItem = memo(
     preChild,
     onClick,
     CountupNumber,
+    balanceStr,
   }: IProps) => {
     const setPointsAnimState = useSetRecoilState(pointsAnimState);
     const [mount, setMount] = useRecoilState(pointsAnimNumState);
@@ -85,7 +86,10 @@ export const BalanceCountUpItem = memo(
     useEffect(() => {
       if (mount === 1) {
         setPointsAnimState(true);
-        setMount(0);
+        setTimeout(() => {
+          setPointsAnimState(false);
+          setMount(0);
+        }, 3000);
       }
     }, [mount]);
 
@@ -110,7 +114,9 @@ export const BalanceCountUpItem = memo(
                 duration={1.5}
                 showDiv={false}
               />
-            ) : null}
+            ) : (
+              balanceStr
+            )}
             {logo}
           </>
         )}

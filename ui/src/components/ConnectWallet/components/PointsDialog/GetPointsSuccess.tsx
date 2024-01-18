@@ -1,4 +1,4 @@
-import React, { memo,  } from "react";
+import React, { memo } from "react";
 import { isEqual } from "../../../../utils/lodash";
 import "./GetPointsSuccess.stylus";
 import { pointsAnimState } from "../../state/connectWalletState";
@@ -22,12 +22,12 @@ const PointsItem = () => {
   return (
     <div className="getpointcoin">
       <div className="getpointcoin_front">
-        <img src={preStaticUrl + "/img/layout/star.png"} alt="star" />
+        <img src={preStaticUrl + "/img/layout/Star.png"} alt="star" />
       </div>
       <div className="getpointcoin_middle"></div>
 
       <div className="getpointcoin_back">
-        <img src={preStaticUrl + "/img/layout/star.png"} alt="star" />
+        <img src={preStaticUrl + "/img/layout/Star.png"} alt="star" />
       </div>
     </div>
   );

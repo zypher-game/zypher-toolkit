@@ -20,7 +20,10 @@ import {
   zkBingo,
 } from "../../../../constant/constant";
 
-import { useNativeBalanceStr } from "../../hooks/connectWalletHooks";
+import {
+  useNativeBalanceStr,
+  usePointsBalanceStr,
+} from "../../hooks/connectWalletHooks";
 import {
   nativeBalanceState,
   pointsBalanceState,
@@ -113,6 +116,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const pointsBalance = useRecoilValue(pointsBalanceState);
 
   const nativeBalanceStr = useNativeBalanceStr();
+  const pointsBalanceStr = usePointsBalanceStr();
 
   return (
     <>
@@ -129,6 +133,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           className={props.className}
           CountupNumber={CountupNumber}
           preChild={<AddIcon name="add" isMobile={isMobile} />}
+          balanceStr={pointsBalanceStr}
         />
       ) : null}
       {!isMobile && (

@@ -48,7 +48,7 @@ const Header = (props: IProps): React.ReactElement | null => {
   return (
     <header
       className={classnames("header_header", props.className)}
-      style={{ position: "sticky", top: 0, zIndex: 1, width: "100%" }}
+      style={{ position: "sticky", top: 0, zIndex: 9, width: "100%" }}
     >
       {isMobile && (
         <div className={"header_left"}>

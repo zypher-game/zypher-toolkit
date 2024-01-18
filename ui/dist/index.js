@@ -34,7 +34,7 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 })(IGameName || {});
 
 // src/index.ts
-import { useWalletClient as useWalletClient2 } from "wagmi";
+import { useWalletClient as useWalletClient2, useSwitchNetwork } from "wagmi";
 
 // src/constant/constant.ts
 import { AddressZero } from "@ethersproject/constants";
@@ -3186,14 +3186,14 @@ var PointsItem = () => {
   }, /* @__PURE__ */ React25.createElement("div", {
     className: "getpointcoin_front"
   }, /* @__PURE__ */ React25.createElement("img", {
-    src: preStaticUrl + "/img/layout/star.png",
+    src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
   })), /* @__PURE__ */ React25.createElement("div", {
     className: "getpointcoin_middle"
   }), /* @__PURE__ */ React25.createElement("div", {
     className: "getpointcoin_back"
   }, /* @__PURE__ */ React25.createElement("img", {
-    src: preStaticUrl + "/img/layout/star.png",
+    src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
   })));
 };
@@ -3237,7 +3237,8 @@ var BalanceCountUpItem = memo20(
     logo,
     preChild,
     onClick,
-    CountupNumber
+    CountupNumber,
+    balanceStr
   }) => {
     const setPointsAnimState = useSetRecoilState6(pointsAnimState);
     const [mount, setMount] = useRecoilState9(pointsAnimNumState);
@@ -3249,7 +3250,10 @@ var BalanceCountUpItem = memo20(
     useEffect8(() => {
       if (mount === 1) {
         setPointsAnimState(true);
-        setMount(0);
+        setTimeout(() => {
+          setPointsAnimState(false);
+          setMount(0);
+        }, 3e3);
       }
     }, [mount]);
     return /* @__PURE__ */ React26.createElement("div", {
@@ -3264,7 +3268,7 @@ var BalanceCountUpItem = memo20(
       decimals: 0,
       duration: 1.5,
       showDiv: false
-    }) : null, logo), /* @__PURE__ */ React26.createElement(GetPointsSuccess_default, null));
+    }) : balanceStr, logo), /* @__PURE__ */ React26.createElement(GetPointsSuccess_default, null));
   },
   isEqual
 );
@@ -3342,6 +3346,7 @@ var Balance = memo21((props) => {
   }, [account, chainId, refreshBalance]);
   const pointsBalance = useRecoilValue6(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
+  const pointsBalanceStr = usePointsBalanceStr();
   return /* @__PURE__ */ React27.createElement(React27.Fragment, null, /* @__PURE__ */ React27.createElement(Refresh, {
     onClick: fetchBalanceOf,
     isMobile
@@ -3359,7 +3364,8 @@ var Balance = memo21((props) => {
     preChild: /* @__PURE__ */ React27.createElement(AddIcon, {
       name: "add",
       isMobile
-    })
+    }),
+    balanceStr: pointsBalanceStr
   }) : null, !isMobile && /* @__PURE__ */ React27.createElement(balanceItem_default, {
     logo: /* @__PURE__ */ React27.createElement(CurrencyLogo_default, {
       className: "balance_item_img",
@@ -3591,7 +3597,7 @@ var Header = (props) => {
   }, [isMobile]);
   return /* @__PURE__ */ React32.createElement("header", {
     className: classnames13("header_header", props.className),
-    style: { position: "sticky", top: 0, zIndex: 1, width: "100%" }
+    style: { position: "sticky", top: 0, zIndex: 9, width: "100%" }
   }, isMobile && /* @__PURE__ */ React32.createElement("div", {
     className: "header_left"
   }, /* @__PURE__ */ React32.createElement(MobileLogo, null)), /* @__PURE__ */ React32.createElement("div", {
@@ -4218,6 +4224,7 @@ export {
   useResetRecoilState,
   useSetRecoilState13 as useSetRecoilState,
   useSwapPoint,
+  useSwitchNetwork,
   useWalletClient2 as useWalletClient,
   useWindowSize,
   walletModalOpenState,

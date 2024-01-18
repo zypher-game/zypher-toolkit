@@ -19,8 +19,8 @@ export {
   IGameIdInfo,
   IGameList,
 } from "./types/gameList.types";
-import { useWalletClient } from "wagmi";
-export { useWalletClient };
+import { useWalletClient, useSwitchNetwork } from "wagmi";
+export { useWalletClient, useSwitchNetwork };
 export {
   useSetRecoilState,
   atom,
