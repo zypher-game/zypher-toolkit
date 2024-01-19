@@ -40,6 +40,7 @@ export {
   defaultChainId,
   supportedChainIds,
   UnSupportChainId,
+  UnSupportBingoChainId,
   ChainRpcUrls,
   ChainRpcWebSocketUrls,
   BlockExplorerUrls,

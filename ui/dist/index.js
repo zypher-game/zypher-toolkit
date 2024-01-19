@@ -84,9 +84,14 @@ var DPSupportChainId = [
   5611 /* OPBNBTEST */,
   204 /* OPBNB */
 ];
-var UnSupportChainId = [
+var UnSupportBingoChainId = [
   42161 /* Arbitrum */,
   9980 /* Combo */,
+  5e3 /* Mantle */,
+  169 /* MantaPacificMainnet */
+];
+var UnSupportChainId = [
+  42161 /* Arbitrum */,
   5e3 /* Mantle */,
   169 /* MantaPacificMainnet */
 ];
@@ -1280,6 +1285,8 @@ import { createPublicClient, fallback, http } from "viem";
 import { configureChains, createConfig } from "wagmi";
 import * as chainList from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
+import { particleWallet } from "@particle-network/rainbowkit-ext";
+import { ParticleNetwork } from "@particle-network/auth";
 var WagmiChainList = Object.values(chainList);
 var getSupportedChainIdList = (env) => {
   return supportedChainIds(env).map((chainId) => {
@@ -1318,6 +1325,11 @@ var getSupportedChainIdList = (env) => {
     };
   });
 };
+new ParticleNetwork({
+  appId: "a2ecac32-b520-477a-abf6-4fa8cdfcc046",
+  clientKey: "clITVBUqxtJzy2ymp8z4SQOUFWIc5qPUUHPks8ap",
+  projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199"
+});
 var getConfigureChains = (env) => {
   const { chains, publicClient, webSocketPublicClient } = configureChains(
     getSupportedChainIdList(env),
@@ -1333,6 +1345,12 @@ var getConnectors = (env) => {
       groupName: "Recommended",
       wallets: [
         metaMaskWallet({ projectId, chains }),
+        ...[
+          particleWallet({ chains, authType: "google" }),
+          particleWallet({ chains, authType: "facebook" }),
+          particleWallet({ chains, authType: "apple" }),
+          particleWallet({ chains })
+        ],
         walletConnectWallet({ projectId, chains })
       ]
     },
@@ -4143,6 +4161,7 @@ export {
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   SideBar_default as SideBar,
+  UnSupportBingoChainId,
   UnSupportChainId,
   bingoPoints_default as ZkBingoPointsContract,
   accountInfoDialogState,

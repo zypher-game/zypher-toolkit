@@ -6,7 +6,7 @@ export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameIdInfo, 
 import { useWalletClient, useSwitchNetwork } from "wagmi";
 export { useWalletClient, useSwitchNetwork };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
-export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, defaultChainId, supportedChainIds, UnSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, } from "./constant/constant";
+export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, defaultChainId, supportedChainIds, UnSupportChainId, UnSupportBingoChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { LinkList, blankLinkList, useNavItem, usePathname, } from "./hooks/useNavItem";
 export { connectorState, walletModalOpenState, ChainSelector, refreshBalanceState, pointsDialogState, pointsWarnState, hidePointsWarnState, pointsRuleDialogState, accountInfoDialogState, linkToBetaDialogState, linkToBetaDialogChainIdState, nativeBalanceState, pointsBalanceState, } from "./components/ConnectWallet/state/connectWalletState";
