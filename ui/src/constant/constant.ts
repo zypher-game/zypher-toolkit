@@ -53,10 +53,14 @@ export const DPSupportChainId = [
   ChainId.OPBNB,
 ];
 export const UnSupportBingoChainId = [
+  ChainId.ArbitrumGoerli,
   ChainId.Arbitrum,
+  ChainId.ComboTestnet,
   ChainId.Combo,
+  ChainId.MantleTestnet,
   ChainId.Mantle,
   ChainId.MantaPacificMainnet,
+  ChainId.MantaPacificTestnet,
 ];
 export const UnSupportChainId = [
   ChainId.Arbitrum,

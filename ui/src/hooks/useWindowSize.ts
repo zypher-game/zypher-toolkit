@@ -40,7 +40,6 @@ export const useIsMd = (): boolean => {
     }
     return isMd;
   } catch (e) {
-    console.log(e);
     return false;
   }
 };

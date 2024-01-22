@@ -85,10 +85,14 @@ var DPSupportChainId = [
   204 /* OPBNB */
 ];
 var UnSupportBingoChainId = [
+  421613 /* ArbitrumGoerli */,
   42161 /* Arbitrum */,
+  91715 /* ComboTestnet */,
   9980 /* Combo */,
+  5001 /* MantleTestnet */,
   5e3 /* Mantle */,
-  169 /* MantaPacificMainnet */
+  169 /* MantaPacificMainnet */,
+  3441005 /* MantaPacificTestnet */
 ];
 var UnSupportChainId = [
   42161 /* Arbitrum */,
@@ -790,7 +794,6 @@ var useIsMd = () => {
     }
     return isMd;
   } catch (e) {
-    console.log(e);
     return false;
   }
 };
@@ -2639,7 +2642,7 @@ var useInitRainbowFn = () => {
   useEffect7(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
-        if (_c && UnSupportChainId.includes(_c)) {
+        if (_c && UnSupportBingoChainId.includes(_c)) {
           setLinkToBetaDialogState(true);
           setLinkToBetaDialogChainIdState(_c);
           closeChainModal();

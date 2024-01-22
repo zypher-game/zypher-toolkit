@@ -1,13 +1,25 @@
 .customDialog [data-reach-dialog-content]
-  padding: 0;
-  background: #131313;
-  border-radius: 20px
-  z-index: 9999
+    padding: 0;
+    background: #131313;
+    border-radius: 20px
+    z-index: 9999
+
 .customDialog
-  --change-color: #367AFF
-  @media screen and (max-width: 768px)
+    z-index: 9999;
+    background-color: transparent;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+
+    overflow-y: 'scroll';
+    justify-content: center;
+
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    --change-color: #367AFF
+    @media screen and (max-width: 768px)
       .ant-modal
-          width: 90%
+            width: 90%
         &.bottom
             height: calc(100vh - 44px);
             max-height: calc(100vh - 44px);
@@ -37,25 +49,25 @@
             .ant-modal-content
                 border: none;
                 border-radius: 20px 20px 0 0
-  .ant-modal-content
-      background: var(--var-card)
-      border-radius: 20px
-      border: 1px solid rgba(255, 255, 255, 0.10);
-      .ant-modal-body
-          padding: 0
-          overflow: hidden
+    .ant-modal-content
+        background: var(--var-card)
+        border-radius: 20px
+        border: 1px solid rgba(255, 255, 255, 0.10);
+        .ant-modal-body
+            padding: 0
+            overflow: hidden
 
-      .ant-modal-footer
-          padding: 0
-          border: 0
-          position: relative
+        .ant-modal-footer
+            padding: 0
+            border: 0
+            position: relative
 
-          .icon
-              position: absolute
-              bottom: -56px
-              left: 50%
-              transform: translateX(-50%)
-              size: 32px
-              fill: #fff
-              cursor: pointer
+            .icon
+                position: absolute
+                bottom: -56px
+                left: 50%
+                transform: translateX(-50%)
+                size: 32px
+                fill: #fff
+                cursor: pointer
 
