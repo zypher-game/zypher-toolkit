@@ -39,6 +39,7 @@ export {
   ChainId,
   defaultChainId,
   supportedChainIds,
+  DPSupportChainId,
   UnSupportChainId,
   UnSupportBingoChainId,
   ChainRpcUrls,

@@ -4150,6 +4150,7 @@ export {
   Currency,
   CurrencyContract,
   CurrencyLogo,
+  DPSupportChainId,
   DivWrap_default as DivWrap,
   header_default as Header,
   IContractName,
