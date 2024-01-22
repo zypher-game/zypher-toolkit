@@ -94,12 +94,7 @@ const getConnectors = (env: string) => {
       groupName: "Recommended",
       wallets: [
         metaMaskWallet({ projectId, chains }),
-        ...[
-          particleWallet({ chains, authType: "google" }),
-          particleWallet({ chains, authType: "facebook" }),
-          particleWallet({ chains, authType: "apple" }),
-          particleWallet({ chains }),
-        ],
+        particleWallet({ chains }),
         walletConnectWallet({ projectId, chains }),
       ],
     },
@@ -109,6 +104,11 @@ const getConnectors = (env: string) => {
         bitgetWallet({ projectId, chains }),
         okxWallet({ projectId, chains }),
         tokenPocketWallet({ projectId, chains }),
+        ...[
+          particleWallet({ chains, authType: "google" }),
+          particleWallet({ chains, authType: "facebook" }),
+          particleWallet({ chains, authType: "apple" }),
+        ],
       ],
     },
   ]);
