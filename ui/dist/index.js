@@ -1058,6 +1058,18 @@ function useActiveWeb3React() {
     };
   }, [chainId, address, provider]);
 }
+function useActiveWeb3ReactForBingo() {
+  const chainId = useChainId();
+  const { address } = useAccount();
+  const provider = usePublicClient();
+  return useMemo2(() => {
+    return {
+      chainId: chainId && DPSupportChainId.includes(chainId) ? chainId : void 0,
+      account: chainId && UnSupportChainId.includes(chainId) ? void 0 : address,
+      provider
+    };
+  }, [chainId, address, provider]);
+}
 
 // src/utils/tool.tsx
 import BigNumber from "bignumber.js";
@@ -4223,6 +4235,7 @@ export {
   useActiveChainId,
   useActiveWallet,
   useActiveWeb3React,
+  useActiveWeb3ReactForBingo,
   useChainModal4 as useChainModal,
   useConnectModal,
   useCurrentLanguage,

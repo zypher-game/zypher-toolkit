@@ -113,7 +113,10 @@ export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useActiveChainId } from "./hooks/useActiveChainId";
 export { useActiveWallet } from "./hooks/useActiveWallet";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
-export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
+export {
+  useActiveWeb3React,
+  useActiveWeb3ReactForBingo,
+} from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
 export { useInitRainbowFn } from "./hooks/useInitRainbowFn";
 export { useGetInvitationAddress } from "./hooks/useGetInvitationAddress";
