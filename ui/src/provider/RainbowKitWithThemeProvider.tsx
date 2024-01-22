@@ -3,7 +3,7 @@ import "../../node_modules/@my/rainbowkit/dist/index.css";
 import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
 import React, { FC, ReactNode, useMemo } from "react";
 
-import { appInfo } from "../constant/constant";
+import { appInfo, ChainId } from "../constant/constant";
 import { WagmiConfig } from "wagmi";
 
 import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
@@ -11,11 +11,16 @@ import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
 type IProps = {
   env: string;
   children: ReactNode;
+  chainIdList?: ChainId[];
 };
-const RainbowKitWithThemeProvider: FC<IProps> = ({ children, env }: IProps) => {
+const RainbowKitWithThemeProvider: FC<IProps> = ({
+  children,
+  env,
+  chainIdList,
+}: IProps) => {
   const { wagmiConfig, chains, computedTheme } = useMemo(() => {
     if (env) {
-      const wagmiConfig = getWagmiConfig(env);
+      const wagmiConfig = getWagmiConfig(env, chainIdList);
       const { chains } = getConfigureChains(env);
       return {
         wagmiConfig: wagmiConfig,

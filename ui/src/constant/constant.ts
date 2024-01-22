@@ -69,8 +69,13 @@ export const UnSupportChainId = [
 ];
 export const defaultChainId = ChainId.OPBNB;
 
-export const supportedChainIds = (env: string): ChainId[] => {
-  return env === "develop"
+export const supportedChainIds = (
+  env: string,
+  chainList?: ChainId[]
+): ChainId[] => {
+  return chainList
+    ? chainList
+    : env === "develop"
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaTestnet,

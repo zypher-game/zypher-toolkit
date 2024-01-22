@@ -26,8 +26,11 @@ import {
   supportedChainIds,
 } from "../constant/constant";
 const WagmiChainList = Object.values(chainList);
-const getSupportedChainIdList = (env: string): Chain[] => {
-  return supportedChainIds(env).map((chainId: ChainId) => {
+const getSupportedChainIdList = (
+  env: string,
+  chainIdList?: ChainId[]
+): Chain[] => {
+  return supportedChainIds(env, chainIdList).map((chainId: ChainId) => {
     const chainFilter: Chain[] = WagmiChainList.filter((v) => v.id === chainId);
     if (chainFilter && chainFilter.length) {
       const chainLocal = chainFilter[0];
@@ -72,9 +75,9 @@ new ParticleNetwork({
   projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199",
 });
 
-export const getConfigureChains = (env: string) => {
+export const getConfigureChains = (env: string, chainIdList?: ChainId[]) => {
   const { chains, publicClient, webSocketPublicClient } = configureChains(
-    getSupportedChainIdList(env),
+    getSupportedChainIdList(env, chainIdList),
     [publicProvider()]
   );
   return { chains, publicClient, webSocketPublicClient };
@@ -87,8 +90,8 @@ const projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 //   chains
 // })
 
-const getConnectors = (env: string) => {
-  const { chains } = getConfigureChains(env);
+const getConnectors = (env: string, chainIdList?: ChainId[]) => {
+  const { chains } = getConfigureChains(env, chainIdList);
   return connectorsForWallets([
     {
       groupName: "Recommended",
@@ -113,9 +116,12 @@ const getConnectors = (env: string) => {
     },
   ]);
 };
-export const getWagmiConfig = (env: string) => {
-  const connectors = getConnectors(env);
-  const { publicClient, webSocketPublicClient } = getConfigureChains(env);
+export const getWagmiConfig = (env: string, chainIdList?: ChainId[]) => {
+  const connectors = getConnectors(env, chainIdList);
+  const { publicClient, webSocketPublicClient } = getConfigureChains(
+    env,
+    chainIdList
+  );
   return createConfig({
     autoConnect: true,
     connectors,

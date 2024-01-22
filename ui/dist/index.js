@@ -56,27 +56,27 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId9) => {
-  ChainId9[ChainId9["Mainnet"] = 56] = "Mainnet";
-  ChainId9[ChainId9["Testnet"] = 97] = "Testnet";
-  ChainId9[ChainId9["Arbitrum"] = 42161] = "Arbitrum";
-  ChainId9[ChainId9["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
-  ChainId9[ChainId9["LineaTestnet"] = 59140] = "LineaTestnet";
-  ChainId9[ChainId9["LineaMainnet"] = 59144] = "LineaMainnet";
-  ChainId9[ChainId9["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
-  ChainId9[ChainId9["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
-  ChainId9[ChainId9["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
-  ChainId9[ChainId9["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
-  ChainId9[ChainId9["OPBNBTEST"] = 5611] = "OPBNBTEST";
-  ChainId9[ChainId9["OPBNB"] = 204] = "OPBNB";
-  ChainId9[ChainId9["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
-  ChainId9[ChainId9["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
-  ChainId9[ChainId9["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
-  ChainId9[ChainId9["Combo"] = 9980] = "Combo";
-  ChainId9[ChainId9["ComboTestnet"] = 91715] = "ComboTestnet";
-  ChainId9[ChainId9["Mantle"] = 5e3] = "Mantle";
-  ChainId9[ChainId9["MantleTestnet"] = 5001] = "MantleTestnet";
-  return ChainId9;
+var ChainId = /* @__PURE__ */ ((ChainId10) => {
+  ChainId10[ChainId10["Mainnet"] = 56] = "Mainnet";
+  ChainId10[ChainId10["Testnet"] = 97] = "Testnet";
+  ChainId10[ChainId10["Arbitrum"] = 42161] = "Arbitrum";
+  ChainId10[ChainId10["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
+  ChainId10[ChainId10["LineaTestnet"] = 59140] = "LineaTestnet";
+  ChainId10[ChainId10["LineaMainnet"] = 59144] = "LineaMainnet";
+  ChainId10[ChainId10["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
+  ChainId10[ChainId10["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
+  ChainId10[ChainId10["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
+  ChainId10[ChainId10["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
+  ChainId10[ChainId10["OPBNBTEST"] = 5611] = "OPBNBTEST";
+  ChainId10[ChainId10["OPBNB"] = 204] = "OPBNB";
+  ChainId10[ChainId10["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
+  ChainId10[ChainId10["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
+  ChainId10[ChainId10["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
+  ChainId10[ChainId10["Combo"] = 9980] = "Combo";
+  ChainId10[ChainId10["ComboTestnet"] = 91715] = "ComboTestnet";
+  ChainId10[ChainId10["Mantle"] = 5e3] = "Mantle";
+  ChainId10[ChainId10["MantleTestnet"] = 5001] = "MantleTestnet";
+  return ChainId10;
 })(ChainId || {});
 var DPSupportChainId = [
   59140 /* LineaTestnet */,
@@ -100,8 +100,8 @@ var UnSupportChainId = [
   169 /* MantaPacificMainnet */
 ];
 var defaultChainId = 204 /* OPBNB */;
-var supportedChainIds = (env) => {
-  return env === "develop" ? [
+var supportedChainIds = (env, chainList2) => {
+  return chainList2 ? chainList2 : env === "develop" ? [
     59144 /* LineaMainnet */,
     59140 /* LineaTestnet */,
     204 /* OPBNB */,
@@ -1303,8 +1303,8 @@ import { publicProvider } from "wagmi/providers/public";
 import { particleWallet } from "@particle-network/rainbowkit-ext";
 import { ParticleNetwork } from "@particle-network/auth";
 var WagmiChainList = Object.values(chainList);
-var getSupportedChainIdList = (env) => {
-  return supportedChainIds(env).map((chainId) => {
+var getSupportedChainIdList = (env, chainIdList) => {
+  return supportedChainIds(env, chainIdList).map((chainId) => {
     var _a;
     const chainFilter = WagmiChainList.filter((v) => v.id === chainId);
     if (chainFilter && chainFilter.length) {
@@ -1345,16 +1345,16 @@ new ParticleNetwork({
   clientKey: "clITVBUqxtJzy2ymp8z4SQOUFWIc5qPUUHPks8ap",
   projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199"
 });
-var getConfigureChains = (env) => {
+var getConfigureChains = (env, chainIdList) => {
   const { chains, publicClient, webSocketPublicClient } = configureChains(
-    getSupportedChainIdList(env),
+    getSupportedChainIdList(env, chainIdList),
     [publicProvider()]
   );
   return { chains, publicClient, webSocketPublicClient };
 };
 var projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
-var getConnectors = (env) => {
-  const { chains } = getConfigureChains(env);
+var getConnectors = (env, chainIdList) => {
+  const { chains } = getConfigureChains(env, chainIdList);
   return connectorsForWallets([
     {
       groupName: "Recommended",
@@ -1379,9 +1379,12 @@ var getConnectors = (env) => {
     }
   ]);
 };
-var getWagmiConfig = (env) => {
-  const connectors = getConnectors(env);
-  const { publicClient, webSocketPublicClient } = getConfigureChains(env);
+var getWagmiConfig = (env, chainIdList) => {
+  const connectors = getConnectors(env, chainIdList);
+  const { publicClient, webSocketPublicClient } = getConfigureChains(
+    env,
+    chainIdList
+  );
   return createConfig({
     autoConnect: true,
     connectors,
@@ -3665,10 +3668,14 @@ var header_default = Header;
 import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
 import React33, { useMemo as useMemo11 } from "react";
 import { WagmiConfig } from "wagmi";
-var RainbowKitWithThemeProvider = ({ children, env }) => {
+var RainbowKitWithThemeProvider = ({
+  children,
+  env,
+  chainIdList
+}) => {
   const { wagmiConfig, chains, computedTheme } = useMemo11(() => {
     if (env) {
-      const wagmiConfig2 = getWagmiConfig(env);
+      const wagmiConfig2 = getWagmiConfig(env, chainIdList);
       const { chains: chains2 } = getConfigureChains(env);
       return {
         wagmiConfig: wagmiConfig2,

@@ -33,7 +33,7 @@ export declare const DPSupportChainId: ChainId[];
 export declare const UnSupportBingoChainId: ChainId[];
 export declare const UnSupportChainId: ChainId[];
 export declare const defaultChainId = ChainId.OPBNB;
-export declare const supportedChainIds: (env: string) => ChainId[];
+export declare const supportedChainIds: (env: string, chainList?: ChainId[]) => ChainId[];
 export declare const ChainRpcUrls: Record<ChainId, string[]>;
 export declare const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>>;
 export declare const BlockExplorerUrls: Record<ChainId, string[]>;
