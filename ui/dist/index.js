@@ -1065,7 +1065,7 @@ function useActiveWeb3ReactForBingo() {
   return useMemo2(() => {
     return {
       chainId: chainId && DPSupportChainId.includes(chainId) ? chainId : void 0,
-      account: chainId && UnSupportChainId.includes(chainId) ? void 0 : address,
+      account: chainId && DPSupportChainId.includes(chainId) ? address : void 0,
       provider
     };
   }, [chainId, address, provider]);
