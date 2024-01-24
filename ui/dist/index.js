@@ -4160,6 +4160,7 @@ export {
   Currency,
   CurrencyContract,
   CurrencyLogo,
+  CurrencyLogo_default as CurrencyLogoComp,
   DPSupportChainId,
   DivWrap_default as DivWrap,
   header_default as Header,

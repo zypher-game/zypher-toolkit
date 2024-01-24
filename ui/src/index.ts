@@ -87,6 +87,7 @@ export {
   useNativeBalanceStr,
   usePointsBalanceStr,
 } from "./components/ConnectWallet/hooks/connectWalletHooks";
+export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
 
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
@@ -95,7 +96,6 @@ export {
   default as PlayerAvatar,
   PlayerAvatarList,
 } from "./components/PlayerAvatar";
-
 export { default as LogoutDialog } from "./components/ConnectWallet/components/AccountInfoDialog";
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
 export { default as ChainSelectorWidget } from "./components/ConnectWallet/components/ChainSelector/ChainSelectorWidget";
