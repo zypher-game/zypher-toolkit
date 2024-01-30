@@ -54,20 +54,23 @@ export const DPSupportChainId = [
 ];
 export const UnSupportBingoChainId = [
   ChainId.ArbitrumGoerli,
-  ChainId.Arbitrum,
-  ChainId.ComboTestnet,
-  ChainId.Combo,
   ChainId.MantleTestnet,
   ChainId.Mantle,
   ChainId.MantaPacificMainnet,
   ChainId.MantaPacificTestnet,
+  ChainId.Arbitrum,
+  ChainId.ComboTestnet,
+  ChainId.Combo,
 ];
 export const UnSupportChainId = [
+  ChainId.ArbitrumGoerli,
   ChainId.Arbitrum,
+  ChainId.MantleTestnet,
   ChainId.Mantle,
+  ChainId.MantaPacificTestnet,
   ChainId.MantaPacificMainnet,
 ];
-export const defaultChainId = ChainId.OPBNB;
+// export const defaultChainId = ChainId.OPBNB;
 
 export const supportedChainIds = (
   env: string,
@@ -82,8 +85,11 @@ export const supportedChainIds = (
         ChainId.OPBNB,
         ChainId.OPBNBTEST,
         ChainId.Arbitrum,
+        ChainId.ArbitrumGoerli,
         ChainId.MantaPacificMainnet,
+        ChainId.MantaPacificTestnet,
         ChainId.Mantle,
+        ChainId.MantleTestnet,
         ChainId.ComboTestnet,
         ChainId.Combo,
       ]

@@ -2,14 +2,14 @@ import * as config from "../constant/constant";
 
 const setupNetwork = async (
   env: string,
-  chainId = config.defaultChainId
+  chainId: config.ChainId
 ): Promise<boolean> => {
   const provider = window.ethereum;
-  const isSupported = config.supportedChainIds(env).includes(chainId);
-  if (!isSupported) {
-    // throw new Error(`Unsupported network: ${chainId}`)
-    chainId = config.defaultChainId;
-  }
+  // const isSupported = config.supportedChainIds(env).includes(chainId);
+  // if (!isSupported) {
+  //   // throw new Error(`Unsupported network: ${chainId}`)
+  //   chainId = config.defaultChainId;
+  // }
   if (provider) {
     try {
       try {

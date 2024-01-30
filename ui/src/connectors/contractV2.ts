@@ -15,7 +15,7 @@ import {
 } from "viem";
 import { Address } from "wagmi";
 
-import { ChainId, defaultChainId } from "../constant/constant";
+import { ChainId } from "../constant/constant";
 
 import { getViemClients } from "../rainbow/rainbow";
 const Contract = ethers.Contract;
@@ -41,9 +41,7 @@ export const getContract = <
   const c = viemGetContract({
     abi,
     address,
-    publicClient:
-      publicClient ??
-      getViemClients({ env, chainId: chainId ?? defaultChainId }),
+    publicClient: publicClient ?? getViemClients({ env, chainId: chainId }),
     walletClient: signer,
   });
   return {

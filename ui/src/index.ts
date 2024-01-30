@@ -37,7 +37,6 @@ export {
   txStatus,
   preStaticUrl,
   ChainId,
-  defaultChainId,
   supportedChainIds,
   DPSupportChainId,
   UnSupportChainId,
