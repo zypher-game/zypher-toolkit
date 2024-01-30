@@ -1,9 +1,9 @@
 "use client";
 import {
   omniWallet
-} from "../chunk-33HGE6C5.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-I56ASQW7.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   omniWallet
 };

@@ -13,7 +13,7 @@ import {
 } from "../../state/connectWalletState";
 import DialogTitle from "../DialogComponents/DialogTitle";
 import { getChainNameText } from "./localPathUrl";
-import { ChainId, ChainName } from "../../../../constant/constant";
+import { ChainId, ChainName, isTestnet } from "../../../../constant/constant";
 import Modal from "../../../../components/Modal/Modal";
 import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../utils/i18n";
@@ -68,7 +68,13 @@ const LinkToBetaDialog = memo(() => {
     if (ToUrlName[0].startsWith("https")) {
       return window.open(ToUrlName[0], "_blank");
     } else {
-      return window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
+      const _isTestnet = linkToBetaDialogChainId
+        ? isTestnet[linkToBetaDialogChainId]
+        : false;
+      return window.open(
+        `https://${_isTestnet ? "dev" : ""}${ToUrlName[0]}.zypher.game/`,
+        "_blank"
+      );
     }
   }, [ToUrlName]);
   useEffect(() => {

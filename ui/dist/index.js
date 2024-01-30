@@ -2331,7 +2331,11 @@ var LinkToBetaDialog = memo14(() => {
     if (ToUrlName[0].startsWith("https")) {
       return window.open(ToUrlName[0], "_blank");
     } else {
-      return window.open(`https://${ToUrlName[0]}.zypher.game/`, "_blank");
+      const _isTestnet = linkToBetaDialogChainId ? isTestnet[linkToBetaDialogChainId] : false;
+      return window.open(
+        `https://${_isTestnet ? "dev" : ""}${ToUrlName[0]}.zypher.game/`,
+        "_blank"
+      );
     }
   }, [ToUrlName]);
   useEffect6(() => {

@@ -1,9 +1,9 @@
 "use client";
 import {
   bitKeepWallet
-} from "../chunk-PBHP3VYJ.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-3PCUXIBR.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   bitKeepWallet
 };
