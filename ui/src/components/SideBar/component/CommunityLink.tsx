@@ -22,7 +22,11 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
       >
         <img src={preStaticUrl + "/img/layout/discord.svg"} />
       </a>
-      <a href="http://medium.com/@ZypherGames" target="_blank" rel="noreferrer">
+      <a
+        href="https://substack.com/@zyphergames"
+        target="_blank"
+        rel="noreferrer"
+      >
         <img src={preStaticUrl + "/img/layout/medium.svg"} />
       </a>
       <a href="https://github.com/zypher-game" target="_blank" rel="noreferrer">
