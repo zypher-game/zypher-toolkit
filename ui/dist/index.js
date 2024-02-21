@@ -1905,7 +1905,7 @@ var CommunityLink = memo6(({ className }) => {
   }, /* @__PURE__ */ React10.createElement("img", {
     src: preStaticUrl + "/img/layout/discord.svg"
   })), /* @__PURE__ */ React10.createElement("a", {
-    href: "http://medium.com/@ZypherGames",
+    href: "https://substack.com/@zyphergames",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React10.createElement("img", {
