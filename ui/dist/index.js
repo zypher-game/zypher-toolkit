@@ -1885,42 +1885,80 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/SideBar/index.tsx
 import classnames7 from "classnames";
-import React16, { memo as memo12, useMemo as useMemo6 } from "react";
+import React17, { memo as memo12, useMemo as useMemo6 } from "react";
 
 // src/components/SideBar/component/CommunityLink.tsx
-import React10, { memo as memo6 } from "react";
+import React11, { memo as memo6 } from "react";
+
+// src/components/SvgComponent/SvgComponent.tsx
+import React10, { useEffect as useEffect6, useState as useState7 } from "react";
+var SvgComponent = ({ src, className, ...rest }) => {
+  const [svgContent, setSvgContent] = useState7(null);
+  useEffect6(() => {
+    (async () => {
+      try {
+        const response = await fetch(src);
+        if (!response.ok)
+          throw new Error("Failed to load SVG");
+        const text = await response.text();
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = text;
+        const svgElement = wrapper.querySelector("svg");
+        if (svgElement) {
+          const Component = () => /* @__PURE__ */ React10.createElement("span", {
+            className: `svg_component ${className}`,
+            ...rest,
+            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
+          });
+          setSvgContent(Component);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [src]);
+  return svgContent || /* @__PURE__ */ React10.createElement(React10.Fragment, null);
+};
+var SvgComponent_default = SvgComponent;
+
+// src/components/SideBar/component/CommunityLink.tsx
 var CommunityLink = memo6(({ className }) => {
-  return /* @__PURE__ */ React10.createElement("div", {
+  return /* @__PURE__ */ React11.createElement("div", {
     className
-  }, /* @__PURE__ */ React10.createElement("a", {
+  }, /* @__PURE__ */ React11.createElement("a", {
     href: "https://twitter.com/Zypher_Games",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React10.createElement("img", {
+  }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {
+    className: "community_svg",
     src: preStaticUrl + "/img/layout/twitter.svg"
-  })), /* @__PURE__ */ React10.createElement("a", {
+  })), /* @__PURE__ */ React11.createElement("a", {
     href: "https://discord.com/invite/MKJZhS4p2T",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React10.createElement("img", {
+  }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {
+    className: "community_svg",
     src: preStaticUrl + "/img/layout/discord.svg"
-  })), /* @__PURE__ */ React10.createElement("a", {
+  })), /* @__PURE__ */ React11.createElement("a", {
     href: "https://substack.com/@zyphergames",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React10.createElement("img", {
+  }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {
+    className: "community_svg",
     src: preStaticUrl + "/img/layout/medium.svg"
-  })), /* @__PURE__ */ React10.createElement("a", {
+  })), /* @__PURE__ */ React11.createElement("a", {
     href: "https://github.com/zypher-game",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React10.createElement("img", {
+  }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {
+    className: "community_svg",
     src: preStaticUrl + "/img/layout/github.svg"
-  })), /* @__PURE__ */ React10.createElement("a", {
+  })), /* @__PURE__ */ React11.createElement("a", {
     href: "https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React10.createElement("img", {
+  }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {
+    className: "community_svg",
     src: preStaticUrl + "/img/layout/gitbook.svg"
   })));
 }, isEqual);
@@ -1928,7 +1966,7 @@ var CommunityLink_default = CommunityLink;
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames6 from "classnames";
-import React12, { memo as memo8, useCallback as useCallback7, useMemo as useMemo4 } from "react";
+import React13, { memo as memo8, useCallback as useCallback7, useMemo as useMemo4 } from "react";
 import { useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState4 } from "recoil";
 
 // src/components/Header/state.ts
@@ -1940,53 +1978,53 @@ var siderCollapseState = atom5({
 });
 
 // src/components/SideBar/component/SmokeIndex.tsx
-import React11, { memo as memo7 } from "react";
+import React12, { memo as memo7 } from "react";
 var SmokeIndex = memo7(() => {
-  return /* @__PURE__ */ React11.createElement("div", {
+  return /* @__PURE__ */ React12.createElement("div", {
     className: "h"
-  }, /* @__PURE__ */ React11.createElement("div", {
+  }, /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React11.createElement("div", {
+  }), /* @__PURE__ */ React12.createElement("div", {
     className: "c"
   }));
 }, isEqual);
@@ -2044,25 +2082,25 @@ var LinkItem1 = memo8(
     ...link
   }) => {
     const { isOn, linkClickHandle } = useLink(link, isMobile, useNavigate);
-    return /* @__PURE__ */ React12.createElement("div", {
+    return /* @__PURE__ */ React13.createElement("div", {
       onClick: linkClickHandle,
       className: classnames6(
         className,
         link.disabled ? className_disable : "",
         isOn ? className_on : ""
       )
-    }, /* @__PURE__ */ React12.createElement("div", {
+    }, /* @__PURE__ */ React13.createElement("div", {
       className: className_imageContainer
-    }, /* @__PURE__ */ React12.createElement("img", {
+    }, /* @__PURE__ */ React13.createElement("img", {
       src: preStaticUrl + `/img/layout/${link.icon}`
-    })), /* @__PURE__ */ React12.createElement("p", null, link.label), isOn ? /* @__PURE__ */ React12.createElement(SmokeIndex_default, null) : null);
+    })), /* @__PURE__ */ React13.createElement("p", null, link.label), isOn ? /* @__PURE__ */ React13.createElement(SmokeIndex_default, null) : null);
   },
   isEqual
 );
 var LinkItemA_default = LinkItem1;
 
 // src/components/SideBar/component/SideBarActivitiesList.tsx
-import React13, { memo as memo9, useMemo as useMemo5 } from "react";
+import React14, { memo as memo9, useMemo as useMemo5 } from "react";
 var SideBarActivitiesList = memo9(
   ({
     className_on,
@@ -2087,9 +2125,9 @@ var SideBarActivitiesList = memo9(
         listItem: className_listItemHor
       };
     }, [isMobile]);
-    return /* @__PURE__ */ React13.createElement("div", {
+    return /* @__PURE__ */ React14.createElement("div", {
       className: className_list
-    }, list.map((v) => /* @__PURE__ */ React13.createElement(LinkItemA_default, {
+    }, list.map((v) => /* @__PURE__ */ React14.createElement(LinkItemA_default, {
       useNavigate,
       className_on,
       className_disable: listItemDisable,
@@ -2104,7 +2142,7 @@ var SideBarActivitiesList = memo9(
 var SideBarActivitiesList_default = SideBarActivitiesList;
 
 // src/components/SideBar/component/SideBarGamesList.tsx
-import React14, { memo as memo10 } from "react";
+import React15, { memo as memo10 } from "react";
 var SideBarGamesList = memo10(
   ({
     className_on,
@@ -2116,9 +2154,9 @@ var SideBarGamesList = memo10(
     list,
     isMobile
   }) => {
-    return /* @__PURE__ */ React14.createElement("div", {
+    return /* @__PURE__ */ React15.createElement("div", {
       className: className_list
-    }, list.map((v) => /* @__PURE__ */ React14.createElement(LinkItemA_default, {
+    }, list.map((v) => /* @__PURE__ */ React15.createElement(LinkItemA_default, {
       useNavigate,
       isMobile,
       className_on,
@@ -2134,16 +2172,16 @@ var SideBarGamesList = memo10(
 var SideBarGamesList_default = SideBarGamesList;
 
 // src/components/SideBar/component/SideBarTitle.tsx
-import React15, { memo as memo11 } from "react";
+import React16, { memo as memo11 } from "react";
 var SideBarTitle = memo11(
   ({ className, logo_url_name, logo_title }) => {
     const { t } = useCustomTranslation([LngNs.siderBar]);
-    return /* @__PURE__ */ React15.createElement("div", {
+    return /* @__PURE__ */ React16.createElement("div", {
       className
-    }, /* @__PURE__ */ React15.createElement("img", {
+    }, /* @__PURE__ */ React16.createElement("img", {
       src: preStaticUrl + `/img/layout/${logo_url_name}.svg`,
       title: t(logo_title)
-    }), /* @__PURE__ */ React15.createElement("p", null, t(logo_title)));
+    }), /* @__PURE__ */ React16.createElement("p", null, t(logo_title)));
   },
   isEqual
 );
@@ -2151,12 +2189,12 @@ var SideBarTitle_default = SideBarTitle;
 
 // src/components/SideBar/index.tsx
 var MobileLogo = memo12(() => {
-  return /* @__PURE__ */ React16.createElement("a", {
+  return /* @__PURE__ */ React17.createElement("a", {
     href: "/",
     target: "_black"
-  }, /* @__PURE__ */ React16.createElement("img", {
+  }, /* @__PURE__ */ React17.createElement("img", {
     src: preStaticUrl + "/img/layout/logo-min.svg"
-  }), /* @__PURE__ */ React16.createElement("img", {
+  }), /* @__PURE__ */ React17.createElement("img", {
     src: preStaticUrl + "/img/layout/ai.svg"
   }));
 });
@@ -2175,32 +2213,32 @@ var SideBar = (props) => {
       )
     };
   }, [items, isMobile]);
-  return /* @__PURE__ */ React16.createElement("div", {
+  return /* @__PURE__ */ React17.createElement("div", {
     className: classnames7(`${props.className}`, "sidebarWrap")
-  }, isMobile ? null : /* @__PURE__ */ React16.createElement("a", {
+  }, isMobile ? null : /* @__PURE__ */ React17.createElement("a", {
     href: "https://zypher.game/",
     target: "_black",
     className: classnames7("logo")
-  }, /* @__PURE__ */ React16.createElement("img", {
+  }, /* @__PURE__ */ React17.createElement("img", {
     src: preStaticUrl + "/img/layout/logo.svg"
-  }), /* @__PURE__ */ React16.createElement("img", {
+  }), /* @__PURE__ */ React17.createElement("img", {
     src: preStaticUrl + "/img/layout/ai.svg"
-  })), /* @__PURE__ */ React16.createElement("div", {
+  })), /* @__PURE__ */ React17.createElement("div", {
     className: "sidebar"
-  }, isMobile ? null : /* @__PURE__ */ React16.createElement(React16.Fragment, null, /* @__PURE__ */ React16.createElement(LinkItemA_default, {
+  }, isMobile ? null : /* @__PURE__ */ React17.createElement(React17.Fragment, null, /* @__PURE__ */ React17.createElement(LinkItemA_default, {
     className_on: "item_on",
     className_disable: "horListItemDisable",
     className: "horListItem",
     isMobile,
     useNavigate,
     ...items[0]
-  }), /* @__PURE__ */ React16.createElement("div", {
+  }), /* @__PURE__ */ React17.createElement("div", {
     className: "line"
-  })), /* @__PURE__ */ React16.createElement(SideBarTitle_default, {
+  })), /* @__PURE__ */ React17.createElement(SideBarTitle_default, {
     logo_title: "Games",
     logo_url_name: "games",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React16.createElement(SideBarGamesList_default, {
+  }), /* @__PURE__ */ React17.createElement(SideBarGamesList_default, {
     className_on: "item_on",
     className_list: "gamelist",
     className_listItem: "verListItem",
@@ -2209,13 +2247,13 @@ var SideBar = (props) => {
     isMobile,
     useNavigate,
     className_imageContainer: "imageContainerWaves"
-  }), /* @__PURE__ */ React16.createElement("div", {
+  }), /* @__PURE__ */ React17.createElement("div", {
     className: "line"
-  }), /* @__PURE__ */ React16.createElement(SideBarTitle_default, {
+  }), /* @__PURE__ */ React17.createElement(SideBarTitle_default, {
     logo_title: "Activities",
     logo_url_name: "activities",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React16.createElement(SideBarActivitiesList_default, {
+  }), /* @__PURE__ */ React17.createElement(SideBarActivitiesList_default, {
     useNavigate,
     isMobile,
     className_on: "item_on",
@@ -2225,37 +2263,37 @@ var SideBar = (props) => {
     className_listItemVerDisable: "verListItemDisable",
     className_listItemVer: "verListItem",
     list: sideBarActivitiesLinkList
-  }), /* @__PURE__ */ React16.createElement("div", {
+  }), /* @__PURE__ */ React17.createElement("div", {
     className: "line"
-  }), /* @__PURE__ */ React16.createElement(SideBarTitle_default, {
+  }), /* @__PURE__ */ React17.createElement(SideBarTitle_default, {
     logo_title: "Language",
     logo_url_name: "language",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React16.createElement(Language_default, {
+  }), /* @__PURE__ */ React17.createElement(Language_default, {
     type: "side"
-  }), /* @__PURE__ */ React16.createElement("div", {
+  }), /* @__PURE__ */ React17.createElement("div", {
     className: "line"
-  }), /* @__PURE__ */ React16.createElement(SideBarTitle_default, {
+  }), /* @__PURE__ */ React17.createElement(SideBarTitle_default, {
     logo_title: "Links",
     logo_url_name: "links",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React16.createElement(CommunityLink_default, {
+  }), /* @__PURE__ */ React17.createElement(CommunityLink_default, {
     className: "communityLink"
   })));
 };
 var SideBar_default = SideBar;
 
 // src/components/DivWrap/DivWrap.tsx
-import React17, { memo as memo13 } from "react";
+import React18, { memo as memo13 } from "react";
 var DivWrap = memo13(
   ({
     className,
     showDiv,
     children
   }) => {
-    return showDiv ? /* @__PURE__ */ React17.createElement("div", {
+    return showDiv ? /* @__PURE__ */ React18.createElement("div", {
       className
-    }, " ", children) : /* @__PURE__ */ React17.createElement(React17.Fragment, null, children);
+    }, " ", children) : /* @__PURE__ */ React18.createElement(React18.Fragment, null, children);
   },
   isEqual
 );
@@ -2264,7 +2302,7 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React18, { memo as memo14, useCallback as useCallback8, useEffect as useEffect6, useMemo as useMemo7 } from "react";
+import React19, { memo as memo14, useCallback as useCallback8, useEffect as useEffect7, useMemo as useMemo7 } from "react";
 import { useRecoilState as useRecoilState6 } from "recoil";
 import styled2 from "styled-components";
 
@@ -2338,12 +2376,12 @@ var LinkToBetaDialog = memo14(() => {
       );
     }
   }, [ToUrlName]);
-  useEffect6(() => {
+  useEffect7(() => {
     if (!linkToBetaDialogOpen) {
       setLinkToBetaDialogChainId(void 0);
     }
   }, [linkToBetaDialogOpen]);
-  return /* @__PURE__ */ React18.createElement(Modal_default, {
+  return /* @__PURE__ */ React19.createElement(Modal_default, {
     open: linkToBetaDialogOpen,
     onCancel: () => setLinkToBetaDialogOpen(false),
     footer: null,
@@ -2352,18 +2390,18 @@ var LinkToBetaDialog = memo14(() => {
     closable: false,
     width: isMobile ? "100%" : 360,
     centered: isMobile ? false : true
-  }, /* @__PURE__ */ React18.createElement(DialogTitle_default, {
+  }, /* @__PURE__ */ React19.createElement(DialogTitle_default, {
     label: t("Switch Networks"),
     setDialogOpen: setLinkToBetaDialogOpen,
     classNames: isMobile ? "modalTitleInner" : ""
-  }), /* @__PURE__ */ React18.createElement(Content, null, /* @__PURE__ */ React18.createElement(WarningOutlined, {
+  }), /* @__PURE__ */ React19.createElement(Content, null, /* @__PURE__ */ React19.createElement(WarningOutlined, {
     style: { color: "#6673FF", fontSize: "50px" }
-  }), /* @__PURE__ */ React18.createElement(Text, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
+  }), /* @__PURE__ */ React19.createElement(Text, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
     chainName: linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "",
     toUrlName: ToUrlName[1]
-  }))), /* @__PURE__ */ React18.createElement("div", {
+  }))), /* @__PURE__ */ React19.createElement("div", {
     style: { padding: "0 20px 30px" }
-  }, /* @__PURE__ */ React18.createElement(DialogButton, {
+  }, /* @__PURE__ */ React19.createElement(DialogButton, {
     onClick: handleButtonClick
   }, linkToBetaDialogChainId === 9980 /* Combo */ ? "Go to Play 2048" : t("GotoVersion", {
     toUrlName: ToUrlName[0]
@@ -2373,22 +2411,22 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames13 from "classnames";
-import React32, { useEffect as useEffect10 } from "react";
+import React33, { useEffect as useEffect11 } from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import { ConnectButton } from "@my/rainbowkit";
 import classnames12 from "classnames";
-import React31, { memo as memo24, useMemo as useMemo10 } from "react";
+import React32, { memo as memo24, useMemo as useMemo10 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React29, { memo as memo22, useCallback as useCallback13 } from "react";
+import React30, { memo as memo22, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 import styled6 from "styled-components";
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React24, { memo as memo18, useCallback as useCallback9 } from "react";
+import React25, { memo as memo18, useCallback as useCallback9 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
@@ -2407,11 +2445,11 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React23, { memo as memo17, useMemo as useMemo9 } from "react";
+import React24, { memo as memo17, useMemo as useMemo9 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
-import React20 from "react";
+import React21 from "react";
 import styled3 from "styled-components";
 
 // src/utils/generateAvatar.ts
@@ -2462,14 +2500,14 @@ var generateAvatar_default = (account) => {
 };
 
 // src/components/Avatar/Avatar.tsx
-import React19 from "react";
+import React20 from "react";
 var Avatar = ({
   src,
   altText,
   style = {},
   size = 64
 }) => {
-  return /* @__PURE__ */ React19.createElement("div", {
+  return /* @__PURE__ */ React20.createElement("div", {
     style: {
       width: size,
       height: size,
@@ -2477,7 +2515,7 @@ var Avatar = ({
       overflow: "hidden",
       ...style
     }
-  }, /* @__PURE__ */ React19.createElement("img", {
+  }, /* @__PURE__ */ React20.createElement("img", {
     src,
     alt: altText,
     style: { width: "100%", height: "100%", objectFit: "cover" }
@@ -2491,8 +2529,8 @@ var PlayerAvatar = ({
   showAccount = false,
   size = 60,
   border = false,
-  AvatarBorder = React20.Fragment,
-  AccountTextFrComp = React20.Fragment,
+  AvatarBorder = React21.Fragment,
+  AccountTextFrComp = React21.Fragment,
   className,
   preLen,
   endLen,
@@ -2500,16 +2538,16 @@ var PlayerAvatar = ({
 }) => {
   const { t } = useCustomTranslation([LngNs.zBingo]);
   const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-  return /* @__PURE__ */ React20.createElement("div", {
+  return /* @__PURE__ */ React21.createElement("div", {
     className: cx(className, "player_playerAvatar")
-  }, account ? /* @__PURE__ */ React20.createElement(AvatarBorder, null, /* @__PURE__ */ React20.createElement(Avatar_default, {
+  }, account ? /* @__PURE__ */ React21.createElement(AvatarBorder, null, /* @__PURE__ */ React21.createElement(Avatar_default, {
     size,
     src: selectedAvatar,
     style: border ? {
       background: selectedBackground,
       border: "2px solid #62380C"
     } : { background: selectedBackground }
-  })) : /* @__PURE__ */ React20.createElement("div", {
+  })) : /* @__PURE__ */ React21.createElement("div", {
     className: "player_avatar",
     style: {
       width: `${size}px`,
@@ -2517,12 +2555,12 @@ var PlayerAvatar = ({
       overflow: "hidden",
       background: "rgba(138, 138, 138, 1)"
     }
-  }, /* @__PURE__ */ React20.createElement(Avatar_default, {
+  }, /* @__PURE__ */ React21.createElement(Avatar_default, {
     size,
     src: preStaticUrl + `/img/default_avatar.png`
-  })), showAccount && /* @__PURE__ */ React20.createElement("p", {
+  })), showAccount && /* @__PURE__ */ React21.createElement("p", {
     className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
-  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : t("waiting"), /* @__PURE__ */ React20.createElement(AccountTextFrComp, null)));
+  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : t("waiting"), /* @__PURE__ */ React21.createElement(AccountTextFrComp, null)));
 };
 var OuterCircle = styled3.div`
   background: ${({ isGrey, isGreen }) => {
@@ -2616,20 +2654,20 @@ var PlayerAvatarList = ({
   winner
 }) => {
   const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-  return /* @__PURE__ */ React20.createElement(OuterCircle, {
+  return /* @__PURE__ */ React21.createElement(OuterCircle, {
     size,
     isGreen,
     isGrey,
     winner
-  }, /* @__PURE__ */ React20.createElement("div", {
+  }, /* @__PURE__ */ React21.createElement("div", {
     className: "center-circle "
-  }, /* @__PURE__ */ React20.createElement("div", {
+  }, /* @__PURE__ */ React21.createElement("div", {
     className: "inner-circle"
-  }, account ? /* @__PURE__ */ React20.createElement("img", {
+  }, account ? /* @__PURE__ */ React21.createElement("img", {
     width: "100%",
     src: selectedAvatar,
     style: { background: selectedBackground }
-  }) : /* @__PURE__ */ React20.createElement("img", {
+  }) : /* @__PURE__ */ React21.createElement("img", {
     width: "100%",
     src: preStaticUrl + `/img/default_avatar.png`
   }))));
@@ -2638,12 +2676,12 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
 import { useChainModal as useChainModal2 } from "@my/rainbowkit";
-import React21, { memo as memo15 } from "react";
+import React22, { memo as memo15 } from "react";
 import styled4 from "styled-components";
 
 // src/hooks/useInitRainbowFn.ts
 import { useChainModal } from "@my/rainbowkit";
-import { useEffect as useEffect7 } from "react";
+import { useEffect as useEffect8 } from "react";
 import { useSetRecoilState as useSetRecoilState5 } from "recoil";
 var useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();
@@ -2651,7 +2689,7 @@ var useInitRainbowFn = () => {
   const setLinkToBetaDialogChainIdState = useSetRecoilState5(
     linkToBetaDialogChainIdState
   );
-  useEffect7(() => {
+  useEffect8(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
         if (_c && UnSupportBingoChainId.includes(_c)) {
@@ -2723,16 +2761,16 @@ var ChainSelectorWidget = memo15(({ className }) => {
   const isMobile = useIsMobile();
   const { openChainModal } = useChainModal2();
   useInitRainbowFn();
-  return chainId ? /* @__PURE__ */ React21.createElement(Wrapper, {
+  return chainId ? /* @__PURE__ */ React22.createElement(Wrapper, {
     className,
     onClick: openChainModal,
     style: { cursor: "pointer" }
-  }, /* @__PURE__ */ React21.createElement("div", {
+  }, /* @__PURE__ */ React22.createElement("div", {
     className: "img"
-  }, /* @__PURE__ */ React21.createElement("img", {
+  }, /* @__PURE__ */ React22.createElement("img", {
     src: ChainImage[chainId],
     alt: ChainName[chainId]
-  }), /* @__PURE__ */ React21.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React21.createElement(StatusI, {
+  }), /* @__PURE__ */ React22.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React22.createElement(StatusI, {
     isMobile
   })) : null;
 }, isEqual);
@@ -2740,7 +2778,7 @@ var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
 import { useAsyncImage } from "@my/rainbowkit";
-import React22, { memo as memo16 } from "react";
+import React23, { memo as memo16 } from "react";
 var PcUserInfo = memo16(
   ({
     connectName,
@@ -2753,35 +2791,35 @@ var PcUserInfo = memo16(
     var _a;
     const { t } = useCustomTranslation([LngNs.common]);
     const src = useAsyncImage(connectIcon);
-    return /* @__PURE__ */ React22.createElement("div", {
+    return /* @__PURE__ */ React23.createElement("div", {
       className: "pc_user_pc_content"
-    }, /* @__PURE__ */ React22.createElement("div", {
+    }, /* @__PURE__ */ React23.createElement("div", {
       className: "pc_user_box"
-    }, /* @__PURE__ */ React22.createElement("div", {
+    }, /* @__PURE__ */ React23.createElement("div", {
       className: "pc_user_tit"
     }, t(
       "Connected with",
       {
         walletName: connectName
       }
-    )), /* @__PURE__ */ React22.createElement("div", {
+    )), /* @__PURE__ */ React23.createElement("div", {
       className: "pc_user_info"
-    }, connectIcon && /* @__PURE__ */ React22.createElement("img", {
+    }, connectIcon && /* @__PURE__ */ React23.createElement("img", {
       src,
       alt: connectName
-    }), /* @__PURE__ */ React22.createElement("div", {
+    }), /* @__PURE__ */ React23.createElement("div", {
       className: "pc_user_text"
-    }, getShortenAddress(account)), /* @__PURE__ */ React22.createElement("span", {
+    }, getShortenAddress(account)), /* @__PURE__ */ React23.createElement("span", {
       onClick: () => copy(account)
-    }, /* @__PURE__ */ React22.createElement(icons_default, {
+    }, /* @__PURE__ */ React23.createElement(icons_default, {
       name: "copy"
-    })), BlockExplorerUrls[chainId] && /* @__PURE__ */ React22.createElement("a", {
+    })), BlockExplorerUrls[chainId] && /* @__PURE__ */ React23.createElement("a", {
       href: `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
       target: "_blank",
       rel: "noreferrer"
-    }, /* @__PURE__ */ React22.createElement(icons_default, {
+    }, /* @__PURE__ */ React23.createElement(icons_default, {
       name: "link"
-    })))), /* @__PURE__ */ React22.createElement(DisconnectBtn, {
+    })))), /* @__PURE__ */ React23.createElement(DisconnectBtn, {
       cancel
     }));
   },
@@ -2789,7 +2827,7 @@ var PcUserInfo = memo16(
 );
 var DisconnectBtn = memo16(({ cancel }) => {
   const { t } = useCustomTranslation([LngNs.common]);
-  return /* @__PURE__ */ React22.createElement("p", {
+  return /* @__PURE__ */ React23.createElement("p", {
     className: "pc_user_disconnect_btn",
     onClick: cancel
   }, t("Disconnect"));
@@ -2806,14 +2844,14 @@ var MUserInfo = memo17(({ account, chainId, cancel }) => {
     return [
       {
         balanceStr: pointsBalanceStr,
-        logo: /* @__PURE__ */ React23.createElement(PointsIcon, {
+        logo: /* @__PURE__ */ React24.createElement(PointsIcon, {
           isMobile
         }),
         symbol: "Gold Points"
       },
       {
         balanceStr: nativeBalanceStr,
-        logo: /* @__PURE__ */ React23.createElement(CurrencyLogo_default, {
+        logo: /* @__PURE__ */ React24.createElement(CurrencyLogo_default, {
           className: "m_user_img",
           src: CurrencyLogo[chainId]
         }),
@@ -2821,31 +2859,31 @@ var MUserInfo = memo17(({ account, chainId, cancel }) => {
       }
     ];
   }, []);
-  return /* @__PURE__ */ React23.createElement("div", {
+  return /* @__PURE__ */ React24.createElement("div", {
     className: "m_user_m_content"
-  }, /* @__PURE__ */ React23.createElement(ChainSelectorWidget_default, {
+  }, /* @__PURE__ */ React24.createElement(ChainSelectorWidget_default, {
     className: classnames9("m_user_border", "m_user_chain")
-  }), /* @__PURE__ */ React23.createElement("div", {
+  }), /* @__PURE__ */ React24.createElement("div", {
     className: "m_user_border"
-  }, /* @__PURE__ */ React23.createElement("p", {
+  }, /* @__PURE__ */ React24.createElement("p", {
     className: "m_user_tit"
-  }, t("Your Wallet")), /* @__PURE__ */ React23.createElement("div", {
+  }, t("Your Wallet")), /* @__PURE__ */ React24.createElement("div", {
     className: "m_user_userInfoInner"
-  }, /* @__PURE__ */ React23.createElement(PlayerAvatar_default, {
+  }, /* @__PURE__ */ React24.createElement(PlayerAvatar_default, {
     className: "m_user_account",
     account,
     size: 24,
     showAccount: true
-  }), /* @__PURE__ */ React23.createElement(DisconnectBtn, {
+  }), /* @__PURE__ */ React24.createElement(DisconnectBtn, {
     cancel
-  })), /* @__PURE__ */ React23.createElement("div", {
+  })), /* @__PURE__ */ React24.createElement("div", {
     className: "m_user_balance"
-  }, list.map((v) => /* @__PURE__ */ React23.createElement("div", {
+  }, list.map((v) => /* @__PURE__ */ React24.createElement("div", {
     key: v.symbol,
     className: "m_user_item"
-  }, /* @__PURE__ */ React23.createElement("div", {
+  }, /* @__PURE__ */ React24.createElement("div", {
     className: "m_user_fl"
-  }, v.logo, /* @__PURE__ */ React23.createElement("p", null, v.symbol)), /* @__PURE__ */ React23.createElement("p", null, v.balanceStr))))));
+  }, v.logo, /* @__PURE__ */ React24.createElement("p", null, v.symbol)), /* @__PURE__ */ React24.createElement("p", null, v.balanceStr))))));
 }, isEqual);
 var MUserInfo_default = MUserInfo;
 
@@ -2864,7 +2902,7 @@ var AccountInfoDialog = memo18(({ copy }) => {
     setAccountInfoDialogOpen(false);
     disconnect();
   }, [disconnect]);
-  return account && chainId ? /* @__PURE__ */ React24.createElement(React24.Fragment, null, /* @__PURE__ */ React24.createElement(Modal_default, {
+  return account && chainId ? /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(Modal_default, {
     open: accountInfoDialogOpen,
     onCancel: () => setAccountInfoDialogOpen(false),
     footer: null,
@@ -2878,18 +2916,18 @@ var AccountInfoDialog = memo18(({ copy }) => {
     width: isMobile ? "100%" : 440,
     centered: isMobile ? false : true,
     transitionName: isMobile ? "ant-slide-down" : void 0
-  }, /* @__PURE__ */ React24.createElement(DialogTitle_default, {
+  }, /* @__PURE__ */ React25.createElement(DialogTitle_default, {
     label: t("Your Wallet"),
     setDialogOpen: setAccountInfoDialogOpen,
     classNames: isMobile ? "modalTitleInner" : ""
-  }), /* @__PURE__ */ React24.createElement("div", {
+  }), /* @__PURE__ */ React25.createElement("div", {
     className: "account_info_dialog_modalMain"
-  }, isMobile ? /* @__PURE__ */ React24.createElement(MUserInfo_default, {
+  }, isMobile ? /* @__PURE__ */ React25.createElement(MUserInfo_default, {
     copy,
     account,
     chainId,
     cancel
-  }) : /* @__PURE__ */ React24.createElement(PcUserInfo_default, {
+  }) : /* @__PURE__ */ React25.createElement(PcUserInfo_default, {
     copy,
     account,
     chainId,
@@ -2903,7 +2941,7 @@ var AccountInfoDialog_default = AccountInfoDialog;
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs3 from "bignumber.js";
-import React27, { memo as memo21, useCallback as useCallback11, useEffect as useEffect9, useState as useState7 } from "react";
+import React28, { memo as memo21, useCallback as useCallback11, useEffect as useEffect10, useState as useState8 } from "react";
 import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState7 } from "recoil";
 import styled5 from "styled-components";
 
@@ -3209,35 +3247,35 @@ var erc20_default = erc20Contract;
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
 import classnames11 from "classnames";
-import React26, { memo as memo20, useCallback as useCallback10, useEffect as useEffect8 } from "react";
+import React27, { memo as memo20, useCallback as useCallback10, useEffect as useEffect9 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
-import React25, { memo as memo19 } from "react";
+import React26, { memo as memo19 } from "react";
 import { useRecoilState as useRecoilState8 } from "recoil";
 var GetPointsSuccess = memo19(() => {
   const [show] = useRecoilState8(pointsAnimState);
   if (show) {
-    return /* @__PURE__ */ React25.createElement("div", {
+    return /* @__PURE__ */ React26.createElement("div", {
       className: "getpointpoints"
-    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React25.createElement(PointsItem, {
+    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React26.createElement(PointsItem, {
       key: index
     })));
   }
   return null;
 }, isEqual);
 var PointsItem = () => {
-  return /* @__PURE__ */ React25.createElement("div", {
+  return /* @__PURE__ */ React26.createElement("div", {
     className: "getpointcoin"
-  }, /* @__PURE__ */ React25.createElement("div", {
+  }, /* @__PURE__ */ React26.createElement("div", {
     className: "getpointcoin_front"
-  }, /* @__PURE__ */ React25.createElement("img", {
+  }, /* @__PURE__ */ React26.createElement("img", {
     src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
-  })), /* @__PURE__ */ React25.createElement("div", {
+  })), /* @__PURE__ */ React26.createElement("div", {
     className: "getpointcoin_middle"
-  }), /* @__PURE__ */ React25.createElement("div", {
+  }), /* @__PURE__ */ React26.createElement("div", {
     className: "getpointcoin_back"
-  }, /* @__PURE__ */ React25.createElement("img", {
+  }, /* @__PURE__ */ React26.createElement("img", {
     src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
   })));
@@ -3262,10 +3300,10 @@ var BalanceItem = memo20(
         onClick();
       }
     }, [onClick]);
-    return /* @__PURE__ */ React26.createElement("div", {
+    return /* @__PURE__ */ React27.createElement("div", {
       className: classnames11(`${className}`, "balance_item_balance"),
       onClick: onClickHandle
-    }, preChild, loading ? /* @__PURE__ */ React26.createElement(LoadingOutlined, null) : /* @__PURE__ */ React26.createElement(React26.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React26.createElement(CountupNumber, {
+    }, preChild, loading ? /* @__PURE__ */ React27.createElement(LoadingOutlined, null) : /* @__PURE__ */ React27.createElement(React27.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React27.createElement(CountupNumber, {
       value: balance,
       decimals: 0,
       duration: 1.5,
@@ -3292,7 +3330,7 @@ var BalanceCountUpItem = memo20(
         onClick();
       }
     }, [onClick]);
-    useEffect8(() => {
+    useEffect9(() => {
       if (mount === 1) {
         setPointsAnimState(true);
         setTimeout(() => {
@@ -3301,19 +3339,19 @@ var BalanceCountUpItem = memo20(
         }, 3e3);
       }
     }, [mount]);
-    return /* @__PURE__ */ React26.createElement("div", {
+    return /* @__PURE__ */ React27.createElement("div", {
       className: classnames11(
         `${className}`,
         "balance_item_balance",
         "balance_item_balance_point"
       ),
       onClick: onClickHandle
-    }, preChild, loading ? /* @__PURE__ */ React26.createElement(LoadingOutlined, null) : /* @__PURE__ */ React26.createElement(React26.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React26.createElement(CountupNumber, {
+    }, preChild, loading ? /* @__PURE__ */ React27.createElement(LoadingOutlined, null) : /* @__PURE__ */ React27.createElement(React27.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React27.createElement(CountupNumber, {
       value: balance,
       decimals: 0,
       duration: 1.5,
       showDiv: false
-    }) : balanceStr, logo), /* @__PURE__ */ React26.createElement(GetPointsSuccess_default, null));
+    }) : balanceStr, logo), /* @__PURE__ */ React27.createElement(GetPointsSuccess_default, null));
   },
   isEqual
 );
@@ -3349,7 +3387,7 @@ var AddIcon = styled5(icons_default)`
 var Balance = memo21((props) => {
   const { showPointsModal, isMobile, env, showLang, CountupNumber } = props;
   const { chainId, account, provider } = useActiveWeb3React();
-  const [loading, setLoading] = useState7(false);
+  const [loading, setLoading] = useState8(false);
   const setNativeBalance = useSetRecoilState7(nativeBalanceState);
   const setPointsBalance = useSetRecoilState7(pointsBalanceState);
   const refreshBalance = useRecoilValue6(refreshBalanceState);
@@ -3384,7 +3422,7 @@ var Balance = memo21((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider]);
-  useEffect9(() => {
+  useEffect10(() => {
     if (account && chainId) {
       fetchBalanceOf();
     }
@@ -3392,27 +3430,27 @@ var Balance = memo21((props) => {
   const pointsBalance = useRecoilValue6(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
-  return /* @__PURE__ */ React27.createElement(React27.Fragment, null, /* @__PURE__ */ React27.createElement(Refresh, {
+  return /* @__PURE__ */ React28.createElement(React28.Fragment, null, /* @__PURE__ */ React28.createElement(Refresh, {
     onClick: fetchBalanceOf,
     isMobile
-  }, /* @__PURE__ */ React27.createElement(SyncOutlined, null)), showLang ? /* @__PURE__ */ React27.createElement(Language_default, {
+  }, /* @__PURE__ */ React28.createElement(SyncOutlined, null)), showLang ? /* @__PURE__ */ React28.createElement(Language_default, {
     type: "top"
-  }) : null, DPSupportChainId.includes(chainId) ? /* @__PURE__ */ React27.createElement(BalanceCountUpItem, {
+  }) : null, DPSupportChainId.includes(chainId) ? /* @__PURE__ */ React28.createElement(BalanceCountUpItem, {
     onClick: showPointsModal,
-    logo: /* @__PURE__ */ React27.createElement(PointsIcon, {
+    logo: /* @__PURE__ */ React28.createElement(PointsIcon, {
       isMobile
     }),
     balance: pointsBalance,
     loading,
     className: props.className,
     CountupNumber,
-    preChild: /* @__PURE__ */ React27.createElement(AddIcon, {
+    preChild: /* @__PURE__ */ React28.createElement(AddIcon, {
       name: "add",
       isMobile
     }),
     balanceStr: pointsBalanceStr
-  }) : null, !isMobile && /* @__PURE__ */ React27.createElement(balanceItem_default, {
-    logo: /* @__PURE__ */ React27.createElement(CurrencyLogo_default, {
+  }) : null, !isMobile && /* @__PURE__ */ React28.createElement(balanceItem_default, {
+    logo: /* @__PURE__ */ React28.createElement(CurrencyLogo_default, {
       className: "balance_item_img",
       src: CurrencyLogo[chainId || 97]
     }),
@@ -3426,7 +3464,7 @@ var Balance_default = Balance;
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { CloseOutlined } from "@ant-design/icons";
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
-import React28, { useCallback as useCallback12 } from "react";
+import React29, { useCallback as useCallback12 } from "react";
 import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState8 } from "recoil";
 import { Trans } from "react-i18next";
 var PointsRuleDialog = () => {
@@ -3436,35 +3474,35 @@ var PointsRuleDialog = () => {
   const handleCancel = useCallback12(() => {
     setIsModalOpen(false);
   }, []);
-  return /* @__PURE__ */ React28.createElement(React28.Fragment, null, /* @__PURE__ */ React28.createElement(DialogOverlay2, {
+  return /* @__PURE__ */ React29.createElement(React29.Fragment, null, /* @__PURE__ */ React29.createElement(DialogOverlay2, {
     isOpen: isModalOpen,
     onDismiss: handleCancel,
     className: "points_dialog_zindex"
-  }, /* @__PURE__ */ React28.createElement(DialogContent2, {
+  }, /* @__PURE__ */ React29.createElement(DialogContent2, {
     className: "points_dialog_dialogContent"
-  }, /* @__PURE__ */ React28.createElement("div", {
+  }, /* @__PURE__ */ React29.createElement("div", {
     className: "points_dialog_dialogHeader"
-  }, /* @__PURE__ */ React28.createElement("h3", null, t("Rules")), /* @__PURE__ */ React28.createElement("div", {
+  }, /* @__PURE__ */ React29.createElement("h3", null, t("Rules")), /* @__PURE__ */ React29.createElement("div", {
     className: "points_dialog_cursor",
     onClick: handleCancel
-  }, /* @__PURE__ */ React28.createElement(CloseOutlined, null))), /* @__PURE__ */ React28.createElement("div", {
+  }, /* @__PURE__ */ React29.createElement(CloseOutlined, null))), /* @__PURE__ */ React29.createElement("div", {
     className: "points_dialog_dialogContainer"
-  }, /* @__PURE__ */ React28.createElement("h4", null, t("PointsRuleText01")), /* @__PURE__ */ React28.createElement("p", null, t("PointsRuleText02")), /* @__PURE__ */ React28.createElement("p", null, /* @__PURE__ */ React28.createElement("em", null), /* @__PURE__ */ React28.createElement("i", null, t("PointsRuleText03")), /* @__PURE__ */ React28.createElement("br", null), /* @__PURE__ */ React28.createElement("em", null), /* @__PURE__ */ React28.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React28.createElement("br", null), /* @__PURE__ */ React28.createElement("em", null), /* @__PURE__ */ React28.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React28.createElement("br", null), /* @__PURE__ */ React28.createElement("em", null), " ", /* @__PURE__ */ React28.createElement("i", null, t("PointsRuleText06"))), /* @__PURE__ */ React28.createElement("p", null, /* @__PURE__ */ React28.createElement(Trans, {
+  }, /* @__PURE__ */ React29.createElement("h4", null, t("PointsRuleText01")), /* @__PURE__ */ React29.createElement("p", null, t("PointsRuleText02")), /* @__PURE__ */ React29.createElement("p", null, /* @__PURE__ */ React29.createElement("em", null), /* @__PURE__ */ React29.createElement("i", null, t("PointsRuleText03")), /* @__PURE__ */ React29.createElement("br", null), /* @__PURE__ */ React29.createElement("em", null), /* @__PURE__ */ React29.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React29.createElement("br", null), /* @__PURE__ */ React29.createElement("em", null), /* @__PURE__ */ React29.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React29.createElement("br", null), /* @__PURE__ */ React29.createElement("em", null), " ", /* @__PURE__ */ React29.createElement("i", null, t("PointsRuleText06"))), /* @__PURE__ */ React29.createElement("p", null, /* @__PURE__ */ React29.createElement(Trans, {
     i18nKey: "PointsRuleText07",
     defaults: t("PointsRuleText07"),
     values: { Link: t("Link") },
-    components: { bold: /* @__PURE__ */ React28.createElement("strong", null) }
-  })), /* @__PURE__ */ React28.createElement("h4", null, t("PointsRuleText09")), /* @__PURE__ */ React28.createElement("p", null, /* @__PURE__ */ React28.createElement(Trans, {
+    components: { bold: /* @__PURE__ */ React29.createElement("strong", null) }
+  })), /* @__PURE__ */ React29.createElement("h4", null, t("PointsRuleText09")), /* @__PURE__ */ React29.createElement("p", null, /* @__PURE__ */ React29.createElement(Trans, {
     i18nKey: "PointsRuleText10",
     defaults: t("PointsRuleText10")
-  }, /* @__PURE__ */ React28.createElement("a", {
+  }, /* @__PURE__ */ React29.createElement("a", {
     href: "https://discord.com/invite/MKJZhS4p2T",
     target: "_blank",
     className: "points_dialog_fontWhite",
     rel: "noreferrer"
-  }, "Discord")))), /* @__PURE__ */ React28.createElement("div", {
+  }, "Discord")))), /* @__PURE__ */ React29.createElement("div", {
     className: "points_dialog_btnWrap"
-  }, /* @__PURE__ */ React28.createElement("button", {
+  }, /* @__PURE__ */ React29.createElement("button", {
     className: "points_dialog_btn",
     onClick: handleCancel
   }, t("Ok"))))));
@@ -3527,27 +3565,27 @@ var Account = memo22(
       setAccountInfoDialogState(true);
     }, [setAccountInfoDialogState]);
     const { account } = useActiveWeb3React();
-    return /* @__PURE__ */ React29.createElement(React29.Fragment, null, /* @__PURE__ */ React29.createElement(Balance_default, {
+    return /* @__PURE__ */ React30.createElement(React30.Fragment, null, /* @__PURE__ */ React30.createElement(Balance_default, {
       CountupNumber,
       showLang,
       env,
       isMobile,
       showPointsModal
-    }), /* @__PURE__ */ React29.createElement(AddressWrap, {
+    }), /* @__PURE__ */ React30.createElement(AddressWrap, {
       onClick: showLogoutModal
-    }, /* @__PURE__ */ React29.createElement(PlayerAvatar_default, {
+    }, /* @__PURE__ */ React30.createElement(PlayerAvatar_default, {
       className: "account",
       account,
       size: isMobile ? 26 : 36,
       showAccount: isMobile ? false : true
-    })), !isMobile && /* @__PURE__ */ React29.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React29.createElement(AccountInfoDialog_default, {
+    })), !isMobile && /* @__PURE__ */ React30.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React30.createElement(AccountInfoDialog_default, {
       copy
-    }), /* @__PURE__ */ React29.createElement(PointsDialog_default, {
+    }), /* @__PURE__ */ React30.createElement(PointsDialog_default, {
       env,
       dispatch,
       setSuccessToast,
       setErrorToast
-    }), /* @__PURE__ */ React29.createElement(PointsRuleDialog_default, null));
+    }), /* @__PURE__ */ React30.createElement(PointsRuleDialog_default, null));
   },
   isEqual
 );
@@ -3555,14 +3593,14 @@ var rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
 import { useChainModal as useChainModal3 } from "@my/rainbowkit";
-import React30, { memo as memo23 } from "react";
+import React31, { memo as memo23 } from "react";
 import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 var WrongNetwork = memo23(() => {
   const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal3();
   const setAccountInfoDialogOpen = useSetRecoilState10(accountInfoDialogState);
   useInitRainbowFn();
-  return /* @__PURE__ */ React30.createElement("div", {
+  return /* @__PURE__ */ React31.createElement("div", {
     onClick: () => {
       if (openChainModal) {
         openChainModal();
@@ -3570,7 +3608,7 @@ var WrongNetwork = memo23(() => {
       }
     },
     className: "connect_connect"
-  }, /* @__PURE__ */ React30.createElement("p", null, t("Wrong network")));
+  }, /* @__PURE__ */ React31.createElement("p", null, t("Wrong network")));
 }, isEqual);
 var WrongNetwork_default = WrongNetwork;
 
@@ -3596,17 +3634,17 @@ var RainbowConnectWallet = memo24((props) => {
     }
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location2]);
-  return /* @__PURE__ */ React31.createElement("div", {
+  return /* @__PURE__ */ React32.createElement("div", {
     className: classnames12(
       "connect_connectWallet",
       isPathLocation ? "connect_bgWallet" : "",
       className
     )
-  }, /* @__PURE__ */ React31.createElement(ConnectButton.Custom, null, ({ chain, openConnectModal, mounted }) => {
-    return /* @__PURE__ */ React31.createElement(React31.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React31.createElement("div", {
+  }, /* @__PURE__ */ React32.createElement(ConnectButton.Custom, null, ({ chain, openConnectModal, mounted }) => {
+    return /* @__PURE__ */ React32.createElement(React32.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React32.createElement("div", {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React31.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || UnSupportChainId.includes(chain.id)) ? /* @__PURE__ */ React31.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React31.createElement(rainbow_account_default, {
+    }, /* @__PURE__ */ React32.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || UnSupportChainId.includes(chain.id)) ? /* @__PURE__ */ React32.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React32.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,
@@ -3635,19 +3673,19 @@ var Header = (props) => {
     showLang,
     CountupNumber
   } = props;
-  useEffect10(() => {
+  useEffect11(() => {
     if (isMobile && collapsed === void 0) {
       setSiderCollapse(true);
     }
   }, [isMobile]);
-  return /* @__PURE__ */ React32.createElement("header", {
+  return /* @__PURE__ */ React33.createElement("header", {
     className: classnames13("header_header", props.className),
     style: { position: "sticky", top: 0, zIndex: 9, width: "100%" }
-  }, isMobile && /* @__PURE__ */ React32.createElement("div", {
+  }, isMobile && /* @__PURE__ */ React33.createElement("div", {
     className: "header_left"
-  }, /* @__PURE__ */ React32.createElement(MobileLogo, null)), /* @__PURE__ */ React32.createElement("div", {
+  }, /* @__PURE__ */ React33.createElement(MobileLogo, null)), /* @__PURE__ */ React33.createElement("div", {
     className: "header_right"
-  }, /* @__PURE__ */ React32.createElement(rainbow_connectWallet_default, {
+  }, /* @__PURE__ */ React33.createElement(rainbow_connectWallet_default, {
     showLang,
     useLocation,
     copy,
@@ -3657,25 +3695,25 @@ var Header = (props) => {
     setSuccessToast,
     setErrorToast,
     CountupNumber
-  }), isMobile && !hideMenu ? /* @__PURE__ */ React32.createElement(React32.Fragment, null, collapsed ? /* @__PURE__ */ React32.createElement("div", {
+  }), isMobile && !hideMenu ? /* @__PURE__ */ React33.createElement(React33.Fragment, null, collapsed ? /* @__PURE__ */ React33.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(false)
-  }, /* @__PURE__ */ React32.createElement(icons_default, {
+  }, /* @__PURE__ */ React33.createElement(icons_default, {
     className: classnames13("header_icon"),
     name: "menu"
-  })) : /* @__PURE__ */ React32.createElement("div", {
+  })) : /* @__PURE__ */ React33.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(true)
-  }, /* @__PURE__ */ React32.createElement(icons_default, {
+  }, /* @__PURE__ */ React33.createElement(icons_default, {
     className: classnames13("header_icon", "header_close"),
     name: "close"
-  }))) : null), /* @__PURE__ */ React32.createElement(LinkToBetaDialog_default, null));
+  }))) : null), /* @__PURE__ */ React33.createElement(LinkToBetaDialog_default, null));
 };
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
 import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
-import React33, { useMemo as useMemo11 } from "react";
+import React34, { useMemo as useMemo11 } from "react";
 import { WagmiConfig } from "wagmi";
 var RainbowKitWithThemeProvider = ({
   children,
@@ -3701,9 +3739,9 @@ var RainbowKitWithThemeProvider = ({
   if (!wagmiConfig || !chains || !computedTheme) {
     return null;
   }
-  return /* @__PURE__ */ React33.createElement(WagmiConfig, {
+  return /* @__PURE__ */ React34.createElement(WagmiConfig, {
     config: wagmiConfig
-  }, /* @__PURE__ */ React33.createElement(RainbowKitProvider, {
+  }, /* @__PURE__ */ React34.createElement(RainbowKitProvider, {
     chains,
     appInfo,
     theme: computedTheme
@@ -3713,11 +3751,11 @@ var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState12 } from "recoil";
-import { useEffect as useEffect11 } from "react";
+import { useEffect as useEffect12 } from "react";
 import { ethers as ethers3 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState12(invitationAddressState);
-  useEffect11(() => {
+  useEffect12(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -3736,16 +3774,16 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback14, useEffect as useEffect13, useState as useState8 } from "react";
+import { useCallback as useCallback14, useEffect as useEffect14, useState as useState9 } from "react";
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect12, useRef } from "react";
+import { useEffect as useEffect13, useRef } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef();
-  useEffect12(() => {
+  useEffect13(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect12(() => {
+  useEffect13(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();
@@ -3882,8 +3920,8 @@ var multicall_default = MulticallContract;
 var useRecentGamesFromGraph = ({
   env
 }) => {
-  const [list, setList] = useState8();
-  const [hasError, setHasError] = useState8(false);
+  const [list, setList] = useState9();
+  const [hasError, setHasError] = useState9(false);
   const fetchGameInfos = useCallback14(async () => {
     var _a, _b;
     try {
@@ -3907,7 +3945,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect13(() => {
+  useEffect14(() => {
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 5e4);

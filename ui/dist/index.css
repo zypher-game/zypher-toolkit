@@ -476,6 +476,13 @@
   cursor: pointer;
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SvgComponent/SvgComponent.stylus */
+.svg_component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/SmokeStyle.stylus */
 .h {
   text-align: center;
