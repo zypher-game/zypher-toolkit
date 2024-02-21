@@ -1136,10 +1136,20 @@
   align-items: center;
   gap: 25px;
 }
-.sidebarWrap .communityLink img {
+.sidebarWrap .communityLink a {
   display: block;
   width: 32px;
   height: 32px;
+}
+.sidebarWrap .communityLink a .community_svg {
+  fill: #fff;
+  transition: all 0.3 ease;
+}
+.sidebarWrap .communityLink a .community_svg path {
+  transition: all 0.3 ease;
+}
+.sidebarWrap .communityLink a:hover .community_svg path {
+  fill-opacity: 1;
 }
 @-moz-keyframes glow-animation {
   from {
