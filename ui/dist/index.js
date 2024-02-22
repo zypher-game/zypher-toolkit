@@ -1940,7 +1940,7 @@ var CommunityLink = memo6(({ className }) => {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/discord.svg"
   })), /* @__PURE__ */ React11.createElement("a", {
-    href: "https://substack.com/@zyphergames",
+    href: "https://zyphergames.substack.com",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {

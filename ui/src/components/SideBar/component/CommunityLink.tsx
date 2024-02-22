@@ -30,7 +30,7 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
         />
       </a>
       <a
-        href="https://substack.com/@zyphergames"
+        href="https://zyphergames.substack.com"
         target="_blank"
         rel="noreferrer"
       >
