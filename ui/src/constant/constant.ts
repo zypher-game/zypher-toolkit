@@ -53,23 +53,15 @@ export const DPSupportChainId = [
   ChainId.OPBNB,
 ];
 
-export const UnSupportChainId = [
-  ChainId.ArbitrumGoerli,
-  ChainId.Arbitrum,
-  ChainId.MantleTestnet,
-  ChainId.Mantle,
-  ChainId.MantaPacificTestnet,
-  ChainId.MantaPacificMainnet,
-];
 // export const defaultChainId = ChainId.OPBNB;
 
 export const supportedChainIds = (
-  env: string,
+  env?: string,
   chainList?: ChainId[]
 ): ChainId[] => {
   return chainList
     ? chainList
-    : env === "develop"
+    : !isPro() || env === "develop"
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaTestnet,
@@ -88,9 +80,11 @@ export const supportedChainIds = (
         ChainId.LineaMainnet,
         ChainId.OPBNB,
         ChainId.Arbitrum,
-        ChainId.MantaPacificMainnet,
+        ChainId.ArbitrumGoerli,
+        ChainId.ScrollSepoliaTestnet,
         ChainId.Mantle,
         ChainId.Combo,
+        ChainId.MantaPacificMainnet,
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {

@@ -84,16 +84,8 @@ var DPSupportChainId = [
   5611 /* OPBNBTEST */,
   204 /* OPBNB */
 ];
-var UnSupportChainId = [
-  421613 /* ArbitrumGoerli */,
-  42161 /* Arbitrum */,
-  5001 /* MantleTestnet */,
-  5e3 /* Mantle */,
-  3441005 /* MantaPacificTestnet */,
-  169 /* MantaPacificMainnet */
-];
 var supportedChainIds = (env, chainList2) => {
-  return chainList2 ? chainList2 : env === "develop" ? [
+  return chainList2 ? chainList2 : !isPro() || env === "develop" ? [
     59144 /* LineaMainnet */,
     59140 /* LineaTestnet */,
     204 /* OPBNB */,
@@ -110,9 +102,11 @@ var supportedChainIds = (env, chainList2) => {
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
     42161 /* Arbitrum */,
-    169 /* MantaPacificMainnet */,
+    421613 /* ArbitrumGoerli */,
+    534351 /* ScrollSepoliaTestnet */,
     5e3 /* Mantle */,
-    9980 /* Combo */
+    9980 /* Combo */,
+    169 /* MantaPacificMainnet */
   ];
 };
 var ChainRpcUrls = {
@@ -1044,14 +1038,14 @@ var CurrencyLogo_default = Logo;
 import { useChainId } from "@my/rainbowkit";
 import { useMemo as useMemo2 } from "react";
 import { useAccount, usePublicClient } from "wagmi";
-function useActiveWeb3React() {
+function useActiveWeb3React(env, chainList2) {
   const chainId = useChainId();
   const { address } = useAccount();
   const provider = usePublicClient();
   return useMemo2(() => {
     return {
-      chainId: chainId && UnSupportChainId.includes(chainId) ? void 0 : chainId,
-      account: chainId && UnSupportChainId.includes(chainId) ? void 0 : address,
+      chainId: chainId && supportedChainIds(env).includes(chainId) ? void 0 : chainId,
+      account: chainId && supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -3612,7 +3606,7 @@ var RainbowConnectWallet = memo24((props) => {
     return /* @__PURE__ */ React32.createElement(React32.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React32.createElement("div", {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React32.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || (supportedChainList != null ? supportedChainList : UnSupportChainId).includes(
+    }, /* @__PURE__ */ React32.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || !supportedChainIds(env, supportedChainList).includes(
       chain.id
     )) ? /* @__PURE__ */ React32.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React32.createElement(rainbow_account_default, {
       copy,
@@ -4204,7 +4198,6 @@ export {
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   SideBar_default as SideBar,
-  UnSupportChainId,
   bingoPoints_default as ZkBingoPointsContract,
   accountInfoDialogState,
   appInfo,

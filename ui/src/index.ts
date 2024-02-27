@@ -39,7 +39,6 @@ export {
   ChainId,
   supportedChainIds,
   DPSupportChainId,
-  UnSupportChainId,
   ChainRpcUrls,
   ChainRpcWebSocketUrls,
   BlockExplorerUrls,
