@@ -3,8 +3,6 @@ import { isEqual } from "../../../utils/lodash";
 import React, { memo } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { useInitRainbowFn } from "../../../hooks/useInitRainbowFn";
-
 import { accountInfoDialogState } from "../../ConnectWallet/state/connectWalletState";
 import "./rainbow_connectWallet.stylus";
 import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
@@ -14,7 +12,6 @@ const WrongNetwork = memo(() => {
   const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal();
   const setAccountInfoDialogOpen = useSetRecoilState(accountInfoDialogState);
-  useInitRainbowFn();
   return (
     <div
       onClick={() => {

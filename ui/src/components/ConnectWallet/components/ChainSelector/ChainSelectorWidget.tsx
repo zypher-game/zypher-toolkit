@@ -4,7 +4,7 @@ import React, { memo } from "react";
 import styled from "styled-components";
 
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
-import { useInitRainbowFn } from "../../../../hooks/useInitRainbowFn";
+
 import { useIsMobile } from "../../../../hooks/useWindowSize";
 import * as config from "../../../../constant/constant";
 const StatusI = styled.i<{ isMobile: boolean }>`
@@ -62,7 +62,6 @@ const ChainSelectorWidget = memo(({ className }: IProps) => {
   const { chainId } = useActiveWeb3React();
   const isMobile = useIsMobile();
   const { openChainModal } = useChainModal();
-  useInitRainbowFn();
 
   return chainId ? (
     <Wrapper

@@ -42,16 +42,6 @@ enum ChainId {
   MantleTestnet = 5_001,
 }
 
-export const UnSupportBingoChainId = [
-  ChainId.ArbitrumGoerli,
-  ChainId.MantleTestnet,
-  ChainId.Mantle,
-  ChainId.MantaPacificMainnet,
-  ChainId.MantaPacificTestnet,
-  ChainId.Arbitrum,
-  ChainId.ComboTestnet,
-  ChainId.Combo,
-];
 export function ChainModal({ onClose, open, fn }: ChainModalProps) {
   const { chain: activeChain } = useNetwork();
   const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
@@ -72,20 +62,16 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
 
   const chainClickHandle = useCallback(
     ({ isCurrentChain, chain }: { isCurrentChain: boolean; chain: Chain }) => {
-      if (UnSupportBingoChainId.includes(chain.id)) {
+      if (isCurrentChain) {
+        return;
+      } else {
         if (fn) {
           fn(chain.id);
         } else {
           switchNetwork
             ? switchNetwork(chain.id)
-            : console.error("arb not switchNetwork");
+            : console.error("not switchNetwork");
         }
-      } else {
-        isCurrentChain
-          ? undefined
-          : switchNetwork
-          ? switchNetwork(chain.id)
-          : console.error("not switchNetwork");
       }
     },
     [fn, switchNetwork]

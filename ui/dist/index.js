@@ -2383,7 +2383,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames13 from "classnames";
-import React33, { useEffect as useEffect11 } from "react";
+import React33, { useEffect as useEffect10 } from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -2647,28 +2647,9 @@ var PlayerAvatarList = ({
 var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import { useChainModal as useChainModal2 } from "@my/rainbowkit";
+import { useChainModal } from "@my/rainbowkit";
 import React22, { memo as memo15 } from "react";
 import styled4 from "styled-components";
-
-// src/hooks/useInitRainbowFn.ts
-import { useChainModal } from "@my/rainbowkit";
-import { useEffect as useEffect8 } from "react";
-var useInitRainbowFn = () => {
-  const { setFn, closeChainModal } = useChainModal();
-  useEffect8(() => {
-    if (setFn && closeChainModal) {
-      setFn((_c) => {
-        return true;
-      });
-    }
-    return () => {
-      setFn(void 0);
-    };
-  }, [setFn, closeChainModal]);
-};
-
-// src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
 var StatusI = styled4.i`
   box-sizing: content-box;
   display: inline-block;
@@ -2720,8 +2701,7 @@ var Wrapper = styled4.div`
 var ChainSelectorWidget = memo15(({ className }) => {
   const { chainId } = useActiveWeb3React();
   const isMobile = useIsMobile();
-  const { openChainModal } = useChainModal2();
-  useInitRainbowFn();
+  const { openChainModal } = useChainModal();
   return chainId ? /* @__PURE__ */ React22.createElement(Wrapper, {
     className,
     onClick: openChainModal,
@@ -2902,7 +2882,7 @@ var AccountInfoDialog_default = AccountInfoDialog;
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import BigNumberjs3 from "bignumber.js";
-import React28, { memo as memo21, useCallback as useCallback11, useEffect as useEffect10, useState as useState8 } from "react";
+import React28, { memo as memo21, useCallback as useCallback11, useEffect as useEffect9, useState as useState8 } from "react";
 import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState6 } from "recoil";
 import styled5 from "styled-components";
 
@@ -3208,7 +3188,7 @@ var erc20_default = erc20Contract;
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
 import classnames11 from "classnames";
-import React27, { memo as memo20, useCallback as useCallback10, useEffect as useEffect9 } from "react";
+import React27, { memo as memo20, useCallback as useCallback10, useEffect as useEffect8 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React26, { memo as memo19 } from "react";
@@ -3291,7 +3271,7 @@ var BalanceCountUpItem = memo20(
         onClick();
       }
     }, [onClick]);
-    useEffect9(() => {
+    useEffect8(() => {
       if (mount === 1) {
         setPointsAnimState(true);
         setTimeout(() => {
@@ -3383,7 +3363,7 @@ var Balance = memo21((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider]);
-  useEffect10(() => {
+  useEffect9(() => {
     if (account && chainId) {
       fetchBalanceOf();
     }
@@ -3554,14 +3534,13 @@ var Account = memo22(
 var rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-import { useChainModal as useChainModal3 } from "@my/rainbowkit";
+import { useChainModal as useChainModal2 } from "@my/rainbowkit";
 import React31, { memo as memo23 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 var WrongNetwork = memo23(() => {
   const { t } = useCustomTranslation([LngNs.common]);
-  const { openChainModal } = useChainModal3();
+  const { openChainModal } = useChainModal2();
   const setAccountInfoDialogOpen = useSetRecoilState9(accountInfoDialogState);
-  useInitRainbowFn();
   return /* @__PURE__ */ React31.createElement("div", {
     onClick: () => {
       if (openChainModal) {
@@ -3640,7 +3619,7 @@ var Header = (props) => {
     CountupNumber,
     supportedChainList
   } = props;
-  useEffect11(() => {
+  useEffect10(() => {
     if (isMobile && collapsed === void 0) {
       setSiderCollapse(true);
     }
@@ -3716,6 +3695,23 @@ var RainbowKitWithThemeProvider = ({
   }, children));
 };
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
+
+// src/hooks/useInitRainbowFn.ts
+import { useChainModal as useChainModal3 } from "@my/rainbowkit";
+import { useEffect as useEffect11 } from "react";
+var useInitRainbowFn = () => {
+  const { setFn, closeChainModal } = useChainModal3();
+  useEffect11(() => {
+    if (setFn && closeChainModal) {
+      setFn((_c) => {
+        return true;
+      });
+    }
+    return () => {
+      setFn(void 0);
+    };
+  }, [setFn, closeChainModal]);
+};
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
