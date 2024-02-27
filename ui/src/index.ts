@@ -16,7 +16,6 @@ export {
   IBingoInfo,
   IPlayer,
   IRecentGame,
-  IGameIdInfo,
   IGameList,
 } from "./types/gameList.types";
 import { useWalletClient, useSwitchNetwork } from "wagmi";

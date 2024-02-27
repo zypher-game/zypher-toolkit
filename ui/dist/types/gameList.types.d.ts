@@ -19,12 +19,6 @@ export type IPlayer = {
     cardId: string;
     isAbandoned: boolean;
 };
-type IGameRound = {
-    round: number;
-    number: number;
-    timestamp: number;
-    player: string;
-};
 export type IRecentGame = {
     gameId: number;
     status: string;
@@ -33,16 +27,6 @@ export type IRecentGame = {
     selectedNumbers: number[];
     players: IPlayer[];
 };
-export type IGameIdInfo = [
-    number,
-    number,
-    string,
-    string,
-    string,
-    IPlayer[],
-    IGameRound[],
-    IGameStatus
-];
 export interface IGameList {
     chainId: ChainId;
     status: IGameStatus;
@@ -55,7 +39,6 @@ export interface IGameList {
     roomID: string;
     roomIDStr: string;
     bingoInfo: IBingoInfo;
-    gameIdInfo?: IGameIdInfo;
     inputPerPlayer: string;
     multiplier: string;
     win: string;
@@ -66,4 +49,3 @@ export interface IGameList {
     feeRatio?: string;
     lobbyAddr?: string;
 }
-export {};

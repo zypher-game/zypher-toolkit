@@ -184,7 +184,6 @@ export function formatDataFromGraph({
         cardNumbers,
         selectedNumbers,
       },
-      // gameIdInfo: gameIdInfo,
       inputPerPlayer: inputPerPlayer,
       multiplier: multiplier,
       win: win,
