@@ -3696,30 +3696,13 @@ var RainbowKitWithThemeProvider = ({
 };
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
-// src/hooks/useInitRainbowFn.ts
-import { useChainModal as useChainModal3 } from "@my/rainbowkit";
-import { useEffect as useEffect11 } from "react";
-var useInitRainbowFn = () => {
-  const { setFn, closeChainModal } = useChainModal3();
-  useEffect11(() => {
-    if (setFn && closeChainModal) {
-      setFn((_c) => {
-        return true;
-      });
-    }
-    return () => {
-      setFn(void 0);
-    };
-  }, [setFn, closeChainModal]);
-};
-
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
-import { useEffect as useEffect12 } from "react";
+import { useEffect as useEffect11 } from "react";
 import { ethers as ethers3 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState11(invitationAddressState);
-  useEffect12(() => {
+  useEffect11(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -3738,16 +3721,16 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback14, useEffect as useEffect14, useState as useState9 } from "react";
+import { useCallback as useCallback14, useEffect as useEffect13, useState as useState9 } from "react";
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect13, useRef } from "react";
+import { useEffect as useEffect12, useRef } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef();
-  useEffect13(() => {
+  useEffect12(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect13(() => {
+  useEffect12(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();
@@ -3909,7 +3892,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect14(() => {
+  useEffect13(() => {
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 5e4);
@@ -4156,7 +4139,7 @@ var getRecentGameById = async ({
 
 // src/index.ts
 import { changeLanguage as changeLanguage2 } from "i18next";
-import { useConnectModal, useChainModal as useChainModal4 } from "@my/rainbowkit";
+import { useConnectModal, useChainModal as useChainModal3 } from "@my/rainbowkit";
 export {
   Balance_default as Balance,
   BlockExplorerUrls,
@@ -4255,12 +4238,11 @@ export {
   useActiveChainId,
   useActiveWallet,
   useActiveWeb3React,
-  useChainModal4 as useChainModal,
+  useChainModal3 as useChainModal,
   useConnectModal,
   useCurrentLanguage,
   useCustomTranslation,
   useGetInvitationAddress,
-  useInitRainbowFn,
   useInterval,
   useIsMd,
   useIsMobile,

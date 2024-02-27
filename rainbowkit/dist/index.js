@@ -1,10 +1,10 @@
 "use client";
 import {
-  midnightTheme
-} from "./chunk-KWMHQFSF.js";
-import {
   darkTheme
 } from "./chunk-YV6YBPXO.js";
+import {
+  midnightTheme
+} from "./chunk-KWMHQFSF.js";
 import {
   ConnectButton,
   DesktopOptions,
