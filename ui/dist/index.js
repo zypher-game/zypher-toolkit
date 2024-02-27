@@ -1044,8 +1044,8 @@ function useActiveWeb3React(env, chainList2) {
   const provider = usePublicClient();
   return useMemo2(() => {
     return {
-      chainId: chainId && supportedChainIds(env).includes(chainId) ? void 0 : chainId,
-      account: chainId && supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
+      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -3514,7 +3514,8 @@ var Account = memo22(
     setSuccessToast,
     setErrorToast,
     copy,
-    CountupNumber
+    CountupNumber,
+    supportedChainList
   }) => {
     const isMobile = useIsMobile();
     const setPointsDialogState = useSetRecoilState8(pointsDialogState);
@@ -3525,7 +3526,7 @@ var Account = memo22(
     const showLogoutModal = useCallback13(() => {
       setAccountInfoDialogState(true);
     }, [setAccountInfoDialogState]);
-    const { account } = useActiveWeb3React();
+    const { account } = useActiveWeb3React(env, supportedChainList);
     return /* @__PURE__ */ React30.createElement(React30.Fragment, null, /* @__PURE__ */ React30.createElement(Balance_default, {
       CountupNumber,
       showLang,
@@ -3615,7 +3616,8 @@ var RainbowConnectWallet = memo24((props) => {
       setSuccessToast,
       setErrorToast,
       showLang,
-      CountupNumber
+      CountupNumber,
+      supportedChainList
     }));
   }));
 }, isEqual);

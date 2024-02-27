@@ -16,6 +16,7 @@ import {
   pointsDialogState,
 } from "../../ConnectWallet/state/connectWalletState";
 import PlayerAvatar from "../../PlayerAvatar";
+import { ChainId } from "ui/src/constant/constant";
 
 const AddressWrap = styled.div`
   display: flex;
@@ -61,6 +62,7 @@ const Account = memo(
     setErrorToast,
     copy,
     CountupNumber,
+    supportedChainList,
   }: {
     showLang: boolean;
     env: string;
@@ -69,6 +71,7 @@ const Account = memo(
     copy: any;
     CountupNumber?: React.FC<any>;
     setErrorToast: any;
+    supportedChainList?: ChainId[];
   }) => {
     const isMobile = useIsMobile();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
@@ -79,7 +82,7 @@ const Account = memo(
     const showLogoutModal = useCallback(() => {
       setAccountInfoDialogState(true);
     }, [setAccountInfoDialogState]);
-    const { account } = useActiveWeb3React();
+    const { account } = useActiveWeb3React(env, supportedChainList);
     return (
       <>
         <Balance

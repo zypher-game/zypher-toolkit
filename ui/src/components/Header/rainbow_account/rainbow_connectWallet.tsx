@@ -76,6 +76,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   setErrorToast={setErrorToast}
                   showLang={showLang}
                   CountupNumber={CountupNumber}
+                  supportedChainList={supportedChainList}
                 />
               )}
             </>
