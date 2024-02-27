@@ -3641,7 +3641,8 @@ var Header = (props) => {
     copy,
     useLocation,
     showLang,
-    CountupNumber
+    CountupNumber,
+    supportedChainList
   } = props;
   useEffect11(() => {
     if (isMobile && collapsed === void 0) {
@@ -3664,7 +3665,8 @@ var Header = (props) => {
     dispatch,
     setSuccessToast,
     setErrorToast,
-    CountupNumber
+    CountupNumber,
+    supportedChainList
   }), isMobile && !hideMenu ? /* @__PURE__ */ React33.createElement(React33.Fragment, null, collapsed ? /* @__PURE__ */ React33.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(false)

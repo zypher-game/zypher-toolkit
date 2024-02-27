@@ -41,6 +41,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     useLocation,
     showLang,
     CountupNumber,
+    supportedChainList,
   } = props;
   useEffect(() => {
     if (isMobile && collapsed === undefined) {
@@ -69,6 +70,7 @@ const Header = (props: IProps): React.ReactElement | null => {
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
           CountupNumber={CountupNumber}
+          supportedChainList={supportedChainList}
         />
         {isMobile && !hideMenu ? (
           <>
