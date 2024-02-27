@@ -3,7 +3,7 @@ import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useMemo } from "react";
 
-import { UnSupportChainId } from "../../../constant/constant";
+import { ChainId, UnSupportChainId } from "../../../constant/constant";
 
 import Account from "./rainbow_account";
 import "./rainbow_connectWallet.stylus";
@@ -21,6 +21,7 @@ interface IProps {
   copy: any;
   showLang: boolean;
   CountupNumber?: React.FC<any>;
+  supportedChainList?: ChainId[];
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
@@ -34,6 +35,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
     setErrorToast,
     showLang,
     CountupNumber,
+    supportedChainList,
   } = props;
   const location = useLocation();
   const isPathLocation = useMemo(() => {
@@ -60,7 +62,10 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   <p>{t("Connect Wallet")}</p>
                 </div>
               ) : chain &&
-                (chain.unsupported || UnSupportChainId.includes(chain.id)) ? (
+                (chain.unsupported ||
+                  (supportedChainList ?? UnSupportChainId).includes(
+                    chain.id
+                  )) ? (
                 <WrongNetwork />
               ) : (
                 <Account

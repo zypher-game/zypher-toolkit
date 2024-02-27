@@ -10,6 +10,7 @@ import { MobileLogo } from "../SideBar";
 import "./header.stylus";
 import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { siderCollapseState } from "./state";
+import { ChainId } from "ui/src/constant/constant";
 
 interface IProps {
   env: string;
@@ -23,6 +24,7 @@ interface IProps {
   useLocation: any;
   showLang: boolean;
   CountupNumber?: React.FC<any>;
+  supportedChainList?: ChainId[];
 }
 
 const Header = (props: IProps): React.ReactElement | null => {

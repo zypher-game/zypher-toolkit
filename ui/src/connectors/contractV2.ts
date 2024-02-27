@@ -33,7 +33,7 @@ export const getContract = <
 }: {
   abi: TAbi;
   address: Address;
-  chainId?: ChainId;
+  chainId: ChainId;
   signer?: TWalletClient;
   publicClient?: PublicClient;
   env: string;
