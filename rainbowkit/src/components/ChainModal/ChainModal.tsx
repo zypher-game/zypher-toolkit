@@ -65,12 +65,12 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
       if (isCurrentChain) {
         return;
       } else {
+        switchNetwork
+          ? switchNetwork(chain.id)
+          : console.error("not switchNetwork");
+        console.log(3333, fn);
         if (fn) {
           fn(chain.id);
-        } else {
-          switchNetwork
-            ? switchNetwork(chain.id)
-            : console.error("not switchNetwork");
         }
       }
     },
