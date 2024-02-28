@@ -96,6 +96,7 @@ export { default as LogoutDialog } from "./components/ConnectWallet/components/A
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
 export { default as ChainSelectorWidget } from "./components/ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 export { PointsIcon } from "./components/icons/PointsIcon/PointsIcon";
+export { default as SvgComponent } from "./components/SvgComponent/SvgComponent";
 
 export { default as PointsRuleDialog } from "./components/ConnectWallet/components/PointsDialog/PointsRuleDialog";
 

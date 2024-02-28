@@ -4196,6 +4196,7 @@ export {
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   SideBar_default as SideBar,
+  SvgComponent_default as SvgComponent,
   bingoPoints_default as ZkBingoPointsContract,
   accountInfoDialogState,
   appInfo,
