@@ -129,8 +129,8 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.Combo]: ["https://rpc.combonetwork.io"],
   [ChainId.ComboTestnet]: [
-    "https://combo-testnet.nodereal.io",
-    // 'https://test-rpc.combonetwork.io'
+    // "https://combo-testnet.nodereal.io",
+    "https://test-rpc.combonetwork.io",
   ],
   [ChainId.Mantle]: ["https://mantle.publicnode.com"],
   [ChainId.MantleTestnet]: ["https://rpc.testnet.mantle.xyz"],
