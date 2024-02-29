@@ -902,7 +902,7 @@ var useNavItem = () => {
         label: t("zBingo"),
         keyValue: "2",
         icon: "zBingo.png",
-        link: `${LinkList[0]}${chainId}/`,
+        link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
         disabled: false,
         type: "Games" /* Games */
       },
