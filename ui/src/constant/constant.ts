@@ -55,6 +55,36 @@ export const DPSupportChainId = [
 
 // export const defaultChainId = ChainId.OPBNB;
 
+export const bingoV1SupportedChainId = !isPro()
+  ? [
+      ChainId.LineaMainnet,
+      ChainId.LineaTestnet,
+      ChainId.OPBNB,
+      ChainId.OPBNBTEST,
+    ]
+  : [ChainId.LineaMainnet, ChainId.OPBNB];
+export const bingoBetaSupportedChainId = !isPro()
+  ? [
+      ChainId.Arbitrum,
+      ChainId.ArbitrumGoerli,
+      ChainId.ScrollSepoliaTestnet,
+      ChainId.MantleTestnet,
+      ChainId.Mantle,
+      ChainId.ComboTestnet,
+      ChainId.MantaPacificTestnet,
+      ChainId.MantaPacificMainnet,
+    ]
+  : [
+      ChainId.Arbitrum,
+      ChainId.ArbitrumGoerli,
+      ChainId.ScrollSepoliaTestnet,
+      ChainId.Mantle,
+      ChainId.MantaPacificMainnet,
+    ];
+export const bingoSupportedChainId = [
+  ...bingoV1SupportedChainId,
+  ...bingoBetaSupportedChainId,
+];
 export const supportedChainIds = (
   env?: string,
   chainList?: ChainId[]

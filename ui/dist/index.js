@@ -84,6 +84,32 @@ var DPSupportChainId = [
   5611 /* OPBNBTEST */,
   204 /* OPBNB */
 ];
+var bingoV1SupportedChainId = !isPro() ? [
+  59144 /* LineaMainnet */,
+  59140 /* LineaTestnet */,
+  204 /* OPBNB */,
+  5611 /* OPBNBTEST */
+] : [59144 /* LineaMainnet */, 204 /* OPBNB */];
+var bingoBetaSupportedChainId = !isPro() ? [
+  42161 /* Arbitrum */,
+  421613 /* ArbitrumGoerli */,
+  534351 /* ScrollSepoliaTestnet */,
+  5001 /* MantleTestnet */,
+  5e3 /* Mantle */,
+  91715 /* ComboTestnet */,
+  3441005 /* MantaPacificTestnet */,
+  169 /* MantaPacificMainnet */
+] : [
+  42161 /* Arbitrum */,
+  421613 /* ArbitrumGoerli */,
+  534351 /* ScrollSepoliaTestnet */,
+  5e3 /* Mantle */,
+  169 /* MantaPacificMainnet */
+];
+var bingoSupportedChainId = [
+  ...bingoV1SupportedChainId,
+  ...bingoBetaSupportedChainId
+];
 var supportedChainIds = (env, chainList2) => {
   return chainList2 ? chainList2 : !isPro() || env === "develop" ? [
     59144 /* LineaMainnet */,
@@ -4201,6 +4227,9 @@ export {
   accountInfoDialogState,
   appInfo,
   atom6 as atom,
+  bingoBetaSupportedChainId,
+  bingoSupportedChainId,
+  bingoV1SupportedChainId,
   blankLinkList,
   bnPow10,
   chainIdPre,

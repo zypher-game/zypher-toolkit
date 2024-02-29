@@ -51,6 +51,9 @@ export {
   IContractName,
   zkBingoV0,
   zkBingo,
+  bingoV1SupportedChainId,
+  bingoBetaSupportedChainId,
+  bingoSupportedChainId,
 } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
 

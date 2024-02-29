@@ -30,6 +30,9 @@ export declare enum ChainId {
     MantleTestnet = 5001
 }
 export declare const DPSupportChainId: ChainId[];
+export declare const bingoV1SupportedChainId: ChainId[];
+export declare const bingoBetaSupportedChainId: ChainId[];
+export declare const bingoSupportedChainId: ChainId[];
 export declare const supportedChainIds: (env?: string, chainList?: ChainId[]) => ChainId[];
 export declare const ChainRpcUrls: Record<ChainId, string[]>;
 export declare const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>>;
