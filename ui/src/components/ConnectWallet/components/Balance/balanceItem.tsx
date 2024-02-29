@@ -39,7 +39,7 @@ const BalanceItem = memo(
     }, [onClick]);
     return (
       <div
-        className={classnames(`${className}`, "balance_item_balance")}
+        className={classnames(`${className ?? ""}`, "balance_item_balance")}
         onClick={onClickHandle}
       >
         {preChild}

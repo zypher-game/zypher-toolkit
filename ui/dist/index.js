@@ -3269,7 +3269,7 @@ var BalanceItem = memo20(
       }
     }, [onClick]);
     return /* @__PURE__ */ React27.createElement("div", {
-      className: classnames11(`${className}`, "balance_item_balance"),
+      className: classnames11(`${className != null ? className : ""}`, "balance_item_balance"),
       onClick: onClickHandle
     }, preChild, loading ? /* @__PURE__ */ React27.createElement(LoadingOutlined, null) : /* @__PURE__ */ React27.createElement(React27.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React27.createElement(CountupNumber, {
       value: balance,
@@ -3597,10 +3597,10 @@ var RainbowConnectWallet = memo24((props) => {
   } = props;
   const location2 = useLocation();
   const isPathLocation = useMemo10(() => {
-    const arr = location2.pathname.split("/");
-    if (arr[1] === "") {
-      return window.location.href.indexOf("/bingo/") > -1;
+    if (window.location.href.indexOf("/bingo/") > -1) {
+      return true;
     }
+    const arr = location2.pathname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location2]);
   return /* @__PURE__ */ React32.createElement("div", {

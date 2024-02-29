@@ -39,10 +39,10 @@ const RainbowConnectWallet = memo((props: IProps) => {
   } = props;
   const location = useLocation();
   const isPathLocation = useMemo(() => {
-    const arr = location.pathname.split("/");
-    if (arr[1] === "") {
-      return window.location.href.indexOf("/bingo/") > -1;
+    if (window.location.href.indexOf("/bingo/") > -1) {
+      return true;
     }
+    const arr = location.pathname.split("/");
     return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
   }, [location]);
   return (
