@@ -494,7 +494,7 @@ var localStorageEffect = (key) => ({ setSelf, onSet }) => {
 };
 
 // src/hooks/useNavItem.tsx
-import { useEffect as useEffect4, useMemo } from "react";
+import { useEffect as useEffect4, useMemo as useMemo2 } from "react";
 import { useSetRecoilState } from "recoil";
 
 // src/utils/i18n.ts
@@ -821,6 +821,23 @@ var defaultSelectedKey = atom2({
   effects_UNSTABLE: [localStorageEffect("defaultSelectedKeys")]
 });
 
+// src/hooks/useActiveWeb3React.ts
+import { useChainId } from "@my/rainbowkit";
+import { useMemo } from "react";
+import { useAccount, usePublicClient } from "wagmi";
+function useActiveWeb3React(env, chainList2) {
+  const chainId = useChainId();
+  const { address } = useAccount();
+  const provider = usePublicClient();
+  return useMemo(() => {
+    return {
+      chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
+      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      provider
+    };
+  }, [chainId, address, provider]);
+}
+
 // src/hooks/useNavItem.tsx
 var LinkList = [
   window.location.origin + "/bingo/",
@@ -870,7 +887,8 @@ var usePathname = () => {
 };
 var useNavItem = () => {
   const { t } = useCustomTranslation([LngNs.siderBar]);
-  return useMemo(() => {
+  const { chainId } = useActiveWeb3React();
+  return useMemo2(() => {
     return [
       {
         label: t("Home"),
@@ -884,7 +902,7 @@ var useNavItem = () => {
         label: t("zBingo"),
         keyValue: "2",
         icon: "zBingo.png",
-        link: LinkList[0],
+        link: `${LinkList[0]}${chainId}/`,
         disabled: false,
         type: "Games" /* Games */
       },
@@ -945,7 +963,7 @@ var useNavItem = () => {
         type: "Activities" /* Activities */
       }
     ];
-  }, [t]);
+  }, [t, chainId]);
 };
 
 // src/components/ConnectWallet/state/connectWalletState.ts
@@ -1059,23 +1077,6 @@ var Logo = ({ src, alt, ...rest }) => {
   }));
 };
 var CurrencyLogo_default = Logo;
-
-// src/hooks/useActiveWeb3React.ts
-import { useChainId } from "@my/rainbowkit";
-import { useMemo as useMemo2 } from "react";
-import { useAccount, usePublicClient } from "wagmi";
-function useActiveWeb3React(env, chainList2) {
-  const chainId = useChainId();
-  const { address } = useAccount();
-  const provider = usePublicClient();
-  return useMemo2(() => {
-    return {
-      chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
-      provider
-    };
-  }, [chainId, address, provider]);
-}
 
 // src/utils/tool.tsx
 import BigNumber from "bignumber.js";

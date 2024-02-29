@@ -6,6 +6,7 @@ import { useCustomTranslation } from "./useCustomTranslation";
 import { useIsMobile } from "./useWindowSize";
 import { defaultSelectedKey } from "../components/SideBar/state";
 import { INavLink, INavLinkType } from "./useNavItem.type";
+import { useActiveWeb3React } from "./useActiveWeb3React";
 
 export const LinkList = [
   // "/zBingo",
@@ -70,6 +71,7 @@ export const usePathname = () => {
 
 export const useNavItem = (): INavLink[] => {
   const { t } = useCustomTranslation([LngNs.siderBar]);
+  const { chainId } = useActiveWeb3React();
   return useMemo(() => {
     return [
       {
@@ -84,7 +86,7 @@ export const useNavItem = (): INavLink[] => {
         label: t("zBingo"),
         keyValue: "2",
         icon: "zBingo.png",
-        link: LinkList[0],
+        link: `${LinkList[0]}${chainId}/`,
         disabled: false,
         type: INavLinkType.Games,
       },
@@ -181,5 +183,5 @@ export const useNavItem = (): INavLink[] => {
       // { label: t('GB )Box', keyValue: '4', icon: "gbBox.svg", link: '/gbBox', disabled: false, type: INavLinkType.Activities },
       // { label: t('Shop'), keyValue: '5', icon: 'shop.svg', link: '/shop', disabled: true, type: INavLinkType.Activities }
     ];
-  }, [t]);
+  }, [t, chainId]);
 };
