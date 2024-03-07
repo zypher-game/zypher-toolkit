@@ -2,6 +2,7 @@
 import { Contract, ContractInterface, providers, Signer } from "ethers";
 
 import { ChainRpcUrls } from "../constant/constant";
+import { sample } from "../utils/lodash";
 
 let globalProvider: providers.JsonRpcProvider;
 
@@ -52,7 +53,7 @@ export async function jsonRpcContract(
   abi: ContractInterface,
   chainId: number
 ): Promise<Contract> {
-  const provider = await getProvider(ChainRpcUrls[chainId][0]);
+  const provider = await getProvider(sample(ChainRpcUrls[chainId]));
   return new Contract(address, abi, provider);
 }
 
