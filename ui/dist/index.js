@@ -176,6 +176,8 @@ var ChainRpcUrls = {
   ],
   [9980 /* Combo */]: ["https://rpc.combonetwork.io"],
   [91715 /* ComboTestnet */]: [
+    "https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
+    "https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
     "https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1"
   ],
   [5e3 /* Mantle */]: ["https://mantle.publicnode.com"],
