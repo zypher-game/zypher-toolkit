@@ -157,11 +157,15 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   [ChainId.MantaPacificTestnet]: [
     "https://manta-testnet.calderachain.xyz/http",
   ],
-  [ChainId.Combo]: ["https://rpc.combonetwork.io"],
+  [ChainId.Combo]: [
+    "https://combo-mainnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1",
+    "https://combo-mainnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
+    "https://combo-mainnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
+  ],
   [ChainId.ComboTestnet]: [
-    'https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3',
-    'https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac',
-    'https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1'
+    "https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
+    "https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
+    "https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1",
     // "https://test-rpc.combonetwork.io",
   ],
   [ChainId.Mantle]: ["https://mantle.publicnode.com"],
@@ -394,16 +398,16 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: ["0xd4E91b4401EDb2BD95791462F4ccAaae4026540D"],
   },
   [ChainId.Combo]: {
-    multicall: ["0x7cE161f1BF228929626A1D41ffa468E16605AE6f"],
+    multicall: ["0x67c369D697C7A3B5BAE1cA9AEF0bA32F6d4d815a"],
   },
   [ChainId.ComboTestnet]: {
-    multicall: ["0x7cE161f1BF228929626A1D41ffa468E16605AE6f"],
+    multicall: ["0x4961661f732e995133fDAa7881481BB10e424f78"],
   },
   [ChainId.Mantle]: {
     multicall: [MulticallV3],
   },
   [ChainId.MantleTestnet]: {
-    multicall: [MulticallV3],
+    multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"],
   },
 };
 

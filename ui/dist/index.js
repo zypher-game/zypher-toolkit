@@ -174,7 +174,11 @@ var ChainRpcUrls = {
   [3441005 /* MantaPacificTestnet */]: [
     "https://manta-testnet.calderachain.xyz/http"
   ],
-  [9980 /* Combo */]: ["https://rpc.combonetwork.io"],
+  [9980 /* Combo */]: [
+    "https://combo-mainnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1",
+    "https://combo-mainnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
+    "https://combo-mainnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac"
+  ],
   [91715 /* ComboTestnet */]: [
     "https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
     "https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
@@ -389,16 +393,16 @@ var CurrencyContract = {
     multicall: ["0xd4E91b4401EDb2BD95791462F4ccAaae4026540D"]
   },
   [9980 /* Combo */]: {
-    multicall: ["0x7cE161f1BF228929626A1D41ffa468E16605AE6f"]
+    multicall: ["0x67c369D697C7A3B5BAE1cA9AEF0bA32F6d4d815a"]
   },
   [91715 /* ComboTestnet */]: {
-    multicall: ["0x7cE161f1BF228929626A1D41ffa468E16605AE6f"]
+    multicall: ["0x4961661f732e995133fDAa7881481BB10e424f78"]
   },
   [5e3 /* Mantle */]: {
     multicall: [MulticallV3]
   },
   [5001 /* MantleTestnet */]: {
-    multicall: [MulticallV3]
+    multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {
