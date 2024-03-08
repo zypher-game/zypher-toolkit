@@ -120,7 +120,7 @@ export const supportedChainIds = (
 export const ChainRpcUrls: Record<ChainId, string[]> = {
   [ChainId.LineaTestnet]: [
     "https://rpc.goerli.linea.build",
-    "https://eth-goerli.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
+    "https://linea-goerli.blockpi.network/v1/rpc/public",
   ],
   [ChainId.LineaMainnet]: ["https://rpc.linea.build"],
   [ChainId.Arbitrum]: ["https://arb1.arbitrum.io/rpc"],

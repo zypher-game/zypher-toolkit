@@ -138,7 +138,7 @@ var supportedChainIds = (env, chainList2) => {
 var ChainRpcUrls = {
   [59140 /* LineaTestnet */]: [
     "https://rpc.goerli.linea.build",
-    "https://eth-goerli.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3"
+    "https://linea-goerli.blockpi.network/v1/rpc/public"
   ],
   [59144 /* LineaMainnet */]: ["https://rpc.linea.build"],
   [42161 /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
