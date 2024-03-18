@@ -46,12 +46,14 @@ export enum ChainId {
   Mantle = 5_000,
   MantleTestnet = 5_001,
 }
-export const DPSupportChainId = [
-  ChainId.LineaTestnet,
-  ChainId.LineaMainnet,
-  ChainId.OPBNBTEST,
-  ChainId.OPBNB,
-];
+export const DPSupportChainId = !isPro()
+  ? [
+      ChainId.LineaTestnet,
+      ChainId.LineaMainnet,
+      ChainId.OPBNBTEST,
+      ChainId.OPBNB,
+    ]
+  : [ChainId.LineaMainnet, ChainId.OPBNB];
 
 // export const defaultChainId = ChainId.OPBNB;
 
@@ -110,8 +112,6 @@ export const supportedChainIds = (
         ChainId.LineaMainnet,
         ChainId.OPBNB,
         ChainId.Arbitrum,
-        ChainId.ArbitrumGoerli,
-        ChainId.ScrollSepoliaTestnet,
         ChainId.Mantle,
         ChainId.Combo,
         ChainId.MantaPacificMainnet,

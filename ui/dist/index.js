@@ -78,12 +78,12 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9[ChainId9["MantleTestnet"] = 5001] = "MantleTestnet";
   return ChainId9;
 })(ChainId || {});
-var DPSupportChainId = [
+var DPSupportChainId = !isPro() ? [
   59140 /* LineaTestnet */,
   59144 /* LineaMainnet */,
   5611 /* OPBNBTEST */,
   204 /* OPBNB */
-];
+] : [59144 /* LineaMainnet */, 204 /* OPBNB */];
 var bingoV1SupportedChainId = !isPro() ? [
   59144 /* LineaMainnet */,
   59140 /* LineaTestnet */,
@@ -128,8 +128,6 @@ var supportedChainIds = (env, chainList2) => {
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
     42161 /* Arbitrum */,
-    421613 /* ArbitrumGoerli */,
-    534351 /* ScrollSepoliaTestnet */,
     5e3 /* Mantle */,
     9980 /* Combo */,
     169 /* MantaPacificMainnet */
