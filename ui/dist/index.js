@@ -2749,10 +2749,18 @@ var ChainSelectorWidget = memo15(({ className }) => {
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState7(
     accountInfoDialogState
   );
+  const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState7(pointsDialogState);
+  const [siderCollapse, setSiderCollapse] = useRecoilState7(siderCollapseState);
   const { openChainModal } = useChainModal();
   const openChainModalHandle = useCallback9(() => {
     if (accountInfoDialogOpen) {
       setAccountInfoDialogOpen(false);
+    }
+    if (pointsDialogOpen) {
+      setPointsDialogOpen(false);
+    }
+    if (siderCollapse) {
+      setSiderCollapse(false);
     }
     if (openChainModal) {
       openChainModal();

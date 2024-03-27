@@ -8,7 +8,11 @@ import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { useIsMobile } from "../../../../hooks/useWindowSize";
 import * as config from "../../../../constant/constant";
 import { useRecoilState } from "recoil";
-import { accountInfoDialogState } from "../../state/connectWalletState";
+import {
+  accountInfoDialogState,
+  pointsDialogState,
+} from "../../state/connectWalletState";
+import { siderCollapseState } from "../../../Header/state";
 const StatusI = styled.i<{ isMobile: boolean }>`
   box-sizing: content-box;
   display: inline-block;
@@ -66,10 +70,21 @@ const ChainSelectorWidget = memo(({ className }: IProps) => {
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
     accountInfoDialogState
   );
+  const [pointsDialogOpen, setPointsDialogOpen] =
+    useRecoilState(pointsDialogState);
+
+  const [siderCollapse, setSiderCollapse] = useRecoilState(siderCollapseState);
+
   const { openChainModal } = useChainModal();
   const openChainModalHandle = useCallback(() => {
     if (accountInfoDialogOpen) {
       setAccountInfoDialogOpen(false);
+    }
+    if (pointsDialogOpen) {
+      setPointsDialogOpen(false);
+    }
+    if (siderCollapse) {
+      setSiderCollapse(false);
     }
     if (openChainModal) {
       openChainModal();
