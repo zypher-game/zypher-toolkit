@@ -109,6 +109,7 @@ export const supportedChainIds = (
         ChainId.MantleTestnet,
         ChainId.ComboTestnet,
         ChainId.Combo,
+        ChainId.Sepolia,
       ]
     : [
         ChainId.LineaMainnet,

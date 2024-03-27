@@ -1,12 +1,14 @@
 import { useChainModal } from "@my/rainbowkit";
 import { isEqual } from "../../../../utils/lodash";
-import React, { memo } from "react";
+import React, { memo, useCallback } from "react";
 import styled from "styled-components";
 
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 
 import { useIsMobile } from "../../../../hooks/useWindowSize";
 import * as config from "../../../../constant/constant";
+import { useRecoilState } from "recoil";
+import { accountInfoDialogState } from "../../state/connectWalletState";
 const StatusI = styled.i<{ isMobile: boolean }>`
   box-sizing: content-box;
   display: inline-block;
@@ -61,12 +63,22 @@ type IProps = {
 const ChainSelectorWidget = memo(({ className }: IProps) => {
   const { chainId } = useActiveWeb3React();
   const isMobile = useIsMobile();
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
+    accountInfoDialogState
+  );
   const { openChainModal } = useChainModal();
-
+  const openChainModalHandle = useCallback(() => {
+    if (accountInfoDialogOpen) {
+      setAccountInfoDialogOpen(false);
+    }
+    if (openChainModal) {
+      openChainModal();
+    }
+  }, [openChainModal]);
   return chainId ? (
     <Wrapper
       className={className}
-      onClick={openChainModal}
+      onClick={openChainModalHandle}
       style={{ cursor: "pointer" }}
     >
       <div className="img">

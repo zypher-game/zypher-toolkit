@@ -1173,13 +1173,6 @@
     "@motionone/dom" "^10.16.2"
     tslib "^2.3.1"
 
-"@my/rainbowkit@../rainbowkit":
-  version "1.0.10"
-  dependencies:
-    clsx "1.1.1"
-    qrcode "1.5.0"
-    react-remove-scroll "2.5.4"
-
 "@noble/curves@1.2.0", "@noble/curves@^1.0.0", "@noble/curves@~1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.2.0.tgz#92d7e12e4e49b23105a2555c6984d41733d65c35"

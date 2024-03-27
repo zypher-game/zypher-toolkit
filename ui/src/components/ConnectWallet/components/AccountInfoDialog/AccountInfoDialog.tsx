@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 import { useActiveWallet } from "../../../../hooks/useActiveWallet";
@@ -29,6 +29,11 @@ const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
     setAccountInfoDialogOpen(false);
     disconnect();
   }, [disconnect]);
+  useEffect(() => {
+    if (accountInfoDialogOpen && isMobile) {
+      setAccountInfoDialogOpen(false);
+    }
+  }, [isMobile]);
   return account && chainId ? (
     <>
       <Modal
