@@ -76,6 +76,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9[ChainId9["ComboTestnet"] = 91715] = "ComboTestnet";
   ChainId9[ChainId9["Mantle"] = 5e3] = "Mantle";
   ChainId9[ChainId9["MantleTestnet"] = 5001] = "MantleTestnet";
+  ChainId9[ChainId9["Sepolia"] = 11155111] = "Sepolia";
   return ChainId9;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
@@ -183,7 +184,8 @@ var ChainRpcUrls = {
     "https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1"
   ],
   [5e3 /* Mantle */]: ["https://mantle.publicnode.com"],
-  [5001 /* MantleTestnet */]: ["https://rpc.testnet.mantle.xyz"]
+  [5001 /* MantleTestnet */]: ["https://rpc.testnet.mantle.xyz"],
+  [11155111 /* Sepolia */]: ["https://sepolia.infura.io/v3/"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -212,7 +214,8 @@ var BlockExplorerUrls = {
   [91715 /* ComboTestnet */]: ["https://combotrace-testnet.nodereal.io/"],
   [5e3 /* Mantle */]: ["https://explorer.mantle.xyz"],
   [5001 /* MantleTestnet */]: ["https://explorer.testnet.mantle.xyz"],
-  [9980 /* Combo */]: ["https://combotrace.nodereal.io"]
+  [9980 /* Combo */]: ["https://combotrace.nodereal.io"],
+  [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"]
 };
 var ChainName = {
   [56 /* Mainnet */]: "BSC Mainnet",
@@ -233,7 +236,8 @@ var ChainName = {
   [91715 /* ComboTestnet */]: "Combo Testnet",
   [5e3 /* Mantle */]: "Mantle",
   [5001 /* MantleTestnet */]: "Mantle Testnet",
-  [9980 /* Combo */]: "Combo"
+  [9980 /* Combo */]: "Combo",
+  [11155111 /* Sepolia */]: "Sepolia"
 };
 var ChainNetworkName = {
   [56 /* Mainnet */]: "bsc",
@@ -254,7 +258,8 @@ var ChainNetworkName = {
   [9980 /* Combo */]: "Combo",
   [91715 /* ComboTestnet */]: "Combo Testnet",
   [5e3 /* Mantle */]: "Mantle",
-  [5001 /* MantleTestnet */]: "Mantle Testnet"
+  [5001 /* MantleTestnet */]: "Mantle Testnet",
+  [11155111 /* Sepolia */]: "Sepolia"
 };
 var isTestnet = {
   [56 /* Mainnet */]: false,
@@ -275,7 +280,8 @@ var isTestnet = {
   [9980 /* Combo */]: false,
   [91715 /* ComboTestnet */]: true,
   [5e3 /* Mantle */]: false,
-  [5001 /* MantleTestnet */]: true
+  [5001 /* MantleTestnet */]: true,
+  [11155111 /* Sepolia */]: true
 };
 var ChainImage = {
   [56 /* Mainnet */]: preStaticUrl + "/img/bsc.png",
@@ -296,7 +302,8 @@ var ChainImage = {
   [9980 /* Combo */]: preStaticUrl + "/crypto/chain/9980.svg",
   [91715 /* ComboTestnet */]: preStaticUrl + "/img/combo.svg",
   [5e3 /* Mantle */]: preStaticUrl + "/img/MNT.webp",
-  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp"
+  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp",
+  [11155111 /* Sepolia */]: preStaticUrl + "/img/ethereum.png"
 };
 var Currency = {
   [56 /* Mainnet */]: "BNB",
@@ -317,7 +324,8 @@ var Currency = {
   [9980 /* Combo */]: "BNB",
   [91715 /* ComboTestnet */]: "BNB",
   [5e3 /* Mantle */]: "MNT",
-  [5001 /* MantleTestnet */]: "MNT"
+  [5001 /* MantleTestnet */]: "MNT",
+  [11155111 /* Sepolia */]: "ETH"
 };
 var CurrencyLogo = {
   [56 /* Mainnet */]: preStaticUrl + "/img/bnb.svg",
@@ -338,7 +346,8 @@ var CurrencyLogo = {
   [9980 /* Combo */]: preStaticUrl + "/img/bnb.svg",
   [91715 /* ComboTestnet */]: preStaticUrl + "/img/bnb.svg",
   [5e3 /* Mantle */]: preStaticUrl + "/img/MNT.webp",
-  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp"
+  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp",
+  [11155111 /* Sepolia */]: preStaticUrl + "/img/ethereum.png"
 };
 var MulticallV3 = "0xca11bde05977b3631167028862be2a173976ca11";
 var CurrencyContract = {
@@ -401,6 +410,9 @@ var CurrencyContract = {
   },
   [5001 /* MantleTestnet */]: {
     multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"]
+  },
+  [11155111 /* Sepolia */]: {
+    multicall: [MulticallV3]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {

@@ -27,7 +27,8 @@ export declare enum ChainId {
     Combo = 9980,
     ComboTestnet = 91715,
     Mantle = 5000,
-    MantleTestnet = 5001
+    MantleTestnet = 5001,
+    Sepolia = 11155111
 }
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];

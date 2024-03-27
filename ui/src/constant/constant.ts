@@ -45,6 +45,8 @@ export enum ChainId {
   ComboTestnet = 91_715,
   Mantle = 5_000,
   MantleTestnet = 5_001,
+
+  Sepolia = 11_155_111,
 }
 export const DPSupportChainId = !isPro()
   ? [
@@ -170,6 +172,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.Mantle]: ["https://mantle.publicnode.com"],
   [ChainId.MantleTestnet]: ["https://rpc.testnet.mantle.xyz"],
+  [ChainId.Sepolia]: ["https://sepolia.infura.io/v3/"],
 };
 export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
   [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -200,6 +203,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Mantle]: ["https://explorer.mantle.xyz"],
   [ChainId.MantleTestnet]: ["https://explorer.testnet.mantle.xyz"],
   [ChainId.Combo]: ["https://combotrace.nodereal.io"],
+  [ChainId.Sepolia]: ["https://sepolia.etherscan.io"],
 };
 
 export const ChainBridge: { [key: number]: string } = {
@@ -229,6 +233,7 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.Mantle]: "Mantle",
   [ChainId.MantleTestnet]: "Mantle Testnet",
   [ChainId.Combo]: "Combo",
+  [ChainId.Sepolia]: "Sepolia",
 };
 export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Mainnet]: "bsc",
@@ -251,6 +256,7 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.ComboTestnet]: "Combo Testnet",
   [ChainId.Mantle]: "Mantle",
   [ChainId.MantleTestnet]: "Mantle Testnet",
+  [ChainId.Sepolia]: "Sepolia",
 };
 
 export const isTestnet: Record<ChainId, boolean> = {
@@ -273,6 +279,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.ComboTestnet]: true,
   [ChainId.Mantle]: false,
   [ChainId.MantleTestnet]: true,
+  [ChainId.Sepolia]: true,
 };
 
 export const ChainImage: Record<ChainId, string> = {
@@ -295,6 +302,7 @@ export const ChainImage: Record<ChainId, string> = {
   [ChainId.ComboTestnet]: preStaticUrl + "/img/combo.svg",
   [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
   [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",
+  [ChainId.Sepolia]: preStaticUrl + "/img/ethereum.png",
 };
 export const Currency: Record<ChainId, string> = {
   [ChainId.Mainnet]: "BNB",
@@ -316,6 +324,7 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.ComboTestnet]: "BNB",
   [ChainId.Mantle]: "MNT",
   [ChainId.MantleTestnet]: "MNT",
+  [ChainId.Sepolia]: "ETH",
 };
 
 export const CurrencyLogo: Record<ChainId, string> = {
@@ -338,6 +347,7 @@ export const CurrencyLogo: Record<ChainId, string> = {
   [ChainId.ComboTestnet]: preStaticUrl + "/img/bnb.svg",
   [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
   [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",
+  [ChainId.Sepolia]: preStaticUrl + "/img/ethereum.png",
 };
 
 interface IExternalMarketContract {
@@ -408,6 +418,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   },
   [ChainId.MantleTestnet]: {
     multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"],
+  },
+  [ChainId.Sepolia]: {
+    multicall: [MulticallV3],
   },
 };
 
