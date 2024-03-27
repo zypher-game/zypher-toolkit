@@ -4277,6 +4277,7 @@ export {
   getUTCSeconds,
   graphqlApiUrl,
   hidePointsWarnState,
+  isPro,
   isTestnet,
   isTimeout,
   linkToBetaDialogChainIdState,

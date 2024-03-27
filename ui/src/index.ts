@@ -54,6 +54,7 @@ export {
   bingoV1SupportedChainId,
   bingoBetaSupportedChainId,
   bingoSupportedChainId,
+  isPro,
 } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
 
