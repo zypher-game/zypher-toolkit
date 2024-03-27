@@ -186,7 +186,10 @@ var ChainRpcUrls = {
   ],
   [5e3 /* Mantle */]: ["https://mantle.publicnode.com"],
   [5001 /* MantleTestnet */]: ["https://rpc.testnet.mantle.xyz"],
-  [11155111 /* Sepolia */]: ["https://sepolia.infura.io/v3/"]
+  [11155111 /* Sepolia */]: [
+    "https://endpoints.omniatech.io/v1/eth/sepolia/public",
+    "https://ethereum-sepolia-rpc.publicnode.com"
+  ]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],

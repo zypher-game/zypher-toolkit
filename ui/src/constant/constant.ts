@@ -173,7 +173,10 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.Mantle]: ["https://mantle.publicnode.com"],
   [ChainId.MantleTestnet]: ["https://rpc.testnet.mantle.xyz"],
-  [ChainId.Sepolia]: ["https://sepolia.infura.io/v3/"],
+  [ChainId.Sepolia]: [
+    "https://endpoints.omniatech.io/v1/eth/sepolia/public",
+    "https://ethereum-sepolia-rpc.publicnode.com",
+  ],
 };
 export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
   [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
