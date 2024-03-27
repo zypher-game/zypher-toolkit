@@ -83,8 +83,8 @@ const ChainSelectorWidget = memo(({ className }: IProps) => {
     if (pointsDialogOpen) {
       setPointsDialogOpen(false);
     }
-    if (siderCollapse) {
-      setSiderCollapse(false);
+    if (!siderCollapse) {
+      setSiderCollapse(true);
     }
     if (openChainModal) {
       openChainModal();

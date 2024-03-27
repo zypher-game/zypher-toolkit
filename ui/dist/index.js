@@ -2759,8 +2759,8 @@ var ChainSelectorWidget = memo15(({ className }) => {
     if (pointsDialogOpen) {
       setPointsDialogOpen(false);
     }
-    if (siderCollapse) {
-      setSiderCollapse(false);
+    if (!siderCollapse) {
+      setSiderCollapse(true);
     }
     if (openChainModal) {
       openChainModal();
