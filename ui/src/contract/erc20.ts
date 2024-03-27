@@ -17,5 +17,5 @@ const erc20Contract = (
   }
   return getContract({ env, abi, address, signer, chainId });
 };
-
+export const erc20Abi = abi;
 export default erc20Contract;

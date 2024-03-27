@@ -3255,6 +3255,7 @@ var erc20Contract = (chainId, env, address, signer) => {
   }
   return getContract({ env, abi: erc20Abi_default, address, signer, chainId });
 };
+var erc20Abi = erc20Abi_default;
 var erc20_default = erc20Contract;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
@@ -4286,6 +4287,7 @@ export {
   divisor6xBigNumber,
   divisorBigNumber,
   eX,
+  erc20Abi,
   erc20_default as erc20Contract,
   filterInput,
   formatCurrency,

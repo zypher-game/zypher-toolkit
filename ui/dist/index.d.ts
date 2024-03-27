@@ -46,7 +46,7 @@ export { changeLanguage };
 export { LngNs } from "./utils/i18n";
 export { getProvider } from "./connectors/contract";
 export { getContract, getContractFromRpc } from "./connectors/contractV2";
-export { default as erc20Contract } from "./contract/erc20";
+export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";
 import { useConnectModal, useChainModal } from "@my/rainbowkit";
