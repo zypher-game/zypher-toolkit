@@ -74,6 +74,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ScrollSepoliaTestnet,
       ChainId.MantleTestnet,
       ChainId.Mantle,
+      ChainId.Combo,
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
@@ -84,6 +85,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ScrollSepoliaTestnet,
       ChainId.Mantle,
       ChainId.MantaPacificMainnet,
+      ChainId.Combo,
     ];
 export const bingoSupportedChainId = [
   ...bingoV1SupportedChainId,

@@ -97,6 +97,7 @@ var bingoBetaSupportedChainId = !isPro() ? [
   534351 /* ScrollSepoliaTestnet */,
   5001 /* MantleTestnet */,
   5e3 /* Mantle */,
+  9980 /* Combo */,
   91715 /* ComboTestnet */,
   3441005 /* MantaPacificTestnet */,
   169 /* MantaPacificMainnet */
@@ -105,7 +106,8 @@ var bingoBetaSupportedChainId = !isPro() ? [
   421613 /* ArbitrumGoerli */,
   534351 /* ScrollSepoliaTestnet */,
   5e3 /* Mantle */,
-  169 /* MantaPacificMainnet */
+  169 /* MantaPacificMainnet */,
+  9980 /* Combo */
 ];
 var bingoSupportedChainId = [
   ...bingoV1SupportedChainId,
