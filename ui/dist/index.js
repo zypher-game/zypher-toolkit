@@ -103,8 +103,6 @@ var bingoBetaSupportedChainId = !isPro() ? [
   169 /* MantaPacificMainnet */
 ] : [
   42161 /* Arbitrum */,
-  421613 /* ArbitrumGoerli */,
-  534351 /* ScrollSepoliaTestnet */,
   5e3 /* Mantle */,
   169 /* MantaPacificMainnet */,
   9980 /* Combo */
