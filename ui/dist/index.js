@@ -862,7 +862,7 @@ function useActiveWeb3React(env, chainList2) {
 var LinkList = [
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  "https://test.zypher.game/zAce/",
+  isPro() ? "https://test.zypher.game/zAce/" : "https://testnet.acequest.io/zAce/",
   "https://test.zypher.game/CryptoRumble/",
   "",
   "",
