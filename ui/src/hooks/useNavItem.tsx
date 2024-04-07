@@ -7,12 +7,15 @@ import { useIsMobile } from "./useWindowSize";
 import { defaultSelectedKey } from "../components/SideBar/state";
 import { INavLink, INavLinkType } from "./useNavItem.type";
 import { useActiveWeb3React } from "./useActiveWeb3React";
+import { isPro } from "../constant/constant";
 
 export const LinkList = [
   // "/zBingo",
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  "https://test.zypher.game/zAce/",
+  isPro()
+    ? "https://test.zypher.game/zAce/"
+    : "https://testnet.acequest.io/zAce/",
   "https://test.zypher.game/CryptoRumble/",
   "", //game_tcg.jpg
   "", //game_mahjong.jpg
