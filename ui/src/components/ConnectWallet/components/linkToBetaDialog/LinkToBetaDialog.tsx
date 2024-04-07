@@ -30,7 +30,7 @@ const DialogButton = styled.div`
 
   color: #fff;
   text-align: center;
-  font-family: Poppins;
+  font-family: PixeloidSans;
   font-size: 16px;
   cursor: pointer;
   display: flex;
@@ -40,7 +40,7 @@ const DialogButton = styled.div`
 const Text = styled.div`
   color: #fff;
   text-align: center;
-  font-family: Poppins;
+  font-family: PixeloidSans;
   font-size: 14px;
   padding-top: 30px;
 `;

@@ -10,7 +10,7 @@
   border-radius: 20px 20px 0 0
  
   .dialog_title_title
-    font-family: 'Poppins'
+    font-family: 'PixeloidSans'
     font-style: normal
     font-weight: 500
     font-size: 16px

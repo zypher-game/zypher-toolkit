@@ -198,7 +198,7 @@
   border-radius: 20px 20px 0 0;
 }
 .dialog_title_modalTitleInner .dialog_title_title {
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
   font-style: normal;
   font-weight: 500;
   font-size: 16px;
@@ -1087,7 +1087,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
 }
 .sidebarWrap .logo {
   position: fixed;
@@ -1382,7 +1382,7 @@
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -1614,7 +1614,7 @@
   border-radius: 8px;
 }
 .pc_user_pc_content .pc_user_box .pc_user_tit {
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -1637,7 +1637,7 @@
 }
 .pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
   color: var(--var-text-light);
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
   font-style: normal;
   font-weight: 500;
   font-size: 20px;
@@ -1673,7 +1673,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
   font-style: normal;
   font-weight: 400;
   font-size: 14px;
@@ -1982,7 +1982,7 @@
 .connect_connectWallet div.connect_connect p {
   flex: 1;
   text-align: center;
-  font-family: "Poppins";
+  font-family: "PixeloidSans";
   font-weight: 600;
   color: var(--var-text-light);
   transition: all 0.3s;

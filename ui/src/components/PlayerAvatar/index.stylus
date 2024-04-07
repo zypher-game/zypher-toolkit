@@ -2,7 +2,7 @@
   display: inline-flex
   flex-direction: column
   align-items: center
-  font-family: 'Poppins'
+  font-family: 'PixeloidSans'
   font-style: normal
   font-weight: 400
   font-size: 14px
