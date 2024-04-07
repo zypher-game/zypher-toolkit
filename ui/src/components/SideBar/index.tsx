@@ -18,10 +18,14 @@ interface IProps {
   useNavigate: any;
   className?: string;
 }
-export const MobileLogo = memo(() => {
+export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
   return (
-    <a href={"/"} target="_black">
-      <img src={preStaticUrl + "/img/layout/logo-min.svg"} />
+    <a href={"/"} target="_black" className="zypher_logo">
+      {isMobile ? (
+        <img src={preStaticUrl + "/img/layout/logo-min.svg"} />
+      ) : (
+        <img src={preStaticUrl + "/img/tvl/logo.svg"} />
+      )}
       <img src={preStaticUrl + "/img/layout/ai.svg"} />
     </a>
   );

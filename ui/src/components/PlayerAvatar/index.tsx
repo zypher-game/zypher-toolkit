@@ -11,6 +11,7 @@ import "./index.stylus";
 import Avatar from "../Avatar/Avatar";
 import { useCustomTranslation } from "../../hooks/useCustomTranslation";
 import { LngNs } from "../../utils/i18n";
+import { HeaderUIType } from "../Header/header";
 
 interface IPlayerAvatar {
   className?: string;
@@ -25,6 +26,7 @@ interface IPlayerAvatar {
   preLen?: number;
   endLen?: number;
   otherStr?: string;
+  type?: HeaderUIType;
 }
 
 const PlayerAvatar: React.FC<IPlayerAvatar> = ({
@@ -38,7 +40,8 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = ({
   preLen,
   endLen,
   otherStr,
-}) => {
+  type = "other",
+}: IPlayerAvatar) => {
   const { t } = useCustomTranslation([LngNs.zBingo]);
   const { selectedAvatar, selectedBackground } = generateAvatar(account);
   return (
@@ -46,6 +49,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = ({
       {account ? (
         <AvatarBorder>
           <Avatar
+            type={type}
             size={size}
             src={selectedAvatar}
             style={

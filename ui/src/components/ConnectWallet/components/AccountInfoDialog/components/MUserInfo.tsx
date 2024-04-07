@@ -21,7 +21,7 @@ import { DisconnectBtn, IUserInfoProps } from "./PcUserInfo";
 import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../../utils/i18n";
 
-const MUserInfo = memo(({ account, chainId, cancel }: IUserInfoProps) => {
+const MUserInfo = memo(({ account, chainId, cancel, type }: IUserInfoProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
@@ -48,6 +48,7 @@ const MUserInfo = memo(({ account, chainId, cancel }: IUserInfoProps) => {
   return (
     <div className={"m_user_m_content"}>
       <ChainSelectorWidget
+        type={type}
         className={classnames("m_user_border", "m_user_chain")}
       />
       <div className={"m_user_border"}>

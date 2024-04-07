@@ -1,18 +1,12 @@
-div div.connect
-  border-radius: 8px;
-  background-color: #6673FF;
-  border: 1px solid #6673FF
-  &:hover
-    background-color: var(--var-btn-hover)
-    border: 1px solid var(--var-btn-hover)
-  p
-    flex: 1
-    text-align: center
-    font-family: 'Poppins'
-    font-weight: 600
-    color: var(--var-text-light)
-    transition: all 0.3s
-    padding: 0 14px
-    
-    @media screen and (max-width: 768px)
-      padding: 0 12px
+.address_wrap
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+  .account 
+    display: flex;
+    flex-direction: row-reverse;
+    gap: 9px;
+    p 
+      padding-left: 14px;
+ 

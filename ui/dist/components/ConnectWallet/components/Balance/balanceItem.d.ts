@@ -1,5 +1,6 @@
 import React from "react";
 import "./balance.stylus";
+import { HeaderUIType } from "ui/src/components/Header/header";
 type IProps = {
     loading: boolean;
     balanceStr?: string;
@@ -9,7 +10,8 @@ type IProps = {
     onClick?: any;
     balance?: number;
     CountupNumber?: React.FC<any>;
+    type: HeaderUIType;
 };
-declare const BalanceItem: React.MemoExoticComponent<({ className, loading, balanceStr, logo, preChild, onClick, CountupNumber, balance, }: IProps) => React.JSX.Element>;
-export declare const BalanceCountUpItem: React.MemoExoticComponent<({ className, loading, balance, logo, preChild, onClick, CountupNumber, balanceStr, }: IProps) => React.JSX.Element>;
+declare const BalanceItem: React.MemoExoticComponent<({ className, loading, balanceStr, logo, preChild, onClick, CountupNumber, balance, type, }: IProps) => React.JSX.Element>;
+export declare const BalanceCountUpItem: React.MemoExoticComponent<({ className, loading, balance, logo, preChild, onClick, CountupNumber, balanceStr, type, }: IProps) => React.JSX.Element>;
 export default BalanceItem;

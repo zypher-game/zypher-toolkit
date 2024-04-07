@@ -1,7 +1,9 @@
 import React from "react";
 import "./header.stylus";
 import { ChainId } from "ui/src/constant/constant";
+export type HeaderUIType = "pixel" | "other";
 interface IProps {
+    type: HeaderUIType;
     env: string;
     dispatch: any;
     setSuccessToast: any;

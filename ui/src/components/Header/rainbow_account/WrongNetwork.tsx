@@ -7,13 +7,16 @@ import { accountInfoDialogState } from "../../ConnectWallet/state/connectWalletS
 import "./rainbow_connectWallet.stylus";
 import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
+import IsPixelWidget from "./IsPixelWidget";
+import { HeaderUIType } from "../header";
 
-const WrongNetwork = memo(() => {
+const WrongNetwork = memo(({ type }: { type: HeaderUIType }) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal();
   const setAccountInfoDialogOpen = useSetRecoilState(accountInfoDialogState);
   return (
-    <div
+    <IsPixelWidget
+      type={type}
       onClick={() => {
         if (openChainModal) {
           openChainModal();
@@ -23,7 +26,7 @@ const WrongNetwork = memo(() => {
       className={"connect_connect"}
     >
       <p>{t("Wrong network")}</p>
-    </div>
+    </IsPixelWidget>
   );
 }, isEqual);
 export default WrongNetwork;

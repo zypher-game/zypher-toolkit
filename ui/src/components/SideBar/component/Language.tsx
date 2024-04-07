@@ -8,8 +8,9 @@ import { preStaticUrl } from "../../../constant/constant";
 import { useCurrentLanguage } from "../../../hooks/useCurrentLanguage";
 import classnames from "classnames";
 import "./Language.stylus";
+import PixelFlatBtn from "../../PixelBtn/PixelFlatBtn";
 type IProps = {
-  type: "side" | "top";
+  type: "side" | "top" | "pixel";
 };
 export const languageList = [
   {
@@ -42,7 +43,14 @@ const Language = memo(({ type }: IProps) => {
   }, []);
   return (
     <div
-      className={classnames(type === "top" ? "language_top" : "", "language")}
+      className={classnames(
+        type === "pixel"
+          ? "language_pixel"
+          : type === "top"
+          ? "language_top"
+          : "",
+        "language"
+      )}
     >
       <div
         className={classnames("horListItem", "languageItem")}
@@ -62,6 +70,13 @@ const Language = memo(({ type }: IProps) => {
               className="img_lang"
             />
           </>
+        ) : type === "pixel" ? (
+          <PixelFlatBtn className="pixel_logo">
+            <img
+              src={preStaticUrl + `/img/layout/${lang}.png`}
+              className="pixel_img_lang"
+            />
+          </PixelFlatBtn>
         ) : (
           <>
             <p>{t("language")}</p>

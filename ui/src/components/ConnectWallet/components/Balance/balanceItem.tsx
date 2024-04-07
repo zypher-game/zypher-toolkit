@@ -1,5 +1,4 @@
 import { LoadingOutlined } from "@ant-design/icons";
-import classnames from "classnames";
 import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useCallback, useEffect } from "react";
 
@@ -10,6 +9,8 @@ import {
   pointsAnimNumState,
   pointsAnimState,
 } from "../../state/connectWalletState";
+import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
+import { HeaderUIType } from "ui/src/components/Header/header";
 
 type IProps = {
   loading: boolean;
@@ -20,6 +21,7 @@ type IProps = {
   onClick?: any;
   balance?: number;
   CountupNumber?: React.FC<any>;
+  type: HeaderUIType;
 };
 const BalanceItem = memo(
   ({
@@ -31,6 +33,7 @@ const BalanceItem = memo(
     onClick,
     CountupNumber,
     balance,
+    type,
   }: IProps) => {
     const onClickHandle = useCallback(() => {
       if (onClick) {
@@ -38,8 +41,11 @@ const BalanceItem = memo(
       }
     }, [onClick]);
     return (
-      <div
-        className={classnames(`${className ?? ""}`, "balance_item_balance")}
+      <IsPixelWidget
+        type={type}
+        className={`balance_item_balance
+        ${className ?? ""}
+        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`}
         onClick={onClickHandle}
       >
         {preChild}
@@ -60,7 +66,7 @@ const BalanceItem = memo(
             {logo}
           </>
         )}
-      </div>
+      </IsPixelWidget>
     );
   },
   isEqual
@@ -75,6 +81,7 @@ export const BalanceCountUpItem = memo(
     onClick,
     CountupNumber,
     balanceStr,
+    type,
   }: IProps) => {
     const setPointsAnimState = useSetRecoilState(pointsAnimState);
     const [mount, setMount] = useRecoilState(pointsAnimNumState);
@@ -94,13 +101,12 @@ export const BalanceCountUpItem = memo(
     }, [mount]);
 
     return (
-      <div
-        className={classnames(
-          `${className}`,
-          "balance_item_balance",
-          "balance_item_balance_point"
-        )}
+      <IsPixelWidget
+        className={`balance_item_balance_point balance_item_balance 
+        ${className ?? ""}
+        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`}
         onClick={onClickHandle}
+        type={type}
       >
         {preChild}
         {loading ? (
@@ -121,7 +127,7 @@ export const BalanceCountUpItem = memo(
           </>
         )}
         <GetPointsSuccess />
-      </div>
+      </IsPixelWidget>
     );
   },
   isEqual

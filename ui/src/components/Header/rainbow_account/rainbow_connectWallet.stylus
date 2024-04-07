@@ -1,3 +1,12 @@
+.connect_pixel_connectWallet
+    cursor: pointer
+    display: flex
+    align-items: center
+    gap: 20px
+    @media screen and (max-width: 768px)
+        gap: 10px
+    .pixel_flat_btn_bg > div 
+        background-color: #1D263B
 .connect_connectWallet
     cursor: pointer
     display: flex

@@ -6,13 +6,14 @@ import { useIsMobile } from "../../hooks/useWindowSize";
 import Icon from "../../components/icons";
 
 import LinkToBetaDialog from "../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
-import { MobileLogo } from "../SideBar";
+import { ZypherLogo } from "../SideBar";
 import "./header.stylus";
 import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { siderCollapseState } from "./state";
 import { ChainId } from "ui/src/constant/constant";
-
+export type HeaderUIType = "pixel" | "other";
 interface IProps {
+  type: HeaderUIType;
   env: string;
   dispatch: any;
   setSuccessToast: any;
@@ -42,6 +43,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     showLang,
     CountupNumber,
     supportedChainList,
+    type,
   } = props;
   useEffect(() => {
     if (isMobile && collapsed === undefined) {
@@ -53,11 +55,11 @@ const Header = (props: IProps): React.ReactElement | null => {
       className={classnames("header_header", props.className)}
       style={{ position: "sticky", top: 0, zIndex: 9, width: "100%" }}
     >
-      {isMobile && (
+      {type === "pixel" || (type === "other" && isMobile) ? (
         <div className={"header_left"}>
-          <MobileLogo />
+          <ZypherLogo isMobile={isMobile} />
         </div>
-      )}
+      ) : null}
       <div className={"header_right"}>
         {/* <ConnectWallet isMobile={isMobile} /> */}
         <RainbowConnectWallet
@@ -71,6 +73,7 @@ const Header = (props: IProps): React.ReactElement | null => {
           setErrorToast={setErrorToast}
           CountupNumber={CountupNumber}
           supportedChainList={supportedChainList}
+          type={type}
         />
         {isMobile && !hideMenu ? (
           <>

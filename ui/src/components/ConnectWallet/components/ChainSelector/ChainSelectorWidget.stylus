@@ -1,0 +1,22 @@
+.ChainSelectorWidgetWrapper 
+  color: #fff;
+  font-size: 16px;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer
+  i 
+    padding: 0;
+    margin: 0;
+    margin-right: 10px;
+  img 
+    height: 24px;
+  .img 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    p 
+      white-space: nowrap;

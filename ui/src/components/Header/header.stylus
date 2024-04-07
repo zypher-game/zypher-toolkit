@@ -1,3 +1,6 @@
+.zypher_logo
+    gap: 6px;
+    display: flex;
 .header_header
     border-bottom: 1px solid var(--var-header-border)
     position: relative

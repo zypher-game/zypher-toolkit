@@ -13,6 +13,9 @@ import {
   pointsDialogState,
 } from "../../state/connectWalletState";
 import { siderCollapseState } from "../../../Header/state";
+import "./ChainSelectorWidget.stylus";
+import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
+import { HeaderUIType } from "../../../Header/header";
 const StatusI = styled.i<{ isMobile: boolean }>`
   box-sizing: content-box;
   display: inline-block;
@@ -35,36 +38,12 @@ const StatusI = styled.i<{ isMobile: boolean }>`
     border-radius: 50%;
   }
 `;
-const Wrapper = styled.div`
-  color: #fff;
-  font-size: 16px;
-  padding: 5px 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  i {
-    padding: 0;
-    margin: 0;
-    margin-right: 10px;
-  }
-  img {
-    height: 24px;
-  }
-  .img {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    p {
-      white-space: nowrap;
-    }
-  }
-`;
+
 type IProps = {
   className?: string;
+  type: HeaderUIType;
 };
-const ChainSelectorWidget = memo(({ className }: IProps) => {
+const ChainSelectorWidget = memo(({ className, type }: IProps) => {
   const { chainId } = useActiveWeb3React();
   const isMobile = useIsMobile();
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
@@ -91,17 +70,18 @@ const ChainSelectorWidget = memo(({ className }: IProps) => {
     }
   }, [openChainModal]);
   return chainId ? (
-    <Wrapper
-      className={className}
-      onClick={openChainModalHandle}
-      style={{ cursor: "pointer" }}
-    >
-      <div className="img">
-        <img src={config.ChainImage[chainId]} alt={config.ChainName[chainId]} />
-        <p>{config.ChainName[chainId]}</p>
+    <IsPixelWidget type={type} onClick={openChainModalHandle}>
+      <div className={`ChainSelectorWidgetWrapper ${className ?? ""}`}>
+        <div className="img">
+          <img
+            src={config.ChainImage[chainId]}
+            alt={config.ChainName[chainId]}
+          />
+          <p>{config.ChainName[chainId]}</p>
+        </div>
+        <StatusI isMobile={isMobile} />
       </div>
-      <StatusI isMobile={isMobile} />
-    </Wrapper>
+    </IsPixelWidget>
   ) : null;
 }, isEqual);
 export default ChainSelectorWidget;

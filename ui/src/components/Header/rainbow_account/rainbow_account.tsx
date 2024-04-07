@@ -1,7 +1,6 @@
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
-import styled from "styled-components";
 
 import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
 import { useIsMobile } from "../../../hooks/useWindowSize";
@@ -17,42 +16,9 @@ import {
 } from "../../ConnectWallet/state/connectWalletState";
 import PlayerAvatar from "../../PlayerAvatar";
 import { ChainId } from "ui/src/constant/constant";
-
-const AddressWrap = styled.div`
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  position: relative;
-  .account {
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 9px;
-    p {
-      padding-left: 14px;
-    }
-  }
-  // .hat {
-  //   width: 58px;
-  //   height: 58px;
-  //   position: absolute;
-  //   right: -29px;
-  //   top: -23px;
-  //   z-index: 2;
-  //   transform-origin: left bottom;
-  //   animation: hat-animation 2s infinite;
-  // }
-  // @keyframes hat-animation {
-  //   0% {
-  //     transform: rotate(0deg);
-  //   }
-  //   50% {
-  //     transform: rotate(6deg);
-  //   }
-  //   100% {
-  //     transform: rotate(0deg);
-  //   }
-  // }
-`;
+import { HeaderUIType } from "../header";
+import IsPixelWidget from "./IsPixelWidget";
+import "./rainbow_account.stylus";
 const Account = memo(
   ({
     showLang,
@@ -63,6 +29,7 @@ const Account = memo(
     copy,
     CountupNumber,
     supportedChainList,
+    type,
   }: {
     showLang: boolean;
     env: string;
@@ -72,6 +39,7 @@ const Account = memo(
     CountupNumber?: React.FC<any>;
     setErrorToast: any;
     supportedChainList?: ChainId[];
+    type: HeaderUIType;
   }) => {
     const isMobile = useIsMobile();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
@@ -87,25 +55,30 @@ const Account = memo(
       <>
         <Balance
           CountupNumber={CountupNumber}
-          showLang={showLang}
           env={env}
           isMobile={isMobile}
           showPointsModal={showPointsModal}
+          type={type}
         />
-        <AddressWrap onClick={showLogoutModal}>
+        <IsPixelWidget
+          type={type}
+          className="address_wrap"
+          onClick={showLogoutModal}
+        >
           <PlayerAvatar
             className="account"
             account={account}
-            size={isMobile ? 26 : 36}
+            size={isMobile ? 26 : 40}
             showAccount={isMobile ? false : true}
+            type={type}
           />
           {/* <img
             className="hat"
             src="https://static.zypher.game/img/layout/hat.png"
           /> */}
-        </AddressWrap>
-        {!isMobile && <ChainSelectorWidget />}
-        <LogoutDialog copy={copy} />
+        </IsPixelWidget>
+        {!isMobile && <ChainSelectorWidget type={type} />}
+        <LogoutDialog copy={copy} type={type} />
         <PointsDialog
           env={env}
           dispatch={dispatch}

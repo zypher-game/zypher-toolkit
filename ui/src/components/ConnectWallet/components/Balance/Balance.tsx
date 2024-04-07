@@ -11,7 +11,6 @@ import erc20Contract from "../../../../contract/erc20";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
-import Language from "../../../SideBar/component/Language";
 import {
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
@@ -31,28 +30,9 @@ import {
 } from "../../state/connectWalletState";
 import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
+import { HeaderUIType } from "../../../Header/header";
+import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 
-const Refresh = styled.div<{ isMobile: boolean }>`
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 6px;
-  &:hover {
-    span {
-      opacity: 1;
-    }
-  }
-  span {
-    opacity: 0.7;
-    transition: opacity 0.3s;
-    svg {
-      width: ${({ isMobile }) => (isMobile ? "16px" : "24px")};
-      height: ${({ isMobile }) => (isMobile ? "16px" : "24px")};
-    }
-  }
-`;
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
   margin-left: 0 !important;
@@ -63,12 +43,12 @@ interface IProps {
   isMobile: boolean;
   className?: string;
   showPointsModal: any;
-  showLang: boolean;
   CountupNumber?: React.FC<any>;
+  type: HeaderUIType;
 }
 
 const Balance = memo((props: IProps): React.ReactElement | null => {
-  const { showPointsModal, isMobile, env, showLang, CountupNumber } = props;
+  const { showPointsModal, isMobile, env, CountupNumber, type } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState(false);
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
@@ -120,10 +100,15 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
 
   return (
     <>
-      <Refresh onClick={fetchBalanceOf} isMobile={isMobile}>
+      <IsPixelWidget
+        type={type}
+        className={`refresh_balance ${
+          type === "pixel" ? "refresh_balance_pixel" : ""
+        }`}
+        onClick={fetchBalanceOf}
+      >
         <SyncOutlined />
-      </Refresh>
-      {showLang ? <Language type={"top"} /> : null}
+      </IsPixelWidget>
       {DPSupportChainId.includes(chainId) ? (
         <BalanceCountUpItem
           onClick={showPointsModal}
@@ -134,6 +119,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           CountupNumber={CountupNumber}
           preChild={<AddIcon name="add" isMobile={isMobile} />}
           balanceStr={pointsBalanceStr}
+          type={type}
         />
       ) : null}
       {!isMobile && (
@@ -147,6 +133,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           balanceStr={nativeBalanceStr}
           loading={loading}
           className={props.className}
+          type={type}
         />
       )}
     </>

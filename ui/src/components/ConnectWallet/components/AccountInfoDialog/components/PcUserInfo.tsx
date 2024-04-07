@@ -10,6 +10,7 @@ import * as config from "../../../../../constant/constant";
 import "./PcUserInfo.stylus";
 import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../../utils/i18n";
+import { HeaderUIType } from "../../../../Header/header";
 type IDisconnectBtnProps = {
   cancel: any;
 };
@@ -19,6 +20,7 @@ export interface IUserInfoProps extends IDisconnectBtnProps {
   account: string;
   chainId: config.ChainId;
   copy: any;
+  type: HeaderUIType;
 }
 const PcUserInfo = memo(
   ({

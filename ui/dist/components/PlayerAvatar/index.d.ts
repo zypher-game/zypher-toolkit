@@ -1,5 +1,6 @@
 import React from "react";
 import "./index.stylus";
+import { HeaderUIType } from "../Header/header";
 interface IPlayerAvatar {
     className?: string;
     account?: string;
@@ -13,6 +14,7 @@ interface IPlayerAvatar {
     preLen?: number;
     endLen?: number;
     otherStr?: string;
+    type?: HeaderUIType;
 }
 declare const PlayerAvatar: React.FC<IPlayerAvatar>;
 type IAvatar = {

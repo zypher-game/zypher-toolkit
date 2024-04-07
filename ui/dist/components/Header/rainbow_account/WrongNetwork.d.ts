@@ -1,4 +1,7 @@
 import React from "react";
 import "./rainbow_connectWallet.stylus";
-declare const WrongNetwork: React.MemoExoticComponent<() => React.JSX.Element>;
+import { HeaderUIType } from "../header";
+declare const WrongNetwork: React.MemoExoticComponent<({ type }: {
+    type: HeaderUIType;
+}) => React.JSX.Element>;
 export default WrongNetwork;

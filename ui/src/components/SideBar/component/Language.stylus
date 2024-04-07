@@ -48,3 +48,20 @@
       &.languageItemOn
         color: #fff
         background: #191919;
+.connect_pixel_connectWallet .pixel_logo
+  width: 40px
+  height: 40px
+  @media screen and (max-width: 768px)
+    width: 28px
+    height: 28px
+  .pixel_flat_btn_bg > div 
+      background-color: #3E4350
+  .pixel_img_lang
+    width: 26px
+    height: 26px
+    @media screen and (max-width: 768px)
+      width: 20px
+      height: 20px
+.language_pixel 
+  .languageItem
+    padding: 0
