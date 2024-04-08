@@ -1,5 +1,5 @@
 .sidebarWrap
-  padding: 136px 24px 40px
+  padding: 40px 24px 
   overflow-y: scroll;
   @media screen and (max-width: 768px)
     padding-top: 24px

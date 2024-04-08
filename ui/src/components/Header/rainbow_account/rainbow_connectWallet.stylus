@@ -3,7 +3,7 @@
     display: flex
     align-items: center
     gap: 20px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 1300px)
         gap: 10px
     .pixel_flat_btn_bg > div 
         background-color: #1D263B
@@ -12,7 +12,7 @@
     display: flex
     align-items: center
     gap: 20px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 1400px)
         gap: 10px
     &.connect_bgWallet
         & > div

@@ -800,8 +800,20 @@ var isWMdState = atom({
   default: false,
   effects_UNSTABLE: [localStorageEffect("isWMdState")]
 });
+var isWMd1100State = atom({
+  key: "isWMd1100State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isWMd1100State")]
+});
+var isWMd1220State = atom({
+  key: "isWMd1220State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isWMd1220State")]
+});
 var IsMobileContext = createContext(void 0);
 var IsMdContext = createContext(void 0);
+var IsMd1100Context = createContext(void 0);
+var IsMd1220Context = createContext(void 0);
 var IsMobileProvider = ({ children }) => {
   const [isMobile, setIsMobile] = useRecoilState(isMobileState);
   const size = useWindowSize();
@@ -826,6 +838,32 @@ var IsMdProvider = ({ children }) => {
   }, [size.width, isWMd]);
   return /* @__PURE__ */ React3.createElement(IsMdContext.Provider, {
     value: isWMd
+  }, children);
+};
+var IsMd1100Provider = ({ children }) => {
+  const [isWMd1100, setIsWMd1100] = useRecoilState(isWMd1100State);
+  const size = useWindowSize();
+  useEffect2(() => {
+    const nowIsMd1100Mobile = size.width < 1100;
+    if (isWMd1100 !== nowIsMd1100Mobile) {
+      setIsWMd1100(nowIsMd1100Mobile);
+    }
+  }, [size.width, isWMd1100]);
+  return /* @__PURE__ */ React3.createElement(IsMd1100Context.Provider, {
+    value: isWMd1100
+  }, children);
+};
+var IsMd1220Provider = ({ children }) => {
+  const [isWMd1220, setIsWMd1220] = useRecoilState(isWMd1220State);
+  const size = useWindowSize();
+  useEffect2(() => {
+    const nowIsMd1220Mobile = size.width < 1220;
+    if (isWMd1220 !== nowIsMd1220Mobile) {
+      setIsWMd1220(nowIsMd1220Mobile);
+    }
+  }, [size.width, isWMd1220]);
+  return /* @__PURE__ */ React3.createElement(IsMd1220Context.Provider, {
+    value: isWMd1220
   }, children);
 };
 
@@ -856,6 +894,28 @@ var useIsMobile = () => {
     return false;
   }
   return isMobile;
+};
+var useIsMd1100 = () => {
+  try {
+    const isMd1100 = useContext(IsMd1100Context);
+    if (isMd1100 === void 0) {
+      return false;
+    }
+    return isMd1100;
+  } catch (e) {
+    return false;
+  }
+};
+var useIsMd1220 = () => {
+  try {
+    const isMd1220 = useContext(IsMd1220Context);
+    if (isMd1220 === void 0) {
+      return false;
+    }
+    return isMd1220;
+  } catch (e) {
+    return false;
+  }
 };
 var useIsMd = () => {
   try {
@@ -2273,15 +2333,7 @@ var SideBar = (props) => {
   }, [items, isMobile]);
   return /* @__PURE__ */ React18.createElement("div", {
     className: classnames7(`${props.className}`, "sidebarWrap")
-  }, isMobile ? null : /* @__PURE__ */ React18.createElement("a", {
-    href: "https://zypher.game/",
-    target: "_black",
-    className: classnames7("logo")
-  }, /* @__PURE__ */ React18.createElement("img", {
-    src: preStaticUrl + "/img/layout/logo.svg"
-  }), /* @__PURE__ */ React18.createElement("img", {
-    src: preStaticUrl + "/img/layout/ai.svg"
-  })), /* @__PURE__ */ React18.createElement("div", {
+  }, /* @__PURE__ */ React18.createElement("div", {
     className: "sidebar"
   }, isMobile ? null : /* @__PURE__ */ React18.createElement(React18.Fragment, null, /* @__PURE__ */ React18.createElement(LinkItemA_default, {
     className_on: "item_on",
@@ -3580,7 +3632,7 @@ var Account = memo24(
     supportedChainList,
     type
   }) => {
-    const isMobile = useIsMobile();
+    const isMobile = useIsMd1100();
     const setPointsDialogState = useSetRecoilState8(pointsDialogState);
     const showPointsModal = useCallback14(() => {
       setPointsDialogState(true);
@@ -3701,7 +3753,7 @@ var rainbow_connectWallet_default = RainbowConnectWallet;
 
 // src/components/Header/header.tsx
 var Header = (props) => {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMd1100();
   const setSiderCollapse = useSetRecoilState10(siderCollapseState);
   const collapsed = useRecoilValue8(siderCollapseState);
   const {
@@ -3715,7 +3767,9 @@ var Header = (props) => {
     showLang,
     CountupNumber,
     supportedChainList,
-    type
+    type,
+    Middle,
+    pathname
   } = props;
   useEffect11(() => {
     if (isMobile && collapsed === void 0) {
@@ -3729,7 +3783,9 @@ var Header = (props) => {
     className: "header_left"
   }, /* @__PURE__ */ React35.createElement(ZypherLogo, {
     isMobile
-  })) : null, /* @__PURE__ */ React35.createElement("div", {
+  })) : null, Middle && /* @__PURE__ */ React35.createElement(Middle, {
+    pathname
+  }), /* @__PURE__ */ React35.createElement("div", {
     className: "header_right"
   }, /* @__PURE__ */ React35.createElement(rainbow_connectWallet_default, {
     showLang,
@@ -4045,7 +4101,8 @@ var chainIdPre = {
   [91715 /* ComboTestnet */]: "CbT",
   [5e3 /* Mantle */]: "MTM",
   [5001 /* MantleTestnet */]: "MTT",
-  [9980 /* Combo */]: "Cb"
+  [9980 /* Combo */]: "Cb",
+  [11155111 /* Sepolia */]: "Sp"
 };
 function getStatus(status) {
   if (status === 0) {
@@ -4280,9 +4337,9 @@ export {
   IGameName,
   IGameStatus,
   INavLinkType,
-  IsMdContext,
+  IsMd1100Provider,
+  IsMd1220Provider,
   IsMdProvider,
-  IsMobileContext,
   IsMobileProvider,
   LinkList,
   LinkToBetaDialog_default as LinkToBetaDialog,
@@ -4370,6 +4427,8 @@ export {
   useInitRainbowFn,
   useInterval,
   useIsMd,
+  useIsMd1100,
+  useIsMd1220,
   useIsMobile,
   useNativeBalanceStr,
   useNavItem,

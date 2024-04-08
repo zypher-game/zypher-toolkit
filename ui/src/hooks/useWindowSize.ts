@@ -1,6 +1,11 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 
-import { IsMdContext, isMobileState } from "../provider/IsMobileProvider";
+import {
+  IsMd1100Context,
+  IsMd1220Context,
+  IsMdContext,
+  isMobileState,
+} from "../provider/IsMobileProvider";
 import { useRecoilState } from "recoil";
 
 export default function useWindowSize(): { height: number; width: number } {
@@ -32,6 +37,29 @@ export const useIsMobile = (): boolean => {
   return isMobile;
 };
 
+export const useIsMd1100 = (): boolean => {
+  try {
+    const isMd1100 = useContext(IsMd1100Context);
+    if (isMd1100 === undefined) {
+      return false;
+    }
+    return isMd1100;
+  } catch (e) {
+    return false;
+  }
+};
+
+export const useIsMd1220 = (): boolean => {
+  try {
+    const isMd1220 = useContext(IsMd1220Context);
+    if (isMd1220 === undefined) {
+      return false;
+    }
+    return isMd1220;
+  } catch (e) {
+    return false;
+  }
+};
 export const useIsMd = (): boolean => {
   try {
     const isMd = useContext(IsMdContext);

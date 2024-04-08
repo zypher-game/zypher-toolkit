@@ -107,8 +107,8 @@ export { default as PointsRuleDialog } from "./components/ConnectWallet/componen
 export {
   IsMdProvider,
   IsMobileProvider,
-  IsMdContext,
-  IsMobileContext,
+  IsMd1100Provider,
+  IsMd1220Provider,
 } from "./provider/IsMobileProvider";
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
@@ -135,6 +135,8 @@ export {
   default as useWindowSize,
   useIsMobile,
   useIsMd,
+  useIsMd1100,
+  useIsMd1220,
 } from "./hooks/useWindowSize";
 import { changeLanguage } from "i18next";
 export { changeLanguage };

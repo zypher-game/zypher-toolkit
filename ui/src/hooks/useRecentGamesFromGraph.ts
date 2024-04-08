@@ -90,6 +90,7 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Mantle]: "MTM",
   [ChainId.MantleTestnet]: "MTT",
   [ChainId.Combo]: "Cb",
+  [ChainId.Sepolia]: "Sp",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {

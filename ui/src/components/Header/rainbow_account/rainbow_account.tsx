@@ -3,7 +3,7 @@ import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
-import { useIsMobile } from "../../../hooks/useWindowSize";
+import { useIsMd1100 } from "../../../hooks/useWindowSize";
 
 import LogoutDialog from "../../ConnectWallet/components/AccountInfoDialog";
 import Balance from "../../ConnectWallet/components/Balance/Balance";
@@ -41,7 +41,7 @@ const Account = memo(
     supportedChainList?: ChainId[];
     type: HeaderUIType;
   }) => {
-    const isMobile = useIsMobile();
+    const isMobile = useIsMd1100();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
     const showPointsModal = useCallback(() => {
       setPointsDialogState(true);

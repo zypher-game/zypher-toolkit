@@ -2,7 +2,7 @@ import classnames from "classnames";
 import React, { useEffect } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { useIsMobile } from "../../hooks/useWindowSize";
+import { useIsMd1100 } from "../../hooks/useWindowSize";
 import Icon from "../../components/icons";
 
 import LinkToBetaDialog from "../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
@@ -26,10 +26,12 @@ interface IProps {
   showLang: boolean;
   CountupNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
+  Middle?: React.FC<any>;
+  pathname: string;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
-  const isMobile = useIsMobile();
+  const isMobile = useIsMd1100();
   const setSiderCollapse = useSetRecoilState(siderCollapseState);
   const collapsed = useRecoilValue(siderCollapseState);
   const {
@@ -44,6 +46,8 @@ const Header = (props: IProps): React.ReactElement | null => {
     CountupNumber,
     supportedChainList,
     type,
+    Middle,
+    pathname,
   } = props;
   useEffect(() => {
     if (isMobile && collapsed === undefined) {
@@ -60,6 +64,7 @@ const Header = (props: IProps): React.ReactElement | null => {
           <ZypherLogo isMobile={isMobile} />
         </div>
       ) : null}
+      {Middle && <Middle pathname={pathname} />}
       <div className={"header_right"}>
         {/* <ConnectWallet isMobile={isMobile} /> */}
         <RainbowConnectWallet

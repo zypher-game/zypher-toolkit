@@ -3,4 +3,6 @@ export default function useWindowSize(): {
     width: number;
 };
 export declare const useIsMobile: () => boolean;
+export declare const useIsMd1100: () => boolean;
+export declare const useIsMd1220: () => boolean;
 export declare const useIsMd: () => boolean;

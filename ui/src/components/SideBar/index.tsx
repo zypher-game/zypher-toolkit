@@ -53,7 +53,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
 
   return (
     <div className={classnames(`${props.className}`, "sidebarWrap")}>
-      {isMobile ? null : (
+      {/* {isMobile ? null : (
         <a
           href={"https://zypher.game/"}
           target="_black"
@@ -62,7 +62,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           <img src={preStaticUrl + "/img/layout/logo.svg"} />
           <img src={preStaticUrl + "/img/layout/ai.svg"} />
         </a>
-      )}
+      )} */}
       <div className={"sidebar"}>
         {isMobile ? null : (
           <>

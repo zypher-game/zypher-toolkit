@@ -105,6 +105,9 @@
 .pixel_flat_btn .pixel_flat_inner {
   position: relative;
   z-index: 4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .pixel_flat_btn .pixel_flat_btn_bg {
   position: absolute;
@@ -1072,7 +1075,7 @@
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/sidebar.stylus */
 .sidebarWrap {
-  padding: 136px 24px 40px;
+  padding: 40px 24px;
   overflow-y: scroll;
 }
 @media screen and (max-width: 768px) {
@@ -1329,7 +1332,7 @@
   display: flex;
   height: 100%;
   align-items: center;
-  padding: 0 40px;
+  padding-right: 40px;
 }
 @media screen and (max-width: 768px) {
   .header_header .header_right {
@@ -1483,6 +1486,11 @@
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
 .pixel_border.pixel_flat_btn {
   height: 40px;
+}
+@media screen and (max-width: 768px) {
+  .pixel_border.pixel_flat_btn {
+    height: 30px;
+  }
 }
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_inner,
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1,
@@ -1913,7 +1921,7 @@
   align-items: center;
   gap: 20px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1300px) {
   .connect_pixel_connectWallet {
     gap: 10px;
   }
@@ -1927,7 +1935,7 @@
   align-items: center;
   gap: 20px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1400px) {
   .connect_connectWallet {
     gap: 10px;
   }

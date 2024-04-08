@@ -16,6 +16,8 @@ interface IProps {
     showLang: boolean;
     CountupNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
+    Middle?: React.FC<any>;
+    pathname: string;
 }
 declare const Header: (props: IProps) => React.ReactElement | null;
 export default Header;
