@@ -6,7 +6,6 @@
     border-radius: 8px
 
     .pc_user_tit
-      font-family: 'PixeloidSans'
       font-style: normal
       font-weight: 400
       font-size: 14px
@@ -25,7 +24,6 @@
 
       .pc_user_text
         color: var(--var-text-light)
-        font-family: 'PixeloidSans'
         font-style: normal
         font-weight: 500
         font-size: 20px
@@ -54,7 +52,6 @@
   display: flex
   align-items: center
   justify-content: center
-  font-family: 'PixeloidSans'
   font-style: normal
   font-weight: 400
   font-size: 14px
