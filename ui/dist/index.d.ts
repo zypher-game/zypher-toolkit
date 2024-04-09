@@ -1,6 +1,5 @@
 import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
-export { languageList } from "./components/SideBar/component/Language";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameList, } from "./types/gameList.types";
@@ -56,3 +55,4 @@ export { pow10, bnPow10, getShortenAddress, getShortenAddress2, filterInput, mea
 export { request } from "./utils/request";
 export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getFormattedTimeMobile, } from "./utils/data";
 export { getChainId } from "./utils/getChainId";
+export { languageList } from "./components/SideBar/component/Language";
