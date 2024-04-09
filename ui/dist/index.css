@@ -1339,6 +1339,12 @@
     padding: 0 16px 0 0;
   }
 }
+.header_header .header_right .header_btn_pixel {
+  margin-left: 20px;
+}
+.header_header .header_right .header_btn_pixel .header_btn {
+  margin-left: 0;
+}
 .header_header .header_right .header_btn {
   cursor: pointer;
   border-radius: 8px;
@@ -1364,7 +1370,7 @@
 .header_header .header_right .header_btn .header_icon {
   size: 24px;
 }
-.header_header .header_right .header_btn .header_icon.close {
+.header_header .header_right .header_btn .header_icon.header_close {
   size: 16px;
 }
 
@@ -1492,30 +1498,38 @@
     height: 30px;
   }
 }
+.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_inner,
+.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_top_1,
+.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_top_2,
+.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_bottom_1,
+.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
+  border: 1px solid #6673ff;
+}
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_inner,
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1,
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_2,
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_1,
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
   border: 1px solid #3a4254;
+  transition: border 0.3s ease;
 }
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1 {
-  border-bottom: none;
+  border-bottom: none !important;
   height: 5px;
   z-index: 3;
 }
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_2 {
-  border-bottom: none;
+  border-bottom: none !important;
   height: 5px;
   z-index: 2;
 }
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_1 {
-  border-top: none;
+  border-top: none !important;
   height: 5px;
   z-index: 4;
 }
 .pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
-  border-top: none;
+  border-top: none !important;
   height: 5px;
 }
 
@@ -1929,6 +1943,9 @@
 .connect_pixel_connectWallet .pixel_flat_btn_bg > div {
   background-color: #1d263b;
 }
+.pixel_border .pixel_flat_btn_bg > div {
+  background-color: #1d263b;
+}
 .connect_connectWallet {
   cursor: pointer;
   display: flex;
@@ -1975,13 +1992,17 @@
   border-radius: 8px;
   background-color: #6673ff;
   border: 1px solid #6673ff;
-  min-width: 158px;
 }
 .connect_connectWallet div.connect_connect:hover {
   background-color: var(--var-btn-hover);
   border: 1px solid var(--var-btn-hover);
 }
-.connect_connectWallet div.connect_connect p {
+.connect_connectWallet div.connect_connect,
+.connect_pixel_connectWallet div.connect_connect {
+  min-width: 158px;
+}
+.connect_connectWallet div.connect_connect p,
+.connect_pixel_connectWallet div.connect_connect p {
   flex: 1;
   text-align: center;
   font-weight: 600;
@@ -1990,7 +2011,8 @@
   padding: 0 14px;
 }
 @media screen and (max-width: 768px) {
-  .connect_connectWallet div.connect_connect p {
+  .connect_connectWallet div.connect_connect p,
+  .connect_pixel_connectWallet div.connect_connect p {
     padding: 0 12px;
   }
 }

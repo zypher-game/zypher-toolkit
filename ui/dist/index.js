@@ -3799,18 +3799,15 @@ var Header = (props) => {
     CountupNumber,
     supportedChainList,
     type
-  }), isMobile && !hideMenu ? /* @__PURE__ */ React35.createElement(React35.Fragment, null, collapsed ? /* @__PURE__ */ React35.createElement("div", {
+  }), isMobile && !hideMenu ? /* @__PURE__ */ React35.createElement(IsPixelWidget_default, {
+    type,
+    className: `${type === "pixel" ? "header_btn_pixel" : ""}`
+  }, /* @__PURE__ */ React35.createElement("div", {
     className: "header_btn",
-    onClick: () => setSiderCollapse(false)
+    onClick: () => setSiderCollapse(!collapsed)
   }, /* @__PURE__ */ React35.createElement(icons_default, {
-    className: classnames11("header_icon"),
-    name: "menu"
-  })) : /* @__PURE__ */ React35.createElement("div", {
-    className: "header_btn",
-    onClick: () => setSiderCollapse(true)
-  }, /* @__PURE__ */ React35.createElement(icons_default, {
-    className: classnames11("header_icon", "header_close"),
-    name: "close"
+    className: `header_icon ${collapsed ? "" : "header_close"}`,
+    name: `${collapsed ? "menu" : "close"}`
   }))) : null), /* @__PURE__ */ React35.createElement(LinkToBetaDialog_default, null));
 };
 var header_default = Header;

@@ -11,6 +11,7 @@ import "./header.stylus";
 import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { siderCollapseState } from "./state";
 import { ChainId } from "ui/src/constant/constant";
+import IsPixelWidget from "./rainbow_account/IsPixelWidget";
 export type HeaderUIType = "pixel" | "other";
 interface IProps {
   type: HeaderUIType;
@@ -81,26 +82,20 @@ const Header = (props: IProps): React.ReactElement | null => {
           type={type}
         />
         {isMobile && !hideMenu ? (
-          <>
-            {collapsed ? (
-              <div
-                className={"header_btn"}
-                onClick={() => setSiderCollapse(false)}
-              >
-                <Icon className={classnames("header_icon")} name={"menu"} />
-              </div>
-            ) : (
-              <div
-                className={"header_btn"}
-                onClick={() => setSiderCollapse(true)}
-              >
-                <Icon
-                  className={classnames("header_icon", "header_close")}
-                  name={"close"}
-                />
-              </div>
-            )}
-          </>
+          <IsPixelWidget
+            type={type}
+            className={`${type === "pixel" ? "header_btn_pixel" : ""}`}
+          >
+            <div
+              className="header_btn"
+              onClick={() => setSiderCollapse(!collapsed)}
+            >
+              <Icon
+                className={`header_icon ${collapsed ? "" : "header_close"}`}
+                name={`${collapsed ? "menu" : "close"}`}
+              />
+            </div>
+          </IsPixelWidget>
         ) : null}
       </div>
       <LinkToBetaDialog />

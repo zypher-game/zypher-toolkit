@@ -21,7 +21,10 @@
         padding-right: 40px
         @media screen and (max-width: 768px)
             padding: 0 16px 0 0
-
+        .header_btn_pixel
+            margin-left: 20px;
+            .header_btn
+                margin-left: 0;
         .header_btn
             cursor: pointer
             border-radius: 8px
@@ -45,6 +48,6 @@
 
             .header_icon
                 size: 24px
-                &.close
+                &.header_close
                     size: 16px
 

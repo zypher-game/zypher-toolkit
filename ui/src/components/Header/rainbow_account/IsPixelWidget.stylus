@@ -2,6 +2,14 @@
   height: 40px
   @media screen and (max-width: 768px)
     height: 30px
+  &:hover
+    .pixel_flat_btn_bg 
+      .pixel_flat_btn_inner,
+      .pixel_flat_btn_top_1,
+      .pixel_flat_btn_top_2,
+      .pixel_flat_btn_bottom_1,
+      .pixel_flat_btn_bottom_2
+        border: 1px solid #6673FF
   .pixel_flat_btn_bg 
     .pixel_flat_btn_inner,
     .pixel_flat_btn_top_1,
@@ -9,19 +17,20 @@
     .pixel_flat_btn_bottom_1,
     .pixel_flat_btn_bottom_2
       border: 1px solid #3A4254
-
+      transition: border 0.3s ease
+    
     .pixel_flat_btn_top_1
-      border-bottom: none;
+      border-bottom: none!important;
       height: 5px;
       z-index: 3;
     .pixel_flat_btn_top_2
-      border-bottom: none;
+      border-bottom: none!important;
       height: 5px;
       z-index: 2;
     .pixel_flat_btn_bottom_1
-      border-top: none;
+      border-top: none!important;
       height: 5px;
       z-index: 4;
     .pixel_flat_btn_bottom_2
-      border-top: none;
+      border-top: none!important;
       height: 5px;
