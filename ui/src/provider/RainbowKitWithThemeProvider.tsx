@@ -7,16 +7,19 @@ import { appInfo, ChainId } from "../constant/constant";
 import { WagmiConfig } from "wagmi";
 
 import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
+import { HeaderUIType } from "../components/Header/header";
 
 type IProps = {
   env: string;
   children: ReactNode;
   chainIdList?: ChainId[];
+  type: HeaderUIType;
 };
 const RainbowKitWithThemeProvider: FC<IProps> = ({
   children,
   env,
   chainIdList,
+  type,
 }: IProps) => {
   const { wagmiConfig, chains, computedTheme } = useMemo(() => {
     if (env) {
@@ -28,7 +31,7 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
         computedTheme: darkTheme({
           accentColor: "#6673FF",
           borderRadius: "large",
-          fontStack: "system",
+          fontStack: type === "pixel" ? "Pixel" : "system",
         }),
       };
     }

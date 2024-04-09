@@ -3819,7 +3819,8 @@ import { WagmiConfig } from "wagmi";
 var RainbowKitWithThemeProvider = ({
   children,
   env,
-  chainIdList
+  chainIdList,
+  type
 }) => {
   const { wagmiConfig, chains, computedTheme } = useMemo11(() => {
     if (env) {
@@ -3831,7 +3832,7 @@ var RainbowKitWithThemeProvider = ({
         computedTheme: darkTheme({
           accentColor: "#6673FF",
           borderRadius: "large",
-          fontStack: "system"
+          fontStack: type === "pixel" ? "Pixel" : "system"
         })
       };
     }
