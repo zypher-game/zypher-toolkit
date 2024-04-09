@@ -4344,6 +4344,7 @@ export {
   LngNs,
   AccountInfoDialog_default as LogoutDialog,
   multicall_default as MulticallContract,
+  PixelFlatBtn_default as PixelFlatBtn,
   PlayerAvatar_default as PlayerAvatar,
   PlayerAvatarList,
   PointsDialog_default as PointsDialog,

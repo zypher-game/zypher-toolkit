@@ -56,3 +56,4 @@ export { request } from "./utils/request";
 export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getFormattedTimeMobile, } from "./utils/data";
 export { getChainId } from "./utils/getChainId";
 export { languageList } from "./components/SideBar/component/Language";
+export { default as PixelFlatBtn } from "./components/PixelBtn/PixelFlatBtn";
