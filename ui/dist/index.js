@@ -10,31 +10,143 @@ import {
   useResetRecoilState
 } from "recoil";
 
-// src/hooks/useNavItem.type.ts
-var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
-  INavLinkType2["Games"] = "Games";
-  INavLinkType2["Activities"] = "Activities";
-  INavLinkType2["Language"] = "Language";
-  INavLinkType2["Links"] = "Links";
-  return INavLinkType2;
-})(INavLinkType || {});
+// src/components/SideBar/component/Language.tsx
+import { changeLanguage } from "i18next";
 
-// src/types/gameList.types.ts
-var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
-  IGameStatus2["Live"] = "live";
-  IGameStatus2["End"] = "end";
-  IGameStatus2["Overtime"] = "overtime";
-  IGameStatus2["Invalid"] = "invalid";
-  return IGameStatus2;
-})(IGameStatus || {});
-var IGameName = /* @__PURE__ */ ((IGameName2) => {
-  IGameName2["zBingo"] = "zBingo";
-  IGameName2["z2048"] = "z2048";
-  return IGameName2;
-})(IGameName || {});
+// src/utils/lodash.ts
+function sample(array) {
+  if (array.length === 0) {
+    return void 0;
+  }
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+function isEqual(value1, value2) {
+  try {
+    if (typeof value1 !== typeof value2) {
+      return false;
+    }
+    if (typeof value1 !== "object" || value1 === null || value2 === null) {
+      return value1 === value2;
+    }
+    const keys1 = Object.keys(value1);
+    const keys2 = Object.keys(value2);
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    for (const key of keys1) {
+      if (!isEqual(value1[key], value2[key])) {
+        return false;
+      }
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
 
-// src/index.ts
-import { useWalletClient as useWalletClient2, useSwitchNetwork } from "wagmi";
+// src/components/SideBar/component/Language.tsx
+import React2, { memo as memo2, useCallback, useState as useState2 } from "react";
+
+// src/hooks/useCustomTranslation.ts
+import { useTranslation as useBaseTranslation } from "react-i18next";
+var useCustomTranslation = (namespaces) => {
+  const { t, i18n: i18n3 } = useBaseTranslation(namespaces);
+  return { t, i18n: i18n3 };
+};
+
+// src/utils/i18n.ts
+import i18n from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import Backend from "i18next-http-backend";
+import { initReactI18next } from "react-i18next";
+
+// src/utils/language.ts
+import { getQueryStringByName } from "mobile-browser";
+
+// src/utils/storage.js
+function Storage(prefix, expire) {
+  this.prefix = prefix || "";
+  if (typeof window === "undefined") {
+    return console.warn("no find window");
+  }
+  if (expire === -1) {
+    this.driver = window.sessionStorage;
+  } else {
+    this.driver = window.localStorage;
+    this.expire = expire || 0;
+  }
+}
+Storage.prototype = {
+  constructor: Storage,
+  _key(key) {
+    return this.prefix + key;
+  },
+  keys() {
+    const keys = Object.keys(this.driver);
+    if (this.prefix) {
+      const index = this.prefix.length;
+      return keys.map(function(key) {
+        return key.substring(index);
+      });
+    }
+    return keys;
+  },
+  remove(key) {
+    this.driver.removeItem(this._key(key));
+  },
+  clear() {
+    this.driver.clear();
+  },
+  set(key, value, expire) {
+    const data = {
+      value
+    };
+    if (typeof expire === "undefined") {
+      expire = this.expire;
+    }
+    if (expire) {
+      data.expire = Date.now() + expire * 1e3;
+    }
+    this.driver.setItem(this._key(key), JSON.stringify(data));
+  },
+  get(key) {
+    let data = this.driver.getItem(this._key(key));
+    if (data) {
+      data = JSON.parse(data);
+      if (data.expire) {
+        if (data.expire < Date.now()) {
+          this.remove(key);
+          data = null;
+        }
+      }
+    }
+    return data && data.value;
+  }
+};
+var storage_default = new Storage(null, 10 * 365 * 24 * 60 * 60);
+
+// src/utils/language.ts
+var query = getQueryStringByName("lng");
+var language = storage_default.get("language");
+if (query) {
+  language = query;
+  storage_default.set("language", query);
+  storage_default.set("lng", query);
+}
+if (!language) {
+  if (navigator.appName === "Netscape") {
+    language = navigator.language;
+  } else {
+    language = navigator.userLanguage;
+  }
+  const sec = language.split("-");
+  if (sec[1]) {
+    sec[1] = sec[1].toUpperCase();
+    storage_default.set("language", `${sec[0]}_${sec[1]}`);
+  }
+}
+var language_default = language;
 
 // src/constant/constant.ts
 import { AddressZero } from "@ethersproject/constants";
@@ -493,176 +605,41 @@ var zkBingo = (chainId, name) => {
   }
 };
 
-// src/utils/localStorageEffect.ts
-import { DefaultValue } from "recoil";
-var localStorageEffect = (key) => ({ setSelf, onSet }) => {
-  const savedValue = localStorage.getItem(key);
-  if (savedValue != null) {
-    try {
-      setSelf(JSON.parse(savedValue));
-    } catch (error) {
-      console.error("localStorageEffect:---", error);
-    }
-  }
-  onSet((newValue) => {
-    if (newValue instanceof DefaultValue || !newValue) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    }
-  });
-};
-
-// src/hooks/useNavItem.tsx
-import { useEffect as useEffect4, useMemo as useMemo2 } from "react";
-import { useSetRecoilState } from "recoil";
-
 // src/utils/i18n.ts
-import i18n2 from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import Backend from "i18next-http-backend";
-import { initReactI18next } from "react-i18next";
-
-// src/utils/language.ts
-import { getQueryStringByName } from "mobile-browser";
-
-// src/utils/storage.js
-function Storage(prefix, expire) {
-  this.prefix = prefix || "";
-  if (typeof window === "undefined") {
-    return console.warn("no find window");
-  }
-  if (expire === -1) {
-    this.driver = window.sessionStorage;
-  } else {
-    this.driver = window.localStorage;
-    this.expire = expire || 0;
-  }
-}
-Storage.prototype = {
-  constructor: Storage,
-  _key(key) {
-    return this.prefix + key;
-  },
-  keys() {
-    const keys = Object.keys(this.driver);
-    if (this.prefix) {
-      const index = this.prefix.length;
-      return keys.map(function(key) {
-        return key.substring(index);
-      });
-    }
-    return keys;
-  },
-  remove(key) {
-    this.driver.removeItem(this._key(key));
-  },
-  clear() {
-    this.driver.clear();
-  },
-  set(key, value, expire) {
-    const data = {
-      value
-    };
-    if (typeof expire === "undefined") {
-      expire = this.expire;
-    }
-    if (expire) {
-      data.expire = Date.now() + expire * 1e3;
-    }
-    this.driver.setItem(this._key(key), JSON.stringify(data));
-  },
-  get(key) {
-    let data = this.driver.getItem(this._key(key));
-    if (data) {
-      data = JSON.parse(data);
-      if (data.expire) {
-        if (data.expire < Date.now()) {
-          this.remove(key);
-          data = null;
-        }
-      }
-    }
-    return data && data.value;
-  }
+var _lng = language_default.split("-").join("_");
+var lng = languageList.map((v) => v.keyValue).filter((v) => v === _lng).length ? _lng : "en_US";
+var LngNs = {
+  common: "common",
+  defense: "defense",
+  points: "points",
+  siderBar: "siderBar",
+  home: "home",
+  zBingo: "zBingo",
+  invitation: "invitation",
+  profile: "profile",
+  dp: "dp"
 };
-var storage_default = new Storage(null, 10 * 365 * 24 * 60 * 60);
-
-// src/utils/language.ts
-var query = getQueryStringByName("lng");
-var language = storage_default.get("language");
-if (query) {
-  language = query;
-  storage_default.set("language", query);
-  storage_default.set("lng", query);
-}
-if (!language) {
-  if (navigator.appName === "Netscape") {
-    language = navigator.language;
-  } else {
-    language = navigator.userLanguage;
+i18n.use(Backend).use(LanguageDetector).use(initReactI18next).init({
+  fallbackLng: "en_US",
+  backend: {
+    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
+  },
+  lng,
+  ns: Object.values(LngNs),
+  keySeparator: false,
+  interpolation: {
+    escapeValue: false
   }
-  const sec = language.split("-");
-  if (sec[1]) {
-    sec[1] = sec[1].toUpperCase();
-    storage_default.set("language", `${sec[0]}_${sec[1]}`);
-  }
-}
-var language_default = language;
-
-// src/components/SideBar/component/Language.tsx
-import { changeLanguage } from "i18next";
-
-// src/utils/lodash.ts
-function sample(array) {
-  if (array.length === 0) {
-    return void 0;
-  }
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-function isEqual(value1, value2) {
-  try {
-    if (typeof value1 !== typeof value2) {
-      return false;
-    }
-    if (typeof value1 !== "object" || value1 === null || value2 === null) {
-      return value1 === value2;
-    }
-    const keys1 = Object.keys(value1);
-    const keys2 = Object.keys(value2);
-    if (keys1.length !== keys2.length) {
-      return false;
-    }
-    for (const key of keys1) {
-      if (!isEqual(value1[key], value2[key])) {
-        return false;
-      }
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-// src/components/SideBar/component/Language.tsx
-import React2, { memo as memo2, useCallback, useState as useState2 } from "react";
-
-// src/hooks/useCustomTranslation.ts
-import { useTranslation as useBaseTranslation } from "react-i18next";
-var useCustomTranslation = (namespaces) => {
-  const { t, i18n: i18n3 } = useBaseTranslation(namespaces);
-  return { t, i18n: i18n3 };
-};
+});
 
 // src/hooks/useCurrentLanguage.ts
-import i18n from "i18next";
+import i18n2 from "i18next";
 import { useEffect, useState } from "react";
 var useCurrentLanguage = () => {
-  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
+  const [currentLanguage, setCurrentLanguage] = useState(i18n2.language);
   const { t } = useCustomTranslation([LngNs.common]);
   useEffect(() => {
-    setCurrentLanguage(i18n.language);
+    setCurrentLanguage(i18n2.language);
   }, [t("language")]);
   return currentLanguage;
 };
@@ -757,32 +734,55 @@ var Language = memo2(({ type }) => {
 }, isEqual);
 var Language_default = Language;
 
-// src/utils/i18n.ts
-var _lng = language_default.split("-").join("_");
-var lng = languageList.map((v) => v.keyValue).filter((v) => v === _lng).length ? _lng : "en_US";
-var LngNs = {
-  common: "common",
-  defense: "defense",
-  points: "points",
-  siderBar: "siderBar",
-  home: "home",
-  zBingo: "zBingo",
-  invitation: "invitation",
-  profile: "profile",
-  dp: "dp"
-};
-i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
-  fallbackLng: "en_US",
-  backend: {
-    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
-  },
-  lng,
-  ns: Object.values(LngNs),
-  keySeparator: false,
-  interpolation: {
-    escapeValue: false
+// src/hooks/useNavItem.type.ts
+var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
+  INavLinkType2["Games"] = "Games";
+  INavLinkType2["Activities"] = "Activities";
+  INavLinkType2["Language"] = "Language";
+  INavLinkType2["Links"] = "Links";
+  return INavLinkType2;
+})(INavLinkType || {});
+
+// src/types/gameList.types.ts
+var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
+  IGameStatus2["Live"] = "live";
+  IGameStatus2["End"] = "end";
+  IGameStatus2["Overtime"] = "overtime";
+  IGameStatus2["Invalid"] = "invalid";
+  return IGameStatus2;
+})(IGameStatus || {});
+var IGameName = /* @__PURE__ */ ((IGameName2) => {
+  IGameName2["zBingo"] = "zBingo";
+  IGameName2["z2048"] = "z2048";
+  return IGameName2;
+})(IGameName || {});
+
+// src/index.ts
+import { useWalletClient as useWalletClient2, useSwitchNetwork } from "wagmi";
+
+// src/utils/localStorageEffect.ts
+import { DefaultValue } from "recoil";
+var localStorageEffect = (key) => ({ setSelf, onSet }) => {
+  const savedValue = localStorage.getItem(key);
+  if (savedValue != null) {
+    try {
+      setSelf(JSON.parse(savedValue));
+    } catch (error) {
+      console.error("localStorageEffect:---", error);
+    }
   }
-});
+  onSet((newValue) => {
+    if (newValue instanceof DefaultValue || !newValue) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    }
+  });
+};
+
+// src/hooks/useNavItem.tsx
+import { useEffect as useEffect4, useMemo as useMemo2 } from "react";
+import { useSetRecoilState } from "recoil";
 
 // src/hooks/useWindowSize.ts
 import { useCallback as useCallback2, useContext, useEffect as useEffect3, useState as useState3 } from "react";
@@ -4394,6 +4394,7 @@ export {
   isPro,
   isTestnet,
   isTimeout,
+  languageList,
   linkToBetaDialogChainIdState,
   linkToBetaDialogState,
   localStorageEffect,

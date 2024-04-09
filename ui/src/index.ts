@@ -8,6 +8,7 @@ import {
   useResetRecoilState,
 } from "recoil";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
+export { languageList } from "./components/SideBar/component/Language";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 export {
