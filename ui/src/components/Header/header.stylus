@@ -23,6 +23,9 @@
             padding: 0 16px 0 0
         .header_btn_pixel
             margin-left: 20px;
+            width: 40px;
+            @media screen and (max-width: 768px)
+                width: 30px;
             .header_btn
                 margin-left: 0;
         .header_btn

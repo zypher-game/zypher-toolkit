@@ -1341,6 +1341,12 @@
 }
 .header_header .header_right .header_btn_pixel {
   margin-left: 20px;
+  width: 40px;
+}
+@media screen and (max-width: 768px) {
+  .header_header .header_right .header_btn_pixel {
+    width: 30px;
+  }
 }
 .header_header .header_right .header_btn_pixel .header_btn {
   margin-left: 0;
