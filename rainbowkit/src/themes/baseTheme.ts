@@ -1,16 +1,17 @@
-import { ThemeVars } from '../css/sprinkles.css';
+import { ThemeVars } from "../css/sprinkles.css";
 
 // Source: https://css-tricks.com/snippets/css/system-font-stack
 // Note that quotes have been removed to avoid escaping and server/client mismatch issues
 const systemFontStack =
   '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
 const fontStacks = {
+  Pixel: `PixeloidSans`,
   rounded: `SFRounded, ui-rounded, "SF Pro Rounded", ${systemFontStack}`,
   system: systemFontStack,
 } as const;
 type FontStack = keyof typeof fontStacks;
 
-type RadiusScale = 'large' | 'medium' | 'small' | 'none';
+type RadiusScale = "large" | "medium" | "small" | "none";
 const radiusScales: Record<
   RadiusScale,
   {
@@ -21,32 +22,32 @@ const radiusScales: Record<
   }
 > = {
   large: {
-    actionButton: '9999px',
-    connectButton: '12px',
-    modal: '24px',
-    modalMobile: '28px',
+    actionButton: "9999px",
+    connectButton: "12px",
+    modal: "24px",
+    modalMobile: "28px",
   },
   medium: {
-    actionButton: '10px',
-    connectButton: '8px',
-    modal: '16px',
-    modalMobile: '18px',
+    actionButton: "10px",
+    connectButton: "8px",
+    modal: "16px",
+    modalMobile: "18px",
   },
   none: {
-    actionButton: '0px',
-    connectButton: '0px',
-    modal: '0px',
-    modalMobile: '0px',
+    actionButton: "0px",
+    connectButton: "0px",
+    modal: "0px",
+    modalMobile: "0px",
   },
   small: {
-    actionButton: '4px',
-    connectButton: '4px',
-    modal: '8px',
-    modalMobile: '8px',
+    actionButton: "4px",
+    connectButton: "4px",
+    modal: "8px",
+    modalMobile: "8px",
   },
 };
 
-type Blurs = 'large' | 'small' | 'none';
+type Blurs = "large" | "small" | "none";
 const blurs: Record<
   Blurs,
   {
@@ -54,13 +55,13 @@ const blurs: Record<
   }
 > = {
   large: {
-    modalOverlay: 'blur(20px)',
+    modalOverlay: "blur(20px)",
   },
   none: {
-    modalOverlay: 'blur(0px)',
+    modalOverlay: "blur(0px)",
   },
   small: {
-    modalOverlay: 'blur(4px)',
+    modalOverlay: "blur(4px)",
   },
 };
 
@@ -71,10 +72,10 @@ interface BaseThemeOptions {
 }
 
 export const baseTheme = ({
-  borderRadius = 'large',
-  fontStack = 'rounded',
-  overlayBlur = 'none',
-}: BaseThemeOptions): Pick<ThemeVars, 'radii' | 'fonts' | 'blurs'> => ({
+  borderRadius = "large",
+  fontStack = "rounded",
+  overlayBlur = "none",
+}: BaseThemeOptions): Pick<ThemeVars, "radii" | "fonts" | "blurs"> => ({
   blurs: {
     modalOverlay: blurs[overlayBlur].modalOverlay,
   },
@@ -96,12 +97,12 @@ export interface AccentColor {
 }
 
 export type AccentColorPreset =
-  | 'blue'
-  | 'green'
-  | 'red'
-  | 'purple'
-  | 'pink'
-  | 'orange';
+  | "blue"
+  | "green"
+  | "red"
+  | "purple"
+  | "pink"
+  | "orange";
 
 export interface ThemeOptions extends BaseThemeOptions {
   accentColor?: string;
