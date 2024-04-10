@@ -22,7 +22,7 @@
         @media screen and (max-width: 768px)
             padding: 0 16px 0 0
         .header_btn_pixel
-            margin-left: 20px;
+            margin-left: 10px;
             width: 40px;
             @media screen and (max-width: 768px)
                 width: 30px;
@@ -51,6 +51,10 @@
 
             .header_icon
                 size: 24px
+                width: 24px
+                height: 24px
                 &.header_close
                     size: 16px
+                    width: 16px
+                    height: 16px
 

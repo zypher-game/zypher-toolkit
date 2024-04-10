@@ -1340,7 +1340,7 @@
   }
 }
 .header_header .header_right .header_btn_pixel {
-  margin-left: 20px;
+  margin-left: 10px;
   width: 40px;
 }
 @media screen and (max-width: 768px) {
@@ -1375,9 +1375,13 @@
 }
 .header_header .header_right .header_btn .header_icon {
   size: 24px;
+  width: 24px;
+  height: 24px;
 }
 .header_header .header_right .header_btn .header_icon.header_close {
   size: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */

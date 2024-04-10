@@ -65,7 +65,7 @@ const AccountInfoDialog = memo(
                 account={account}
                 chainId={chainId}
                 cancel={cancel}
-                type={type}
+                type="other"
               />
             ) : (
               <PcUserInfo

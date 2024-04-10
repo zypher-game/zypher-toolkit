@@ -3050,7 +3050,7 @@ var AccountInfoDialog = memo20(
       account,
       chainId,
       cancel,
-      type
+      type: "other"
     }) : /* @__PURE__ */ React27.createElement(PcUserInfo_default, {
       copy,
       account,
