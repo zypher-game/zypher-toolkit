@@ -51,7 +51,7 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
     <div className={classnames(`${props.className}`, "sidebarWrap")}>
       {isMobile ? null : (
         <a
-          href={"https://zypher.game/"}
+          href={"https://zypher.network/"}
           target="_black"
           className={classnames("logo")}
         >

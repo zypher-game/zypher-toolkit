@@ -57,7 +57,7 @@ const LinkToBetaDialog = memo(() => {
   const ToUrlName = useMemo(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === ChainId.Combo) {
-        return ["https://app.zypher.game/2048/"];
+        return ["https://zypher.game/2048/"];
       }
       return getChainNameText(linkToBetaDialogChainId);
     }

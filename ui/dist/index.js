@@ -2235,7 +2235,7 @@ var SideBar = (props) => {
   return /* @__PURE__ */ React17.createElement("div", {
     className: classnames7(`${props.className}`, "sidebarWrap")
   }, isMobile ? null : /* @__PURE__ */ React17.createElement("a", {
-    href: "https://zypher.game/",
+    href: "https://zypher.network/",
     target: "_black",
     className: classnames7("logo")
   }, /* @__PURE__ */ React17.createElement("img", {
@@ -2377,7 +2377,7 @@ var LinkToBetaDialog = memo14(() => {
   const ToUrlName = useMemo7(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === 9980 /* Combo */) {
-        return ["https://app.zypher.game/2048/"];
+        return ["https://zypher.game/2048/"];
       }
       return getChainNameText(linkToBetaDialogChainId);
     }
