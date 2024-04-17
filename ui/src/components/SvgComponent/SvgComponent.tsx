@@ -15,7 +15,7 @@ const SvgComponent = ({ src, className, ...rest }: any) => {
         if (svgElement) {
           const Component = () => (
             <span
-              className={`svg_component ${className}`}
+              className={`svg_component ${className ?? ""}`}
               {...rest}
               dangerouslySetInnerHTML={{ __html: svgElement.outerHTML }}
             />

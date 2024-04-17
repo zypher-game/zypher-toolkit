@@ -675,7 +675,7 @@ import React, { memo } from "react";
 var PixelFlatBtn = memo((props) => {
   const { onClick, children, className, style } = props;
   return /* @__PURE__ */ React.createElement("div", {
-    className: `pixel_flat_btn ${className}`,
+    className: `pixel_flat_btn ${className != null ? className : ""}`,
     onClick,
     style
   }, /* @__PURE__ */ React.createElement("div", {
@@ -2021,7 +2021,7 @@ var SvgComponent = ({ src, className, ...rest }) => {
         const svgElement = wrapper.querySelector("svg");
         if (svgElement) {
           const Component = () => /* @__PURE__ */ React11.createElement("span", {
-            className: `svg_component ${className}`,
+            className: `svg_component ${className != null ? className : ""}`,
             ...rest,
             dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
           });
@@ -2618,7 +2618,7 @@ var IsPixelWidget = memo16(
     onClick
   }) => {
     return type === "pixel" ? /* @__PURE__ */ React21.createElement(PixelFlatBtn_default, {
-      className: `pixel_border ${className}`,
+      className: `pixel_border ${className != null ? className : ""}`,
       onClick
     }, children) : /* @__PURE__ */ React21.createElement("div", {
       className,
@@ -4324,6 +4324,7 @@ export {
   ChainRpcWebSocketUrls,
   ChainSelector,
   ChainSelectorWidget_default as ChainSelectorWidget,
+  CommunityLink_default as CommunityLink,
   Currency,
   CurrencyContract,
   CurrencyLogo,

@@ -10,7 +10,7 @@ const PixelFlatBtn = memo((props: IProps) => {
   const { onClick, children, className, style } = props;
   return (
     <div
-      className={`pixel_flat_btn ${className}`}
+      className={`pixel_flat_btn ${className ?? ""}`}
       onClick={onClick}
       style={style}
     >

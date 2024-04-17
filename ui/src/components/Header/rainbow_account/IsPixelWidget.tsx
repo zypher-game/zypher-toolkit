@@ -15,7 +15,10 @@ const IsPixelWidget = memo(
     onClick?: any;
   }) => {
     return type === "pixel" ? (
-      <PixelFlatBtn className={`pixel_border ${className}`} onClick={onClick}>
+      <PixelFlatBtn
+        className={`pixel_border ${className ?? ""}`}
+        onClick={onClick}
+      >
         {children}
       </PixelFlatBtn>
     ) : (

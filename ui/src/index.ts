@@ -176,3 +176,4 @@ export {
 export { getChainId } from "./utils/getChainId";
 export { languageList } from "./components/SideBar/component/Language";
 export { default as PixelFlatBtn } from "./components/PixelBtn/PixelFlatBtn";
+export { default as CommunityLink } from "./components/SideBar/component/CommunityLink";
