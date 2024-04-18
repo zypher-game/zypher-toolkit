@@ -1945,7 +1945,7 @@ var CommunityLink = memo6(({ className }) => {
   return /* @__PURE__ */ React11.createElement("div", {
     className
   }, /* @__PURE__ */ React11.createElement("a", {
-    href: "https://twitter.com/Zypher_Games",
+    href: "https://twitter.com/Zypher_Network",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React11.createElement(SvgComponent_default, {
