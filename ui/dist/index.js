@@ -50,7 +50,7 @@ var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
 var isPro = () => {
   const localpath = window.location.hostname;
-  if (window.location.hostname === "zypher.game" || window.location.hostname.startsWith("zypher.game/#/") || localpath.indexOf("app") > -1) {
+  if (window.location.hostname.startsWith("zypher.game") || localpath.indexOf("app") > -1) {
     return true;
   }
   return false;

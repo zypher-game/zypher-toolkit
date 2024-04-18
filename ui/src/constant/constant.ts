@@ -15,8 +15,7 @@ export const txStatus = "success"; // '1'
 export const isPro = (): boolean => {
   const localpath = window.location.hostname;
   if (
-    window.location.hostname === "zypher.game" ||
-    window.location.hostname.startsWith("zypher.game/#/") ||
+    window.location.hostname.startsWith("zypher.game") ||
     localpath.indexOf("app") > -1
   ) {
     return true;
