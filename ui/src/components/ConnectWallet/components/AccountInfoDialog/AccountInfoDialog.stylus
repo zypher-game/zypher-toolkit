@@ -3,4 +3,63 @@
         padding: 20px 32px 33px
         @media screen and (max-width: 768px)
             padding: 82px 32px 33px
-      
+body .pixel_border.pixel_flat_btn.address_wrap
+    // padding-top: 20px
+    // padding-bottom: 20px
+    // height: 80px;
+    &:hover
+        .address_wrap_pop
+            height: 148px
+body .address_wrap_pop
+    position absolute
+    top: 40px;
+    left: -10px;
+    width: 220px
+    z-index: 4;
+    height: 0
+    overflow: hidden
+    transition: height 0.3s ease
+
+    > .pixel_flat_inner
+        padding: 10px
+        flex-direction: column
+        justify-content: flex-start
+        align-items: flex-start
+        gap: 10px
+.address_wrap_pop_item
+    > .pixel_flat_btn_bg > div
+        transition: all 0.3s ease
+    &.on,
+    &.on:hover
+        > .pixel_flat_btn_bg 
+            > div
+                background-color: #343C4F
+            > .pixel_flat_btn_top_1,
+            > .pixel_flat_btn_bottom_1
+                background-color: #fff;
+            > .pixel_flat_btn_inner,
+            > .pixel_flat_btn_top_2,
+            > .pixel_flat_btn_bottom_2 
+                border-left: 3px solid #fff;
+                border-right: 3px solid #fff;
+    &:hover
+        > .pixel_flat_btn_bg 
+            > div
+                background-color: #343C4F
+            > .pixel_flat_btn_top_1,
+            > .pixel_flat_btn_bottom_1
+                background-color: #343C4F;
+            > .pixel_flat_btn_inner,
+            > .pixel_flat_btn_top_2,
+            > .pixel_flat_btn_bottom_2 
+                border-left: 3px solid #343C4F;
+                border-right: 3px solid #343C4F;
+    > .pixel_flat_inner
+        padding: 8px 10px
+        gap: 10px
+        justify-content: flex-start
+        .svg_component
+            width 20px
+        p
+            color: #fff
+            font-size: 14px

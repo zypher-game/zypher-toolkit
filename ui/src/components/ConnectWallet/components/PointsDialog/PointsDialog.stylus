@@ -52,7 +52,7 @@
         img
             width: 64px
             height: 64px
-            fill: #6673FF
+            fill: #1649FF
         p
             color: #FFF;
             font-weight: 500;
@@ -135,7 +135,7 @@
                 z-index: 2
             .bottom 
                 width 100%
-                background-color: #6673FF;
+                background-color: #1649FF;
                 border-radius: 0 0 10px 10px;
                 display: flex
                 justify-content: center

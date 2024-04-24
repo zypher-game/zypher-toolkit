@@ -20,7 +20,6 @@ export { default as LinkToBetaDialog } from "./components/ConnectWallet/componen
 export { Header } from "./components/Header";
 export { siderCollapseState } from "./components/Header/state";
 export { default as PlayerAvatar, PlayerAvatarList, } from "./components/PlayerAvatar";
-export { default as LogoutDialog } from "./components/ConnectWallet/components/AccountInfoDialog";
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
 export { default as ChainSelectorWidget } from "./components/ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 export { PointsIcon } from "./components/icons/PointsIcon/PointsIcon";
@@ -56,5 +55,5 @@ export { request } from "./utils/request";
 export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getFormattedTimeMobile, } from "./utils/data";
 export { getChainId } from "./utils/getChainId";
 export { languageList } from "./components/SideBar/component/Language";
-export { default as PixelFlatBtn } from "./components/PixelBtn/PixelFlatBtn";
+export { IPixelProps, ActivePixelCard, ActivePixelColorCard, PixelBorderCard, PixelBorderCardSize2, PixelBorderCardSize3, ActivePixelButton, ActivePixelButtonColor, PixelBorderCardButton, } from "./components/PixelBtn/ActivePixelButton";
 export { default as CommunityLink } from "./components/SideBar/component/CommunityLink";

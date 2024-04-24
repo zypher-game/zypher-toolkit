@@ -189,6 +189,13 @@
   }
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SvgComponent/SvgComponent.stylus */
+.svg_component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
 .dialog_title_modalTitleInner {
   position: relative;
@@ -221,7 +228,7 @@
   z-index: 1001 !important;
 }
 .points_dialog_dialogContent {
-  background-color: #131313;
+  background-color: #10253e;
   border-radius: 20px;
   color: #fff;
   font-size: 14px;
@@ -307,7 +314,7 @@
 .points_dialog_btn {
   display: block;
   color: #fff;
-  background: #6673ff;
+  background: #1649ff;
   width: 100%;
   height: 40px;
   border-radius: 12px;
@@ -317,7 +324,7 @@
   font-size: 16px;
 }
 .points_dialog_btn:hover {
-  background: #6673ff;
+  background: #1649ff;
   color: #fff;
 }
 .points_dialog_flex {
@@ -401,7 +408,7 @@
 .dialog .loading img {
   width: 64px;
   height: 64px;
-  fill: #6673ff;
+  fill: #1649ff;
 }
 .dialog .loading p {
   color: #fff;
@@ -497,7 +504,7 @@
 }
 .dialog .table .points .bottom {
   width: 100%;
-  background-color: #6673ff;
+  background-color: #1649ff;
   border-radius: 0 0 10px 10px;
   display: flex;
   justify-content: center;
@@ -523,7 +530,7 @@
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Modal/Modal.stylus */
 .customDialog [data-reach-dialog-content] {
   padding: 0;
-  background: #131313;
+  background: #10253e;
   border-radius: 20px;
   z-index: 9999;
 }
@@ -599,13 +606,6 @@
   size: 32px;
   fill: #fff;
   cursor: pointer;
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SvgComponent/SvgComponent.stylus */
-.svg_component {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/SmokeStyle.stylus */
@@ -1095,7 +1095,7 @@
   top: 0;
   left: 0;
   width: 312px;
-  background-color: #131313;
+  background-color: #10253e;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -1157,7 +1157,7 @@
     padding: 4px;
   }
   .sidebarWrap .activitiesList .verListItem.item_on img {
-    background: #6673ff;
+    background: #1649ff;
   }
   .sidebarWrap .activitiesList .verListItem.item_on p {
     color: #fff;
@@ -1186,7 +1186,7 @@
   z-index: 9;
 }
 .sidebarWrap .horListItem.item_on {
-  background: #6673ff;
+  background: #1649ff;
 }
 .sidebarWrap .horListItem.horListItemDisable {
   opacity: 0.5;
@@ -1201,7 +1201,7 @@
   cursor: pointer;
 }
 .sidebarWrap .verListItem.item_on p {
-  color: #6673ff;
+  color: #1649ff;
 }
 .sidebarWrap .verListItem.verListItemDisable {
   opacity: 0.5;
@@ -1382,340 +1382,6 @@
   size: 16px;
   width: 16px;
   height: 16px;
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */
-.account_info_dialog_dialog .account_info_dialog_modalMain {
-  padding: 20px 32px 33px;
-}
-@media screen and (max-width: 768px) {
-  .account_info_dialog_dialog .account_info_dialog_modalMain {
-    padding: 82px 32px 33px;
-  }
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PlayerAvatar/index.stylus */
-.player_playerAvatar {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 22px;
-  text-align: center;
-  color: #62380c;
-}
-.player_playerAvatar .player_avatar {
-  background: #ffe8c4;
-  border: 2px solid #62380c;
-  border-radius: 50%;
-}
-.player_playerAvatar .player_avatar.player_highLight {
-  animation: borderColor 1s infinite;
-  animation-direction: alternate;
-}
-.player_playerAvatar .player_avatar :global(.icon) {
-  size: 50px;
-}
-.player_playerAvatar .player_avatar_account {
-  color: #fff;
-  font-size: 16px;
-}
-@media screen and (max-width: 768px) {
-  .player_playerAvatar .player_avatar_account {
-    font-size: 12px;
-  }
-}
-.player_winner {
-  position: relative;
-}
-.player_winner:after {
-  content: "";
-  position: absolute;
-  top: -16px;
-  right: -5px;
-  width: 27px;
-  height: 25px;
-  background: url(https://static.zypher.game/img/layout/crown.svg) no-repeat;
-}
-.player_playerAvatarList .player_outerCircle {
-  background: linear-gradient(180deg, #f1a541 0%, #d48a2b 45.31%, #9f5a03 100%);
-  box-shadow: 0px 1px 1px #cd9862;
-  border-radius: 50%;
-  width: 64px;
-  height: 64px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 3px;
-}
-.player_playerAvatarList .player_centreCircle {
-  background: linear-gradient(180deg, #ae6306 0%, #d68b2b 29.69%, #e79b3b 100%);
-  border-radius: 50%;
-}
-.player_playerAvatarList .player_innerCircle {
-  background: #613c17;
-  margin: 2px;
-  box-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.25);
-  border-radius: 50%;
-}
-.player_playerAvatarList .player_avatar {
-  width: 100%;
-  height: 100%;
-  background: #ffe8c4;
-  border-radius: 50%;
-}
-@-moz-keyframes borderColor {
-  from {
-    border-color: #dc0097;
-  }
-  to {
-    border-color: rgba(220, 0, 151, 0.5);
-  }
-}
-@-webkit-keyframes borderColor {
-  from {
-    border-color: #dc0097;
-  }
-  to {
-    border-color: rgba(220, 0, 151, 0.5);
-  }
-}
-@-o-keyframes borderColor {
-  from {
-    border-color: #dc0097;
-  }
-  to {
-    border-color: rgba(220, 0, 151, 0.5);
-  }
-}
-@keyframes borderColor {
-  from {
-    border-color: #dc0097;
-  }
-  to {
-    border-color: rgba(220, 0, 151, 0.5);
-  }
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
-.pixel_border.pixel_flat_btn {
-  height: 40px;
-}
-@media screen and (max-width: 768px) {
-  .pixel_border.pixel_flat_btn {
-    height: 30px;
-  }
-}
-.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_inner,
-.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_top_1,
-.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_top_2,
-.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_bottom_1,
-.pixel_border.pixel_flat_btn:hover .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
-  border: 1px solid #6673ff;
-}
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_inner,
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1,
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_2,
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_1,
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
-  border: 1px solid #3a4254;
-  transition: border 0.3s ease;
-}
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1 {
-  border-bottom: none !important;
-  height: 5px;
-  z-index: 3;
-}
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_2 {
-  border-bottom: none !important;
-  height: 5px;
-  z-index: 2;
-}
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_1 {
-  border-top: none !important;
-  height: 5px;
-  z-index: 4;
-}
-.pixel_border.pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
-  border-top: none !important;
-  height: 5px;
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.stylus */
-.ChainSelectorWidgetWrapper {
-  color: #fff;
-  font-size: 16px;
-  padding: 5px 15px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-  cursor: pointer;
-}
-.ChainSelectorWidgetWrapper i {
-  padding: 0;
-  margin: 0;
-  margin-right: 10px;
-}
-.ChainSelectorWidgetWrapper img {
-  height: 24px;
-}
-.ChainSelectorWidgetWrapper .img {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 10px;
-}
-.ChainSelectorWidgetWrapper .img p {
-  white-space: nowrap;
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.stylus */
-.m_user_m_content .m_user_border {
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.m_user_m_content .m_user_border.m_user_chain {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-}
-.m_user_m_content .m_user_border.m_user_chain :global(.img) {
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  gap: 10px;
-}
-.m_user_m_content .m_user_border .m_user_account {
-  flex-direction: row;
-  gap: 9px;
-}
-.m_user_m_content .m_user_border .m_user_account p {
-  font-size: 20px;
-  font-weight: 500;
-  color: #fff;
-}
-.m_user_m_content .m_user_tit {
-  color: #5f5d77;
-  font-size: 14px;
-  line-height: 16px;
-}
-.m_user_m_content .m_user_userInfoInner {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 16px 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-.m_user_m_content .m_user_item {
-  margin-top: 16px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-}
-.m_user_m_content .m_user_item .m_user_fl {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 10px;
-}
-.m_user_m_content .m_user_item img {
-  width: 24px;
-  height: 24px;
-  margin: 0;
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.stylus */
-.pc_user_pc_content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.pc_user_pc_content .pc_user_box {
-  border-radius: 8px;
-}
-.pc_user_pc_content .pc_user_box .pc_user_tit {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  color: var(--var-text-dark-grey);
-}
-.pc_user_pc_content .pc_user_box .pc_user_info {
-  margin: 16px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pc_user_pc_content .pc_user_box .pc_user_info img {
-  width: 24px;
-}
-@media screen and (max-width: 768px) {
-  .pc_user_pc_content .pc_user_box .pc_user_info img {
-    width: 20px;
-  }
-}
-.pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
-  color: var(--var-text-light);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  margin: 0 0 0 10px;
-}
-@media screen and (max-width: 768px) {
-  .pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
-    font-size: 18px;
-  }
-}
-.pc_user_pc_content .pc_user_box .pc_user_info span,
-.pc_user_pc_content .pc_user_box .pc_user_info a {
-  cursor: pointer;
-  padding: 0 0 0 15px;
-}
-@media screen and (max-width: 768px) {
-  .pc_user_pc_content .pc_user_box .pc_user_info span,
-  .pc_user_pc_content .pc_user_box .pc_user_info a {
-    padding: 0 0 0 8px;
-  }
-}
-.pc_user_pc_content .pc_user_box .pc_user_info span :global(.icon),
-.pc_user_pc_content .pc_user_box .pc_user_info a :global(.icon) {
-  size: 12px;
-  fill: var(--var-text-dark-grey);
-}
-.pc_user_disconnect_btn {
-  color: var(--var-btn);
-  border: 1px solid var(--var-btn);
-  border-radius: 4px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  padding: 0 8px;
-  cursor: pointer;
-}
-@media screen and (max-width: 768px) {
-  .pc_user_disconnect_btn {
-    padding: 0 5px;
-    height: 26px;
-    font-size: 12px;
-  }
-}
-.pc_user_disconnect_btn:hover {
-  color: var(--var-btn-hover);
-  border: 1px solid var(--var-btn-hover);
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/Balance/balance.stylus */
@@ -1922,6 +1588,184 @@
   }
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
+.pixel_border.pixel_flat_btn {
+  height: 40px;
+}
+@media screen and (max-width: 768px) {
+  .pixel_border.pixel_flat_btn {
+    height: 30px;
+  }
+}
+.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
+.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
+.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
+.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1,
+.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  border: 1px solid #1649ff;
+}
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1,
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  border: 1px solid #3a4254;
+  transition: border 0.3s ease;
+}
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_1 {
+  border-bottom: none !important;
+  height: 5px;
+  z-index: 3;
+}
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_2 {
+  border-bottom: none !important;
+  height: 5px;
+  z-index: 2;
+}
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
+  border-top: none !important;
+  height: 5px;
+  z-index: 4;
+}
+.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  border-top: none !important;
+  height: 5px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.stylus */
+.ChainSelectorWidgetWrapper {
+  color: #fff;
+  font-size: 16px;
+  padding: 5px 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.ChainSelectorWidgetWrapper i {
+  padding: 0;
+  margin: 0;
+  margin-right: 10px;
+}
+.ChainSelectorWidgetWrapper img {
+  height: 24px;
+}
+.ChainSelectorWidgetWrapper .img {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.ChainSelectorWidgetWrapper .img p {
+  white-space: nowrap;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PlayerAvatar/index.stylus */
+.player_playerAvatar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  text-align: center;
+  color: #62380c;
+}
+.player_playerAvatar .player_avatar {
+  background: #ffe8c4;
+  border: 2px solid #62380c;
+  border-radius: 50%;
+}
+.player_playerAvatar .player_avatar.player_highLight {
+  animation: borderColor 1s infinite;
+  animation-direction: alternate;
+}
+.player_playerAvatar .player_avatar :global(.icon) {
+  size: 50px;
+}
+.player_playerAvatar .player_avatar_account {
+  color: #fff;
+  font-size: 16px;
+}
+@media screen and (max-width: 768px) {
+  .player_playerAvatar .player_avatar_account {
+    font-size: 12px;
+  }
+}
+.player_winner {
+  position: relative;
+}
+.player_winner:after {
+  content: "";
+  position: absolute;
+  top: -16px;
+  right: -5px;
+  width: 27px;
+  height: 25px;
+  background: url(https://static.zypher.game/img/layout/crown.svg) no-repeat;
+}
+.player_playerAvatarList .player_outerCircle {
+  background: linear-gradient(180deg, #f1a541 0%, #d48a2b 45.31%, #9f5a03 100%);
+  box-shadow: 0px 1px 1px #cd9862;
+  border-radius: 50%;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3px;
+}
+.player_playerAvatarList .player_centreCircle {
+  background: linear-gradient(180deg, #ae6306 0%, #d68b2b 29.69%, #e79b3b 100%);
+  border-radius: 50%;
+}
+.player_playerAvatarList .player_innerCircle {
+  background: #613c17;
+  margin: 2px;
+  box-shadow: inset 0px 2px 0px rgba(0, 0, 0, 0.25);
+  border-radius: 50%;
+}
+.player_playerAvatarList .player_avatar {
+  width: 100%;
+  height: 100%;
+  background: #ffe8c4;
+  border-radius: 50%;
+}
+@-moz-keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+@-webkit-keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+@-o-keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+@keyframes borderColor {
+  from {
+    border-color: #dc0097;
+  }
+  to {
+    border-color: rgba(220, 0, 151, 0.5);
+  }
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/rainbow_account.stylus */
 .address_wrap {
   display: flex;
@@ -1936,6 +1780,229 @@
 }
 .address_wrap .account p {
   padding-left: 14px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */
+.account_info_dialog_dialog .account_info_dialog_modalMain {
+  padding: 20px 32px 33px;
+}
+@media screen and (max-width: 768px) {
+  .account_info_dialog_dialog .account_info_dialog_modalMain {
+    padding: 82px 32px 33px;
+  }
+}
+body .pixel_border.pixel_flat_btn.address_wrap:hover .address_wrap_pop {
+  height: 148px;
+}
+body .address_wrap_pop {
+  position: absolute;
+  top: 40px;
+  left: -10px;
+  width: 220px;
+  z-index: 4;
+  height: 0;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+body .address_wrap_pop > .pixel_flat_inner {
+  padding: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
+.address_wrap_pop_item > .pixel_flat_btn_bg > div {
+  transition: all 0.3s ease;
+}
+.address_wrap_pop_item.on > .pixel_flat_btn_bg > div,
+.address_wrap_pop_item.on:hover > .pixel_flat_btn_bg > div {
+  background-color: #343c4f;
+}
+.address_wrap_pop_item.on > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
+.address_wrap_pop_item.on:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
+.address_wrap_pop_item.on > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1,
+.address_wrap_pop_item.on:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
+  background-color: #fff;
+}
+.address_wrap_pop_item.on > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
+.address_wrap_pop_item.on:hover > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
+.address_wrap_pop_item.on > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
+.address_wrap_pop_item.on:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
+.address_wrap_pop_item.on > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2,
+.address_wrap_pop_item.on:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  border-left: 3px solid #fff;
+  border-right: 3px solid #fff;
+}
+.address_wrap_pop_item:hover > .pixel_flat_btn_bg > div {
+  background-color: #343c4f;
+}
+.address_wrap_pop_item:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
+.address_wrap_pop_item:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
+  background-color: #343c4f;
+}
+.address_wrap_pop_item:hover > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
+.address_wrap_pop_item:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
+.address_wrap_pop_item:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  border-left: 3px solid #343c4f;
+  border-right: 3px solid #343c4f;
+}
+.address_wrap_pop_item > .pixel_flat_inner {
+  padding: 8px 10px;
+  gap: 10px;
+  justify-content: flex-start;
+}
+.address_wrap_pop_item > .pixel_flat_inner .svg_component {
+  width: 20px;
+}
+.address_wrap_pop_item > .pixel_flat_inner p {
+  color: #fff;
+  font-size: 14px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.stylus */
+.m_user_m_content .m_user_border {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 16px;
+  margin-bottom: 16px;
+}
+.m_user_m_content .m_user_border.m_user_chain {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.m_user_m_content .m_user_border.m_user_chain :global(.img) {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.m_user_m_content .m_user_border .m_user_account {
+  flex-direction: row;
+  gap: 9px;
+}
+.m_user_m_content .m_user_border .m_user_account p {
+  font-size: 20px;
+  font-weight: 500;
+  color: #fff;
+}
+.m_user_m_content .m_user_tit {
+  color: #5f5d77;
+  font-size: 14px;
+  line-height: 16px;
+}
+.m_user_m_content .m_user_userInfoInner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.m_user_m_content .m_user_item {
+  margin-top: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+}
+.m_user_m_content .m_user_item .m_user_fl {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+.m_user_m_content .m_user_item img {
+  width: 24px;
+  height: 24px;
+  margin: 0;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.stylus */
+.pc_user_pc_content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pc_user_pc_content .pc_user_box {
+  border-radius: 8px;
+}
+.pc_user_pc_content .pc_user_box .pc_user_tit {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  color: var(--var-text-dark-grey);
+}
+.pc_user_pc_content .pc_user_box .pc_user_info {
+  margin: 16px 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pc_user_pc_content .pc_user_box .pc_user_info img {
+  width: 24px;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_pc_content .pc_user_box .pc_user_info img {
+    width: 20px;
+  }
+}
+.pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
+  color: var(--var-text-light);
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 30px;
+  margin: 0 0 0 10px;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
+    font-size: 18px;
+  }
+}
+.pc_user_pc_content .pc_user_box .pc_user_info span,
+.pc_user_pc_content .pc_user_box .pc_user_info a {
+  cursor: pointer;
+  padding: 0 0 0 15px;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_pc_content .pc_user_box .pc_user_info span,
+  .pc_user_pc_content .pc_user_box .pc_user_info a {
+    padding: 0 0 0 8px;
+  }
+}
+.pc_user_pc_content .pc_user_box .pc_user_info span :global(.icon),
+.pc_user_pc_content .pc_user_box .pc_user_info a :global(.icon) {
+  size: 12px;
+  fill: var(--var-text-dark-grey);
+}
+.pc_user_disconnect_btn {
+  color: var(--var-btn);
+  border: 1px solid var(--var-btn);
+  border-radius: 4px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  padding: 0 8px;
+  cursor: pointer;
+}
+@media screen and (max-width: 768px) {
+  .pc_user_disconnect_btn {
+    padding: 0 5px;
+    height: 26px;
+    font-size: 12px;
+  }
+}
+.pc_user_disconnect_btn:hover {
+  color: var(--var-btn-hover);
+  border: 1px solid var(--var-btn-hover);
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */
@@ -2000,8 +2067,8 @@
 }
 .connect_connectWallet div.connect_connect {
   border-radius: 8px;
-  background-color: #6673ff;
-  border: 1px solid #6673ff;
+  background-color: #1649ff;
+  border: 1px solid #1649ff;
 }
 .connect_connectWallet div.connect_connect:hover {
   background-color: var(--var-btn-hover);

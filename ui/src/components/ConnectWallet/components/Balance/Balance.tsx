@@ -117,7 +117,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           loading={loading}
           className={props.className}
           CountupNumber={CountupNumber}
-          preChild={<AddIcon name="add" isMobile={isMobile} />}
+          preChild={<AddIcon name="pixel_add" isMobile={isMobile} />}
           balanceStr={pointsBalanceStr}
           type={type}
         />

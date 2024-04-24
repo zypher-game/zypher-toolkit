@@ -5,7 +5,7 @@ import { useSetRecoilState } from "recoil";
 import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
 import { useIsMd1100 } from "../../../hooks/useWindowSize";
 
-import LogoutDialog from "../../ConnectWallet/components/AccountInfoDialog";
+// import AccountInfoDialog from "../../ConnectWallet/components/AccountInfoDialog";
 import Balance from "../../ConnectWallet/components/Balance/Balance";
 import ChainSelectorWidget from "../../ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDialog";
@@ -19,6 +19,9 @@ import { ChainId } from "ui/src/constant/constant";
 import { HeaderUIType } from "../header";
 import IsPixelWidget from "./IsPixelWidget";
 import "./rainbow_account.stylus";
+import AccountInfoDialog, {
+  AddressWrapPop,
+} from "../../ConnectWallet/components/AccountInfoDialog/AccountInfoDialog";
 const Account = memo(
   ({
     showLang,
@@ -72,13 +75,16 @@ const Account = memo(
             showAccount={isMobile ? false : true}
             type={type}
           />
+          {type === "pixel" ? <AddressWrapPop copy={copy} type={type} /> : null}
           {/* <img
             className="hat"
             src="https://static.zypher.game/img/layout/hat.png"
           /> */}
         </IsPixelWidget>
         {!isMobile && <ChainSelectorWidget type={type} />}
-        <LogoutDialog copy={copy} type={type} />
+        {type !== "pixel" ? (
+          <AccountInfoDialog copy={copy} type={type} />
+        ) : null}
         <PointsDialog
           env={env}
           dispatch={dispatch}

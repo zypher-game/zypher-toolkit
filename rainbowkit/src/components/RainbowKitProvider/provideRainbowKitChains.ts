@@ -123,11 +123,11 @@ const lineaTestIcon: IconMetadata = {
   iconUrl: async () => (await import("./chainIcons/linea_test.svg")).default,
 };
 const GSCIcon: IconMetadata = {
-  iconBackground: "#131313",
+  iconBackground: "#10253E",
   iconUrl: async () => (await import("./chainIcons/gsc.svg")).default,
 };
 const ScrollIcon: IconMetadata = {
-  iconBackground: "#131313",
+  iconBackground: "#10253E",
   iconUrl: async () => (await import("./chainIcons/scroll.svg")).default,
 };
 

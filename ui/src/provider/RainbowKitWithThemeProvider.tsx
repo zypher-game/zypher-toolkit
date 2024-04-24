@@ -29,7 +29,7 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
         wagmiConfig: wagmiConfig,
         chains: chains,
         computedTheme: darkTheme({
-          accentColor: "#6673FF",
+          accentColor: "#1649FF",
           borderRadius: "large",
           fontStack: type === "pixel" ? "Pixel" : "system",
         }),

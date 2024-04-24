@@ -24,7 +24,7 @@ const Content = styled.div`
 `;
 const DialogButton = styled.div`
   border-radius: 12px;
-  background: #6673ff;
+  background: #1649ff;
   height: 48px;
   border: 0px;
 
@@ -97,7 +97,7 @@ const LinkToBetaDialog = memo(() => {
         classNames={isMobile ? "modalTitleInner" : ""}
       />
       <Content>
-        <WarningOutlined style={{ color: "#6673FF", fontSize: "50px" }} />
+        <WarningOutlined style={{ color: "#1649FF", fontSize: "50px" }} />
         <Text>
           {linkToBetaDialogChainId === ChainId.Combo
             ? "Combo is currently only deployed in 2048."

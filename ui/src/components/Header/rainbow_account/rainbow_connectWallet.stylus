@@ -43,8 +43,8 @@
 .connect_connectWallet
     div.connect_connect
         border-radius: 8px;
-        background-color: #6673FF;
-        border: 1px solid #6673FF
+        background-color: #1649FF;
+        border: 1px solid #1649FF
         &:hover
             background-color: var(--var-btn-hover)
             border: 1px solid var(--var-btn-hover)
