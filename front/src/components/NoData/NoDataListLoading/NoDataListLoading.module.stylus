@@ -1,0 +1,16 @@
+.headerSke
+  height: 30px
+  margin: 20px 0
+
+.headerSke1
+  width: 80%
+.headerSke2
+  width:  100%
+.headerSke3
+  width:  90%
+.headerSke4
+  width: 70%
+.headerSke5
+  width: 60%
+.headerSke6
+  width:80%

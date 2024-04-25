@@ -1,0 +1,86 @@
+.bingoController
+  position: relative
+  // .line
+  //   position: absolute;
+  //   width: 20%;
+  //   height: 635px;
+  //   border: 2px solid red;
+  //   border-radius: 50px;
+  //   transform: rotate(-45deg);
+  //   top: 16px;
+  //   left: -32px;
+  //   transform-origin: top;
+  .table
+    text-align: center
+    font-size: 48px
+    table-layout: fixed
+    color: #101010
+    &.tableDisabled
+      td
+        pointer-events: none
+        
+  thead::after
+    content: '\200C'
+    display: block
+    line-height: 5px
+    text-indent: -99999px
+  tbody
+  th
+    text-align: center
+    font-size: 28px
+  td
+    cursor: pointer
+    position: relative
+    div
+      width: 84px
+      height: 84px
+      display:flex;
+      align-items:center;
+      justify-content:center
+      position: relative
+      background: linear-gradient(180deg, #F6F7F7 0%, #C2C2C2 100%);
+      border-radius: 24px;
+      color:#6D6D6D;
+      font-size: 40px;
+      font-family: 'Pacifico';
+      margin: 2px;
+      box-shadow: 0px 0px 3px #5F3204, inset 0px -1px 1px #687777, inset 0px 1px 2px #FFFFFF;
+    &:hover
+      color: #dc0097
+      &::before
+        content: ''
+        position: absolute
+        top: 5px
+        bottom: 5px
+        left: 5px
+        right: 5px
+        border: 1px solid #dc0097
+        border-radius: 50%
+  .disabled
+    pointer-events: none
+  .tdIsMyTurn
+    div
+      background: linear-gradient(180deg, #FFF5E8 0%, #FBE7CE 100%);
+  
+  .tdSelected
+    div
+      color: #FFC183;
+      background: #613C17
+      border-radius: 24px;
+      border:0
+      box-shadow: inset 0px 1px 0px #3C2D1A, inset 0px -1px 0px #BF905B;
+      &::before
+        content: ''
+        position: absolute
+        top: 0px
+        bottom: 0px
+        left: 0px
+        right: 0px
+      &:hover
+        color: #fff
+  .curNumber
+    div
+      background:#65C60E
+      color:#FFFFFF
+
+

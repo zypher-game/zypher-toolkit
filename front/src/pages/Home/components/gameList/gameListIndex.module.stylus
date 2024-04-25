@@ -1,0 +1,18 @@
+.gameListIndex
+  position relative
+.border
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+.more_right
+  position: absolute
+  top: -40px
+  right 0
+  color: #6673FF;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  svg
+    padding: 3px;
+    fill: #6673FF;

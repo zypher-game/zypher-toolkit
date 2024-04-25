@@ -1,0 +1,68 @@
+.dPBuyDialogContainer
+  display: flex
+  flex-direction: column
+  justify-content: center
+  padding-bottom: 30px
+  align-items: center;
+  .buyimg
+    display: block
+    width: 304px
+    height: 180px
+    margin: 30px 0 24px
+    @media screen and (max-width: 768px)
+      width: 230px
+      height: 140px
+  .btn
+    border: none
+    outline: none
+    position: relative
+    border-radius: 38px;
+    overflow: hidden
+    background: linear-gradient(96deg, #E2FFEA -10.56%, #50DAFF 28.52%, #FF3E97 62.63%, #EE8248 108.53%);
+    width: 380px
+    height: 48px
+    line-height: 48px
+    margin: 40px auto 0
+    @media screen and (max-width: 768px)
+      width: 90%;
+      height: 40px
+      line-height: 40px
+      margin: 20px auto 0
+    .btnbg
+      position: absolute
+      height: 100%
+      top: 0
+      left: 0
+      text-align: center
+      font-size: 16px;
+      color: #01465F;
+      font-weight: 600;
+      @media screen and (max-width: 768px)
+          width: 64%;
+      img
+        display: block
+        height: 100%
+        @media screen and (max-width: 768px)
+          width: 100%;
+      p
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 2
+    strong 
+      padding-left: 250px
+      text-align: center 
+      font-size: 20px;
+      color: #30000F;
+      font-weight: 600;
+      @media screen and (max-width: 768px)
+        padding-left: 60%
+  .text_btn
+    cursor: pointer
+    color: #6673FF;
+    text-align: center;
+    font-family: "PixeloidSans";
+    font-size: 16px;
+    line-height: 24px
+    padding: 10px 0

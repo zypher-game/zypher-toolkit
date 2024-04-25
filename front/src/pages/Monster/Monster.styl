@@ -1,0 +1,201 @@
+.monster_container
+  h2,h3,h4,h5,h6,p
+    font-family: "Arial Rounded MT Bold";
+.defense.ant-layout
+  height: 100vh
+  overflow: hidden
+  @media screen and (max-width: 768px)
+    background-color: #131313
+  .lt-layout-right
+    background: transparent
+  .lt-content
+    margin-top: -70px;
+    @media screen and (max-width: 768px)
+      margin-top: 0;
+   .lt-main
+    @media screen and (max-width: 768px)
+      height: auto
+.monster_content
+  position: relative
+  height: 100vh
+  overflow: hidden
+  padding-top: 104px
+  width: calc(100vw - 312px)
+  @media screen and (max-width: 1440px)
+    width: calc(100vw - 250px)
+
+  @media screen and (max-width: 768px)
+    width: 100vw
+    padding-top: 10vh
+    height: calc(100vh - 44px)
+
+  .monsterInner
+    position: relative
+    z-index 3
+    color: #fff
+    height: 100%
+
+  &.monster_content_Fight,
+  &.monster_content_End
+    .monsterInner
+      width: calc(100vw - 7vw - 420px - 312px)
+      @media screen and (max-width: 1440px)
+        width: calc(100vw - 7vw - 420px - 250px)
+      @media screen and (max-width: 768px)
+        width: 100vw
+.monster_list
+  position: relative
+.monster_list_bg
+  width: 100%
+  height: 190px
+  position: absolute;
+  z-index: 2;
+  top: -95px;
+  background: linear-gradient(180deg, rgba(19, 19, 19, 0.00) 0%, #131313 50%);
+.monsterList
+  position: fixed
+  top: 50%
+  transform: translateY(-50%)
+  right: 7vw
+  width: 420px;
+  color: #fff
+  z-index 3
+  @media screen and (max-width: 768px)
+    position: relative
+    top: 0
+    transform: none
+    right: 0
+    width: calc(100vw - 32px)
+    margin: 0 16px 30px
+    background: rgba(42, 42, 56, 0.16);
+    backdrop-filter: blur(30px);
+    // background: linear-gradient(to bottom, #030418 0%, #131313 50%)
+.dialogPosition
+  z-index 999
+  background: rgba(0, 0, 0, 0.80);
+@keyframes blink {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+.star
+  animation: blink 2s infinite;
+  &.star1
+    animation-delay: 0s
+  &.star2
+    animation-delay: 1s
+  &.star3
+    animation-delay: 0.5s
+  &.star4
+    animation-delay: 1s
+.top_btn
+  position: absolute
+  z-index 9999
+  top: 10vh
+  left: 10vw
+  p
+    color: #fff
+
+
+.nfttooltip
+  padding: 0
+  z-index: 2
+  .ant-tooltip-inner 
+    position: relative
+    padding: 0
+    background: transparent; /* 修改为你想要的背景颜色 */
+  .ant-tooltip-arrow-content::before
+    background: transparent; /* 修改为你想要的背景颜色 */
+  .nfttooltipcard
+    display: flex
+    padding: 10px 14px 20px 14px
+  .nfttooltipcardimgbg
+    position: absolute
+    width 100%
+    height: 100%
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+  .nfttooltipcardimg
+    width: 24px
+    margin-right: 3px
+    position: relative
+  .nfttooltipcardNumber
+    color: #ffffff; 
+    font-size: 20px;
+    font-family: 'Arial Rounded MT Bold'
+    text-shadow: 1.4099054336547852px 1.4099054336547852px 0px #1C2063;
+    position: relative
+.liner_long
+  max-width: 640px;
+  width: 95vw
+  height: 1px;
+  background: linear-gradient(270deg, rgba(99, 143, 255, 0.00) -1.25%, #638FFF 46.82%, rgba(99, 143, 255, 0.00) 98.83%);
+.liner_sort
+  max-width: 500px;
+  width: 70vw
+  height: 1px;
+  opacity: 0.7
+  background: linear-gradient(270deg, rgba(99, 143, 255, 0.00) -1.25%, #638FFF 46.82%, rgba(99, 143, 255, 0.00) 98.83%);
+.dialogPosition .starTitle
+  position: relative
+  text-align: center
+  h3
+    display: inline-block
+    font-family: "Oleo Script";
+    font-size: 42px;
+    line-height: 58px;
+    font-weight: 700;
+    background: linear-gradient(180deg, #F1F5FF 31.73%, #9BB7FF 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    position: relative
+    z-index: 2
+    margin: 0
+    @media screen and (max-width: 768px)
+      font-size: 30px;
+      line-height: 48px;
+    &.h3bg
+      background: linear-gradient(180deg, #3A72FF 31.73%, #3A72FF 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      filter: blur(12px);
+      position: absolute
+      top 0
+      left 0
+      width 100%
+      z-index: 1
+      
+  .star
+    position: absolute
+    fill: #E1EAFF;
+    &.star1
+      width: 16px
+      height: 16px
+      top: -13px
+      left: 0
+    &.star2
+      width: 10px
+      height: 10px
+      bottom: 8px;
+      left: -16px;
+    &.star3
+      width: 12px
+      height: 12px
+      top: 0
+      right: -10px
+    &.star4
+      width: 12px
+      height: 12px
+      bottom: -6px
+      right: 40px

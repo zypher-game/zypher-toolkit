@@ -1,0 +1,16 @@
+.monsterBottom
+  width: calc(100vw - 312px)
+  position: absolute
+  left: 50%
+  transform: translate(-50%, 0)
+  @media screen and (max-width: 1440px)
+    width: calc(100vw - 250px)
+  @media screen and (max-width: 768px)
+    width: 100vw
+  &.MonsterNft
+    bottom: 55px
+  &.Fight, &.End
+    bottom: 80px
+    @media screen and (max-width: 768px)
+      bottom: 30px
+      width: 100vw

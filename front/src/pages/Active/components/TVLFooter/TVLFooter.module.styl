@@ -1,0 +1,32 @@
+.TVLFooter
+  padding: 10px 20px
+  position fixed
+  bottom: 0
+  left: 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background-color: rgba(0,5,20, 0.8)
+  z-index 9
+  width 100%
+.text
+  color: #A2ABBF
+.communityLink
+  display: flex
+  flex-wrap: wrap;
+  justify-content: flex-start
+  align-items: center
+  gap: 25px
+  a 
+    display: block
+    width: 32px
+    height: 32px
+    .community_svg 
+      fill: #fff;
+      transition: all 0.3 ease;
+      path
+        transition: all 0.3 ease;
+    &:hover 
+      .community_svg 
+        path 
+          fill-opacity: 1;

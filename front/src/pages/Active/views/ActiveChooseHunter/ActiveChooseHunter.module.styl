@@ -1,0 +1,52 @@
+.bg 
+  background: url($preStaticUrl + '/img/tvl/hero_bg.jpg') no-repeat center
+  background-size: cover
+  h2
+    text-align: center
+    padding-top: 80px
+    font-size: 28px
+    font-weight: bold
+    line-height: 34px
+    margin-bottom: 10px
+    i 
+      font-weight: bold
+      background: linear-gradient(0, #1649FF 0%, #1649FF 19%, #4D74FF 20%, #4D74FF 39%, #809BFF 40%, #809BFF 59%, #809BFF 60%, #809BFF 79%,#B2C3FF 80%, #B2C3FF 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      padding-left: 10px
+  .textGrey
+    font-size: 16px
+    text-align: center
+    color: #959BA8
+.inner
+  width 1100px
+  margin: 0 auto
+  padding: 100px 0
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  flex-wrap: wrap
+  @media screen and (max-width: 1132px)
+    padding: 0 16px
+.inner_inner
+  width: 410px
+  position relative
+  animation: scaleAni 4s infinite;
+  transform-origin: bottom center;
+
+.fr
+  width: 340px
+
+@keyframes scaleAni {
+  0% {
+    scale: 1
+  }
+  50% {
+    scale: 1.02
+  }
+  100% {
+    scale: 1
+  }
+}

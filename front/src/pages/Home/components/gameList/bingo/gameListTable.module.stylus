@@ -1,0 +1,51 @@
+.games_list_content 
+  padding: 0 40px
+  position: relative
+  @media screen and (max-width: 768px)
+    padding: 0
+  .games_list_filter
+    position: relative
+    padding: 0 16px 20px
+    &>div 
+      top: 0
+.gameList
+  position: relative
+  @media screen and (max-width: 768px)
+    margin: 0 16px
+.account
+  display: flex
+  flex-direction: row
+  gap: 10px
+  @media screen and (max-width: 768px)
+    gap: 7px
+    opacity: 0.7;
+  & > div
+    min-height: 32px !important
+    min-width: 32px !important
+    box-shadow: 0 0 0 1px rgba(255, 255,255, 0.2) !important
+    @media screen and (max-width: 768px)
+      min-height: 22px !important
+      min-width: 22px !important
+  span
+    min-width: 24px
+    min-height: 24px
+    @media screen and (max-width: 768px)
+      min-width: 22px
+      min-height: 22px
+  p
+    no-wrap()
+.loadMore
+  position: relative
+  margin-top: 40px
+  display: flex
+  justify-content: center
+  margin-bottom: 40px
+.error
+  position: relative
+  margin-top: 40px
+  display: flex
+  justify-content: center
+  margin-bottom: 40px
+  color: #fff
+.a_link 
+  color: #65EDBC

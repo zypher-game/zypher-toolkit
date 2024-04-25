@@ -1,0 +1,85 @@
+.header
+  padding-top: 86px
+  padding-bottom: 64px
+  padding-left: 40px
+  padding-right: 40px
+  @media screen and (max-width: 768px)
+    padding-top: 64px
+    padding-bottom: 40px
+    padding-left: 16px
+    padding-right: auto
+.bannerInner
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  gap: 22px
+  @media screen and (max-width: 768px)
+    gap: 10px
+  .avatarBorder
+    border: 1px solid #2A2A2A
+    border-radius: 50%
+  .account
+    p
+      color: #fff
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 30px;
+      margin-top: 8px
+      margin-bottom: 24px
+      @media screen and (max-width: 768px)
+        font-size: 16px;
+        margin-bottom: 16px
+
+
+  .box
+    .address
+      margin: 0 0 12px
+      display: flex
+      gap: 10px
+      align-items: center;
+      font-size: 24px
+      font-weight: 600;
+      @media screen and (max-width: 768px)
+        margin: 0 0 4px
+        font-size: 16px
+    .balance
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      gap: 20px
+      @media screen and (max-width: 768px)
+        gap: 16px
+      .balanceItem
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        padding: 0 20px
+        height: 30px
+        line-height: 30px
+        border-radius:  24px
+        border: 1px solid rgba(255, 255, 255, 0.2)
+        gap: 6px
+        color: #65EDBC;
+        font-size: 18px;
+        @media screen and (max-width: 768px)
+          font-size: 14px;
+          height: 24px
+          line-height: 24px
+          gap: 3px
+        p
+          font-weight: 600;
+        img.points
+          width 34px
+          margin-left: -24px
+          @media screen and (max-width: 768px)
+            width 30px
+            margin-left: -26px
+        img
+          display: block
+          position relative
+          z-index 3
+          width 30px
+          margin-left: -20px
+          @media screen and (max-width: 768px)
+            margin-left: -26px
+            width 24px

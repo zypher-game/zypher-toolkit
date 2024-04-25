@@ -1,0 +1,34 @@
+.ant-tooltip-inner
+  background-color: transparent
+  padding: 0
+  border-radius: 0
+  >.pixel_flat_btn
+    padding: 10px
+  .pixel_tooltip_text
+    font-size: 12px
+    line-height: 18px
+    
+body .pixel_tooltip_arrow
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  bottom: -26px;
+  > .pixel_flat_btn_bg 
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2
+      left: 0;
+    > .pixel_flat_btn_top_1
+      width 100%
+    > .pixel_flat_btn_top_2
+      width: calc(100% - 4px* 1);
+    >.pixel_flat_btn_inner
+      left: 0;
+      width: calc(100% - 4px* 2);
+      height: 4px;
+    >.pixel_flat_btn_bottom_1
+      height: 4px;
+      width: 4px
+      left: 0;
+
+    >.pixel_flat_btn_bottom_2
+      display: none

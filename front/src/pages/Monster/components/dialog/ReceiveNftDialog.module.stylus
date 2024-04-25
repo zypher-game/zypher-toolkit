@@ -1,0 +1,52 @@
+@keyframes shakAni {
+  0% {
+    transform: scale(1.03) rotateZ(-5deg)
+  }
+  25% {
+    transform: scale(1) rotateZ(0)
+  }
+  50% {
+    transform: scale(1.03) rotateZ(5deg)
+  }
+  75% {
+    transform: scale(1) rotateZ(0)
+  }
+  100% {
+    transform: scale(1.03) rotateZ(-5deg)
+  }
+}
+.dialogContent
+  display: flex
+  align-items: center
+  flex-direction: column
+  .card
+    margin: 20px 0 20px
+    position: relative
+    text-align: center
+    animation: shakAni 2s linear infinite
+    img
+      width: 100%
+      height: 100%
+    .text_card
+      position: absolute
+      top: 70%
+      display: inline-block
+      padding: 0 20px
+      height: 22px
+      z-index: 9
+      left: 52%;
+      transform: translate(-50%, 0);
+      svg
+        width: 100%
+        height: 100%
+        position: absolute
+        top: 0
+        left: 0
+      p
+        font-size: 12px;
+        line-height: 22px
+        color: #fff
+        scale: 0.9
+        
+
+   
