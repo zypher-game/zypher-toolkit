@@ -1,8 +1,8 @@
 export { __private__ } from "./__private__/index";
 export * from "./components/index";
 export { useAsyncImage } from "./components/AsyncImage/useAsyncImage";
-export type { DisclaimerComponent } from "./components/RainbowKitProvider/AppContext";
-export type {
+export { DisclaimerComponent } from "./components/RainbowKitProvider/AppContext";
+export {
   AuthenticationConfig,
   AuthenticationStatus,
 } from "./components/RainbowKitProvider/AuthenticationContext";
@@ -10,14 +10,14 @@ export {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
 } from "./components/RainbowKitProvider/AuthenticationContext";
-export type { AvatarComponent } from "./components/RainbowKitProvider/AvatarContext";
+export { AvatarComponent } from "./components/RainbowKitProvider/AvatarContext";
 export {
   useAccountModal,
   useChainModal,
   useConnectModal,
 } from "./components/RainbowKitProvider/ModalContext";
-export type { Chain } from "./components/RainbowKitProvider/RainbowKitChainContext";
-export type { Theme } from "./components/RainbowKitProvider/RainbowKitProvider";
+export { Chain } from "./components/RainbowKitProvider/RainbowKitChainContext";
+export { Theme } from "./components/RainbowKitProvider/RainbowKitProvider";
 export { cssObjectFromTheme } from "./css/cssObjectFromTheme";
 export { cssStringFromTheme } from "./css/cssStringFromTheme";
 export { useChainId } from "./hooks/useChainId";
@@ -32,7 +32,7 @@ export {
   useWalletConnectors,
   WalletConnector,
 } from "./wallets/useWalletConnectors";
-export type { Wallet, WalletList } from "./wallets/Wallet";
+export { Wallet, WalletList } from "./wallets/Wallet";
 export {
   argentWallet,
   bifrostWallet,

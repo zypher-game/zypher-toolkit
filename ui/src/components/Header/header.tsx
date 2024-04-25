@@ -10,7 +10,7 @@ import { ZypherLogo } from "../SideBar";
 import "./header.stylus";
 import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { siderCollapseState } from "./state";
-import { ChainId } from "ui/src/constant/constant";
+import { ChainId } from "../../constant/constant";
 import IsPixelWidget from "./rainbow_account/IsPixelWidget";
 export type HeaderUIType = "pixel" | "other";
 interface IProps {

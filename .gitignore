@@ -2,7 +2,7 @@
 node_modules
 /src/**/dist
 /dist
-/front
+# /front
 /dll
 .history
 coverage
