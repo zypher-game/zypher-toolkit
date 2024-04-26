@@ -35,11 +35,11 @@ body .address_wrap_pop
             > div
                 background-color: #343C4F
             > .pixel_flat_btn_top_1,
-            > .pixel_flat_btn_bottom_1
+            > .pixel_flat_btn_bottom_2
                 background-color: #fff;
             > .pixel_flat_btn_inner,
             > .pixel_flat_btn_top_2,
-            > .pixel_flat_btn_bottom_2 
+            > .pixel_flat_btn_bottom_1 
                 border-left: 3px solid #fff;
                 border-right: 3px solid #fff;
     &:hover
@@ -47,11 +47,11 @@ body .address_wrap_pop
             > div
                 background-color: #343C4F
             > .pixel_flat_btn_top_1,
-            > .pixel_flat_btn_bottom_1
+            > .pixel_flat_btn_bottom_2
                 background-color: #343C4F;
             > .pixel_flat_btn_inner,
             > .pixel_flat_btn_top_2,
-            > .pixel_flat_btn_bottom_2 
+            > .pixel_flat_btn_bottom_1 
                 border-left: 3px solid #343C4F;
                 border-right: 3px solid #343C4F;
     > .pixel_flat_inner

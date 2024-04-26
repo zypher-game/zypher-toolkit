@@ -4,12 +4,12 @@ import { List } from 'antd'
 import { isEqual } from 'lodash'
 import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
 
+import css from '@/components/gameList/bingo/gameListTable.module.stylus'
+import MobileRow from '@/components/gameList/bingo/tableRow/m/MobileRow'
+import GameListBorderSelect from '@/components/gameList/gameListBorderSelect'
+import Z2048MobileRow from '@/components/gameList/z2048/tableRow/m/Z2048MobileRow'
 import { NotDataWithLoading } from '@/components/NoData'
 
-import css from '../Home/components/gameList/bingo/gameListTable.module.stylus'
-import MobileRow from '../Home/components/gameList/bingo/tableRow/m/MobileRow'
-import GameListBorderSelect from '../Home/components/gameList/gameListBorderSelect'
-import Z2048MobileRow from '../Home/components/gameList/z2048/tableRow/m/Z2048MobileRow'
 import { HomeListItem } from '../Home/components/widget'
 import { useGameListIndex } from '../Home/hooks/useGameListIndex'
 import { I2048GameList } from '../Home/hooks/useRecentZ2048FromContract'
@@ -76,7 +76,7 @@ const GamesList = memo(() => {
                 }}
               />
             ) : (
-              z2048Source.map((v: I2048GameList) => <Z2048MobileRow key={v.tokenIdStr} item={v} />)
+              z2048Source.map((v: I2048GameList) => <Z2048MobileRow key={v.tokenIdStr} item={v} showFilter={false} />)
             )
           ) : null}
         </div>

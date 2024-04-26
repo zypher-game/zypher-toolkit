@@ -1,11 +1,10 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@UI/src/'
+import { ActivePixelButtonColor, ActivePixelCard } from '@UI/src/'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
-import { ActivePixelButtonColor, ActivePixelCard } from '@UI/src/'
 import { activeDataState, IActiveData, tvlPointDialogState } from '../../state/activeState'
-import { GetAirdropCard } from '../../views/ActiveGetAirdrop/components/GetAirdropWrap/GetAirdropWrap'
 import css from './TVLPointDialog.module.styl'
 const TVLPointDialog = memo(() => {
   const isModalOpen = useRecoilValue(tvlPointDialogState)

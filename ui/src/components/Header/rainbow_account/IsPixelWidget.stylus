@@ -7,15 +7,15 @@
       >.pixel_flat_btn_inner,
       >.pixel_flat_btn_top_1,
       >.pixel_flat_btn_top_2,
-      >.pixel_flat_btn_bottom_1,
-      >.pixel_flat_btn_bottom_2
+      >.pixel_flat_btn_bottom_2,
+      >.pixel_flat_btn_bottom_1
         border: 1px solid #1649FF
   >.pixel_flat_btn_bg 
     >.pixel_flat_btn_inner,
     >.pixel_flat_btn_top_1,
     >.pixel_flat_btn_top_2,
-    >.pixel_flat_btn_bottom_1,
-    >.pixel_flat_btn_bottom_2
+    >.pixel_flat_btn_bottom_2,
+    >.pixel_flat_btn_bottom_1
       border: 1px solid #3A4254
       transition: border 0.3s ease
     
@@ -27,10 +27,10 @@
       border-bottom: none!important;
       height: 5px;
       z-index: 2;
-    >.pixel_flat_btn_bottom_1
+    >.pixel_flat_btn_bottom_2
       border-top: none!important;
       height: 5px;
       z-index: 4;
-    >.pixel_flat_btn_bottom_2
+    >.pixel_flat_btn_bottom_1
       border-top: none!important;
       height: 5px;

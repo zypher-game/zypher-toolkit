@@ -3,7 +3,7 @@ import { Tooltip } from 'antd'
 import React, { memo, useCallback, useState } from 'react'
 import { zeroAddress } from 'viem'
 
-import { ActivePixelButtonColor, ActivePixelCard, PixelBorderCard, PixelBorderCardSize2 } from '@UI/src/'
+import { ActivePixelButtonColor, ActivePixelCard, PixelBorderCard, PixelCube2 } from '@UI/src/'
 import { PixelTableBorder } from '@/pages/Active/components/PixelTable/PixelTable'
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
 import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
@@ -30,7 +30,7 @@ const ActiveTVLStaking = memo(() => {
           <h3 className={css.fl_title}>This round of competition time: April 20, 2024 ~ July 20, 2024</h3>
           <p className={css.fl_grey}>The airdrop points will continue to grow based on the amount and duration of your pledged assets!</p>
           <div className={css.tab_col}>
-            <PixelBorderCardSize2 className={css.ActiveTVLStaking_tab} pixel_height={2} height="32px" backgroundColor="#1D263B" borderColor="#1649FF">
+            <PixelCube2 className={css.ActiveTVLStaking_tab} pixel_height={2} height="32px" backgroundColor="#1D263B" borderColor="#1649FF">
               {['All', 'Ethreum'].map((v, index) => (
                 <div
                   className={`${css.ActiveTVLStaking_tab_li} ${index === chainIndex ? css.on : ''}`}
@@ -40,7 +40,7 @@ const ActiveTVLStaking = memo(() => {
                   <p>{v}</p>
                 </div>
               ))}
-            </PixelBorderCardSize2>
+            </PixelCube2>
             <ActivePixelButtonColor
               className={css.staking}
               width="110px"

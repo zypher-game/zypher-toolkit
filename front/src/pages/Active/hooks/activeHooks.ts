@@ -1,10 +1,10 @@
 import { AddressZero } from '@ethersproject/constants'
 import {
+  ChainId,
   Currency,
   divisorBigNumber,
   erc20Abi,
   erc20Contract,
-  ChainId,
   refreshBalanceState,
   request,
   txStatus,
@@ -32,7 +32,7 @@ import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 
-import { TVL_API, TVLStakingSupportedChainId, tvlTokenAddress, tvlTokens } from '../constants/activeConstants'
+import { TVL_API, TVLChainId, TVLStakingSupportedChainId, tvlTokenAddress, tvlTokens } from '../constants/activeConstants'
 import {
   activeDataState,
   chooseChainState,
@@ -77,7 +77,7 @@ export const getAirdropPathname = {
 }
 
 export const canNext = (account?: Address, chainId?: ChainId): boolean => {
-  if (account && chainId && TVLStakingSupportedChainId.includes(chainId)) {
+  if (account && chainId && TVLStakingSupportedChainId.includes(chainId as unknown as TVLChainId)) {
     return true
   }
   return false
@@ -90,7 +90,7 @@ export const usePreHandleAction = () => {
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
   const { switchNetwork } = useSwitchNetwork()
   const preHandleAction = useCallback(() => {
-    if (openChainModal && !TVLStakingSupportedChainId.includes(nativeChainId)) {
+    if (openChainModal && !TVLStakingSupportedChainId.includes(nativeChainId as unknown as TVLChainId)) {
       openChainModal()
       return
     }
@@ -188,7 +188,7 @@ export const useStake = () => {
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const getNative = useCallback(async (): Promise<string[][]> => {
     const value = await batchRequestNativeContracts({
-      chainIdList: TVLStakingSupportedChainId,
+      chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
       address: account,
       nativeMethod: 'getBalance',
       defaultValue: new BigNumberJs('0')
@@ -298,7 +298,7 @@ export const useStake = () => {
         })
       )
       const res = await batchRequestMulticall({
-        chainIdList: TVLStakingSupportedChainId,
+        chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
         params
       })
       console.log({ res, params })
@@ -327,7 +327,7 @@ export const useStake = () => {
         })
       )
       const nextRes = await batchRequestMulticall({
-        chainIdList: TVLStakingSupportedChainId,
+        chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
         params: nextParams,
         defaultValue: 0
       })
@@ -335,16 +335,17 @@ export const useStake = () => {
       let END_TIME = '0'
       const resMap = Object.fromEntries(
         res.map((v, chainIndex) => {
+          const _chainId = v.chainId as unknown as TVLChainId
           const methodArr = v.method.split(',')
           const nextMethodArr = nextRes[chainIndex].method.split(',')
-          const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[v.chainId]).map((vv: any, index: number) => {
+          const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[_chainId]).map((vv: any, index: number) => {
             const allowanceIndex = methodArr.indexOf(`allowance${vv.symbol}`)
             const symbolIndex = methodArr.indexOf(`symbol${vv.symbol}`)
             const nameIndex = methodArr.indexOf(`name${vv.symbol}`)
             const decimalIndex = methodArr.indexOf(`decimal${vv.symbol}`)
             const balanceOfIndex = methodArr.indexOf(`balanceOf${vv.symbol}`)
-            const claimableIndex = methodArr.indexOf(`claimable${v.chainId}`)
-            const END_TIMEIndex = methodArr.indexOf(`END_TIME${v.chainId}`)
+            const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
+            const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
 
             const allowanceBig = v.response[allowanceIndex] ? new BigNumberJs(v.response[allowanceIndex][0].hex) : '0'
             const symbol = v.response[symbolIndex][0]
@@ -365,7 +366,7 @@ export const useStake = () => {
               {
                 ...initData,
                 ...vv,
-                chainId: v.chainId,
+                chainId: _chainId,
                 allowance: allowanceBig.toString(),
                 symbol: symbol,
                 name: name,
@@ -380,14 +381,14 @@ export const useStake = () => {
             ]
           })
           return [
-            v.chainId,
+            _chainId,
             Object.fromEntries([
               [
-                Currency[v.chainId],
+                Currency[_chainId],
                 {
                   ...initData,
-                  symbol: Currency[v.chainId],
-                  name: Currency[v.chainId],
+                  symbol: Currency[_chainId],
+                  name: Currency[_chainId],
                   chainId: v.chainId,
                   allowance: '999999999999999999999999999999999999999999999',
                   balance: nativeValue[chainIndex][0],
@@ -400,7 +401,7 @@ export const useStake = () => {
             ])
           ]
         })
-      )
+      ) as unknown as Record<TVLChainId, Record<string, ITVLStakingData>>
       setTvlStakingData(resMap)
       setIsDataLoading(false)
     }
@@ -462,24 +463,25 @@ export const useStake = () => {
       if (isDepositLoading || isApproveLoading) {
         return
       }
-      const contract = TVLStakingContract({ chainId: nativeChainId, env, signer: walletClient })
+      const _nativeChainId = nativeChainId as unknown as TVLChainId
+      const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
+
       if (!contract) {
         setErrorToast(GlobalVar.dispatch, 'dpContract is not ready')
         return
       }
-
-      const erc20Address = tvlStakingData[nativeChainId][currency].address
-      const decimal = tvlStakingData[nativeChainId][currency].decimal
+      const erc20Address = tvlStakingData[_nativeChainId][currency].address
+      const decimal = tvlStakingData[_nativeChainId][currency].decimal
       const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toString()
       if (erc20Address !== AddressZero) {
         const _erc20Contract = erc20Contract(nativeChainId, env, erc20Address, walletClient)
-        const allowance = await _erc20Contract.read.allowance([account, tvlTokenAddress[nativeChainId].Restaking])
-        console.log({ nativeChainId, erc20Address, aa: tvlTokenAddress[nativeChainId].Restaking })
+        const allowance = await _erc20Contract.read.allowance([account, tvlTokenAddress[_nativeChainId].Restaking])
+        console.log({ _nativeChainId, erc20Address, aa: tvlTokenAddress[_nativeChainId].Restaking })
         const balance = await _erc20Contract.read.balanceOf([account])
         if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
           if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
             setIsApproveLoading(true)
-            const approveTxn = await _erc20Contract.write.approve([tvlTokenAddress[nativeChainId].Restaking, tokenAmount], {
+            const approveTxn = await _erc20Contract.write.approve([tvlTokenAddress[_nativeChainId].Restaking, tokenAmount], {
               account: account
             })
             const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
@@ -531,8 +533,14 @@ export const useStake = () => {
     }
   }, [isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction])
   useEffect(() => {
-    if (depositCurrency && depositCurrency !== '' && tvlStakingData[nativeChainId] && tvlStakingData[nativeChainId][depositCurrency].balance !== '') {
-      setMax(new BigNumberJs(tvlStakingData[nativeChainId][depositCurrency].balance).dividedBy(divisorBigNumber).toString())
+    const _nativeChainId = nativeChainId as unknown as TVLChainId
+    if (
+      depositCurrency &&
+      depositCurrency !== '' &&
+      tvlStakingData[_nativeChainId] &&
+      tvlStakingData[_nativeChainId][depositCurrency].balance !== ''
+    ) {
+      setMax(new BigNumberJs(tvlStakingData[_nativeChainId][depositCurrency].balance).dividedBy(divisorBigNumber).toString())
       return
     }
     setMax('0')

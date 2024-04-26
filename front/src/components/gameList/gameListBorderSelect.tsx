@@ -8,9 +8,9 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
+import { z2048SupportedChainIds } from '@/pages/Home/hooks/useRecentZ2048FromContract'
 import { env } from '@/utils/config'
 
-import { z2048SupportedChainIds } from '../../hooks/useRecentZ2048FromContract'
 import css from './gameListBorderSelect.module.stylus'
 const MySelect = styled(Select)`
   &.div {

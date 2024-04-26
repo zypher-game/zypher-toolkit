@@ -1,11 +1,12 @@
 import { ChainId, isPro, preStaticUrl } from '@UI/src/'
 import { Address } from 'wagmi'
 export const TVL_API = 'http://52.12.244.226:30223'
-
-export type TVLChainId = Pick<ChainId, 11_155_111 | 59140>
-
-export const defaultActiveChainId = TVLChainId.Sepolia as unknown as ChainId
-export const TVLStakingSupportedChainId = (!isPro() ? [TVLChainId.Sepolia, TVLChainId.LineaTestnet] : []) as unknown as ChainId[]
+export enum TVLChainId {
+  Sepolia = ChainId.Sepolia,
+  LineaTestnet = ChainId.LineaTestnet
+}
+export const defaultActiveChainId = TVLChainId.Sepolia as unknown as TVLChainId
+export const TVLStakingSupportedChainId = (!isPro() ? [TVLChainId.Sepolia, TVLChainId.LineaTestnet] : []) as unknown as TVLChainId[]
 
 export type IToken = {
   address: Address

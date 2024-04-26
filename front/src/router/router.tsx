@@ -19,7 +19,7 @@ import ActiveTVLTeam from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLTeam
 // import Bingo from '@/pages/Bingo'
 // import DP from '@/pages/DP'
 import GamesList from '@/pages/GamesList'
-import Home from '@/pages/Home'
+import GameIndex from '@/pages/GamingIndex/view/GamingIndex/GamingIndex'
 // import Invitation from '@/pages/invitation'
 // import Monster from '@/pages/Monster'
 import NotFound from '@/pages/NotFound'
@@ -61,7 +61,7 @@ export default (): JSX.Element => {
               <ScrollToTop>
                 <>
                   <Routes>
-                    <Route path={`${NavKey[0][0]}`} element={<ActiveRegister />} />
+                    <Route path={`${NavKey[0][0]}`} element={<GameIndex />} />
                     <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                     <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`} element={<MoreActive />} />
                     <Route
@@ -82,7 +82,7 @@ export default (): JSX.Element => {
                     <Route path={tvlPath[0]} element={<ActiveTVLTeam />} />
                     <Route path={tvlPath[1]} element={<ActiveTVLStaking />} />
                     <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />
-                    <Route path={`/${NavKey[1][0]}`} element={<Home />} />
+                    <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
                     <Route path="/profile" element={<Profile />} />
                     {/* <Route path="/defense" element={<Monster />} /> */}
                     {/* <Route path="/invitation" element={<Invitation />} /> */}

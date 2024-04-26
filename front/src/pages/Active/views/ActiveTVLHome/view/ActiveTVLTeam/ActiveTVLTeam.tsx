@@ -2,7 +2,7 @@ import { preStaticUrl, SvgComponent, useSetRecoilState } from '@UI/src/'
 import { Tooltip } from 'antd'
 import React, { memo, useCallback, useRef, useState } from 'react'
 
-import { ActivePixelButtonColor, PixelBorderCardSize3 } from '@UI/src/'
+import { ActivePixelButtonColor, PixelCube3 } from '@UI/src/'
 import { PixelTableBorder } from '@/pages/Active/components/PixelTable/PixelTable'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
 import { tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
@@ -56,7 +56,7 @@ const ActiveTVLTeam = memo(() => {
           </div>
           <h2 className={`${css.title} ${css.mt30} ${css.mb20}`}>Team member</h2>
           <div className={css.team}>
-            <PixelBorderCardSize3 className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
+            <PixelCube3 className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
               <div className={css.team_item_fl}>
                 <Avatar src={preStaticUrl + '/img/tvl/tvl_team_bg.png'} nickname="ccc" width="36px" />
                 <p>asdfsdf</p>
@@ -65,8 +65,8 @@ const ActiveTVLTeam = memo(() => {
                 <p>0.18</p>
                 <SvgComponent src={preStaticUrl + '/img/icon/pixel_eth.svg'} />
               </div>
-            </PixelBorderCardSize3>
-            <PixelBorderCardSize3 className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
+            </PixelCube3>
+            <PixelCube3 className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
               <div className={css.team_item_fl}>
                 <Avatar src={preStaticUrl + '/img/tvl/tvl_team_bg.png'} nickname="ccc" width="36px" />
                 <p>asdfsdf</p>
@@ -75,7 +75,7 @@ const ActiveTVLTeam = memo(() => {
                 <p>0.18</p>
                 <SvgComponent src={preStaticUrl + '/img/icon/pixel_eth.svg'} />
               </div>
-            </PixelBorderCardSize3>
+            </PixelCube3>
           </div>
         </>
       }

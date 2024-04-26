@@ -1,13 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import {
-  ActivePixelButtonColor,
-  PixelBorderCardSize3,
-  preStaticUrl,
-  SvgComponent,
-  useActiveWeb3React,
-  useRecoilValue,
-  useSetRecoilState
-} from '@UI/src/'
+import { ActivePixelButtonColor, PixelCube3, preStaticUrl, SvgComponent, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@UI/src/'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
@@ -110,9 +102,9 @@ const ChangeNameDialog = memo(() => {
                 </p>
               </Avatar>
               <p className={css.text}>Name</p>
-              <PixelBorderCardSize3 className={css.input} pixel_height={2} width="100%" height="48px" backgroundColor="#343C4F" borderColor="#484F60">
+              <PixelCube3 className={css.input} pixel_height={2} width="100%" height="48px" backgroundColor="#343C4F" borderColor="#484F60">
                 <input onChange={handleChange} type="text" value={nicknameLocal} />
-              </PixelBorderCardSize3>
+              </PixelCube3>
               <ActivePixelButtonColor pixel_height={3} onClick={updateInfoHandle} width="144px" height="36px">
                 <p className={css.save}>Save</p>
                 <LoadingButton isLoading={loading} />

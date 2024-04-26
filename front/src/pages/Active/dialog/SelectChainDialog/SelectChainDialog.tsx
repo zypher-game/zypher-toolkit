@@ -12,7 +12,7 @@ import {
   useSetRecoilState,
   useSwitchNetwork
 } from '@UI/src/'
-import { ActivePixelCard, PixelBorderCardButton, PixelBorderCardSize2, PixelBorderCardSize3 } from '@UI/src/'
+import { ActivePixelCard, PixelBorderCardButton, PixelCube2, PixelCube3 } from '@UI/src/'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
@@ -60,7 +60,7 @@ const SelectChainDialog = memo(() => {
         >
           <div className="select_token_ul">
             {TVLStakingSupportedChainId.map(v => (
-              <PixelBorderCardSize3
+              <PixelCube3
                 pixel_height={3}
                 // height="32px"
                 // backgroundColor="#1D263B" borderColor="#1649FF"
@@ -83,7 +83,7 @@ const SelectChainDialog = memo(() => {
                     <i className={css.point} />
                   </div>
                 ) : null}
-              </PixelBorderCardSize3>
+              </PixelCube3>
             ))}
           </div>
         </ActivePixelCard>

@@ -1,7 +1,9 @@
-body .ant-layout 
-  height: 100vh;
+body .lt-layout-content
+  height: calc(100vh - 70px);
   background: var(--var-card)
   display: block
+  @media screen and (max-width: 768px)
+    height: calc(100vh - 44px);
   .ant-layout-sider
     background: var(--var-card)
   .custom-sider 

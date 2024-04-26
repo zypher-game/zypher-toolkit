@@ -60,7 +60,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         pathname={pathnameArr[1]}
         Middle={Navigation}
       />
-      <LayoutAntd>
+      <LayoutAntd className="lt-layout-content">
         {NavKey[1].includes(pathnameArr[1]) || (isMobile && !collapsed) ? (
           <Sider
             collapsible

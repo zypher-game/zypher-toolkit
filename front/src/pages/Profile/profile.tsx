@@ -5,7 +5,8 @@ import { useIsMobile } from '@UI/src/'
 import { LngNs } from '@UI/src/'
 import React, { useEffect, useState } from 'react'
 
-import GameListIndex from '../Home/components/gameList/gameListIndex'
+import GameListIndex from '@/components/gameList/gameListIndex'
+
 import { I2048GameList, useZ2048AccountFromGraph } from '../Home/hooks/useRecentZ2048FromContract'
 import LevelRuleDialog from './components/dialog/levelRuleDialog'
 import MonsterNftDialog from './components/dialog/monsterNftDialog'

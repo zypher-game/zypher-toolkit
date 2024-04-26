@@ -1,0 +1,37 @@
+.nav
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 30px 0
+  flex-wrap: wrap
+  gap: 20px
+  .fl
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 10px
+    flex-wrap: wrap
+    .navItemFl
+      :global(>.pixel_flat_inner)
+        padding: 0 20px
+        gap: 6px
+  .fr
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    gap: 10px
+    flex-wrap: wrap
+    .fr_item
+      :global(>.pixel_flat_inner)
+        min-width: 88px
+    .fr_item_icon
+      :global(>.pixel_flat_inner)
+        min-width: 36px
+    .pixel_news
+      width: 16px
+    .pixel_point
+      position absolute
+      top: -2px
+      right: -2px
+      width: 10px
+      

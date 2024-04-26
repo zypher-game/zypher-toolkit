@@ -1,9 +1,10 @@
 import { IsMdProvider, useIsMobile } from '@UI/src/'
 import React from 'react'
 
+import GameListIndex from '@/components/gameList/gameListIndex'
+
 import BannerV2Widget from './components/banner/bannerV2'
 import Data from './components/data'
-import GameListIndex from './components/gameList/gameListIndex'
 import GamesWidget from './components/games'
 import HomeGameList from './components/HomeGameList'
 import MarqueeWidget from './components/marquee'

@@ -5,22 +5,22 @@
 :global(.select_staking_switch_chain)
   cursor pointer
   :global(>.pixel_flat_btn_bg > .pixel_flat_btn_top_1),  
-  :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1),
+  :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2),
   :global(> .pixel_flat_btn_bg > .pixel_flat_btn_inner), 
   :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_2), 
-  :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2),
+  :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1),
   :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_2:before), 
-  :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2:before)
+  :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1:before)
     transition: all 0.3s ease
   &:hover
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_1),  
-    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1)
+    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2)
       background-color: #1649FF
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_inner), 
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_2), 
-    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2),
+    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1),
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_2:before), 
-    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2:before)
+    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1:before)
       border-color: #1649FF
 img.chain
   width: 24px

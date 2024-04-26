@@ -4,13 +4,13 @@ import React, { memo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Icon from '@/assets/iconsLocal'
+import { I2048GameList } from '@/pages/Home/hooks/useRecentZ2048FromContract'
 
-import { I2048GameList } from '../../hooks/useRecentZ2048FromContract'
 import GameListTableWidget from './bingo/gameListTable'
 import GameListBorderSelect from './gameListBorderSelect'
 import css from './gameListIndex.module.stylus'
 import Z2048ListTableWidget from './z2048/Z2048ListTableWidget'
-type IProps = {
+export type IGameListProps = {
   z2048Source: I2048GameList[]
   bingoDataSource: IGameList[]
   showFilter: boolean
@@ -30,7 +30,7 @@ const GameListIndex = memo(
     showFilter,
     bingoHasError,
     loadMorecss
-  }: IProps) => {
+  }: IGameListProps) => {
     const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
     const [chooseGame, setChooseGame] = useState<IGameName>(IGameName.z2048)
     const isMobile = useIsMobile()

@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { LngNs } from "../utils/i18n";
@@ -7,7 +7,7 @@ import { useIsMobile } from "./useWindowSize";
 import { defaultSelectedKey } from "../components/SideBar/state";
 import { INavLink, INavLinkType } from "./useNavItem.type";
 import { useActiveWeb3React } from "./useActiveWeb3React";
-import { isPro } from "../constant/constant";
+import { isPro, preStaticUrl } from "../constant/constant";
 
 export const LinkList = [
   // "/zBingo",
@@ -90,6 +90,8 @@ export const useNavItem = (): INavLink[] => {
         link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
         disabled: false,
         type: INavLinkType.Games,
+        btn_label: "Live",
+        btn_background_color: "#C5631D",
       },
 
       {
@@ -98,7 +100,9 @@ export const useNavItem = (): INavLink[] => {
         icon: "z2048.png",
         link: LinkList[1],
         disabled: false,
+        btn_label: "Live",
         type: INavLinkType.Games,
+        btn_background_color: "#C5631D",
       },
       {
         label: t("zAce"),
@@ -107,6 +111,14 @@ export const useNavItem = (): INavLink[] => {
         link: LinkList[2],
         disabled: false,
         type: INavLinkType.Games,
+        btn_label: "Testing",
+        content: (className: string) => (
+          <div className={className}>
+            <p>Acequect Studio</p>
+            <img src={preStaticUrl + "/img/gaming/star.svg"} />
+          </div>
+        ),
+        btn_background_color: "#AF2D6A",
       },
 
       {
@@ -116,6 +128,8 @@ export const useNavItem = (): INavLink[] => {
         link: LinkList[3],
         disabled: false,
         type: INavLinkType.Games,
+        btn_label: "Testing",
+        btn_background_color: "#AF2D6A",
       },
       {
         label: t("TCG"),

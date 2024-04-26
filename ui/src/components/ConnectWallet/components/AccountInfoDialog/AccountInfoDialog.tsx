@@ -20,7 +20,7 @@ import Icon from "../../../icons";
 import { BlockExplorerUrls } from "../../../../constant/constant";
 import {
   PixelBorderCard,
-  PixelBorderCardSize2,
+  PixelCube2,
 } from "../../../../components/PixelBtn/ActivePixelButton";
 
 const AccountInfoDialog = memo(
@@ -164,7 +164,7 @@ const AddressWrapPopItem = memo(
     on: boolean;
   }) => {
     return (
-      <PixelBorderCardSize2
+      <PixelCube2
         className={`address_wrap_pop_item ${on ? "on" : ""}`}
         onClick={onClick}
         pixel_height={3}
@@ -175,7 +175,7 @@ const AddressWrapPopItem = memo(
       >
         <Icon name={iconName} />
         <p>{label}</p>
-      </PixelBorderCardSize2>
+      </PixelCube2>
     );
   }
 );
