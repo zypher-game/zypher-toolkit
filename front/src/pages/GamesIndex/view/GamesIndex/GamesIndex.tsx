@@ -8,14 +8,14 @@ import ZypherGamesDialog from '../../dialog/ZypherGames/ZypherGamesDialog'
 import Banner from './components/Banner/Banner'
 import GameItem from './components/GameItem/GameItem'
 import Nav from './components/Nav/Nav'
-import css from './GamingIndex.module.styl'
+import css from './GamesIndex.module.styl'
 const GameIndex = memo(() => {
   const gameList = useGameListIndex()
   return (
-    <div className={css.gaming}>
+    <div className={css.games}>
       <div className={css.inner}>
-        <Nav />
-        <Banner />
+        {/* <Nav /> */}
+        {/* <Banner /> */}
         <GameItem />
       </div>
       <TVLFooter />

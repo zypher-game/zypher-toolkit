@@ -115,7 +115,7 @@ export const useNavItem = (): INavLink[] => {
         content: (className: string) => (
           <div className={className}>
             <p>Acequect Studio</p>
-            <img src={preStaticUrl + "/img/gaming/star.svg"} />
+            <img src={preStaticUrl + "/img/games/star.svg"} />
           </div>
         ),
         btn_background_color: "#AF2D6A",

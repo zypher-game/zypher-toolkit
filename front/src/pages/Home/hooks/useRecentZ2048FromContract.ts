@@ -56,7 +56,7 @@ const MarketLinkPre: Record<ChainId, string> = {
   [ChainId.MantleTestnet]: '',
   [ChainId.Sepolia]: ''
 }
-export const z2048Constant = {
+export const z2048Constant: any = {
   [ChainId.LineaMainnet]: {
     marketLinkPre: MarketLinkPre[ChainId.LineaMainnet],
     graphql: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/game2048',
@@ -266,7 +266,7 @@ export const z2048SupportedChainIds = ({ env }: { env: string }): ChainId[] => {
   if (env === 'develop') {
     return allChain.map(v => Number(v) as ChainId)
   }
-  return allChain.filter(v => !isTestnet[v]).map(v => Number(v) as ChainId)
+  return allChain.filter(v => !isTestnet[Number(v) as ChainId]).map(v => Number(v) as ChainId)
 }
 
 function getMaxTile(b: bigint): BigNumberjs {
@@ -360,11 +360,16 @@ export const useZ2048AccountFromGraph = ({
   //   account: '0x29110cf8514365e7cc4649a5a975984a917765d9'
   // }
   const getPlayedGames = useCallback(async () => {
+    console.log(1)
     setZ2048HistoryList([])
+    console.log(3)
     try {
+      console.log(4)
       if (chainId && account) {
         setZ2048GamesLoading(true)
+        console.log(5)
         const api = z2048Constant?.[chainId]?.graphql
+        console.log({ api })
         if (api) {
           const result = await request(api, {
             method: 'POST',
@@ -381,6 +386,7 @@ export const useZ2048AccountFromGraph = ({
               'Content-Type': 'application/json'
             }
           })
+          console.log({ result })
           if (result.data && result.data.data && result.data.data.transfers && result.data.data.transfers.length) {
             const tokenIdList = result.data.data.transfers.map((v: any) => v['tokenId'])
             const chainIdList = [chainId]
@@ -405,6 +411,7 @@ export const useZ2048AccountFromGraph = ({
               })
               map.set(_chainId, contractResult)
             })
+            console.log({ map: map.size })
             if ((map.size && map.get(chainId).length) || !isEqual(z2048HistoryList, map.get(chainId))) {
               const histroy = map.get(chainId) as I2048GameList[]
               // 获取link
@@ -428,6 +435,7 @@ export const useZ2048AccountFromGraph = ({
         }
       }
     } catch (e) {
+      console.log(6)
       console.error('useZ2048AccountFromGraph: ', e)
     }
   }, [chainId, account])
@@ -448,13 +456,15 @@ const getTokenUrl = async ({ tokenIdList, chainId }: { tokenIdList: string[]; ch
     calls: [{ methodName: 'tokenURI', reference: 'tokenURI' + v, methodParameters: [v] }]
   }))
   const multicall = await MulticallContract(chainId)
+  console.log({ tokenIdListParams, chainId })
   if (multicall) {
     const { results } = await multicall.call(tokenIdListParams)
     if (results) {
       const imagePath: [string, string][] = tokenIdList.map(v => {
         const base64 = results[`tokenId${v}`]['callsReturnContext'][0]['returnValues'][0].replace('data:application/json;base64,', '')
         const decodedData = atob(base64)
-        const json = JSON.parse(decodedData) as string
+        const json = JSON.parse(decodedData)
+        console.log({ json })
         return [v, json['image']]
       })
       return imagePath
@@ -499,14 +509,15 @@ const fecth2048 = async ({
   })
   const metadataList = Object.fromEntries(
     metadataListRes.map(v => {
+      const chainId = v.chainId as unknown as ChainId
       const ress = (v.response ?? []).map((vv: any, index: number) => {
-        const [moves, time, beginTime, resultBig, player, gameIdBig] = vv
-        const maxTile = new BigNumberjs(2).exponentiatedBy(getMaxTile(BigInt(new BigNumberjs(resultBig.hex).toString())))
-        const tokenId = tokenIdList[v.chainId][index].tokenId
+        const [moves, time, beginTime, resultBig, player, gameIdBig] = vv ?? []
+        const maxTile = new BigNumberjs(2).exponentiatedBy(getMaxTile(BigInt(Math.trunc(new BigNumberjs(resultBig.hex).toNumber()))))
+        const tokenId = tokenIdList[chainId][index].tokenId
         return {
           tokenId: tokenId,
-          tokenIdLink: z2048Constant[v.chainId].marketLinkPre + z2048Constant[v.chainId].Contracts.Z2048SBT + '/' + tokenId,
-          tokenIdStr: chainIdPre[v.chainId] + '#' + tokenId,
+          tokenIdLink: z2048Constant[chainId].marketLinkPre + z2048Constant[chainId].Contracts.Z2048SBT + '/' + tokenId,
+          tokenIdStr: chainIdPre[chainId] + '#' + tokenId,
           moves,
           time,
           beginTime,
@@ -517,7 +528,7 @@ const fecth2048 = async ({
           maxTile: maxTile.toString()
         }
       })
-      return [v.chainId, ress]
+      return [chainId, ress]
     })
   )
   const maxTileList = Object.fromEntries(chainIdList.map(chainId => [chainId, [...new Set(metadataList[chainId].map((v: any) => v.maxTile))]]))

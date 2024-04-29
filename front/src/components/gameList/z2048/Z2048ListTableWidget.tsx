@@ -14,6 +14,7 @@ import { I2048GameList } from '@/pages/Home/hooks/useRecentZ2048FromContract'
 import css from '../bingo/gameListTable.module.stylus'
 import { MyTable } from '../bingo/gameListTable.style'
 import RanderNormalText from '../bingo/tableRow/pc/RanderNormalText'
+import PixelGameListTable from '../components/PixelGameListTable'
 import Z2048MobileRow from './tableRow/m/Z2048MobileRow'
 import NftTokenIdCol from './tableRow/nftTokenIdCol'
 type IProps = {
@@ -70,7 +71,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
   }, [isMobile, t])
 
   return (
-    <div className={css.gameList}>
+    <PixelGameListTable className={css.gameList}>
       {isMobile ? (
         showData.length === 0 ? (
           <List
@@ -103,10 +104,10 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
               />
             )
           }}
-          scroll={{ y: 700, x: 700 }}
+          scroll={{ y: 400, x: 400 }}
         />
       )}
-    </div>
+    </PixelGameListTable>
   )
 }, isEqual)
 

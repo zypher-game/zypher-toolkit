@@ -131,7 +131,7 @@ export const useMonster = ({
         setMonsterUserStatus(_monsterUserStatus)
       }
     } catch (err) {
-      console.log({ err })
+      // console.log({ err })
     }
   }, [monsterStatus, accountMonsterStateStr, refreshMonster])
 

@@ -5,10 +5,10 @@ export type IBanner = {
   alt: string
   imgPath: string
 }
-export const gamingBannerState = atom<IBanner[]>({
-  key: 'gamingBannerState',
+export const gamesBannerState = atom<IBanner[]>({
+  key: 'gamesBannerState',
   default: [],
-  effects_UNSTABLE: [localStorageEffect('gamingBannerState')]
+  effects_UNSTABLE: [localStorageEffect('gamesBannerState')]
 })
 
 export const zypherGamesDialogState = atom({
@@ -18,5 +18,5 @@ export const zypherGamesDialogState = atom({
 
 export const gameListDialogState = atom({
   key: 'gameListDialogState',
-  default: true
+  default: false
 })

@@ -1,16 +1,15 @@
 import 'swiper/css'
 import './swiper.pagination.styl'
+import './swiper.navigation.styl'
 
-import { ActivePixelCard, isPro, LngNs, PixelCube2, PixelCube5, useCustomTranslation, useIsMd } from '@UI/src/'
-import { preStaticUrl } from '@UI/src/'
-import i18n from 'i18next'
+import { ActivePixelCard, PixelCube2, PixelCube5, useIsMd } from '@UI/src/'
 import { isEqual } from 'lodash'
-import React, { FC, memo, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { FC, memo, useCallback } from 'react'
 import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { useBanner } from '@/pages/GamingIndex/hook/useBanner'
-import { IBanner } from '@/pages/GamingIndex/state/GamingState'
+import { useBanner } from '@/pages/GamesIndex/hook/useBanner'
+import { IBanner } from '@/pages/GamesIndex/state/GamesState'
 
 import css from './Banner.module.styl'
 
@@ -32,7 +31,7 @@ const Banner: FC = memo(() => {
         }}
         navigation={isMobile ? false : true}
         pagination={{
-          el: '.gaming_swap',
+          el: '.games_swap',
           clickable: true
         }}
         modules={[Autoplay, Pagination]}
@@ -48,13 +47,13 @@ const Banner: FC = memo(() => {
       </Swiper>
       <div className={css.inner}>
         <ActivePixelCard
-          className={css.gaming_swap_wrap}
+          className={css.games_swap_wrap}
           width={banner.length * (6 + 2) + 20 + 'px'}
           pixel_height={2}
           backgroundColor="rgba(0, 0,0,0.3)"
           height="16px"
         >
-          <div className="gaming_swap" />
+          <div className="games_swap" />
         </ActivePixelCard>
       </div>
     </>

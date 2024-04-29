@@ -1,9 +1,9 @@
 import { isPro, preStaticUrl, request, useRecoilState } from '@UI/src'
 import { useCallback, useEffect } from 'react'
 
-import { gamingBannerState, IBanner } from '../state/GamingState'
+import { gamesBannerState, IBanner } from '../state/GamesState'
 export const useBanner = () => {
-  const [banner, setBanner] = useRecoilState<IBanner[]>(gamingBannerState)
+  const [banner, setBanner] = useRecoilState<IBanner[]>(gamesBannerState)
   const getBanner = useCallback(async () => {
     const banner_res = await request(`${preStaticUrl}/json/banner/banner_${isPro() ? 'pro' : 'dev'}.json`, {
       method: 'GET',

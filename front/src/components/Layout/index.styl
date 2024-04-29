@@ -1,6 +1,8 @@
+body .lt-layout
+  background: #2a6595 url($preStaticUrl + '/img/games/bg.jpg') no-repeat center
+  background-size: 100% 100%
 body .lt-layout-content
   height: calc(100vh - 70px);
-  background: var(--var-card)
   display: block
   @media screen and (max-width: 768px)
     height: calc(100vh - 44px);
@@ -50,7 +52,7 @@ body .lt-layout-content
   position: relative
   @media screen and (max-width: 1220px)
     display: none
-  .line 
+  .pixel_line
     position: absolute;
     bottom: 0;
     left: 0;
@@ -67,11 +69,11 @@ body .lt-layout-content
     height: 100%
     padding: 0 30px
     transition: all 0.3s ease
-   
-    &.on
+    .nav_img
+      margin-left: 4px
+    &.nav_on
       font-weight: 600
       &:hover
         opacity: 1
     &:hover
       opacity: 0.9
-

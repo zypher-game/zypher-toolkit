@@ -1,5 +1,5 @@
 import { AddressZero } from '@ethersproject/constants'
-import { ChainRpcUrls, getProvider, ChainId, IContractName, MulticallContract, request, supportedChainIds, zkBingo } from '@UI/src/'
+import { ChainId, ChainRpcUrls, getProvider, IContractName, MulticallContract, request, supportedChainIds, zkBingo } from '@UI/src/'
 import BigNumberjs from 'bignumber.js'
 import { ethers } from 'ethers'
 import sample from 'lodash/sample'
@@ -81,7 +81,7 @@ export async function batchRequestTransCountFromScan({
         response: new BigNumberjs(res)
       }
     } catch (err) {
-      console.log({ err })
+      // console.log({ err })
       return {
         contractAddress: undefined,
         method: 'nr_getTransactionByAddressCount',
@@ -155,6 +155,7 @@ export async function batchRequestMulticall({
 }): Promise<IContractResponse[]> {
   const requests = chainIdList.map(async (chainId: ChainId) => {
     await sleep(0.1)
+    // console.log({ params })
     try {
       const multicall = await MulticallContract(chainId)
       if (multicall) {
@@ -181,7 +182,7 @@ export async function batchRequestMulticall({
         throw new Error('multicall not')
       }
     } catch (err) {
-      console.log({ err })
+      // console.log({ err })
       return {
         response: defaultValue,
         chainIdList,
@@ -190,7 +191,6 @@ export async function batchRequestMulticall({
       }
     }
   })
-  console.log({ requests })
   return Promise.all(requests)
 }
 export async function batchRequestGraph({

@@ -1,4 +1,10 @@
 
+.gameItem
+  margin-top: 15px
+  position: relative
+  min-height: 100vh
+.fr
+  display block
 .icon
   width 44px
   border-radius: 9px
@@ -31,9 +37,12 @@
       width 10px
   .btn
     margin-top: 6px
-  .btn_label
-    font-size: 12px
-    line-height: 20px
+    margin-right: 30px;
+.btn_label
+  width: auto
+  font-size: 12px
+  line-height: 20px
+  padding: 0 10px
 .label
   font-size: 12px
   font-weight: 600
@@ -43,6 +52,9 @@
 .gameItemComp
   display: flex
   align-items: flex-start
+  position absolute
+  z-index: 9
+  display: none
   .gameItemMiddle
     height: 84px
     margin-top: 14px

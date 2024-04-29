@@ -10,7 +10,8 @@ export const TableStyled = styled(Table)<{ isMobile: boolean }>`
     padding: 0;
   }
   th {
-    background: rgba(255, 255, 255, 0.04) !important;
+    // background: rgba(255, 255, 255, 0.04) !important;
+    background-color: #293457 !important;
     color: #fff !important;
     border: 0px !important;
     opacity: 0.6000000238418579;
@@ -21,7 +22,7 @@ export const TableStyled = styled(Table)<{ isMobile: boolean }>`
   }
   .ant-table-tbody > tr > td {
     white-space: nowrap;
-    border: 0px;
+    border-bottom: 1px solid #3a4254;
     &:hover {
       background: transparent;
     }

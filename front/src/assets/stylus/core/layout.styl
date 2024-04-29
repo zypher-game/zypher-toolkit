@@ -76,11 +76,9 @@ i.ant-spin-dot-item
         color: #DC4F26
     .ant-spin-dot-item
         background: #DC4F26
-.lt-layout
-    flex: 1
-    //height: 100vh
-    display: flex
+body .lt-layout
     overflow: auto
+    background:  #01040E
     
     .lt-sider-mode
         position: fixed;
@@ -120,10 +118,9 @@ i.ant-spin-dot-item
         z-index: 9; /* 确保模态层位于其他元素之上 */
     .lt-header
         height: 70px
-        border-bottom: 1px solid rgba(#fff, 0.1)
+        background-color:  rgba(1, 4, 14, 0.4)
         @media screen and (max-width: 768px)
             height: 44px
-            background-color:  #131313
             z-index: 99 !important
     &.airdrop
         background:  #01040E
@@ -133,8 +130,8 @@ i.ant-spin-dot-item
             @media screen and (max-width: 768px)
                 background-color:  rgba(1, 4, 14, 0.4)
                 // background-color:  #01040E
-        .ant-layout
-            background:  #01040E
+body .ant-layout
+    background:  transparent
     &.ranking
         .lt-header
             background-color: transparent

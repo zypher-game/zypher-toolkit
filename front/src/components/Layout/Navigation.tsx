@@ -1,9 +1,9 @@
-import { useIsMd1220 } from '@UI/src/'
+import { preStaticUrl, useIsMd1220 } from '@UI/src/'
 import React, { forwardRef, memo, Ref, useCallback, useEffect, useRef, useState } from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 
 import sleep from '@/utils/sleep'
-export const NavKey = [['', 'airdrop'], ['gaming']]
+export const NavKey = [['airdrop'], ['', 'games']]
 type NavLinkProps = {
   label: string
   ref: Ref<HTMLAnchorElement> | undefined
@@ -40,7 +40,7 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
   const init2 = useCallback(async () => {
     if (!isM1200) {
       linksRefs.current.forEach((linkRef, index) => {
-        if (linkRef?.className === 'on') {
+        if (linkRef?.className === 'nav_on') {
           setActiveIndex(index)
         }
         if (chooseIndex !== null) {
@@ -73,7 +73,6 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
       const link = linksRefs.current[activeIndex]
       if (link) {
         const linkWidth = link.offsetWidth
-        console.log({ linkWidth })
         if (linkWidth) {
           const leftPosition = link.offsetLeft + (linkWidth - 36) / 2
           line.style.width = '36px'
@@ -97,10 +96,19 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
       <NavLink
         to={NavKey[0][0]}
         label="Airdrop"
-        className={`${NavKey[0].includes(pathname) ? 'on' : ''}`}
+        className={`${NavKey[0].includes(pathname) ? 'nav_on' : ''}`}
         ref={ref => (linksRefs.current[0] = ref)}
       />
-      <NavLink to={NavKey[1][0]} label="Gaming" className={`${NavKey[1].includes(pathname) ? 'on' : ''}`} ref={ref => (linksRefs.current[1] = ref)} />
+      <NavLink
+        to={NavKey[1][0]}
+        label="Games"
+        className={`${NavKey[1].includes(pathname) ? 'nav_on' : ''}`}
+        ref={ref => (linksRefs.current[1] = ref)}
+      />
+      <a href="https://zypher.network/" target="_blank" rel="noreferrer" ref={ref => (linksRefs.current[2] = ref)}>
+        Zypher Network
+        <img src={preStaticUrl + '/img/icon/pixel_link.svg'} alt="pixel_link" className="nav_img" />
+      </a>
       <div className="pixel_line" />
     </div>
   )

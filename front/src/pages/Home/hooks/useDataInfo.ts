@@ -1,4 +1,3 @@
-import { Address } from '@wagmi/core'
 import {
   bingoBetaSupportedChainId,
   bingoSupportedChainId,
@@ -15,6 +14,7 @@ import {
   zkBingo,
   zkBingoV0
 } from '@UI/src/'
+import { Address } from '@wagmi/core'
 import BigNumberjs from 'bignumber.js'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'

@@ -4,7 +4,7 @@ import { ActivePixelButtonColor, ActivePixelCard } from '@UI/src/'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
-import { zypherGamesDialogState } from '../../state/GamingState'
+import { zypherGamesDialogState } from '../../state/GamesState'
 import css from './ZypherGamesDialog.module.styl'
 const ZypherGamesDialog = memo(() => {
   const isModalOpen = useRecoilValue(zypherGamesDialogState)
@@ -18,10 +18,10 @@ const ZypherGamesDialog = memo(() => {
     <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className={css.center}>
         <ActivePixelCard className={css.ZypherGamesDialog} backgroundColor="#1D263B" pixel_height={10}>
-          <img src={preStaticUrl + '/img/gaming/zypher_games.jpg'} alt="card2" className={`${css.card}`} />
+          <img src={preStaticUrl + '/img/games/zypher_games.jpg'} alt="card2" className={`${css.card}`} />
           <h3>Zypher Games</h3>
           <p>
-            Zypher Games is an innovative on-chain gaming platform that provides a decentralized and provably fair gaming experience by harnessing the
+            Zypher Games is an innovative on-chain games platform that provides a decentralized and provably fair games experience by harnessing the
             power of Zero-Knowledge Proofs (ZKPs) and Artificial Intelligence. It creates engaging and immersive fully on-chain games that showcase
             the transformative potential of combining blockchain and AI technology.
           </p>

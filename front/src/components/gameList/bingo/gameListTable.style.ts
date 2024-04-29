@@ -88,5 +88,6 @@ export const MyTable = styled(TableStyled)<{ isMobile: boolean }>`
   .ant-table-body {
     border-radius: 0 0 20px 20px;
     overflow: hidden;
+    padding-bottom: 30px;
   }
 `

@@ -1,7 +1,7 @@
 import { useCustomTranslation } from '@UI/src/'
 import { useIsMobile } from '@UI/src/'
 import { LngNs } from '@UI/src/'
-import { IBingoInfo, ChainId, IGameList, IGameStatus } from '@UI/src/'
+import { ChainId, IBingoInfo, IGameList, IGameStatus } from '@UI/src/'
 import { List } from 'antd'
 import { ColumnGroupType, ColumnType } from 'antd/lib/table'
 import classnames from 'classnames'
@@ -10,6 +10,7 @@ import React, { memo, useMemo } from 'react'
 
 import { NotDataWithLoading } from '@/components/NoData'
 
+import PixelGameListTable from '../components/PixelGameListTable'
 import css from './gameListTable.module.stylus'
 import { MyTable } from './gameListTable.style'
 import MobileRow from './tableRow/m/MobileRow'
@@ -84,7 +85,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
   }, [isMobile, t])
 
   return (
-    <div className={css.gameList}>
+    <PixelGameListTable className={css.gameList}>
       {isMobile ? (
         showData.length === 0 ? (
           <List
@@ -117,10 +118,10 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
               />
             )
           }}
-          scroll={{ y: 700, x: 700 }}
+          scroll={{ y: 400, x: 400 }}
         />
       )}
-    </div>
+    </PixelGameListTable>
   )
 }, isEqual)
 

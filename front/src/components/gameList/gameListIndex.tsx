@@ -44,34 +44,32 @@ const GameListIndex = memo(
             </Link>
           ) : null
         ) : null}
-        <div className={css.border}>
-          <GameListBorderSelect
-            chooseGame={chooseGame}
-            setSelectValue={setSelectValue}
-            setChooseGame={setChooseGame}
+        <GameListBorderSelect
+          chooseGame={chooseGame}
+          setSelectValue={setSelectValue}
+          setChooseGame={setChooseGame}
+          selectValue={selectValue}
+          showFilter={showFilter}
+        />
+        {chooseGame === IGameName.zBingo ? (
+          <GameListTableWidget
+            loading={bingoDataSourceLoading}
+            hasError={bingoHasError}
+            loadMorecss={loadMorecss}
+            dataSource={bingoDataSource}
+            selectValue={selectValue}
+          />
+        ) : null}
+        {chooseGame === IGameName.z2048 ? (
+          <Z2048ListTableWidget
+            loading={z2048DataSourceLoading}
+            hasError={z2048HasError}
+            loadMorecss={loadMorecss}
+            dataSource={z2048Source}
             selectValue={selectValue}
             showFilter={showFilter}
           />
-          {chooseGame === IGameName.zBingo ? (
-            <GameListTableWidget
-              loading={bingoDataSourceLoading}
-              hasError={bingoHasError}
-              loadMorecss={loadMorecss}
-              dataSource={bingoDataSource}
-              selectValue={selectValue}
-            />
-          ) : null}
-          {chooseGame === IGameName.z2048 ? (
-            <Z2048ListTableWidget
-              loading={z2048DataSourceLoading}
-              hasError={z2048HasError}
-              loadMorecss={loadMorecss}
-              dataSource={z2048Source}
-              selectValue={selectValue}
-              showFilter={showFilter}
-            />
-          ) : null}
-        </div>
+        ) : null}
       </div>
     )
   },

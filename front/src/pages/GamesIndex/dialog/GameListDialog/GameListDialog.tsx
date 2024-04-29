@@ -5,7 +5,7 @@ import React, { memo, useCallback } from 'react'
 
 import GameListIndex, { IGameListProps } from '@/components/gameList/gameListIndex'
 
-import { gameListDialogState } from '../../state/GamingState'
+import { gameListDialogState } from '../../state/GamesState'
 import css from './GameListDialog.module.styl'
 const GameListDialog = memo((props: IGameListProps) => {
   const isModalOpen = useRecoilValue(gameListDialogState)

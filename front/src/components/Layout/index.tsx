@@ -61,7 +61,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         Middle={Navigation}
       />
       <LayoutAntd className="lt-layout-content">
-        {NavKey[1].includes(pathnameArr[1]) || (isMobile && !collapsed) ? (
+        {/* {NavKey[1].includes(pathnameArr[1]) || (isMobile && !collapsed) ? (
           <Sider
             collapsible
             breakpoint="md"
@@ -71,7 +71,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
           >
             <SideBar className="lt-sidebar" isMobile={isMobile} useNavigate={useNavigate} />
           </Sider>
-        ) : null}
+        ) : null} */}
         <Content className="lt-content">
           <div className="lt-main">{props.children}</div>
         </Content>

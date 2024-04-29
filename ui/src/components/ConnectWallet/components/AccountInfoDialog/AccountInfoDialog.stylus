@@ -26,11 +26,14 @@ body .address_wrap_pop
         justify-content: flex-start
         align-items: flex-start
         gap: 10px
+
 .address_wrap_pop_item
     > .pixel_flat_btn_bg > div
         transition: all 0.3s ease
-    &.on,
-    &.on:hover
+.ant-select-item-option-selected .address_wrap_pop_item,
+.ant-select-item.ant-select-item-option-selected .address_wrap_pop_item:hover,
+.address_wrap_pop_item.on,
+.address_wrap_pop_item.on:hover
         > .pixel_flat_btn_bg 
             > div
                 background-color: #343C4F
@@ -42,7 +45,8 @@ body .address_wrap_pop
             > .pixel_flat_btn_bottom_1 
                 border-left: 3px solid #fff;
                 border-right: 3px solid #fff;
-    &:hover
+.ant-select-item .address_wrap_pop_item:hover,
+.address_wrap_pop_item:hover
         > .pixel_flat_btn_bg 
             > div
                 background-color: #343C4F

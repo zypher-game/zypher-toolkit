@@ -1,11 +1,9 @@
 .borderSelect
-  padding: 24px
   display: flex
   gap: 24px
   justify-content: stretch
   align-items: center
-  @media screen and (max-width: 768px)
-    padding: 16px
-
-:global(div.ant-select-item)
-  padding: 10px 16px
+  position relative
+  margin-bottom: 20px
+  :global(.ant-select-item)
+    padding: 10px 16px

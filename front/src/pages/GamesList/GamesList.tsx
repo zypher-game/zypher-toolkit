@@ -6,6 +6,7 @@ import React, { memo, useEffect, useMemo, useRef, useState } from 'react'
 
 import css from '@/components/gameList/bingo/gameListTable.module.stylus'
 import MobileRow from '@/components/gameList/bingo/tableRow/m/MobileRow'
+import PixelGameListTable from '@/components/gameList/components/PixelGameListTable'
 import GameListBorderSelect from '@/components/gameList/gameListBorderSelect'
 import Z2048MobileRow from '@/components/gameList/z2048/tableRow/m/Z2048MobileRow'
 import { NotDataWithLoading } from '@/components/NoData'
@@ -52,7 +53,7 @@ const GamesList = memo(() => {
           chooseGame={chooseGame}
           showFilter={true}
         />
-        <div className={css.gameList}>
+        <PixelGameListTable className={css.gameList}>
           {chooseGame === IGameName.zBingo ? (
             showBingoData.length === 0 ? (
               <List
@@ -79,7 +80,7 @@ const GamesList = memo(() => {
               z2048Source.map((v: I2048GameList) => <Z2048MobileRow key={v.tokenIdStr} item={v} showFilter={false} />)
             )
           ) : null}
-        </div>
+        </PixelGameListTable>
       </HomeListItem>
     </div>
   )

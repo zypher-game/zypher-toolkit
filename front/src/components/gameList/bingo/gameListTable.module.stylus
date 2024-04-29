@@ -10,8 +10,7 @@
       top: 0
 .gameList
   position: relative
-  @media screen and (max-width: 768px)
-    margin: 0 16px
+
 .account
   display: flex
   flex-direction: row

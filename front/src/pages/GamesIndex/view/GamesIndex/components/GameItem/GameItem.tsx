@@ -1,3 +1,5 @@
+import './GameItem.styl'
+
 import { ActivePixelButton, INavLink, INavLinkType, pointsDialogState, preStaticUrl, useNavItem, useSetRecoilState } from '@UI/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
@@ -32,17 +34,68 @@ const GameItem = memo(() => {
     return obj
   }, [JSON.stringify(items)])
   return (
-    <>
-      {gameList.map(v => (
-        <GameItemComp key={v.keyValue} item={v} />
-      ))}
-      <GameItemComingSoom disableGameList={disableGameList} />
-    </>
+    <div className={css.gameItem}>
+      <>
+        {gameList.map(v => (
+          <GameItemComp key={v.keyValue} item={v} />
+        ))}
+        <GameItemComingSoon disableGameList={disableGameList} />
+      </>
+      <div className="gameItem_bg">
+        <div className="pixel_island1_div">
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island1.png'} alt="pixel_litter_island1" className="pixel_litter_island1" />
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island2.png'} alt="pixel_litter_island2" className="pixel_litter_island2" />
+          <img src={preStaticUrl + '/img/games/island/pixel_island1.png'} alt="pixel_island1" className="pixel_island1" />
+          {['pixel_cloud1', 'pixel_cloud2', 'pixel_cloud5', 'pixel_cloud8'].map(v => (
+            <img key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+          ))}
+        </div>
+
+        <div className="pixel_island2_div">
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island4.png'} alt="pixel_litter_island4" className="pixel_litter_island4" />
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island5.png'} alt="pixel_litter_island5" className="pixel_litter_island5" />
+          <img src={preStaticUrl + '/img/games/island/pixel_island2.png'} alt="pixel_island2" className="pixel_island2" />
+          {['pixel_cloud13', 'pixel_cloud6'].map(v => (
+            <img key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+          ))}
+        </div>
+        <div className="pixel_island3_div">
+          <img src={preStaticUrl + '/img/games/island/pixel_island3.png'} alt="pixel_island3" className="pixel_island3" />
+          {['pixel_cloud3', 'pixel_cloud4', 'pixel_cloud11', 'pixel_cloud12'].map(v => (
+            <img key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+          ))}
+        </div>
+        {/* {[
+          'pixel_cloud1',
+          'pixel_cloud2',
+          'pixel_cloud3',
+          'pixel_cloud4',
+          'pixel_cloud5',
+          'pixel_cloud6',
+          'pixel_cloud7',
+          'pixel_cloud8',
+          'pixel_cloud9',
+          'pixel_cloud10',
+          'pixel_island1',
+          'pixel_island2',
+          'pixel_island3',
+          'pixel_island4',
+          'pixel_island5',
+          'pixel_litter_island1',
+          'pixel_litter_island2',
+          'pixel_litter_island3',
+          'pixel_litter_island5',
+          'pixel_litter_island6'
+        ].map(v => (
+          <img key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+        ))} */}
+      </div>
+    </div>
   )
 })
-const GameItemComingSoom = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
+const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
   return (
-    <div className={`${css.gameItemComp} ${css.gameItemCompComing}`}>
+    <div className={`${css.gameItemComp} "gameItemCompComing"`}>
       <GameItemBgLeft />
       <GameItemMiddle>
         <div className={css.gameItemCompComingImg}>
@@ -58,7 +111,7 @@ const GameItemComingSoom = memo(({ disableGameList }: { disableGameList: INavLin
 })
 const GameItemComp = memo(({ item }: { item: INavLink }) => {
   return (
-    <div className={`${css.gameItemComp} ${css[`gameItemComp${item.keyValue}`]}`}>
+    <div className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}>
       <GameItemBgLeft />
       <GameItemMiddle className={css.game}>
         <img className={css.icon} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
