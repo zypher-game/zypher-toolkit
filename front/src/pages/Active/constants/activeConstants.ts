@@ -1,6 +1,6 @@
 import { ChainId, isPro, preStaticUrl } from '@UI/src/'
 import { Address } from 'wagmi'
-export const TVL_API = 'http://52.12.244.226:30223'
+export const TVL_API = 'https://tvl-backend-api.zypher.game'
 export enum TVLChainId {
   Sepolia = ChainId.Sepolia,
   LineaTestnet = ChainId.LineaTestnet

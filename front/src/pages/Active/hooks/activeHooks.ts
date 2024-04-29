@@ -10,14 +10,10 @@ import {
   txStatus,
   useAccountInvitation,
   useActiveWeb3React,
-  useChainModal,
   usePublicNodeWaitForTransaction,
   useRecoilState,
-  useRecoilValue,
   useSetRecoilState,
-  useSwitchNetwork,
-  useWalletClient,
-  walletModalOpenState
+  useWalletClient
 } from '@UI/src/'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
@@ -26,16 +22,16 @@ import { Address } from 'wagmi'
 
 import { GlobalVar } from '@/constants/constants'
 import { TVLStakingABI, TVLStakingContract } from '@/contract/tvlStaking'
+import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import { batchRequestMulticall, batchRequestNativeContracts } from '@/utils/batchRequestContracts'
 import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 
-import { TVL_API, TVLChainId, TVLStakingSupportedChainId, tvlTokenAddress, tvlTokens } from '../constants/activeConstants'
+import { CODELENGTH, TVL_API, TVLChainId, TVLStakingSupportedChainId, tvlTokenAddress, tvlTokens } from '../constants/activeConstants'
 import {
   activeDataState,
-  chooseChainState,
   depositCurrencyState,
   IActiveData,
   initData,
@@ -84,26 +80,7 @@ export const canNext = (account?: Address, chainId?: ChainId): boolean => {
 }
 
 export const usePreHandleAction = () => {
-  const chooseChain = useRecoilValue(chooseChainState)
-  const { account, chainId: nativeChainId } = useActiveWeb3React()
-  const { openChainModal } = useChainModal()
-  const setDialogOpen = useSetRecoilState(walletModalOpenState)
-  const { switchNetwork } = useSwitchNetwork()
-  const preHandleAction = useCallback(() => {
-    if (openChainModal && !TVLStakingSupportedChainId.includes(nativeChainId as unknown as TVLChainId)) {
-      openChainModal()
-      return
-    }
-    if (!account) {
-      setDialogOpen(true)
-      return
-    }
-    if (switchNetwork && chooseChain && chooseChain !== nativeChainId) {
-      switchNetwork(chooseChain)
-      return
-    }
-    return true
-  }, [account, nativeChainId, chooseChain, openChainModal])
+  const preHandleAction = usePreHandleGlobal(env, TVLStakingSupportedChainId as unknown as ChainId[])
   return preHandleAction
 }
 
@@ -111,7 +88,6 @@ export const useSign = () => {
   const { account } = useActiveWeb3React()
   const [activeData, setActiveData] = useRecoilState<IActiveData>(activeDataState)
   const { invitationCode, signedStr, id, isInitLoading } = activeData
-  console.log({ id })
   const getSignCall = useCallback(async () => {
     if (account && invitationCode && !id && !isInitLoading) {
       try {
@@ -122,11 +98,11 @@ export const useSign = () => {
         if (typeof _signedStr === 'string') {
           setActiveData(pre => ({ ...pre, signedStr: _signedStr }))
         } else {
-          setActiveData(pre => ({ ...pre, invitationCode: '' }))
+          setActiveData(pre => ({ ...pre, invitationCode: '', signedFalse: true }))
         }
       } catch (err) {
         setErrorToast(GlobalVar.dispatch, err)
-        setActiveData(pre => ({ ...pre, invitationCode: '' }))
+        setActiveData(pre => ({ ...pre, invitationCode: '', signedFalse: true }))
       }
     }
   }, [account, isInitLoading, invitationCode, id])
@@ -157,12 +133,11 @@ export const useSign = () => {
       }
     }
   }, [signedStr, id])
-  console.log({ signedStr })
   useEffect(() => {
     getLoginCall()
   }, [signedStr])
   useEffect(() => {
-    if (!signedStr && invitationCode && invitationCode.length === 6) {
+    if (!signedStr && invitationCode && invitationCode.length === CODELENGTH) {
       getSignCall()
     }
   }, [getSignCall])
@@ -470,6 +445,7 @@ export const useStake = () => {
         setErrorToast(GlobalVar.dispatch, 'dpContract is not ready')
         return
       }
+
       const erc20Address = tvlStakingData[_nativeChainId][currency].address
       const decimal = tvlStakingData[_nativeChainId][currency].decimal
       const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toString()
@@ -498,7 +474,7 @@ export const useStake = () => {
       let nativeAmount = '0'
       let params
       let fn
-      if (currency === Currency[nativeChainId]) {
+      if (currency === Currency[_nativeChainId]) {
         funName = 'depositETH'
         nativeAmount = tokenAmount
         fn = contract.write[funName]({

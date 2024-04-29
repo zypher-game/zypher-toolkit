@@ -6,8 +6,8 @@
     position relative
 body .select_dialogContentInnerTop
   > .pixel_flat_btn_bg 
-    > .pixel_flat_btn_bottom_1,
-    > .pixel_flat_btn_bottom_2
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1
       width: 100%
       left: 0
   > .pixel_flat_inner

@@ -11,10 +11,12 @@ export enum ITvlHero {
   Liana = 'Liana'
 }
 export interface IActiveData {
+  accountAddress: Address
   id: string
   isInitLoading: boolean // useInit 初始化fetch
   isRegistered: boolean // 账号是否已注册
   invitationCode: string // 邀请码
+  signedFalse: boolean // 拒绝签名
   signedStr: string //签名
   twitter: {
     avatar: string // 昵称
@@ -53,9 +55,11 @@ export interface IActiveData {
   nickname: string // 昵称
 }
 export const initActiveData: IActiveData = {
+  accountAddress: AddressZero,
   id: '',
   isInitLoading: false,
   isRegistered: false,
+  signedFalse: false,
   signedStr: '',
   avatar: '',
   nickname: '',
@@ -95,7 +99,8 @@ export const initActiveData: IActiveData = {
 }
 export const activeDataState = atom({
   key: 'activeData',
-  default: initActiveData
+  default: initActiveData,
+  effects_UNSTABLE: [localStorageEffect('activeData')]
 })
 
 export interface ITVLStakingData extends IToken {
@@ -145,6 +150,11 @@ export const tvlStakingDataState = atom<Record<TVLChainId, Record<string, ITVLSt
           chainId: chainId,
           index: 0
         },
+        // [tvlTokens[chainId].GP.symbol]: {
+        //   ...initData,
+        //   ...tvlTokens[chainId].GP,
+        //   chainId: chainId
+        // },
         [tvlTokens[chainId].USDT.symbol]: {
           ...initData,
           ...tvlTokens[chainId].USDT,

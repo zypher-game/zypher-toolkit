@@ -56,7 +56,6 @@ const ActiveChooseHunter = memo(() => {
   const navigate = useNavigate()
   const [heroKey, setHeroKey] = useState(0)
   const { toSetHero } = useToPath()
-  const [showBg, setShowBg] = useState(false)
   const [isHeroLoading, setIsHeroLoading] = useState(false)
   const heroClikHandle = useCallback(index => {
     setHeroKey(index)

@@ -78,7 +78,7 @@ const Staking = memo(() => {
             if (chooseValue.balance !== '0' && new BigNumberJs(chooseValue.balance).gte(tokenAmount)) {
               obj.isBalanceEnough = true
               obj.btnLabel = 'Confirm'
-              if (chooseValue.address !== AddressZero && new BigNumberJs(chooseValue.allowance).gte(tokenAmount)) {
+              if (chooseValue.address !== AddressZero && new BigNumberJs(chooseValue.allowance).lt(tokenAmount)) {
                 obj.isApprove = false
                 obj.btnLabel = 'Approve'
               }

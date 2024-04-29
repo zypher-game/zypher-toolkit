@@ -3,21 +3,19 @@ import {
   ChainId,
   ChainImage,
   ChainName,
-  Currency,
   preStaticUrl,
   SvgComponent,
   useActiveWeb3React,
-  useRecoilState,
   useRecoilValue,
   useSetRecoilState,
   useSwitchNetwork
 } from '@UI/src/'
-import { ActivePixelCard, PixelBorderCardButton, PixelCube2, PixelCube3 } from '@UI/src/'
+import { ActivePixelCard, PixelCube3 } from '@UI/src/'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import { TVLStakingSupportedChainId } from '../../constants/activeConstants'
-import { selectChainDialogState, tvlStakingDataState } from '../../state/activeState'
+import { selectChainDialogState } from '../../state/activeState'
 import css from './SelectChainDialog.module.stylus'
 
 const SelectChainDialog = memo(() => {

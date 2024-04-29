@@ -26,7 +26,7 @@ const Banner: FC = memo(() => {
         spaceBetween={30}
         centeredSlides={isMobile ? true : false}
         autoplay={{
-          delay: 30003000,
+          delay: 3000,
           disableOnInteraction: false
         }}
         navigation={isMobile ? false : true}

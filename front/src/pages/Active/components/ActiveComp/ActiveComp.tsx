@@ -10,7 +10,7 @@ interface IProps {
   children: React.ReactNode
 }
 const ActiveComp = memo(({ children }: IProps) => {
-  // useActiveRouter()
+  useActiveRouter()
   useInit()
   return (
     <div className={css.bg}>

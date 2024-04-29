@@ -17,8 +17,7 @@ const InvitationCode = memo(() => {
   const [activeData, setActiveData] = useRecoilState<IActiveData>(activeDataState)
   const { account, chainId } = useActiveWeb3React()
   const preHandleAction = usePreHandleAction()
-  const { codeCheck } = useCodeCheckCall()
-  const [loading, setLoading] = useState(false)
+  const { loading, codeCheck } = useCodeCheckCall()
   const checkInvitationCode = useCallback(async () => {
     if (loading || activeData.isInitLoading) {
       return
@@ -38,9 +37,7 @@ const InvitationCode = memo(() => {
         if (!isOk) {
           return
         }
-        setLoading(true)
         const check = await codeCheck(codeStr)
-        setLoading(false)
         if (check) {
           setActiveData(pre => ({
             ...pre,
@@ -50,7 +47,6 @@ const InvitationCode = memo(() => {
           setErrorToast(GlobalVar.dispatch, 'Verification code has been registered')
         }
       } catch (e: any) {
-        setLoading(false)
         setErrorToast(GlobalVar.dispatch, e)
       }
     }

@@ -6,7 +6,7 @@ const TVLFooter = memo(() => {
   return (
     <div className={css.TVLFooter}>
       <CommunityLink className={css.communityLink} />
-      <p className={css.text}>TVL ｜ 2,356,789.2345 ETH</p>
+      {/* <p className={css.text}>TVL ｜ 2,356,789.2345 ETH</p> */}
     </div>
   )
 })

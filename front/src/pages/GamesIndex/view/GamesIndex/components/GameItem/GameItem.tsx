@@ -3,6 +3,8 @@ import './GameItem.styl'
 import { ActivePixelButton, INavLink, INavLinkType, pointsDialogState, preStaticUrl, useNavItem, useSetRecoilState } from '@UI/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
+import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
+
 import css from './GameItem.module.styl'
 const GameItem = memo(() => {
   const items = useNavItem()
@@ -65,37 +67,24 @@ const GameItem = memo(() => {
             <img key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
           ))}
         </div>
-        {/* {[
-          'pixel_cloud1',
-          'pixel_cloud2',
-          'pixel_cloud3',
-          'pixel_cloud4',
-          'pixel_cloud5',
-          'pixel_cloud6',
-          'pixel_cloud7',
-          'pixel_cloud8',
-          'pixel_cloud9',
-          'pixel_cloud10',
-          'pixel_island1',
-          'pixel_island2',
-          'pixel_island3',
-          'pixel_island4',
-          'pixel_island5',
-          'pixel_litter_island1',
-          'pixel_litter_island2',
-          'pixel_litter_island3',
-          'pixel_litter_island5',
-          'pixel_litter_island6'
-        ].map(v => (
-          <img key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
-        ))} */}
+        <div className="pixel_island4_div">
+          <img src={preStaticUrl + '/img/games/island/pixel_island4.png'} alt="pixel_island4" className="pixel_island4" />
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island3.png'} alt="pixel_litter_island3" className="pixel_litter_island3" />
+          <img src={preStaticUrl + '/img/games/island/pixel_cloud9.png'} alt="pixel_cloud9" className="pixel_cloud9" />
+        </div>
+        <div className="pixel_island5_div">
+          <img src={preStaticUrl + '/img/games/island/pixel_island5.png'} alt="pixel_island5" className="pixel_island5" />
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island7.png'} alt="pixel_litter_island7" className="pixel_litter_island7" />
+          <img src={preStaticUrl + '/img/games/island/pixel_litter_island6.png'} alt="pixel_litter_island6" className="pixel_litter_island6" />
+          <img src={preStaticUrl + '/img/games/island/pixel_cloud7.png'} alt="pixel_cloud7" className="pixel_cloud7" />
+        </div>
       </div>
     </div>
   )
 })
 const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
   return (
-    <div className={`${css.gameItemComp} "gameItemCompComing"`}>
+    <div className={`${css.gameItemComp ?? ''} gameItemCompComing`}>
       <GameItemBgLeft />
       <GameItemMiddle>
         <div className={css.gameItemCompComingImg}>
@@ -110,8 +99,25 @@ const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLin
   )
 })
 const GameItemComp = memo(({ item }: { item: INavLink }) => {
+  const preHandleAction = usePreHandleGlobal()
+  const setPointsDialogState = useSetRecoilState(pointsDialogState)
+  const showPointsModal = useCallback(() => {
+    setPointsDialogState(true)
+  }, [setPointsDialogState])
+  const toPathHandle = useCallback(async () => {
+    if (isNaN(Number(item.keyValue))) {
+      if (item.keyValue === 'points') {
+        const pre = preHandleAction()
+        if (pre) {
+          showPointsModal()
+        }
+      }
+    } else {
+      window.open(item.link)
+    }
+  }, [JSON.stringify(item.keyValue)])
   return (
-    <div className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}>
+    <div className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`} onClick={toPathHandle}>
       <GameItemBgLeft />
       <GameItemMiddle className={css.game}>
         <img className={css.icon} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />

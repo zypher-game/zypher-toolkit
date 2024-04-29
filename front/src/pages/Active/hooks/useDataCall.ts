@@ -1,5 +1,5 @@
 import { request, useActiveWeb3React } from '@UI/src/'
-import { useCallback } from 'react'
+import { useCallback, useState } from 'react'
 import { Address } from 'wagmi'
 
 import { TVL_API } from '../constants/activeConstants'
@@ -93,8 +93,10 @@ export const usePrimaryScore = () => {
   }
 }
 export const useCodeCheckCall = () => {
+  const [loading, setLoading] = useState(false)
   const codeCheck = useCallback(async codeStr => {
     try {
+      setLoading(true)
       const res = await request(`${TVL_API}/api/code/check`, {
         method: 'POST',
         data: JSON.stringify({ code: codeStr }),
@@ -102,16 +104,19 @@ export const useCodeCheckCall = () => {
           'Content-Type': 'application/json'
         }
       })
+      setLoading(false)
       if (res.data && res.data['message'] == 'ok') {
         return true
       } else {
         throw new Error('Verification code has been registered')
       }
     } catch (e: any) {
+      setLoading(false)
       throw new Error('Verification code has been registered')
     }
   }, [])
   return {
+    loading,
     codeCheck
   }
 }

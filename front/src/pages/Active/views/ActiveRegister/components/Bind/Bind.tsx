@@ -1,7 +1,7 @@
 import { preStaticUrl, SvgComponent, useRecoilState, useRecoilValue, useSetRecoilState } from '@UI/src/'
+import { ActivePixelButton, ActivePixelCard } from '@UI/src/'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
-import { ActivePixelButton, ActivePixelCard } from '@UI/src/'
 import LoadingButton from '@/pages/Active/components/LoadingSvg/LoadingButton'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { useGetDataCall } from '@/pages/Active/hooks/useDataCall'

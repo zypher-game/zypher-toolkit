@@ -1,5 +1,5 @@
-import { request, useActiveWeb3React, useRecoilState } from '@UI/src/'
-import { useCallback, useEffect } from 'react'
+import { useActiveWeb3React, useRecoilState } from '@UI/src/'
+import { useCallback } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'

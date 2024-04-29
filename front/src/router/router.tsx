@@ -61,7 +61,7 @@ export default (): JSX.Element => {
               <ScrollToTop>
                 <>
                   <Routes>
-                    <Route path={`${NavKey[0][0]}`} element={<GameIndex />} />
+                    <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} />
                     <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                     <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`} element={<MoreActive />} />
                     <Route

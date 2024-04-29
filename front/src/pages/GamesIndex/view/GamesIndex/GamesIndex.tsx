@@ -14,8 +14,8 @@ const GameIndex = memo(() => {
   return (
     <div className={css.games}>
       <div className={css.inner}>
-        {/* <Nav /> */}
-        {/* <Banner /> */}
+        <Nav />
+        <Banner />
         <GameItem />
       </div>
       <TVLFooter />

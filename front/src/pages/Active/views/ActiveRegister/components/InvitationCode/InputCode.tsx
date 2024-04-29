@@ -1,8 +1,10 @@
-import { ActivePixelCard, PixelBorderCard, PixelFlatBtn } from '@UI/src/'
-import React, { ChangeEventHandler, memo, RefObject, useCallback, useEffect, useRef, useState } from 'react'
+import { PixelBorderCard, useSetRecoilState } from '@UI/src/'
+import React, { ChangeEventHandler, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { CODELENGTH } from '@/pages/Active/constants/activeConstants'
+import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
+import { activeDataState } from '@/pages/Active/state/activeState'
 import { getHrefCode } from '@/pages/Active/utils/getHrefParams'
 
 import css from './InputCode.module.styl'
@@ -35,8 +37,10 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
   const [code, setCode] = useState<(string | undefined)[]>([])
   const inputsRef = useRef<(HTMLInputElement | null)[]>(new Array(CODELENGTH).fill(null))
   const { code: codeFromParams } = useParams()
+  const { codeCheck } = useCodeCheckCall()
+  const setActiveData = useSetRecoilState(activeDataState)
 
-  const initializeCode = useCallback((value: string) => {
+  const initializeCode = useCallback(async (value: string) => {
     const trimmedValue = value.trim()
     const initialCode = trimmedValue.split('', CODELENGTH)
     const currentLength = initialCode.length
@@ -50,11 +54,23 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
           nextInput.focus()
         }
       } else if (currentLength === CODELENGTH) {
-        inputsRef.current.forEach(input => {
-          if (input) {
-            input.blur()
-          }
-        })
+        const check = await codeCheck(trimmedValue)
+        if (check) {
+          setActiveData(pre =>
+            pre.signedFalse
+              ? pre
+              : {
+                  ...pre,
+                  invitationCode: trimmedValue
+                }
+          )
+        } else {
+          inputsRef.current.forEach(input => {
+            if (input) {
+              input.blur()
+            }
+          })
+        }
       }
     }
   }, [])

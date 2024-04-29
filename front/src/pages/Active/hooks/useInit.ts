@@ -16,15 +16,18 @@ export const useInit = () => {
         isInitLoading: true
       }))
       const userInfo = await getUserInfo(true)
+      console.log({ userInfo })
       if (userInfo) {
         setActiveData(pre => ({
           ...pre,
           ...userInfo,
+          accountAddress: account,
           isInitLoading: false
         }))
       } else {
         setActiveData(pre => ({
           ...pre,
+          accountAddress: account,
           isInitLoading: false
         }))
       }
@@ -35,9 +38,10 @@ export const useInit = () => {
     getData()
   }, [account])
   useEffect(() => {
-    if (!account) {
-      setActiveData(initActiveData)
-    }
+    setActiveData(pre => {
+      console.log({ pre })
+      return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? pre : initActiveData
+    })
   }, [account])
   return {
     getData

@@ -13,7 +13,11 @@ export const useActiveRouter = () => {
   const navigate = useNavigate()
   const tvlPathLink = useRecoilValue(tvlPathState)
   const location = useLocation()
+  console.log({ activeData })
   useEffect(() => {
+    if (activeData.isInitLoading) {
+      return
+    }
     const pathnameArr = location.pathname.split('/')
     if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
       return
@@ -70,7 +74,7 @@ export const useActiveRouter = () => {
       navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`)
       return
     }
-    navigate(`/${NavKey[0][0]}`)
+    // navigate(`/${NavKey[0][0]}`)
     return
   }, [JSON.stringify(activeData), tvlPathLink])
 }
