@@ -10,7 +10,7 @@ import {
   pointsAnimState,
 } from "../../state/connectWalletState";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
-import { HeaderUIType } from "ui/src/components/Header/header";
+import { HeaderUIType } from "../../../../components/Header/header";
 
 type IProps = {
   loading: boolean;

@@ -1,5 +1,5 @@
 import React from "react";
-import { ChainId } from "ui/src/constant/constant";
+import { ChainId } from "../../../constant/constant";
 import { HeaderUIType } from "../header";
 import "./rainbow_account.stylus";
 declare const Account: React.MemoExoticComponent<({ showLang, env, dispatch, setSuccessToast, setErrorToast, copy, CountupNumber, supportedChainList, type, }: {

@@ -1,6 +1,6 @@
 import React from "react";
 type IChildren = {
-    children: React.ReactNode;
+    children?: React.ReactNode;
 };
 export type IPixelProps = {
     className?: string;
@@ -17,6 +17,7 @@ export type IPixelProps = {
     borderColor?: string;
     backgroundColor?: string;
     showHover?: boolean;
+    size?: number;
 };
 interface IPixel extends IChildren, IPixelProps {
 }
@@ -25,7 +26,8 @@ export declare const ActivePixelButton: React.MemoExoticComponent<(props: IPixel
 export declare const ActivePixelColorCard: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const ActivePixelButtonColor: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const PixelBorderCard: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
-export declare const PixelBorderCardSize2: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
-export declare const PixelBorderCardSize3: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
+export declare const PixelCube2: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
+export declare const PixelCube3: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
+export declare const PixelCube5: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const PixelBorderCardButton: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export {};

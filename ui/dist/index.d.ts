@@ -55,5 +55,5 @@ export { request } from "./utils/request";
 export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getFormattedTimeMobile, } from "./utils/data";
 export { getChainId } from "./utils/getChainId";
 export { languageList } from "./components/SideBar/component/Language";
-export { IPixelProps, ActivePixelCard, ActivePixelColorCard, PixelBorderCard, PixelBorderCardSize2, PixelBorderCardSize3, ActivePixelButton, ActivePixelButtonColor, PixelBorderCardButton, } from "./components/PixelBtn/ActivePixelButton";
+export { IPixelProps, ActivePixelCard, ActivePixelColorCard, PixelBorderCard, PixelCube2, PixelCube3, PixelCube5, ActivePixelButton, ActivePixelButtonColor, PixelBorderCardButton, } from "./components/PixelBtn/ActivePixelButton";
 export { default as CommunityLink } from "./components/SideBar/component/CommunityLink";

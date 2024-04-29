@@ -15,7 +15,7 @@ import {
   pointsDialogState,
 } from "../../ConnectWallet/state/connectWalletState";
 import PlayerAvatar from "../../PlayerAvatar";
-import { ChainId } from "ui/src/constant/constant";
+import { ChainId } from "../../../constant/constant";
 import { HeaderUIType } from "../header";
 import IsPixelWidget from "./IsPixelWidget";
 import "./rainbow_account.stylus";

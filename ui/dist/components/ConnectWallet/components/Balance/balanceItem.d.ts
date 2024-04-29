@@ -1,6 +1,6 @@
 import React from "react";
 import "./balance.stylus";
-import { HeaderUIType } from "ui/src/components/Header/header";
+import { HeaderUIType } from "../../../../components/Header/header";
 type IProps = {
     loading: boolean;
     balanceStr?: string;
