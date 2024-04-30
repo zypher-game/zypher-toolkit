@@ -1,18 +1,10 @@
-import {
-  IGameList,
-  LngNs,
-  useActiveWeb3React,
-  useCustomTranslation,
-  useIsMobile,
-  useRecoilState,
-  useSetRecoilState,
-  walletModalOpenState
-} from '@UI/src/'
-import React, { useEffect, useState } from 'react'
+import { IGameList, LngNs, useActiveWeb3React, useCustomTranslation, useIsMobile, useRecoilState } from '@UI/src/'
+import React, { memo, useState } from 'react'
 
 import GameListIndex from '@/components/gameList/gameListIndex'
 
 import { I2048GameList, useZ2048AccountFromGraph } from '../GamesIndex/hook/useRecentZ2048FromContract'
+import { historyTabIndexState } from '../GamesIndex/state/GamesState'
 import LevelRuleDialog from './components/dialog/levelRuleDialog'
 import MonsterNftDialog from './components/dialog/monsterNftDialog'
 import NFTs from './components/NFTs/NFTs'
@@ -23,15 +15,10 @@ import { useBingoAccountFromGraph } from './hooks/useGetHistoryFromGraph'
 import css from './profile.module.stylus'
 import { profileBingoHistoryListState, profileZ2048HistoryListState } from './state/profileState'
 
-interface IProps {
-  className?: boolean
-}
-
-export default (props: IProps): React.ReactElement | null => {
+const Profile = memo((): React.ReactElement | null => {
   const { account } = useActiveWeb3React()
-  const [tab, setTab] = useState(0)
+  const [tab, setTab] = useRecoilState<number>(historyTabIndexState)
   const [nftTab, setNftTab] = useState(0)
-  const setDialogOpen = useSetRecoilState(walletModalOpenState)
   const [bingoHistoryList, setBingoHistoryList] = useRecoilState<IGameList[]>(profileBingoHistoryListState)
   const [z2048HistoryList, setZ2048HistoryList] = useRecoilState<I2048GameList[]>(profileZ2048HistoryListState)
   const { list, listLoading } = useGetBox(nftTab)
@@ -41,22 +28,7 @@ export default (props: IProps): React.ReactElement | null => {
   const { list: z2048List, listLoading: z2048ListLoading } = useZ2048Card({ tab, z2048HistoryList })
 
   const isMobile = useIsMobile()
-  const [timer, setTime] = useState<number>()
   const { t } = useCustomTranslation([LngNs.profile])
-  useEffect(() => {
-    setTimeout(() => {
-      setTime(1)
-    }, 1000)
-  }, [])
-  useEffect(() => {
-    if (timer) {
-      if (account) {
-        setDialogOpen(false)
-      } else {
-        setDialogOpen(true)
-      }
-    }
-  }, [timer, account])
 
   return (
     <>
@@ -96,4 +68,6 @@ export default (props: IProps): React.ReactElement | null => {
       <MonsterNftDialog />
     </>
   )
-}
+})
+
+export default Profile

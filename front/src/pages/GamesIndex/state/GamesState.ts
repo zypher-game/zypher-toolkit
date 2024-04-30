@@ -11,6 +11,25 @@ export const gamesBannerState = atom<IBanner[]>({
   effects_UNSTABLE: [localStorageEffect('gamesBannerState')]
 })
 
+export const announcementDialogState = atom({
+  key: 'announcementDialogState',
+  default: false
+})
+
+export const historyTabIndexState = atom<number>({
+  key: 'historyTabIndexState',
+  default: 0
+})
+export const historyDialogState = atom({
+  key: 'historyDialogState',
+  default: true
+})
+
+export const announcementTimeState = atom<[boolean, number]>({
+  key: 'announcementTimeState',
+  default: [true, 0],
+  effects_UNSTABLE: [localStorageEffect('announcementTimeState')]
+})
 export const zypherGamesDialogState = atom({
   key: 'zypherGamesDialogState',
   default: false
@@ -18,7 +37,7 @@ export const zypherGamesDialogState = atom({
 
 export const gameListDialogState = atom({
   key: 'gameListDialogState',
-  default: true
+  default: false
 })
 
 export const dataDialogState = atom({

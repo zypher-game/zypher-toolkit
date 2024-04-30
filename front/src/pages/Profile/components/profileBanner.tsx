@@ -2,6 +2,7 @@ import {
   CurrencyLogo,
   CurrencyLogoComp,
   getShortenAddress,
+  PixelBorderCard,
   PlayerAvatar,
   PointsIcon,
   useActiveWeb3React,
@@ -24,13 +25,7 @@ const ProfileBanner = memo(({ account, isMobile }: IProps) => {
   return (
     <div className={css.header}>
       <div className={css.bannerInner}>
-        <PlayerAvatar
-          className={css.account}
-          account={account}
-          size={isMobile ? 64 : 100}
-          showAccount={false}
-          AvatarBorder={ShowAvatarBorderWidget}
-        />
+        <PlayerAvatar className={css.account} account={account} size={isMobile ? 32 : 80} showAccount={false} AvatarBorder={ShowAvatarBorderWidget} />
         {account ? (
           <div className={css.box}>
             <div className={css.address}>
@@ -53,10 +48,10 @@ type IBalanceItemProps = {
 }
 const BalanceItem = memo(({ balanceStr, logo }: IBalanceItemProps) => {
   return (
-    <div className={css.balanceItem}>
+    <PixelBorderCard className={css.balanceItem} pixel_height={5} height="40px" backgroundColor="#1D263B" borderColor="#3A4254">
       {logo}
       <p>{balanceStr}</p>
-    </div>
+    </PixelBorderCard>
   )
 }, isEqual)
 const ShowAvatarBorderWidget = memo(({ children }: { children: React.ReactNode }) => {

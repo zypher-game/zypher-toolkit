@@ -1,45 +1,6 @@
 .tab
   display: flex
-  margin: 0 40px 32px
-  background: rgba(255, 255, 255, 0.04)
-  border-radius: 20px
-  // width: 220px
-  height: 40px
+  margin: 0 40px 50px
   @media screen and (max-width: 768px)
     margin: 0 auto 24px
-    height: 32px
-  &.lineBorder
-    background: none
-    gap: 10px
-    .tabItem
-      flex: none
-      padding: 0 10px
-      transition: all 0.3s ease
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 20px;
-      font-size: 14px
-      &:hover
-        border-color: #6673FF;
-      &.cur
-        border-color: #6673FF;
-        background: rgba(93, 104, 227, 0.20);
-  .tabItem
-    flex: 1
-    flexCenter()
-    color: rgba(255, 255, 255, 0.7)
-    font-style: normal
-    font-weight: 400
-    font-size: 16px
-    cursor: pointer
-    no-wrap()
-    @media screen and (max-width: 768px)
-      font-size: 14px
-
-    &.cur
-      background: #6673FF
-      border-radius: 23px
-      color: #fff
-      @media screen and (max-width: 768px)
-        font-weight: 600
-
+  

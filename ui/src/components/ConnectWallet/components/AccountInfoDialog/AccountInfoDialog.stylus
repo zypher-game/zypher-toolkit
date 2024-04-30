@@ -58,7 +58,7 @@ body .address_wrap_pop
         >.pixel_flat_btn_bottom_1 
             border-left: 3px solid #343C4F;
             border-right: 3px solid #343C4F;
-    >.pixel_flat_inner
+.address_wrap_pop_item>.pixel_flat_inner
         padding: 8px 10px
         gap: 10px
         justify-content: flex-start

@@ -1,10 +1,20 @@
-import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useSetRecoilState } from '@UI/src'
+import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@UI/src'
 import React, { memo, useCallback } from 'react'
 
-import { dataDialogState, gameListDialogState, zypherGamesDialogState } from '@/pages/GamesIndex/state/GamesState'
+import {
+  announcementDialogState,
+  announcementTimeState,
+  dataDialogState,
+  gameListDialogState,
+  historyDialogState,
+  zypherGamesDialogState
+} from '@/pages/GamesIndex/state/GamesState'
 
 import css from './Nav.module.styl'
 const Nav = memo(() => {
+  const announcementTime = useRecoilValue(announcementTimeState)
+  const setIsHistoryModalOpen = useSetRecoilState(historyDialogState)
+  const setIsAnnouncementModalOpen = useSetRecoilState(announcementDialogState)
   const setIsZypherGamesModalOpen = useSetRecoilState(zypherGamesDialogState)
   const setIsGameListModalOpen = useSetRecoilState(gameListDialogState)
   const setIsDataModalOpen = useSetRecoilState(dataDialogState)
@@ -17,6 +27,12 @@ const Nav = memo(() => {
   const dataModalOpenHandle = useCallback(() => {
     setIsDataModalOpen(true)
   }, [])
+  const announcementModalOpenHandle = useCallback(() => {
+    setIsAnnouncementModalOpen(true)
+  }, [])
+  const historyModalOpenHandle = useCallback((tabIndex: number) => {
+    setIsHistoryModalOpen(true)
+  }, [])
 
   return (
     <div className={css.nav}>
@@ -26,14 +42,14 @@ const Nav = memo(() => {
         <NavItemFl label="Data" iconPath="pixel_data" onClick={dataModalOpenHandle} />
       </div>
       <div className={css.fr}>
-        <NavItemFr className={css.fr_item}>
+        <NavItemFr className={css.fr_item} onClick={() => historyModalOpenHandle(0)}>
           <p>History</p>
         </NavItemFr>
-        <NavItemFr className={css.fr_item}>
+        <NavItemFr className={css.fr_item} onClick={() => historyModalOpenHandle(1)}>
           <p>NFTs</p>
         </NavItemFr>
-        <NavItemFr className={css.fr_item_icon}>
-          <SvgComponent src={`${preStaticUrl}/img/icon/pixel_point.svg`} className={css.pixel_point} />
+        <NavItemFr className={css.fr_item_icon} onClick={announcementModalOpenHandle}>
+          {announcementTime[0] ? <SvgComponent src={`${preStaticUrl}/img/icon/pixel_point.svg`} className={css.pixel_point} /> : null}
           <SvgComponent src={`${preStaticUrl}/img/icon/pixel_news.svg`} className={css.pixel_news} />
         </NavItemFr>
       </div>
@@ -56,7 +72,7 @@ const NavItemFl = memo(({ iconPath, label, onClick }: { iconPath: string; label:
     </ActivePixelButtonColor>
   )
 })
-const NavItemFr = memo(({ className, children }: { className: string; children: React.ReactNode }) => {
+const NavItemFr = memo(({ className, children, onClick }: { className: string; children: React.ReactNode; onClick?: any }) => {
   return (
     <ActivePixelButtonColor
       className={className}
@@ -65,6 +81,7 @@ const NavItemFr = memo(({ className, children }: { className: string; children: 
       backgroundColor="#1649FF"
       borderBottomColor="#0F33B2"
       borderTopColor="#3360FF"
+      onClick={onClick}
     >
       {children}
     </ActivePixelButtonColor>

@@ -80,7 +80,11 @@ export const canNext = (account?: Address, chainId?: ChainId): boolean => {
 }
 
 export const usePreHandleAction = () => {
-  const preHandleAction = usePreHandleGlobal(env, TVLStakingSupportedChainId as unknown as ChainId[])
+  const _preHandleAction = usePreHandleGlobal()
+
+  const preHandleAction = useCallback(() => {
+    return _preHandleAction(env, TVLStakingSupportedChainId as unknown as ChainId[])
+  }, [_preHandleAction])
   return preHandleAction
 }
 

@@ -1,9 +1,10 @@
 import './GameItem.styl'
 
-import { ActivePixelButton, INavLink, INavLinkType, pointsDialogState, preStaticUrl, useNavItem, useSetRecoilState } from '@UI/src'
+import { ActivePixelButton, DPSupportChainId, INavLink, INavLinkType, pointsDialogState, preStaticUrl, useNavItem, useSetRecoilState } from '@UI/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
+import { env } from '@/utils/config'
 
 import css from './GameItem.module.styl'
 const GameItem = memo(() => {
@@ -107,7 +108,7 @@ const GameItemComp = memo(({ item }: { item: INavLink }) => {
   const toPathHandle = useCallback(async () => {
     if (isNaN(Number(item.keyValue))) {
       if (item.keyValue === 'points') {
-        const pre = preHandleAction()
+        const pre = preHandleAction(env, DPSupportChainId)
         if (pre) {
           showPointsModal()
         }

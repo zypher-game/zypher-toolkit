@@ -1,13 +1,7 @@
 .header
-  padding-top: 86px
-  padding-bottom: 64px
-  padding-left: 40px
-  padding-right: 40px
+  padding: 40px 30px
   @media screen and (max-width: 768px)
-    padding-top: 64px
-    padding-bottom: 40px
-    padding-left: 16px
-    padding-right: auto
+    padding-top: 20px
 .bannerInner
   display: flex
   align-items: center
@@ -39,6 +33,8 @@
       align-items: center;
       font-size: 24px
       font-weight: 600;
+      line-height: 30px
+      height: 30px
       @media screen and (max-width: 768px)
         margin: 0 0 4px
         font-size: 16px
@@ -50,36 +46,23 @@
       @media screen and (max-width: 768px)
         gap: 16px
       .balanceItem
-        display: flex
-        justify-content: flex-start
-        align-items: center
-        padding: 0 20px
-        height: 30px
-        line-height: 30px
-        border-radius:  24px
-        border: 1px solid rgba(255, 255, 255, 0.2)
-        gap: 6px
-        color: #65EDBC;
-        font-size: 18px;
+        padding: 0 20px 0 10px
+        font-size: 16px;
         @media screen and (max-width: 768px)
           font-size: 14px;
-          height: 24px
-          line-height: 24px
           gap: 3px
         p
-          font-weight: 600;
+          margin-left: 8px;
         img.points
-          width 34px
-          margin-left: -24px
+          width: 40px;
+          margin-left: -10px;
+          padding-left: 10px;
           @media screen and (max-width: 768px)
             width 30px
-            margin-left: -26px
         img
           display: block
           position relative
           z-index 3
-          width 30px
-          margin-left: -20px
+          width 28px
           @media screen and (max-width: 768px)
-            margin-left: -26px
             width 24px

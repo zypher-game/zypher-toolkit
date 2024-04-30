@@ -1,29 +1,19 @@
 .profile
+    width: 1200px
     color: #fff
     position: relative
-
-    &:after
-        content: ' '
-        display: block
-        width: 100%
-        height: 350px
-        position: absolute
-        z-index: 2
-        top: 0
-        left: 0
-        background: linear-gradient(180deg, rgba(19, 19, 19, 0) -33.75%, rgba(19, 19, 19, 0.6) 20.24%, rgba(19, 19, 19, 0.933409) 65.88%, #131313 96.13%)
 
     &:before
         content: ' '
         display: block
         width: 100%
-        height: 348px
+        height: 220px
         position: absolute
         z-index: 1
         top: 0
         left: 0
-        background: url($preStaticUrl + '/img/profile/bg.jpeg') no-repeat center top
-        background-size: cover
+        background: url($preStaticUrl + '/img/games/historyDialogBg.png') no-repeat center top
+        background-size: 100% 100%
 
     .content
         position: relative

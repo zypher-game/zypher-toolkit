@@ -39,7 +39,6 @@ import { usePollPrice } from '../store/price/hooks'
 // const Monster = lazy(() => import('@/pages/Monster'))
 // const NotFound = lazy(() => import('@/pages/NotFound'))
 // const Ranking = lazy(() => import('@/pages/Ranking'))
-const Profile = lazy(() => import('@/pages/Profile'))
 // const GamesList = lazy(() => import('@/pages/GamesList'))
 // // const Invitation = lazy(() => import('@/pages/invitation'))
 // const Bingo = lazy(() => import('@/pages/Bingo'))
@@ -83,7 +82,6 @@ export default (): JSX.Element => {
                     <Route path={tvlPath[1]} element={<ActiveTVLStaking />} />
                     <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />
                     <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
-                    <Route path="/profile" element={<Profile />} />
                     {/* <Route path="/defense" element={<Monster />} /> */}
                     {/* <Route path="/invitation" element={<Invitation />} /> */}
                     {/* <Route path="/gbBox" element={<GBBox />} /> */}
