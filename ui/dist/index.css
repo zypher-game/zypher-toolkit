@@ -1324,7 +1324,12 @@
   display: flex;
   height: 100%;
   align-items: center;
-  padding-left: 16px;
+  padding-left: 40px;
+}
+@media screen and (max-width: 1400px) {
+  .header_header .header_left {
+    padding-left: 16px;
+  }
 }
 .header_header .header_right {
   float: right;
@@ -1333,7 +1338,7 @@
   align-items: center;
   padding-right: 40px;
 }
-@media screen and (max-width: 1236px) {
+@media screen and (max-width: 1400px) {
   .header_header .header_right {
     padding-right: 16px;
   }
@@ -1868,18 +1873,15 @@ body .address_wrap_pop > .pixel_flat_inner {
   border-left: 3px solid #343c4f;
   border-right: 3px solid #343c4f;
 }
-.ant-select-item .address_wrap_pop_item:hover > .pixel_flat_inner,
-.address_wrap_pop_item:hover > .pixel_flat_inner {
+.address_wrap_pop_item > .pixel_flat_inner {
   padding: 8px 10px;
   gap: 10px;
   justify-content: flex-start;
 }
-.ant-select-item .address_wrap_pop_item:hover > .pixel_flat_inner .svg_component,
-.address_wrap_pop_item:hover > .pixel_flat_inner .svg_component {
+.address_wrap_pop_item > .pixel_flat_inner .svg_component {
   width: 20px;
 }
-.ant-select-item .address_wrap_pop_item:hover > .pixel_flat_inner p,
-.address_wrap_pop_item:hover > .pixel_flat_inner p {
+.address_wrap_pop_item > .pixel_flat_inner p {
   color: #fff;
   font-size: 14px;
 }
@@ -2037,9 +2039,14 @@ body .address_wrap_pop > .pixel_flat_inner {
   align-items: center;
   gap: 20px;
 }
-@media screen and (max-width: 1300px) {
+@media screen and (max-width: 1400px) {
   .connect_pixel_connectWallet {
     gap: 10px;
+  }
+}
+@media screen and (max-width: 1300px) {
+  .connect_pixel_connectWallet {
+    gap: 4px;
   }
 }
 .connect_pixel_connectWallet .pixel_flat_btn_bg > div {

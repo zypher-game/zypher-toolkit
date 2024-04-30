@@ -1,6 +1,0 @@
-.dPStake
-  padding: 20px
-  .bottom
-    &>button
-      width: 100%
-      margin-top: 30px
