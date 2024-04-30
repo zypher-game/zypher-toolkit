@@ -1,7 +1,5 @@
 .customDialog [data-reach-dialog-content]
     padding: 0;
-    background: #10253E;
-    border-radius: 20px
     z-index: 9999
 
 .customDialog

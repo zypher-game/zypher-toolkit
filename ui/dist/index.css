@@ -196,33 +196,6 @@
   align-items: center;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
-.dialog_title_modalTitleInner {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 62px;
-  padding: 20px 32px;
-  background: #1c1c1c;
-  border-radius: 20px 20px 0 0;
-}
-.dialog_title_modalTitleInner .dialog_title_title {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 16px;
-  color: var(--var-text-light);
-  line-height: 24px;
-}
-.dialog_title_modalTitleInner span {
-  display: block;
-  cursor: pointer;
-}
-.dialog_title_modalTitleInner span :global(.icon) {
-  size: 14px;
-  fill: var(--var-text-light);
-}
-
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.stylus */
 .points_dialog_zindex {
   z-index: 1001 !important;
@@ -263,6 +236,7 @@
   overflow-y: scroll;
   color: #fff;
   font-size: 14px;
+  max-width: 620px;
 }
 .points_dialog_dialogContainer h4 {
   font-weight: 700;
@@ -309,23 +283,17 @@
   vertical-align: top;
 }
 .points_dialog_btnWrap {
-  margin: 20px 20px 30px;
+  margin: 20px auto 30px;
 }
 .points_dialog_btn {
   display: block;
   color: #fff;
-  background: #1649ff;
   width: 100%;
   height: 40px;
-  border-radius: 12px;
   margin: 0 auto;
   border: none;
   font-weight: 600;
   font-size: 16px;
-}
-.points_dialog_btn:hover {
-  background: #1649ff;
-  color: #fff;
 }
 .points_dialog_flex {
   display: flex;
@@ -342,6 +310,7 @@
   width: 20px;
 }
 .dialog .modalMain {
+  width: 100%;
   padding: 20px 32px 33px;
 }
 @media screen and (max-width: 768px) {
@@ -379,7 +348,7 @@
 }
 .dialog .balanceTitle {
   display: flex;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: center;
   margin-bottom: 20px;
 }
@@ -435,9 +404,6 @@
   flex: 1;
   height: 160px;
   text-align: center;
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background: rgba(255, 255, 255, 0.04);
   padding-top: 20px;
   cursor: pointer;
 }
@@ -504,34 +470,42 @@
 }
 .dialog .table .points .bottom {
   width: 100%;
-  background-color: #1649ff;
-  border-radius: 0 0 10px 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 7px 0;
+  padding: 4px 0;
   position: absolute;
   bottom: 0;
   left: 0;
   z-index: 2;
 }
+.dialog .table .points .bottom .pixel_flat_btn_bg .pixel_flat_btn_top_1,
+.dialog .table .points .bottom .pixel_flat_btn_bg .pixel_flat_btn_top_2 {
+  width: 100%;
+  left: 0;
+}
 .dialog .table .points .bottom p {
   margin: 0;
   color: #fff;
   font-size: 14px;
-  font-weight: 600;
 }
 .dialog .table .points .bottom img {
   width: 16px;
   height: 16px;
   margin-left: 6px;
 }
+.modalTitleInnerTitle {
+  font-size: 20px;
+  width: 100%;
+  font-weight: 600;
+  text-align: center;
+}
+@media screen and (max-width: 768px) {
+  .modalTitleInnerTitle {
+    font-size: 16px;
+  }
+}
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Modal/Modal.stylus */
 .customDialog [data-reach-dialog-content] {
   padding: 0;
-  background: #10253e;
-  border-radius: 20px;
   z-index: 9999;
 }
 .customDialog {
@@ -606,6 +580,66 @@
   size: 32px;
   fill: #fff;
   cursor: pointer;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelTable/PixelTable.styl */
+.tvlPixelTable > .pixel_flat_inner {
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+body .tvlPixelTable_header {
+  width: 100%;
+}
+body .tvlPixelTable_header > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1,
+body .tvlPixelTable_header > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  left: 0;
+  width: 100%;
+}
+body .tvlPixelTable_header > .pixel_flat_inner {
+  width: 100%;
+  justify-content: flex-start;
+  padding: 20px;
+}
+@media screen and (max-width: 768px) {
+  body .tvlPixelTable_header > .pixel_flat_inner {
+    padding: 8px 16px;
+  }
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/LoadingSvg/LoadingButton.styl */
+.LoadingButton {
+  margin-left: 10px;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+.loading_size4 {
+  scale: 4;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/DialogClose/DialogClose.styl */
+.dialog_close {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 26px;
+  right: 24px;
+  cursor: pointer;
+  z-index: 9;
+}
+@media screen and (max-width: 768px) {
+  .dialog_close {
+    top: 12px;
+    right: 30px;
+    scale: 0.8;
+  }
+}
+.dialog_close svg {
+  fill: #fff;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/SmokeStyle.stylus */
@@ -1306,6 +1340,33 @@
   to {
     left: 100%;
   }
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
+.dialog_title_modalTitleInner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+  padding: 20px 32px;
+  background: #1c1c1c;
+  border-radius: 20px 20px 0 0;
+}
+.dialog_title_modalTitleInner .dialog_title_title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  color: var(--var-text-light);
+  line-height: 24px;
+}
+.dialog_title_modalTitleInner span {
+  display: block;
+  cursor: pointer;
+}
+.dialog_title_modalTitleInner span :global(.icon) {
+  size: 14px;
+  fill: var(--var-text-light);
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/header.stylus */
@@ -4306,4 +4367,78 @@ body .address_wrap_pop > .pixel_flat_inner {
 }
 [data-rk] .di1j2u0:hover {
   background: unset;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelTab/PixelTab.styl */
+.pixe_active_tvl_tab {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.pixe_active_tvl_tab .active_tvl_tab_on .pixel_flat_inner p {
+  color: #fff;
+}
+.pixe_active_tvl_tab .active_tvl_tab .pixel_flat_inner p {
+  color: #d3d4d7;
+}
+.pixe_active_tvl_tab .pixel_flat_inner p {
+  padding: 0 24px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelTab/PixelTabBorder.styl */
+.ActiveTVLStaking_tab {
+  width: fit-content;
+}
+.ActiveTVLStaking_tab:first-child .ActiveTVLStaking_tab_li:after,
+.ActiveTVLStaking_tab:last-child .ActiveTVLStaking_tab_li:after {
+  contain: "";
+  width: 2px;
+  height: calc(100% - 4px);
+  top: 2px;
+  background-color: #1649ff;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li {
+  display: flex;
+  padding: 0 23px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  min-width: 110px;
+  position: relative;
+  cursor: pointer;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li p {
+  transition: opacity 0.3s ease;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li:hover p {
+  opacity: 0.8;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li.on {
+  background-color: #1649ff;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li.on:hover p {
+  opacity: 1;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li.on:first-child:after,
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li.on:last-child:after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  height: calc(100% - 4px);
+  top: 2px;
+  background-color: #1649ff;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li.on:first-child:after {
+  left: -2px;
+}
+.ActiveTVLStaking_tab .ActiveTVLStaking_tab_li.on:last-child:after {
+  right: -2px;
+}
+.ActiveTVLStaking_tab > .pixel_flat_inner {
+  justify-content: flex-start;
+  padding: 0 4px;
 }

@@ -8,6 +8,7 @@ import Icon from "../../../../components/icons";
 
 import { hidePointsWarnState } from "../../state/connectWalletState";
 import "./PointsRuleDialog.stylus";
+import { ActivePixelButtonColor } from "../../../PixelBtn/ActivePixelButton";
 
 type IProps = {
   isLoading: boolean;
@@ -35,9 +36,18 @@ const PoinsWarn = memo(({ handleNext }: IProps) => {
         <Icon name={hidePointsWarn ? "checked" : "check"} />
         {t("poinsWarnText05")}
       </p>
-      <button className={"points_dialog_btn"} onClick={handleNext}>
-        {t("Ok")}
-      </button>
+      <ActivePixelButtonColor
+        onClick={handleNext}
+        width="100%"
+        height="52px"
+        pixel_height={4}
+        backgroundColor="#1649FF"
+        borderBottomColor="#0F33B2"
+        borderTopColor="#3360FF"
+        className={"points_dialog_btn"}
+      >
+        <p>{t("Ok")}</p>
+      </ActivePixelButtonColor>
     </div>
   );
 }, isEqual);

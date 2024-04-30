@@ -56,4 +56,9 @@ export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getForm
 export { getChainId } from "./utils/getChainId";
 export { languageList } from "./components/SideBar/component/Language";
 export { IPixelProps, ActivePixelCard, ActivePixelColorCard, PixelBorderCard, PixelCube2, PixelCube3, PixelCube5, ActivePixelButton, ActivePixelButtonColor, PixelBorderCardButton, } from "./components/PixelBtn/ActivePixelButton";
+export { default as PixelTab } from "./components/PixelTab/PixelTab";
+export { default as PixelTabBorder } from "./components/PixelTab/PixelTabBorder";
+export { PixelTableBorder, PixelTable, } from "./components/PixelTable/PixelTable";
+export { default as LoadingButton } from "./components/LoadingSvg/LoadingButton";
+export { default as DialogClose } from "./components/DialogClose/DialogClose";
 export { default as CommunityLink } from "./components/SideBar/component/CommunityLink";

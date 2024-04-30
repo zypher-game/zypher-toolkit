@@ -2,6 +2,7 @@
     .pointsIcon
         width: 20px
     .modalMain
+        width: 100%;
         padding: 20px 32px 33px
         @media screen and (max-width: 768px)
             padding: 20px 23px 33px
@@ -30,7 +31,7 @@
             cursor: pointer
     .balanceTitle
         display: flex
-        justify-content: flex-end
+        justify-content: flex-start
         align-items: center
         margin-bottom: 20px;
         @media screen and (max-width: 768px)
@@ -73,9 +74,6 @@
             flex: 1
             height: 160px
             text-align: center
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.10);
-            background: rgba(255, 255, 255, 0.04);
             padding-top: 20px;
             cursor: pointer
             @media screen and (max-width: 768px)
@@ -135,22 +133,34 @@
                 z-index: 2
             .bottom 
                 width 100%
-                background-color: #1649FF;
-                border-radius: 0 0 10px 10px;
-                display: flex
-                justify-content: center
-                align-items: center
-                padding: 7px 0
+                // background-color: #1649FF;
+                // border-radius: 0 0 10px 10px;
+                // display: flex
+                // justify-content: center
+                // align-items: center
+                padding: 4px 0
                 position: absolute
                 bottom: 0
                 left: 0
                 z-index: 2
+                .pixel_flat_btn_bg
+                    .pixel_flat_btn_top_1,
+                    .pixel_flat_btn_top_2
+                        width: 100%
+                        left: 0
                 p
                     margin: 0
                     color: #fff
                     font-size: 14px;
-                    font-weight: 600;
                 img
                     width: 16px
                     height: 16px
                     margin-left: 6px
+.modalTitleInnerTitle
+    font-size: 20px
+    width: 100%
+    font-weight: 600
+    text-align: center
+    @media screen and (max-width: 768px)
+        font-size: 16px
+
