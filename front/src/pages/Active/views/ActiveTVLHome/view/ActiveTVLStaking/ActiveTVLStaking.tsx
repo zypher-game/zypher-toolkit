@@ -1,10 +1,10 @@
 import { ChainId, preStaticUrl, SvgComponent, useSetRecoilState } from '@UI/src/'
+import { ActivePixelButtonColor, PixelCube2 } from '@UI/src/'
 import { Tooltip } from 'antd'
 import React, { memo, useCallback, useState } from 'react'
 import { zeroAddress } from 'viem'
 
-import { ActivePixelButtonColor, ActivePixelCard, PixelBorderCard, PixelCube2 } from '@UI/src/'
-import { PixelTableBorder } from '@/pages/Active/components/PixelTable/PixelTable'
+import { PixelTableBorder } from '@/components/PixelTable/PixelTable'
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
 import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
 

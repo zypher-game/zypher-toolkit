@@ -1,8 +1,9 @@
 import { LngNs, preStaticUrl, useCustomTranslation } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
+
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { DP_PRICE_LIST, IBalance, IDpBalance, IStakeParam } from '../../../hooks/useGPAction'
 import { DPAmountInputItem } from '../../UIWidget'
@@ -49,7 +50,7 @@ const DPBalanceItem = memo(({ label, amount, price, setParams, selectAll }: IDPB
   const { t } = useCustomTranslation([LngNs.dp])
   const [value, setValue] = useState<string>('1')
   useEffect(() => {
-    if (new BigNumberjs(amount.num).eq(0)) {
+    if (new BigNumberJs(amount.num).eq(0)) {
       setValue('0')
     } else {
       setValue('1')

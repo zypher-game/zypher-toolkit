@@ -2,7 +2,7 @@ import { ChainId, getContract } from '@UI/src/'
 import { ethers } from 'ethers'
 import { Address, WalletClient } from 'wagmi'
 
-import { TVLChainId, tvlTokenAddress } from '@/pages/Active/constants/activeConstants'
+import { tvlTokenAddress } from '@/pages/Active/constants/activeConstants'
 
 import TVLStakingABI from './abi/tvlStaking.json'
 
@@ -11,7 +11,7 @@ export const TVLStakingContract = ({
   env,
   signer
 }: {
-  chainId: TVLChainId
+  chainId: ChainId
   env: string
   address?: Address
   signer?: WalletClient

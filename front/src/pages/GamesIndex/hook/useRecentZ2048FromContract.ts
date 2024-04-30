@@ -9,7 +9,6 @@ import {
   request,
   useActiveWeb3React
 } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { Address, Chain } from 'wagmi'
@@ -18,6 +17,7 @@ import TILE_REWARD_HELPER_ABI from '@/contract/abi/tile_reward_helper.json'
 import NFT_ABI from '@/contract/abi/z2048SBT.json'
 import z2048SBT from '@/contract/z2048SBT'
 import { batchRequestContracts, batchRequestMulticall, IContractResponse } from '@/utils/batchRequestContracts'
+import BigNumberJs from '@/utils/BigNumberJs'
 export type I2048GameList = {
   chainId: ChainId
   tokenId: string
@@ -269,7 +269,7 @@ export const z2048SupportedChainIds = ({ env }: { env: string }): ChainId[] => {
   return allChain.filter(v => !isTestnet[Number(v) as ChainId]).map(v => Number(v) as ChainId)
 }
 
-function getMaxTile(b: bigint): BigNumberjs {
+function getMaxTile(b: bigint): BigNumberJs {
   let m = 0n
   for (let i = 0; i < 16; i++) {
     const value = b & 31n
@@ -278,7 +278,7 @@ function getMaxTile(b: bigint): BigNumberjs {
       m = value
     }
   }
-  return new BigNumberjs(m.toString())
+  return new BigNumberJs(m.toString())
 }
 
 export const useRecentZ2048FromContract = ({
@@ -301,15 +301,15 @@ export const useRecentZ2048FromContract = ({
           method: '_tokenId',
           params: []
         },
-        defaultValue: new BigNumberjs('0'),
+        defaultValue: new BigNumberJs('0'),
         chainIdList,
         addressList: Object.fromEntries(chainIdList.map(chainId => [chainId, z2048Constant[chainId].Contracts.Z2048SBT])) as Record<ChainId, Address>
       })
       const tokenIdList = Object.fromEntries(
         lastTokenIdListRes.map(v => {
           let arr = new Array(20).fill(0)
-          arr = arr.map((_, index) => new BigNumberjs(v.response).minus(index).toString())
-          return [v.chainId, arr.filter(vv => new BigNumberjs(vv).gt(0)).map(vv => ({ tokenId: vv }))]
+          arr = arr.map((_, index) => new BigNumberJs(v.response).minus(index).toFixed())
+          return [v.chainId, arr.filter(vv => new BigNumberJs(vv).gt(0)).map(vv => ({ tokenId: vv }))]
         })
       ) as Record<ChainId, { tokenId: string }[]>
       const { metadataList, rewardParamsListRes, maxTileList } = await fecth2048({
@@ -321,7 +321,7 @@ export const useRecentZ2048FromContract = ({
         const result = metadataList[chainId].map((v: any) => {
           const maxTileIndex = maxTileList[chainId].indexOf(v.maxTile)
           const reward = rewardParamsListRes[index].response
-            ? new BigNumberjs(rewardParamsListRes[index].response[maxTileIndex][0].hex).dividedBy(divisorBigNumber).toString()
+            ? new BigNumberJs(rewardParamsListRes[index].response[maxTileIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
             : '-'
           return {
             ...v,
@@ -401,7 +401,7 @@ export const useZ2048AccountFromGraph = ({
               const contractResult = metadataList[_chainId].map((v: any) => {
                 const maxTileIndex = maxTileList[_chainId].indexOf(v.maxTile)
                 const reward = rewardParamsListRes[index].response
-                  ? new BigNumberjs(rewardParamsListRes[index].response[maxTileIndex][0].hex).dividedBy(divisorBigNumber).toString()
+                  ? new BigNumberJs(rewardParamsListRes[index].response[maxTileIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
                   : '-'
                 return {
                   ...v,
@@ -477,14 +477,16 @@ const fecth2048 = async ({
   tokenIdList
 }: {
   chainIdList: ChainId[]
-  tokenIdList: Partial<
-    Record<
-      ChainId,
-      {
-        tokenId: string
-      }[]
-    >
-  >
+  tokenIdList:
+    | Partial<
+        Record<
+          ChainId,
+          {
+            tokenId: string
+          }[]
+        >
+      >
+    | any
 }): Promise<{ metadataList: { [k: string]: any }; rewardParamsListRes: IContractResponse[]; maxTileList: { [k: string]: unknown[] } }> => {
   const params = Object.fromEntries(
     chainIdList.map(chainId => {
@@ -512,7 +514,7 @@ const fecth2048 = async ({
       const chainId = v.chainId as unknown as ChainId
       const ress = (v.response ?? []).map((vv: any, index: number) => {
         const [moves, time, beginTime, resultBig, player, gameIdBig] = vv ?? []
-        const maxTile = new BigNumberjs(2).exponentiatedBy(getMaxTile(BigInt(Math.trunc(new BigNumberjs(resultBig.hex).toNumber()))))
+        const maxTile = new BigNumberJs(2).exponentiatedBy(getMaxTile(BigInt(Math.trunc(new BigNumberJs(resultBig.hex).toNumber()))))
         const tokenId = tokenIdList[chainId][index].tokenId
         return {
           tokenId: tokenId,
@@ -522,9 +524,9 @@ const fecth2048 = async ({
           time,
           beginTime,
           beginTimeStr: getFormattedTime(Number(beginTime)),
-          result: new BigNumberjs(resultBig.hex).toString(),
+          result: new BigNumberJs(resultBig.hex).toFixed(),
           player,
-          gameId: new BigNumberjs(gameIdBig.hex).toString(),
+          gameId: new BigNumberJs(gameIdBig.hex).toFixed(),
           maxTile: maxTile.toString()
         }
       })

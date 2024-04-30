@@ -3,13 +3,13 @@ import React from 'react'
 
 import GameListIndex from '@/components/gameList/gameListIndex'
 
+import { useDataInfo } from '../GamesIndex/hook/useDataInfo'
+import Data from '../GamesIndex/view/GamesIndex/components/Data/data'
 import BannerV2Widget from './components/banner/bannerV2'
-import Data from './components/data'
 import GamesWidget from './components/games'
 import HomeGameList from './components/HomeGameList'
 import MarqueeWidget from './components/marquee'
 import { HomeListItem, HomeTitle } from './components/widget'
-import { useDataInfo } from './hooks/useDataInfo'
 import { useGameListIndex } from './hooks/useGameListIndex'
 import css from './index.module.stylus'
 const Home: React.FC = () => {

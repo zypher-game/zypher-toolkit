@@ -19,7 +19,6 @@ import {
   walletModalOpenState,
   zkBingo
 } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
@@ -28,6 +27,7 @@ import MonsterContract from '@/contract/monsterContract'
 import { useAppDispatch } from '@/store/hooks'
 import { useMonsterState } from '@/store/monster/hooks'
 import { fetchAccountMonsterAsync } from '@/store/monster/reducer'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { toBingoHref } from '@/utils/toBingoHref'
@@ -88,12 +88,12 @@ export const useMonsterAction = ({
       const tokenAmount = monster?.purchasePrice
 
       if (tokenAmount) {
-        if (new BigNumberjs(allowance.toString()).lt(tokenAmount)) {
+        if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
           setIsApprove(false)
         } else {
           setIsApprove(true)
         }
-        if (new BigNumberjs(balance.toString()).gte(tokenAmount)) {
+        if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
           setIsPointBalanceEnough(true)
         } else {
           setIsPointBalanceEnough(false)
@@ -141,7 +141,7 @@ export const useMonsterAction = ({
         // 更新monster
         _successGetNft({
           claimTx,
-          blockNumber: new BigNumberjs(claimTx.blockNumber.toString()).toNumber()
+          blockNumber: new BigNumberJs(claimTx.blockNumber.toString()).toNumber()
         })
         setSuccessToast(dispatch, { title: '', message: 'Claim successful' })
         // get account nft
@@ -190,8 +190,8 @@ export const useMonsterAction = ({
       const balance = await pointsContract.read.balanceOf([account])
       const allowance = await pointsContract.read.allowance([account, Monster])
       if (tokenAmount) {
-        if (new BigNumberjs(balance.toString()).gte(tokenAmount)) {
-          if (new BigNumberjs(allowance.toString()).lt(tokenAmount)) {
+        if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
+          if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
             const approveTxn = await pointsContract.write.approve([Monster, tokenAmount], {
               account: account
             })
@@ -223,7 +223,7 @@ export const useMonsterAction = ({
         setBuyBattlePassDialogState(false)
         _successGetNft({
           claimTx,
-          blockNumber: new BigNumberjs(claimTx.blockNumber.toString()).toNumber()
+          blockNumber: new BigNumberJs(claimTx.blockNumber.toString()).toNumber()
         })
         setSuccessToast(dispatch, { title: '', message: `Get ${monster?.name} successful` })
         // get account nft

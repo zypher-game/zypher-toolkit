@@ -1,5 +1,6 @@
 import { ChainId, Currency, request } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
+
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IPriceType } from './reducer'
 const COINGECKO_CHAIN_ID = {
@@ -35,9 +36,9 @@ export const fetchMultiTokenPrice = async () => {
       const now = r.data[list[i].native_coin_id]
       const currency = list[i].currency
       if (!now) {
-        obj[currency] = new BigNumberjs(now['usd']).toFixed(2)
+        obj[currency] = new BigNumberJs(now['usd']).toFixed(2)
       } else {
-        obj[currency] = new BigNumberjs(now['usd']).toFixed(2)
+        obj[currency] = new BigNumberJs(now['usd']).toFixed(2)
       }
     }
     return obj

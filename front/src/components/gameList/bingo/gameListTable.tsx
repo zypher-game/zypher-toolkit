@@ -14,9 +14,9 @@ import PixelGameListTable from '../components/PixelGameListTable'
 import css from './gameListTable.module.stylus'
 import { MyTable } from './gameListTable.style'
 import MobileRow from './tableRow/m/MobileRow'
-import RanderBingoCard from './tableRow/pc/RanderBingoCard'
-import RanderNormalText from './tableRow/pc/RanderNormalText'
-import RanderStatus from './tableRow/pc/RanderStatus'
+import RenderBingoCard from './tableRow/pc/RenderBingoCard'
+import RenderNormalText from './tableRow/pc/RenderNormalText'
+import RenderStatus from './tableRow/pc/RenderStatus'
 type IProps = {
   dataSource: IGameList[]
   loading?: boolean
@@ -40,7 +40,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Status'),
         dataIndex: 'status',
         key: 'status',
-        render: (status: IGameStatus) => <RanderStatus status={status} isMobile={isMobile} />
+        render: (status: IGameStatus) => <RenderStatus status={status} isMobile={isMobile} />
       },
       {
         title: t('Start time'),
@@ -51,7 +51,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Winner/Players'),
         dataIndex: 'winnerOrPlayers',
         key: 'winnerOrPlayers',
-        render: (winnerOrPlayers: string) => <RanderNormalText label={winnerOrPlayers} showPoint={false} isMobile={isMobile} />
+        render: (winnerOrPlayers: string) => <RenderNormalText label={winnerOrPlayers} showPoint={false} isMobile={isMobile} />
       },
       {
         title: t('Room ID'),
@@ -62,13 +62,13 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Bingo Card'),
         dataIndex: 'bingoInfo',
         key: 'bingoInfo',
-        render: (bingoInfo: IBingoInfo, { status }: IGameList) => <RanderBingoCard status={status} bingoInfo={bingoInfo} isMobile={isMobile} />
+        render: (bingoInfo: IBingoInfo, { status }: IGameList) => <RenderBingoCard status={status} bingoInfo={bingoInfo} isMobile={isMobile} />
       },
       {
         title: t('Pledged per player'),
         dataIndex: 'inputPerPlayer',
         key: 'inputPerPlayer',
-        render: (inputPerPlayer: string) => <RanderNormalText label={inputPerPlayer} showPoint={true} isMobile={isMobile} />
+        render: (inputPerPlayer: string) => <RenderNormalText label={inputPerPlayer} showPoint={true} isMobile={isMobile} />
       },
       {
         title: t('Multiplier'),
@@ -79,7 +79,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Winnings'),
         dataIndex: 'win',
         key: 'win',
-        render: (win: string) => <RanderNormalText label={win} showPoint={true} isMobile={isMobile} />
+        render: (win: string) => <RenderNormalText label={win} showPoint={true} isMobile={isMobile} />
       }
     ] as (ColumnGroupType<object> | ColumnType<object>)[]
   }, [isMobile, t])

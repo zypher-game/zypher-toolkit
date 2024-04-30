@@ -1,5 +1,4 @@
 import { useRecoilValue } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { useEffect, useMemo, useState } from 'react'
 
 import {
@@ -10,6 +9,7 @@ import {
   useMonsterState
 } from '@/store/monster/hooks'
 import { AccountMonsterKeyType, IAccountMonsterData, IMonsterData, MonsterKeyType } from '@/store/monster/reducer'
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { refreshMonsterState } from '../state/monsterState'
 import { IDefenceRankDataItem, IFightInfo, IMonsterStatus, ImonsterUserStatus } from './monster.types'
@@ -62,19 +62,19 @@ export const useMonster = ({
     if (monsterState) {
       // 怪兽被打死了
       const now = Math.ceil(new Date().getTime() / 1000)
-      if (new BigNumberjs(monsterState[MonsterKeyType.maxHP]).lte(new BigNumberjs(monsterState[MonsterKeyType.totalDamage]))) {
+      if (new BigNumberJs(monsterState[MonsterKeyType.maxHP]).lte(new BigNumberJs(monsterState[MonsterKeyType.totalDamage]))) {
         _monsterStatus = IMonsterStatus.End
       } else {
         // 打怪兽时间开始 >=
-        if (new BigNumberjs(now).gte(new BigNumberjs(monsterState[MonsterKeyType.challengeEndedAt]))) {
+        if (new BigNumberJs(now).gte(new BigNumberJs(monsterState[MonsterKeyType.challengeEndedAt]))) {
           _monsterStatus = IMonsterStatus.End
-        } else if (new BigNumberjs(now).gte(new BigNumberjs(monsterState[MonsterKeyType.challengeStartedAt]))) {
+        } else if (new BigNumberJs(now).gte(new BigNumberJs(monsterState[MonsterKeyType.challengeStartedAt]))) {
           _monsterStatus = IMonsterStatus.Fight
         } else {
           // nft now <= 购买结束时间
-          if (new BigNumberjs(now).lte(new BigNumberjs(monsterState[MonsterKeyType.nftEndedAt]))) {
+          if (new BigNumberJs(now).lte(new BigNumberJs(monsterState[MonsterKeyType.nftEndedAt]))) {
             // nft 还没开始 >= 开始时间
-            if (new BigNumberjs(now).gte(new BigNumberjs(monsterState[MonsterKeyType.nftStartedAt]))) {
+            if (new BigNumberJs(now).gte(new BigNumberJs(monsterState[MonsterKeyType.nftStartedAt]))) {
               _monsterStatus = IMonsterStatus.MonsterNft
             }
           } else {
@@ -99,7 +99,7 @@ export const useMonster = ({
         let _monsterStatus = monsterStatus
         let _monsterUserStatus = ImonsterUserStatus.CannotGetCard
         if (monsterStatus === IMonsterStatus.MonsterNft) {
-          if (new BigNumberjs(accountMonsterState?.[AccountMonsterKeyType.balance]).gt(0)) {
+          if (new BigNumberJs(accountMonsterState?.[AccountMonsterKeyType.balance]).gt(0)) {
             _monsterUserStatus = ImonsterUserStatus.AlreadyHaveACard
             _monsterStatus = IMonsterStatus.WaitFight
           } else {
@@ -109,17 +109,17 @@ export const useMonster = ({
           }
         } else if (monsterStatus === IMonsterStatus.WaitFight) {
           // console.log({ monsterStatus, a: accountMonsterState?.[AccountMonsterKeyType.balance] })
-          // if (new BigNumberjs(accountMonsterState?.[AccountMonsterKeyType.balance]).lte(0)) {
+          // if (new BigNumberJs(accountMonsterState?.[AccountMonsterKeyType.balance]).lte(0)) {
           //   _monsterStatus = IMonsterStatus.MonsterNft
           // }
         } else if (monsterStatus === IMonsterStatus.Fight) {
-          if (new BigNumberjs(accountMonsterState?.[AccountMonsterKeyType.balance]).gt(0)) {
+          if (new BigNumberJs(accountMonsterState?.[AccountMonsterKeyType.balance]).gt(0)) {
             _monsterUserStatus = ImonsterUserStatus.Fight
           } else {
             _monsterUserStatus = ImonsterUserStatus.NoCard
           }
         } else if (monsterStatus === IMonsterStatus.End) {
-          if (new BigNumberjs(accountMonsterState?.[AccountMonsterKeyType.balance]).gt(0)) {
+          if (new BigNumberJs(accountMonsterState?.[AccountMonsterKeyType.balance]).gt(0)) {
             _monsterUserStatus = ImonsterUserStatus.ReceiveAward
           } else {
             _monsterUserStatus = ImonsterUserStatus.CannotReceiveAward

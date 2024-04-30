@@ -131,7 +131,7 @@ export function formatDataFromGraph({
       winner,
     } = v || {};
     let status = getStatus(statusNumber);
-    const id = parseInt(idHex, 16).toString();
+    const id = parseInt(idHex, 16).toFixed();
     let winnerOrPlayers = `${pCount} players`;
     let inputPerPlayer = joinAmount
       ? new BigNumberjs(ethers.utils.formatEther(joinAmount))
@@ -235,7 +235,7 @@ async function batchRequestFromGraph({
       if (result.data.data.gameInfos.length) {
         // 获取 idList
         const gameIdList = result.data.data.gameInfos.map((v: any) =>
-          parseInt(v.id, 16).toString()
+          parseInt(v.id, 16).toFixed()
         );
         const lobbyAddrList = result.data.data.gameInfos.map(
           (v: any) => v.lobbyAddr

@@ -20,7 +20,7 @@ type IProps = {
   bingoInfo: IBingoInfo
   isMobile: boolean
 }
-const RanderBingoCard: FC<IProps> = memo(({ status, bingoInfo, isMobile }: IProps) => {
+const RenderBingoCard: FC<IProps> = memo(({ status, bingoInfo, isMobile }: IProps) => {
   const { t } = useCustomTranslation([LngNs.home])
   const { cardNumbers, selectedNumbers } = bingoInfo
   return (
@@ -34,4 +34,4 @@ const RanderBingoCard: FC<IProps> = memo(({ status, bingoInfo, isMobile }: IProp
   )
 }, isEqual)
 
-export default RanderBingoCard
+export default RenderBingoCard

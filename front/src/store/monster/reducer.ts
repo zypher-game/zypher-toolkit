@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ChainId, divisorBigNumber, formatMoney } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { isEqual } from 'lodash'
 import { Address } from 'wagmi'
 
 import { IDefenceRankDataItem } from '@/pages/Monster/hooks/monster.types'
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { fetchAccountMonster } from './fetchAccountMonster'
 import { fetchAccountMonsterNft } from './fetchAccountMonsterNft'
@@ -106,7 +106,7 @@ const monsterSlice = createSlice({
           for (const [key, value] of Object.entries(action.payload)) {
             obj[key as MonsterKeyType] = value
             if (key === MonsterKeyType.purchasePrice) {
-              obj[MonsterKeyType.purchasePriceStr] = formatMoney(new BigNumberjs(`${value}`).dividedBy(divisorBigNumber).toNumber())
+              obj[MonsterKeyType.purchasePriceStr] = formatMoney(new BigNumberJs(`${value}`).dividedBy(divisorBigNumber).toNumber())
             }
           }
           if (!isEqual(state.monster, obj)) {

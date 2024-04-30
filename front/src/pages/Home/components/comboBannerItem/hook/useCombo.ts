@@ -12,13 +12,13 @@ import {
   walletModalOpenState
 } from '@UI/src/'
 import CONTRACTS from '@zypher-games/checkin/contracts.json'
-import BigNumberjs from 'bignumber.js'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { useSwitchNetwork, useWalletClient } from 'wagmi'
 
 import { GlobalVar } from '@/constants/constants'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
@@ -49,11 +49,11 @@ export const useCombo = () => {
       const contract: any = CheckInContract({ chainId })
       if (contract) {
         const statusSource = await contract.read.status([account])
-        const claimedAt = new BigNumberjs(statusSource.claimedAt).toString()
+        const claimedAt = new BigNumberJs(statusSource.claimedAt).toFixed()
         const statusR = {
           ...statusSource,
           canClaim: (statusSource.canCheckin || statusSource.canClaim) && statusSource.checked.length === 2 ? true : false,
-          checked: statusSource.checked.map((v: any) => new BigNumberjs(v).toString()),
+          checked: statusSource.checked.map((v: any) => new BigNumberJs(v).toFixed()),
           claimedAt: claimedAt,
           isClaimed: claimedAt !== '0'
         }
@@ -116,7 +116,7 @@ export const useCombo = () => {
             if (stakeLockTx && stakeLockTx.status === txStatus) {
               _successCheckIn({
                 tx: stakeLockTx,
-                blockNumber: new BigNumberjs(stakeLockTx.blockNumber.toString()).toNumber()
+                blockNumber: new BigNumberJs(stakeLockTx.blockNumber.toString()).toNumber()
               })
               setSuccessToast(GlobalVar.dispatch, { title: '', message: 'CheckIn successful' })
             } else {
@@ -130,7 +130,7 @@ export const useCombo = () => {
               const ADDRESS = CONTRACTS[chainId].Reward.address
               const rewardContract: any = RewardContract({ chainId, signer: walletClient })
               const tokenOfOwnerByIndex = await rewardContract.read.tokenOfOwnerByIndex([account, 0])
-              window.open(`https://havenmarket.xyz/assets/${ADDRESS}/${new BigNumberjs(tokenOfOwnerByIndex).toString()}`)
+              window.open(`https://havenmarket.xyz/assets/${ADDRESS}/${new BigNumberJs(tokenOfOwnerByIndex).toFixed()}`)
             } catch {
               window.open('https://havenmarket.xyz/')
             }

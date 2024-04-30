@@ -1,9 +1,9 @@
 import { preStaticUrl, SvgComponent, useSetRecoilState } from '@UI/src/'
+import { ActivePixelButtonColor, PixelCube3 } from '@UI/src/'
 import { Tooltip } from 'antd'
 import React, { memo, useCallback, useRef, useState } from 'react'
 
-import { ActivePixelButtonColor, PixelCube3 } from '@UI/src/'
-import { PixelTableBorder } from '@/pages/Active/components/PixelTable/PixelTable'
+import { PixelTableBorder } from '@/components/PixelTable/PixelTable'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
 import { tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import copy from '@/utils/copy'

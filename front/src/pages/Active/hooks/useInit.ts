@@ -40,7 +40,7 @@ export const useInit = () => {
   useEffect(() => {
     setActiveData(pre => {
       console.log({ pre })
-      return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? pre : initActiveData
+      return (pre.accountAddress ?? '').toFixed().toLowerCase() === (account ?? '').toLowerCase() ? pre : initActiveData
     })
   }, [account])
   return {

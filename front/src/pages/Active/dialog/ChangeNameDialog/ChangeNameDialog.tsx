@@ -3,12 +3,11 @@ import { ActivePixelButtonColor, PixelCube3, preStaticUrl, SvgComponent, useActi
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
+import { PixelTable } from '@/components/PixelTable/PixelTable'
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import sleep from '@/utils/sleep'
 
 import LoadingButton from '../../components/LoadingSvg/LoadingButton'
-import { PixelTable } from '../../components/PixelTable/PixelTable'
 import { useUpdateInfoCall } from '../../hooks/useDataCall'
 import { useInit } from '../../hooks/useInit'
 import { activeDataState, changeNameDialogState } from '../../state/activeState'

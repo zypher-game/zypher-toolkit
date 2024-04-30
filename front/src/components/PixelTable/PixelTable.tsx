@@ -20,7 +20,7 @@ export const PixelTableBorder = memo(
         width={width}
       >
         <ActivePixelCard
-          className={`tvlPixelTable_header ${classNameHeader}`}
+          className={`tvlPixelTable_header ${classNameHeader ?? ''}`}
           pixel_height={pixel_height}
           backgroundColor={`${headerBackgroundColor ?? '#293457'}`}
         >
@@ -45,14 +45,14 @@ export const PixelTable = memo(
   }: IProps) => {
     return (
       <ActivePixelCard
-        className={`tvlPixelTable ${className}`}
+        className={`tvlPixelTable ${className ?? ''}`}
         pixel_height={pixel_height}
         backgroundColor={`${backgroundColor ?? '#0d1120'}`}
         borderColor={`${borderColor ?? '#3A4254'}`}
         width={width}
       >
         <ActivePixelCard
-          className={`tvlPixelTable_header ${classNameHeader}`}
+          className={`tvlPixelTable_header ${classNameHeader ?? ''}`}
           pixel_height={pixel_height}
           backgroundColor={`${headerBackgroundColor ?? '#293457'}`}
         >

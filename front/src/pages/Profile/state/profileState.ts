@@ -1,6 +1,6 @@
 import { atom, IGameList } from '@UI/src/'
 
-import { I2048GameList } from '@/pages/Home/hooks/useRecentZ2048FromContract'
+import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 
 export const levelRuleDialogState = atom({
   key: 'levelRuleDialog',

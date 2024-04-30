@@ -1,11 +1,11 @@
-import RewardAbi from '@zypher-game/bingo-periphery/abi/Reward.json'
 import { ChainId, IContractName, useActiveWeb3React, zkBingo } from '@UI/src/'
 import { IGameList, MulticallContract } from '@UI/src/'
+import RewardAbi from '@zypher-game/bingo-periphery/abi/Reward.json'
 import BigNumber from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 
 import bingoReward from '@/contract/bingoReward'
-import { I2048GameList } from '@/pages/Home/hooks/useRecentZ2048FromContract'
+import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 import { env } from '@/utils/config'
 
 export const useGetBox = (
@@ -39,7 +39,7 @@ export const useGetBox = (
           if (results) {
             const txs = Object.values(results).map((v: any) => {
               const num = v['callsReturnContext'][0]['returnValues'][0].hex
-              return new BigNumber(num).toString()
+              return new BigNumber(num).toFixed()
             })
             setList(txs)
           } else {

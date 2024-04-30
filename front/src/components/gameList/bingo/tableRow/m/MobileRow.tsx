@@ -1,5 +1,5 @@
 import { AddressZero } from '@ethersproject/constants'
-import { PlayerAvatar } from '@UI/src/'
+import { PixelBorderCard, PlayerAvatar } from '@UI/src/'
 import { IGameList, IGameStatus, useCustomTranslation } from '@UI/src/'
 import { useIsMobile } from '@UI/src/'
 import { LngNs } from '@UI/src/'
@@ -9,8 +9,8 @@ import React, { FC, memo, useMemo } from 'react'
 
 import ViewCard from '@/pages/Profile/components/viewCard'
 
-import RanderNormalText from '../pc/RanderNormalText'
-import { StatusI } from '../pc/RanderStatus'
+import RenderNormalText from '../pc/RenderNormalText'
+import { StatusI } from '../pc/RenderStatus'
 import css from './MobileRow.modules.stylus'
 
 interface IProps {
@@ -32,7 +32,7 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
     return Len.length === 0 && item.status === IGameStatus.End && item.bingoInfo && item.bingoInfo.cardNumbers
   }, [])
   return (
-    <div className={css.mItem}>
+    <PixelBorderCard className={css.mItem} pixel_height={4} backgroundColor="#343C4F" borderColor="#484F60">
       <div className={css.mTop}>
         <div className={css.mTitle}>
           <p className={css.mTitleGrey}>
@@ -52,15 +52,15 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
             <p>{t('Winnings')}</p>
           </div>
           <div className={css.mTableBody}>
-            <RanderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} />
-            <RanderNormalText label={item.multiplier} showPoint={false} isMobile={isMobile} />
-            <RanderNormalText label={item.win} showPoint={true} isMobile={isMobile} />
+            <RenderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} />
+            <RenderNormalText label={item.multiplier} showPoint={false} isMobile={isMobile} />
+            <RenderNormalText label={item.win} showPoint={true} isMobile={isMobile} />
           </div>
         </div>
       </div>
       <div className={css.mBottom}>
         {Len.length === 0 ? (
-          <RanderNormalText label={item.winnerOrPlayers} showPoint={false} isMobile={isMobile} />
+          <RenderNormalText label={item.winnerOrPlayers} showPoint={false} isMobile={isMobile} />
         ) : (
           <div className={css.avatarList}>
             {Len.map((_, index) => (
@@ -74,7 +74,7 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
           <p className={css.grey}>{item.winnerOrPlayers}</p>
         )}
       </div>
-    </div>
+    </PixelBorderCard>
   )
 }, isEqual)
 export default MobileRow

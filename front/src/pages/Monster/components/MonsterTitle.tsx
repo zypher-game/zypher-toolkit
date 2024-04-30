@@ -1,11 +1,11 @@
 import { LngNs, PointsIcon, useCustomTranslation, useIsMobile, useSetRecoilState } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import Icon from '@/assets/iconsLocal'
 import { IMonsterData, MonsterKeyType } from '@/store/monster/reducer'
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IFightInfo, IMonsterStatus, ImonsterUserStatus } from '../hooks/monster.types'
 import { Rule1DialogState, Rule2DialogState } from '../state/monsterState'
@@ -42,7 +42,7 @@ const MonsterTitle = memo(({ monsterStatus, fightInfo, monsterState }: IMonsterT
       if (monsterStatus === IMonsterStatus.WaitFight) {
         _endTime = monsterState[MonsterKeyType.challengeStartedAt]
       }
-      return new BigNumberjs(_endTime).times(1000).toString()
+      return new BigNumberJs(_endTime).times(1000).toFixed()
     }
     return undefined
   }, [monsterStatus, monsterState])

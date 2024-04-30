@@ -1,8 +1,9 @@
 import { ChainId, divisor6xBigNumber, IContractName, zkBingo } from '@UI/src/'
 import { MulticallContract } from '@UI/src/'
 import MonsterAbi from '@zypher-game/events/abi/MonsterSlayer202310.json'
-import BigNumberjs from 'bignumber.js'
 import { Address } from 'wagmi'
+
+import BigNumberJs from '@/utils/BigNumberJs'
 export const fetchAccountMonster = async ({ chainId, account }: { chainId: ChainId; account: Address }): Promise<Record<string, any> | undefined> => {
   try {
     const MonsterContract = zkBingo(chainId, IContractName.Monster)
@@ -38,12 +39,12 @@ export const fetchAccountMonster = async ({ chainId, account }: { chainId: Chain
           let value: any
           if (v['originalContractCallContext']['reference'] === 'stages') {
             value = v['callsReturnContext'][0]['returnValues'].map((vv: any) => ({
-              accumulatedDamage: new BigNumberjs(vv[0].hex).toString(), //累计伤害
-              damageFactor: new BigNumberjs(vv[1].hex).dividedBy(divisor6xBigNumber).toString() // 损坏系数  初始階段, 傷害倍率 1 (這邊都是 x 1e6)  0-400-800
+              accumulatedDamage: new BigNumberJs(vv[0].hex).toFixed(), //累计伤害
+              damageFactor: new BigNumberJs(vv[1].hex).dividedBy(divisor6xBigNumber).toFixed() // 损坏系数  初始階段, 傷害倍率 1 (這邊都是 x 1e6)  0-400-800
             }))
           } else if (item.length) {
             if (item[0].hex) {
-              value = new BigNumberjs(item[0].hex).toString()
+              value = new BigNumberJs(item[0].hex).toFixed()
             } else {
               value = item[0]
             }

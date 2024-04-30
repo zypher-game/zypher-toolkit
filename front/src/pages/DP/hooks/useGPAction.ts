@@ -19,7 +19,6 @@ import {
   walletModalOpenState,
   zkBingo
 } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
@@ -29,12 +28,13 @@ import { GlobalVar } from '@/constants/constants'
 import DPABI from '@/contract/dpStaking/abis/contracts/DP.sol/DP.json'
 import STAKINGABI from '@/contract/dpStaking/abis/contracts/Staking.sol/Staking.json'
 import { DPContract, DPStakingContract, getDpStakingAddress, IDPContract } from '@/contract/dpStaking/dpStaking'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import { LockedTimes } from '../components/dialog/DPAction/DPLocked'
 import { dpActionDialogState, dpBuyDialogState, dpDataState } from './state'
-const divisor12BigNumber = new BigNumberjs('10').exponentiatedBy(12)
+const divisor12BigNumber = new BigNumberJs('10').exponentiatedBy(12)
 
 export enum IDPPRICE {
   P50000 = '50000',
@@ -164,13 +164,13 @@ export const useGPAction = () => {
         const pointsContract = erc20Contract(chainId, env, pointsAddress)
         const allowance = await pointsContract.read.allowance([account, dpAddress])
         const balance = await pointsContract.read.balanceOf([account])
-        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toString()
-        if (new BigNumberjs(allowance.toString()).lt(tokenAmount)) {
+        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toFixed()
+        if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
           setIsApprove(false)
         } else {
           setIsApprove(true)
         }
-        if (new BigNumberjs(balance.toString()).gte(tokenAmount)) {
+        if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
           setIsPointBalanceEnough(true)
         } else {
           setIsPointBalanceEnough(false)
@@ -277,27 +277,27 @@ export const useGPAction = () => {
         // results = Result.results
       }
       if (results) {
-        const totalInvestmentAmount = new BigNumberjs(results['totalInvestmentAmount']['callsReturnContext'][0]['returnValues'][0]['hex']).dividedBy(
+        const totalInvestmentAmount = new BigNumberJs(results['totalInvestmentAmount']['callsReturnContext'][0]['returnValues'][0]['hex']).dividedBy(
           divisorBigNumber
         )
-        let minted = new BigNumberjs('0')
-        let balanceOfGP = new BigNumberjs('0')
-        let balanceOfGPTotal = new BigNumberjs('0')
+        let minted = new BigNumberJs('0')
+        let balanceOfGP = new BigNumberJs('0')
+        let balanceOfGPTotal = new BigNumberJs('0')
         for (let i = 0; i < DP_PRICE_LIST.length; i++) {
-          minted = new BigNumberjs(results['totalMints' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex']).plus(minted)
-          balanceOfGP = new BigNumberjs(results['dpBalance' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex']).plus(
+          minted = new BigNumberJs(results['totalMints' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex']).plus(minted)
+          balanceOfGP = new BigNumberJs(results['dpBalance' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex']).plus(
             balanceOfGP
           )
-          balanceOfGPTotal = new BigNumberjs(results['dpBalance' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex'])
+          balanceOfGPTotal = new BigNumberJs(results['dpBalance' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex'])
             .times(DP_PRICE_LIST[i].num)
             .plus(balanceOfGPTotal)
         }
-        const staked = new BigNumberjs(results['totalUnlockAmounts']['callsReturnContext'][0]['returnValues'][0]['hex'])
+        const staked = new BigNumberJs(results['totalUnlockAmounts']['callsReturnContext'][0]['returnValues'][0]['hex'])
         const locked = balanceOfGP.minus(staked)
-        const rewardPer = new BigNumberjs(results['rewardData']['callsReturnContext'][0]['returnValues'][0]['hex']).dividedBy(divisorBigNumber)
+        const rewardPer = new BigNumberJs(results['rewardData']['callsReturnContext'][0]['returnValues'][0]['hex']).dividedBy(divisorBigNumber)
         // 公式 = 每日释放的GP / （DP单价-GP数量 * 全平台质押的数量）*365
-        const maxApy = balanceOfGPTotal.eq(0) ? new BigNumberjs('0') : rewardPer.div(balanceOfGPTotal).times(365).times(86400).times(100)
-        const lockWeight = new BigNumberjs(results['getLockWeight']['callsReturnContext'][0]['returnValues'][0]['hex']).dividedBy(divisor12BigNumber)
+        const maxApy = balanceOfGPTotal.eq(0) ? new BigNumberJs('0') : rewardPer.div(balanceOfGPTotal).times(365).times(86400).times(100)
+        const lockWeight = new BigNumberJs(results['getLockWeight']['callsReturnContext'][0]['returnValues'][0]['hex']).dividedBy(divisor12BigNumber)
         //   totalInvestmentAmount: totalInvestmentAmount.toString(),
         //   minted: minted.toString(),
         //   staked: staked.toString(),
@@ -429,9 +429,9 @@ export const useGPAction = () => {
             IBalance
           >
           for (let i = 0; i < DP_PRICE_LIST.length; i++) {
-            const _balance = new BigNumberjs(
+            const _balance = new BigNumberJs(
               results01['dpBalance' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex']
-            ).toString()
+            ).toFixed()
             balanceOfGP[DP_PRICE_LIST[i].num] = {
               num: _balance,
               numStr: formatMoney(_balance, 0)
@@ -454,19 +454,19 @@ export const useGPAction = () => {
           }
           // const [totalStakedBig, stakedBigViews] = results02['getUnlock']['callsReturnContext'][0]['returnValues']
           // const stakedViews = stakedBigViews.map((v: any) => ({
-          //   id: new BigNumberjs(v[0]['hex']).toString(),
-          //   amount: new BigNumberjs(v[1]['hex']).toString()
+          //   id: new BigNumberJs(v[0]['hex']).toFixed(),
+          //   amount: new BigNumberJs(v[1]['hex']).toFixed()
           // })) as { id: string; amount: string }[]
           const stakedViews: { id: string; amount: string }[] = []
-          let totalStakedBig = new BigNumberjs(0)
+          let totalStakedBig = new BigNumberJs(0)
           for (let i = 0; i < DP_PRICE_LIST.length; i++) {
             const dpPriceListItem = DP_PRICE_LIST[i].num
             const stakedBigViewsC = results02['getUnlock' + dpPriceListItem]['callsReturnContext'][0]['returnValues']
             // for (let k = 0; k < stakedBigViewsC.length; k++) {
-            totalStakedBig = totalStakedBig.plus(new BigNumberjs(stakedBigViewsC[1]['hex']))
+            totalStakedBig = totalStakedBig.plus(new BigNumberJs(stakedBigViewsC[1]['hex']))
             stakedViews.push({
-              id: new BigNumberjs(stakedBigViewsC[0]['hex']).toString(),
-              amount: new BigNumberjs(stakedBigViewsC[1]['hex']).toString()
+              id: new BigNumberJs(stakedBigViewsC[0]['hex']).toFixed(),
+              amount: new BigNumberJs(stakedBigViewsC[1]['hex']).toFixed()
             })
             // }
           }
@@ -485,44 +485,44 @@ export const useGPAction = () => {
           // lockedBalance
           // const [totalLockedBig, lockedBigViews] = results02['getLock']['callsReturnContext'][0]['returnValues']
           const lockedBigViews: any[] = []
-          let totalLockedBig = new BigNumberjs(0)
+          let totalLockedBig = new BigNumberJs(0)
           for (let i = 0; i < DP_PRICE_LIST.length; i++) {
             const dpPriceListItem = DP_PRICE_LIST[i].num
             for (let ii = 0; ii < LockedTimesFlat.length; ii++) {
               const lockedTimesFlatitemAmount = LockedTimesFlat[ii].amount
               const lockedBigViewsC = results02['getLock' + dpPriceListItem + lockedTimesFlatitemAmount]['callsReturnContext'][0]['returnValues']
-              totalLockedBig = totalLockedBig.plus(new BigNumberjs(lockedBigViewsC[1]['hex']))
+              totalLockedBig = totalLockedBig.plus(new BigNumberJs(lockedBigViewsC[1]['hex']))
               lockedBigViews.push(lockedBigViewsC)
             }
           }
           const lockedViews = lockedBigViews
             .map((v: any) => ({
-              id: new BigNumberjs(v[0]['hex']).toString(),
-              idStr: formatMoney(new BigNumberjs(v[0]['hex']).toString(), 0),
-              amount: new BigNumberjs(v[1]['hex']).toString(),
-              amountStr: formatMoney(new BigNumberjs(v[1]['hex']).toString(), 0),
-              duration: new BigNumberjs(v[2]['hex']).toString(),
-              weight: new BigNumberjs(v[3]['hex']).times(v[1]['hex']).dividedBy(divisor12BigNumber).toString(),
-              weightStr: formatMoney(new BigNumberjs(v[3]['hex']).times(v[1]['hex']).dividedBy(divisor12BigNumber).toString(), 2),
-              lastLockTime: new BigNumberjs(v[4]['hex']).toString(),
-              lastLockTimeStr: timestampToDateStr(new BigNumberjs(v[4]['hex']).toNumber(), '-'),
-              unlockTime: new BigNumberjs(v[5]['hex']).toString(),
-              unlockTimeStr: timestampToDateStr(new BigNumberjs(v[5]['hex']).toNumber(), '-')
+              id: new BigNumberJs(v[0]['hex']).toFixed(),
+              idStr: formatMoney(new BigNumberJs(v[0]['hex']).toFixed(), 0),
+              amount: new BigNumberJs(v[1]['hex']).toFixed(),
+              amountStr: formatMoney(new BigNumberJs(v[1]['hex']).toFixed(), 0),
+              duration: new BigNumberJs(v[2]['hex']).toFixed(),
+              weight: new BigNumberJs(v[3]['hex']).times(v[1]['hex']).dividedBy(divisor12BigNumber).toFixed(),
+              weightStr: formatMoney(new BigNumberJs(v[3]['hex']).times(v[1]['hex']).dividedBy(divisor12BigNumber).toFixed(), 2),
+              lastLockTime: new BigNumberJs(v[4]['hex']).toFixed(),
+              lastLockTimeStr: timestampToDateStr(new BigNumberJs(v[4]['hex']).toNumber(), '-'),
+              unlockTime: new BigNumberJs(v[5]['hex']).toFixed(),
+              unlockTimeStr: timestampToDateStr(new BigNumberJs(v[5]['hex']).toNumber(), '-')
             }))
             .filter((v: any) => v.amount !== '0') as ILockedItem[]
           setLockedViewList(lockedViews)
           const weightSum = lockedViews.reduce((accumulator, currentValue) => {
-            const amount = new BigNumberjs(currentValue.weight)
+            const amount = new BigNumberJs(currentValue.weight)
             return accumulator.plus(amount)
-          }, new BigNumberjs(0))
+          }, new BigNumberJs(0))
           _myDpData.stakedTotal = totalStakedBig.toString()
           _myDpData.stakedTotalStr = formatMoney(_myDpData.stakedTotal, 0)
-          _myDpData.stakedClaim = new BigNumberjs(results02['getUnlockReward']['callsReturnContext'][0]['returnValues'][0]['hex']).toString()
-          _myDpData.stakedClaimStr = formatMoney(new BigNumberjs(_myDpData.stakedClaim).dividedBy(divisorBigNumber).toString(), 4)
+          _myDpData.stakedClaim = new BigNumberJs(results02['getUnlockReward']['callsReturnContext'][0]['returnValues'][0]['hex']).toFixed()
+          _myDpData.stakedClaimStr = formatMoney(new BigNumberJs(_myDpData.stakedClaim).dividedBy(divisorBigNumber).toFixed(), 4)
           _myDpData.lockedTotal = totalLockedBig.toString()
           _myDpData.lockedTotalStr = formatMoney(_myDpData.lockedTotal, 0)
-          _myDpData.lockedClaim = new BigNumberjs(results02['getLockReward']['callsReturnContext'][0]['returnValues'][0]['hex']).toString()
-          _myDpData.lockedClaimStr = formatMoney(new BigNumberjs(_myDpData.lockedClaim).dividedBy(divisorBigNumber).toString(), 4)
+          _myDpData.lockedClaim = new BigNumberJs(results02['getLockReward']['callsReturnContext'][0]['returnValues'][0]['hex']).toFixed()
+          _myDpData.lockedClaimStr = formatMoney(new BigNumberJs(_myDpData.lockedClaim).dividedBy(divisorBigNumber).toFixed(), 4)
           _myDpData.lockWeight = weightSum.toString()
           _myDpData.lockWeightStr = formatMoney(_myDpData.lockWeight, 2)
           setMyDpData(_myDpData)
@@ -565,11 +565,11 @@ export const useGPAction = () => {
           return
         }
         const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
-        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toString()
+        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toFixed()
         const allowance = await pointsContract.read.allowance([account, dpAddress])
         const balance = await pointsContract.read.balanceOf([account])
-        if (new BigNumberjs(balance.toString()).gte(tokenAmount)) {
-          if (new BigNumberjs(allowance.toString()).lt(tokenAmount)) {
+        if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
+          if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
             setIsBuyNftLoading(true)
             const approveTxn = await pointsContract.write.approve([dpAddress, tokenAmount], {
               account: account
@@ -591,7 +591,7 @@ export const useGPAction = () => {
           getApprove()
           _successGetNft({
             tx: buyTx,
-            blockNumber: new BigNumberjs(buyTx.blockNumber.toString()).toNumber()
+            blockNumber: new BigNumberJs(buyTx.blockNumber.toString()).toNumber()
           })
           setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Buy successful' })
         } else {
@@ -668,7 +668,7 @@ export const useGPAction = () => {
           if (stakeTx && stakeTx.status === txStatus) {
             _successGetNft({
               tx: stakeTx,
-              blockNumber: new BigNumberjs(stakeTx.blockNumber.toString()).toNumber()
+              blockNumber: new BigNumberJs(stakeTx.blockNumber.toString()).toNumber()
             })
             setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Stake successful' })
           } else {
@@ -712,7 +712,7 @@ export const useGPAction = () => {
           if (stakeLockTx && stakeLockTx.status === txStatus) {
             _successGetNft({
               tx: stakeLockTx,
-              blockNumber: new BigNumberjs(stakeLockTx.blockNumber.toString()).toNumber()
+              blockNumber: new BigNumberJs(stakeLockTx.blockNumber.toString()).toNumber()
             })
             setSuccessToast(GlobalVar.dispatch, { title: '', message: 'StakeLock successful' })
           } else {
@@ -754,7 +754,7 @@ export const useGPAction = () => {
           if (withdrawTx && withdrawTx.status === txStatus) {
             _successGetNft({
               tx: withdrawTx,
-              blockNumber: new BigNumberjs(withdrawTx.blockNumber.toString()).toNumber()
+              blockNumber: new BigNumberJs(withdrawTx.blockNumber.toString()).toNumber()
             })
             setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Withdraw successful' })
           } else {
@@ -804,7 +804,7 @@ export const useGPAction = () => {
         if (claimLockTx && claimLockTx.status === txStatus) {
           _successGetNft({
             tx: claimLockTx,
-            blockNumber: new BigNumberjs(claimLockTx.blockNumber.toString()).toNumber()
+            blockNumber: new BigNumberJs(claimLockTx.blockNumber.toString()).toNumber()
           })
           setSuccessToast(GlobalVar.dispatch, { title: '', message: func + ' successful' })
         } else {

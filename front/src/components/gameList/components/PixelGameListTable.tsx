@@ -47,17 +47,12 @@ const PixelGameListTableStyle = styled.div<{ bgColor: string }>`
       flex-direction: column;
       @media screen and (max-width: 768px) {
         max-height: 230px;
+        padding-top: 16px;
+        padding-bottom: 16px;
+        margin-left: 16px;
+        margin-right: 16px;
       }
     }
-  }
-  .pixelGameListTableInnerBottom {
-    position: absolute;
-    bottom: 0;
-    left: 16px;
-    width: calc(100% - 32px);
-    height: 40px;
-    background: linear-gradient(180deg, rgba(22, 30, 46, 0) 0%, #161e2e 100%);
-    z-index: 333;
   }
 `
 const PixelGameListTable = memo(({ children, className, bgColor }: IProps) => {
@@ -68,7 +63,7 @@ const PixelGameListTable = memo(({ children, className, bgColor }: IProps) => {
       <PixelBorderCard pixel_height={7} className={`${className ?? ''} pixelGameListTableInner`} backgroundColor="#161E2E" borderColor="#3A4254">
         {children}
       </PixelBorderCard>
-      <div className="pixelGameListTableInnerBottom" />
+      <div className="pixelTableInnerBottom" />
     </PixelGameListTableStyle>
   )
 })

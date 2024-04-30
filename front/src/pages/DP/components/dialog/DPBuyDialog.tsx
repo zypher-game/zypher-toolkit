@@ -2,11 +2,11 @@ import { CloseOutlined } from '@ant-design/icons'
 import { LoadingOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { formatMoney, LngNs, pointsDialogState, preStaticUrl, useCustomTranslation, useRecoilValue, useSetRecoilState } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { dpBuyDialogState } from '../../hooks/state'
@@ -51,7 +51,7 @@ const DPBuyDialog = memo(
       setPointsDialogOpen(true)
     }, [])
     const gpPrice = useMemo(() => {
-      return formatMoney(new BigNumberjs(DP_PRICE.num).times(buyValue).toString(), 0)
+      return formatMoney(new BigNumberJs(DP_PRICE.num).times(buyValue).toFixed(), 0)
     }, [buyValue])
     return (
       <DialogOverlay className="dialogPosition" isOpen={isModalOpen} onDismiss={handleCancel}>

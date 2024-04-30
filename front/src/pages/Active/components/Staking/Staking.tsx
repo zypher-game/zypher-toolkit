@@ -6,6 +6,7 @@ import {
   ActivePixelButton,
   ActivePixelButtonColor,
   ActivePixelColorCard,
+  ChainId,
   ChainName,
   PixelBorderCard,
   PixelBorderCardButton,
@@ -19,7 +20,7 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import BigNumberJs from '@/utils/BigNumberJs'
 
-import { defaultActiveChainId } from '../../constants/activeConstants'
+import { defaultActiveChainId, TVLChainId } from '../../constants/activeConstants'
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext, useStake } from '../../hooks/activeHooks'
@@ -29,7 +30,7 @@ import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
 const Staking = memo(() => {
   const chooseChain = useRecoilValue(chooseChainState)
-  const [chainIdLocal, setChainIdLocal] = useState(defaultActiveChainId)
+  const [chainIdLocal, setChainIdLocal] = useState<ChainId>(defaultActiveChainId)
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
   const { openChainModal } = useChainModal()
   const setAccountInfoDialogOpen = useSetRecoilState(accountInfoDialogState)
@@ -74,7 +75,7 @@ const Staking = memo(() => {
           obj.btnLabel = 'Switch Networks'
         } else {
           if (!isDataLoading) {
-            const tokenAmount = new BigNumberJs(depositValue).times(new BigNumberJs('10').exponentiatedBy(decimal)).toString()
+            const tokenAmount = new BigNumberJs(depositValue).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
             if (chooseValue.balance !== '0' && new BigNumberJs(chooseValue.balance).gte(tokenAmount)) {
               obj.isBalanceEnough = true
               obj.btnLabel = 'Confirm'

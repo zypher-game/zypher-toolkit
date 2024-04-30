@@ -1,4 +1,4 @@
-import { useCustomTranslation } from '@UI/src/'
+import { PixelBorderCard, useCustomTranslation } from '@UI/src/'
 import { LngNs } from '@UI/src/'
 import { ChainId, ChainImage, Currency, preStaticUrl, supportedChainIds } from '@UI/src/'
 import { Space, Tooltip } from 'antd'
@@ -8,18 +8,17 @@ import styled from 'styled-components'
 
 import CountupNumber from '@/components/CountupNumber/CountupNumber'
 import Skeleton from '@/components/Skeleton/Skeleton'
+import { IData, IDataKey, IDataTotal } from '@/pages/GamesIndex/state/dataState'
 import { env } from '@/utils/config'
 
-import { IData, IDataKey, IDataTotal } from '../state/homeState'
 import css from './data.module.stylus'
-import { HomeListItem, HomeTitle } from './widget'
 
 const Divider = styled.div`
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   padding: 3px 0;
 `
 interface IProps {
-  data: IData
+  data: IData | any
 }
 const TooltipNode = memo(
   ({ total, className, dataKey, children }: { total: IDataTotal; className?: string; dataKey: IDataKey; children: React.ReactNode }) => {
@@ -83,8 +82,7 @@ const Data = memo(({ data }: IProps) => {
     return true
   }, [data.totalVault, data.totalPoint])
   return (
-    <HomeListItem className={css.data}>
-      <HomeTitle label="Data" label_icon="data.svg" />
+    <div className={css.dataMainWrap}>
       <div className={css.dataMain}>
         {[
           { title: t('Value'), img: 'data_value.svg', value: 'totalVault', dataKey: IDataKey.totalVault },
@@ -96,9 +94,9 @@ const Data = memo(({ data }: IProps) => {
           { title: t('$GP Burned'), img: 'data_$gp burned.svg', value: 'totalGpBurned', dataKey: IDataKey.totalGpBurned },
           { title: t('Transaction Vol.'), img: 'data_transaction.svg', value: 'totalTransactionVol', dataKey: IDataKey.totalTransactionVol }
         ].map(v => (
-          <div className={css.item} key={v.title}>
+          <PixelBorderCard className={css.item} pixel_height={4} key={v.title} backgroundColor="#343C4F" borderColor="#484F60">
             <TooltipNode dataKey={v.dataKey} total={data.total} className={css.tooltip}>
-              <img src={preStaticUrl + `/img/home/${v.img}`} alt={v.title} className={css.dataImg} />
+              <img src={preStaticUrl + `/img/games/data/${v.img}`} alt={v.title} className={css.dataImg} />
               <div className={css.itemDetail}>
                 <div className={css.tit}>{v.title}</div>
                 {/* <div className={css.mun}>
@@ -121,10 +119,11 @@ const Data = memo(({ data }: IProps) => {
                 )}
               </div>
             </TooltipNode>
-          </div>
+          </PixelBorderCard>
         ))}
       </div>
-    </HomeListItem>
+      <div className="pixelTableInnerBottom pixelTableInnerBottomData" />
+    </div>
   )
 }, isEqual)
 

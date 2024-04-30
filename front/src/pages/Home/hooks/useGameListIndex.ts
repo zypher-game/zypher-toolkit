@@ -1,11 +1,11 @@
-import { ChainId, IGameList, supportedChainIds, useRecentGamesFromGraph, useRecoilState } from '@UI/src/'
+import { IGameList, useRecentGamesFromGraph, useRecoilState } from '@UI/src/'
 import { isEqual } from 'lodash'
 import { useEffect, useState } from 'react'
 
+import { I2048GameList, useRecentZ2048FromContract, z2048SupportedChainIds } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 import { env } from '@/utils/config'
 
 import { gameListChainListState, z2048ListChainListState } from '../state/homeState'
-import { I2048GameList, useRecentZ2048FromContract, z2048SupportedChainIds } from './useRecentZ2048FromContract'
 
 export const useGameListIndex = () => {
   const { list: bingoMapList, hasError: bingoHasError } = useRecentGamesFromGraph({ env: env })

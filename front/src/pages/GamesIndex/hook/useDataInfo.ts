@@ -15,7 +15,6 @@ import {
   zkBingoV0
 } from '@UI/src/'
 import { Address } from '@wagmi/core'
-import BigNumberjs from 'bignumber.js'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 
@@ -31,10 +30,11 @@ import {
   batchRequestTransCountFromScan,
   IContractResponse
 } from '@/utils/batchRequestContracts'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { calculateSum, calculateSumByNumber, calculateSumWithKey } from '@/utils/calculateSum'
 import { env } from '@/utils/config'
 
-import { homeDateState, IData, IDataKey } from '../state/homeState'
+import { homeDateState, IData, IDataKey } from '../state/dataState'
 import { z2048Constant, z2048SupportedChainIds } from './useRecentZ2048FromContract'
 
 export const useDataInfo = () => {
@@ -59,7 +59,7 @@ export const useDataInfo = () => {
         account: account,
         params: []
       },
-      defaultValue: [new BigNumberjs('0'), new BigNumberjs('0')]
+      defaultValue: [new BigNumberJs('0'), new BigNumberJs('0')]
     })
       .then(async (bingoSummary: IContractResponse[]) => {
         const z2048Info = await batchRequestGraph({
@@ -91,17 +91,18 @@ export const useDataInfo = () => {
           chainIdList: bingoV1SupportedChainId,
           contractName: IContractName.Points,
           nativeMethod: 'getBalance',
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
         const totalVault = calculateSum(value, true, chainNativePrice)
+        console.log({ totalVaul22t: totalVault, totalVault: new BigNumberJs(totalVault).toFixed() })
         // 交易数量
         const transactionCount = await batchRequestTransCountFromScan({
           contractName: IContractName.Lobby,
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
         let totalTransactionCount = calculateSum(transactionCount)
         totalTransactionCount = calculateSumByNumber([
-          ...Object.values(z2048MaxGameId).map(v => new BigNumberjs(v).times(2).toString()),
+          ...Object.values(z2048MaxGameId).map(v => new BigNumberJs(v).times(2).toFixed()),
           totalTransactionCount
         ])
 
@@ -116,7 +117,7 @@ export const useDataInfo = () => {
             account: account,
             params: []
           },
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
         const totalPoint = calculateSum(goldPointsTotal)
         // 收取的手续fee
@@ -130,7 +131,7 @@ export const useDataInfo = () => {
             account: account,
             params: []
           },
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
 
         const chainIdList = z2048SupportedChainIds({ env })
@@ -147,13 +148,12 @@ export const useDataInfo = () => {
             ChainId,
             Address
           >,
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
         const bingoTotalPlatformRevenue = calculateSum(bingoPlatformRevenue)
         const z2048PlatformRevenueMap = Object.fromEntries(z2048PlatformRevenue.map(v => [v.chainId, v.response.toString()]))
         const z2048TotalPlatformRevenue = calculateSum(z2048PlatformRevenue)
         const totalPlatformRevenue = calculateSumByNumber([bingoTotalPlatformRevenue, z2048TotalPlatformRevenue])
-
         // 负债
         const debtObligation = await batchRequestContracts({
           chainIdList: bingoV1SupportedChainId,
@@ -165,7 +165,7 @@ export const useDataInfo = () => {
             account: account,
             params: []
           },
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
         const totalDebtObligation = calculateSum(debtObligation)
 
@@ -179,7 +179,7 @@ export const useDataInfo = () => {
             account: account,
             params: []
           },
-          defaultValue: new BigNumberjs('0')
+          defaultValue: new BigNumberJs('0')
         })
         const totalGpBurned = calculateSum(gpBurned)
         setData({
@@ -191,25 +191,25 @@ export const useDataInfo = () => {
           totalPlatformRevenueDecimal: 0,
           totalPoint: Number(ethers.utils.formatEther(totalPoint)),
           totalPointDecimal: 0,
-          totalGame: new BigNumberjs(totalGame).toNumber(),
+          totalGame: new BigNumberJs(totalGame).toNumber(),
           totalGameDecimal: 0,
-          totalPlayers: new BigNumberjs(totalPlayers).toNumber(),
+          totalPlayers: new BigNumberJs(totalPlayers).toNumber(),
           totalPlayersDecimal: 0,
           // 平台整体的负债
-          totalDebtObligation: new BigNumberjs(ethers.utils.formatEther(totalDebtObligation)).toNumber(),
+          totalDebtObligation: new BigNumberJs(ethers.utils.formatEther(totalDebtObligation)).toNumber(),
           totalDebtObligationDecimal: 0,
           // 已燃烧的GP总量
-          totalGpBurned: new BigNumberjs(ethers.utils.formatEther(totalGpBurned)).toNumber(),
+          totalGpBurned: new BigNumberJs(ethers.utils.formatEther(totalGpBurned)).toNumber(),
           totalGpBurnedDecimal: 0,
           total: {
             [IDataKey.totalGame]: Object.fromEntries(
               bingoSummary.map(v => [
                 v.chainId,
                 {
-                  total: formatMoney(new BigNumberjs(v.response[0]).plus(new BigNumberjs(z2048MaxGameId?.[v.chainId] ?? '0')).toString(), 0),
+                  total: formatMoney(new BigNumberJs(v.response[0]).plus(new BigNumberJs(z2048MaxGameId?.[v.chainId] ?? '0')).toFixed(), 0),
                   item: {
-                    [IGameName.zBingo]: new BigNumberjs(v.response[0]).toString(),
-                    [IGameName.z2048]: new BigNumberjs(z2048MaxGameId?.[v.chainId] ?? '0').toString()
+                    [IGameName.zBingo]: new BigNumberJs(v.response[0]).toFixed(),
+                    [IGameName.z2048]: new BigNumberJs(z2048MaxGameId?.[v.chainId] ?? '0').toFixed()
                   }
                 }
               ])
@@ -218,10 +218,10 @@ export const useDataInfo = () => {
               bingoSummary.map(v => [
                 v.chainId,
                 {
-                  total: formatMoney(new BigNumberjs(v.response[1]).plus(new BigNumberjs(z2048MaxGameId?.[v.chainId] ?? '0')).toString(), 0),
+                  total: formatMoney(new BigNumberJs(v.response[1]).plus(new BigNumberJs(z2048MaxGameId?.[v.chainId] ?? '0')).toFixed(), 0),
                   item: {
-                    [IGameName.zBingo]: new BigNumberjs(v.response[1]).toString(),
-                    [IGameName.z2048]: new BigNumberjs(z2048MaxGameId?.[v.chainId] ?? '0').toString()
+                    [IGameName.zBingo]: new BigNumberJs(v.response[1]).toFixed(),
+                    [IGameName.z2048]: new BigNumberJs(z2048MaxGameId?.[v.chainId] ?? '0').toFixed()
                   }
                 }
               ])
@@ -230,7 +230,7 @@ export const useDataInfo = () => {
               value.map(v => [
                 v.chainId,
                 {
-                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberjs(v.response.toString()).toString())), 3)
+                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberJs(v.response.toString()).toFixed())), 3)
                 }
               ])
             ),
@@ -238,7 +238,7 @@ export const useDataInfo = () => {
               goldPointsTotal.map(v => [
                 v.chainId,
                 {
-                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberjs(v.response.toString()).toString())))
+                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberJs(v.response.toString()).toFixed())))
                 }
               ])
             ),
@@ -247,7 +247,7 @@ export const useDataInfo = () => {
               debtObligation.map(v => [
                 v.chainId,
                 {
-                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberjs(v.response.toString()).toString())), 0)
+                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberJs(v.response.toString()).toFixed())), 0)
                 }
               ])
             ),
@@ -255,7 +255,7 @@ export const useDataInfo = () => {
               gpBurned.map(v => [
                 v.chainId,
                 {
-                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberjs(v.response.toString()).toString())), 0)
+                  total: formatMoney(Number(ethers.utils.formatEther(new BigNumberJs(v.response.toString()).toFixed())), 0)
                 }
               ])
             ),
@@ -265,13 +265,13 @@ export const useDataInfo = () => {
                 {
                   total: formatMoney(
                     Number(
-                      ethers.utils.formatEther(new BigNumberjs(v.response.toString()).plus(z2048PlatformRevenueMap?.[v.chainId] ?? '0').toString())
+                      ethers.utils.formatEther(new BigNumberJs(v.response.toString()).plus(z2048PlatformRevenueMap?.[v.chainId] ?? '0').toFixed())
                     ),
                     0
                   ),
                   item: {
-                    [IGameName.zBingo]: ethers.utils.formatEther(new BigNumberjs(v.response.toString()).toString()),
-                    [IGameName.z2048]: ethers.utils.formatEther(new BigNumberjs(z2048PlatformRevenueMap?.[v.chainId] ?? '0').toString())
+                    [IGameName.zBingo]: ethers.utils.formatEther(new BigNumberJs(v.response.toString()).toFixed()),
+                    [IGameName.z2048]: ethers.utils.formatEther(new BigNumberJs(z2048PlatformRevenueMap?.[v.chainId] ?? '0').toFixed())
                   }
                 }
               ])
@@ -281,12 +281,12 @@ export const useDataInfo = () => {
                 v.chainId,
                 {
                   total: formatMoney(
-                    new BigNumberjs(v.response.toString()).plus(new BigNumberjs(z2048MaxGameId?.[v.chainId] ?? '0').times(2)).toString(),
+                    new BigNumberJs(v.response.toString()).plus(new BigNumberJs(z2048MaxGameId?.[v.chainId] ?? '0').times(2)).toFixed(),
                     0
                   ),
                   item: {
-                    [IGameName.zBingo]: new BigNumberjs(v.response.toString()).toString(),
-                    [IGameName.z2048]: new BigNumberjs(z2048MaxGameId?.[v.chainId] ?? '0').times(2).toString()
+                    [IGameName.zBingo]: new BigNumberJs(v.response.toString()).toFixed(),
+                    [IGameName.z2048]: new BigNumberJs(z2048MaxGameId?.[v.chainId] ?? '0').times(2).toFixed()
                   }
                 }
               ])

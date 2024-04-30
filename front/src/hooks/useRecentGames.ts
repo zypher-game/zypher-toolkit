@@ -11,11 +11,11 @@ import {
   zkBingo
 } from '@UI/src/'
 import ZkBingoLobbyAbi from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
-import BigNumberJs from 'bignumber.js'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 
 import { graphqlApiUrl } from '@/constants/constants'
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import bingoLobby from '../contract/bingoLobby'
 import { batchRequestContracts } from '../utils/batchRequestContracts'
@@ -110,9 +110,9 @@ export const getGameInfo = async ({
           return [
             item[0], // startedAt,
             item[1], // endedAt,
-            new BigNumberJs(item[2].hex).dividedBy(divisorBigNumber).toString(), // uint256 joinAmount,
+            new BigNumberJs(item[2].hex).dividedBy(divisorBigNumber).toFixed(), // uint256 joinAmount,
             item[3], // winner,
-            new BigNumberJs(item[4].hex).dividedBy(divisorBigNumber).toString(), // uint256 winAmount,
+            new BigNumberJs(item[4].hex).dividedBy(divisorBigNumber).toFixed(), // uint256 winAmount,
             item[5], // Participant[] memory players,
             item[6], // GameRound[] memory rounds,
             item[7] // string memory status

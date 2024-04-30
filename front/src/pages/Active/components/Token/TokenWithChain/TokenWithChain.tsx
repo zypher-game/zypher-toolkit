@@ -2,14 +2,14 @@ import { ChainId, ChainImage, Currency, CurrencyLogo } from '@UI/src/'
 import React, { memo, useMemo } from 'react'
 import styled from 'styled-components'
 
-import { defaultActiveChainId, IToken } from '@/pages/Active/constants/activeConstants'
+import { defaultActiveChainId, IToken, TVLChainId } from '@/pages/Active/constants/activeConstants'
 
 import css from './TokenWithChain.module.styl'
 const Wrap = styled.div<{ width?: number }>`
   width: ${({ width }) => width ?? 22}px;
   height: ${({ width }) => width ?? 22}px;
 `
-const TokenWithChain = memo(({ token, chainId, width }: { token: IToken; chainId: ChainId; width?: number }) => {
+const TokenWithChain = memo(({ token, chainId, width }: { token: IToken; chainId: ChainId | TVLChainId; width?: number }) => {
   const { cLogo, cChainId } = useMemo((): {
     cLogo: string
     cChainId: ChainId

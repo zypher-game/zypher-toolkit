@@ -1,8 +1,8 @@
 import { IContractName, useActiveWeb3React, useRecoilState, zkBingo } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { useCallback, useEffect, useState } from 'react'
 
 import bingoLobby from '@/contract/bingoLobby'
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { gameRoomState, joinGameState } from '../pages/Bingo/state'
 import { env } from '../utils/config'
@@ -33,10 +33,10 @@ export default function useRestoreGame<T>() {
       const txn = await lobbyContract.read.restoreGame([account, cardNums, joinGame.signedLabel])
       // console.log({ txn }) // [bingnumber playingGameId  number autoEndTime  bool isCardContentMatched]
       const [playingGameId, autoEndTime, isCardContentMatched] = txn
-      const Playing = new BigNumberjs(playingGameId).toNumber() > 0
+      const Playing = new BigNumberJs(playingGameId).toNumber() > 0
       const currentTimestamp = Math.floor(Date.now() / 1000)
       const time = autoEndTime > 0 ? autoEndTime - currentTimestamp : 0
-      setGameId(new BigNumberjs(playingGameId).toNumber())
+      setGameId(new BigNumberJs(playingGameId).toNumber())
       setGameTime(time)
       setisPlaying(Playing)
       setLoading(false)

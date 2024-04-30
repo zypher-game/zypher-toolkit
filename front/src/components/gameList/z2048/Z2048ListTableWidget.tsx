@@ -9,11 +9,11 @@ import { isEqual } from 'lodash'
 import React, { memo, useMemo } from 'react'
 
 import { NotDataWithLoading } from '@/components/NoData'
-import { I2048GameList } from '@/pages/Home/hooks/useRecentZ2048FromContract'
+import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 
 import css from '../bingo/gameListTable.module.stylus'
 import { MyTable } from '../bingo/gameListTable.style'
-import RanderNormalText from '../bingo/tableRow/pc/RanderNormalText'
+import RenderNormalText from '../bingo/tableRow/pc/RenderNormalText'
 import PixelGameListTable from '../components/PixelGameListTable'
 import Z2048MobileRow from './tableRow/m/Z2048MobileRow'
 import NftTokenIdCol from './tableRow/nftTokenIdCol'
@@ -46,7 +46,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
         title: t('Players'),
         dataIndex: 'player',
         key: 'player',
-        render: (player: string) => <RanderNormalText label={player} showPoint={false} isMobile={isMobile} />
+        render: (player: string) => <RenderNormalText label={player} showPoint={false} isMobile={isMobile} />
       },
       {
         title: t('Tiles'),
@@ -65,7 +65,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
         title: t('Winnings'),
         dataIndex: 'reward',
         key: 'reward',
-        render: (win: string) => <RanderNormalText label={win} showPoint={true} isMobile={isMobile} />
+        render: (win: string) => <RenderNormalText label={win} showPoint={true} isMobile={isMobile} />
       }
     ] as (ColumnGroupType<object> | ColumnType<object>)[]
   }, [isMobile, t])

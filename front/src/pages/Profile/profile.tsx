@@ -1,13 +1,18 @@
-import { useActiveWeb3React, walletModalOpenState } from '@UI/src/'
-import { IGameList, useRecoilState, useSetRecoilState } from '@UI/src/'
-import { useCustomTranslation } from '@UI/src/'
-import { useIsMobile } from '@UI/src/'
-import { LngNs } from '@UI/src/'
+import {
+  IGameList,
+  LngNs,
+  useActiveWeb3React,
+  useCustomTranslation,
+  useIsMobile,
+  useRecoilState,
+  useSetRecoilState,
+  walletModalOpenState
+} from '@UI/src/'
 import React, { useEffect, useState } from 'react'
 
 import GameListIndex from '@/components/gameList/gameListIndex'
 
-import { I2048GameList, useZ2048AccountFromGraph } from '../Home/hooks/useRecentZ2048FromContract'
+import { I2048GameList, useZ2048AccountFromGraph } from '../GamesIndex/hook/useRecentZ2048FromContract'
 import LevelRuleDialog from './components/dialog/levelRuleDialog'
 import MonsterNftDialog from './components/dialog/monsterNftDialog'
 import NFTs from './components/NFTs/NFTs'

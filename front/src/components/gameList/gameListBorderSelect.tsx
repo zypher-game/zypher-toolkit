@@ -10,7 +10,7 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import styled from 'styled-components'
 
-import { z2048SupportedChainIds } from '@/pages/Home/hooks/useRecentZ2048FromContract'
+import { z2048SupportedChainIds } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 import { env } from '@/utils/config'
 
 import css from './gameListBorderSelect.module.stylus'

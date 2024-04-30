@@ -33,7 +33,7 @@ type IProps = {
   status: IGameStatus
   isMobile: boolean
 }
-const RanderStatus: FC<IProps> = memo(({ status, isMobile }: IProps) => {
+const RenderStatus: FC<IProps> = memo(({ status, isMobile }: IProps) => {
   const { t } = useCustomTranslation([LngNs.home])
   return (
     <p>
@@ -43,4 +43,4 @@ const RanderStatus: FC<IProps> = memo(({ status, isMobile }: IProps) => {
   )
 }, isEqual)
 
-export default RanderStatus
+export default RenderStatus

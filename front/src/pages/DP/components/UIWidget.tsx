@@ -130,14 +130,14 @@ export const DPAmountInputItem = memo(
   }) => {
     const subHandle = useCallback(() => {
       if (parseInt(value) > 1) {
-        const newValue = (parseInt(value) - 1).toString()
+        const newValue = (parseInt(value) - 1).toFixed()
         setValue(newValue)
       }
     }, [value])
 
     const addHandle = useCallback(() => {
       if (value !== '') {
-        const newValue = (parseInt(value) + 1).toString()
+        const newValue = (parseInt(value) + 1).toFixed()
         if (parseInt(newValue) <= parseInt(max)) {
           setValue(newValue)
         }

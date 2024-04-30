@@ -1,11 +1,11 @@
 import { AddressZero } from '@ethersproject/constants'
 import { ChainId, ChainRpcUrls, getProvider, IContractName, MulticallContract, request, supportedChainIds, zkBingo } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { ethers } from 'ethers'
 import sample from 'lodash/sample'
 import { Address, WalletClient } from 'wagmi'
 
 import { TransactionsCount } from '@/constants/constants'
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { env } from './config'
 import sleep from './sleep'
@@ -18,7 +18,7 @@ export interface IContractRequest {
 
 export interface IContractResponse {
   method: string
-  chainId: number
+  chainId: ChainId
   response: any
   chainIdList?: ChainId[]
 }
@@ -78,7 +78,7 @@ export async function batchRequestTransCountFromScan({
         contractAddress: undefined,
         method: 'nr_getTransactionByAddressCount',
         chainId: contractRequest,
-        response: new BigNumberjs(res)
+        response: new BigNumberJs(res)
       }
     } catch (err) {
       // console.log({ err })

@@ -1,16 +1,26 @@
+.header
+  :global(>div.pixel_flat_inner)
+    padding: 0
 .mItem
-  border-radius: 10px;
-  background: rgba(255, 255, 255, 0.04);
   margin-bottom: 10px
   width: 100%
-  padding-bottom: 30px
+  :global(>.pixel_flat_inner)
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
   p
     margin: 0
     padding: 0
+  .mTop,
+  .mBottom
+    width: 100%
   .mTop
-    border-radius: 10px;
-    background: rgba(255, 255, 255, 0.06);
     padding: 10px
+    // >.pixel_flat_btn_bg
+    //   >.pixel_flat_btn_bottom_1,
+    //   >.pixel_flat_btn_bottom_2
+    //     left: 0
+    //     width: 100%
     .mTitle
       display: flex
       justify-content: space-between
@@ -34,6 +44,13 @@
       .mStatusLive
         color: #65EDBC;
         background: rgba(101, 237, 188, 0.06);
+    .mTable
+      .mTableHeader
+        &>p
+          font-size: 12px
+      .mTableBody
+        &>p
+          font-size: 14px
     .mTable
       .mTableHeader,
       .mTableBody

@@ -4,7 +4,7 @@ import React, { memo, useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import Icon from '@/assets/iconsLocal'
-import { I2048GameList } from '@/pages/Home/hooks/useRecentZ2048FromContract'
+import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 
 import GameListTableWidget from './bingo/gameListTable'
 import GameListBorderSelect from './gameListBorderSelect'

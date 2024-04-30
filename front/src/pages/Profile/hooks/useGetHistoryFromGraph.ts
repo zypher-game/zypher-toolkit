@@ -11,12 +11,12 @@ import {
   request,
   useActiveWeb3React
 } from '@UI/src/'
-import BigNumberJs from 'bignumber.js'
 import { ethers } from 'ethers'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 
 import { graphqlApiUrl } from '@/constants/constants'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { chainIdPre } from '@/utils/gameFormatGames'
 
 export function getStatus(status: number): IGameStatus {
@@ -50,7 +50,7 @@ export function formatDataFromGraph({ chainId, data, recentGames }: { chainId: C
       winner
     } = v || {}
     let status = getStatus(statusNumber)
-    const id = parseInt(idHex, 16).toString()
+    const id = parseInt(idHex, 16).toFixed()
     let winnerOrPlayers = `${pCount} players`
     let inputPerPlayer = joinAmount ? new BigNumberJs(ethers.utils.formatEther(joinAmount)).dividedBy(new BigNumberJs(pCount)).toNumber() : '-'
     let win = '-'
@@ -153,7 +153,7 @@ export const useBingoAccountFromGraph = ({
             }
           })
           if (result.data && result.data.data && result.data.data.participantInfos && result.data.data.participantInfos.length) {
-            const gameIdList = result.data.data.participantInfos.map((v: any) => parseInt(v['gameInfo'].id, 16).toString())
+            const gameIdList = result.data.data.participantInfos.map((v: any) => parseInt(v['gameInfo'].id, 16).toFixed())
             const lobbyAddrList = result.data.data.participantInfos.map((v: any) => v['gameInfo'].lobbyAddr)
             const endFilter = result.data.data.participantInfos
               .filter((v: any) => getStatus(v['gameInfo'].status) === IGameStatus.End)

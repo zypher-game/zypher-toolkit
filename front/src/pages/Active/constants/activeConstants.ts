@@ -5,8 +5,8 @@ export enum TVLChainId {
   Sepolia = ChainId.Sepolia,
   LineaTestnet = ChainId.LineaTestnet
 }
-export const defaultActiveChainId = TVLChainId.Sepolia as unknown as TVLChainId
-export const TVLStakingSupportedChainId = (!isPro() ? [TVLChainId.Sepolia, TVLChainId.LineaTestnet] : []) as unknown as TVLChainId[]
+export const defaultActiveChainId = TVLChainId.Sepolia as unknown as ChainId
+export const TVLStakingSupportedChainId = (!isPro() ? [TVLChainId.Sepolia, TVLChainId.LineaTestnet] : []) as unknown as ChainId[]
 
 export type IToken = {
   address: Address
@@ -21,7 +21,7 @@ export type TVLToken = {
   WETH: IToken
   // GP: IToken
 }
-export const tvlTokenAddress: Record<TVLChainId, Record<string, Address>> = {
+export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
   [TVLChainId.Sepolia]: {
     Restaking: '0x8D082081b2FC4260425a1a8C45Cc0F8E8B06EB19',
     USDT: '0x6d1688F7Ef43070E121a8DB4A92C00cd5130Cf30',
@@ -34,8 +34,8 @@ export const tvlTokenAddress: Record<TVLChainId, Record<string, Address>> = {
     WETH: '0x5131bc5Ed480a524932D2638922616fE968374FE',
     USDT: '0xec3D0EfFa4d763563e45186A563f1f416CBc6647'
   }
-}
-export const tvlTokens: Record<TVLChainId, TVLToken> = {
+} as unknown as Record<ChainId, Record<string, Address>>
+export const tvlTokens: Record<ChainId, TVLToken> = {
   [TVLChainId.Sepolia]: {
     USDT: {
       address: tvlTokenAddress[TVLChainId.Sepolia].USDT,
@@ -76,6 +76,6 @@ export const tvlTokens: Record<TVLChainId, TVLToken> = {
     //   index: 4
     // }
   }
-}
+} as unknown as Record<ChainId, TVLToken>
 
 export const CODELENGTH = 5

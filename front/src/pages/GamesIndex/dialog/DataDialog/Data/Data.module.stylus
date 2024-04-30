@@ -1,61 +1,48 @@
-
+.dataMainWrap
+  position relative
+  padding-bottom: 20px
 .dataMain
   display: flex
   justify-content: flex-start
   flex-wrap: wrap;
-  gap: 24px
+  padding: 40px
+  gap: 20px
   @media screen and (max-width: 768px)
-    gap: 10px
+    gap: 10px;
+    padding: 16px;
+    max-height: 42vh;
+    overflow-y: scroll;
   .item
-    background: rgba(#fff, 0.04)
-    border-radius: 20px
-    display: flex
-    align-items: center
-    padding: 38px 0
-    flex-basis: calc(25% - 24px);
-    max-width: calc(25% - 24px);
-    cursor pointer
-    @media screen and (max-width: 1600px)
-      flex-basis: calc(33.3% - 24px);
-      max-width: calc(33.3% - 24px);
-    @media screen and (max-width: 1368px)
-      padding: 18px 0
-      flex-basis: calc(50% - 24px);
-      max-width: calc(50% - 24px);
+    padding: 24px 30px
+    flex: 1;
+    width: 47%;
     @media screen and (max-width: 768px)
-      flex-basis: calc(50% - 10px);
-      max-width: calc(50% - 10px);
-      border-radius: 8px
-      padding: 10px 0
-    & > span
-      display: flex
-      align-items: center
-      flex: 1;
-  
+      width: 100%
+      padding: 12px 16px
+    :global(> .pixel_flat_inner)
+      justify-content: flex-start
+      align-items: center;
+      & > span
+        display: flex
+        align-items: center
+        flex: 1;
     .dataImg
-      max-width: 84px
+      max-width: 72px
       min-width: 60px
-      width: 30%
-      margin-right: 16px
-      margin-left: 38px
+      width: 20%
+      margin-right: 20px
 
       @media screen and (max-width: 768px)
         min-width: auto
         width: 40px
         margin-right: 10px
-        margin-left: 10px
-
-    // .itemDetail
-    //   div 
-    //     margin-right: 38px
-    //     @media screen and (max-width: 768px)
-    //       margin-right: 10px
     .tit
       font-weight: 500
       font-size: 16px
       line-height: 30px
       opacity: 0.7
       white-space: nowrap;
+      color: #fff
       @media screen and (max-width: 1068px)
         font-size: 14px
       @media screen and (max-width: 768px)
@@ -73,9 +60,9 @@
     .mun
       font-size: 20px
       font-weight: 600
-      font-size: 24px
       line-height: 30px
-      margin: 8px 0 0
+      color: #fff
+      margin: 6px 0 0
       @media screen and (max-width: 1368px)
         font-size: 16px
       @media screen and (max-width: 768px)
@@ -90,3 +77,11 @@
   display: flex
   align-items: center
   gap: 10px
+
+:global(body .pixelTableInnerBottomData)
+  display: none
+  @media screen and (max-width: 768px)
+    display: block
+    height: 50px;
+    bottom: 20px;
+    background: linear-gradient(180deg, rgba(29, 38, 59, 0) 0%, #1D263B 100%);

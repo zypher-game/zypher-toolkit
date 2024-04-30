@@ -1,5 +1,6 @@
 import { ChainId, formatMoney, getFormattedTime, getFormattedTimeMobile, IGameIdInfo, IGameList, IGameName, IGameStatus, IRecentGame } from '@UI/src/'
-import BigNumberJs from 'bignumber.js'
+
+import BigNumberJs from '@/utils/BigNumberJs'
 
 export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Mainnet]: 'BNB',
@@ -36,7 +37,7 @@ export const gameFormatGamesWithIRecentGame = ({
   try {
     const localStatus = status as IGameStatus
     let winnerOrPlayers = `${players.length} players`
-    let inputPerPlayer = new BigNumberJs(joinAmount).dividedBy(players.length).toString()
+    let inputPerPlayer = new BigNumberJs(joinAmount).dividedBy(players.length).toFixed()
     inputPerPlayer = inputPerPlayer === '0' ? '5000' : inputPerPlayer
     let win = '-'
     let multiplier = '-'

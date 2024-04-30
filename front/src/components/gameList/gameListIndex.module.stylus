@@ -2,7 +2,7 @@
   position relative
 .more_right
   position: absolute
-  top: -40px
+  top: -48px
   right 0
   color: #6673FF;
   font-size: 14px;

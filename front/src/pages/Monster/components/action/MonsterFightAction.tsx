@@ -61,7 +61,7 @@ const MonsterFightAction: FC<IProps> = memo(({ monsterStatus, handleMonsterBotto
               : t('Battle')}
           </Button>
           {monsterStatus === IMonsterStatus.End || !monsterState?.[MonsterKeyType.challengeEndedAt] ? null : (
-            <MonsterCountdown endTime={(Number(monsterState[MonsterKeyType.challengeEndedAt]) * 1000).toString()} className="fightAction" />
+            <MonsterCountdown endTime={(Number(monsterState[MonsterKeyType.challengeEndedAt]) * 1000).toFixed()} className="fightAction" />
           )}
         </div>
         <Button className={css.rule} onClick={handleRule1Dialog}>

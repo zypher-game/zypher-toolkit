@@ -1,6 +1,6 @@
 import React, { memo } from 'react'
 
-import { PixelTableBorder } from '@/pages/Active/components/PixelTable/PixelTable'
+import { PixelTableBorder } from '@/components/PixelTable/PixelTable'
 import { useLeaderboard } from '@/pages/Active/hooks/useLeaderboard'
 
 import Avatar from '../../components/Avatar/Avatar'

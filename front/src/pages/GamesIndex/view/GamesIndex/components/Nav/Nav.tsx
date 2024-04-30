@@ -1,17 +1,21 @@
 import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useSetRecoilState } from '@UI/src'
 import React, { memo, useCallback } from 'react'
 
-import { gameListDialogState, zypherGamesDialogState } from '@/pages/GamesIndex/state/GamesState'
+import { dataDialogState, gameListDialogState, zypherGamesDialogState } from '@/pages/GamesIndex/state/GamesState'
 
 import css from './Nav.module.styl'
 const Nav = memo(() => {
   const setIsZypherGamesModalOpen = useSetRecoilState(zypherGamesDialogState)
   const setIsGameListModalOpen = useSetRecoilState(gameListDialogState)
+  const setIsDataModalOpen = useSetRecoilState(dataDialogState)
   const zypherGamesModalOpenHandle = useCallback(() => {
     setIsZypherGamesModalOpen(true)
   }, [])
   const gameListModalOpenHandle = useCallback(() => {
     setIsGameListModalOpen(true)
+  }, [])
+  const dataModalOpenHandle = useCallback(() => {
+    setIsDataModalOpen(true)
   }, [])
 
   return (
@@ -19,7 +23,7 @@ const Nav = memo(() => {
       <div className={css.fl}>
         <NavItemFl label="About Zypher" iconPath="pixel_about" onClick={zypherGamesModalOpenHandle} />
         <NavItemFl label="Game list" iconPath="pixel_list" onClick={gameListModalOpenHandle} />
-        <NavItemFl label="Data" iconPath="pixel_data" />
+        <NavItemFl label="Data" iconPath="pixel_data" onClick={dataModalOpenHandle} />
       </div>
       <div className={css.fr}>
         <NavItemFr className={css.fr_item}>

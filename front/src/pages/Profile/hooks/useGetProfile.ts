@@ -1,8 +1,8 @@
 import { formatMoney, useActiveWeb3React } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import bingoLobby from '@/contract/bingoLobby'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 
 export const useGetProfile = () => {
@@ -31,8 +31,8 @@ export const useGetProfile = () => {
     const [, overall] = await lobbyContract.read.userRecords([account])
     const { wins, joined } = overall
     setRankData({
-      joinGameNumber: `${new BigNumberjs(joined).toString()}`,
-      winGameNumber: `${new BigNumberjs(wins).toString()}`,
+      joinGameNumber: `${new BigNumberJs(joined).toFixed()}`,
+      winGameNumber: `${new BigNumberJs(wins).toFixed()}`,
       winNum: '-',
       inputNum: '-'
     })

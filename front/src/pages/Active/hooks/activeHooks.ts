@@ -73,7 +73,7 @@ export const getAirdropPathname = {
 }
 
 export const canNext = (account?: Address, chainId?: ChainId): boolean => {
-  if (account && chainId && TVLStakingSupportedChainId.includes(chainId as unknown as TVLChainId)) {
+  if (account && chainId && TVLStakingSupportedChainId.includes(chainId)) {
     return true
   }
   return false
@@ -310,7 +310,7 @@ export const useStake = () => {
       let END_TIME = '0'
       const resMap = Object.fromEntries(
         res.map((v, chainIndex) => {
-          const _chainId = v.chainId as unknown as TVLChainId
+          const _chainId = v.chainId as unknown as ChainId
           const methodArr = v.method.split(',')
           const nextMethodArr = nextRes[chainIndex].method.split(',')
           const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[_chainId]).map((vv: any, index: number) => {
@@ -328,7 +328,7 @@ export const useStake = () => {
             const decimal = v.response[decimalIndex][0]
             const balanceBig = new BigNumberJs(v.response[balanceOfIndex][0].hex)
             const earnGP = v.response[claimableIndex][index]
-            END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toString()
+            END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
             const getUserWeeklyWeightIndex = nextMethodArr.indexOf(`getUserWeeklyWeight${vv.symbol}`)
 
             const stake = nextRes[chainIndex].response[getUserWeeklyWeightIndex]
@@ -348,7 +348,7 @@ export const useStake = () => {
                 decimal: decimal,
                 balance: balanceBig.toString(),
                 balanceStr: balanceBig.dividedBy(divisorBigNumber).toFormat(3),
-                earnGP: new BigNumberJs(earnGP.hex).toString(),
+                earnGP: new BigNumberJs(earnGP.hex).toFixed(),
                 userStakedAmount: userStakeBig.toString(),
                 totalStakedAmount: totalStakeBig.toString(),
                 END_TIME: END_TIME
@@ -376,7 +376,7 @@ export const useStake = () => {
             ])
           ]
         })
-      ) as unknown as Record<TVLChainId, Record<string, ITVLStakingData>>
+      ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
       setTvlStakingData(resMap)
       setIsDataLoading(false)
     }
@@ -428,7 +428,7 @@ export const useStake = () => {
       if (!amount || !currency) {
         throw new Error('Amount or Currency not Ready')
       }
-      if (new BigNumberJs(amount).toString() === '0') {
+      if (new BigNumberJs(amount).toFixed() === '0') {
         throw new Error('Amount is not enough')
       }
 
@@ -438,7 +438,7 @@ export const useStake = () => {
       if (isDepositLoading || isApproveLoading) {
         return
       }
-      const _nativeChainId = nativeChainId as unknown as TVLChainId
+      const _nativeChainId = nativeChainId
       const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
 
       if (!contract) {
@@ -448,7 +448,7 @@ export const useStake = () => {
 
       const erc20Address = tvlStakingData[_nativeChainId][currency].address
       const decimal = tvlStakingData[_nativeChainId][currency].decimal
-      const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toString()
+      const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
       if (erc20Address !== AddressZero) {
         const _erc20Contract = erc20Contract(nativeChainId, env, erc20Address, walletClient)
         const allowance = await _erc20Contract.read.allowance([account, tvlTokenAddress[_nativeChainId].Restaking])
@@ -509,14 +509,14 @@ export const useStake = () => {
     }
   }, [isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction])
   useEffect(() => {
-    const _nativeChainId = nativeChainId as unknown as TVLChainId
+    const _nativeChainId = nativeChainId
     if (
       depositCurrency &&
       depositCurrency !== '' &&
       tvlStakingData[_nativeChainId] &&
       tvlStakingData[_nativeChainId][depositCurrency].balance !== ''
     ) {
-      setMax(new BigNumberJs(tvlStakingData[_nativeChainId][depositCurrency].balance).dividedBy(divisorBigNumber).toString())
+      setMax(new BigNumberJs(tvlStakingData[_nativeChainId][depositCurrency].balance).dividedBy(divisorBigNumber).toFixed())
       return
     }
     setMax('0')

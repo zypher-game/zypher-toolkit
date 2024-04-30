@@ -19,7 +19,7 @@ type IProps = {
   showPoint: boolean
   isMobile: boolean
 }
-const RanderNormalText: FC<IProps> = memo(({ label, showPoint, isMobile }: IProps) => {
+const RenderNormalText: FC<IProps> = memo(({ label, showPoint, isMobile }: IProps) => {
   return `${label}`.startsWith('0x') ? (
     <PlayerAvatar className={css.account} size={22} account={label} showAccount={true} border={false} />
   ) : (
@@ -29,4 +29,4 @@ const RanderNormalText: FC<IProps> = memo(({ label, showPoint, isMobile }: IProp
     </StatusP>
   )
 }, isEqual)
-export default RanderNormalText
+export default RenderNormalText

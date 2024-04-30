@@ -2,10 +2,11 @@ import { preStaticUrl, useActiveWeb3React } from '@UI/src/'
 import { useCustomTranslation } from '@UI/src/'
 import { getShortenAddress, LngNs } from '@UI/src/'
 import { PlayerAvatar } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useMemo } from 'react'
+
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IDefenceRankDataItem } from '../hooks/monster.types'
 import css from './MonsterList.module.stylus'
@@ -60,7 +61,7 @@ type IProp = { rank: string; account: string }
 const RankCol: FC<IProp> = memo(({ rank, account }: IProp) => {
   const rankId = useMemo(() => {
     if (rank && rank !== 'undefined') {
-      if (new BigNumberjs(rank).isLessThan(4)) {
+      if (new BigNumberJs(rank).isLessThan(4)) {
         return <img className={css.img} src={preStaticUrl + `/img/invitation/rank${rank}.svg`} title="invitation" />
       }
       return <p className={css.p}>{rank}</p>

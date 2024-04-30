@@ -18,13 +18,13 @@ import {
   walletModalOpenState,
   ZkBingoPointsContract
 } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
 import { BigNumber, ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { Address, useWalletClient } from 'wagmi'
 
 import { useAppDispatch } from '@/store/hooks'
+import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
@@ -66,17 +66,17 @@ const ChainPointPrice = {
   [ChainId.LineaTestnet]: 1 / 2_000_000,
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000
-}
+} as unknown as Record<ChainId, number>
 export const pointsListDefault = (chainId: ChainId): IPointsItem[] | undefined => {
   try {
     return [['10000'], ['30000'], ['50000'], ['60000'], ['80000'], ['100000 ', '2'], ['300000', '5'], ['500000', '10']].map((v, index) => {
       const chainPrice = ChainPointPrice[chainId]
       const price = v[1]
-        ? new BigNumberjs(chainPrice)
+        ? new BigNumberJs(chainPrice)
             .times(v[0])
             .times((100 - Number(v[1])) * 0.01)
             .toFixed(8)
-        : new BigNumberjs(chainPrice).times(v[0]).toFixed(8)
+        : new BigNumberJs(chainPrice).times(v[0]).toFixed(8)
       const priceStr = formatMoney(Number(price), 8)
       const pointAmountStr = formatMoney(Number(v[0]))
       return {
@@ -122,7 +122,7 @@ const useBingoLobbyContractStatic = (setBingoLobbyContractStatic: React.Dispatch
         // const [claimConfs] = await pointsContract.functions.claimConfs()
         const claim = pointsContract.read.claim
         const obj = {
-          // claimStartTime: new BigNumberjs(claimStartTime).toNumber(),
+          // claimStartTime: new BigNumberJs(claimStartTime).toNumber(),
           // blindBoxAddress: blindBoxAddress,
           // pointsToken: pointsToken,
           dayClaimed: dayClaimed as boolean,
@@ -264,7 +264,7 @@ const useBoxBalance = ({
       const erc20 = erc20Contract(chainId, env, blindBoxAddress)
       // const blindBoxAddressContract = await erc20Contract(blindBoxAddress)
       const balance = await erc20?.read.balanceOf([account])
-      const balanceStr = new BigNumberjs(balance).toString()
+      const balanceStr = new BigNumberJs(balance).toFixed()
       setBoxBalance(balanceStr)
     } catch (error) {
       console.error('useBoxBalance: ', error)
@@ -296,7 +296,7 @@ const useShowPoint = ({
     setClaimConfKey ? setClaimConfKey(key) : null
     const claimConf = claimConfsDefault[claimType]?.['1']
     if (claimConf && claimConf[key]) {
-      setPoints(ethers.utils.formatEther(claimConf[key]).toString())
+      setPoints(new BigNumberJs(ethers.utils.formatEther(claimConf[key])).toFormat())
     } else {
       setPoints('-')
     }

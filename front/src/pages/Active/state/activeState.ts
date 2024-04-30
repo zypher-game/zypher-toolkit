@@ -135,7 +135,7 @@ export const initData: ITVLStakingData = {
   logoPath: '',
   index: 0
 }
-export const tvlStakingDataState = atom<Record<TVLChainId, Record<string, ITVLStakingData>>>({
+export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>({
   key: 'tvlStakingData',
   default: Object.fromEntries(
     TVLStakingSupportedChainId.map(chainId => [
@@ -167,7 +167,7 @@ export const tvlStakingDataState = atom<Record<TVLChainId, Record<string, ITVLSt
         }
       }
     ])
-  ) as unknown as Record<TVLChainId, Record<string, ITVLStakingData>>
+  ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>
 })
 export const selectChainDialogState = atom({
   key: 'selectChainDialogState',

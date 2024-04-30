@@ -1,13 +1,14 @@
 import { Currency } from '@UI/src/'
-import BigNumberjs from 'bignumber.js'
+
+import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IPriceType } from '../store/price/reducer'
 import { IContractResponse } from './batchRequestContracts'
 
 export const calculateSumWithKey = (array: any[], index: number): string => {
   return array.reduce((accumulator, contractResponse) => {
-    const value = new BigNumberjs(contractResponse.response[index])
-    return value.plus(new BigNumberjs(accumulator)).toString()
+    const value = new BigNumberJs(contractResponse.response[index])
+    return value.plus(new BigNumberJs(accumulator)).toFixed()
   }, 0)
 }
 // const ChainNativePrice = {
@@ -18,18 +19,18 @@ export const calculateSumWithKey = (array: any[], index: number): string => {
 // }
 export const calculateSum = (array: IContractResponse[], timeNativeAmount?: boolean, chainNativePrice?: IPriceType): string => {
   return array.reduce((accumulator, contractResponse: IContractResponse) => {
-    let amount = new BigNumberjs(1)
+    let amount = new BigNumberJs(1)
     if (timeNativeAmount && chainNativePrice) {
-      amount = new BigNumberjs(chainNativePrice[Currency[contractResponse.chainId]])
+      amount = new BigNumberJs(chainNativePrice[Currency[contractResponse.chainId]])
     }
-    const value = new BigNumberjs(contractResponse.response.toString()).times(amount).plus(new BigNumberjs(accumulator))
-    return value.toString()
+    const value = new BigNumberJs(contractResponse.response.toString()).times(amount).plus(new BigNumberJs(accumulator))
+    return value.toFixed()
   }, '0')
 }
 
 export const calculateSumByNumber = (array: string[]): string => {
   return array.reduce((accumulator, item: string) => {
-    const value = new BigNumberjs(item).plus(new BigNumberjs(accumulator))
-    return value.toString()
+    const value = new BigNumberJs(item).plus(new BigNumberJs(accumulator))
+    return value.toFixed()
   }, '0')
 }

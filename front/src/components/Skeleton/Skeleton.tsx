@@ -12,7 +12,7 @@ const waves = keyframes`
 const Waves = styled.div`
   overflow: hidden;
   transform: translate3d(0, 0, 0);
-  background-color: #293457;
+  background-color: rgba(255, 255, 255 0.7);
   border-radius: 2px;
   &:before {
     content: '';
