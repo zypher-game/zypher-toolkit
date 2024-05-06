@@ -1,0 +1,73 @@
+.comboBanner_bg02
+  position absolute
+  top: -3%
+  right 0
+  z-index 2
+  height: 100%
+.comboBanner_box_bg01
+  display: block
+  height: 100%
+.comboBanner_box_bg02,
+.comboBanner_box_bg03,
+.comboBanner_box_light,
+.comboBanner_box
+  position absolute
+  display: block
+.comboBanner_box_bg02
+  z-index 2
+  width: 120%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  animation: opacityAni 3s infinite;
+  animation-delay: 1s
+.comboBanner_box_bg03
+  z-index 3
+  width: 60%;
+  top: 52%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  animation: opacityAni 3s infinite;
+.comboBanner_box_light
+  z-index: 4;
+  height: 69%;
+  top: 51.8%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  animation: flash_light 2s infinite;
+.comboBanner_box
+  z-index: 5;
+  height: 45%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+
+@keyframes opacityAni {
+  0% {
+    opacity 1
+  }
+  50% {
+    opacity 0.8
+  }
+  100% {
+    opacity 1
+  }
+}
+
+@keyframes flash_light {
+  0% {
+    opacity: 1;
+  }
+  32%,
+  48%,
+  64% {
+    opacity: 1;
+  }
+  40%,
+  56% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.5;
+  }
+}

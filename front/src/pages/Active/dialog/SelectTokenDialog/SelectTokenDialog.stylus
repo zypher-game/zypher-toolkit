@@ -1,0 +1,51 @@
+.select_dialogWrap
+  .select_dialogContent
+    width: 380px
+    background-color: transparent !important
+    padding: 0;
+    position relative
+body .select_dialogContentInnerTop
+  > .pixel_flat_btn_bg 
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1
+      width: 100%
+      left: 0
+  > .pixel_flat_inner
+    flex-direction: column
+body .select_dialogContentInnerBottom
+  padding: 20px 30px
+  > .pixel_flat_btn_bg 
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_top_1
+      width: 100%
+      left: 0
+
+.select_dialogContentInnerTop
+  h3
+    font-size: 16px
+    font-weight: 600
+    margin: 0
+  .select_chain_ul
+    padding: 20px 30px 0
+    display: flex
+    gap: 10px
+    margin: 0
+    width: 100%
+    // background-color: #293457
+    .select_chain_li_img 
+      width: 48px
+.select_token_ul
+  max-height: 200px
+  overflow-y: scroll
+  width: 100%;
+.select_staking_switch
+  margin-bottom: 10px
+  >.pixel_flat_inner
+    justify-content: flex-start
+    padding:  0 20px
+    gap: 10px
+    line-height: 16px;
+    h3
+      font-weight: 600
+  .select_currency 
+    flex: 1

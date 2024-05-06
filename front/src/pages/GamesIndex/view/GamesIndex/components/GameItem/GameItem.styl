@@ -1,0 +1,230 @@
+// .gameItemComp6,
+// .gameItemComp12,
+// .gameItemComp10,
+// .gameItemComp2
+.pixel_cloud6
+  animation: cloud1-float 2s ease-in-out infinite
+
+.pixel_litter_island3
+  animation: tag3-float 1s ease-in-out infinite
+.pixel_litter_island5
+  animation: tag3-float 2s ease-in-out infinite
+  animation-delay: 0.2s
+.pixel_island1_div
+  animation: cloud1-float 6s ease-in-out infinite
+  animation-delay: 0.2s
+.pixel_island2_div
+  animation: cloud1-float 6s ease-in-out infinite
+  animation-delay: 0.5s
+.pixel_island3_div
+  animation: cloud1-float 6s ease-in-out infinite
+.pixel_island4_div
+  animation: cloud1-float 6s ease-in-out infinite
+  animation-delay: 0.5s
+.pixel_island5_div
+  animation: cloud1-float 6s ease-in-out infinite
+  animation-delay: 1s
+// zace
+.gameItemComp6
+  animation: tag3-float 1s ease-in-out infinite
+  animation-delay: 0.2s
+  top: 10%;
+  left: -3%;
+  @media screen and (max-width: 1200px)
+    left: 1%;
+// cr
+.gameItemComp12
+  animation: tag3-float 1s ease-in-out infinite
+  top: 6%;
+  right: 27%;
+// 2048
+.gameItemComp10
+  animation: tag3-float 1s ease-in-out infinite
+  animation-delay: 0.4s
+  top: 28%;
+  left: 27%;
+// zBingo
+.gameItemComp2
+  animation: tag3-float 1s ease-in-out infinite
+  animation-delay: 0.6s
+  top: 22%;
+  right: 11%;
+
+// points
+.gameItemComppoints
+  animation: tag3-float 1s ease-in-out infinite
+  animation-delay: 0.8s
+  top: 44%;
+  right: 12%;
+.gameItemCompComing
+  top: 45%;
+  left: 6%;
+
+
+.gameItem_bg,
+.pixel_island1_div,
+.pixel_island1,
+.pixel_litter_island1,
+.pixel_litter_island2,
+.pixel_cloud1,
+.pixel_cloud2,
+.pixel_cloud5,
+.pixel_cloud8,
+.pixel_island2_div,
+.pixel_island2,
+.pixel_litter_island5 ,
+.pixel_litter_island4 ,
+.pixel_cloud13 ,
+.pixel_cloud6 ,
+.pixel_island3_div,
+.pixel_island3,
+.pixel_cloud3 ,
+.pixel_cloud4,
+.pixel_cloud11,
+.pixel_cloud12,
+.pixel_island4_div,
+.pixel_litter_island3,
+.pixel_cloud9,
+.pixel_island5_div,
+.pixel_island5,
+.pixel_litter_island6,
+.pixel_litter_island7,
+.pixel_cloud7
+  position absolute
+
+.gameItem_bg
+  width: 1600px
+  height: 630px
+  left: 50%
+  transform: translateX(-50%)
+
+.pixel_island1_div
+  width 632px
+  height 300px
+  .pixel_island1
+    width: 48%
+    right: 0
+  .pixel_litter_island1
+    width: 15%;
+    left: 10%;
+    top: 14%;
+  .pixel_litter_island2
+    width: 16%;
+    left: 34%;
+    bottom: -3%
+  .pixel_cloud1
+    width: 19%;
+    top: 10%;
+    left: 29%;
+  .pixel_cloud2
+    width: 17%;
+    left: 0;
+    bottom: 38%;
+  .pixel_cloud5
+    width: 11%;
+    right: 2%;
+    top: 24%;
+  .pixel_cloud8
+    width: 6%;
+    bottom: 26%;
+    left: 22%;
+.pixel_island2_div
+  top: 0
+  right: 0
+  width: 964px
+  height: 344px
+  .pixel_island2
+    width: 58%
+    top: 15%;
+    right: 40%;
+  .pixel_litter_island5 
+    top: 0;
+    right: 5%;
+    width: 13%;
+  .pixel_litter_island4 
+    width: 13%;
+    top: 18%;
+    right: 27%;
+  .pixel_cloud13 
+    width: 14%;
+    left: 28%;
+    top: 5%;
+  .pixel_cloud6 
+    width: 10%;
+    right: -12%;
+    top: 2%;
+.pixel_island3_div
+  top: 180px
+  right: 10%
+  width: 964px
+  height: 344px
+  .pixel_island3
+    width: 45%
+    left: 10%
+    top: 3%;
+  .pixel_cloud3 
+    width: 4%;
+    right: 60%;
+    top: 14%;
+  .pixel_cloud4
+    width: 8%;
+    top: 11%;
+    left: 18%;
+  .pixel_cloud11
+    width: 12%; 
+    right: 30%;
+    top: 57%;
+  .pixel_cloud12
+    width: 10%;
+    top: 36%;
+    left: -2%;
+.pixel_island4_div
+  bottom: 0;
+  left: 13%
+  width: 684px;
+  height: 292px;
+  .pixel_island4
+    width: 100%
+  .pixel_litter_island3
+    width: 17%;
+    bottom: -11%;
+    left: -30%;
+  .pixel_cloud9
+    width: 11%;
+    left: -15%;
+    top: 35%;
+.pixel_island5_div
+  bottom: -3%;
+  right: 8%;
+  width: 572px;
+  height: 288px;
+  .pixel_island5
+    width: 55%
+    bottom: 0
+    left: 0
+  .pixel_litter_island6
+    width: 25%
+    bottom: 40%
+    right: 0
+  .pixel_litter_island7
+    width: 20%
+    bottom: 0
+    right: 25%
+  .pixel_cloud7
+    bottom: 10%;
+    width: 14%;
+    right: 3%;
+
+
+@keyframes tag3-float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
+}
+
+
+@keyframes cloud1-float {
+  0% { transform: translateX(0) translateY(0); }
+  50% { transform: translateX(-3px) translateY(-2px); }
+  100% { transform: translateX(0) translateY(0); }
+}

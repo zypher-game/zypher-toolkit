@@ -1,0 +1,78 @@
+{
+  "data": {
+    "code": 200,
+    "msg": "ok",
+    "data": {
+      "page": "0",
+      "result": [
+        {
+          "chain_id": "1205",
+          "shared_cnt": "3",
+          "user_addr": "0x51Eb4a05686B29174515b8734AE717A029c48531",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "2",
+          "user_addr": "0x496D3415ad8C3F8f454c60c2FB435dc445039a45",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x83c91a3463419bF6aaF34b6863b0c7a3E008D9f8",
+          "user_cnt": "5"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x8567CCC09894815A5F6Eb8Ef1F2a0c3833bAec96",
+          "user_cnt": "3"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x2E1C9Adc548963273d9e767413403719019bd639",
+          "user_cnt": "2"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x98F579252b517BAeA1eF2317cee6287652A5F07B",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x830C0e239f92755E623B5BB5d870ad988741A4F1",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0xb85989b4c7B4B6aA0012851198De93f36a824820",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x7A5D9577B338028C070C71d1fF196488634a9956",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x5D0345DEd7df6f5D6157F049461124A95aafD5d5",
+          "user_cnt": "1"
+        },
+        {
+          "chain_id": "1205",
+          "shared_cnt": "0",
+          "user_addr": "0x8feeD13d7e0D5DDCF119Ed4FDAb84bFc4D117eA3",
+          "user_cnt": "1"
+        }
+      ],
+      "total": "11"
+    }
+  }
+}

@@ -1,0 +1,131 @@
+.comboBanner
+  position relative
+  border-radius: 20px
+  height: 100%
+  overflow: hidden
+  cursor: pointer
+  &:hover
+    .btn
+      transform: scale(1.02)
+  .bg
+    position relative
+    opacity 0
+    width: 100%;
+  .textWrap
+    position absolute
+    z-index 3
+    top: 46%
+    left: 5%
+    transform: translateY(-50%)
+    width 60%
+    @media screen and (max-width: 1400px)
+      width 50%
+    .tip
+      font-size: 18px
+      margin-bottom: 12px
+      @media screen and (max-width: 1600px)
+        font-size: 15px
+      @media screen and (max-width: 1400px)
+        font-size: 13px
+      @media screen and (max-width: 1200px)
+        margin-bottom: 6px
+        font-size: 12px
+      @media screen and (max-width: 1050px)
+        font-size: 10px
+      :global(.KanitNormalBorder_inner) 
+        padding: 4px 16px
+        font-size: 16px
+        @media screen and (max-width: 1400px)
+          padding: 2px 12px
+          font-size: 14px
+        @media screen and (max-width: 1200px)
+          padding: 0 10px
+          font-size: 12px
+          line-height: 20px
+        @media screen and (max-width: 1050px)
+          padding: 0 8px
+    .title
+      font-size: 46px
+      font-weight: bold
+      line-height: 46px
+      margin-bottom: 12px
+      transition: text-shadow 0.3s ease
+      animation: blink 3s infinite;
+      @media screen and (max-width: 1600px)
+        margin-bottom: 8px
+        font-size: 32px
+        line-height: 32px
+      @media screen and (max-width: 1400px)
+        margin-bottom: 8px
+        font-size: 24px
+        line-height: 24px
+      @media screen and (max-width: 1200px)
+        margin-bottom: 6px
+        font-size: 18px
+        line-height: 18px
+      @media screen and (max-width: 1050px)
+        font-size: 16px
+        line-height: 16px
+    .textNormal
+      font-size: 20px;
+      margin-bottom: 28px
+      @media screen and (max-width: 1600px)
+        font-size: 16px
+        margin-bottom: 16px
+      @media screen and (max-width: 1400px)
+        margin-bottom: 18px
+        font-size: 12px
+      @media screen and (max-width: 1400px)
+        margin-bottom: 8px
+      @media screen and (max-width: 1050px)
+        font-size: 10px
+    .btn
+      display: inline-block
+      padding: 12px 25px
+      color: #000;
+      font-family: PixeloidSans;
+      font-size: 16px;
+      font-weight: 700;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #9274F9 0.27%, #5FD7FF 99.85%);
+      transition: transform 0.3s ease;
+      text-transform: uppercase
+      &.forbid
+        color: #5D696E;
+        background: #B8C4C8;
+      @media screen and (max-width: 1600px)
+        font-size: 14px
+        padding: 8px 22px
+      @media screen and (max-width: 1400px)
+        padding: 6px 20px
+      @media screen and (max-width: 1200px)
+        font-size: 12px
+        padding: 4px 16px
+  .comboBanner_bg01,.comboBanner_bg02
+    position absolute
+  .comboBanner_bg01
+    border-radius: 20px
+    overflow: hidden
+    width: 100%
+    top: 0
+    left: 0
+  .comboBanner_bg02
+    top: -3%
+    right 0
+    z-index 2
+    height: 98%
+ @keyframes blink {
+  0% {
+    text-shadow: none;
+  }
+  50% {
+    text-shadow: 0px 0px 1px rgba(106, 221, 255, 1),
+      0px 0px 4px rgba(106, 221, 255, 0.4);
+      // 0px 0px 16px rgba(106, 221, 255, 0.4);
+      // 0px 0px 32px rgba(106, 221, 255, 0.4),
+      // 0px 0px 64px rgba(106, 221, 255, 0.4);
+  }
+  100% {
+    text-shadow: none;
+  }
+}

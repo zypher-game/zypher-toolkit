@@ -1,0 +1,13 @@
+.loadMore
+  position: relative
+  margin-top: 240px
+  display: flex
+  justify-content: center
+  margin-bottom: 240px
+.error
+  position: relative
+  margin-top: 40px
+  display: flex
+  justify-content: center
+  margin-bottom: 40px
+  color: #fff

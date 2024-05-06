@@ -1,0 +1,136 @@
+.monsterList
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(42, 42, 56, 0.16);
+  backdrop-filter: blur(30px);
+  @media screen and (max-width: 768px)
+    backdrop-filter: none;
+  .title
+    padding: 14px 0 16px
+    margin: 0 12px
+    border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+    display: flex
+    justify-content: flex-start
+    align-items: flex-start
+    gap: 10px
+    .tipText
+      line-height: 16px
+      font-size: 14px;
+      width: 80%
+      font-weight: 400;
+      margin-top: 10px
+    .tip
+      position: relative
+      img
+        position: absolute
+        width: 35px
+        height: 32px
+        z-index: 2
+        top: 0
+        left: 0
+      p
+        display: inline-block
+        margin-top: 12px;
+        margin-left: 20px
+        border-radius: 0 13px 13px 0;
+        background: #6673FF;
+        padding: 0 8px 0 15px
+        font-family: "PoetsenOne";
+        font-size: 12px;
+  .scroll
+    height: 60vh
+    overflow-y: scroll
+    margin: 12px 12px 0;
+    padding-bottom: 100px
+  .monsterListItem
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    background: rgba(88, 99, 126, 0.10);
+    backdrop-filter: blur(30px);
+    display: flex
+    justify-content:flex-start 
+    align-items: center
+    gap: 32px
+    height: 86px
+    padding: 0 12px
+    margin-top: 8px
+    @media screen and (max-width: 768px)
+      gap: 24px
+      backdrop-filter: none
+    .rank
+      display: flex
+      justify-content:flex-start 
+      align-items: center
+      gap: 18px
+      .rankIcon
+        width: 48px
+        height: 48px
+        display: flex
+        justify-content: center
+        font-family: "Oleo Script";
+        font-size: 32px;
+        color: #AFD9FF;
+        text-transform: capitalize;
+        @media screen and (max-width: 768px)
+          width: 32px
+          height: 32px
+          font-size: 24px;
+        img
+          width: 100%
+          height 100%
+      .avatarBorder
+        width 52px
+        height 52px
+        border 2px solid #AFD9FF
+        display flex
+        justify-content: center
+        align-items: center
+        border-radius: 50%
+    .monsterListItemInfo
+      p
+        font-size: 16px;
+        opacity: 0.6
+        line-height: 19px
+        @media screen and (max-width: 768px)
+          font-size: 14px;
+      .monsterListItemInfoBg
+        margin-top: 7px
+        display: flex
+        justify-content: flex-start
+        align-items: center
+        border-radius: 4px;
+        background: rgba(3, 3, 3, 0.30);
+        padding: 8px 10px
+        gap: 8px
+        min-width: 170px
+        @media screen and (max-width: 768px)
+          min-width: 130px
+        img
+          width: 20px
+          height: 20px
+        p
+          font-size: 18px;
+          line-height: 21px
+          opacity: 1
+
+  .my
+    position absolute
+    bottom: -1px;
+    left: 0
+    width: 100%
+    color: #65EDBC
+    padding: 0 24px
+
+    background: linear-gradient(180deg, #2c324c 0%, #2a3048 100%);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(30px);
+    @media screen and (max-width: 768px)
+      backdrop-filter: none;
+      background: #2e3341;
+    .rank
+      .rankIcon
+        color: #65EDBC
+    .monsterListItemInfo
+      p 
+        opacity: 1
+      .monsterListItemInfoBg
+        color: #fff
+        

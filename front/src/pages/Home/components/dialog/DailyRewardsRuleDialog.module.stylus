@@ -1,0 +1,54 @@
+.dialogContainer
+  padding: 20px 20px 0
+  max-height: 70vh
+  overflow-y: scroll
+  h4
+    font-weight: 700;
+    color: #fff
+    p
+      font-weight: 400
+      display: inline-block
+  p
+    font-size: 14px
+    font-weight: 400
+    margin-bottom: 30px
+    line-height: 24px
+    &:last-child
+      margin-bottom: 0
+
+    strong
+      color: #65EDBC
+      font-size: 14px
+      font-weight: 600
+    a
+      color: #666BFF;
+      text-decoration-line: underline;
+    em
+      display: inline-block
+      vertical-align: top
+      width 4px
+      height 4px
+      background-color: #fff
+      border-radius: 50%
+      margin-right: 8px
+      margin-top: 10px;
+    i
+      width: 90%
+      display: inline-block
+      vertical-align: top
+.btnWrap
+  margin: 20px 20px 30px;
+.btn
+  display block
+  color: #fff
+  background: #6673FF
+  width: 100%
+  height: 40px
+  border-radius: 12px
+  margin: 0 auto
+  border: none
+  font-weight: 600
+  font-size: 16px
+  &:hover
+    background: #6673FF
+    color: #fff

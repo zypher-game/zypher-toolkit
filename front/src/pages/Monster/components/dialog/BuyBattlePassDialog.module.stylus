@@ -1,0 +1,57 @@
+.dialogContainer
+  padding: 24px 0 30px
+  flexCenter()
+  flex-direction: column
+  .card
+    width: 164px;
+    margin-bottom: 2px
+    img 
+      width: 100%
+      height: 100%
+  .priceCard
+    padding: 4px 33px
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 6px;
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    background: rgba(255, 255, 255, 0.04);
+    margin-bottom: 30px
+    p
+      color: #fff;
+      font-family: "Arial Rounded MT Bold";
+      font-size: 16px;
+    img 
+      width: 24px
+      height: 24px
+  .btn
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff
+    background: #6673FF
+    width: 90%;
+    max-width: 380px;
+    height: 48px
+    border-radius: 12px;
+    margin: 0 auto
+    font-family: "PixeloidSans";
+    font-weight: 600
+    font-size: 16px
+    border: 1px solid #6673FF;
+    &:hover
+      border: 1px solid #6673FF;
+      background: #6673FF;
+    &.forbid
+      cursor: not-allowed
+      border: none
+      background: #CFD0E0;
+      // opacity: 0.4
+  .text_btn
+    cursor: pointer
+    color: #6673FF;
+    text-align: center;
+    font-family: "PixeloidSans";
+    font-size: 16px;
+    line-height: 24px
+    padding: 10px 0

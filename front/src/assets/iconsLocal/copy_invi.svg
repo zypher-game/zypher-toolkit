@@ -1,0 +1,9 @@
+<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<style>
+		.s0 { fill: none;stroke: #000;stroke-linejoin: round;stroke-width: 1.3 } 
+	</style>
+<g id="Frame">
+<path class="s0" id="Vector" d="M5.41699 5.17975V3.25513C5.41699 2.60792 5.94166 2.08325 6.58887 2.08325H16.7451C17.3923 2.08325 17.917 2.60792 17.917 3.25513V13.4114C17.917 14.0586 17.3923 14.5833 16.7451 14.5833H14.7988" stroke="black" stroke-width="1.66667" stroke-linecap="round"/>
+<path class="s0" id="Vector_2" d="M13.4111 5.41675H3.25488C2.60767 5.41675 2.08301 5.94141 2.08301 6.58862V16.7449C2.08301 17.3921 2.60767 17.9167 3.25488 17.9167H13.4111C14.0583 17.9167 14.583 17.3921 14.583 16.7449V6.58862C14.583 5.94141 14.0583 5.41675 13.4111 5.41675Z" stroke="black" stroke-width="1.66667"/>
+</g>
+</svg>

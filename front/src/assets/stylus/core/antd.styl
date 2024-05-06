@@ -1,0 +1,800 @@
+body
+    p
+        margin: 0
+    .ant-drawer-body
+        padding: 0
+        background: var(--var-text-light)
+
+    .ant-switch
+        background-color: #E8E8EC
+
+        &.ant-switch-checked
+            background-color: #09CC7E
+
+    .changeDialog
+        .ant-modal-body
+            padding: 0
+
+            .tab
+                display: flex
+                border-bottom: 1px solid var(--var-card-border)
+
+                .item
+                    flex: 1
+                    text-align: center
+                    height: 66px
+                    line-height: 66px
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 400
+                    font-size: 16px
+                    position: relative
+                    cursor: pointer
+                    color: #BAB9C4
+
+                    &.cur
+                        font-weight: 600
+                        color: var(--change-color)
+
+                        &:after
+                            display: block
+                            content: ' '
+                            position: absolute
+                            width: 100%
+                            height: 4px
+                            bottom: -1px
+                            left: 0
+                            border-radius: 4px
+                            background: @color
+
+            .main
+                padding: 0 20px 20px
+                color: var(--var-text-light)
+
+                .inputBox
+                    display: flex
+                    justify-content: space-between
+                    padding: 26px 0
+
+                    &:before
+                        display: block
+                        content: ' '
+                        width: 46px
+
+                    .left
+                        text-align: center
+                        padding: 0 20px
+
+                        .autoSizeInput
+                            display: flex
+                            align-items: flex-end
+
+                            input
+                                border: 0 none
+                                font-size: 32px
+                                line-height: 48px
+                                font-family: 'PixeloidSans'
+                                font-style: normal
+                                font-weight: 500
+                                outline: 0
+                                padding: 0
+                                text-align: right
+                                --background: none
+                                --color: var(--var-text-light)
+
+                            .symbol
+                                font-family: 'PixeloidSans'
+                                font-style: normal
+                                font-weight: 500
+                                font-size: 18px
+                                line-height: 26px
+                                margin: 0 0 0 8px
+
+                    .right
+                        width: 46px
+                        text-align: center
+
+                        .max
+                            font-family: 'PixeloidSans'
+                            font-style: normal
+                            font-weight: 600
+                            font-size: 14px
+                            line-height: 20px
+                            cursor: pointer
+                            color: var(--change-color)
+
+                            &:hover
+                                color: #0053F5
+
+                            &.disabled
+                                cursor: not-allowed
+                                color: var(--var-text-disable)
+
+                            .num
+                                font-family: 'PixeloidSans'
+                                font-style: normal
+                                font-weight: 400
+                                font-size: 12px
+                                line-height: 18px
+
+                .textBox
+                    text-align: center
+                    padding: 30px 0
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 500
+                    font-size: 14px
+                    line-height: 21px
+                    text-align: center
+                    color: var(--var-text-grey)
+
+                .tokenInfo
+                    border-top: 1px solid var(--var-card-border)
+                    padding: 10px 0 0
+
+                    .item
+                        display: flex
+                        justify-content: space-between
+                        margin: 0 0 10px
+
+                        .tit
+                            font-family: 'PixeloidSans'
+                            font-style: normal
+                            font-weight: 400
+                            font-size: 14px
+                            line-height: 18px
+                            display: flex
+                            align-items: center
+                            color: #BAB9C4
+
+                            img
+                                size: 16px
+                                margin: 0 0 0 8px
+
+                            .icon
+                                size: 16px
+                                margin: 0 0 0 6px
+                                fill: var(--var-text-light)
+
+                            span
+                                display: flex
+                                align-items: center
+
+                        .num
+                            font-family: 'PixeloidSans'
+                            font-style: normal
+                            font-weight: 600
+                            font-size: 14px
+                            line-height: 20px
+                            display: flex
+                            justify-content: space-between
+
+                            .icon
+                                size: 20px
+                                margin: 0 8px
+                                fill: #6359F4
+
+                    &.moreInfo
+                        padding: 0
+                        border: 0
+
+                        .title
+                            text-align: center
+                            display: flex
+                            align-items: center
+                            margin: 0 0 10px
+
+                            &:after, &:before
+                                content: ' '
+                                display: block
+                                height: 1px
+                                background: #3B4878
+                                flex: 1
+
+                            span
+                                padding: 0 10px
+                                font-family: 'PixeloidSans'
+                                font-style: normal
+                                font-weight: 400
+                                font-size: 14px
+                                line-height: 21px
+                                display: flex
+                                align-items: center
+                                color: rgba(255, 255, 255, 0.3)
+                                cursor: pointer
+
+                                .icon
+                                    size: 10px
+                                    fill: @color
+                                    margin: 0 0 0 8px
+
+                        .box
+                            padding: 20px
+                            background: #15162E
+                            margin: 0 -20px 10px
+
+                            .item
+                                margin: 0 0 10px
+
+                                .tit
+                                    font-size: 12px
+                                    line-height: 18px
+
+                                .num
+                                    font-size: 12px
+                                    line-height: 18px
+
+                .btn
+                    width: 100%
+                    height: 56px
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 600
+                    font-size: 16px
+                    line-height: 24px
+                    background: var(--change-color)
+                    color: #fff
+                    border: 0 none
+                    border-radius: 8px
+
+                    &[disabled]
+                        background: var(--var-btn-disable)
+                        color: var(--var-text-disable)
+
+            .footer
+                text-align: center
+                margin: 10px 0 0
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 400
+                font-size: 12px
+                line-height: 18px
+
+                span
+                    margin: 0 4px
+
+    .statusDialog
+        .title
+            border-bottom: 1px solid var(--var-card-border)
+            padding: 20px 20px 16px
+            font-family: 'PixeloidSans'
+            font-style: normal
+            font-weight: 500
+            font-size: 20px
+            line-height: 30px
+            color: var(--var-text-light)
+            position: relative
+
+            .icon
+                size: 14px
+                fill: var(--var-text-light)
+                position: absolute
+                top: 25px
+                right: 25px
+                cursor: pointer
+
+        .main
+            display: flex
+            flex-direction: column
+            padding: 20px
+            height: 280px
+
+            .box
+                flex: 1
+                display: flex
+                justify-content: center
+                align-items: center
+                flex-direction: column
+
+                .icon
+                    border-radius: 100%
+                    size: 60px
+                    fill: var(--change-color)
+
+                    &.loading
+                        @keyframes fadenum
+                            100%
+                                transform: rotate(360deg)
+
+                        animation: fadenum 1s infinite linear
+
+                .text
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 500
+                    font-size: 14px
+                    line-height: 22px
+                    color: var(--var-text-grey)
+                    margin: 26px 0 0
+
+            .btn
+                height: 56px
+                display: flex
+                justify-content: center
+                align-items: center
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 600
+                font-size: 16px
+                background: var(--change-color)
+                border-radius: 8px
+                color: #fff
+                border: 0 none
+
+    .collateralDialog
+        .title
+            border-bottom: 1px solid var(--var-card-border)
+            padding: 20px 20px 16px
+            font-family: 'PixeloidSans'
+            font-style: normal
+            font-weight: 500
+            font-size: 20px
+            line-height: 30px
+            color: var(--var-text-light)
+            position: relative
+
+            .icon
+                size: 14px
+                fill: var(--var-text-light)
+                position: absolute
+                top: 25px
+                right: 25px
+                cursor: pointer
+
+        .main
+            display: flex
+            flex-direction: column
+            padding: 20px
+            color: var(--var-text-light)
+
+            .text
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 500
+                font-size: 14px
+                line-height: 20px
+
+            .tokenInfo
+                padding: 40px 0 0
+
+                .item
+                    display: flex
+                    justify-content: space-between
+                    margin: 0 0 16px
+
+                    .tit
+                        font-family: 'PixeloidSans'
+                        font-style: normal
+                        font-weight: 400
+                        font-size: 14px
+                        line-height: 20px
+                        display: flex
+                        align-items: center
+
+                        img
+                            size: 24px
+                            margin: 0 8px 0 0
+
+                        .icon
+                            size: 16px
+                            margin: 0 0 0 6px
+                            fill: var(--var-text-light)
+
+                        span
+                            display: flex
+                            align-items: center
+
+                    .num
+                        font-family: 'PixeloidSans'
+                        font-style: normal
+                        font-weight: 600
+                        font-size: 14px
+                        line-height: 20px
+                        display: flex
+                        justify-content: space-between
+
+                        .icon
+                            size: 20px
+                            margin: 0 8px
+                            fill: #6359F4
+
+            .btn
+                width: 100%
+                height: 56px
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 600
+                font-size: 16px
+                line-height: 24px
+                background: var(--change-color)
+                color: #fff
+                border: 0 none
+                border-radius: 8px
+                margin: 40px 0 0
+
+                &[disabled]
+                    background: var(--var-btn-disable)
+                    color: var(--var-text-disable)
+
+    .stakeDialog
+        .title
+            border-bottom: 1px solid var(--var-card-border)
+            padding: 20px 20px 16px
+            font-family: 'PixeloidSans'
+            font-style: normal
+            font-weight: 500
+            font-size: 20px
+            line-height: 30px
+            color: var(--var-text-light)
+            position: relative
+
+            .icon
+                size: 14px
+                fill: var(--var-text-light)
+                position: absolute
+                top: 25px
+                right: 25px
+                cursor: pointer
+
+        .textBox
+            text-align: center
+            padding: 70px 0
+            font-family: 'PixeloidSans'
+            font-style: normal
+            font-weight: 500
+            font-size: 14px
+            line-height: 21px
+            text-align: center
+            color: var(--var-text-grey)
+
+        .box
+            background: var(--var-form-bg)
+            border-radius: 8px
+            padding: 12px 16px
+            margin: 22px 20px 90px
+
+            .info
+                display: flex
+                justify-content: space-between
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 500
+                font-size: 14px
+                line-height: 22px
+                color: var(--var-text-dark-grey)
+                margin: 0 0 10px
+
+            .inputWrap
+                display: flex
+                align-items: center
+                height: 30px
+                line-height: 30px
+
+                .input
+                    flex: 1
+                    border: 0 none
+                    max-width: 225px
+                    font-size: 32px
+                    line-height: 48px
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 500
+                    outline: 0
+                    padding: 0
+                    --background: none
+                    --color: var(--var-text-light)
+
+                    &:focus
+                        box-shadow: none
+
+                .max
+                    border: 1px solid var(--var-btn)
+                    border-radius: 6px
+                    margin: 0 10px 0 0
+                    color: var(--var-btn)
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 500
+                    font-size: 14px
+                    height: 24px
+                    line-height: 24px
+                    padding: 0 6px
+                    cursor: pointer
+
+                .pair
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 600
+                    font-size: 20px
+                    line-height: 24px
+                    color: var(--var-btn)
+
+        .btnWrap
+            display: flex
+            padding: 0 20px 20px
+
+            .cancel
+                flex: 1
+                height: 56px
+                line-height: @height
+                text-align: center
+                border: 1px solid var(--var-btn)
+                border-radius: 8px
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 600
+                font-size: 16px
+                margin: 0 20px 0 0
+                color: var(--var-btn)
+
+            .btn
+                flex: 1
+                height: 56px
+                background: var(--var-btn)
+                border-radius: 8px
+                border: 0 none
+                font-family: 'PixeloidSans'
+                font-style: normal
+                font-weight: 600
+                font-size: 16px
+                color: var(--var-text-light)
+
+                &[disabled]
+                    background: var(--var-btn-disable)
+                    color: var(--var-text-disable)
+
+        .footer
+            font-family: 'PixeloidSans'
+            font-style: normal
+            font-weight: 500
+            font-size: 16px
+            line-height: 20px
+            color: var(--var-btn)
+            display: flex
+            justify-content: center
+            align-items: center
+            margin: 0 0 20px
+
+            .icon
+                size: 16px
+                margin: 0 0 0 10px
+                fill: var(--var-btn)
+    .ant-message
+        width: 300px;
+        margin-top: 45vh;
+        left: 50%;
+        transform: translateX(-50%);
+        &:before,
+        &:after
+            content: ""
+            position: absolute
+            top: 9px
+            width: 9px
+            height: calc(100% - 18px)
+            background-color: #1d263b;
+        &:before
+            left: -9px
+            border-left: 3px solid #3A4254;
+            
+        &:after
+            right: -9px
+            border-right: 3px solid #3A4254;
+        &>div
+            &:before,
+            &:after
+                content: ""
+                position: absolute;
+                top: 6px;
+                width: 3px;
+                height: calc(100% - 12px);
+                border-bottom: 3px solid #3a4254;
+                border-top: 3px solid #3a4254;
+                background-color: #1d263b;
+            &:before
+                left: -6px;
+            &:after
+                right: -6px;
+
+    .ant-notification
+        &:before,
+        &:after
+            content: ""
+            position: absolute
+            top: 9px
+            width: 9px
+            height: calc(100% - 18px)
+            background-color: #1d263b;
+        &:before
+            left: -9px
+            border-left: 3px solid #3A4254;
+            
+        &:after
+            right: -9px
+            border-right: 3px solid #3A4254;
+        &>div
+            &:before,
+            &:after
+                content: ""
+                position: absolute;
+                top: 6px;
+                width: 3px;
+                height: calc(100% - 12px);
+                border-bottom: 3px solid #3a4254;
+                border-top: 3px solid #3a4254;
+                background-color: #1d263b;
+            &:before
+                left: -6px;
+            &:after
+                right: -6px;
+    .toast__
+        opacity 0
+        transition: opacity 0.3s ease
+    .customNotification 
+        max-width: 400px
+        font-size: 16px
+        padding: 18px 20px
+        background-color:#1D263B
+        position: relative
+        overflow: visible;
+        border-top: 3px solid #3A4254;
+        border-bottom: 3px solid #3A4254;
+        border-radius: 0
+        margin-bottom: 0
+        width: auto
+        @media screen and (max-width: 768px)
+            max-width: 250px
+        &:before,
+        &:after
+            content: ""
+            position: absolute;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            border-bottom: 3px solid #3a4254;
+            border-top: 3px solid #3a4254;
+            background-color: #1d263b;
+        &:before
+            left: -3px;
+        &:after
+            right: -3px;
+        &.success
+            .ant-notification-notice-icon
+                .icon
+                    fill: var(--var-success)
+            .svg_component svg
+                fill: var(--var-success)
+
+        &.failed
+            .ant-notification-notice-icon
+                .icon
+                    fill: var(--var-failed)
+            .svg_component svg
+                fill: var(--var-failed)
+        .ant-notification-notice-with-icon
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        .ant-notification-notice-icon
+            margin: 0
+            position: relative
+            .icon
+                size: 16px
+
+        .ant-notification-notice-close
+            right: 16px
+
+            .icon
+                size: 16px
+                fill: var(--var-text-light)
+
+        .ant-notification-notice-message
+            font-style: normal
+            font-size: 16px
+            line-height: 24px
+            color: var(--var-text-light)
+            margin: 0 0 0 10px
+            padding-right:0
+
+        .ant-notification-notice-description
+            font-style: normal
+            font-weight: 400
+            font-size: 14px
+            line-height: 22px
+            color: var(--var-text-grey)
+            margin: 4px 0 0 34px
+            display:none
+
+
+    .airdropDialog
+        .ant-modal-content
+            background: #262942
+            border-radius: 8px
+
+            .ant-modal-body
+                padding: 0 32px 40px
+
+                .title
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 600
+                    font-size: 24px
+                    line-height: 24px
+                    color: #FFFFFF
+                    position: relative
+                    padding: 54px 0 24px
+                    text-align: center
+
+                    .icon
+                        size: 14px
+                        fill: rgba(#FFFFFF, 0.6)
+                        position: absolute
+                        top: 25px
+                        right: -7px
+                        cursor: pointer
+
+                .text
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 400
+                    font-size: 16px
+                    line-height: 24px
+                    text-align: center
+                    color: rgba(#FFFFFF, 0.6)
+                    opacity: 0.6
+
+                .ant-btn
+                    display: block
+                    width: 280px
+                    height: 48px
+                    background: #FF9900
+                    border-radius: 8px
+                    border: 0 none
+                    margin: 0 0 0 8px
+                    color: #110D25
+                    padding: 0 30px
+                    font-family: 'PixeloidSans'
+                    font-style: normal
+                    font-weight: 600
+                    font-size: 16px
+                    margin: 50px auto 0
+
+                    &:hover
+                        opacity: 0.8
+    .ant-message-notice-content
+        background-color: transparent
+        color: #fff
+    .ant-message-custom-content
+        display: flex;
+        align-items: center
+        justify-content: center
+        gap: 10px
+    .ant-select-dropdown
+        background: transparent;
+        border-radius: 0
+   
+   .customDropdown
+        .ant-dropdown-menu
+            background: transparent;
+            box-shadow: none;
+            .ant-dropdown-menu-item
+                padding: 0
+            .ant-dropdown-menu-item:hover
+                background: transparent
+.datatooltip
+    .ant-space-item-split
+        height: 1px
+        div
+            padding: 0;
+    .ant-tooltip-inner 
+        padding-left: 16px
+        padding-right: 16px
+        padding-top: 16px
+        padding-bottom: 16px
+        min-width: 160px
+        border-radius: 10px
+        background: #2C2C2C; /* 修改为你想要的背景颜色 */
+        color: #ffffff; /* 修改为你想要的文本颜色 */
+    .ant-tooltip-arrow-content::before
+        background: #2C2C2C; /* 修改为你想要的背景颜色 */
+    .ant-space-vertical
+        width: 100%

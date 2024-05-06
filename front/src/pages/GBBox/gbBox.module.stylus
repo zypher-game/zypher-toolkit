@@ -1,0 +1,26 @@
+.profileBox
+  img
+    width: 100%
+
+  .content
+    color: #fff
+
+    .title
+      font-style: normal
+      font-weight: 600
+      font-size: 20px
+      line-height: 30px
+
+    .text
+      font-family: PixeloidSans
+      font-style: normal
+      font-weight: 400
+      font-size: 16px
+      line-height: 24px
+      color: rgba(#FFFFFF, 0.7)
+      border: 1px solid rgba(255, 255, 255, 0.1)
+      border-radius: 16px
+      padding: 24px
+      margin: 16px 0 40px
+      &:last-child
+        margin-bottom: 0px

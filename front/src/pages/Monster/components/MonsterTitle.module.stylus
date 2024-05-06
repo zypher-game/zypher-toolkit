@@ -1,0 +1,122 @@
+.title_comp
+  position: relative
+  display: flex
+  justify-content: center
+  align-items: center
+  font-family: "Oleo Script";
+  font-size: 70px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 50px
+  flex-direction: column 
+  gap: 30px
+  z-index: 2
+  @media screen and (max-height: 940px)
+    gap: 20px
+  &.End
+    gap: 0
+    h2
+      height: 86px;
+      font-size: 34px;
+  h2
+    text-align: center;
+    font-family: "Oleo Script";
+    font-size: 70px;
+    line-height: 80px;
+    font-weight: 700;
+    background: linear-gradient(180deg, #e0f5fe, #a0e3ff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    padding: 0 
+    margin: 0
+    text-transform: capitalize;
+    width: 90%;
+    &.marginTop
+      margin-top: -30px
+    @media screen and (max-height: 940px)
+      font-size: 60px;
+      line-height: 70px;
+    @media screen and (max-width: 1200px)
+      font-size: 27px;
+      line-height: 37px;
+    @media screen and (max-width: 768px)
+      font-size: 23px;
+      line-height: 28px;
+      &.marginTop
+        margin-top: -10px
+  .starTitle
+    position: relative
+    text-align: center
+    h6
+      display: inline-block
+      font-family: "Oleo Script";
+      font-size: 32px;
+      line-height: 44px;
+      font-weight: 700;
+      background: linear-gradient(180deg, #F1F5FF 31.73%, #a0e3ff 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      position: relative
+      z-index: 2
+      margin: 0
+    .star
+      position: absolute
+      fill: #E1EAFF;
+      &.star1
+        width: 16px
+        height: 16px
+        top: 0
+        left: 0
+        animation-delay: 0s
+      &.star2
+        width: 10px
+        height: 10px
+        bottom: 8px;
+        left: -20px;
+        animation-delay: 1s
+      &.star3
+        width: 12px
+        height: 12px
+        top: 0
+        right: -10px
+        animation-delay: 0.5s
+      &.star4
+        width: 12px
+        height: 12px
+        bottom: -6px
+        right: 40px
+        animation-delay: 1s
+  .h2Bg
+    width: 599px;
+    background: linear-gradient(274deg, rgba(99, 180, 255, 0.00) 5.52%, rgba(99, 161, 255, 0.3) 49.24%, rgba(99, 180, 255, 0.00) 92.41%);
+    @media screen and (max-width: 1200px)
+      width: 85%;
+  h2 
+    flexCenter()
+    img
+      width: 64px
+      height: 64px
+      @media screen and (max-width: 1200px)
+        width: 42px
+        height: 42px
+  .rule
+    border-radius: 24px;
+    border: 1px solid #FFF;
+    flexCenter()
+    padding: 9px 16px
+    font-size: 18px;
+    line-height: 28px;
+    gap: 8px;
+    cursor: pointer
+    p
+      color: #fff
+    @media screen and (max-width: 1200px)
+      font-size: 14px;
+      line-height: 16px;
+      gap: 6px;
+    svg 
+      fill: #fff;

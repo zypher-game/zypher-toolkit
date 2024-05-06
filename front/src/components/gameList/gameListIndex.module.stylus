@@ -1,0 +1,15 @@
+.gameListIndex
+  position relative
+.more_right
+  position: absolute
+  top: -48px
+  right 0
+  color: #6673FF;
+  font-size: 14px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  svg
+    padding: 3px;
+    fill: #6673FF;
