@@ -69,9 +69,6 @@
         font-size: 14px
         line-height: 22px
         margin: 0
-.tooltip
-  width: 160px
-  background-color: #2C2C2C
 
 .tooltipItem
   display: flex
@@ -85,3 +82,5 @@
     height: 50px;
     bottom: 20px;
     background: linear-gradient(180deg, rgba(29, 38, 59, 0) 0%, #1D263B 100%);
+:global(body .ant-tooltip)
+  z-index: 10000;

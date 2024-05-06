@@ -31,6 +31,11 @@ const AnnouncementDialog = memo(() => {
                   <h4>{v.title}</h4>
                   <p className={css.grey}>{timestampToDateStr(v.time, '/')}</p>
                   <p className={css.text}>{v.content}</p>
+                  {v.link ? (
+                    <a href={v.link} className={css.link} target="_blank" rel="noreferrer">
+                      Learn more...
+                    </a>
+                  ) : null}
                 </div>
               ))}
               <div className="pixelTableInnerBottom dialogAnnouncementDialog" />

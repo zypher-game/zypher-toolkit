@@ -1,4 +1,4 @@
-import { useChainModal } from "@my/rainbowkit";
+import { useChainModal } from "../rainbowkit/src";
 import { useEffect } from "react";
 
 export const useInitRainbowFn = () => {

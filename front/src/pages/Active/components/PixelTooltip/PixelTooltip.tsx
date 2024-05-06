@@ -11,9 +11,7 @@ const PixelTooltip = memo(({ title }: { title: string }) => {
       title={
         <ActivePixelCard pixel_height={4} backgroundColor="#1649FF">
           <p className="pixel_tooltip_text">{title}</p>
-          <ActivePixelCard pixel_height={4} backgroundColor="#1649FF" width="16px" height="16px" className="pixel_tooltip_arrow">
-            <></>
-          </ActivePixelCard>
+          <ActivePixelCard pixel_height={4} backgroundColor="#1649FF" width="16px" height="16px" className="pixel_tooltip_arrow" />
         </ActivePixelCard>
       }
     >

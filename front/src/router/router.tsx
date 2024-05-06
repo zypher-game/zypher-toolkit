@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import { NavKey } from '@/components/Layout/Navigation'
 import ScrollToTop from '@/components/ScrollToTop'
-import ActiveComing from '@/pages/Active/views/ActiveRegister/ActiveComing'
+// import ActiveComing from '@/pages/Active/views/ActiveRegister/ActiveComing'
 // import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
 // import ActiveChooseHunter from '@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'
 // import MoreActive from '@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'
@@ -23,7 +23,7 @@ import GameIndex from '@/pages/GamesIndex/view/GamesIndex/GamesIndex'
 import GamesList from '@/pages/GamesList'
 // import Invitation from '@/pages/invitation'
 // import Monster from '@/pages/Monster'
-import NotFound from '@/pages/NotFound'
+// import NotFound from '@/pages/NotFound'
 import { ThemeProvider } from '@/theme'
 
 // import Ranking from '@/pages/Ranking'
@@ -61,7 +61,7 @@ export default (): JSX.Element => {
               <ScrollToTop>
                 <>
                   <Routes>
-                    <Route path={`/${NavKey[0][0]}`} element={<ActiveComing />} />
+                    {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveComing />} /> */}
                     {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
                     {/* <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                     <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`} element={<MoreActive />} />
@@ -91,7 +91,7 @@ export default (): JSX.Element => {
                     {/* <Route path="/dp" element={<DP />} />*/}
                     <Route path="/games/list" element={<GamesList />} />
                     {/* 404页面 */}
-                    <Route path="*" element={<NotFound />} />
+                    <Route path="*" element={<GamesList />} />
                   </Routes>
                 </>
               </ScrollToTop>

@@ -1,6 +1,7 @@
 import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
+import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import {
   announcementDialogState,
   announcementTimeState,
@@ -13,6 +14,7 @@ import {
 
 import css from './Nav.module.styl'
 const Nav = memo(() => {
+  const preHandleAction = usePreHandleGlobal()
   const announcementTime = useRecoilValue(announcementTimeState)
   const setHistoryTabIndex = useSetRecoilState(historyTabIndexState)
   const setIsHistoryModalOpen = useSetRecoilState(historyDialogState)
@@ -33,10 +35,13 @@ const Nav = memo(() => {
     setIsAnnouncementModalOpen(true)
   }, [])
   const historyModalOpenHandle = useCallback((tabIndex: number) => {
-    setHistoryTabIndex(tabIndex)
-    setTimeout(() => {
-      setIsHistoryModalOpen(true)
-    }, 200)
+    const pre = preHandleAction()
+    if (pre) {
+      setHistoryTabIndex(tabIndex)
+      setTimeout(() => {
+        setIsHistoryModalOpen(true)
+      }, 200)
+    }
   }, [])
 
   return (

@@ -30,7 +30,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
   const { t } = useCustomTranslation([LngNs.home])
   const showData = useMemo(() => {
     if (dataSource.length && selectValue && selectValue !== 'All') {
-      return dataSource.filter(v => v.chainId === selectValue).slice(0, 20)
+      return dataSource.filter(v => `${v.chainId}` === `${selectValue}`).slice(0, 20)
     }
     return dataSource.slice(0, 20)
   }, [dataSource.length, selectValue])

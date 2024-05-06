@@ -34,6 +34,7 @@ const GameListIndex = memo(
     const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
     const [chooseGame, setChooseGame] = useState<IGameName>(IGameName.z2048)
     const isMobile = useIsMobile()
+    console.log({ selectValue })
     return (
       <div className={css.gameListIndex}>
         {showFilter ? (

@@ -1,5 +1,6 @@
 import React, { memo } from "react";
-import "./PixelFlatBtn.styl";
+
+import "./PixelFlatBtn.stylus";
 interface IProps {
   className?: string;
   children?: React.ReactNode;

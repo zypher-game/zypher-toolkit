@@ -1,5 +1,5 @@
 .TVLFooter
-  padding: 60px 20px 10px
+  padding: 20px 20px 10px
   position fixed
   bottom: 0
   left: 0
@@ -22,12 +22,12 @@
     display: block
     width: 32px
     height: 32px
-    .community_svg 
+    :global(.community_svg)
       fill: #fff;
       transition: all 0.3 ease;
       path
         transition: all 0.3 ease;
     &:hover 
-      .community_svg 
+      :global(.community_svg)
         path 
           fill-opacity: 1;

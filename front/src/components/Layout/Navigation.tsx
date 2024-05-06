@@ -93,12 +93,12 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
 
   return (
     <div className="nav">
-      <NavLink
+      {/* <NavLink
         to={NavKey[0][0]}
         label="Airdrop"
         className={`${NavKey[0].includes(pathname) ? 'nav_on' : ''}`}
         ref={ref => (linksRefs.current[0] = ref)}
-      />
+      /> */}
       <NavLink
         to={NavKey[1][0]}
         label="Games"

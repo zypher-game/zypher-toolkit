@@ -120,11 +120,13 @@ export const useSwapPoint = ({
                 chainId,
                 IContractName.Lobby
               );
+              console.log({
+                lobbyContractAddress: [lobbyContractAddress, v.index],
+              });
               const res = await pointsContract.write.nativeSwap(
                 [lobbyContractAddress, v.index],
                 {
                   value: ethers.utils.parseEther(v.price),
-                  account: account,
                 }
               );
               const hash = typeof res === "string" ? res : res.hash;

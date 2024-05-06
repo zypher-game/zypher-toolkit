@@ -6,6 +6,7 @@ import { announcementDialogState, announcementTimeState } from '../state/GamesSt
 export type IAnnouncement = {
   title: string
   content: string
+  link?: string
   time: number
 }
 export const useAnnouncement = () => {
@@ -20,17 +21,13 @@ export const useAnnouncement = () => {
       }
     })
     setAnnouncement(announcement_res.data)
+    const last = announcement_res.data.sort((a: any, b: any) => b.time - a.time)[0]
+    setAnnouncementTime(pre => [announcementTime[1] !== last.time, pre[1]])
   }, [])
   useEffect(() => {
-    if (announcement && announcement.length) {
-      const last = announcement.sort((a, b) => b.time - a.time)[0]
-      console.log({ last })
-      setAnnouncementTime([announcementTime[1] !== last.time, last.time])
-    }
-  }, [JSON.stringify(announcement)])
-  useEffect(() => {
     if (isModalOpen) {
-      setAnnouncementTime(pre => [false, pre[1]])
+      const last = announcement.sort((a, b) => b.time - a.time)[0]
+      setAnnouncementTime([false, last.time])
     }
   }, [isModalOpen])
   useEffect(() => {

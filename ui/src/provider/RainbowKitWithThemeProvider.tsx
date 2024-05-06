@@ -1,6 +1,5 @@
 import "../utils/i18n";
-import "../../node_modules/@my/rainbowkit/dist/index.css";
-import { darkTheme, RainbowKitProvider } from "@my/rainbowkit";
+import { darkTheme, RainbowKitProvider } from "../rainbowkit/src";
 import React, { FC, ReactNode, useMemo } from "react";
 
 import { appInfo, ChainId } from "../constant/constant";
@@ -29,7 +28,7 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
         wagmiConfig: wagmiConfig,
         chains: chains,
         computedTheme: darkTheme({
-          accentColor: "#1649FF",
+          accentColor: "#fff",
           borderRadius: "large",
           fontStack: type === "pixel" ? "Pixel" : "system",
         }),

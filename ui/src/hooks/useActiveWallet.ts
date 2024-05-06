@@ -1,4 +1,4 @@
-import { WalletConnector, useWalletConnectors } from "@my/rainbowkit";
+import { WalletConnector, useWalletConnectors } from "../rainbowkit/src";
 import { useMemo } from "react";
 
 export const useActiveWallet = (): WalletConnector | undefined => {

@@ -6,7 +6,7 @@ const webpack = require('webpack')
 const WebpackBar = require('webpackbar')
 const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const { cssLoader } = require('./utils/cssLoader')
-
+const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
 
 module.exports = {
@@ -101,6 +101,9 @@ module.exports = {
         //   global: 'ethereum-multicall'
         // }
       ]
+    }),
+    new VanillaExtractPlugin({
+      identifiers: 'debug'
     })
   ],
   module: {

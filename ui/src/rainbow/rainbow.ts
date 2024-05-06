@@ -6,7 +6,7 @@ import {
   walletConnectWallet,
   Chain,
   connectorsForWallets,
-} from "@my/rainbowkit";
+} from "../rainbowkit/src";
 import { sample } from "../utils/lodash";
 import { createPublicClient, fallback, http, PublicClient } from "viem";
 import { configureChains, createConfig } from "wagmi";

@@ -1,4 +1,4 @@
-import { useChainId } from "@my/rainbowkit";
+import { useChainId } from "../rainbowkit/src";
 import { useMemo } from "react";
 import { PublicClient, useAccount, usePublicClient } from "wagmi";
 

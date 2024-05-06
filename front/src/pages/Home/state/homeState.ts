@@ -1,6 +1,6 @@
 import { atom, IGameList, localStorageEffect } from '@ui/src'
 
-import { I2048GameList } from '../hooks/useRecentZ2048FromContract'
+import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 
 export const gameListChainListState = atom<IGameList[]>({
   key: 'gameListChainListState2',

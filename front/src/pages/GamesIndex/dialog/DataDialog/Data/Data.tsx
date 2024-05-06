@@ -1,4 +1,4 @@
-import { PixelBorderCard, useCustomTranslation } from '@ui/src'
+import { ActivePixelCard, PixelBorderCard, useCustomTranslation } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { ChainId, ChainImage, Currency, preStaticUrl, supportedChainIds } from '@ui/src'
 import { Space, Tooltip } from 'antd'
@@ -25,18 +25,22 @@ const TooltipNode = memo(
     try {
       return (
         <Tooltip
+          showArrow={false}
           // open={true}
           overlayClassName={'datatooltip'}
           title={
-            <Space className={className} direction="vertical" split={<Divider />}>
-              {supportedChainIds(env).map(chainId => {
-                if (total[dataKey][chainId]) {
-                  return <TooltipItem key={chainId} chainId={chainId} dataKey={dataKey} total={total} />
-                } else {
-                  return null
-                }
-              })}
-            </Space>
+            <ActivePixelCard pixel_height={4} backgroundColor="#3E4350">
+              <Space className={className} direction="vertical" split={<Divider />}>
+                {supportedChainIds(env).map(chainId => {
+                  if (total[dataKey][chainId]) {
+                    return <TooltipItem key={chainId} chainId={chainId} dataKey={dataKey} total={total} />
+                  } else {
+                    return null
+                  }
+                })}
+              </Space>
+              <ActivePixelCard pixel_height={4} backgroundColor="#3E4350" width="16px" height="16px" className="pixel_tooltip_arrow" />
+            </ActivePixelCard>
           }
         >
           {children}

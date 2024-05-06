@@ -34,6 +34,7 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
   > .pixel_flat_btn_bg {
     color: #fff;
     > div {
+      transition: all 0.3s ease;
       background-color: ${({ backgroundColor }) => backgroundColor};
     }
     > .pixel_flat_btn_top_1,
@@ -391,6 +392,25 @@ export const PixelBorderCard = memo((props: IPixel) => {
 });
 
 const PixelCube2Styled = styled(PixelStyled)<IPixel>`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_bottom_2 {
+        background-color: ${({ showHover, borderColor }) =>
+          showHover === true ? "#1649FF" : borderColor};
+      }
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) =>
+            showHover === true ? "#1649FF" : borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) =>
+            showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
   > .pixel_flat_btn_bg {
     > .pixel_flat_btn_top_1,
     > .pixel_flat_btn_bottom_2 {
@@ -442,6 +462,21 @@ export const PixelCube2 = memo((props: IPixel) => {
 });
 
 const PixelCube3Styled = styled(PixelCube2)<IPixel>`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        &:before {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) =>
+              showHover === true ? "#1649FF" : borderColor};
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) =>
+              showHover === true ? "#1649FF" : borderColor};
+        }
+      }
+    }
+  }
   > .pixel_flat_btn_bg {
     > .pixel_flat_btn_top_1,
     > .pixel_flat_btn_bottom_2 {
@@ -472,6 +507,7 @@ const PixelCube3Styled = styled(PixelCube2)<IPixel>`
     > .pixel_flat_btn_bottom_1 {
       &:before {
         content: "";
+        transition: background-color, border 0.3s ease;
         position: absolute;
         height: ${({ pixel_height }) => pixel_height}px;
         width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
@@ -566,7 +602,7 @@ const PixelBorderCardStyled = styled(PixelBorderCard)`
       > .pixel_flat_btn_bottom_1 {
         border: 1px solid
           ${({ showHover, borderColor }) =>
-            showHover === false ? borderColor : "#1649FF"};
+            showHover === true ? "#1649FF" : borderColor};
       }
     }
   }

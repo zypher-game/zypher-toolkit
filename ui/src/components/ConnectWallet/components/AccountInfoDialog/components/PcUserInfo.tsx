@@ -1,4 +1,4 @@
-import { useAsyncImage } from "@my/rainbowkit";
+import { useAsyncImage } from "../../../../../rainbowkit/src";
 import { isEqual } from "../../../../../utils/lodash";
 
 import React, { memo } from "react";

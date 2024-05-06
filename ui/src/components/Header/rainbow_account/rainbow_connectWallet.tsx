@@ -1,4 +1,4 @@
-import { ConnectButton } from "@my/rainbowkit";
+import { ConnectButton } from "../../../rainbowkit/src";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useMemo } from "react";
 

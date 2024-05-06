@@ -148,7 +148,7 @@ export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";
 
-import { useConnectModal, useChainModal } from "@my/rainbowkit";
+import { useConnectModal, useChainModal } from "./rainbowkit/src";
 export { useConnectModal, useChainModal };
 export {
   pow10,

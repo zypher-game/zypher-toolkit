@@ -69,7 +69,7 @@ exports.cssLoader = (type = 'css', options = {}, global) => {
         ...(type === 'css' ? [] : preParseLoader),
         ...(type === 'css' || type === 'stylus' ? [] : globalLoader)
       ]
-      // include: [/node_modules\/(?!@zypher-game\/toolkit\/ui\/)/, path.resolve(__dirname, '../../../ui/src/'), path.resolve(__dirname, '../../src/')]
+      // include: [path.resolve('./node_modules'), path.resolve('../ui/node_modules'), path.resolve('../ui/src'), path.resolve('./src/')]
     },
     {
       test: typeReg[type],
@@ -91,7 +91,7 @@ exports.cssLoader = (type = 'css', options = {}, global) => {
         ...(type === 'css' ? [] : preParseLoader),
         ...(type === 'css' || type === 'stylus' ? [] : globalLoader)
       ]
-      // include: [/node_modules\/(?!@zypher-game\/toolkit\/ui\/)/, path.resolve(__dirname, '../../../ui/src/'), path.resolve(__dirname, '../../src/')]
+      // include: [path.resolve('./node_modules'), path.resolve('../ui/node_modules'), path.resolve('../ui/src'), path.resolve('./src')]
     }
   ]
   return loader

@@ -56,9 +56,10 @@
   animation-delay: 0.8s
   top: 44%;
   right: 12%;
-.gameItemCompComing
+div.gameItemCompComing
   top: 45%;
   left: 6%;
+  z-index: 9
 
 
 .gameItem_bg,
@@ -224,7 +225,7 @@
 
 
 @keyframes cloud1-float {
-  0% { transform: translateX(0) translateY(0); }
-  50% { transform: translateX(-3px) translateY(-2px); }
-  100% { transform: translateX(0) translateY(0); }
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+  100% { transform: translateY(0); }
 }

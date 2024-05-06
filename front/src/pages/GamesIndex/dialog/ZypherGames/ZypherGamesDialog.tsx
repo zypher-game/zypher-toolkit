@@ -21,9 +21,9 @@ const ZypherGamesDialog = memo(() => {
           <img src={preStaticUrl + '/img/games/zypher_games.jpg'} alt="card2" className={`${css.card}`} />
           <h3>Zypher Games</h3>
           <p>
-            Zypher Games is an innovative on-chain games platform that provides a decentralized and provably fair games experience by harnessing the
-            power of Zero-Knowledge Proofs (ZKPs) and Artificial Intelligence. It creates engaging and immersive fully on-chain games that showcase
-            the transformative potential of combining blockchain and AI technology.
+            Zypher Games is a decentralized publishing DAO committed to supporting games empowered by Zypher Network’s next-gen AI & ZKP based
+            solutions with collective treasuries, yield resources, dev tools, and much more. It’s fueled by $Gold Points, a dynamic cross-promotion
+            currency vehicle to empower the ecosystem with economic composability and yield aggregation.
           </p>
         </ActivePixelCard>
         <DialogClose onClick={handleCancel} />
