@@ -1,4 +1,0 @@
-.dp
-  padding-bottom: 160px 
-  @media screen and (max-width: 768px)
-    padding-bottom: 60px 
