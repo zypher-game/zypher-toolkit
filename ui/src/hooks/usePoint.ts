@@ -120,9 +120,6 @@ export const useSwapPoint = ({
                 chainId,
                 IContractName.Lobby
               );
-              console.log({
-                lobbyContractAddress: [lobbyContractAddress, v.index],
-              });
               const res = await pointsContract.write.nativeSwap(
                 [lobbyContractAddress, v.index],
                 {

@@ -46,7 +46,6 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
         switchNetwork
           ? switchNetwork(chain.id)
           : console.error("not switchNetwork");
-        console.log(3333, fn);
         if (fn) {
           fn(chain.id);
         }
