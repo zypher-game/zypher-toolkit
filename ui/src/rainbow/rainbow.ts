@@ -1,12 +1,3 @@
-import {
-  bitgetWallet,
-  metaMaskWallet,
-  okxWallet,
-  tokenPocketWallet,
-  walletConnectWallet,
-  Chain,
-  connectorsForWallets,
-} from "../rainbowkit/src";
 import { sample } from "../utils/lodash";
 import { createPublicClient, fallback, http, PublicClient } from "viem";
 import { configureChains, createConfig } from "wagmi";
@@ -25,6 +16,13 @@ import {
   isTestnet,
   supportedChainIds,
 } from "../constant/constant";
+import { Chain } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
+import { connectorsForWallets } from "../rainbowkit/src/wallets/connectorsForWallets";
+import { metaMaskWallet } from "../rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet";
+import { walletConnectWallet } from "../rainbowkit/src/wallets/walletConnectors/walletConnectWallet/walletConnectWallet";
+import { bitgetWallet } from "../rainbowkit/src/wallets/walletConnectors/bitgetWallet/bitgetWallet";
+import { okxWallet } from "../rainbowkit/src/wallets/walletConnectors/okxWallet/okxWallet";
+import { tokenPocketWallet } from "../rainbowkit/src/wallets/walletConnectors/tokenPocketWallet/tokenPocketWallet";
 const WagmiChainList = Object.values(chainList);
 const getSupportedChainIdList = (
   env: string,

@@ -1,5 +1,5 @@
 import "../utils/i18n";
-import { darkTheme, RainbowKitProvider } from "../rainbowkit/src";
+
 import React, { FC, ReactNode, useMemo } from "react";
 
 import { appInfo, ChainId } from "../constant/constant";
@@ -7,6 +7,8 @@ import { WagmiConfig } from "wagmi";
 
 import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
 import { HeaderUIType } from "../components/Header/header";
+import { darkTheme } from "../rainbowkit/src/themes/darkTheme";
+import { RainbowKitProvider } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
 
 type IProps = {
   env: string;

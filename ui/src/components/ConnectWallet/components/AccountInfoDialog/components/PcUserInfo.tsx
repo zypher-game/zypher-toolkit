@@ -1,4 +1,3 @@
-import { useAsyncImage } from "../../../../../rainbowkit/src";
 import { isEqual } from "../../../../../utils/lodash";
 
 import React, { memo } from "react";
@@ -11,6 +10,7 @@ import "./PcUserInfo.stylus";
 import { useCustomTranslation } from "../../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../../utils/i18n";
 import { HeaderUIType } from "../../../../Header/header";
+import { useAsyncImage } from "../../../../../rainbowkit/src/components/AsyncImage/useAsyncImage";
 type IDisconnectBtnProps = {
   cancel: any;
 };

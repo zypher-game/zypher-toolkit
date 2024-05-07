@@ -514,8 +514,8 @@ var localStorageEffect = (key) => ({ setSelf, onSet }) => {
 };
 
 // src/hooks/useNavItem.tsx
-import React60, { useEffect as useEffect20, useMemo as useMemo8 } from "react";
-import { useSetRecoilState as useSetRecoilState2 } from "recoil";
+import React4, { useEffect as useEffect4, useMemo as useMemo2 } from "react";
+import { useSetRecoilState } from "recoil";
 
 // src/utils/i18n.ts
 import i18n2 from "i18next";
@@ -937,12 +937,4731 @@ var defaultSelectedKey = atom2({
   effects_UNSTABLE: [localStorageEffect("defaultSelectedKeys")]
 });
 
-// src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React28, { Fragment, useContext as useContext6, useEffect as useEffect9, useState as useState7 } from "react";
+// src/hooks/useActiveWeb3React.ts
+import { useMemo } from "react";
+import { useAccount, usePublicClient } from "wagmi";
 
-// src/rainbowkit/src/css/touchableStyles.css.ts
-import { createVar, style as style2, styleVariants } from "@vanilla-extract/css";
-import { calc } from "@vanilla-extract/css-utils";
+// src/rainbowkit/src/hooks/useChainId.ts
+import { useNetwork } from "wagmi";
+function useChainId() {
+  var _a;
+  const { chain: activeChain } = useNetwork();
+  return (_a = activeChain == null ? void 0 : activeChain.id) != null ? _a : null;
+}
+
+// src/hooks/useActiveWeb3React.ts
+function useActiveWeb3React(env, chainList2) {
+  const chainId = useChainId();
+  const { address } = useAccount();
+  const provider = usePublicClient();
+  return useMemo(() => {
+    return {
+      chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
+      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      provider
+    };
+  }, [chainId, address, provider]);
+}
+
+// src/hooks/useNavItem.tsx
+var LinkList = [
+  window.location.origin + "/bingo/",
+  window.location.origin + "/2048/",
+  isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/",
+  "https://test.zypher.game/CryptoRumble/",
+  "",
+  "",
+  ""
+];
+var blankLinkList = [
+  false,
+  true,
+  true,
+  true,
+  false,
+  false,
+  false
+];
+var usePathname = () => {
+  const isMobile2 = useIsMobile();
+  const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
+  useEffect4(() => {
+    const path = window.location.hash.split("/");
+    const pathName = path[1];
+    switch (pathName) {
+      case "zBingo":
+        return setDefaultSelectedKey("2");
+      case "profile":
+        return setDefaultSelectedKey("3");
+      case "gbBox":
+        return setDefaultSelectedKey("4");
+      case "invitation":
+        return setDefaultSelectedKey("7");
+      case "ranking":
+        return setDefaultSelectedKey("8");
+      case "defense":
+        return setDefaultSelectedKey("9");
+      case "shop":
+        return setDefaultSelectedKey("5");
+      case "dp":
+        return setDefaultSelectedKey("15");
+      default:
+        setDefaultSelectedKey("1");
+    }
+  }, [location, isMobile2]);
+};
+var useNavItem = () => {
+  const { t } = useCustomTranslation([LngNs.siderBar]);
+  const { chainId } = useActiveWeb3React();
+  return useMemo2(() => {
+    return [
+      {
+        label: t("Home"),
+        keyValue: "1",
+        icon: "home.svg",
+        link: "/",
+        disabled: false,
+        type: "Activities" /* Activities */
+      },
+      {
+        label: t("zBingo"),
+        keyValue: "2",
+        icon: "zBingo.png",
+        link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
+        disabled: false,
+        type: "Games" /* Games */,
+        btn_label: "Live",
+        btn_background_color: "#C5631D"
+      },
+      {
+        label: t("z2048"),
+        keyValue: "10",
+        icon: "z2048.png",
+        link: LinkList[1],
+        disabled: false,
+        btn_label: "Live",
+        type: "Games" /* Games */,
+        btn_background_color: "#C5631D"
+      },
+      {
+        label: t("zAce"),
+        keyValue: "6",
+        icon: "zACE.png",
+        link: LinkList[2],
+        disabled: false,
+        type: "Games" /* Games */,
+        btn_label: "Testing",
+        content: (className) => /* @__PURE__ */ React4.createElement("div", {
+          className
+        }, /* @__PURE__ */ React4.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React4.createElement("img", {
+          src: preStaticUrl + "/img/games/star.svg"
+        })),
+        btn_background_color: "#AF2D6A"
+      },
+      {
+        label: t("Candy Crush"),
+        keyValue: "12",
+        icon: "Candy.png",
+        link: LinkList[3],
+        disabled: false,
+        type: "Games" /* Games */,
+        btn_label: "Testing",
+        btn_background_color: "#AF2D6A"
+      },
+      {
+        label: t("TCG"),
+        keyValue: "14",
+        icon: "TCG.png",
+        link: "/tcg",
+        disabled: true,
+        type: "Games" /* Games */
+      },
+      {
+        label: t("zMahjong"),
+        keyValue: "11",
+        icon: "zMahjong.png",
+        link: "/zMahjong",
+        disabled: true,
+        type: "Games" /* Games */
+      },
+      {
+        label: t("Murder Mystery"),
+        keyValue: "13",
+        icon: "Murder.png",
+        link: "/murdermystery",
+        disabled: true,
+        type: "Games" /* Games */
+      },
+      {
+        label: t("Profile"),
+        keyValue: "3",
+        icon: "profile.svg",
+        link: "/profile",
+        disabled: false,
+        type: "Activities" /* Activities */
+      }
+    ];
+  }, [t, chainId]);
+};
+
+// src/components/ConnectWallet/state/connectWalletState.ts
+import { atom as atom3 } from "recoil";
+var connectorState = atom3({
+  key: "connectorState",
+  default: {
+    chainId: null,
+    networkError: null
+  }
+});
+var walletModalOpenState = atom3({
+  key: "walletModalOpenState",
+  default: false
+});
+var ChainSelector = atom3({
+  key: "ChainSelector",
+  default: false
+});
+var refreshBalanceState = atom3({
+  key: "refreshBalance",
+  default: "0"
+});
+var pointsDialogState = atom3({
+  key: "pointsDialog",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("pointsDialog")]
+});
+var pointsAnimState = atom3({
+  key: "pointsAnim",
+  default: false
+});
+var pointsAnimNumState = atom3({
+  key: "pointsAnimNum",
+  default: 0
+});
+var pointsWarnState = atom3({
+  key: "pointsWarn",
+  default: 0
+});
+var hidePointsWarnState = atom3({
+  key: "hidePointsWarn",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("hidePointsWarn")]
+});
+var pointsRuleDialogState = atom3({
+  key: "pointsRuleDialog",
+  default: false
+});
+var accountInfoDialogState = atom3({
+  key: "accountInfoDialog",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("accountInfoDialog")]
+});
+var linkToBetaDialogState = atom3({
+  key: "linkToBetaDialog",
+  default: false
+});
+var linkToBetaDialogChainIdState = atom3({
+  key: "linkToBetaDialogChainIdState",
+  default: void 0
+});
+var nativeBalanceState = atom3({
+  key: "nativeBalance",
+  default: 0,
+  effects_UNSTABLE: [localStorageEffect("nativeBalance")]
+});
+var pointsBalanceState = atom3({
+  key: "pointsBalance",
+  default: 0,
+  effects_UNSTABLE: [localStorageEffect("pointsBalance")]
+});
+
+// src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
+import classnames4 from "classnames";
+import React15, { memo as memo9, useCallback as useCallback7, useEffect as useEffect6, useState as useState7 } from "react";
+import { useRecoilState as useRecoilState5, useRecoilValue as useRecoilValue4 } from "recoil";
+
+// src/components/CurrencyLogo/index.tsx
+import React7, { useState as useState5 } from "react";
+
+// src/components/icons/index.tsx
+import React6 from "react";
+import classnames2 from "classnames";
+
+// src/components/SvgComponent/SvgComponent.tsx
+import React5, { useEffect as useEffect5, useState as useState4 } from "react";
+var SvgComponent = ({ src: src6, className, ...rest }) => {
+  const [svgContent, setSvgContent] = useState4(null);
+  useEffect5(() => {
+    (async () => {
+      try {
+        const response = await fetch(src6);
+        if (!response.ok)
+          throw new Error("Failed to load SVG");
+        const text = await response.text();
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = text;
+        const svgElement = wrapper.querySelector("svg");
+        if (svgElement) {
+          const Component = () => /* @__PURE__ */ React5.createElement("span", {
+            className: `svg_component ${className != null ? className : ""}`,
+            ...rest,
+            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
+          });
+          setSvgContent(Component);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [src6]);
+  return svgContent || /* @__PURE__ */ React5.createElement(React5.Fragment, null);
+};
+var SvgComponent_default = SvgComponent;
+
+// src/components/icons/index.tsx
+var Icon = (props) => {
+  return /* @__PURE__ */ React6.createElement(SvgComponent_default, {
+    className: classnames2("icon", props.className),
+    src: preStaticUrl + `/img/icon/${props.name}.svg`,
+    alt: ""
+  });
+};
+var icons_default = Icon;
+
+// src/components/CurrencyLogo/index.tsx
+var Logo = ({ src: src6, alt, ...rest }) => {
+  const [bad, setBad] = useState5(false);
+  if (src6 && !bad) {
+    return /* @__PURE__ */ React7.createElement("img", {
+      ...rest,
+      alt,
+      src: src6,
+      onError: () => {
+        setBad(true);
+      }
+    });
+  }
+  return /* @__PURE__ */ React7.createElement("div", {
+    ...rest
+  }, /* @__PURE__ */ React7.createElement(icons_default, {
+    name: "help"
+  }));
+};
+var CurrencyLogo_default = Logo;
+
+// src/utils/tool.tsx
+import BigNumber from "bignumber.js";
+import { utils } from "ethers";
+BigNumber.config({ EXPONENTIAL_AT: 1e9 });
+var eX = (value, x) => {
+  return new BigNumber(`${value}e${x}`);
+};
+function pow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
+}
+function bnPow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
+}
+var formatDecimal = (number, decimal = 2) => {
+  if (number === void 0) {
+    return "";
+  }
+  let num = number.toString();
+  const index = num.indexOf(".");
+  if (index !== -1) {
+    num = num.substring(0, decimal + index + 1);
+  } else {
+    num = num.substring(0);
+  }
+  return parseFloat(num).toFixed(decimal);
+};
+var formatMoney = (value, n = 2) => {
+  try {
+    if (isNaN(Number(value))) {
+      return Number(0).toFixed(n > 0 ? n : 0);
+    }
+    if (value === 0 || value === "0") {
+      return Number(0).toFixed(n);
+    }
+    const isNegative = Number(value) < 0;
+    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
+    const l = v.split(".")[0].split("").reverse();
+    const r = v.split(".")[1];
+    let t = "";
+    for (let i = 0; i < l.length; i++) {
+      t += l[i] + ((i + 1) % 3 === 0 && i + 1 !== l.length ? "," : "");
+    }
+    let res = t.split("").reverse().join("");
+    if (r && r !== "00") {
+      res += `.${r.replace(/0+$/, "")}`;
+    }
+    return `${isNegative ? "-" : ""}${res}`;
+  } catch (e) {
+    console.error("formatMoney:", e);
+    return "";
+  }
+};
+function getShortenAddress(address, preLen = 6, endLen = 4) {
+  if (!address) {
+    return "";
+  }
+  const firstCharacters = address.substring(0, preLen);
+  const lastCharacters = address.substring(
+    address.length - endLen,
+    address.length
+  );
+  return `${firstCharacters}...${lastCharacters}`;
+}
+function getShortenAddress2(address) {
+  const firstCharacters = address.substring(0, 10);
+  const lastCharacters = address.substring(address.length - 10, address.length);
+  return `${firstCharacters}****${lastCharacters}`;
+}
+function filterInput(val) {
+  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
+  return Number(v) >= 0 ? v : "";
+}
+var convertToLargeNumberRepresentation = (value) => {
+  if (!value) {
+    return "0";
+  } else if (+value >= 1e5) {
+    return `${eX(value.toString(), -6)}M`;
+  } else if (+value >= 100) {
+    return `${eX(value.toString(), -3)}K`;
+  } else {
+    return value.toString();
+  }
+};
+var tCanvas;
+function measureText(text, font) {
+  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
+  const context = canvas.getContext("2d");
+  if (context) {
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+  return 0;
+}
+var splitArrByLen = (arr, len) => {
+  const t = [];
+  let index = 0;
+  while (index < arr.length) {
+    t.push(arr.slice(index, index += len));
+  }
+  return t;
+};
+var Units = [
+  ["B", 1e9],
+  ["M", 1e6],
+  ["K", 1e3]
+];
+function formatCurrency(amount, precision = 2) {
+  var _a;
+  const [unit, base3] = (_a = Units.find(
+    ([, min]) => Number(amount) >= Number(min)
+  )) != null ? _a : ["", 1];
+  return `${utils.commify(
+    (amount / base3).toFixed(precision)
+  )}${unit}`;
+}
+function formatSymbol(symbol) {
+  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
+}
+
+// src/hooks/usePoint.ts
+import BigNumberjs2 from "bignumber.js";
+
+// src/hooks/useAccountInvitation.ts
+import { atom as atom4, useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
+import { useCallback as useCallback3 } from "react";
+
+// src/utils/request.ts
+import axios from "axios";
+axios.defaults.withCredentials = false;
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+  const error = new Error(response.statusText);
+  throw error;
+}
+async function request(reqUrl, options = { method: "GET" }) {
+  const response = await axios(reqUrl, options).then(checkStatus).catch((err) => {
+    throw err;
+  });
+  return response;
+}
+
+// src/hooks/useAccountInvitation.ts
+var invitationAddressState = atom4({
+  key: "invitationAddressState",
+  default: void 0,
+  effects_UNSTABLE: [localStorageEffect("invitationAddressState")]
+});
+var getApilUrl = (env) => {
+  const apiPre = env === "develop" ? "https://testapi.zypher.game" : "https://api.zypher.game";
+  return {
+    accountInfo: apiPre + `/user/getone`,
+    accountListInfo: apiPre + `/user/getmulti`,
+    accountInfoUpdate: apiPre + `/user/infoupdate`
+  };
+};
+var useAccountInvitation = (env) => {
+  const { chainId, account } = useActiveWeb3React();
+  const invitationAddres = useRecoilValue(
+    invitationAddressState
+  );
+  const setInvitationAddressState = useSetRecoilState2(invitationAddressState);
+  const postAccountUpdate = useCallback3(
+    async ({ tx }) => {
+      try {
+        if (tx.status === txStatus) {
+          const params = {
+            user_addr: account,
+            chain_id: `${chainId}`,
+            tx_hash: tx.transactionHash
+          };
+          if (invitationAddres && invitationAddres.address !== "" && invitationAddres.address.toLowerCase() !== params.user_addr.toLowerCase()) {
+            params.sharer_addr = invitationAddres == null ? void 0 : invitationAddres.address;
+          }
+          const apiUrl = getApilUrl(env);
+          const res = await request(apiUrl.accountInfoUpdate, {
+            method: "POST",
+            data: JSON.stringify(params),
+            headers: {
+              "Content-Type": "application/json"
+            }
+          });
+          if (res.data && res.data["code"] == 200 && `${res.data.data}` === "1") {
+            setInvitationAddressState(void 0);
+          }
+        }
+      } catch (e) {
+        console.error("PostAccountUpdate Error", e);
+      }
+    },
+    [chainId, account, invitationAddres]
+  );
+  return {
+    postAccountUpdate
+  };
+};
+
+// src/hooks/usePoint.ts
+import { useCallback as useCallback5, useState as useState6 } from "react";
+import { useRecoilState as useRecoilState3, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState3 } from "recoil";
+
+// src/hooks/usePublicNodeWaitForTransaction.ts
+import { useCallback as useCallback4 } from "react";
+import { waitForTransaction } from "wagmi/actions";
+
+// src/rainbow/rainbow.ts
+import { createPublicClient, fallback, http } from "viem";
+import { configureChains, createConfig } from "wagmi";
+import * as chainList from "wagmi/chains";
+import { publicProvider } from "wagmi/providers/public";
+import { particleWallet } from "@particle-network/rainbowkit-ext";
+import { ParticleNetwork } from "@particle-network/auth";
+
+// src/rainbowkit/src/wallets/connectorsForWallets.ts
+import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
+
+// src/rainbowkit/src/utils/colors.ts
+var convertHexToRGBA = (hexCode, opacity = 1) => {
+  let hex = hexCode.replace("#", "");
+  if (hex.length === 3) {
+    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+  }
+  const r = parseInt(hex.substring(0, 2), 16);
+  const g = parseInt(hex.substring(2, 4), 16);
+  const b = parseInt(hex.substring(4, 6), 16);
+  if (opacity > 1 && opacity <= 100) {
+    opacity = opacity / 100;
+  }
+  return `rgba(${r},${g},${b},${opacity})`;
+};
+var getGradientRGBAs = (hexColor) => {
+  if (!hexColor)
+    return null;
+  return [
+    convertHexToRGBA(hexColor, 0.2),
+    convertHexToRGBA(hexColor, 0.14),
+    convertHexToRGBA(hexColor, 0.1)
+  ];
+};
+var isHexString = (color) => {
+  return /^#([0-9a-f]{3}){1,2}$/i.test(color);
+};
+
+// src/rainbowkit/src/utils/isMobile.ts
+function isAndroid() {
+  return typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
+}
+function isSmallIOS() {
+  return typeof navigator !== "undefined" && /iPhone|iPod/.test(navigator.userAgent);
+}
+function isLargeIOS() {
+  return typeof navigator !== "undefined" && (/iPad/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+}
+function isIOS() {
+  return isSmallIOS() || isLargeIOS();
+}
+function isMobile() {
+  return isAndroid() || isIOS();
+}
+
+// src/rainbowkit/src/utils/omitUndefinedValues.ts
+function omitUndefinedValues(obj) {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([_key, value]) => value !== void 0)
+  );
+}
+
+// src/rainbowkit/src/wallets/connectorsForWallets.ts
+var connectorsForWallets = (walletList) => {
+  return () => {
+    let index = -1;
+    const connectors = [];
+    const visibleWallets = [];
+    const potentiallyHiddenWallets = [];
+    const walletInstances = [];
+    walletList.forEach(({ groupName, wallets }, groupIndex) => {
+      wallets.forEach((wallet) => {
+        index++;
+        if ((wallet == null ? void 0 : wallet.iconAccent) && !isHexString(wallet == null ? void 0 : wallet.iconAccent)) {
+          throw new Error(`Property \`iconAccent\` is not a hex value for wallet: ${wallet.name}`);
+        }
+        const walletListItem = {
+          ...wallet,
+          groupIndex,
+          groupName,
+          index
+        };
+        if (typeof wallet.hidden === "function") {
+          potentiallyHiddenWallets.push(walletListItem);
+        } else {
+          visibleWallets.push(walletListItem);
+        }
+      });
+    });
+    const walletListItems = [...visibleWallets, ...potentiallyHiddenWallets];
+    walletListItems.forEach(({ createConnector: createConnector2, groupIndex, groupName, hidden, index: index2, ...walletMeta }) => {
+      if (typeof hidden === "function") {
+        const isHidden = hidden({
+          wallets: [
+            ...walletInstances.map(({ connector: connector2, id, installed, name }) => ({
+              connector: connector2,
+              id,
+              installed,
+              name
+            }))
+          ]
+        });
+        if (isHidden) {
+          return;
+        }
+      }
+      const { connector, ...connectionMethods } = omitUndefinedValues(createConnector2());
+      let walletConnectModalConnector;
+      if (walletMeta.id === "walletConnect" && connectionMethods.qrCode && !isMobile()) {
+        const { chains, options } = connector;
+        walletConnectModalConnector = new WalletConnectConnector({
+          chains,
+          options: {
+            ...options,
+            showQrModal: true
+          }
+        });
+        connectors.push(walletConnectModalConnector);
+      }
+      const walletInstance = {
+        connector,
+        groupIndex,
+        groupName,
+        index: index2,
+        walletConnectModalConnector,
+        ...walletMeta,
+        ...connectionMethods
+      };
+      walletInstances.push(walletInstance);
+      if (!connectors.includes(connector)) {
+        connectors.push(connector);
+        connector._wallets = [];
+      }
+      connector._wallets.push(walletInstance);
+    });
+    return connectors;
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.ts
+import { MetaMaskConnector } from "wagmi/connectors/metaMask";
+
+// src/rainbowkit/src/utils/getWalletConnectUri.ts
+async function getWalletConnectUri(connector, version) {
+  const provider = await connector.getProvider();
+  return version === "2" ? new Promise((resolve) => provider.once("display_uri", resolve)) : provider.connector.uri;
+}
+
+// src/rainbowkit/src/wallets/getWalletConnectConnector.ts
+import { WalletConnectConnector as WalletConnectConnector2 } from "wagmi/connectors/walletConnect";
+import { WalletConnectLegacyConnector } from "wagmi/connectors/walletConnectLegacy";
+var sharedConnectors = /* @__PURE__ */ new Map();
+function createConnector(version, config) {
+  const connector = version === "1" ? new WalletConnectLegacyConnector(config) : new WalletConnectConnector2(config);
+  sharedConnectors.set(JSON.stringify(config), connector);
+  return connector;
+}
+function getWalletConnectConnector({
+  chains,
+  options = {},
+  projectId: projectId2,
+  version = "2"
+}) {
+  const exampleProjectId = "21fef48091f12692cad574a6f7753643";
+  if (version === "2") {
+    if (!projectId2 || projectId2 === "") {
+      throw new Error(
+        "No projectId found. Every dApp must now provide a WalletConnect Cloud projectId to enable WalletConnect v2 https://www.rainbowkit.com/docs/installation#configure"
+      );
+    } else if (projectId2 === "YOUR_PROJECT_ID" || projectId2 === exampleProjectId) {
+      console.warn(
+        "Invalid projectId. Please create a unique WalletConnect Cloud projectId for your dApp https://www.rainbowkit.com/docs/installation#configure"
+      );
+    }
+  }
+  const config = {
+    chains,
+    options: version === "1" ? {
+      qrcode: false,
+      ...options
+    } : {
+      projectId: projectId2 === "YOUR_PROJECT_ID" ? exampleProjectId : projectId2,
+      showQrModal: false,
+      ...options
+    }
+  };
+  const serializedConfig = JSON.stringify(config);
+  const sharedConnector = sharedConnectors.get(serializedConfig);
+  return sharedConnector != null ? sharedConnector : createConnector(version, config);
+}
+
+// src/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.ts
+function isMetaMask(ethereum) {
+  if (!(ethereum == null ? void 0 : ethereum.isMetaMask)) {
+    return false;
+  }
+  if (ethereum.isBraveWallet && !ethereum._events && !ethereum._state) {
+    return false;
+  }
+  if (ethereum.isApexWallet) {
+    return false;
+  }
+  if (ethereum.isAvalanche) {
+    return false;
+  }
+  if (ethereum.isBackpack) {
+    return false;
+  }
+  if (ethereum.isBifrost) {
+    return false;
+  }
+  if (ethereum.isBitKeep) {
+    return false;
+  }
+  if (ethereum.isBitski) {
+    return false;
+  }
+  if (ethereum.isBlockWallet) {
+    return false;
+  }
+  if (ethereum.isCoinbaseWallet) {
+    return false;
+  }
+  if (ethereum.isDawn) {
+    return false;
+  }
+  if (ethereum.isEnkrypt) {
+    return false;
+  }
+  if (ethereum.isExodus) {
+    return false;
+  }
+  if (ethereum.isFrame) {
+    return false;
+  }
+  if (ethereum.isFrontier) {
+    return false;
+  }
+  if (ethereum.isGamestop) {
+    return false;
+  }
+  if (ethereum.isHyperPay) {
+    return false;
+  }
+  if (ethereum.isImToken) {
+    return false;
+  }
+  if (ethereum.isKuCoinWallet) {
+    return false;
+  }
+  if (ethereum.isMathWallet) {
+    return false;
+  }
+  if (ethereum.isOkxWallet || ethereum.isOKExWallet) {
+    return false;
+  }
+  if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet) {
+    return false;
+  }
+  if (ethereum.isOpera) {
+    return false;
+  }
+  if (ethereum.isPhantom) {
+    return false;
+  }
+  if (ethereum.isPortal) {
+    return false;
+  }
+  if (ethereum.isRabby) {
+    return false;
+  }
+  if (ethereum.isRainbow) {
+    return false;
+  }
+  if (ethereum.isStatus) {
+    return false;
+  }
+  if (ethereum.isTalisman) {
+    return false;
+  }
+  if (ethereum.isTally) {
+    return false;
+  }
+  if (ethereum.isTokenPocket) {
+    return false;
+  }
+  if (ethereum.isTokenary) {
+    return false;
+  }
+  if (ethereum.isTrust || ethereum.isTrustWallet) {
+    return false;
+  }
+  if (ethereum.isXDEFI) {
+    return false;
+  }
+  if (ethereum.isZerion) {
+    return false;
+  }
+  return true;
+}
+var metaMaskWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  var _a, _b;
+  const providers2 = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.providers);
+  const isMetaMaskInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (((_b = window.ethereum.providers) == null ? void 0 : _b.some(isMetaMask)) || window.ethereum.isMetaMask);
+  const shouldUseWalletConnect = !isMetaMaskInjected;
+  return {
+    id: "metaMask",
+    name: "MetaMask",
+    iconUrl: async () => (await import("./matemask-MXFP7UTV.js")).default,
+    iconAccent: "#f6851a",
+    iconBackground: "transparent",
+    installed: !shouldUseWalletConnect ? isMetaMaskInjected : void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=io.metamask",
+      ios: "https://apps.apple.com/us/app/metamask/id1438144202",
+      mobile: "https://metamask.io/download",
+      qrCode: "https://metamask.io/download",
+      chrome: "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn",
+      edge: "https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm",
+      firefox: "https://addons.mozilla.org/firefox/addon/ether-metamask",
+      opera: "https://addons.opera.com/extensions/details/metamask-10",
+      browserExtension: "https://metamask.io/download"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : new MetaMaskConnector({
+        chains,
+        options: {
+          getProvider: () => providers2 ? providers2.find(isMetaMask) : typeof window !== "undefined" ? window.ethereum : void 0,
+          ...options
+        }
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isAndroid() ? uri : isIOS() ? `metamask://wc?uri=${encodeURIComponent(uri)}` : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
+      };
+      return {
+        connector,
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://metamask.io/faqs/",
+            steps: [
+              {
+                description: "We recommend putting MetaMask on your home screen for quicker access.",
+                step: "install",
+                title: "Open the MetaMask app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://metamask.io/faqs/",
+            steps: [
+              {
+                description: "We recommend pinning MetaMask to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the MetaMask extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/walletConnectWallet/walletConnectWallet.ts
+var walletConnectWallet = ({
+  chains,
+  options,
+  projectId: projectId2,
+  version = "2"
+}) => ({
+  id: "walletConnect",
+  name: "WalletConnect",
+  iconUrl: async () => (await import("./walletConnectWallet-YJLMXZ5T.js")).default,
+  iconBackground: "#3b99fc",
+  createConnector: () => {
+    const ios = isIOS();
+    const connector = version === "1" ? getWalletConnectConnector({
+      version: "1",
+      chains,
+      options: {
+        qrcode: ios,
+        ...options
+      }
+    }) : getWalletConnectConnector({
+      version: "2",
+      chains,
+      projectId: projectId2,
+      options: {
+        showQrModal: ios,
+        ...options
+      }
+    });
+    const getUri = async () => getWalletConnectUri(connector, version);
+    return {
+      connector,
+      ...ios ? {} : {
+        mobile: { getUri },
+        qrCode: { getUri }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/bitgetWallet/bitgetWallet.ts
+import { InjectedConnector } from "wagmi/connectors/injected";
+var bitgetWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isBitKeepInjected = typeof window !== "undefined" && window.bitkeep !== void 0 && window.bitkeep.ethereum !== void 0 && window.bitkeep.ethereum.isBitKeep === true;
+  const shouldUseWalletConnect = !isBitKeepInjected;
+  return {
+    id: "bitGet",
+    name: "Bitget Wallet",
+    iconUrl: async () => (await import("./bitgetWallet-3TEFUJAE.js")).default,
+    iconAccent: "#f6851a",
+    iconBackground: "#fff",
+    installed: !shouldUseWalletConnect ? isBitKeepInjected : void 0,
+    downloadUrls: {
+      android: "https://bitkeep.com/en/download?type=2",
+      ios: "https://apps.apple.com/app/bitkeep/id1395301115",
+      mobile: "https://bitkeep.com/en/download?type=2",
+      qrCode: "https://bitkeep.com/en/download",
+      chrome: "https://chrome.google.com/webstore/detail/bitkeep-crypto-nft-wallet/jiidiaalihmmhddjgbnbgdfflelocpak",
+      browserExtension: "https://bitkeep.com/en/download"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        chains,
+        options: walletConnectOptions,
+        projectId: projectId2,
+        version: walletConnectVersion
+      }) : new InjectedConnector({
+        chains,
+        options: {
+          getProvider: () => window.bitkeep.ethereum,
+          ...options
+        }
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isAndroid() ? uri : `bitkeep://wc?uri=${encodeURIComponent(uri)}`;
+      };
+      return {
+        connector,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://study.bitkeep.com",
+            steps: [
+              {
+                description: "We recommend pinning BitKeep to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the BitKeep extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        },
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+          instructions: {
+            learnMoreUrl: "https://study.bitkeep.com",
+            steps: [
+              {
+                description: "We recommend putting BitKeep on your home screen for quicker access.",
+                step: "install",
+                title: "Open the BitKeep app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/okxWallet/okxWallet.ts
+import { InjectedConnector as InjectedConnector2 } from "wagmi/connectors/injected";
+var okxWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isOKXInjected = typeof window !== "undefined" && typeof window.okxwallet !== "undefined";
+  const shouldUseWalletConnect = !isOKXInjected;
+  return {
+    id: "okx",
+    name: "OKX Wallet",
+    iconUrl: async () => (await import("./okxWallet-IFNB73K2.js")).default,
+    iconAccent: "#000",
+    iconBackground: "#000",
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.okinc.okex.gp",
+      ios: "https://itunes.apple.com/app/id1327268470?mt=8",
+      mobile: "https://okx.com/download",
+      qrCode: "https://okx.com/download",
+      chrome: "https://chrome.google.com/webstore/detail/okx-wallet/mcohilncbfahbmgdjkbpemcciiolgcge",
+      edge: "https://microsoftedge.microsoft.com/addons/detail/okx-wallet/pbpjkcldjiffchgbbndmhojiacbgflha",
+      firefox: "https://addons.mozilla.org/firefox/addon/okexwallet/",
+      browserExtension: "https://okx.com/download"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : new InjectedConnector2({
+        chains,
+        options: {
+          getProvider: () => window.okxwallet,
+          ...options
+        }
+      });
+      return {
+        connector,
+        mobile: {
+          getUri: shouldUseWalletConnect ? async () => {
+            const uri = await getWalletConnectUri(
+              connector,
+              walletConnectVersion
+            );
+            return isAndroid() ? uri : `okex://main/wc?uri=${encodeURIComponent(uri)}`;
+          } : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+          instructions: {
+            learnMoreUrl: "https://okx.com/web3/",
+            steps: [
+              {
+                description: "We recommend putting OKX Wallet on your home screen for quicker access.",
+                step: "install",
+                title: "Open the OKX Wallet app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://okx.com/web3/",
+            steps: [
+              {
+                description: "We recommend pinning OKX Wallet to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the OKX Wallet extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/tokenPocketWallet/tokenPocketWallet.ts
+import { InjectedConnector as InjectedConnector3 } from "wagmi/connectors/injected";
+var tokenPocketWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2"
+}) => {
+  var _a;
+  const isTokenPocketInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isTokenPocket) === true;
+  const shouldUseWalletConnect = !isTokenPocketInjected;
+  return {
+    id: "tokenPocket",
+    name: "TokenPocket",
+    iconUrl: async () => (await import("./tokenPocketWallet-AHC3X3WT.js")).default,
+    iconBackground: "#2980FE",
+    installed: !shouldUseWalletConnect ? isTokenPocketInjected : void 0,
+    downloadUrls: {
+      chrome: "https://chrome.google.com/webstore/detail/tokenpocket/mfgccjchihfkkindfppnaooecgfneiii",
+      browserExtension: "https://extension.tokenpocket.pro/",
+      android: "https://play.google.com/store/apps/details?id=vip.mytokenpocket",
+      ios: "https://apps.apple.com/us/app/tp-global-wallet/id6444625622",
+      qrCode: "https://tokenpocket.pro/en/download/app",
+      mobile: "https://tokenpocket.pro/en/download/app"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        chains,
+        projectId: projectId2,
+        options: walletConnectOptions,
+        version: walletConnectVersion
+      }) : new InjectedConnector3({ chains });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isMobile() ? `tpoutside://wc?uri=${encodeURIComponent(uri)}` : uri;
+      };
+      return {
+        connector,
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://help.tokenpocket.pro/en/",
+            steps: [
+              {
+                description: "We recommend putting TokenPocket on your home screen for quicker access.",
+                step: "install",
+                title: "Open the TokenPocket app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://help.tokenpocket.pro/en/extension-wallet/faq/installation-tutorial",
+            steps: [
+              {
+                description: "We recommend pinning TokenPocket to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the TokenPocket extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbow/rainbow.ts
+var WagmiChainList = Object.values(chainList);
+var getSupportedChainIdList = (env, chainIdList) => {
+  return supportedChainIds(env, chainIdList).map((chainId) => {
+    var _a;
+    const chainFilter = WagmiChainList.filter((v) => v.id === chainId);
+    if (chainFilter && chainFilter.length) {
+      const chainLocal = chainFilter[0];
+      return chainLocal;
+    }
+    return {
+      id: chainId,
+      name: ChainName[chainId],
+      network: ChainNetworkName[chainId],
+      nativeCurrency: {
+        name: `${Currency[chainId]}`,
+        symbol: `${Currency[chainId]}`,
+        decimals: 18
+      },
+      rpcUrls: {
+        default: {
+          http: ChainRpcUrls[chainId],
+          webSocket: ChainRpcWebSocketUrls[chainId]
+        },
+        public: {
+          http: ChainRpcUrls[chainId],
+          webSocket: ChainRpcWebSocketUrls[chainId]
+        }
+      },
+      blockExplorers: {
+        default: {
+          name: `${ChainName[chainId]} Explorer`,
+          url: (_a = sample(BlockExplorerUrls[chainId])) != null ? _a : ""
+        }
+      },
+      testnet: isTestnet[chainId]
+    };
+  });
+};
+new ParticleNetwork({
+  appId: "a2ecac32-b520-477a-abf6-4fa8cdfcc046",
+  clientKey: "clITVBUqxtJzy2ymp8z4SQOUFWIc5qPUUHPks8ap",
+  projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199"
+});
+var getConfigureChains = (env, chainIdList) => {
+  const { chains, publicClient, webSocketPublicClient } = configureChains(
+    getSupportedChainIdList(env, chainIdList),
+    [publicProvider()]
+  );
+  return { chains, publicClient, webSocketPublicClient };
+};
+var projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
+var getConnectors = (env, chainIdList) => {
+  const { chains } = getConfigureChains(env, chainIdList);
+  return connectorsForWallets([
+    {
+      groupName: "Recommended",
+      wallets: [
+        metaMaskWallet({ projectId, chains }),
+        particleWallet({ chains }),
+        walletConnectWallet({ projectId, chains })
+      ]
+    },
+    {
+      groupName: "More",
+      wallets: [
+        bitgetWallet({ projectId, chains }),
+        okxWallet({ projectId, chains }),
+        tokenPocketWallet({ projectId, chains }),
+        ...[
+          particleWallet({ chains, authType: "google" }),
+          particleWallet({ chains, authType: "facebook" }),
+          particleWallet({ chains, authType: "apple" })
+        ]
+      ]
+    }
+  ]);
+};
+var getWagmiConfig = (env, chainIdList) => {
+  const connectors = getConnectors(env, chainIdList);
+  const { publicClient, webSocketPublicClient } = getConfigureChains(
+    env,
+    chainIdList
+  );
+  return createConfig({
+    autoConnect: true,
+    connectors,
+    publicClient,
+    webSocketPublicClient
+  });
+};
+var viemClients = (env) => {
+  const { chains } = getConfigureChains(env);
+  return chains.reduce((prev, cur) => {
+    return {
+      ...prev,
+      [cur.id]: createPublicClient({
+        chain: cur,
+        transport: fallback(
+          ChainRpcUrls[cur.id].map(
+            (url) => http(url, {
+              timeout: 15e3
+            })
+          ),
+          {
+            rank: false
+          }
+        ),
+        batch: {
+          multicall: {
+            batchSize: cur.id === 1442 /* POLYGON_ZKEVM */ ? 128 : 1024 * 200
+          }
+        }
+      })
+    };
+  }, {});
+};
+var getViemClients = ({
+  env,
+  chainId
+}) => {
+  return viemClients(env)[chainId];
+};
+
+// src/hooks/useActiveChainId.ts
+import { useNetwork as useNetwork2 } from "wagmi";
+var useActiveChainId = (env) => {
+  var _a;
+  const { chain } = useNetwork2();
+  const chainId = (_a = chain == null ? void 0 : chain.id) != null ? _a : void 0;
+  const isError = !Object.values(supportedChainIds(env)).includes(
+    Number(chainId)
+  );
+  return {
+    chainId,
+    isWrongNetwork: isError
+  };
+};
+
+// src/hooks/usePublicNodeWaitForTransaction.ts
+function usePublicNodeWaitForTransaction(env) {
+  const { chainId } = useActiveChainId(env);
+  const waitForTransaction_ = useCallback4(
+    async (opts) => {
+      if (!chainId) {
+        return void 0;
+      }
+      const viemClients2 = viemClients(env);
+      if (viemClients2[chainId]) {
+        return viemClients2[chainId].waitForTransactionReceipt(opts);
+      }
+      return waitForTransaction({ ...opts, chainId });
+    },
+    [chainId]
+  );
+  return {
+    waitForTransaction: waitForTransaction_
+  };
+}
+
+// src/hooks/usePoint.ts
+import { useWalletClient } from "wagmi";
+
+// src/contract/bingoPoints.ts
+import abi from "@zypher-game/bingo-periphery-v1/abi/ZkBingoPoints.json";
+
+// src/connectors/contractV2.ts
+import { AddressZero as AddressZero2 } from "@ethersproject/constants";
+import { ethers, utils as utils2 } from "ethers";
+import {
+  getContract as viemGetContract
+} from "viem";
+var Contract = ethers.Contract;
+var getAddress = utils2.getAddress;
+var getContract = ({
+  abi: abi2,
+  address,
+  chainId,
+  publicClient,
+  signer,
+  env
+}) => {
+  const c = viemGetContract({
+    abi: abi2,
+    address,
+    publicClient: publicClient != null ? publicClient : getViemClients({ env, chainId }),
+    walletClient: signer
+  });
+  return {
+    ...c,
+    account: signer == null ? void 0 : signer.account,
+    chain: signer == null ? void 0 : signer.chain
+  };
+};
+function isAddress(value) {
+  try {
+    return getAddress(value);
+  } catch {
+    return false;
+  }
+}
+function getSigner(library, account) {
+  return library.getSigner(account).connectUnchecked();
+}
+function getProviderOrSigner(library, account) {
+  return account ? getSigner(library, account) : library;
+}
+var getContractFromRpc = async ({
+  address,
+  abi: abi2,
+  library,
+  account
+}) => {
+  if (!isAddress(address) || address === AddressZero2) {
+    throw Error(`Invalid 'address' parameter '${address}'.`);
+  }
+  return new Contract(
+    address,
+    abi2,
+    getProviderOrSigner(library, account)
+  );
+};
+
+// src/contract/bingoPoints.ts
+var ZkBingoPointsContract = (chainId, env, address, signer) => {
+  return getContract({
+    env,
+    abi,
+    address: address != null ? address : zkBingo(chainId, "points" /* Points */),
+    signer,
+    chainId
+  });
+};
+var bingoPoints_default = ZkBingoPointsContract;
+
+// src/hooks/usePoint.ts
+import { ethers as ethers2 } from "ethers";
+var ChainPointPrice = {
+  [59144 /* LineaMainnet */]: 1 / 2e6,
+  [59140 /* LineaTestnet */]: 1 / 2e6,
+  [204 /* OPBNB */]: 1 / 25e4,
+  [5611 /* OPBNBTEST */]: 1 / 25e4
+};
+var pointsListDefault = (chainId) => {
+  try {
+    return [
+      ["1000"],
+      ["10000"],
+      ["30000"],
+      ["50000"],
+      ["80000"],
+      ["100000 ", "2"],
+      ["300000", "5"],
+      ["500000", "10"]
+    ].map((v, index) => {
+      const chainPrice = ChainPointPrice[chainId];
+      const price = v[1] ? new BigNumberjs2(chainPrice).times(v[0]).times((100 - Number(v[1])) * 0.01).toFixed(8) : new BigNumberjs2(chainPrice).times(v[0]).toFixed(8);
+      const priceStr = formatMoney(Number(price), 8);
+      const pointAmountStr = formatMoney(Number(v[0]));
+      return {
+        index: index + 1,
+        pointAmount: v[0],
+        pointAmountStr,
+        price,
+        priceStr,
+        discount: v[1]
+      };
+    });
+  } catch (e) {
+    console.error("pointsListDefault: ", e);
+  }
+  return void 0;
+};
+var useSwapPoint = ({
+  env,
+  dispatch,
+  setSuccessToast,
+  setErrorToast
+}) => {
+  const { account, chainId } = useActiveWeb3React();
+  const { postAccountUpdate } = useAccountInvitation(env);
+  const [isLoading, setIsLoading] = useState6(false);
+  const setPointsDialogOpen = useSetRecoilState3(pointsDialogState);
+  const setPointsAnimNumState = useSetRecoilState3(pointsAnimNumState);
+  const [refreshBalance, setRefreshBalanceState] = useRecoilState3(refreshBalanceState);
+  const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
+  const hidePointsWarn = useRecoilValue2(hidePointsWarnState);
+  const [pointsWarn, setPointsWarn] = useRecoilState3(pointsWarnState);
+  const [choseIndex, setChoseIndex] = useState6();
+  const { data: walletClient } = useWalletClient();
+  const swapPointHandle = useCallback5(
+    async (index) => {
+      if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {
+        const _index = choseIndex || choseIndex === 0 ? choseIndex : index;
+        if (_index || _index === 0) {
+          setPointsWarn(2);
+          try {
+            const pointsList = pointsListDefault(chainId);
+            if (pointsList) {
+              const v = pointsList[_index];
+              setIsLoading(true);
+              const pointsContract = bingoPoints_default(
+                chainId,
+                env,
+                void 0,
+                walletClient
+              );
+              if (!chainId || !pointsContract) {
+                setPointsDialogOpen(false);
+                if (!pointsContract) {
+                  setErrorToast(dispatch, "PointsContract is not ready");
+                }
+                return;
+              }
+              const lobbyContractAddress = zkBingo(
+                chainId,
+                "lobby" /* Lobby */
+              );
+              const res = await pointsContract.write.nativeSwap(
+                [lobbyContractAddress, v.index],
+                {
+                  value: ethers2.utils.parseEther(v.price)
+                }
+              );
+              const hash = typeof res === "string" ? res : res.hash;
+              const nativeSwapTx = await waitForTransaction2({ confirmations: 1, hash });
+              if (nativeSwapTx && nativeSwapTx.status === txStatus) {
+                setPointsAnimNumState(1);
+                setSuccessToast(dispatch, {
+                  title: "",
+                  message: "Recharge successful"
+                });
+                setTimeout(() => {
+                  setPointsDialogOpen(false);
+                  postAccountUpdate({ tx: nativeSwapTx });
+                  setRefreshBalanceState(refreshBalance + 1);
+                }, 500);
+              } else {
+                throw Object.assign(
+                  new Error("NativeSwap Transaction Failed"),
+                  { name: "NativeSwap" }
+                );
+              }
+            } else {
+              throw Object.assign(new Error("Not pointsList"), {
+                name: "NativeSwap"
+              });
+            }
+          } catch (e) {
+            setErrorToast(dispatch, e);
+            console.error("swapPointHandle: ", e);
+          } finally {
+            setIsLoading(false);
+          }
+        } else {
+          setPointsWarn(0);
+        }
+      } else {
+        setChoseIndex(index);
+        setPointsWarn(1);
+      }
+    },
+    [
+      account,
+      choseIndex,
+      hidePointsWarn,
+      pointsWarn,
+      chainId,
+      refreshBalance,
+      walletClient
+    ]
+  );
+  return { isLoading, swapPointHandle };
+};
+
+// src/components/ConnectWallet/hooks/connectWalletHooks.ts
+import { useMemo as useMemo3 } from "react";
+import { useRecoilValue as useRecoilValue3 } from "recoil";
+var useNativeBalanceStr = () => {
+  const nativeBalance = useRecoilValue3(nativeBalanceState);
+  return useMemo3(() => {
+    return formatMoney(nativeBalance, 2);
+  }, [nativeBalance]);
+};
+var usePointsBalanceStr = () => {
+  const pointsBalance = useRecoilValue3(pointsBalanceState);
+  return useMemo3(() => {
+    return formatMoney(pointsBalance, 0);
+  }, [pointsBalance]);
+};
+
+// src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
+import React9, { memo as memo4 } from "react";
+import { useRecoilState as useRecoilState4 } from "recoil";
+
+// src/components/PixelBtn/ActivePixelButton.tsx
+import React8, { memo as memo3, useCallback as useCallback6, useRef } from "react";
+import styled from "styled-components";
+var PixelStyled = styled(PixelFlatBtn_default)`
+  height: ${({ height }) => height};
+  min-height: ${({ height }) => height};
+  max-width: ${({ width }) => width};
+  width: ${({ width }) => width};
+  &.pixel_loading {
+    opacity: 0.8;
+  }
+  > .pixel_flat_btn_bg {
+    color: #fff;
+    > div {
+      transition: all 0.3s ease;
+      background-color: ${({ backgroundColor }) => backgroundColor};
+    }
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      height: ${({ pixel_height }) => pixel_height}px;
+      @media screen and (max-width: 768px) {
+        height: ${({ small_pixel_height }) => small_pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      top: calc(${({ pixel_height }) => pixel_height}px * 2);
+      left: 0;
+      @media screen and (max-width: 768px) {
+        height: calc(
+          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
+        );
+        top: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
+      }
+    }
+
+    > .pixel_flat_btn_top_1 {
+      top: 0;
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      left: calc(${({ pixel_height }) => pixel_height}px * 2);
+      @media screen and (max-width: 768px) {
+        width: calc(
+          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
+        );
+        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
+      top: ${({ pixel_height }) => pixel_height}px;
+      left: ${({ pixel_height }) => pixel_height}px;
+      @media screen and (max-width: 768px) {
+        width: calc(
+          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
+        );
+        top: ${({ small_pixel_height }) => small_pixel_height}px;
+        left: ${({ small_pixel_height }) => small_pixel_height}px;
+      }
+    }
+
+    > .pixel_flat_btn_bottom_2 {
+      bottom: 0;
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      left: calc(${({ pixel_height }) => pixel_height}px * 2);
+      @media screen and (max-width: 768px) {
+        width: calc(
+          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
+        );
+        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
+      bottom: ${({ pixel_height }) => pixel_height}px;
+      left: ${({ pixel_height }) => pixel_height}px;
+      @media screen and (max-width: 768px) {
+        width: calc(
+          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
+        );
+        bottom: ${({ small_pixel_height }) => small_pixel_height}px;
+        left: ${({ small_pixel_height }) => small_pixel_height}px;
+      }
+    }
+  }
+  > .pixel_flat_inner {
+    width: 100%;
+    height: 100%;
+  }
+`;
+var ActivePixelCard = memo3((props) => {
+  const {
+    pixel_height,
+    small_pixel_height,
+    onClick
+  } = props;
+  const lastClickTimeRef = useRef(Date.now());
+  const clickHandle = useCallback6(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+  return /* @__PURE__ */ React8.createElement(PixelStyled, {
+    ...props,
+    onClick: clickHandle,
+    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height
+  });
+});
+var ActivePixelCardStyled = styled(ActivePixelCard)`
+  cursor: pointer;
+`;
+var ActivePixelButton = memo3((props) => {
+  const {
+    className,
+    isLoading,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    smallWidth,
+    height,
+    smallHeight,
+    small_pixel_height
+  } = props;
+  return /* @__PURE__ */ React8.createElement(ActivePixelCardStyled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    isLoading,
+    borderColor,
+    small_pixel_height,
+    smallWidth,
+    smallHeight
+  });
+});
+var PixelColorStyled = styled(PixelStyled)`
+  > .pixel_flat_btn_bg {
+    > div {
+      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1649ff"};
+    }
+    > .pixel_flat_btn_inner {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: ${({ pixel_height }) => pixel_height}px;
+        height: ${({ pixel_height }) => pixel_height}px;
+        @media screen and (max-width: 768px) {
+          width: ${({ small_pixel_height }) => small_pixel_height}px;
+          height: ${({ small_pixel_height }) => small_pixel_height}px;
+        }
+      }
+      &:before {
+        top: 0;
+        left: 0;
+        background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+      }
+      &:after {
+        bottom: 0;
+        right: 0;
+        background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+      }
+    }
+    > .pixel_flat_btn_top_1 {
+      background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+    }
+    > .pixel_flat_btn_top_2 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+      @media screen and (max-width: 768px) {
+        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
+          ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+      }
+    }
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+      @media screen and (max-width: 768px) {
+        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
+          ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+      }
+    }
+  }
+`;
+var ActivePixelColorCard = memo3((props) => {
+  const {
+    className,
+    isLoading,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    smallWidth,
+    height,
+    smallHeight,
+    small_pixel_height
+  } = props;
+  return /* @__PURE__ */ React8.createElement(PixelColorStyled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    isLoading,
+    borderColor,
+    small_pixel_height: pixel_height != null ? pixel_height : small_pixel_height,
+    smallWidth,
+    smallHeight
+  });
+});
+var ActivePixelColorCardStyled = styled(ActivePixelColorCard)`
+  cursor: pointer;
+`;
+var ActivePixelButtonColor = memo3((props) => {
+  return /* @__PURE__ */ React8.createElement(ActivePixelColorCardStyled, {
+    ...props
+  });
+});
+var PixelBorderStyled = styled(PixelFlatBtn_default)`
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
+  & > .pixel_flat_btn_bg {
+    & > div {
+      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1d263b"};
+    }
+    .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      height: calc(${({ pixel_height }) => pixel_height + "px"} + 1px);
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      left: 0;
+      @media screen and (max-width: 768px) {
+        height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      border: 1px solid ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
+      transition: border 0.3s ease;
+    }
+    > .pixel_flat_btn_top_1 {
+      border-bottom: none !important;
+      z-index: 3;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      border-bottom: none !important;
+      z-index: 2;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+      top: ${({ pixel_height }) => pixel_height + "px"};
+      left: ${({ pixel_height }) => pixel_height + "px"};
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+        top: ${({ pixel_height }) => pixel_height + "px"};
+        left: ${({ pixel_height }) => pixel_height + "px"};
+      }
+    }
+    > .pixel_flat_btn_bottom_2 {
+      border-top: none !important;
+      z-index: 4;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-top: none !important;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+      bottom: ${({ pixel_height }) => pixel_height + "px"};
+      left: ${({ pixel_height }) => pixel_height + "px"};
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+        bottom: ${({ pixel_height }) => pixel_height + "px"};
+        left: ${({ pixel_height }) => pixel_height + "px"};
+      }
+    }
+  }
+  > .pixel_flat_inner {
+    width: 100%;
+    height: 100%;
+  }
+`;
+var PixelBorderCard = memo3((props) => {
+  const {
+    className,
+    pixel_height,
+    small_pixel_height,
+    width,
+    height,
+    backgroundColor,
+    borderColor,
+    showHover,
+    onClick
+  } = props;
+  const lastClickTimeRef = useRef(Date.now());
+  const clickHandle = useCallback6(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+  return /* @__PURE__ */ React8.createElement(PixelBorderStyled, {
+    ...props,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor,
+    className: `${className} pixelBorderCard`,
+    showHover,
+    small_pixel_height: pixel_height != null ? pixel_height : small_pixel_height,
+    onClick: clickHandle
+  });
+});
+var PixelCube2Styled = styled(PixelStyled)`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_bottom_2 {
+        background-color: ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ borderColor }) => borderColor};
+    }
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+    }
+  }
+`;
+var PixelCube2 = memo3((props) => {
+  const {
+    className,
+    isLoading,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    smallWidth,
+    height,
+    smallHeight,
+    small_pixel_height,
+    borderTopColor,
+    borderBottomColor
+  } = props;
+  return /* @__PURE__ */ React8.createElement(PixelCube2Styled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    isLoading,
+    borderColor,
+    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height,
+    smallWidth,
+    smallHeight,
+    borderTopColor,
+    borderBottomColor
+  });
+});
+var PixelCube3Styled = styled(PixelCube2)`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        &:before {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+        }
+      }
+    }
+  }
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_bottom_2 {
+      width: calc(
+        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
+      );
+      left: calc(${({ pixel_height, size }) => `${pixel_height}px * ${size}`});
+    }
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      width: calc(
+        100% -
+          ${({ pixel_height, size }) => `${pixel_height}px * ${2 * (size - 1)}`}
+      );
+      left: calc(
+        ${({ pixel_height, size }) => `${pixel_height}px * ${size - 1}`}
+      );
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(
+        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
+      );
+      top: calc(${({ pixel_height, size }) => `${size} * ${pixel_height}px`});
+    }
+
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      &:before {
+        content: "";
+        transition: background-color, border 0.3s ease;
+        position: absolute;
+        height: ${({ pixel_height }) => pixel_height}px;
+        width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
+        left: calc(-${({ pixel_height }) => pixel_height}px * 2);
+        background-color: ${({ backgroundColor }) => backgroundColor};
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      &:before {
+        top: ${({ pixel_height }) => pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      &:before {
+        top: -${({ pixel_height }) => pixel_height}px;
+      }
+    }
+  }
+`;
+var PixelCube3 = memo3((props) => {
+  const { pixel_height, small_pixel_height, size } = props;
+  return /* @__PURE__ */ React8.createElement(PixelCube3Styled, {
+    ...props,
+    size: size != null ? size : 3,
+    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height
+  });
+});
+var PixelCube5Styled = styled(PixelCube3Styled)`
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_inner {
+      &:after,
+      &:before {
+        content: "";
+        position: absolute;
+        height: ${({ pixel_height }) => pixel_height}px;
+        width: 100%;
+        left: 0;
+        background-color: ${({ backgroundColor }) => backgroundColor};
+      }
+      &:before {
+        top: -${({ pixel_height }) => pixel_height}px;
+      }
+      &:after {
+        bottom: -${({ pixel_height }) => pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_top_1:before,
+    > .pixel_flat_btn_bottom_2:after {
+      content: "";
+      position: absolute;
+      height: ${({ pixel_height }) => pixel_height}px;
+      width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
+      left: calc(-${({ pixel_height }) => pixel_height}px * 3);
+      background-color: ${({ backgroundColor }) => backgroundColor};
+    }
+    > .pixel_flat_btn_top_1:before {
+      top: calc(${({ pixel_height }) => pixel_height}px * 3);
+    }
+    > .pixel_flat_btn_bottom_2:after {
+      bottom: calc(${({ pixel_height }) => pixel_height}px * 3);
+    }
+  }
+`;
+var PixelCube5 = memo3((props) => {
+  const { pixel_height, small_pixel_height, size } = props;
+  return /* @__PURE__ */ React8.createElement(PixelCube5Styled, {
+    ...props,
+    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height,
+    size: size != null ? size : 5
+  });
+});
+var PixelBorderCardStyled = styled(PixelBorderCard)`
+  cursor: pointer;
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_2,
+      > .pixel_flat_btn_bottom_1 {
+        border: 1px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
+`;
+var PixelBorderCardButton = memo3((props) => {
+  return /* @__PURE__ */ React8.createElement(PixelBorderCardStyled, {
+    ...props
+  });
+});
+
+// src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
+var PoinsWarn = memo4(({ handleNext }) => {
+  const { t } = useCustomTranslation([LngNs.points]);
+  const [hidePointsWarn, setHidePointsWarn] = useRecoilState4(hidePointsWarnState);
+  return /* @__PURE__ */ React9.createElement("div", {
+    className: "points_dialog_dialogContainer"
+  }, /* @__PURE__ */ React9.createElement("p", null, t("poinsWarnText01")), /* @__PURE__ */ React9.createElement("p", null, /* @__PURE__ */ React9.createElement("em", null), /* @__PURE__ */ React9.createElement("i", null, t("poinsWarnText02")), /* @__PURE__ */ React9.createElement("br", null), /* @__PURE__ */ React9.createElement("em", null), /* @__PURE__ */ React9.createElement("i", null, t("poinsWarnText03"))), /* @__PURE__ */ React9.createElement("p", null, t("poinsWarnText04")), /* @__PURE__ */ React9.createElement("p", {
+    className: "points_dialog_flex",
+    onClick: () => setHidePointsWarn(!hidePointsWarn)
+  }, /* @__PURE__ */ React9.createElement(icons_default, {
+    name: hidePointsWarn ? "checked" : "check"
+  }), t("poinsWarnText05")), /* @__PURE__ */ React9.createElement(ActivePixelButtonColor, {
+    onClick: handleNext,
+    width: "100%",
+    height: "52px",
+    pixel_height: 4,
+    backgroundColor: "#1649FF",
+    borderBottomColor: "#0F33B2",
+    borderTopColor: "#3360FF",
+    className: "points_dialog_btn"
+  }, /* @__PURE__ */ React9.createElement("p", null, t("Ok"))));
+}, isEqual);
+var PointsWarn_default = PoinsWarn;
+
+// src/components/icons/PointsIcon/PointsIcon.tsx
+import React10 from "react";
+import { memo as memo5 } from "react";
+import styled2 from "styled-components";
+var PointsImg = styled2.img`
+  display: inline-block;
+  width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "30px"};
+  margin-left: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
+`;
+var PointsIcon = memo5(
+  ({ isMobile: isMobile2, classname }) => {
+    return /* @__PURE__ */ React10.createElement(PointsImg, {
+      isMobile: isMobile2,
+      src: preStaticUrl + `/img/home/data_points.svg`,
+      alt: "",
+      className: classname
+    });
+  },
+  isEqual
+);
+
+// src/components/Modal/Modal.tsx
+import React11 from "react";
+import { DialogContent, DialogOverlay } from "@reach/dialog";
+import "@reach/dialog/styles.css";
+import classnames3 from "classnames";
+var Modal = ({
+  open,
+  onCancel,
+  footer,
+  wrapClassName,
+  destroyOnClose,
+  closable,
+  width,
+  centered,
+  transitionName,
+  children
+}) => {
+  return /* @__PURE__ */ React11.createElement(DialogOverlay, {
+    isOpen: open,
+    onDismiss: onCancel,
+    className: classnames3("customDialog", "bottom", wrapClassName),
+    "aria-label": "Modal"
+  }, /* @__PURE__ */ React11.createElement(DialogContent, {
+    style: { width }
+  }, children));
+};
+var Modal_default = Modal;
+
+// src/components/PixelTable/PixelTable.tsx
+import React12, { memo as memo6 } from "react";
+var PixelTableBorder = memo6(
+  ({
+    header_children,
+    body_children,
+    pixel_height,
+    classNameHeader,
+    backgroundColor,
+    headerBackgroundColor,
+    borderColor,
+    width
+  }) => {
+    return /* @__PURE__ */ React12.createElement(PixelBorderCard, {
+      className: "tvlPixelTable",
+      pixel_height,
+      backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
+      borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
+      width
+    }, /* @__PURE__ */ React12.createElement(ActivePixelCard, {
+      className: `tvlPixelTable_header ${classNameHeader != null ? classNameHeader : ""}`,
+      pixel_height,
+      backgroundColor: `${headerBackgroundColor != null ? headerBackgroundColor : "#293457"}`
+    }, header_children), body_children);
+  }
+);
+var PixelTable = memo6(
+  ({
+    header_children,
+    body_children,
+    pixel_height,
+    className,
+    classNameHeader,
+    backgroundColor,
+    headerBackgroundColor,
+    borderColor,
+    width
+  }) => {
+    return /* @__PURE__ */ React12.createElement(ActivePixelCard, {
+      className: `tvlPixelTable ${className != null ? className : ""}`,
+      pixel_height,
+      backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
+      borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
+      width
+    }, /* @__PURE__ */ React12.createElement(ActivePixelCard, {
+      className: `tvlPixelTable_header ${classNameHeader != null ? classNameHeader : ""}`,
+      pixel_height,
+      backgroundColor: `${headerBackgroundColor != null ? headerBackgroundColor : "#293457"}`
+    }, header_children), body_children);
+  }
+);
+
+// src/components/LoadingSvg/LoadingButton.tsx
+import React13, { memo as memo7 } from "react";
+var LoadingButton = memo7(
+  ({ className, isLoading }) => {
+    if (isLoading) {
+      return /* @__PURE__ */ React13.createElement(SvgComponent_default, {
+        className: `${className != null ? className : ""} animation_rotate LoadingButton`,
+        src: preStaticUrl + "/img/icon/pixel_loading.svg"
+      });
+    }
+    return /* @__PURE__ */ React13.createElement(React13.Fragment, null);
+  }
+);
+var LoadingButton_default = LoadingButton;
+
+// src/components/DialogClose/DialogClose.tsx
+import React14, { memo as memo8 } from "react";
+var DialogClose = memo8(({ onClick }) => {
+  return /* @__PURE__ */ React14.createElement("div", {
+    className: "dialog_close",
+    onClick
+  }, /* @__PURE__ */ React14.createElement(SvgComponent_default, {
+    src: preStaticUrl + "/img/icon/pixel_close.svg"
+  }));
+});
+var DialogClose_default = DialogClose;
+
+// src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
+var PointsDialog = memo9(
+  ({ env, dispatch, setSuccessToast, setErrorToast }) => {
+    const { t } = useCustomTranslation([LngNs.points]);
+    const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState5(pointsDialogState);
+    const pointsWarn = useRecoilValue4(pointsWarnState);
+    const { chainId } = useActiveWeb3React();
+    const pointsBalanceStr = usePointsBalanceStr();
+    const isMobile2 = useIsMobile();
+    const [pointsList, setPointsList] = useState7([]);
+    const { isLoading, swapPointHandle } = useSwapPoint({
+      env,
+      dispatch,
+      setSuccessToast,
+      setErrorToast
+    });
+    useEffect6(() => {
+      if (chainId) {
+        setTimeout(() => {
+          const list2 = pointsListDefault(chainId);
+          if (list2) {
+            setPointsList(list2);
+          }
+        }, 800);
+      }
+    }, [chainId]);
+    const handleCancel = useCallback7(() => {
+      setPointsDialogOpen(false);
+    }, []);
+    return /* @__PURE__ */ React15.createElement(Modal_default, {
+      open: pointsDialogOpen,
+      onCancel: () => setPointsDialogOpen(false),
+      footer: null,
+      wrapClassName: classnames4("customDialog", "bottom", "dialog"),
+      width: isMobile2 ? "100%" : 604,
+      destroyOnClose: true,
+      closable: false,
+      centered: isMobile2 ? false : true,
+      transitionName: isMobile2 ? "ant-slide-down" : void 0
+    }, /* @__PURE__ */ React15.createElement(PixelTable, {
+      classNameHeader: "modalTitleInner",
+      backgroundColor: "#1D263B",
+      header_children: /* @__PURE__ */ React15.createElement("p", {
+        className: "modalTitleInnerTitle"
+      }, t("Recharge Points")),
+      body_children: /* @__PURE__ */ React15.createElement(React15.Fragment, null, /* @__PURE__ */ React15.createElement("div", {
+        className: "modalMain"
+      }, pointsWarn === 1 ? /* @__PURE__ */ React15.createElement(PointsWarn_default, {
+        isLoading,
+        handleNext: swapPointHandle
+      }) : isLoading ? /* @__PURE__ */ React15.createElement(IsLoading, null) : /* @__PURE__ */ React15.createElement(React15.Fragment, null, /* @__PURE__ */ React15.createElement("div", {
+        className: "balanceTitle"
+      }, /* @__PURE__ */ React15.createElement("p", null, t("Balance"), ": ", /* @__PURE__ */ React15.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React15.createElement(PointsIcon, {
+        isMobile: isMobile2,
+        classname: "pointsIcon"
+      })), /* @__PURE__ */ React15.createElement(PointsTable, {
+        pointsList,
+        chainId,
+        onClick: swapPointHandle
+      })))),
+      pixel_height: 10
+    }), /* @__PURE__ */ React15.createElement(DialogClose_default, {
+      onClick: handleCancel
+    }));
+  },
+  isEqual
+);
+var IsLoading = memo9(() => {
+  const { t } = useCustomTranslation([LngNs.points]);
+  return /* @__PURE__ */ React15.createElement("div", {
+    className: "loading"
+  }, /* @__PURE__ */ React15.createElement(LoadingButton_default, {
+    isLoading: true,
+    className: "loading_size4"
+  }), /* @__PURE__ */ React15.createElement("p", null, t("IsLoadingText1")));
+}, isEqual);
+var PointsTable = memo9(
+  ({ pointsList, chainId, onClick }) => {
+    return /* @__PURE__ */ React15.createElement("div", {
+      className: "table"
+    }, pointsList.map((v, index) => /* @__PURE__ */ React15.createElement(PixelBorderCardButton, {
+      pixel_height: 4,
+      backgroundColor: "#343C4F",
+      borderColor: "#484F60",
+      key: v.index,
+      onClick: () => onClick(index)
+    }, /* @__PURE__ */ React15.createElement("div", {
+      className: classnames4("points", `points_${v.index}`)
+    }, /* @__PURE__ */ React15.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React15.createElement("img", {
+      className: "points_img",
+      src: preStaticUrl + `/img/points/points_${v.index}.png`,
+      alt: "points"
+    }), /* @__PURE__ */ React15.createElement(ActivePixelCard, {
+      backgroundColor: "#1649FF",
+      className: "bottom",
+      pixel_height: 4
+    }, /* @__PURE__ */ React15.createElement("p", null, v.priceStr), /* @__PURE__ */ React15.createElement(CurrencyLogo_default, {
+      className: "img",
+      src: CurrencyLogo[chainId || 97]
+    })), v.discount && /* @__PURE__ */ React15.createElement("div", {
+      className: "discount"
+    }, /* @__PURE__ */ React15.createElement("img", {
+      className: "discount_img",
+      src: preStaticUrl + `/img/points/discord.svg`,
+      alt: "points"
+    }), /* @__PURE__ */ React15.createElement("p", null, v.discount, "% ", /* @__PURE__ */ React15.createElement("br", null), "OFF"))))));
+  },
+  isEqual
+);
+var PointsDialog_default = PointsDialog;
+
+// src/components/SideBar/index.tsx
+import classnames6 from "classnames";
+import React22, { memo as memo16, useMemo as useMemo6 } from "react";
+
+// src/components/SideBar/component/CommunityLink.tsx
+import React16, { memo as memo10 } from "react";
+var CommunityLink = memo10(({ className }) => {
+  return /* @__PURE__ */ React16.createElement("div", {
+    className
+  }, /* @__PURE__ */ React16.createElement("a", {
+    href: "https://twitter.com/Zypher_Games",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+    className: "community_svg",
+    src: preStaticUrl + "/img/layout/twitter.svg"
+  })), /* @__PURE__ */ React16.createElement("a", {
+    href: "https://discord.com/invite/MKJZhS4p2T",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+    className: "community_svg",
+    src: preStaticUrl + "/img/layout/discord.svg"
+  })), /* @__PURE__ */ React16.createElement("a", {
+    href: "https://zyphergames.substack.com",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+    className: "community_svg",
+    src: preStaticUrl + "/img/layout/medium.svg"
+  })), /* @__PURE__ */ React16.createElement("a", {
+    href: "https://github.com/zypher-game",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+    className: "community_svg",
+    src: preStaticUrl + "/img/layout/github.svg"
+  })), /* @__PURE__ */ React16.createElement("a", {
+    href: "https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+    className: "community_svg",
+    src: preStaticUrl + "/img/layout/gitbook.svg"
+  })));
+}, isEqual);
+var CommunityLink_default = CommunityLink;
+
+// src/components/SideBar/component/LinkItemA.tsx
+import classnames5 from "classnames";
+import React18, { memo as memo12, useCallback as useCallback8, useMemo as useMemo4 } from "react";
+import { useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState4 } from "recoil";
+
+// src/components/Header/state.ts
+import { atom as atom5 } from "recoil";
+var siderCollapseState = atom5({
+  key: "siderCollapseState",
+  default: void 0,
+  effects_UNSTABLE: [localStorageEffect("siderCollapseState")]
+});
+
+// src/components/SideBar/component/SmokeIndex.tsx
+import React17, { memo as memo11 } from "react";
+var SmokeIndex = memo11(() => {
+  return /* @__PURE__ */ React17.createElement("div", {
+    className: "h"
+  }, /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }), /* @__PURE__ */ React17.createElement("div", {
+    className: "c"
+  }));
+}, isEqual);
+var SmokeIndex_default = SmokeIndex;
+
+// src/components/SideBar/component/LinkItemA.tsx
+var useLink = (link, isMobile2, useNavigate) => {
+  const selectedKey = useRecoilValue5(defaultSelectedKey);
+  const setDefaultSelectedKey = useSetRecoilState4(defaultSelectedKey);
+  const setSiderCollapse = useSetRecoilState4(siderCollapseState);
+  const navigate = useNavigate();
+  const isOn = useMemo4(() => {
+    if (selectedKey === link.keyValue) {
+      return true;
+    }
+    return false;
+  }, [selectedKey]);
+  const linkClickHandle = useCallback8(
+    (event) => {
+      if (link.disabled) {
+        return;
+      }
+      event.preventDefault();
+      if (isMobile2) {
+        setSiderCollapse(true);
+      }
+      setTimeout(() => {
+        try {
+          if (link.link.indexOf("http") > -1) {
+            window.open(link.link, "_blank");
+          } else {
+            setDefaultSelectedKey(link.keyValue);
+            navigate(link.link);
+          }
+        } catch (e) {
+          window.location.href = "/#" + link.link;
+        }
+      }, 200);
+    },
+    [navigate, isMobile2]
+  );
+  return {
+    isOn,
+    linkClickHandle
+  };
+};
+var LinkItem1 = memo12(
+  ({
+    className,
+    className_on,
+    isMobile: isMobile2,
+    className_disable,
+    className_imageContainer,
+    useNavigate,
+    ...link
+  }) => {
+    const { isOn, linkClickHandle } = useLink(link, isMobile2, useNavigate);
+    return /* @__PURE__ */ React18.createElement("div", {
+      onClick: linkClickHandle,
+      className: classnames5(
+        className,
+        link.disabled ? className_disable : "",
+        isOn ? className_on : ""
+      )
+    }, /* @__PURE__ */ React18.createElement("div", {
+      className: className_imageContainer
+    }, /* @__PURE__ */ React18.createElement("img", {
+      src: preStaticUrl + `/img/layout/${link.icon}`
+    })), /* @__PURE__ */ React18.createElement("p", null, link.label), isOn ? /* @__PURE__ */ React18.createElement(SmokeIndex_default, null) : null);
+  },
+  isEqual
+);
+var LinkItemA_default = LinkItem1;
+
+// src/components/SideBar/component/SideBarActivitiesList.tsx
+import React19, { memo as memo13, useMemo as useMemo5 } from "react";
+var SideBarActivitiesList = memo13(
+  ({
+    className_on,
+    className_list,
+    className_listItemHorDisable,
+    className_listItemHor,
+    className_listItemVerDisable,
+    className_listItemVer,
+    list: list2,
+    isMobile: isMobile2,
+    useNavigate
+  }) => {
+    const { listItemDisable, listItem } = useMemo5(() => {
+      if (isMobile2) {
+        return {
+          listItemDisable: className_listItemVerDisable,
+          listItem: className_listItemVer
+        };
+      }
+      return {
+        listItemDisable: className_listItemHorDisable,
+        listItem: className_listItemHor
+      };
+    }, [isMobile2]);
+    return /* @__PURE__ */ React19.createElement("div", {
+      className: className_list
+    }, list2.map((v) => /* @__PURE__ */ React19.createElement(LinkItemA_default, {
+      useNavigate,
+      className_on,
+      className_disable: listItemDisable,
+      isMobile: isMobile2,
+      key: v.keyValue,
+      className: listItem,
+      ...v
+    })));
+  },
+  isEqual
+);
+var SideBarActivitiesList_default = SideBarActivitiesList;
+
+// src/components/SideBar/component/SideBarGamesList.tsx
+import React20, { memo as memo14 } from "react";
+var SideBarGamesList = memo14(
+  ({
+    className_on,
+    className_list,
+    className_listItemDisable,
+    className_listItem,
+    className_imageContainer,
+    useNavigate,
+    list: list2,
+    isMobile: isMobile2
+  }) => {
+    return /* @__PURE__ */ React20.createElement("div", {
+      className: className_list
+    }, list2.map((v) => /* @__PURE__ */ React20.createElement(LinkItemA_default, {
+      useNavigate,
+      isMobile: isMobile2,
+      className_on,
+      className_disable: className_listItemDisable,
+      key: v.keyValue,
+      className: className_listItem,
+      className_imageContainer,
+      ...v
+    })));
+  },
+  isEqual
+);
+var SideBarGamesList_default = SideBarGamesList;
+
+// src/components/SideBar/component/SideBarTitle.tsx
+import React21, { memo as memo15 } from "react";
+var SideBarTitle = memo15(
+  ({ className, logo_url_name, logo_title }) => {
+    const { t } = useCustomTranslation([LngNs.siderBar]);
+    return /* @__PURE__ */ React21.createElement("div", {
+      className
+    }, /* @__PURE__ */ React21.createElement("img", {
+      src: preStaticUrl + `/img/layout/${logo_url_name}.svg`,
+      title: t(logo_title)
+    }), /* @__PURE__ */ React21.createElement("p", null, t(logo_title)));
+  },
+  isEqual
+);
+var SideBarTitle_default = SideBarTitle;
+
+// src/components/SideBar/index.tsx
+var ZypherLogo = memo16(({ isMobile: isMobile2 }) => {
+  return /* @__PURE__ */ React22.createElement("a", {
+    href: "/",
+    target: "_black",
+    className: "zypher_logo"
+  }, isMobile2 ? /* @__PURE__ */ React22.createElement("img", {
+    src: preStaticUrl + "/img/layout/logo-min.svg"
+  }) : /* @__PURE__ */ React22.createElement("img", {
+    src: preStaticUrl + "/img/tvl/logo.svg"
+  }), /* @__PURE__ */ React22.createElement("img", {
+    src: preStaticUrl + "/img/layout/ai.svg"
+  }));
+});
+var SideBar = (props) => {
+  const { isMobile: isMobile2, useNavigate } = props;
+  const items = useNavItem();
+  usePathname();
+  const {
+    sideBarGamesLinkList,
+    sideBarActivitiesLinkList
+  } = useMemo6(() => {
+    return {
+      sideBarGamesLinkList: items.filter((v) => v.type === "Games" /* Games */),
+      sideBarActivitiesLinkList: items.filter(
+        (v) => !isMobile2 ? v.type === "Activities" /* Activities */ && v.keyValue !== "1" : v.type === "Activities" /* Activities */
+      )
+    };
+  }, [items, isMobile2]);
+  return /* @__PURE__ */ React22.createElement("div", {
+    className: classnames6(`${props.className}`, "sidebarWrap")
+  }, /* @__PURE__ */ React22.createElement("div", {
+    className: "sidebar"
+  }, isMobile2 ? null : /* @__PURE__ */ React22.createElement(React22.Fragment, null, /* @__PURE__ */ React22.createElement(LinkItemA_default, {
+    className_on: "item_on",
+    className_disable: "horListItemDisable",
+    className: "horListItem",
+    isMobile: isMobile2,
+    useNavigate,
+    ...items[0]
+  }), /* @__PURE__ */ React22.createElement("div", {
+    className: "line"
+  })), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+    logo_title: "Games",
+    logo_url_name: "games",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React22.createElement(SideBarGamesList_default, {
+    className_on: "item_on",
+    className_list: "gamelist",
+    className_listItem: "verListItem",
+    className_listItemDisable: "verListItemDisable",
+    list: sideBarGamesLinkList,
+    isMobile: isMobile2,
+    useNavigate,
+    className_imageContainer: "imageContainerWaves"
+  }), /* @__PURE__ */ React22.createElement("div", {
+    className: "line"
+  }), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+    logo_title: "Activities",
+    logo_url_name: "activities",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React22.createElement(SideBarActivitiesList_default, {
+    useNavigate,
+    isMobile: isMobile2,
+    className_on: "item_on",
+    className_list: "activitiesList",
+    className_listItemHorDisable: "horListItemDisable",
+    className_listItemHor: "horListItem",
+    className_listItemVerDisable: "verListItemDisable",
+    className_listItemVer: "verListItem",
+    list: sideBarActivitiesLinkList
+  }), /* @__PURE__ */ React22.createElement("div", {
+    className: "line"
+  }), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+    logo_title: "Language",
+    logo_url_name: "language",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React22.createElement(Language_default, {
+    type: "side"
+  }), /* @__PURE__ */ React22.createElement("div", {
+    className: "line"
+  }), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+    logo_title: "Links",
+    logo_url_name: "links",
+    className: "sideBarTitle"
+  }), /* @__PURE__ */ React22.createElement(CommunityLink_default, {
+    className: "communityLink"
+  })));
+};
+var SideBar_default = SideBar;
+
+// src/components/DivWrap/DivWrap.tsx
+import React23, { memo as memo17 } from "react";
+var DivWrap = memo17(
+  ({
+    className,
+    showDiv,
+    children
+  }) => {
+    return showDiv ? /* @__PURE__ */ React23.createElement("div", {
+      className
+    }, " ", children) : /* @__PURE__ */ React23.createElement(React23.Fragment, null, children);
+  },
+  isEqual
+);
+var DivWrap_default = DivWrap;
+
+// src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
+import { WarningOutlined } from "@ant-design/icons";
+import classnames8 from "classnames";
+import React25, { memo as memo19, useCallback as useCallback10, useEffect as useEffect7, useMemo as useMemo7 } from "react";
+import { useRecoilState as useRecoilState6 } from "recoil";
+import styled3 from "styled-components";
+
+// src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
+import classnames7 from "classnames";
+import React24, { memo as memo18, useCallback as useCallback9 } from "react";
+var DialogTitle = memo18(
+  ({ label, setDialogOpen, children, classNames }) => {
+    const closeHandle = useCallback9(() => {
+      setDialogOpen(false);
+    }, [setDialogOpen]);
+    return /* @__PURE__ */ React24.createElement("div", {
+      className: classnames7("dialog_title_modalTitleInner", classNames)
+    }, /* @__PURE__ */ React24.createElement("p", {
+      className: "dialog_title_title"
+    }, label), children ? children : null, /* @__PURE__ */ React24.createElement("span", {
+      onClick: closeHandle
+    }, /* @__PURE__ */ React24.createElement(icons_default, {
+      name: "close"
+    })));
+  }
+);
+var DialogTitle_default = DialogTitle;
+
+// src/components/ConnectWallet/components/linkToBetaDialog/localPathUrl.ts
+var getChainNameText = (chainId) => {
+  let text = "Beta";
+  if (chainId === 91715 /* ComboTestnet */) {
+    text = "Combo";
+  } else if (chainId === 169 /* MantaPacificMainnet */ || chainId === 3441005 /* MantaPacificTestnet */) {
+    text = "Manta";
+  } else if (chainId === 5e3 /* Mantle */ || chainId === 5001 /* MantleTestnet */) {
+    text = "Mantle";
+  }
+  return [text.toLowerCase(), text];
+};
+
+// src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
+var Content = styled3.div`
+  text-align: center;
+  padding: 50px;
+`;
+var DialogButton = styled3.div`
+  border-radius: 12px;
+  background: #1649ff;
+  height: 48px;
+  border: 0px;
+
+  color: #fff;
+  text-align: center;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+var Text = styled3.div`
+  color: #fff;
+  text-align: center;
+  font-size: 14px;
+  padding-top: 30px;
+`;
+var LinkToBetaDialog = memo19(() => {
+  const { t } = useCustomTranslation([LngNs.common]);
+  const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState6(
+    linkToBetaDialogState
+  );
+  const [linkToBetaDialogChainId, setLinkToBetaDialogChainId] = useRecoilState6(
+    linkToBetaDialogChainIdState
+  );
+  const isMobile2 = useIsMobile();
+  const ToUrlName = useMemo7(() => {
+    if (linkToBetaDialogChainId) {
+      if (linkToBetaDialogChainId === 9980 /* Combo */) {
+        return ["https://app.zypher.game/2048/"];
+      }
+      return getChainNameText(linkToBetaDialogChainId);
+    }
+    return "";
+  }, [linkToBetaDialogChainId]);
+  const handleButtonClick = useCallback10(() => {
+    setLinkToBetaDialogOpen(false);
+    if (ToUrlName[0].startsWith("https")) {
+      return window.open(ToUrlName[0], "_blank");
+    } else {
+      const _isTestnet = linkToBetaDialogChainId ? isTestnet[linkToBetaDialogChainId] : false;
+      return window.open(
+        `https://${_isTestnet ? "dev" : ""}${ToUrlName[0]}.zypher.game/`,
+        "_blank"
+      );
+    }
+  }, [ToUrlName]);
+  useEffect7(() => {
+    if (!linkToBetaDialogOpen) {
+      setLinkToBetaDialogChainId(void 0);
+    }
+  }, [linkToBetaDialogOpen]);
+  return /* @__PURE__ */ React25.createElement(Modal_default, {
+    open: linkToBetaDialogOpen,
+    onCancel: () => setLinkToBetaDialogOpen(false),
+    footer: null,
+    wrapClassName: classnames8("customDialog"),
+    destroyOnClose: true,
+    closable: false,
+    width: isMobile2 ? "100%" : 360,
+    centered: isMobile2 ? false : true
+  }, /* @__PURE__ */ React25.createElement(DialogTitle_default, {
+    label: t("Switch Networks"),
+    setDialogOpen: setLinkToBetaDialogOpen,
+    classNames: isMobile2 ? "modalTitleInner" : ""
+  }), /* @__PURE__ */ React25.createElement(Content, null, /* @__PURE__ */ React25.createElement(WarningOutlined, {
+    style: { color: "#1649FF", fontSize: "50px" }
+  }), /* @__PURE__ */ React25.createElement(Text, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
+    chainName: linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "",
+    toUrlName: ToUrlName[1]
+  }))), /* @__PURE__ */ React25.createElement("div", {
+    style: { padding: "0 20px 30px" }
+  }, /* @__PURE__ */ React25.createElement(DialogButton, {
+    onClick: handleButtonClick
+  }, linkToBetaDialogChainId === 9980 /* Combo */ ? "Go to Play 2048" : t("GotoVersion", {
+    toUrlName: ToUrlName[0]
+  }))));
+}, isEqual);
+var LinkToBetaDialog_default = LinkToBetaDialog;
+
+// src/components/Header/header.tsx
+import classnames11 from "classnames";
+import React93, { useEffect as useEffect26 } from "react";
+import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
+
+// src/components/Header/rainbow_account/rainbow_connectWallet.tsx
+import React92, { memo as memo30, useMemo as useMemo16 } from "react";
+
+// src/components/Header/rainbow_account/rainbow_account.tsx
+import React38, { memo as memo28, useCallback as useCallback16 } from "react";
+import { useSetRecoilState as useSetRecoilState8 } from "recoil";
+
+// src/components/ConnectWallet/components/Balance/Balance.tsx
+import { SyncOutlined } from "@ant-design/icons";
+import BigNumberjs3 from "bignumber.js";
+import React29, { memo as memo23, useCallback as useCallback12, useEffect as useEffect9, useState as useState8 } from "react";
+import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState6 } from "recoil";
+import styled4 from "styled-components";
+
+// src/contract/abi/erc20Abi.json
+var erc20Abi_default = [
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name",
+        type: "string"
+      },
+      {
+        internalType: "string",
+        name: "symbol",
+        type: "string"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256"
+      }
+    ],
+    name: "Approval",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256"
+      }
+    ],
+    name: "Transfer",
+    type: "event"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      }
+    ],
+    name: "allowance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address"
+      }
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256"
+      }
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256"
+      }
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "sender",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "transferFrom",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  }
+];
+
+// src/contract/erc20.ts
+var erc20Contract = (chainId, env, address, signer) => {
+  if (!address) {
+    throw new Error("No addrerss");
+  }
+  return getContract({ env, abi: erc20Abi_default, address, signer, chainId });
+};
+var erc20Abi = erc20Abi_default;
+var erc20_default = erc20Contract;
+
+// src/components/ConnectWallet/components/Balance/balanceItem.tsx
+import { LoadingOutlined } from "@ant-design/icons";
+import React28, { memo as memo22, useCallback as useCallback11, useEffect as useEffect8 } from "react";
+
+// src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
+import React26, { memo as memo20 } from "react";
+import { useRecoilState as useRecoilState7 } from "recoil";
+var GetPointsSuccess = memo20(() => {
+  const [show] = useRecoilState7(pointsAnimState);
+  if (show) {
+    return /* @__PURE__ */ React26.createElement("div", {
+      className: "getpointpoints"
+    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React26.createElement(PointsItem, {
+      key: index
+    })));
+  }
+  return null;
+}, isEqual);
+var PointsItem = () => {
+  return /* @__PURE__ */ React26.createElement("div", {
+    className: "getpointcoin"
+  }, /* @__PURE__ */ React26.createElement("div", {
+    className: "getpointcoin_front"
+  }, /* @__PURE__ */ React26.createElement("img", {
+    src: preStaticUrl + "/img/layout/Star.png",
+    alt: "star"
+  })), /* @__PURE__ */ React26.createElement("div", {
+    className: "getpointcoin_middle"
+  }), /* @__PURE__ */ React26.createElement("div", {
+    className: "getpointcoin_back"
+  }, /* @__PURE__ */ React26.createElement("img", {
+    src: preStaticUrl + "/img/layout/Star.png",
+    alt: "star"
+  })));
+};
+var GetPointsSuccess_default = GetPointsSuccess;
+
+// src/components/ConnectWallet/components/Balance/balanceItem.tsx
+import { useRecoilState as useRecoilState8, useSetRecoilState as useSetRecoilState5 } from "recoil";
+
+// src/components/Header/rainbow_account/IsPixelWidget.tsx
+import React27, { memo as memo21 } from "react";
+var IsPixelWidget = memo21(
+  ({
+    className,
+    type,
+    children,
+    onClick
+  }) => {
+    return type === "pixel" ? /* @__PURE__ */ React27.createElement(PixelFlatBtn_default, {
+      className: `pixel_border ${className != null ? className : ""}`,
+      onClick
+    }, children) : /* @__PURE__ */ React27.createElement("div", {
+      className,
+      onClick
+    }, " ", children);
+  }
+);
+var IsPixelWidget_default = IsPixelWidget;
+
+// src/components/ConnectWallet/components/Balance/balanceItem.tsx
+var BalanceItem = memo22(
+  ({
+    className,
+    loading,
+    balanceStr,
+    logo,
+    preChild,
+    onClick,
+    CountupNumber,
+    balance,
+    type
+  }) => {
+    const onClickHandle = useCallback11(() => {
+      if (onClick) {
+        onClick();
+      }
+    }, [onClick]);
+    return /* @__PURE__ */ React28.createElement(IsPixelWidget_default, {
+      type,
+      className: `balance_item_balance
+        ${className != null ? className : ""}
+        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`,
+      onClick: onClickHandle
+    }, preChild, loading ? /* @__PURE__ */ React28.createElement(LoadingOutlined, null) : /* @__PURE__ */ React28.createElement(React28.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React28.createElement(CountupNumber, {
+      value: balance,
+      decimals: 0,
+      duration: 1.5,
+      showDiv: false
+    }) : balanceStr, logo));
+  },
+  isEqual
+);
+var BalanceCountUpItem = memo22(
+  ({
+    className,
+    loading,
+    balance,
+    logo,
+    preChild,
+    onClick,
+    CountupNumber,
+    balanceStr,
+    type
+  }) => {
+    const setPointsAnimState = useSetRecoilState5(pointsAnimState);
+    const [mount, setMount] = useRecoilState8(pointsAnimNumState);
+    const onClickHandle = useCallback11(() => {
+      if (onClick) {
+        onClick();
+      }
+    }, [onClick]);
+    useEffect8(() => {
+      if (mount === 1) {
+        setPointsAnimState(true);
+        setTimeout(() => {
+          setPointsAnimState(false);
+          setMount(0);
+        }, 3e3);
+      }
+    }, [mount]);
+    return /* @__PURE__ */ React28.createElement(IsPixelWidget_default, {
+      className: `balance_item_balance_point balance_item_balance 
+        ${className != null ? className : ""}
+        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`,
+      onClick: onClickHandle,
+      type
+    }, preChild, loading ? /* @__PURE__ */ React28.createElement(LoadingOutlined, null) : /* @__PURE__ */ React28.createElement(React28.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React28.createElement(CountupNumber, {
+      value: balance,
+      decimals: 0,
+      duration: 1.5,
+      showDiv: false
+    }) : balanceStr, logo), /* @__PURE__ */ React28.createElement(GetPointsSuccess_default, null));
+  },
+  isEqual
+);
+var balanceItem_default = BalanceItem;
+
+// src/components/ConnectWallet/components/Balance/Balance.tsx
+var AddIcon = styled4(icons_default)`
+  margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
+  margin-left: 0 !important;
+  width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "24px"};
+`;
+var Balance = memo23((props) => {
+  const { showPointsModal, isMobile: isMobile2, env, CountupNumber, type } = props;
+  const { chainId, account, provider } = useActiveWeb3React();
+  const [loading, setLoading] = useState8(false);
+  const setNativeBalance = useSetRecoilState6(nativeBalanceState);
+  const setPointsBalance = useSetRecoilState6(pointsBalanceState);
+  const refreshBalance = useRecoilValue6(refreshBalanceState);
+  const fetchBalanceOf = useCallback12(async () => {
+    if (!chainId || !account) {
+      return;
+    }
+    setLoading(true);
+    const balance = await provider.getBalance({ address: account });
+    setNativeBalance(
+      new BigNumberjs3(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+    );
+    await fetchErc20Balance();
+    setLoading(false);
+  }, [chainId, account, provider]);
+  const fetchErc20Balance = useCallback12(async () => {
+    if (!chainId || !account || !provider) {
+      return;
+    }
+    try {
+      const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
+      if (!pointsAddress) {
+        setPointsBalance(0);
+      } else {
+        const pointsContract = erc20_default(chainId, env, pointsAddress);
+        const balance = await pointsContract.read.balanceOf([account]);
+        setPointsBalance(
+          new BigNumberjs3(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+        );
+      }
+    } catch (e) {
+      setPointsBalance(0);
+    }
+  }, [chainId, account, provider]);
+  useEffect9(() => {
+    if (account && chainId) {
+      fetchBalanceOf();
+    }
+  }, [account, chainId, refreshBalance]);
+  const pointsBalance = useRecoilValue6(pointsBalanceState);
+  const nativeBalanceStr = useNativeBalanceStr();
+  const pointsBalanceStr = usePointsBalanceStr();
+  return /* @__PURE__ */ React29.createElement(React29.Fragment, null, /* @__PURE__ */ React29.createElement(IsPixelWidget_default, {
+    type,
+    className: `refresh_balance ${type === "pixel" ? "refresh_balance_pixel" : ""}`,
+    onClick: fetchBalanceOf
+  }, /* @__PURE__ */ React29.createElement(SyncOutlined, null)), DPSupportChainId.includes(chainId) ? /* @__PURE__ */ React29.createElement(BalanceCountUpItem, {
+    onClick: showPointsModal,
+    logo: /* @__PURE__ */ React29.createElement(PointsIcon, {
+      isMobile: isMobile2
+    }),
+    balance: pointsBalance,
+    loading,
+    className: props.className,
+    CountupNumber,
+    preChild: /* @__PURE__ */ React29.createElement(AddIcon, {
+      name: "pixel_add",
+      isMobile: isMobile2
+    }),
+    balanceStr: pointsBalanceStr,
+    type
+  }) : null, !isMobile2 && /* @__PURE__ */ React29.createElement(balanceItem_default, {
+    logo: /* @__PURE__ */ React29.createElement(CurrencyLogo_default, {
+      className: "balance_item_img",
+      src: CurrencyLogo[chainId || 97]
+    }),
+    balanceStr: nativeBalanceStr,
+    loading,
+    className: props.className,
+    type
+  }));
+}, isEqual);
+var Balance_default = Balance;
+
+// src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
+import React30, { memo as memo24, useCallback as useCallback13 } from "react";
+import styled5 from "styled-components";
+import { useRecoilState as useRecoilState9 } from "recoil";
+var StatusI = styled5.i`
+  box-sizing: content-box;
+  display: inline-block;
+  width: ${({ isMobile: isMobile2 }) => isMobile2 ? "5px" : "6px"};
+  height: ${({ isMobile: isMobile2 }) => isMobile2 ? "5px" : "6px"};
+  background-color: #65edbc;
+  margin-left: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
+  border-radius: 50%;
+  position: relative;
+  &:before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: ${({ isMobile: isMobile2 }) => isMobile2 ? "-2px" : "-3px"};
+    left: ${({ isMobile: isMobile2 }) => isMobile2 ? "-2px" : "-3px"};
+    border: ${({ isMobile: isMobile2 }) => isMobile2 ? "2px" : "3px"} solid
+      rgba(101, 237, 188, 0.19);
+    box-sizing: content-box;
+    border-radius: 50%;
+  }
+`;
+var ChainSelectorWidget = memo24(({ className, type }) => {
+  const { chainId } = useActiveWeb3React();
+  const isMobile2 = useIsMobile();
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState9(
+    accountInfoDialogState
+  );
+  const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState9(pointsDialogState);
+  const [siderCollapse, setSiderCollapse] = useRecoilState9(siderCollapseState);
+  const { openChainModal } = useChainModal();
+  const openChainModalHandle = useCallback13(() => {
+    if (accountInfoDialogOpen) {
+      setAccountInfoDialogOpen(false);
+    }
+    if (pointsDialogOpen) {
+      setPointsDialogOpen(false);
+    }
+    if (!siderCollapse) {
+      setSiderCollapse(true);
+    }
+    if (openChainModal) {
+      openChainModal();
+    }
+  }, [openChainModal]);
+  return chainId ? /* @__PURE__ */ React30.createElement(IsPixelWidget_default, {
+    type,
+    onClick: openChainModalHandle
+  }, /* @__PURE__ */ React30.createElement("div", {
+    className: `ChainSelectorWidgetWrapper ${className != null ? className : ""}`
+  }, /* @__PURE__ */ React30.createElement("div", {
+    className: "img"
+  }, /* @__PURE__ */ React30.createElement("img", {
+    src: ChainImage[chainId],
+    alt: ChainName[chainId]
+  }), /* @__PURE__ */ React30.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React30.createElement(StatusI, {
+    isMobile: isMobile2
+  }))) : null;
+}, isEqual);
+var ChainSelectorWidget_default = ChainSelectorWidget;
+
+// src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
+import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
+import React31, { useCallback as useCallback14 } from "react";
+import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState7 } from "recoil";
+import { Trans } from "react-i18next";
+var PointsRuleDialog = () => {
+  const { t } = useCustomTranslation([LngNs.points]);
+  const isModalOpen = useRecoilValue7(pointsRuleDialogState);
+  const setIsModalOpen = useSetRecoilState7(pointsRuleDialogState);
+  const handleCancel = useCallback14(() => {
+    setIsModalOpen(false);
+  }, []);
+  return /* @__PURE__ */ React31.createElement(React31.Fragment, null, /* @__PURE__ */ React31.createElement(DialogOverlay2, {
+    isOpen: isModalOpen,
+    onDismiss: handleCancel,
+    className: "points_dialog_zindex"
+  }, /* @__PURE__ */ React31.createElement(DialogContent2, {
+    className: "points_dialog_dialogContent"
+  }, /* @__PURE__ */ React31.createElement(PixelTable, {
+    backgroundColor: "#1D263B",
+    header_children: /* @__PURE__ */ React31.createElement("p", {
+      className: "modalTitleInnerTitle"
+    }, t("Rules")),
+    body_children: /* @__PURE__ */ React31.createElement(React31.Fragment, null, /* @__PURE__ */ React31.createElement("div", {
+      className: "points_dialog_dialogContainer"
+    }, /* @__PURE__ */ React31.createElement("h4", null, t("PointsRuleText01")), /* @__PURE__ */ React31.createElement("p", null, t("PointsRuleText02")), /* @__PURE__ */ React31.createElement("p", null, /* @__PURE__ */ React31.createElement("em", null), /* @__PURE__ */ React31.createElement("i", null, t("PointsRuleText03")), /* @__PURE__ */ React31.createElement("br", null), /* @__PURE__ */ React31.createElement("em", null), /* @__PURE__ */ React31.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React31.createElement("br", null), /* @__PURE__ */ React31.createElement("em", null), /* @__PURE__ */ React31.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React31.createElement("br", null), /* @__PURE__ */ React31.createElement("em", null), " ", /* @__PURE__ */ React31.createElement("i", null, t("PointsRuleText06"))), /* @__PURE__ */ React31.createElement("p", null, /* @__PURE__ */ React31.createElement(Trans, {
+      i18nKey: "PointsRuleText07",
+      defaults: t("PointsRuleText07"),
+      values: { Link: t("Link") },
+      components: { bold: /* @__PURE__ */ React31.createElement("strong", null) }
+    })), /* @__PURE__ */ React31.createElement("h4", null, t("PointsRuleText09")), /* @__PURE__ */ React31.createElement("p", null, /* @__PURE__ */ React31.createElement(Trans, {
+      i18nKey: "PointsRuleText10",
+      defaults: t("PointsRuleText10")
+    }, /* @__PURE__ */ React31.createElement("a", {
+      href: "https://discord.com/invite/MKJZhS4p2T",
+      target: "_blank",
+      className: "points_dialog_fontWhite",
+      rel: "noreferrer"
+    }, "Discord")))), /* @__PURE__ */ React31.createElement("div", {
+      className: "points_dialog_btnWrap"
+    }, /* @__PURE__ */ React31.createElement(ActivePixelButtonColor, {
+      onClick: handleCancel,
+      width: "340px",
+      height: "52px",
+      pixel_height: 4,
+      backgroundColor: "#1649FF",
+      borderBottomColor: "#0F33B2",
+      borderTopColor: "#3360FF"
+    }, t("Ok")))),
+    pixel_height: 10
+  }), /* @__PURE__ */ React31.createElement(DialogClose_default, {
+    onClick: handleCancel
+  }))));
+};
+var PointsRuleDialog_default = PointsRuleDialog;
+
+// src/components/PlayerAvatar/index.tsx
+import cx from "classnames";
+import React33 from "react";
+import styled7 from "styled-components";
+
+// src/utils/generateAvatar.ts
+function hashToSeed(ethereumAddress) {
+  if (!ethereumAddress) {
+    return 1;
+  }
+  if (window.mcrypto) {
+    const hash = window.mcrypto.createHash("sha1").update(ethereumAddress).digest("hex");
+    const seed = parseInt(hash.slice(0, 16), 16);
+    return seed;
+  }
+  return 0;
+}
+var generateAvatar_default = (account) => {
+  const seed = hashToSeed(account == null ? void 0 : account.toLowerCase());
+  const selectedAvatar = [
+    preStaticUrl + "/img/avatar1.png",
+    preStaticUrl + "/img/avatar2.png",
+    preStaticUrl + "/img/avatar3.png",
+    preStaticUrl + "/img/avatar4.png",
+    preStaticUrl + "/img/avatar5.png"
+  ][seed % 6];
+  const selectedBackground = [
+    "#83A285",
+    "#A083AE",
+    "#FF637F",
+    "#FFA26D",
+    "#77BEFF",
+    "#80F0BA",
+    "#FFCF4E",
+    "#FF603E",
+    "#F44242",
+    "#D57CFF",
+    "#7075FF",
+    "#808242",
+    "#804343",
+    "#FF56B1",
+    "#6992A9"
+  ][seed % 15];
+  if (!account) {
+    return {
+      selectedAvatar: preStaticUrl + "/img/default_avatar.png",
+      selectedBackground: "#EFEFEF"
+    };
+  }
+  return { selectedAvatar, selectedBackground };
+};
+
+// src/components/Avatar/Avatar.tsx
+import React32 from "react";
+import styled6, { css } from "styled-components";
+var IsPixelWidgetStyled = styled6(IsPixelWidget_default)`
+  width: ${({ size }) => size}px !important;
+  height: ${({ size }) => size}px !important;
+  border-radius: ${({ type }) => type === "pixel" ? "0" : "50%"};
+  overflow: hidden;
+  ${({ type, style: style10 }) => type === "other" && style10 && css`
+      ${style10}
+    `};
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  &.pixel_flat_btn {
+    img {
+      width: 75%;
+      height: 75%;
+    }
+  }
+  .pixel_flat_btn_bg > div {
+    ${({ type, style: style10 }) => type === "pixel" && style10 && css`
+        ${style10}
+      `};
+  }
+`;
+var Avatar = ({
+  src: src6,
+  altText,
+  style: style10 = {},
+  size = 64,
+  type = "other"
+}) => {
+  return /* @__PURE__ */ React32.createElement(IsPixelWidgetStyled, {
+    type,
+    size,
+    style: style10
+  }, /* @__PURE__ */ React32.createElement("img", {
+    src: src6,
+    alt: altText
+  }));
+};
+var Avatar_default = Avatar;
+
+// src/components/PlayerAvatar/index.tsx
+var PlayerAvatar = ({
+  account,
+  showAccount = false,
+  size = 60,
+  border = false,
+  AvatarBorder = React33.Fragment,
+  AccountTextFrComp = React33.Fragment,
+  className,
+  preLen,
+  endLen,
+  otherStr,
+  type = "other"
+}) => {
+  const { t } = useCustomTranslation([LngNs.zBingo]);
+  const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
+  return /* @__PURE__ */ React33.createElement("div", {
+    className: cx(className, "player_playerAvatar")
+  }, account ? /* @__PURE__ */ React33.createElement(AvatarBorder, null, /* @__PURE__ */ React33.createElement(Avatar_default, {
+    type,
+    size,
+    src: selectedAvatar,
+    style: border ? {
+      background: selectedBackground,
+      border: "2px solid #62380C"
+    } : { background: selectedBackground }
+  })) : /* @__PURE__ */ React33.createElement("div", {
+    className: "player_avatar",
+    style: {
+      width: `${size}px`,
+      height: `${size}px`,
+      overflow: "hidden",
+      background: "rgba(138, 138, 138, 1)"
+    }
+  }, /* @__PURE__ */ React33.createElement(Avatar_default, {
+    size,
+    src: preStaticUrl + `/img/default_avatar.png`
+  })), showAccount && /* @__PURE__ */ React33.createElement("p", {
+    className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
+  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : t("waiting"), /* @__PURE__ */ React33.createElement(AccountTextFrComp, null)));
+};
+var OuterCircle = styled7.div`
+  background: ${({ isGrey, isGreen }) => {
+  if (isGreen) {
+    return "linear-gradient(180deg, #8FCA3A 0%, #59B11C 32.81%, #259900 100%)";
+  }
+  if (isGrey) {
+    return "linear-gradient(180deg, #ddd 0%, #434343 100%)";
+  }
+  return "linear-gradient(180deg, #F1A541 0%, #D48A2B 45.31%, #9F5A03 100%)";
+}};
+  border-radius: 50%;
+  position: relative;
+  ${({ winner }) => winner && `&::after {
+    content: '';
+    position: absolute;
+    top: -14px;
+    right: -5px;
+    width: 27px;
+    height: 25px;
+    background: url(${preStaticUrl}/img/layout/crown.svg) no-repeat;
+  }`}
+
+  padding: 1.875px;
+  ${({ size }) => {
+  if (size === "small") {
+    return ` width: 40px;
+    height: 40px;`;
+  } else if (size === "large") {
+    return ` width: 64px;
+    height: 64px;
+    padding: 3px;`;
+  } else if (size) {
+    return ` width: ${size}px;
+    height: ${size}px;`;
+  } else {
+    return `
+          width: 48px;
+          height: 48px;
+        `;
+  }
+}}
+
+  .center-circle {
+    background: ${({ isGrey, isGreen }) => {
+  if (isGreen) {
+    return "linear-gradient(180deg, #289B02 0%, #65B724 29.17%, #8CC939 100%)";
+  }
+  if (isGrey) {
+    return "linear-gradient(180deg, #494949 0%, #d9d9d9 100%)";
+  }
+  return "linear-gradient(180deg, #AE6306 0%, #D68B2B 29.69%, #E79B3B 100%)";
+}};
+    border-radius: 50%;
+    padding: ${({ size }) => {
+  if (size == "large") {
+    return "2px";
+  }
+  return "1.25px";
+}};
+    width: 100%;
+    height: 100%;
+    .inner-circle {
+      background: #613c17;
+      box-shadow: ${({ size }) => {
+  if (size == "large") {
+    return "0px 2px 0px 0px rgba(0, 0, 0, 0.25) inset";
+  }
+  return "0px 1.25px 0px 0px rgba(0, 0, 0, 0.25) inset";
+}};
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      img {
+        border-radius: 50%;
+        box-shadow: ${({ size }) => {
+  if (size == "large") {
+    return "0px 2px 0px 0px rgba(0, 0, 0, 0.25) inset";
+  }
+  return "0px 1.25px 0px 0px rgba(0, 0, 0, 0.25) inset";
+}};
+      }
+    }
+  }
+`;
+var PlayerAvatarList = ({
+  account,
+  size,
+  isGreen = false,
+  isGrey = false,
+  winner
+}) => {
+  const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
+  return /* @__PURE__ */ React33.createElement(OuterCircle, {
+    size,
+    isGreen,
+    isGrey,
+    winner
+  }, /* @__PURE__ */ React33.createElement("div", {
+    className: "center-circle "
+  }, /* @__PURE__ */ React33.createElement("div", {
+    className: "inner-circle"
+  }, account ? /* @__PURE__ */ React33.createElement("img", {
+    width: "100%",
+    src: selectedAvatar,
+    style: { background: selectedBackground }
+  }) : /* @__PURE__ */ React33.createElement("img", {
+    width: "100%",
+    src: preStaticUrl + `/img/default_avatar.png`
+  }))));
+};
+var PlayerAvatar_default = PlayerAvatar;
+
+// src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
+import classnames10 from "classnames";
+import React37, { memo as memo27, useCallback as useCallback15, useEffect as useEffect11, useState as useState9 } from "react";
+import { useRecoilState as useRecoilState10 } from "recoil";
+
+// src/hooks/useActiveWallet.ts
+import { useMemo as useMemo9 } from "react";
+
+// src/rainbowkit/src/wallets/useWalletConnectors.ts
+import { useConnect } from "wagmi";
+
+// src/rainbowkit/src/utils/flatten.ts
+function flatten(array) {
+  const flattenedItems = [];
+  for (const items of array) {
+    flattenedItems.push(...items);
+  }
+  return flattenedItems;
+}
+
+// src/rainbowkit/src/utils/indexBy.ts
+function indexBy(items, getKey) {
+  const indexedItems = {};
+  items.forEach((item) => {
+    const key = getKey(item);
+    if (!key) {
+      return;
+    }
+    indexedItems[key] = item;
+  });
+  return indexedItems;
+}
+
+// src/rainbowkit/src/utils/isNotNullish.ts
+function isNotNullish(value) {
+  return value != null;
+}
+
+// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
+import React34, { createContext as createContext2, useContext as useContext2, useMemo as useMemo8 } from "react";
+
+// src/rainbowkit/src/components/RainbowKitProvider/provideRainbowKitChains.ts
+var arbitrumIcon = {
+  iconBackground: "#96bedc",
+  iconUrl: async () => (await import("./arbitrum-7Z5RMUIY.js")).default
+};
+var comboIcon = {
+  iconBackground: "transparent",
+  iconUrl: async () => (await import("./combo-ZH2QNSNA.js")).default
+};
+var mantaIcon = {
+  iconBackground: "#000",
+  iconUrl: async () => (await import("./manta-DBSOIVWO.js")).default
+};
+var mantleIcon = {
+  iconBackground: "#000",
+  iconUrl: async () => (await import("./mantle-4MNSB3XO.js")).default
+};
+var avalancheIcon = {
+  iconBackground: "#e84141",
+  iconUrl: async () => (await import("./avalanche-SZDGTLVO.js")).default
+};
+var baseIcon = {
+  iconBackground: "#0052ff",
+  iconUrl: async () => (await import("./base-RERJ7KTI.js")).default
+};
+var bscIcon = {
+  iconBackground: "#ebac0e",
+  iconUrl: async () => (await import("./bsc-OPQDDJCD.js")).default
+};
+var cronosIcon = {
+  iconBackground: "#002D74",
+  iconUrl: async () => (await import("./cronos-QOXA3DWW.js")).default
+};
+var ethereumIcon = {
+  iconBackground: "#484c50",
+  iconUrl: async () => (await import("./ethereum-VMNZL6AX.js")).default
+};
+var hardhatIcon = {
+  iconBackground: "#f9f7ec",
+  iconUrl: async () => (await import("./hardhat-QKZDMVWX.js")).default
+};
+var optimismIcon = {
+  iconBackground: "#ff5a57",
+  iconUrl: async () => (await import("./optimism-DRZRCXRT.js")).default
+};
+var polygonIcon = {
+  iconBackground: "#9f71ec",
+  iconUrl: async () => (await import("./polygon-X4XLCKFF.js")).default
+};
+var zoraIcon = {
+  iconBackground: "#000000",
+  iconUrl: async () => (await import("./zora-WC6ITYKX.js")).default
+};
+var lineaIcon = {
+  iconBackground: "#000",
+  iconUrl: async () => (await import("./linea-GLBETBIC.js")).default
+};
+var lineaTestIcon = {
+  iconBackground: "#4BDCFD",
+  iconUrl: async () => (await import("./linea_test-MQQDFOFK.js")).default
+};
+var GSCIcon = {
+  iconBackground: "#10253E",
+  iconUrl: async () => (await import("./gsc-ECF4RIDP.js")).default
+};
+var ScrollIcon = {
+  iconBackground: "#10253E",
+  iconUrl: async () => (await import("./scroll-DTF4ZONL.js")).default
+};
+var chainMetadataByName = {
+  arbitrum: { chainId: 42161, name: "Arbitrum", ...arbitrumIcon },
+  arbitrumGoerli: { chainId: 421613, ...arbitrumIcon },
+  avalanche: { chainId: 43114, ...avalancheIcon },
+  avalancheFuji: { chainId: 43113, ...avalancheIcon },
+  base: { chainId: 8453, ...baseIcon },
+  baseGoerli: { chainId: 84531, ...baseIcon },
+  bsc: { chainId: 56, name: "BSC", ...bscIcon },
+  bscTestnet: { chainId: 97, ...bscIcon },
+  cronos: { chainId: 25, ...cronosIcon },
+  cronosTestnet: { chainId: 338, ...cronosIcon },
+  goerli: { chainId: 5, ...ethereumIcon },
+  hardhat: { chainId: 31337, ...hardhatIcon },
+  kovan: { chainId: 42, ...ethereumIcon },
+  localhost: { chainId: 1337, ...ethereumIcon },
+  mainnet: { chainId: 1, ...ethereumIcon },
+  optimism: { chainId: 10, name: "Optimism", ...optimismIcon },
+  optimismGoerli: { chainId: 420, ...optimismIcon },
+  optimismKovan: { chainId: 69, ...optimismIcon },
+  polygon: { chainId: 137, ...polygonIcon },
+  polygonMumbai: { chainId: 80001, ...polygonIcon },
+  rinkeby: { chainId: 4, ...ethereumIcon },
+  ropsten: { chainId: 3, ...ethereumIcon },
+  sepolia: { chainId: 11155111, ...ethereumIcon },
+  zora: { chainId: 7777777, ...zoraIcon },
+  zoraTestnet: { chainId: 999, ...zoraIcon },
+  lineaMainnet: { chainId: 59144, ...lineaIcon },
+  lineaTestnet: { chainId: 59140, ...lineaTestIcon },
+  opBNBMainnet: { chainId: 204, ...bscIcon },
+  opBNBTestnet: { chainId: 5611, ...bscIcon },
+  polygonZkEVMTestnet: { chainId: 1442, ...polygonIcon },
+  GSCTestnet: { chainId: 1205, ...GSCIcon },
+  scrollSepolia: { chainId: 534351, ...ScrollIcon },
+  MantaPacificMainnet: { chainId: 169, ...mantaIcon },
+  MantaPacificTestnet: { chainId: 3441005, ...mantaIcon },
+  Combo: { chainId: 9980, ...comboIcon },
+  ComboTestnet: { chainId: 91715, ...comboIcon },
+  Mantle: { chainId: 5e3, ...mantleIcon },
+  MantleTestnet: { chainId: 5001, ...mantleIcon }
+};
+var chainMetadataById = Object.fromEntries(
+  Object.values(chainMetadataByName).filter(isNotNullish).map(({ chainId, ...metadata }) => [chainId, metadata])
+);
+var provideRainbowKitChains = (chains) => chains.map((chain) => {
+  var _a;
+  return {
+    ...chain,
+    ...(_a = chainMetadataById[chain.id]) != null ? _a : {}
+  };
+});
+
+// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
+var RainbowKitChainContext = createContext2({
+  chains: []
+});
+function RainbowKitChainProvider({ chains, children, initialChain }) {
+  return /* @__PURE__ */ React34.createElement(RainbowKitChainContext.Provider, {
+    value: useMemo8(
+      () => ({
+        chains: provideRainbowKitChains(chains),
+        initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
+      }),
+      [chains, initialChain]
+    )
+  }, children);
+}
+var useRainbowKitChains = () => {
+  return useContext2(RainbowKitChainContext).chains;
+};
+var useInitialChainId = () => useContext2(RainbowKitChainContext).initialChainId;
+var useRainbowKitChainsById = () => {
+  const rainbowkitChains = useRainbowKitChains();
+  return useMemo8(() => {
+    const rainbowkitChainsById = {};
+    rainbowkitChains.forEach((rkChain) => {
+      rainbowkitChainsById[rkChain.id] = rkChain;
+    });
+    return rainbowkitChainsById;
+  }, [rainbowkitChains]);
+};
+
+// src/rainbowkit/src/utils/browsers.ts
+function isSafari() {
+  return typeof navigator !== "undefined" && /Version\/([0-9._]+).*Safari/.test(navigator.userAgent);
+}
+function isArc() {
+  return typeof document !== "undefined" && getComputedStyle(document.body).getPropertyValue("--arc-palette-focus") !== "";
+}
+function getBrowser() {
+  var _a;
+  if (typeof navigator === "undefined")
+    return "Browser" /* Browser */;
+  const ua = navigator.userAgent.toLowerCase();
+  if ((_a = navigator.brave) == null ? void 0 : _a.isBrave)
+    return "Brave" /* Brave */;
+  else if (ua.indexOf("edg/") > -1)
+    return "Edge" /* Edge */;
+  else if (ua.indexOf("op") > -1)
+    return "Opera" /* Opera */;
+  else if (isArc())
+    return "Arc" /* Arc */;
+  else if (ua.indexOf("chrome") > -1)
+    return "Chrome" /* Chrome */;
+  else if (ua.indexOf("firefox") > -1)
+    return "Firefox" /* Firefox */;
+  else if (isSafari())
+    return "Safari" /* Safari */;
+  return "Browser" /* Browser */;
+}
+
+// src/rainbowkit/src/wallets/downloadUrls.ts
+var getExtensionDownloadUrl = (wallet) => {
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
+  const browser = getBrowser();
+  return (_l = {
+    ["Arc" /* Arc */]: (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.chrome,
+    ["Brave" /* Brave */]: (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.chrome,
+    ["Chrome" /* Chrome */]: (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.chrome,
+    ["Edge" /* Edge */]: ((_d = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _d.edge) || ((_e = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _e.chrome),
+    ["Firefox" /* Firefox */]: (_f = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _f.firefox,
+    ["Opera" /* Opera */]: ((_g = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _g.opera) || ((_h = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _h.chrome),
+    ["Safari" /* Safari */]: (_i = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _i.safari,
+    ["Browser" /* Browser */]: (_j = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _j.browserExtension
+  }[browser]) != null ? _l : (_k = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _k.browserExtension;
+};
+var getMobileDownloadUrl = (wallet) => {
+  var _a, _b, _c, _d;
+  const ios = isIOS();
+  return (_d = ios ? (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.ios : (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.android) != null ? _d : (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.mobile;
+};
+
+// src/rainbowkit/src/wallets/recentWalletIds.ts
+var storageKey = "rk-recent";
+function safeParseJsonArray(string) {
+  try {
+    const value = string ? JSON.parse(string) : [];
+    return Array.isArray(value) ? value : [];
+  } catch (err) {
+    return [];
+  }
+}
+function getRecentWalletIds() {
+  return typeof localStorage !== "undefined" ? safeParseJsonArray(localStorage.getItem(storageKey)) : [];
+}
+function dedupe(array) {
+  return [...new Set(array)];
+}
+function addRecentWalletId(walletId) {
+  const newValue = dedupe([walletId, ...getRecentWalletIds()]);
+  localStorage.setItem(storageKey, JSON.stringify(newValue));
+}
+
+// src/rainbowkit/src/wallets/useWalletConnectors.ts
+function useWalletConnectors() {
+  const rainbowKitChains = useRainbowKitChains();
+  const intialChainId = useInitialChainId();
+  const { connectAsync, connectors: defaultConnectors_untyped } = useConnect();
+  const defaultConnectors = defaultConnectors_untyped;
+  async function connectWallet(walletId, connector) {
+    var _a, _b, _c;
+    const walletChainId = await connector.getChainId();
+    const result = await connectAsync({
+      chainId: (_c = intialChainId != null ? intialChainId : (_a = rainbowKitChains.find(({ id }) => id === walletChainId)) == null ? void 0 : _a.id) != null ? _c : (_b = rainbowKitChains[0]) == null ? void 0 : _b.id,
+      connector
+    });
+    if (result) {
+      addRecentWalletId(walletId);
+    }
+    return result;
+  }
+  async function connectToWalletConnectModal(walletId, walletConnectModalConnector) {
+    try {
+      return await connectWallet(walletId, walletConnectModalConnector);
+    } catch (err) {
+      const isUserRejection = err.name === "UserRejectedRequestError" || err.message === "Connection request reset. Please try again.";
+      if (!isUserRejection) {
+        throw err;
+      }
+    }
+  }
+  const walletInstances = flatten(
+    defaultConnectors.map((connector) => {
+      var _a;
+      return (_a = connector._wallets) != null ? _a : [];
+    })
+  ).sort((a2, b) => a2.index - b.index);
+  const walletInstanceById = indexBy(
+    walletInstances,
+    (walletInstance) => walletInstance.id
+  );
+  const MAX_RECENT_WALLETS = 3;
+  const recentWallets = getRecentWalletIds().map((walletId) => walletInstanceById[walletId]).filter(isNotNullish).slice(0, MAX_RECENT_WALLETS);
+  const groupedWallets = [
+    ...recentWallets,
+    ...walletInstances.filter(
+      (walletInstance) => !recentWallets.includes(walletInstance)
+    )
+  ];
+  const walletConnectors = [];
+  groupedWallets.forEach((wallet) => {
+    var _a;
+    if (!wallet) {
+      return;
+    }
+    const recent = recentWallets.includes(wallet);
+    walletConnectors.push({
+      ...wallet,
+      connect: () => wallet.connector.showQrModal ? connectToWalletConnectModal(wallet.id, wallet.connector) : connectWallet(wallet.id, wallet.connector),
+      extensionDownloadUrl: getExtensionDownloadUrl(wallet),
+      groupName: wallet.groupName,
+      mobileDownloadUrl: getMobileDownloadUrl(wallet),
+      onConnecting: (fn) => wallet.connector.on(
+        "message",
+        ({ type }) => type === "connecting" ? fn() : void 0
+      ),
+      ready: ((_a = wallet.installed) != null ? _a : true) && wallet.connector.ready,
+      recent,
+      showWalletConnectModal: wallet.walletConnectModalConnector ? () => connectToWalletConnectModal(
+        wallet.id,
+        wallet.walletConnectModalConnector
+      ) : void 0
+    });
+  });
+  return walletConnectors;
+}
+
+// src/hooks/useActiveWallet.ts
+var useActiveWallet = () => {
+  const wallets = useWalletConnectors();
+  return useMemo9(() => {
+    if (wallets) {
+      const wall = wallets.filter((v) => v.ready && v.recent);
+      return wall == null ? void 0 : wall[0];
+    }
+    return void 0;
+  }, [wallets]);
+};
+
+// src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
+import classnames9 from "classnames";
+import React36, { memo as memo26, useMemo as useMemo10 } from "react";
+
+// src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
+import React35, { memo as memo25 } from "react";
+
+// src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
+import { useEffect as useEffect10, useReducer } from "react";
+var cachedUrls = /* @__PURE__ */ new Map();
+var cachedRequestPromises = /* @__PURE__ */ new Map();
+async function loadAsyncImage(asyncImage) {
+  const cachedRequestPromise = cachedRequestPromises.get(asyncImage);
+  if (cachedRequestPromise) {
+    return cachedRequestPromise;
+  }
+  const load = async () => asyncImage().then(async (url) => {
+    cachedUrls.set(asyncImage, url);
+    return url;
+  });
+  const requestPromise = load().catch((_err) => {
+    return load().catch((_err2) => {
+      cachedRequestPromises.delete(asyncImage);
+    });
+  });
+  cachedRequestPromises.set(asyncImage, requestPromise);
+  return requestPromise;
+}
+async function loadImages(...urls) {
+  return await Promise.all(
+    urls.map((url) => typeof url === "function" ? loadAsyncImage(url) : url)
+  );
+}
+function useForceUpdate() {
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  return forceUpdate;
+}
+function useAsyncImage(url) {
+  const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
+  const forceUpdate = useForceUpdate();
+  useEffect10(() => {
+    if (typeof url === "function" && !cachedUrl) {
+      loadAsyncImage(url).then(forceUpdate);
+    }
+  }, [url, cachedUrl, forceUpdate]);
+  return typeof url === "function" ? cachedUrl : url;
+}
+
+// src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
+var PcUserInfo = memo25(
+  ({
+    connectName,
+    connectIcon,
+    account,
+    chainId,
+    cancel,
+    copy
+  }) => {
+    var _a;
+    const { t } = useCustomTranslation([LngNs.common]);
+    const src6 = useAsyncImage(connectIcon);
+    return /* @__PURE__ */ React35.createElement("div", {
+      className: "pc_user_pc_content"
+    }, /* @__PURE__ */ React35.createElement("div", {
+      className: "pc_user_box"
+    }, /* @__PURE__ */ React35.createElement("div", {
+      className: "pc_user_tit"
+    }, t(
+      "Connected with",
+      {
+        walletName: connectName
+      }
+    )), /* @__PURE__ */ React35.createElement("div", {
+      className: "pc_user_info"
+    }, connectIcon && /* @__PURE__ */ React35.createElement("img", {
+      src: src6,
+      alt: connectName
+    }), /* @__PURE__ */ React35.createElement("div", {
+      className: "pc_user_text"
+    }, getShortenAddress(account)), /* @__PURE__ */ React35.createElement("span", {
+      onClick: () => copy(account)
+    }, /* @__PURE__ */ React35.createElement(icons_default, {
+      name: "copy"
+    })), BlockExplorerUrls[chainId] && /* @__PURE__ */ React35.createElement("a", {
+      href: `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React35.createElement(icons_default, {
+      name: "link"
+    })))), /* @__PURE__ */ React35.createElement(DisconnectBtn, {
+      cancel
+    }));
+  },
+  isEqual
+);
+var DisconnectBtn = memo25(({ cancel }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
+  return /* @__PURE__ */ React35.createElement("p", {
+    className: "pc_user_disconnect_btn",
+    onClick: cancel
+  }, t("Disconnect"));
+}, isEqual);
+var PcUserInfo_default = PcUserInfo;
+
+// src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
+var MUserInfo = memo26(({ account, chainId, cancel, type }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
+  const nativeBalanceStr = useNativeBalanceStr();
+  const pointsBalanceStr = usePointsBalanceStr();
+  const isMobile2 = useIsMobile();
+  const list2 = useMemo10(() => {
+    return [
+      {
+        balanceStr: pointsBalanceStr,
+        logo: /* @__PURE__ */ React36.createElement(PointsIcon, {
+          isMobile: isMobile2
+        }),
+        symbol: "Gold Points"
+      },
+      {
+        balanceStr: nativeBalanceStr,
+        logo: /* @__PURE__ */ React36.createElement(CurrencyLogo_default, {
+          className: "m_user_img",
+          src: CurrencyLogo[chainId]
+        }),
+        symbol: Currency[chainId]
+      }
+    ];
+  }, []);
+  return /* @__PURE__ */ React36.createElement("div", {
+    className: "m_user_m_content"
+  }, /* @__PURE__ */ React36.createElement(ChainSelectorWidget_default, {
+    type,
+    className: classnames9("m_user_border", "m_user_chain")
+  }), /* @__PURE__ */ React36.createElement("div", {
+    className: "m_user_border"
+  }, /* @__PURE__ */ React36.createElement("p", {
+    className: "m_user_tit"
+  }, t("Your Wallet")), /* @__PURE__ */ React36.createElement("div", {
+    className: "m_user_userInfoInner"
+  }, /* @__PURE__ */ React36.createElement(PlayerAvatar_default, {
+    className: "m_user_account",
+    account,
+    size: 24,
+    showAccount: true
+  }), /* @__PURE__ */ React36.createElement(DisconnectBtn, {
+    cancel
+  })), /* @__PURE__ */ React36.createElement("div", {
+    className: "m_user_balance"
+  }, list2.map((v) => /* @__PURE__ */ React36.createElement("div", {
+    key: v.symbol,
+    className: "m_user_item"
+  }, /* @__PURE__ */ React36.createElement("div", {
+    className: "m_user_fl"
+  }, v.logo, /* @__PURE__ */ React36.createElement("p", null, v.symbol)), /* @__PURE__ */ React36.createElement("p", null, v.balanceStr))))));
+}, isEqual);
+var MUserInfo_default = MUserInfo;
+
+// src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
+import { useDisconnect } from "wagmi";
+var AccountInfoDialog = memo27(
+  ({ copy, type }) => {
+    const { t } = useCustomTranslation([LngNs.common]);
+    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState10(
+      accountInfoDialogState
+    );
+    const { account, chainId } = useActiveWeb3React();
+    const isMobile2 = useIsMd1100();
+    const { disconnect } = useDisconnect();
+    const wallet = useActiveWallet();
+    const cancel = useCallback15(() => {
+      setAccountInfoDialogOpen(false);
+      disconnect();
+    }, [disconnect]);
+    useEffect11(() => {
+      if (accountInfoDialogOpen && isMobile2) {
+        setAccountInfoDialogOpen(false);
+      }
+    }, [isMobile2]);
+    return account && chainId ? /* @__PURE__ */ React37.createElement(React37.Fragment, null, /* @__PURE__ */ React37.createElement(Modal_default, {
+      open: accountInfoDialogOpen,
+      onCancel: () => setAccountInfoDialogOpen(false),
+      footer: null,
+      wrapClassName: classnames10(
+        "customDialog",
+        "bottom",
+        "account_info_dialog_dialog"
+      ),
+      destroyOnClose: true,
+      closable: false,
+      width: isMobile2 ? "100%" : 440,
+      centered: isMobile2 ? false : true,
+      transitionName: isMobile2 ? "ant-slide-down" : void 0
+    }, /* @__PURE__ */ React37.createElement(DialogTitle_default, {
+      label: t("Your Wallet"),
+      setDialogOpen: setAccountInfoDialogOpen,
+      classNames: isMobile2 ? "modalTitleInner" : ""
+    }), /* @__PURE__ */ React37.createElement("div", {
+      className: "account_info_dialog_modalMain"
+    }, isMobile2 ? /* @__PURE__ */ React37.createElement(MUserInfo_default, {
+      copy,
+      account,
+      chainId,
+      cancel,
+      type: "other"
+    }) : /* @__PURE__ */ React37.createElement(PcUserInfo_default, {
+      copy,
+      account,
+      chainId,
+      cancel,
+      connectName: wallet == null ? void 0 : wallet.name,
+      connectIcon: wallet == null ? void 0 : wallet.iconUrl,
+      type
+    })))) : null;
+  }
+);
+var AddressWrapPop = memo27(
+  ({ copy }) => {
+    const [index, setIndex] = useState9();
+    const { account, chainId } = useActiveWeb3React();
+    const { disconnect } = useDisconnect();
+    const [, setAccountInfoDialogOpen] = useRecoilState10(accountInfoDialogState);
+    useEffect11(() => {
+      if (index || index === 0) {
+        setTimeout(() => {
+          setIndex(void 0);
+        }, 2e3);
+      }
+    }, [index]);
+    const copyAddressHandle = useCallback15(() => {
+      copy(account);
+      setIndex(0);
+    }, [account]);
+    const openHandle = useCallback15(() => {
+      var _a;
+      window.open(
+        `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
+        "_blank"
+      );
+      setIndex(1);
+    }, [account, chainId]);
+    const cancelHandle = useCallback15(() => {
+      setAccountInfoDialogOpen(false);
+      disconnect();
+      setIndex(2);
+    }, [disconnect]);
+    return /* @__PURE__ */ React37.createElement(PixelBorderCard, {
+      className: "address_wrap_pop",
+      pixel_height: 4,
+      backgroundColor: "#1D263B",
+      borderColor: "#3A4254"
+    }, /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+      iconName: "pixel_copy",
+      label: "Copy address",
+      onClick: copyAddressHandle,
+      on: index === 0
+    }), /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+      iconName: "pixel_blackchain",
+      label: "Blackchain Explorer",
+      onClick: openHandle,
+      on: index === 1
+    }), /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+      iconName: "pixel_disconnect",
+      label: "Disconnect",
+      onClick: cancelHandle,
+      on: index === 2
+    }));
+  }
+);
+var AddressWrapPopItem = memo27(
+  ({
+    iconName,
+    label,
+    onClick,
+    on
+  }) => {
+    return /* @__PURE__ */ React37.createElement(PixelCube2, {
+      className: `address_wrap_pop_item ${on ? "on" : ""}`,
+      onClick,
+      pixel_height: 3,
+      backgroundColor: "#1D263B",
+      borderColor: "#1D263B",
+      width: "100%",
+      height: "36px"
+    }, /* @__PURE__ */ React37.createElement(icons_default, {
+      name: iconName
+    }), /* @__PURE__ */ React37.createElement("p", null, label));
+  }
+);
+var AccountInfoDialog_default = AccountInfoDialog;
+
+// src/components/Header/rainbow_account/rainbow_account.tsx
+var Account = memo28(
+  ({
+    showLang,
+    env,
+    dispatch,
+    setSuccessToast,
+    setErrorToast,
+    copy,
+    CountupNumber,
+    supportedChainList,
+    type
+  }) => {
+    const isMobile2 = useIsMd1100();
+    const setPointsDialogState = useSetRecoilState8(pointsDialogState);
+    const showPointsModal = useCallback16(() => {
+      setPointsDialogState(true);
+    }, [setPointsDialogState]);
+    const setAccountInfoDialogState = useSetRecoilState8(accountInfoDialogState);
+    const showLogoutModal = useCallback16(() => {
+      setAccountInfoDialogState(true);
+    }, [setAccountInfoDialogState]);
+    const { account } = useActiveWeb3React(env, supportedChainList);
+    return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
+      CountupNumber,
+      env,
+      isMobile: isMobile2,
+      showPointsModal,
+      type
+    }), /* @__PURE__ */ React38.createElement(IsPixelWidget_default, {
+      type,
+      className: "address_wrap",
+      onClick: showLogoutModal
+    }, /* @__PURE__ */ React38.createElement(PlayerAvatar_default, {
+      className: "account",
+      account,
+      size: isMobile2 ? 26 : 40,
+      showAccount: isMobile2 ? false : true,
+      type
+    }), type === "pixel" ? /* @__PURE__ */ React38.createElement(AddressWrapPop, {
+      copy,
+      type
+    }) : null), !isMobile2 && /* @__PURE__ */ React38.createElement(ChainSelectorWidget_default, {
+      type
+    }), type !== "pixel" ? /* @__PURE__ */ React38.createElement(AccountInfoDialog_default, {
+      copy,
+      type
+    }) : null, /* @__PURE__ */ React38.createElement(PointsDialog_default, {
+      env,
+      dispatch,
+      setSuccessToast,
+      setErrorToast
+    }), /* @__PURE__ */ React38.createElement(PointsRuleDialog_default, null));
+  },
+  isEqual
+);
+var rainbow_account_default = Account;
+
+// src/components/Header/rainbow_account/WrongNetwork.tsx
+import React88, { memo as memo29 } from "react";
+import { useSetRecoilState as useSetRecoilState10 } from "recoil";
+
+// src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
+import React87, {
+  createContext as createContext11,
+  useCallback as useCallback26,
+  useContext as useContext16,
+  useMemo as useMemo15,
+  useRef as useRef6,
+  useState as useState19
+} from "react";
+import { useAccount as useAccount11, useNetwork as useNetwork7 } from "wagmi";
+
+// src/rainbowkit/src/hooks/useConnectionStatus.ts
+import { useAccount as useAccount3 } from "wagmi";
+
+// src/rainbowkit/src/components/RainbowKitProvider/AuthenticationContext.tsx
+import React39, {
+  createContext as createContext3,
+  useContext as useContext3,
+  useEffect as useEffect12,
+  useMemo as useMemo11,
+  useRef as useRef2
+} from "react";
+import { useAccount as useAccount2 } from "wagmi";
+function createAuthenticationAdapter(adapter) {
+  return adapter;
+}
+var AuthenticationContext = createContext3(
+  null
+);
+function RainbowKitAuthenticationProvider({
+  adapter,
+  children,
+  enabled = true,
+  status
+}) {
+  useAccount2({
+    onDisconnect: () => {
+      adapter.signOut();
+    }
+  });
+  const { isDisconnected } = useAccount2();
+  const onceRef = useRef2(false);
+  useEffect12(() => {
+    if (onceRef.current)
+      return;
+    onceRef.current = true;
+    if (isDisconnected && status === "authenticated") {
+      adapter.signOut();
+    }
+  }, [status, adapter, isDisconnected]);
+  return /* @__PURE__ */ React39.createElement(AuthenticationContext.Provider, {
+    value: useMemo11(
+      () => enabled ? { adapter, status } : null,
+      [enabled, adapter, status]
+    )
+  }, children);
+}
+function useAuthenticationAdapter() {
+  var _a;
+  const { adapter } = (_a = useContext3(AuthenticationContext)) != null ? _a : {};
+  if (!adapter) {
+    throw new Error("No authentication adapter found");
+  }
+  return adapter;
+}
+function useAuthenticationStatus() {
+  var _a;
+  const contextValue = useContext3(AuthenticationContext);
+  return (_a = contextValue == null ? void 0 : contextValue.status) != null ? _a : null;
+}
+
+// src/rainbowkit/src/hooks/useConnectionStatus.ts
+function useConnectionStatus() {
+  const authenticationStatus = useAuthenticationStatus();
+  const { isConnected } = useAccount3();
+  if (!isConnected) {
+    return "disconnected";
+  }
+  if (!authenticationStatus) {
+    return "connected";
+  }
+  if (authenticationStatus === "loading" || authenticationStatus === "unauthenticated") {
+    return authenticationStatus;
+  }
+  return "connected";
+}
+
+// src/rainbowkit/src/components/AccountModal/AccountModal.tsx
+import React67 from "react";
+import { useAccount as useAccount10, useBalance, useDisconnect as useDisconnect3 } from "wagmi";
+
+// src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
+import { useEnsAvatar } from "wagmi";
+
+// src/rainbowkit/src/hooks/useMainnet.ts
+import { usePublicClient as usePublicClient2 } from "wagmi";
+import { mainnet } from "wagmi/chains";
+function useMainnet() {
+  const chainId = mainnet.id;
+  const provider = usePublicClient2();
+  const chains = Array.isArray(provider.chains) ? provider.chains : [];
+  const enabled = chains == null ? void 0 : chains.some((chain) => (chain == null ? void 0 : chain.id) === chainId);
+  return { chainId, enabled };
+}
+
+// src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
+function useMainnetEnsAvatar(name) {
+  const { chainId, enabled } = useMainnet();
+  const { data: ensAvatar } = useEnsAvatar({
+    chainId,
+    enabled,
+    name
+  });
+  return ensAvatar;
+}
+
+// src/rainbowkit/src/hooks/useMainnetEnsName.ts
+import { useEnsName } from "wagmi";
+function useMainnetEnsName(address) {
+  const { chainId, enabled } = useMainnet();
+  const { data: ensName } = useEnsName({
+    address,
+    chainId,
+    enabled
+  });
+  return ensName;
+}
+
+// src/rainbowkit/src/components/Dialog/Dialog.tsx
+import React54, { useCallback as useCallback21, useEffect as useEffect19, useState as useState13 } from "react";
+import { createPortal } from "react-dom";
+import { RemoveScroll } from "react-remove-scroll";
+
+// src/rainbowkit/src/components/Box/Box.ts
+import clsx2 from "clsx";
+import * as React40 from "react";
+
+// src/rainbowkit/src/css/atoms.ts
+import clsx from "clsx";
 
 // src/rainbowkit/src/css/reset.css.ts
 import { style } from "@vanilla-extract/css";
@@ -1258,7 +5977,719 @@ var colorProperties = defineProperties({
 });
 var sprinkles = createSprinkles(colorProperties, responsiveProperties, unresponsiveProperties);
 
+// src/rainbowkit/src/css/atoms.ts
+var atoms = ({ reset, ...rest }) => {
+  if (!reset)
+    return sprinkles(rest);
+  const elementReset = element[reset];
+  const sprinklesClasses = sprinkles(rest);
+  return clsx(base, elementReset, sprinklesClasses);
+};
+
+// src/rainbowkit/src/components/Box/Box.ts
+var Box = React40.forwardRef(
+  ({ as = "div", className, testId, ...props }, ref) => {
+    const atomProps = {};
+    const nativeProps = {};
+    for (const key in props) {
+      if (sprinkles.properties.has(key)) {
+        atomProps[key] = props[key];
+      } else {
+        nativeProps[key] = props[key];
+      }
+    }
+    const atomicClasses = atoms({
+      reset: typeof as === "string" ? as : "div",
+      ...atomProps
+    });
+    return React40.createElement(as, {
+      "className": clsx2(atomicClasses, className),
+      ...nativeProps,
+      "data-testid": testId ? `rk-${testId.replace(/^rk-/, "")}` : void 0,
+      ref
+    });
+  }
+);
+Box.displayName = "Box";
+
+// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider.tsx
+import React52, { createContext as createContext10, useContext as useContext5 } from "react";
+import { useAccount as useAccount6 } from "wagmi";
+
+// src/rainbowkit/src/css/cssObjectFromTheme.ts
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+var resolveThemeVars = (theme) => typeof theme === "function" ? theme() : theme;
+function cssObjectFromTheme(theme, { extends: baseTheme2 } = {}) {
+  const resolvedThemeVars = {
+    ...assignInlineVars(themeVars, resolveThemeVars(theme))
+  };
+  if (!baseTheme2) {
+    return resolvedThemeVars;
+  }
+  const resolvedBaseThemeVars = assignInlineVars(
+    themeVars,
+    resolveThemeVars(baseTheme2)
+  );
+  const filteredVars = Object.fromEntries(
+    Object.entries(resolvedThemeVars).filter(
+      ([varName, value]) => value !== resolvedBaseThemeVars[varName]
+    )
+  );
+  return filteredVars;
+}
+
+// src/rainbowkit/src/css/cssStringFromTheme.ts
+function cssStringFromTheme(theme, options = {}) {
+  return Object.entries(cssObjectFromTheme(theme, options)).map(([key, value]) => `${key}:${value.replace(/[:;{}</>]/g, "")};`).join("");
+}
+
+// src/rainbowkit/src/hooks/useWindowSize.ts
+import { useEffect as useEffect13, useState as useState10 } from "react";
+var useWindowSize2 = () => {
+  const [windowSize, setWindowSize] = useState10({
+    height: void 0,
+    width: void 0
+  });
+  useEffect13(() => {
+    function handleResize() {
+      setWindowSize({
+        height: window.innerHeight,
+        width: window.innerWidth
+      });
+    }
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+  return windowSize;
+};
+
+// src/rainbowkit/src/themes/baseTheme.ts
+var systemFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+var fontStacks = {
+  Pixel: `PixeloidSans`,
+  rounded: `SFRounded, ui-rounded, "SF Pro Rounded", ${systemFontStack}`,
+  system: systemFontStack
+};
+var radiusScales = {
+  large: {
+    actionButton: "9999px",
+    connectButton: "12px",
+    modal: "24px",
+    modalMobile: "28px"
+  },
+  medium: {
+    actionButton: "10px",
+    connectButton: "8px",
+    modal: "16px",
+    modalMobile: "18px"
+  },
+  none: {
+    actionButton: "0px",
+    connectButton: "0px",
+    modal: "0px",
+    modalMobile: "0px"
+  },
+  small: {
+    actionButton: "4px",
+    connectButton: "4px",
+    modal: "8px",
+    modalMobile: "8px"
+  }
+};
+var blurs = {
+  large: {
+    modalOverlay: "blur(20px)"
+  },
+  none: {
+    modalOverlay: "blur(0px)"
+  },
+  small: {
+    modalOverlay: "blur(4px)"
+  }
+};
+var baseTheme = ({
+  borderRadius = "large",
+  fontStack = "rounded",
+  overlayBlur = "none"
+}) => ({
+  blurs: {
+    modalOverlay: blurs[overlayBlur].modalOverlay
+  },
+  fonts: {
+    body: fontStacks[fontStack]
+  },
+  radii: {
+    actionButton: radiusScales[borderRadius].actionButton,
+    connectButton: radiusScales[borderRadius].connectButton,
+    menuButton: radiusScales[borderRadius].connectButton,
+    modal: radiusScales[borderRadius].modal,
+    modalMobile: radiusScales[borderRadius].modalMobile
+  }
+});
+
+// src/rainbowkit/src/themes/lightTheme.ts
+var accentColors = {
+  blue: { accentColor: "#0E76FD", accentColorForeground: "#FFF" },
+  green: { accentColor: "#1DB847", accentColorForeground: "#FFF" },
+  orange: { accentColor: "#FF801F", accentColorForeground: "#FFF" },
+  pink: { accentColor: "#FF5CA0", accentColorForeground: "#FFF" },
+  purple: { accentColor: "#5F5AFA", accentColorForeground: "#FFF" },
+  red: { accentColor: "#FA423C", accentColorForeground: "#FFF" }
+};
+var defaultAccentColor = accentColors.blue;
+var lightTheme = ({
+  accentColor = defaultAccentColor.accentColor,
+  accentColorForeground = defaultAccentColor.accentColorForeground,
+  ...baseThemeOptions
+} = {}) => ({
+  ...baseTheme(baseThemeOptions),
+  colors: {
+    accentColor,
+    accentColorForeground,
+    actionButtonBorder: "rgba(0, 0, 0, 0.04)",
+    actionButtonBorderMobile: "rgba(0, 0, 0, 0.06)",
+    actionButtonSecondaryBackground: "rgba(0, 0, 0, 0.06)",
+    closeButton: "rgba(60, 66, 66, 0.8)",
+    closeButtonBackground: "rgba(0, 0, 0, 0.06)",
+    connectButtonBackground: "#FFF",
+    connectButtonBackgroundError: "#FF494A",
+    connectButtonInnerBackground: "linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.06))",
+    connectButtonText: "#25292E",
+    connectButtonTextError: "#FFF",
+    connectionIndicator: "#65EDBC",
+    connectionIndicatorBorder: "#2a443a",
+    downloadBottomCardBackground: "linear-gradient(126deg, rgba(255, 255, 255, 0) 9.49%, rgba(171, 171, 171, 0.04) 71.04%), #FFFFFF",
+    downloadTopCardBackground: "linear-gradient(126deg, rgba(171, 171, 171, 0.2) 9.49%, rgba(255, 255, 255, 0) 71.04%), #FFFFFF",
+    error: "#FF494A",
+    generalBorder: "rgba(0, 0, 0, 0.06)",
+    generalBorderDim: "rgba(0, 0, 0, 0.03)",
+    menuItemBackground: "rgba(60, 66, 66, 0.1)",
+    modalBackdrop: "rgba(0, 0, 0, 0.3)",
+    modalBackground: "#FFF",
+    modalBorder: "transparent",
+    modalText: "#25292E",
+    modalTextDim: "rgba(60, 66, 66, 0.3)",
+    modalTextSecondary: "rgba(60, 66, 66, 0.6)",
+    profileAction: "#FFF",
+    profileActionHover: "rgba(255, 255, 255, 0.5)",
+    profileForeground: "rgba(60, 66, 66, 0.06)",
+    selectedOptionBorder: "rgba(60, 66, 66, 0.1)",
+    standby: "#FFD641",
+    standbyBorder: "#5c5847"
+  },
+  shadows: {
+    connectButton: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+    dialog: "0px 8px 32px rgba(0, 0, 0, 0.32)",
+    profileDetailsAction: "0px 2px 6px rgba(37, 41, 46, 0.04)",
+    selectedOption: "0px 2px 6px rgba(0, 0, 0, 0.24)",
+    selectedWallet: "0px 2px 6px rgba(0, 0, 0, 0.12)",
+    walletLogo: "0px 2px 16px rgba(0, 0, 0, 0.16)"
+  }
+});
+lightTheme.accentColors = accentColors;
+
+// src/rainbowkit/src/transactions/TransactionStoreContext.tsx
+import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect14, useState as useState11 } from "react";
+import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
+
+// src/rainbowkit/src/transactions/transactionStore.ts
+var storageKey2 = "rk-transactions";
+function safeParseJsonData(string) {
+  try {
+    const value = string ? JSON.parse(string) : {};
+    return typeof value === "object" ? value : {};
+  } catch (err) {
+    return {};
+  }
+}
+function loadData() {
+  return safeParseJsonData(
+    typeof localStorage !== "undefined" ? localStorage.getItem(storageKey2) : null
+  );
+}
+var transactionHashRegex = /^0x([A-Fa-f0-9]{64})$/;
+function validateTransaction(transaction) {
+  const errors = [];
+  if (!transactionHashRegex.test(transaction.hash)) {
+    errors.push("Invalid transaction hash");
+  }
+  if (typeof transaction.description !== "string") {
+    errors.push("Transaction must have a description");
+  }
+  if (typeof transaction.confirmations !== "undefined" && (!Number.isInteger(transaction.confirmations) || transaction.confirmations < 1)) {
+    errors.push("Transaction confirmations must be a positiver integer");
+  }
+  return errors;
+}
+function createTransactionStore({
+  provider: initialProvider
+}) {
+  let data = loadData();
+  let provider = initialProvider;
+  const listeners = /* @__PURE__ */ new Set();
+  const transactionRequestCache = /* @__PURE__ */ new Map();
+  function setProvider2(newProvider) {
+    provider = newProvider;
+  }
+  function getTransactions(account, chainId) {
+    var _a, _b;
+    return (_b = (_a = data[account]) == null ? void 0 : _a[chainId]) != null ? _b : [];
+  }
+  function addTransaction(account, chainId, transaction) {
+    const errors = validateTransaction(transaction);
+    if (errors.length > 0) {
+      throw new Error(["Unable to add transaction", ...errors].join("\n"));
+    }
+    updateTransactions(account, chainId, (transactions) => {
+      return [
+        { ...transaction, status: "pending" },
+        ...transactions.filter(({ hash }) => {
+          return hash !== transaction.hash;
+        })
+      ];
+    });
+  }
+  function clearTransactions(account, chainId) {
+    updateTransactions(account, chainId, () => {
+      return [];
+    });
+  }
+  function setTransactionStatus(account, chainId, hash, status) {
+    updateTransactions(account, chainId, (transactions) => {
+      return transactions.map(
+        (transaction) => transaction.hash === hash ? { ...transaction, status } : transaction
+      );
+    });
+  }
+  async function waitForPendingTransactions(account, chainId) {
+    await Promise.all(
+      getTransactions(account, chainId).filter((transaction) => transaction.status === "pending").map(async (transaction) => {
+        const { confirmations, hash } = transaction;
+        const existingRequest = transactionRequestCache.get(hash);
+        if (existingRequest) {
+          return await existingRequest;
+        }
+        const requestPromise = provider.waitForTransactionReceipt({ confirmations, hash }).then(({ status }) => {
+          transactionRequestCache.delete(hash);
+          if (status === void 0) {
+            return;
+          }
+          setTransactionStatus(
+            account,
+            chainId,
+            hash,
+            status === 0 || status === "reverted" ? "failed" : "confirmed"
+          );
+        });
+        transactionRequestCache.set(hash, requestPromise);
+        return await requestPromise;
+      })
+    );
+  }
+  function updateTransactions(account, chainId, updateFn) {
+    var _a, _b;
+    data = loadData();
+    data[account] = (_a = data[account]) != null ? _a : {};
+    let completedTransactionCount = 0;
+    const MAX_COMPLETED_TRANSACTIONS = 10;
+    const transactions = updateFn((_b = data[account][chainId]) != null ? _b : []).filter(({ status }) => {
+      return status === "pending" ? true : completedTransactionCount++ <= MAX_COMPLETED_TRANSACTIONS;
+    });
+    data[account][chainId] = transactions.length > 0 ? transactions : void 0;
+    persistData();
+    notifyListeners();
+    waitForPendingTransactions(account, chainId);
+  }
+  function persistData() {
+    localStorage.setItem(storageKey2, JSON.stringify(data));
+  }
+  function notifyListeners() {
+    listeners.forEach((listener) => listener());
+  }
+  function onChange(fn) {
+    listeners.add(fn);
+    return () => {
+      listeners.delete(fn);
+    };
+  }
+  return {
+    addTransaction,
+    clearTransactions,
+    getTransactions,
+    onChange,
+    setProvider: setProvider2,
+    waitForPendingTransactions
+  };
+}
+
+// src/rainbowkit/src/transactions/TransactionStoreContext.tsx
+var storeSingleton;
+var TransactionStoreContext = createContext4(null);
+function TransactionStoreProvider({ children }) {
+  const provider = usePublicClient3();
+  const { address } = useAccount4();
+  const chainId = useChainId();
+  const [store] = useState11(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
+  useEffect14(() => {
+    store.setProvider(provider);
+  }, [store, provider]);
+  useEffect14(() => {
+    if (address && chainId) {
+      store.waitForPendingTransactions(address, chainId);
+    }
+  }, [store, address, chainId]);
+  return /* @__PURE__ */ React41.createElement(TransactionStoreContext.Provider, {
+    value: store
+  }, children);
+}
+function useTransactionStore() {
+  const store = useContext4(TransactionStoreContext);
+  if (!store) {
+    throw new Error("Transaction hooks must be used within RainbowKitProvider");
+  }
+  return store;
+}
+
+// src/rainbowkit/src/components/RainbowKitProvider/AppContext.ts
+import { createContext as createContext5 } from "react";
+var defaultAppInfo = {
+  appName: void 0,
+  disclaimer: void 0,
+  learnMoreUrl: "https://learn.rainbow.me/understanding-web3?utm_source=rainbowkit&utm_campaign=learnmore"
+};
+var AppContext = createContext5(defaultAppInfo);
+
+// src/rainbowkit/src/components/RainbowKitProvider/AvatarContext.ts
+import { createContext as createContext6 } from "react";
+
+// src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
+import React44, { useEffect as useEffect15, useMemo as useMemo13, useState as useState12 } from "react";
+
+// src/rainbowkit/src/components/Icons/Spinner.tsx
+import React43, { useMemo as useMemo12 } from "react";
+
+// src/rainbowkit/src/components/Icons/Icons.css.ts
+import { keyframes, style as style2 } from "@vanilla-extract/css";
+var CloseIconClassName = sprinkles({
+  marginLeft: "6"
+});
+var spin = keyframes({
+  "0%": { transform: "rotate(0deg)" },
+  "100%": { transform: "rotate(360deg)" }
+});
+var SpinnerIconClassName = style2({
+  animation: `${spin} 3s infinite linear`
+});
+var SpinnerIconPathClassName = style2({
+  background: `conic-gradient(from 180deg at 50% 50%, rgba(72, 146, 254, 0) 0deg, currentColor 282.04deg, rgba(72, 146, 254, 0) 319.86deg, rgba(72, 146, 254, 0) 360deg)`,
+  height: 21,
+  width: 21
+});
+
+// src/rainbowkit/src/components/Icons/Spinner.tsx
+var useRandomId = (prefix) => useMemo12(
+  () => `${prefix}_${Math.round(Math.random() * 1e9)}`,
+  [prefix]
+);
+var SpinnerIcon = ({
+  height = 21,
+  width = 21
+}) => {
+  const id = useRandomId("spinner");
+  return /* @__PURE__ */ React43.createElement("svg", {
+    className: SpinnerIconClassName,
+    fill: "none",
+    height,
+    viewBox: "0 0 21 21",
+    width,
+    xmlns: "http://www.w3.org/2000/svg"
+  }, /* @__PURE__ */ React43.createElement("clipPath", {
+    id
+  }, /* @__PURE__ */ React43.createElement("path", {
+    d: "M10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C11.3284 18 12 18.6716 12 19.5C12 20.3284 11.3284 21 10.5 21C4.70101 21 0 16.299 0 10.5C0 4.70101 4.70101 0 10.5 0C16.299 0 21 4.70101 21 10.5C21 11.3284 20.3284 12 19.5 12C18.6716 12 18 11.3284 18 10.5C18 6.35786 14.6421 3 10.5 3Z"
+  })), /* @__PURE__ */ React43.createElement("foreignObject", {
+    clipPath: `url(#${id})`,
+    height: "21",
+    width: "21",
+    x: "0",
+    y: "0"
+  }, /* @__PURE__ */ React43.createElement("div", {
+    className: SpinnerIconPathClassName
+  })));
+};
+
+// src/rainbowkit/src/components/Avatar/emojiAvatarForAddress.ts
+var colors = [
+  "#FC5C54",
+  "#FFD95A",
+  "#E95D72",
+  "#6A87C8",
+  "#5FD0F3",
+  "#75C06B",
+  "#FFDD86",
+  "#5FC6D4",
+  "#FF949A",
+  "#FF8024",
+  "#9BA1A4",
+  "#EC66FF",
+  "#FF8CBC",
+  "#FF9A23",
+  "#C5DADB",
+  "#A8CE63",
+  "#71ABFF",
+  "#FFE279",
+  "#B6B1B6",
+  "#FF6780",
+  "#A575FF",
+  "#4D82FF",
+  "#FFB35A"
+];
+var avatars = [
+  { color: colors[0], emoji: "\u{1F336}" },
+  { color: colors[1], emoji: "\u{1F911}" },
+  { color: colors[2], emoji: "\u{1F419}" },
+  { color: colors[3], emoji: "\u{1FAD0}" },
+  { color: colors[4], emoji: "\u{1F433}" },
+  { color: colors[0], emoji: "\u{1F936}" },
+  { color: colors[5], emoji: "\u{1F332}" },
+  { color: colors[6], emoji: "\u{1F31E}" },
+  { color: colors[7], emoji: "\u{1F412}" },
+  { color: colors[8], emoji: "\u{1F435}" },
+  { color: colors[9], emoji: "\u{1F98A}" },
+  { color: colors[10], emoji: "\u{1F43C}" },
+  { color: colors[11], emoji: "\u{1F984}" },
+  { color: colors[12], emoji: "\u{1F437}" },
+  { color: colors[13], emoji: "\u{1F427}" },
+  { color: colors[8], emoji: "\u{1F9A9}" },
+  { color: colors[14], emoji: "\u{1F47D}" },
+  { color: colors[0], emoji: "\u{1F388}" },
+  { color: colors[8], emoji: "\u{1F349}" },
+  { color: colors[1], emoji: "\u{1F389}" },
+  { color: colors[15], emoji: "\u{1F432}" },
+  { color: colors[16], emoji: "\u{1F30E}" },
+  { color: colors[17], emoji: "\u{1F34A}" },
+  { color: colors[18], emoji: "\u{1F42D}" },
+  { color: colors[19], emoji: "\u{1F363}" },
+  { color: colors[1], emoji: "\u{1F425}" },
+  { color: colors[20], emoji: "\u{1F47E}" },
+  { color: colors[15], emoji: "\u{1F966}" },
+  { color: colors[0], emoji: "\u{1F479}" },
+  { color: colors[17], emoji: "\u{1F640}" },
+  { color: colors[4], emoji: "\u26F1" },
+  { color: colors[21], emoji: "\u26F5\uFE0F" },
+  { color: colors[17], emoji: "\u{1F973}" },
+  { color: colors[8], emoji: "\u{1F92F}" },
+  { color: colors[22], emoji: "\u{1F920}" }
+];
+function hashCode(text) {
+  let hash = 0;
+  if (text.length === 0)
+    return hash;
+  for (let i = 0; i < text.length; i++) {
+    const chr = text.charCodeAt(i);
+    hash = (hash << 5) - hash + chr;
+    hash |= 0;
+  }
+  return hash;
+}
+function emojiAvatarForAddress(address) {
+  const resolvedAddress = typeof address === "string" ? address : "";
+  const avatarIndex = Math.abs(
+    hashCode(resolvedAddress.toLowerCase()) % avatars.length
+  );
+  return avatars[avatarIndex != null ? avatarIndex : 0];
+}
+
+// src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
+var EmojiAvatar = ({ address, ensImage, size }) => {
+  const [loaded, setLoaded] = useState12(false);
+  useEffect15(() => {
+    if (ensImage) {
+      const img = new Image();
+      img.src = ensImage;
+      img.onload = () => setLoaded(true);
+    }
+  }, [ensImage]);
+  const { color: backgroundColor, emoji } = useMemo13(
+    () => emojiAvatarForAddress(address),
+    [address]
+  );
+  return ensImage ? loaded ? /* @__PURE__ */ React44.createElement(Box, {
+    backgroundSize: "cover",
+    borderRadius: "full",
+    position: "absolute",
+    style: {
+      backgroundImage: `url(${ensImage})`,
+      backgroundPosition: "center",
+      height: size,
+      width: size
+    }
+  }) : /* @__PURE__ */ React44.createElement(Box, {
+    alignItems: "center",
+    backgroundSize: "cover",
+    borderRadius: "full",
+    color: "modalText",
+    display: "flex",
+    justifyContent: "center",
+    position: "absolute",
+    style: {
+      height: size,
+      width: size
+    }
+  }, /* @__PURE__ */ React44.createElement(SpinnerIcon, null)) : /* @__PURE__ */ React44.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    justifyContent: "center",
+    overflow: "hidden",
+    style: {
+      ...!ensImage && { backgroundColor },
+      height: size,
+      width: size
+    }
+  }, emoji);
+};
+
+// src/rainbowkit/src/components/RainbowKitProvider/AvatarContext.ts
+var defaultAvatar = EmojiAvatar;
+var AvatarContext = createContext6(defaultAvatar);
+
+// src/rainbowkit/src/components/RainbowKitProvider/CoolModeContext.ts
+import { createContext as createContext7 } from "react";
+var CoolModeContext = createContext7(false);
+
+// src/rainbowkit/src/components/RainbowKitProvider/ModalSizeContext.ts
+import { createContext as createContext8 } from "react";
+var ModalSizeOptions = {
+  COMPACT: "compact",
+  WIDE: "wide"
+};
+var ModalSizeContext = createContext8(
+  ModalSizeOptions.WIDE
+);
+
+// src/rainbowkit/src/components/RainbowKitProvider/ShowRecentTransactionsContext.ts
+import { createContext as createContext9 } from "react";
+var ShowRecentTransactionsContext = createContext9(false);
+
+// src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
+import { useCallback as useCallback17, useEffect as useEffect16 } from "react";
+var storageKey3 = "rk-version";
+function setRainbowKitVersion({ version }) {
+  localStorage.setItem(storageKey3, version);
+}
+function useFingerprint() {
+  const fingerprint = useCallback17(() => {
+    setRainbowKitVersion({ version: "__buildVersion" });
+  }, []);
+  useEffect16(() => {
+    fingerprint();
+  }, [fingerprint]);
+}
+
+// src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
+import { useCallback as useCallback19, useEffect as useEffect17 } from "react";
+
+// src/rainbowkit/src/components/Icons/Assets.tsx
+import React47 from "react";
+
+// src/rainbowkit/src/components/AsyncImage/AsyncImage.tsx
+import React46, { useReducer as useReducer2 } from "react";
+function AsyncImage({
+  alt,
+  background,
+  borderColor,
+  borderRadius,
+  boxShadow,
+  height,
+  src: srcProp,
+  width
+}) {
+  const src6 = useAsyncImage(srcProp);
+  const isRemoteImage = src6 && /^http/.test(src6);
+  const [isRemoteImageLoaded, setRemoteImageLoaded] = useReducer2(
+    () => true,
+    false
+  );
+  return /* @__PURE__ */ React46.createElement(Box, {
+    "aria-label": alt,
+    borderRadius,
+    boxShadow,
+    height: typeof height === "string" ? height : void 0,
+    position: "relative",
+    role: "img",
+    style: {
+      background,
+      height: typeof height === "number" ? height : void 0,
+      width: typeof width === "number" ? width : void 0
+    },
+    width: typeof width === "string" ? width : void 0
+  }, /* @__PURE__ */ React46.createElement(Box, {
+    ...isRemoteImage ? {
+      "aria-hidden": true,
+      as: "img",
+      onLoad: setRemoteImageLoaded,
+      src: src6
+    } : {
+      backgroundSize: "cover"
+    },
+    height: "full",
+    position: "absolute",
+    style: {
+      transition: "opacity .15s linear",
+      userSelect: "none",
+      backgroundSize: "100%",
+      ...isRemoteImage ? {
+        opacity: isRemoteImageLoaded ? 1 : 0
+      } : {
+        backgroundImage: src6 ? `url(${src6})` : void 0,
+        backgroundRepeat: "no-repeat",
+        opacity: src6 ? 1 : 0
+      }
+    },
+    width: "full"
+  }), borderColor ? /* @__PURE__ */ React46.createElement(Box, {
+    ...typeof borderColor === "object" && "custom" in borderColor ? { style: { borderColor: borderColor.custom } } : { borderColor },
+    borderRadius,
+    borderStyle: "solid",
+    borderWidth: "1",
+    height: "full",
+    position: "relative",
+    width: "full"
+  }) : null);
+}
+
+// src/rainbowkit/src/components/Icons/Assets.tsx
+var src = async () => (await import("./assets-KLGNUBLR.js")).default;
+var preloadAssetsIcon = () => loadImages(src);
+var AssetsIcon = () => /* @__PURE__ */ React47.createElement(AsyncImage, {
+  background: "#d0d5de",
+  borderRadius: "10",
+  height: "48",
+  src,
+  width: "48"
+});
+
+// src/rainbowkit/src/components/Icons/Login.tsx
+import React48 from "react";
+var src2 = async () => (await import("./login-L4DFYQAF.js")).default;
+var preloadLoginIcon = () => loadImages(src2);
+var LoginIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
+  background: "#d0d5de",
+  borderRadius: "10",
+  height: "48",
+  src: src2,
+  width: "48"
+});
+
+// src/rainbowkit/src/components/SignIn/SignIn.tsx
+import React51, { useCallback as useCallback18, useRef as useRef3 } from "react";
+import { UserRejectedRequestError } from "viem";
+import { useAccount as useAccount5, useDisconnect as useDisconnect2, useNetwork as useNetwork3, useSignMessage } from "wagmi";
+
 // src/rainbowkit/src/css/touchableStyles.css.ts
+import { createVar, style as style3, styleVariants } from "@vanilla-extract/css";
+import { calc } from "@vanilla-extract/css-utils";
 var hoverScaleValues = {
   grow: 1.025,
   growLg: 1.1
@@ -1269,7 +6700,7 @@ var activeScaleValues = {
 };
 var hoverScaleVar = createVar();
 var activeScaleVar = createVar();
-var base2 = style2([
+var base2 = style3([
   sprinkles({
     position: "relative"
   }),
@@ -1320,416 +6751,12 @@ function touchableStyles({ active: active2, hover: hover2 }) {
   return [base2, hover2 && hover[hover2], active[active2]];
 }
 
-// src/rainbowkit/src/utils/browsers.ts
-function isSafari() {
-  return typeof navigator !== "undefined" && /Version\/([0-9._]+).*Safari/.test(navigator.userAgent);
-}
-function isArc() {
-  return typeof document !== "undefined" && getComputedStyle(document.body).getPropertyValue("--arc-palette-focus") !== "";
-}
-function getBrowser() {
-  var _a;
-  if (typeof navigator === "undefined")
-    return "Browser" /* Browser */;
-  const ua = navigator.userAgent.toLowerCase();
-  if ((_a = navigator.brave) == null ? void 0 : _a.isBrave)
-    return "Brave" /* Brave */;
-  else if (ua.indexOf("edg/") > -1)
-    return "Edge" /* Edge */;
-  else if (ua.indexOf("op") > -1)
-    return "Opera" /* Opera */;
-  else if (isArc())
-    return "Arc" /* Arc */;
-  else if (ua.indexOf("chrome") > -1)
-    return "Chrome" /* Chrome */;
-  else if (ua.indexOf("firefox") > -1)
-    return "Firefox" /* Firefox */;
-  else if (isSafari())
-    return "Safari" /* Safari */;
-  return "Browser" /* Browser */;
-}
-
-// src/rainbowkit/src/utils/groupBy.ts
-function groupBy(items, getKey) {
-  const groupedItems = {};
-  items.forEach((item) => {
-    const key = getKey(item);
-    if (!key) {
-      return;
-    }
-    if (!groupedItems[key]) {
-      groupedItems[key] = [];
-    }
-    groupedItems[key].push(item);
-  });
-  return groupedItems;
-}
-
-// src/rainbowkit/src/wallets/useWalletConnectors.ts
-import { useConnect } from "wagmi";
-
-// src/rainbowkit/src/utils/flatten.ts
-function flatten(array) {
-  const flattenedItems = [];
-  for (const items of array) {
-    flattenedItems.push(...items);
-  }
-  return flattenedItems;
-}
-
-// src/rainbowkit/src/utils/indexBy.ts
-function indexBy(items, getKey) {
-  const indexedItems = {};
-  items.forEach((item) => {
-    const key = getKey(item);
-    if (!key) {
-      return;
-    }
-    indexedItems[key] = item;
-  });
-  return indexedItems;
-}
-
-// src/rainbowkit/src/utils/isNotNullish.ts
-function isNotNullish(value) {
-  return value != null;
-}
-
-// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
-import React4, { createContext as createContext2, useContext as useContext2, useMemo } from "react";
-
-// src/rainbowkit/src/components/RainbowKitProvider/provideRainbowKitChains.ts
-var arbitrumIcon = {
-  iconBackground: "#96bedc",
-  iconUrl: async () => (await import("./arbitrum-7Z5RMUIY.js")).default
-};
-var comboIcon = {
-  iconBackground: "transparent",
-  iconUrl: async () => (await import("./combo-ZH2QNSNA.js")).default
-};
-var mantaIcon = {
-  iconBackground: "#000",
-  iconUrl: async () => (await import("./manta-DBSOIVWO.js")).default
-};
-var mantleIcon = {
-  iconBackground: "#000",
-  iconUrl: async () => (await import("./mantle-4MNSB3XO.js")).default
-};
-var avalancheIcon = {
-  iconBackground: "#e84141",
-  iconUrl: async () => (await import("./avalanche-SZDGTLVO.js")).default
-};
-var baseIcon = {
-  iconBackground: "#0052ff",
-  iconUrl: async () => (await import("./base-RERJ7KTI.js")).default
-};
-var bscIcon = {
-  iconBackground: "#ebac0e",
-  iconUrl: async () => (await import("./bsc-OPQDDJCD.js")).default
-};
-var cronosIcon = {
-  iconBackground: "#002D74",
-  iconUrl: async () => (await import("./cronos-QOXA3DWW.js")).default
-};
-var ethereumIcon = {
-  iconBackground: "#484c50",
-  iconUrl: async () => (await import("./ethereum-VMNZL6AX.js")).default
-};
-var hardhatIcon = {
-  iconBackground: "#f9f7ec",
-  iconUrl: async () => (await import("./hardhat-QKZDMVWX.js")).default
-};
-var optimismIcon = {
-  iconBackground: "#ff5a57",
-  iconUrl: async () => (await import("./optimism-DRZRCXRT.js")).default
-};
-var polygonIcon = {
-  iconBackground: "#9f71ec",
-  iconUrl: async () => (await import("./polygon-X4XLCKFF.js")).default
-};
-var zoraIcon = {
-  iconBackground: "#000000",
-  iconUrl: async () => (await import("./zora-WC6ITYKX.js")).default
-};
-var lineaIcon = {
-  iconBackground: "#000",
-  iconUrl: async () => (await import("./linea-GLBETBIC.js")).default
-};
-var lineaTestIcon = {
-  iconBackground: "#4BDCFD",
-  iconUrl: async () => (await import("./linea_test-MQQDFOFK.js")).default
-};
-var GSCIcon = {
-  iconBackground: "#10253E",
-  iconUrl: async () => (await import("./gsc-ECF4RIDP.js")).default
-};
-var ScrollIcon = {
-  iconBackground: "#10253E",
-  iconUrl: async () => (await import("./scroll-DTF4ZONL.js")).default
-};
-var chainMetadataByName = {
-  arbitrum: { chainId: 42161, name: "Arbitrum", ...arbitrumIcon },
-  arbitrumGoerli: { chainId: 421613, ...arbitrumIcon },
-  avalanche: { chainId: 43114, ...avalancheIcon },
-  avalancheFuji: { chainId: 43113, ...avalancheIcon },
-  base: { chainId: 8453, ...baseIcon },
-  baseGoerli: { chainId: 84531, ...baseIcon },
-  bsc: { chainId: 56, name: "BSC", ...bscIcon },
-  bscTestnet: { chainId: 97, ...bscIcon },
-  cronos: { chainId: 25, ...cronosIcon },
-  cronosTestnet: { chainId: 338, ...cronosIcon },
-  goerli: { chainId: 5, ...ethereumIcon },
-  hardhat: { chainId: 31337, ...hardhatIcon },
-  kovan: { chainId: 42, ...ethereumIcon },
-  localhost: { chainId: 1337, ...ethereumIcon },
-  mainnet: { chainId: 1, ...ethereumIcon },
-  optimism: { chainId: 10, name: "Optimism", ...optimismIcon },
-  optimismGoerli: { chainId: 420, ...optimismIcon },
-  optimismKovan: { chainId: 69, ...optimismIcon },
-  polygon: { chainId: 137, ...polygonIcon },
-  polygonMumbai: { chainId: 80001, ...polygonIcon },
-  rinkeby: { chainId: 4, ...ethereumIcon },
-  ropsten: { chainId: 3, ...ethereumIcon },
-  sepolia: { chainId: 11155111, ...ethereumIcon },
-  zora: { chainId: 7777777, ...zoraIcon },
-  zoraTestnet: { chainId: 999, ...zoraIcon },
-  lineaMainnet: { chainId: 59144, ...lineaIcon },
-  lineaTestnet: { chainId: 59140, ...lineaTestIcon },
-  opBNBMainnet: { chainId: 204, ...bscIcon },
-  opBNBTestnet: { chainId: 5611, ...bscIcon },
-  polygonZkEVMTestnet: { chainId: 1442, ...polygonIcon },
-  GSCTestnet: { chainId: 1205, ...GSCIcon },
-  scrollSepolia: { chainId: 534351, ...ScrollIcon },
-  MantaPacificMainnet: { chainId: 169, ...mantaIcon },
-  MantaPacificTestnet: { chainId: 3441005, ...mantaIcon },
-  Combo: { chainId: 9980, ...comboIcon },
-  ComboTestnet: { chainId: 91715, ...comboIcon },
-  Mantle: { chainId: 5e3, ...mantleIcon },
-  MantleTestnet: { chainId: 5001, ...mantleIcon }
-};
-var chainMetadataById = Object.fromEntries(
-  Object.values(chainMetadataByName).filter(isNotNullish).map(({ chainId, ...metadata }) => [chainId, metadata])
-);
-var provideRainbowKitChains = (chains) => chains.map((chain) => {
-  var _a;
-  return {
-    ...chain,
-    ...(_a = chainMetadataById[chain.id]) != null ? _a : {}
-  };
-});
-
-// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
-var RainbowKitChainContext = createContext2({
-  chains: []
-});
-function RainbowKitChainProvider({ chains, children, initialChain }) {
-  return /* @__PURE__ */ React4.createElement(RainbowKitChainContext.Provider, {
-    value: useMemo(
-      () => ({
-        chains: provideRainbowKitChains(chains),
-        initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
-      }),
-      [chains, initialChain]
-    )
-  }, children);
-}
-var useRainbowKitChains = () => {
-  return useContext2(RainbowKitChainContext).chains;
-};
-var useInitialChainId = () => useContext2(RainbowKitChainContext).initialChainId;
-var useRainbowKitChainsById = () => {
-  const rainbowkitChains = useRainbowKitChains();
-  return useMemo(() => {
-    const rainbowkitChainsById = {};
-    rainbowkitChains.forEach((rkChain) => {
-      rainbowkitChainsById[rkChain.id] = rkChain;
-    });
-    return rainbowkitChainsById;
-  }, [rainbowkitChains]);
-};
-
-// src/rainbowkit/src/utils/isMobile.ts
-function isAndroid() {
-  return typeof navigator !== "undefined" && /android/i.test(navigator.userAgent);
-}
-function isSmallIOS() {
-  return typeof navigator !== "undefined" && /iPhone|iPod/.test(navigator.userAgent);
-}
-function isLargeIOS() {
-  return typeof navigator !== "undefined" && (/iPad/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-}
-function isIOS() {
-  return isSmallIOS() || isLargeIOS();
-}
-function isMobile() {
-  return isAndroid() || isIOS();
-}
-
-// src/rainbowkit/src/wallets/downloadUrls.ts
-var getExtensionDownloadUrl = (wallet) => {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
-  const browser = getBrowser();
-  return (_l = {
-    ["Arc" /* Arc */]: (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.chrome,
-    ["Brave" /* Brave */]: (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.chrome,
-    ["Chrome" /* Chrome */]: (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.chrome,
-    ["Edge" /* Edge */]: ((_d = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _d.edge) || ((_e = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _e.chrome),
-    ["Firefox" /* Firefox */]: (_f = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _f.firefox,
-    ["Opera" /* Opera */]: ((_g = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _g.opera) || ((_h = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _h.chrome),
-    ["Safari" /* Safari */]: (_i = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _i.safari,
-    ["Browser" /* Browser */]: (_j = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _j.browserExtension
-  }[browser]) != null ? _l : (_k = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _k.browserExtension;
-};
-var getMobileDownloadUrl = (wallet) => {
-  var _a, _b, _c, _d;
-  const ios = isIOS();
-  return (_d = ios ? (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.ios : (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.android) != null ? _d : (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.mobile;
-};
-
-// src/rainbowkit/src/wallets/recentWalletIds.ts
-var storageKey = "rk-recent";
-function safeParseJsonArray(string) {
-  try {
-    const value = string ? JSON.parse(string) : [];
-    return Array.isArray(value) ? value : [];
-  } catch (err) {
-    return [];
-  }
-}
-function getRecentWalletIds() {
-  return typeof localStorage !== "undefined" ? safeParseJsonArray(localStorage.getItem(storageKey)) : [];
-}
-function dedupe(array) {
-  return [...new Set(array)];
-}
-function addRecentWalletId(walletId) {
-  const newValue = dedupe([walletId, ...getRecentWalletIds()]);
-  localStorage.setItem(storageKey, JSON.stringify(newValue));
-}
-
-// src/rainbowkit/src/wallets/useWalletConnectors.ts
-function useWalletConnectors() {
-  const rainbowKitChains = useRainbowKitChains();
-  const intialChainId = useInitialChainId();
-  const { connectAsync, connectors: defaultConnectors_untyped } = useConnect();
-  const defaultConnectors = defaultConnectors_untyped;
-  async function connectWallet(walletId, connector) {
-    var _a, _b, _c;
-    const walletChainId = await connector.getChainId();
-    const result = await connectAsync({
-      chainId: (_c = intialChainId != null ? intialChainId : (_a = rainbowKitChains.find(({ id }) => id === walletChainId)) == null ? void 0 : _a.id) != null ? _c : (_b = rainbowKitChains[0]) == null ? void 0 : _b.id,
-      connector
-    });
-    if (result) {
-      addRecentWalletId(walletId);
-    }
-    return result;
-  }
-  async function connectToWalletConnectModal(walletId, walletConnectModalConnector) {
-    try {
-      return await connectWallet(walletId, walletConnectModalConnector);
-    } catch (err) {
-      const isUserRejection = err.name === "UserRejectedRequestError" || err.message === "Connection request reset. Please try again.";
-      if (!isUserRejection) {
-        throw err;
-      }
-    }
-  }
-  const walletInstances = flatten(
-    defaultConnectors.map((connector) => {
-      var _a;
-      return (_a = connector._wallets) != null ? _a : [];
-    })
-  ).sort((a2, b) => a2.index - b.index);
-  const walletInstanceById = indexBy(
-    walletInstances,
-    (walletInstance) => walletInstance.id
-  );
-  const MAX_RECENT_WALLETS = 3;
-  const recentWallets = getRecentWalletIds().map((walletId) => walletInstanceById[walletId]).filter(isNotNullish).slice(0, MAX_RECENT_WALLETS);
-  const groupedWallets = [
-    ...recentWallets,
-    ...walletInstances.filter(
-      (walletInstance) => !recentWallets.includes(walletInstance)
-    )
-  ];
-  const walletConnectors = [];
-  groupedWallets.forEach((wallet) => {
-    var _a;
-    if (!wallet) {
-      return;
-    }
-    const recent = recentWallets.includes(wallet);
-    walletConnectors.push({
-      ...wallet,
-      connect: () => wallet.connector.showQrModal ? connectToWalletConnectModal(wallet.id, wallet.connector) : connectWallet(wallet.id, wallet.connector),
-      extensionDownloadUrl: getExtensionDownloadUrl(wallet),
-      groupName: wallet.groupName,
-      mobileDownloadUrl: getMobileDownloadUrl(wallet),
-      onConnecting: (fn) => wallet.connector.on(
-        "message",
-        ({ type }) => type === "connecting" ? fn() : void 0
-      ),
-      ready: ((_a = wallet.installed) != null ? _a : true) && wallet.connector.ready,
-      recent,
-      showWalletConnectModal: wallet.walletConnectModalConnector ? () => connectToWalletConnectModal(
-        wallet.id,
-        wallet.walletConnectModalConnector
-      ) : void 0
-    });
-  });
-  return walletConnectors;
-}
-
-// src/rainbowkit/src/components/Box/Box.ts
-import clsx2 from "clsx";
-import * as React5 from "react";
-
-// src/rainbowkit/src/css/atoms.ts
-import clsx from "clsx";
-var atoms = ({ reset, ...rest }) => {
-  if (!reset)
-    return sprinkles(rest);
-  const elementReset = element[reset];
-  const sprinklesClasses = sprinkles(rest);
-  return clsx(base, elementReset, sprinklesClasses);
-};
-
-// src/rainbowkit/src/components/Box/Box.ts
-var Box = React5.forwardRef(
-  ({ as = "div", className, testId, ...props }, ref) => {
-    const atomProps = {};
-    const nativeProps = {};
-    for (const key in props) {
-      if (sprinkles.properties.has(key)) {
-        atomProps[key] = props[key];
-      } else {
-        nativeProps[key] = props[key];
-      }
-    }
-    const atomicClasses = atoms({
-      reset: typeof as === "string" ? as : "div",
-      ...atomProps
-    });
-    return React5.createElement(as, {
-      "className": clsx2(atomicClasses, className),
-      ...nativeProps,
-      "data-testid": testId ? `rk-${testId.replace(/^rk-/, "")}` : void 0,
-      ref
-    });
-  }
-);
-Box.displayName = "Box";
-
-// src/rainbowkit/src/components/ConnectModal/ConnectModalIntro.tsx
-import React15, { useContext as useContext3 } from "react";
-
 // src/rainbowkit/src/components/Button/ActionButton.tsx
-import React8 from "react";
+import React50 from "react";
 
 // src/rainbowkit/src/components/Text/Text.tsx
-import React6 from "react";
-var Text = React6.forwardRef(
+import React49 from "react";
+var Text2 = React49.forwardRef(
   ({
     as = "div",
     children,
@@ -1744,7 +6771,7 @@ var Text = React6.forwardRef(
     textAlign = "inherit",
     weight = "regular"
   }, ref) => {
-    return /* @__PURE__ */ React6.createElement(Box, {
+    return /* @__PURE__ */ React49.createElement(Box, {
       as,
       className,
       color,
@@ -1760,558 +6787,7 @@ var Text = React6.forwardRef(
     }, children);
   }
 );
-Text.displayName = "Text";
-
-// src/components/PixelBtn/ActivePixelButton.tsx
-import React7, { memo as memo3, useCallback as useCallback3, useRef } from "react";
-import styled from "styled-components";
-var PixelStyled = styled(PixelFlatBtn_default)`
-  height: ${({ height }) => height};
-  min-height: ${({ height }) => height};
-  max-width: ${({ width }) => width};
-  width: ${({ width }) => width};
-  &.pixel_loading {
-    opacity: 0.8;
-  }
-  > .pixel_flat_btn_bg {
-    color: #fff;
-    > div {
-      transition: all 0.3s ease;
-      background-color: ${({ backgroundColor }) => backgroundColor};
-    }
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      height: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        height: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      top: calc(${({ pixel_height }) => pixel_height}px * 2);
-      left: 0;
-      @media screen and (max-width: 768px) {
-        height: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        top: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
-    }
-
-    > .pixel_flat_btn_top_1 {
-      top: 0;
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      left: calc(${({ pixel_height }) => pixel_height}px * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
-      top: ${({ pixel_height }) => pixel_height}px;
-      left: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
-        );
-        top: ${({ small_pixel_height }) => small_pixel_height}px;
-        left: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
-    }
-
-    > .pixel_flat_btn_bottom_2 {
-      bottom: 0;
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      left: calc(${({ pixel_height }) => pixel_height}px * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
-      bottom: ${({ pixel_height }) => pixel_height}px;
-      left: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
-        );
-        bottom: ${({ small_pixel_height }) => small_pixel_height}px;
-        left: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
-    }
-  }
-  > .pixel_flat_inner {
-    width: 100%;
-    height: 100%;
-  }
-`;
-var ActivePixelCard = memo3((props) => {
-  const {
-    pixel_height,
-    small_pixel_height,
-    onClick
-  } = props;
-  const lastClickTimeRef = useRef(Date.now());
-  const clickHandle = useCallback3(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return /* @__PURE__ */ React7.createElement(PixelStyled, {
-    ...props,
-    onClick: clickHandle,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height
-  });
-});
-var ActivePixelCardStyled = styled(ActivePixelCard)`
-  cursor: pointer;
-`;
-var ActivePixelButton = memo3((props) => {
-  const {
-    className,
-    isLoading,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    smallWidth,
-    height,
-    smallHeight,
-    small_pixel_height
-  } = props;
-  return /* @__PURE__ */ React7.createElement(ActivePixelCardStyled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    isLoading,
-    borderColor,
-    small_pixel_height,
-    smallWidth,
-    smallHeight
-  });
-});
-var PixelColorStyled = styled(PixelStyled)`
-  > .pixel_flat_btn_bg {
-    > div {
-      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1649ff"};
-    }
-    > .pixel_flat_btn_inner {
-      &:before,
-      &:after {
-        content: "";
-        position: absolute;
-        width: ${({ pixel_height }) => pixel_height}px;
-        height: ${({ pixel_height }) => pixel_height}px;
-        @media screen and (max-width: 768px) {
-          width: ${({ small_pixel_height }) => small_pixel_height}px;
-          height: ${({ small_pixel_height }) => small_pixel_height}px;
-        }
-      }
-      &:before {
-        top: 0;
-        left: 0;
-        background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      }
-      &:after {
-        bottom: 0;
-        right: 0;
-        background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      }
-    }
-    > .pixel_flat_btn_top_1 {
-      background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-    }
-    > .pixel_flat_btn_top_2 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      @media screen and (max-width: 768px) {
-        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
-          ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      }
-    }
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      @media screen and (max-width: 768px) {
-        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
-          ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      }
-    }
-  }
-`;
-var ActivePixelColorCard = memo3((props) => {
-  const {
-    className,
-    isLoading,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    smallWidth,
-    height,
-    smallHeight,
-    small_pixel_height
-  } = props;
-  return /* @__PURE__ */ React7.createElement(PixelColorStyled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    isLoading,
-    borderColor,
-    small_pixel_height: pixel_height != null ? pixel_height : small_pixel_height,
-    smallWidth,
-    smallHeight
-  });
-});
-var ActivePixelColorCardStyled = styled(ActivePixelColorCard)`
-  cursor: pointer;
-`;
-var ActivePixelButtonColor = memo3((props) => {
-  return /* @__PURE__ */ React7.createElement(ActivePixelColorCardStyled, {
-    ...props
-  });
-});
-var PixelBorderStyled = styled(PixelFlatBtn_default)`
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
-  & > .pixel_flat_btn_bg {
-    & > div {
-      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1d263b"};
-    }
-    .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      height: calc(${({ pixel_height }) => pixel_height + "px"} + 1px);
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      left: 0;
-      @media screen and (max-width: 768px) {
-        height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_inner,
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      border: 1px solid ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
-      transition: border 0.3s ease;
-    }
-    > .pixel_flat_btn_top_1 {
-      border-bottom: none !important;
-      z-index: 3;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      border-bottom: none !important;
-      z-index: 2;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-      top: ${({ pixel_height }) => pixel_height + "px"};
-      left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-        top: ${({ pixel_height }) => pixel_height + "px"};
-        left: ${({ pixel_height }) => pixel_height + "px"};
-      }
-    }
-    > .pixel_flat_btn_bottom_2 {
-      border-top: none !important;
-      z-index: 4;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-top: none !important;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-      bottom: ${({ pixel_height }) => pixel_height + "px"};
-      left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-        bottom: ${({ pixel_height }) => pixel_height + "px"};
-        left: ${({ pixel_height }) => pixel_height + "px"};
-      }
-    }
-  }
-  > .pixel_flat_inner {
-    width: 100%;
-    height: 100%;
-  }
-`;
-var PixelBorderCard = memo3((props) => {
-  const {
-    className,
-    pixel_height,
-    small_pixel_height,
-    width,
-    height,
-    backgroundColor,
-    borderColor,
-    showHover,
-    onClick
-  } = props;
-  const lastClickTimeRef = useRef(Date.now());
-  const clickHandle = useCallback3(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return /* @__PURE__ */ React7.createElement(PixelBorderStyled, {
-    ...props,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    borderColor,
-    className: `${className} pixelBorderCard`,
-    showHover,
-    small_pixel_height: pixel_height != null ? pixel_height : small_pixel_height,
-    onClick: clickHandle
-  });
-});
-var PixelCube2Styled = styled(PixelStyled)`
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_bottom_2 {
-        background-color: ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-      > .pixel_flat_btn_inner,
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_1 {
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-    }
-  }
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ borderColor }) => borderColor};
-    }
-    > .pixel_flat_btn_inner,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-    }
-  }
-`;
-var PixelCube2 = memo3((props) => {
-  const {
-    className,
-    isLoading,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    smallWidth,
-    height,
-    smallHeight,
-    small_pixel_height,
-    borderTopColor,
-    borderBottomColor
-  } = props;
-  return /* @__PURE__ */ React7.createElement(PixelCube2Styled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    isLoading,
-    borderColor,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height,
-    smallWidth,
-    smallHeight,
-    borderTopColor,
-    borderBottomColor
-  });
-});
-var PixelCube3Styled = styled(PixelCube2)`
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_1 {
-        &:before {
-          border-left: ${({ pixel_height }) => pixel_height}px solid
-            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-          border-right: ${({ pixel_height }) => pixel_height}px solid
-            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-        }
-      }
-    }
-  }
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_bottom_2 {
-      width: calc(
-        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
-      );
-      left: calc(${({ pixel_height, size }) => `${pixel_height}px * ${size}`});
-    }
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      width: calc(
-        100% -
-          ${({ pixel_height, size }) => `${pixel_height}px * ${2 * (size - 1)}`}
-      );
-      left: calc(
-        ${({ pixel_height, size }) => `${pixel_height}px * ${size - 1}`}
-      );
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(
-        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
-      );
-      top: calc(${({ pixel_height, size }) => `${size} * ${pixel_height}px`});
-    }
-
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      &:before {
-        content: "";
-        transition: background-color, border 0.3s ease;
-        position: absolute;
-        height: ${({ pixel_height }) => pixel_height}px;
-        width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
-        left: calc(-${({ pixel_height }) => pixel_height}px * 2);
-        background-color: ${({ backgroundColor }) => backgroundColor};
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      &:before {
-        top: ${({ pixel_height }) => pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      &:before {
-        top: -${({ pixel_height }) => pixel_height}px;
-      }
-    }
-  }
-`;
-var PixelCube3 = memo3((props) => {
-  const { pixel_height, small_pixel_height, size } = props;
-  return /* @__PURE__ */ React7.createElement(PixelCube3Styled, {
-    ...props,
-    size: size != null ? size : 3,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height
-  });
-});
-var PixelCube5Styled = styled(PixelCube3Styled)`
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_inner {
-      &:after,
-      &:before {
-        content: "";
-        position: absolute;
-        height: ${({ pixel_height }) => pixel_height}px;
-        width: 100%;
-        left: 0;
-        background-color: ${({ backgroundColor }) => backgroundColor};
-      }
-      &:before {
-        top: -${({ pixel_height }) => pixel_height}px;
-      }
-      &:after {
-        bottom: -${({ pixel_height }) => pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_top_1:before,
-    > .pixel_flat_btn_bottom_2:after {
-      content: "";
-      position: absolute;
-      height: ${({ pixel_height }) => pixel_height}px;
-      width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
-      left: calc(-${({ pixel_height }) => pixel_height}px * 3);
-      background-color: ${({ backgroundColor }) => backgroundColor};
-    }
-    > .pixel_flat_btn_top_1:before {
-      top: calc(${({ pixel_height }) => pixel_height}px * 3);
-    }
-    > .pixel_flat_btn_bottom_2:after {
-      bottom: calc(${({ pixel_height }) => pixel_height}px * 3);
-    }
-  }
-`;
-var PixelCube5 = memo3((props) => {
-  const { pixel_height, small_pixel_height, size } = props;
-  return /* @__PURE__ */ React7.createElement(PixelCube5Styled, {
-    ...props,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height,
-    size: size != null ? size : 5
-  });
-});
-var PixelBorderCardStyled = styled(PixelBorderCard)`
-  cursor: pointer;
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_inner,
-      > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_2,
-      > .pixel_flat_btn_bottom_1 {
-        border: 1px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-    }
-  }
-`;
-var PixelBorderCardButton = memo3((props) => {
-  return /* @__PURE__ */ React7.createElement(PixelBorderCardStyled, {
-    ...props
-  });
-});
+Text2.displayName = "Text";
 
 // src/rainbowkit/src/components/Button/ActionButton.tsx
 var sizeVariants = {
@@ -2349,12 +6825,12 @@ function ActionButton({
   const background = !disabled ? isPrimary ? "#1649FF" : isNotLarge ? "#3360FF" : void 0 : "#1D263B";
   const { fontSize, height, paddingX, paddingY } = sizeVariants[size];
   const hasBorder = !mobile || !isNotLarge;
-  return /* @__PURE__ */ React8.createElement(PixelCube2, {
+  return /* @__PURE__ */ React50.createElement(PixelCube2, {
     pixel_height: 2,
     borderColor: background,
     backgroundColor: background,
     height: height ? height + "px" : void 0
-  }, /* @__PURE__ */ React8.createElement(Box, {
+  }, /* @__PURE__ */ React50.createElement(Box, {
     ...href ? !disabled ? { as: "a", href, rel, target } : {} : { as: "button", type: "button" },
     onClick: !disabled ? onClick : void 0,
     className: !disabled && touchableStyles({ active: "shrinkSm", hover: "grow" }),
@@ -2365,20 +6841,1429 @@ function ActionButton({
     testId,
     textAlign: "center",
     transition: "transform"
-  }, /* @__PURE__ */ React8.createElement(Text, {
+  }, /* @__PURE__ */ React50.createElement(Text2, {
     color: !disabled ? isPrimary ? "accentColorForeground" : "accentColor" : "modalTextSecondary",
     size: fontSize,
     weight: "bold"
   }, label)));
 }
 
+// src/rainbowkit/src/components/SignIn/SignIn.tsx
+var signInIcon = async () => (await import("./sign-IOXJRZQV.js")).default;
+function SignIn({ onClose }) {
+  const [{ status, ...state }, setState] = React51.useState({ status: "idle" });
+  const authAdapter = useAuthenticationAdapter();
+  const getNonce = useCallback18(async () => {
+    try {
+      const nonce = await authAdapter.getNonce();
+      setState((x) => ({ ...x, nonce }));
+    } catch (error) {
+      setState((x) => ({
+        ...x,
+        errorMessage: "Error preparing message, please retry!",
+        status: "idle"
+      }));
+    }
+  }, [authAdapter]);
+  const onceRef = useRef3(false);
+  React51.useEffect(() => {
+    if (onceRef.current)
+      return;
+    onceRef.current = true;
+    getNonce();
+  }, [getNonce]);
+  const mobile = isMobile();
+  const { address } = useAccount5();
+  const { chain: activeChain } = useNetwork3();
+  const { signMessageAsync } = useSignMessage();
+  const { disconnect } = useDisconnect2();
+  const cancel = () => disconnect();
+  const signIn = async () => {
+    try {
+      const chainId = activeChain == null ? void 0 : activeChain.id;
+      const { nonce } = state;
+      if (!address || !chainId || !nonce) {
+        return;
+      }
+      setState((x) => ({
+        ...x,
+        errorMessage: void 0,
+        status: "signing"
+      }));
+      const message = authAdapter.createMessage({ address, chainId, nonce });
+      let signature;
+      try {
+        signature = await signMessageAsync({
+          message: authAdapter.getMessageBody({ message })
+        });
+      } catch (error) {
+        if (error instanceof UserRejectedRequestError) {
+          return setState((x) => ({
+            ...x,
+            status: "idle"
+          }));
+        }
+        return setState((x) => ({
+          ...x,
+          errorMessage: "Error signing message, please retry!",
+          status: "idle"
+        }));
+      }
+      setState((x) => ({ ...x, status: "verifying" }));
+      try {
+        const verified = await authAdapter.verify({ message, signature });
+        if (verified) {
+          return;
+        } else {
+          throw new Error();
+        }
+      } catch (error) {
+        return setState((x) => ({
+          ...x,
+          errorMessage: "Error verifying signature, please retry!",
+          status: "idle"
+        }));
+      }
+    } catch (error) {
+      setState({
+        errorMessage: "Oops, something went wrong!",
+        status: "idle"
+      });
+    }
+  };
+  return /* @__PURE__ */ React51.createElement(Box, {
+    position: "relative"
+  }, /* @__PURE__ */ React51.createElement(Box, {
+    display: "flex",
+    paddingRight: "16",
+    paddingTop: "16",
+    position: "absolute",
+    right: "0"
+  }, /* @__PURE__ */ React51.createElement(DialogClose_default, {
+    onClick: onClose
+  })), /* @__PURE__ */ React51.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "32" : "24",
+    padding: "24",
+    paddingX: "18",
+    style: { paddingTop: mobile ? "60px" : "36px" }
+  }, /* @__PURE__ */ React51.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "6" : "4",
+    style: { maxWidth: mobile ? 320 : 280 }
+  }, /* @__PURE__ */ React51.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "32" : "16"
+  }, /* @__PURE__ */ React51.createElement(AsyncImage, {
+    height: 40,
+    src: signInIcon,
+    width: 40
+  }), /* @__PURE__ */ React51.createElement(Text2, {
+    color: "modalText",
+    size: mobile ? "20" : "18",
+    textAlign: "center",
+    weight: "heavy"
+  }, "Verify your account")), /* @__PURE__ */ React51.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "16" : "12"
+  }, /* @__PURE__ */ React51.createElement(Text2, {
+    color: "modalTextSecondary",
+    size: mobile ? "16" : "14",
+    textAlign: "center"
+  }, "To finish connecting, you must sign a message in your wallet to verify that you are the owner of this account."), status === "idle" && state.errorMessage ? /* @__PURE__ */ React51.createElement(Text2, {
+    color: "error",
+    size: mobile ? "16" : "14",
+    textAlign: "center",
+    weight: "bold"
+  }, state.errorMessage) : null)), /* @__PURE__ */ React51.createElement(Box, {
+    alignItems: !mobile ? "center" : void 0,
+    display: "flex",
+    flexDirection: "column",
+    gap: "8",
+    width: "full"
+  }, /* @__PURE__ */ React51.createElement(ActionButton, {
+    disabled: !state.nonce || status === "signing" || status === "verifying",
+    label: !state.nonce ? "Preparing message..." : status === "signing" ? "Waiting for signature..." : status === "verifying" ? "Verifying signature..." : "Send message",
+    onClick: signIn,
+    size: mobile ? "large" : "medium",
+    testId: "auth-message-button"
+  }), mobile ? /* @__PURE__ */ React51.createElement(ActionButton, {
+    label: "Cancel",
+    onClick: cancel,
+    size: "large",
+    type: "secondary"
+  }) : /* @__PURE__ */ React51.createElement(Box, {
+    as: "button",
+    borderRadius: "full",
+    className: touchableStyles({ active: "shrink", hover: "grow" }),
+    display: "block",
+    onClick: cancel,
+    paddingX: "10",
+    paddingY: "5",
+    rel: "noreferrer",
+    style: { willChange: "transform" },
+    target: "_blank",
+    transition: "default"
+  }, /* @__PURE__ */ React51.createElement(Text2, {
+    color: "closeButton",
+    size: mobile ? "16" : "14",
+    weight: "bold"
+  }, "Cancel")))));
+}
+
+// src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
+function usePreloadImages() {
+  const rainbowKitChains = useRainbowKitChains();
+  const walletConnectors = useWalletConnectors();
+  const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
+  const preloadImages = useCallback19(() => {
+    loadImages(...walletConnectors.map((wallet) => wallet.iconUrl), ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish));
+    if (!isMobile()) {
+      preloadAssetsIcon();
+      preloadLoginIcon();
+    }
+    if (isUnauthenticated) {
+      loadImages(signInIcon);
+    }
+  }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
+  useEffect17(() => {
+    preloadImages();
+  }, [preloadImages]);
+}
+
+// src/rainbowkit/src/components/RainbowKitProvider/walletConnectDeepLink.ts
+var storageKey4 = "WALLETCONNECT_DEEPLINK_CHOICE";
+function setWalletConnectDeepLink({
+  mobileUri,
+  name
+}) {
+  localStorage.setItem(
+    storageKey4,
+    JSON.stringify({
+      href: mobileUri.split("?")[0],
+      name
+    })
+  );
+}
+function clearWalletConnectDeepLink() {
+  localStorage.removeItem(storageKey4);
+}
+
+// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider.tsx
+var ThemeIdContext = createContext10(void 0);
+var attr = "data-rk";
+var createThemeRootProps = (id) => ({ [attr]: id || "" });
+var createThemeRootSelector = (id) => {
+  if (id && !/^[a-zA-Z0-9_]+$/.test(id)) {
+    throw new Error(`Invalid ID: ${id}`);
+  }
+  return id ? `[${attr}="${id}"]` : `[${attr}]`;
+};
+var useThemeRootProps = () => {
+  const id = useContext5(ThemeIdContext);
+  return createThemeRootProps(id);
+};
+var defaultTheme = lightTheme();
+function RainbowKitProvider({
+  appInfo: appInfo2,
+  avatar,
+  chains,
+  children,
+  coolMode = false,
+  id,
+  initialChain,
+  modalSize = ModalSizeOptions.WIDE,
+  showRecentTransactions = false,
+  theme = defaultTheme
+}) {
+  usePreloadImages();
+  useFingerprint();
+  useAccount6({ onDisconnect: clearWalletConnectDeepLink });
+  if (typeof theme === "function") {
+    throw new Error(
+      'A theme function was provided to the "theme" prop instead of a theme object. You must execute this function to get the resulting theme object.'
+    );
+  }
+  const selector2 = createThemeRootSelector(id);
+  const appContext = {
+    ...defaultAppInfo,
+    ...appInfo2
+  };
+  const avatarContext = avatar != null ? avatar : defaultAvatar;
+  const { width } = useWindowSize2();
+  const isSmallScreen = width && width < largeScreenMinWidth;
+  return /* @__PURE__ */ React52.createElement(RainbowKitChainProvider, {
+    chains,
+    initialChain
+  }, /* @__PURE__ */ React52.createElement(CoolModeContext.Provider, {
+    value: coolMode
+  }, /* @__PURE__ */ React52.createElement(ModalSizeContext.Provider, {
+    value: isSmallScreen ? ModalSizeOptions.COMPACT : modalSize
+  }, /* @__PURE__ */ React52.createElement(ShowRecentTransactionsContext.Provider, {
+    value: showRecentTransactions
+  }, /* @__PURE__ */ React52.createElement(TransactionStoreProvider, null, /* @__PURE__ */ React52.createElement(AvatarContext.Provider, {
+    value: avatarContext
+  }, /* @__PURE__ */ React52.createElement(AppContext.Provider, {
+    value: appContext
+  }, /* @__PURE__ */ React52.createElement(ThemeIdContext.Provider, {
+    value: id
+  }, /* @__PURE__ */ React52.createElement(ModalProvider, null, theme ? /* @__PURE__ */ React52.createElement("div", {
+    ...createThemeRootProps(id)
+  }, /* @__PURE__ */ React52.createElement("style", {
+    dangerouslySetInnerHTML: {
+      __html: [
+        `${selector2}{${cssStringFromTheme("lightMode" in theme ? theme.lightMode : theme)}}`,
+        "darkMode" in theme ? `@media(prefers-color-scheme:dark){${selector2}{${cssStringFromTheme(theme.darkMode, {
+          extends: theme.lightMode
+        })}}}` : null
+      ].join("")
+    }
+  }), children) : children)))))))));
+}
+
+// src/rainbowkit/src/components/Dialog/Dialog.css.ts
+import { keyframes as keyframes2, style as style4 } from "@vanilla-extract/css";
+var slideUp = keyframes2({
+  "0%": { transform: "translateY(100%)" },
+  "100%": { transform: "translateY(0)" }
+});
+var fadeIn = keyframes2({
+  "0%": { opacity: 0 },
+  "100%": { opacity: 1 }
+});
+var nestedModalZIndexes = {
+  coinbase: 2147483647,
+  walletConnect: 99999999999999
+};
+var bleed = 200;
+var overlay = style4([
+  sprinkles({
+    backdropFilter: "modalOverlay",
+    background: "modalBackdrop",
+    display: "flex",
+    justifyContent: "center",
+    position: "fixed"
+  }),
+  {
+    animation: `${fadeIn} 150ms ease`,
+    bottom: -bleed,
+    left: -bleed,
+    padding: bleed,
+    right: -bleed,
+    top: -bleed,
+    transform: "translateZ(0)",
+    zIndex: Math.min(...Object.values(nestedModalZIndexes)) - 1
+  }
+]);
+var content = style4([
+  sprinkles({
+    display: "flex",
+    flexDirection: "column",
+    position: "relative"
+  }),
+  {
+    animation: `${slideUp} 350ms cubic-bezier(.15,1.15,0.6,1.00), ${fadeIn} 150ms ease`,
+    maxWidth: "100vw"
+  }
+]);
+
+// src/rainbowkit/src/components/Dialog/FocusTrap.tsx
+import React53, { useCallback as useCallback20, useEffect as useEffect18, useRef as useRef4 } from "react";
+var moveFocusWithin = (element2, position) => {
+  const focusableElements = element2.querySelectorAll(
+    "button:not(:disabled), a[href]"
+  );
+  if (focusableElements.length === 0)
+    return;
+  focusableElements[position === "end" ? focusableElements.length - 1 : 0].focus();
+};
+function FocusTrap(props) {
+  const contentRef = useRef4(null);
+  useEffect18(() => {
+    const previouslyActiveElement = document.activeElement;
+    return () => {
+      var _a;
+      (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
+    };
+  }, []);
+  useEffect18(() => {
+    if (contentRef.current) {
+      const elementToFocus = contentRef.current.querySelector("[data-auto-focus]");
+      if (elementToFocus) {
+        elementToFocus.focus();
+      } else {
+        contentRef.current.focus();
+      }
+    }
+  }, [contentRef]);
+  return /* @__PURE__ */ React53.createElement(React53.Fragment, null, /* @__PURE__ */ React53.createElement("div", {
+    onFocus: useCallback20(
+      () => contentRef.current && moveFocusWithin(contentRef.current, "end"),
+      []
+    ),
+    tabIndex: 0
+  }), /* @__PURE__ */ React53.createElement("div", {
+    ref: contentRef,
+    style: { outline: "none" },
+    tabIndex: -1,
+    ...props
+  }), /* @__PURE__ */ React53.createElement("div", {
+    onFocus: useCallback20(
+      () => contentRef.current && moveFocusWithin(contentRef.current, "start"),
+      []
+    ),
+    tabIndex: 0
+  }));
+}
+
+// src/rainbowkit/src/components/Dialog/Dialog.tsx
+var stopPropagation = (event) => event.stopPropagation();
+function Dialog({ children, onClose, open, titleId }) {
+  useEffect19(() => {
+    const handleEscape = (event) => open && event.key === "Escape" && onClose();
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
+  }, [open, onClose]);
+  const [bodyScrollable, setBodyScrollable] = useState13(true);
+  useEffect19(() => {
+    setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
+  }, []);
+  const handleBackdropClick = useCallback21(() => onClose(), [onClose]);
+  const themeRootProps = useThemeRootProps();
+  const mobile = isMobile();
+  return /* @__PURE__ */ React54.createElement(React54.Fragment, null, open ? createPortal(
+    /* @__PURE__ */ React54.createElement(RemoveScroll, {
+      enabled: bodyScrollable
+    }, /* @__PURE__ */ React54.createElement(Box, {
+      ...themeRootProps
+    }, /* @__PURE__ */ React54.createElement(Box, {
+      ...themeRootProps,
+      alignItems: mobile ? "flex-end" : "center",
+      "aria-labelledby": titleId,
+      "aria-modal": true,
+      className: overlay,
+      onClick: handleBackdropClick,
+      position: "fixed",
+      role: "dialog"
+    }, /* @__PURE__ */ React54.createElement(FocusTrap, {
+      className: content,
+      onClick: stopPropagation,
+      role: "document"
+    }, children)))),
+    document.body
+  ) : null);
+}
+
+// src/rainbowkit/src/components/Dialog/DialogContent.tsx
+import React55, { useContext as useContext6 } from "react";
+
+// src/rainbowkit/src/components/Dialog/DialogContent.css.ts
+import { style as style5 } from "@vanilla-extract/css";
+var dialogContent = style5([
+  sprinkles({
+    display: "flex",
+    flexDirection: "column",
+    overflow: "hidden",
+    position: "relative"
+  }),
+  {
+    "@media": {
+      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
+        width: "360px"
+      }
+    },
+    boxSizing: "content-box",
+    maxWidth: "100vw",
+    width: "360px"
+  }
+]);
+var dialogContentWideMobile = style5([
+  dialogContent,
+  { width: "100vw" },
+  {
+    "@media": {
+      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
+        width: "480px"
+      }
+    }
+  }
+]);
+var dialogContentWideDesktop = style5([
+  dialogContent,
+  {
+    width: largeScreenMinWidth
+  },
+  {
+    "@media": {
+      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
+        width: "720px"
+      }
+    }
+  }
+]);
+var dialogContentCompactMode = style5([
+  dialogContent,
+  {
+    minWidth: "368px",
+    width: "368px"
+  },
+  {
+    "@media": {
+      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
+        minWidth: "368px",
+        width: "368px"
+      }
+    }
+  }
+]);
+var dialogContentMobile = style5([
+  sprinkles({
+    borderRadius: "modalMobile"
+  }),
+  {
+    borderWidth: "0px",
+    boxSizing: "border-box",
+    width: "100vw"
+  }
+]);
+var bleed2 = 200;
+var bottomSheetOverrides = style5({
+  "@media": {
+    [`screen and (max-width: ${largeScreenMinWidth - 1}px)`]: {
+      borderBottomLeftRadius: 0,
+      borderBottomRightRadius: 0,
+      marginTop: -bleed2,
+      paddingBottom: bleed2,
+      top: bleed2
+    }
+  }
+});
+
+// src/rainbowkit/src/components/Dialog/DialogContent.tsx
+function DialogContent3({
+  bottomSheetOnMobile = false,
+  children,
+  marginTop,
+  padding = "16",
+  wide = false
+}) {
+  const mobile = isMobile();
+  const modalSize = useContext6(ModalSizeContext);
+  const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
+  return /* @__PURE__ */ React55.createElement(Box, {
+    marginTop
+  }, /* @__PURE__ */ React55.createElement(PixelBorderCard, {
+    className: [
+      wide ? mobile ? dialogContentWideMobile : compactModeEnabled ? dialogContentCompactMode : dialogContentWideDesktop : dialogContent,
+      mobile ? dialogContentMobile : null,
+      mobile && bottomSheetOnMobile ? bottomSheetOverrides : null
+    ].join(" "),
+    pixel_height: 10,
+    backgroundColor: "#1D263B"
+  }, /* @__PURE__ */ React55.createElement(Box, {
+    padding,
+    width: "full"
+  }, children)));
+}
+
+// src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
+import React66, { useCallback as useCallback23, useContext as useContext9, useEffect as useEffect21, useState as useState15 } from "react";
+
+// src/rainbowkit/src/components/Avatar/Avatar.tsx
+import React56, { useContext as useContext7 } from "react";
+function Avatar2({ address, imageUrl, loading, size }) {
+  const AvatarComponent3 = useContext7(AvatarContext);
+  return /* @__PURE__ */ React56.createElement(Box, {
+    "aria-hidden": true,
+    borderRadius: "full",
+    overflow: "hidden",
+    position: "relative",
+    style: {
+      height: `${size}px`,
+      width: `${size}px`
+    },
+    userSelect: "none"
+  }, /* @__PURE__ */ React56.createElement(Box, {
+    alignItems: "center",
+    borderRadius: "full",
+    display: "flex",
+    justifyContent: "center",
+    overflow: "hidden",
+    position: "absolute",
+    style: {
+      fontSize: `${Math.round(size * 0.55)}px`,
+      height: `${size}px`,
+      transform: loading ? "scale(0.72)" : void 0,
+      transition: ".25s ease",
+      transitionDelay: loading ? void 0 : ".1s",
+      width: `${size}px`,
+      willChange: "transform"
+    },
+    userSelect: "none"
+  }, /* @__PURE__ */ React56.createElement(AvatarComponent3, {
+    address,
+    ensImage: imageUrl,
+    size
+  })), typeof loading === "boolean" && /* @__PURE__ */ React56.createElement(Box, {
+    color: "accentColor",
+    display: "flex",
+    height: "full",
+    position: "absolute",
+    style: {
+      opacity: loading ? 1 : 0,
+      transition: loading ? "0.6s ease" : "0.2s ease",
+      transitionDelay: loading ? ".05s" : void 0
+    },
+    width: "full"
+  }, /* @__PURE__ */ React56.createElement(SpinnerIcon, {
+    height: "100%",
+    width: "100%"
+  })));
+}
+
+// src/rainbowkit/src/components/ConnectButton/abbreviateETHBalance.ts
+var units = ["k", "m", "b", "t"];
+function toPrecision(number, precision = 1) {
+  return number.toString().replace(new RegExp(`(.+\\.\\d{${precision}})\\d+`), "$1").replace(/(\.[1-9]*)0+$/, "$1").replace(/\.$/, "");
+}
+function abbreviateETHBalance(number) {
+  if (number < 1)
+    return toPrecision(number, 3);
+  if (number < 10 ** 2)
+    return toPrecision(number, 2);
+  if (number < 10 ** 4)
+    return new Intl.NumberFormat().format(parseFloat(toPrecision(number, 1)));
+  const decimalsDivisor = 10 ** 1;
+  let result = String(number);
+  for (let i = units.length - 1; i >= 0; i--) {
+    const size = 10 ** ((i + 1) * 3);
+    if (size <= number) {
+      number = number * decimalsDivisor / size / decimalsDivisor;
+      result = toPrecision(number, 1) + units[i];
+      break;
+    }
+  }
+  return result;
+}
+
+// src/rainbowkit/src/components/ConnectButton/formatAddress.ts
+function formatAddress(address) {
+  const leadingChars = 4;
+  const trailingChars = 4;
+  return address.length < leadingChars + trailingChars ? address : `${address.substring(0, leadingChars)}\u2026${address.substring(
+    address.length - trailingChars
+  )}`;
+}
+
+// src/rainbowkit/src/components/ConnectButton/formatENS.ts
+function formatENS(name) {
+  const parts = name.split(".");
+  const last = parts.pop();
+  if (parts.join(".").length > 24) {
+    return `${parts.join(".").substring(0, 24)}...`;
+  }
+  return `${parts.join(".")}.${last}`;
+}
+
+// src/rainbowkit/src/components/Icons/Copied.tsx
+import React57 from "react";
+var CopiedIcon = () => /* @__PURE__ */ React57.createElement("svg", {
+  fill: "none",
+  height: "13",
+  viewBox: "0 0 13 13",
+  width: "13",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React57.createElement("path", {
+  d: "M4.94568 12.2646C5.41052 12.2646 5.77283 12.0869 6.01892 11.7109L12.39 1.96973C12.5677 1.69629 12.6429 1.44336 12.6429 1.2041C12.6429 0.561523 12.1644 0.0966797 11.5082 0.0966797C11.057 0.0966797 10.7767 0.260742 10.5033 0.691406L4.9115 9.50977L2.07458 5.98926C1.82166 5.68848 1.54822 5.55176 1.16541 5.55176C0.502319 5.55176 0.0238037 6.02344 0.0238037 6.66602C0.0238037 6.95312 0.112671 7.20605 0.358765 7.48633L3.88611 11.7588C4.18005 12.1074 4.50818 12.2646 4.94568 12.2646Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Icons/Copy.tsx
+import React58 from "react";
+var CopyIcon = () => /* @__PURE__ */ React58.createElement("svg", {
+  fill: "none",
+  height: "16",
+  viewBox: "0 0 17 16",
+  width: "17",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React58.createElement("path", {
+  d: "M3.04236 12.3027H4.18396V13.3008C4.18396 14.8525 5.03845 15.7002 6.59705 15.7002H13.6244C15.183 15.7002 16.0375 14.8525 16.0375 13.3008V6.24609C16.0375 4.69434 15.183 3.84668 13.6244 3.84668H12.4828V2.8418C12.4828 1.29688 11.6283 0.442383 10.0697 0.442383H3.04236C1.48376 0.442383 0.629272 1.29004 0.629272 2.8418V9.90332C0.629272 11.4551 1.48376 12.3027 3.04236 12.3027ZM3.23376 10.5391C2.68689 10.5391 2.39294 10.2656 2.39294 9.68457V3.06055C2.39294 2.47949 2.68689 2.21289 3.23376 2.21289H9.8783C10.4252 2.21289 10.7191 2.47949 10.7191 3.06055V3.84668H6.59705C5.03845 3.84668 4.18396 4.69434 4.18396 6.24609V10.5391H3.23376ZM6.78845 13.9365C6.24158 13.9365 5.94763 13.6699 5.94763 13.0889V6.45801C5.94763 5.87695 6.24158 5.61035 6.78845 5.61035H13.433C13.9799 5.61035 14.2738 5.87695 14.2738 6.45801V13.0889C14.2738 13.6699 13.9799 13.9365 13.433 13.9365H6.78845Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Icons/Disconnect.tsx
+import React59 from "react";
+var DisconnectIcon = () => /* @__PURE__ */ React59.createElement("svg", {
+  fill: "none",
+  height: "16",
+  viewBox: "0 0 18 16",
+  width: "18",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React59.createElement("path", {
+  d: "M2.67834 15.5908H9.99963C11.5514 15.5908 12.399 14.7432 12.399 13.1777V10.2656H10.6354V12.9863C10.6354 13.5332 10.3688 13.8271 9.78772 13.8271H2.89026C2.3092 13.8271 2.0426 13.5332 2.0426 12.9863V3.15625C2.0426 2.60254 2.3092 2.30859 2.89026 2.30859H9.78772C10.3688 2.30859 10.6354 2.60254 10.6354 3.15625V5.89746H12.399V2.95801C12.399 1.39941 11.5514 0.544922 9.99963 0.544922H2.67834C1.12659 0.544922 0.278931 1.39941 0.278931 2.95801V13.1777C0.278931 14.7432 1.12659 15.5908 2.67834 15.5908ZM7.43616 8.85059H14.0875L15.0924 8.78906L14.566 9.14453L13.6842 9.96484C13.5406 10.1016 13.4586 10.2861 13.4586 10.4844C13.4586 10.8398 13.7321 11.168 14.1217 11.168C14.3199 11.168 14.4635 11.0928 14.6002 10.9561L16.7809 8.68652C16.986 8.48145 17.0543 8.27637 17.0543 8.06445C17.0543 7.85254 16.986 7.64746 16.7809 7.43555L14.6002 5.17285C14.4635 5.03613 14.3199 4.9541 14.1217 4.9541C13.7321 4.9541 13.4586 5.27539 13.4586 5.6377C13.4586 5.83594 13.5406 6.02734 13.6842 6.15723L14.566 6.98438L15.0924 7.33984L14.0875 7.27148H7.43616C7.01917 7.27148 6.65686 7.62012 6.65686 8.06445C6.65686 8.50195 7.01917 8.85059 7.43616 8.85059Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Txs/TxList.tsx
+import React64, { useContext as useContext8 } from "react";
+import { useNetwork as useNetwork5 } from "wagmi";
+
+// src/rainbowkit/src/transactions/useClearRecentTransactions.ts
+import { useCallback as useCallback22 } from "react";
+import { useAccount as useAccount7 } from "wagmi";
+function useClearRecentTransactions() {
+  const store = useTransactionStore();
+  const { address } = useAccount7();
+  const chainId = useChainId();
+  return useCallback22(() => {
+    if (!address || !chainId) {
+      throw new Error("No address or chain ID found");
+    }
+    store.clearTransactions(address, chainId);
+  }, [store, address, chainId]);
+}
+
+// src/rainbowkit/src/transactions/useRecentTransactions.ts
+import { useEffect as useEffect20, useState as useState14 } from "react";
+import { useAccount as useAccount8 } from "wagmi";
+function useRecentTransactions() {
+  const store = useTransactionStore();
+  const { address } = useAccount8();
+  const chainId = useChainId();
+  const [transactions, setTransactions] = useState14(
+    () => store && address && chainId ? store.getTransactions(address, chainId) : []
+  );
+  useEffect20(() => {
+    if (store && address && chainId) {
+      setTransactions(store.getTransactions(address, chainId));
+      return store.onChange(() => {
+        setTransactions(store.getTransactions(address, chainId));
+      });
+    }
+  }, [store, address, chainId]);
+  return transactions;
+}
+
+// src/rainbowkit/src/utils/chainToExplorerUrl.ts
+var chainToExplorerUrl = (chain) => {
+  var _a, _b;
+  return (_b = (_a = chain == null ? void 0 : chain.blockExplorers) == null ? void 0 : _a.default) == null ? void 0 : _b.url;
+};
+
+// src/rainbowkit/src/components/Icons/ExternalLink.tsx
+import React60 from "react";
+var ExternalLinkIcon = () => /* @__PURE__ */ React60.createElement("svg", {
+  fill: "none",
+  height: "19",
+  viewBox: "0 0 20 19",
+  width: "20",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React60.createElement("path", {
+  d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM12.7158 12.1416C13.2432 12.1416 13.5684 11.7549 13.5684 11.1836V7.19336C13.5684 6.44629 13.1377 6.05957 12.417 6.05957H8.40918C7.8291 6.05957 7.45117 6.38477 7.45117 6.91211C7.45117 7.43945 7.8291 7.77344 8.40918 7.77344H9.69238L10.7207 7.63281L9.53418 8.67871L6.73047 11.4912C6.53711 11.6758 6.41406 11.9395 6.41406 12.2031C6.41406 12.7832 6.85352 13.1699 7.39844 13.1699C7.68848 13.1699 7.92578 13.0732 8.1543 12.8623L10.9316 10.0762L11.9775 8.89844L11.8545 9.98828V11.1836C11.8545 11.7725 12.1885 12.1416 12.7158 12.1416Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Txs/TxItem.tsx
+import React63 from "react";
+import { useNetwork as useNetwork4 } from "wagmi";
+
+// src/rainbowkit/src/components/Icons/Cancel.tsx
+import React61 from "react";
+var CancelIcon = () => /* @__PURE__ */ React61.createElement("svg", {
+  fill: "none",
+  height: "19",
+  viewBox: "0 0 20 19",
+  width: "20",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React61.createElement("path", {
+  d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM7.29297 13.3018C7.58301 13.3018 7.81152 13.2139 7.99609 13.0205L10 11.0166L12.0127 13.0205C12.1973 13.2051 12.4258 13.3018 12.707 13.3018C13.2432 13.3018 13.6562 12.8887 13.6562 12.3525C13.6562 12.0977 13.5508 11.8691 13.3662 11.6934L11.3535 9.67188L13.375 7.6416C13.5596 7.44824 13.6562 7.22852 13.6562 6.98242C13.6562 6.44629 13.2432 6.0332 12.7158 6.0332C12.4346 6.0332 12.2148 6.12109 12.0215 6.31445L10 8.32715L7.9873 6.32324C7.80273 6.12988 7.58301 6.04199 7.29297 6.04199C6.76562 6.04199 6.35254 6.45508 6.35254 6.99121C6.35254 7.2373 6.44922 7.46582 6.63379 7.6416L8.65527 9.67188L6.63379 11.6934C6.44922 11.8691 6.35254 12.1064 6.35254 12.3525C6.35254 12.8887 6.76562 13.3018 7.29297 13.3018Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Icons/Success.tsx
+import React62 from "react";
+var SuccessIcon = () => /* @__PURE__ */ React62.createElement("svg", {
+  fill: "none",
+  height: "20",
+  viewBox: "0 0 20 20",
+  width: "20",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React62.createElement("path", {
+  d: "M10 19.4443C15.0977 19.4443 19.2812 15.252 19.2812 10.1543C19.2812 5.06543 15.0889 0.873047 10 0.873047C4.90234 0.873047 0.71875 5.06543 0.71875 10.1543C0.71875 15.252 4.91113 19.4443 10 19.4443ZM10 17.1328C6.1416 17.1328 3.03906 14.0215 3.03906 10.1543C3.03906 6.2959 6.13281 3.18457 10 3.18457C13.8584 3.18457 16.9697 6.2959 16.9697 10.1543C16.9785 14.0215 13.8672 17.1328 10 17.1328ZM9.07715 14.3379C9.4375 14.3379 9.7627 14.1533 9.97363 13.8369L13.7441 8.00977C13.8848 7.79883 13.9814 7.5791 13.9814 7.36816C13.9814 6.84961 13.5244 6.48926 13.0322 6.48926C12.707 6.48926 12.4258 6.66504 12.2148 7.0166L9.05957 12.0967L7.5918 10.2949C7.37207 10.0225 7.13477 9.9082 6.84473 9.9082C6.33496 9.9082 5.92188 10.3125 5.92188 10.8223C5.92188 11.0684 6.00098 11.2793 6.18555 11.5078L8.1543 13.8545C8.40918 14.1709 8.70801 14.3379 9.07715 14.3379Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Txs/TxItem.tsx
+var getTxStatusIcon = (status) => {
+  switch (status) {
+    case "pending":
+      return SpinnerIcon;
+    case "confirmed":
+      return SuccessIcon;
+    case "failed":
+      return CancelIcon;
+    default:
+      return SpinnerIcon;
+  }
+};
+function TxItem({ tx }) {
+  const mobile = isMobile();
+  const Icon2 = getTxStatusIcon(tx.status);
+  const color = tx.status === "failed" ? "error" : "accentColor";
+  const { chain: activeChain } = useNetwork4();
+  const confirmationStatus = tx.status === "confirmed" ? "Confirmed" : tx.status === "failed" ? "Failed" : "Pending";
+  const explorerLink = chainToExplorerUrl(activeChain);
+  return /* @__PURE__ */ React63.createElement(React63.Fragment, null, /* @__PURE__ */ React63.createElement(Box, {
+    ...explorerLink ? {
+      as: "a",
+      background: { hover: "profileForeground" },
+      borderRadius: "menuButton",
+      className: touchableStyles({ active: "shrink" }),
+      href: `${explorerLink}/tx/${tx.hash}`,
+      rel: "noreferrer noopener",
+      target: "_blank",
+      transition: "default"
+    } : {},
+    color: "modalText",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    padding: "8",
+    width: "full"
+  }, /* @__PURE__ */ React63.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    gap: mobile ? "16" : "14"
+  }, /* @__PURE__ */ React63.createElement(Box, {
+    color
+  }, /* @__PURE__ */ React63.createElement(Icon2, null)), /* @__PURE__ */ React63.createElement(Box, {
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "3" : "1"
+  }, /* @__PURE__ */ React63.createElement(Box, null, /* @__PURE__ */ React63.createElement(Text2, {
+    color: "modalText",
+    font: "body",
+    size: mobile ? "16" : "14",
+    weight: "bold"
+  }, tx == null ? void 0 : tx.description)), /* @__PURE__ */ React63.createElement(Box, null, /* @__PURE__ */ React63.createElement(Text2, {
+    color: tx.status === "pending" ? "modalTextSecondary" : color,
+    font: "body",
+    size: "14",
+    weight: mobile ? "medium" : "regular"
+  }, confirmationStatus)))), explorerLink && /* @__PURE__ */ React63.createElement(Box, {
+    alignItems: "center",
+    color: "modalTextDim",
+    display: "flex"
+  }, /* @__PURE__ */ React63.createElement(ExternalLinkIcon, null))));
+}
+
+// src/rainbowkit/src/components/Txs/TxList.tsx
+var NUMBER_OF_VISIBLE_TXS = 3;
+function TxList({ address }) {
+  const recentTransactions = useRecentTransactions();
+  const clearRecentTransactions = useClearRecentTransactions();
+  const { chain: activeChain } = useNetwork5();
+  const explorerLink = chainToExplorerUrl(activeChain);
+  const visibleTxs = recentTransactions.slice(0, NUMBER_OF_VISIBLE_TXS);
+  const hasTransactions = visibleTxs.length > 0;
+  const mobile = isMobile();
+  const { appName } = useContext8(AppContext);
+  return /* @__PURE__ */ React64.createElement(React64.Fragment, null, /* @__PURE__ */ React64.createElement(Box, {
+    display: "flex",
+    flexDirection: "column",
+    gap: "10",
+    paddingBottom: "2",
+    paddingTop: "16",
+    paddingX: mobile ? "8" : "18"
+  }, hasTransactions && /* @__PURE__ */ React64.createElement(Box, {
+    paddingBottom: mobile ? "4" : "0",
+    paddingTop: "8",
+    paddingX: mobile ? "12" : "6"
+  }, /* @__PURE__ */ React64.createElement(Box, {
+    display: "flex",
+    justifyContent: "space-between"
+  }, /* @__PURE__ */ React64.createElement(Text2, {
+    color: "modalTextSecondary",
+    size: mobile ? "16" : "14",
+    weight: "semibold"
+  }, "Recent Transactions"), /* @__PURE__ */ React64.createElement(Box, {
+    style: {
+      marginBottom: -6,
+      marginLeft: -10,
+      marginRight: -10,
+      marginTop: -6
+    }
+  }, /* @__PURE__ */ React64.createElement(Box, {
+    as: "button",
+    background: {
+      hover: "profileForeground"
+    },
+    borderRadius: "actionButton",
+    className: touchableStyles({ active: "shrink" }),
+    onClick: clearRecentTransactions,
+    paddingX: mobile ? "8" : "12",
+    paddingY: mobile ? "4" : "5",
+    transition: "default",
+    type: "button"
+  }, /* @__PURE__ */ React64.createElement(Text2, {
+    color: "modalTextSecondary",
+    size: mobile ? "16" : "14",
+    weight: "semibold"
+  }, "Clear All"))))), /* @__PURE__ */ React64.createElement(Box, {
+    display: "flex",
+    flexDirection: "column",
+    gap: "4"
+  }, hasTransactions ? visibleTxs.map((tx) => /* @__PURE__ */ React64.createElement(TxItem, {
+    key: tx.hash,
+    tx
+  })) : /* @__PURE__ */ React64.createElement(React64.Fragment, null, /* @__PURE__ */ React64.createElement(Box, {
+    padding: mobile ? "12" : "8"
+  }, /* @__PURE__ */ React64.createElement(Text2, {
+    color: "modalTextDim",
+    size: mobile ? "16" : "14",
+    weight: mobile ? "medium" : "bold"
+  }, appName != null ? appName : "Your", " transactions will appear here...")), mobile && /* @__PURE__ */ React64.createElement(Box, {
+    background: "generalBorderDim",
+    height: "1",
+    marginX: "12",
+    marginY: "8"
+  })))), explorerLink && /* @__PURE__ */ React64.createElement(Box, {
+    paddingBottom: "18",
+    paddingX: mobile ? "8" : "18"
+  }, /* @__PURE__ */ React64.createElement(Box, {
+    alignItems: "center",
+    as: "a",
+    background: { hover: "profileForeground" },
+    borderRadius: "menuButton",
+    className: touchableStyles({ active: "shrink" }),
+    color: "modalTextDim",
+    display: "flex",
+    flexDirection: "row",
+    href: `${explorerLink}/address/${address}`,
+    justifyContent: "space-between",
+    paddingX: "8",
+    paddingY: "12",
+    rel: "noreferrer noopener",
+    style: { willChange: "transform" },
+    target: "_blank",
+    transition: "default",
+    width: "full",
+    ...mobile ? { paddingLeft: "12" } : {}
+  }, /* @__PURE__ */ React64.createElement(Text2, {
+    color: "modalText",
+    font: "body",
+    size: mobile ? "16" : "14",
+    weight: mobile ? "semibold" : "bold"
+  }, "View more on Explorer"), /* @__PURE__ */ React64.createElement(ExternalLinkIcon, null))));
+}
+
+// src/rainbowkit/src/components/ProfileDetails/ProfileDetailsAction.tsx
+import React65 from "react";
+function ProfileDetailsAction({
+  action,
+  icon,
+  label,
+  testId,
+  url
+}) {
+  const mobile = isMobile();
+  return /* @__PURE__ */ React65.createElement(Box, {
+    ...url ? { as: "a", href: url, rel: "noreferrer noopener", target: "_blank" } : { as: "button", type: "button" },
+    background: {
+      base: "profileAction",
+      ...!mobile ? { hover: "profileActionHover" } : {}
+    },
+    borderRadius: "menuButton",
+    boxShadow: "profileDetailsAction",
+    className: touchableStyles({
+      active: "shrinkSm",
+      hover: !mobile ? "grow" : void 0
+    }),
+    display: "flex",
+    onClick: action,
+    padding: mobile ? "6" : "8",
+    style: { willChange: "transform" },
+    testId,
+    transition: "default",
+    width: "full"
+  }, /* @__PURE__ */ React65.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: "1",
+    justifyContent: "center",
+    paddingTop: "2",
+    width: "full"
+  }, /* @__PURE__ */ React65.createElement(Box, {
+    color: "modalText",
+    height: "max"
+  }, icon), /* @__PURE__ */ React65.createElement(Box, null, /* @__PURE__ */ React65.createElement(Text2, {
+    color: "modalText",
+    size: mobile ? "12" : "13",
+    weight: "semibold"
+  }, label))));
+}
+
+// src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
+function ProfileDetails({
+  address,
+  balanceData,
+  ensAvatar,
+  ensName,
+  onClose,
+  onDisconnect
+}) {
+  const showRecentTransactions = useContext9(ShowRecentTransactionsContext);
+  const [copiedAddress, setCopiedAddress] = useState15(false);
+  const copyAddressAction = useCallback23(() => {
+    if (address) {
+      navigator.clipboard.writeText(address);
+      setCopiedAddress(true);
+    }
+  }, [address]);
+  useEffect21(() => {
+    if (copiedAddress) {
+      const timer = setTimeout(() => {
+        setCopiedAddress(false);
+      }, 1500);
+      return () => clearTimeout(timer);
+    }
+  }, [copiedAddress]);
+  const accountName = !address ? "" : ensName ? formatENS(ensName) : formatAddress(address);
+  const ethBalance = balanceData == null ? void 0 : balanceData.formatted;
+  const displayBalance = ethBalance ? abbreviateETHBalance(parseFloat(ethBalance)) : void 0;
+  const titleId = "rk_profile_title";
+  const mobile = isMobile();
+  if (!address) {
+    return null;
+  }
+  return /* @__PURE__ */ React66.createElement(React66.Fragment, null, /* @__PURE__ */ React66.createElement(Box, {
+    display: "flex",
+    flexDirection: "column"
+  }, /* @__PURE__ */ React66.createElement(Box, {
+    background: "profileForeground",
+    padding: "16"
+  }, /* @__PURE__ */ React66.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "16" : "12",
+    justifyContent: "center",
+    margin: "8",
+    style: { textAlign: "center" }
+  }, /* @__PURE__ */ React66.createElement(Box, {
+    style: {
+      position: "absolute",
+      right: 16,
+      top: 16,
+      willChange: "transform"
+    }
+  }, /* @__PURE__ */ React66.createElement(DialogClose_default, {
+    onClick: onClose
+  })), /* @__PURE__ */ React66.createElement(Box, {
+    marginTop: mobile ? "24" : "0"
+  }, /* @__PURE__ */ React66.createElement(Avatar2, {
+    address,
+    imageUrl: ensAvatar,
+    size: mobile ? 82 : 74
+  })), /* @__PURE__ */ React66.createElement(Box, {
+    display: "flex",
+    flexDirection: "column",
+    gap: mobile ? "4" : "0",
+    textAlign: "center"
+  }, /* @__PURE__ */ React66.createElement(Box, {
+    textAlign: "center"
+  }, /* @__PURE__ */ React66.createElement(Text2, {
+    as: "h1",
+    color: "modalText",
+    id: titleId,
+    size: mobile ? "20" : "18",
+    weight: "heavy"
+  }, accountName)), balanceData && /* @__PURE__ */ React66.createElement(Box, {
+    textAlign: "center"
+  }, /* @__PURE__ */ React66.createElement(Text2, {
+    as: "h1",
+    color: "modalTextSecondary",
+    id: titleId,
+    size: mobile ? "16" : "14",
+    weight: "semibold"
+  }, displayBalance, " ", balanceData.symbol)))), /* @__PURE__ */ React66.createElement(Box, {
+    display: "flex",
+    flexDirection: "row",
+    gap: "8",
+    margin: "2",
+    marginTop: "16"
+  }, /* @__PURE__ */ React66.createElement(ProfileDetailsAction, {
+    action: copyAddressAction,
+    icon: copiedAddress ? /* @__PURE__ */ React66.createElement(CopiedIcon, null) : /* @__PURE__ */ React66.createElement(CopyIcon, null),
+    label: copiedAddress ? "Copied!" : "Copy Address"
+  }), /* @__PURE__ */ React66.createElement(ProfileDetailsAction, {
+    action: onDisconnect,
+    icon: /* @__PURE__ */ React66.createElement(DisconnectIcon, null),
+    label: "Disconnect",
+    testId: "disconnect-button"
+  }))), showRecentTransactions && /* @__PURE__ */ React66.createElement(React66.Fragment, null, /* @__PURE__ */ React66.createElement(Box, {
+    background: "generalBorder",
+    height: "1",
+    marginTop: "-1"
+  }), /* @__PURE__ */ React66.createElement(Box, null, /* @__PURE__ */ React66.createElement(TxList, {
+    address
+  })))));
+}
+
+// src/rainbowkit/src/components/AccountModal/AccountModal.tsx
+function AccountModal({ onClose, open }) {
+  const { address } = useAccount10();
+  const { data: balanceData } = useBalance({ address });
+  const ensName = useMainnetEnsName(address);
+  const ensAvatar = useMainnetEnsAvatar(ensName);
+  const { disconnect } = useDisconnect3();
+  const titleId = "rk_account_modal_title";
+  if (!address) {
+    return null;
+  }
+  return /* @__PURE__ */ React67.createElement(React67.Fragment, null, address && /* @__PURE__ */ React67.createElement(Dialog, {
+    onClose,
+    open,
+    titleId
+  }, /* @__PURE__ */ React67.createElement(DialogContent3, {
+    bottomSheetOnMobile: true,
+    padding: "0"
+  }, /* @__PURE__ */ React67.createElement(ProfileDetails, {
+    address,
+    balanceData,
+    ensAvatar,
+    ensName,
+    onClose,
+    onDisconnect: disconnect
+  }))));
+}
+
+// src/rainbowkit/src/components/ChainModal/ChainModal.tsx
+import React70, { Fragment, useCallback as useCallback24, useContext as useContext10 } from "react";
+import { useDisconnect as useDisconnect4, useNetwork as useNetwork6, useSwitchNetwork } from "wagmi";
+
+// src/rainbowkit/src/components/Icons/DisconnectSq.tsx
+import React68 from "react";
+var DisconnectSqIcon = ({ size }) => /* @__PURE__ */ React68.createElement("svg", {
+  fill: "none",
+  height: size,
+  viewBox: "0 0 28 28",
+  width: size,
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React68.createElement("path", {
+  d: "M6.742 22.195h8.367c1.774 0 2.743-.968 2.743-2.758V16.11h-2.016v3.11c0 .625-.305.96-.969.96H6.984c-.664 0-.968-.335-.968-.96V7.984c0-.632.304-.968.968-.968h7.883c.664 0 .969.336.969.968v3.133h2.016v-3.36c0-1.78-.97-2.757-2.743-2.757H6.742C4.97 5 4 5.977 4 7.758v11.68c0 1.789.969 2.757 2.742 2.757Zm5.438-7.703h7.601l1.149-.07-.602.406-1.008.938a.816.816 0 0 0-.258.593c0 .407.313.782.758.782.227 0 .39-.086.547-.243l2.492-2.593c.235-.235.313-.47.313-.711 0-.242-.078-.477-.313-.719l-2.492-2.586c-.156-.156-.32-.25-.547-.25-.445 0-.758.367-.758.781 0 .227.094.446.258.594l1.008.945.602.407-1.149-.079H12.18a.904.904 0 0 0 0 1.805Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/MenuButton/MenuButton.tsx
+import React69 from "react";
+
+// src/rainbowkit/src/components/MenuButton/MenuButton.css.ts
+import { style as style6 } from "@vanilla-extract/css";
+var unsetBackgroundOnHover = style6({
+  ":hover": {
+    background: "unset"
+  }
+});
+
+// src/rainbowkit/src/components/MenuButton/MenuButton.tsx
+var MenuButton = React69.forwardRef(
+  ({
+    children,
+    currentlySelected = false,
+    onClick,
+    testId,
+    disabled,
+    ...urlProps
+  }, ref) => {
+    const mobile = isMobile();
+    return /* @__PURE__ */ React69.createElement(Box, {
+      as: "button",
+      borderRadius: "menuButton",
+      disabled: disabled != null ? disabled : false,
+      display: "flex",
+      ref,
+      testId,
+      type: "button",
+      marginLeft: "20",
+      marginRight: "20",
+      marginTop: "8",
+      marginBottom: "8",
+      onClick
+    }, /* @__PURE__ */ React69.createElement(PixelCube3, {
+      pixel_height: 3,
+      backgroundColor: `${currentlySelected ? "#343C4F" : "#1D263B"}`,
+      borderColor: `${currentlySelected ? "#1649FF" : "#3A4254"}`,
+      showHover: true,
+      width: "100%"
+    }, /* @__PURE__ */ React69.createElement(Box, {
+      className: [
+        mobile ? unsetBackgroundOnHover : void 0,
+        !currentlySelected && touchableStyles({ active: "shrink" })
+      ],
+      transition: "default",
+      width: "full",
+      padding: "16",
+      ...currentlySelected ? {
+        color: "accentColorForeground"
+      } : {
+        color: "modalText"
+      },
+      ...urlProps
+    }, children)));
+  }
+);
+MenuButton.displayName = "MenuButton";
+
+// src/rainbowkit/src/components/ChainModal/ChainModal.tsx
+function ChainModal({ onClose, open, fn }) {
+  var _a;
+  const { chain: activeChain } = useNetwork6();
+  const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
+    onSettled: () => {
+      reset();
+      onClose();
+    }
+  });
+  const { disconnect } = useDisconnect4();
+  const titleId = "rk_chain_modal_title";
+  const mobile = isMobile();
+  const unsupportedChain = (_a = activeChain == null ? void 0 : activeChain.unsupported) != null ? _a : false;
+  const chainIconSize = "24";
+  const { appName } = useContext10(AppContext);
+  const rainbowkitChains = useRainbowKitChains();
+  const chainClickHandle = useCallback24(
+    ({ isCurrentChain, chain }) => {
+      if (isCurrentChain) {
+        return;
+      } else {
+        switchNetwork ? switchNetwork(chain.id) : console.error("not switchNetwork");
+        if (fn) {
+          fn(chain.id);
+        }
+      }
+    },
+    [fn, switchNetwork]
+  );
+  if (!activeChain || !(activeChain == null ? void 0 : activeChain.id)) {
+    return null;
+  }
+  return /* @__PURE__ */ React70.createElement(Dialog, {
+    onClose,
+    open,
+    titleId
+  }, /* @__PURE__ */ React70.createElement(DialogContent3, {
+    padding: "0",
+    bottomSheetOnMobile: true
+  }, /* @__PURE__ */ React70.createElement(Box, {
+    display: "flex",
+    flexDirection: "column",
+    gap: "14",
+    marginBottom: "14"
+  }, /* @__PURE__ */ React70.createElement(ActivePixelCard, {
+    pixel_height: 10,
+    className: `tvlPixelTable_header`,
+    backgroundColor: "#293457",
+    height: "64px"
+  }, /* @__PURE__ */ React70.createElement(Box, {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  }, mobile && /* @__PURE__ */ React70.createElement(Box, {
+    width: "30"
+  }), /* @__PURE__ */ React70.createElement(Text2, {
+    as: "h3",
+    color: "modalText",
+    weight: "bold",
+    id: titleId
+  }, "Switch Networks"))), unsupportedChain && /* @__PURE__ */ React70.createElement(Box, {
+    marginLeft: "20",
+    marginRight: "20",
+    textAlign: mobile ? "center" : "left"
+  }, /* @__PURE__ */ React70.createElement(Text2, {
+    color: "modalTextSecondary",
+    size: "14",
+    weight: "medium"
+  }, "Wrong network detected, switch or disconnect to continue.")), /* @__PURE__ */ React70.createElement(Box, {
+    display: "flex",
+    flexDirection: "column",
+    gap: "4",
+    padding: "2",
+    style: { maxHeight: mobile ? "80vh" : "70vh", overflowY: "scroll" }
+  }, switchNetwork ? rainbowkitChains.map(
+    ({ iconBackground, iconUrl, id, name }, idx) => {
+      var _a2;
+      const chain = chains.find((c) => c.id === id);
+      const isCurrentChain = chain ? chain.id === (activeChain == null ? void 0 : activeChain.id) : false;
+      const switching = chain ? !isCurrentChain && chain.id === pendingChainId : false;
+      if (!chain) {
+        return null;
+      }
+      return /* @__PURE__ */ React70.createElement(Fragment, {
+        key: chain.id
+      }, /* @__PURE__ */ React70.createElement(MenuButton, {
+        disabled: false,
+        currentlySelected: isCurrentChain,
+        onClick: () => chainClickHandle({
+          isCurrentChain,
+          chain
+        }),
+        testId: `chain-option-${chain.id}`
+      }, /* @__PURE__ */ React70.createElement(Box, {
+        fontFamily: "body",
+        fontSize: "16"
+      }, /* @__PURE__ */ React70.createElement(Box, {
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "space-between"
+      }, /* @__PURE__ */ React70.createElement(Box, {
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "row",
+        gap: "4",
+        height: chainIconSize
+      }, iconUrl && /* @__PURE__ */ React70.createElement(Box, {
+        height: "full",
+        marginRight: "8"
+      }, /* @__PURE__ */ React70.createElement(AsyncImage, {
+        alt: name != null ? name : chain.name,
+        background: iconBackground,
+        borderRadius: "full",
+        height: chainIconSize,
+        src: iconUrl,
+        width: chainIconSize
+      })), /* @__PURE__ */ React70.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "row",
+        marginRight: "6"
+      }, /* @__PURE__ */ React70.createElement(Text2, {
+        color: "accentColorForeground",
+        size: "14",
+        weight: "medium"
+      }, "Connected"), /* @__PURE__ */ React70.createElement(Box, {
+        background: "connectionIndicator",
+        borderColor: "connectionIndicatorBorder",
+        borderRadius: "full",
+        borderStyle: "solid",
+        borderWidth: "3",
+        height: "12",
+        marginLeft: "8",
+        width: "12"
+      })), switching && /* @__PURE__ */ React70.createElement(Box, {
+        alignItems: "center",
+        display: "flex",
+        flexDirection: "row",
+        marginRight: "6"
+      }, /* @__PURE__ */ React70.createElement(Text2, {
+        color: "modalText",
+        size: "14",
+        weight: "medium"
+      }, "Confirm in Wallet"), /* @__PURE__ */ React70.createElement(Box, {
+        background: "standby",
+        borderRadius: "full",
+        height: "12",
+        marginLeft: "8",
+        width: "12",
+        borderColor: "standbyBorder",
+        borderStyle: "solid",
+        borderWidth: "3"
+      }))))), mobile && idx < rainbowkitChains.length - 1 && /* @__PURE__ */ React70.createElement(Box, {
+        background: "generalBorderDim",
+        height: "1",
+        marginX: "8"
+      }));
+    }
+  ) : /* @__PURE__ */ React70.createElement(Box, {
+    background: "generalBorder",
+    borderRadius: "menuButton",
+    paddingX: "18",
+    paddingY: "12"
+  }, /* @__PURE__ */ React70.createElement(Text2, {
+    color: "modalText",
+    size: "14",
+    weight: "medium"
+  }, "Your wallet does not support switching networks from", " ", appName != null ? appName : "this app", ". Try switching networks from within your wallet instead.")), unsupportedChain && /* @__PURE__ */ React70.createElement(React70.Fragment, null, /* @__PURE__ */ React70.createElement(Box, {
+    background: "generalBorderDim",
+    height: "1",
+    marginX: "8"
+  }), /* @__PURE__ */ React70.createElement(MenuButton, {
+    onClick: () => disconnect(),
+    testId: "chain-option-disconnect"
+  }, /* @__PURE__ */ React70.createElement(Box, {
+    color: "error",
+    fontFamily: "body",
+    fontSize: "16"
+  }, /* @__PURE__ */ React70.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  }, /* @__PURE__ */ React70.createElement(Box, {
+    alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    gap: "4",
+    height: chainIconSize
+  }, /* @__PURE__ */ React70.createElement(Box, {
+    alignItems: "center",
+    color: "error",
+    height: chainIconSize,
+    justifyContent: "center",
+    marginRight: "8"
+  }, /* @__PURE__ */ React70.createElement(DisconnectSqIcon, {
+    size: Number(chainIconSize)
+  })), /* @__PURE__ */ React70.createElement("div", null, "Disconnect")))))))), /* @__PURE__ */ React70.createElement(DialogClose_default, {
+    onClick: onClose
+  })));
+}
+
+// src/rainbowkit/src/components/ConnectModal/ConnectModal.tsx
+import React86 from "react";
+
+// src/rainbowkit/src/components/ConnectOptions/ConnectOptions.tsx
+import React85 from "react";
+
+// src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
+import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect24, useState as useState17 } from "react";
+
+// src/rainbowkit/src/utils/groupBy.ts
+function groupBy(items, getKey) {
+  const groupedItems = {};
+  items.forEach((item) => {
+    const key = getKey(item);
+    if (!key) {
+      return;
+    }
+    if (!groupedItems[key]) {
+      groupedItems[key] = [];
+    }
+    groupedItems[key].push(item);
+  });
+  return groupedItems;
+}
+
+// src/rainbowkit/src/components/ConnectModal/ConnectModalIntro.tsx
+import React73, { useContext as useContext11 } from "react";
+
 // src/rainbowkit/src/components/Disclaimer/DisclaimerLink.tsx
-import React9 from "react";
+import React71 from "react";
 var DisclaimerLink = ({
   children,
   href
 }) => {
-  return /* @__PURE__ */ React9.createElement(Box, {
+  return /* @__PURE__ */ React71.createElement(Box, {
     as: "a",
     color: "accentColor",
     href,
@@ -2388,240 +8273,96 @@ var DisclaimerLink = ({
 };
 
 // src/rainbowkit/src/components/Disclaimer/DisclaimerText.tsx
-import React10 from "react";
+import React72 from "react";
 var DisclaimerText = ({ children }) => {
-  return /* @__PURE__ */ React10.createElement(Text, {
+  return /* @__PURE__ */ React72.createElement(Text2, {
     color: "modalTextSecondary",
     size: "12",
     weight: "medium"
   }, children);
 };
 
-// src/rainbowkit/src/components/Icons/Assets.tsx
-import React12 from "react";
-
-// src/rainbowkit/src/components/AsyncImage/AsyncImage.tsx
-import React11, { useReducer as useReducer2 } from "react";
-
-// src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
-import { useEffect as useEffect4, useReducer } from "react";
-var cachedUrls = /* @__PURE__ */ new Map();
-var cachedRequestPromises = /* @__PURE__ */ new Map();
-async function loadAsyncImage(asyncImage) {
-  const cachedRequestPromise = cachedRequestPromises.get(asyncImage);
-  if (cachedRequestPromise) {
-    return cachedRequestPromise;
-  }
-  const load = async () => asyncImage().then(async (url) => {
-    cachedUrls.set(asyncImage, url);
-    return url;
-  });
-  const requestPromise = load().catch((_err) => {
-    return load().catch((_err2) => {
-      cachedRequestPromises.delete(asyncImage);
-    });
-  });
-  cachedRequestPromises.set(asyncImage, requestPromise);
-  return requestPromise;
-}
-async function loadImages(...urls) {
-  return await Promise.all(
-    urls.map((url) => typeof url === "function" ? loadAsyncImage(url) : url)
-  );
-}
-function useForceUpdate() {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  return forceUpdate;
-}
-function useAsyncImage(url) {
-  const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
-  const forceUpdate = useForceUpdate();
-  useEffect4(() => {
-    if (typeof url === "function" && !cachedUrl) {
-      loadAsyncImage(url).then(forceUpdate);
-    }
-  }, [url, cachedUrl, forceUpdate]);
-  return typeof url === "function" ? cachedUrl : url;
-}
-
-// src/rainbowkit/src/components/AsyncImage/AsyncImage.tsx
-function AsyncImage({
-  alt,
-  background,
-  borderColor,
-  borderRadius,
-  boxShadow,
-  height,
-  src: srcProp,
-  width
-}) {
-  const src6 = useAsyncImage(srcProp);
-  const isRemoteImage = src6 && /^http/.test(src6);
-  const [isRemoteImageLoaded, setRemoteImageLoaded] = useReducer2(
-    () => true,
-    false
-  );
-  return /* @__PURE__ */ React11.createElement(Box, {
-    "aria-label": alt,
-    borderRadius,
-    boxShadow,
-    height: typeof height === "string" ? height : void 0,
-    position: "relative",
-    role: "img",
-    style: {
-      background,
-      height: typeof height === "number" ? height : void 0,
-      width: typeof width === "number" ? width : void 0
-    },
-    width: typeof width === "string" ? width : void 0
-  }, /* @__PURE__ */ React11.createElement(Box, {
-    ...isRemoteImage ? {
-      "aria-hidden": true,
-      as: "img",
-      onLoad: setRemoteImageLoaded,
-      src: src6
-    } : {
-      backgroundSize: "cover"
-    },
-    height: "full",
-    position: "absolute",
-    style: {
-      transition: "opacity .15s linear",
-      userSelect: "none",
-      backgroundSize: "100%",
-      ...isRemoteImage ? {
-        opacity: isRemoteImageLoaded ? 1 : 0
-      } : {
-        backgroundImage: src6 ? `url(${src6})` : void 0,
-        backgroundRepeat: "no-repeat",
-        opacity: src6 ? 1 : 0
-      }
-    },
-    width: "full"
-  }), borderColor ? /* @__PURE__ */ React11.createElement(Box, {
-    ...typeof borderColor === "object" && "custom" in borderColor ? { style: { borderColor: borderColor.custom } } : { borderColor },
-    borderRadius,
-    borderStyle: "solid",
-    borderWidth: "1",
-    height: "full",
-    position: "relative",
-    width: "full"
-  }) : null);
-}
-
-// src/rainbowkit/src/components/Icons/Assets.tsx
-var src = async () => (await import("./assets-KLGNUBLR.js")).default;
-var preloadAssetsIcon = () => loadImages(src);
-var AssetsIcon = () => /* @__PURE__ */ React12.createElement(AsyncImage, {
-  background: "#d0d5de",
-  borderRadius: "10",
-  height: "48",
-  src,
-  width: "48"
-});
-
-// src/rainbowkit/src/components/Icons/Login.tsx
-import React13 from "react";
-var src2 = async () => (await import("./login-L4DFYQAF.js")).default;
-var preloadLoginIcon = () => loadImages(src2);
-var LoginIcon = () => /* @__PURE__ */ React13.createElement(AsyncImage, {
-  background: "#d0d5de",
-  borderRadius: "10",
-  height: "48",
-  src: src2,
-  width: "48"
-});
-
-// src/rainbowkit/src/components/RainbowKitProvider/AppContext.ts
-import { createContext as createContext3 } from "react";
-var defaultAppInfo = {
-  appName: void 0,
-  disclaimer: void 0,
-  learnMoreUrl: "https://learn.rainbow.me/understanding-web3?utm_source=rainbowkit&utm_campaign=learnmore"
-};
-var AppContext = createContext3(defaultAppInfo);
-
 // src/rainbowkit/src/components/ConnectModal/ConnectModalIntro.tsx
 function ConnectModalIntro({
   compactModeEnabled = false,
   getWallet
 }) {
-  const { disclaimer: Disclaimer, learnMoreUrl } = useContext3(AppContext);
-  return /* @__PURE__ */ React15.createElement(React15.Fragment, null, /* @__PURE__ */ React15.createElement(Box, {
+  const { disclaimer: Disclaimer, learnMoreUrl } = useContext11(AppContext);
+  return /* @__PURE__ */ React73.createElement(React73.Fragment, null, /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     color: "accentColor",
     display: "flex",
     flexDirection: "column",
     height: "full",
     justifyContent: "space-around"
-  }, /* @__PURE__ */ React15.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     marginBottom: "10"
-  }, !compactModeEnabled && /* @__PURE__ */ React15.createElement(Text, {
+  }, !compactModeEnabled && /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalText",
     size: "18",
     weight: "heavy"
-  }, "What is a Wallet?")), /* @__PURE__ */ React15.createElement(Box, {
+  }, "What is a Wallet?")), /* @__PURE__ */ React73.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "32",
     justifyContent: "center",
     marginY: "20",
     style: { maxWidth: 312 }
-  }, /* @__PURE__ */ React15.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "16"
-  }, /* @__PURE__ */ React15.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     borderRadius: "6",
     height: "48",
     minWidth: "48",
     width: "48"
-  }, /* @__PURE__ */ React15.createElement(AssetsIcon, null)), /* @__PURE__ */ React15.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(AssetsIcon, null)), /* @__PURE__ */ React73.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4"
-  }, /* @__PURE__ */ React15.createElement(Text, {
+  }, /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, "A Home for your Digital Assets"), /* @__PURE__ */ React15.createElement(Text, {
+  }, "A Home for your Digital Assets"), /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "Wallets are used to send, receive, store, and display digital assets like Ethereum and NFTs."))), /* @__PURE__ */ React15.createElement(Box, {
+  }, "Wallets are used to send, receive, store, and display digital assets like Ethereum and NFTs."))), /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "16"
-  }, /* @__PURE__ */ React15.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     borderRadius: "6",
     height: "48",
     minWidth: "48",
     width: "48"
-  }, /* @__PURE__ */ React15.createElement(LoginIcon, null)), /* @__PURE__ */ React15.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(LoginIcon, null)), /* @__PURE__ */ React73.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4"
-  }, /* @__PURE__ */ React15.createElement(Text, {
+  }, /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, "A New Way to Log In"), /* @__PURE__ */ React15.createElement(Text, {
+  }, "A New Way to Log In"), /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "Instead of creating new accounts and passwords on every website, just connect your wallet.")))), /* @__PURE__ */ React15.createElement(Box, {
+  }, "Instead of creating new accounts and passwords on every website, just connect your wallet.")))), /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "12",
     justifyContent: "center",
     margin: "10"
-  }, /* @__PURE__ */ React15.createElement(ActionButton, {
+  }, /* @__PURE__ */ React73.createElement(ActionButton, {
     label: "Get a Wallet",
     onClick: getWallet
-  }), /* @__PURE__ */ React15.createElement(Box, {
+  }), /* @__PURE__ */ React73.createElement(Box, {
     as: "a",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
     display: "block",
@@ -2632,45 +8373,45 @@ function ConnectModalIntro({
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React15.createElement(Text, {
+  }, /* @__PURE__ */ React73.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
-  }, "Learn More"))), Disclaimer && !compactModeEnabled && /* @__PURE__ */ React15.createElement(Box, {
+  }, "Learn More"))), Disclaimer && !compactModeEnabled && /* @__PURE__ */ React73.createElement(Box, {
     marginBottom: "8",
     marginTop: "12",
     textAlign: "center"
-  }, /* @__PURE__ */ React15.createElement(Disclaimer, {
+  }, /* @__PURE__ */ React73.createElement(Disclaimer, {
     Link: DisclaimerLink,
     Text: DisclaimerText
   }))));
 }
 
 // src/rainbowkit/src/components/Icons/Back.tsx
-import React16 from "react";
-var BackIcon = () => /* @__PURE__ */ React16.createElement("svg", {
+import React74 from "react";
+var BackIcon = () => /* @__PURE__ */ React74.createElement("svg", {
   fill: "none",
   height: "17",
   viewBox: "0 0 11 17",
   width: "11",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React16.createElement("path", {
+}, /* @__PURE__ */ React74.createElement("path", {
   d: "M0.99707 8.6543C0.99707 9.08496 1.15527 9.44531 1.51562 9.79688L8.16016 16.3096C8.43262 16.5732 8.74902 16.7051 9.13574 16.7051C9.90918 16.7051 10.5508 16.0811 10.5508 15.3076C10.5508 14.9121 10.3838 14.5605 10.0938 14.2705L4.30176 8.64551L10.0938 3.0293C10.3838 2.74805 10.5508 2.3877 10.5508 2.00098C10.5508 1.23633 9.90918 0.603516 9.13574 0.603516C8.74902 0.603516 8.43262 0.735352 8.16016 0.999023L1.51562 7.51172C1.15527 7.85449 1.00586 8.21484 0.99707 8.6543Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/InfoButton/InfoButton.tsx
-import React18 from "react";
+import React76 from "react";
 
 // src/rainbowkit/src/components/Icons/Info.tsx
-import React17 from "react";
-var InfoIcon = () => /* @__PURE__ */ React17.createElement("svg", {
+import React75 from "react";
+var InfoIcon = () => /* @__PURE__ */ React75.createElement("svg", {
   fill: "none",
   height: "12",
   viewBox: "0 0 8 12",
   width: "8",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React17.createElement("path", {
+}, /* @__PURE__ */ React75.createElement("path", {
   d: "M3.64258 7.99609C4.19336 7.99609 4.5625 7.73828 4.68555 7.24609C4.69141 7.21094 4.70312 7.16406 4.70898 7.13477C4.80859 6.60742 5.05469 6.35547 6.04492 5.76367C7.14648 5.10156 7.67969 4.3457 7.67969 3.24414C7.67969 1.39844 6.17383 0.255859 3.95898 0.255859C2.32422 0.255859 1.05859 0.894531 0.548828 1.86719C0.396484 2.14844 0.320312 2.44727 0.320312 2.74023C0.314453 3.37305 0.742188 3.79492 1.42188 3.79492C1.91406 3.79492 2.33594 3.54883 2.53516 3.11523C2.78711 2.47656 3.23242 2.21289 3.83594 2.21289C4.55664 2.21289 5.10742 2.65234 5.10742 3.29102C5.10742 3.9707 4.7793 4.29883 3.81836 4.87891C3.02148 5.36523 2.50586 5.92773 2.50586 6.76562V6.90039C2.50586 7.55664 2.96289 7.99609 3.64258 7.99609ZM3.67188 11.4473C4.42773 11.4473 5.04297 10.8672 5.04297 10.1406C5.04297 9.41406 4.42773 8.83984 3.67188 8.83984C2.91602 8.83984 2.30664 9.41406 2.30664 10.1406C2.30664 10.8672 2.91602 11.4473 3.67188 11.4473Z",
   fill: "currentColor"
 }));
@@ -2681,7 +8422,7 @@ var InfoButton = ({
   onClick
 }) => {
   const mobile = isMobile();
-  return /* @__PURE__ */ React18.createElement(Box, {
+  return /* @__PURE__ */ React76.createElement(Box, {
     alignItems: "center",
     "aria-label": ariaLabel,
     as: "button",
@@ -2700,25 +8441,19 @@ var InfoButton = ({
     transition: "default",
     type: "button",
     width: mobile ? "30" : "28"
-  }, /* @__PURE__ */ React18.createElement(InfoIcon, null));
+  }, /* @__PURE__ */ React76.createElement(InfoIcon, null));
 };
 
 // src/rainbowkit/src/components/ModalSelection/ModalSelection.tsx
-import React19, { useState as useState4 } from "react";
+import React77, { useState as useState16 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
-import { useContext as useContext4, useEffect as useEffect5, useRef as useRef2 } from "react";
-
-// src/rainbowkit/src/components/RainbowKitProvider/CoolModeContext.ts
-import { createContext as createContext4 } from "react";
-var CoolModeContext = createContext4(false);
-
-// src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
+import { useContext as useContext12, useEffect as useEffect22, useRef as useRef5 } from "react";
 var useCoolMode = (imageUrl) => {
-  const ref = useRef2(null);
-  const coolModeEnabled = useContext4(CoolModeContext);
+  const ref = useRef5(null);
+  const coolModeEnabled = useContext12(CoolModeContext);
   const resolvedImageUrl = useAsyncImage(imageUrl);
-  useEffect5(() => {
+  useEffect22(() => {
     if (coolModeEnabled && ref.current && resolvedImageUrl) {
       return makeElementCool(ref.current, resolvedImageUrl);
     }
@@ -2848,8 +8583,8 @@ function makeElementCool(element2, imageUrl) {
 }
 
 // src/rainbowkit/src/components/ModalSelection/ModalSelection.css.ts
-import { style as style3 } from "@vanilla-extract/css";
-var transparentBorder = style3({ borderColor: "transparent" });
+import { style as style7 } from "@vanilla-extract/css";
+var transparentBorder = style7({ borderColor: "transparent" });
 
 // src/rainbowkit/src/components/ModalSelection/ModalSelection.tsx
 var ModalSelection = ({
@@ -2865,21 +8600,21 @@ var ModalSelection = ({
   ...urlProps
 }) => {
   const coolModeRef = useCoolMode(iconUrl);
-  const [isMouseOver, setIsMouseOver] = useState4(false);
-  return /* @__PURE__ */ React19.createElement(Box, {
+  const [isMouseOver, setIsMouseOver] = useState16(false);
+  return /* @__PURE__ */ React77.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     onMouseEnter: () => setIsMouseOver(true),
     onMouseLeave: () => setIsMouseOver(false),
     ref: coolModeRef
-  }, /* @__PURE__ */ React19.createElement(ActivePixelCard, {
+  }, /* @__PURE__ */ React77.createElement(ActivePixelCard, {
     pixel_height: 4,
     ...currentlySelected ? {
       backgroundColor: "#1649FF"
     } : {
       backgroundColor: "#3A4254"
     }
-  }, /* @__PURE__ */ React19.createElement(Box, {
+  }, /* @__PURE__ */ React77.createElement(Box, {
     as,
     borderRadius: "menuButton",
     borderStyle: "solid",
@@ -2899,29 +8634,29 @@ var ModalSelection = ({
     transition: "default",
     width: "full",
     ...urlProps
-  }, /* @__PURE__ */ React19.createElement(Box, {
+  }, /* @__PURE__ */ React77.createElement(Box, {
     color: currentlySelected ? "accentColorForeground" : "modalText",
     disabled: !ready,
     fontFamily: "body",
     fontSize: "16",
     fontWeight: "bold",
     transition: "default"
-  }, /* @__PURE__ */ React19.createElement(Box, {
+  }, /* @__PURE__ */ React77.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "12",
     width: "max"
-  }, /* @__PURE__ */ React19.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React77.createElement(AsyncImage, {
     background: iconBackground,
     ...isMouseOver ? {} : { borderColor: "actionButtonBorder" },
     borderRadius: "6",
     height: "28",
     src: iconUrl,
     width: "28"
-  }), /* @__PURE__ */ React19.createElement(Box, null, /* @__PURE__ */ React19.createElement(Box, {
+  }), /* @__PURE__ */ React77.createElement(Box, null, /* @__PURE__ */ React77.createElement(Box, {
     style: { marginTop: recent ? -2 : void 0 }
-  }, name), recent && /* @__PURE__ */ React19.createElement(Text, {
+  }, name), recent && /* @__PURE__ */ React77.createElement(Text2, {
     color: currentlySelected ? "accentColorForeground" : "accentColor",
     size: "12",
     style: { lineHeight: 1, marginTop: -1 },
@@ -2930,72 +8665,14 @@ var ModalSelection = ({
 };
 ModalSelection.displayName = "ModalSelection";
 
-// src/rainbowkit/src/components/RainbowKitProvider/ModalSizeContext.ts
-import { createContext as createContext5 } from "react";
-var ModalSizeOptions = {
-  COMPACT: "compact",
-  WIDE: "wide"
-};
-var ModalSizeContext = createContext5(
-  ModalSizeOptions.WIDE
-);
-
 // src/rainbowkit/src/components/ConnectOptions/ConnectDetails.tsx
-import React25, { useContext as useContext5, useEffect as useEffect7 } from "react";
-
-// src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect6, useState as useState5 } from "react";
-var useWindowSize2 = () => {
-  const [windowSize, setWindowSize] = useState5({
-    height: void 0,
-    width: void 0
-  });
-  useEffect6(() => {
-    function handleResize() {
-      setWindowSize({
-        height: window.innerHeight,
-        width: window.innerWidth
-      });
-    }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  return windowSize;
-};
-
-// src/rainbowkit/src/utils/colors.ts
-var convertHexToRGBA = (hexCode, opacity = 1) => {
-  let hex = hexCode.replace("#", "");
-  if (hex.length === 3) {
-    hex = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
-  }
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  if (opacity > 1 && opacity <= 100) {
-    opacity = opacity / 100;
-  }
-  return `rgba(${r},${g},${b},${opacity})`;
-};
-var getGradientRGBAs = (hexColor) => {
-  if (!hexColor)
-    return null;
-  return [
-    convertHexToRGBA(hexColor, 0.2),
-    convertHexToRGBA(hexColor, 0.14),
-    convertHexToRGBA(hexColor, 0.1)
-  ];
-};
-var isHexString = (color) => {
-  return /^#([0-9a-f]{3}){1,2}$/i.test(color);
-};
+import React82, { useContext as useContext13, useEffect as useEffect23 } from "react";
 
 // src/rainbowkit/src/components/Icons/Create.tsx
-import React20 from "react";
+import React78 from "react";
 var src3 = async () => (await import("./create-FJBUAUYV.js")).default;
 var preloadCreateIcon = () => loadImages(src3);
-var CreateIcon = () => /* @__PURE__ */ React20.createElement(AsyncImage, {
+var CreateIcon = () => /* @__PURE__ */ React78.createElement(AsyncImage, {
   background: "#e3a5e8",
   borderColor: "generalBorder",
   borderRadius: "10",
@@ -3005,10 +8682,10 @@ var CreateIcon = () => /* @__PURE__ */ React20.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/Icons/Refresh.tsx
-import React21 from "react";
+import React79 from "react";
 var src4 = async () => (await import("./refresh-IPTTFCYG.js")).default;
 var preloadRefreshIcon = () => loadImages(src4);
-var RefreshIcon = () => /* @__PURE__ */ React21.createElement(AsyncImage, {
+var RefreshIcon = () => /* @__PURE__ */ React79.createElement(AsyncImage, {
   background: "#515a70",
   borderColor: "generalBorder",
   borderRadius: "10",
@@ -3018,10 +8695,10 @@ var RefreshIcon = () => /* @__PURE__ */ React21.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/Icons/Scan.tsx
-import React22 from "react";
+import React80 from "react";
 var src5 = async () => (await import("./scan-WU4WMXIE.js")).default;
 var preloadScanIcon = () => loadImages(src5);
-var ScanIcon = () => /* @__PURE__ */ React22.createElement(AsyncImage, {
+var ScanIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
   background: "#515a70",
   borderColor: "generalBorder",
   borderRadius: "10",
@@ -3030,71 +8707,18 @@ var ScanIcon = () => /* @__PURE__ */ React22.createElement(AsyncImage, {
   width: "48"
 });
 
-// src/rainbowkit/src/components/Icons/Spinner.tsx
-import React23, { useMemo as useMemo2 } from "react";
-
-// src/rainbowkit/src/components/Icons/Icons.css.ts
-import { keyframes, style as style4 } from "@vanilla-extract/css";
-var CloseIconClassName = sprinkles({
-  marginLeft: "6"
-});
-var spin = keyframes({
-  "0%": { transform: "rotate(0deg)" },
-  "100%": { transform: "rotate(360deg)" }
-});
-var SpinnerIconClassName = style4({
-  animation: `${spin} 3s infinite linear`
-});
-var SpinnerIconPathClassName = style4({
-  background: `conic-gradient(from 180deg at 50% 50%, rgba(72, 146, 254, 0) 0deg, currentColor 282.04deg, rgba(72, 146, 254, 0) 319.86deg, rgba(72, 146, 254, 0) 360deg)`,
-  height: 21,
-  width: 21
-});
-
-// src/rainbowkit/src/components/Icons/Spinner.tsx
-var useRandomId = (prefix) => useMemo2(
-  () => `${prefix}_${Math.round(Math.random() * 1e9)}`,
-  [prefix]
-);
-var SpinnerIcon = ({
-  height = 21,
-  width = 21
-}) => {
-  const id = useRandomId("spinner");
-  return /* @__PURE__ */ React23.createElement("svg", {
-    className: SpinnerIconClassName,
-    fill: "none",
-    height,
-    viewBox: "0 0 21 21",
-    width,
-    xmlns: "http://www.w3.org/2000/svg"
-  }, /* @__PURE__ */ React23.createElement("clipPath", {
-    id
-  }, /* @__PURE__ */ React23.createElement("path", {
-    d: "M10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C11.3284 18 12 18.6716 12 19.5C12 20.3284 11.3284 21 10.5 21C4.70101 21 0 16.299 0 10.5C0 4.70101 4.70101 0 10.5 0C16.299 0 21 4.70101 21 10.5C21 11.3284 20.3284 12 19.5 12C18.6716 12 18 11.3284 18 10.5C18 6.35786 14.6421 3 10.5 3Z"
-  })), /* @__PURE__ */ React23.createElement("foreignObject", {
-    clipPath: `url(#${id})`,
-    height: "21",
-    width: "21",
-    x: "0",
-    y: "0"
-  }, /* @__PURE__ */ React23.createElement("div", {
-    className: SpinnerIconPathClassName
-  })));
-};
-
 // src/rainbowkit/src/components/QRCode/QRCode.tsx
 import QRCodeUtil from "qrcode";
-import React24, { useMemo as useMemo3 } from "react";
+import React81, { useMemo as useMemo14 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.css.ts
-import { style as style5 } from "@vanilla-extract/css";
-var QRCodeBackgroundClassName = style5([
+import { style as style8 } from "@vanilla-extract/css";
+var QRCodeBackgroundClassName = style8([
   {
     background: "white"
   }
 ]);
-var ScrollClassName = style5([
+var ScrollClassName = style8([
   sprinkles({
     paddingX: "18"
   }),
@@ -3103,7 +8727,7 @@ var ScrollClassName = style5([
     overflowY: "auto"
   }
 ]);
-var sidebar = style5({
+var sidebar = style8({
   "@media": {
     [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
       minWidth: "287px"
@@ -3111,7 +8735,7 @@ var sidebar = style5({
   },
   "minWidth": "246px"
 });
-var sidebarCompactMode = style5({
+var sidebarCompactMode = style8({
   minWidth: "100%"
 });
 
@@ -3138,7 +8762,7 @@ function QRCode({
 }) {
   const padding = "20";
   const size = sizeProp - parseInt(padding, 10) * 2;
-  const dots = useMemo3(() => {
+  const dots = useMemo14(() => {
     const dots2 = [];
     const matrix = generateMatrix(uri, ecl);
     const cellSize = size / matrix.length;
@@ -3152,7 +8776,7 @@ function QRCode({
       const y1 = (matrix.length - 7) * cellSize * y;
       for (let i = 0; i < 3; i++) {
         dots2.push(
-          /* @__PURE__ */ React24.createElement("rect", {
+          /* @__PURE__ */ React81.createElement("rect", {
             fill: i % 2 !== 0 ? "white" : "black",
             height: cellSize * (7 - i * 2),
             key: `${i}-${x}-${y}`,
@@ -3174,7 +8798,7 @@ function QRCode({
           if (!(i < 7 && j < 7 || i > matrix.length - 8 && j < 7 || i < 7 && j > matrix.length - 8)) {
             if (!(i > matrixMiddleStart && i < matrixMiddleEnd && j > matrixMiddleStart && j < matrixMiddleEnd)) {
               dots2.push(
-                /* @__PURE__ */ React24.createElement("circle", {
+                /* @__PURE__ */ React81.createElement("circle", {
                   cx: i * cellSize + cellSize / 2,
                   cy: j * cellSize + cellSize / 2,
                   fill: "black",
@@ -3191,7 +8815,7 @@ function QRCode({
   }, [ecl, logoSize, size, uri]);
   const logoPosition = size / 2 - logoSize / 2;
   const logoWrapperSize = logoSize + logoMargin * 2;
-  return /* @__PURE__ */ React24.createElement(Box, {
+  return /* @__PURE__ */ React81.createElement(Box, {
     borderColor: "generalBorder",
     borderRadius: "menuButton",
     borderStyle: "solid",
@@ -3199,14 +8823,14 @@ function QRCode({
     className: QRCodeBackgroundClassName,
     padding,
     width: "max"
-  }, /* @__PURE__ */ React24.createElement(Box, {
+  }, /* @__PURE__ */ React81.createElement(Box, {
     style: {
       height: size,
       userSelect: "none",
       width: size
     },
     userSelect: "none"
-  }, /* @__PURE__ */ React24.createElement(Box, {
+  }, /* @__PURE__ */ React81.createElement(Box, {
     display: "flex",
     justifyContent: "center",
     position: "relative",
@@ -3216,28 +8840,28 @@ function QRCode({
       width: size
     },
     width: "full"
-  }, /* @__PURE__ */ React24.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React81.createElement(AsyncImage, {
     background: logoBackground,
     borderColor: { custom: "rgba(0, 0, 0, 0.06)" },
     borderRadius: "13",
     height: logoSize,
     src: logoUrl,
     width: logoSize
-  })), /* @__PURE__ */ React24.createElement("svg", {
+  })), /* @__PURE__ */ React81.createElement("svg", {
     height: size,
     style: { all: "revert" },
     width: size
-  }, /* @__PURE__ */ React24.createElement("defs", null, /* @__PURE__ */ React24.createElement("clipPath", {
+  }, /* @__PURE__ */ React81.createElement("defs", null, /* @__PURE__ */ React81.createElement("clipPath", {
     id: "clip-wrapper"
-  }, /* @__PURE__ */ React24.createElement("rect", {
+  }, /* @__PURE__ */ React81.createElement("rect", {
     height: logoWrapperSize,
     width: logoWrapperSize
-  })), /* @__PURE__ */ React24.createElement("clipPath", {
+  })), /* @__PURE__ */ React81.createElement("clipPath", {
     id: "clip-logo"
-  }, /* @__PURE__ */ React24.createElement("rect", {
+  }, /* @__PURE__ */ React81.createElement("rect", {
     height: logoSize,
     width: logoSize
-  }))), /* @__PURE__ */ React24.createElement("rect", {
+  }))), /* @__PURE__ */ React81.createElement("rect", {
     fill: "transparent",
     height: size,
     width: size
@@ -3272,14 +8896,14 @@ function GetDetail({
 }) {
   const wallets = useWalletConnectors();
   const shownWallets = wallets.splice(0, 5);
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "full",
     marginTop: "18",
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -3296,47 +8920,47 @@ function GetDetail({
     const hasMobileCompanionApp = (downloadUrls == null ? void 0 : downloadUrls.qrCode) && qrCode;
     const hasExtension = !!wallet.extensionDownloadUrl;
     const hasMobileAndExtension = (downloadUrls == null ? void 0 : downloadUrls.qrCode) && hasExtension;
-    return /* @__PURE__ */ React25.createElement(Box, {
+    return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "16",
       justifyContent: "space-between",
       key: wallet.id,
       width: "full"
-    }, /* @__PURE__ */ React25.createElement(Box, {
+    }, /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "16"
-    }, /* @__PURE__ */ React25.createElement(AsyncImage, {
+    }, /* @__PURE__ */ React82.createElement(AsyncImage, {
       background: iconBackground,
       borderColor: "actionButtonBorder",
       borderRadius: "10",
       height: "48",
       src: iconUrl,
       width: "48"
-    }), /* @__PURE__ */ React25.createElement(Box, {
+    }), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "2"
-    }, /* @__PURE__ */ React25.createElement(Text, {
+    }, /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "bold"
-    }, name), /* @__PURE__ */ React25.createElement(Text, {
+    }, name), /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "medium"
-    }, hasMobileAndExtension ? "Mobile Wallet and Extension" : hasMobileCompanionApp ? "Mobile Wallet" : hasExtension ? "Browser Extension" : null))), /* @__PURE__ */ React25.createElement(Box, {
+    }, hasMobileAndExtension ? "Mobile Wallet and Extension" : hasMobileCompanionApp ? "Mobile Wallet" : hasExtension ? "Browser Extension" : null))), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
-    }, /* @__PURE__ */ React25.createElement(ActionButton, {
+    }, /* @__PURE__ */ React82.createElement(ActionButton, {
       label: "GET",
       onClick: () => getWalletDownload(id),
       type: "secondary"
     })));
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "10",
     display: "flex",
@@ -3346,11 +8970,11 @@ function GetDetail({
     marginBottom: "4",
     paddingY: "8",
     style: { maxWidth: 275, textAlign: "center" }
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React25.createElement(Text, {
+  }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
@@ -3397,78 +9021,78 @@ function ConnectDetail({
   } : null;
   const { width: windowWidth } = useWindowSize2();
   const smallWindow = windowWidth && windowWidth < 768;
-  useEffect7(() => {
+  useEffect23(() => {
     preloadBrowserIcon();
   }, []);
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     height: "full",
     width: "full"
-  }, hasQrCode ? /* @__PURE__ */ React25.createElement(Box, {
+  }, hasQrCode ? /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     height: "full",
     justifyContent: "center"
-  }, /* @__PURE__ */ React25.createElement(QRCode, {
+  }, /* @__PURE__ */ React82.createElement(QRCode, {
     logoBackground: iconBackground,
     logoSize: compactModeEnabled ? 60 : 72,
     logoUrl: iconUrl,
     size: compactModeEnabled ? 318 : smallWindow ? Math.max(280, Math.min(windowWidth - 308, 382)) : 382,
     uri: qrCodeUri
-  })) : /* @__PURE__ */ React25.createElement(Box, {
+  })) : /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "center",
     style: { flexGrow: 1 }
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "8"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     borderRadius: "10",
     height: LOGO_SIZE,
     overflow: "hidden"
-  }, /* @__PURE__ */ React25.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
     height: LOGO_SIZE,
     src: iconUrl,
     width: LOGO_SIZE
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "4",
     paddingX: "32",
     style: { textAlign: "center" }
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalText",
     size: "18",
     weight: "bold"
-  }, ready ? `Opening ${name}...` : hasExtension ? `${name} is not installed` : `${name} is not available`), !ready && hasExtension ? /* @__PURE__ */ React25.createElement(Box, {
+  }, ready ? `Opening ${name}...` : hasExtension ? `${name} is not installed` : `${name} is not available`), !ready && hasExtension ? /* @__PURE__ */ React82.createElement(Box, {
     paddingTop: "20"
-  }, /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     href: wallet.extensionDownloadUrl,
     label: "INSTALL",
     type: "secondary"
-  })) : null, ready && !hasQrCode && /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(Box, {
+  })) : null, ready && !hasQrCode && /* @__PURE__ */ React82.createElement(React82.Fragment, null, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     textAlign: "center",
     weight: "medium"
-  }, "Confirm connection in the extension")), /* @__PURE__ */ React25.createElement(Box, {
+  }, "Confirm connection in the extension")), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     color: "modalText",
     display: "flex",
     flexDirection: "row",
     height: "32",
     marginTop: "8"
-  }, connectionError ? /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, connectionError ? /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "RETRY",
     onClick: getDesktopDeepLink ? async () => {
       const uri = await getDesktopDeepLink();
@@ -3476,9 +9100,9 @@ function ConnectDetail({
     } : () => {
       reconnect(wallet);
     }
-  }) : /* @__PURE__ */ React25.createElement(Box, {
+  }) : /* @__PURE__ */ React82.createElement(Box, {
     color: "modalTextSecondary"
-  }, /* @__PURE__ */ React25.createElement(SpinnerIcon, null))))))), /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(SpinnerIcon, null))))))), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "10",
     display: "flex",
@@ -3487,11 +9111,11 @@ function ConnectDetail({
     height: "28",
     justifyContent: "space-between",
     marginTop: "12"
-  }, ready && secondaryAction && /* @__PURE__ */ React25.createElement(React25.Fragment, null, /* @__PURE__ */ React25.createElement(Text, {
+  }, ready && secondaryAction && /* @__PURE__ */ React82.createElement(React82.Fragment, null, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, secondaryAction.description), /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, secondaryAction.description), /* @__PURE__ */ React82.createElement(ActionButton, {
     label: secondaryAction.label,
     onClick: secondaryAction.onClick,
     type: "secondary"
@@ -3511,7 +9135,7 @@ var DownloadOptionsBox = ({
 }) => {
   const isBrowserCard = variant === "browser";
   const gradientRgbas = !isBrowserCard && iconAccent && getGradientRGBAs(iconAccent);
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "13",
     display: "flex",
@@ -3521,7 +9145,7 @@ var DownloadOptionsBox = ({
     position: "relative",
     style: { flex: 1, isolation: "isolate" },
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     borderColor: "actionButtonBorder",
     borderRadius: "13",
     borderStyle: "solid",
@@ -3534,7 +9158,7 @@ var DownloadOptionsBox = ({
       top: "0",
       zIndex: 1
     }
-  }), isBrowserCard && /* @__PURE__ */ React25.createElement(Box, {
+  }), isBrowserCard && /* @__PURE__ */ React82.createElement(Box, {
     background: "downloadTopCardBackground",
     height: "full",
     position: "absolute",
@@ -3542,7 +9166,7 @@ var DownloadOptionsBox = ({
       zIndex: 0
     },
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -3555,7 +9179,7 @@ var DownloadOptionsBox = ({
       top: "0",
       transform: "translate3d(0, 0, 0)"
     }
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     style: {
       filter: "blur(100px)",
       marginLeft: -27,
@@ -3563,12 +9187,12 @@ var DownloadOptionsBox = ({
       opacity: 0.6,
       transform: "translate3d(0, 0, 0)"
     }
-  }, /* @__PURE__ */ React25.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
     borderRadius: "full",
     height: "200",
     src: iconUrl,
     width: "200"
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     style: {
       filter: "blur(100px)",
       marginRight: 0,
@@ -3577,12 +9201,12 @@ var DownloadOptionsBox = ({
       overflow: "auto",
       transform: "translate3d(0, 0, 0)"
     }
-  }, /* @__PURE__ */ React25.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
     borderRadius: "full",
     height: "200",
     src: iconUrl,
     width: "200"
-  })))), !isBrowserCard && gradientRgbas && /* @__PURE__ */ React25.createElement(Box, {
+  })))), !isBrowserCard && gradientRgbas && /* @__PURE__ */ React82.createElement(Box, {
     background: "downloadBottomCardBackground",
     style: {
       bottom: "0",
@@ -3591,7 +9215,7 @@ var DownloadOptionsBox = ({
       right: "0",
       top: "0"
     }
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     position: "absolute",
     style: {
       background: `radial-gradient(50% 50% at 50% 50%, ${gradientRgbas[0]} 0%, ${gradientRgbas[1]} 25%, rgba(0,0,0,0) 100%)`,
@@ -3601,7 +9225,7 @@ var DownloadOptionsBox = ({
       transform: "translate3d(0, 0, 0)",
       width: 564
     }
-  }), /* @__PURE__ */ React25.createElement(Box, {
+  }), /* @__PURE__ */ React82.createElement(Box, {
     position: "absolute",
     style: {
       background: `radial-gradient(50% 50% at 50% 50%, ${gradientRgbas[2]} 0%, rgba(0, 0, 0, 0) 100%)`,
@@ -3611,7 +9235,7 @@ var DownloadOptionsBox = ({
       transform: "translate3d(0, 0, 0)",
       width: 564
     }
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "flex-start",
     display: "flex",
     flexDirection: "row",
@@ -3619,7 +9243,7 @@ var DownloadOptionsBox = ({
     height: "max",
     justifyContent: "center",
     style: { zIndex: 1 }
-  }, /* @__PURE__ */ React25.createElement(Box, null, /* @__PURE__ */ React25.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(Box, null, /* @__PURE__ */ React82.createElement(AsyncImage, {
     height: "60",
     src: iconUrl,
     width: "60",
@@ -3628,24 +9252,24 @@ var DownloadOptionsBox = ({
       borderColor: "generalBorder",
       borderRadius: "10"
     } : null
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4",
     style: { flex: 1 },
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, title), /* @__PURE__ */ React25.createElement(Text, {
+  }, title), /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, description), /* @__PURE__ */ React25.createElement(Box, {
+  }, description), /* @__PURE__ */ React82.createElement(Box, {
     marginTop: "14",
     width: "max"
-  }, /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     href: url,
     label: actionLabel,
     onClick: onAction,
@@ -3657,15 +9281,15 @@ function DownloadOptionsDetail({
   wallet
 }) {
   const browser = getBrowser();
-  const modalSize = useContext5(ModalSizeContext);
+  const modalSize = useContext13(ModalSizeContext);
   const isCompact = modalSize === "compact";
   const { extension, extensionDownloadUrl, mobileDownloadUrl } = wallet;
-  useEffect7(() => {
+  useEffect23(() => {
     preloadCreateIcon();
     preloadScanIcon();
     preloadRefreshIcon();
   }, []);
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -3674,7 +9298,7 @@ function DownloadOptionsDetail({
     marginBottom: "8",
     marginTop: "4",
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -3682,7 +9306,7 @@ function DownloadOptionsDetail({
     height: "full",
     justifyContent: "center",
     width: "full"
-  }, extensionDownloadUrl && /* @__PURE__ */ React25.createElement(DownloadOptionsBox, {
+  }, extensionDownloadUrl && /* @__PURE__ */ React82.createElement(DownloadOptionsBox, {
     actionLabel: `Add to ${browser}`,
     description: "Access your wallet right from your favorite web browser.",
     iconUrl: getBrowserSrc,
@@ -3693,7 +9317,7 @@ function DownloadOptionsDetail({
     title: `${wallet.name} for ${browser}`,
     url: extensionDownloadUrl,
     variant: "browser"
-  }), mobileDownloadUrl && /* @__PURE__ */ React25.createElement(DownloadOptionsBox, {
+  }), mobileDownloadUrl && /* @__PURE__ */ React82.createElement(DownloadOptionsBox, {
     actionLabel: "Get the app",
     description: "Use the mobile wallet to explore the world of Ethereum.",
     iconAccent: wallet.iconAccent,
@@ -3712,30 +9336,30 @@ function DownloadDetail({
   wallet
 }) {
   const { downloadUrls, qrCode } = wallet;
-  useEffect7(() => {
+  useEffect23(() => {
     preloadCreateIcon();
     preloadScanIcon();
   }, []);
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "24",
     height: "full",
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     style: { maxWidth: 220, textAlign: "center" }
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "semibold"
-  }, "Scan with your phone to download on iOS or Android")), /* @__PURE__ */ React25.createElement(Box, {
+  }, "Scan with your phone to download on iOS or Android")), /* @__PURE__ */ React82.createElement(Box, {
     height: "full"
-  }, (downloadUrls == null ? void 0 : downloadUrls.qrCode) ? /* @__PURE__ */ React25.createElement(QRCode, {
+  }, (downloadUrls == null ? void 0 : downloadUrls.qrCode) ? /* @__PURE__ */ React82.createElement(QRCode, {
     logoSize: 0,
     size: 268,
     uri: downloadUrls.qrCode
-  }) : null), /* @__PURE__ */ React25.createElement(Box, {
+  }) : null), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "10",
     display: "flex",
@@ -3745,7 +9369,7 @@ function DownloadDetail({
     justifyContent: "space-between",
     marginBottom: "12",
     paddingY: "8"
-  }, /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "Continue",
     onClick: () => changeWalletStep(
       (qrCode == null ? void 0 : qrCode.instructions) ? "INSTRUCTIONS_MOBILE" /* InstructionsMobile */ : "CONNECT" /* Connect */
@@ -3753,8 +9377,8 @@ function DownloadDetail({
   })));
 }
 var stepIcons = {
-  create: () => /* @__PURE__ */ React25.createElement(CreateIcon, null),
-  install: (wallet) => /* @__PURE__ */ React25.createElement(AsyncImage, {
+  create: () => /* @__PURE__ */ React82.createElement(CreateIcon, null),
+  install: (wallet) => /* @__PURE__ */ React82.createElement(AsyncImage, {
     background: wallet.iconBackground,
     borderColor: "generalBorder",
     borderRadius: "10",
@@ -3762,21 +9386,21 @@ var stepIcons = {
     src: wallet.iconUrl,
     width: "48"
   }),
-  refresh: () => /* @__PURE__ */ React25.createElement(RefreshIcon, null),
-  scan: () => /* @__PURE__ */ React25.createElement(ScanIcon, null)
+  refresh: () => /* @__PURE__ */ React82.createElement(RefreshIcon, null),
+  scan: () => /* @__PURE__ */ React82.createElement(ScanIcon, null)
 };
 function InstructionMobileDetail({
   connectWallet,
   wallet
 }) {
   var _a, _b, _c, _d;
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "full",
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "28",
@@ -3786,43 +9410,43 @@ function InstructionMobileDetail({
     style: { maxWidth: 320 }
   }, (_b = (_a = wallet == null ? void 0 : wallet.qrCode) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
     var _a2;
-    return /* @__PURE__ */ React25.createElement(Box, {
+    return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "16",
       key: idx
-    }, /* @__PURE__ */ React25.createElement(Box, {
+    }, /* @__PURE__ */ React82.createElement(Box, {
       borderRadius: "10",
       height: "48",
       minWidth: "48",
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React25.createElement(Box, {
+    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
-    }, /* @__PURE__ */ React25.createElement(Text, {
+    }, /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "bold"
-    }, d.title), /* @__PURE__ */ React25.createElement(Text, {
+    }, d.title), /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "medium"
     }, d.description)));
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "12",
     justifyContent: "center",
     marginBottom: "16"
-  }, /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "Connect",
     onClick: () => connectWallet(wallet)
-  }), /* @__PURE__ */ React25.createElement(Box, {
+  }), /* @__PURE__ */ React82.createElement(Box, {
     as: "a",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
     display: "block",
@@ -3833,7 +9457,7 @@ function InstructionMobileDetail({
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
@@ -3843,13 +9467,13 @@ function InstructionExtensionDetail({
   wallet
 }) {
   var _a, _b, _c, _d;
-  return /* @__PURE__ */ React25.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "full",
     width: "full"
-  }, /* @__PURE__ */ React25.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "28",
@@ -3859,43 +9483,43 @@ function InstructionExtensionDetail({
     style: { maxWidth: 320 }
   }, (_b = (_a = wallet == null ? void 0 : wallet.extension) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
     var _a2;
-    return /* @__PURE__ */ React25.createElement(Box, {
+    return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "16",
       key: idx
-    }, /* @__PURE__ */ React25.createElement(Box, {
+    }, /* @__PURE__ */ React82.createElement(Box, {
       borderRadius: "10",
       height: "48",
       minWidth: "48",
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React25.createElement(Box, {
+    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
-    }, /* @__PURE__ */ React25.createElement(Text, {
+    }, /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "bold"
-    }, d.title), /* @__PURE__ */ React25.createElement(Text, {
+    }, d.title), /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "medium"
     }, d.description)));
-  })), /* @__PURE__ */ React25.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "12",
     justifyContent: "center",
     marginBottom: "16"
-  }, /* @__PURE__ */ React25.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "Refresh",
     onClick: window.location.reload.bind(window.location)
-  }), /* @__PURE__ */ React25.createElement(Box, {
+  }), /* @__PURE__ */ React82.createElement(Box, {
     as: "a",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
     display: "block",
@@ -3906,70 +9530,25 @@ function InstructionExtensionDetail({
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React25.createElement(Text, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
   }, "Learn More"))));
 }
 
-// src/components/DialogClose/DialogClose.tsx
-import React27, { memo as memo4 } from "react";
-
-// src/components/SvgComponent/SvgComponent.tsx
-import React26, { useEffect as useEffect8, useState as useState6 } from "react";
-var SvgComponent = ({ src: src6, className, ...rest }) => {
-  const [svgContent, setSvgContent] = useState6(null);
-  useEffect8(() => {
-    (async () => {
-      try {
-        const response = await fetch(src6);
-        if (!response.ok)
-          throw new Error("Failed to load SVG");
-        const text = await response.text();
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = text;
-        const svgElement = wrapper.querySelector("svg");
-        if (svgElement) {
-          const Component = () => /* @__PURE__ */ React26.createElement("span", {
-            className: `svg_component ${className != null ? className : ""}`,
-            ...rest,
-            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
-          });
-          setSvgContent(Component);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [src6]);
-  return svgContent || /* @__PURE__ */ React26.createElement(React26.Fragment, null);
-};
-var SvgComponent_default = SvgComponent;
-
-// src/components/DialogClose/DialogClose.tsx
-var DialogClose = memo4(({ onClick }) => {
-  return /* @__PURE__ */ React27.createElement("div", {
-    className: "dialog_close",
-    onClick
-  }, /* @__PURE__ */ React27.createElement(SvgComponent_default, {
-    src: preStaticUrl + "/img/icon/pixel_close.svg"
-  }));
-});
-var DialogClose_default = DialogClose;
-
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
 function DesktopOptions({ onClose }) {
   const titleId = "rk_connect_title";
   const safari = isSafari();
-  const [selectedOptionId, setSelectedOptionId] = useState7();
-  const [selectedWallet, setSelectedWallet] = useState7();
-  const [qrCodeUri, setQrCodeUri] = useState7();
+  const [selectedOptionId, setSelectedOptionId] = useState17();
+  const [selectedWallet, setSelectedWallet] = useState17();
+  const [qrCodeUri, setQrCodeUri] = useState17();
   const hasQrCode = !!(selectedWallet == null ? void 0 : selectedWallet.qrCode) && qrCodeUri;
-  const [connectionError, setConnectionError] = useState7(false);
-  const modalSize = useContext6(ModalSizeContext);
+  const [connectionError, setConnectionError] = useState17(false);
+  const modalSize = useContext14(ModalSizeContext);
   const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
-  const { disclaimer: Disclaimer } = useContext6(AppContext);
+  const { disclaimer: Disclaimer } = useContext14(AppContext);
   const wallets = useWalletConnectors().filter((wallet) => wallet.ready || !!wallet.extensionDownloadUrl).sort((a2, b) => a2.groupIndex - b.groupIndex);
   const groupedWallets = groupBy(wallets, (wallet) => wallet.groupName);
   const connectToWallet = (wallet) => {
@@ -4061,27 +9640,27 @@ function DesktopOptions({ onClose }) {
     }
     setWalletStep(newWalletStep);
   };
-  const [initialWalletStep, setInitialWalletStep] = useState7(
+  const [initialWalletStep, setInitialWalletStep] = useState17(
     "NONE" /* None */
   );
-  const [walletStep, setWalletStep] = useState7("NONE" /* None */);
+  const [walletStep, setWalletStep] = useState17("NONE" /* None */);
   let walletContent = null;
   let headerLabel = null;
   let headerBackButtonLink = null;
   let headerBackButtonCallback;
-  useEffect9(() => {
+  useEffect24(() => {
     setConnectionError(false);
   }, [walletStep, selectedWallet]);
   const hasExtension = !!(selectedWallet == null ? void 0 : selectedWallet.extensionDownloadUrl);
   const hasExtensionAndMobile = !!(hasExtension && (selectedWallet == null ? void 0 : selectedWallet.mobileDownloadUrl));
   switch (walletStep) {
     case "NONE" /* None */:
-      walletContent = /* @__PURE__ */ React28.createElement(ConnectModalIntro, {
+      walletContent = /* @__PURE__ */ React83.createElement(ConnectModalIntro, {
         getWallet: () => changeWalletStep("GET" /* Get */)
       });
       break;
     case "LEARN_COMPACT" /* LearnCompact */:
-      walletContent = /* @__PURE__ */ React28.createElement(ConnectModalIntro, {
+      walletContent = /* @__PURE__ */ React83.createElement(ConnectModalIntro, {
         compactModeEnabled,
         getWallet: () => changeWalletStep("GET" /* Get */)
       });
@@ -4089,14 +9668,14 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = "NONE" /* None */;
       break;
     case "GET" /* Get */:
-      walletContent = /* @__PURE__ */ React28.createElement(GetDetail, {
+      walletContent = /* @__PURE__ */ React83.createElement(GetDetail, {
         getWalletDownload
       });
       headerLabel = "Get a Wallet";
       headerBackButtonLink = compactModeEnabled ? "LEARN_COMPACT" /* LearnCompact */ : "NONE" /* None */;
       break;
     case "CONNECT" /* Connect */:
-      walletContent = selectedWallet && /* @__PURE__ */ React28.createElement(ConnectDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(ConnectDetail, {
         changeWalletStep,
         compactModeEnabled,
         connectionError,
@@ -4111,7 +9690,7 @@ function DesktopOptions({ onClose }) {
       };
       break;
     case "DOWNLOAD_OPTIONS" /* DownloadOptions */:
-      walletContent = selectedWallet && /* @__PURE__ */ React28.createElement(DownloadOptionsDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(DownloadOptionsDetail, {
         changeWalletStep,
         wallet: selectedWallet
       });
@@ -4119,7 +9698,7 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = hasExtensionAndMobile && "CONNECT" /* Connect */ ? initialWalletStep : null;
       break;
     case "DOWNLOAD" /* Download */:
-      walletContent = selectedWallet && /* @__PURE__ */ React28.createElement(DownloadDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(DownloadDetail, {
         changeWalletStep,
         wallet: selectedWallet
       });
@@ -4127,7 +9706,7 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = hasExtensionAndMobile ? "DOWNLOAD_OPTIONS" /* DownloadOptions */ : initialWalletStep;
       break;
     case "INSTRUCTIONS_MOBILE" /* InstructionsMobile */:
-      walletContent = selectedWallet && /* @__PURE__ */ React28.createElement(InstructionMobileDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(InstructionMobileDetail, {
         connectWallet: selectWallet,
         wallet: selectedWallet
       });
@@ -4135,7 +9714,7 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = "DOWNLOAD" /* Download */;
       break;
     case "INSTRUCTIONS_EXTENSION" /* InstructionsExtension */:
-      walletContent = selectedWallet && /* @__PURE__ */ React28.createElement(InstructionExtensionDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(InstructionExtensionDetail, {
         wallet: selectedWallet
       });
       headerLabel = selectedWallet && `Get started with ${compactModeEnabled ? selectedWallet.shortName || selectedWallet.name : selectedWallet.name}`;
@@ -4144,61 +9723,61 @@ function DesktopOptions({ onClose }) {
     default:
       break;
   }
-  return /* @__PURE__ */ React28.createElement(Box, {
+  return /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     flexDirection: "row",
     style: { maxHeight: compactModeEnabled ? 468 : 504 }
-  }, (compactModeEnabled ? walletStep === "NONE" /* None */ : true) && /* @__PURE__ */ React28.createElement(Box, {
+  }, (compactModeEnabled ? walletStep === "NONE" /* None */ : true) && /* @__PURE__ */ React83.createElement(Box, {
     className: compactModeEnabled ? sidebarCompactMode : sidebar,
     display: "flex",
     flexDirection: "column",
     marginTop: "16"
-  }, /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     justifyContent: "space-between"
-  }, compactModeEnabled && Disclaimer && /* @__PURE__ */ React28.createElement(Box, {
+  }, compactModeEnabled && Disclaimer && /* @__PURE__ */ React83.createElement(Box, {
     marginLeft: "16",
     width: "28"
-  }, /* @__PURE__ */ React28.createElement(InfoButton, {
+  }, /* @__PURE__ */ React83.createElement(InfoButton, {
     onClick: () => changeWalletStep("LEARN_COMPACT" /* LearnCompact */)
-  })), compactModeEnabled && !Disclaimer && /* @__PURE__ */ React28.createElement(Box, {
+  })), compactModeEnabled && !Disclaimer && /* @__PURE__ */ React83.createElement(Box, {
     marginLeft: "16",
     width: "28"
-  }), /* @__PURE__ */ React28.createElement(Box, {
+  }), /* @__PURE__ */ React83.createElement(Box, {
     marginLeft: compactModeEnabled ? "0" : "6",
     paddingBottom: "8",
     paddingTop: "2",
     paddingX: "18"
-  }, /* @__PURE__ */ React28.createElement(Text, {
+  }, /* @__PURE__ */ React83.createElement(Text2, {
     as: "h1",
     color: "modalText",
     id: titleId,
     size: "18",
     weight: "heavy"
-  }, "Connect a Wallet")), compactModeEnabled && /* @__PURE__ */ React28.createElement(Box, {
+  }, "Connect a Wallet")), compactModeEnabled && /* @__PURE__ */ React83.createElement(Box, {
     marginRight: "16"
-  }, /* @__PURE__ */ React28.createElement(DialogClose_default, {
+  }, /* @__PURE__ */ React83.createElement(DialogClose_default, {
     onClick: onClose
-  }))), /* @__PURE__ */ React28.createElement(Box, {
+  }))), /* @__PURE__ */ React83.createElement(Box, {
     className: ScrollClassName,
     paddingBottom: "18"
   }, Object.entries(groupedWallets).map(
-    ([groupName, wallets2], index) => wallets2.length > 0 && /* @__PURE__ */ React28.createElement(Fragment, {
+    ([groupName, wallets2], index) => wallets2.length > 0 && /* @__PURE__ */ React83.createElement(Fragment2, {
       key: index
-    }, groupName ? /* @__PURE__ */ React28.createElement(Box, {
+    }, groupName ? /* @__PURE__ */ React83.createElement(Box, {
       marginBottom: "8",
       marginTop: "16",
       marginX: "6"
-    }, /* @__PURE__ */ React28.createElement(Text, {
+    }, /* @__PURE__ */ React83.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "bold"
-    }, groupName)) : null, /* @__PURE__ */ React28.createElement(Box, {
+    }, groupName)) : null, /* @__PURE__ */ React83.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
     }, wallets2.map((wallet) => {
-      return /* @__PURE__ */ React28.createElement(ModalSelection, {
+      return /* @__PURE__ */ React83.createElement(ModalSelection, {
         currentlySelected: wallet.id === selectedOptionId,
         iconBackground: wallet.iconBackground,
         iconUrl: wallet.iconUrl,
@@ -4210,36 +9789,36 @@ function DesktopOptions({ onClose }) {
         testId: `wallet-option-${wallet.id}`
       });
     })))
-  )), compactModeEnabled && /* @__PURE__ */ React28.createElement(React28.Fragment, null, /* @__PURE__ */ React28.createElement(Box, {
+  )), compactModeEnabled && /* @__PURE__ */ React83.createElement(React83.Fragment, null, /* @__PURE__ */ React83.createElement(Box, {
     background: "generalBorder",
     height: "1",
     marginTop: "-1"
-  }), Disclaimer ? /* @__PURE__ */ React28.createElement(Box, {
+  }), Disclaimer ? /* @__PURE__ */ React83.createElement(Box, {
     paddingX: "24",
     paddingY: "16",
     textAlign: "center"
-  }, /* @__PURE__ */ React28.createElement(Disclaimer, {
+  }, /* @__PURE__ */ React83.createElement(Disclaimer, {
     Link: DisclaimerLink,
     Text: DisclaimerText
-  })) : /* @__PURE__ */ React28.createElement(Box, {
+  })) : /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "space-between",
     paddingX: "24",
     paddingY: "16"
-  }, /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     paddingY: "4"
-  }, /* @__PURE__ */ React28.createElement(Text, {
+  }, /* @__PURE__ */ React83.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "New to Ethereum wallets?")), /* @__PURE__ */ React28.createElement(Box, {
+  }, "New to Ethereum wallets?")), /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "4",
     justifyContent: "center"
-  }, /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     className: touchableStyles({
       active: "shrink",
       hover: "grow"
@@ -4249,27 +9828,27 @@ function DesktopOptions({ onClose }) {
     paddingY: "4",
     style: { willChange: "transform" },
     transition: "default"
-  }, /* @__PURE__ */ React28.createElement(Text, {
+  }, /* @__PURE__ */ React83.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
-  }, "Learn More")))))), (compactModeEnabled ? walletStep !== "NONE" /* None */ : true) && /* @__PURE__ */ React28.createElement(React28.Fragment, null, !compactModeEnabled && /* @__PURE__ */ React28.createElement(Box, {
+  }, "Learn More")))))), (compactModeEnabled ? walletStep !== "NONE" /* None */ : true) && /* @__PURE__ */ React83.createElement(React83.Fragment, null, !compactModeEnabled && /* @__PURE__ */ React83.createElement(Box, {
     background: "generalBorder",
     minWidth: "1",
     width: "1"
-  }), /* @__PURE__ */ React28.createElement(Box, {
+  }), /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     margin: "16",
     style: { flexGrow: 1 }
-  }, /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "12"
-  }, /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     width: "28"
-  }, headerBackButtonLink && /* @__PURE__ */ React28.createElement(Box, {
+  }, headerBackButtonLink && /* @__PURE__ */ React83.createElement(Box, {
     as: "button",
     className: touchableStyles({
       active: "shrinkSm",
@@ -4289,22 +9868,22 @@ function DesktopOptions({ onClose }) {
     },
     transition: "default",
     type: "button"
-  }, /* @__PURE__ */ React28.createElement(BackIcon, null))), /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(BackIcon, null))), /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     justifyContent: "center",
     style: { flexGrow: 1 }
-  }, headerLabel && /* @__PURE__ */ React28.createElement(Text, {
+  }, headerLabel && /* @__PURE__ */ React83.createElement(Text2, {
     color: "modalText",
     size: "18",
     textAlign: "center",
     weight: "heavy"
-  }, headerLabel)), /* @__PURE__ */ React28.createElement(DialogClose_default, {
+  }, headerLabel)), /* @__PURE__ */ React83.createElement(DialogClose_default, {
     onClick: onClose
-  })), /* @__PURE__ */ React28.createElement(Box, {
+  })), /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     style: { minHeight: compactModeEnabled ? 396 : 432 }
-  }, /* @__PURE__ */ React28.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -4316,29 +9895,11 @@ function DesktopOptions({ onClose }) {
 }
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.tsx
-import React29, { useCallback as useCallback4, useContext as useContext7, useState as useState8 } from "react";
-
-// src/rainbowkit/src/components/RainbowKitProvider/walletConnectDeepLink.ts
-var storageKey2 = "WALLETCONNECT_DEEPLINK_CHOICE";
-function setWalletConnectDeepLink({
-  mobileUri,
-  name
-}) {
-  localStorage.setItem(
-    storageKey2,
-    JSON.stringify({
-      href: mobileUri.split("?")[0],
-      name
-    })
-  );
-}
-function clearWalletConnectDeepLink() {
-  localStorage.removeItem(storageKey2);
-}
+import React84, { useCallback as useCallback25, useContext as useContext15, useState as useState18 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.css.ts
-import { style as style6 } from "@vanilla-extract/css";
-var scroll = style6({
+import { style as style9 } from "@vanilla-extract/css";
+var scroll = style9({
   overflow: "auto",
   scrollbarWidth: "none",
   selectors: {
@@ -4368,13 +9929,13 @@ function WalletButton({
   } = wallet;
   const getMobileUri = mobile == null ? void 0 : mobile.getUri;
   const coolModeRef = useCoolMode(iconUrl);
-  return /* @__PURE__ */ React29.createElement(Box, {
+  return /* @__PURE__ */ React84.createElement(Box, {
     as: "button",
     color: ready ? "modalText" : "modalTextSecondary",
     disabled: !ready,
     fontFamily: "body",
     key: id,
-    onClick: useCallback4(async () => {
+    onClick: useCallback25(async () => {
       if (id === "walletConnect")
         onClose == null ? void 0 : onClose();
       connect == null ? void 0 : connect();
@@ -4405,34 +9966,34 @@ function WalletButton({
     testId: `wallet-option-${id}`,
     type: "button",
     width: "full"
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     paddingBottom: "8",
     paddingTop: "10"
-  }, /* @__PURE__ */ React29.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React84.createElement(AsyncImage, {
     background: iconBackground,
     borderRadius: "13",
     boxShadow: "walletLogo",
     height: "60",
     src: iconUrl,
     width: "60"
-  })), /* @__PURE__ */ React29.createElement(Box, {
+  })), /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     textAlign: "center"
-  }, /* @__PURE__ */ React29.createElement(Text, {
+  }, /* @__PURE__ */ React84.createElement(Text2, {
     as: "h2",
     color: wallet.ready ? "modalText" : "modalTextSecondary",
     size: "13",
     weight: "medium"
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     as: "span",
     position: "relative"
-  }, shortName != null ? shortName : name, !wallet.ready && " (unsupported)")), wallet.recent && /* @__PURE__ */ React29.createElement(Text, {
+  }, shortName != null ? shortName : name, !wallet.ready && " (unsupported)")), wallet.recent && /* @__PURE__ */ React84.createElement(Text2, {
     color: "accentColor",
     size: "12",
     weight: "medium"
@@ -4442,12 +10003,12 @@ function MobileOptions({ onClose }) {
   var _a;
   const titleId = "rk_connect_title";
   const wallets = useWalletConnectors();
-  const { disclaimer: Disclaimer, learnMoreUrl } = useContext7(AppContext);
+  const { disclaimer: Disclaimer, learnMoreUrl } = useContext15(AppContext);
   let headerLabel = null;
   let walletContent = null;
   let headerBackgroundContrast = false;
   let headerBackButtonLink = null;
-  const [walletStep, setWalletStep] = useState8(
+  const [walletStep, setWalletStep] = useState18(
     "CONNECT" /* Connect */
   );
   const ios = isIOS();
@@ -4455,71 +10016,71 @@ function MobileOptions({ onClose }) {
     case "CONNECT" /* Connect */: {
       headerLabel = "Connect a Wallet";
       headerBackgroundContrast = true;
-      walletContent = /* @__PURE__ */ React29.createElement(Box, null, /* @__PURE__ */ React29.createElement(Box, {
+      walletContent = /* @__PURE__ */ React84.createElement(Box, null, /* @__PURE__ */ React84.createElement(Box, {
         background: "profileForeground",
         className: scroll,
         display: "flex",
         paddingBottom: "20",
         paddingTop: "6"
-      }, /* @__PURE__ */ React29.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         style: { margin: "0 auto" }
       }, wallets.filter((wallet) => wallet.ready).map((wallet) => {
-        return /* @__PURE__ */ React29.createElement(Box, {
+        return /* @__PURE__ */ React84.createElement(Box, {
           key: wallet.id,
           paddingX: "20"
-        }, /* @__PURE__ */ React29.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           width: "60"
-        }, /* @__PURE__ */ React29.createElement(WalletButton, {
+        }, /* @__PURE__ */ React84.createElement(WalletButton, {
           onClose,
           wallet
         })));
-      }))), /* @__PURE__ */ React29.createElement(Box, {
+      }))), /* @__PURE__ */ React84.createElement(Box, {
         background: "generalBorder",
         height: "1",
         marginBottom: "32",
         marginTop: "-1"
-      }), /* @__PURE__ */ React29.createElement(Box, {
+      }), /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
         gap: "32",
         paddingX: "32",
         style: { textAlign: "center" }
-      }, /* @__PURE__ */ React29.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         flexDirection: "column",
         gap: "8",
         textAlign: "center"
-      }, /* @__PURE__ */ React29.createElement(Text, {
+      }, /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalText",
         size: "16",
         weight: "bold"
-      }, "What is a Wallet?"), /* @__PURE__ */ React29.createElement(Text, {
+      }, "What is a Wallet?"), /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalTextSecondary",
         size: "16"
-      }, "A wallet is used to send, receive, store, and display digital assets. It\u2019s also a new way to log in, without needing to create new accounts and passwords on\xA0every\xA0website."))), /* @__PURE__ */ React29.createElement(Box, {
+      }, "A wallet is used to send, receive, store, and display digital assets. It\u2019s also a new way to log in, without needing to create new accounts and passwords on\xA0every\xA0website."))), /* @__PURE__ */ React84.createElement(Box, {
         paddingTop: "32",
         paddingX: "20"
-      }, /* @__PURE__ */ React29.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         gap: "14",
         justifyContent: "center"
-      }, /* @__PURE__ */ React29.createElement(ActionButton, {
+      }, /* @__PURE__ */ React84.createElement(ActionButton, {
         label: "Get a Wallet",
         onClick: () => setWalletStep("GET" /* Get */),
         size: "large",
         type: "secondary"
-      }), /* @__PURE__ */ React29.createElement(ActionButton, {
+      }), /* @__PURE__ */ React84.createElement(ActionButton, {
         href: learnMoreUrl,
         label: "Learn More",
         size: "large",
         type: "secondary"
-      }))), Disclaimer && /* @__PURE__ */ React29.createElement(Box, {
+      }))), Disclaimer && /* @__PURE__ */ React84.createElement(Box, {
         marginTop: "28",
         marginX: "32",
         textAlign: "center"
-      }, /* @__PURE__ */ React29.createElement(Disclaimer, {
+      }, /* @__PURE__ */ React84.createElement(Disclaimer, {
         Link: DisclaimerLink,
         Text: DisclaimerText
       })));
@@ -4534,7 +10095,7 @@ function MobileOptions({ onClose }) {
           return ((_a2 = wallet.downloadUrls) == null ? void 0 : _a2.ios) || ((_b = wallet.downloadUrls) == null ? void 0 : _b.android) || ((_c = wallet.downloadUrls) == null ? void 0 : _c.mobile);
         }
       )) == null ? void 0 : _a.splice(0, 3);
-      walletContent = /* @__PURE__ */ React29.createElement(Box, null, /* @__PURE__ */ React29.createElement(Box, {
+      walletContent = /* @__PURE__ */ React84.createElement(Box, null, /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
@@ -4548,88 +10109,88 @@ function MobileOptions({ onClose }) {
         if (!(downloadUrls == null ? void 0 : downloadUrls.ios) && !(downloadUrls == null ? void 0 : downloadUrls.android) && !(downloadUrls == null ? void 0 : downloadUrls.mobile)) {
           return null;
         }
-        return /* @__PURE__ */ React29.createElement(Box, {
+        return /* @__PURE__ */ React84.createElement(Box, {
           display: "flex",
           gap: "16",
           key: wallet.id,
           paddingX: "20",
           width: "full"
-        }, /* @__PURE__ */ React29.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           style: { minHeight: 48, minWidth: 48 }
-        }, /* @__PURE__ */ React29.createElement(AsyncImage, {
+        }, /* @__PURE__ */ React84.createElement(AsyncImage, {
           background: iconBackground,
           borderColor: "generalBorder",
           borderRadius: "10",
           height: "48",
           src: iconUrl,
           width: "48"
-        })), /* @__PURE__ */ React29.createElement(Box, {
+        })), /* @__PURE__ */ React84.createElement(Box, {
           display: "flex",
           flexDirection: "column",
           width: "full"
-        }, /* @__PURE__ */ React29.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           alignItems: "center",
           display: "flex",
           height: "48"
-        }, /* @__PURE__ */ React29.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           width: "full"
-        }, /* @__PURE__ */ React29.createElement(Text, {
+        }, /* @__PURE__ */ React84.createElement(Text2, {
           color: "modalText",
           size: "18",
           weight: "bold"
-        }, name)), /* @__PURE__ */ React29.createElement(ActionButton, {
+        }, name)), /* @__PURE__ */ React84.createElement(ActionButton, {
           href: (ios ? downloadUrls == null ? void 0 : downloadUrls.ios : downloadUrls == null ? void 0 : downloadUrls.android) || (downloadUrls == null ? void 0 : downloadUrls.mobile),
           label: "GET",
           size: "small",
           type: "secondary"
-        })), index < mobileWallets.length - 1 && /* @__PURE__ */ React29.createElement(Box, {
+        })), index < mobileWallets.length - 1 && /* @__PURE__ */ React84.createElement(Box, {
           background: "generalBorderDim",
           height: "1",
           marginY: "10",
           width: "full"
         })));
-      })), /* @__PURE__ */ React29.createElement(Box, {
+      })), /* @__PURE__ */ React84.createElement(Box, {
         style: { marginBottom: "42px" }
-      }), /* @__PURE__ */ React29.createElement(Box, {
+      }), /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
         gap: "36",
         paddingX: "36",
         style: { textAlign: "center" }
-      }, /* @__PURE__ */ React29.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         flexDirection: "column",
         gap: "12",
         textAlign: "center"
-      }, /* @__PURE__ */ React29.createElement(Text, {
+      }, /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalText",
         size: "16",
         weight: "bold"
-      }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React29.createElement(Text, {
+      }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalTextSecondary",
         size: "16"
       }, "Select a wallet on the main screen to get started with a different wallet provider."))));
       break;
     }
   }
-  return /* @__PURE__ */ React29.createElement(Box, {
+  return /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     paddingBottom: "36"
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     background: headerBackgroundContrast ? "profileForeground" : "modalBackground",
     display: "flex",
     flexDirection: "column",
     paddingBottom: "4",
     paddingTop: "14"
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     justifyContent: "center",
     paddingBottom: "6",
     paddingX: "20",
     position: "relative"
-  }, headerBackButtonLink && /* @__PURE__ */ React29.createElement(Box, {
+  }, headerBackButtonLink && /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     position: "absolute",
     style: {
@@ -4637,7 +10198,7 @@ function MobileOptions({ onClose }) {
       marginBottom: -20,
       marginTop: -20
     }
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     alignItems: "center",
     as: "button",
     className: touchableStyles({
@@ -4653,2032 +10214,38 @@ function MobileOptions({ onClose }) {
     style: { height: 17, willChange: "transform" },
     transition: "default",
     type: "button"
-  }, /* @__PURE__ */ React29.createElement(BackIcon, null))), /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(BackIcon, null))), /* @__PURE__ */ React84.createElement(Box, {
     marginTop: "4",
     textAlign: "center",
     width: "full"
-  }, /* @__PURE__ */ React29.createElement(Text, {
+  }, /* @__PURE__ */ React84.createElement(Text2, {
     as: "h1",
     color: "modalText",
     id: titleId,
     size: "20",
     weight: "bold"
-  }, headerLabel)), /* @__PURE__ */ React29.createElement(Box, {
+  }, headerLabel)), /* @__PURE__ */ React84.createElement(Box, {
     alignItems: "center",
     display: "flex",
     height: "32",
     paddingRight: "14",
     position: "absolute",
     right: "0"
-  }, /* @__PURE__ */ React29.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     style: { marginBottom: -20, marginTop: -20 }
-  }, /* @__PURE__ */ React29.createElement(DialogClose_default, {
+  }, /* @__PURE__ */ React84.createElement(DialogClose_default, {
     onClick: onClose
-  }))))), /* @__PURE__ */ React29.createElement(Box, {
+  }))))), /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column"
   }, walletContent));
 }
 
-// src/rainbowkit/src/components/Dialog/DialogContent.css.ts
-import { style as style7 } from "@vanilla-extract/css";
-var dialogContent = style7([
-  sprinkles({
-    display: "flex",
-    flexDirection: "column",
-    overflow: "hidden",
-    position: "relative"
-  }),
-  {
-    "@media": {
-      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
-        width: "360px"
-      }
-    },
-    boxSizing: "content-box",
-    maxWidth: "100vw",
-    width: "360px"
-  }
-]);
-var dialogContentWideMobile = style7([
-  dialogContent,
-  { width: "100vw" },
-  {
-    "@media": {
-      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
-        width: "480px"
-      }
-    }
-  }
-]);
-var dialogContentWideDesktop = style7([
-  dialogContent,
-  {
-    width: largeScreenMinWidth
-  },
-  {
-    "@media": {
-      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
-        width: "720px"
-      }
-    }
-  }
-]);
-var dialogContentCompactMode = style7([
-  dialogContent,
-  {
-    minWidth: "368px",
-    width: "368px"
-  },
-  {
-    "@media": {
-      [`screen and (min-width: ${largeScreenMinWidth}px)`]: {
-        minWidth: "368px",
-        width: "368px"
-      }
-    }
-  }
-]);
-var dialogContentMobile = style7([
-  sprinkles({
-    borderRadius: "modalMobile"
-  }),
-  {
-    borderWidth: "0px",
-    boxSizing: "border-box",
-    width: "100vw"
-  }
-]);
-var bleed = 200;
-var bottomSheetOverrides = style7({
-  "@media": {
-    [`screen and (max-width: ${largeScreenMinWidth - 1}px)`]: {
-      borderBottomLeftRadius: 0,
-      borderBottomRightRadius: 0,
-      marginTop: -bleed,
-      paddingBottom: bleed,
-      top: bleed
-    }
-  }
-});
-
-// src/rainbowkit/src/components/ConnectButton/ConnectButton.tsx
-import React59 from "react";
-
-// src/rainbowkit/src/hooks/useConnectionStatus.ts
-import { useAccount as useAccount2 } from "wagmi";
-
-// src/rainbowkit/src/components/RainbowKitProvider/AuthenticationContext.tsx
-import React30, {
-  createContext as createContext6,
-  useContext as useContext8,
-  useEffect as useEffect10,
-  useMemo as useMemo4,
-  useRef as useRef3
-} from "react";
-import { useAccount } from "wagmi";
-var AuthenticationContext = createContext6(
-  null
-);
-function useAuthenticationAdapter() {
-  var _a;
-  const { adapter } = (_a = useContext8(AuthenticationContext)) != null ? _a : {};
-  if (!adapter) {
-    throw new Error("No authentication adapter found");
-  }
-  return adapter;
-}
-function useAuthenticationStatus() {
-  var _a;
-  const contextValue = useContext8(AuthenticationContext);
-  return (_a = contextValue == null ? void 0 : contextValue.status) != null ? _a : null;
-}
-
-// src/rainbowkit/src/hooks/useConnectionStatus.ts
-function useConnectionStatus() {
-  const authenticationStatus = useAuthenticationStatus();
-  const { isConnected } = useAccount2();
-  if (!isConnected) {
-    return "disconnected";
-  }
-  if (!authenticationStatus) {
-    return "connected";
-  }
-  if (authenticationStatus === "loading" || authenticationStatus === "unauthenticated") {
-    return authenticationStatus;
-  }
-  return "connected";
-}
-
-// src/rainbowkit/src/components/Avatar/Avatar.tsx
-import React33, { useContext as useContext9 } from "react";
-
-// src/rainbowkit/src/components/RainbowKitProvider/AvatarContext.ts
-import { createContext as createContext7 } from "react";
-
-// src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React31, { useEffect as useEffect11, useMemo as useMemo5, useState as useState9 } from "react";
-
-// src/rainbowkit/src/components/Avatar/emojiAvatarForAddress.ts
-var colors = [
-  "#FC5C54",
-  "#FFD95A",
-  "#E95D72",
-  "#6A87C8",
-  "#5FD0F3",
-  "#75C06B",
-  "#FFDD86",
-  "#5FC6D4",
-  "#FF949A",
-  "#FF8024",
-  "#9BA1A4",
-  "#EC66FF",
-  "#FF8CBC",
-  "#FF9A23",
-  "#C5DADB",
-  "#A8CE63",
-  "#71ABFF",
-  "#FFE279",
-  "#B6B1B6",
-  "#FF6780",
-  "#A575FF",
-  "#4D82FF",
-  "#FFB35A"
-];
-var avatars = [
-  { color: colors[0], emoji: "\u{1F336}" },
-  { color: colors[1], emoji: "\u{1F911}" },
-  { color: colors[2], emoji: "\u{1F419}" },
-  { color: colors[3], emoji: "\u{1FAD0}" },
-  { color: colors[4], emoji: "\u{1F433}" },
-  { color: colors[0], emoji: "\u{1F936}" },
-  { color: colors[5], emoji: "\u{1F332}" },
-  { color: colors[6], emoji: "\u{1F31E}" },
-  { color: colors[7], emoji: "\u{1F412}" },
-  { color: colors[8], emoji: "\u{1F435}" },
-  { color: colors[9], emoji: "\u{1F98A}" },
-  { color: colors[10], emoji: "\u{1F43C}" },
-  { color: colors[11], emoji: "\u{1F984}" },
-  { color: colors[12], emoji: "\u{1F437}" },
-  { color: colors[13], emoji: "\u{1F427}" },
-  { color: colors[8], emoji: "\u{1F9A9}" },
-  { color: colors[14], emoji: "\u{1F47D}" },
-  { color: colors[0], emoji: "\u{1F388}" },
-  { color: colors[8], emoji: "\u{1F349}" },
-  { color: colors[1], emoji: "\u{1F389}" },
-  { color: colors[15], emoji: "\u{1F432}" },
-  { color: colors[16], emoji: "\u{1F30E}" },
-  { color: colors[17], emoji: "\u{1F34A}" },
-  { color: colors[18], emoji: "\u{1F42D}" },
-  { color: colors[19], emoji: "\u{1F363}" },
-  { color: colors[1], emoji: "\u{1F425}" },
-  { color: colors[20], emoji: "\u{1F47E}" },
-  { color: colors[15], emoji: "\u{1F966}" },
-  { color: colors[0], emoji: "\u{1F479}" },
-  { color: colors[17], emoji: "\u{1F640}" },
-  { color: colors[4], emoji: "\u26F1" },
-  { color: colors[21], emoji: "\u26F5\uFE0F" },
-  { color: colors[17], emoji: "\u{1F973}" },
-  { color: colors[8], emoji: "\u{1F92F}" },
-  { color: colors[22], emoji: "\u{1F920}" }
-];
-function hashCode(text) {
-  let hash = 0;
-  if (text.length === 0)
-    return hash;
-  for (let i = 0; i < text.length; i++) {
-    const chr = text.charCodeAt(i);
-    hash = (hash << 5) - hash + chr;
-    hash |= 0;
-  }
-  return hash;
-}
-function emojiAvatarForAddress(address) {
-  const resolvedAddress = typeof address === "string" ? address : "";
-  const avatarIndex = Math.abs(
-    hashCode(resolvedAddress.toLowerCase()) % avatars.length
-  );
-  return avatars[avatarIndex != null ? avatarIndex : 0];
-}
-
-// src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-var EmojiAvatar = ({ address, ensImage, size }) => {
-  const [loaded, setLoaded] = useState9(false);
-  useEffect11(() => {
-    if (ensImage) {
-      const img = new Image();
-      img.src = ensImage;
-      img.onload = () => setLoaded(true);
-    }
-  }, [ensImage]);
-  const { color: backgroundColor, emoji } = useMemo5(
-    () => emojiAvatarForAddress(address),
-    [address]
-  );
-  return ensImage ? loaded ? /* @__PURE__ */ React31.createElement(Box, {
-    backgroundSize: "cover",
-    borderRadius: "full",
-    position: "absolute",
-    style: {
-      backgroundImage: `url(${ensImage})`,
-      backgroundPosition: "center",
-      height: size,
-      width: size
-    }
-  }) : /* @__PURE__ */ React31.createElement(Box, {
-    alignItems: "center",
-    backgroundSize: "cover",
-    borderRadius: "full",
-    color: "modalText",
-    display: "flex",
-    justifyContent: "center",
-    position: "absolute",
-    style: {
-      height: size,
-      width: size
-    }
-  }, /* @__PURE__ */ React31.createElement(SpinnerIcon, null)) : /* @__PURE__ */ React31.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    justifyContent: "center",
-    overflow: "hidden",
-    style: {
-      ...!ensImage && { backgroundColor },
-      height: size,
-      width: size
-    }
-  }, emoji);
-};
-
-// src/rainbowkit/src/components/RainbowKitProvider/AvatarContext.ts
-var defaultAvatar = EmojiAvatar;
-var AvatarContext = createContext7(defaultAvatar);
-
-// src/rainbowkit/src/components/Avatar/Avatar.tsx
-function Avatar({ address, imageUrl, loading, size }) {
-  const AvatarComponent3 = useContext9(AvatarContext);
-  return /* @__PURE__ */ React33.createElement(Box, {
-    "aria-hidden": true,
-    borderRadius: "full",
-    overflow: "hidden",
-    position: "relative",
-    style: {
-      height: `${size}px`,
-      width: `${size}px`
-    },
-    userSelect: "none"
-  }, /* @__PURE__ */ React33.createElement(Box, {
-    alignItems: "center",
-    borderRadius: "full",
-    display: "flex",
-    justifyContent: "center",
-    overflow: "hidden",
-    position: "absolute",
-    style: {
-      fontSize: `${Math.round(size * 0.55)}px`,
-      height: `${size}px`,
-      transform: loading ? "scale(0.72)" : void 0,
-      transition: ".25s ease",
-      transitionDelay: loading ? void 0 : ".1s",
-      width: `${size}px`,
-      willChange: "transform"
-    },
-    userSelect: "none"
-  }, /* @__PURE__ */ React33.createElement(AvatarComponent3, {
-    address,
-    ensImage: imageUrl,
-    size
-  })), typeof loading === "boolean" && /* @__PURE__ */ React33.createElement(Box, {
-    color: "accentColor",
-    display: "flex",
-    height: "full",
-    position: "absolute",
-    style: {
-      opacity: loading ? 1 : 0,
-      transition: loading ? "0.6s ease" : "0.2s ease",
-      transitionDelay: loading ? ".05s" : void 0
-    },
-    width: "full"
-  }, /* @__PURE__ */ React33.createElement(SpinnerIcon, {
-    height: "100%",
-    width: "100%"
-  })));
-}
-
-// src/rainbowkit/src/components/Icons/Dropdown.tsx
-import React34 from "react";
-var DropdownIcon = () => /* @__PURE__ */ React34.createElement("svg", {
-  fill: "none",
-  height: "7",
-  width: "14",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React34.createElement("path", {
-  d: "M12.75 1.54001L8.51647 5.0038C7.77974 5.60658 6.72026 5.60658 5.98352 5.0038L1.75 1.54001",
-  stroke: "currentColor",
-  strokeLinecap: "round",
-  strokeLinejoin: "round",
-  strokeWidth: "2.5",
-  xmlns: "http://www.w3.org/2000/svg"
-}));
-
-// src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
-import React58, { useContext as useContext17 } from "react";
-import { useAccount as useAccount11, useBalance as useBalance2, useNetwork as useNetwork7 } from "wagmi";
-
-// src/rainbowkit/src/hooks/useIsMounted.ts
-import { useEffect as useEffect12, useReducer as useReducer3 } from "react";
-var useIsMounted = () => {
-  const [mounted, setMounted] = useReducer3(() => true, false);
-  useEffect12(setMounted, [setMounted]);
-  return mounted;
-};
-
-// src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
-import { useEnsAvatar } from "wagmi";
-
-// src/rainbowkit/src/hooks/useMainnet.ts
-import { usePublicClient } from "wagmi";
-import { mainnet } from "wagmi/chains";
-function useMainnet() {
-  const chainId = mainnet.id;
-  const provider = usePublicClient();
-  const chains = Array.isArray(provider.chains) ? provider.chains : [];
-  const enabled = chains == null ? void 0 : chains.some((chain) => (chain == null ? void 0 : chain.id) === chainId);
-  return { chainId, enabled };
-}
-
-// src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
-function useMainnetEnsAvatar(name) {
-  const { chainId, enabled } = useMainnet();
-  const { data: ensAvatar } = useEnsAvatar({
-    chainId,
-    enabled,
-    name
-  });
-  return ensAvatar;
-}
-
-// src/rainbowkit/src/hooks/useMainnetEnsName.ts
-import { useEnsName } from "wagmi";
-function useMainnetEnsName(address) {
-  const { chainId, enabled } = useMainnet();
-  const { data: ensName } = useEnsName({
-    address,
-    chainId,
-    enabled
-  });
-  return ensName;
-}
-
-// src/rainbowkit/src/transactions/useRecentTransactions.ts
-import { useEffect as useEffect14, useState as useState11 } from "react";
-import { useAccount as useAccount4 } from "wagmi";
-
-// src/rainbowkit/src/hooks/useChainId.ts
-import { useNetwork } from "wagmi";
-function useChainId() {
-  var _a;
-  const { chain: activeChain } = useNetwork();
-  return (_a = activeChain == null ? void 0 : activeChain.id) != null ? _a : null;
-}
-
-// src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React35, { createContext as createContext8, useContext as useContext10, useEffect as useEffect13, useState as useState10 } from "react";
-import { useAccount as useAccount3, usePublicClient as usePublicClient2 } from "wagmi";
-
-// src/rainbowkit/src/transactions/transactionStore.ts
-var storageKey3 = "rk-transactions";
-function safeParseJsonData(string) {
-  try {
-    const value = string ? JSON.parse(string) : {};
-    return typeof value === "object" ? value : {};
-  } catch (err) {
-    return {};
-  }
-}
-function loadData() {
-  return safeParseJsonData(
-    typeof localStorage !== "undefined" ? localStorage.getItem(storageKey3) : null
-  );
-}
-var transactionHashRegex = /^0x([A-Fa-f0-9]{64})$/;
-function validateTransaction(transaction) {
-  const errors = [];
-  if (!transactionHashRegex.test(transaction.hash)) {
-    errors.push("Invalid transaction hash");
-  }
-  if (typeof transaction.description !== "string") {
-    errors.push("Transaction must have a description");
-  }
-  if (typeof transaction.confirmations !== "undefined" && (!Number.isInteger(transaction.confirmations) || transaction.confirmations < 1)) {
-    errors.push("Transaction confirmations must be a positiver integer");
-  }
-  return errors;
-}
-function createTransactionStore({
-  provider: initialProvider
-}) {
-  let data = loadData();
-  let provider = initialProvider;
-  const listeners = /* @__PURE__ */ new Set();
-  const transactionRequestCache = /* @__PURE__ */ new Map();
-  function setProvider2(newProvider) {
-    provider = newProvider;
-  }
-  function getTransactions(account, chainId) {
-    var _a, _b;
-    return (_b = (_a = data[account]) == null ? void 0 : _a[chainId]) != null ? _b : [];
-  }
-  function addTransaction(account, chainId, transaction) {
-    const errors = validateTransaction(transaction);
-    if (errors.length > 0) {
-      throw new Error(["Unable to add transaction", ...errors].join("\n"));
-    }
-    updateTransactions(account, chainId, (transactions) => {
-      return [
-        { ...transaction, status: "pending" },
-        ...transactions.filter(({ hash }) => {
-          return hash !== transaction.hash;
-        })
-      ];
-    });
-  }
-  function clearTransactions(account, chainId) {
-    updateTransactions(account, chainId, () => {
-      return [];
-    });
-  }
-  function setTransactionStatus(account, chainId, hash, status) {
-    updateTransactions(account, chainId, (transactions) => {
-      return transactions.map(
-        (transaction) => transaction.hash === hash ? { ...transaction, status } : transaction
-      );
-    });
-  }
-  async function waitForPendingTransactions(account, chainId) {
-    await Promise.all(
-      getTransactions(account, chainId).filter((transaction) => transaction.status === "pending").map(async (transaction) => {
-        const { confirmations, hash } = transaction;
-        const existingRequest = transactionRequestCache.get(hash);
-        if (existingRequest) {
-          return await existingRequest;
-        }
-        const requestPromise = provider.waitForTransactionReceipt({ confirmations, hash }).then(({ status }) => {
-          transactionRequestCache.delete(hash);
-          if (status === void 0) {
-            return;
-          }
-          setTransactionStatus(
-            account,
-            chainId,
-            hash,
-            status === 0 || status === "reverted" ? "failed" : "confirmed"
-          );
-        });
-        transactionRequestCache.set(hash, requestPromise);
-        return await requestPromise;
-      })
-    );
-  }
-  function updateTransactions(account, chainId, updateFn) {
-    var _a, _b;
-    data = loadData();
-    data[account] = (_a = data[account]) != null ? _a : {};
-    let completedTransactionCount = 0;
-    const MAX_COMPLETED_TRANSACTIONS = 10;
-    const transactions = updateFn((_b = data[account][chainId]) != null ? _b : []).filter(({ status }) => {
-      return status === "pending" ? true : completedTransactionCount++ <= MAX_COMPLETED_TRANSACTIONS;
-    });
-    data[account][chainId] = transactions.length > 0 ? transactions : void 0;
-    persistData();
-    notifyListeners();
-    waitForPendingTransactions(account, chainId);
-  }
-  function persistData() {
-    localStorage.setItem(storageKey3, JSON.stringify(data));
-  }
-  function notifyListeners() {
-    listeners.forEach((listener) => listener());
-  }
-  function onChange(fn) {
-    listeners.add(fn);
-    return () => {
-      listeners.delete(fn);
-    };
-  }
-  return {
-    addTransaction,
-    clearTransactions,
-    getTransactions,
-    onChange,
-    setProvider: setProvider2,
-    waitForPendingTransactions
-  };
-}
-
-// src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-var storeSingleton;
-var TransactionStoreContext = createContext8(null);
-function TransactionStoreProvider({ children }) {
-  const provider = usePublicClient2();
-  const { address } = useAccount3();
-  const chainId = useChainId();
-  const [store] = useState10(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
-  useEffect13(() => {
-    store.setProvider(provider);
-  }, [store, provider]);
-  useEffect13(() => {
-    if (address && chainId) {
-      store.waitForPendingTransactions(address, chainId);
-    }
-  }, [store, address, chainId]);
-  return /* @__PURE__ */ React35.createElement(TransactionStoreContext.Provider, {
-    value: store
-  }, children);
-}
-function useTransactionStore() {
-  const store = useContext10(TransactionStoreContext);
-  if (!store) {
-    throw new Error("Transaction hooks must be used within RainbowKitProvider");
-  }
-  return store;
-}
-
-// src/rainbowkit/src/transactions/useRecentTransactions.ts
-function useRecentTransactions() {
-  const store = useTransactionStore();
-  const { address } = useAccount4();
-  const chainId = useChainId();
-  const [transactions, setTransactions] = useState11(
-    () => store && address && chainId ? store.getTransactions(address, chainId) : []
-  );
-  useEffect14(() => {
-    if (store && address && chainId) {
-      setTransactions(store.getTransactions(address, chainId));
-      return store.onChange(() => {
-        setTransactions(store.getTransactions(address, chainId));
-      });
-    }
-  }, [store, address, chainId]);
-  return transactions;
-}
-
-// src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
-import React57, {
-  createContext as createContext11,
-  useCallback as useCallback13,
-  useContext as useContext16,
-  useMemo as useMemo6,
-  useRef as useRef6,
-  useState as useState14
-} from "react";
-import { useAccount as useAccount10, useNetwork as useNetwork6 } from "wagmi";
-
-// src/rainbowkit/src/components/AccountModal/AccountModal.tsx
-import React51 from "react";
-import { useAccount as useAccount9, useBalance, useDisconnect as useDisconnect2 } from "wagmi";
-
-// src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React39, { useCallback as useCallback9, useEffect as useEffect18, useState as useState12 } from "react";
-import { createPortal } from "react-dom";
-import { RemoveScroll } from "react-remove-scroll";
-
-// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider.tsx
-import React37, { createContext as createContext10, useContext as useContext11 } from "react";
-import { useAccount as useAccount6 } from "wagmi";
-
-// src/rainbowkit/src/css/cssObjectFromTheme.ts
-import { assignInlineVars } from "@vanilla-extract/dynamic";
-var resolveThemeVars = (theme) => typeof theme === "function" ? theme() : theme;
-function cssObjectFromTheme(theme, { extends: baseTheme2 } = {}) {
-  const resolvedThemeVars = {
-    ...assignInlineVars(themeVars, resolveThemeVars(theme))
-  };
-  if (!baseTheme2) {
-    return resolvedThemeVars;
-  }
-  const resolvedBaseThemeVars = assignInlineVars(
-    themeVars,
-    resolveThemeVars(baseTheme2)
-  );
-  const filteredVars = Object.fromEntries(
-    Object.entries(resolvedThemeVars).filter(
-      ([varName, value]) => value !== resolvedBaseThemeVars[varName]
-    )
-  );
-  return filteredVars;
-}
-
-// src/rainbowkit/src/css/cssStringFromTheme.ts
-function cssStringFromTheme(theme, options = {}) {
-  return Object.entries(cssObjectFromTheme(theme, options)).map(([key, value]) => `${key}:${value.replace(/[:;{}</>]/g, "")};`).join("");
-}
-
-// src/rainbowkit/src/themes/baseTheme.ts
-var systemFontStack = '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
-var fontStacks = {
-  Pixel: `PixeloidSans`,
-  rounded: `SFRounded, ui-rounded, "SF Pro Rounded", ${systemFontStack}`,
-  system: systemFontStack
-};
-var radiusScales = {
-  large: {
-    actionButton: "9999px",
-    connectButton: "12px",
-    modal: "24px",
-    modalMobile: "28px"
-  },
-  medium: {
-    actionButton: "10px",
-    connectButton: "8px",
-    modal: "16px",
-    modalMobile: "18px"
-  },
-  none: {
-    actionButton: "0px",
-    connectButton: "0px",
-    modal: "0px",
-    modalMobile: "0px"
-  },
-  small: {
-    actionButton: "4px",
-    connectButton: "4px",
-    modal: "8px",
-    modalMobile: "8px"
-  }
-};
-var blurs = {
-  large: {
-    modalOverlay: "blur(20px)"
-  },
-  none: {
-    modalOverlay: "blur(0px)"
-  },
-  small: {
-    modalOverlay: "blur(4px)"
-  }
-};
-var baseTheme = ({
-  borderRadius = "large",
-  fontStack = "rounded",
-  overlayBlur = "none"
-}) => ({
-  blurs: {
-    modalOverlay: blurs[overlayBlur].modalOverlay
-  },
-  fonts: {
-    body: fontStacks[fontStack]
-  },
-  radii: {
-    actionButton: radiusScales[borderRadius].actionButton,
-    connectButton: radiusScales[borderRadius].connectButton,
-    menuButton: radiusScales[borderRadius].connectButton,
-    modal: radiusScales[borderRadius].modal,
-    modalMobile: radiusScales[borderRadius].modalMobile
-  }
-});
-
-// src/rainbowkit/src/themes/lightTheme.ts
-var accentColors = {
-  blue: { accentColor: "#0E76FD", accentColorForeground: "#FFF" },
-  green: { accentColor: "#1DB847", accentColorForeground: "#FFF" },
-  orange: { accentColor: "#FF801F", accentColorForeground: "#FFF" },
-  pink: { accentColor: "#FF5CA0", accentColorForeground: "#FFF" },
-  purple: { accentColor: "#5F5AFA", accentColorForeground: "#FFF" },
-  red: { accentColor: "#FA423C", accentColorForeground: "#FFF" }
-};
-var defaultAccentColor = accentColors.blue;
-var lightTheme = ({
-  accentColor = defaultAccentColor.accentColor,
-  accentColorForeground = defaultAccentColor.accentColorForeground,
-  ...baseThemeOptions
-} = {}) => ({
-  ...baseTheme(baseThemeOptions),
-  colors: {
-    accentColor,
-    accentColorForeground,
-    actionButtonBorder: "rgba(0, 0, 0, 0.04)",
-    actionButtonBorderMobile: "rgba(0, 0, 0, 0.06)",
-    actionButtonSecondaryBackground: "rgba(0, 0, 0, 0.06)",
-    closeButton: "rgba(60, 66, 66, 0.8)",
-    closeButtonBackground: "rgba(0, 0, 0, 0.06)",
-    connectButtonBackground: "#FFF",
-    connectButtonBackgroundError: "#FF494A",
-    connectButtonInnerBackground: "linear-gradient(0deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.06))",
-    connectButtonText: "#25292E",
-    connectButtonTextError: "#FFF",
-    connectionIndicator: "#65EDBC",
-    connectionIndicatorBorder: "#2a443a",
-    downloadBottomCardBackground: "linear-gradient(126deg, rgba(255, 255, 255, 0) 9.49%, rgba(171, 171, 171, 0.04) 71.04%), #FFFFFF",
-    downloadTopCardBackground: "linear-gradient(126deg, rgba(171, 171, 171, 0.2) 9.49%, rgba(255, 255, 255, 0) 71.04%), #FFFFFF",
-    error: "#FF494A",
-    generalBorder: "rgba(0, 0, 0, 0.06)",
-    generalBorderDim: "rgba(0, 0, 0, 0.03)",
-    menuItemBackground: "rgba(60, 66, 66, 0.1)",
-    modalBackdrop: "rgba(0, 0, 0, 0.3)",
-    modalBackground: "#FFF",
-    modalBorder: "transparent",
-    modalText: "#25292E",
-    modalTextDim: "rgba(60, 66, 66, 0.3)",
-    modalTextSecondary: "rgba(60, 66, 66, 0.6)",
-    profileAction: "#FFF",
-    profileActionHover: "rgba(255, 255, 255, 0.5)",
-    profileForeground: "rgba(60, 66, 66, 0.06)",
-    selectedOptionBorder: "rgba(60, 66, 66, 0.1)",
-    standby: "#FFD641",
-    standbyBorder: "#5c5847"
-  },
-  shadows: {
-    connectButton: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-    dialog: "0px 8px 32px rgba(0, 0, 0, 0.32)",
-    profileDetailsAction: "0px 2px 6px rgba(37, 41, 46, 0.04)",
-    selectedOption: "0px 2px 6px rgba(0, 0, 0, 0.24)",
-    selectedWallet: "0px 2px 6px rgba(0, 0, 0, 0.12)",
-    walletLogo: "0px 2px 16px rgba(0, 0, 0, 0.16)"
-  }
-});
-lightTheme.accentColors = accentColors;
-
-// src/rainbowkit/src/components/RainbowKitProvider/ShowRecentTransactionsContext.ts
-import { createContext as createContext9 } from "react";
-var ShowRecentTransactionsContext = createContext9(false);
-
-// src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback5, useEffect as useEffect15 } from "react";
-var storageKey4 = "rk-version";
-function setRainbowKitVersion({ version }) {
-  localStorage.setItem(storageKey4, version);
-}
-function useFingerprint() {
-  const fingerprint = useCallback5(() => {
-    setRainbowKitVersion({ version: "__buildVersion" });
-  }, []);
-  useEffect15(() => {
-    fingerprint();
-  }, [fingerprint]);
-}
-
-// src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback7, useEffect as useEffect16 } from "react";
-
-// src/rainbowkit/src/components/SignIn/SignIn.tsx
-import React36, { useCallback as useCallback6, useRef as useRef4 } from "react";
-import { UserRejectedRequestError } from "viem";
-import { useAccount as useAccount5, useDisconnect, useNetwork as useNetwork2, useSignMessage } from "wagmi";
-var signInIcon = async () => (await import("./sign-IOXJRZQV.js")).default;
-function SignIn({ onClose }) {
-  const [{ status, ...state }, setState] = React36.useState({ status: "idle" });
-  const authAdapter = useAuthenticationAdapter();
-  const getNonce = useCallback6(async () => {
-    try {
-      const nonce = await authAdapter.getNonce();
-      setState((x) => ({ ...x, nonce }));
-    } catch (error) {
-      setState((x) => ({
-        ...x,
-        errorMessage: "Error preparing message, please retry!",
-        status: "idle"
-      }));
-    }
-  }, [authAdapter]);
-  const onceRef = useRef4(false);
-  React36.useEffect(() => {
-    if (onceRef.current)
-      return;
-    onceRef.current = true;
-    getNonce();
-  }, [getNonce]);
-  const mobile = isMobile();
-  const { address } = useAccount5();
-  const { chain: activeChain } = useNetwork2();
-  const { signMessageAsync } = useSignMessage();
-  const { disconnect } = useDisconnect();
-  const cancel = () => disconnect();
-  const signIn = async () => {
-    try {
-      const chainId = activeChain == null ? void 0 : activeChain.id;
-      const { nonce } = state;
-      if (!address || !chainId || !nonce) {
-        return;
-      }
-      setState((x) => ({
-        ...x,
-        errorMessage: void 0,
-        status: "signing"
-      }));
-      const message = authAdapter.createMessage({ address, chainId, nonce });
-      let signature;
-      try {
-        signature = await signMessageAsync({
-          message: authAdapter.getMessageBody({ message })
-        });
-      } catch (error) {
-        if (error instanceof UserRejectedRequestError) {
-          return setState((x) => ({
-            ...x,
-            status: "idle"
-          }));
-        }
-        return setState((x) => ({
-          ...x,
-          errorMessage: "Error signing message, please retry!",
-          status: "idle"
-        }));
-      }
-      setState((x) => ({ ...x, status: "verifying" }));
-      try {
-        const verified = await authAdapter.verify({ message, signature });
-        if (verified) {
-          return;
-        } else {
-          throw new Error();
-        }
-      } catch (error) {
-        return setState((x) => ({
-          ...x,
-          errorMessage: "Error verifying signature, please retry!",
-          status: "idle"
-        }));
-      }
-    } catch (error) {
-      setState({
-        errorMessage: "Oops, something went wrong!",
-        status: "idle"
-      });
-    }
-  };
-  return /* @__PURE__ */ React36.createElement(Box, {
-    position: "relative"
-  }, /* @__PURE__ */ React36.createElement(Box, {
-    display: "flex",
-    paddingRight: "16",
-    paddingTop: "16",
-    position: "absolute",
-    right: "0"
-  }, /* @__PURE__ */ React36.createElement(DialogClose_default, {
-    onClick: onClose
-  })), /* @__PURE__ */ React36.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "32" : "24",
-    padding: "24",
-    paddingX: "18",
-    style: { paddingTop: mobile ? "60px" : "36px" }
-  }, /* @__PURE__ */ React36.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "6" : "4",
-    style: { maxWidth: mobile ? 320 : 280 }
-  }, /* @__PURE__ */ React36.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "32" : "16"
-  }, /* @__PURE__ */ React36.createElement(AsyncImage, {
-    height: 40,
-    src: signInIcon,
-    width: 40
-  }), /* @__PURE__ */ React36.createElement(Text, {
-    color: "modalText",
-    size: mobile ? "20" : "18",
-    textAlign: "center",
-    weight: "heavy"
-  }, "Verify your account")), /* @__PURE__ */ React36.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "16" : "12"
-  }, /* @__PURE__ */ React36.createElement(Text, {
-    color: "modalTextSecondary",
-    size: mobile ? "16" : "14",
-    textAlign: "center"
-  }, "To finish connecting, you must sign a message in your wallet to verify that you are the owner of this account."), status === "idle" && state.errorMessage ? /* @__PURE__ */ React36.createElement(Text, {
-    color: "error",
-    size: mobile ? "16" : "14",
-    textAlign: "center",
-    weight: "bold"
-  }, state.errorMessage) : null)), /* @__PURE__ */ React36.createElement(Box, {
-    alignItems: !mobile ? "center" : void 0,
-    display: "flex",
-    flexDirection: "column",
-    gap: "8",
-    width: "full"
-  }, /* @__PURE__ */ React36.createElement(ActionButton, {
-    disabled: !state.nonce || status === "signing" || status === "verifying",
-    label: !state.nonce ? "Preparing message..." : status === "signing" ? "Waiting for signature..." : status === "verifying" ? "Verifying signature..." : "Send message",
-    onClick: signIn,
-    size: mobile ? "large" : "medium",
-    testId: "auth-message-button"
-  }), mobile ? /* @__PURE__ */ React36.createElement(ActionButton, {
-    label: "Cancel",
-    onClick: cancel,
-    size: "large",
-    type: "secondary"
-  }) : /* @__PURE__ */ React36.createElement(Box, {
-    as: "button",
-    borderRadius: "full",
-    className: touchableStyles({ active: "shrink", hover: "grow" }),
-    display: "block",
-    onClick: cancel,
-    paddingX: "10",
-    paddingY: "5",
-    rel: "noreferrer",
-    style: { willChange: "transform" },
-    target: "_blank",
-    transition: "default"
-  }, /* @__PURE__ */ React36.createElement(Text, {
-    color: "closeButton",
-    size: mobile ? "16" : "14",
-    weight: "bold"
-  }, "Cancel")))));
-}
-
-// src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-function usePreloadImages() {
-  const rainbowKitChains = useRainbowKitChains();
-  const walletConnectors = useWalletConnectors();
-  const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
-  const preloadImages = useCallback7(() => {
-    loadImages(...walletConnectors.map((wallet) => wallet.iconUrl), ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish));
-    if (!isMobile()) {
-      preloadAssetsIcon();
-      preloadLoginIcon();
-    }
-    if (isUnauthenticated) {
-      loadImages(signInIcon);
-    }
-  }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
-  useEffect16(() => {
-    preloadImages();
-  }, [preloadImages]);
-}
-
-// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider.tsx
-var ThemeIdContext = createContext10(void 0);
-var attr = "data-rk";
-var createThemeRootProps = (id) => ({ [attr]: id || "" });
-var createThemeRootSelector = (id) => {
-  if (id && !/^[a-zA-Z0-9_]+$/.test(id)) {
-    throw new Error(`Invalid ID: ${id}`);
-  }
-  return id ? `[${attr}="${id}"]` : `[${attr}]`;
-};
-var useThemeRootProps = () => {
-  const id = useContext11(ThemeIdContext);
-  return createThemeRootProps(id);
-};
-var defaultTheme = lightTheme();
-function RainbowKitProvider({
-  appInfo: appInfo2,
-  avatar,
-  chains,
-  children,
-  coolMode = false,
-  id,
-  initialChain,
-  modalSize = ModalSizeOptions.WIDE,
-  showRecentTransactions = false,
-  theme = defaultTheme
-}) {
-  usePreloadImages();
-  useFingerprint();
-  useAccount6({ onDisconnect: clearWalletConnectDeepLink });
-  if (typeof theme === "function") {
-    throw new Error(
-      'A theme function was provided to the "theme" prop instead of a theme object. You must execute this function to get the resulting theme object.'
-    );
-  }
-  const selector2 = createThemeRootSelector(id);
-  const appContext = {
-    ...defaultAppInfo,
-    ...appInfo2
-  };
-  const avatarContext = avatar != null ? avatar : defaultAvatar;
-  const { width } = useWindowSize2();
-  const isSmallScreen = width && width < largeScreenMinWidth;
-  return /* @__PURE__ */ React37.createElement(RainbowKitChainProvider, {
-    chains,
-    initialChain
-  }, /* @__PURE__ */ React37.createElement(CoolModeContext.Provider, {
-    value: coolMode
-  }, /* @__PURE__ */ React37.createElement(ModalSizeContext.Provider, {
-    value: isSmallScreen ? ModalSizeOptions.COMPACT : modalSize
-  }, /* @__PURE__ */ React37.createElement(ShowRecentTransactionsContext.Provider, {
-    value: showRecentTransactions
-  }, /* @__PURE__ */ React37.createElement(TransactionStoreProvider, null, /* @__PURE__ */ React37.createElement(AvatarContext.Provider, {
-    value: avatarContext
-  }, /* @__PURE__ */ React37.createElement(AppContext.Provider, {
-    value: appContext
-  }, /* @__PURE__ */ React37.createElement(ThemeIdContext.Provider, {
-    value: id
-  }, /* @__PURE__ */ React37.createElement(ModalProvider, null, theme ? /* @__PURE__ */ React37.createElement("div", {
-    ...createThemeRootProps(id)
-  }, /* @__PURE__ */ React37.createElement("style", {
-    dangerouslySetInnerHTML: {
-      __html: [
-        `${selector2}{${cssStringFromTheme("lightMode" in theme ? theme.lightMode : theme)}}`,
-        "darkMode" in theme ? `@media(prefers-color-scheme:dark){${selector2}{${cssStringFromTheme(theme.darkMode, {
-          extends: theme.lightMode
-        })}}}` : null
-      ].join("")
-    }
-  }), children) : children)))))))));
-}
-
-// src/rainbowkit/src/components/Dialog/Dialog.css.ts
-import { keyframes as keyframes2, style as style8 } from "@vanilla-extract/css";
-var slideUp = keyframes2({
-  "0%": { transform: "translateY(100%)" },
-  "100%": { transform: "translateY(0)" }
-});
-var fadeIn = keyframes2({
-  "0%": { opacity: 0 },
-  "100%": { opacity: 1 }
-});
-var nestedModalZIndexes = {
-  coinbase: 2147483647,
-  walletConnect: 99999999999999
-};
-var bleed2 = 200;
-var overlay = style8([
-  sprinkles({
-    backdropFilter: "modalOverlay",
-    background: "modalBackdrop",
-    display: "flex",
-    justifyContent: "center",
-    position: "fixed"
-  }),
-  {
-    animation: `${fadeIn} 150ms ease`,
-    bottom: -bleed2,
-    left: -bleed2,
-    padding: bleed2,
-    right: -bleed2,
-    top: -bleed2,
-    transform: "translateZ(0)",
-    zIndex: Math.min(...Object.values(nestedModalZIndexes)) - 1
-  }
-]);
-var content = style8([
-  sprinkles({
-    display: "flex",
-    flexDirection: "column",
-    position: "relative"
-  }),
-  {
-    animation: `${slideUp} 350ms cubic-bezier(.15,1.15,0.6,1.00), ${fadeIn} 150ms ease`,
-    maxWidth: "100vw"
-  }
-]);
-
-// src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React38, { useCallback as useCallback8, useEffect as useEffect17, useRef as useRef5 } from "react";
-var moveFocusWithin = (element2, position) => {
-  const focusableElements = element2.querySelectorAll(
-    "button:not(:disabled), a[href]"
-  );
-  if (focusableElements.length === 0)
-    return;
-  focusableElements[position === "end" ? focusableElements.length - 1 : 0].focus();
-};
-function FocusTrap(props) {
-  const contentRef = useRef5(null);
-  useEffect17(() => {
-    const previouslyActiveElement = document.activeElement;
-    return () => {
-      var _a;
-      (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
-    };
-  }, []);
-  useEffect17(() => {
-    if (contentRef.current) {
-      const elementToFocus = contentRef.current.querySelector("[data-auto-focus]");
-      if (elementToFocus) {
-        elementToFocus.focus();
-      } else {
-        contentRef.current.focus();
-      }
-    }
-  }, [contentRef]);
-  return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement("div", {
-    onFocus: useCallback8(
-      () => contentRef.current && moveFocusWithin(contentRef.current, "end"),
-      []
-    ),
-    tabIndex: 0
-  }), /* @__PURE__ */ React38.createElement("div", {
-    ref: contentRef,
-    style: { outline: "none" },
-    tabIndex: -1,
-    ...props
-  }), /* @__PURE__ */ React38.createElement("div", {
-    onFocus: useCallback8(
-      () => contentRef.current && moveFocusWithin(contentRef.current, "start"),
-      []
-    ),
-    tabIndex: 0
-  }));
-}
-
-// src/rainbowkit/src/components/Dialog/Dialog.tsx
-var stopPropagation = (event) => event.stopPropagation();
-function Dialog({ children, onClose, open, titleId }) {
-  useEffect18(() => {
-    const handleEscape = (event) => open && event.key === "Escape" && onClose();
-    document.addEventListener("keydown", handleEscape);
-    return () => document.removeEventListener("keydown", handleEscape);
-  }, [open, onClose]);
-  const [bodyScrollable, setBodyScrollable] = useState12(true);
-  useEffect18(() => {
-    setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
-  }, []);
-  const handleBackdropClick = useCallback9(() => onClose(), [onClose]);
-  const themeRootProps = useThemeRootProps();
-  const mobile = isMobile();
-  return /* @__PURE__ */ React39.createElement(React39.Fragment, null, open ? createPortal(
-    /* @__PURE__ */ React39.createElement(RemoveScroll, {
-      enabled: bodyScrollable
-    }, /* @__PURE__ */ React39.createElement(Box, {
-      ...themeRootProps
-    }, /* @__PURE__ */ React39.createElement(Box, {
-      ...themeRootProps,
-      alignItems: mobile ? "flex-end" : "center",
-      "aria-labelledby": titleId,
-      "aria-modal": true,
-      className: overlay,
-      onClick: handleBackdropClick,
-      position: "fixed",
-      role: "dialog"
-    }, /* @__PURE__ */ React39.createElement(FocusTrap, {
-      className: content,
-      onClick: stopPropagation,
-      role: "document"
-    }, children)))),
-    document.body
-  ) : null);
-}
-
-// src/rainbowkit/src/components/Dialog/DialogContent.tsx
-import React40, { useContext as useContext12 } from "react";
-function DialogContent({
-  bottomSheetOnMobile = false,
-  children,
-  marginTop,
-  padding = "16",
-  wide = false
-}) {
-  const mobile = isMobile();
-  const modalSize = useContext12(ModalSizeContext);
-  const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
-  return /* @__PURE__ */ React40.createElement(Box, {
-    marginTop
-  }, /* @__PURE__ */ React40.createElement(PixelBorderCard, {
-    className: [
-      wide ? mobile ? dialogContentWideMobile : compactModeEnabled ? dialogContentCompactMode : dialogContentWideDesktop : dialogContent,
-      mobile ? dialogContentMobile : null,
-      mobile && bottomSheetOnMobile ? bottomSheetOverrides : null
-    ].join(" "),
-    pixel_height: 10,
-    backgroundColor: "#1D263B"
-  }, /* @__PURE__ */ React40.createElement(Box, {
-    padding,
-    width: "full"
-  }, children)));
-}
-
-// src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React50, { useCallback as useCallback11, useContext as useContext14, useEffect as useEffect19, useState as useState13 } from "react";
-
-// src/rainbowkit/src/components/ConnectButton/abbreviateETHBalance.ts
-var units = ["k", "m", "b", "t"];
-function toPrecision(number, precision = 1) {
-  return number.toString().replace(new RegExp(`(.+\\.\\d{${precision}})\\d+`), "$1").replace(/(\.[1-9]*)0+$/, "$1").replace(/\.$/, "");
-}
-function abbreviateETHBalance(number) {
-  if (number < 1)
-    return toPrecision(number, 3);
-  if (number < 10 ** 2)
-    return toPrecision(number, 2);
-  if (number < 10 ** 4)
-    return new Intl.NumberFormat().format(parseFloat(toPrecision(number, 1)));
-  const decimalsDivisor = 10 ** 1;
-  let result = String(number);
-  for (let i = units.length - 1; i >= 0; i--) {
-    const size = 10 ** ((i + 1) * 3);
-    if (size <= number) {
-      number = number * decimalsDivisor / size / decimalsDivisor;
-      result = toPrecision(number, 1) + units[i];
-      break;
-    }
-  }
-  return result;
-}
-
-// src/rainbowkit/src/components/ConnectButton/formatAddress.ts
-function formatAddress(address) {
-  const leadingChars = 4;
-  const trailingChars = 4;
-  return address.length < leadingChars + trailingChars ? address : `${address.substring(0, leadingChars)}\u2026${address.substring(
-    address.length - trailingChars
-  )}`;
-}
-
-// src/rainbowkit/src/components/ConnectButton/formatENS.ts
-function formatENS(name) {
-  const parts = name.split(".");
-  const last = parts.pop();
-  if (parts.join(".").length > 24) {
-    return `${parts.join(".").substring(0, 24)}...`;
-  }
-  return `${parts.join(".")}.${last}`;
-}
-
-// src/rainbowkit/src/components/Icons/Copied.tsx
-import React41 from "react";
-var CopiedIcon = () => /* @__PURE__ */ React41.createElement("svg", {
-  fill: "none",
-  height: "13",
-  viewBox: "0 0 13 13",
-  width: "13",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React41.createElement("path", {
-  d: "M4.94568 12.2646C5.41052 12.2646 5.77283 12.0869 6.01892 11.7109L12.39 1.96973C12.5677 1.69629 12.6429 1.44336 12.6429 1.2041C12.6429 0.561523 12.1644 0.0966797 11.5082 0.0966797C11.057 0.0966797 10.7767 0.260742 10.5033 0.691406L4.9115 9.50977L2.07458 5.98926C1.82166 5.68848 1.54822 5.55176 1.16541 5.55176C0.502319 5.55176 0.0238037 6.02344 0.0238037 6.66602C0.0238037 6.95312 0.112671 7.20605 0.358765 7.48633L3.88611 11.7588C4.18005 12.1074 4.50818 12.2646 4.94568 12.2646Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Icons/Copy.tsx
-import React42 from "react";
-var CopyIcon = () => /* @__PURE__ */ React42.createElement("svg", {
-  fill: "none",
-  height: "16",
-  viewBox: "0 0 17 16",
-  width: "17",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React42.createElement("path", {
-  d: "M3.04236 12.3027H4.18396V13.3008C4.18396 14.8525 5.03845 15.7002 6.59705 15.7002H13.6244C15.183 15.7002 16.0375 14.8525 16.0375 13.3008V6.24609C16.0375 4.69434 15.183 3.84668 13.6244 3.84668H12.4828V2.8418C12.4828 1.29688 11.6283 0.442383 10.0697 0.442383H3.04236C1.48376 0.442383 0.629272 1.29004 0.629272 2.8418V9.90332C0.629272 11.4551 1.48376 12.3027 3.04236 12.3027ZM3.23376 10.5391C2.68689 10.5391 2.39294 10.2656 2.39294 9.68457V3.06055C2.39294 2.47949 2.68689 2.21289 3.23376 2.21289H9.8783C10.4252 2.21289 10.7191 2.47949 10.7191 3.06055V3.84668H6.59705C5.03845 3.84668 4.18396 4.69434 4.18396 6.24609V10.5391H3.23376ZM6.78845 13.9365C6.24158 13.9365 5.94763 13.6699 5.94763 13.0889V6.45801C5.94763 5.87695 6.24158 5.61035 6.78845 5.61035H13.433C13.9799 5.61035 14.2738 5.87695 14.2738 6.45801V13.0889C14.2738 13.6699 13.9799 13.9365 13.433 13.9365H6.78845Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Icons/Disconnect.tsx
-import React43 from "react";
-var DisconnectIcon = () => /* @__PURE__ */ React43.createElement("svg", {
-  fill: "none",
-  height: "16",
-  viewBox: "0 0 18 16",
-  width: "18",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React43.createElement("path", {
-  d: "M2.67834 15.5908H9.99963C11.5514 15.5908 12.399 14.7432 12.399 13.1777V10.2656H10.6354V12.9863C10.6354 13.5332 10.3688 13.8271 9.78772 13.8271H2.89026C2.3092 13.8271 2.0426 13.5332 2.0426 12.9863V3.15625C2.0426 2.60254 2.3092 2.30859 2.89026 2.30859H9.78772C10.3688 2.30859 10.6354 2.60254 10.6354 3.15625V5.89746H12.399V2.95801C12.399 1.39941 11.5514 0.544922 9.99963 0.544922H2.67834C1.12659 0.544922 0.278931 1.39941 0.278931 2.95801V13.1777C0.278931 14.7432 1.12659 15.5908 2.67834 15.5908ZM7.43616 8.85059H14.0875L15.0924 8.78906L14.566 9.14453L13.6842 9.96484C13.5406 10.1016 13.4586 10.2861 13.4586 10.4844C13.4586 10.8398 13.7321 11.168 14.1217 11.168C14.3199 11.168 14.4635 11.0928 14.6002 10.9561L16.7809 8.68652C16.986 8.48145 17.0543 8.27637 17.0543 8.06445C17.0543 7.85254 16.986 7.64746 16.7809 7.43555L14.6002 5.17285C14.4635 5.03613 14.3199 4.9541 14.1217 4.9541C13.7321 4.9541 13.4586 5.27539 13.4586 5.6377C13.4586 5.83594 13.5406 6.02734 13.6842 6.15723L14.566 6.98438L15.0924 7.33984L14.0875 7.27148H7.43616C7.01917 7.27148 6.65686 7.62012 6.65686 8.06445C6.65686 8.50195 7.01917 8.85059 7.43616 8.85059Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Txs/TxList.tsx
-import React48, { useContext as useContext13 } from "react";
-import { useNetwork as useNetwork4 } from "wagmi";
-
-// src/rainbowkit/src/transactions/useClearRecentTransactions.ts
-import { useCallback as useCallback10 } from "react";
-import { useAccount as useAccount7 } from "wagmi";
-function useClearRecentTransactions() {
-  const store = useTransactionStore();
-  const { address } = useAccount7();
-  const chainId = useChainId();
-  return useCallback10(() => {
-    if (!address || !chainId) {
-      throw new Error("No address or chain ID found");
-    }
-    store.clearTransactions(address, chainId);
-  }, [store, address, chainId]);
-}
-
-// src/rainbowkit/src/utils/chainToExplorerUrl.ts
-var chainToExplorerUrl = (chain) => {
-  var _a, _b;
-  return (_b = (_a = chain == null ? void 0 : chain.blockExplorers) == null ? void 0 : _a.default) == null ? void 0 : _b.url;
-};
-
-// src/rainbowkit/src/components/Icons/ExternalLink.tsx
-import React44 from "react";
-var ExternalLinkIcon = () => /* @__PURE__ */ React44.createElement("svg", {
-  fill: "none",
-  height: "19",
-  viewBox: "0 0 20 19",
-  width: "20",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React44.createElement("path", {
-  d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM12.7158 12.1416C13.2432 12.1416 13.5684 11.7549 13.5684 11.1836V7.19336C13.5684 6.44629 13.1377 6.05957 12.417 6.05957H8.40918C7.8291 6.05957 7.45117 6.38477 7.45117 6.91211C7.45117 7.43945 7.8291 7.77344 8.40918 7.77344H9.69238L10.7207 7.63281L9.53418 8.67871L6.73047 11.4912C6.53711 11.6758 6.41406 11.9395 6.41406 12.2031C6.41406 12.7832 6.85352 13.1699 7.39844 13.1699C7.68848 13.1699 7.92578 13.0732 8.1543 12.8623L10.9316 10.0762L11.9775 8.89844L11.8545 9.98828V11.1836C11.8545 11.7725 12.1885 12.1416 12.7158 12.1416Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Txs/TxItem.tsx
-import React47 from "react";
-import { useNetwork as useNetwork3 } from "wagmi";
-
-// src/rainbowkit/src/components/Icons/Cancel.tsx
-import React45 from "react";
-var CancelIcon = () => /* @__PURE__ */ React45.createElement("svg", {
-  fill: "none",
-  height: "19",
-  viewBox: "0 0 20 19",
-  width: "20",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React45.createElement("path", {
-  d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM7.29297 13.3018C7.58301 13.3018 7.81152 13.2139 7.99609 13.0205L10 11.0166L12.0127 13.0205C12.1973 13.2051 12.4258 13.3018 12.707 13.3018C13.2432 13.3018 13.6562 12.8887 13.6562 12.3525C13.6562 12.0977 13.5508 11.8691 13.3662 11.6934L11.3535 9.67188L13.375 7.6416C13.5596 7.44824 13.6562 7.22852 13.6562 6.98242C13.6562 6.44629 13.2432 6.0332 12.7158 6.0332C12.4346 6.0332 12.2148 6.12109 12.0215 6.31445L10 8.32715L7.9873 6.32324C7.80273 6.12988 7.58301 6.04199 7.29297 6.04199C6.76562 6.04199 6.35254 6.45508 6.35254 6.99121C6.35254 7.2373 6.44922 7.46582 6.63379 7.6416L8.65527 9.67188L6.63379 11.6934C6.44922 11.8691 6.35254 12.1064 6.35254 12.3525C6.35254 12.8887 6.76562 13.3018 7.29297 13.3018Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Icons/Success.tsx
-import React46 from "react";
-var SuccessIcon = () => /* @__PURE__ */ React46.createElement("svg", {
-  fill: "none",
-  height: "20",
-  viewBox: "0 0 20 20",
-  width: "20",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React46.createElement("path", {
-  d: "M10 19.4443C15.0977 19.4443 19.2812 15.252 19.2812 10.1543C19.2812 5.06543 15.0889 0.873047 10 0.873047C4.90234 0.873047 0.71875 5.06543 0.71875 10.1543C0.71875 15.252 4.91113 19.4443 10 19.4443ZM10 17.1328C6.1416 17.1328 3.03906 14.0215 3.03906 10.1543C3.03906 6.2959 6.13281 3.18457 10 3.18457C13.8584 3.18457 16.9697 6.2959 16.9697 10.1543C16.9785 14.0215 13.8672 17.1328 10 17.1328ZM9.07715 14.3379C9.4375 14.3379 9.7627 14.1533 9.97363 13.8369L13.7441 8.00977C13.8848 7.79883 13.9814 7.5791 13.9814 7.36816C13.9814 6.84961 13.5244 6.48926 13.0322 6.48926C12.707 6.48926 12.4258 6.66504 12.2148 7.0166L9.05957 12.0967L7.5918 10.2949C7.37207 10.0225 7.13477 9.9082 6.84473 9.9082C6.33496 9.9082 5.92188 10.3125 5.92188 10.8223C5.92188 11.0684 6.00098 11.2793 6.18555 11.5078L8.1543 13.8545C8.40918 14.1709 8.70801 14.3379 9.07715 14.3379Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Txs/TxItem.tsx
-var getTxStatusIcon = (status) => {
-  switch (status) {
-    case "pending":
-      return SpinnerIcon;
-    case "confirmed":
-      return SuccessIcon;
-    case "failed":
-      return CancelIcon;
-    default:
-      return SpinnerIcon;
-  }
-};
-function TxItem({ tx }) {
-  const mobile = isMobile();
-  const Icon2 = getTxStatusIcon(tx.status);
-  const color = tx.status === "failed" ? "error" : "accentColor";
-  const { chain: activeChain } = useNetwork3();
-  const confirmationStatus = tx.status === "confirmed" ? "Confirmed" : tx.status === "failed" ? "Failed" : "Pending";
-  const explorerLink = chainToExplorerUrl(activeChain);
-  return /* @__PURE__ */ React47.createElement(React47.Fragment, null, /* @__PURE__ */ React47.createElement(Box, {
-    ...explorerLink ? {
-      as: "a",
-      background: { hover: "profileForeground" },
-      borderRadius: "menuButton",
-      className: touchableStyles({ active: "shrink" }),
-      href: `${explorerLink}/tx/${tx.hash}`,
-      rel: "noreferrer noopener",
-      target: "_blank",
-      transition: "default"
-    } : {},
-    color: "modalText",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    padding: "8",
-    width: "full"
-  }, /* @__PURE__ */ React47.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
-    gap: mobile ? "16" : "14"
-  }, /* @__PURE__ */ React47.createElement(Box, {
-    color
-  }, /* @__PURE__ */ React47.createElement(Icon2, null)), /* @__PURE__ */ React47.createElement(Box, {
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "3" : "1"
-  }, /* @__PURE__ */ React47.createElement(Box, null, /* @__PURE__ */ React47.createElement(Text, {
-    color: "modalText",
-    font: "body",
-    size: mobile ? "16" : "14",
-    weight: "bold"
-  }, tx == null ? void 0 : tx.description)), /* @__PURE__ */ React47.createElement(Box, null, /* @__PURE__ */ React47.createElement(Text, {
-    color: tx.status === "pending" ? "modalTextSecondary" : color,
-    font: "body",
-    size: "14",
-    weight: mobile ? "medium" : "regular"
-  }, confirmationStatus)))), explorerLink && /* @__PURE__ */ React47.createElement(Box, {
-    alignItems: "center",
-    color: "modalTextDim",
-    display: "flex"
-  }, /* @__PURE__ */ React47.createElement(ExternalLinkIcon, null))));
-}
-
-// src/rainbowkit/src/components/Txs/TxList.tsx
-var NUMBER_OF_VISIBLE_TXS = 3;
-function TxList({ address }) {
-  const recentTransactions = useRecentTransactions();
-  const clearRecentTransactions = useClearRecentTransactions();
-  const { chain: activeChain } = useNetwork4();
-  const explorerLink = chainToExplorerUrl(activeChain);
-  const visibleTxs = recentTransactions.slice(0, NUMBER_OF_VISIBLE_TXS);
-  const hasTransactions = visibleTxs.length > 0;
-  const mobile = isMobile();
-  const { appName } = useContext13(AppContext);
-  return /* @__PURE__ */ React48.createElement(React48.Fragment, null, /* @__PURE__ */ React48.createElement(Box, {
-    display: "flex",
-    flexDirection: "column",
-    gap: "10",
-    paddingBottom: "2",
-    paddingTop: "16",
-    paddingX: mobile ? "8" : "18"
-  }, hasTransactions && /* @__PURE__ */ React48.createElement(Box, {
-    paddingBottom: mobile ? "4" : "0",
-    paddingTop: "8",
-    paddingX: mobile ? "12" : "6"
-  }, /* @__PURE__ */ React48.createElement(Box, {
-    display: "flex",
-    justifyContent: "space-between"
-  }, /* @__PURE__ */ React48.createElement(Text, {
-    color: "modalTextSecondary",
-    size: mobile ? "16" : "14",
-    weight: "semibold"
-  }, "Recent Transactions"), /* @__PURE__ */ React48.createElement(Box, {
-    style: {
-      marginBottom: -6,
-      marginLeft: -10,
-      marginRight: -10,
-      marginTop: -6
-    }
-  }, /* @__PURE__ */ React48.createElement(Box, {
-    as: "button",
-    background: {
-      hover: "profileForeground"
-    },
-    borderRadius: "actionButton",
-    className: touchableStyles({ active: "shrink" }),
-    onClick: clearRecentTransactions,
-    paddingX: mobile ? "8" : "12",
-    paddingY: mobile ? "4" : "5",
-    transition: "default",
-    type: "button"
-  }, /* @__PURE__ */ React48.createElement(Text, {
-    color: "modalTextSecondary",
-    size: mobile ? "16" : "14",
-    weight: "semibold"
-  }, "Clear All"))))), /* @__PURE__ */ React48.createElement(Box, {
-    display: "flex",
-    flexDirection: "column",
-    gap: "4"
-  }, hasTransactions ? visibleTxs.map((tx) => /* @__PURE__ */ React48.createElement(TxItem, {
-    key: tx.hash,
-    tx
-  })) : /* @__PURE__ */ React48.createElement(React48.Fragment, null, /* @__PURE__ */ React48.createElement(Box, {
-    padding: mobile ? "12" : "8"
-  }, /* @__PURE__ */ React48.createElement(Text, {
-    color: "modalTextDim",
-    size: mobile ? "16" : "14",
-    weight: mobile ? "medium" : "bold"
-  }, appName != null ? appName : "Your", " transactions will appear here...")), mobile && /* @__PURE__ */ React48.createElement(Box, {
-    background: "generalBorderDim",
-    height: "1",
-    marginX: "12",
-    marginY: "8"
-  })))), explorerLink && /* @__PURE__ */ React48.createElement(Box, {
-    paddingBottom: "18",
-    paddingX: mobile ? "8" : "18"
-  }, /* @__PURE__ */ React48.createElement(Box, {
-    alignItems: "center",
-    as: "a",
-    background: { hover: "profileForeground" },
-    borderRadius: "menuButton",
-    className: touchableStyles({ active: "shrink" }),
-    color: "modalTextDim",
-    display: "flex",
-    flexDirection: "row",
-    href: `${explorerLink}/address/${address}`,
-    justifyContent: "space-between",
-    paddingX: "8",
-    paddingY: "12",
-    rel: "noreferrer noopener",
-    style: { willChange: "transform" },
-    target: "_blank",
-    transition: "default",
-    width: "full",
-    ...mobile ? { paddingLeft: "12" } : {}
-  }, /* @__PURE__ */ React48.createElement(Text, {
-    color: "modalText",
-    font: "body",
-    size: mobile ? "16" : "14",
-    weight: mobile ? "semibold" : "bold"
-  }, "View more on Explorer"), /* @__PURE__ */ React48.createElement(ExternalLinkIcon, null))));
-}
-
-// src/rainbowkit/src/components/ProfileDetails/ProfileDetailsAction.tsx
-import React49 from "react";
-function ProfileDetailsAction({
-  action,
-  icon,
-  label,
-  testId,
-  url
-}) {
-  const mobile = isMobile();
-  return /* @__PURE__ */ React49.createElement(Box, {
-    ...url ? { as: "a", href: url, rel: "noreferrer noopener", target: "_blank" } : { as: "button", type: "button" },
-    background: {
-      base: "profileAction",
-      ...!mobile ? { hover: "profileActionHover" } : {}
-    },
-    borderRadius: "menuButton",
-    boxShadow: "profileDetailsAction",
-    className: touchableStyles({
-      active: "shrinkSm",
-      hover: !mobile ? "grow" : void 0
-    }),
-    display: "flex",
-    onClick: action,
-    padding: mobile ? "6" : "8",
-    style: { willChange: "transform" },
-    testId,
-    transition: "default",
-    width: "full"
-  }, /* @__PURE__ */ React49.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    gap: "1",
-    justifyContent: "center",
-    paddingTop: "2",
-    width: "full"
-  }, /* @__PURE__ */ React49.createElement(Box, {
-    color: "modalText",
-    height: "max"
-  }, icon), /* @__PURE__ */ React49.createElement(Box, null, /* @__PURE__ */ React49.createElement(Text, {
-    color: "modalText",
-    size: mobile ? "12" : "13",
-    weight: "semibold"
-  }, label))));
-}
-
-// src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-function ProfileDetails({
-  address,
-  balanceData,
-  ensAvatar,
-  ensName,
-  onClose,
-  onDisconnect
-}) {
-  const showRecentTransactions = useContext14(ShowRecentTransactionsContext);
-  const [copiedAddress, setCopiedAddress] = useState13(false);
-  const copyAddressAction = useCallback11(() => {
-    if (address) {
-      navigator.clipboard.writeText(address);
-      setCopiedAddress(true);
-    }
-  }, [address]);
-  useEffect19(() => {
-    if (copiedAddress) {
-      const timer = setTimeout(() => {
-        setCopiedAddress(false);
-      }, 1500);
-      return () => clearTimeout(timer);
-    }
-  }, [copiedAddress]);
-  const accountName = !address ? "" : ensName ? formatENS(ensName) : formatAddress(address);
-  const ethBalance = balanceData == null ? void 0 : balanceData.formatted;
-  const displayBalance = ethBalance ? abbreviateETHBalance(parseFloat(ethBalance)) : void 0;
-  const titleId = "rk_profile_title";
-  const mobile = isMobile();
-  if (!address) {
-    return null;
-  }
-  return /* @__PURE__ */ React50.createElement(React50.Fragment, null, /* @__PURE__ */ React50.createElement(Box, {
-    display: "flex",
-    flexDirection: "column"
-  }, /* @__PURE__ */ React50.createElement(Box, {
-    background: "profileForeground",
-    padding: "16"
-  }, /* @__PURE__ */ React50.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "16" : "12",
-    justifyContent: "center",
-    margin: "8",
-    style: { textAlign: "center" }
-  }, /* @__PURE__ */ React50.createElement(Box, {
-    style: {
-      position: "absolute",
-      right: 16,
-      top: 16,
-      willChange: "transform"
-    }
-  }, /* @__PURE__ */ React50.createElement(DialogClose_default, {
-    onClick: onClose
-  })), /* @__PURE__ */ React50.createElement(Box, {
-    marginTop: mobile ? "24" : "0"
-  }, /* @__PURE__ */ React50.createElement(Avatar, {
-    address,
-    imageUrl: ensAvatar,
-    size: mobile ? 82 : 74
-  })), /* @__PURE__ */ React50.createElement(Box, {
-    display: "flex",
-    flexDirection: "column",
-    gap: mobile ? "4" : "0",
-    textAlign: "center"
-  }, /* @__PURE__ */ React50.createElement(Box, {
-    textAlign: "center"
-  }, /* @__PURE__ */ React50.createElement(Text, {
-    as: "h1",
-    color: "modalText",
-    id: titleId,
-    size: mobile ? "20" : "18",
-    weight: "heavy"
-  }, accountName)), balanceData && /* @__PURE__ */ React50.createElement(Box, {
-    textAlign: "center"
-  }, /* @__PURE__ */ React50.createElement(Text, {
-    as: "h1",
-    color: "modalTextSecondary",
-    id: titleId,
-    size: mobile ? "16" : "14",
-    weight: "semibold"
-  }, displayBalance, " ", balanceData.symbol)))), /* @__PURE__ */ React50.createElement(Box, {
-    display: "flex",
-    flexDirection: "row",
-    gap: "8",
-    margin: "2",
-    marginTop: "16"
-  }, /* @__PURE__ */ React50.createElement(ProfileDetailsAction, {
-    action: copyAddressAction,
-    icon: copiedAddress ? /* @__PURE__ */ React50.createElement(CopiedIcon, null) : /* @__PURE__ */ React50.createElement(CopyIcon, null),
-    label: copiedAddress ? "Copied!" : "Copy Address"
-  }), /* @__PURE__ */ React50.createElement(ProfileDetailsAction, {
-    action: onDisconnect,
-    icon: /* @__PURE__ */ React50.createElement(DisconnectIcon, null),
-    label: "Disconnect",
-    testId: "disconnect-button"
-  }))), showRecentTransactions && /* @__PURE__ */ React50.createElement(React50.Fragment, null, /* @__PURE__ */ React50.createElement(Box, {
-    background: "generalBorder",
-    height: "1",
-    marginTop: "-1"
-  }), /* @__PURE__ */ React50.createElement(Box, null, /* @__PURE__ */ React50.createElement(TxList, {
-    address
-  })))));
-}
-
-// src/rainbowkit/src/components/AccountModal/AccountModal.tsx
-function AccountModal({ onClose, open }) {
-  const { address } = useAccount9();
-  const { data: balanceData } = useBalance({ address });
-  const ensName = useMainnetEnsName(address);
-  const ensAvatar = useMainnetEnsAvatar(ensName);
-  const { disconnect } = useDisconnect2();
-  const titleId = "rk_account_modal_title";
-  if (!address) {
-    return null;
-  }
-  return /* @__PURE__ */ React51.createElement(React51.Fragment, null, address && /* @__PURE__ */ React51.createElement(Dialog, {
-    onClose,
-    open,
-    titleId
-  }, /* @__PURE__ */ React51.createElement(DialogContent, {
-    bottomSheetOnMobile: true,
-    padding: "0"
-  }, /* @__PURE__ */ React51.createElement(ProfileDetails, {
-    address,
-    balanceData,
-    ensAvatar,
-    ensName,
-    onClose,
-    onDisconnect: disconnect
-  }))));
-}
-
-// src/rainbowkit/src/components/ChainModal/ChainModal.tsx
-import React54, { Fragment as Fragment2, useCallback as useCallback12, useContext as useContext15 } from "react";
-import { useDisconnect as useDisconnect3, useNetwork as useNetwork5, useSwitchNetwork } from "wagmi";
-
-// src/rainbowkit/src/components/Icons/DisconnectSq.tsx
-import React52 from "react";
-var DisconnectSqIcon = ({ size }) => /* @__PURE__ */ React52.createElement("svg", {
-  fill: "none",
-  height: size,
-  viewBox: "0 0 28 28",
-  width: size,
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React52.createElement("path", {
-  d: "M6.742 22.195h8.367c1.774 0 2.743-.968 2.743-2.758V16.11h-2.016v3.11c0 .625-.305.96-.969.96H6.984c-.664 0-.968-.335-.968-.96V7.984c0-.632.304-.968.968-.968h7.883c.664 0 .969.336.969.968v3.133h2.016v-3.36c0-1.78-.97-2.757-2.743-2.757H6.742C4.97 5 4 5.977 4 7.758v11.68c0 1.789.969 2.757 2.742 2.757Zm5.438-7.703h7.601l1.149-.07-.602.406-1.008.938a.816.816 0 0 0-.258.593c0 .407.313.782.758.782.227 0 .39-.086.547-.243l2.492-2.593c.235-.235.313-.47.313-.711 0-.242-.078-.477-.313-.719l-2.492-2.586c-.156-.156-.32-.25-.547-.25-.445 0-.758.367-.758.781 0 .227.094.446.258.594l1.008.945.602.407-1.149-.079H12.18a.904.904 0 0 0 0 1.805Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/MenuButton/MenuButton.tsx
-import React53 from "react";
-
-// src/rainbowkit/src/components/MenuButton/MenuButton.css.ts
-import { style as style9 } from "@vanilla-extract/css";
-var unsetBackgroundOnHover = style9({
-  ":hover": {
-    background: "unset"
-  }
-});
-
-// src/rainbowkit/src/components/MenuButton/MenuButton.tsx
-var MenuButton = React53.forwardRef(
-  ({
-    children,
-    currentlySelected = false,
-    onClick,
-    testId,
-    disabled,
-    ...urlProps
-  }, ref) => {
-    const mobile = isMobile();
-    return /* @__PURE__ */ React53.createElement(Box, {
-      as: "button",
-      borderRadius: "menuButton",
-      disabled: disabled != null ? disabled : false,
-      display: "flex",
-      ref,
-      testId,
-      type: "button",
-      marginLeft: "20",
-      marginRight: "20",
-      marginTop: "8",
-      marginBottom: "8",
-      onClick
-    }, /* @__PURE__ */ React53.createElement(PixelCube3, {
-      pixel_height: 3,
-      backgroundColor: `${currentlySelected ? "#343C4F" : "#1D263B"}`,
-      borderColor: `${currentlySelected ? "#1649FF" : "#3A4254"}`,
-      showHover: true,
-      width: "100%"
-    }, /* @__PURE__ */ React53.createElement(Box, {
-      className: [
-        mobile ? unsetBackgroundOnHover : void 0,
-        !currentlySelected && touchableStyles({ active: "shrink" })
-      ],
-      transition: "default",
-      width: "full",
-      padding: "16",
-      ...currentlySelected ? {
-        color: "accentColorForeground"
-      } : {
-        color: "modalText"
-      },
-      ...urlProps
-    }, children)));
-  }
-);
-MenuButton.displayName = "MenuButton";
-
-// src/rainbowkit/src/components/ChainModal/ChainModal.tsx
-function ChainModal({ onClose, open, fn }) {
-  var _a;
-  const { chain: activeChain } = useNetwork5();
-  const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
-    onSettled: () => {
-      reset();
-      onClose();
-    }
-  });
-  const { disconnect } = useDisconnect3();
-  const titleId = "rk_chain_modal_title";
-  const mobile = isMobile();
-  const unsupportedChain = (_a = activeChain == null ? void 0 : activeChain.unsupported) != null ? _a : false;
-  const chainIconSize = "24";
-  const { appName } = useContext15(AppContext);
-  const rainbowkitChains = useRainbowKitChains();
-  const chainClickHandle = useCallback12(
-    ({ isCurrentChain, chain }) => {
-      if (isCurrentChain) {
-        return;
-      } else {
-        switchNetwork ? switchNetwork(chain.id) : console.error("not switchNetwork");
-        if (fn) {
-          fn(chain.id);
-        }
-      }
-    },
-    [fn, switchNetwork]
-  );
-  if (!activeChain || !(activeChain == null ? void 0 : activeChain.id)) {
-    return null;
-  }
-  return /* @__PURE__ */ React54.createElement(Dialog, {
-    onClose,
-    open,
-    titleId
-  }, /* @__PURE__ */ React54.createElement(DialogContent, {
-    padding: "0",
-    bottomSheetOnMobile: true
-  }, /* @__PURE__ */ React54.createElement(Box, {
-    display: "flex",
-    flexDirection: "column",
-    gap: "14",
-    marginBottom: "14"
-  }, /* @__PURE__ */ React54.createElement(ActivePixelCard, {
-    pixel_height: 10,
-    className: `tvlPixelTable_header`,
-    backgroundColor: "#293457",
-    height: "64px"
-  }, /* @__PURE__ */ React54.createElement(Box, {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  }, mobile && /* @__PURE__ */ React54.createElement(Box, {
-    width: "30"
-  }), /* @__PURE__ */ React54.createElement(Text, {
-    as: "h3",
-    color: "modalText",
-    weight: "bold",
-    id: titleId
-  }, "Switch Networks"))), unsupportedChain && /* @__PURE__ */ React54.createElement(Box, {
-    marginLeft: "20",
-    marginRight: "20",
-    textAlign: mobile ? "center" : "left"
-  }, /* @__PURE__ */ React54.createElement(Text, {
-    color: "modalTextSecondary",
-    size: "14",
-    weight: "medium"
-  }, "Wrong network detected, switch or disconnect to continue.")), /* @__PURE__ */ React54.createElement(Box, {
-    display: "flex",
-    flexDirection: "column",
-    gap: "4",
-    padding: "2",
-    style: { maxHeight: mobile ? "80vh" : "70vh", overflowY: "scroll" }
-  }, switchNetwork ? rainbowkitChains.map(
-    ({ iconBackground, iconUrl, id, name }, idx) => {
-      var _a2;
-      const chain = chains.find((c) => c.id === id);
-      const isCurrentChain = chain ? chain.id === (activeChain == null ? void 0 : activeChain.id) : false;
-      const switching = chain ? !isCurrentChain && chain.id === pendingChainId : false;
-      if (!chain) {
-        return null;
-      }
-      return /* @__PURE__ */ React54.createElement(Fragment2, {
-        key: chain.id
-      }, /* @__PURE__ */ React54.createElement(MenuButton, {
-        disabled: false,
-        currentlySelected: isCurrentChain,
-        onClick: () => chainClickHandle({
-          isCurrentChain,
-          chain
-        }),
-        testId: `chain-option-${chain.id}`
-      }, /* @__PURE__ */ React54.createElement(Box, {
-        fontFamily: "body",
-        fontSize: "16"
-      }, /* @__PURE__ */ React54.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between"
-      }, /* @__PURE__ */ React54.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        gap: "4",
-        height: chainIconSize
-      }, iconUrl && /* @__PURE__ */ React54.createElement(Box, {
-        height: "full",
-        marginRight: "8"
-      }, /* @__PURE__ */ React54.createElement(AsyncImage, {
-        alt: name != null ? name : chain.name,
-        background: iconBackground,
-        borderRadius: "full",
-        height: chainIconSize,
-        src: iconUrl,
-        width: chainIconSize
-      })), /* @__PURE__ */ React54.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React54.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        marginRight: "6"
-      }, /* @__PURE__ */ React54.createElement(Text, {
-        color: "accentColorForeground",
-        size: "14",
-        weight: "medium"
-      }, "Connected"), /* @__PURE__ */ React54.createElement(Box, {
-        background: "connectionIndicator",
-        borderColor: "connectionIndicatorBorder",
-        borderRadius: "full",
-        borderStyle: "solid",
-        borderWidth: "3",
-        height: "12",
-        marginLeft: "8",
-        width: "12"
-      })), switching && /* @__PURE__ */ React54.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        marginRight: "6"
-      }, /* @__PURE__ */ React54.createElement(Text, {
-        color: "modalText",
-        size: "14",
-        weight: "medium"
-      }, "Confirm in Wallet"), /* @__PURE__ */ React54.createElement(Box, {
-        background: "standby",
-        borderRadius: "full",
-        height: "12",
-        marginLeft: "8",
-        width: "12",
-        borderColor: "standbyBorder",
-        borderStyle: "solid",
-        borderWidth: "3"
-      }))))), mobile && idx < rainbowkitChains.length - 1 && /* @__PURE__ */ React54.createElement(Box, {
-        background: "generalBorderDim",
-        height: "1",
-        marginX: "8"
-      }));
-    }
-  ) : /* @__PURE__ */ React54.createElement(Box, {
-    background: "generalBorder",
-    borderRadius: "menuButton",
-    paddingX: "18",
-    paddingY: "12"
-  }, /* @__PURE__ */ React54.createElement(Text, {
-    color: "modalText",
-    size: "14",
-    weight: "medium"
-  }, "Your wallet does not support switching networks from", " ", appName != null ? appName : "this app", ". Try switching networks from within your wallet instead.")), unsupportedChain && /* @__PURE__ */ React54.createElement(React54.Fragment, null, /* @__PURE__ */ React54.createElement(Box, {
-    background: "generalBorderDim",
-    height: "1",
-    marginX: "8"
-  }), /* @__PURE__ */ React54.createElement(MenuButton, {
-    onClick: () => disconnect(),
-    testId: "chain-option-disconnect"
-  }, /* @__PURE__ */ React54.createElement(Box, {
-    color: "error",
-    fontFamily: "body",
-    fontSize: "16"
-  }, /* @__PURE__ */ React54.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between"
-  }, /* @__PURE__ */ React54.createElement(Box, {
-    alignItems: "center",
-    display: "flex",
-    flexDirection: "row",
-    gap: "4",
-    height: chainIconSize
-  }, /* @__PURE__ */ React54.createElement(Box, {
-    alignItems: "center",
-    color: "error",
-    height: chainIconSize,
-    justifyContent: "center",
-    marginRight: "8"
-  }, /* @__PURE__ */ React54.createElement(DisconnectSqIcon, {
-    size: Number(chainIconSize)
-  })), /* @__PURE__ */ React54.createElement("div", null, "Disconnect")))))))), /* @__PURE__ */ React54.createElement(DialogClose_default, {
-    onClick: onClose
-  })));
-}
-
-// src/rainbowkit/src/components/ConnectModal/ConnectModal.tsx
-import React56 from "react";
-
 // src/rainbowkit/src/components/ConnectOptions/ConnectOptions.tsx
-import React55 from "react";
 function ConnectOptions({ onClose }) {
-  return isMobile() ? /* @__PURE__ */ React55.createElement(MobileOptions, {
+  return isMobile() ? /* @__PURE__ */ React85.createElement(MobileOptions, {
     onClose
-  }) : /* @__PURE__ */ React55.createElement(DesktopOptions, {
+  }) : /* @__PURE__ */ React85.createElement(DesktopOptions, {
     onClose
   });
 }
@@ -6688,27 +10255,27 @@ function ConnectModal({ onClose, open }) {
   const titleId = "rk_connect_title";
   const connectionStatus = useConnectionStatus();
   if (connectionStatus === "disconnected") {
-    return /* @__PURE__ */ React56.createElement(Dialog, {
+    return /* @__PURE__ */ React86.createElement(Dialog, {
       onClose,
       open,
       titleId
-    }, /* @__PURE__ */ React56.createElement(DialogContent, {
+    }, /* @__PURE__ */ React86.createElement(DialogContent3, {
       bottomSheetOnMobile: true,
       padding: "0",
       wide: true
-    }, /* @__PURE__ */ React56.createElement(ConnectOptions, {
+    }, /* @__PURE__ */ React86.createElement(ConnectOptions, {
       onClose
     })));
   }
   if (connectionStatus === "unauthenticated") {
-    return /* @__PURE__ */ React56.createElement(Dialog, {
+    return /* @__PURE__ */ React86.createElement(Dialog, {
       onClose,
       open,
       titleId
-    }, /* @__PURE__ */ React56.createElement(DialogContent, {
+    }, /* @__PURE__ */ React86.createElement(DialogContent3, {
       bottomSheetOnMobile: true,
       padding: "0"
-    }, /* @__PURE__ */ React56.createElement(SignIn, {
+    }, /* @__PURE__ */ React86.createElement(SignIn, {
       onClose
     })));
   }
@@ -6716,90 +10283,17 @@ function ConnectModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
-import { useSetRecoilState } from "recoil";
-
-// src/components/ConnectWallet/state/connectWalletState.ts
-import { atom as atom3 } from "recoil";
-var connectorState = atom3({
-  key: "connectorState",
-  default: {
-    chainId: null,
-    networkError: null
-  }
-});
-var walletModalOpenState = atom3({
-  key: "walletModalOpenState",
-  default: false
-});
-var ChainSelector = atom3({
-  key: "ChainSelector",
-  default: false
-});
-var refreshBalanceState = atom3({
-  key: "refreshBalance",
-  default: "0"
-});
-var pointsDialogState = atom3({
-  key: "pointsDialog",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("pointsDialog")]
-});
-var pointsAnimState = atom3({
-  key: "pointsAnim",
-  default: false
-});
-var pointsAnimNumState = atom3({
-  key: "pointsAnimNum",
-  default: 0
-});
-var pointsWarnState = atom3({
-  key: "pointsWarn",
-  default: 0
-});
-var hidePointsWarnState = atom3({
-  key: "hidePointsWarn",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("hidePointsWarn")]
-});
-var pointsRuleDialogState = atom3({
-  key: "pointsRuleDialog",
-  default: false
-});
-var accountInfoDialogState = atom3({
-  key: "accountInfoDialog",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("accountInfoDialog")]
-});
-var linkToBetaDialogState = atom3({
-  key: "linkToBetaDialog",
-  default: false
-});
-var linkToBetaDialogChainIdState = atom3({
-  key: "linkToBetaDialogChainIdState",
-  default: void 0
-});
-var nativeBalanceState = atom3({
-  key: "nativeBalance",
-  default: 0,
-  effects_UNSTABLE: [localStorageEffect("nativeBalance")]
-});
-var pointsBalanceState = atom3({
-  key: "pointsBalance",
-  default: 0,
-  effects_UNSTABLE: [localStorageEffect("pointsBalance")]
-});
-
-// src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
+import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 function useModalStateValue() {
-  const [isModalOpen, setModalOpen] = useState14(false);
-  const setWalletDialogOpen = useSetRecoilState(walletModalOpenState);
+  const [isModalOpen, setModalOpen] = useState19(false);
+  const setWalletDialogOpen = useSetRecoilState9(walletModalOpenState);
   return {
-    closeModal: useCallback13(() => {
+    closeModal: useCallback26(() => {
       setWalletDialogOpen(false);
       setModalOpen(false);
     }, []),
     isModalOpen,
-    openModal: useCallback13(() => setModalOpen(true), [])
+    openModal: useCallback26(() => setModalOpen(true), [])
   };
 }
 var ModalContext = createContext11({
@@ -6824,7 +10318,7 @@ function ModalProvider({ children }) {
     openModal: openChainModal
   } = useModalStateValue();
   const connectionStatus = useConnectionStatus();
-  const { chain } = useNetwork6();
+  const { chain } = useNetwork7();
   const chainSupported = !(chain == null ? void 0 : chain.unsupported);
   const fn = useRef6();
   function closeModals({
@@ -6837,12 +10331,12 @@ function ModalProvider({ children }) {
     closeChainModal();
   }
   const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
-  useAccount10({
+  useAccount11({
     onConnect: () => closeModals({ keepConnectModalOpen: isUnauthenticated }),
     onDisconnect: () => closeModals()
   });
-  return /* @__PURE__ */ React57.createElement(ModalContext.Provider, {
-    value: useMemo6(
+  return /* @__PURE__ */ React87.createElement(ModalContext.Provider, {
+    value: useMemo15(
       () => ({
         accountModalOpen,
         chainModalOpen,
@@ -6866,13 +10360,13 @@ function ModalProvider({ children }) {
         openConnectModal
       ]
     )
-  }, children, /* @__PURE__ */ React57.createElement(ConnectModal, {
+  }, children, /* @__PURE__ */ React87.createElement(ConnectModal, {
     onClose: closeConnectModal,
     open: connectModalOpen
-  }), /* @__PURE__ */ React57.createElement(AccountModal, {
+  }), /* @__PURE__ */ React87.createElement(AccountModal, {
     onClose: closeAccountModal,
     open: accountModalOpen
-  }), /* @__PURE__ */ React57.createElement(ChainModal, {
+  }), /* @__PURE__ */ React87.createElement(ChainModal, {
     onClose: closeChainModal,
     open: chainModalOpen,
     fn: fn.current
@@ -6899,6 +10393,55 @@ function useConnectModal() {
   return { connectModalOpen, openConnectModal };
 }
 
+// src/components/Header/rainbow_account/WrongNetwork.tsx
+var WrongNetwork = memo29(({ type }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
+  const { openChainModal } = useChainModal();
+  const setAccountInfoDialogOpen = useSetRecoilState10(accountInfoDialogState);
+  return /* @__PURE__ */ React88.createElement(IsPixelWidget_default, {
+    type,
+    onClick: () => {
+      if (openChainModal) {
+        openChainModal();
+        setAccountInfoDialogOpen(false);
+      }
+    },
+    className: "connect_connect"
+  }, /* @__PURE__ */ React88.createElement("p", null, t("Wrong network")));
+}, isEqual);
+var WrongNetwork_default = WrongNetwork;
+
+// src/rainbowkit/src/components/ConnectButton/ConnectButton.tsx
+import React91 from "react";
+
+// src/rainbowkit/src/components/Icons/Dropdown.tsx
+import React89 from "react";
+var DropdownIcon = () => /* @__PURE__ */ React89.createElement("svg", {
+  fill: "none",
+  height: "7",
+  width: "14",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React89.createElement("path", {
+  d: "M12.75 1.54001L8.51647 5.0038C7.77974 5.60658 6.72026 5.60658 5.98352 5.0038L1.75 1.54001",
+  stroke: "currentColor",
+  strokeLinecap: "round",
+  strokeLinejoin: "round",
+  strokeWidth: "2.5",
+  xmlns: "http://www.w3.org/2000/svg"
+}));
+
+// src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
+import React90, { useContext as useContext17 } from "react";
+import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork8 } from "wagmi";
+
+// src/rainbowkit/src/hooks/useIsMounted.ts
+import { useEffect as useEffect25, useReducer as useReducer3 } from "react";
+var useIsMounted = () => {
+  const [mounted, setMounted] = useReducer3(() => true, false);
+  useEffect25(setMounted, [setMounted]);
+  return mounted;
+};
+
 // src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
 var noop = () => {
 };
@@ -6907,11 +10450,11 @@ function ConnectButtonRenderer({
 }) {
   var _a, _b, _c, _d;
   const mounted = useIsMounted();
-  const { address } = useAccount11();
+  const { address } = useAccount12();
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
   const { data: balanceData } = useBalance2({ address });
-  const { chain: activeChain } = useNetwork7();
+  const { chain: activeChain } = useNetwork8();
   const rainbowkitChainsById = useRainbowKitChainsById();
   const authenticationStatus = (_a = useAuthenticationStatus()) != null ? _a : void 0;
   const rainbowKitChain = activeChain ? rainbowkitChainsById[activeChain.id] : void 0;
@@ -6926,7 +10469,7 @@ function ConnectButtonRenderer({
   const { openChainModal } = useChainModal();
   const { openAccountModal } = useAccountModal();
   const { accountModalOpen, chainModalOpen, connectModalOpen } = useModalState();
-  return /* @__PURE__ */ React58.createElement(React58.Fragment, null, children({
+  return /* @__PURE__ */ React90.createElement(React90.Fragment, null, children({
     account: address ? {
       address,
       balanceDecimals: balanceData == null ? void 0 : balanceData.decimals,
@@ -6973,11 +10516,11 @@ function ConnectButton({
 }) {
   const chains = useRainbowKitChains();
   const connectionStatus = useConnectionStatus();
-  return /* @__PURE__ */ React59.createElement(ConnectButtonRenderer, null, ({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
+  return /* @__PURE__ */ React91.createElement(ConnectButtonRenderer, null, ({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
     var _a, _b, _c;
     const ready = mounted && connectionStatus !== "loading";
     const unsupportedChain = (_a = chain == null ? void 0 : chain.unsupported) != null ? _a : false;
-    return /* @__PURE__ */ React59.createElement(Box, {
+    return /* @__PURE__ */ React91.createElement(Box, {
       display: "flex",
       gap: "12",
       ...!ready && {
@@ -6988,7 +10531,7 @@ function ConnectButton({
           userSelect: "none"
         }
       }
-    }, ready && account && connectionStatus === "connected" ? /* @__PURE__ */ React59.createElement(React59.Fragment, null, chain && (chains.length > 1 || unsupportedChain) && /* @__PURE__ */ React59.createElement(Box, {
+    }, ready && account && connectionStatus === "connected" ? /* @__PURE__ */ React91.createElement(React91.Fragment, null, chain && (chains.length > 1 || unsupportedChain) && /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       "aria-label": "Chain Selector",
       as: "button",
@@ -7011,34 +10554,34 @@ function ConnectButton({
       testId: unsupportedChain ? "wrong-network-button" : "chain-button",
       transition: "default",
       type: "button"
-    }, unsupportedChain ? /* @__PURE__ */ React59.createElement(Box, {
+    }, unsupportedChain ? /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       height: "24",
       paddingX: "4"
-    }, "Wrong network") : /* @__PURE__ */ React59.createElement(Box, {
+    }, "Wrong network") : /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "6"
-    }, chain.hasIcon ? /* @__PURE__ */ React59.createElement(Box, {
+    }, chain.hasIcon ? /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(chainStatus, (value) => value === "full" || value === "icon" ? "block" : "none"),
       height: "24",
       width: "24"
-    }, /* @__PURE__ */ React59.createElement(AsyncImage, {
+    }, /* @__PURE__ */ React91.createElement(AsyncImage, {
       alt: (_b = chain.name) != null ? _b : "Chain icon",
       background: chain.iconBackground,
       borderRadius: "full",
       height: "24",
       src: chain.iconUrl,
       width: "24"
-    })) : null, /* @__PURE__ */ React59.createElement(Box, {
+    })) : null, /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(chainStatus, (value) => {
         if (value === "icon" && !chain.iconUrl) {
           return "block";
         }
         return value === "full" || value === "name" ? "block" : "none";
       })
-    }, (_c = chain.name) != null ? _c : chain.id)), /* @__PURE__ */ React59.createElement(DropdownIcon, null)), !unsupportedChain && /* @__PURE__ */ React59.createElement(Box, {
+    }, (_c = chain.name) != null ? _c : chain.id)), /* @__PURE__ */ React91.createElement(DropdownIcon, null)), !unsupportedChain && /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       as: "button",
       background: "connectButtonBackground",
@@ -7056,11 +10599,11 @@ function ConnectButton({
       testId: "account-button",
       transition: "default",
       type: "button"
-    }, account.displayBalance && /* @__PURE__ */ React59.createElement(Box, {
+    }, account.displayBalance && /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(showBalance, (value) => value ? "block" : "none"),
       padding: "8",
       paddingLeft: "12"
-    }, account.displayBalance), /* @__PURE__ */ React59.createElement(Box, {
+    }, account.displayBalance), /* @__PURE__ */ React91.createElement(Box, {
       background: normalizeResponsiveValue(showBalance)[isMobile() ? "smallScreen" : "largeScreen"] ? "connectButtonInnerBackground" : "connectButtonBackground",
       borderColor: "connectButtonBackground",
       borderRadius: "connectButton",
@@ -7072,25 +10615,25 @@ function ConnectButton({
       paddingX: "8",
       paddingY: "6",
       transition: "default"
-    }, /* @__PURE__ */ React59.createElement(Box, {
+    }, /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "6",
       height: "24"
-    }, /* @__PURE__ */ React59.createElement(Box, {
+    }, /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(accountStatus, (value) => value === "full" || value === "avatar" ? "block" : "none")
-    }, /* @__PURE__ */ React59.createElement(Avatar, {
+    }, /* @__PURE__ */ React91.createElement(Avatar2, {
       address: account.address,
       imageUrl: account.ensAvatar,
       loading: account.hasPendingTransactions,
       size: 24
-    })), /* @__PURE__ */ React59.createElement(Box, {
+    })), /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "6"
-    }, /* @__PURE__ */ React59.createElement(Box, {
+    }, /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(accountStatus, (value) => value === "full" || value === "address" ? "block" : "none")
-    }, account.displayName), /* @__PURE__ */ React59.createElement(DropdownIcon, null)))))) : /* @__PURE__ */ React59.createElement(Box, {
+    }, account.displayName), /* @__PURE__ */ React91.createElement(DropdownIcon, null)))))) : /* @__PURE__ */ React91.createElement(Box, {
       as: "button",
       background: "accentColor",
       borderRadius: "connectButton",
@@ -7111,3712 +10654,6 @@ function ConnectButton({
 }
 ConnectButton.__defaultProps = defaultProps;
 ConnectButton.Custom = ConnectButtonRenderer;
-
-// src/rainbowkit/src/themes/darkTheme.ts
-var darkGrey = "#1A1B1F";
-var accentColors2 = {
-  blue: { accentColor: "#3898FF", accentColorForeground: "#FFF" },
-  green: { accentColor: "#4BD166", accentColorForeground: darkGrey },
-  orange: { accentColor: "#FF983D", accentColorForeground: darkGrey },
-  pink: { accentColor: "#FF7AB8", accentColorForeground: darkGrey },
-  purple: { accentColor: "#7A70FF", accentColorForeground: "#FFF" },
-  red: { accentColor: "#FF6257", accentColorForeground: "#FFF" }
-};
-var defaultAccentColor2 = accentColors2.blue;
-var darkTheme = ({
-  accentColor = defaultAccentColor2.accentColor,
-  accentColorForeground = defaultAccentColor2.accentColorForeground,
-  ...baseThemeOptions
-} = {}) => ({
-  ...baseTheme(baseThemeOptions),
-  colors: {
-    accentColor,
-    accentColorForeground,
-    actionButtonBorder: "rgba(255, 255, 255, 0.04)",
-    actionButtonBorderMobile: "rgba(255, 255, 255, 0.08)",
-    actionButtonSecondaryBackground: "rgba(255, 255, 255, 0.08)",
-    closeButton: "rgba(224, 232, 255, 0.6)",
-    closeButtonBackground: "rgba(255, 255, 255, 0.08)",
-    connectButtonBackground: darkGrey,
-    connectButtonBackgroundError: "#FF494A",
-    connectButtonInnerBackground: "linear-gradient(0deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.15))",
-    connectButtonText: "#FFF",
-    connectButtonTextError: "#FFF",
-    connectionIndicator: "#65EDBC",
-    connectionIndicatorBorder: "#2a443a",
-    downloadBottomCardBackground: "linear-gradient(126deg, rgba(0, 0, 0, 0) 9.49%, rgba(120, 120, 120, 0.2) 71.04%), #1A1B1F",
-    downloadTopCardBackground: "linear-gradient(126deg, rgba(120, 120, 120, 0.2) 9.49%, rgba(0, 0, 0, 0) 71.04%), #1A1B1F",
-    error: "#FF494A",
-    generalBorder: "rgba(255, 255, 255, 0.08)",
-    generalBorderDim: "rgba(255, 255, 255, 0.04)",
-    menuItemBackground: "rgba(224, 232, 255, 0.1)",
-    modalBackdrop: "rgba(0, 0, 0, 0.5)",
-    modalBackground: "#1A1B1F",
-    modalBorder: "rgba(255, 255, 255, 0.08)",
-    modalText: "#FFF",
-    modalTextDim: "rgba(224, 232, 255, 0.3)",
-    modalTextSecondary: "rgba(255, 255, 255, 0.6)",
-    profileAction: "rgba(224, 232, 255, 0.1)",
-    profileActionHover: "rgba(224, 232, 255, 0.2)",
-    profileForeground: "rgba(224, 232, 255, 0.05)",
-    selectedOptionBorder: "rgba(224, 232, 255, 0.1)",
-    standby: "#FFD641",
-    standbyBorder: "#5c5847"
-  },
-  shadows: {
-    connectButton: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-    dialog: "0px 8px 32px rgba(0, 0, 0, 0.32)",
-    profileDetailsAction: "0px 2px 6px rgba(37, 41, 46, 0.04)",
-    selectedOption: "0px 2px 6px rgba(0, 0, 0, 0.24)",
-    selectedWallet: "0px 2px 6px rgba(0, 0, 0, 0.24)",
-    walletLogo: "0px 2px 16px rgba(0, 0, 0, 0.16)"
-  }
-});
-darkTheme.accentColors = accentColors2;
-
-// src/rainbowkit/src/themes/midnightTheme.ts
-var accentColors3 = {
-  blue: { accentColor: "#3898FF", accentColorForeground: "#FFF" },
-  green: { accentColor: "#4BD166", accentColorForeground: "#000" },
-  orange: { accentColor: "#FF983D", accentColorForeground: "#000" },
-  pink: { accentColor: "#FF7AB8", accentColorForeground: "#000" },
-  purple: { accentColor: "#7A70FF", accentColorForeground: "#FFF" },
-  red: { accentColor: "#FF6257", accentColorForeground: "#FFF" }
-};
-var defaultAccentColor3 = accentColors3.blue;
-var midnightTheme = ({
-  accentColor = defaultAccentColor3.accentColor,
-  accentColorForeground = defaultAccentColor3.accentColorForeground,
-  ...baseThemeOptions
-} = {}) => ({
-  ...baseTheme(baseThemeOptions),
-  colors: {
-    accentColor,
-    accentColorForeground,
-    actionButtonBorder: "rgba(255, 255, 255, 0.04)",
-    actionButtonBorderMobile: "rgba(255, 255, 255, 0.1)",
-    actionButtonSecondaryBackground: "rgba(255, 255, 255, 0.08)",
-    closeButton: "rgba(255, 255, 255, 0.7)",
-    closeButtonBackground: "rgba(255, 255, 255, 0.08)",
-    connectButtonBackground: "#000",
-    connectButtonBackgroundError: "#FF494A",
-    connectButtonInnerBackground: "linear-gradient(0deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12))",
-    connectButtonText: "#FFF",
-    connectButtonTextError: "#FFF",
-    connectionIndicator: "#65EDBC",
-    connectionIndicatorBorder: "#2a443a",
-    downloadBottomCardBackground: "linear-gradient(126deg, rgba(0, 0, 0, 0) 9.49%, rgba(120, 120, 120, 0.1) 71.04%), #050505",
-    downloadTopCardBackground: "linear-gradient(126deg, rgba(120, 120, 120, 0.1) 9.49%, rgba(0, 0, 0, 0) 71.04%), #050505",
-    error: "#FF494A",
-    generalBorder: "rgba(255, 255, 255, 0.08)",
-    generalBorderDim: "rgba(255, 255, 255, 0.04)",
-    menuItemBackground: "rgba(255, 255, 255, 0.08)",
-    modalBackdrop: "rgba(0, 0, 0, 0.7)",
-    modalBackground: "#000",
-    modalBorder: "rgba(255, 255, 255, 0.08)",
-    modalText: "#FFF",
-    modalTextDim: "rgba(255, 255, 255, 0.2)",
-    modalTextSecondary: "rgba(255, 255, 255, 0.6)",
-    profileAction: "rgba(255, 255, 255, 0.1)",
-    profileActionHover: "rgba(255, 255, 255, 0.2)",
-    profileForeground: "rgba(255, 255, 255, 0.06)",
-    selectedOptionBorder: "rgba(224, 232, 255, 0.1)",
-    standby: "#FFD641",
-    standbyBorder: "#5c5847"
-  },
-  shadows: {
-    connectButton: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-    dialog: "0px 8px 32px rgba(0, 0, 0, 0.32)",
-    profileDetailsAction: "0px 2px 6px rgba(37, 41, 46, 0.04)",
-    selectedOption: "0px 2px 6px rgba(0, 0, 0, 0.24)",
-    selectedWallet: "0px 2px 6px rgba(0, 0, 0, 0.24)",
-    walletLogo: "0px 2px 16px rgba(0, 0, 0, 0.16)"
-  }
-});
-midnightTheme.accentColors = accentColors3;
-
-// src/rainbowkit/src/transactions/useAddRecentTransaction.ts
-import { useCallback as useCallback14 } from "react";
-import { useAccount as useAccount12 } from "wagmi";
-
-// src/rainbowkit/src/wallets/connectorsForWallets.ts
-import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
-
-// src/rainbowkit/src/utils/omitUndefinedValues.ts
-function omitUndefinedValues(obj) {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([_key, value]) => value !== void 0)
-  );
-}
-
-// src/rainbowkit/src/wallets/connectorsForWallets.ts
-var connectorsForWallets = (walletList) => {
-  return () => {
-    let index = -1;
-    const connectors = [];
-    const visibleWallets = [];
-    const potentiallyHiddenWallets = [];
-    const walletInstances = [];
-    walletList.forEach(({ groupName, wallets }, groupIndex) => {
-      wallets.forEach((wallet) => {
-        index++;
-        if ((wallet == null ? void 0 : wallet.iconAccent) && !isHexString(wallet == null ? void 0 : wallet.iconAccent)) {
-          throw new Error(`Property \`iconAccent\` is not a hex value for wallet: ${wallet.name}`);
-        }
-        const walletListItem = {
-          ...wallet,
-          groupIndex,
-          groupName,
-          index
-        };
-        if (typeof wallet.hidden === "function") {
-          potentiallyHiddenWallets.push(walletListItem);
-        } else {
-          visibleWallets.push(walletListItem);
-        }
-      });
-    });
-    const walletListItems = [...visibleWallets, ...potentiallyHiddenWallets];
-    walletListItems.forEach(({ createConnector: createConnector2, groupIndex, groupName, hidden, index: index2, ...walletMeta }) => {
-      if (typeof hidden === "function") {
-        const isHidden = hidden({
-          wallets: [
-            ...walletInstances.map(({ connector: connector2, id, installed, name }) => ({
-              connector: connector2,
-              id,
-              installed,
-              name
-            }))
-          ]
-        });
-        if (isHidden) {
-          return;
-        }
-      }
-      const { connector, ...connectionMethods } = omitUndefinedValues(createConnector2());
-      let walletConnectModalConnector;
-      if (walletMeta.id === "walletConnect" && connectionMethods.qrCode && !isMobile()) {
-        const { chains, options } = connector;
-        walletConnectModalConnector = new WalletConnectConnector({
-          chains,
-          options: {
-            ...options,
-            showQrModal: true
-          }
-        });
-        connectors.push(walletConnectModalConnector);
-      }
-      const walletInstance = {
-        connector,
-        groupIndex,
-        groupName,
-        index: index2,
-        walletConnectModalConnector,
-        ...walletMeta,
-        ...connectionMethods
-      };
-      walletInstances.push(walletInstance);
-      if (!connectors.includes(connector)) {
-        connectors.push(connector);
-        connector._wallets = [];
-      }
-      connector._wallets.push(walletInstance);
-    });
-    return connectors;
-  };
-};
-
-// src/rainbowkit/src/wallets/walletConnectors/braveWallet/braveWallet.ts
-import { InjectedConnector } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/coinbaseWallet/coinbaseWallet.ts
-import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
-
-// src/rainbowkit/src/wallets/walletConnectors/injectedWallet/injectedWallet.ts
-import { InjectedConnector as InjectedConnector2 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.ts
-import { MetaMaskConnector } from "wagmi/connectors/metaMask";
-
-// src/rainbowkit/src/utils/getWalletConnectUri.ts
-async function getWalletConnectUri(connector, version) {
-  const provider = await connector.getProvider();
-  return version === "2" ? new Promise((resolve) => provider.once("display_uri", resolve)) : provider.connector.uri;
-}
-
-// src/rainbowkit/src/wallets/getWalletConnectConnector.ts
-import { WalletConnectConnector as WalletConnectConnector2 } from "wagmi/connectors/walletConnect";
-import { WalletConnectLegacyConnector } from "wagmi/connectors/walletConnectLegacy";
-var sharedConnectors = /* @__PURE__ */ new Map();
-function createConnector(version, config) {
-  const connector = version === "1" ? new WalletConnectLegacyConnector(config) : new WalletConnectConnector2(config);
-  sharedConnectors.set(JSON.stringify(config), connector);
-  return connector;
-}
-function getWalletConnectConnector({
-  chains,
-  options = {},
-  projectId: projectId2,
-  version = "2"
-}) {
-  const exampleProjectId = "21fef48091f12692cad574a6f7753643";
-  if (version === "2") {
-    if (!projectId2 || projectId2 === "") {
-      throw new Error(
-        "No projectId found. Every dApp must now provide a WalletConnect Cloud projectId to enable WalletConnect v2 https://www.rainbowkit.com/docs/installation#configure"
-      );
-    } else if (projectId2 === "YOUR_PROJECT_ID" || projectId2 === exampleProjectId) {
-      console.warn(
-        "Invalid projectId. Please create a unique WalletConnect Cloud projectId for your dApp https://www.rainbowkit.com/docs/installation#configure"
-      );
-    }
-  }
-  const config = {
-    chains,
-    options: version === "1" ? {
-      qrcode: false,
-      ...options
-    } : {
-      projectId: projectId2 === "YOUR_PROJECT_ID" ? exampleProjectId : projectId2,
-      showQrModal: false,
-      ...options
-    }
-  };
-  const serializedConfig = JSON.stringify(config);
-  const sharedConnector = sharedConnectors.get(serializedConfig);
-  return sharedConnector != null ? sharedConnector : createConnector(version, config);
-}
-
-// src/rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet.ts
-function isMetaMask(ethereum) {
-  if (!(ethereum == null ? void 0 : ethereum.isMetaMask)) {
-    return false;
-  }
-  if (ethereum.isBraveWallet && !ethereum._events && !ethereum._state) {
-    return false;
-  }
-  if (ethereum.isApexWallet) {
-    return false;
-  }
-  if (ethereum.isAvalanche) {
-    return false;
-  }
-  if (ethereum.isBackpack) {
-    return false;
-  }
-  if (ethereum.isBifrost) {
-    return false;
-  }
-  if (ethereum.isBitKeep) {
-    return false;
-  }
-  if (ethereum.isBitski) {
-    return false;
-  }
-  if (ethereum.isBlockWallet) {
-    return false;
-  }
-  if (ethereum.isCoinbaseWallet) {
-    return false;
-  }
-  if (ethereum.isDawn) {
-    return false;
-  }
-  if (ethereum.isEnkrypt) {
-    return false;
-  }
-  if (ethereum.isExodus) {
-    return false;
-  }
-  if (ethereum.isFrame) {
-    return false;
-  }
-  if (ethereum.isFrontier) {
-    return false;
-  }
-  if (ethereum.isGamestop) {
-    return false;
-  }
-  if (ethereum.isHyperPay) {
-    return false;
-  }
-  if (ethereum.isImToken) {
-    return false;
-  }
-  if (ethereum.isKuCoinWallet) {
-    return false;
-  }
-  if (ethereum.isMathWallet) {
-    return false;
-  }
-  if (ethereum.isOkxWallet || ethereum.isOKExWallet) {
-    return false;
-  }
-  if (ethereum.isOneInchIOSWallet || ethereum.isOneInchAndroidWallet) {
-    return false;
-  }
-  if (ethereum.isOpera) {
-    return false;
-  }
-  if (ethereum.isPhantom) {
-    return false;
-  }
-  if (ethereum.isPortal) {
-    return false;
-  }
-  if (ethereum.isRabby) {
-    return false;
-  }
-  if (ethereum.isRainbow) {
-    return false;
-  }
-  if (ethereum.isStatus) {
-    return false;
-  }
-  if (ethereum.isTalisman) {
-    return false;
-  }
-  if (ethereum.isTally) {
-    return false;
-  }
-  if (ethereum.isTokenPocket) {
-    return false;
-  }
-  if (ethereum.isTokenary) {
-    return false;
-  }
-  if (ethereum.isTrust || ethereum.isTrustWallet) {
-    return false;
-  }
-  if (ethereum.isXDEFI) {
-    return false;
-  }
-  if (ethereum.isZerion) {
-    return false;
-  }
-  return true;
-}
-var metaMaskWallet = ({
-  chains,
-  projectId: projectId2,
-  walletConnectOptions,
-  walletConnectVersion = "2",
-  ...options
-}) => {
-  var _a, _b;
-  const providers2 = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.providers);
-  const isMetaMaskInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (((_b = window.ethereum.providers) == null ? void 0 : _b.some(isMetaMask)) || window.ethereum.isMetaMask);
-  const shouldUseWalletConnect = !isMetaMaskInjected;
-  return {
-    id: "metaMask",
-    name: "MetaMask",
-    iconUrl: async () => (await import("./matemask-MXFP7UTV.js")).default,
-    iconAccent: "#f6851a",
-    iconBackground: "transparent",
-    installed: !shouldUseWalletConnect ? isMetaMaskInjected : void 0,
-    downloadUrls: {
-      android: "https://play.google.com/store/apps/details?id=io.metamask",
-      ios: "https://apps.apple.com/us/app/metamask/id1438144202",
-      mobile: "https://metamask.io/download",
-      qrCode: "https://metamask.io/download",
-      chrome: "https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn",
-      edge: "https://microsoftedge.microsoft.com/addons/detail/metamask/ejbalbakoplchlghecdalmeeeajnimhm",
-      firefox: "https://addons.mozilla.org/firefox/addon/ether-metamask",
-      opera: "https://addons.opera.com/extensions/details/metamask-10",
-      browserExtension: "https://metamask.io/download"
-    },
-    createConnector: () => {
-      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
-        projectId: projectId2,
-        chains,
-        version: walletConnectVersion,
-        options: walletConnectOptions
-      }) : new MetaMaskConnector({
-        chains,
-        options: {
-          getProvider: () => providers2 ? providers2.find(isMetaMask) : typeof window !== "undefined" ? window.ethereum : void 0,
-          ...options
-        }
-      });
-      const getUri = async () => {
-        const uri = await getWalletConnectUri(connector, walletConnectVersion);
-        return isAndroid() ? uri : isIOS() ? `metamask://wc?uri=${encodeURIComponent(uri)}` : `https://metamask.app.link/wc?uri=${encodeURIComponent(uri)}`;
-      };
-      return {
-        connector,
-        mobile: {
-          getUri: shouldUseWalletConnect ? getUri : void 0
-        },
-        qrCode: shouldUseWalletConnect ? {
-          getUri,
-          instructions: {
-            learnMoreUrl: "https://metamask.io/faqs/",
-            steps: [
-              {
-                description: "We recommend putting MetaMask on your home screen for quicker access.",
-                step: "install",
-                title: "Open the MetaMask app"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
-                step: "scan",
-                title: "Tap the scan button"
-              }
-            ]
-          }
-        } : void 0,
-        extension: {
-          instructions: {
-            learnMoreUrl: "https://metamask.io/faqs/",
-            steps: [
-              {
-                description: "We recommend pinning MetaMask to your taskbar for quicker access to your wallet.",
-                step: "install",
-                title: "Install the MetaMask extension"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
-                step: "refresh",
-                title: "Refresh your browser"
-              }
-            ]
-          }
-        }
-      };
-    }
-  };
-};
-
-// src/rainbowkit/src/wallets/getInjectedConnector.ts
-import { InjectedConnector as InjectedConnector3 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/safeWallet/safeWallet.ts
-import { SafeConnector } from "wagmi/connectors/safe";
-
-// src/rainbowkit/src/wallets/walletConnectors/walletConnectWallet/walletConnectWallet.ts
-var walletConnectWallet = ({
-  chains,
-  options,
-  projectId: projectId2,
-  version = "2"
-}) => ({
-  id: "walletConnect",
-  name: "WalletConnect",
-  iconUrl: async () => (await import("./walletConnectWallet-YJLMXZ5T.js")).default,
-  iconBackground: "#3b99fc",
-  createConnector: () => {
-    const ios = isIOS();
-    const connector = version === "1" ? getWalletConnectConnector({
-      version: "1",
-      chains,
-      options: {
-        qrcode: ios,
-        ...options
-      }
-    }) : getWalletConnectConnector({
-      version: "2",
-      chains,
-      projectId: projectId2,
-      options: {
-        showQrModal: ios,
-        ...options
-      }
-    });
-    const getUri = async () => getWalletConnectUri(connector, version);
-    return {
-      connector,
-      ...ios ? {} : {
-        mobile: { getUri },
-        qrCode: { getUri }
-      }
-    };
-  }
-});
-
-// src/rainbowkit/src/wallets/walletConnectors/bifrostWallet/bifrostWallet.ts
-import { InjectedConnector as InjectedConnector4 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/bitgetWallet/bitgetWallet.ts
-import { InjectedConnector as InjectedConnector5 } from "wagmi/connectors/injected";
-var bitgetWallet = ({
-  chains,
-  projectId: projectId2,
-  walletConnectOptions,
-  walletConnectVersion = "2",
-  ...options
-}) => {
-  const isBitKeepInjected = typeof window !== "undefined" && window.bitkeep !== void 0 && window.bitkeep.ethereum !== void 0 && window.bitkeep.ethereum.isBitKeep === true;
-  const shouldUseWalletConnect = !isBitKeepInjected;
-  return {
-    id: "bitGet",
-    name: "Bitget Wallet",
-    iconUrl: async () => (await import("./bitgetWallet-3TEFUJAE.js")).default,
-    iconAccent: "#f6851a",
-    iconBackground: "#fff",
-    installed: !shouldUseWalletConnect ? isBitKeepInjected : void 0,
-    downloadUrls: {
-      android: "https://bitkeep.com/en/download?type=2",
-      ios: "https://apps.apple.com/app/bitkeep/id1395301115",
-      mobile: "https://bitkeep.com/en/download?type=2",
-      qrCode: "https://bitkeep.com/en/download",
-      chrome: "https://chrome.google.com/webstore/detail/bitkeep-crypto-nft-wallet/jiidiaalihmmhddjgbnbgdfflelocpak",
-      browserExtension: "https://bitkeep.com/en/download"
-    },
-    createConnector: () => {
-      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
-        chains,
-        options: walletConnectOptions,
-        projectId: projectId2,
-        version: walletConnectVersion
-      }) : new InjectedConnector5({
-        chains,
-        options: {
-          getProvider: () => window.bitkeep.ethereum,
-          ...options
-        }
-      });
-      const getUri = async () => {
-        const uri = await getWalletConnectUri(connector, walletConnectVersion);
-        return isAndroid() ? uri : `bitkeep://wc?uri=${encodeURIComponent(uri)}`;
-      };
-      return {
-        connector,
-        extension: {
-          instructions: {
-            learnMoreUrl: "https://study.bitkeep.com",
-            steps: [
-              {
-                description: "We recommend pinning BitKeep to your taskbar for quicker access to your wallet.",
-                step: "install",
-                title: "Install the BitKeep extension"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
-                step: "refresh",
-                title: "Refresh your browser"
-              }
-            ]
-          }
-        },
-        mobile: {
-          getUri: shouldUseWalletConnect ? getUri : void 0
-        },
-        qrCode: shouldUseWalletConnect ? {
-          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
-          instructions: {
-            learnMoreUrl: "https://study.bitkeep.com",
-            steps: [
-              {
-                description: "We recommend putting BitKeep on your home screen for quicker access.",
-                step: "install",
-                title: "Open the BitKeep app"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
-                step: "scan",
-                title: "Tap the scan button"
-              }
-            ]
-          }
-        } : void 0
-      };
-    }
-  };
-};
-
-// src/rainbowkit/src/wallets/walletConnectors/bitKeepWallet/bitKeepWallet.ts
-import { InjectedConnector as InjectedConnector6 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/bitskiWallet/bitskiWallet.ts
-import { InjectedConnector as InjectedConnector7 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/coin98Wallet/coin98Wallet.ts
-import { InjectedConnector as InjectedConnector8 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/coreWallet/coreWallet.ts
-import { InjectedConnector as InjectedConnector9 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/dawnWallet/dawnWallet.ts
-import { InjectedConnector as InjectedConnector10 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/enkryptWallet/enkryptWallet.ts
-import { InjectedConnector as InjectedConnector11 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/foxWallet/foxWallet.ts
-import { InjectedConnector as InjectedConnector12 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/frameWallet/frameWallet.ts
-import { InjectedConnector as InjectedConnector13 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/frontierWallet/frontierWallet.ts
-import { InjectedConnector as InjectedConnector14 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/mewWallet/mewWallet.ts
-import { InjectedConnector as InjectedConnector15 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/okxWallet/okxWallet.ts
-import { InjectedConnector as InjectedConnector16 } from "wagmi/connectors/injected";
-var okxWallet = ({
-  chains,
-  projectId: projectId2,
-  walletConnectOptions,
-  walletConnectVersion = "2",
-  ...options
-}) => {
-  const isOKXInjected = typeof window !== "undefined" && typeof window.okxwallet !== "undefined";
-  const shouldUseWalletConnect = !isOKXInjected;
-  return {
-    id: "okx",
-    name: "OKX Wallet",
-    iconUrl: async () => (await import("./okxWallet-IFNB73K2.js")).default,
-    iconAccent: "#000",
-    iconBackground: "#000",
-    downloadUrls: {
-      android: "https://play.google.com/store/apps/details?id=com.okinc.okex.gp",
-      ios: "https://itunes.apple.com/app/id1327268470?mt=8",
-      mobile: "https://okx.com/download",
-      qrCode: "https://okx.com/download",
-      chrome: "https://chrome.google.com/webstore/detail/okx-wallet/mcohilncbfahbmgdjkbpemcciiolgcge",
-      edge: "https://microsoftedge.microsoft.com/addons/detail/okx-wallet/pbpjkcldjiffchgbbndmhojiacbgflha",
-      firefox: "https://addons.mozilla.org/firefox/addon/okexwallet/",
-      browserExtension: "https://okx.com/download"
-    },
-    createConnector: () => {
-      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
-        projectId: projectId2,
-        chains,
-        version: walletConnectVersion,
-        options: walletConnectOptions
-      }) : new InjectedConnector16({
-        chains,
-        options: {
-          getProvider: () => window.okxwallet,
-          ...options
-        }
-      });
-      return {
-        connector,
-        mobile: {
-          getUri: shouldUseWalletConnect ? async () => {
-            const uri = await getWalletConnectUri(
-              connector,
-              walletConnectVersion
-            );
-            return isAndroid() ? uri : `okex://main/wc?uri=${encodeURIComponent(uri)}`;
-          } : void 0
-        },
-        qrCode: shouldUseWalletConnect ? {
-          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
-          instructions: {
-            learnMoreUrl: "https://okx.com/web3/",
-            steps: [
-              {
-                description: "We recommend putting OKX Wallet on your home screen for quicker access.",
-                step: "install",
-                title: "Open the OKX Wallet app"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
-                step: "scan",
-                title: "Tap the scan button"
-              }
-            ]
-          }
-        } : void 0,
-        extension: {
-          instructions: {
-            learnMoreUrl: "https://okx.com/web3/",
-            steps: [
-              {
-                description: "We recommend pinning OKX Wallet to your taskbar for quicker access to your wallet.",
-                step: "install",
-                title: "Install the OKX Wallet extension"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
-                step: "refresh",
-                title: "Refresh your browser"
-              }
-            ]
-          }
-        }
-      };
-    }
-  };
-};
-
-// src/rainbowkit/src/wallets/walletConnectors/oneKeyWallet/oneKeyWallet.ts
-import { InjectedConnector as InjectedConnector17 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/phantomWallet/phantomWallet.ts
-import { InjectedConnector as InjectedConnector18 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/rabbyWallet/rabbyWallet.ts
-import { InjectedConnector as InjectedConnector19 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/safeheronWallet/safeheronWallet.ts
-import { InjectedConnector as InjectedConnector20 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/tahoWallet/tahoWallet.ts
-import { InjectedConnector as InjectedConnector21 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/talismanWallet/talismanWallet.ts
-import { InjectedConnector as InjectedConnector22 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/tokenPocketWallet/tokenPocketWallet.ts
-import { InjectedConnector as InjectedConnector23 } from "wagmi/connectors/injected";
-var tokenPocketWallet = ({
-  chains,
-  projectId: projectId2,
-  walletConnectOptions,
-  walletConnectVersion = "2"
-}) => {
-  var _a;
-  const isTokenPocketInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isTokenPocket) === true;
-  const shouldUseWalletConnect = !isTokenPocketInjected;
-  return {
-    id: "tokenPocket",
-    name: "TokenPocket",
-    iconUrl: async () => (await import("./tokenPocketWallet-AHC3X3WT.js")).default,
-    iconBackground: "#2980FE",
-    installed: !shouldUseWalletConnect ? isTokenPocketInjected : void 0,
-    downloadUrls: {
-      chrome: "https://chrome.google.com/webstore/detail/tokenpocket/mfgccjchihfkkindfppnaooecgfneiii",
-      browserExtension: "https://extension.tokenpocket.pro/",
-      android: "https://play.google.com/store/apps/details?id=vip.mytokenpocket",
-      ios: "https://apps.apple.com/us/app/tp-global-wallet/id6444625622",
-      qrCode: "https://tokenpocket.pro/en/download/app",
-      mobile: "https://tokenpocket.pro/en/download/app"
-    },
-    createConnector: () => {
-      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
-        chains,
-        projectId: projectId2,
-        options: walletConnectOptions,
-        version: walletConnectVersion
-      }) : new InjectedConnector23({ chains });
-      const getUri = async () => {
-        const uri = await getWalletConnectUri(connector, walletConnectVersion);
-        return isMobile() ? `tpoutside://wc?uri=${encodeURIComponent(uri)}` : uri;
-      };
-      return {
-        connector,
-        mobile: {
-          getUri: shouldUseWalletConnect ? getUri : void 0
-        },
-        qrCode: shouldUseWalletConnect ? {
-          getUri,
-          instructions: {
-            learnMoreUrl: "https://help.tokenpocket.pro/en/",
-            steps: [
-              {
-                description: "We recommend putting TokenPocket on your home screen for quicker access.",
-                step: "install",
-                title: "Open the TokenPocket app"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
-                step: "scan",
-                title: "Tap the scan button"
-              }
-            ]
-          }
-        } : void 0,
-        extension: {
-          instructions: {
-            learnMoreUrl: "https://help.tokenpocket.pro/en/extension-wallet/faq/installation-tutorial",
-            steps: [
-              {
-                description: "We recommend pinning TokenPocket to your taskbar for quicker access to your wallet.",
-                step: "install",
-                title: "Install the TokenPocket extension"
-              },
-              {
-                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
-                step: "create",
-                title: "Create or Import a Wallet"
-              },
-              {
-                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
-                step: "refresh",
-                title: "Refresh your browser"
-              }
-            ]
-          }
-        }
-      };
-    }
-  };
-};
-
-// src/rainbowkit/src/wallets/walletConnectors/trustWallet/trustWallet.ts
-import { InjectedConnector as InjectedConnector24 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/xdefiWallet/xdefiWallet.ts
-import { InjectedConnector as InjectedConnector25 } from "wagmi/connectors/injected";
-
-// src/rainbowkit/src/wallets/walletConnectors/zerionWallet/zerionWallet.ts
-import { InjectedConnector as InjectedConnector26 } from "wagmi/connectors/injected";
-
-// src/hooks/useActiveWeb3React.ts
-import { useMemo as useMemo7 } from "react";
-import { useAccount as useAccount13, usePublicClient as usePublicClient3 } from "wagmi";
-function useActiveWeb3React(env, chainList2) {
-  const chainId = useChainId();
-  const { address } = useAccount13();
-  const provider = usePublicClient3();
-  return useMemo7(() => {
-    return {
-      chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
-      provider
-    };
-  }, [chainId, address, provider]);
-}
-
-// src/hooks/useNavItem.tsx
-var LinkList = [
-  window.location.origin + "/bingo/",
-  window.location.origin + "/2048/",
-  isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/",
-  "https://test.zypher.game/CryptoRumble/",
-  "",
-  "",
-  ""
-];
-var blankLinkList = [
-  false,
-  true,
-  true,
-  true,
-  false,
-  false,
-  false
-];
-var usePathname = () => {
-  const isMobile2 = useIsMobile();
-  const setDefaultSelectedKey = useSetRecoilState2(defaultSelectedKey);
-  useEffect20(() => {
-    const path = window.location.hash.split("/");
-    const pathName = path[1];
-    switch (pathName) {
-      case "zBingo":
-        return setDefaultSelectedKey("2");
-      case "profile":
-        return setDefaultSelectedKey("3");
-      case "gbBox":
-        return setDefaultSelectedKey("4");
-      case "invitation":
-        return setDefaultSelectedKey("7");
-      case "ranking":
-        return setDefaultSelectedKey("8");
-      case "defense":
-        return setDefaultSelectedKey("9");
-      case "shop":
-        return setDefaultSelectedKey("5");
-      case "dp":
-        return setDefaultSelectedKey("15");
-      default:
-        setDefaultSelectedKey("1");
-    }
-  }, [location, isMobile2]);
-};
-var useNavItem = () => {
-  const { t } = useCustomTranslation([LngNs.siderBar]);
-  const { chainId } = useActiveWeb3React();
-  return useMemo8(() => {
-    return [
-      {
-        label: t("Home"),
-        keyValue: "1",
-        icon: "home.svg",
-        link: "/",
-        disabled: false,
-        type: "Activities" /* Activities */
-      },
-      {
-        label: t("zBingo"),
-        keyValue: "2",
-        icon: "zBingo.png",
-        link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
-        disabled: false,
-        type: "Games" /* Games */,
-        btn_label: "Live",
-        btn_background_color: "#C5631D"
-      },
-      {
-        label: t("z2048"),
-        keyValue: "10",
-        icon: "z2048.png",
-        link: LinkList[1],
-        disabled: false,
-        btn_label: "Live",
-        type: "Games" /* Games */,
-        btn_background_color: "#C5631D"
-      },
-      {
-        label: t("zAce"),
-        keyValue: "6",
-        icon: "zACE.png",
-        link: LinkList[2],
-        disabled: false,
-        type: "Games" /* Games */,
-        btn_label: "Testing",
-        content: (className) => /* @__PURE__ */ React60.createElement("div", {
-          className
-        }, /* @__PURE__ */ React60.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React60.createElement("img", {
-          src: preStaticUrl + "/img/games/star.svg"
-        })),
-        btn_background_color: "#AF2D6A"
-      },
-      {
-        label: t("Candy Crush"),
-        keyValue: "12",
-        icon: "Candy.png",
-        link: LinkList[3],
-        disabled: false,
-        type: "Games" /* Games */,
-        btn_label: "Testing",
-        btn_background_color: "#AF2D6A"
-      },
-      {
-        label: t("TCG"),
-        keyValue: "14",
-        icon: "TCG.png",
-        link: "/tcg",
-        disabled: true,
-        type: "Games" /* Games */
-      },
-      {
-        label: t("zMahjong"),
-        keyValue: "11",
-        icon: "zMahjong.png",
-        link: "/zMahjong",
-        disabled: true,
-        type: "Games" /* Games */
-      },
-      {
-        label: t("Murder Mystery"),
-        keyValue: "13",
-        icon: "Murder.png",
-        link: "/murdermystery",
-        disabled: true,
-        type: "Games" /* Games */
-      },
-      {
-        label: t("Profile"),
-        keyValue: "3",
-        icon: "profile.svg",
-        link: "/profile",
-        disabled: false,
-        type: "Activities" /* Activities */
-      }
-    ];
-  }, [t, chainId]);
-};
-
-// src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
-import classnames4 from "classnames";
-import React68, { memo as memo9, useCallback as useCallback18, useEffect as useEffect21, useState as useState17 } from "react";
-import { useRecoilState as useRecoilState5, useRecoilValue as useRecoilValue4 } from "recoil";
-
-// src/components/CurrencyLogo/index.tsx
-import React62, { useState as useState15 } from "react";
-
-// src/components/icons/index.tsx
-import React61 from "react";
-import classnames2 from "classnames";
-var Icon = (props) => {
-  return /* @__PURE__ */ React61.createElement(SvgComponent_default, {
-    className: classnames2("icon", props.className),
-    src: preStaticUrl + `/img/icon/${props.name}.svg`,
-    alt: ""
-  });
-};
-var icons_default = Icon;
-
-// src/components/CurrencyLogo/index.tsx
-var Logo = ({ src: src6, alt, ...rest }) => {
-  const [bad, setBad] = useState15(false);
-  if (src6 && !bad) {
-    return /* @__PURE__ */ React62.createElement("img", {
-      ...rest,
-      alt,
-      src: src6,
-      onError: () => {
-        setBad(true);
-      }
-    });
-  }
-  return /* @__PURE__ */ React62.createElement("div", {
-    ...rest
-  }, /* @__PURE__ */ React62.createElement(icons_default, {
-    name: "help"
-  }));
-};
-var CurrencyLogo_default = Logo;
-
-// src/utils/tool.tsx
-import BigNumber from "bignumber.js";
-import { utils } from "ethers";
-BigNumber.config({ EXPONENTIAL_AT: 1e9 });
-var eX = (value, x) => {
-  return new BigNumber(`${value}e${x}`);
-};
-function pow10(num, decimals = 18) {
-  if (!num) {
-    return new BigNumber(0);
-  }
-  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
-}
-function bnPow10(num, decimals = 18) {
-  if (!num) {
-    return new BigNumber(0);
-  }
-  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
-}
-var formatDecimal = (number, decimal = 2) => {
-  if (number === void 0) {
-    return "";
-  }
-  let num = number.toString();
-  const index = num.indexOf(".");
-  if (index !== -1) {
-    num = num.substring(0, decimal + index + 1);
-  } else {
-    num = num.substring(0);
-  }
-  return parseFloat(num).toFixed(decimal);
-};
-var formatMoney = (value, n = 2) => {
-  try {
-    if (isNaN(Number(value))) {
-      return Number(0).toFixed(n > 0 ? n : 0);
-    }
-    if (value === 0 || value === "0") {
-      return Number(0).toFixed(n);
-    }
-    const isNegative = Number(value) < 0;
-    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
-    const l = v.split(".")[0].split("").reverse();
-    const r = v.split(".")[1];
-    let t = "";
-    for (let i = 0; i < l.length; i++) {
-      t += l[i] + ((i + 1) % 3 === 0 && i + 1 !== l.length ? "," : "");
-    }
-    let res = t.split("").reverse().join("");
-    if (r && r !== "00") {
-      res += `.${r.replace(/0+$/, "")}`;
-    }
-    return `${isNegative ? "-" : ""}${res}`;
-  } catch (e) {
-    console.error("formatMoney:", e);
-    return "";
-  }
-};
-function getShortenAddress(address, preLen = 6, endLen = 4) {
-  if (!address) {
-    return "";
-  }
-  const firstCharacters = address.substring(0, preLen);
-  const lastCharacters = address.substring(
-    address.length - endLen,
-    address.length
-  );
-  return `${firstCharacters}...${lastCharacters}`;
-}
-function getShortenAddress2(address) {
-  const firstCharacters = address.substring(0, 10);
-  const lastCharacters = address.substring(address.length - 10, address.length);
-  return `${firstCharacters}****${lastCharacters}`;
-}
-function filterInput(val) {
-  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
-  return Number(v) >= 0 ? v : "";
-}
-var convertToLargeNumberRepresentation = (value) => {
-  if (!value) {
-    return "0";
-  } else if (+value >= 1e5) {
-    return `${eX(value.toString(), -6)}M`;
-  } else if (+value >= 100) {
-    return `${eX(value.toString(), -3)}K`;
-  } else {
-    return value.toString();
-  }
-};
-var tCanvas;
-function measureText(text, font) {
-  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
-  const context = canvas.getContext("2d");
-  if (context) {
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-  return 0;
-}
-var splitArrByLen = (arr, len) => {
-  const t = [];
-  let index = 0;
-  while (index < arr.length) {
-    t.push(arr.slice(index, index += len));
-  }
-  return t;
-};
-var Units = [
-  ["B", 1e9],
-  ["M", 1e6],
-  ["K", 1e3]
-];
-function formatCurrency(amount, precision = 2) {
-  var _a;
-  const [unit, base3] = (_a = Units.find(
-    ([, min]) => Number(amount) >= Number(min)
-  )) != null ? _a : ["", 1];
-  return `${utils.commify(
-    (amount / base3).toFixed(precision)
-  )}${unit}`;
-}
-function formatSymbol(symbol) {
-  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
-}
-
-// src/hooks/usePoint.ts
-import BigNumberjs2 from "bignumber.js";
-
-// src/hooks/useAccountInvitation.ts
-import { atom as atom4, useRecoilValue, useSetRecoilState as useSetRecoilState3 } from "recoil";
-import { useCallback as useCallback15 } from "react";
-
-// src/utils/request.ts
-import axios from "axios";
-axios.defaults.withCredentials = false;
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(response.statusText);
-  throw error;
-}
-async function request(reqUrl, options = { method: "GET" }) {
-  const response = await axios(reqUrl, options).then(checkStatus).catch((err) => {
-    throw err;
-  });
-  return response;
-}
-
-// src/hooks/useAccountInvitation.ts
-var invitationAddressState = atom4({
-  key: "invitationAddressState",
-  default: void 0,
-  effects_UNSTABLE: [localStorageEffect("invitationAddressState")]
-});
-var getApilUrl = (env) => {
-  const apiPre = env === "develop" ? "https://testapi.zypher.game" : "https://api.zypher.game";
-  return {
-    accountInfo: apiPre + `/user/getone`,
-    accountListInfo: apiPre + `/user/getmulti`,
-    accountInfoUpdate: apiPre + `/user/infoupdate`
-  };
-};
-var useAccountInvitation = (env) => {
-  const { chainId, account } = useActiveWeb3React();
-  const invitationAddres = useRecoilValue(
-    invitationAddressState
-  );
-  const setInvitationAddressState = useSetRecoilState3(invitationAddressState);
-  const postAccountUpdate = useCallback15(
-    async ({ tx }) => {
-      try {
-        if (tx.status === txStatus) {
-          const params = {
-            user_addr: account,
-            chain_id: `${chainId}`,
-            tx_hash: tx.transactionHash
-          };
-          if (invitationAddres && invitationAddres.address !== "" && invitationAddres.address.toLowerCase() !== params.user_addr.toLowerCase()) {
-            params.sharer_addr = invitationAddres == null ? void 0 : invitationAddres.address;
-          }
-          const apiUrl = getApilUrl(env);
-          const res = await request(apiUrl.accountInfoUpdate, {
-            method: "POST",
-            data: JSON.stringify(params),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          });
-          if (res.data && res.data["code"] == 200 && `${res.data.data}` === "1") {
-            setInvitationAddressState(void 0);
-          }
-        }
-      } catch (e) {
-        console.error("PostAccountUpdate Error", e);
-      }
-    },
-    [chainId, account, invitationAddres]
-  );
-  return {
-    postAccountUpdate
-  };
-};
-
-// src/hooks/usePoint.ts
-import { useCallback as useCallback17, useState as useState16 } from "react";
-import { useRecoilState as useRecoilState3, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState4 } from "recoil";
-
-// src/hooks/usePublicNodeWaitForTransaction.ts
-import { useCallback as useCallback16 } from "react";
-import { waitForTransaction } from "wagmi/actions";
-
-// src/rainbow/rainbow.ts
-import { createPublicClient, fallback, http } from "viem";
-import { configureChains, createConfig } from "wagmi";
-import * as chainList from "wagmi/chains";
-import { publicProvider } from "wagmi/providers/public";
-import { particleWallet } from "@particle-network/rainbowkit-ext";
-import { ParticleNetwork } from "@particle-network/auth";
-var WagmiChainList = Object.values(chainList);
-var getSupportedChainIdList = (env, chainIdList) => {
-  return supportedChainIds(env, chainIdList).map((chainId) => {
-    var _a;
-    const chainFilter = WagmiChainList.filter((v) => v.id === chainId);
-    if (chainFilter && chainFilter.length) {
-      const chainLocal = chainFilter[0];
-      return chainLocal;
-    }
-    return {
-      id: chainId,
-      name: ChainName[chainId],
-      network: ChainNetworkName[chainId],
-      nativeCurrency: {
-        name: `${Currency[chainId]}`,
-        symbol: `${Currency[chainId]}`,
-        decimals: 18
-      },
-      rpcUrls: {
-        default: {
-          http: ChainRpcUrls[chainId],
-          webSocket: ChainRpcWebSocketUrls[chainId]
-        },
-        public: {
-          http: ChainRpcUrls[chainId],
-          webSocket: ChainRpcWebSocketUrls[chainId]
-        }
-      },
-      blockExplorers: {
-        default: {
-          name: `${ChainName[chainId]} Explorer`,
-          url: (_a = sample(BlockExplorerUrls[chainId])) != null ? _a : ""
-        }
-      },
-      testnet: isTestnet[chainId]
-    };
-  });
-};
-new ParticleNetwork({
-  appId: "a2ecac32-b520-477a-abf6-4fa8cdfcc046",
-  clientKey: "clITVBUqxtJzy2ymp8z4SQOUFWIc5qPUUHPks8ap",
-  projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199"
-});
-var getConfigureChains = (env, chainIdList) => {
-  const { chains, publicClient, webSocketPublicClient } = configureChains(
-    getSupportedChainIdList(env, chainIdList),
-    [publicProvider()]
-  );
-  return { chains, publicClient, webSocketPublicClient };
-};
-var projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
-var getConnectors = (env, chainIdList) => {
-  const { chains } = getConfigureChains(env, chainIdList);
-  return connectorsForWallets([
-    {
-      groupName: "Recommended",
-      wallets: [
-        metaMaskWallet({ projectId, chains }),
-        particleWallet({ chains }),
-        walletConnectWallet({ projectId, chains })
-      ]
-    },
-    {
-      groupName: "More",
-      wallets: [
-        bitgetWallet({ projectId, chains }),
-        okxWallet({ projectId, chains }),
-        tokenPocketWallet({ projectId, chains }),
-        ...[
-          particleWallet({ chains, authType: "google" }),
-          particleWallet({ chains, authType: "facebook" }),
-          particleWallet({ chains, authType: "apple" })
-        ]
-      ]
-    }
-  ]);
-};
-var getWagmiConfig = (env, chainIdList) => {
-  const connectors = getConnectors(env, chainIdList);
-  const { publicClient, webSocketPublicClient } = getConfigureChains(
-    env,
-    chainIdList
-  );
-  return createConfig({
-    autoConnect: true,
-    connectors,
-    publicClient,
-    webSocketPublicClient
-  });
-};
-var viemClients = (env) => {
-  const { chains } = getConfigureChains(env);
-  return chains.reduce((prev, cur) => {
-    return {
-      ...prev,
-      [cur.id]: createPublicClient({
-        chain: cur,
-        transport: fallback(
-          ChainRpcUrls[cur.id].map(
-            (url) => http(url, {
-              timeout: 15e3
-            })
-          ),
-          {
-            rank: false
-          }
-        ),
-        batch: {
-          multicall: {
-            batchSize: cur.id === 1442 /* POLYGON_ZKEVM */ ? 128 : 1024 * 200
-          }
-        }
-      })
-    };
-  }, {});
-};
-var getViemClients = ({
-  env,
-  chainId
-}) => {
-  return viemClients(env)[chainId];
-};
-
-// src/hooks/useActiveChainId.ts
-import { useNetwork as useNetwork8 } from "wagmi";
-var useActiveChainId = (env) => {
-  var _a;
-  const { chain } = useNetwork8();
-  const chainId = (_a = chain == null ? void 0 : chain.id) != null ? _a : void 0;
-  const isError = !Object.values(supportedChainIds(env)).includes(
-    Number(chainId)
-  );
-  return {
-    chainId,
-    isWrongNetwork: isError
-  };
-};
-
-// src/hooks/usePublicNodeWaitForTransaction.ts
-function usePublicNodeWaitForTransaction(env) {
-  const { chainId } = useActiveChainId(env);
-  const waitForTransaction_ = useCallback16(
-    async (opts) => {
-      if (!chainId) {
-        return void 0;
-      }
-      const viemClients2 = viemClients(env);
-      if (viemClients2[chainId]) {
-        return viemClients2[chainId].waitForTransactionReceipt(opts);
-      }
-      return waitForTransaction({ ...opts, chainId });
-    },
-    [chainId]
-  );
-  return {
-    waitForTransaction: waitForTransaction_
-  };
-}
-
-// src/hooks/usePoint.ts
-import { useWalletClient } from "wagmi";
-
-// src/contract/bingoPoints.ts
-import abi from "@zypher-game/bingo-periphery-v1/abi/ZkBingoPoints.json";
-
-// src/connectors/contractV2.ts
-import { AddressZero as AddressZero2 } from "@ethersproject/constants";
-import { ethers, utils as utils2 } from "ethers";
-import {
-  getContract as viemGetContract
-} from "viem";
-var Contract = ethers.Contract;
-var getAddress = utils2.getAddress;
-var getContract = ({
-  abi: abi2,
-  address,
-  chainId,
-  publicClient,
-  signer,
-  env
-}) => {
-  const c = viemGetContract({
-    abi: abi2,
-    address,
-    publicClient: publicClient != null ? publicClient : getViemClients({ env, chainId }),
-    walletClient: signer
-  });
-  return {
-    ...c,
-    account: signer == null ? void 0 : signer.account,
-    chain: signer == null ? void 0 : signer.chain
-  };
-};
-function isAddress(value) {
-  try {
-    return getAddress(value);
-  } catch {
-    return false;
-  }
-}
-function getSigner(library, account) {
-  return library.getSigner(account).connectUnchecked();
-}
-function getProviderOrSigner(library, account) {
-  return account ? getSigner(library, account) : library;
-}
-var getContractFromRpc = async ({
-  address,
-  abi: abi2,
-  library,
-  account
-}) => {
-  if (!isAddress(address) || address === AddressZero2) {
-    throw Error(`Invalid 'address' parameter '${address}'.`);
-  }
-  return new Contract(
-    address,
-    abi2,
-    getProviderOrSigner(library, account)
-  );
-};
-
-// src/contract/bingoPoints.ts
-var ZkBingoPointsContract = (chainId, env, address, signer) => {
-  return getContract({
-    env,
-    abi,
-    address: address != null ? address : zkBingo(chainId, "points" /* Points */),
-    signer,
-    chainId
-  });
-};
-var bingoPoints_default = ZkBingoPointsContract;
-
-// src/hooks/usePoint.ts
-import { ethers as ethers2 } from "ethers";
-var ChainPointPrice = {
-  [59144 /* LineaMainnet */]: 1 / 2e6,
-  [59140 /* LineaTestnet */]: 1 / 2e6,
-  [204 /* OPBNB */]: 1 / 25e4,
-  [5611 /* OPBNBTEST */]: 1 / 25e4
-};
-var pointsListDefault = (chainId) => {
-  try {
-    return [
-      ["1000"],
-      ["10000"],
-      ["30000"],
-      ["50000"],
-      ["80000"],
-      ["100000 ", "2"],
-      ["300000", "5"],
-      ["500000", "10"]
-    ].map((v, index) => {
-      const chainPrice = ChainPointPrice[chainId];
-      const price = v[1] ? new BigNumberjs2(chainPrice).times(v[0]).times((100 - Number(v[1])) * 0.01).toFixed(8) : new BigNumberjs2(chainPrice).times(v[0]).toFixed(8);
-      const priceStr = formatMoney(Number(price), 8);
-      const pointAmountStr = formatMoney(Number(v[0]));
-      return {
-        index: index + 1,
-        pointAmount: v[0],
-        pointAmountStr,
-        price,
-        priceStr,
-        discount: v[1]
-      };
-    });
-  } catch (e) {
-    console.error("pointsListDefault: ", e);
-  }
-  return void 0;
-};
-var useSwapPoint = ({
-  env,
-  dispatch,
-  setSuccessToast,
-  setErrorToast
-}) => {
-  const { account, chainId } = useActiveWeb3React();
-  const { postAccountUpdate } = useAccountInvitation(env);
-  const [isLoading, setIsLoading] = useState16(false);
-  const setPointsDialogOpen = useSetRecoilState4(pointsDialogState);
-  const setPointsAnimNumState = useSetRecoilState4(pointsAnimNumState);
-  const [refreshBalance, setRefreshBalanceState] = useRecoilState3(refreshBalanceState);
-  const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
-  const hidePointsWarn = useRecoilValue2(hidePointsWarnState);
-  const [pointsWarn, setPointsWarn] = useRecoilState3(pointsWarnState);
-  const [choseIndex, setChoseIndex] = useState16();
-  const { data: walletClient } = useWalletClient();
-  const swapPointHandle = useCallback17(
-    async (index) => {
-      if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {
-        const _index = choseIndex || choseIndex === 0 ? choseIndex : index;
-        if (_index || _index === 0) {
-          setPointsWarn(2);
-          try {
-            const pointsList = pointsListDefault(chainId);
-            if (pointsList) {
-              const v = pointsList[_index];
-              setIsLoading(true);
-              const pointsContract = bingoPoints_default(
-                chainId,
-                env,
-                void 0,
-                walletClient
-              );
-              if (!chainId || !pointsContract) {
-                setPointsDialogOpen(false);
-                if (!pointsContract) {
-                  setErrorToast(dispatch, "PointsContract is not ready");
-                }
-                return;
-              }
-              const lobbyContractAddress = zkBingo(
-                chainId,
-                "lobby" /* Lobby */
-              );
-              const res = await pointsContract.write.nativeSwap(
-                [lobbyContractAddress, v.index],
-                {
-                  value: ethers2.utils.parseEther(v.price)
-                }
-              );
-              const hash = typeof res === "string" ? res : res.hash;
-              const nativeSwapTx = await waitForTransaction2({ confirmations: 1, hash });
-              if (nativeSwapTx && nativeSwapTx.status === txStatus) {
-                setPointsAnimNumState(1);
-                setSuccessToast(dispatch, {
-                  title: "",
-                  message: "Recharge successful"
-                });
-                setTimeout(() => {
-                  setPointsDialogOpen(false);
-                  postAccountUpdate({ tx: nativeSwapTx });
-                  setRefreshBalanceState(refreshBalance + 1);
-                }, 500);
-              } else {
-                throw Object.assign(
-                  new Error("NativeSwap Transaction Failed"),
-                  { name: "NativeSwap" }
-                );
-              }
-            } else {
-              throw Object.assign(new Error("Not pointsList"), {
-                name: "NativeSwap"
-              });
-            }
-          } catch (e) {
-            setErrorToast(dispatch, e);
-            console.error("swapPointHandle: ", e);
-          } finally {
-            setIsLoading(false);
-          }
-        } else {
-          setPointsWarn(0);
-        }
-      } else {
-        setChoseIndex(index);
-        setPointsWarn(1);
-      }
-    },
-    [
-      account,
-      choseIndex,
-      hidePointsWarn,
-      pointsWarn,
-      chainId,
-      refreshBalance,
-      walletClient
-    ]
-  );
-  return { isLoading, swapPointHandle };
-};
-
-// src/components/ConnectWallet/hooks/connectWalletHooks.ts
-import { useMemo as useMemo9 } from "react";
-import { useRecoilValue as useRecoilValue3 } from "recoil";
-var useNativeBalanceStr = () => {
-  const nativeBalance = useRecoilValue3(nativeBalanceState);
-  return useMemo9(() => {
-    return formatMoney(nativeBalance, 2);
-  }, [nativeBalance]);
-};
-var usePointsBalanceStr = () => {
-  const pointsBalance = useRecoilValue3(pointsBalanceState);
-  return useMemo9(() => {
-    return formatMoney(pointsBalance, 0);
-  }, [pointsBalance]);
-};
-
-// src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
-import React63, { memo as memo5 } from "react";
-import { useRecoilState as useRecoilState4 } from "recoil";
-var PoinsWarn = memo5(({ handleNext }) => {
-  const { t } = useCustomTranslation([LngNs.points]);
-  const [hidePointsWarn, setHidePointsWarn] = useRecoilState4(hidePointsWarnState);
-  return /* @__PURE__ */ React63.createElement("div", {
-    className: "points_dialog_dialogContainer"
-  }, /* @__PURE__ */ React63.createElement("p", null, t("poinsWarnText01")), /* @__PURE__ */ React63.createElement("p", null, /* @__PURE__ */ React63.createElement("em", null), /* @__PURE__ */ React63.createElement("i", null, t("poinsWarnText02")), /* @__PURE__ */ React63.createElement("br", null), /* @__PURE__ */ React63.createElement("em", null), /* @__PURE__ */ React63.createElement("i", null, t("poinsWarnText03"))), /* @__PURE__ */ React63.createElement("p", null, t("poinsWarnText04")), /* @__PURE__ */ React63.createElement("p", {
-    className: "points_dialog_flex",
-    onClick: () => setHidePointsWarn(!hidePointsWarn)
-  }, /* @__PURE__ */ React63.createElement(icons_default, {
-    name: hidePointsWarn ? "checked" : "check"
-  }), t("poinsWarnText05")), /* @__PURE__ */ React63.createElement(ActivePixelButtonColor, {
-    onClick: handleNext,
-    width: "100%",
-    height: "52px",
-    pixel_height: 4,
-    backgroundColor: "#1649FF",
-    borderBottomColor: "#0F33B2",
-    borderTopColor: "#3360FF",
-    className: "points_dialog_btn"
-  }, /* @__PURE__ */ React63.createElement("p", null, t("Ok"))));
-}, isEqual);
-var PointsWarn_default = PoinsWarn;
-
-// src/components/icons/PointsIcon/PointsIcon.tsx
-import React64 from "react";
-import { memo as memo6 } from "react";
-import styled2 from "styled-components";
-var PointsImg = styled2.img`
-  display: inline-block;
-  width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "30px"};
-  margin-left: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
-`;
-var PointsIcon = memo6(
-  ({ isMobile: isMobile2, classname }) => {
-    return /* @__PURE__ */ React64.createElement(PointsImg, {
-      isMobile: isMobile2,
-      src: preStaticUrl + `/img/home/data_points.svg`,
-      alt: "",
-      className: classname
-    });
-  },
-  isEqual
-);
-
-// src/components/Modal/Modal.tsx
-import React65 from "react";
-import { DialogContent as DialogContent2, DialogOverlay } from "@reach/dialog";
-import "@reach/dialog/styles.css";
-import classnames3 from "classnames";
-var Modal = ({
-  open,
-  onCancel,
-  footer,
-  wrapClassName,
-  destroyOnClose,
-  closable,
-  width,
-  centered,
-  transitionName,
-  children
-}) => {
-  return /* @__PURE__ */ React65.createElement(DialogOverlay, {
-    isOpen: open,
-    onDismiss: onCancel,
-    className: classnames3("customDialog", "bottom", wrapClassName),
-    "aria-label": "Modal"
-  }, /* @__PURE__ */ React65.createElement(DialogContent2, {
-    style: { width }
-  }, children));
-};
-var Modal_default = Modal;
-
-// src/components/PixelTable/PixelTable.tsx
-import React66, { memo as memo7 } from "react";
-var PixelTableBorder = memo7(
-  ({
-    header_children,
-    body_children,
-    pixel_height,
-    classNameHeader,
-    backgroundColor,
-    headerBackgroundColor,
-    borderColor,
-    width
-  }) => {
-    return /* @__PURE__ */ React66.createElement(PixelBorderCard, {
-      className: "tvlPixelTable",
-      pixel_height,
-      backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
-      borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
-      width
-    }, /* @__PURE__ */ React66.createElement(ActivePixelCard, {
-      className: `tvlPixelTable_header ${classNameHeader != null ? classNameHeader : ""}`,
-      pixel_height,
-      backgroundColor: `${headerBackgroundColor != null ? headerBackgroundColor : "#293457"}`
-    }, header_children), body_children);
-  }
-);
-var PixelTable = memo7(
-  ({
-    header_children,
-    body_children,
-    pixel_height,
-    className,
-    classNameHeader,
-    backgroundColor,
-    headerBackgroundColor,
-    borderColor,
-    width
-  }) => {
-    return /* @__PURE__ */ React66.createElement(ActivePixelCard, {
-      className: `tvlPixelTable ${className != null ? className : ""}`,
-      pixel_height,
-      backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
-      borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
-      width
-    }, /* @__PURE__ */ React66.createElement(ActivePixelCard, {
-      className: `tvlPixelTable_header ${classNameHeader != null ? classNameHeader : ""}`,
-      pixel_height,
-      backgroundColor: `${headerBackgroundColor != null ? headerBackgroundColor : "#293457"}`
-    }, header_children), body_children);
-  }
-);
-
-// src/components/LoadingSvg/LoadingButton.tsx
-import React67, { memo as memo8 } from "react";
-var LoadingButton = memo8(
-  ({ className, isLoading }) => {
-    if (isLoading) {
-      return /* @__PURE__ */ React67.createElement(SvgComponent_default, {
-        className: `${className != null ? className : ""} animation_rotate LoadingButton`,
-        src: preStaticUrl + "/img/icon/pixel_loading.svg"
-      });
-    }
-    return /* @__PURE__ */ React67.createElement(React67.Fragment, null);
-  }
-);
-var LoadingButton_default = LoadingButton;
-
-// src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
-var PointsDialog = memo9(
-  ({ env, dispatch, setSuccessToast, setErrorToast }) => {
-    const { t } = useCustomTranslation([LngNs.points]);
-    const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState5(pointsDialogState);
-    const pointsWarn = useRecoilValue4(pointsWarnState);
-    const { chainId } = useActiveWeb3React();
-    const pointsBalanceStr = usePointsBalanceStr();
-    const isMobile2 = useIsMobile();
-    const [pointsList, setPointsList] = useState17([]);
-    const { isLoading, swapPointHandle } = useSwapPoint({
-      env,
-      dispatch,
-      setSuccessToast,
-      setErrorToast
-    });
-    useEffect21(() => {
-      if (chainId) {
-        setTimeout(() => {
-          const list2 = pointsListDefault(chainId);
-          if (list2) {
-            setPointsList(list2);
-          }
-        }, 800);
-      }
-    }, [chainId]);
-    const handleCancel = useCallback18(() => {
-      setPointsDialogOpen(false);
-    }, []);
-    return /* @__PURE__ */ React68.createElement(Modal_default, {
-      open: pointsDialogOpen,
-      onCancel: () => setPointsDialogOpen(false),
-      footer: null,
-      wrapClassName: classnames4("customDialog", "bottom", "dialog"),
-      width: isMobile2 ? "100%" : 604,
-      destroyOnClose: true,
-      closable: false,
-      centered: isMobile2 ? false : true,
-      transitionName: isMobile2 ? "ant-slide-down" : void 0
-    }, /* @__PURE__ */ React68.createElement(PixelTable, {
-      classNameHeader: "modalTitleInner",
-      backgroundColor: "#1D263B",
-      header_children: /* @__PURE__ */ React68.createElement("p", {
-        className: "modalTitleInnerTitle"
-      }, t("Recharge Points")),
-      body_children: /* @__PURE__ */ React68.createElement(React68.Fragment, null, /* @__PURE__ */ React68.createElement("div", {
-        className: "modalMain"
-      }, pointsWarn === 1 ? /* @__PURE__ */ React68.createElement(PointsWarn_default, {
-        isLoading,
-        handleNext: swapPointHandle
-      }) : isLoading ? /* @__PURE__ */ React68.createElement(IsLoading, null) : /* @__PURE__ */ React68.createElement(React68.Fragment, null, /* @__PURE__ */ React68.createElement("div", {
-        className: "balanceTitle"
-      }, /* @__PURE__ */ React68.createElement("p", null, t("Balance"), ": ", /* @__PURE__ */ React68.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React68.createElement(PointsIcon, {
-        isMobile: isMobile2,
-        classname: "pointsIcon"
-      })), /* @__PURE__ */ React68.createElement(PointsTable, {
-        pointsList,
-        chainId,
-        onClick: swapPointHandle
-      })))),
-      pixel_height: 10
-    }), /* @__PURE__ */ React68.createElement(DialogClose_default, {
-      onClick: handleCancel
-    }));
-  },
-  isEqual
-);
-var IsLoading = memo9(() => {
-  const { t } = useCustomTranslation([LngNs.points]);
-  return /* @__PURE__ */ React68.createElement("div", {
-    className: "loading"
-  }, /* @__PURE__ */ React68.createElement(LoadingButton_default, {
-    isLoading: true,
-    className: "loading_size4"
-  }), /* @__PURE__ */ React68.createElement("p", null, t("IsLoadingText1")));
-}, isEqual);
-var PointsTable = memo9(
-  ({ pointsList, chainId, onClick }) => {
-    return /* @__PURE__ */ React68.createElement("div", {
-      className: "table"
-    }, pointsList.map((v, index) => /* @__PURE__ */ React68.createElement(PixelBorderCardButton, {
-      pixel_height: 4,
-      backgroundColor: "#343C4F",
-      borderColor: "#484F60",
-      key: v.index,
-      onClick: () => onClick(index)
-    }, /* @__PURE__ */ React68.createElement("div", {
-      className: classnames4("points", `points_${v.index}`)
-    }, /* @__PURE__ */ React68.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React68.createElement("img", {
-      className: "points_img",
-      src: preStaticUrl + `/img/points/points_${v.index}.png`,
-      alt: "points"
-    }), /* @__PURE__ */ React68.createElement(ActivePixelCard, {
-      backgroundColor: "#1649FF",
-      className: "bottom",
-      pixel_height: 4
-    }, /* @__PURE__ */ React68.createElement("p", null, v.priceStr), /* @__PURE__ */ React68.createElement(CurrencyLogo_default, {
-      className: "img",
-      src: CurrencyLogo[chainId || 97]
-    })), v.discount && /* @__PURE__ */ React68.createElement("div", {
-      className: "discount"
-    }, /* @__PURE__ */ React68.createElement("img", {
-      className: "discount_img",
-      src: preStaticUrl + `/img/points/discord.svg`,
-      alt: "points"
-    }), /* @__PURE__ */ React68.createElement("p", null, v.discount, "% ", /* @__PURE__ */ React68.createElement("br", null), "OFF"))))));
-  },
-  isEqual
-);
-var PointsDialog_default = PointsDialog;
-
-// src/components/SideBar/index.tsx
-import classnames6 from "classnames";
-import React75, { memo as memo16, useMemo as useMemo12 } from "react";
-
-// src/components/SideBar/component/CommunityLink.tsx
-import React69, { memo as memo10 } from "react";
-var CommunityLink = memo10(({ className }) => {
-  return /* @__PURE__ */ React69.createElement("div", {
-    className
-  }, /* @__PURE__ */ React69.createElement("a", {
-    href: "https://twitter.com/Zypher_Games",
-    target: "_blank",
-    rel: "noreferrer"
-  }, /* @__PURE__ */ React69.createElement(SvgComponent_default, {
-    className: "community_svg",
-    src: preStaticUrl + "/img/layout/twitter.svg"
-  })), /* @__PURE__ */ React69.createElement("a", {
-    href: "https://discord.com/invite/MKJZhS4p2T",
-    target: "_blank",
-    rel: "noreferrer"
-  }, /* @__PURE__ */ React69.createElement(SvgComponent_default, {
-    className: "community_svg",
-    src: preStaticUrl + "/img/layout/discord.svg"
-  })), /* @__PURE__ */ React69.createElement("a", {
-    href: "https://zyphergames.substack.com",
-    target: "_blank",
-    rel: "noreferrer"
-  }, /* @__PURE__ */ React69.createElement(SvgComponent_default, {
-    className: "community_svg",
-    src: preStaticUrl + "/img/layout/medium.svg"
-  })), /* @__PURE__ */ React69.createElement("a", {
-    href: "https://github.com/zypher-game",
-    target: "_blank",
-    rel: "noreferrer"
-  }, /* @__PURE__ */ React69.createElement(SvgComponent_default, {
-    className: "community_svg",
-    src: preStaticUrl + "/img/layout/github.svg"
-  })), /* @__PURE__ */ React69.createElement("a", {
-    href: "https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e",
-    target: "_blank",
-    rel: "noreferrer"
-  }, /* @__PURE__ */ React69.createElement(SvgComponent_default, {
-    className: "community_svg",
-    src: preStaticUrl + "/img/layout/gitbook.svg"
-  })));
-}, isEqual);
-var CommunityLink_default = CommunityLink;
-
-// src/components/SideBar/component/LinkItemA.tsx
-import classnames5 from "classnames";
-import React71, { memo as memo12, useCallback as useCallback19, useMemo as useMemo10 } from "react";
-import { useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState5 } from "recoil";
-
-// src/components/Header/state.ts
-import { atom as atom5 } from "recoil";
-var siderCollapseState = atom5({
-  key: "siderCollapseState",
-  default: void 0,
-  effects_UNSTABLE: [localStorageEffect("siderCollapseState")]
-});
-
-// src/components/SideBar/component/SmokeIndex.tsx
-import React70, { memo as memo11 } from "react";
-var SmokeIndex = memo11(() => {
-  return /* @__PURE__ */ React70.createElement("div", {
-    className: "h"
-  }, /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }), /* @__PURE__ */ React70.createElement("div", {
-    className: "c"
-  }));
-}, isEqual);
-var SmokeIndex_default = SmokeIndex;
-
-// src/components/SideBar/component/LinkItemA.tsx
-var useLink = (link, isMobile2, useNavigate) => {
-  const selectedKey = useRecoilValue5(defaultSelectedKey);
-  const setDefaultSelectedKey = useSetRecoilState5(defaultSelectedKey);
-  const setSiderCollapse = useSetRecoilState5(siderCollapseState);
-  const navigate = useNavigate();
-  const isOn = useMemo10(() => {
-    if (selectedKey === link.keyValue) {
-      return true;
-    }
-    return false;
-  }, [selectedKey]);
-  const linkClickHandle = useCallback19(
-    (event) => {
-      if (link.disabled) {
-        return;
-      }
-      event.preventDefault();
-      if (isMobile2) {
-        setSiderCollapse(true);
-      }
-      setTimeout(() => {
-        try {
-          if (link.link.indexOf("http") > -1) {
-            window.open(link.link, "_blank");
-          } else {
-            setDefaultSelectedKey(link.keyValue);
-            navigate(link.link);
-          }
-        } catch (e) {
-          window.location.href = "/#" + link.link;
-        }
-      }, 200);
-    },
-    [navigate, isMobile2]
-  );
-  return {
-    isOn,
-    linkClickHandle
-  };
-};
-var LinkItem1 = memo12(
-  ({
-    className,
-    className_on,
-    isMobile: isMobile2,
-    className_disable,
-    className_imageContainer,
-    useNavigate,
-    ...link
-  }) => {
-    const { isOn, linkClickHandle } = useLink(link, isMobile2, useNavigate);
-    return /* @__PURE__ */ React71.createElement("div", {
-      onClick: linkClickHandle,
-      className: classnames5(
-        className,
-        link.disabled ? className_disable : "",
-        isOn ? className_on : ""
-      )
-    }, /* @__PURE__ */ React71.createElement("div", {
-      className: className_imageContainer
-    }, /* @__PURE__ */ React71.createElement("img", {
-      src: preStaticUrl + `/img/layout/${link.icon}`
-    })), /* @__PURE__ */ React71.createElement("p", null, link.label), isOn ? /* @__PURE__ */ React71.createElement(SmokeIndex_default, null) : null);
-  },
-  isEqual
-);
-var LinkItemA_default = LinkItem1;
-
-// src/components/SideBar/component/SideBarActivitiesList.tsx
-import React72, { memo as memo13, useMemo as useMemo11 } from "react";
-var SideBarActivitiesList = memo13(
-  ({
-    className_on,
-    className_list,
-    className_listItemHorDisable,
-    className_listItemHor,
-    className_listItemVerDisable,
-    className_listItemVer,
-    list: list2,
-    isMobile: isMobile2,
-    useNavigate
-  }) => {
-    const { listItemDisable, listItem } = useMemo11(() => {
-      if (isMobile2) {
-        return {
-          listItemDisable: className_listItemVerDisable,
-          listItem: className_listItemVer
-        };
-      }
-      return {
-        listItemDisable: className_listItemHorDisable,
-        listItem: className_listItemHor
-      };
-    }, [isMobile2]);
-    return /* @__PURE__ */ React72.createElement("div", {
-      className: className_list
-    }, list2.map((v) => /* @__PURE__ */ React72.createElement(LinkItemA_default, {
-      useNavigate,
-      className_on,
-      className_disable: listItemDisable,
-      isMobile: isMobile2,
-      key: v.keyValue,
-      className: listItem,
-      ...v
-    })));
-  },
-  isEqual
-);
-var SideBarActivitiesList_default = SideBarActivitiesList;
-
-// src/components/SideBar/component/SideBarGamesList.tsx
-import React73, { memo as memo14 } from "react";
-var SideBarGamesList = memo14(
-  ({
-    className_on,
-    className_list,
-    className_listItemDisable,
-    className_listItem,
-    className_imageContainer,
-    useNavigate,
-    list: list2,
-    isMobile: isMobile2
-  }) => {
-    return /* @__PURE__ */ React73.createElement("div", {
-      className: className_list
-    }, list2.map((v) => /* @__PURE__ */ React73.createElement(LinkItemA_default, {
-      useNavigate,
-      isMobile: isMobile2,
-      className_on,
-      className_disable: className_listItemDisable,
-      key: v.keyValue,
-      className: className_listItem,
-      className_imageContainer,
-      ...v
-    })));
-  },
-  isEqual
-);
-var SideBarGamesList_default = SideBarGamesList;
-
-// src/components/SideBar/component/SideBarTitle.tsx
-import React74, { memo as memo15 } from "react";
-var SideBarTitle = memo15(
-  ({ className, logo_url_name, logo_title }) => {
-    const { t } = useCustomTranslation([LngNs.siderBar]);
-    return /* @__PURE__ */ React74.createElement("div", {
-      className
-    }, /* @__PURE__ */ React74.createElement("img", {
-      src: preStaticUrl + `/img/layout/${logo_url_name}.svg`,
-      title: t(logo_title)
-    }), /* @__PURE__ */ React74.createElement("p", null, t(logo_title)));
-  },
-  isEqual
-);
-var SideBarTitle_default = SideBarTitle;
-
-// src/components/SideBar/index.tsx
-var ZypherLogo = memo16(({ isMobile: isMobile2 }) => {
-  return /* @__PURE__ */ React75.createElement("a", {
-    href: "/",
-    target: "_black",
-    className: "zypher_logo"
-  }, isMobile2 ? /* @__PURE__ */ React75.createElement("img", {
-    src: preStaticUrl + "/img/layout/logo-min.svg"
-  }) : /* @__PURE__ */ React75.createElement("img", {
-    src: preStaticUrl + "/img/tvl/logo.svg"
-  }), /* @__PURE__ */ React75.createElement("img", {
-    src: preStaticUrl + "/img/layout/ai.svg"
-  }));
-});
-var SideBar = (props) => {
-  const { isMobile: isMobile2, useNavigate } = props;
-  const items = useNavItem();
-  usePathname();
-  const {
-    sideBarGamesLinkList,
-    sideBarActivitiesLinkList
-  } = useMemo12(() => {
-    return {
-      sideBarGamesLinkList: items.filter((v) => v.type === "Games" /* Games */),
-      sideBarActivitiesLinkList: items.filter(
-        (v) => !isMobile2 ? v.type === "Activities" /* Activities */ && v.keyValue !== "1" : v.type === "Activities" /* Activities */
-      )
-    };
-  }, [items, isMobile2]);
-  return /* @__PURE__ */ React75.createElement("div", {
-    className: classnames6(`${props.className}`, "sidebarWrap")
-  }, /* @__PURE__ */ React75.createElement("div", {
-    className: "sidebar"
-  }, isMobile2 ? null : /* @__PURE__ */ React75.createElement(React75.Fragment, null, /* @__PURE__ */ React75.createElement(LinkItemA_default, {
-    className_on: "item_on",
-    className_disable: "horListItemDisable",
-    className: "horListItem",
-    isMobile: isMobile2,
-    useNavigate,
-    ...items[0]
-  }), /* @__PURE__ */ React75.createElement("div", {
-    className: "line"
-  })), /* @__PURE__ */ React75.createElement(SideBarTitle_default, {
-    logo_title: "Games",
-    logo_url_name: "games",
-    className: "sideBarTitle"
-  }), /* @__PURE__ */ React75.createElement(SideBarGamesList_default, {
-    className_on: "item_on",
-    className_list: "gamelist",
-    className_listItem: "verListItem",
-    className_listItemDisable: "verListItemDisable",
-    list: sideBarGamesLinkList,
-    isMobile: isMobile2,
-    useNavigate,
-    className_imageContainer: "imageContainerWaves"
-  }), /* @__PURE__ */ React75.createElement("div", {
-    className: "line"
-  }), /* @__PURE__ */ React75.createElement(SideBarTitle_default, {
-    logo_title: "Activities",
-    logo_url_name: "activities",
-    className: "sideBarTitle"
-  }), /* @__PURE__ */ React75.createElement(SideBarActivitiesList_default, {
-    useNavigate,
-    isMobile: isMobile2,
-    className_on: "item_on",
-    className_list: "activitiesList",
-    className_listItemHorDisable: "horListItemDisable",
-    className_listItemHor: "horListItem",
-    className_listItemVerDisable: "verListItemDisable",
-    className_listItemVer: "verListItem",
-    list: sideBarActivitiesLinkList
-  }), /* @__PURE__ */ React75.createElement("div", {
-    className: "line"
-  }), /* @__PURE__ */ React75.createElement(SideBarTitle_default, {
-    logo_title: "Language",
-    logo_url_name: "language",
-    className: "sideBarTitle"
-  }), /* @__PURE__ */ React75.createElement(Language_default, {
-    type: "side"
-  }), /* @__PURE__ */ React75.createElement("div", {
-    className: "line"
-  }), /* @__PURE__ */ React75.createElement(SideBarTitle_default, {
-    logo_title: "Links",
-    logo_url_name: "links",
-    className: "sideBarTitle"
-  }), /* @__PURE__ */ React75.createElement(CommunityLink_default, {
-    className: "communityLink"
-  })));
-};
-var SideBar_default = SideBar;
-
-// src/components/DivWrap/DivWrap.tsx
-import React76, { memo as memo17 } from "react";
-var DivWrap = memo17(
-  ({
-    className,
-    showDiv,
-    children
-  }) => {
-    return showDiv ? /* @__PURE__ */ React76.createElement("div", {
-      className
-    }, " ", children) : /* @__PURE__ */ React76.createElement(React76.Fragment, null, children);
-  },
-  isEqual
-);
-var DivWrap_default = DivWrap;
-
-// src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
-import { WarningOutlined } from "@ant-design/icons";
-import classnames8 from "classnames";
-import React78, { memo as memo19, useCallback as useCallback21, useEffect as useEffect22, useMemo as useMemo13 } from "react";
-import { useRecoilState as useRecoilState6 } from "recoil";
-import styled3 from "styled-components";
-
-// src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
-import classnames7 from "classnames";
-import React77, { memo as memo18, useCallback as useCallback20 } from "react";
-var DialogTitle = memo18(
-  ({ label, setDialogOpen, children, classNames }) => {
-    const closeHandle = useCallback20(() => {
-      setDialogOpen(false);
-    }, [setDialogOpen]);
-    return /* @__PURE__ */ React77.createElement("div", {
-      className: classnames7("dialog_title_modalTitleInner", classNames)
-    }, /* @__PURE__ */ React77.createElement("p", {
-      className: "dialog_title_title"
-    }, label), children ? children : null, /* @__PURE__ */ React77.createElement("span", {
-      onClick: closeHandle
-    }, /* @__PURE__ */ React77.createElement(icons_default, {
-      name: "close"
-    })));
-  }
-);
-var DialogTitle_default = DialogTitle;
-
-// src/components/ConnectWallet/components/linkToBetaDialog/localPathUrl.ts
-var getChainNameText = (chainId) => {
-  let text = "Beta";
-  if (chainId === 91715 /* ComboTestnet */) {
-    text = "Combo";
-  } else if (chainId === 169 /* MantaPacificMainnet */ || chainId === 3441005 /* MantaPacificTestnet */) {
-    text = "Manta";
-  } else if (chainId === 5e3 /* Mantle */ || chainId === 5001 /* MantleTestnet */) {
-    text = "Mantle";
-  }
-  return [text.toLowerCase(), text];
-};
-
-// src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
-var Content = styled3.div`
-  text-align: center;
-  padding: 50px;
-`;
-var DialogButton = styled3.div`
-  border-radius: 12px;
-  background: #1649ff;
-  height: 48px;
-  border: 0px;
-
-  color: #fff;
-  text-align: center;
-  font-size: 16px;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-var Text2 = styled3.div`
-  color: #fff;
-  text-align: center;
-  font-size: 14px;
-  padding-top: 30px;
-`;
-var LinkToBetaDialog = memo19(() => {
-  const { t } = useCustomTranslation([LngNs.common]);
-  const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState6(
-    linkToBetaDialogState
-  );
-  const [linkToBetaDialogChainId, setLinkToBetaDialogChainId] = useRecoilState6(
-    linkToBetaDialogChainIdState
-  );
-  const isMobile2 = useIsMobile();
-  const ToUrlName = useMemo13(() => {
-    if (linkToBetaDialogChainId) {
-      if (linkToBetaDialogChainId === 9980 /* Combo */) {
-        return ["https://app.zypher.game/2048/"];
-      }
-      return getChainNameText(linkToBetaDialogChainId);
-    }
-    return "";
-  }, [linkToBetaDialogChainId]);
-  const handleButtonClick = useCallback21(() => {
-    setLinkToBetaDialogOpen(false);
-    if (ToUrlName[0].startsWith("https")) {
-      return window.open(ToUrlName[0], "_blank");
-    } else {
-      const _isTestnet = linkToBetaDialogChainId ? isTestnet[linkToBetaDialogChainId] : false;
-      return window.open(
-        `https://${_isTestnet ? "dev" : ""}${ToUrlName[0]}.zypher.game/`,
-        "_blank"
-      );
-    }
-  }, [ToUrlName]);
-  useEffect22(() => {
-    if (!linkToBetaDialogOpen) {
-      setLinkToBetaDialogChainId(void 0);
-    }
-  }, [linkToBetaDialogOpen]);
-  return /* @__PURE__ */ React78.createElement(Modal_default, {
-    open: linkToBetaDialogOpen,
-    onCancel: () => setLinkToBetaDialogOpen(false),
-    footer: null,
-    wrapClassName: classnames8("customDialog"),
-    destroyOnClose: true,
-    closable: false,
-    width: isMobile2 ? "100%" : 360,
-    centered: isMobile2 ? false : true
-  }, /* @__PURE__ */ React78.createElement(DialogTitle_default, {
-    label: t("Switch Networks"),
-    setDialogOpen: setLinkToBetaDialogOpen,
-    classNames: isMobile2 ? "modalTitleInner" : ""
-  }), /* @__PURE__ */ React78.createElement(Content, null, /* @__PURE__ */ React78.createElement(WarningOutlined, {
-    style: { color: "#1649FF", fontSize: "50px" }
-  }), /* @__PURE__ */ React78.createElement(Text2, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
-    chainName: linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "",
-    toUrlName: ToUrlName[1]
-  }))), /* @__PURE__ */ React78.createElement("div", {
-    style: { padding: "0 20px 30px" }
-  }, /* @__PURE__ */ React78.createElement(DialogButton, {
-    onClick: handleButtonClick
-  }, linkToBetaDialogChainId === 9980 /* Combo */ ? "Go to Play 2048" : t("GotoVersion", {
-    toUrlName: ToUrlName[0]
-  }))));
-}, isEqual);
-var LinkToBetaDialog_default = LinkToBetaDialog;
-
-// src/components/Header/header.tsx
-import classnames11 from "classnames";
-import React93, { useEffect as useEffect26 } from "react";
-import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
-
-// src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import React92, { memo as memo30, useMemo as useMemo16 } from "react";
-
-// src/components/Header/rainbow_account/rainbow_account.tsx
-import React90, { memo as memo28, useCallback as useCallback27 } from "react";
-import { useSetRecoilState as useSetRecoilState9 } from "recoil";
-
-// src/components/ConnectWallet/components/Balance/Balance.tsx
-import { SyncOutlined } from "@ant-design/icons";
-import BigNumberjs3 from "bignumber.js";
-import React82, { memo as memo23, useCallback as useCallback23, useEffect as useEffect24, useState as useState18 } from "react";
-import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState7 } from "recoil";
-import styled4 from "styled-components";
-
-// src/contract/abi/erc20Abi.json
-var erc20Abi_default = [
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "name",
-        type: "string"
-      },
-      {
-        internalType: "string",
-        name: "symbol",
-        type: "string"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "constructor"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Approval",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Transfer",
-    type: "event"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      }
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address"
-      }
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "subtractedValue",
-        type: "uint256"
-      }
-    ],
-    name: "decreaseAllowance",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "addedValue",
-        type: "uint256"
-      }
-    ],
-    name: "increaseAllowance",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "sender",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  }
-];
-
-// src/contract/erc20.ts
-var erc20Contract = (chainId, env, address, signer) => {
-  if (!address) {
-    throw new Error("No addrerss");
-  }
-  return getContract({ env, abi: erc20Abi_default, address, signer, chainId });
-};
-var erc20Abi = erc20Abi_default;
-var erc20_default = erc20Contract;
-
-// src/components/ConnectWallet/components/Balance/balanceItem.tsx
-import { LoadingOutlined } from "@ant-design/icons";
-import React81, { memo as memo22, useCallback as useCallback22, useEffect as useEffect23 } from "react";
-
-// src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
-import React79, { memo as memo20 } from "react";
-import { useRecoilState as useRecoilState7 } from "recoil";
-var GetPointsSuccess = memo20(() => {
-  const [show] = useRecoilState7(pointsAnimState);
-  if (show) {
-    return /* @__PURE__ */ React79.createElement("div", {
-      className: "getpointpoints"
-    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React79.createElement(PointsItem, {
-      key: index
-    })));
-  }
-  return null;
-}, isEqual);
-var PointsItem = () => {
-  return /* @__PURE__ */ React79.createElement("div", {
-    className: "getpointcoin"
-  }, /* @__PURE__ */ React79.createElement("div", {
-    className: "getpointcoin_front"
-  }, /* @__PURE__ */ React79.createElement("img", {
-    src: preStaticUrl + "/img/layout/Star.png",
-    alt: "star"
-  })), /* @__PURE__ */ React79.createElement("div", {
-    className: "getpointcoin_middle"
-  }), /* @__PURE__ */ React79.createElement("div", {
-    className: "getpointcoin_back"
-  }, /* @__PURE__ */ React79.createElement("img", {
-    src: preStaticUrl + "/img/layout/Star.png",
-    alt: "star"
-  })));
-};
-var GetPointsSuccess_default = GetPointsSuccess;
-
-// src/components/ConnectWallet/components/Balance/balanceItem.tsx
-import { useRecoilState as useRecoilState8, useSetRecoilState as useSetRecoilState6 } from "recoil";
-
-// src/components/Header/rainbow_account/IsPixelWidget.tsx
-import React80, { memo as memo21 } from "react";
-var IsPixelWidget = memo21(
-  ({
-    className,
-    type,
-    children,
-    onClick
-  }) => {
-    return type === "pixel" ? /* @__PURE__ */ React80.createElement(PixelFlatBtn_default, {
-      className: `pixel_border ${className != null ? className : ""}`,
-      onClick
-    }, children) : /* @__PURE__ */ React80.createElement("div", {
-      className,
-      onClick
-    }, " ", children);
-  }
-);
-var IsPixelWidget_default = IsPixelWidget;
-
-// src/components/ConnectWallet/components/Balance/balanceItem.tsx
-var BalanceItem = memo22(
-  ({
-    className,
-    loading,
-    balanceStr,
-    logo,
-    preChild,
-    onClick,
-    CountupNumber,
-    balance,
-    type
-  }) => {
-    const onClickHandle = useCallback22(() => {
-      if (onClick) {
-        onClick();
-      }
-    }, [onClick]);
-    return /* @__PURE__ */ React81.createElement(IsPixelWidget_default, {
-      type,
-      className: `balance_item_balance
-        ${className != null ? className : ""}
-        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`,
-      onClick: onClickHandle
-    }, preChild, loading ? /* @__PURE__ */ React81.createElement(LoadingOutlined, null) : /* @__PURE__ */ React81.createElement(React81.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React81.createElement(CountupNumber, {
-      value: balance,
-      decimals: 0,
-      duration: 1.5,
-      showDiv: false
-    }) : balanceStr, logo));
-  },
-  isEqual
-);
-var BalanceCountUpItem = memo22(
-  ({
-    className,
-    loading,
-    balance,
-    logo,
-    preChild,
-    onClick,
-    CountupNumber,
-    balanceStr,
-    type
-  }) => {
-    const setPointsAnimState = useSetRecoilState6(pointsAnimState);
-    const [mount, setMount] = useRecoilState8(pointsAnimNumState);
-    const onClickHandle = useCallback22(() => {
-      if (onClick) {
-        onClick();
-      }
-    }, [onClick]);
-    useEffect23(() => {
-      if (mount === 1) {
-        setPointsAnimState(true);
-        setTimeout(() => {
-          setPointsAnimState(false);
-          setMount(0);
-        }, 3e3);
-      }
-    }, [mount]);
-    return /* @__PURE__ */ React81.createElement(IsPixelWidget_default, {
-      className: `balance_item_balance_point balance_item_balance 
-        ${className != null ? className : ""}
-        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`,
-      onClick: onClickHandle,
-      type
-    }, preChild, loading ? /* @__PURE__ */ React81.createElement(LoadingOutlined, null) : /* @__PURE__ */ React81.createElement(React81.Fragment, null, CountupNumber && (balance || balance === 0) ? /* @__PURE__ */ React81.createElement(CountupNumber, {
-      value: balance,
-      decimals: 0,
-      duration: 1.5,
-      showDiv: false
-    }) : balanceStr, logo), /* @__PURE__ */ React81.createElement(GetPointsSuccess_default, null));
-  },
-  isEqual
-);
-var balanceItem_default = BalanceItem;
-
-// src/components/ConnectWallet/components/Balance/Balance.tsx
-var AddIcon = styled4(icons_default)`
-  margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
-  margin-left: 0 !important;
-  width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "24px"};
-`;
-var Balance = memo23((props) => {
-  const { showPointsModal, isMobile: isMobile2, env, CountupNumber, type } = props;
-  const { chainId, account, provider } = useActiveWeb3React();
-  const [loading, setLoading] = useState18(false);
-  const setNativeBalance = useSetRecoilState7(nativeBalanceState);
-  const setPointsBalance = useSetRecoilState7(pointsBalanceState);
-  const refreshBalance = useRecoilValue6(refreshBalanceState);
-  const fetchBalanceOf = useCallback23(async () => {
-    if (!chainId || !account) {
-      return;
-    }
-    setLoading(true);
-    const balance = await provider.getBalance({ address: account });
-    setNativeBalance(
-      new BigNumberjs3(balance.toString()).dividedBy(divisorBigNumber).toNumber()
-    );
-    await fetchErc20Balance();
-    setLoading(false);
-  }, [chainId, account, provider]);
-  const fetchErc20Balance = useCallback23(async () => {
-    if (!chainId || !account || !provider) {
-      return;
-    }
-    try {
-      const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
-      if (!pointsAddress) {
-        setPointsBalance(0);
-      } else {
-        const pointsContract = erc20_default(chainId, env, pointsAddress);
-        const balance = await pointsContract.read.balanceOf([account]);
-        setPointsBalance(
-          new BigNumberjs3(balance.toString()).dividedBy(divisorBigNumber).toNumber()
-        );
-      }
-    } catch (e) {
-      setPointsBalance(0);
-    }
-  }, [chainId, account, provider]);
-  useEffect24(() => {
-    if (account && chainId) {
-      fetchBalanceOf();
-    }
-  }, [account, chainId, refreshBalance]);
-  const pointsBalance = useRecoilValue6(pointsBalanceState);
-  const nativeBalanceStr = useNativeBalanceStr();
-  const pointsBalanceStr = usePointsBalanceStr();
-  return /* @__PURE__ */ React82.createElement(React82.Fragment, null, /* @__PURE__ */ React82.createElement(IsPixelWidget_default, {
-    type,
-    className: `refresh_balance ${type === "pixel" ? "refresh_balance_pixel" : ""}`,
-    onClick: fetchBalanceOf
-  }, /* @__PURE__ */ React82.createElement(SyncOutlined, null)), DPSupportChainId.includes(chainId) ? /* @__PURE__ */ React82.createElement(BalanceCountUpItem, {
-    onClick: showPointsModal,
-    logo: /* @__PURE__ */ React82.createElement(PointsIcon, {
-      isMobile: isMobile2
-    }),
-    balance: pointsBalance,
-    loading,
-    className: props.className,
-    CountupNumber,
-    preChild: /* @__PURE__ */ React82.createElement(AddIcon, {
-      name: "pixel_add",
-      isMobile: isMobile2
-    }),
-    balanceStr: pointsBalanceStr,
-    type
-  }) : null, !isMobile2 && /* @__PURE__ */ React82.createElement(balanceItem_default, {
-    logo: /* @__PURE__ */ React82.createElement(CurrencyLogo_default, {
-      className: "balance_item_img",
-      src: CurrencyLogo[chainId || 97]
-    }),
-    balanceStr: nativeBalanceStr,
-    loading,
-    className: props.className,
-    type
-  }));
-}, isEqual);
-var Balance_default = Balance;
-
-// src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import React83, { memo as memo24, useCallback as useCallback24 } from "react";
-import styled5 from "styled-components";
-import { useRecoilState as useRecoilState9 } from "recoil";
-var StatusI = styled5.i`
-  box-sizing: content-box;
-  display: inline-block;
-  width: ${({ isMobile: isMobile2 }) => isMobile2 ? "5px" : "6px"};
-  height: ${({ isMobile: isMobile2 }) => isMobile2 ? "5px" : "6px"};
-  background-color: #65edbc;
-  margin-left: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
-  border-radius: 50%;
-  position: relative;
-  &:before {
-    content: "";
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    top: ${({ isMobile: isMobile2 }) => isMobile2 ? "-2px" : "-3px"};
-    left: ${({ isMobile: isMobile2 }) => isMobile2 ? "-2px" : "-3px"};
-    border: ${({ isMobile: isMobile2 }) => isMobile2 ? "2px" : "3px"} solid
-      rgba(101, 237, 188, 0.19);
-    box-sizing: content-box;
-    border-radius: 50%;
-  }
-`;
-var ChainSelectorWidget = memo24(({ className, type }) => {
-  const { chainId } = useActiveWeb3React();
-  const isMobile2 = useIsMobile();
-  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState9(
-    accountInfoDialogState
-  );
-  const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState9(pointsDialogState);
-  const [siderCollapse, setSiderCollapse] = useRecoilState9(siderCollapseState);
-  const { openChainModal } = useChainModal();
-  const openChainModalHandle = useCallback24(() => {
-    if (accountInfoDialogOpen) {
-      setAccountInfoDialogOpen(false);
-    }
-    if (pointsDialogOpen) {
-      setPointsDialogOpen(false);
-    }
-    if (!siderCollapse) {
-      setSiderCollapse(true);
-    }
-    if (openChainModal) {
-      openChainModal();
-    }
-  }, [openChainModal]);
-  return chainId ? /* @__PURE__ */ React83.createElement(IsPixelWidget_default, {
-    type,
-    onClick: openChainModalHandle
-  }, /* @__PURE__ */ React83.createElement("div", {
-    className: `ChainSelectorWidgetWrapper ${className != null ? className : ""}`
-  }, /* @__PURE__ */ React83.createElement("div", {
-    className: "img"
-  }, /* @__PURE__ */ React83.createElement("img", {
-    src: ChainImage[chainId],
-    alt: ChainName[chainId]
-  }), /* @__PURE__ */ React83.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React83.createElement(StatusI, {
-    isMobile: isMobile2
-  }))) : null;
-}, isEqual);
-var ChainSelectorWidget_default = ChainSelectorWidget;
-
-// src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
-import { DialogContent as DialogContent3, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
-import React84, { useCallback as useCallback25 } from "react";
-import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState8 } from "recoil";
-import { Trans } from "react-i18next";
-var PointsRuleDialog = () => {
-  const { t } = useCustomTranslation([LngNs.points]);
-  const isModalOpen = useRecoilValue7(pointsRuleDialogState);
-  const setIsModalOpen = useSetRecoilState8(pointsRuleDialogState);
-  const handleCancel = useCallback25(() => {
-    setIsModalOpen(false);
-  }, []);
-  return /* @__PURE__ */ React84.createElement(React84.Fragment, null, /* @__PURE__ */ React84.createElement(DialogOverlay2, {
-    isOpen: isModalOpen,
-    onDismiss: handleCancel,
-    className: "points_dialog_zindex"
-  }, /* @__PURE__ */ React84.createElement(DialogContent3, {
-    className: "points_dialog_dialogContent"
-  }, /* @__PURE__ */ React84.createElement(PixelTable, {
-    backgroundColor: "#1D263B",
-    header_children: /* @__PURE__ */ React84.createElement("p", {
-      className: "modalTitleInnerTitle"
-    }, t("Rules")),
-    body_children: /* @__PURE__ */ React84.createElement(React84.Fragment, null, /* @__PURE__ */ React84.createElement("div", {
-      className: "points_dialog_dialogContainer"
-    }, /* @__PURE__ */ React84.createElement("h4", null, t("PointsRuleText01")), /* @__PURE__ */ React84.createElement("p", null, t("PointsRuleText02")), /* @__PURE__ */ React84.createElement("p", null, /* @__PURE__ */ React84.createElement("em", null), /* @__PURE__ */ React84.createElement("i", null, t("PointsRuleText03")), /* @__PURE__ */ React84.createElement("br", null), /* @__PURE__ */ React84.createElement("em", null), /* @__PURE__ */ React84.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React84.createElement("br", null), /* @__PURE__ */ React84.createElement("em", null), /* @__PURE__ */ React84.createElement("i", null, t("PointsRuleText04")), /* @__PURE__ */ React84.createElement("br", null), /* @__PURE__ */ React84.createElement("em", null), " ", /* @__PURE__ */ React84.createElement("i", null, t("PointsRuleText06"))), /* @__PURE__ */ React84.createElement("p", null, /* @__PURE__ */ React84.createElement(Trans, {
-      i18nKey: "PointsRuleText07",
-      defaults: t("PointsRuleText07"),
-      values: { Link: t("Link") },
-      components: { bold: /* @__PURE__ */ React84.createElement("strong", null) }
-    })), /* @__PURE__ */ React84.createElement("h4", null, t("PointsRuleText09")), /* @__PURE__ */ React84.createElement("p", null, /* @__PURE__ */ React84.createElement(Trans, {
-      i18nKey: "PointsRuleText10",
-      defaults: t("PointsRuleText10")
-    }, /* @__PURE__ */ React84.createElement("a", {
-      href: "https://discord.com/invite/MKJZhS4p2T",
-      target: "_blank",
-      className: "points_dialog_fontWhite",
-      rel: "noreferrer"
-    }, "Discord")))), /* @__PURE__ */ React84.createElement("div", {
-      className: "points_dialog_btnWrap"
-    }, /* @__PURE__ */ React84.createElement(ActivePixelButtonColor, {
-      onClick: handleCancel,
-      width: "340px",
-      height: "52px",
-      pixel_height: 4,
-      backgroundColor: "#1649FF",
-      borderBottomColor: "#0F33B2",
-      borderTopColor: "#3360FF"
-    }, t("Ok")))),
-    pixel_height: 10
-  }), /* @__PURE__ */ React84.createElement(DialogClose_default, {
-    onClick: handleCancel
-  }))));
-};
-var PointsRuleDialog_default = PointsRuleDialog;
-
-// src/components/PlayerAvatar/index.tsx
-import cx from "classnames";
-import React86 from "react";
-import styled7 from "styled-components";
-
-// src/utils/generateAvatar.ts
-function hashToSeed(ethereumAddress) {
-  if (!ethereumAddress) {
-    return 1;
-  }
-  if (window.mcrypto) {
-    const hash = window.mcrypto.createHash("sha1").update(ethereumAddress).digest("hex");
-    const seed = parseInt(hash.slice(0, 16), 16);
-    return seed;
-  }
-  return 0;
-}
-var generateAvatar_default = (account) => {
-  const seed = hashToSeed(account == null ? void 0 : account.toLowerCase());
-  const selectedAvatar = [
-    preStaticUrl + "/img/avatar1.png",
-    preStaticUrl + "/img/avatar2.png",
-    preStaticUrl + "/img/avatar3.png",
-    preStaticUrl + "/img/avatar4.png",
-    preStaticUrl + "/img/avatar5.png"
-  ][seed % 6];
-  const selectedBackground = [
-    "#83A285",
-    "#A083AE",
-    "#FF637F",
-    "#FFA26D",
-    "#77BEFF",
-    "#80F0BA",
-    "#FFCF4E",
-    "#FF603E",
-    "#F44242",
-    "#D57CFF",
-    "#7075FF",
-    "#808242",
-    "#804343",
-    "#FF56B1",
-    "#6992A9"
-  ][seed % 15];
-  if (!account) {
-    return {
-      selectedAvatar: preStaticUrl + "/img/default_avatar.png",
-      selectedBackground: "#EFEFEF"
-    };
-  }
-  return { selectedAvatar, selectedBackground };
-};
-
-// src/components/Avatar/Avatar.tsx
-import React85 from "react";
-import styled6, { css } from "styled-components";
-var IsPixelWidgetStyled = styled6(IsPixelWidget_default)`
-  width: ${({ size }) => size}px !important;
-  height: ${({ size }) => size}px !important;
-  border-radius: ${({ type }) => type === "pixel" ? "0" : "50%"};
-  overflow: hidden;
-  ${({ type, style: style10 }) => type === "other" && style10 && css`
-      ${style10}
-    `};
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  &.pixel_flat_btn {
-    img {
-      width: 75%;
-      height: 75%;
-    }
-  }
-  .pixel_flat_btn_bg > div {
-    ${({ type, style: style10 }) => type === "pixel" && style10 && css`
-        ${style10}
-      `};
-  }
-`;
-var Avatar2 = ({
-  src: src6,
-  altText,
-  style: style10 = {},
-  size = 64,
-  type = "other"
-}) => {
-  return /* @__PURE__ */ React85.createElement(IsPixelWidgetStyled, {
-    type,
-    size,
-    style: style10
-  }, /* @__PURE__ */ React85.createElement("img", {
-    src: src6,
-    alt: altText
-  }));
-};
-var Avatar_default = Avatar2;
-
-// src/components/PlayerAvatar/index.tsx
-var PlayerAvatar = ({
-  account,
-  showAccount = false,
-  size = 60,
-  border = false,
-  AvatarBorder = React86.Fragment,
-  AccountTextFrComp = React86.Fragment,
-  className,
-  preLen,
-  endLen,
-  otherStr,
-  type = "other"
-}) => {
-  const { t } = useCustomTranslation([LngNs.zBingo]);
-  const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-  return /* @__PURE__ */ React86.createElement("div", {
-    className: cx(className, "player_playerAvatar")
-  }, account ? /* @__PURE__ */ React86.createElement(AvatarBorder, null, /* @__PURE__ */ React86.createElement(Avatar_default, {
-    type,
-    size,
-    src: selectedAvatar,
-    style: border ? {
-      background: selectedBackground,
-      border: "2px solid #62380C"
-    } : { background: selectedBackground }
-  })) : /* @__PURE__ */ React86.createElement("div", {
-    className: "player_avatar",
-    style: {
-      width: `${size}px`,
-      height: `${size}px`,
-      overflow: "hidden",
-      background: "rgba(138, 138, 138, 1)"
-    }
-  }, /* @__PURE__ */ React86.createElement(Avatar_default, {
-    size,
-    src: preStaticUrl + `/img/default_avatar.png`
-  })), showAccount && /* @__PURE__ */ React86.createElement("p", {
-    className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
-  }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : t("waiting"), /* @__PURE__ */ React86.createElement(AccountTextFrComp, null)));
-};
-var OuterCircle = styled7.div`
-  background: ${({ isGrey, isGreen }) => {
-  if (isGreen) {
-    return "linear-gradient(180deg, #8FCA3A 0%, #59B11C 32.81%, #259900 100%)";
-  }
-  if (isGrey) {
-    return "linear-gradient(180deg, #ddd 0%, #434343 100%)";
-  }
-  return "linear-gradient(180deg, #F1A541 0%, #D48A2B 45.31%, #9F5A03 100%)";
-}};
-  border-radius: 50%;
-  position: relative;
-  ${({ winner }) => winner && `&::after {
-    content: '';
-    position: absolute;
-    top: -14px;
-    right: -5px;
-    width: 27px;
-    height: 25px;
-    background: url(${preStaticUrl}/img/layout/crown.svg) no-repeat;
-  }`}
-
-  padding: 1.875px;
-  ${({ size }) => {
-  if (size === "small") {
-    return ` width: 40px;
-    height: 40px;`;
-  } else if (size === "large") {
-    return ` width: 64px;
-    height: 64px;
-    padding: 3px;`;
-  } else if (size) {
-    return ` width: ${size}px;
-    height: ${size}px;`;
-  } else {
-    return `
-          width: 48px;
-          height: 48px;
-        `;
-  }
-}}
-
-  .center-circle {
-    background: ${({ isGrey, isGreen }) => {
-  if (isGreen) {
-    return "linear-gradient(180deg, #289B02 0%, #65B724 29.17%, #8CC939 100%)";
-  }
-  if (isGrey) {
-    return "linear-gradient(180deg, #494949 0%, #d9d9d9 100%)";
-  }
-  return "linear-gradient(180deg, #AE6306 0%, #D68B2B 29.69%, #E79B3B 100%)";
-}};
-    border-radius: 50%;
-    padding: ${({ size }) => {
-  if (size == "large") {
-    return "2px";
-  }
-  return "1.25px";
-}};
-    width: 100%;
-    height: 100%;
-    .inner-circle {
-      background: #613c17;
-      box-shadow: ${({ size }) => {
-  if (size == "large") {
-    return "0px 2px 0px 0px rgba(0, 0, 0, 0.25) inset";
-  }
-  return "0px 1.25px 0px 0px rgba(0, 0, 0, 0.25) inset";
-}};
-      width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      img {
-        border-radius: 50%;
-        box-shadow: ${({ size }) => {
-  if (size == "large") {
-    return "0px 2px 0px 0px rgba(0, 0, 0, 0.25) inset";
-  }
-  return "0px 1.25px 0px 0px rgba(0, 0, 0, 0.25) inset";
-}};
-      }
-    }
-  }
-`;
-var PlayerAvatarList = ({
-  account,
-  size,
-  isGreen = false,
-  isGrey = false,
-  winner
-}) => {
-  const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-  return /* @__PURE__ */ React86.createElement(OuterCircle, {
-    size,
-    isGreen,
-    isGrey,
-    winner
-  }, /* @__PURE__ */ React86.createElement("div", {
-    className: "center-circle "
-  }, /* @__PURE__ */ React86.createElement("div", {
-    className: "inner-circle"
-  }, account ? /* @__PURE__ */ React86.createElement("img", {
-    width: "100%",
-    src: selectedAvatar,
-    style: { background: selectedBackground }
-  }) : /* @__PURE__ */ React86.createElement("img", {
-    width: "100%",
-    src: preStaticUrl + `/img/default_avatar.png`
-  }))));
-};
-var PlayerAvatar_default = PlayerAvatar;
-
-// src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
-import classnames10 from "classnames";
-import React89, { memo as memo27, useCallback as useCallback26, useEffect as useEffect25, useState as useState19 } from "react";
-import { useRecoilState as useRecoilState10 } from "recoil";
-
-// src/hooks/useActiveWallet.ts
-import { useMemo as useMemo14 } from "react";
-var useActiveWallet = () => {
-  const wallets = useWalletConnectors();
-  return useMemo14(() => {
-    if (wallets) {
-      const wall = wallets.filter((v) => v.ready && v.recent);
-      return wall == null ? void 0 : wall[0];
-    }
-    return void 0;
-  }, [wallets]);
-};
-
-// src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
-import classnames9 from "classnames";
-import React88, { memo as memo26, useMemo as useMemo15 } from "react";
-
-// src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-import React87, { memo as memo25 } from "react";
-var PcUserInfo = memo25(
-  ({
-    connectName,
-    connectIcon,
-    account,
-    chainId,
-    cancel,
-    copy
-  }) => {
-    var _a;
-    const { t } = useCustomTranslation([LngNs.common]);
-    const src6 = useAsyncImage(connectIcon);
-    return /* @__PURE__ */ React87.createElement("div", {
-      className: "pc_user_pc_content"
-    }, /* @__PURE__ */ React87.createElement("div", {
-      className: "pc_user_box"
-    }, /* @__PURE__ */ React87.createElement("div", {
-      className: "pc_user_tit"
-    }, t(
-      "Connected with",
-      {
-        walletName: connectName
-      }
-    )), /* @__PURE__ */ React87.createElement("div", {
-      className: "pc_user_info"
-    }, connectIcon && /* @__PURE__ */ React87.createElement("img", {
-      src: src6,
-      alt: connectName
-    }), /* @__PURE__ */ React87.createElement("div", {
-      className: "pc_user_text"
-    }, getShortenAddress(account)), /* @__PURE__ */ React87.createElement("span", {
-      onClick: () => copy(account)
-    }, /* @__PURE__ */ React87.createElement(icons_default, {
-      name: "copy"
-    })), BlockExplorerUrls[chainId] && /* @__PURE__ */ React87.createElement("a", {
-      href: `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
-      target: "_blank",
-      rel: "noreferrer"
-    }, /* @__PURE__ */ React87.createElement(icons_default, {
-      name: "link"
-    })))), /* @__PURE__ */ React87.createElement(DisconnectBtn, {
-      cancel
-    }));
-  },
-  isEqual
-);
-var DisconnectBtn = memo25(({ cancel }) => {
-  const { t } = useCustomTranslation([LngNs.common]);
-  return /* @__PURE__ */ React87.createElement("p", {
-    className: "pc_user_disconnect_btn",
-    onClick: cancel
-  }, t("Disconnect"));
-}, isEqual);
-var PcUserInfo_default = PcUserInfo;
-
-// src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
-var MUserInfo = memo26(({ account, chainId, cancel, type }) => {
-  const { t } = useCustomTranslation([LngNs.common]);
-  const nativeBalanceStr = useNativeBalanceStr();
-  const pointsBalanceStr = usePointsBalanceStr();
-  const isMobile2 = useIsMobile();
-  const list2 = useMemo15(() => {
-    return [
-      {
-        balanceStr: pointsBalanceStr,
-        logo: /* @__PURE__ */ React88.createElement(PointsIcon, {
-          isMobile: isMobile2
-        }),
-        symbol: "Gold Points"
-      },
-      {
-        balanceStr: nativeBalanceStr,
-        logo: /* @__PURE__ */ React88.createElement(CurrencyLogo_default, {
-          className: "m_user_img",
-          src: CurrencyLogo[chainId]
-        }),
-        symbol: Currency[chainId]
-      }
-    ];
-  }, []);
-  return /* @__PURE__ */ React88.createElement("div", {
-    className: "m_user_m_content"
-  }, /* @__PURE__ */ React88.createElement(ChainSelectorWidget_default, {
-    type,
-    className: classnames9("m_user_border", "m_user_chain")
-  }), /* @__PURE__ */ React88.createElement("div", {
-    className: "m_user_border"
-  }, /* @__PURE__ */ React88.createElement("p", {
-    className: "m_user_tit"
-  }, t("Your Wallet")), /* @__PURE__ */ React88.createElement("div", {
-    className: "m_user_userInfoInner"
-  }, /* @__PURE__ */ React88.createElement(PlayerAvatar_default, {
-    className: "m_user_account",
-    account,
-    size: 24,
-    showAccount: true
-  }), /* @__PURE__ */ React88.createElement(DisconnectBtn, {
-    cancel
-  })), /* @__PURE__ */ React88.createElement("div", {
-    className: "m_user_balance"
-  }, list2.map((v) => /* @__PURE__ */ React88.createElement("div", {
-    key: v.symbol,
-    className: "m_user_item"
-  }, /* @__PURE__ */ React88.createElement("div", {
-    className: "m_user_fl"
-  }, v.logo, /* @__PURE__ */ React88.createElement("p", null, v.symbol)), /* @__PURE__ */ React88.createElement("p", null, v.balanceStr))))));
-}, isEqual);
-var MUserInfo_default = MUserInfo;
-
-// src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
-import { useDisconnect as useDisconnect4 } from "wagmi";
-var AccountInfoDialog = memo27(
-  ({ copy, type }) => {
-    const { t } = useCustomTranslation([LngNs.common]);
-    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState10(
-      accountInfoDialogState
-    );
-    const { account, chainId } = useActiveWeb3React();
-    const isMobile2 = useIsMd1100();
-    const { disconnect } = useDisconnect4();
-    const wallet = useActiveWallet();
-    const cancel = useCallback26(() => {
-      setAccountInfoDialogOpen(false);
-      disconnect();
-    }, [disconnect]);
-    useEffect25(() => {
-      if (accountInfoDialogOpen && isMobile2) {
-        setAccountInfoDialogOpen(false);
-      }
-    }, [isMobile2]);
-    return account && chainId ? /* @__PURE__ */ React89.createElement(React89.Fragment, null, /* @__PURE__ */ React89.createElement(Modal_default, {
-      open: accountInfoDialogOpen,
-      onCancel: () => setAccountInfoDialogOpen(false),
-      footer: null,
-      wrapClassName: classnames10(
-        "customDialog",
-        "bottom",
-        "account_info_dialog_dialog"
-      ),
-      destroyOnClose: true,
-      closable: false,
-      width: isMobile2 ? "100%" : 440,
-      centered: isMobile2 ? false : true,
-      transitionName: isMobile2 ? "ant-slide-down" : void 0
-    }, /* @__PURE__ */ React89.createElement(DialogTitle_default, {
-      label: t("Your Wallet"),
-      setDialogOpen: setAccountInfoDialogOpen,
-      classNames: isMobile2 ? "modalTitleInner" : ""
-    }), /* @__PURE__ */ React89.createElement("div", {
-      className: "account_info_dialog_modalMain"
-    }, isMobile2 ? /* @__PURE__ */ React89.createElement(MUserInfo_default, {
-      copy,
-      account,
-      chainId,
-      cancel,
-      type: "other"
-    }) : /* @__PURE__ */ React89.createElement(PcUserInfo_default, {
-      copy,
-      account,
-      chainId,
-      cancel,
-      connectName: wallet == null ? void 0 : wallet.name,
-      connectIcon: wallet == null ? void 0 : wallet.iconUrl,
-      type
-    })))) : null;
-  }
-);
-var AddressWrapPop = memo27(
-  ({ copy }) => {
-    const [index, setIndex] = useState19();
-    const { account, chainId } = useActiveWeb3React();
-    const { disconnect } = useDisconnect4();
-    const [, setAccountInfoDialogOpen] = useRecoilState10(accountInfoDialogState);
-    useEffect25(() => {
-      if (index || index === 0) {
-        setTimeout(() => {
-          setIndex(void 0);
-        }, 2e3);
-      }
-    }, [index]);
-    const copyAddressHandle = useCallback26(() => {
-      copy(account);
-      setIndex(0);
-    }, [account]);
-    const openHandle = useCallback26(() => {
-      var _a;
-      window.open(
-        `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
-        "_blank"
-      );
-      setIndex(1);
-    }, [account, chainId]);
-    const cancelHandle = useCallback26(() => {
-      setAccountInfoDialogOpen(false);
-      disconnect();
-      setIndex(2);
-    }, [disconnect]);
-    return /* @__PURE__ */ React89.createElement(PixelBorderCard, {
-      className: "address_wrap_pop",
-      pixel_height: 4,
-      backgroundColor: "#1D263B",
-      borderColor: "#3A4254"
-    }, /* @__PURE__ */ React89.createElement(AddressWrapPopItem, {
-      iconName: "pixel_copy",
-      label: "Copy address",
-      onClick: copyAddressHandle,
-      on: index === 0
-    }), /* @__PURE__ */ React89.createElement(AddressWrapPopItem, {
-      iconName: "pixel_blackchain",
-      label: "Blackchain Explorer",
-      onClick: openHandle,
-      on: index === 1
-    }), /* @__PURE__ */ React89.createElement(AddressWrapPopItem, {
-      iconName: "pixel_disconnect",
-      label: "Disconnect",
-      onClick: cancelHandle,
-      on: index === 2
-    }));
-  }
-);
-var AddressWrapPopItem = memo27(
-  ({
-    iconName,
-    label,
-    onClick,
-    on
-  }) => {
-    return /* @__PURE__ */ React89.createElement(PixelCube2, {
-      className: `address_wrap_pop_item ${on ? "on" : ""}`,
-      onClick,
-      pixel_height: 3,
-      backgroundColor: "#1D263B",
-      borderColor: "#1D263B",
-      width: "100%",
-      height: "36px"
-    }, /* @__PURE__ */ React89.createElement(icons_default, {
-      name: iconName
-    }), /* @__PURE__ */ React89.createElement("p", null, label));
-  }
-);
-var AccountInfoDialog_default = AccountInfoDialog;
-
-// src/components/Header/rainbow_account/rainbow_account.tsx
-var Account = memo28(
-  ({
-    showLang,
-    env,
-    dispatch,
-    setSuccessToast,
-    setErrorToast,
-    copy,
-    CountupNumber,
-    supportedChainList,
-    type
-  }) => {
-    const isMobile2 = useIsMd1100();
-    const setPointsDialogState = useSetRecoilState9(pointsDialogState);
-    const showPointsModal = useCallback27(() => {
-      setPointsDialogState(true);
-    }, [setPointsDialogState]);
-    const setAccountInfoDialogState = useSetRecoilState9(accountInfoDialogState);
-    const showLogoutModal = useCallback27(() => {
-      setAccountInfoDialogState(true);
-    }, [setAccountInfoDialogState]);
-    const { account } = useActiveWeb3React(env, supportedChainList);
-    return /* @__PURE__ */ React90.createElement(React90.Fragment, null, /* @__PURE__ */ React90.createElement(Balance_default, {
-      CountupNumber,
-      env,
-      isMobile: isMobile2,
-      showPointsModal,
-      type
-    }), /* @__PURE__ */ React90.createElement(IsPixelWidget_default, {
-      type,
-      className: "address_wrap",
-      onClick: showLogoutModal
-    }, /* @__PURE__ */ React90.createElement(PlayerAvatar_default, {
-      className: "account",
-      account,
-      size: isMobile2 ? 26 : 40,
-      showAccount: isMobile2 ? false : true,
-      type
-    }), type === "pixel" ? /* @__PURE__ */ React90.createElement(AddressWrapPop, {
-      copy,
-      type
-    }) : null), !isMobile2 && /* @__PURE__ */ React90.createElement(ChainSelectorWidget_default, {
-      type
-    }), type !== "pixel" ? /* @__PURE__ */ React90.createElement(AccountInfoDialog_default, {
-      copy,
-      type
-    }) : null, /* @__PURE__ */ React90.createElement(PointsDialog_default, {
-      env,
-      dispatch,
-      setSuccessToast,
-      setErrorToast
-    }), /* @__PURE__ */ React90.createElement(PointsRuleDialog_default, null));
-  },
-  isEqual
-);
-var rainbow_account_default = Account;
-
-// src/components/Header/rainbow_account/WrongNetwork.tsx
-import React91, { memo as memo29 } from "react";
-import { useSetRecoilState as useSetRecoilState10 } from "recoil";
-var WrongNetwork = memo29(({ type }) => {
-  const { t } = useCustomTranslation([LngNs.common]);
-  const { openChainModal } = useChainModal();
-  const setAccountInfoDialogOpen = useSetRecoilState10(accountInfoDialogState);
-  return /* @__PURE__ */ React91.createElement(IsPixelWidget_default, {
-    type,
-    onClick: () => {
-      if (openChainModal) {
-        openChainModal();
-        setAccountInfoDialogOpen(false);
-      }
-    },
-    className: "connect_connect"
-  }, /* @__PURE__ */ React91.createElement("p", null, t("Wrong network")));
-}, isEqual);
-var WrongNetwork_default = WrongNetwork;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 var RainbowConnectWallet = memo30((props) => {
@@ -10938,6 +10775,70 @@ var header_default = Header;
 // src/provider/RainbowKitWithThemeProvider.tsx
 import React94, { useMemo as useMemo17 } from "react";
 import { WagmiConfig } from "wagmi";
+
+// src/rainbowkit/src/themes/darkTheme.ts
+var darkGrey = "#1A1B1F";
+var accentColors2 = {
+  blue: { accentColor: "#3898FF", accentColorForeground: "#FFF" },
+  green: { accentColor: "#4BD166", accentColorForeground: darkGrey },
+  orange: { accentColor: "#FF983D", accentColorForeground: darkGrey },
+  pink: { accentColor: "#FF7AB8", accentColorForeground: darkGrey },
+  purple: { accentColor: "#7A70FF", accentColorForeground: "#FFF" },
+  red: { accentColor: "#FF6257", accentColorForeground: "#FFF" }
+};
+var defaultAccentColor2 = accentColors2.blue;
+var darkTheme = ({
+  accentColor = defaultAccentColor2.accentColor,
+  accentColorForeground = defaultAccentColor2.accentColorForeground,
+  ...baseThemeOptions
+} = {}) => ({
+  ...baseTheme(baseThemeOptions),
+  colors: {
+    accentColor,
+    accentColorForeground,
+    actionButtonBorder: "rgba(255, 255, 255, 0.04)",
+    actionButtonBorderMobile: "rgba(255, 255, 255, 0.08)",
+    actionButtonSecondaryBackground: "rgba(255, 255, 255, 0.08)",
+    closeButton: "rgba(224, 232, 255, 0.6)",
+    closeButtonBackground: "rgba(255, 255, 255, 0.08)",
+    connectButtonBackground: darkGrey,
+    connectButtonBackgroundError: "#FF494A",
+    connectButtonInnerBackground: "linear-gradient(0deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.15))",
+    connectButtonText: "#FFF",
+    connectButtonTextError: "#FFF",
+    connectionIndicator: "#65EDBC",
+    connectionIndicatorBorder: "#2a443a",
+    downloadBottomCardBackground: "linear-gradient(126deg, rgba(0, 0, 0, 0) 9.49%, rgba(120, 120, 120, 0.2) 71.04%), #1A1B1F",
+    downloadTopCardBackground: "linear-gradient(126deg, rgba(120, 120, 120, 0.2) 9.49%, rgba(0, 0, 0, 0) 71.04%), #1A1B1F",
+    error: "#FF494A",
+    generalBorder: "rgba(255, 255, 255, 0.08)",
+    generalBorderDim: "rgba(255, 255, 255, 0.04)",
+    menuItemBackground: "rgba(224, 232, 255, 0.1)",
+    modalBackdrop: "rgba(0, 0, 0, 0.5)",
+    modalBackground: "#1A1B1F",
+    modalBorder: "rgba(255, 255, 255, 0.08)",
+    modalText: "#FFF",
+    modalTextDim: "rgba(224, 232, 255, 0.3)",
+    modalTextSecondary: "rgba(255, 255, 255, 0.6)",
+    profileAction: "rgba(224, 232, 255, 0.1)",
+    profileActionHover: "rgba(224, 232, 255, 0.2)",
+    profileForeground: "rgba(224, 232, 255, 0.05)",
+    selectedOptionBorder: "rgba(224, 232, 255, 0.1)",
+    standby: "#FFD641",
+    standbyBorder: "#5c5847"
+  },
+  shadows: {
+    connectButton: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+    dialog: "0px 8px 32px rgba(0, 0, 0, 0.32)",
+    profileDetailsAction: "0px 2px 6px rgba(37, 41, 46, 0.04)",
+    selectedOption: "0px 2px 6px rgba(0, 0, 0, 0.24)",
+    selectedWallet: "0px 2px 6px rgba(0, 0, 0, 0.24)",
+    walletLogo: "0px 2px 16px rgba(0, 0, 0, 0.16)"
+  }
+});
+darkTheme.accentColors = accentColors2;
+
+// src/provider/RainbowKitWithThemeProvider.tsx
 var RainbowKitWithThemeProvider = ({
   children,
   env,
@@ -11014,7 +10915,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback28, useEffect as useEffect30, useState as useState20 } from "react";
+import { useCallback as useCallback27, useEffect as useEffect30, useState as useState20 } from "react";
 
 // src/hooks/useInterval.ts
 import { useEffect as useEffect29, useRef as useRef7 } from "react";
@@ -11162,7 +11063,7 @@ var useRecentGamesFromGraph = ({
 }) => {
   const [list2, setList] = useState20();
   const [hasError, setHasError] = useState20(false);
-  const fetchGameInfos = useCallback28(async () => {
+  const fetchGameInfos = useCallback27(async () => {
     var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
@@ -11505,6 +11406,2048 @@ var PixelTabBorder = memo32(
   }
 );
 var PixelTabBorder_default = PixelTabBorder;
+
+// src/rainbowkit/src/__private__/index.ts
+var __private__ = {
+  DesktopOptions,
+  dialogContent,
+  dialogContentMobile,
+  MobileOptions
+};
+
+// src/rainbowkit/src/themes/midnightTheme.ts
+var accentColors3 = {
+  blue: { accentColor: "#3898FF", accentColorForeground: "#FFF" },
+  green: { accentColor: "#4BD166", accentColorForeground: "#000" },
+  orange: { accentColor: "#FF983D", accentColorForeground: "#000" },
+  pink: { accentColor: "#FF7AB8", accentColorForeground: "#000" },
+  purple: { accentColor: "#7A70FF", accentColorForeground: "#FFF" },
+  red: { accentColor: "#FF6257", accentColorForeground: "#FFF" }
+};
+var defaultAccentColor3 = accentColors3.blue;
+var midnightTheme = ({
+  accentColor = defaultAccentColor3.accentColor,
+  accentColorForeground = defaultAccentColor3.accentColorForeground,
+  ...baseThemeOptions
+} = {}) => ({
+  ...baseTheme(baseThemeOptions),
+  colors: {
+    accentColor,
+    accentColorForeground,
+    actionButtonBorder: "rgba(255, 255, 255, 0.04)",
+    actionButtonBorderMobile: "rgba(255, 255, 255, 0.1)",
+    actionButtonSecondaryBackground: "rgba(255, 255, 255, 0.08)",
+    closeButton: "rgba(255, 255, 255, 0.7)",
+    closeButtonBackground: "rgba(255, 255, 255, 0.08)",
+    connectButtonBackground: "#000",
+    connectButtonBackgroundError: "#FF494A",
+    connectButtonInnerBackground: "linear-gradient(0deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.12))",
+    connectButtonText: "#FFF",
+    connectButtonTextError: "#FFF",
+    connectionIndicator: "#65EDBC",
+    connectionIndicatorBorder: "#2a443a",
+    downloadBottomCardBackground: "linear-gradient(126deg, rgba(0, 0, 0, 0) 9.49%, rgba(120, 120, 120, 0.1) 71.04%), #050505",
+    downloadTopCardBackground: "linear-gradient(126deg, rgba(120, 120, 120, 0.1) 9.49%, rgba(0, 0, 0, 0) 71.04%), #050505",
+    error: "#FF494A",
+    generalBorder: "rgba(255, 255, 255, 0.08)",
+    generalBorderDim: "rgba(255, 255, 255, 0.04)",
+    menuItemBackground: "rgba(255, 255, 255, 0.08)",
+    modalBackdrop: "rgba(0, 0, 0, 0.7)",
+    modalBackground: "#000",
+    modalBorder: "rgba(255, 255, 255, 0.08)",
+    modalText: "#FFF",
+    modalTextDim: "rgba(255, 255, 255, 0.2)",
+    modalTextSecondary: "rgba(255, 255, 255, 0.6)",
+    profileAction: "rgba(255, 255, 255, 0.1)",
+    profileActionHover: "rgba(255, 255, 255, 0.2)",
+    profileForeground: "rgba(255, 255, 255, 0.06)",
+    selectedOptionBorder: "rgba(224, 232, 255, 0.1)",
+    standby: "#FFD641",
+    standbyBorder: "#5c5847"
+  },
+  shadows: {
+    connectButton: "0px 4px 12px rgba(0, 0, 0, 0.1)",
+    dialog: "0px 8px 32px rgba(0, 0, 0, 0.32)",
+    profileDetailsAction: "0px 2px 6px rgba(37, 41, 46, 0.04)",
+    selectedOption: "0px 2px 6px rgba(0, 0, 0, 0.24)",
+    selectedWallet: "0px 2px 6px rgba(0, 0, 0, 0.24)",
+    walletLogo: "0px 2px 16px rgba(0, 0, 0, 0.16)"
+  }
+});
+midnightTheme.accentColors = accentColors3;
+
+// src/rainbowkit/src/transactions/useAddRecentTransaction.ts
+import { useCallback as useCallback28 } from "react";
+import { useAccount as useAccount13 } from "wagmi";
+function useAddRecentTransaction() {
+  const store = useTransactionStore();
+  const { address } = useAccount13();
+  const chainId = useChainId();
+  return useCallback28(
+    (transaction) => {
+      if (!address || !chainId) {
+        throw new Error("No address or chain ID found");
+      }
+      store.addTransaction(address, chainId, transaction);
+    },
+    [store, address, chainId]
+  );
+}
+
+// src/rainbowkit/src/wallets/walletConnectors/braveWallet/braveWallet.ts
+import { InjectedConnector as InjectedConnector4 } from "wagmi/connectors/injected";
+var braveWallet = ({
+  chains,
+  ...options
+}) => {
+  var _a;
+  return {
+    id: "brave",
+    name: "Brave Wallet",
+    iconUrl: async () => (await import("./braveWallet-PC2UIXX3.js")).default,
+    iconBackground: "#fff",
+    installed: typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isBraveWallet) === true,
+    downloadUrls: {},
+    createConnector: () => ({
+      connector: new InjectedConnector4({
+        chains,
+        options
+      })
+    })
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/coinbaseWallet/coinbaseWallet.ts
+import { CoinbaseWalletConnector } from "wagmi/connectors/coinbaseWallet";
+var coinbaseWallet = ({
+  appName,
+  chains,
+  ...options
+}) => {
+  var _a;
+  const isCoinbaseWalletInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isCoinbaseWallet) === true;
+  return {
+    id: "coinbase",
+    name: "Coinbase Wallet",
+    shortName: "Coinbase",
+    iconUrl: async () => (await import("./coinbaseWallet-EW5PK4HX.js")).default,
+    iconAccent: "#2c5ff6",
+    iconBackground: "#2c5ff6",
+    installed: isCoinbaseWalletInjected || void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=org.toshi",
+      ios: "https://apps.apple.com/us/app/coinbase-wallet-store-crypto/id1278383455",
+      mobile: "https://coinbase.com/wallet/downloads",
+      qrCode: "https://coinbase-wallet.onelink.me/q5Sx/fdb9b250",
+      chrome: "https://chrome.google.com/webstore/detail/coinbase-wallet-extension/hnfanknocfeofbddgcijnmhnfnkdnaad",
+      browserExtension: "https://coinbase.com/wallet"
+    },
+    createConnector: () => {
+      const ios = isIOS();
+      const connector = new CoinbaseWalletConnector({
+        chains,
+        options: {
+          appName,
+          headlessMode: true,
+          ...options
+        }
+      });
+      const getUri = async () => (await connector.getProvider()).qrUrl;
+      return {
+        connector,
+        ...ios ? {} : {
+          qrCode: {
+            getUri,
+            instructions: {
+              learnMoreUrl: "https://coinbase.com/wallet/articles/getting-started-mobile",
+              steps: [
+                {
+                  description: "We recommend putting Coinbase Wallet on your home screen for quicker access.",
+                  step: "install",
+                  title: "Open the Coinbase Wallet app"
+                },
+                {
+                  description: "You can easily backup your wallet using the cloud backup feature.",
+                  step: "create",
+                  title: "Create or Import a Wallet"
+                },
+                {
+                  description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                  step: "scan",
+                  title: "Tap the scan button"
+                }
+              ]
+            }
+          },
+          extension: {
+            instructions: {
+              learnMoreUrl: "https://coinbase.com/wallet/articles/getting-started-extension",
+              steps: [
+                {
+                  description: "We recommend pinning Coinbase Wallet to your taskbar for quicker access to your wallet.",
+                  step: "install",
+                  title: "Install the Coinbase Wallet extension"
+                },
+                {
+                  description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                  step: "create",
+                  title: "Create or Import a Wallet"
+                },
+                {
+                  description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                  step: "refresh",
+                  title: "Refresh your browser"
+                }
+              ]
+            }
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/injectedWallet/injectedWallet.ts
+import { InjectedConnector as InjectedConnector5 } from "wagmi/connectors/injected";
+var injectedWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "injected",
+  name: "Browser Wallet",
+  iconUrl: async () => (await import("./injectedWallet-NXTS4V5P.js")).default,
+  iconBackground: "#fff",
+  hidden: ({ wallets }) => wallets.some(
+    (wallet) => wallet.installed && wallet.name === wallet.connector.name && (wallet.connector instanceof InjectedConnector5 || wallet.id === "coinbase")
+  ),
+  createConnector: () => ({
+    connector: new InjectedConnector5({
+      chains,
+      options
+    })
+  })
+});
+
+// src/rainbowkit/src/wallets/getInjectedConnector.ts
+import { InjectedConnector as InjectedConnector6 } from "wagmi/connectors/injected";
+function getExplicitInjectedProvider(flag) {
+  if (typeof window === "undefined" || typeof window.ethereum === "undefined")
+    return;
+  const providers2 = window.ethereum.providers;
+  return providers2 ? providers2.find((provider) => provider[flag]) : window.ethereum[flag] ? window.ethereum : void 0;
+}
+function hasInjectedProvider(flag) {
+  return Boolean(getExplicitInjectedProvider(flag));
+}
+function getInjectedProvider(flag) {
+  if (typeof window === "undefined" || typeof window.ethereum === "undefined")
+    return;
+  const providers2 = window.ethereum.providers;
+  const provider = getExplicitInjectedProvider(flag);
+  if (provider)
+    return provider;
+  else if (typeof providers2 !== "undefined" && providers2.length > 0)
+    return providers2[0];
+  else
+    return window.ethereum;
+}
+function getInjectedConnector({
+  chains,
+  flag,
+  options
+}) {
+  return new InjectedConnector6({
+    chains,
+    options: {
+      getProvider: () => getInjectedProvider(flag),
+      ...options
+    }
+  });
+}
+
+// src/rainbowkit/src/wallets/walletConnectors/rainbowWallet/rainbowWallet.ts
+var rainbowWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isRainbowInjected = hasInjectedProvider("isRainbow");
+  const shouldUseWalletConnect = !isRainbowInjected;
+  return {
+    id: "rainbow",
+    name: "Rainbow",
+    iconUrl: async () => (await import("./rainbowWallet-CJFNM7HO.js")).default,
+    iconBackground: "#0c2f78",
+    installed: !shouldUseWalletConnect ? isRainbowInjected : void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=me.rainbow&referrer=utm_source%3Drainbowkit&utm_source=rainbowkit",
+      ios: "https://apps.apple.com/app/apple-store/id1457119021?pt=119997837&ct=rainbowkit&mt=8",
+      mobile: "https://rainbow.download?utm_source=rainbowkit",
+      qrCode: "https://rainbow.download?utm_source=rainbowkit&utm_medium=qrcode",
+      browserExtension: "https://rainbow.me/extension?utm_source=rainbowkit"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : getInjectedConnector({ flag: "isRainbow", chains, options });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isAndroid() ? uri : isIOS() ? `rainbow://wc?uri=${encodeURIComponent(uri)}&connector=rainbowkit` : `https://rnbwapp.com/wc?uri=${encodeURIComponent(uri)}&connector=rainbowkit`;
+      };
+      return {
+        connector,
+        mobile: { getUri: shouldUseWalletConnect ? getUri : void 0 },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://learn.rainbow.me/connect-to-a-website-or-app?utm_source=rainbowkit&utm_medium=connector&utm_campaign=learnmore",
+            steps: [
+              {
+                description: "We recommend putting Rainbow on your home screen for faster access to your wallet.",
+                step: "install",
+                title: "Open the Rainbow app"
+              },
+              {
+                description: "You can easily backup your wallet using our backup feature on your phone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/safeWallet/safeWallet.ts
+import { SafeConnector } from "wagmi/connectors/safe";
+var safeWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "safe",
+  name: "Safe",
+  iconAccent: "#12ff80",
+  iconBackground: "#fff",
+  iconUrl: async () => (await import("./safeWallet-YZ677NBZ.js")).default,
+  installed: !(typeof window === "undefined") && (window == null ? void 0 : window.parent) !== window,
+  downloadUrls: {},
+  createConnector: () => ({
+    connector: new SafeConnector({ chains, options })
+  })
+});
+
+// src/rainbowkit/src/wallets/getDefaultWallets.ts
+var getDefaultWallets = ({
+  appName,
+  chains,
+  projectId: projectId2
+}) => {
+  const wallets = [
+    {
+      groupName: "Popular",
+      wallets: [
+        injectedWallet({ chains }),
+        safeWallet({ chains }),
+        rainbowWallet({ chains, projectId: projectId2 }),
+        coinbaseWallet({ appName, chains }),
+        metaMaskWallet({ chains, projectId: projectId2 }),
+        walletConnectWallet({ chains, projectId: projectId2 }),
+        braveWallet({ chains })
+      ]
+    }
+  ];
+  return {
+    connectors: connectorsForWallets(wallets),
+    wallets
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/argentWallet/argentWallet.ts
+var argentWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2"
+}) => ({
+  id: "argent",
+  name: "Argent",
+  iconUrl: async () => (await import("./argentWallet-WH6AD64I.js")).default,
+  iconBackground: "#fff",
+  downloadUrls: {
+    android: "https://play.google.com/store/apps/details?id=im.argent.contractwalletclient",
+    ios: "https://apps.apple.com/us/app/argent/id1358741926",
+    mobile: "https://argent.xyz/download-argent",
+    qrCode: "https://argent.link/app"
+  },
+  createConnector: () => {
+    const connector = getWalletConnectConnector({
+      projectId: projectId2,
+      chains,
+      version: walletConnectVersion,
+      options: walletConnectOptions
+    });
+    return {
+      connector,
+      mobile: {
+        getUri: async () => {
+          const uri = await getWalletConnectUri(
+            connector,
+            walletConnectVersion
+          );
+          return isAndroid() ? uri : `argent://app/wc?uri=${encodeURIComponent(uri)}`;
+        }
+      },
+      qrCode: {
+        getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+        instructions: {
+          learnMoreUrl: "https://argent.xyz/learn/what-is-a-crypto-wallet/",
+          steps: [
+            {
+              description: "Put Argent on your home screen for faster access to your wallet.",
+              step: "install",
+              title: "Open the Argent app"
+            },
+            {
+              description: "Create a wallet and username, or import an existing wallet.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+              step: "scan",
+              title: "Tap the Scan QR button"
+            }
+          ]
+        }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/bifrostWallet/bifrostWallet.ts
+import { InjectedConnector as InjectedConnector7 } from "wagmi/connectors/injected";
+var bifrostWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isBifrostInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && window.ethereum.isBifrost;
+  const shouldUseWalletConnect = !isBifrostInjected;
+  return {
+    id: "bifrostWallet",
+    name: "Bifrost Wallet",
+    iconUrl: async () => (await import("./bifrostWallet-EQOLLB2D.js")).default,
+    iconBackground: "#fff",
+    installed: !shouldUseWalletConnect ? isBifrostInjected : void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.bifrostwallet.app",
+      ios: "https://apps.apple.com/us/app/bifrost-wallet/id1577198351",
+      qrCode: "https://bifrostwallet.com/#download-app"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        chains,
+        projectId: projectId2,
+        options: walletConnectOptions,
+        version: walletConnectVersion
+      }) : new InjectedConnector7({
+        chains,
+        options
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isAndroid() ? uri : `https://app.bifrostwallet.com/wc?uri=${encodeURIComponent(uri)}`;
+      };
+      return {
+        connector,
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+          instructions: {
+            learnMoreUrl: "https://support.bifrostwallet.com/en/articles/6886814-how-to-use-walletconnect",
+            steps: [
+              {
+                description: "We recommend putting Bifrost Wallet on your home screen for quicker access.",
+                step: "install",
+                title: "Open the Bifrost Wallet app"
+              },
+              {
+                description: "Create or import a wallet using your recovery phrase.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/bitKeepWallet/bitKeepWallet.ts
+import { InjectedConnector as InjectedConnector8 } from "wagmi/connectors/injected";
+var bitKeepWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isBitKeepInjected = typeof window !== "undefined" && window.bitkeep !== void 0 && window.bitkeep.ethereum !== void 0 && window.bitkeep.ethereum.isBitKeep === true;
+  const shouldUseWalletConnect = !isBitKeepInjected;
+  return {
+    id: "bitGet",
+    name: "BitGet",
+    iconUrl: async () => (await import("./bitgetWallet-AKNBIHGR.js")).default,
+    iconAccent: "#f6851a",
+    iconBackground: "#fff",
+    installed: !shouldUseWalletConnect ? isBitKeepInjected : void 0,
+    downloadUrls: {
+      android: "https://bitkeep.com/en/download?type=2",
+      ios: "https://apps.apple.com/app/bitkeep/id1395301115",
+      mobile: "https://bitkeep.com/en/download?type=2",
+      qrCode: "https://bitkeep.com/en/download",
+      chrome: "https://chrome.google.com/webstore/detail/bitkeep-crypto-nft-wallet/jiidiaalihmmhddjgbnbgdfflelocpak",
+      browserExtension: "https://bitkeep.com/en/download"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        chains,
+        options: walletConnectOptions,
+        projectId: projectId2,
+        version: walletConnectVersion
+      }) : new InjectedConnector8({
+        chains,
+        options: {
+          getProvider: () => window.bitkeep.ethereum,
+          ...options
+        }
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isAndroid() ? uri : `bitkeep://wc?uri=${encodeURIComponent(uri)}`;
+      };
+      return {
+        connector,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://study.bitkeep.com",
+            steps: [
+              {
+                description: "We recommend pinning BitKeep to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the BitKeep extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        },
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+          instructions: {
+            learnMoreUrl: "https://study.bitkeep.com",
+            steps: [
+              {
+                description: "We recommend putting BitKeep on your home screen for quicker access.",
+                step: "install",
+                title: "Open the BitKeep app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/bitskiWallet/bitskiWallet.ts
+import { InjectedConnector as InjectedConnector9 } from "wagmi/connectors/injected";
+var bitskiWallet = ({ chains, ...options }) => {
+  var _a;
+  return {
+    id: "bitski",
+    name: "Bitski",
+    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isBitski === true || !!((_a = window.ethereum.providers) == null ? void 0 : _a.find((p) => p.isBitski === true))),
+    iconUrl: async () => (await import("./bitskiWallet-V5U5XYOV.js")).default,
+    iconBackground: "#fff",
+    downloadUrls: {
+      chrome: "https://chrome.google.com/webstore/detail/bitski/feejiigddaafeojfddjjlmfkabimkell",
+      browserExtension: "https://bitski.com"
+    },
+    createConnector: () => ({
+      connector: new InjectedConnector9({
+        chains,
+        options
+      }),
+      extension: {
+        instructions: {
+          learnMoreUrl: "https://bitski.zendesk.com/hc/articles/12803972818836-How-to-install-the-Bitski-browser-extension",
+          steps: [
+            {
+              description: "We recommend pinning Bitski to your taskbar for quicker access to your wallet.",
+              step: "install",
+              title: "Install the Bitski extension"
+            },
+            {
+              description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+              step: "refresh",
+              title: "Refresh your browser"
+            }
+          ]
+        }
+      }
+    })
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/coin98Wallet/coin98Wallet.ts
+import { InjectedConnector as InjectedConnector10 } from "wagmi/connectors/injected";
+function getCoin98WalletInjectedProvider() {
+  var _a;
+  const isCoin98Wallet = (ethereum) => {
+    const coin98Wallet2 = !!ethereum.isCoin98;
+    return coin98Wallet2;
+  };
+  const injectedProviderExist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
+  if (!injectedProviderExist) {
+    return;
+  }
+  if (window["coin98Wallet"]) {
+    return window["coin98Wallet"];
+  }
+  if (isCoin98Wallet(window.ethereum)) {
+    return window.ethereum;
+  }
+  if ((_a = window.ethereum) == null ? void 0 : _a.providers) {
+    return window.ethereum.providers.find(isCoin98Wallet);
+  }
+}
+var coin98Wallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isCoin98WalletInjected = Boolean(getCoin98WalletInjectedProvider());
+  const shouldUseWalletConnect = !isCoin98WalletInjected;
+  return {
+    id: "coin98",
+    name: "Coin98 Wallet",
+    iconUrl: async () => (await import("./coin98Wallet-WJEGGO7X.js")).default,
+    installed: !shouldUseWalletConnect ? isCoin98WalletInjected : void 0,
+    iconAccent: "#CDA349",
+    iconBackground: "#fff",
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=coin98.crypto.finance.media",
+      ios: "https://apps.apple.com/vn/app/coin98-super-app/id1561969966",
+      mobile: "https://coin98.com/wallet",
+      qrCode: "https://coin98.com/wallet",
+      chrome: "https://chrome.google.com/webstore/detail/coin98-wallet/aeachknmefphepccionboohckonoeemg",
+      browserExtension: "https://coin98.com/wallet"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        options: walletConnectOptions,
+        version: walletConnectVersion
+      }) : new InjectedConnector10({
+        chains,
+        options: {
+          name: "Coin98 Wallet",
+          getProvider: getCoin98WalletInjectedProvider,
+          ...options
+        }
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return uri;
+      };
+      return {
+        connector,
+        mobile: { getUri: shouldUseWalletConnect ? getUri : void 0 },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://coin98.com/wallet",
+            steps: [
+              {
+                description: "We recommend putting Coin98 Wallet on your home screen for faster access to your wallet.",
+                step: "install",
+                title: "Open the Coin98 Wallet app"
+              },
+              {
+                description: "You can easily backup your wallet using our backup feature on your phone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the WalletConnect button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://coin98.com/wallet",
+            steps: [
+              {
+                description: "Click at the top right of your browser and pin Coin98 Wallet for easy access.",
+                step: "install",
+                title: "Install the Coin98 Wallet extension"
+              },
+              {
+                description: "Create a new wallet or import an existing one.",
+                step: "create",
+                title: "Create or Import a wallet"
+              },
+              {
+                description: "Once you set up Coin98 Wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/coreWallet/coreWallet.ts
+import { InjectedConnector as InjectedConnector11 } from "wagmi/connectors/injected";
+function getCoreWalletInjectedProvider() {
+  var _a, _b;
+  const injectedProviderExist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
+  if (!injectedProviderExist) {
+    return;
+  }
+  if ((_a = window["evmproviders"]) == null ? void 0 : _a["core"]) {
+    return (_b = window["evmproviders"]) == null ? void 0 : _b["core"];
+  }
+  if (window.avalanche) {
+    return window.avalanche;
+  }
+  if (typeof window !== "undefined" && typeof window.ethereum !== "undefined" && window.ethereum.isAvalanche === true) {
+    return window.ethereum;
+  }
+}
+var coreWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isCoreInjected = Boolean(getCoreWalletInjectedProvider());
+  const shouldUseWalletConnect = !isCoreInjected;
+  return {
+    id: "core",
+    name: "Core",
+    iconUrl: async () => (await import("./coreWallet-DAHXIFJ4.js")).default,
+    iconBackground: "#1A1A1C",
+    installed: !shouldUseWalletConnect ? isCoreInjected : void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.avaxwallet",
+      ios: "https://apps.apple.com/us/app/core-wallet/id6443685999",
+      mobile: "https://core.app/?downloadCoreMobile=1",
+      qrCode: "https://core.app/?downloadCoreMobile=1",
+      chrome: "https://chrome.google.com/webstore/detail/core-crypto-wallet-nft-ex/agoakfejjabomempkjlepdflaleeobhb",
+      browserExtension: "https://extension.core.app/"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        options: walletConnectOptions,
+        version: walletConnectVersion
+      }) : new InjectedConnector11({
+        chains,
+        options: {
+          getProvider: getCoreWalletInjectedProvider,
+          ...options
+        }
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return uri;
+      };
+      return {
+        connector,
+        mobile: { getUri: shouldUseWalletConnect ? getUri : void 0 },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://support.avax.network/en/articles/6115608-core-mobile-how-to-add-the-core-mobile-to-my-phone",
+            steps: [
+              {
+                description: "We recommend putting Core on your home screen for faster access to your wallet.",
+                step: "install",
+                title: "Open the Core app"
+              },
+              {
+                description: "You can easily backup your wallet using our backup feature on your phone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the WalletConnect button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://extension.core.app/",
+            steps: [
+              {
+                description: "We recommend pinning Core to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the Core extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/dawnWallet/dawnWallet.ts
+import { InjectedConnector as InjectedConnector12 } from "wagmi/connectors/injected";
+var dawnWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "dawn",
+  name: "Dawn",
+  iconUrl: async () => (await import("./dawnWallet-4QFCQO4U.js")).default,
+  iconBackground: "#000000",
+  installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && window.ethereum.isDawn,
+  hidden: () => !isIOS(),
+  downloadUrls: {
+    ios: "https://apps.apple.com/us/app/dawn-ethereum-wallet/id1673143782",
+    mobile: "https://dawnwallet.xyz"
+  },
+  createConnector: () => ({
+    connector: new InjectedConnector12({
+      chains,
+      options
+    })
+  })
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/enkryptWallet/enkryptWallet.ts
+import { InjectedConnector as InjectedConnector13 } from "wagmi/connectors/injected";
+var enkryptWallet = ({
+  chains,
+  ...options
+}) => {
+  var _a, _b;
+  const isEnkryptInjected = typeof window !== "undefined" && typeof window.enkrypt !== "undefined" && ((_b = (_a = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a.providers) == null ? void 0 : _b.ethereum);
+  return {
+    id: "enkrypt",
+    name: "Enkrypt Wallet",
+    installed: isEnkryptInjected ? true : void 0,
+    iconUrl: async () => (await import("./enkryptWallet-RROWU7OP.js")).default,
+    iconBackground: "#FFFFFF",
+    downloadUrls: {
+      qrCode: "https://www.enkrypt.com",
+      chrome: "https://chrome.google.com/webstore/detail/enkrypt-ethereum-polkadot/kkpllkodjeloidieedojogacfhpaihoh",
+      browserExtension: "https://www.enkrypt.com/",
+      edge: "https://microsoftedge.microsoft.com/addons/detail/enkrypt-ethereum-polkad/gfenajajnjjmmdojhdjmnngomkhlnfjl",
+      firefox: "https://addons.mozilla.org/en-US/firefox/addon/enkrypt/",
+      opera: "https://addons.opera.com/en/extensions/details/enkrypt/",
+      safari: "https://apps.apple.com/app/enkrypt-web3-wallet/id1640164309"
+    },
+    createConnector: () => {
+      return {
+        connector: new InjectedConnector13({
+          chains,
+          options: {
+            getProvider: () => {
+              var _a2, _b2;
+              return isEnkryptInjected ? (_b2 = (_a2 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a2.providers) == null ? void 0 : _b2.ethereum : void 0;
+            },
+            ...options
+          }
+        }),
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://blog.enkrypt.com/what-is-a-web3-wallet/",
+            steps: [
+              {
+                description: "We recommend pinning Enkrypt Wallet to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the Enkrypt Wallet extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/foxWallet/foxWallet.ts
+import { InjectedConnector as InjectedConnector14 } from "wagmi/connectors/injected";
+var foxWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isFoxInjected = typeof window !== "undefined" && typeof window.foxwallet !== "undefined";
+  const shouldUseWalletConnect = !isFoxInjected;
+  return {
+    id: "foxwallet",
+    name: "FoxWallet",
+    iconUrl: async () => (await import("./foxWallet-TOIJWXSL.js")).default,
+    iconBackground: "#fff",
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.foxwallet.play",
+      ios: "https://apps.apple.com/app/foxwallet-crypto-web3/id1590983231",
+      qrCode: "https://foxwallet.com/download"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : new InjectedConnector14({
+        chains,
+        options: {
+          getProvider: () => window.foxwallet.ethereum,
+          ...options
+        }
+      });
+      return {
+        connector,
+        mobile: {
+          getUri: shouldUseWalletConnect ? async () => {
+            const uri = await getWalletConnectUri(
+              connector,
+              walletConnectVersion
+            );
+            return `foxwallet://wc?uri=${encodeURIComponent(uri)}`;
+          } : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+          instructions: {
+            learnMoreUrl: "https://foxwallet.com",
+            steps: [
+              {
+                description: "We recommend putting FoxWallet on your home screen for quicker access.",
+                step: "install",
+                title: "Open the FoxWallet app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/frameWallet/frameWallet.ts
+import { InjectedConnector as InjectedConnector15 } from "wagmi/connectors/injected";
+var frameWallet = ({
+  chains,
+  ...options
+}) => {
+  var _a;
+  return {
+    id: "frame",
+    name: "Frame",
+    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isFrame === true || !!((_a = window.ethereum.providers) == null ? void 0 : _a.find((p) => p.isFrame === true))),
+    iconUrl: async () => (await import("./frameWallet-VAVAPJWD.js")).default,
+    iconBackground: "#121C20",
+    downloadUrls: {
+      browserExtension: "https://frame.sh/"
+    },
+    createConnector: () => ({
+      connector: new InjectedConnector15({
+        chains,
+        options
+      }),
+      extension: {
+        instructions: {
+          learnMoreUrl: "https://docs.frame.sh/docs/Getting%20Started/Installation/",
+          steps: [
+            {
+              description: "We recommend pinning Frame to your taskbar for quicker access to your wallet.",
+              step: "install",
+              title: "Install Frame & the companion extension"
+            },
+            {
+              description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+              step: "refresh",
+              title: "Refresh your browser"
+            }
+          ]
+        }
+      }
+    })
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/frontierWallet/frontierWallet.ts
+import { InjectedConnector as InjectedConnector16 } from "wagmi/connectors/injected";
+var frontierWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  var _a, _b, _c, _d;
+  const isFrontierInjected = typeof window !== "undefined" && typeof window.frontier !== "undefined" && ((_b = (_a = window == null ? void 0 : window.frontier) == null ? void 0 : _a.ethereum) == null ? void 0 : _b.isFrontier);
+  return {
+    id: "frontier",
+    name: "Frontier Wallet",
+    installed: typeof window !== "undefined" && typeof window.frontier !== "undefined" && ((_d = (_c = window == null ? void 0 : window.frontier) == null ? void 0 : _c.ethereum) == null ? void 0 : _d.isFrontier) ? true : void 0,
+    iconUrl: async () => (await import("./frontierWallet-QBWBW5NC.js")).default,
+    iconBackground: "#CC703C",
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.frontierwallet",
+      ios: "https://apps.apple.com/us/app/frontier-crypto-defi-wallet/id1482380988",
+      qrCode: "https://www.frontier.xyz/download",
+      chrome: "https://chrome.google.com/webstore/detail/frontier-wallet/kppfdiipphfccemcignhifpjkapfbihd",
+      browserExtension: "https://www.frontier.xyz/download"
+    },
+    createConnector: () => {
+      const shouldUseWalletConnect = !isFrontierInjected;
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        chains,
+        projectId: projectId2,
+        options: walletConnectOptions,
+        version: walletConnectVersion
+      }) : new InjectedConnector16({ chains });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isAndroid() ? `frontier://wc?uri=${encodeURIComponent(uri)}` : uri;
+      };
+      return {
+        connector: new InjectedConnector16({
+          chains,
+          options: {
+            getProvider: () => {
+              const getFront = (frontier) => (frontier == null ? void 0 : frontier.ethereum) ? frontier == null ? void 0 : frontier.ethereum : void 0;
+              if (typeof window === "undefined")
+                return;
+              return getFront(window.frontier);
+            },
+            ...options
+          }
+        }),
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://help.frontier.xyz/en/",
+            steps: [
+              {
+                description: "We recommend putting Frontier Wallet on your home screen for quicker access.",
+                step: "install",
+                title: "Open the Frontier Wallet app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://help.frontier.xyz/en/articles/6967236-setting-up-frontier-on-your-device",
+            steps: [
+              {
+                description: "We recommend pinning Frontier Wallet to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the Frontier Wallet extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/imTokenWallet/imTokenWallet.ts
+var imTokenWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2"
+}) => ({
+  id: "imToken",
+  name: "imToken",
+  iconUrl: async () => (await import("./imTokenWallet-ZGOSWYBP.js")).default,
+  iconBackground: "#098de6",
+  downloadUrls: {
+    android: "https://play.google.com/store/apps/details?id=im.token.app",
+    ios: "https://itunes.apple.com/us/app/imtoken2/id1384798940",
+    mobile: "https://token.im/download",
+    qrCode: "https://token.im/download"
+  },
+  createConnector: () => {
+    const connector = getWalletConnectConnector({
+      projectId: projectId2,
+      chains,
+      version: walletConnectVersion,
+      options: walletConnectOptions
+    });
+    return {
+      connector,
+      mobile: {
+        getUri: async () => {
+          const uri = await getWalletConnectUri(
+            connector,
+            walletConnectVersion
+          );
+          return `imtokenv2://wc?uri=${encodeURIComponent(uri)}`;
+        }
+      },
+      qrCode: {
+        getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+        instructions: {
+          learnMoreUrl: typeof window !== "undefined" && window.navigator.language.includes("zh") ? "https://support.token.im/hc/zh-cn/categories/360000925393" : "https://support.token.im/hc/en-us/categories/360000925393",
+          steps: [
+            {
+              description: "Put imToken app on your home screen for faster access to your wallet.",
+              step: "install",
+              title: "Open the imToken app"
+            },
+            {
+              description: "Create a new wallet or import an existing one.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Choose New Connection, then scan the QR code and confirm the prompt to connect.",
+              step: "scan",
+              title: "Tap Scanner Icon in top right corner"
+            }
+          ]
+        }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/ledgerWallet/ledgerWallet.ts
+var ledgerWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2"
+}) => ({
+  id: "ledger",
+  iconBackground: "#000",
+  name: "Ledger Live",
+  iconUrl: async () => (await import("./ledgerWallet-USAR2UNS.js")).default,
+  downloadUrls: {
+    android: "https://play.google.com/store/apps/details?id=com.ledger.live",
+    ios: "https://apps.apple.com/us/app/ledger-live-web3-wallet/id1361671700",
+    mobile: "https://www.ledger.com/ledger-live",
+    qrCode: "https://ledger.com/ledger-live"
+  },
+  createConnector: () => {
+    const connector = getWalletConnectConnector({
+      projectId: projectId2,
+      chains,
+      version: walletConnectVersion,
+      options: walletConnectOptions
+    });
+    return {
+      connector,
+      mobile: {
+        getUri: async () => {
+          const uri = await getWalletConnectUri(
+            connector,
+            walletConnectVersion
+          );
+          return isAndroid() ? uri : `ledgerlive://wc?uri=${encodeURIComponent(uri)}`;
+        }
+      },
+      desktop: {
+        getUri: async () => {
+          const uri = await getWalletConnectUri(
+            connector,
+            walletConnectVersion
+          );
+          return `ledgerlive://wc?uri=${encodeURIComponent(uri)}`;
+        }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/mewWallet/mewWallet.ts
+import { InjectedConnector as InjectedConnector17 } from "wagmi/connectors/injected";
+var mewWallet = ({
+  chains,
+  ...options
+}) => {
+  var _a;
+  const isMewWalletInjected = typeof window !== "undefined" && Boolean(
+    (_a = window.ethereum) == null ? void 0 : _a.isMEWwallet
+  );
+  return {
+    id: "mew",
+    name: "MEW wallet",
+    iconUrl: async () => (await import("./mewWallet-KJE22VAW.js")).default,
+    iconBackground: "#fff",
+    installed: isMewWalletInjected,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.myetherwallet.mewwallet&referrer=utm_source%3Drainbow",
+      ios: "https://apps.apple.com/app/apple-store/id1464614025?pt=118781877&mt=8&ct=rainbow",
+      mobile: "https://mewwallet.com",
+      qrCode: "https://mewwallet.com"
+    },
+    createConnector: () => {
+      return {
+        connector: new InjectedConnector17({
+          chains,
+          options
+        })
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/omniWallet/omniWallet.ts
+var omniWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2"
+}) => ({
+  id: "omni",
+  name: "Omni",
+  iconUrl: async () => (await import("./omniWallet-7L7SYDCR.js")).default,
+  iconBackground: "#000",
+  downloadUrls: {
+    android: "https://play.google.com/store/apps/details?id=fi.steakwallet.app",
+    ios: "https://itunes.apple.com/us/app/id1569375204",
+    mobile: "https://omniwallet.app.link",
+    qrCode: "https://omniwallet.app.link"
+  },
+  createConnector: () => {
+    const connector = getWalletConnectConnector({
+      projectId: projectId2,
+      chains,
+      version: walletConnectVersion,
+      options: walletConnectOptions
+    });
+    return {
+      connector,
+      mobile: {
+        getUri: async () => {
+          const uri = await getWalletConnectUri(
+            connector,
+            walletConnectVersion
+          );
+          return isAndroid() ? uri : `omni://wc?uri=${encodeURIComponent(uri)}`;
+        }
+      },
+      qrCode: {
+        getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+        instructions: {
+          learnMoreUrl: "https://omni.app/support",
+          steps: [
+            {
+              description: "Add Omni to your home screen for faster access to your wallet.",
+              step: "install",
+              title: "Open the Omni app"
+            },
+            {
+              description: "Create a new wallet or import an existing one.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Tap the QR icon on your homescreen, scan the code and confirm the prompt to connect.",
+              step: "scan",
+              title: "Tap the QR icon and scan"
+            }
+          ]
+        }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/oneKeyWallet/oneKeyWallet.ts
+import { InjectedConnector as InjectedConnector18 } from "wagmi/connectors/injected";
+var oneKeyWallet = ({ chains }) => {
+  var _a;
+  const provider = typeof window !== "undefined" && ((_a = window["$onekey"]) == null ? void 0 : _a.ethereum);
+  const isOnekeyInjected = Boolean(provider);
+  return {
+    createConnector: () => {
+      const connector = new InjectedConnector18({
+        chains,
+        options: {
+          getProvider: () => provider
+        }
+      });
+      return {
+        connector,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://help.onekey.so/hc/en-us/categories/360000170236",
+            steps: [
+              {
+                description: "We recommend pinning OneKey Wallet to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the OneKey Wallet extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    },
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=so.onekey.app.wallet",
+      browserExtension: "https://www.onekey.so/download/",
+      chrome: "https://chrome.google.com/webstore/detail/onekey/jnmbobjmhlngoefaiojfljckilhhlhcj",
+      edge: "https://microsoftedge.microsoft.com/addons/detail/onekey/obffkkagpmohennipjokmpllocnlndac",
+      ios: "https://apps.apple.com/us/app/onekey-open-source-wallet/id1609559473",
+      mobile: "https://www.onekey.so/download/",
+      qrCode: "https://www.onekey.so/download/"
+    },
+    iconAccent: "#00B812",
+    iconBackground: "#fff",
+    iconUrl: async () => (await import("./oneKeyWallet-HURFK5TG.js")).default,
+    id: "onekey",
+    installed: isOnekeyInjected,
+    name: "OneKey"
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/phantomWallet/phantomWallet.ts
+import { InjectedConnector as InjectedConnector19 } from "wagmi/connectors/injected";
+var phantomWallet = ({
+  chains,
+  ...options
+}) => {
+  var _a;
+  return {
+    id: "phantom",
+    name: "Phantom",
+    iconUrl: async () => (await import("./phantomWallet-WL7QJSIK.js")).default,
+    iconBackground: "#9A8AEE",
+    installed: typeof window !== "undefined" && !!((_a = window.phantom) == null ? void 0 : _a.ethereum) || void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=app.phantom",
+      ios: "https://apps.apple.com/app/phantom-solana-wallet/1598432977",
+      mobile: "https://phantom.app/download",
+      qrCode: "https://phantom.app/download",
+      chrome: "https://chrome.google.com/webstore/detail/phantom/bfnaelmomeimhlpmgjnjophhpkkoljpa",
+      firefox: "https://addons.mozilla.org/firefox/addon/phantom-app/",
+      browserExtension: "https://phantom.app/download"
+    },
+    createConnector: () => {
+      const getProvider2 = () => {
+        var _a2;
+        return typeof window !== "undefined" ? (_a2 = window.phantom) == null ? void 0 : _a2.ethereum : void 0;
+      };
+      const connector = new InjectedConnector19({
+        chains,
+        options: { getProvider: getProvider2, ...options }
+      });
+      return {
+        connector,
+        extension: {
+          instructions: {
+            steps: [
+              {
+                description: "We recommend pinning Phantom to your taskbar for easier access to your wallet.",
+                step: "install",
+                title: "Install the Phantom extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret recovery phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ],
+            learnMoreUrl: "https://help.phantom.app"
+          }
+        }
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/rabbyWallet/rabbyWallet.ts
+import { InjectedConnector as InjectedConnector20 } from "wagmi/connectors/injected";
+var rabbyWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "rabby",
+  name: "Rabby Wallet",
+  iconUrl: async () => (await import("./rabbyWallet-7RZJC3BQ.js")).default,
+  iconBackground: "#8697FF",
+  installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && window.ethereum.isRabby === true,
+  downloadUrls: {
+    chrome: "https://chrome.google.com/webstore/detail/rabby-wallet/acmacodkjbdgmoleebolmdjonilkdbch",
+    browserExtension: "https://rabby.io"
+  },
+  createConnector: () => ({
+    connector: new InjectedConnector20({
+      chains,
+      options
+    }),
+    extension: {
+      instructions: {
+        learnMoreUrl: "https://rabby.io/",
+        steps: [
+          {
+            description: "We recommend pinning Rabby to your taskbar for quicker access to your wallet.",
+            step: "install",
+            title: "Install the Rabby extension"
+          },
+          {
+            description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+            step: "create",
+            title: "Create or Import a Wallet"
+          },
+          {
+            description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+            step: "refresh",
+            title: "Refresh your browser"
+          }
+        ]
+      }
+    }
+  })
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/safeheronWallet/safeheronWallet.ts
+import { InjectedConnector as InjectedConnector21 } from "wagmi/connectors/injected";
+var safeheronWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "safeheron",
+  name: "Safeheron",
+  installed: typeof window !== "undefined" && typeof window.safeheron !== "undefined" && window.safeheron.isSafeheron === true,
+  iconUrl: async () => (await import("./safeheronWallet-VWXLGQAX.js")).default,
+  iconBackground: "#fff",
+  downloadUrls: {
+    chrome: "https://chrome.google.com/webstore/detail/safeheron/aiaghdjafpiofpainifbgfgjfpclngoh",
+    browserExtension: "https://www.safeheron.com/"
+  },
+  createConnector: () => ({
+    connector: new InjectedConnector21({
+      chains,
+      options: {
+        getProvider: () => typeof window !== "undefined" ? window.safeheron : void 0,
+        ...options
+      }
+    }),
+    extension: {
+      instructions: {
+        learnMoreUrl: "https://www.safeheron.com/",
+        steps: [
+          {
+            description: "We recommend pinning Safeheron to your taskbar for quicker access to your wallet.",
+            step: "install",
+            title: "Install the Core extension"
+          },
+          {
+            description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+            step: "create",
+            title: "Create or Import a Wallet"
+          },
+          {
+            description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+            step: "refresh",
+            title: "Refresh your browser"
+          }
+        ]
+      }
+    }
+  })
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/tahoWallet/tahoWallet.ts
+import { InjectedConnector as InjectedConnector22 } from "wagmi/connectors/injected";
+var tahoWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "taho",
+  name: "Taho",
+  iconBackground: "#d08d57",
+  iconUrl: async () => (await import("./tahoWallet-KDD4N2K7.js")).default,
+  downloadUrls: {
+    chrome: "https://chrome.google.com/webstore/detail/taho/eajafomhmkipbjmfmhebemolkcicgfmd",
+    browserExtension: "https://taho.xyz"
+  },
+  installed: typeof window !== "undefined" && typeof window.tally !== "undefined" && window["tally"] ? true : void 0,
+  createConnector: () => {
+    return {
+      connector: new InjectedConnector22({
+        chains,
+        options: {
+          getProvider: () => {
+            const getTaho = (tally) => (tally == null ? void 0 : tally.isTally) ? tally : void 0;
+            if (typeof window === "undefined")
+              return;
+            return getTaho(window.tally);
+          },
+          ...options
+        }
+      }),
+      extension: {
+        instructions: {
+          learnMoreUrl: "https://tahowallet.notion.site/Taho-Knowledge-Base-4d95ed5439c64d6db3d3d27abf1fdae5",
+          steps: [
+            {
+              description: "We recommend pinning Taho to your taskbar for quicker access to your wallet.",
+              step: "install",
+              title: "Install the Taho extension"
+            },
+            {
+              description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+              step: "refresh",
+              title: "Refresh your browser"
+            }
+          ]
+        }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/talismanWallet/talismanWallet.ts
+import { InjectedConnector as InjectedConnector23 } from "wagmi/connectors/injected";
+var talismanWallet = ({
+  chains,
+  ...options
+}) => ({
+  id: "talisman",
+  name: "Talisman",
+  iconUrl: async () => (await import("./talismanWallet-YOZUSBVG.js")).default,
+  iconBackground: "#fff",
+  installed: typeof window !== "undefined" && typeof window.talismanEth !== "undefined" && window.talismanEth.isTalisman === true,
+  downloadUrls: {
+    chrome: "https://chrome.google.com/webstore/detail/talisman-polkadot-wallet/fijngjgcjhjmmpcmkeiomlglpeiijkld",
+    firefox: "https://addons.mozilla.org/en-US/firefox/addon/talisman-wallet-extension/",
+    browserExtension: "https://talisman.xyz/download"
+  },
+  createConnector: () => ({
+    connector: new InjectedConnector23({
+      chains,
+      options: {
+        getProvider: () => {
+          if (typeof window === "undefined")
+            return;
+          return window.talismanEth;
+        },
+        ...options
+      }
+    }),
+    extension: {
+      instructions: {
+        learnMoreUrl: "https://talisman.xyz/",
+        steps: [
+          {
+            description: "We recommend pinning Talisman to your taskbar for quicker access to your wallet.",
+            step: "install",
+            title: "Install the Talisman extension"
+          },
+          {
+            description: "Be sure to back up your wallet using a secure method. Never share your recovery phrase with anyone.",
+            step: "create",
+            title: "Create or Import an Ethereum Wallet"
+          },
+          {
+            description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+            step: "refresh",
+            title: "Refresh your browser"
+          }
+        ]
+      }
+    }
+  })
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/trustWallet/trustWallet.ts
+import { InjectedConnector as InjectedConnector24 } from "wagmi/connectors/injected";
+function getTrustWalletInjectedProvider() {
+  var _a;
+  const isTrustWallet = (ethereum) => {
+    const trustWallet2 = !!ethereum.isTrust;
+    return trustWallet2;
+  };
+  const injectedProviderExist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
+  if (!injectedProviderExist) {
+    return;
+  }
+  if (window["trustwallet"]) {
+    return window["trustwallet"];
+  }
+  if (isTrustWallet(window.ethereum)) {
+    return window.ethereum;
+  }
+  if ((_a = window.ethereum) == null ? void 0 : _a.providers) {
+    return window.ethereum.providers.find(isTrustWallet);
+  }
+}
+var trustWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isTrustWalletInjected = Boolean(getTrustWalletInjectedProvider());
+  const shouldUseWalletConnect = !isTrustWalletInjected;
+  return {
+    id: "trust",
+    name: "Trust Wallet",
+    iconUrl: async () => (await import("./trustWallet-6VTFD43D.js")).default,
+    installed: isTrustWalletInjected || void 0,
+    iconAccent: "#3375BB",
+    iconBackground: "#fff",
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp",
+      ios: "https://apps.apple.com/us/app/trust-crypto-bitcoin-wallet/id1288339409",
+      mobile: "https://trustwallet.com/download",
+      qrCode: "https://trustwallet.com/download",
+      chrome: "https://chrome.google.com/webstore/detail/trust-wallet/egjidjbpglichdcondbcbdnbeeppgdph",
+      browserExtension: "https://trustwallet.com/browser-extension"
+    },
+    createConnector: () => {
+      const getUriMobile = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return `trust://wc?uri=${encodeURIComponent(uri)}`;
+      };
+      const getUriQR = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return uri;
+      };
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : new InjectedConnector24({
+        chains,
+        options: {
+          getProvider: getTrustWalletInjectedProvider,
+          ...options
+        }
+      });
+      const mobileConnector = {
+        getUri: shouldUseWalletConnect ? getUriMobile : void 0
+      };
+      let qrConnector = void 0;
+      if (shouldUseWalletConnect) {
+        qrConnector = {
+          getUri: getUriQR,
+          instructions: {
+            learnMoreUrl: "https://trustwallet.com/",
+            steps: [
+              {
+                description: "Put Trust Wallet on your home screen for faster access to your wallet.",
+                step: "install",
+                title: "Open the Trust Wallet app"
+              },
+              {
+                description: "Create a new wallet or import an existing one.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Choose New Connection, then scan the QR code and confirm the prompt to connect.",
+                step: "scan",
+                title: "Tap WalletConnect in Settings"
+              }
+            ]
+          }
+        };
+      }
+      const extensionConnector = {
+        instructions: {
+          learnMoreUrl: "https://trustwallet.com/browser-extension",
+          steps: [
+            {
+              description: "Click at the top right of your browser and pin Trust Wallet for easy access.",
+              step: "install",
+              title: "Install the Trust Wallet extension"
+            },
+            {
+              description: "Create a new wallet or import an existing one.",
+              step: "create",
+              title: "Create or Import a wallet"
+            },
+            {
+              description: "Once you set up Trust Wallet, click below to refresh the browser and load up the extension.",
+              step: "refresh",
+              title: "Refresh your browser"
+            }
+          ]
+        }
+      };
+      return {
+        connector,
+        mobile: mobileConnector,
+        qrCode: qrConnector,
+        extension: extensionConnector
+      };
+    }
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/uniswapWallet/uniswapWallet.ts
+var uniswapWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2"
+}) => ({
+  id: "uniswap",
+  name: "Uniswap Wallet",
+  iconUrl: async () => (await import("./uniswapWallet-LQIXTZCK.js")).default,
+  iconBackground: "#FFD8EA",
+  downloadUrls: {
+    ios: "https://apps.apple.com/app/apple-store/id6443944476",
+    mobile: "https://wallet.uniswap.org/",
+    qrCode: "https://wallet.uniswap.org/"
+  },
+  createConnector: () => {
+    const connector = getWalletConnectConnector({
+      projectId: projectId2,
+      chains,
+      version: walletConnectVersion,
+      options: walletConnectOptions
+    });
+    return {
+      connector,
+      mobile: {
+        getUri: async () => {
+          const uri = await getWalletConnectUri(
+            connector,
+            walletConnectVersion
+          );
+          return `uniswap://wc?uri=${encodeURIComponent(uri)}`;
+        }
+      },
+      qrCode: {
+        getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+        instructions: {
+          learnMoreUrl: "https://wallet.uniswap.org/",
+          steps: [
+            {
+              description: "Add Uniswap Wallet to your home screen for faster access to your wallet.",
+              step: "install",
+              title: "Open the Uniswap app"
+            },
+            {
+              description: "Create a new wallet or import an existing one.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Tap the QR icon on your homescreen, scan the code and confirm the prompt to connect.",
+              step: "scan",
+              title: "Tap the QR icon and scan"
+            }
+          ]
+        }
+      }
+    };
+  }
+});
+
+// src/rainbowkit/src/wallets/walletConnectors/xdefiWallet/xdefiWallet.ts
+import { InjectedConnector as InjectedConnector25 } from "wagmi/connectors/injected";
+var xdefiWallet = ({
+  chains,
+  ...options
+}) => {
+  const isInstalled = typeof window !== "undefined" && typeof (window == null ? void 0 : window.xfi) !== "undefined";
+  return {
+    id: "xdefi",
+    name: "XDEFI Wallet",
+    installed: isInstalled,
+    iconUrl: async () => (await import("./xdefiWallet-CEFL7JWP.js")).default,
+    iconBackground: "#fff",
+    downloadUrls: {
+      chrome: "https://chrome.google.com/webstore/detail/xdefi-wallet/hmeobnfnfcmdkdcmlblgagmfpfboieaf",
+      browserExtension: "https://xdefi.io"
+    },
+    createConnector: () => ({
+      connector: new InjectedConnector25({
+        chains,
+        options: {
+          getProvider: () => {
+            var _a;
+            return isInstalled ? (_a = window.xfi) == null ? void 0 : _a.ethereum : void 0;
+          },
+          ...options
+        }
+      }),
+      extension: {
+        instructions: {
+          learnMoreUrl: "https://xdefi.io/support-categories/xdefi-wallet/",
+          steps: [
+            {
+              description: "We recommend pinning XDEFI Wallet to your taskbar for quicker access to your wallet.",
+              step: "install",
+              title: "Install the XDEFI Wallet extension"
+            },
+            {
+              description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+              step: "create",
+              title: "Create or Import a Wallet"
+            },
+            {
+              description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+              step: "refresh",
+              title: "Refresh your browser"
+            }
+          ]
+        }
+      }
+    })
+  };
+};
+
+// src/rainbowkit/src/wallets/walletConnectors/zerionWallet/zerionWallet.ts
+import { InjectedConnector as InjectedConnector26 } from "wagmi/connectors/injected";
+var zerionWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isZerionInjected = typeof window !== "undefined" && (typeof window.ethereum !== "undefined" && window.ethereum.isZerion || typeof window.zerionWallet !== "undefined");
+  const shouldUseWalletConnect = !isZerionInjected;
+  return {
+    id: "zerion",
+    name: "Zerion",
+    iconUrl: async () => (await import("./zerionWallet-KDATVI33.js")).default,
+    iconAccent: "#2962ef",
+    iconBackground: "#2962ef",
+    installed: !shouldUseWalletConnect ? isZerionInjected : void 0,
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=io.zerion.android",
+      ios: "https://apps.apple.com/app/apple-store/id1456732565",
+      mobile: "https://link.zerion.io/pt3gdRP0njb",
+      qrCode: "https://link.zerion.io/pt3gdRP0njb",
+      chrome: "https://chrome.google.com/webstore/detail/klghhnkeealcohjjanjjdaeeggmfmlpl",
+      browserExtension: "https://zerion.io/extension"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : new InjectedConnector26({
+        chains,
+        options: {
+          getProvider: () => typeof window !== "undefined" ? window.zerionWallet || window.ethereum : void 0,
+          ...options
+        }
+      });
+      const getUri = async () => {
+        const uri = await getWalletConnectUri(connector, walletConnectVersion);
+        return isIOS() ? `zerion://wc?uri=${encodeURIComponent(uri)}` : uri;
+      };
+      return {
+        connector,
+        mobile: {
+          getUri: shouldUseWalletConnect ? getUri : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri,
+          instructions: {
+            learnMoreUrl: "https://zerion.io/blog/announcing-the-zerion-smart-wallet/",
+            steps: [
+              {
+                description: "We recommend putting Zerion on your home screen for quicker access.",
+                step: "install",
+                title: "Open the Zerion app"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "After you scan, a connection prompt will appear for you to connect your wallet.",
+                step: "scan",
+                title: "Tap the scan button"
+              }
+            ]
+          }
+        } : void 0,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://help.zerion.io/en/",
+            steps: [
+              {
+                description: "We recommend pinning Zerion to your taskbar for quicker access to your wallet.",
+                step: "install",
+                title: "Install the Zerion extension"
+              },
+              {
+                description: "Be sure to back up your wallet using a secure method. Never share your secret phrase with anyone.",
+                step: "create",
+                title: "Create or Import a Wallet"
+              },
+              {
+                description: "Once you set up your wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        }
+      };
+    }
+  };
+};
 export {
   ActivePixelButton,
   ActivePixelButtonColor,
@@ -11521,6 +13464,7 @@ export {
   ChainSelector,
   ChainSelectorWidget_default as ChainSelectorWidget,
   CommunityLink_default as CommunityLink,
+  ConnectButton,
   Currency,
   CurrencyContract,
   CurrencyLogo,
@@ -11556,27 +13500,46 @@ export {
   PointsDialog_default as PointsDialog,
   PointsIcon,
   PointsRuleDialog_default as PointsRuleDialog,
+  RainbowKitAuthenticationProvider,
+  RainbowKitProvider,
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   SideBar_default as SideBar,
   SvgComponent_default as SvgComponent,
   bingoPoints_default as ZkBingoPointsContract,
+  __private__,
   accountInfoDialogState,
   appInfo,
+  argentWallet,
   atom6 as atom,
+  bifrostWallet,
   bingoBetaSupportedChainId,
   bingoSupportedChainId,
   bingoV1SupportedChainId,
+  bitKeepWallet,
+  bitgetWallet,
+  bitskiWallet,
   blankLinkList,
   bnPow10,
+  braveWallet,
   chainIdPre,
   changeLanguage2 as changeLanguage,
+  coin98Wallet,
+  coinbaseWallet,
   connectorState,
+  connectorsForWallets,
   convertToLargeNumberRepresentation,
+  coreWallet,
+  createAuthenticationAdapter,
+  cssObjectFromTheme,
+  cssStringFromTheme,
+  darkTheme,
+  dawnWallet,
   defaultSelectedKey,
   divisor6xBigNumber,
   divisorBigNumber,
   eX,
+  enkryptWallet,
   erc20Abi,
   erc20_default as erc20Contract,
   filterInput,
@@ -11585,9 +13548,13 @@ export {
   formatDecimal,
   formatMoney,
   formatSymbol,
+  foxWallet,
+  frameWallet,
+  frontierWallet,
   getChainId,
   getContract,
   getContractFromRpc,
+  getDefaultWallets,
   getFormattedTime,
   getFormattedTimeMobile,
   getProvider,
@@ -11596,35 +13563,60 @@ export {
   getShortenAddress2,
   getStatus,
   getUTCSeconds,
+  getWalletConnectConnector,
   graphqlApiUrl,
   hidePointsWarnState,
+  imTokenWallet,
+  injectedWallet,
   isPro,
   isTestnet,
   isTimeout,
   languageList,
+  ledgerWallet,
+  lightTheme,
   linkToBetaDialogChainIdState,
   linkToBetaDialogState,
   localStorageEffect,
   measureText,
+  metaMaskWallet,
+  mewWallet,
+  midnightTheme,
   nativeBalanceState,
+  okxWallet,
+  omniWallet,
+  oneKeyWallet,
+  phantomWallet,
   pointsBalanceState,
   pointsDialogState,
   pointsRuleDialogState,
   pointsWarnState,
   pow10,
   preStaticUrl,
+  rabbyWallet,
+  rainbowWallet,
   refreshBalanceState,
   request,
+  safeWallet,
+  safeheronWallet,
   selector,
   siderCollapseState,
   splitArrByLen,
   supportedChainIds,
+  tahoWallet,
+  talismanWallet,
   timestampToDateStr,
+  tokenPocketWallet,
+  trustWallet,
   txStatus,
+  uniswapWallet,
   useAccountInvitation,
+  useAccountModal,
   useActiveChainId,
   useActiveWallet,
   useActiveWeb3React,
+  useAddRecentTransaction,
+  useAsyncImage,
+  useChainId,
   useChainModal,
   useConnectModal,
   useCurrentLanguage,
@@ -11649,8 +13641,12 @@ export {
   useSwapPoint,
   useSwitchNetwork2 as useSwitchNetwork,
   useWalletClient2 as useWalletClient,
+  useWalletConnectors,
   useWindowSize,
+  walletConnectWallet,
   walletModalOpenState,
+  xdefiWallet,
+  zerionWallet,
   zkBingo,
   zkBingoV0
 };

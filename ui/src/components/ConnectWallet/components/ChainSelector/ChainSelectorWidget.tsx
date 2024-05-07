@@ -1,4 +1,4 @@
-import { useChainModal } from "../../../../rainbowkit/src";
+import { useChainModal } from "../../../../index";
 import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useCallback } from "react";
 import styled from "styled-components";

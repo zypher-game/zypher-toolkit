@@ -1,4 +1,3 @@
-import { useChainModal } from "../../../rainbowkit/src";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo } from "react";
 import { useSetRecoilState } from "recoil";
@@ -9,6 +8,7 @@ import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
 import IsPixelWidget from "./IsPixelWidget";
 import { HeaderUIType } from "../header";
+import { useChainModal } from "../../../rainbowkit/src/components/RainbowKitProvider/ModalContext";
 
 const WrongNetwork = memo(({ type }: { type: HeaderUIType }) => {
   const { t } = useCustomTranslation([LngNs.common]);

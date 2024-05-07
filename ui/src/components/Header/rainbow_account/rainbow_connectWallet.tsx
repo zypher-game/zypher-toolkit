@@ -1,4 +1,3 @@
-import { ConnectButton } from "../../../rainbowkit/src";
 import { isEqual } from "../../../utils/lodash";
 import React, { memo, useMemo } from "react";
 
@@ -12,6 +11,7 @@ import { LngNs } from "../../../utils/i18n";
 import { HeaderUIType } from "../header";
 import Language from "../../SideBar/component/Language";
 import IsPixelWidget from "./IsPixelWidget";
+import { ConnectButton } from "../../../rainbowkit/src/components/ConnectButton/ConnectButton";
 interface IProps {
   useLocation: any;
   env: string;

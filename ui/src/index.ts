@@ -148,8 +148,6 @@ export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";
 
-import { useConnectModal, useChainModal } from "./rainbowkit/src";
-export { useConnectModal, useChainModal };
 export {
   pow10,
   bnPow10,
@@ -198,3 +196,76 @@ export { default as LoadingButton } from "./components/LoadingSvg/LoadingButton"
 export { default as DialogClose } from "./components/DialogClose/DialogClose";
 
 export { default as CommunityLink } from "./components/SideBar/component/CommunityLink";
+
+export { __private__ } from "./rainbowkit/src/__private__/index";
+export * from "./rainbowkit/src/components/index";
+export { useAsyncImage } from "./rainbowkit/src/components/AsyncImage/useAsyncImage";
+export { DisclaimerComponent } from "./rainbowkit/src/components/RainbowKitProvider/AppContext";
+export {
+  AuthenticationConfig,
+  AuthenticationStatus,
+} from "./rainbowkit/src/components/RainbowKitProvider/AuthenticationContext";
+export {
+  createAuthenticationAdapter,
+  RainbowKitAuthenticationProvider,
+} from "./rainbowkit/src/components/RainbowKitProvider/AuthenticationContext";
+export { AvatarComponent } from "./rainbowkit/src/components/RainbowKitProvider/AvatarContext";
+export {
+  useAccountModal,
+  useChainModal,
+  useConnectModal,
+} from "./rainbowkit/src/components/RainbowKitProvider/ModalContext";
+export { Chain } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
+export { Theme } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
+export { cssObjectFromTheme } from "./rainbowkit/src/css/cssObjectFromTheme";
+export { cssStringFromTheme } from "./rainbowkit/src/css/cssStringFromTheme";
+export { useChainId } from "./rainbowkit/src/hooks/useChainId";
+export { darkTheme } from "./rainbowkit/src/themes/darkTheme";
+export { lightTheme } from "./rainbowkit/src/themes/lightTheme";
+export { midnightTheme } from "./rainbowkit/src/themes/midnightTheme";
+export { useAddRecentTransaction } from "./rainbowkit/src/transactions/useAddRecentTransaction";
+export { connectorsForWallets } from "./rainbowkit/src/wallets/connectorsForWallets";
+export { getDefaultWallets } from "./rainbowkit/src/wallets/getDefaultWallets";
+export { getWalletConnectConnector } from "./rainbowkit/src/wallets/getWalletConnectConnector";
+export {
+  useWalletConnectors,
+  WalletConnector,
+} from "./rainbowkit/src/wallets/useWalletConnectors";
+export { Wallet, WalletList } from "./rainbowkit/src/wallets/Wallet";
+export {
+  argentWallet,
+  bifrostWallet,
+  bitgetWallet,
+  bitKeepWallet,
+  bitskiWallet,
+  braveWallet,
+  coin98Wallet,
+  coinbaseWallet,
+  coreWallet,
+  dawnWallet,
+  enkryptWallet,
+  foxWallet,
+  frameWallet,
+  frontierWallet,
+  imTokenWallet,
+  injectedWallet,
+  ledgerWallet,
+  metaMaskWallet,
+  mewWallet,
+  okxWallet,
+  omniWallet,
+  oneKeyWallet,
+  phantomWallet,
+  rabbyWallet,
+  rainbowWallet,
+  safeheronWallet,
+  safeWallet,
+  tahoWallet,
+  talismanWallet,
+  tokenPocketWallet,
+  trustWallet,
+  uniswapWallet,
+  walletConnectWallet,
+  xdefiWallet,
+  zerionWallet,
+} from "./rainbowkit/src/wallets/walletConnectors/index";

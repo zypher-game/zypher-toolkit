@@ -1,8 +1,8 @@
-import { useChainId } from "../rainbowkit/src";
 import { useMemo } from "react";
 import { PublicClient, useAccount, usePublicClient } from "wagmi";
 
 import { ChainId, supportedChainIds } from "../constant/constant";
+import { useChainId } from "../rainbowkit/src/hooks/useChainId";
 
 export function useActiveWeb3React(
   env?: string,

@@ -1,5 +1,5 @@
-import { useChainModal } from "../rainbowkit/src";
 import { useEffect } from "react";
+import { useChainModal } from "../rainbowkit/src/components/RainbowKitProvider/ModalContext";
 
 export const useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();

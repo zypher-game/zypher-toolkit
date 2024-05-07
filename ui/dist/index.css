@@ -196,31 +196,6 @@
   align-items: center;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/DialogClose/DialogClose.styl */
-.dialog_close {
-  width: 20px;
-  height: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 26px;
-  right: 24px;
-  cursor: pointer;
-  z-index: 9;
-}
-@media screen and (max-width: 768px) {
-  .dialog_close {
-    top: 12px;
-    right: 30px;
-    scale: 0.8;
-  }
-}
-.dialog_close svg {
-  fill: #fff;
-  size: 20px;
-}
-
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.stylus */
 .points_dialog_zindex {
   z-index: 1001 !important;
@@ -641,6 +616,31 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 .loading_size4 {
   scale: 4;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/DialogClose/DialogClose.styl */
+.dialog_close {
+  width: 20px;
+  height: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 26px;
+  right: 24px;
+  cursor: pointer;
+  z-index: 9;
+}
+@media screen and (max-width: 768px) {
+  .dialog_close {
+    top: 12px;
+    right: 30px;
+    scale: 0.8;
+  }
+}
+.dialog_close svg {
+  fill: #fff;
+  size: 20px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/SmokeStyle.stylus */
