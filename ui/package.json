@@ -79,6 +79,7 @@
     "@zypher-game/bingo-periphery": "zypher-game/bingo-periphery",
     "@zypher-game/bingo-periphery-v1": "zypher-game/bingo-periphery-v1",
     "@zypher-game/events": "0.231025.34125",
+    "@vanilla-extract/webpack-plugin": "^2.3.1",
     "autoprefixer": "^10.4.0",
     "axios": "^0.21.1",
     "bignumber.js": "^9.0.0",

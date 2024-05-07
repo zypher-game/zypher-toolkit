@@ -32,6 +32,7 @@ const baseBuildConfig = {
   },
   platform: "browser",
   plugins: [
+    vanillaExtractPlugin(),
     stylusLoader(),
     {
       name: "make-all-packages-external",
