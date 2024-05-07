@@ -37,7 +37,7 @@ const baseBuildConfig = {
       name: "make-all-packages-external",
       setup(build) {
         // let filter = /^[^./]|^\.[^./]|^\.\.[^/]/; // Must not start with "/" or "./" or "../"
-        let filter = /^(@zypher-game\/rainbowkit)|^[^./]|^\.[^./]|^\.\.[^/]/;
+        let filter = /^(@zypher-game\/ui)|^[^./]|^\.[^./]|^\.\.[^/]/;
         build.onResolve({ filter }, (args) => ({
           external: true,
           path: args.path,
