@@ -1,4 +1,4 @@
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/Language.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SideBar/component/Language.stylus */
 .language_top {
   display: flex;
   justify-content: center;
@@ -95,7 +95,7 @@
   padding: 0;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelBtn/PixelFlatBtn.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelBtn/PixelFlatBtn.stylus */
 .pixel_flat_btn {
   position: relative;
   display: flex;
@@ -189,14 +189,14 @@
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SvgComponent/SvgComponent.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SvgComponent/SvgComponent.stylus */
 .svg_component {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.stylus */
 .points_dialog_zindex {
   z-index: 1001 !important;
 }
@@ -305,7 +305,7 @@
   height: 14px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/PointsDialog.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/PointsDialog/PointsDialog.stylus */
 .dialog .pointsIcon {
   width: 20px;
 }
@@ -503,7 +503,7 @@
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Modal/Modal.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Modal/Modal.stylus */
 .customDialog [data-reach-dialog-content] {
   padding: 0;
   z-index: 9999;
@@ -582,7 +582,7 @@
   cursor: pointer;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelTable/PixelTable.styl */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelTable/PixelTable.styl */
 .tvlPixelTable > .pixel_flat_inner {
   flex-direction: column;
   justify-content: flex-start;
@@ -607,7 +607,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/LoadingSvg/LoadingButton.styl */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/LoadingSvg/LoadingButton.styl */
 .LoadingButton {
   margin-left: 10px;
   animation-duration: 3s;
@@ -618,7 +618,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   scale: 4;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/DialogClose/DialogClose.styl */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/DialogClose/DialogClose.styl */
 .dialog_close {
   width: 20px;
   height: 20px;
@@ -643,7 +643,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   size: 20px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/component/SmokeStyle.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SideBar/component/SmokeStyle.stylus */
 .h {
   text-align: center;
   width: 100%;
@@ -1108,7 +1108,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/SideBar/sidebar.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SideBar/sidebar.stylus */
 .sidebarWrap {
   padding: 40px 24px;
   overflow-y: scroll;
@@ -1343,7 +1343,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
 .dialog_title_modalTitleInner {
   position: relative;
   display: flex;
@@ -1370,7 +1370,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   fill: var(--var-text-light);
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/header.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/header.stylus */
 .zypher_logo {
   gap: 6px;
   display: flex;
@@ -1455,7 +1455,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   height: 16px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/Balance/balance.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/Balance/balance.stylus */
 .balance_item_balance_point {
   position: relative;
 }
@@ -1520,7 +1520,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.stylus */
 .getpointpoints {
   position: absolute;
   z-index: 10000;
@@ -1659,7 +1659,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
 .pixel_border.pixel_flat_btn {
   height: 40px;
 }
@@ -1703,7 +1703,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   height: 5px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.stylus */
 .ChainSelectorWidgetWrapper {
   color: #fff;
   font-size: 16px;
@@ -1732,7 +1732,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   white-space: nowrap;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PlayerAvatar/index.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PlayerAvatar/index.stylus */
 .player_playerAvatar {
   display: inline-flex;
   flex-direction: column;
@@ -1837,7 +1837,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/rainbow_account.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_account.stylus */
 .address_wrap {
   display: flex;
   gap: 10px;
@@ -1853,7 +1853,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   padding-left: 14px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */
 .account_info_dialog_dialog .account_info_dialog_modalMain {
   padding: 20px 32px 33px;
 }
@@ -1948,7 +1948,7 @@ body .address_wrap_pop > .pixel_flat_inner {
   font-size: 14px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.stylus */
 .m_user_m_content .m_user_border {
   border-radius: 10px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2009,7 +2009,7 @@ body .address_wrap_pop > .pixel_flat_inner {
   margin: 0;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.stylus */
 .pc_user_pc_content {
   display: flex;
   justify-content: space-between;
@@ -2094,7 +2094,7 @@ body .address_wrap_pop > .pixel_flat_inner {
   border: 1px solid var(--var-btn-hover);
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */
 .connect_pixel_connectWallet {
   cursor: pointer;
   display: flex;
@@ -4376,7 +4376,7 @@ body .address_wrap_pop > .pixel_flat_inner {
   display: none;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelTab/PixelTab.styl */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelTab/PixelTab.styl */
 .pixe_active_tvl_tab {
   margin-top: 20px;
   margin-bottom: 20px;
@@ -4396,7 +4396,7 @@ body .address_wrap_pop > .pixel_flat_inner {
   padding: 0 24px;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit/ui/src/components/PixelTab/PixelTabBorder.styl */
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelTab/PixelTabBorder.styl */
 .ActiveTVLStaking_tab {
   width: fit-content;
 }

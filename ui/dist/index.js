@@ -49,8 +49,7 @@ var divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
 var isPro = () => {
-  const localpath = window.location.hostname;
-  if (localpath.indexOf("app") > -1) {
+  if (window.location.host.startsWith("app") || window.location.host.startsWith("zypher")) {
     return true;
   }
   return false;
