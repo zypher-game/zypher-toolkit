@@ -41,54 +41,56 @@ const NFTs = memo((props: INFTsProp) => {
         showImg={true}
         source={[preStaticUrl + '/img/profile/2048NFT.png', preStaticUrl + '/img/profile/BingoCard.png', preStaticUrl + '/img/profile/zBox.png']}
       />
-      {nftTab === 0 ? (
-        <List
-          grid={{
-            gutter: 20,
-            xs: 2,
-            sm: 2,
-            md: 2,
-            lg: 3,
-            xl: 4,
-            xxl: 5
-          }}
-          locale={{ emptyText: <NotDataWithLoading loading={z2048ListLoading} /> }}
-          dataSource={z2048List}
-          renderItem={(item, index) => (
-            <List.Item>
-              <img src={item} width={'100%'} />
-            </List.Item>
-          )}
-        />
-      ) : nftTab === 1 ? (
-        !bingoList || !bingoList.length ? (
-          <NotDataWithLoading loading={bingoListLoading || bingoGamesLoading} />
+      <div className={css.scroll}>
+        {nftTab === 0 ? (
+          <List
+            grid={{
+              gutter: 20,
+              xs: 2,
+              sm: 2,
+              md: 2,
+              lg: 3,
+              xl: 4,
+              xxl: 5
+            }}
+            locale={{ emptyText: <NotDataWithLoading loading={z2048ListLoading} /> }}
+            dataSource={z2048List}
+            renderItem={(item, index) => (
+              <List.Item>
+                <img src={item} width={'100%'} />
+              </List.Item>
+            )}
+          />
+        ) : nftTab === 1 ? (
+          !bingoList || !bingoList.length ? (
+            <NotDataWithLoading loading={bingoListLoading || bingoGamesLoading} />
+          ) : (
+            <BingoWrap gameList={bingoList} />
+          )
         ) : (
-          <BingoWrap gameList={bingoList} />
-        )
-      ) : (
-        <List
-          grid={{
-            gutter: 20,
-            xs: 2,
-            sm: 2,
-            md: 2,
-            lg: 3,
-            xl: 4,
-            xxl: 5
-          }}
-          locale={{ emptyText: <NotDataWithLoading loading={listLoading} /> }}
-          dataSource={list}
-          renderItem={(item, index) => (
-            <List.Item>
-              <div className={css.item} key={index}>
-                <img src={preStaticUrl + '/img/profile/card.png'} width={'100%'} />
-                <CardTokenId>#{item}</CardTokenId>
-              </div>
-            </List.Item>
-          )}
-        />
-      )}
+          <List
+            grid={{
+              gutter: 20,
+              xs: 2,
+              sm: 2,
+              md: 2,
+              lg: 3,
+              xl: 4,
+              xxl: 5
+            }}
+            locale={{ emptyText: <NotDataWithLoading loading={listLoading} /> }}
+            dataSource={list}
+            renderItem={(item, index) => (
+              <List.Item>
+                <div className={css.item} key={index}>
+                  <img src={preStaticUrl + '/img/profile/card.png'} width={'100%'} />
+                  <CardTokenId>#{item}</CardTokenId>
+                </div>
+              </List.Item>
+            )}
+          />
+        )}
+      </div>
     </div>
   )
 }, isEqual)

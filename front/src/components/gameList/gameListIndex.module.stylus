@@ -4,7 +4,7 @@
   position: absolute
   top: -48px
   right 0
-  color: #6673FF;
+  color: #1649FF;
   font-size: 14px;
   display: flex;
   justify-content: center;
@@ -12,4 +12,4 @@
   gap: 4px;
   svg
     padding: 3px;
-    fill: #6673FF;
+    fill: #1649FF;

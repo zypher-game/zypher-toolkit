@@ -10,7 +10,7 @@ var RainbowKitWithThemeProvider = function (_a) {
   var children = _a.children;
   var computedTheme = react_1.useMemo(function () {
     return rainbowkit_1.darkTheme({
-      accentColor: "#6673FF",
+      accentColor: "#1649FF",
       borderRadius: "large",
       fontStack: "system",
     });

@@ -162,7 +162,7 @@
     display: flex
     align-items: center
     justify-content: center
-    color: #6673ff
+    color: #1649FF
     font-size: 16px
     cursor: pointer
     user-select: none
@@ -204,11 +204,11 @@
       height: 4px
       background-color: transparent
     &.on
-      color: #6673FF
+      color: #1649FF
       font-size: 18px;
       font-weight: 600;
       .borderline
-        background-color: #6673FF
+        background-color: #1649FF
 
 .col
   display: flex

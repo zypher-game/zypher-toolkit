@@ -11,7 +11,7 @@ const StatusP = styled.p<{ isMobile: boolean }>`
   img {
     display: inline-block;
     width: ${({ isMobile }) => (isMobile ? '20px' : '30px')};
-    margin-left: ${({ isMobile }) => (isMobile ? '4px' : '10px')};
+    margin-right: ${({ isMobile }) => (isMobile ? '4px' : '10px')};
   }
 `
 type IProps = {
@@ -24,8 +24,8 @@ const RenderNormalText: FC<IProps> = memo(({ label, showPoint, isMobile }: IProp
     <PlayerAvatar className={css.account} size={22} account={label} showAccount={true} border={false} />
   ) : (
     <StatusP isMobile={isMobile}>
+      {showPoint ? <PointsIcon isMobile={isMobile} mr={true} /> : null}
       {label}
-      {showPoint ? <PointsIcon isMobile={isMobile} /> : null}
     </StatusP>
   )
 }, isEqual)

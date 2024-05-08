@@ -7,9 +7,9 @@ export const MyTable = styled(TableStyled)<{ isMobile: boolean }>`
   border-radius: 0;
   overflow: hidden;
   table th {
-    font-size: 16px;
+    font-size: 14px;
     @media (max-width: 1400px) {
-      font-size: 13px;
+      font-size: 12px;
     }
   }
   table td {

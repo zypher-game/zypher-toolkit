@@ -6,7 +6,7 @@ import Icon from './icon.svg'
 import Rabbit from './rabbit403.png'
 
 const Content = styled.div`
-  background-color: #6673ff;
+  background-color: #1649ff;
   height: 100vh;
   background-repeat: repeat;
   background-image: url(${Bg});

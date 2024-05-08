@@ -58,7 +58,7 @@
                 cursor: pointer
 
                 &.cur
-                    background: #6673FF
+                    background: #1649FF
                     border-radius: 23px
                     color: #fff
 

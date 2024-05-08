@@ -1,4 +1,4 @@
-import { IsMd1100Provider, IsMd1220Provider } from '@ui/src'
+import { IsMd1100Provider, IsMd1220Provider, IsMdProvider } from '@ui/src'
 import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -56,14 +56,15 @@ export default (): JSX.Element => {
     <Suspense fallback={null}>
       <IsMd1220Provider>
         <IsMd1100Provider>
-          <ThemeProvider>
-            <Layout>
-              <ScrollToTop>
-                <>
-                  <Routes>
-                    {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveComing />} /> */}
-                    {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
-                    {/* <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
+          <IsMdProvider>
+            <ThemeProvider>
+              <Layout>
+                <ScrollToTop>
+                  <>
+                    <Routes>
+                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveComing />} /> */}
+                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
+                      {/* <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                     <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`} element={<MoreActive />} />
                     <Route
                       path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveNormal}`}
@@ -83,20 +84,21 @@ export default (): JSX.Element => {
                     <Route path={tvlPath[0]} element={<ActiveTVLTeam />} />
                     <Route path={tvlPath[1]} element={<ActiveTVLStaking />} />
                     <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} /> */}
-                    <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
-                    {/* <Route path="/defense" element={<Monster />} /> */}
-                    {/* <Route path="/invitation" element={<Invitation />} /> */}
-                    {/* <Route path="/gbBox" element={<GBBox />} /> */}
-                    {/* <Route path="/ranking" element={<Ranking />} /> */}
-                    {/* <Route path="/dp" element={<DP />} />*/}
-                    <Route path="/games/list" element={<GamesList />} />
-                    {/* 404页面 */}
-                    <Route path="*" element={<GamesList />} />
-                  </Routes>
-                </>
-              </ScrollToTop>
-            </Layout>
-          </ThemeProvider>
+                      <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
+                      {/* <Route path="/defense" element={<Monster />} /> */}
+                      {/* <Route path="/invitation" element={<Invitation />} /> */}
+                      {/* <Route path="/gbBox" element={<GBBox />} /> */}
+                      {/* <Route path="/ranking" element={<Ranking />} /> */}
+                      {/* <Route path="/dp" element={<DP />} />*/}
+                      <Route path="/games/list" element={<GamesList />} />
+                      {/* 404页面 */}
+                      <Route path="*" element={<GamesList />} />
+                    </Routes>
+                  </>
+                </ScrollToTop>
+              </Layout>
+            </ThemeProvider>
+          </IsMdProvider>
         </IsMd1100Provider>
       </IsMd1220Provider>
       <div className="toast__" ref={ref => (toastContainerRef.current = ref)} />

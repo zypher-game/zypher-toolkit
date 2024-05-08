@@ -161,20 +161,20 @@ const HistoryHeader = styled.div`
 `
 const HistoryBingoBoard = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 55px);
-  grid-template-rows: repeat(5, 65px);
+  grid-template-columns: repeat(5, 30px);
+  grid-template-rows: repeat(5, 35px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 28px;
   color: rgba(255, 255, 255, 0.7);
   border-radius: 16px;
   &.profileBingoItem {
-    font-size: 22px;
+    font-size: 18px;
     border-radius: 0;
     border: none;
-    grid-gap: 10px;
-    grid-template-columns: repeat(5, 50px);
-    grid-template-rows: repeat(5, 50px);
+    grid-gap: 4px;
+    grid-template-columns: repeat(5, 30px);
+    grid-template-rows: repeat(5, 30px);
   }
   .space {
     display: flex;
@@ -198,26 +198,26 @@ const HistoryCardNumber = styled.div<{
   font-style: normal;
   font-weight: 400;
   font-size: 28px;
-  /* border-bottom: ${({ selected }) => (selected ? '1px solid #6673FF' : '1px solid rgba(255, 255, 255, 0.1)')}; */
-  /* border-right: ${({ selected }) => (selected ? '1px solid #6673FF' : '1px solid rgba(255, 255, 255, 0.1)')}; */
-  color: ${({ selected }) => selected && '#6673ff'};
+  /* border-bottom: ${({ selected }) => (selected ? '1px solid #1649FF' : '1px solid rgba(255, 255, 255, 0.1)')}; */
+  /* border-right: ${({ selected }) => (selected ? '1px solid #1649FF' : '1px solid rgba(255, 255, 255, 0.1)')}; */
+  color: ${({ selected }) => selected && '#1649FF'};
   background: ${({ selected }) => selected && 'rgba(102, 115, 255, 0.10)'};
   position: relative;
 
   &.item_profileBingoItem {
-    font-size: 22px;
+    font-size: 18px;
     border-radius: 8px;
-    border: 1px solid ${({ selected }) => (selected ? '#6673ff' : '#131313')};
+    border: 1px solid ${({ selected }) => (selected ? '#1649FF' : '#131313')};
     grid-gap: 4px;
     background: ${({ selected }) => !selected && '#131313'};
-    color: ${({ selected }) => (selected ? '#6673ff' : 'rgba(255, 255, 255, 0.30)')};
+    color: ${({ selected }) => (selected ? '#1649FF' : 'rgba(255, 255, 255, 0.30)')};
   }
 
   &.item_undefined {
     &::after {
       content: '';
       position: absolute;
-      border: ${({ selected }) => selected && '1px solid #6673ff'};
+      border: ${({ selected }) => selected && '1px solid #1649FF'};
       width: ${({ selected }) => selected && '56px'};
       height: ${({ selected }) => selected && '66px'};
       top: -1px;

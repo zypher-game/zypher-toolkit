@@ -20,6 +20,11 @@ export const TableStyled = styled(Table)<{ isMobile: boolean }>`
   .ant-table-thead > tr > th {
     font-weight: 400;
   }
+  &.noData {
+    .ant-table-tbody > tr > td.ant-table-cell {
+      border-bottom: none;
+    }
+  }
   .ant-table-tbody > tr > td {
     white-space: nowrap;
     border-bottom: 1px solid #3a4254;

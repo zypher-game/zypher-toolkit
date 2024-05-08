@@ -61,6 +61,7 @@ const Profile = memo((): React.ReactElement | null => {
                 list={list}
               />
             )}
+            <div className={css.profileInnerBottom} />
           </div>
         </div>
       </div>

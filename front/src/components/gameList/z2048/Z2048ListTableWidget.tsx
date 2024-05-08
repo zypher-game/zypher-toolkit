@@ -86,7 +86,8 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
         )
       ) : (
         <MyTable
-          className={classnames(css.table, className)}
+          className={classnames(css.table, { noData: showData.length === 0 }, className)}
+          // className={classnames(css.table, className)}
           dataSource={showData}
           rowClassName={(record, index) => (index % 2 === 0 ? 'editable-row even-row' : 'editable-row odd-row')}
           pagination={false}

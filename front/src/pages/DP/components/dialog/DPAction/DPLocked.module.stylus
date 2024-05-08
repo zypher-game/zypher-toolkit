@@ -18,12 +18,12 @@
     cursor: pointer
     &.on
       opacity: 1
-      border: 1px solid #6673FF
-      background-color: #6673FF
+      border: 1px solid #1649FF
+      background-color: #1649FF
     &:hover
       opacity: 1
-      border: 1px solid #6673FF
-      color: #6673FF
+      border: 1px solid #1649FF
+      color: #1649FF
       &.on
         color: #fff
 

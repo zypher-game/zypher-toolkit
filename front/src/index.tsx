@@ -1,8 +1,9 @@
 import 'dayjs/locale/zh-cn'
 import './assets/stylus/index.styl'
 import '@reach/dialog/styles.css'
-import '@ui/src/dist/index.css'
+import '../node_modules/@ui/ui/dist/index.css'
 
+// import '@zypher-game/toolkit/dist/index.css'
 import { IsMobileProvider, RainbowKitWithThemeProvider, RecoilRoot, supportedChainIds } from '@ui/src'
 import React from 'react'
 import { render } from 'react-dom'

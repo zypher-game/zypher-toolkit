@@ -41,7 +41,7 @@
 .btn
   display block
   color: #fff
-  background: #6673FF
+  background: #1649FF
   width: 100%
   height: 40px
   border-radius: 12px
@@ -50,5 +50,5 @@
   font-weight: 600
   font-size: 16px
   &:hover
-    background: #6673FF
+    background: #1649FF
     color: #fff

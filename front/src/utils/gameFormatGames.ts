@@ -1,4 +1,4 @@
-import { ChainId, formatMoney, getFormattedTime, getFormattedTimeMobile, IGameIdInfo, IGameList, IGameName, IGameStatus, IRecentGame } from '@ui/src'
+import { ChainId, formatMoney, getFormattedTime, getFormattedTimeMobile, IGameList, IGameName, IGameStatus, IRecentGame } from '@ui/src'
 
 import BigNumberJs from '@/utils/BigNumberJs'
 
@@ -21,7 +21,8 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.ComboTestnet]: 'CbT',
   [ChainId.Mantle]: 'MTM',
   [ChainId.MantleTestnet]: 'MTT',
-  [ChainId.Combo]: 'CB'
+  [ChainId.Combo]: 'CB',
+  [ChainId.Sepolia]: 'Sp'
 }
 export const gameFormatGamesWithIRecentGame = ({
   chainId,
@@ -30,10 +31,10 @@ export const gameFormatGamesWithIRecentGame = ({
 }: {
   chainId: ChainId
   game: IRecentGame
-  gameIdInfo: IGameIdInfo
+  gameIdInfo: any
 }): IGameList | undefined => {
   const { status, gameId: gameIdBig, players, winner, cardNumbers, selectedNumbers } = game
-  const [startedAt, endedAt, joinAmount, , winAmount, , rounds] = gameIdInfo as unknown as IGameIdInfo
+  const [startedAt, endedAt, joinAmount, , winAmount, , rounds] = gameIdInfo as unknown as any // IGameIdInfo
   try {
     const localStatus = status as IGameStatus
     let winnerOrPlayers = `${players.length} players`
@@ -68,7 +69,7 @@ export const gameFormatGamesWithIRecentGame = ({
         cardNumbers,
         selectedNumbers
       },
-      gameIdInfo: gameIdInfo,
+      // gameIdInfo: gameIdInfo,
       inputPerPlayer: inputPerPlayer,
       multiplier: multiplier,
       win: win,

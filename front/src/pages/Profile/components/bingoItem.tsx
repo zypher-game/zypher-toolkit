@@ -14,7 +14,7 @@ const BingoItemWrap = styled.div`
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
-  padding: 19px;
+  padding: 12px;
   @media (max-width: 768px) {
     width: 164px;
     height: 190px;
@@ -25,11 +25,10 @@ const BingoItemWrap = styled.div`
     height: 148px;
   }
   h6 {
-    font-size: 16px;
-    font-weight: 300;
+    font-size: 14px;
     line-height: 20px;
-    color: #65edbc;
-    margin-bottom: 20px;
+    color: #ffd02b;
+    margin-bottom: 10px;
     @media (max-width: 768px) {
       font-size: 12px;
       margin-bottom: 5px;
@@ -59,8 +58,8 @@ const BingoWrapStyled = styled.div`
 const BingoWrap: FC<IPropsBingoWrap> = memo(({ gameList }: IPropsBingoWrap) => {
   return (
     <BingoWrapStyled>
-      {(gameList ?? []).map(v => (
-        <BingoItem item={v} key={v.roomIDStr} />
+      {(gameList ?? []).map((v, index) => (
+        <BingoItem item={v} key={index} />
       ))}
     </BingoWrapStyled>
   )

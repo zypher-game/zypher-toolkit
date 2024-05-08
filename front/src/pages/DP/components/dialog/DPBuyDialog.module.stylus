@@ -60,7 +60,7 @@
         padding-left: 60%
   .text_btn
     cursor: pointer
-    color: #6673FF;
+    color: #1649FF;
     text-align: center;
     font-family: "PixeloidSans";
     font-size: 16px;

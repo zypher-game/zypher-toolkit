@@ -7,18 +7,18 @@ import styled from 'styled-components'
 import { HistoryViewCard } from '@/components/ViewCard'
 
 const ViewButton = styled(Button)<{ ismobile: string }>`
-  color: ${({ ismobile }) => (ismobile === 'true' ? '#6673FF' : '#65edbc')};
+  color: ${({ ismobile }) => (ismobile === 'true' ? '#1649FF' : '#FFD02B')};
   background-color: transparent;
   ${({ ismobile }) =>
-    ismobile === 'true' ? 'border-radius: 12px;border: 1px solid #6673FF;font-size: 12px;padding: 0 10px;height: 22px;line-height: 20px;' : null}
+    ismobile === 'true' ? 'border-radius: 12px;border: 1px solid #1649FF;font-size: 12px;padding: 0 10px;height: 22px;line-height: 20px;' : null}
   &:active {
-    color: ${({ ismobile }) => (ismobile === 'true' ? '#6673FF' : '#65edbc')};
+    color: ${({ ismobile }) => (ismobile === 'true' ? '#1649FF' : '#FFD02B')};
   }
   &:hover {
-    color: ${({ ismobile }) => (ismobile === 'true' ? '#6673FF' : '#65edbc')};
+    color: ${({ ismobile }) => (ismobile === 'true' ? '#1649FF' : '#FFD02B')};
   }
   &:focus {
-    color: ${({ ismobile }) => (ismobile === 'true' ? '#6673FF' : '#65edbc')};
+    color: ${({ ismobile }) => (ismobile === 'true' ? '#1649FF' : '#FFD02B')};
   }
 `
 type IViewCardProps = {

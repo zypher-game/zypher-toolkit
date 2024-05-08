@@ -105,7 +105,7 @@
         
       .btn
         color: #fff
-        background: #6673FF
+        background: #1649FF
         width: 120px
         height: 40px
         border-radius: 4px

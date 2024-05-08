@@ -14,7 +14,7 @@
 
   .rank_my_item
     border-radius: 8px;
-    background-color: #6673FF;
+    background-color: #1649FF;
     flex: 1;
     margin: 0 40px 40px
     div:first-child

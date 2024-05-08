@@ -4,5 +4,8 @@
     display: block
     width: 24px
     margin-right: 3px
+.scroll
+  height: 504px
+  overflow-y: scroll
 :global(body .ant-list-empty-text)
   padding: 0

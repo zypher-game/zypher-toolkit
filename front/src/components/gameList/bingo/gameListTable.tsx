@@ -100,7 +100,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         )
       ) : (
         <MyTable
-          className={classnames(css.table, className)}
+          className={classnames(css.table, { noData: showData.length === 0 }, className)}
           dataSource={showData}
           rowClassName={(record, index) => (index % 2 === 0 ? 'editable-row even-row' : 'editable-row odd-row')}
           pagination={false}

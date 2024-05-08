@@ -62,9 +62,9 @@
   align-items: center
   gap: 8px
   .max
-    color: #6673FF;
+    color: #1649FF;
     border-radius: 4px;
-    border: 1px solid #6673FF;
+    border: 1px solid #1649FF;
     padding: 0 7px
     font-size: 12px;
     height: 24px
