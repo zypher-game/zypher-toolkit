@@ -1049,7 +1049,7 @@ var useNavItem = () => {
         link: LinkList[2],
         disabled: false,
         type: "Games" /* Games */,
-        btn_label: "Testing",
+        btn_label: "Live",
         content: (className) => /* @__PURE__ */ React4.createElement("div", {
           className
         }, /* @__PURE__ */ React4.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React4.createElement("img", {

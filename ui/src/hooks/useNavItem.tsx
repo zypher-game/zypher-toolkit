@@ -111,7 +111,7 @@ export const useNavItem = (): INavLink[] => {
         link: LinkList[2],
         disabled: false,
         type: INavLinkType.Games,
-        btn_label: "Testing",
+        btn_label: "Live",
         content: (className: string) => (
           <div className={className}>
             <p>Acequect Studio</p>
