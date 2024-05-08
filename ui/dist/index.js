@@ -3175,15 +3175,17 @@ import styled2 from "styled-components";
 var PointsImg = styled2.img`
   display: inline-block;
   width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "30px"};
-  margin-left: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
+  margin-left: ${({ mr, isMobile: isMobile2 }) => mr ? "0" : isMobile2 ? "4px" : "10px"};
+  margin-right: ${({ mr, isMobile: isMobile2 }) => mr ? isMobile2 ? "4px" : "10px" : "0"};
 `;
 var PointsIcon = memo5(
-  ({ isMobile: isMobile2, classname }) => {
+  ({ isMobile: isMobile2, classname, mr }) => {
     return /* @__PURE__ */ React10.createElement(PointsImg, {
       isMobile: isMobile2,
       src: preStaticUrl + `/img/home/data_points.svg`,
       alt: "",
-      className: classname
+      className: classname,
+      mr
     });
   },
   isEqual
@@ -4596,11 +4598,11 @@ function hashToSeed(ethereumAddress) {
 var generateAvatar_default = (account) => {
   const seed = hashToSeed(account == null ? void 0 : account.toLowerCase());
   const selectedAvatar = [
-    preStaticUrl + "/img/avatar1.png",
-    preStaticUrl + "/img/avatar2.png",
-    preStaticUrl + "/img/avatar3.png",
-    preStaticUrl + "/img/avatar4.png",
-    preStaticUrl + "/img/avatar5.png"
+    preStaticUrl + "/img/tvl/hero/Agil_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Celus_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Ivan_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Liana_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Yueling_Avatar.png"
   ][seed % 6];
   const selectedBackground = [
     "#83A285",
@@ -5479,7 +5481,7 @@ var Account = memo28(
     supportedChainList,
     type
   }) => {
-    const isMobile2 = useIsMd1100();
+    const isMobile2 = useIsMobile();
     const setPointsDialogState = useSetRecoilState8(pointsDialogState);
     const showPointsModal = useCallback16(() => {
       setPointsDialogState(true);

@@ -28,11 +28,11 @@ export default (
   const seed = hashToSeed(account?.toLowerCase());
 
   const selectedAvatar = [
-    preStaticUrl + "/img/avatar1.png",
-    preStaticUrl + "/img/avatar2.png",
-    preStaticUrl + "/img/avatar3.png",
-    preStaticUrl + "/img/avatar4.png",
-    preStaticUrl + "/img/avatar5.png",
+    preStaticUrl + "/img/tvl/hero/Agil_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Celus_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Ivan_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Liana_Avatar.png",
+    preStaticUrl + "/img/tvl/hero/Yueling_Avatar.png",
   ][seed % 6];
   const selectedBackground = [
     "#83A285",
