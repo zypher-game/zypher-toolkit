@@ -1,0 +1,78 @@
+.monsterFightAction
+  flexCenter()
+  gap: 28px
+  @media screen and (max-width: 1200px)
+    gap: 0
+  &.monsterFightAction_End
+    .fl
+      margin-top: -30px
+  .fl
+    position: relative
+    margin-top: -70px
+    @media screen and (max-width: 1200px)
+      margin-top: -30px
+    img
+      width: 220px
+      height 220px
+      @media screen and (max-width: 1200px)
+        width: 120px
+        height 120px
+    p
+      position: absolute
+      color: #FFF;
+      font-family: "PoetsenOne";
+      font-size: 40px;
+      text-shadow: 1px 2px 4px #F357FF;
+      bottom: 5%
+      left: 50%
+      transform: translateX(-50%)
+      @media screen and (max-width: 1200px)
+        font-size: 16px;
+
+  .fr
+    display: flex
+    justify-content: top 
+    gap: 16px
+    @media screen and (max-width: 1200px)
+      gap: 10px
+    @media screen and (max-width: 768px)
+      width: 100vw
+      padding: 0 16px
+    & >div
+      flex: 1
+    button
+      color: #fff
+      border-radius: 37px;
+      font-family: "Oleo Script";
+      font-size: 28px;
+      height: 64px;
+      border: none;
+      transition: background-color 0.3s ease;
+      @media screen and (max-width: 1200px)
+        font-size: 20px;
+        height: 46px;
+      
+      &.forbid
+        cursor: not-allowed
+        background: #CFD0E0;
+    .fight
+      width: 320px;
+      background: linear-gradient(170deg, #86C5FF 0%, #6764F8 50%, #2e39ac 100%);
+      background-size: 200% 200%;
+      background-repeat: no-repeat;
+      transition: all 0.5s ease;
+      &:hover
+        background-position: 100% 100%
+      @media screen and (max-width: 1200px)
+        width: 200px;
+      @media screen and (max-width: 768px)
+        width: 100%;
+    .rule
+      width: 130px;
+      background: linear-gradient(170deg, #E6BDFF 0%, #CD3EFF 50%, #8118a6 100%);
+      background-size: 200% 200%;
+      transition: all 0.5s ease;
+      &:hover
+        background-position: 100% 100%
+      @media screen and (max-width: 768px)
+        width: 100px;

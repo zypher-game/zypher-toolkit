@@ -1,0 +1,9 @@
+.borderSelect
+  display: flex
+  gap: 24px
+  justify-content: stretch
+  align-items: center
+  position relative
+  margin-bottom: 20px
+  :global(.ant-select-item)
+    padding: 10px 16px

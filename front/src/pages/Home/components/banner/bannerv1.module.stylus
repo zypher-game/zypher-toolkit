@@ -1,0 +1,30 @@
+
+.header
+  display: flex
+  justify-content: space-between
+  gap: 24px
+  @media screen and (max-width: 950px)
+    flex-direction: column
+    gap: 16px
+
+  .headerFl, .headerFr
+    border-radius: 20px
+    overflow: hidden
+    position: relative
+    // min-width: 343px;
+    width: 50%
+    cursor: pointer
+    @media screen and (max-width: 950px)
+      min-width: auto;
+      width 100%
+    @media screen and (max-width: 768px)
+      border-radius: 12px
+  
+  .banner
+    height: 100%
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+  .bannerbg
+    width: 100%

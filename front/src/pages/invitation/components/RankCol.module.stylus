@@ -1,0 +1,37 @@
+.rank
+  display: flex
+  align-items: center
+  .p
+    opacity 0.6
+  .rankIcon 
+    width: 62px
+    display: flex
+    justify-content: center
+    @media screen and (max-width: 768px)
+      width: 42px
+      img
+        width 24px
+  .nospan
+    width 40px
+    @media screen and (max-width: 768px)
+      width 16px
+  .line
+    width: 1px
+    height: 34px
+    background: #FFF
+    opacity 0.2
+    margin: 0 20px 0 0
+  .account
+    display: flex
+    flex-direction: row
+    .avatarBorder
+      width 34px
+      height 34px
+      border 1px solid #494949
+      display flex
+      justify-content: center
+      align-items: center
+      margin-right: 10px
+      border-radius: 50%
+    p
+      font-weight: 500

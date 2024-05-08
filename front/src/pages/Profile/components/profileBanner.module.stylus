@@ -1,0 +1,68 @@
+.header
+  padding: 40px 30px
+  @media screen and (max-width: 768px)
+    padding-top: 20px
+.bannerInner
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  gap: 22px
+  @media screen and (max-width: 768px)
+    gap: 10px
+  .avatarBorder
+    border: 1px solid #2A2A2A
+    border-radius: 50%
+  .account
+    p
+      color: #fff
+      font-size: 20px;
+      font-weight: 600;
+      line-height: 30px;
+      margin-top: 8px
+      margin-bottom: 24px
+      @media screen and (max-width: 768px)
+        font-size: 16px;
+        margin-bottom: 16px
+
+
+  .box
+    .address
+      margin: 0 0 12px
+      display: flex
+      gap: 10px
+      align-items: center;
+      font-size: 24px
+      font-weight: 600;
+      line-height: 30px
+      height: 30px
+      @media screen and (max-width: 768px)
+        margin: 0 0 4px
+        font-size: 16px
+    .balance
+      display: flex
+      justify-content: flex-start
+      align-items: center
+      gap: 20px
+      @media screen and (max-width: 768px)
+        gap: 16px
+      .balanceItem
+        padding: 0 20px 0 10px
+        font-size: 16px;
+        @media screen and (max-width: 768px)
+          font-size: 14px;
+          gap: 3px
+        p
+          margin-left: 8px;
+        img.points
+          width: 40px;
+          margin-left: -10px;
+          padding-left: 10px;
+          @media screen and (max-width: 768px)
+            width 30px
+        img
+          display: block
+          position relative
+          z-index 3
+          width 28px
+          @media screen and (max-width: 768px)
+            width 24px

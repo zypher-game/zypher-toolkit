@@ -1,0 +1,33 @@
+.TVLFooter
+  padding: 20px 20px 10px
+  position fixed
+  bottom: 0
+  left: 0
+  display: flex
+  justify-content: space-between
+  align-items: center
+  background: linear-gradient(180deg, rgba(0,5,20, 0) 0%, rgba(0,5,20, 0.9) 100%)
+  // background-color: rgba(0,5,20, 0.8)
+  z-index 9
+  width 100%
+.text
+  color: #A2ABBF
+.communityLink
+  display: flex
+  flex-wrap: wrap;
+  justify-content: flex-start
+  align-items: center
+  gap: 25px
+  a 
+    display: block
+    width: 32px
+    height: 32px
+    :global(.community_svg)
+      fill: #fff;
+      transition: all 0.3s ease;
+      path
+        transition: all 0.3s ease;
+    &:hover 
+      :global(.community_svg)
+        path 
+          fill-opacity: 1;

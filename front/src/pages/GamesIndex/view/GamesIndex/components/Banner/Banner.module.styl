@@ -1,0 +1,51 @@
+
+
+.header
+  display: flex
+  justify-content: space-between
+  gap: 24px
+  padding-bottom: 22px
+  @media screen and (max-width: 1232px)
+    margin-left: 16px
+    margin-right: 16px
+  @media screen and (max-width: 950px)
+    flex-direction: column
+    gap: 16px
+  .headerSwiper
+    width 100%
+    cursor pointer
+    @media screen and (max-width: 950px)
+      width 100%
+    :global(> .pixel_flat_inner)
+      padding: 2px
+    .headerSwiperInner
+      :global(> .pixel_flat_inner)
+        padding: 4px
+    img
+      width: 100%
+.cube_top_left,
+.cube_top_right,
+.cube_bottom_left,
+.cube_bottom_right 
+  position absolute
+  width: 4px
+  height: 4px
+  background-color: #fff
+.cube_top_left,
+.cube_bottom_left
+  left: 4px
+.cube_top_right,
+.cube_bottom_right
+  right: 4px
+.cube_top_left,
+.cube_top_right
+  top: 4px
+.cube_bottom_left,
+.cube_bottom_right
+  bottom: 4px
+.inner
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center  
+    

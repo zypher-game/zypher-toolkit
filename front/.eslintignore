@@ -1,0 +1,6 @@
+dist/*
+src/*/*.styl
+src/*/*.stylus
+!src/*/*.tsx
+!src/*/*.ts
+!src/*/*.js

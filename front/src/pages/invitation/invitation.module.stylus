@@ -1,0 +1,100 @@
+.invitation
+    color: #fff
+    position: relative
+    @media screen and (max-width: 768px)
+        width: 100vw
+        overflow: hidden
+    .loadMore
+        position: relative
+        margin-top: 40px
+        display: flex
+        justify-content: center
+        margin-bottom: 40px
+    .endLoading 
+        text-align: center
+        margin-top: 30px
+        opacity: 0.5
+    .content
+        position: relative
+        z-index: 3
+        margin: 0 auto 40px
+        min-height: 300px
+        max-width: 1280px
+        @media screen and (max-width: 768px)
+            margin: 0 0 40px
+        .main
+            padding: 0 40px
+            @media screen and (max-width: 768px)
+                padding: 0 16px
+        .header
+            padding: 86px 40px 64px
+            display: flex
+            align-items: center
+            .box
+                margin: 0 0 0 24px
+
+                .address
+                    font-weight: 600
+                    font-size: 24px
+                    line-height: 30px
+                    margin: 0 0 24px
+                    color: #fff
+
+        .tab
+            display: flex
+            margin: 0 40px 32px
+            background: rgba(255, 255, 255, 0.04)
+            border-radius: 20px
+            width: 220px
+            height: 40px
+
+            .tabItem
+                flex: 1
+                flexCenter()
+                color: rgba(255, 255, 255, 0.7)
+                font-style: normal
+                font-weight: 400
+                font-size: 16px
+                cursor: pointer
+
+                &.cur
+                    background: #6673FF
+                    border-radius: 23px
+                    color: #fff
+
+
+        .container
+            margin-top: -10px
+            position relative
+            padding-bottom: 100px
+            @media screen and (max-width: 768px)
+                margin-top: -30px
+        .list
+            border: 1px solid rgba(255, 255, 255, 0.1)
+            border-radius: 20px
+            overflow: hidden
+
+            table
+                width: 100%
+
+                thead
+                    background: rgba(255, 255, 255, 0.04)
+                    border-radius: 20px 20px 0px 0px
+                    height: 70px
+
+                    th>div
+                        padding: 0 40px
+
+                tbody
+                    td>div
+                        padding: 16px 40px
+
+        .block
+            .item
+                background: rgba(255, 255, 255, 0.04) 
+                border-radius: 20px
+                position: relative
+                width: 304px
+                height: 400px
+                display: block
+      

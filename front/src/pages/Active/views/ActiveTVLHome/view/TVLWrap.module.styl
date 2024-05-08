@@ -1,0 +1,32 @@
+.inner 
+  max-width: 1200px
+  margin: 0 auto 
+  padding-bottom: 100px
+  @media screen and (max-width: 1232px)
+    padding: 0 16px 50px
+  .inner_inner 
+    display: flex
+    justify-content: space-between
+    align-items: flex-start
+    flex-wrap: wrap
+    .fl
+      position relative
+      width: 675px
+      max-width: 675px
+      @media screen and (max-width: 1232px)
+        width: 60%
+      @media screen and (max-width: 768px)
+        width: 100%
+    .fr
+      width: 485px
+      max-width: 485px
+      display: flex
+      flex-direction: column
+      gap: 20px
+      @media screen and (max-width: 1232px)
+        width: 36%
+      @media screen and (max-width: 768px)
+        width: 100%
+        max-width: 100%
+        margin-top: 30px
+  

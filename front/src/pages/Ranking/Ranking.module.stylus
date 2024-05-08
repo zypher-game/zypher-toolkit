@@ -1,0 +1,22 @@
+.ranking
+  position: relative
+  padding-bottom: 120px
+  position relative
+  @media screen and (max-width: 768px)
+    padding-top: 20px
+    padding-bottom: 80px
+  .rankingTab
+    position absolute
+    top: 64px
+    left: 0
+    @media screen and (max-width: 768px)
+      position relative
+      top: auto
+      left: auto
+      margin: 0 auto
+  .loadMore
+    position: relative
+    padding-top: 240px
+    display: flex
+    justify-content: center
+    padding-bottom: 40px

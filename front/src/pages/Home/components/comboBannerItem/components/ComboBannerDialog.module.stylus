@@ -1,0 +1,194 @@
+:global([data-reach-dialog-content])
+  width: 420px
+  border-radius: 20px;
+  background: #0E1219;
+  padding: 20px
+.comboBannerDialog
+  position relative
+  width: 420px;
+  height: 420px;
+  overflow: hidden
+  @media screen and (max-width: 768px)
+    max-width: 340px
+    height: 380px;
+    width: 90%
+  .comboBanner_bg01,.comboBanner_bg02
+    position absolute
+  .comboBanner_bg01
+    top: 0
+    left: 0
+    width 100%
+  .comboBanner_bg02
+    top: 0;
+    right: 3%;
+    width: 44%;
+    z-index: 3;
+    :global(.comboBanner_box_bg01)
+      height: auto
+      width 100%
+  .textWrap
+    position relative
+    z-index: 8
+    .tip
+      font-size: 16px
+      margin-bottom: 16px
+      margin-top: 10px;
+      @media screen and (max-width: 768px)
+        font-size: 14px
+        margin-bottom: 10px
+      :global(.KanitNormalBorder_inner) 
+        padding: 2px 10px
+        background: #0c0f14
+    .title
+      font-size: 32px
+      font-weight: bold
+      line-height: 32px
+      margin-bottom: 50px
+      @media screen and (max-width: 768px)
+        font-size: 24px
+        margin-bottom: 40px
+    .lineWrap
+      position relative
+      padding-left: 7px
+      margin-bottom: 24px
+      p
+        color: #fff
+        font-size: 14px;
+        line-height: 18px
+        font-family: Kanit;
+        font-weight: 275;
+        opacity 0.9
+      .line
+        position absolute
+        top: 0
+        left: 0
+        width: 1px;
+        height: 29px;
+        background: linear-gradient(138deg, #C597FF 1.83%, #5FD7FF 100%); 
+        top: 50%
+        transform: translateY(-50%)
+    .process
+      border-radius: 6px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255,255,255,0)); 
+      padding: 1px
+      margin-bottom: 28px
+      .processInner
+        border-radius: 6px;
+        background:rgba(255,255,255,0.01); 
+        backdrop-filter: blur(8px); 
+        padding: 20px 24px
+        display: flex
+        justify-content: space-between
+        align-items: center
+        gap: 12px;
+        @media screen and (max-width: 768px)
+          padding: 15px 20px
+      .circle
+        background: linear-gradient(to right, #C597FF, #5FD7FF); 
+        border-radius: 50%
+        width: 24px
+        height: 24px
+        text-align: center
+        padding: 1px
+        @media screen and (max-width: 768px)
+          width: 20px
+          height: 20px
+        .circleInner
+          width: 100%
+          height: 100%
+          border-radius: 50%
+          background-color: #1c232b
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          &.small
+            p
+              font-size: 12px;
+              @media screen and (max-width: 768px)
+                font-size: 8px;
+          p
+            font-size: 16px;
+            @media screen and (max-width: 768px)
+              font-size: 14px;
+      .line1,
+      .line2
+        width 107px
+        height: 1px
+        @media screen and (max-width: 768px)
+          width 60px
+      .line1
+        background: #62D3FF
+      .line2
+        background: linear-gradient(to right, #9275F9, #62D3FF); 
+          
+.btn
+  cursor pointer
+  text-align: center
+  padding: 12px 0
+  color: #000;
+  font-family: PixeloidSans;
+  font-size: 16px;
+  font-weight: 700;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #9274F9 0.27%, #5FD7FF 99.85%);
+  transition: transform 0.3s ease;
+  @media screen and (max-width: 768px)
+    font-size: 14px;
+    padding: 9px 0
+  &.forbid
+    color: #5D696E;
+    background: #B8C4C8;
+.question
+  cursor pointer
+  display: flex
+  align-items: center
+  justify-content: center
+  margin-top: 16px
+  opacity 0.6
+  gap: 6px
+  p
+    color: #FFF;
+    font-family: PixeloidSans;
+    font-size: 14px;
+    font-weight: 400;
+  :global(.icon)
+    fill: #fff;
+.close
+  position: absolute;
+  z-index: 99;
+  width: 24px;
+  height: 24px;
+  text-align: center;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  line-height: 24px;
+  top: 20px;
+  right: 20px;
+  svg 
+    fill: #fff
+.claimed
+  position: relative
+  .claimedInner
+    z-index 9
+    position: relative
+    padding-top: 230px;
+    @media screen and (max-width: 768px)
+      padding-top: 200px;
+    .title
+      width: 68%
+      margin: 0 auto 26px
+      font-size: 24px;
+      line-height: 24px;
+      text-align: center
+      @media screen and (max-width: 768px)
+        font-size: 20px;
+        line-height: 20px;
+  .comboBanner_bg02
+    position: absolute
+    right 50%
+    top: -20px
+    width 53%
+    transform: translateX(50%)
+    @media screen and (max-width: 768px)
+      width 60%

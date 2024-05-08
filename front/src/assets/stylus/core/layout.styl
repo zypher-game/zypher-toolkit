@@ -1,0 +1,202 @@
+[data-rk]
+    --rk-fonts-body: "PixeloidSans", Arial, sans-serif;
+:root
+    --var-bg: black
+    // header
+    --var-header-border: rgba(#626262, 1)
+    // card
+    --var-card: #131313
+    --var-card-border: #212142
+    // text
+    --var-text-light: #fff
+    --var-text-grey: rgba(#fff, 0.3)
+    --var-text-dark-grey: rgba(#fff, 0.6)
+    --var-text-disable: #BAB9C4
+    --var-text-cur: #6673FF
+    --var-text-hover: rgba(#6673FF, 0.7)
+    // table
+    --var-table-hover: #282847
+    // form
+    --var-form-bg: #131313
+    // btn
+    --var-btn: #6673FF
+    --var-btn-hover: rgba(#6673FF, 0.7)
+    --var-btn-active: black
+    --var-btn-border: rgba(#626262, 1)
+    --var-btn-disable: #5F5D77
+    // status
+    --var-success: #09CC7E
+    --var-failed: #FF0033
+    // up/down
+    --var-up-color: #09CC7E
+    --var-down-color: #FF0033
+    --var-avatar-border: #6673FF
+
+::-webkit-scrollbar
+    display: none
+
+html, body, #root
+    display: flex
+    flex-direction: column
+    flex: 1 1 0%
+    position: relative
+    height: 100%
+    background: #131313
+    font-family: "PixeloidSans", "Helvetica", "Helvetica Neue"
+    @media screen and (max-width: 768px)
+        width: 100vw
+        height: auto
+        overflow-x: hidden
+#root > [class^='page']
+    position: relative
+    padding: 0 15px
+body input
+    color: #fff
+.lt-spin
+    position: fixed
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
+    .ant-spin
+        color: #FF9900
+    .ant-spin-dot-item
+        background: #FF9900
+    &.loadMore
+        position: relative
+        margin-top: 40px
+        display: flex
+        justify-content: center
+        margin-bottom: 40px
+div.ant-spin
+    color: var(--var-btn)
+i.ant-spin-dot-item
+    background: var(--var-btn)
+.lt-organge
+    .ant-spin
+        color: #DC4F26
+    .ant-spin-dot-item
+        background: #DC4F26
+body .lt-layout
+    overflow: auto
+    background:  #01040E
+    
+    .lt-sider-mode
+        position: fixed;
+        z-index: 9
+        height: calc(100vh - 44px)
+        bottom: 0
+        left: 0
+        width: 100vw;
+        background-color: rgba(0, 0, 0, 0.70);
+    .lt-layout-right
+        background: transparent
+    .lt-sidebar
+        border-right: 1px solid rgba(#fff, 0.1)
+        height: 100%
+        .ant-menu.ant-menu-inline-collapsed 
+            // bingo
+            &>.ant-menu-item:nth-child(3)
+                background: transparent !important;
+
+            &>.ant-menu-item
+                margin:24px
+                padding: 0
+                justify-content: center !important;
+                .ant-menu-title-content
+                    display: none
+
+        .ant-menu-item.ant-menu-item-disabled
+            opacity: 0.5
+
+    .lt-sidebar-layer
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: calc(100vh - 44px);
+        background-color: rgba(0, 0, 0, 0.5); /* 背景颜色，可以根据需要进行调整 */
+        z-index: 9; /* 确保模态层位于其他元素之上 */
+    .lt-header
+        height: 70px
+        background-color:  rgba(1, 4, 14, 0.4)
+        @media screen and (max-width: 768px)
+            height: 44px
+            z-index: 99 !important
+    &.airdrop
+        background:  #01040E
+        .lt-header
+            border-bottom: none
+            background-color:  rgba(1, 4, 14, 0.4)
+            @media screen and (max-width: 768px)
+                background-color:  rgba(1, 4, 14, 0.4)
+                // background-color:  #01040E
+body .ant-layout
+    background:  transparent
+    &.ranking
+        .lt-header
+            background-color: transparent
+    &.dp
+        .lt-main
+            @media screen and (max-width: 768px)
+                margin-top: -44px;
+        .lt-header
+            @media screen and (max-width: 768px)
+                background-color: transparent
+                border-bottom: none
+
+    .lt-content
+        box-sizing: border-box
+        flex: 1
+        display: flex
+        flex-direction: column
+        .lt-main
+            // min-width: 1200px
+            flex: 1
+            overflow: auto
+            @media screen and (max-width: 768px)
+                min-width: 100vw;
+                padding: 0
+                height: 100vh
+                // min-height: calc(100vh - 44px)
+                // padding: 0 0 20px
+
+.icon
+    size: 20px
+body h1,
+body h2,
+body h3,
+body h4,
+body h5,
+body h6,
+body ul
+    margin: 0
+    padding: 0
+body [data-reach-dialog-content]
+    width: auto
+    background: transparent;
+    padding: 0
+    position relative
+    &.pixel_DialogContent
+        margin-left: 16px
+        margin-right: 16px
+.animation_rotate
+    animation-name: rotate
+
+.pixelTableInnerBottom 
+    position: absolute;
+    bottom: 0;
+    left: 16px;
+    width: calc(100% - 32px);
+    height: 40px;
+    background: linear-gradient(180deg, rgba(22, 30, 46, 0) 0%, #161e2e 100%);
+    z-index: 333;
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+

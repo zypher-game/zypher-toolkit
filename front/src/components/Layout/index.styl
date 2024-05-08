@@ -1,0 +1,82 @@
+body .lt-layout
+  background: #2a6595 url($preStaticUrl + '/img/games/bg.jpg') no-repeat center
+  background-size: 100% 100%
+body .lt-layout-content
+  height: calc(100vh - 70px);
+  display: block
+  @media screen and (max-width: 768px)
+    height: calc(100vh - 44px);
+  .ant-layout-sider
+    background: var(--var-card)
+  .custom-sider 
+    width: 312px !important;
+    max-width: 312px !important;
+    min-width: 312px !important;
+    z-index: 21
+    @media screen and (max-width: 1440px)
+      width: 250px !important;
+      max-width: 250px !important;
+      min-width: 250px !important;
+    @media screen and (max-width: 768px)
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 1;
+      width: 100vw !important;
+      max-width: 100vw !important;
+      min-width: 100vw !important;
+      height: calc(100vh - 44px);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+    &.hidden
+      @media screen and (max-width: 768px)
+        transform: translateY(-100%);
+        opacity: 0;
+@keyframes slideInUp {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.nav 
+  float: left
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 40px;
+  position: relative
+  @media screen and (max-width: 1300px)
+    display: none
+  .pixel_line
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s, left 0.3s, opacity  0.3s
+  a
+    color: #fff
+    font-size: 14px
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%
+    transition: all 0.3s ease
+    .nav_img
+      margin-left: 4px
+    &.nav_games
+      width: 98px
+    &.nav_network
+      width: 183px
+    &.nav_on
+      font-weight: 600
+      &:hover
+        opacity: 1
+    &:hover
+      opacity: 0.9
