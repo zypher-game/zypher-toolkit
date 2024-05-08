@@ -1009,6 +1009,16 @@ var usePathname = () => {
     }
   }, [location, isMobile2]);
 };
+var gameStatus = {
+  Live: {
+    btn_label: "Live",
+    btn_background_color: "#C5631D"
+  },
+  Testing: {
+    btn_label: "Testing",
+    btn_background_color: "#AF2D6A"
+  }
+};
 var useNavItem = () => {
   const { t } = useCustomTranslation([LngNs.siderBar]);
   const { chainId } = useActiveWeb3React();
@@ -1029,8 +1039,7 @@ var useNavItem = () => {
         link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
         disabled: false,
         type: "Games" /* Games */,
-        btn_label: "Live",
-        btn_background_color: "#C5631D"
+        ...gameStatus.Live
       },
       {
         label: t("z2048"),
@@ -1038,9 +1047,8 @@ var useNavItem = () => {
         icon: "z2048.png",
         link: LinkList[1],
         disabled: false,
-        btn_label: "Live",
         type: "Games" /* Games */,
-        btn_background_color: "#C5631D"
+        ...gameStatus.Live
       },
       {
         label: t("zAce"),
@@ -1049,13 +1057,12 @@ var useNavItem = () => {
         link: LinkList[2],
         disabled: false,
         type: "Games" /* Games */,
-        btn_label: "Live",
         content: (className) => /* @__PURE__ */ React4.createElement("div", {
           className
         }, /* @__PURE__ */ React4.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React4.createElement("img", {
           src: preStaticUrl + "/img/games/star.svg"
         })),
-        btn_background_color: "#AF2D6A"
+        ...gameStatus.Live
       },
       {
         label: t("Candy Crush"),
@@ -1064,8 +1071,7 @@ var useNavItem = () => {
         link: LinkList[3],
         disabled: false,
         type: "Games" /* Games */,
-        btn_label: "Testing",
-        btn_background_color: "#AF2D6A"
+        ...gameStatus.Testing
       },
       {
         label: t("TCG"),

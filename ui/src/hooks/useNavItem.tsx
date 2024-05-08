@@ -69,7 +69,16 @@ export const usePathname = () => {
     }
   }, [location, isMobile]);
 };
-
+const gameStatus = {
+  Live: {
+    btn_label: "Live",
+    btn_background_color: "#C5631D",
+  },
+  Testing: {
+    btn_label: "Testing",
+    btn_background_color: "#AF2D6A",
+  },
+};
 export const useNavItem = (): INavLink[] => {
   const { t } = useCustomTranslation([LngNs.siderBar]);
   const { chainId } = useActiveWeb3React();
@@ -90,8 +99,7 @@ export const useNavItem = (): INavLink[] => {
         link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
         disabled: false,
         type: INavLinkType.Games,
-        btn_label: "Live",
-        btn_background_color: "#C5631D",
+        ...gameStatus.Live,
       },
 
       {
@@ -100,9 +108,8 @@ export const useNavItem = (): INavLink[] => {
         icon: "z2048.png",
         link: LinkList[1],
         disabled: false,
-        btn_label: "Live",
         type: INavLinkType.Games,
-        btn_background_color: "#C5631D",
+        ...gameStatus.Live,
       },
       {
         label: t("zAce"),
@@ -111,14 +118,13 @@ export const useNavItem = (): INavLink[] => {
         link: LinkList[2],
         disabled: false,
         type: INavLinkType.Games,
-        btn_label: "Live",
         content: (className: string) => (
           <div className={className}>
             <p>Acequect Studio</p>
             <img src={preStaticUrl + "/img/games/star.svg"} />
           </div>
         ),
-        btn_background_color: "#AF2D6A",
+        ...gameStatus.Live,
       },
 
       {
@@ -128,8 +134,7 @@ export const useNavItem = (): INavLink[] => {
         link: LinkList[3],
         disabled: false,
         type: INavLinkType.Games,
-        btn_label: "Testing",
-        btn_background_color: "#AF2D6A",
+        ...gameStatus.Testing,
       },
       {
         label: t("TCG"),
