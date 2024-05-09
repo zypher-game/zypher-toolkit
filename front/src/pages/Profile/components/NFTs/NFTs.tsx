@@ -21,9 +21,9 @@ type INFTsProp = {
   z2048ListLoading: boolean
 }
 const CardTokenId = styled.div`
-  color: #65edbc;
-  font-size: 16px;
-  padding: 20px;
+  color: #ffd02b;
+  font-size: 14px;
+  padding: 10px 20px;
   top: 0;
   left: 0;
   position: absolute;

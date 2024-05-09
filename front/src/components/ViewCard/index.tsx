@@ -1,6 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
+import { DialogClose, LngNs, PixelTable, preStaticUrl, useCustomTranslation } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useMemo, useState } from 'react'
 import { DndProvider } from 'react-dnd'
@@ -11,6 +11,7 @@ import { CardNumbersType } from '@/utils/generateCardNumbers'
 import getBingoLines from '@/utils/getBingoLines'
 
 import BingoBoardView from '../BingoBoardView'
+import css from './HistoryViewCard.module.styl'
 
 const StyledDialogOverlay = styled(DialogOverlay)<{ $scrollOverlay?: boolean }>`
   &[data-reach-dialog-overlay] {
@@ -140,29 +141,29 @@ export const ViewCard: React.FC<Props> = memo(({ showDialog, onClose, cardNumber
   )
 }, isEqual)
 
-const HistoryDialogContent = styled(DialogContent)`
-  background: #131313;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px;
-  padding-top: 0px;
-  padding-left: 0;
-  width: 335px;
-  padding-right: 0;
-`
-const HistoryHeader = styled.div`
-  background: rgba(255, 255, 255, 0.04);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px 20px 0px 0px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 16px 20px;
-  color: #ffffff;
-`
+// const HistoryDialogContent = styled(DialogContent)`
+//   background: #131313;
+//   border: 1px solid rgba(255, 255, 255, 0.1);
+//   border-radius: 20px;
+//   padding-top: 0px;
+//   padding-left: 0;
+//   width: 335px;
+//   padding-right: 0;
+// `
+// const HistoryHeader = styled.div`
+//   background: rgba(255, 255, 255, 0.04);
+//   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+//   border-radius: 20px 20px 0px 0px;
+//   display: flex;
+//   align-items: center;
+//   justify-content: space-between;
+//   padding: 16px 20px;
+//   color: #ffffff;
+// `
 const HistoryBingoBoard = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 30px);
-  grid-template-rows: repeat(5, 35px);
+  grid-template-columns: repeat(5, 55px);
+  grid-template-rows: repeat(5, 65px);
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   border-left: 1px solid rgba(255, 255, 255, 0.1);
   font-size: 28px;
@@ -173,8 +174,8 @@ const HistoryBingoBoard = styled.div`
     border-radius: 0;
     border: none;
     grid-gap: 4px;
-    grid-template-columns: repeat(5, 30px);
-    grid-template-rows: repeat(5, 30px);
+    grid-template-columns: repeat(5, 33px);
+    grid-template-rows: repeat(5, 33px);
   }
   .space {
     display: flex;
@@ -194,7 +195,6 @@ const HistoryCardNumber = styled.div<{
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   cursor: grab;
-  font-family: 'Pacifico';
   font-style: normal;
   font-weight: 400;
   font-size: 28px;
@@ -256,19 +256,36 @@ const HistoryCardNumber = styled.div<{
 export const HistoryViewCard: React.FC<Props> = ({ showDialog, onClose, cardNumbers, selectedNumbers }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   return (
-    <StyledDialogOverlay isOpen={showDialog} onDismiss={onClose}>
-      <HistoryDialogContent>
-        <HistoryHeader>
-          <div>{t('Bingo Card')}</div>
-          <div onClick={onClose}>
-            <CloseOutlined />
-          </div>
-        </HistoryHeader>
-        <BingoBoard style={{ paddingTop: '30px', paddingBottom: '30px' }}>
-          <HistoryCardItem cardNumbers={cardNumbers} selectedNumbers={selectedNumbers} />
-        </BingoBoard>
-      </HistoryDialogContent>
-    </StyledDialogOverlay>
+    // <StyledDialogOverlay isOpen={showDialog} onDismiss={onClose}>
+    //   <HistoryDialogContent>
+    //     <HistoryHeader>
+    //       <div>{t('Bingo Card')}</div>
+    //       <div onClick={onClose}>
+    //         <PixelClo />
+    //       </div>
+    //     </HistoryHeader>
+    //     <BingoBoard style={{ paddingTop: '30px', paddingBottom: '30px' }}>
+    //       <HistoryCardItem cardNumbers={cardNumbers} selectedNumbers={selectedNumbers} />
+    //     </BingoBoard>
+    //   </HistoryDialogContent>
+    // </StyledDialogOverlay>
+    <DialogOverlay isOpen={showDialog} onDismiss={onClose}>
+      <DialogContent className={`pixel_DialogContent ${css.dataDialog}`}>
+        <PixelTable
+          width="100%"
+          height="100%"
+          backgroundColor="#1D263B"
+          header_children={<p className="modalTitleInnerTitle">{t('Bingo Card')}</p>}
+          body_children={
+            <BingoBoard style={{ padding: '30px' }}>
+              <HistoryCardItem cardNumbers={cardNumbers} selectedNumbers={selectedNumbers} />
+            </BingoBoard>
+          }
+          pixel_height={10}
+        />
+        <DialogClose onClick={onClose} />
+      </DialogContent>
+    </DialogOverlay>
   )
 }
 type IHistoryCardItem = {
