@@ -1,5 +1,7 @@
 .verification_code_container
   display: flex;
+  justify-content: flex-start;
+  align-items: center;
   gap: 10px;
 .single_char_input_border
   padding: 0
@@ -8,10 +10,15 @@
     > div
       background-color: #1D263B
 .single_char_input
-  width: 54px;
+  width: 48px;
   text-align: center;
   font-size: 26px
   font-weight: 600
   @media screen and (max-width: 768px) 
     width 30px
  
+.line
+  width 16px
+  height: 6px
+  background-color: #fff
+  opacity 0.8

@@ -1,17 +1,19 @@
 import './Banner.styl'
 
-import { preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { preStaticUrl, SvgComponent, useSetRecoilState } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import ShareLink from '@/pages/Active/components/ShareLink/ShareLink'
-import { activeDataState, changeNameDialogState } from '@/pages/Active/state/activeState'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
+import { changeNameDialogState } from '@/pages/Active/state/activeState'
+import { getNicknameStr } from '@/pages/Active/utils/getNicknameStr'
 
 import Avatar from '../../../../components/Avatar/Avatar'
 import css from './Banner.module.styl'
 import ShareLinkcss from './ShareLink.module.styl'
 const Banner = memo(() => {
-  const activeData = useRecoilValue(activeDataState)
+  const { activeData } = useActiveData()
   const { avatar, nickname } = activeData
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
   const editNicknameHandle = useCallback(() => {
@@ -22,7 +24,7 @@ const Banner = memo(() => {
       <div className={css.top}>
         <div className={css.top_fl}>
           <Avatar src={avatar} nickname={nickname} width="48px" />
-          <p>{nickname}</p>
+          <p>{getNicknameStr(nickname)}</p>
           <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
         </div>
         <ShareLink
@@ -41,8 +43,18 @@ const Banner = memo(() => {
       </div>
       <div className={css.bottom}>
         <ul className={css.bottom_card}>
-          <LiItem title={'#23456'} label={'Ranking'} iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'} backgroundColor={'#FF7A00'} />
-          <LiItem title={'1,234'} label={'Airdrop Points'} iconPath={preStaticUrl + '/img/icon/pixel_airdrop.svg'} backgroundColor={'#2A59FF'} />
+          <LiItem
+            title={'#' + activeData.ranking ?? ''}
+            label={'Ranking'}
+            iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'}
+            backgroundColor={'#FF7A00'}
+          />
+          <LiItem
+            title={activeData.airdropPoints}
+            label={'Airdrop Points'}
+            iconPath={preStaticUrl + '/img/icon/pixel_airdrop.svg'}
+            backgroundColor={'#2A59FF'}
+          />
         </ul>
         <p className={css.bottom_card_text}>Get more points and improve your ranking by restaking more assets or inviting more friends!</p>
       </div>

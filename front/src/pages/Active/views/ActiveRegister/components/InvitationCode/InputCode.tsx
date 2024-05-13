@@ -1,10 +1,11 @@
-import { PixelBorderCard, useSetRecoilState } from '@ui/src'
+import { ActivePixelCard, PixelBorderCard, useSetRecoilState } from '@ui/src'
 import React, { ChangeEventHandler, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { CODELENGTH } from '@/pages/Active/constants/activeConstants'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
-import { activeDataState } from '@/pages/Active/state/activeState'
+import { activeDataState, IActiveDataState } from '@/pages/Active/state/activeState'
 import { getHrefCode } from '@/pages/Active/utils/getHrefParams'
 
 import css from './InputCode.module.styl'
@@ -25,9 +26,9 @@ const SingleCharInput: React.FC<SingleCharInputProps> = memo(({ onChange, value,
   }
 
   return (
-    <PixelBorderCard className={css.single_char_input_border} pixel_height={6}>
+    <ActivePixelCard className={css.single_char_input_border} pixel_height={6} backgroundColor="#1D263B">
       <input className={css.single_char_input} type="text" maxLength={1} value={value} onChange={handleChange} ref={forwardedRef} {...otherProps} />
-    </PixelBorderCard>
+    </ActivePixelCard>
   )
 })
 type IProps = {
@@ -38,42 +39,49 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
   const inputsRef = useRef<(HTMLInputElement | null)[]>(new Array(CODELENGTH).fill(null))
   const { code: codeFromParams } = useParams()
   const { codeCheck } = useCodeCheckCall()
-  const setActiveData = useSetRecoilState(activeDataState)
+  // const setActiveData = useSetRecoilState<IActiveDataState>(activeDataState)
+  const { setActiveData } = useActiveData()
 
-  const initializeCode = useCallback(async (value: string) => {
-    const trimmedValue = value.trim()
-    const initialCode = trimmedValue.split('', CODELENGTH)
-    const currentLength = initialCode.length
+  const initializeCode = useCallback(
+    async (value: string) => {
+      const trimmedValue = value.trim().replace('-', '')
+      const initialCode = trimmedValue.split('', CODELENGTH)
+      const currentLength = initialCode.length
 
-    if (currentLength >= 1 && currentLength <= CODELENGTH) {
-      setCode(initialCode)
+      if (currentLength >= 1 && currentLength <= CODELENGTH) {
+        setCode(initialCode)
 
-      if (currentLength < CODELENGTH) {
-        const nextInput = inputsRef.current[currentLength]
-        if (nextInput) {
-          nextInput.focus()
-        }
-      } else if (currentLength === CODELENGTH) {
-        const check = await codeCheck(trimmedValue)
-        if (check) {
-          setActiveData(pre =>
-            pre.signedFalse
-              ? pre
-              : {
-                  ...pre,
-                  invitationCode: trimmedValue
-                }
-          )
-        } else {
-          inputsRef.current.forEach(input => {
-            if (input) {
-              input.blur()
-            }
-          })
+        if (currentLength < CODELENGTH) {
+          const nextInput = inputsRef.current[currentLength]
+          if (nextInput) {
+            nextInput.focus()
+          }
+        } else if (currentLength === CODELENGTH) {
+          console.log(2)
+          const check = await codeCheck(trimmedValue)
+          console.log(2, check)
+          if (check) {
+            setActiveData(pre => {
+              console.log({ pre })
+              return pre.signedFalse
+                ? pre
+                : {
+                    ...pre,
+                    invitationCode: trimmedValue
+                  }
+            })
+          } else {
+            inputsRef.current.forEach(input => {
+              if (input) {
+                input.blur()
+              }
+            })
+          }
         }
       }
-    }
-  }, [])
+    },
+    [setActiveData]
+  )
 
   useEffect(() => {
     const _code = getHrefCode()
@@ -137,14 +145,17 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
   return (
     <div className={css.verification_code_container}>
       {[...Array(CODELENGTH)].map((_, i) => (
-        <SingleCharInput
-          key={i}
-          onChange={val => handleInputChange(val, i)}
-          value={code[i] || ''}
-          forwardedRef={ref => (inputsRef.current[i] = ref)}
-          onKeyDown={event => handleInputKeyDown(event, i)}
-          onPaste={handlePaste}
-        />
+        <>
+          <SingleCharInput
+            key={i}
+            onChange={val => handleInputChange(val, i)}
+            value={code[i] || ''}
+            forwardedRef={ref => (inputsRef.current[i] = ref)}
+            onKeyDown={event => handleInputKeyDown(event, i)}
+            onPaste={handlePaste}
+          />
+          {i === 0 ? <div className={css.line} key={i + 'dd'} /> : null}
+        </>
       ))}
     </div>
   )

@@ -1,22 +1,89 @@
 import { useActiveWeb3React } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
-import { useAvailableCode } from './useDataCall'
+import BigNumberJs from '@/utils/BigNumberJs'
 
+import { useActiveData } from './useActiveData'
+import { useAvailableCode, useTeamCall } from './useDataCall'
+import { useInit } from './useInit'
+export type ITeamMember = {
+  headImg: string
+  nickname: string
+  staking: string
+  role: string
+}
 export const useTeam = () => {
-  const [availableCode, setAvailableCode] = useState<string[]>(['000001', '000002', '000003'])
-  const { account } = useActiveWeb3React()
+  const { getData } = useInit()
+  const [availableCode, setAvailableCode] = useState<string[]>([])
+  const { activeData, setActiveData } = useActiveData()
+  const [teamMembers, setTeamMembers] = useState<ITeamMember[]>([])
+  const [groupGoal, setGroupGoal] = useState({
+    percent: '0',
+    total: '0',
+    target: '0',
+    need: '0'
+  })
+  const { account, chainId } = useActiveWeb3React()
   const { getAvailableCode } = useAvailableCode()
-  const getData = useCallback(async () => {
-    if (account) {
-      const _availableCode = await getAvailableCode(account)
-      console.log('availableCode:', _availableCode)
+  const { getTeam, getGroupScoreCardNum, setOpenCard } = useTeamCall()
+  const getDataTeam = useCallback(async () => {
+    if (activeData.id) {
+      // 获取邀请码
+      const _availableCode = await getAvailableCode(account!, chainId)
+      if (_availableCode) {
+        setAvailableCode(_availableCode)
+      }
+      // 获取队伍信息
+      const _team = await getTeam(activeData.id, chainId)
+      console.log({ _team })
+      // 获取待领取小组积分卡片数量
+      const point = await getGroupScoreCardNum(activeData.id)
+      if (_availableCode) {
+        setAvailableCode(_availableCode)
+      }
+
+      if (_team.groupGoal) {
+      }
+      if (_team.members) {
+        setTeamMembers(_team.members)
+
+        setActiveData(pre => ({
+          ...pre,
+          airdropPoints: _team['userInfo']['points'],
+          ranking: _team['userInfo']['role'],
+          airdropPointsCardNumber: point
+        }))
+        // group
+        const total = _team['groupGoal']['total']
+        const target = _team['groupGoal']['target']
+        setGroupGoal({
+          percent: target === '0' ? '0' : new BigNumberJs(total).div(target).times(100).toFixed(0),
+          total: total,
+          target: target,
+          need: new BigNumberJs(target).minus(total).toFixed(3)
+        })
+      }
     }
-  }, [account])
+  }, [JSON.stringify(activeData)])
   useEffect(() => {
-    getData()
-  }, [getData])
+    getDataTeam()
+  }, [getDataTeam])
+  const openCard = useCallback(
+    async (key: string) => {
+      const isSingle = key === 'all'
+      const setOpenCard_res = await setOpenCard(activeData.id, isSingle)
+      console.log({ setOpenCard_res })
+      if (setOpenCard_res) {
+        getData()
+      }
+    },
+    [JSON.stringify(activeData)]
+  )
   return {
-    availableCode
+    groupGoal,
+    availableCode,
+    teamMembers,
+    activeData,
+    openCard
   }
 }

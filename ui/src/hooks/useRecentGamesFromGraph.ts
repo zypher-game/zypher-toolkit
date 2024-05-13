@@ -71,8 +71,8 @@ export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
     "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo",
 };
 export const chainIdPre: Record<ChainId, string> = {
-  [ChainId.Mainnet]: "BNB",
-  [ChainId.Testnet]: "BT",
+  [ChainId.Bsc]: "BNB",
+  [ChainId.BscTestnet]: "BT",
   [ChainId.Arbitrum]: "AO",
   [ChainId.ArbitrumGoerli]: "AGT",
   [ChainId.ArbitrumRinkeby]: "ARBR",

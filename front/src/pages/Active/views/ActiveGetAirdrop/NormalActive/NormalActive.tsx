@@ -1,13 +1,13 @@
-import { preStaticUrl, useRecoilValue } from '@ui/src'
+import { preStaticUrl } from '@ui/src'
 import React, { memo } from 'react'
 
-import { activeDataState } from '@/pages/Active/state/activeState'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
 import GetAirdropWrapV2 from '../components/GetAirdropWrapV2/GetAirdropWrapV2'
 
 const NormalActive = memo(() => {
-  const activeData = useRecoilValue(activeDataState)
+  const { activeData } = useActiveData()
   const { airdropPoints } = activeData
   return (
     <ActiveComp>

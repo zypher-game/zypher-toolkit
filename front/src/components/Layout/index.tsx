@@ -1,6 +1,6 @@
 import './index.styl'
 
-import { Header, SideBar, siderCollapseState, useIsMd1100, useIsMobile, useRecoilValue } from '@ui/src'
+import { Header, siderCollapseState, useIsMd1100, useRecoilValue } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
@@ -15,7 +15,7 @@ import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import CountupNumber from '../CountupNumber/CountupNumber'
 import Navigation, { NavKey } from './Navigation'
 
-const { Sider, Content } = LayoutAntd
+const { Content } = LayoutAntd
 
 interface IProps {
   children: React.ReactNode
@@ -44,7 +44,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
     }
   }, [isMobile, collapsed])
   return (
-    <LayoutAntd className={classnames('lt-layout', pathnameArr[1] === '' ? NavKey[0][1] : !collapsed ? '' : pathnameArr[1])}>
+    <LayoutAntd className={classnames('lt-layout', pathnameArr[1] === '' ? NavKey[0][1] : pathnameArr[1])}>
       <Header
         className="lt-header"
         env={env}

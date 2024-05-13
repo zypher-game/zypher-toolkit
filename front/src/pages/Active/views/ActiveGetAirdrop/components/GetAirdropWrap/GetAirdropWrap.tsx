@@ -1,8 +1,9 @@
-import { Currency, CurrencyLogo, preStaticUrl, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { ChainImage, Currency, CurrencyLogo, preStaticUrl, SvgComponent, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
 import React, { memo } from 'react'
 
-import { activeDataState } from '@/pages/Active/state/activeState'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
+import { activeDataState, IActiveDataState } from '@/pages/Active/state/activeState'
 import classnames from '@/utils/classnames'
 
 import css from './GetAirdropWrap.module.styl'
@@ -15,7 +16,7 @@ export const GetAirdropCard = memo(({ children, className }: { children: React.R
 })
 const GetAirdropWrap = memo(({ children }: { children: React.ReactNode }) => {
   const { chainId } = useActiveWeb3React()
-  const activeData = useRecoilValue(activeDataState)
+  const { activeData } = useActiveData()
   const {
     airdropPoints,
     airdropPointsDetail: { gasStr, balanceStr }
@@ -43,8 +44,8 @@ const GetAirdropWrap = memo(({ children }: { children: React.ReactNode }) => {
               <p>Wallet Balance</p>
               <div className={css.li_fr}>
                 <p>{balanceStr}</p>
-                <img src={preStaticUrl + '/img/icon/pixel_eth.svg'} title="ETH" />
-                {/* <img src={CurrencyLogo[chainId]} title={Currency[chainId]} /> */}
+                <SvgComponent src={ChainImage[chainId]} />
+                {/* <img src={preStaticUrl + '/img/icon/pixel_eth.svg'} title="ETH" /> */}
               </div>
             </li>
           </ul>

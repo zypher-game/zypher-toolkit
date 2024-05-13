@@ -21,7 +21,11 @@ export const usePreHandleGlobal = () => {
   const preHandleAction = useCallback(
     (env?: string, chainList?: ChainId[]) => {
       if (openChainModal && !supportedChainIds(env, chainList).includes(nativeChainId)) {
-        openChainModal()
+        if (switchNetwork && chainList?.length === 1) {
+          switchNetwork(chainList[0])
+        } else {
+          openChainModal()
+        }
         return
       }
       if (!account) {

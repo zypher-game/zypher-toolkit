@@ -47,12 +47,12 @@ const InvitationHeader = memo(({ isMobile }: { isMobile: boolean }) => {
       // hashtags:标签集 #
       // text:描述内容
       const title01 = '🔥 Get set for an exhilarating journey! 🙌 Join me at Zypher Games with my exclusive invitation link'
-      const title02 = 'unlock mystery boxes and 🥕Gold Points! Let us start this thrilling adventure together! @Zypher_Games'
+      const title02 = 'unlock mystery boxes and 🥕Gold Points! Let us start this thrilling adventure together! @Zypher_network'
       const url = renderText
       // const imageUrl = window.location.origin + '/img/invitation/header_bg.png'
       // const imageUrl = 'https://pbs.twimg.com/media/F2mBCdGbMAAqnSb?format=jpg&name=small'
       // const relatedAccounts = 'account1,account2' // 相关账号
-      // const viaAccount = 'Zypher_Games' // 来源账号
+      // const viaAccount = 'Zypher_network' // 来源账号
       // &via=${viaAccount}&related=${relatedAccounts}
       // &hashtags=myhashtag
       // &media=${encodeURIComponent(imageUrl)}

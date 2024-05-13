@@ -3,8 +3,8 @@ import { ChainId, formatMoney, getFormattedTime, getFormattedTimeMobile, IGameLi
 import BigNumberJs from '@/utils/BigNumberJs'
 
 export const chainIdPre: Record<ChainId, string> = {
-  [ChainId.Mainnet]: 'BNB',
-  [ChainId.Testnet]: 'BT',
+  [ChainId.Bsc]: 'BNB',
+  [ChainId.BscTestnet]: 'BT',
   [ChainId.Arbitrum]: 'AO',
   [ChainId.ArbitrumGoerli]: 'AGT',
   [ChainId.ArbitrumRinkeby]: 'ARBR',

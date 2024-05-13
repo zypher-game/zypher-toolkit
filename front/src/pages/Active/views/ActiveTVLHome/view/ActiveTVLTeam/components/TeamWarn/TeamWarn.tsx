@@ -1,13 +1,24 @@
-import { DialogClose, preStaticUrl, SvgComponent } from '@ui/src'
+import { DialogClose, preStaticUrl, SvgComponent, useActiveWeb3React } from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoader'
+import { ITeamMember } from '@/pages/Active/hooks/useTeam'
 import { ITvlHero } from '@/pages/Active/state/activeState'
+import { getHeroLevel } from '@/pages/Active/utils/getHeroLevel'
 
 import css from './TeamWarn.module.styl'
 const TeamWarn = memo(
-  ({ showTeamWarn, setShowTeamWarn }: { showTeamWarn: number; setShowTeamWarn: React.Dispatch<React.SetStateAction<number>> }) => {
+  ({
+    showTeamWarn,
+    setShowTeamWarn,
+    teamMembers
+  }: {
+    showTeamWarn: number
+    setShowTeamWarn: React.Dispatch<React.SetStateAction<number>>
+    teamMembers: ITeamMember[]
+  }) => {
+    const { chainId } = useActiveWeb3React()
     const showTeamWarnHandle = useCallback(() => {
       if (showTeamWarn === 1) {
         setShowTeamWarn(2)
@@ -57,8 +68,13 @@ const TeamWarn = memo(
       return (
         <>
           <div className={css.show_team_hero}>
-            {['Agil', 'Yueling', 'Celus', 'Ivan', 'Liana'].map(v => (
-              <HeroImageLoader key={v} className={css.hero_big} heroKey={v as unknown as ITvlHero} level={'1'} />
+            {teamMembers.map((v, index) => (
+              <HeroImageLoader
+                key={index}
+                className={css.hero_big}
+                heroKey={v.role as unknown as ITvlHero}
+                level={getHeroLevel({ stake: v.staking, chainId: chainId })}
+              />
             ))}
           </div>
           <img src={preStaticUrl + '/img/tvl/tvl_team_bg.png'} alt="tvl_team_bg" className={css.tvl_team_bg} />

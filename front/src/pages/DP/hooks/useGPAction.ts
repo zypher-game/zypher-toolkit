@@ -68,8 +68,8 @@ export type IMyDPData = {
   lockWeight: string
   lockWeightStr: string
 }
-export type IBalance = { num: string; numStr: string }
-export type IDpBalance = Record<IDPPRICE, IBalance>
+export type IBalance = { num: IDPPRICE | '0'; numStr: string }
+export type IDpBalance = Record<IDPPRICE | '0', IBalance>
 export const DP_PRICE_LIST: IBalance[] = [
   {
     num: IDPPRICE.P50000,
@@ -118,10 +118,10 @@ export const useGPAction = () => {
   const { openChainModal } = useChainModal()
   const [dpData, setDpData] = useRecoilState<IDPData>(dpDataState)
   const [dpBalance, setDpBalance] = useState<IDpBalance>(
-    Object.fromEntries(Object.values(IDPPRICE).map(price => [price, { num: '0', numStr: '0' }])) as Record<IDPPRICE, IBalance>
+    Object.fromEntries(['0', ...Object.values(IDPPRICE)].map(price => [price, { num: '0', numStr: '0' }])) as Record<IDPPRICE | '0', IBalance>
   )
   const [stakedBalance, setStakedBalance] = useState<IDpBalance>(
-    Object.fromEntries(Object.values(IDPPRICE).map(price => [price, { num: '0', numStr: '0' }])) as Record<IDPPRICE, IBalance>
+    Object.fromEntries(['0', ...Object.values(IDPPRICE)].map(price => [price, { num: '0', numStr: '0' }])) as Record<IDPPRICE | '0', IBalance>
   )
   const [lockedViewList, setLockedViewList] = useState<ILockedItem[]>()
   const [myDpData, setMyDpData] = useState<IMyDPData>({
@@ -164,7 +164,7 @@ export const useGPAction = () => {
         const pointsContract = erc20Contract(chainId, env, pointsAddress)
         const allowance = await pointsContract.read.allowance([account, dpAddress])
         const balance = await pointsContract.read.balanceOf([account])
-        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toFixed()
+        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toString()
         if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
           setIsApprove(false)
         } else {
@@ -424,8 +424,8 @@ export const useGPAction = () => {
           if (dpStakingAddress && _isApprovedForStaking) {
             setIsApprovedForAll(pre => [...pre, dpStakingAddress])
           }
-          const balanceOfGP = Object.fromEntries(Object.values(IDPPRICE).map(price => [price, { num: '0', numStr: '0' }])) as Record<
-            IDPPRICE,
+          const balanceOfGP = Object.fromEntries(['0', Object.values(IDPPRICE)].map(price => [price, { num: '0', numStr: '0' }])) as Record<
+            IDPPRICE | '0',
             IBalance
           >
           for (let i = 0; i < DP_PRICE_LIST.length; i++) {
@@ -433,7 +433,7 @@ export const useGPAction = () => {
               results01['dpBalance' + DP_PRICE_LIST[i].num]['callsReturnContext'][0]['returnValues'][0]['hex']
             ).toFixed()
             balanceOfGP[DP_PRICE_LIST[i].num] = {
-              num: _balance,
+              num: _balance as IDPPRICE,
               numStr: formatMoney(_balance, 0)
             }
           }
@@ -472,14 +472,14 @@ export const useGPAction = () => {
           }
           setStakedBalance(
             Object.fromEntries(
-              Object.values(IDPPRICE).map(price => {
+              ['0', ...Object.values(IDPPRICE)].map(price => {
                 const _staked = stakedViews.filter(vv => vv.id === price)
                 if (_staked.length) {
                   return [price, { num: _staked[0].amount, numStr: formatMoney(_staked[0].amount, 0) }]
                 }
                 return [price, { num: '0', numStr: '0' }]
               })
-            ) as Record<IDPPRICE, IBalance>
+            ) as Record<IDPPRICE | '0', IBalance>
           )
 
           // lockedBalance
@@ -565,7 +565,7 @@ export const useGPAction = () => {
           return
         }
         const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
-        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toFixed()
+        const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toString()
         const allowance = await pointsContract.read.allowance([account, dpAddress])
         const balance = await pointsContract.read.balanceOf([account])
         if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {

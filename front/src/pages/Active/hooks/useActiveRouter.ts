@@ -1,17 +1,20 @@
-import { useRecoilValue } from '@ui/src'
+import { AddressZero } from '@ethersproject/constants'
+import { useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { NavKey } from '@/components/Layout/Navigation'
 import BigNumberJs from '@/utils/BigNumberJs'
 
-import { activeDataState, IActiveData, tvlPathState } from '../state/activeState'
-import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
+import { activeDataState, IActiveData, IActiveDataState, tvlPathState } from '../state/activeState'
+import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
+import { useActiveData } from './useActiveData'
 
 export const useActiveRouter = () => {
-  const activeData = useRecoilValue(activeDataState)
+  const { activeData } = useActiveData()
   const navigate = useNavigate()
   const tvlPathLink = useRecoilValue(tvlPathState)
+  const { account, chainId } = useActiveWeb3React()
   const location = useLocation()
   useEffect(() => {
     if (activeData.isInitLoading) {
@@ -72,7 +75,10 @@ export const useActiveRouter = () => {
       navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`)
       return
     }
+    if (!canNext(account, chainId)) {
+      navigate(`/${NavKey[0][0]}`)
+      return
+    }
     // navigate(`/${NavKey[0][0]}`)
-    return
-  }, [JSON.stringify(activeData), tvlPathLink])
+  }, [JSON.stringify(activeData), account, chainId, tvlPathLink])
 }

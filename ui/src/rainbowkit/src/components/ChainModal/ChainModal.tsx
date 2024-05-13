@@ -13,6 +13,7 @@ import { useRainbowKitChains } from "../RainbowKitProvider/RainbowKitChainContex
 import { Text } from "../Text/Text";
 import DialogClose from "../../../../components/DialogClose/DialogClose";
 import { ActivePixelCard } from "../../../../components/PixelBtn/ActivePixelButton";
+import { ChainImage } from "../../../../constant/constant";
 
 export interface ChainModalProps {
   fn: any;
@@ -97,127 +98,119 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
             style={{ maxHeight: mobile ? "80vh" : "70vh", overflowY: "scroll" }}
           >
             {switchNetwork ? (
-              rainbowkitChains.map(
-                ({ iconBackground, iconUrl, id, name }, idx) => {
-                  const chain = chains.find((c) => c.id === id);
+              rainbowkitChains.map(({ iconBackground, id, name }, idx) => {
+                const chain = chains.find((c) => c.id === id);
 
-                  const isCurrentChain = chain
-                    ? chain.id === activeChain?.id
-                    : false;
-                  const switching = chain
-                    ? !isCurrentChain && chain.id === pendingChainId
-                    : false;
+                const isCurrentChain = chain
+                  ? chain.id === activeChain?.id
+                  : false;
+                const switching = chain
+                  ? !isCurrentChain && chain.id === pendingChainId
+                  : false;
 
-                  if (!chain) {
-                    return null;
-                  }
-                  return (
-                    <Fragment key={chain.id}>
-                      <MenuButton
-                        disabled={false}
-                        currentlySelected={isCurrentChain}
-                        onClick={() =>
-                          chainClickHandle({
-                            isCurrentChain,
-                            chain,
-                          })
-                        }
-                        testId={`chain-option-${chain.id}`}
-                      >
-                        <Box fontFamily="body" fontSize="16">
+                if (!chain) {
+                  return null;
+                }
+                return (
+                  <Fragment key={chain.id}>
+                    <MenuButton
+                      disabled={false}
+                      currentlySelected={isCurrentChain}
+                      onClick={() =>
+                        chainClickHandle({
+                          isCurrentChain,
+                          chain,
+                        })
+                      }
+                      testId={`chain-option-${chain.id}`}
+                    >
+                      <Box fontFamily="body" fontSize="16">
+                        <Box
+                          alignItems="center"
+                          display="flex"
+                          flexDirection="row"
+                          justifyContent="space-between"
+                        >
                           <Box
                             alignItems="center"
                             display="flex"
                             flexDirection="row"
-                            justifyContent="space-between"
+                            gap="4"
+                            height={chainIconSize}
                           >
+                            <Box height="full" marginRight="8">
+                              <AsyncImage
+                                alt={name ?? chain.name}
+                                background={iconBackground}
+                                borderRadius="full"
+                                height={chainIconSize}
+                                src={ChainImage[chain.id]}
+                                width={chainIconSize}
+                              />
+                            </Box>
+                            <div>{chain.name ?? name}</div>
+                          </Box>
+                          {isCurrentChain && (
                             <Box
                               alignItems="center"
                               display="flex"
                               flexDirection="row"
-                              gap="4"
-                              height={chainIconSize}
+                              marginRight="6"
                             >
-                              {iconUrl && (
-                                <Box height="full" marginRight="8">
-                                  <AsyncImage
-                                    alt={name ?? chain.name}
-                                    background={iconBackground}
-                                    borderRadius="full"
-                                    height={chainIconSize}
-                                    src={iconUrl}
-                                    width={chainIconSize}
-                                  />
-                                </Box>
-                              )}
-                              <div>{chain.name ?? name}</div>
+                              <Text
+                                color="accentColorForeground"
+                                size="14"
+                                weight="medium"
+                              >
+                                Connected
+                              </Text>
+                              <Box
+                                background="connectionIndicator"
+                                borderColor="connectionIndicatorBorder"
+                                borderRadius="full"
+                                borderStyle="solid"
+                                borderWidth="3"
+                                height="12"
+                                marginLeft="8"
+                                width="12"
+                              />
                             </Box>
-                            {isCurrentChain && (
+                          )}
+                          {switching && (
+                            <Box
+                              alignItems="center"
+                              display="flex"
+                              flexDirection="row"
+                              marginRight="6"
+                            >
+                              <Text color="modalText" size="14" weight="medium">
+                                Confirm in Wallet
+                              </Text>
                               <Box
-                                alignItems="center"
-                                display="flex"
-                                flexDirection="row"
-                                marginRight="6"
-                              >
-                                <Text
-                                  color="accentColorForeground"
-                                  size="14"
-                                  weight="medium"
-                                >
-                                  Connected
-                                </Text>
-                                <Box
-                                  background="connectionIndicator"
-                                  borderColor="connectionIndicatorBorder"
-                                  borderRadius="full"
-                                  borderStyle="solid"
-                                  borderWidth="3"
-                                  height="12"
-                                  marginLeft="8"
-                                  width="12"
-                                />
-                              </Box>
-                            )}
-                            {switching && (
-                              <Box
-                                alignItems="center"
-                                display="flex"
-                                flexDirection="row"
-                                marginRight="6"
-                              >
-                                <Text
-                                  color="modalText"
-                                  size="14"
-                                  weight="medium"
-                                >
-                                  Confirm in Wallet
-                                </Text>
-                                <Box
-                                  background="standby"
-                                  borderRadius="full"
-                                  height="12"
-                                  marginLeft="8"
-                                  width="12"
-                                  borderColor="standbyBorder"
-                                  borderStyle="solid"
-                                  borderWidth="3"
-                                />
-                              </Box>
-                            )}
-                          </Box>
+                                background="standby"
+                                borderRadius="full"
+                                height="12"
+                                marginLeft="8"
+                                width="12"
+                                borderColor="standbyBorder"
+                                borderStyle="solid"
+                                borderWidth="3"
+                              />
+                            </Box>
+                          )}
                         </Box>
-                      </MenuButton>
-                      {mobile && idx < rainbowkitChains.length - 1 && (
-                        <Box
-                          background="generalBorderDim"
-                          height="1"
-                          marginX="8"
-                        />
-                      )}
-                    </Fragment>
-                  );
-                }
-              )
+                      </Box>
+                    </MenuButton>
+                    {mobile && idx < rainbowkitChains.length - 1 && (
+                      <Box
+                        background="generalBorderDim"
+                        height="1"
+                        marginX="8"
+                      />
+                    )}
+                  </Fragment>
+                );
+              })
             ) : (
               <Box
                 background="generalBorder"

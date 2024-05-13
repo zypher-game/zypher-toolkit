@@ -4,19 +4,19 @@ import { Route, Routes } from 'react-router-dom'
 
 import { NavKey } from '@/components/Layout/Navigation'
 import ScrollToTop from '@/components/ScrollToTop'
+import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
+import ActiveChooseHunter from '@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'
+import MoreActive from '@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'
+import MoreActiveNormal from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveNormal/MoreActiveNormal'
+import MoreActiveSuccess from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'
+import NoActive from '@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'
+import NormalActive from '@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'
 // import ActiveComing from '@/pages/Active/views/ActiveRegister/ActiveComing'
-// import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
-// import ActiveChooseHunter from '@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'
-// import MoreActive from '@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'
-// import MoreActiveNormal from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveNormal/MoreActiveNormal'
-// import MoreActiveSuccess from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'
-// import NoActive from '@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'
-// import NormalActive from '@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'
-// import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister'
-// import ActiveStaking from '@/pages/Active/views/ActiveStaking/ActiveStaking'
-// import ActiveTVLLeaderboard from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLLeaderboard/ActiveTVLLeaderboard'
-// import ActiveTVLStaking from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLStaking/ActiveTVLStaking'
-// import ActiveTVLTeam from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLTeam/ActiveTVLTeam'
+import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister'
+import ActiveStaking from '@/pages/Active/views/ActiveStaking/ActiveStaking'
+import ActiveTVLLeaderboard from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLLeaderboard/ActiveTVLLeaderboard'
+import ActiveTVLStakingV2 from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLStaking/ActiveTVLStakingV2'
+import ActiveTVLTeam from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLTeam/ActiveTVLTeam'
 import GameIndex from '@/pages/GamesIndex/view/GamesIndex/GamesIndex'
 // import Bingo from '@/pages/Bingo'
 // import DP from '@/pages/DP'
@@ -62,28 +62,30 @@ export default (): JSX.Element => {
                 <ScrollToTop>
                   <>
                     <Routes>
-                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveComing />} /> */}
-                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
-                      {/* <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
-                    <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`} element={<MoreActive />} />
-                    <Route
-                      path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveNormal}`}
-                      element={<MoreActiveNormal />}
-                    />
-                    <Route
-                      path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveSuccess}`}
-                      element={<MoreActiveSuccess />}
-                    />
-                    <Route
-                      path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`}
-                      element={<NormalActive />}
-                    />
-                    <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NoActive}`} element={<NoActive />} />
-                    <Route path={`/${preAirdropPathname}/${airdropPathname.staking}`} element={<ActiveStaking />} />
-                    <Route path={`/${preAirdropPathname}/${airdropPathname.chooseHunter}`} element={<ActiveChooseHunter />} />
-                    <Route path={tvlPath[0]} element={<ActiveTVLTeam />} />
-                    <Route path={tvlPath[1]} element={<ActiveTVLStaking />} />
-                    <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} /> */}
+                      <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} />
+                      <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
+                      <Route
+                        path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`}
+                        element={<MoreActive />}
+                      />
+                      <Route
+                        path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveNormal}`}
+                        element={<MoreActiveNormal />}
+                      />
+                      <Route
+                        path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveSuccess}`}
+                        element={<MoreActiveSuccess />}
+                      />
+                      <Route
+                        path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`}
+                        element={<NormalActive />}
+                      />
+                      <Route path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NoActive}`} element={<NoActive />} />
+                      <Route path={`/${preAirdropPathname}/${airdropPathname.staking}`} element={<ActiveStaking />} />
+                      <Route path={`/${preAirdropPathname}/${airdropPathname.chooseHunter}`} element={<ActiveChooseHunter />} />
+                      <Route path={tvlPath[0]} element={<ActiveTVLTeam />} />
+                      <Route path={tvlPath[1]} element={<ActiveTVLStakingV2 />} />
+                      <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />
                       <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
                       {/* <Route path="/defense" element={<Monster />} /> */}
                       {/* <Route path="/invitation" element={<Invitation />} /> */}

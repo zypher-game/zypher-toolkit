@@ -4,11 +4,12 @@ import { useNavigate } from 'react-router-dom'
 
 import sleep from '@/utils/sleep'
 
-import { activeDataState, ITvlHero } from '../state/activeState'
+import { activeDataState, IActiveDataState, ITvlHero } from '../state/activeState'
 import { airdropPathname, preAirdropPathname } from './activeHooks'
+import { useActiveData } from './useActiveData'
 
 export const useToPath = () => {
-  const setActiveData = useSetRecoilState(activeDataState)
+  const { setActiveData } = useActiveData()
   const navigate = useNavigate()
   const toSetByTwitterMore = useCallback(() => {
     setActiveData(pre => ({ ...pre, airdropPointsDetail: { ...pre.airdropPointsDetail, byTwitterMore: '0' } }))

@@ -5,15 +5,16 @@ import { GlobalVar } from '@/constants/constants'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import sleep from '@/utils/sleep'
 
-import { TVL_API } from '../constants/activeConstants'
-import { activeDataState } from '../state/activeState'
+import { getLinkPre, TVL_API } from '../constants/activeConstants'
+import { activeDataState, IActiveDataState } from '../state/activeState'
 import { form_primary_score } from '../utils/formmate'
 import { usePreHandleAction } from './activeHooks'
+import { useActiveData } from './useActiveData'
 import { usePrimaryScore } from './useDataCall'
 
 export const useBind = () => {
-  const { account } = useActiveWeb3React()
-  const [activeData, setActiveData] = useRecoilState(activeDataState)
+  const { account, chainId } = useActiveWeb3React()
+  const { activeData, setActiveData } = useActiveData()
   const { getPrimaryScore } = usePrimaryScore()
   const {
     twitter: { nickname: twitterNickname },
@@ -50,8 +51,9 @@ export const useBind = () => {
       return
     }
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: true } }))
-    window.open(`${TVL_API}/connect-twitter?addr=${account}`)
-  }, [twitterNickname, preHandleAction])
+    const link_type = getLinkPre(chainId)
+    window.open(`${TVL_API}/connect-twitter?addr=${account}&link_type=${link_type.key}`)
+  }, [twitterNickname, preHandleAction, chainId])
   return {
     CheckPointHandle,
     CheckDiscordHandle,

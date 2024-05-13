@@ -1,11 +1,14 @@
-import { formatMoney } from '@ui/src'
+import { ChainId, formatMoney } from '@ui/src'
 
 import BigNumberJs from '@/utils/BigNumberJs'
-import { formatAmount } from '@/utils/numbers'
 
-export const form_info = (data: any) => {
+import { getLinkPre } from '../constants/activeConstants'
+
+export const form_info = (data: any, chainId: ChainId) => {
+  const link_type = getLinkPre(chainId)
   return {
-    invitationCode: data.curInviteCode,
+    invitationCode: `${link_type.label}${data.curInviteCode}`,
+    signedStr: '0000',
     avatar: data.headImg,
     id: `${data.id}`,
     nickname: data.nickname,
@@ -26,7 +29,6 @@ export const form_primary_score = (pre: any, data: any) => {
     airdropPointsDetail: {
       init: '0',
       byTwitter: `${data.twitterFollowerScore}`,
-      byTwitterMore: '',
       gas: data.gas,
       gasStr: formatMoney(data.gas, 2),
       byGas: `${data.gasScore}`,

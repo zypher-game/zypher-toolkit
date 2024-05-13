@@ -1,0 +1,52 @@
+.card 
+  display: flex
+  gap: 20px
+  flex-direction: column
+.cardOne,
+.cardTwo
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  flex-wrap: wrap
+  gap: 20px
+  &>div
+    flex: 1
+.fr_title
+  width: 100%
+  display: flex;
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 40px
+.fr_title_fl,
+.fr_title_fr
+  display: flex;
+  justify-content: flex-start
+  gap: 10px
+.fr_title_content
+  width: 100%
+  display: flex;
+  justify-content: space-between
+  align-items: center
+  p
+    font-weight: 600
+    font-size: 20px
+    display: flex;
+    justify-content: flex-start
+    align-items: center
+    gap: 6px
+.fr_btn
+  position absolute
+  bottom: 25px
+  right: 24px
+
+:global(.tvl_card_one)
+  :global(>.pixel_flat_inner)
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    padding: 30px
+
+.cardOneTitle
+  font-size: 18px
+  font-weight: bold
+  margin-bottom: 40px

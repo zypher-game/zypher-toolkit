@@ -35,8 +35,8 @@ export type I2048GameList = {
   tokenURL?: string
 }
 const MarketLinkPre: Record<ChainId, string> = {
-  [ChainId.Mainnet]: 'https://element.market/assets/bsc/',
-  [ChainId.Testnet]: '',
+  [ChainId.Bsc]: 'https://element.market/assets/bsc/',
+  [ChainId.BscTestnet]: '',
   [ChainId.Arbitrum]: 'https://element.market/assets/arbitrum/',
   [ChainId.ArbitrumRinkeby]: '',
   [ChainId.LineaTestnet]: '',

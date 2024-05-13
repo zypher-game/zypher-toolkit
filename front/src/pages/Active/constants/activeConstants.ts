@@ -1,12 +1,17 @@
-import { ChainId, isPro, preStaticUrl } from '@ui/src'
+import { ChainId, getCryptoImg, isPro } from '@ui/src'
 import { Address } from 'wagmi'
 export const TVL_API = 'https://tvl-backend-api.zypher.game'
 export enum TVLChainId {
   Sepolia = ChainId.Sepolia,
+  B2 = ChainId.B2,
+  B2Testnet = ChainId.B2Testnet,
+  LineaMainnet = ChainId.LineaMainnet,
   LineaTestnet = ChainId.LineaTestnet
 }
 export const defaultActiveChainId = TVLChainId.Sepolia as unknown as ChainId
-export const TVLStakingSupportedChainId = (!isPro() ? [TVLChainId.Sepolia, TVLChainId.LineaTestnet] : []) as unknown as ChainId[]
+export const TVLStakingSupportedChainId = (!isPro()
+  ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
+  : []) as unknown as ChainId[]
 
 export type IToken = {
   address: Address
@@ -33,20 +38,26 @@ export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
     Restaking: '0x3BbBe5929db5EAdF580537874bBA0a961F505E40',
     WETH: '0x5131bc5Ed480a524932D2638922616fE968374FE',
     USDT: '0xec3D0EfFa4d763563e45186A563f1f416CBc6647'
+  },
+  [TVLChainId.B2Testnet]: {
+    ZypherGameToken: '0x6F36BF53bE9be182599CD7E937E5F32152cEAf41',
+    Restaking: '0x159879B72B1bE7007aC56c4DcbbC31545F8D57bb',
+    WETH: '0x9Cae525AdE710904FE81daF47fD26789608fe057',
+    USDT: '0xc7A8cbA2982228C00089226cf1C5cF5b253BBb58'
   }
 } as unknown as Record<ChainId, Record<string, Address>>
-export const tvlTokens: Record<ChainId, TVLToken> = {
+export const tvlTokens = {
   [TVLChainId.Sepolia]: {
     USDT: {
       address: tvlTokenAddress[TVLChainId.Sepolia].USDT,
       symbol: 'USDT',
-      logoPath: preStaticUrl + '/img/token/USDT.png',
+      logoPath: getCryptoImg('token', 'USDT', '.png'),
       index: 2
     },
     WETH: {
       address: tvlTokenAddress[TVLChainId.Sepolia].WETH,
       symbol: 'WETH',
-      logoPath: preStaticUrl + '/img/token/WETH.png',
+      logoPath: getCryptoImg('token', 'WETH', '.png'),
       index: 1
     }
     // GP: {
@@ -60,13 +71,33 @@ export const tvlTokens: Record<ChainId, TVLToken> = {
     USDT: {
       address: tvlTokenAddress[TVLChainId.LineaTestnet].USDT,
       symbol: 'USDT',
-      logoPath: preStaticUrl + '/img/token/USDT.png',
+      logoPath: getCryptoImg('token', 'USDT', '.png'),
       index: 2
     },
     WETH: {
       address: tvlTokenAddress[TVLChainId.LineaTestnet].WETH,
       symbol: 'WETH',
-      logoPath: preStaticUrl + '/img/token/WETH.png',
+      logoPath: getCryptoImg('token', 'WETH', '.png'),
+      index: 1
+    }
+    // GP: {
+    //   address: tvlTokenAddress[TVLChainId.LineaTestnet].ZypherGameToken,
+    //   symbol: 'GP',
+    //   logoPath: '',
+    //   index: 4
+    // }
+  },
+  [TVLChainId.B2Testnet]: {
+    USDT: {
+      address: tvlTokenAddress[TVLChainId.B2Testnet].USDT,
+      symbol: 'USDT',
+      logoPath: getCryptoImg('token', 'USDT', '.png'),
+      index: 2
+    },
+    WETH: {
+      address: tvlTokenAddress[TVLChainId.B2Testnet].WETH,
+      symbol: 'WETH',
+      logoPath: getCryptoImg('token', 'BTC'),
       index: 1
     }
     // GP: {
@@ -77,5 +108,29 @@ export const tvlTokens: Record<ChainId, TVLToken> = {
     // }
   }
 } as unknown as Record<ChainId, TVLToken>
-
-export const CODELENGTH = 5
+type ILinkPre = {
+  key: number
+  label: string
+  chainId: ChainId
+}
+export const LinkPre: Record<string, ILinkPre> = {
+  // "E": {
+  //   key: 0,
+  // label: "E",
+  // chainId: isPro() ? ChainId.
+  // } ,
+  L: {
+    key: 1,
+    label: 'L',
+    chainId: (isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaTestnet) as unknown as ChainId
+  },
+  B: {
+    key: 2,
+    label: 'B',
+    chainId: (isPro() ? TVLChainId.B2 : TVLChainId.B2Testnet) as unknown as ChainId
+  }
+}
+export const getLinkPre = (chainId: ChainId): ILinkPre => {
+  return Object.values(LinkPre).filter(v => v.chainId === chainId)[0]
+}
+export const CODELENGTH = 6

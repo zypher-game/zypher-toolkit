@@ -1,25 +1,36 @@
-import { useActiveWeb3React, useRecoilState } from '@ui/src'
+import { ChainId, useActiveWeb3React } from '@ui/src'
 import { useCallback, useEffect } from 'react'
 
-import { activeDataState, IActiveData, initActiveData } from '../state/activeState'
+import { initActiveData } from '../state/activeState'
+import { canNext } from './activeHooks'
+import { useActiveData } from './useActiveData'
 import { useGetDataCall } from './useDataCall'
 
 export const useInit = () => {
-  const { account } = useActiveWeb3React()
-  const [activeData, setActiveData] = useRecoilState<IActiveData>(activeDataState)
+  const { account, chainId } = useActiveWeb3React()
+  const { setActiveData } = useActiveData()
   const { getUserInfo } = useGetDataCall()
-  const { isInitLoading, id } = activeData
+  // const { isInitLoading, id } = activeData
   const getData = useCallback(async () => {
-    if (account && !isInitLoading && !id) {
+    if (chainId && account && canNext(account, chainId)) {
       setActiveData(pre => ({
         ...pre,
         isInitLoading: true
       }))
-      const userInfo = await getUserInfo(true)
+      const userInfo = await getUserInfo({
+        isInit: true,
+        chainId
+      })
       if (userInfo) {
         setActiveData(pre => ({
           ...pre,
-          ...userInfo,
+          ...{
+            ...userInfo,
+            airdropPointsDetail: {
+              ...userInfo.airdropPointsDetail,
+              byTwitterMore: pre.airdropPointsDetail.byTwitterMore
+            }
+          },
           accountAddress: account,
           isInitLoading: false
         }))
@@ -31,7 +42,7 @@ export const useInit = () => {
         }))
       }
     }
-  }, [account, isInitLoading])
+  }, [account])
 
   useEffect(() => {
     getData()

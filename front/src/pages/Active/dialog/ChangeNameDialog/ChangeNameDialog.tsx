@@ -17,15 +17,16 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
+import { useActiveData } from '../../hooks/useActiveData'
 import { useUpdateInfoCall } from '../../hooks/useDataCall'
 import { useInit } from '../../hooks/useInit'
-import { activeDataState, changeNameDialogState } from '../../state/activeState'
+import { activeDataState, changeNameDialogState, IActiveDataState } from '../../state/activeState'
 import Avatar from '../../views/ActiveTVLHome/components/Avatar/Avatar'
 import css from './ChangeNameDialog.module.styl'
 const ChangeNameDialog = memo(() => {
   const isModalOpen = useRecoilValue(changeNameDialogState)
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
-  const activeData = useRecoilValue(activeDataState)
+  const { activeData } = useActiveData()
   const { avatar, nickname } = activeData
   const [avatarLocal, setAvatarLocal] = useState<FormData | null>(null)
   const [previewSrc, setPreviewSrc] = useState<string>('')

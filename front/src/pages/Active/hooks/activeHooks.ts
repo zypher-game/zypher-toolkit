@@ -25,20 +25,23 @@ import { TVLStakingABI, TVLStakingContract } from '@/contract/tvlStaking'
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import { batchRequestMulticall, batchRequestNativeContracts } from '@/utils/batchRequestContracts'
 import BigNumberJs from '@/utils/BigNumberJs'
+import { calculateSumByNumber } from '@/utils/calculateSum'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 
-import { CODELENGTH, TVL_API, TVLChainId, TVLStakingSupportedChainId, tvlTokenAddress, tvlTokens } from '../constants/activeConstants'
+import { CODELENGTH, getLinkPre, TVL_API, TVLChainId, TVLStakingSupportedChainId, tvlTokenAddress, tvlTokens } from '../constants/activeConstants'
 import {
   activeDataState,
   depositCurrencyState,
   IActiveData,
+  IActiveDataState,
   initData,
   ITVLStakingData,
   selectTokenDialogState,
   tvlStakingDataState
 } from '../state/activeState'
+import { useActiveData } from './useActiveData'
 export const preAirdropPathname = 'airdrop'
 export const airdropPathname = {
   register: 'register',
@@ -81,22 +84,25 @@ export const canNext = (account?: Address, chainId?: ChainId): boolean => {
 
 export const usePreHandleAction = () => {
   const _preHandleAction = usePreHandleGlobal()
-
-  const preHandleAction = useCallback(() => {
-    return _preHandleAction(env, TVLStakingSupportedChainId as unknown as ChainId[])
-  }, [_preHandleAction])
+  const preHandleAction = useCallback(
+    (chainId?: ChainId) => {
+      return _preHandleAction(env, (chainId ? [chainId] : TVLStakingSupportedChainId) as unknown as ChainId[])
+    },
+    [_preHandleAction]
+  )
   return preHandleAction
 }
 
 export const useSign = () => {
-  const { account } = useActiveWeb3React()
-  const [activeData, setActiveData] = useRecoilState<IActiveData>(activeDataState)
-  const { invitationCode, signedStr, id, isInitLoading } = activeData
+  const { chainId } = useActiveWeb3React()
+  const { activeData, setActiveData } = useActiveData()
+  const { accountAddress, invitationCode, signedStr, id, isInitLoading } = activeData
+  console.log({ activeData })
   const getSignCall = useCallback(async () => {
-    if (account && invitationCode && !id && !isInitLoading) {
+    if (accountAddress !== AddressZero && invitationCode && !id && !isInitLoading) {
       try {
-        const hashedCardBytes = ethers.utils.hexConcat([account])
-        const _signedStr = await getWeb3Sign(hashedCardBytes, account, false)
+        const hashedCardBytes = ethers.utils.hexConcat([accountAddress])
+        const _signedStr = await getWeb3Sign(hashedCardBytes, accountAddress, false)
         if (typeof _signedStr === 'string') {
           setActiveData(pre => ({ ...pre, signedStr: _signedStr }))
         } else {
@@ -107,17 +113,19 @@ export const useSign = () => {
         setActiveData(pre => ({ ...pre, invitationCode: '', signedFalse: true }))
       }
     }
-  }, [account, isInitLoading, invitationCode, id])
+  }, [accountAddress, isInitLoading, invitationCode, id])
 
   const getLoginCall = useCallback(async () => {
-    if (signedStr && signedStr !== '0000' && !id) {
+    if (signedStr && signedStr !== '0000' && !id && chainId) {
       try {
+        const link_type = getLinkPre(chainId)
         const res = await request(`${TVL_API}/api/loginByCode`, {
           method: 'POST',
           data: JSON.stringify({
-            code: invitationCode,
-            address: account,
-            signature: signedStr
+            code: invitationCode.substring(1),
+            address: accountAddress,
+            signature: signedStr,
+            link_type: link_type.key
           }),
           headers: {
             'Content-Type': 'application/json'
@@ -133,7 +141,7 @@ export const useSign = () => {
         setErrorToast(GlobalVar.dispatch, e)
       }
     }
-  }, [signedStr, id])
+  }, [signedStr, chainId, id])
   useEffect(() => {
     getLoginCall()
   }, [signedStr])
@@ -162,6 +170,7 @@ export const useStake = () => {
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
+  const { setActiveData } = useActiveData()
   const getNative = useCallback(async (): Promise<string[][]> => {
     const value = await batchRequestNativeContracts({
       chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
@@ -277,6 +286,7 @@ export const useStake = () => {
         chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
         params
       })
+      console.log({ res, params })
       const week = Object.fromEntries(res.map(v => [v.chainId, new BigNumberJs(v.response[v.response.length - 1][0].hex).toNumber()]))
       const nextParams = Object.fromEntries(
         TVLStakingSupportedChainId.map(chainId => {
@@ -285,13 +295,13 @@ export const useStake = () => {
             [
               ...Object.values(tvlTokens[chainId]).map((v: any) => {
                 return {
-                  reference: 'getUserWeeklyWeight' + v.symbol,
+                  reference: 'getWeeklyWeight' + v.symbol,
                   contractAddress: tvlTokenAddress[chainId].Restaking,
                   abi: TVLStakingABI,
                   calls: [
                     {
-                      methodName: 'getUserWeeklyWeight',
-                      reference: 'getUserWeeklyWeight' + v.symbol,
+                      methodName: 'getWeeklyWeight',
+                      reference: 'getWeeklyWeight' + v.symbol,
                       methodParameters: [account, v.address, week[chainId]]
                     }
                   ]
@@ -306,6 +316,7 @@ export const useStake = () => {
         params: nextParams,
         defaultValue: 0
       })
+      console.log({ nextRes, nextParams })
       let END_TIME = '0'
       const resMap = Object.fromEntries(
         res.map((v, chainIndex) => {
@@ -328,9 +339,9 @@ export const useStake = () => {
             const balanceBig = new BigNumberJs(v.response[balanceOfIndex][0].hex)
             const earnGP = v.response[claimableIndex][index]
             END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
-            const getUserWeeklyWeightIndex = nextMethodArr.indexOf(`getUserWeeklyWeight${vv.symbol}`)
+            const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
 
-            const stake = nextRes[chainIndex].response[getUserWeeklyWeightIndex]
+            const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
 
             const userStakeBig = new BigNumberJs(stake ? stake[0].hex : '0')
             const totalStakeBig = new BigNumberJs(stake ? stake[1].hex : '0')
@@ -376,6 +387,19 @@ export const useStake = () => {
         })
       ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
       setTvlStakingData(resMap)
+      console.log({ ass: resMap[nativeChainId] })
+      const userStakedAmount = ethers.utils
+        .formatEther(
+          calculateSumByNumber(
+            Object.values(resMap[nativeChainId]).map(({ totalStakedAmount }) => (totalStakedAmount === '' ? '0' : totalStakedAmount))
+          )
+        )
+        .toString()
+      setActiveData(pre => ({
+        ...pre,
+        userStakedAmount: userStakedAmount,
+        userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat()
+      }))
       setIsDataLoading(false)
     }
   }, [getNative])

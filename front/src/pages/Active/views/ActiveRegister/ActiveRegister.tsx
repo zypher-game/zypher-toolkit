@@ -4,7 +4,7 @@ import React, { memo } from 'react'
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
 import { useSign } from '../../hooks/activeHooks'
 import { useBind } from '../../hooks/bindHooks'
-import { activeDataState, IActiveData } from '../../state/activeState'
+import { useActiveData } from '../../hooks/useActiveData'
 import css from './ActiveRegister.module.styl'
 import Bind from './components/Bind/Bind'
 import Checking from './components/Checking/Checking'
@@ -12,7 +12,7 @@ import EarthPart from './components/EarthPart/EarthPart'
 import InvitationCode from './components/InvitationCode/InvitationCode'
 
 const ActiveRegister = memo(() => {
-  const activeData = useRecoilValue<IActiveData>(activeDataState)
+  const { activeData } = useActiveData()
   const { invitationCode, checkAirdropPointsLoading } = activeData
   useSign()
   const { CheckPointHandle, CheckDiscordHandle, CheckTwitterHandle } = useBind()

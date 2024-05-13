@@ -1,0 +1,60 @@
+.tab_col
+  display: flex;
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 20px
+
+.ActiveTVLStaking_tab
+  width: fit-content;
+  &:first-child,
+  &:last-child 
+    .ActiveTVLStaking_tab_li
+      &:after
+        contain: ""
+        width 2px 
+        height calc(100% - 4px)
+        top: 2px
+        background-color: #1649FF
+  .ActiveTVLStaking_tab_li
+    display: flex;
+    padding: 0 23px;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    min-width: 110px
+    position relative
+    cursor pointer
+    p
+      transition: opacity  0.3s ease
+    &:hover
+      p
+        opacity: 0.8
+    &.on
+      background-color: #1649FF
+      &:hover
+        p
+          opacity: 1
+      &:first-child,
+      &:last-child 
+        &:after
+          content: ""
+          position absolute
+          width 2px 
+          height calc(100% - 4px)
+          top: 2px
+          background-color: #1649FF
+      &:first-child
+        &:after
+          left: -2px
+      &:last-child
+        &:after
+          right: -2px
+  :global(>.pixel_flat_inner)
+    justify-content: flex-start
+    padding: 0 4px
+
+.staking
+  :global(>.pixel_flat_inner)
+    p
+      font-size: 14px
+      text-shadow: -1px -1px 0 #934417, 1px 0 0 #934417, 1px 0 0 #934417, 0 2px 0 #934417

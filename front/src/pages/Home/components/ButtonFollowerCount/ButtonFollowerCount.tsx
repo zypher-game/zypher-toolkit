@@ -4,7 +4,7 @@ const ButtonFollowerCount = memo(() => {
   const onclick = async () => {
     const a = await getFollowerCount({
       type: 'twitter',
-      username: 'Zypher_Games'
+      username: 'Zypher_network'
     })
     await destroyBrowser()
   }

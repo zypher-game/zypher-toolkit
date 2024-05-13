@@ -39,8 +39,8 @@ export const TransactionsCount: Record<ChainId, string> = {
   // v0 534353 0x3a7B56735270aB30E486573211E786475A1bF9B5
   // https://alpha-blockscout.scroll.io/address/0x3a7B56735270aB30E486573211E786475A1bF9B5
   [ChainId.ScrollAlphaTestnet]: '0',
-  [ChainId.Mainnet]: '0',
-  [ChainId.Testnet]: '0',
+  [ChainId.Bsc]: '0',
+  [ChainId.BscTestnet]: '0',
   [ChainId.ArbitrumRinkeby]: '0',
   [ChainId.POLYGON_MUMBAI]: '0',
   [ChainId.POLYGON_ZKEVM]: '0',
@@ -54,7 +54,9 @@ export const TransactionsCount: Record<ChainId, string> = {
   // https://explorer.testnet.mantle.xyz/address/0x086fd126fd9Cd41F362FCe38e09f76f481c2Af92
   [ChainId.MantleTestnet]: '153',
   [ChainId.Combo]: '0',
-  [ChainId.Sepolia]: '0'
+  [ChainId.Sepolia]: '0',
+  [ChainId.B2]: '0',
+  [ChainId.B2Testnet]: '0'
 }
 export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.LineaMainnet]: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo',

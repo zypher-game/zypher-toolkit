@@ -47,7 +47,7 @@ const MarqueeWidget = memo(() => {
       <Scroll>
         <ScrollItem color="81, 156, 255" gap={32} isMobile={isMobile}>
           <MIcon name="twitter" color="#519CFF" isMobile={isMobile} />
-          <a href="https://twitter.com/Zypher_Games" target="_blank" rel="noreferrer">
+          <a href="https://twitter.com/Zypher_network" target="_blank" rel="noreferrer">
             {t('marquee_twitter')}
           </a>
         </ScrollItem>

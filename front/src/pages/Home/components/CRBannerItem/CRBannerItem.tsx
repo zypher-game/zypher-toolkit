@@ -8,7 +8,7 @@ const CRBannerItem = memo(() => {
     <div
       className={css.crBanner}
       onClick={() => {
-        window.open('https://twitter.com/Zypher_Games/status/1763459766066774238', '_blank')
+        window.open('https://twitter.com/Zypher_network/status/1763459766066774238', '_blank')
       }}
     >
       <img src={preStaticUrl + '/img/home/cr_bg.jpg'} alt="cr_bg" className={css.cr_bg} />

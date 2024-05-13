@@ -182,7 +182,7 @@ export async function batchRequestMulticall({
         throw new Error('multicall not')
       }
     } catch (err) {
-      // console.log({ err })
+      console.log('multicall', { err })
       return {
         response: defaultValue,
         chainIdList,

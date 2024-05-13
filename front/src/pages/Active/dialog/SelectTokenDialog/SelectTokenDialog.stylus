@@ -34,6 +34,7 @@ body .select_dialogContentInnerBottom
     // background-color: #293457
     .select_chain_li_img 
       width: 48px
+      height: 48px
 .select_token_ul
   max-height: 200px
   overflow-y: scroll

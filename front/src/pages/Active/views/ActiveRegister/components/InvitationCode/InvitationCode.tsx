@@ -2,17 +2,18 @@ import { ActivePixelButton, ActivePixelButtonColor, LoadingButton, useActiveWeb3
 import React, { memo, useCallback, useState } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
+import { LinkPre } from '@/pages/Active/constants/activeConstants'
 import { usePreHandleAction } from '@/pages/Active/hooks/activeHooks'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
-import { activeDataState, IActiveData } from '@/pages/Active/state/activeState'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import InputCode from './InputCode'
 import css from './InvitationCode.module.styl'
 
-const InvitationCode = memo(({ isComing }: { isComing: boolean }) => {
+const InvitationCode = memo(({ isComing }: { isComing?: boolean }) => {
   const [codeStr, setCodeStr] = useState<string>('')
-  const [activeData, setActiveData] = useRecoilState<IActiveData>(activeDataState)
+  const { activeData, setActiveData } = useActiveData()
   const { account, chainId } = useActiveWeb3React()
   const preHandleAction = usePreHandleAction()
   const { loading, codeCheck } = useCodeCheckCall()
@@ -27,6 +28,18 @@ const InvitationCode = memo(({ isComing }: { isComing: boolean }) => {
       setErrorToast(GlobalVar.dispatch, 'Please enter the invitation code')
       return
     }
+    const chainKey = codeStr[0]
+    const pureCodeStr = codeStr.substring(1)
+    const choseChainKey = LinkPre[chainKey]
+    if (!choseChainKey) {
+      setErrorToast(GlobalVar.dispatch, 'Please enter the right invitation code')
+      return
+    }
+    // 如果当前网络不是用户邀请码所在的网络，则要求用户切换网络
+    const isOk = preHandleAction(choseChainKey.chainId)
+    if (!isOk) {
+      return
+    }
     if (codeStr === activeData.invitationCode) {
       setActiveData(pre => ({
         ...pre,
@@ -34,10 +47,6 @@ const InvitationCode = memo(({ isComing }: { isComing: boolean }) => {
       }))
     } else {
       try {
-        const isOk = preHandleAction()
-        if (!isOk) {
-          return
-        }
         const check = await codeCheck(codeStr)
         if (check) {
           setActiveData(pre => ({
@@ -51,7 +60,7 @@ const InvitationCode = memo(({ isComing }: { isComing: boolean }) => {
         setErrorToast(GlobalVar.dispatch, e)
       }
     }
-  }, [codeStr, JSON.stringify(activeData)])
+  }, [codeStr, chainId, JSON.stringify(activeData)])
 
   return (
     <div className={css.invitationCode}>

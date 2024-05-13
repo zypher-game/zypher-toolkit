@@ -1,25 +1,25 @@
-import { ActivePixelButtonColor, IPixelProps, LoadingButton, preStaticUrl, SvgComponent, useActiveWallet, useRecoilValue } from '@ui/src'
+import { ActivePixelButtonColor, IPixelProps, LoadingButton, preStaticUrl, SvgComponent, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { GlobalVar } from '@/constants/constants'
-import { activeDataState } from '@/pages/Active/state/activeState'
 import ShareComponent from '@/pages/invitation/components/shareComponent'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import sleep from '@/utils/sleep'
 
 import { airdropPathname, getAirdropPathname, preAirdropPathname } from '../../hooks/activeHooks'
+import { useActiveData } from '../../hooks/useActiveData'
 const ShareLink = memo(({ css, preWidth, nextWidth, pixel_styled }: { preWidth: string; nextWidth: string; css: any; pixel_styled: IPixelProps }) => {
-  const activeData = useRecoilValue(activeDataState)
+  const { activeData } = useActiveData()
   const [loading, setLoading] = useState(false)
-  const { account } = useActiveWallet()
+  const { account } = useActiveWeb3React()
   const navigate = useNavigate()
   const location = useLocation()
   const { height, pixel_height, small_pixel_height, backgroundColor, borderBottomColor, borderTopColor } = pixel_styled
   const twitterShare = useMemo(() => {
     if (account) {
       const title01 = '🔥 Get set for an exhilarating journey! 🙌 Join me at Zypher Games with my exclusive invitation link'
-      const title02 = 'unlock mystery boxes and 🥕Gold Points! Let us start this thrilling adventure together! @Zypher_Games'
+      const title02 = 'unlock mystery boxes and 🥕Gold Points! Let us start this thrilling adventure together! @Zypher_network'
       const myhashtag = 'web3game'
       const tweetText = `${title01} ${title02}`
       const encodedTweetText = encodeURIComponent(tweetText)

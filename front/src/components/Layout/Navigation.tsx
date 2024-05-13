@@ -3,7 +3,7 @@ import React, { forwardRef, memo, Ref, useCallback, useEffect, useRef, useState 
 import { Link, LinkProps } from 'react-router-dom'
 
 import sleep from '@/utils/sleep'
-export const NavKey = [['airdrop'], ['', 'games']]
+export const NavKey = [['', 'airdrop'], ['games']]
 type NavLinkProps = {
   label: string
   ref: Ref<HTMLAnchorElement> | undefined
@@ -73,7 +73,6 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
       const link = linksRefs.current[activeIndex]
       if (link) {
         const linkWidth = link.offsetWidth
-        console.log({ link: link.offsetLeft, linkWidth: link.offsetWidth })
         if (linkWidth) {
           const leftPosition = link.offsetLeft + (linkWidth - 36) / 2
           line.style.width = '36px'
@@ -108,12 +107,12 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
 
   return (
     <div className="nav">
-      {/* <NavLink
+      <NavLink
         to={NavKey[0][0]}
         label="Airdrop"
-        className={`${NavKey[0].includes(pathname) ? 'nav_on' : ''}`}
+        className={`nav_airdrop ${NavKey[0].includes(pathname) ? 'nav_on' : ''}`}
         ref={ref => (linksRefs.current[0] = ref)}
-      /> */}
+      />
       <NavLink
         to={NavKey[1][0]}
         label="Games"

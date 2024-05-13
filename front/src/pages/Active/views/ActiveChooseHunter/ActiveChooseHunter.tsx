@@ -4,11 +4,15 @@ import { ActivePixelButtonColor, ActivePixelCard, LoadingButton, preStaticUrl } 
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { GlobalVar } from '@/constants/constants'
+import { setErrorToast } from '@/utils/Error/setErrorToast'
 import sleep from '@/utils/sleep'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
 import HeroImageLoader from '../../components/ImageLoader/HeroImageLoader'
 import { tvlPath } from '../../hooks/activeHooks'
+import { useActiveData } from '../../hooks/useActiveData'
+import { useUserHeroCall } from '../../hooks/useDataCall'
 import { useToPath } from '../../hooks/useToPath'
 import { ITvlHero } from '../../state/activeState'
 import css from './ActiveChooseHunter.module.styl'
@@ -54,17 +58,25 @@ const ActiveChooseHunter = memo(() => {
   const navigate = useNavigate()
   const [heroKey, setHeroKey] = useState(0)
   const { toSetHero } = useToPath()
-  const [isHeroLoading, setIsHeroLoading] = useState(false)
-  const heroClikHandle = useCallback(index => {
+
+  const { activeData } = useActiveData()
+  const { chooseHero, loading: isHeroLoading } = useUserHeroCall()
+  const heroClickHandle = useCallback(index => {
     setHeroKey(index)
   }, [])
   const heroConfirmHandle = useCallback(async () => {
-    setIsHeroLoading(true)
-    await sleep(2)
-    setIsHeroLoading(false)
-    toSetHero(hero[heroKey].keyValue)
-    navigate(tvlPath[0])
-  }, [heroKey])
+    try {
+      const res = await chooseHero({ userId: activeData.id, hero: hero[heroKey].keyValue })
+      if (res) {
+        toSetHero(hero[heroKey].keyValue)
+        navigate(tvlPath[0])
+      } else {
+        setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
+      }
+    } catch {
+      setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
+    }
+  }, [heroKey, JSON.stringify(activeData)])
 
   return (
     <ActiveComp>
@@ -82,7 +94,7 @@ const ActiveChooseHunter = memo(() => {
                 key={v.keyValue}
                 characteristic={v.characteristic}
                 attribute={v.attribute}
-                onClick={() => heroClikHandle(index)}
+                onClick={() => heroClickHandle(index)}
               />
             ))}
           </ul>

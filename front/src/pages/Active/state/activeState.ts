@@ -11,6 +11,7 @@ export enum ITvlHero {
   Liana = 'Liana'
 }
 export interface IActiveData {
+  chainId?: ChainId
   accountAddress: Address
   id: string
   isInitLoading: boolean // useInit 初始化fetch
@@ -46,6 +47,7 @@ export interface IActiveData {
   isCheckedAirdropPoints: boolean // airdrop 是否已经检测过
   checkAirdropPointsLoading: boolean // 检测airdrop量
   userStakedAmount: string // 用户stake量
+  userStakedAmountStr: string
   totalStakedAmount: string // 总量
   stakedRatio: string // 用户stake量 / 总量
   tvlHero?: ITvlHero
@@ -53,6 +55,7 @@ export interface IActiveData {
   dollarGpRewords: string // 可claim的 $GP 量
   avatar: string // 头像
   nickname: string // 昵称
+  ranking: string // 当前用户的排名
 }
 export const initActiveData: IActiveData = {
   accountAddress: AddressZero,
@@ -91,16 +94,19 @@ export const initActiveData: IActiveData = {
     balanceStr: ''
   },
   userStakedAmount: '',
+  userStakedAmountStr: '',
   totalStakedAmount: '',
   stakedRatio: '',
   crHeroBoxAmount: '',
   dollarGpRewords: '',
+  ranking: '',
   isCheckedAirdropPoints: false
 }
-export const activeDataState = atom({
-  key: 'activeData',
-  default: initActiveData,
-  effects_UNSTABLE: [localStorageEffect('activeData')]
+export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
+export const activeDataState = atom<IActiveDataState>({
+  key: 'activeDataV1',
+  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }])),
+  effects_UNSTABLE: [localStorageEffect('activeDataV1')]
 })
 
 export interface ITVLStakingData extends IToken {
@@ -167,7 +173,8 @@ export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<stri
         }
       }
     ])
-  ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>
+  ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>,
+  effects_UNSTABLE: [localStorageEffect('tvlStakingData')]
 })
 export const selectChainDialogState = atom({
   key: 'selectChainDialogState',

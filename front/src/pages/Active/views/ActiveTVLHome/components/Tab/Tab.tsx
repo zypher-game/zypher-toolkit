@@ -1,10 +1,9 @@
 import './Tab.styl'
 
-import { useSetRecoilState } from '@ui/src'
+import { PixelTab, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import PixelTab from '@/components/PixelTab/PixelTab'
 import { tvlPath, TVLTabList } from '@/pages/Active/hooks/activeHooks'
 import { tvlPathState } from '@/pages/Active/state/activeState'
 
