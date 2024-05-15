@@ -14,6 +14,7 @@ import Nav from './components/Nav/Nav'
 import css from './GamesIndex.module.styl'
 const GameIndex = memo(() => {
   const gameList = useGameListIndex()
+
   return (
     <div className={css.games}>
       <div className={css.inner}>

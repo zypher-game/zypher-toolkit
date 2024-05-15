@@ -22,7 +22,7 @@ export const useGetDataCall = () => {
         const info_res = await request(`${TVL_API}/api/info/${account}`, {
           method: 'GET',
           params: {
-            page_count: 10,
+            pageCount: 10,
             linkType: linkType.key
           },
           headers: {
@@ -65,7 +65,9 @@ export const useGetDataCall = () => {
             }
           }
         }
-      } catch (e: any) {}
+      } catch (e: any) {
+        console.log('getUserInfo err', e)
+      }
     },
     [account]
   )
@@ -273,8 +275,8 @@ export const useLeaderBoardCall = () => {
       const recent_user_res = await request(`${TVL_API}/api/recent/user`, {
         method: 'GET',
         params: {
-          page_count: 20,
-          page_no: 1,
+          pageCount: 20,
+          pageNo: 1,
           linkType: linkType.key
         },
         headers: {
@@ -293,8 +295,8 @@ export const useLeaderBoardCall = () => {
       const rank_board_res = await request(`${TVL_API}/api/rank-board`, {
         method: 'GET',
         params: {
-          page_count: 20,
-          page_no: 1,
+          pageCount: 20,
+          pageNo: 1,
           linkType: linkType.key
         },
         headers: {

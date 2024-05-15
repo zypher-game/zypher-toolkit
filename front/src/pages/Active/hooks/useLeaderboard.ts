@@ -27,20 +27,25 @@ export const useLeaderBoard = () => {
   }, [chainIndex, JSON.stringify(TVLStakingSupportedChainId)])
   const { activeData } = useActiveData()
   const { id } = activeData
+  console.log({ recentUser })
   useEffect(() => {
     const getData = async () => {
-      const res_recentUser = await getRecentUser({ chainId: chainIdLocal })
-      const res_rankBoard = await getRankBoard({ chainId: chainIdLocal })
-      if (id) {
-        const res_myRankBoard = await getMyRankBoard({ chainId: chainIdLocal, userId: id })
-        console.log({ res_recentUser, res_rankBoard, res_myRankBoard })
-        setMy(res_myRankBoard)
-      }
-      if (res_recentUser) {
-        setRecentUser(res_recentUser)
-      }
-      if (res_rankBoard) {
-        setRankBoard(res_rankBoard)
+      try {
+        const res_recentUser = await getRecentUser({ chainId: chainIdLocal })
+        const res_rankBoard = await getRankBoard({ chainId: chainIdLocal })
+        if (id) {
+          const res_myRankBoard = await getMyRankBoard({ chainId: chainIdLocal, userId: id })
+          console.log({ res_recentUser, res_rankBoard, res_myRankBoard })
+          setMy(res_myRankBoard)
+        }
+        if (res_recentUser) {
+          setRecentUser(res_recentUser.data ?? [])
+        }
+        if (res_rankBoard) {
+          setRankBoard(res_rankBoard.data ?? [])
+        }
+      } catch (e) {
+        console.log('useLeaderBoard err:', e)
       }
     }
     getData()

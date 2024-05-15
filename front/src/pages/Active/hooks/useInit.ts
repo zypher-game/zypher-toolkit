@@ -21,6 +21,7 @@ export const useGetData = () => {
         isInit: true,
         chainId
       })
+      console.log({ userInfo })
       if (userInfo) {
         setActiveData(pre => ({
           ...pre,

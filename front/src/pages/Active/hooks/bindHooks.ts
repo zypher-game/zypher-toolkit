@@ -1,4 +1,4 @@
-import { useActiveWeb3React, useRecoilState } from '@ui/src'
+import { useActiveWeb3React } from '@ui/src'
 import { useCallback } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
@@ -6,7 +6,6 @@ import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import sleep from '@/utils/sleep'
 
 import { getLinkPre, TVL_API } from '../constants/activeConstants'
-import { activeDataState, IActiveDataState } from '../state/activeState'
 import { form_primary_score } from '../utils/formmate'
 import { usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
@@ -28,6 +27,7 @@ export const useBind = () => {
     }
     if (!twitterNickname) {
       setErrorToast(GlobalVar.dispatch, 'Please Follow @Zypher_Network on Twitter')
+      return
     }
     setActiveData(pre => ({ ...pre, checkAirdropPointsLoading: true }))
     await sleep(3)
@@ -53,6 +53,7 @@ export const useBind = () => {
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: true } }))
     const linkType = getLinkPre(chainId)
     window.open(`${TVL_API}/connect-twitter?addr=${account}&linkType=${linkType.key}`)
+    setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
   }, [twitterNickname, preHandleAction, chainId])
   return {
     CheckPointHandle,

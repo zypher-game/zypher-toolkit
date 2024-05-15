@@ -9,7 +9,7 @@ const EarthPart = memo(
   () => {
     const navigate = useNavigate()
     const toLeaderBorder = useCallback(() => {
-      // navigate(tvlPath[2])
+      navigate(tvlPath[2])
     }, [])
     return (
       <div className={css.earthPart}>
