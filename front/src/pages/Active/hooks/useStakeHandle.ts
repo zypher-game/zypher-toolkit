@@ -28,7 +28,7 @@ import { activeTokenList } from '../constants/activeConstants'
 import { depositCurrencyState, isTvlDataLoadingState, selectTokenDialogState, tvlStakingDataState } from '../state/activeState'
 import { canNext, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
-import { useStakeData } from './useStakeData'
+import { useStake, useStakeData } from './useStakeData'
 
 export const useStakeHandle = () => {
   const [isApproveLoading, setIsApproveLoading] = useState(false)
@@ -48,16 +48,13 @@ export const useStakeHandle = () => {
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
+  useStake()
   useEffect(() => {
     setIsApproveLoading(false)
     setIsDepositLoading(false)
     setDepositValue('0')
-    if (canNext(account, nativeChainId)) {
-      setDepositCurrency(Currency[nativeChainId])
-    } else {
-      setDepositCurrency('ETH')
-    }
-  }, [account])
+    setDepositCurrency(Currency[nativeChainId])
+  }, [account, nativeChainId])
 
   const _successGet = useCallback(
     async ({ tx }: { tx: TransactionReceipt; blockNumber: number }) => {
@@ -163,14 +160,16 @@ export const useStakeHandle = () => {
     }
   }, [isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction])
   useEffect(() => {
-    const _nativeChainId = nativeChainId
+    console.log({ nativeChainId, tvlStakingData, depositCurrency })
     if (
+      canNext(account, nativeChainId) &&
       depositCurrency &&
       depositCurrency !== '' &&
-      tvlStakingData[_nativeChainId] &&
-      tvlStakingData[_nativeChainId][depositCurrency].balance !== ''
+      tvlStakingData[nativeChainId] &&
+      tvlStakingData[nativeChainId][depositCurrency] &&
+      tvlStakingData[nativeChainId][depositCurrency].balance !== ''
     ) {
-      setMax(new BigNumberJs(tvlStakingData[_nativeChainId][depositCurrency].balance).dividedBy(divisorBigNumber).toFixed())
+      setMax(new BigNumberJs(tvlStakingData[nativeChainId][depositCurrency].balance).dividedBy(divisorBigNumber).toFixed())
       return
     }
     setMax('0')

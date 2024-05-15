@@ -6,6 +6,7 @@ import {
   ActivePixelButtonColor,
   ChainId,
   ChainName,
+  Currency,
   LoadingButton,
   PixelBorderCard,
   PixelBorderCardButton,
@@ -53,13 +54,16 @@ const Staking = memo(() => {
   }, [chainIdFromStake, chooseChain])
   const chooseValue = useMemo(() => {
     const can = canNext(account, chainIdLocal)
-    if (can) {
+    if (can && depositCurrency) {
       return tvlStakingData[chainIdLocal][depositCurrency]
     }
-    return tvlStakingData[defaultActiveChainId]['ETH']
+    if (can) {
+      return tvlStakingData[defaultActiveChainId][Currency[chainIdLocal]]
+    }
+    return tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
   }, [JSON.stringify(tvlStakingData), chainIdLocal, depositCurrency])
   const { btnLabel } = useMemo(() => {
-    const decimal = chooseValue.decimal
+    const decimal = chooseValue?.decimal ?? 18
     const obj = {
       isApprove: false,
       isBalanceEnough: true,

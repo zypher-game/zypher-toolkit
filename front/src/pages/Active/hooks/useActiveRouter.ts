@@ -24,8 +24,13 @@ export const useActiveRouter = () => {
     if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
       return
     }
+
     // 需要跳转路由
-    const { isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
+    const { id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
+    if (!id || id === '' || !canNext(account, chainId)) {
+      navigate(`/${NavKey[0][0]}`)
+      return
+    }
     if (isRegistered) {
       navigate(tvlPath[tvlPathLink])
       return
@@ -75,10 +80,7 @@ export const useActiveRouter = () => {
       navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`)
       return
     }
-    if (!canNext(account, chainId)) {
-      navigate(`/${NavKey[0][0]}`)
-      return
-    }
+
     // navigate(`/${NavKey[0][0]}`)
   }, [JSON.stringify(activeData), account, chainId, tvlPathLink])
 }

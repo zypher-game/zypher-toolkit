@@ -43,24 +43,24 @@ export const useGetData = () => {
         }))
       }
     }
-  }, [account])
+  }, [account, chainId])
   return {
     getData
   }
 }
 export const useInit = () => {
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const { setActiveData } = useActiveData()
   // const { isInitLoading, id } = activeData
   const { getData } = useGetData()
   useEffect(() => {
     getData()
-  }, [account])
+  }, [account, chainId])
   useEffect(() => {
     setActiveData(pre => {
       return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? pre : initActiveData
     })
-  }, [account])
+  }, [account, chainId])
   return {
     getData
   }

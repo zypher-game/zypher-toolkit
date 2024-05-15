@@ -33,7 +33,7 @@ export const useBind = () => {
     await sleep(3)
     const primary_score_res = await getPrimaryScore()
     const primaryScoreRes = form_primary_score(activeData, primary_score_res)
-    setActiveData({ ...primaryScoreRes, checkAirdropPointsLoading: false })
+    setActiveData(pre => ({ ...pre, ...primaryScoreRes, checkAirdropPointsLoading: false }))
   }, [JSON.stringify(activeData), account, setSuccessToast])
 
   const CheckDiscordHandle = useCallback(async () => {

@@ -30,6 +30,7 @@ const SelectTokenDialog = memo(() => {
   const [chainIdLocal, setChainIdLocal] = useRecoilState(chooseChainState)
 
   const [depositCurrency, setDepositCurrency] = useRecoilState(depositCurrencyState)
+  console.log({ tvlStakingData })
   useEffect(() => {
     const can = canNext(account, chainId)
     if (can) {

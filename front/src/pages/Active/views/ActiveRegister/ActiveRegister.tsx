@@ -1,4 +1,3 @@
-import { useRecoilValue } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'

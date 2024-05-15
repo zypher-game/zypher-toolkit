@@ -29,7 +29,6 @@ const InvitationCode = memo(({ isComing }: { isComing?: boolean }) => {
       return
     }
     const chainKey = codeStr[0]
-    const pureCodeStr = codeStr.substring(1)
     const choseChainKey = LinkPre[chainKey]
     if (!choseChainKey) {
       setErrorToast(GlobalVar.dispatch, 'Please enter the right invitation code')

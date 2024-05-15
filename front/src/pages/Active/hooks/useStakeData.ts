@@ -17,6 +17,7 @@ import { useRestakingCall } from './useDataCall'
 export const useStake = () => {
   const { getStakingData } = useStakeData()
   useEffect(() => {
+    console.log('asdasdasa21')
     // 读取数据
     getStakingData()
   }, [getStakingData])
@@ -118,7 +119,18 @@ export const useStakeData = () => {
                       calls: [{ methodName: 'balanceOf', reference: 'balanceOf' + v.symbol, methodParameters: [account] }]
                     }
                   }),
-
+                // 最少质押多少给 SBT
+                {
+                  reference: 'mintMinimum' + chainId, // 得到当前是第几周
+                  contractAddress: activeTokenList[chainId].Restaking,
+                  abi: TVLStakingABI,
+                  calls: [
+                    {
+                      methodName: 'mintMinimum',
+                      reference: 'mintMinimum' + chainId
+                    }
+                  ]
+                },
                 {
                   reference: 'END_TIME' + chainId, // 得到当前是第几周
                   contractAddress: activeTokenList[chainId].Restaking,
@@ -141,6 +153,12 @@ export const useStakeData = () => {
                       methodParameters: [account, Object.values(tvlTokens[chainId]).map((v: any) => v.address)]
                     }
                   ]
+                },
+                {
+                  reference: 'sbtBalanceOf', // 得到当前是第几周
+                  contractAddress: activeTokenList[chainId].Soulbound,
+                  abi: erc20Abi,
+                  calls: [{ methodName: 'balanceOf', reference: 'sbtBalanceOf', methodParameters: [account] }]
                 },
                 ...Object.values(tvlTokens[chainId])
                   .filter((v: any) => v.address !== AddressZero)
@@ -213,13 +231,18 @@ export const useStakeData = () => {
 
         console.log({ stakeDataFromApi })
         let END_TIME = '0'
+        let mintMinimum = '0'
+        let sbtBalanceOf = '0'
+        const methodArr = res[0].method.split(',')
         const resMap = Object.fromEntries(
           res.map((v, chainIndex) => {
             // const stakeDataFromApiItem = stakeDataFromApi ? stakeDataFromApi[chainIndex] : undefined
             const _chainId = v.chainId as unknown as ChainId
-            const methodArr = v.method.split(',')
             const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
             const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
+            const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
+            const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf`)
+
             console.log({ aaa: v.response[claimableIndex].map((cv: any) => new BigNumberJs(cv.hex).toFixed()) })
             const nextMethodArr = nextRes[chainIndex].method.split(',')
 
@@ -241,6 +264,9 @@ export const useStakeData = () => {
               console.log({ crHero })
 
               END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
+              mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
+              console.log({ mintMinimum, sbtBalanceOfIndex, sbtBalanceOf: v.response[sbtBalanceOfIndex] })
+              sbtBalanceOf = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
 
               const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
@@ -265,7 +291,7 @@ export const useStakeData = () => {
                   name: name,
                   decimal: decimal,
                   balance: balanceBig.toFixed(),
-                  balanceStr: balanceBig.dividedBy(decimal).toFormat(3),
+                  balanceStr: balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFormat(3),
                   earnGP: earnGPBig.toFixed(),
                   earnGPStr: earnGPBig.dividedBy(divisorBigNumber).toFormat(3),
                   userStakedAmount: userStakeBig.toFixed(),
@@ -323,7 +349,9 @@ export const useStakeData = () => {
           userStakedAmount: userStakedAmount,
           userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat(),
           crHeroBoxAmount: crHeroBoxAmount,
-          dollarGpRewords: gpAmount
+          dollarGpRewords: gpAmount,
+          mintMinimum: mintMinimum,
+          sbtAmount: sbtBalanceOf
         }))
         setIsDataLoading(false)
       }

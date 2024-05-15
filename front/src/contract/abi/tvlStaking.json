@@ -253,6 +253,19 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "burnMaximum",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       {
         "internalType": "address[]",
@@ -407,6 +420,30 @@
   {
     "inputs": [
       {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "hasSBT",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "uint256",
         "name": "_startTime",
         "type": "uint256"
@@ -425,6 +462,11 @@
         "internalType": "address",
         "name": "_securedAccount",
         "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "_soulbound",
+        "type": "address"
       }
     ],
     "name": "initialize",
@@ -441,6 +483,19 @@
       }
     ],
     "name": "lastPutInWeek",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "mintMinimum",
     "outputs": [
       {
         "internalType": "uint256",
@@ -555,6 +610,24 @@
   {
     "inputs": [
       {
+        "internalType": "uint256",
+        "name": "_mintMinimum",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_burnMaximum",
+        "type": "uint256"
+      }
+    ],
+    "name": "setSBTConf",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
         "internalType": "address",
         "name": "_securedAccount",
         "type": "address"
@@ -604,6 +677,19 @@
     "name": "setTokenInfo",
     "outputs": [],
     "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "soulbound",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
     "type": "function"
   },
   {

@@ -29,6 +29,7 @@ export const useGetDataCall = () => {
             'Content-Type': 'application/json'
           }
         })
+        console.log({ info_res })
         if (info_res.data) {
           const infoObj = form_info(info_res.data, chainId)
           // console.log(1)
@@ -67,6 +68,7 @@ export const useGetDataCall = () => {
         }
       } catch (e: any) {
         console.log('getUserInfo err', e)
+        return {}
       }
     },
     [account]
@@ -161,7 +163,7 @@ export const useTeamCall = () => {
       const recent_user_res = await request(`${TVL_API}/api/team`, {
         method: 'GET',
         params: {
-          user_id: userId,
+          userId: userId,
           linkType: linkType.key
         },
         headers: {
@@ -180,7 +182,7 @@ export const useTeamCall = () => {
       const _res = await request(`${TVL_API}/api/groupScoreCardNum/${userId}`, {
         method: 'GET',
         params: {
-          user_id: userId
+          userId: userId
         },
         headers: {
           'Content-Type': 'application/json'
@@ -220,7 +222,7 @@ export const useRestakingCall = () => {
       const restaking_res = await request(`${TVL_API}/api/restaking`, {
         method: 'GET',
         params: {
-          user_id: userId,
+          userId: userId,
           linkType: linkType.key
         },
         headers: {
@@ -324,7 +326,7 @@ export const useLeaderBoardCall = () => {
       const my_rank_board_res = await request(`${TVL_API}/api/self-rank-board`, {
         method: 'GET',
         params: {
-          user_id: userId,
+          userId: userId,
           linkType: linkType.key
         },
         headers: {
@@ -450,7 +452,7 @@ export const useUserHeroCall = () => {
       const res = await request(`${TVL_API}/api/user-role/${userId}`, {
         method: 'GET',
         params: {
-          user_id: userId
+          userId: userId
         },
         headers: {
           'Content-Type': 'application/json'

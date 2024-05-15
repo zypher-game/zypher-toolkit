@@ -8,10 +8,10 @@ export enum TVLChainId {
   LineaMainnet = ChainId.LineaMainnet,
   LineaTestnet = ChainId.LineaTestnet
 }
-export const defaultActiveChainId = TVLChainId.Sepolia as unknown as ChainId
+export const defaultActiveChainId = TVLChainId.B2Testnet as unknown as ChainId
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
-    [TVLChainId.B2Testnet, TVLChainId.LineaTestnet]
+    [TVLChainId.B2Testnet] // , TVLChainId.LineaTestnet
   : []) as unknown as ChainId[]
 
 export type IToken = {
@@ -29,19 +29,21 @@ export type TVLToken = {
 }
 export const activeTokenList: Record<ChainId, Record<string, Address>> = {
   [TVLChainId.Sepolia]: {
-    Restaking: '0x8D082081b2FC4260425a1a8C45Cc0F8E8B06EB19',
+    Restaking: '0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637',
     ZypherGameToken: '0xb78fC41280f671a63ce701925F05E3dA1Da9a2Cc',
     CRHero: '0x76E08f9D5f76590E12427F003325768290602De1'
   },
   [TVLChainId.LineaTestnet]: {
     Restaking: '0x3BbBe5929db5EAdF580537874bBA0a961F505E40',
     ZypherGameToken: '0x5275A8593ce6a967Ae6782a70F417135A44bCd27',
-    CRHero: '0x76E08f9D5f76590E12427F003325768290602De1'
+    CRHero: '0x76E08f9D5f76590E12427F003325768290602De1',
+    Soulbound: '0xd64dd18365cCb07B7a0cc22Fbf5ec39Bd89B5FfA'
   },
   [TVLChainId.B2Testnet]: {
-    Restaking: '0x159879B72B1bE7007aC56c4DcbbC31545F8D57bb',
+    Restaking: '0xea37f290392cB0EeFC33621E1D4a60d2Ad372bA2',
     ZypherGameToken: '0x6F36BF53bE9be182599CD7E937E5F32152cEAf41',
-    CRHero: '0x5f441d16bA9A5e3a824f4c287eDA8019F97418f6'
+    CRHero: '0x5f441d16bA9A5e3a824f4c287eDA8019F97418f6',
+    Soulbound: '0x79aDd9Be54429A034B2F89E8C5C46CEC5F9a2359'
   }
 } as unknown as Record<ChainId, Record<string, Address>>
 const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
@@ -50,8 +52,8 @@ const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
   },
   [TVLChainId.LineaTestnet]: {
     WETH: '0x5131bc5Ed480a524932D2638922616fE968374FE',
-    wstETH: '0xbd36B55DF798a2031A9E06A9e8a1AC0C625911dE',
-    ezETH: '0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E'
+    wstETH: '0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E',
+    ezETH: '0xbd36B55DF798a2031A9E06A9e8a1AC0C625911dE'
   },
   [TVLChainId.B2Testnet]: {
     WBTC: '0x9Cae525AdE710904FE81daF47fD26789608fe057',

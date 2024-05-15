@@ -12,6 +12,7 @@ import React, { memo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
+import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
 import { restakingDataState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
@@ -33,6 +34,7 @@ const Card = memo(
     onOpenCrHeroHandle: any
     chainIdLocal: ChainId
   }) => {
+    const { airdropPointsTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip } = useAirdropPointsTooltip()
     const { chainId } = useActiveWeb3React()
     const { activeData } = useActiveData()
     const { crHeroBoxAmount, dollarGpRewords } = activeData
@@ -45,14 +47,22 @@ const Card = memo(
             title={`Obtained by staking $${Currency[chainId]}`}
             airdropPoints={stakingAirdropStr}
             growthCoefficient={stakingGrowthCoefficient}
+            airdropPointsTooltip={airdropPointsTooltip}
+            growthCoefficientTooltip={growthCoefficientTooltip}
           />
-          <PixelCardOne title={'Obtained by restaking tokens'} airdropPoints={restakingAirdropStr} growthCoefficient={restakingGrowthCoefficient} />
+          <PixelCardOne
+            title={'Obtained by restaking tokens'}
+            airdropPoints={restakingAirdropStr}
+            growthCoefficient={restakingGrowthCoefficient}
+            airdropPointsTooltip={airdropPointsTooltip}
+            growthCoefficientTooltip={growthCoefficientTooltip}
+          />
         </div>
         <div className={css.cardTwo}>
           <PixelCardTwo
             title="SBT"
             content="Still need more BTC to unlock"
-            warning={''}
+            warning={SBTTooltip}
             btnLabel="Claim"
             onClick={onClaimSBTHandle}
             loading={claimSBTLoading}
@@ -60,9 +70,7 @@ const Card = memo(
           <PixelCardTwo
             title={crHeroBoxAmount}
             content="CR Hero Mystery Box"
-            warning={
-              'Hero blind box rewards for platformer Crypto Rumble. If you stake ≥0.5ETH, you can get 1 hero mystery box; if you stake >1ETH, you can get 3 hero mystery boxes. There is a limit of 3 hero mystery boxes per address. Total quantity 10,000, first come first served.'
-            }
+            warning={crHeroTooltip}
             btnLabel="Open"
             onClick={onOpenCrHeroHandle}
             loading={claimCrLoading}
@@ -70,9 +78,7 @@ const Card = memo(
           <PixelCardTwo
             title={`${dollarGpRewords}`}
             content="Rewards"
-            warning={
-              '$GP rewards are settled weekly. Based on last week’s pledge status. Note: The profit is $GP and the value is constant $ETH ( 1 $ETH = 2,000,000 $GP). $GP can only be circulated in games within the platform and cannot be transferred. You can later sell DP to earn $ETH through the [$GP to DP] function.'
-            }
+            warning={gpTooltip}
             btnLabel="Claim"
             onClick={onClaimGPHandle}
             loading={claimGpLoading}
@@ -82,27 +88,41 @@ const Card = memo(
     )
   }
 )
-const PixelCardOne = memo(({ airdropPoints, growthCoefficient, title }: { airdropPoints: string; growthCoefficient: string; title: string }) => {
-  return (
-    <PixelCard>
-      <h4 className={css.cardOneTitle}>{title}</h4>
-      <div className={css.fr_title_content}>
-        <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
-        <p>{growthCoefficient}</p>
-      </div>
-      <div className={css.fr_title}>
-        <div className={css.fr_title_fl}>
-          <p>Airdrop Points</p>
-          <PixelTooltip title="prompt text" />
+const PixelCardOne = memo(
+  ({
+    airdropPoints,
+    growthCoefficient,
+    title,
+    airdropPointsTooltip,
+    growthCoefficientTooltip
+  }: {
+    airdropPoints: string
+    growthCoefficient: string
+    title: string
+    airdropPointsTooltip: string[]
+    growthCoefficientTooltip: string[]
+  }) => {
+    return (
+      <PixelCard>
+        <h4 className={css.cardOneTitle}>{title}</h4>
+        <div className={css.fr_title_content}>
+          <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
+          <p>{growthCoefficient}</p>
         </div>
-        <div className={css.fr_title_fr}>
-          <p>Growth coefficient</p>
-          <PixelTooltip title="prompt text" />
+        <div className={css.fr_title}>
+          <div className={css.fr_title_fl}>
+            <p>Airdrop Points</p>
+            <PixelTooltip title={airdropPointsTooltip} />
+          </div>
+          <div className={css.fr_title_fr}>
+            <p>Growth coefficient</p>
+            <PixelTooltip title={growthCoefficientTooltip} />
+          </div>
         </div>
-      </div>
-    </PixelCard>
-  )
-})
+      </PixelCard>
+    )
+  }
+)
 const PixelCardTwo = memo(
   ({
     title,
@@ -114,7 +134,7 @@ const PixelCardTwo = memo(
   }: {
     title: string
     content: string
-    warning: string
+    warning: string[]
     btnLabel: string
     onClick: any
     loading: boolean

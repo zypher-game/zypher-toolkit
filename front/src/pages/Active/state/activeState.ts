@@ -52,6 +52,8 @@ export interface IActiveData {
   stakedRatio: string // 用户stake量 / 总量
   tvlHero?: ITvlHero
   crHeroBoxAmount: string // CR Hero Mystery Box
+  sbtAmount: string // CR Hero Mystery Box
+  mintMinimum: string // // 最少质押多少给 SBT
   dollarGpRewords: string // 可claim的 $GP 量
   avatar: string // 头像
   nickname: string // 昵称
@@ -100,7 +102,9 @@ export const initActiveData: IActiveData = {
   crHeroBoxAmount: '',
   dollarGpRewords: '',
   ranking: '',
-  isCheckedAirdropPoints: false
+  isCheckedAirdropPoints: false,
+  mintMinimum: '', // 最少质押多少给 SBT
+  sbtAmount: ''
 }
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({
@@ -193,7 +197,7 @@ export const isTvlDataLoadingState = atom<boolean>({
   default: false
 })
 export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>({
-  key: 'tvlStakingData',
+  key: 'tvlStakingDataV2',
   default: Object.fromEntries(
     TVLStakingSupportedChainId.map(chainId => [
       chainId,
@@ -250,9 +254,9 @@ export const pointSuccessDialogState = atom({
   key: 'pointSuccessDialogState',
   default: false
 })
-export const depositCurrencyState = atom({
+export const depositCurrencyState = atom<string | undefined>({
   key: 'depositCurrencyState',
-  default: 'ETH'
+  default: undefined
 })
 export const chooseChainState = atom<ChainId | undefined>({
   key: 'chooseChainState',

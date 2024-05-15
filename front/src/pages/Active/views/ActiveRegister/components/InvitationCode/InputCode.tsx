@@ -1,11 +1,10 @@
-import { ActivePixelCard, PixelBorderCard, useSetRecoilState } from '@ui/src'
+import { ActivePixelCard } from '@ui/src'
 import React, { ChangeEventHandler, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import { CODELENGTH } from '@/pages/Active/constants/activeConstants'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
-import { activeDataState, IActiveDataState } from '@/pages/Active/state/activeState'
 import { getHrefCode } from '@/pages/Active/utils/getHrefParams'
 
 import css from './InputCode.module.styl'

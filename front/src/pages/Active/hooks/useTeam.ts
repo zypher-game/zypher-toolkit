@@ -1,4 +1,4 @@
-import { useActiveWeb3React } from '@ui/src'
+import { divisorBigNumber, useActiveWeb3React } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
 import BigNumberJs from '@/utils/BigNumberJs'
@@ -20,8 +20,11 @@ export const useTeam = () => {
   const [groupGoal, setGroupGoal] = useState({
     percent: '0',
     total: '0',
+    totalStr: '0',
     target: '0',
-    need: '0'
+    targetStr: '0',
+    need: '0',
+    needStr: '0'
   })
   const { account, chainId } = useActiveWeb3React()
   const { getAvailableCode } = useAvailableCode()
@@ -51,21 +54,27 @@ export const useTeam = () => {
 
       if (_team.members) {
         setTeamMembers(_team.members)
-
         setActiveData(pre => ({
           ...pre,
           airdropPoints: _team['userInfo']['points'],
-          ranking: _team['userInfo']['role'],
-          airdropPointsCardNumber: point
+          ranking: `${_team['userInfo']['rank']}`,
+          airdropPointsCardNumber: point['cardNum']
         }))
         // group
         const total = _team['groupGoal']['total']
         const target = _team['groupGoal']['target']
+
+        const totalBig = new BigNumberJs(total)
+        const targetBig = new BigNumberJs(target)
+        const need = totalBig.minus(targetBig).abs().toFixed(3)
         setGroupGoal({
-          percent: target === '0' ? '0' : new BigNumberJs(total).div(target).times(100).toFixed(0),
+          percent: target === '0' ? '0' : totalBig.div(target).times(100).toFixed(0),
           total: total,
+          totalStr: totalBig.dividedBy(divisorBigNumber).toFixed(2),
           target: target,
-          need: new BigNumberJs(target).minus(total).toFixed(3)
+          targetStr: targetBig.dividedBy(divisorBigNumber).toFixed(2),
+          need: need,
+          needStr: new BigNumberJs(need).dividedBy(divisorBigNumber).toFixed(2)
         })
       }
     }

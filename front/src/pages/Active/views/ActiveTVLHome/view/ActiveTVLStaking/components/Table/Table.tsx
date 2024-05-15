@@ -1,4 +1,4 @@
-import { ChainId, PixelTableBorder, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { ChainId, Currency, PixelTableBorder, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import React, { memo, useMemo } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
@@ -15,11 +15,12 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
       erc20: []
     }
     const o = tvlStakingData[chainIdLocal]
-    console.log(111, { o, tvlStakingData })
+    console.log(111, { o, tvlStakingData, currency: Currency[chainIdLocal] })
     if (o) {
       const all = Object.keys(o)
-      const WETHIndex = all.indexOf('WETH')
-      let ETHIndex = all.indexOf('ETH')
+      const w_native = 'W' + Currency[chainIdLocal]
+      const WETHIndex = all.indexOf(w_native)
+      let ETHIndex = all.indexOf(Currency[chainIdLocal])
       if (WETHIndex !== -1 && ETHIndex !== -1) {
         all.splice(WETHIndex, 1)
         if (ETHIndex > WETHIndex) {
@@ -29,13 +30,13 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
         all.splice(ETHIndex, 1)
         console.log({ all })
       }
-      obj.native = [o.WETH]
+      obj.native = [o[w_native]]
       console.log({ all })
       obj.erc20 = all.map(v => o[v])
     }
     return obj
   }, [chainIdLocal, JSON.stringify(tvlStakingData)])
-  console.log({ erc20 })
+  console.log({ native, erc20 })
   return (
     <>
       <h3 className={css.title}>Native Token Stake</h3>
