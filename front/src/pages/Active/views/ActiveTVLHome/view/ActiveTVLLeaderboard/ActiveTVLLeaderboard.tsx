@@ -1,68 +1,39 @@
 import { PixelTableBorder } from '@ui/src'
-import React, { memo } from 'react'
+import React, { memo, useCallback, useState } from 'react'
 
-import { useLeaderboard } from '@/pages/Active/hooks/useLeaderboard'
+import { useLeaderBoard } from '@/pages/Active/hooks/useLeaderboard'
 
 import Avatar from '../../components/Avatar/Avatar'
+import ChainTab from '../../components/ChainTab/ChainTab'
+import Tab from '../../components/Tab/Tab'
 import TVLWrap from '../TVLWrap'
 import css from './ActiveTVLLeaderboard.module.styl'
 import LeaderBoardRow from './components/LeaderBoardRow/LeaderBoardRow'
 
 const ActiveTVLLeaderboard = memo(() => {
-  const { recentUser } = useLeaderboard()
-  const list = [
-    {
-      index: 1,
-      avatar: '',
-      nickname: 'Daniel',
-      invitedBy: 'Invited by @Lanetta',
-      amount: '2348901'
-    },
-    {
-      index: 2,
-      avatar: '',
-      nickname: 'Daniel',
-      invitedBy: 'Invited by @Lanetta',
-      amount: '2348901'
-    },
-    {
-      index: 3,
-      avatar: '',
-      nickname: 'Daniel',
-      invitedBy: 'Invited by @Lanetta',
-      amount: '2348901'
-    },
-    {
-      index: 4,
-      avatar: '',
-      nickname: 'Daniel',
-      invitedBy: 'Invited by @Lanetta',
-      amount: '2348901'
-    }
-  ]
-  const my = {
-    index: 4,
-    avatar: '',
-    nickname: 'Daniel',
-    invitedBy: 'Invited by @Lanetta',
-    amount: '2348901'
-  }
+  const { chainIndex, setChainIndex, recentUser, rankBoard, my } = useLeaderBoard()
+
+  const changeChainIndexHandle = useCallback((index: number) => {
+    setChainIndex(index)
+  }, [])
   return (
     <TVLWrap
       fl_children={
         <>
-          <h2 className={css.fl_title}>Leaderboard</h2>
-          <p className={css.fl_grey}>Restaking & invite friends to improve your ranking!</p>
+          <h2 className={`${css.fl_title} ${css.pt30}`}>Leaderboard</h2>
+          <p className={`${css.fl_grey} ${css.mb40}`}>Restaking & invite friends to improve your ranking!</p>
+          <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
           <div className={css.fl_list}>
-            {[...list, ...list, ...list, ...list].map((v, index) => (
+            {rankBoard.map((v, index) => (
               <LeaderBoardRow key={index} {...v} />
             ))}
           </div>
-          <LeaderBoardRow {...my} isMy={true} />
+          {my ? <LeaderBoardRow {...my} isMy={true} /> : null}
         </>
       }
       fr_children={
-        <>
+        <div className={css.fr}>
+          <Tab />
           <PixelTableBorder
             pixel_height={6}
             header_children={<p className={css.fr_title}>Recently Joined</p>}
@@ -83,7 +54,7 @@ const ActiveTVLLeaderboard = memo(() => {
               </ul>
             }
           />
-        </>
+        </div>
       }
     />
   )

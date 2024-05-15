@@ -5,9 +5,9 @@ import BigNumberJs from '@/utils/BigNumberJs'
 import { getLinkPre } from '../constants/activeConstants'
 
 export const form_info = (data: any, chainId: ChainId) => {
-  const link_type = getLinkPre(chainId)
+  const linkType = getLinkPre(chainId)
   return {
-    invitationCode: `${link_type.label}${data.curInviteCode}`,
+    invitationCode: `${linkType.label}${data.curInviteCode}`,
     signedStr: '0000',
     avatar: data.headImg,
     id: `${data.id}`,

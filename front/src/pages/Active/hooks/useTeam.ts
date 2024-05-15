@@ -5,7 +5,7 @@ import BigNumberJs from '@/utils/BigNumberJs'
 
 import { useActiveData } from './useActiveData'
 import { useAvailableCode, useTeamCall } from './useDataCall'
-import { useInit } from './useInit'
+import { useGetData } from './useInit'
 export type ITeamMember = {
   headImg: string
   nickname: string
@@ -13,7 +13,7 @@ export type ITeamMember = {
   role: string
 }
 export const useTeam = () => {
-  const { getData } = useInit()
+  const { getData } = useGetData()
   const [availableCode, setAvailableCode] = useState<string[]>([])
   const { activeData, setActiveData } = useActiveData()
   const [teamMembers, setTeamMembers] = useState<ITeamMember[]>([])
@@ -25,9 +25,15 @@ export const useTeam = () => {
   })
   const { account, chainId } = useActiveWeb3React()
   const { getAvailableCode } = useAvailableCode()
+  const [loading, setLoading] = useState(false)
   const { getTeam, getGroupScoreCardNum, setOpenCard } = useTeamCall()
+  const { id } = activeData
   const getDataTeam = useCallback(async () => {
-    if (activeData.id) {
+    if (id) {
+      if (loading || teamMembers.length) {
+        return
+      }
+      setLoading(true)
       // 获取邀请码
       const _availableCode = await getAvailableCode(account!, chainId)
       if (_availableCode) {
@@ -41,9 +47,8 @@ export const useTeam = () => {
       if (_availableCode) {
         setAvailableCode(_availableCode)
       }
+      setLoading(false)
 
-      if (_team.groupGoal) {
-      }
       if (_team.members) {
         setTeamMembers(_team.members)
 
@@ -64,7 +69,7 @@ export const useTeam = () => {
         })
       }
     }
-  }, [JSON.stringify(activeData)])
+  }, [id])
   useEffect(() => {
     getDataTeam()
   }, [getDataTeam])

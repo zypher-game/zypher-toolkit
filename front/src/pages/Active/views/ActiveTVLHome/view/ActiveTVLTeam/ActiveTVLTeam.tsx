@@ -12,6 +12,7 @@ import {
 import { Tooltip } from 'antd'
 import React, { memo, useCallback, useRef, useState } from 'react'
 
+import { getLinkPre } from '@/pages/Active/constants/activeConstants'
 import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
 import { tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
@@ -20,6 +21,7 @@ import copy from '@/utils/copy'
 
 import Avatar from '../../components/Avatar/Avatar'
 import FrPixelBorder from '../../components/FrPixelBorder/FrPixelBorder'
+import Tab from '../../components/Tab/Tab'
 import TVLWrap from '../TVLWrap'
 import css from './ActiveTVLTeam.module.styl'
 import Banner from './components/Banner/Banner'
@@ -48,7 +50,8 @@ const ActiveTVLTeam = memo(() => {
     <>
       <TVLWrap
         fl_children={
-          <>
+          <div className={css.fl}>
+            <Tab />
             <Banner />
             <div className={`${css.title_div} ${css.mt30} ${css.mb10}`}>
               <h2 className={css.title}>My Team</h2>
@@ -96,10 +99,11 @@ const ActiveTVLTeam = memo(() => {
               </div>
             </PixelCube3> */}
             </div>
-          </>
+          </div>
         }
         fr_children={
           <>
+            <div className={css.pt100} />
             <FrPixelBorder>
               <h3 className={css.fr_title}>Restaked</h3>
               <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
@@ -140,13 +144,13 @@ const ActiveTVLTeam = memo(() => {
                   {availableCode.map(v => (
                     <li key={v}>
                       <p>
-                        {window.location.origin}/{v}
+                        {window.location.origin}/{getLinkPre(chainId).label}-{v}
                       </p>
                       <ActivePixelButtonColor
                         width="88px"
                         height="36px"
                         pixel_height={3}
-                        onClick={() => copy(`${window.location.origin}/${v}`, toastContainerRef)}
+                        onClick={() => copy(`${window.location.origin}/${getLinkPre(chainId).label}-${v}`, toastContainerRef)}
                       >
                         <p>Copy</p>
                       </ActivePixelButtonColor>

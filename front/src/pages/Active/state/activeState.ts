@@ -110,14 +110,19 @@ export const activeDataState = atom<IActiveDataState>({
 })
 
 export interface ITVLStakingData extends IToken {
+  crHeroAmount: string
   allowance: string
   balance: string
   balanceStr: string
   points: string // 获取多少积分
   earnGP: string // 获取多少GP
+  earnGPStr: string
   apr: string // 写死
   userStakedAmount: string // 用户stake量
+  userStakedAmountStr: string // 用户stake量
   totalStakedAmount: string // stake总量
+  totalStakedAmountStr: string // stake总量
+  ratio: string
   address: Address
   symbol: string
   decimal: number
@@ -131,16 +136,62 @@ export const initData: ITVLStakingData = {
   balanceStr: '',
   points: '', // 获取多少积分
   earnGP: '', // 获取多少GP
+  earnGPStr: '',
   apr: '20', // 写死
   userStakedAmount: '', // 用户stake量
+  userStakedAmountStr: '', // 用户stake量
   totalStakedAmount: '', // stake总量
+  totalStakedAmountStr: '', // stake总量
   address: AddressZero,
   symbol: '',
   decimal: 18,
   name: '',
   logoPath: '',
-  index: 0
+  index: 0,
+  crHeroAmount: '',
+  ratio: ''
 }
+export type IRestakingItem = {
+  tokenAddress: string
+  // userStakeTotal: string
+  total: string
+  // totalStr: string
+  // ratio: string
+}
+export type IRestakingDataState = {
+  records: Record<string, IRestakingItem>
+  statistics: {
+    stakingAirdrop: string
+    stakingAirdropStr: string
+    stakingGrowthCoefficient: string
+    restakingAirdrop: string
+    restakingAirdropStr: string
+    restakingGrowthCoefficient: string
+  }
+}
+export const restakingDataState = atom<Record<ChainId, IRestakingDataState>>({
+  key: 'restakingDataState',
+  default: Object.fromEntries(
+    TVLStakingSupportedChainId.map(chainId => [
+      chainId,
+      {
+        records: {},
+        statistics: {
+          stakingAirdrop: '',
+          stakingGrowthCoefficient: '',
+          restakingAirdrop: '',
+          restakingGrowthCoefficient: '',
+          stakingAirdropStr: '',
+          restakingAirdropStr: ''
+        }
+      }
+    ])
+  ) as unknown as Record<ChainId, IRestakingDataState>
+})
+export const isTvlDataLoadingState = atom<boolean>({
+  key: 'isTvlDataLoadingState',
+  default: false
+})
 export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>({
   key: 'tvlStakingData',
   default: Object.fromEntries(
@@ -156,25 +207,20 @@ export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<stri
           chainId: chainId,
           index: 0
         },
-        // [tvlTokens[chainId].GP.symbol]: {
-        //   ...initData,
-        //   ...tvlTokens[chainId].GP,
-        //   chainId: chainId
-        // },
-        [tvlTokens[chainId].USDT.symbol]: {
-          ...initData,
-          ...tvlTokens[chainId].USDT,
-          chainId: chainId
-        },
-        [tvlTokens[chainId].WETH.symbol]: {
-          ...initData,
-          ...tvlTokens[chainId].WETH,
-          chainId: chainId
-        }
+        ...Object.fromEntries(
+          Object.keys(tvlTokens[chainId]).map(currency => [
+            currency,
+            {
+              ...initData,
+              ...tvlTokens[chainId][currency],
+              chainId: chainId
+            }
+          ])
+        )
       }
     ])
   ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>,
-  effects_UNSTABLE: [localStorageEffect('tvlStakingData')]
+  effects_UNSTABLE: [localStorageEffect('tvlStakingDataV2')]
 })
 export const selectChainDialogState = atom({
   key: 'selectChainDialogState',

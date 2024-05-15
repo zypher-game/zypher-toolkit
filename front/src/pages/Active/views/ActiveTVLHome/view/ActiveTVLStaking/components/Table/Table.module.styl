@@ -1,0 +1,39 @@
+.title
+  margin-top: 30px
+  margin-bottom: 10px
+  font-size: 18px
+  font-weight: 600
+.fl_tab_header
+  p
+    font-size: 12px
+.fl_tab_body
+  p
+    font-size: 14px
+.fl_tab_body_col1
+  display: flex
+  gap: 10px
+  justify-content: flex-start
+
+:global(body .tvlPixelTable_header_table)
+  :global(>.pixel_flat_inner)
+    padding: 0
+    .row
+      padding: 16px 30px 
+
+.row
+  padding: 16px 30px 20px 
+  width: 100%
+  display: flex
+  >p, >div
+    display: inline-flex
+    align-items: center;
+  >p:nth-child(1),>div:nth-child(1)
+    width: 20%
+  >p:nth-child(2),>div:nth-child(2)
+    width: 14%
+  >p:nth-child(3),>div:nth-child(3)
+    width: 14%
+  >p:nth-child(4),>div:nth-child(4)
+    width: 14%
+  >p:nth-child(5),>div:nth-child(5)
+    width: 18%

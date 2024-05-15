@@ -2,7 +2,6 @@ import './Staking.styl'
 
 import { AddressZero } from '@ethersproject/constants'
 import {
-  accountInfoDialogState,
   ActivePixelButton,
   ActivePixelButtonColor,
   ChainId,
@@ -12,7 +11,6 @@ import {
   PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
-  useChainModal,
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
@@ -20,19 +18,18 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import BigNumberJs from '@/utils/BigNumberJs'
 
-import { defaultActiveChainId, TVLChainId } from '../../constants/activeConstants'
+import { defaultActiveChainId } from '../../constants/activeConstants'
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
-import { canNext, useStake } from '../../hooks/activeHooks'
-import { chooseChainState, selectChainDialogState, selectTokenDialogState } from '../../state/activeState'
+import { canNext } from '../../hooks/activeHooks'
+import { useStakeHandle } from '../../hooks/useStakeHandle'
+import { chooseChainState, selectChainDialogState } from '../../state/activeState'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
 const Staking = memo(() => {
   const chooseChain = useRecoilValue(chooseChainState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>(defaultActiveChainId)
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
-  const { openChainModal } = useChainModal()
-  const setAccountInfoDialogOpen = useSetRecoilState(accountInfoDialogState)
   const {
     deposit,
     account,
@@ -46,7 +43,7 @@ const Staking = memo(() => {
     isDepositLoading,
     isApproveLoading,
     isDataLoading
-  } = useStake()
+  } = useStakeHandle()
   useEffect(() => {
     if (chooseChain) {
       setChainIdLocal(chooseChain)

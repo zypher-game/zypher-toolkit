@@ -4,9 +4,9 @@ import { Address, WalletClient } from 'wagmi'
 
 import { activeTokenList } from '@/pages/Active/constants/activeConstants'
 
-import TVLStakingABI from './abi/tvlStaking.json'
+import crHeroAbi from './abi/crHeroAbi.json'
 
-export const TVLStakingContract = ({
+export const crHeroContract = ({
   chainId,
   env,
   signer
@@ -18,11 +18,11 @@ export const TVLStakingContract = ({
 }): ethers.Contract => {
   return getContract({
     env: env,
-    abi: TVLStakingABI,
-    address: activeTokenList[chainId].Restaking,
+    abi: crHeroAbi,
+    address: activeTokenList[chainId].CRHero,
     signer,
     chainId: chainId as unknown as ChainId
   })
 }
 
-export { TVLStakingABI }
+export { crHeroAbi }

@@ -10,7 +10,6 @@ import { Autoplay, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
 import css from './bannerv2.module.stylus'
-
 const BannerV2Widget: FC = memo(() => {
   const isMobile = useIsMd()
   const [currentLanguage, setCurrentLanguage] = useState(i18n.language)

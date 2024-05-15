@@ -12,14 +12,15 @@ import {
   useSetRecoilState
 } from '@ui/src'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
+import { getLinkPre } from '../../constants/activeConstants'
 import { useActiveData } from '../../hooks/useActiveData'
 import { useUpdateInfoCall } from '../../hooks/useDataCall'
-import { useInit } from '../../hooks/useInit'
+import { useGetData, useInit } from '../../hooks/useInit'
 import { activeDataState, changeNameDialogState, IActiveDataState } from '../../state/activeState'
 import Avatar from '../../views/ActiveTVLHome/components/Avatar/Avatar'
 import css from './ChangeNameDialog.module.styl'
@@ -32,44 +33,78 @@ const ChangeNameDialog = memo(() => {
   const [previewSrc, setPreviewSrc] = useState<string>('')
   const [nicknameLocal, setNicknameLocal] = useState('')
   const [loading, setLoading] = useState(false)
-  const [selectedFile, setSelectedFile] = useState<File | null>(null)
-  const { updateInfo } = useUpdateInfoCall()
-  const { account } = useActiveWeb3React()
-  const { getData } = useInit()
+  // const [selectedFile, setSelectedFile] = useState<File | null>(null)
+  const { updateInfo, updateHeadImg } = useUpdateInfoCall()
+  const { account, chainId } = useActiveWeb3React()
+  const { getData } = useGetData()
   useEffect(() => {
     if (avatar && nickname) {
       setPreviewSrc(avatar)
-      setNicknameLocal(nickname)
+      setNicknameLocal(`@${nickname}`)
     }
   }, [avatar, nickname])
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
   }, [])
   const handleChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const inputValue = e.target.value
+    let inputValue = e.target.value
+    if (!inputValue.startsWith('@')) {
+      inputValue = `@${inputValue}`
+    }
     setNicknameLocal(inputValue)
   }, [])
-  const updateInfoHandle = useCallback(async () => {
-    if (account && avatarLocal && nicknameLocal) {
-      setLoading(true)
-      try {
-        const res = await updateInfo({ address: account, headImg: avatarLocal, nickname: nicknameLocal })
-        if (res) {
-          getData()
-        }
-        setLoading(false)
-      } catch (e) {
-        setErrorToast(GlobalVar.dispatch, e)
-        setLoading(false)
-      }
+  const _canNext = useMemo(() => {
+    if (!account) {
+      return false
     }
-  }, [nicknameLocal, account, avatarLocal])
+    if (!avatarLocal && nicknameLocal.length > 20 && nickname !== nicknameLocal) {
+      return false
+    }
+    if (nicknameLocal.length > 0) {
+      return true
+    }
+    return false
+  }, [nicknameLocal, avatarLocal, account])
+  const updateInfoHandle = useCallback(async () => {
+    try {
+      if (!_canNext) {
+        return
+      }
+      console.log(1, account, avatarLocal, nicknameLocal)
+      // updateHeadImg
+      const linkType = getLinkPre(chainId).key
+      let updateHeadRes = false
+      let updateInfoRes = false
+      setLoading(true)
+      if (!avatarLocal) {
+        updateHeadRes = true
+      } else {
+        const formData = avatarLocal
+        formData.append('address', account!)
+        formData.append('linkType', `${linkType}`)
+        updateHeadRes = await updateHeadImg({ formData: avatarLocal })
+      }
+      // || previewSrc
+      if (updateHeadRes && nicknameLocal !== nickname) {
+        updateInfoRes = await updateInfo({ address: account!, nickname: nicknameLocal, linkType: linkType })
+      } else {
+        updateInfoRes = true
+      }
+      if (updateInfoRes && updateHeadRes) {
+        getData()
+      }
+      setLoading(false)
+    } catch (e) {
+      setErrorToast(GlobalVar.dispatch, e)
+      setLoading(false)
+    }
+  }, [_canNext, nicknameLocal, account, avatarLocal])
 
   const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
     event.preventDefault()
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
-      setSelectedFile(file)
+      // setSelectedFile(file)
       // 创建一个新的FileReader实例
       const reader = new FileReader()
 
@@ -83,11 +118,10 @@ const ChangeNameDialog = memo(() => {
       reader.readAsDataURL(file)
 
       const formData = new FormData()
-      formData.append('file', file)
+      formData.append('headImg', file, file.name)
       setAvatarLocal(formData)
     }
   }
-  useEffect(() => {}, [avatarLocal])
   return (
     <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent>
@@ -109,7 +143,7 @@ const ChangeNameDialog = memo(() => {
               <PixelCube3 className={css.input} pixel_height={2} width="100%" height="48px" backgroundColor="#343C4F" borderColor="#484F60">
                 <input onChange={handleChange} type="text" value={nicknameLocal} />
               </PixelCube3>
-              <ActivePixelButtonColor pixel_height={3} onClick={updateInfoHandle} width="144px" height="36px">
+              <ActivePixelButtonColor pixel_height={3} onClick={updateInfoHandle} width="144px" height="36px" disable={!_canNext}>
                 <p className={css.save}>Save</p>
                 <LoadingButton isLoading={loading} />
               </ActivePixelButtonColor>

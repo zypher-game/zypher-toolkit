@@ -6,17 +6,17 @@ import { canNext } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { useGetDataCall } from './useDataCall'
 
-export const useInit = () => {
+export const useGetData = () => {
   const { account, chainId } = useActiveWeb3React()
   const { setActiveData } = useActiveData()
   const { getUserInfo } = useGetDataCall()
-  // const { isInitLoading, id } = activeData
   const getData = useCallback(async () => {
     if (chainId && account && canNext(account, chainId)) {
       setActiveData(pre => ({
         ...pre,
         isInitLoading: true
       }))
+      console.log(111222333)
       const userInfo = await getUserInfo({
         isInit: true,
         chainId
@@ -43,7 +43,15 @@ export const useInit = () => {
       }
     }
   }, [account])
-
+  return {
+    getData
+  }
+}
+export const useInit = () => {
+  const { account } = useActiveWeb3React()
+  const { setActiveData } = useActiveData()
+  // const { isInitLoading, id } = activeData
+  const { getData } = useGetData()
   useEffect(() => {
     getData()
   }, [account])

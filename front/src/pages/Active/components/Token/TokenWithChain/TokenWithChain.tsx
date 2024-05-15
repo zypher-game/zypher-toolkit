@@ -9,7 +9,7 @@ const Wrap = styled.div<{ width?: number }>`
   width: ${({ width }) => width ?? 22}px;
   height: ${({ width }) => width ?? 22}px;
 `
-const TokenWithChain = memo(({ token, chainId, width }: { token: IToken; chainId: ChainId | TVLChainId; width?: number }) => {
+const TokenWithChain = memo(({ token, chainId, width }: { token: IToken; chainId?: ChainId | TVLChainId; width?: number }) => {
   const { cLogo, cChainId } = useMemo((): {
     cLogo: string
     cChainId: ChainId

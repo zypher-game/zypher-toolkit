@@ -4,11 +4,13 @@
   display: flex
   justify-content: space-between
   align-items: flex-start
-  flex-wrap: wrap-reverse
+  @media screen and (max-width: 1200px)
+    flex-direction: column-reverse;
   :global(.pixe_active_tvl_tab)
     margin: 0 0 20px 0
   :global(.active_tvl_tab)
-    margin: 0
+    margin-top: 20px
+    margin-bottom: 20px
 
 .fl_title
   font-weight: 600

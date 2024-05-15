@@ -2,11 +2,9 @@ import React, { memo } from 'react'
 
 import ChangeNameDialog from '@/pages/Active/dialog/ChangeNameDialog/ChangeNameDialog'
 import TVLStakingDialog from '@/pages/Active/dialog/StakingDialog/StakingDialog'
-import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
+import { useStake, useStakeData } from '@/pages/Active/hooks/useStakeData'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
-import { useStake } from '../../../hooks/activeHooks'
-import Tab from '../components/Tab/Tab'
 import css from './TVLWrap.module.styl'
 const TVLWrap = memo(
   ({
@@ -27,13 +25,10 @@ const TVLWrap = memo(
           {type === 'inner' ? (
             children
           ) : (
-            <>
-              <Tab />
-              <div className={css.inner_inner}>
-                <div className={css.fl}>{fl_children}</div>
-                <div className={css.fr}>{fr_children}</div>
-              </div>
-            </>
+            <div className={css.inner_inner}>
+              <div className={css.fl}>{fl_children}</div>
+              <div className={css.fr}>{fr_children}</div>
+            </div>
           )}
         </div>
         <TVLStakingDialog />

@@ -51,8 +51,8 @@ export const useBind = () => {
       return
     }
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: true } }))
-    const link_type = getLinkPre(chainId)
-    window.open(`${TVL_API}/connect-twitter?addr=${account}&link_type=${link_type.key}`)
+    const linkType = getLinkPre(chainId)
+    window.open(`${TVL_API}/connect-twitter?addr=${account}&linkType=${linkType.key}`)
   }, [twitterNickname, preHandleAction, chainId])
   return {
     CheckPointHandle,

@@ -9,12 +9,17 @@ import { INavLink, INavLinkType } from "./useNavItem.type";
 import { useActiveWeb3React } from "./useActiveWeb3React";
 import { isPro, preStaticUrl } from "../constant/constant";
 
+export const zAceLink = isPro()
+  ? "https://acequest.io/zAce/"
+  : "https://testnet.acequest.io/zAce/";
+export const crLink = "https://test.zypher.game/CryptoRumble/";
+
 export const LinkList = [
   // "/zBingo",
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/",
-  "https://test.zypher.game/CryptoRumble/",
+  zAceLink,
+  crLink,
   "", //game_tcg.jpg
   "", //game_mahjong.jpg
   "", //game_muder.jpg

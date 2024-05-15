@@ -4,17 +4,12 @@ import { preStaticUrl, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor, ActivePixelCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
+import { IRankBoard } from '@/pages/Active/hooks/useLeaderboard'
 import { changeNameDialogState } from '@/pages/Active/state/activeState'
 
 import Avatar from '../../../../components/Avatar/Avatar'
-export type ILeaderBoardRowProps = {
-  index: number
-  avatar: string
-  nickname: string
-  invitedBy: string
-  amount: string
-}
-interface IProps extends ILeaderBoardRowProps {
+
+interface IProps extends IRankBoard {
   isMy?: boolean
 }
 const colorArr = [
@@ -55,17 +50,17 @@ const colorArr = [
   }
 ]
 const LeaderBoardRow = memo((props: IProps) => {
-  const { index, amount, avatar, nickname, invitedBy, isMy } = props
+  const { rank, score, headImg, nickname, fromNickname, isMy } = props
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
   const { height, borderBottomColor, borderTopColor, backgroundColor, iconBackgroundColor } = useMemo(() => {
     if (isMy) {
       return colorArr[4]
     }
-    if (index < 4) {
-      return colorArr[index - 1]
+    if (rank < 4) {
+      return colorArr[rank - 1]
     }
     return colorArr[3]
-  }, [index])
+  }, [rank])
   const editNicknameHandle = useCallback(() => {
     setIsModalOpen(true)
   }, [])
@@ -77,31 +72,31 @@ const LeaderBoardRow = memo((props: IProps) => {
       borderBottomColor={borderBottomColor}
       borderTopColor={borderTopColor}
       backgroundColor={backgroundColor}
-      className={`leader_board_row ${index < 4 ? 'leader_board_row_text' : ''} ${isMy ? 'leader_board_row_my' : ''}`}
+      className={`leader_board_row ${rank < 4 ? 'leader_board_row_text' : ''} ${isMy ? 'leader_board_row_my' : ''}`}
     >
       <div className="leader_board_row_fl">
-        {index < 4 ? (
-          <img src={`${preStaticUrl}/img/tvl/label_0${index}.png`} className="leader_board_row_fl_img" />
+        {rank < 4 ? (
+          <img src={`${preStaticUrl}/img/tvl/label_0${rank}.png`} className="leader_board_row_fl_img" />
         ) : (
           <ActivePixelCard pixel_height={3} className={`leader_board_row_fl_div`} width="36px" height="36px" backgroundColor={iconBackgroundColor}>
-            <p>{index}</p>
+            <p>{rank}</p>
           </ActivePixelCard>
         )}
       </div>
       <div className="leader_board_row_inner">
-        <Avatar src={avatar} nickname={nickname} width="48px" />
+        <Avatar src={headImg} nickname={nickname} width="48px" />
         <div className="leader_board_row_inner_fl">
           <div className="leader_board_row_inner_fl_avatar">
             <h3>
-              {nickname}
+              @{nickname}
               {isMy ? '(YOU)' : ''}
             </h3>
             {isMy ? <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={'pixel_edit'} onClick={editNicknameHandle} /> : null}
           </div>
-          <p>Invited by @{invitedBy}</p>
+          {!fromNickname || fromNickname !== '' ? <p>Invited by @{fromNickname}</p> : null}
         </div>
       </div>
-      <p className={`leader_board_row_fr`}>{amount}</p>
+      <p className={`leader_board_row_fr`}>{score}</p>
     </ActivePixelButtonColor>
   )
 })

@@ -21,20 +21,22 @@ const Bind = memo(({ CheckPointHandle, CheckTwitterHandle }: { CheckPointHandle:
   }, [])
 
   const handleVisibilityChange = useCallback(async () => {
-    if (!document.hidden && account && chainId) {
-      if (isClick && canNext(account, chainId)) {
-        setIsClick(false)
-        try {
-          const userInfo = await getUserInfo({ isInit: false, chainId })
-          setActiveData(pre => ({
-            ...pre,
-            ...userInfo
-          }))
-        } catch {
-          setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
+    setTimeout(async () => {
+      if (!document.hidden && account && chainId) {
+        if (isClick && canNext(account, chainId)) {
+          setIsClick(false)
+          try {
+            const userInfo = await getUserInfo({ isInit: false, chainId })
+            setActiveData(pre => ({
+              ...pre,
+              ...userInfo
+            }))
+          } catch {
+            setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
+          }
         }
       }
-    }
+    }, 1000)
   }, [isClick, chainId, chainId])
 
   useEffect(() => {
