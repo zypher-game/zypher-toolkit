@@ -11,7 +11,7 @@ export enum TVLChainId {
 export const defaultActiveChainId = TVLChainId.B2Testnet as unknown as ChainId
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
-    [TVLChainId.B2Testnet] // , TVLChainId.LineaTestnet
+    [TVLChainId.B2Testnet, TVLChainId.LineaTestnet] // , TVLChainId.LineaTestnet
   : []) as unknown as ChainId[]
 
 export type IToken = {

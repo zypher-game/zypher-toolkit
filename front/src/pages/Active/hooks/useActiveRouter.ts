@@ -27,6 +27,7 @@ export const useActiveRouter = () => {
 
     // 需要跳转路由
     const { id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
+    console.log({ isRegistered })
     if (!id || id === '' || !canNext(account, chainId)) {
       navigate(`/${NavKey[0][0]}`)
       return

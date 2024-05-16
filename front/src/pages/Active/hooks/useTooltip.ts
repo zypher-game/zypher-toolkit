@@ -1,5 +1,5 @@
 import { ChainId, Currency, useActiveWeb3React } from '@ui/src'
-import { useMemo } from 'react'
+import { useCallback, useMemo } from 'react'
 
 import { TVLChainId } from '../constants/activeConstants'
 const CrHero: Record<TVLChainId, string> = {
@@ -33,9 +33,7 @@ const stakeAmountListConfig: Record<TVLChainId, string[]> = {
   [TVLChainId.LineaTestnet]: ['0.01']
 }
 export const useAirdropPointsTooltip = () => {
-  const { chainId } = useActiveWeb3React()
-
-  const { airdropPointsTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip, availableInvitationsTooltip } = useMemo(() => {
+  const getTooltip = useCallback((chainId: ChainId) => {
     return {
       airdropPointsTooltip: [
         `The points earned by staking will grow according to the formula: X * Amount of ${Currency[chainId]} * Staking duration, and the X variable depends on your pledge amount.`,
@@ -76,14 +74,10 @@ export const useAirdropPointsTooltip = () => {
         }, a permanent invitation code will be obtained.`
       ]
     }
-  }, [chainId])
+  }, [])
+
   return {
-    airdropPointsTooltip,
-    growthCoefficientTooltip,
-    SBTTooltip,
-    crHeroTooltip,
-    gpTooltip,
-    availableInvitationsTooltip
+    getTooltip
   }
 }
 

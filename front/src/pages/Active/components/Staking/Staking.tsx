@@ -29,7 +29,7 @@ import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
 const Staking = memo(() => {
   const chooseChain = useRecoilValue(chooseChainState)
-  const [chainIdLocal, setChainIdLocal] = useState<ChainId>(defaultActiveChainId)
+  const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
   const {
     deposit,
@@ -53,12 +53,22 @@ const Staking = memo(() => {
     }
   }, [chainIdFromStake, chooseChain])
   const chooseValue = useMemo(() => {
+    console.log({
+      chooseChain,
+      tvlStakingData,
+      depositCurrency,
+      chainIdFromStake,
+      defaultActiveChainId,
+      chainIdLocal,
+      Currency: chainIdLocal ? Currency[chainIdLocal] : '-'
+    })
     const can = canNext(account, chainIdLocal)
+    console.log({ can })
     if (can && depositCurrency) {
-      return tvlStakingData[chainIdLocal][depositCurrency]
+      return tvlStakingData[chainIdLocal!][depositCurrency]
     }
     if (can) {
-      return tvlStakingData[defaultActiveChainId][Currency[chainIdLocal]]
+      return tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
     }
     return tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
   }, [JSON.stringify(tvlStakingData), chainIdLocal, depositCurrency])

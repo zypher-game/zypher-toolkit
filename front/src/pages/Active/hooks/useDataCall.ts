@@ -58,7 +58,7 @@ export const useGetDataCall = () => {
                 ...infoObj,
                 ...primaryScoreRes,
                 tvlHero: heroKey ?? '',
-                isRegistered: isRegistered
+                isRegistered: `${isRegistered}` === 'true'
               }
             }
             return {

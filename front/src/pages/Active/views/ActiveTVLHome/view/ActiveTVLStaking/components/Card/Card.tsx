@@ -1,19 +1,10 @@
-import {
-  ActivePixelButtonColor,
-  ActivePixelCard,
-  ChainId,
-  Currency,
-  LoadingButton,
-  PixelBorderCard,
-  useActiveWeb3React,
-  useRecoilValue
-} from '@ui/src'
-import React, { memo } from 'react'
+import { ActivePixelButtonColor, ChainId, Currency, LoadingButton, PixelBorderCard, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import React, { memo, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import { useActiveData } from '@/pages/Active/hooks/useActiveData'
+import { canNext } from '@/pages/Active/hooks/activeHooks'
 import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
-import { restakingDataState } from '@/pages/Active/state/activeState'
+import { activeDataState, IActiveDataState, initActiveData, restakingDataState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
 const Card = memo(
@@ -34,17 +25,40 @@ const Card = memo(
     onOpenCrHeroHandle: any
     chainIdLocal: ChainId
   }) => {
-    const { airdropPointsTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip } = useAirdropPointsTooltip()
-    const { chainId } = useActiveWeb3React()
-    const { activeData } = useActiveData()
-    const { crHeroBoxAmount, dollarGpRewords } = activeData
+    const { getTooltip } = useAirdropPointsTooltip()
+
+    const { account } = useActiveWeb3React()
+    const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
+    const { crHeroBoxAmount, dollarGpRewords, sbtAmount } = useMemo(() => {
+      if (canNext(account, chainIdLocal)) {
+        return activeDataSource[chainIdLocal] ?? initActiveData
+      }
+      return initActiveData
+    }, [JSON.stringify(activeDataSource), chainIdLocal])
     const restakingData = useRecoilValue(restakingDataState)
     const { stakingAirdropStr, stakingGrowthCoefficient, restakingAirdropStr, restakingGrowthCoefficient } = restakingData[chainIdLocal].statistics
+    const hasSbt = useMemo(() => {
+      return sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
+    }, [sbtAmount])
+    const { airdropPointsTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip, availableInvitationsTooltip } = useMemo(() => {
+      if (chainIdLocal) {
+        return getTooltip(chainIdLocal)
+      }
+      return {
+        airdropPointsTooltip: [''],
+        growthCoefficientTooltip: [''],
+        SBTTooltip: [''],
+        crHeroTooltip: [''],
+        gpTooltip: [''],
+        availableInvitationsTooltip: ['']
+      }
+    }, [chainIdLocal])
+    console.log({ activeDataSource, sbtAmount })
     return (
       <div className={css.card}>
         <div className={css.cardOne}>
           <PixelCardOne
-            title={`Obtained by staking $${Currency[chainId]}`}
+            title={`Obtained by staking $${Currency[chainIdLocal]}`}
             airdropPoints={stakingAirdropStr}
             growthCoefficient={stakingGrowthCoefficient}
             airdropPointsTooltip={airdropPointsTooltip}
@@ -61,9 +75,10 @@ const Card = memo(
         <div className={css.cardTwo}>
           <PixelCardTwo
             title="SBT"
-            content="Still need more BTC to unlock"
+            content={hasSbt ? 'Play games on L3 with zero gas!' : 'Still need more BTC to unlock'}
             warning={SBTTooltip}
-            btnLabel="Claim"
+            hideBtn={!hasSbt}
+            btnLabel="Go"
             onClick={onClaimSBTHandle}
             loading={claimSBTLoading}
           />
@@ -105,16 +120,16 @@ const PixelCardOne = memo(
     return (
       <PixelCard>
         <h4 className={css.cardOneTitle}>{title}</h4>
-        <div className={css.fr_title_content}>
+        <div className={css.title_content}>
           <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
           <p>{growthCoefficient}</p>
         </div>
-        <div className={css.fr_title}>
-          <div className={css.fr_title_fl}>
+        <div className={css.sub_title}>
+          <div className={css.grey_title}>
             <p>Airdrop Points</p>
             <PixelTooltip title={airdropPointsTooltip} />
           </div>
-          <div className={css.fr_title_fr}>
+          <div className={css.grey_title}>
             <p>Growth coefficient</p>
             <PixelTooltip title={growthCoefficientTooltip} />
           </div>
@@ -130,7 +145,8 @@ const PixelCardTwo = memo(
     warning,
     btnLabel,
     onClick,
-    loading
+    loading,
+    hideBtn
   }: {
     title: string
     content: string
@@ -138,18 +154,28 @@ const PixelCardTwo = memo(
     btnLabel: string
     onClick: any
     loading: boolean
+    hideBtn?: boolean
   }) => {
     return (
       <PixelCard>
-        <h4 className={css.fr_title}>{!title || title === '' ? '0' : title}</h4>
-        <div className={`${css.fr_title_content} ${css.fr_title_content_sub}`}>
+        <h4 className={css.title_content}>{!title || title === '' ? '0' : title}</h4>
+        <div className={css.grey_title}>
           <p>{content}</p>
           <PixelTooltip title={warning} />
         </div>
-        <ActivePixelButtonColor pixel_height={3} width="144px" height="36px" className={css.fr_btn} onClick={onClick}>
-          <p>{btnLabel}</p>
-          <LoadingButton isLoading={loading} />
-        </ActivePixelButtonColor>
+        {hideBtn ? null : (
+          <ActivePixelButtonColor
+            pixel_height={3}
+            width="144px"
+            height="36px"
+            className={css.fr_btn}
+            onClick={onClick}
+            disable={!title || title === '' || title === '0' ? true : false}
+          >
+            <p>{btnLabel}</p>
+            <LoadingButton isLoading={loading} />
+          </ActivePixelButtonColor>
+        )}
       </PixelCard>
     )
   }

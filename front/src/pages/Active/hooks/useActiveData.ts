@@ -18,6 +18,7 @@ export const useActiveData = () => {
     (obj: (preVal: IActiveData) => Partial<IActiveData>) => {
       console.log({ obj })
       setActiveDataData(pre => {
+        console.log({ pre, chainId })
         if (pre[chainId]) {
           console.log({ preValue: pre[chainId] })
           const chainObj = {

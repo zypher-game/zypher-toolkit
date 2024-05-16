@@ -88,6 +88,6 @@ const TableWrap = memo(({ list, type }: { list: ITVLStakingData[]; type: 'native
   )
 })
 const Row = memo(({ className, data }: { className: string; data: (string | React.ReactNode)[] }) => {
-  return <div className={`${css.row} ${className}`}>{data.map(v => (typeof v === 'string' ? <p key={v}>{v} </p> : v))}</div>
+  return <div className={`${css.row} ${className}`}>{data.filter(v => v).map(v => (typeof v === 'string' ? <p key={v}>{v} </p> : v))}</div>
 })
 export default Table

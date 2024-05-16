@@ -32,7 +32,7 @@ const StakingTab = memo(({ chainIndex, changeChainIndexHandle }: { chainIndex: n
       {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaTestnet || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (
         <div className={css.warn_tab_tooltip}>
           <p>Earn Linea XP</p>
-          <PixelTooltip title={'sdfadf'} />
+          <PixelTooltip title={['Earn Linea XP']} />
           <p>by staking! And Linea’s airdrop expectations!</p>
         </div>
       ) : (

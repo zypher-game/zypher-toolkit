@@ -11,51 +11,53 @@
   gap: 20px
   &>div
     flex: 1
-.fr_title
-  width: 100%
-  display: flex;
-  justify-content: space-between
-  align-items: center
-h4.fr_title
-  font-size: 22px
-  font-weight: 600
-.fr_title_fl,
-.fr_title_fr
-  display: flex;
-  justify-content: flex-start
-  gap: 10px
-  color: #959BA8
-.fr_title_content
-  width: 100%
-  display: flex;
-  justify-content: space-between
-  align-items: center
-  margin-bottom: 10px
-  p
-    font-size: 22px
-    font-weight: bold
-    display: flex;
-    justify-content: flex-start
-    align-items: center
-    gap: 6px
-    color: #fff
-.fr_title_content.fr_title_content_sub
-  justify-content: flex-start
-  p
-    font-weight: 500
-    font-size: 16px
-    color: #959BA8
 .fr_btn
-  margin-top: 30px
-
+  margin-top: 25px
 :global(.tvl_card_one)
+  height: 180px
   :global(>.pixel_flat_inner)
     flex-direction: column
     justify-content: flex-start
     align-items: flex-start
     padding: 30px
-
+.title_content
+  width: 100%
+  display: flex;
+  justify-content: space-between
+  align-items: center
+  margin-bottom: 5px
+  font-size: 22px
+  font-weight: bold
+  color: #fff
+  p
+    width 50%
+    flex: 1
+    font-size: 22px
+    font-weight: bold
+    color: #fff
 .cardOneTitle
   font-size: 18px
   font-weight: bold
   margin-bottom: 40px
+
+.sub_title
+  width: 100%
+  display: flex;
+  justify-content: space-between
+  align-items: center
+  .grey_title
+    flex: 1
+    width 50%
+.grey_title
+  display: flex;
+  justify-content: flex-start
+  align-items: center
+  gap 6px
+  :global(.svg_component)
+    svg
+      rect 
+        fill: #959BA8
+  p
+    font-weight: 500
+    font-size: 16px
+    color: #959BA8

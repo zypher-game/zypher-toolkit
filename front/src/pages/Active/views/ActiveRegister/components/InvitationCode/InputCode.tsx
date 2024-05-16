@@ -1,8 +1,8 @@
-import { ActivePixelCard } from '@ui/src'
+import { ActivePixelCard, useActiveWeb3React } from '@ui/src'
 import React, { ChangeEventHandler, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { CODELENGTH } from '@/pages/Active/constants/activeConstants'
+import { CODELENGTH, getLinkPre } from '@/pages/Active/constants/activeConstants'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
 import { getHrefCode } from '@/pages/Active/utils/getHrefParams'
@@ -40,7 +40,7 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
   const { codeCheck } = useCodeCheckCall()
   // const setActiveData = useSetRecoilState<IActiveDataState>(activeDataState)
   const { setActiveData } = useActiveData()
-
+  const { chainId } = useActiveWeb3React()
   const initializeCode = useCallback(
     async (value: string) => {
       const trimmedValue = value.trim().replace('-', '')
@@ -56,30 +56,33 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
             nextInput.focus()
           }
         } else if (currentLength === CODELENGTH) {
-          console.log(2)
-          const check = await codeCheck(trimmedValue)
-          console.log(2, check)
-          if (check) {
-            setActiveData(pre => {
-              console.log({ pre })
-              return pre.signedFalse
-                ? pre
-                : {
-                    ...pre,
-                    invitationCode: trimmedValue
-                  }
-            })
-          } else {
-            inputsRef.current.forEach(input => {
-              if (input) {
-                input.blur()
-              }
-            })
+          const link = getLinkPre(chainId)
+          if (trimmedValue[0] === link.label) {
+            console.log(2)
+            const check = await codeCheck(trimmedValue)
+            console.log(2, check)
+            if (check) {
+              setActiveData(pre => {
+                console.log({ pre })
+                return pre.signedFalse
+                  ? pre
+                  : {
+                      ...pre,
+                      invitationCode: trimmedValue
+                    }
+              })
+            } else {
+              inputsRef.current.forEach(input => {
+                if (input) {
+                  input.blur()
+                }
+              })
+            }
           }
         }
       }
     },
-    [setActiveData]
+    [setActiveData, chainId]
   )
 
   useEffect(() => {

@@ -109,8 +109,8 @@ export const initActiveData: IActiveData = {
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({
   key: 'activeDataV1',
-  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }])),
-  effects_UNSTABLE: [localStorageEffect('activeDataV1')]
+  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }]))
+  // effects_UNSTABLE: [localStorageEffect('activeDataV1')]
 })
 
 export interface ITVLStakingData extends IToken {
@@ -196,34 +196,35 @@ export const isTvlDataLoadingState = atom<boolean>({
   key: 'isTvlDataLoadingState',
   default: false
 })
+export const tvlStakingDataV2Init = Object.fromEntries(
+  TVLStakingSupportedChainId.map(chainId => [
+    chainId,
+    {
+      [Currency[chainId]]: {
+        ...initData,
+        symbol: Currency[chainId],
+        name: Currency[chainId],
+        logoPath: CurrencyLogo[chainId],
+        allowance: '9999999999999999999999999999',
+        chainId: chainId,
+        index: 0
+      },
+      ...Object.fromEntries(
+        Object.keys(tvlTokens[chainId]).map(currency => [
+          currency,
+          {
+            ...initData,
+            ...tvlTokens[chainId][currency],
+            chainId: chainId
+          }
+        ])
+      )
+    }
+  ])
+) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>
 export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>({
   key: 'tvlStakingDataV2',
-  default: Object.fromEntries(
-    TVLStakingSupportedChainId.map(chainId => [
-      chainId,
-      {
-        [Currency[chainId]]: {
-          ...initData,
-          symbol: Currency[chainId],
-          name: Currency[chainId],
-          logoPath: CurrencyLogo[chainId],
-          allowance: '9999999999999999999999999999',
-          chainId: chainId,
-          index: 0
-        },
-        ...Object.fromEntries(
-          Object.keys(tvlTokens[chainId]).map(currency => [
-            currency,
-            {
-              ...initData,
-              ...tvlTokens[chainId][currency],
-              chainId: chainId
-            }
-          ])
-        )
-      }
-    ])
-  ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>,
+  default: tvlStakingDataV2Init,
   effects_UNSTABLE: [localStorageEffect('tvlStakingDataV2')]
 })
 export const selectChainDialogState = atom({
