@@ -20,6 +20,7 @@ export type IPixelProps = {
   backgroundColor?: string;
   showHover?: boolean;
   size?: number;
+  disable?: boolean;
 };
 interface IPixel extends IChildren, IPixelProps {}
 
@@ -28,6 +29,7 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
   min-height: ${({ height }) => height};
   max-width: ${({ width }) => width};
   width: ${({ width }) => width};
+  opacity: ${({ disable }) => (disable ? 0.8 : 1)};
   &.pixel_loading {
     opacity: 0.8;
   }

@@ -71,8 +71,8 @@ export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
     "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo",
 };
 export const chainIdPre: Record<ChainId, string> = {
-  [ChainId.Mainnet]: "BNB",
-  [ChainId.Testnet]: "BT",
+  [ChainId.Bsc]: "BNB",
+  [ChainId.BscTestnet]: "BT",
   [ChainId.Arbitrum]: "AO",
   [ChainId.ArbitrumGoerli]: "AGT",
   [ChainId.ArbitrumRinkeby]: "ARBR",
@@ -91,6 +91,8 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.MantleTestnet]: "MTT",
   [ChainId.Combo]: "Cb",
   [ChainId.Sepolia]: "Sp",
+  [ChainId.B2]: "B2",
+  [ChainId.B2Testnet]: "B2T",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {

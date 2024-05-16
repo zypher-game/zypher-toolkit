@@ -23,7 +23,6 @@ export const PointsIcon: FC<IPointsIconProps> = memo(
         src={preStaticUrl + `/img/home/data_points.svg`}
         alt=""
         className={classname}
-        mr={mr}
       />
     );
   },

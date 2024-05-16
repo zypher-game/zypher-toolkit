@@ -18,8 +18,8 @@ export {
   IRecentGame,
   IGameList,
 } from "./types/gameList.types";
-import { useWalletClient, useSwitchNetwork } from "wagmi";
-export { useWalletClient, useSwitchNetwork };
+import { useWalletClient, useSwitchNetwork, useDisconnect } from "wagmi";
+export { useWalletClient, useSwitchNetwork, useDisconnect };
 export {
   useSetRecoilState,
   atom,
@@ -55,6 +55,7 @@ export {
   bingoBetaSupportedChainId,
   bingoSupportedChainId,
   isPro,
+  getCryptoImg,
 } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
 
@@ -63,6 +64,8 @@ export {
   blankLinkList,
   useNavItem,
   usePathname,
+  zAceLink,
+  crLink,
 } from "./hooks/useNavItem";
 export {
   connectorState,
@@ -113,7 +116,6 @@ export {
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useActiveChainId } from "./hooks/useActiveChainId";
-export { useActiveWallet } from "./hooks/useActiveWallet";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";

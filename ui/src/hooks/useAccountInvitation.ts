@@ -1,10 +1,9 @@
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import { useActiveWeb3React } from "./useActiveWeb3React";
-import { ChainId, localStorageEffect, txStatus } from "..";
+import { ChainId, localStorageEffect } from "..";
 import { useCallback } from "react";
 import { TransactionReceipt } from "viem";
 
-import { request } from "../utils/request";
 // 分享者的address
 export type IInvitationAddress = {
   address: string;
@@ -37,42 +36,42 @@ export const useAccountInvitation = (env: string) => {
 
   const postAccountUpdate = useCallback(
     async ({ tx }: { tx: TransactionReceipt }) => {
-      try {
-        // post
-        if (tx.status === txStatus) {
-          const params: any = {
-            user_addr: account,
-            chain_id: `${chainId}`,
-            tx_hash: tx.transactionHash,
-          };
-          if (
-            invitationAddres &&
-            invitationAddres.address !== "" &&
-            // invitationAddres.chainId === chainId &&
-            invitationAddres.address.toLowerCase() !==
-              params.user_addr.toLowerCase()
-          ) {
-            params.sharer_addr = invitationAddres?.address;
-          }
-          const apiUrl = getApilUrl(env);
-          const res = await request(apiUrl.accountInfoUpdate, {
-            method: "POST",
-            data: JSON.stringify(params),
-            headers: {
-              "Content-Type": "application/json",
-            },
-          });
-          if (
-            res.data &&
-            res.data["code"] == 200 &&
-            `${res.data.data}` === "1"
-          ) {
-            setInvitationAddressState(undefined);
-          }
-        }
-      } catch (e) {
-        console.error("PostAccountUpdate Error", e);
-      }
+      // try {
+      //   // post
+      //   if (tx.status === txStatus) {
+      //     const params: any = {
+      //       user_addr: account,
+      //       chain_id: `${chainId}`,
+      //       tx_hash: tx.transactionHash,
+      //     };
+      //     if (
+      //       invitationAddres &&
+      //       invitationAddres.address !== "" &&
+      //       // invitationAddres.chainId === chainId &&
+      //       invitationAddres.address.toLowerCase() !==
+      //         params.user_addr.toLowerCase()
+      //     ) {
+      //       params.sharer_addr = invitationAddres?.address;
+      //     }
+      //     const apiUrl = getApilUrl(env);
+      //     const res = await request(apiUrl.accountInfoUpdate, {
+      //       method: "POST",
+      //       data: JSON.stringify(params),
+      //       headers: {
+      //         "Content-Type": "application/json",
+      //       },
+      //     });
+      //     if (
+      //       res.data &&
+      //       res.data["code"] == 200 &&
+      //       `${res.data.data}` === "1"
+      //     ) {
+      //       setInvitationAddressState(undefined);
+      //     }
+      //   }
+      // } catch (e) {
+      //   console.error("PostAccountUpdate Error", e);
+      // }
     },
     [chainId, account, invitationAddres]
   );

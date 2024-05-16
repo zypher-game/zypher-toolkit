@@ -3,12 +3,12 @@ export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameList, } from "./types/gameList.types";
-import { useWalletClient, useSwitchNetwork } from "wagmi";
-export { useWalletClient, useSwitchNetwork };
+import { useWalletClient, useSwitchNetwork, useDisconnect } from "wagmi";
+export { useWalletClient, useSwitchNetwork, useDisconnect };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
-export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, } from "./constant/constant";
+export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
-export { LinkList, blankLinkList, useNavItem, usePathname, } from "./hooks/useNavItem";
+export { LinkList, blankLinkList, useNavItem, usePathname, zAceLink, crLink, } from "./hooks/useNavItem";
 export { connectorState, walletModalOpenState, ChainSelector, refreshBalanceState, pointsDialogState, pointsWarnState, hidePointsWarnState, pointsRuleDialogState, accountInfoDialogState, linkToBetaDialogState, linkToBetaDialogChainIdState, nativeBalanceState, pointsBalanceState, } from "./components/ConnectWallet/state/connectWalletState";
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
 export { default as SideBar } from "./components/SideBar";
@@ -29,7 +29,6 @@ export { IsMdProvider, IsMobileProvider, IsMd1100Provider, IsMd1220Provider, } f
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useActiveChainId } from "./hooks/useActiveChainId";
-export { useActiveWallet } from "./hooks/useActiveWallet";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";

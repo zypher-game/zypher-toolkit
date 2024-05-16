@@ -34,7 +34,7 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 })(IGameName || {});
 
 // src/index.ts
-import { useWalletClient as useWalletClient2, useSwitchNetwork as useSwitchNetwork2 } from "wagmi";
+import { useWalletClient as useWalletClient2, useSwitchNetwork as useSwitchNetwork2, useDisconnect as useDisconnect5 } from "wagmi";
 
 // src/constant/constant.ts
 import { AddressZero } from "@ethersproject/constants";
@@ -56,15 +56,15 @@ var isPro = () => {
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
 var ChainId = /* @__PURE__ */ ((ChainId9) => {
-  ChainId9[ChainId9["Mainnet"] = 56] = "Mainnet";
-  ChainId9[ChainId9["Testnet"] = 97] = "Testnet";
+  ChainId9[ChainId9["Bsc"] = 56] = "Bsc";
+  ChainId9[ChainId9["BscTestnet"] = 97] = "BscTestnet";
   ChainId9[ChainId9["Arbitrum"] = 42161] = "Arbitrum";
   ChainId9[ChainId9["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
+  ChainId9[ChainId9["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
   ChainId9[ChainId9["LineaTestnet"] = 59140] = "LineaTestnet";
   ChainId9[ChainId9["LineaMainnet"] = 59144] = "LineaMainnet";
   ChainId9[ChainId9["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
   ChainId9[ChainId9["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
-  ChainId9[ChainId9["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
   ChainId9[ChainId9["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
   ChainId9[ChainId9["OPBNBTEST"] = 5611] = "OPBNBTEST";
   ChainId9[ChainId9["OPBNB"] = 204] = "OPBNB";
@@ -76,6 +76,8 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9[ChainId9["Mantle"] = 5e3] = "Mantle";
   ChainId9[ChainId9["MantleTestnet"] = 5001] = "MantleTestnet";
   ChainId9[ChainId9["Sepolia"] = 11155111] = "Sepolia";
+  ChainId9[ChainId9["B2"] = 223] = "B2";
+  ChainId9[ChainId9["B2Testnet"] = 1123] = "B2Testnet";
   return ChainId9;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
@@ -124,14 +126,17 @@ var supportedChainIds = (env, chainList2) => {
     5001 /* MantleTestnet */,
     91715 /* ComboTestnet */,
     9980 /* Combo */,
-    11155111 /* Sepolia */
+    11155111 /* Sepolia */,
+    223 /* B2 */,
+    1123 /* B2Testnet */
   ] : [
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
     42161 /* Arbitrum */,
     5e3 /* Mantle */,
     9980 /* Combo */,
-    169 /* MantaPacificMainnet */
+    169 /* MantaPacificMainnet */,
+    223 /* B2 */
   ];
 };
 var ChainRpcUrls = {
@@ -149,11 +154,11 @@ var ChainRpcUrls = {
   [534351 /* ScrollSepoliaTestnet */]: ["https://sepolia-rpc.scroll.io/"],
   [534353 /* ScrollAlphaTestnet */]: ["https://scroll-alpha-public.unifra.io"],
   [169 /* MantaPacificMainnet */]: ["https://pacific-rpc.manta.network/http"],
-  [56 /* Mainnet */]: [
+  [56 /* Bsc */]: [
     "https://bsc-dataseed1.binance.org",
     "https://bsc-mainnet.nodereal.io/v1/a986025b4eae4b82b9c2d577c730d09a"
   ],
-  [97 /* Testnet */]: [
+  [97 /* BscTestnet */]: [
     "https://endpoints.omniatech.io/v1/bsc/testnet/public",
     "https://bsc-testnet.publicnode.com",
     "https://bsc-testnet.nodereal.io/v1/9459391f32694c11b182c8d4d9cee750"
@@ -188,7 +193,9 @@ var ChainRpcUrls = {
   [11155111 /* Sepolia */]: [
     "https://endpoints.omniatech.io/v1/eth/sepolia/public",
     "https://ethereum-sepolia-rpc.publicnode.com"
-  ]
+  ],
+  [223 /* B2 */]: ["https://rpc.bsquared.network"],
+  [1123 /* B2Testnet */]: ["https://b2-testnet.alt.technology"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -199,8 +206,8 @@ var ChainRpcWebSocketUrls = {
   [534351 /* ScrollSepoliaTestnet */]: []
 };
 var BlockExplorerUrls = {
-  [56 /* Mainnet */]: ["https://bscscan.com"],
-  [97 /* Testnet */]: ["https://testnet.bscscan.com"],
+  [56 /* Bsc */]: ["https://bscscan.com"],
+  [97 /* BscTestnet */]: ["https://testnet.bscscan.com"],
   [42161 /* Arbitrum */]: ["https://arbiscan.io"],
   [421611 /* ArbitrumRinkeby */]: ["https://testnet.arbiscan.io"],
   [59140 /* LineaTestnet */]: ["https://explorer.goerli.linea.build"],
@@ -218,11 +225,13 @@ var BlockExplorerUrls = {
   [5e3 /* Mantle */]: ["https://explorer.mantle.xyz"],
   [5001 /* MantleTestnet */]: ["https://explorer.testnet.mantle.xyz"],
   [9980 /* Combo */]: ["https://combotrace.nodereal.io"],
-  [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"]
+  [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"],
+  [223 /* B2 */]: ["https://explorer.bsquared.network"],
+  [1123 /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"]
 };
 var ChainName = {
-  [56 /* Mainnet */]: "BSC Mainnet",
-  [97 /* Testnet */]: "BSC Testnet",
+  [56 /* Bsc */]: "BSC Mainnet",
+  [97 /* BscTestnet */]: "BSC Testnet",
   [42161 /* Arbitrum */]: "Arbitrum One",
   [421613 /* ArbitrumGoerli */]: "Arbitrum Goerli Testnet",
   [421611 /* ArbitrumRinkeby */]: "Arbitrum Rinkeby",
@@ -240,11 +249,13 @@ var ChainName = {
   [5e3 /* Mantle */]: "Mantle",
   [5001 /* MantleTestnet */]: "Mantle Testnet",
   [9980 /* Combo */]: "Combo",
-  [11155111 /* Sepolia */]: "Sepolia"
+  [11155111 /* Sepolia */]: "Sepolia",
+  [223 /* B2 */]: "B2",
+  [1123 /* B2Testnet */]: "B2 Testnet"
 };
 var ChainNetworkName = {
-  [56 /* Mainnet */]: "bsc",
-  [97 /* Testnet */]: "bsc-testnet",
+  [56 /* Bsc */]: "bsc",
+  [97 /* BscTestnet */]: "bsc-testnet",
   [42161 /* Arbitrum */]: "arbitrum",
   [421611 /* ArbitrumRinkeby */]: "arbitrum-rinkeby",
   [59140 /* LineaTestnet */]: "linea-testnet",
@@ -262,11 +273,13 @@ var ChainNetworkName = {
   [91715 /* ComboTestnet */]: "Combo Testnet",
   [5e3 /* Mantle */]: "Mantle",
   [5001 /* MantleTestnet */]: "Mantle Testnet",
-  [11155111 /* Sepolia */]: "Sepolia"
+  [11155111 /* Sepolia */]: "Sepolia",
+  [223 /* B2 */]: "B2 Mainnet",
+  [1123 /* B2Testnet */]: "B2 Testnet"
 };
 var isTestnet = {
-  [56 /* Mainnet */]: false,
-  [97 /* Testnet */]: true,
+  [56 /* Bsc */]: false,
+  [97 /* BscTestnet */]: true,
   [42161 /* Arbitrum */]: false,
   [421611 /* ArbitrumRinkeby */]: true,
   [59140 /* LineaTestnet */]: true,
@@ -284,38 +297,18 @@ var isTestnet = {
   [91715 /* ComboTestnet */]: true,
   [5e3 /* Mantle */]: false,
   [5001 /* MantleTestnet */]: true,
-  [11155111 /* Sepolia */]: true
-};
-var ChainImage = {
-  [56 /* Mainnet */]: preStaticUrl + "/img/bsc.png",
-  [97 /* Testnet */]: preStaticUrl + "/img/bsc.png",
-  [42161 /* Arbitrum */]: preStaticUrl + "/img/arbitrum.png",
-  [421613 /* ArbitrumGoerli */]: preStaticUrl + "/img/arbitrum.png",
-  [421611 /* ArbitrumRinkeby */]: preStaticUrl + "/img/arbitrum.png",
-  [59140 /* LineaTestnet */]: preStaticUrl + "/img/linea.svg",
-  [59144 /* LineaMainnet */]: preStaticUrl + "/img/linea_logo.svg",
-  [80001 /* POLYGON_MUMBAI */]: preStaticUrl + "/img/matic-token-icon.svg",
-  [1442 /* POLYGON_ZKEVM */]: preStaticUrl + "/img/matic-token-icon.svg",
-  [5611 /* OPBNBTEST */]: preStaticUrl + "/img/bsc.png",
-  [204 /* OPBNB */]: preStaticUrl + "/img/bsc.png",
-  [534353 /* ScrollAlphaTestnet */]: preStaticUrl + "/img/scroll.svg",
-  [534351 /* ScrollSepoliaTestnet */]: preStaticUrl + "/img/scroll.svg",
-  [169 /* MantaPacificMainnet */]: preStaticUrl + "/img/manta.svg",
-  [3441005 /* MantaPacificTestnet */]: preStaticUrl + "/img/manta.svg",
-  [9980 /* Combo */]: preStaticUrl + "/crypto/chain/9980.svg",
-  [91715 /* ComboTestnet */]: preStaticUrl + "/img/combo.svg",
-  [5e3 /* Mantle */]: preStaticUrl + "/img/MNT.webp",
-  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp",
-  [11155111 /* Sepolia */]: preStaticUrl + "/img/ethereum.png"
+  [11155111 /* Sepolia */]: true,
+  [223 /* B2 */]: false,
+  [1123 /* B2Testnet */]: true
 };
 var Currency = {
-  [56 /* Mainnet */]: "BNB",
-  [97 /* Testnet */]: "BNB",
+  [56 /* Bsc */]: "BNB",
+  [97 /* BscTestnet */]: "BNB",
   [42161 /* Arbitrum */]: "ETH",
   [421611 /* ArbitrumRinkeby */]: "ETH",
   [59140 /* LineaTestnet */]: "ETH",
   [59144 /* LineaMainnet */]: "ETH",
-  [80001 /* POLYGON_MUMBAI */]: "MATIC",
+  [80001 /* POLYGON_MUMBAI */]: "ETH",
   [421613 /* ArbitrumGoerli */]: "ETH",
   [1442 /* POLYGON_ZKEVM */]: "ETH",
   [5611 /* OPBNBTEST */]: "BNB",
@@ -328,36 +321,31 @@ var Currency = {
   [91715 /* ComboTestnet */]: "BNB",
   [5e3 /* Mantle */]: "MNT",
   [5001 /* MantleTestnet */]: "MNT",
-  [11155111 /* Sepolia */]: "ETH"
+  [11155111 /* Sepolia */]: "ETH",
+  [223 /* B2 */]: "BTC",
+  [1123 /* B2Testnet */]: "BTC"
 };
-var CurrencyLogo = {
-  [56 /* Mainnet */]: preStaticUrl + "/img/bnb.svg",
-  [97 /* Testnet */]: preStaticUrl + "/img/bnb.svg",
-  [42161 /* Arbitrum */]: preStaticUrl + "/img/ethereum.png",
-  [421611 /* ArbitrumRinkeby */]: preStaticUrl + "/img/ethereum.png",
-  [59140 /* LineaTestnet */]: preStaticUrl + "/img/ethereum.png",
-  [59144 /* LineaMainnet */]: preStaticUrl + "/img/ethereum.png",
-  [80001 /* POLYGON_MUMBAI */]: preStaticUrl + "/img/ethereum.png",
-  [421613 /* ArbitrumGoerli */]: preStaticUrl + "/img/ethereum.png",
-  [1442 /* POLYGON_ZKEVM */]: preStaticUrl + "/img/ethereum.png",
-  [5611 /* OPBNBTEST */]: preStaticUrl + "/img/bnb.svg",
-  [204 /* OPBNB */]: preStaticUrl + "/img/bnb.svg",
-  [534351 /* ScrollSepoliaTestnet */]: preStaticUrl + "/img/ethereum.png",
-  [534353 /* ScrollAlphaTestnet */]: preStaticUrl + "/img/ethereum.png",
-  [169 /* MantaPacificMainnet */]: preStaticUrl + "/img/ethereum-logo.png",
-  [3441005 /* MantaPacificTestnet */]: preStaticUrl + "/img/ethereum-logo.png",
-  [9980 /* Combo */]: preStaticUrl + "/img/bnb.svg",
-  [91715 /* ComboTestnet */]: preStaticUrl + "/img/bnb.svg",
-  [5e3 /* Mantle */]: preStaticUrl + "/img/MNT.webp",
-  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp",
-  [11155111 /* Sepolia */]: preStaticUrl + "/img/ethereum.png"
+var getCryptoImg = (fileName, key, type = ".svg") => {
+  return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
 };
+var ChainImage = Object.fromEntries(
+  Object.values(ChainId).map((v) => [
+    v,
+    getCryptoImg("chain", v)
+  ])
+);
+var CurrencyLogo = Object.fromEntries(
+  Object.values(ChainId).map((v) => [
+    v,
+    getCryptoImg("token", Currency[v])
+  ])
+);
 var MulticallV3 = "0xca11bde05977b3631167028862be2a173976ca11";
 var CurrencyContract = {
-  [56 /* Mainnet */]: {
+  [56 /* Bsc */]: {
     multicall: [MulticallV3]
   },
-  [97 /* Testnet */]: {
+  [97 /* BscTestnet */]: {
     multicall: [MulticallV3]
   },
   [42161 /* Arbitrum */]: {
@@ -416,6 +404,10 @@ var CurrencyContract = {
   },
   [11155111 /* Sepolia */]: {
     multicall: [MulticallV3]
+  },
+  [223 /* B2 */]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
+  [1123 /* B2Testnet */]: {
+    multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {
@@ -963,11 +955,13 @@ function useActiveWeb3React(env, chainList2) {
 }
 
 // src/hooks/useNavItem.tsx
+var zAceLink = isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
+var crLink = "https://test.zypher.game/CryptoRumble/";
 var LinkList = [
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",
-  isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/",
-  "https://test.zypher.game/CryptoRumble/",
+  zAceLink,
+  crLink,
   "",
   "",
   ""
@@ -1386,38 +1380,11 @@ import BigNumberjs2 from "bignumber.js";
 // src/hooks/useAccountInvitation.ts
 import { atom as atom4, useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
 import { useCallback as useCallback3 } from "react";
-
-// src/utils/request.ts
-import axios from "axios";
-axios.defaults.withCredentials = false;
-function checkStatus(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return response;
-  }
-  const error = new Error(response.statusText);
-  throw error;
-}
-async function request(reqUrl, options = { method: "GET" }) {
-  const response = await axios(reqUrl, options).then(checkStatus).catch((err) => {
-    throw err;
-  });
-  return response;
-}
-
-// src/hooks/useAccountInvitation.ts
 var invitationAddressState = atom4({
   key: "invitationAddressState",
   default: void 0,
   effects_UNSTABLE: [localStorageEffect("invitationAddressState")]
 });
-var getApilUrl = (env) => {
-  const apiPre = env === "develop" ? "https://testapi.zypher.game" : "https://api.zypher.game";
-  return {
-    accountInfo: apiPre + `/user/getone`,
-    accountListInfo: apiPre + `/user/getmulti`,
-    accountInfoUpdate: apiPre + `/user/infoupdate`
-  };
-};
 var useAccountInvitation = (env) => {
   const { chainId, account } = useActiveWeb3React();
   const invitationAddres = useRecoilValue(
@@ -1426,31 +1393,6 @@ var useAccountInvitation = (env) => {
   const setInvitationAddressState = useSetRecoilState2(invitationAddressState);
   const postAccountUpdate = useCallback3(
     async ({ tx }) => {
-      try {
-        if (tx.status === txStatus) {
-          const params = {
-            user_addr: account,
-            chain_id: `${chainId}`,
-            tx_hash: tx.transactionHash
-          };
-          if (invitationAddres && invitationAddres.address !== "" && invitationAddres.address.toLowerCase() !== params.user_addr.toLowerCase()) {
-            params.sharer_addr = invitationAddres == null ? void 0 : invitationAddres.address;
-          }
-          const apiUrl = getApilUrl(env);
-          const res = await request(apiUrl.accountInfoUpdate, {
-            method: "POST",
-            data: JSON.stringify(params),
-            headers: {
-              "Content-Type": "application/json"
-            }
-          });
-          if (res.data && res.data["code"] == 200 && `${res.data.data}` === "1") {
-            setInvitationAddressState(void 0);
-          }
-        }
-      } catch (e) {
-        console.error("PostAccountUpdate Error", e);
-      }
     },
     [chainId, account, invitationAddres]
   );
@@ -2601,6 +2543,7 @@ var PixelStyled = styled(PixelFlatBtn_default)`
   min-height: ${({ height }) => height};
   max-width: ${({ width }) => width};
   width: ${({ width }) => width};
+  opacity: ${({ disable }) => disable ? 0.8 : 1};
   &.pixel_loading {
     opacity: 0.8;
   }
@@ -3184,8 +3127,7 @@ var PointsIcon = memo5(
       isMobile: isMobile2,
       src: preStaticUrl + `/img/home/data_points.svg`,
       alt: "",
-      className: classname,
-      mr
+      className: classname
     });
   },
   isEqual
@@ -3546,7 +3488,7 @@ var useLink = (link, isMobile2, useNavigate) => {
       }
       setTimeout(() => {
         try {
-          if (link.link.indexOf("http") > -1) {
+          if (link.link && link.link.indexOf("http") > -1) {
             window.open(link.link, "_blank");
           } else {
             setDefaultSelectedKey(link.keyValue);
@@ -4869,136 +4811,18 @@ function isNotNullish(value) {
 
 // src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
 import React34, { createContext as createContext2, useContext as useContext2, useMemo as useMemo8 } from "react";
-
-// src/rainbowkit/src/components/RainbowKitProvider/provideRainbowKitChains.ts
-var arbitrumIcon = {
-  iconBackground: "#96bedc",
-  iconUrl: async () => (await import("./arbitrum-7Z5RMUIY.js")).default
-};
-var comboIcon = {
-  iconBackground: "transparent",
-  iconUrl: async () => (await import("./combo-ZH2QNSNA.js")).default
-};
-var mantaIcon = {
-  iconBackground: "#000",
-  iconUrl: async () => (await import("./manta-DBSOIVWO.js")).default
-};
-var mantleIcon = {
-  iconBackground: "#000",
-  iconUrl: async () => (await import("./mantle-4MNSB3XO.js")).default
-};
-var avalancheIcon = {
-  iconBackground: "#e84141",
-  iconUrl: async () => (await import("./avalanche-SZDGTLVO.js")).default
-};
-var baseIcon = {
-  iconBackground: "#0052ff",
-  iconUrl: async () => (await import("./base-RERJ7KTI.js")).default
-};
-var bscIcon = {
-  iconBackground: "#ebac0e",
-  iconUrl: async () => (await import("./bsc-OPQDDJCD.js")).default
-};
-var cronosIcon = {
-  iconBackground: "#002D74",
-  iconUrl: async () => (await import("./cronos-QOXA3DWW.js")).default
-};
-var ethereumIcon = {
-  iconBackground: "#484c50",
-  iconUrl: async () => (await import("./ethereum-VMNZL6AX.js")).default
-};
-var hardhatIcon = {
-  iconBackground: "#f9f7ec",
-  iconUrl: async () => (await import("./hardhat-QKZDMVWX.js")).default
-};
-var optimismIcon = {
-  iconBackground: "#ff5a57",
-  iconUrl: async () => (await import("./optimism-DRZRCXRT.js")).default
-};
-var polygonIcon = {
-  iconBackground: "#9f71ec",
-  iconUrl: async () => (await import("./polygon-X4XLCKFF.js")).default
-};
-var zoraIcon = {
-  iconBackground: "#000000",
-  iconUrl: async () => (await import("./zora-WC6ITYKX.js")).default
-};
-var lineaIcon = {
-  iconBackground: "#000",
-  iconUrl: async () => (await import("./linea-GLBETBIC.js")).default
-};
-var lineaTestIcon = {
-  iconBackground: "#4BDCFD",
-  iconUrl: async () => (await import("./linea_test-MQQDFOFK.js")).default
-};
-var GSCIcon = {
-  iconBackground: "#10253E",
-  iconUrl: async () => (await import("./gsc-ECF4RIDP.js")).default
-};
-var ScrollIcon = {
-  iconBackground: "#10253E",
-  iconUrl: async () => (await import("./scroll-DTF4ZONL.js")).default
-};
-var chainMetadataByName = {
-  arbitrum: { chainId: 42161, name: "Arbitrum", ...arbitrumIcon },
-  arbitrumGoerli: { chainId: 421613, ...arbitrumIcon },
-  avalanche: { chainId: 43114, ...avalancheIcon },
-  avalancheFuji: { chainId: 43113, ...avalancheIcon },
-  base: { chainId: 8453, ...baseIcon },
-  baseGoerli: { chainId: 84531, ...baseIcon },
-  bsc: { chainId: 56, name: "BSC", ...bscIcon },
-  bscTestnet: { chainId: 97, ...bscIcon },
-  cronos: { chainId: 25, ...cronosIcon },
-  cronosTestnet: { chainId: 338, ...cronosIcon },
-  goerli: { chainId: 5, ...ethereumIcon },
-  hardhat: { chainId: 31337, ...hardhatIcon },
-  kovan: { chainId: 42, ...ethereumIcon },
-  localhost: { chainId: 1337, ...ethereumIcon },
-  mainnet: { chainId: 1, ...ethereumIcon },
-  optimism: { chainId: 10, name: "Optimism", ...optimismIcon },
-  optimismGoerli: { chainId: 420, ...optimismIcon },
-  optimismKovan: { chainId: 69, ...optimismIcon },
-  polygon: { chainId: 137, ...polygonIcon },
-  polygonMumbai: { chainId: 80001, ...polygonIcon },
-  rinkeby: { chainId: 4, ...ethereumIcon },
-  ropsten: { chainId: 3, ...ethereumIcon },
-  sepolia: { chainId: 11155111, ...ethereumIcon },
-  zora: { chainId: 7777777, ...zoraIcon },
-  zoraTestnet: { chainId: 999, ...zoraIcon },
-  lineaMainnet: { chainId: 59144, ...lineaIcon },
-  lineaTestnet: { chainId: 59140, ...lineaTestIcon },
-  opBNBMainnet: { chainId: 204, ...bscIcon },
-  opBNBTestnet: { chainId: 5611, ...bscIcon },
-  polygonZkEVMTestnet: { chainId: 1442, ...polygonIcon },
-  GSCTestnet: { chainId: 1205, ...GSCIcon },
-  scrollSepolia: { chainId: 534351, ...ScrollIcon },
-  MantaPacificMainnet: { chainId: 169, ...mantaIcon },
-  MantaPacificTestnet: { chainId: 3441005, ...mantaIcon },
-  Combo: { chainId: 9980, ...comboIcon },
-  ComboTestnet: { chainId: 91715, ...comboIcon },
-  Mantle: { chainId: 5e3, ...mantleIcon },
-  MantleTestnet: { chainId: 5001, ...mantleIcon }
-};
-var chainMetadataById = Object.fromEntries(
-  Object.values(chainMetadataByName).filter(isNotNullish).map(({ chainId, ...metadata }) => [chainId, metadata])
-);
-var provideRainbowKitChains = (chains) => chains.map((chain) => {
-  var _a;
-  return {
-    ...chain,
-    ...(_a = chainMetadataById[chain.id]) != null ? _a : {}
-  };
-});
-
-// src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
 var RainbowKitChainContext = createContext2({
   chains: []
 });
-function RainbowKitChainProvider({ chains, children, initialChain }) {
+function RainbowKitChainProvider({
+  chains,
+  children,
+  initialChain
+}) {
   return /* @__PURE__ */ React34.createElement(RainbowKitChainContext.Provider, {
     value: useMemo8(
       () => ({
-        chains: provideRainbowKitChains(chains),
+        chains,
         initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
       }),
       [chains, initialChain]
@@ -6460,10 +6284,8 @@ function ActionButton({
 }) {
   const isPrimary = type === "primary";
   const isNotLarge = size !== "large";
-  const mobile = isMobile();
   const background = !disabled ? isPrimary ? "#1649FF" : isNotLarge ? "#3360FF" : void 0 : "#1D263B";
   const { fontSize, height, paddingX, paddingY } = sizeVariants[size];
-  const hasBorder = !mobile || !isNotLarge;
   return /* @__PURE__ */ React50.createElement(PixelCube2, {
     pixel_height: 2,
     borderColor: background,
@@ -7618,92 +7440,90 @@ function ChainModal({ onClose, open, fn }) {
     gap: "4",
     padding: "2",
     style: { maxHeight: mobile ? "80vh" : "70vh", overflowY: "scroll" }
-  }, switchNetwork ? rainbowkitChains.map(
-    ({ iconBackground, iconUrl, id, name }, idx) => {
-      var _a2;
-      const chain = chains.find((c) => c.id === id);
-      const isCurrentChain = chain ? chain.id === (activeChain == null ? void 0 : activeChain.id) : false;
-      const switching = chain ? !isCurrentChain && chain.id === pendingChainId : false;
-      if (!chain) {
-        return null;
-      }
-      return /* @__PURE__ */ React70.createElement(Fragment, {
-        key: chain.id
-      }, /* @__PURE__ */ React70.createElement(MenuButton, {
-        disabled: false,
-        currentlySelected: isCurrentChain,
-        onClick: () => chainClickHandle({
-          isCurrentChain,
-          chain
-        }),
-        testId: `chain-option-${chain.id}`
-      }, /* @__PURE__ */ React70.createElement(Box, {
-        fontFamily: "body",
-        fontSize: "16"
-      }, /* @__PURE__ */ React70.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "space-between"
-      }, /* @__PURE__ */ React70.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        gap: "4",
-        height: chainIconSize
-      }, iconUrl && /* @__PURE__ */ React70.createElement(Box, {
-        height: "full",
-        marginRight: "8"
-      }, /* @__PURE__ */ React70.createElement(AsyncImage, {
-        alt: name != null ? name : chain.name,
-        background: iconBackground,
-        borderRadius: "full",
-        height: chainIconSize,
-        src: iconUrl,
-        width: chainIconSize
-      })), /* @__PURE__ */ React70.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        marginRight: "6"
-      }, /* @__PURE__ */ React70.createElement(Text2, {
-        color: "accentColorForeground",
-        size: "14",
-        weight: "medium"
-      }, "Connected"), /* @__PURE__ */ React70.createElement(Box, {
-        background: "connectionIndicator",
-        borderColor: "connectionIndicatorBorder",
-        borderRadius: "full",
-        borderStyle: "solid",
-        borderWidth: "3",
-        height: "12",
-        marginLeft: "8",
-        width: "12"
-      })), switching && /* @__PURE__ */ React70.createElement(Box, {
-        alignItems: "center",
-        display: "flex",
-        flexDirection: "row",
-        marginRight: "6"
-      }, /* @__PURE__ */ React70.createElement(Text2, {
-        color: "modalText",
-        size: "14",
-        weight: "medium"
-      }, "Confirm in Wallet"), /* @__PURE__ */ React70.createElement(Box, {
-        background: "standby",
-        borderRadius: "full",
-        height: "12",
-        marginLeft: "8",
-        width: "12",
-        borderColor: "standbyBorder",
-        borderStyle: "solid",
-        borderWidth: "3"
-      }))))), mobile && idx < rainbowkitChains.length - 1 && /* @__PURE__ */ React70.createElement(Box, {
-        background: "generalBorderDim",
-        height: "1",
-        marginX: "8"
-      }));
+  }, switchNetwork ? rainbowkitChains.map(({ iconBackground, id, name }, idx) => {
+    var _a2;
+    const chain = chains.find((c) => c.id === id);
+    const isCurrentChain = chain ? chain.id === (activeChain == null ? void 0 : activeChain.id) : false;
+    const switching = chain ? !isCurrentChain && chain.id === pendingChainId : false;
+    if (!chain) {
+      return null;
     }
-  ) : /* @__PURE__ */ React70.createElement(Box, {
+    return /* @__PURE__ */ React70.createElement(Fragment, {
+      key: chain.id
+    }, /* @__PURE__ */ React70.createElement(MenuButton, {
+      disabled: false,
+      currentlySelected: isCurrentChain,
+      onClick: () => chainClickHandle({
+        isCurrentChain,
+        chain
+      }),
+      testId: `chain-option-${chain.id}`
+    }, /* @__PURE__ */ React70.createElement(Box, {
+      fontFamily: "body",
+      fontSize: "16"
+    }, /* @__PURE__ */ React70.createElement(Box, {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between"
+    }, /* @__PURE__ */ React70.createElement(Box, {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "row",
+      gap: "4",
+      height: chainIconSize
+    }, /* @__PURE__ */ React70.createElement(Box, {
+      height: "full",
+      marginRight: "8"
+    }, /* @__PURE__ */ React70.createElement(AsyncImage, {
+      alt: name != null ? name : chain.name,
+      background: iconBackground,
+      borderRadius: "full",
+      height: chainIconSize,
+      src: ChainImage[chain.id],
+      width: chainIconSize
+    })), /* @__PURE__ */ React70.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "row",
+      marginRight: "6"
+    }, /* @__PURE__ */ React70.createElement(Text2, {
+      color: "accentColorForeground",
+      size: "14",
+      weight: "medium"
+    }, "Connected"), /* @__PURE__ */ React70.createElement(Box, {
+      background: "connectionIndicator",
+      borderColor: "connectionIndicatorBorder",
+      borderRadius: "full",
+      borderStyle: "solid",
+      borderWidth: "3",
+      height: "12",
+      marginLeft: "8",
+      width: "12"
+    })), switching && /* @__PURE__ */ React70.createElement(Box, {
+      alignItems: "center",
+      display: "flex",
+      flexDirection: "row",
+      marginRight: "6"
+    }, /* @__PURE__ */ React70.createElement(Text2, {
+      color: "modalText",
+      size: "14",
+      weight: "medium"
+    }, "Confirm in Wallet"), /* @__PURE__ */ React70.createElement(Box, {
+      background: "standby",
+      borderRadius: "full",
+      height: "12",
+      marginLeft: "8",
+      width: "12",
+      borderColor: "standbyBorder",
+      borderStyle: "solid",
+      borderWidth: "3"
+    }))))), mobile && idx < rainbowkitChains.length - 1 && /* @__PURE__ */ React70.createElement(Box, {
+      background: "generalBorderDim",
+      height: "1",
+      marginX: "8"
+    }));
+  }) : /* @__PURE__ */ React70.createElement(Box, {
     background: "generalBorder",
     borderRadius: "menuButton",
     paddingX: "18",
@@ -10424,6 +10244,23 @@ function useInterval(callback, delay, leading = true) {
   }, [delay, leading]);
 }
 
+// src/utils/request.ts
+import axios from "axios";
+axios.defaults.withCredentials = false;
+function checkStatus(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+  const error = new Error(response.statusText);
+  throw error;
+}
+async function request(reqUrl, options = { method: "GET" }) {
+  const response = await axios(reqUrl, options).then(checkStatus).catch((err) => {
+    throw err;
+  });
+  return response;
+}
+
 // src/hooks/useRecentGamesFromGraph.ts
 import BigNumberjs4 from "bignumber.js";
 import { ethers as ethers4 } from "ethers";
@@ -10588,8 +10425,8 @@ var graphqlApiUrl = {
   [421613 /* ArbitrumGoerli */]: "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo"
 };
 var chainIdPre = {
-  [56 /* Mainnet */]: "BNB",
-  [97 /* Testnet */]: "BT",
+  [56 /* Bsc */]: "BNB",
+  [97 /* BscTestnet */]: "BT",
   [42161 /* Arbitrum */]: "AO",
   [421613 /* ArbitrumGoerli */]: "AGT",
   [421611 /* ArbitrumRinkeby */]: "ARBR",
@@ -10607,7 +10444,9 @@ var chainIdPre = {
   [5e3 /* Mantle */]: "MTM",
   [5001 /* MantleTestnet */]: "MTT",
   [9980 /* Combo */]: "Cb",
-  [11155111 /* Sepolia */]: "Sp"
+  [11155111 /* Sepolia */]: "Sp",
+  [223 /* B2 */]: "B2",
+  [1123 /* B2Testnet */]: "B2T"
 };
 function getStatus(status) {
   if (status === 0) {
@@ -13015,6 +12854,7 @@ export {
   connectorsForWallets,
   convertToLargeNumberRepresentation,
   coreWallet,
+  crLink,
   createAuthenticationAdapter,
   cssObjectFromTheme,
   cssStringFromTheme,
@@ -13039,6 +12879,7 @@ export {
   getChainId,
   getContract,
   getContractFromRpc,
+  getCryptoImg,
   getDefaultWallets,
   getFormattedTime,
   getFormattedTimeMobile,
@@ -13097,7 +12938,6 @@ export {
   useAccountInvitation,
   useAccountModal,
   useActiveChainId,
-  useActiveWallet,
   useActiveWeb3React,
   useAddRecentTransaction,
   useAsyncImage,
@@ -13106,6 +12946,7 @@ export {
   useConnectModal,
   useCurrentLanguage,
   useCustomTranslation,
+  useDisconnect5 as useDisconnect,
   useGetInvitationAddress,
   useInitRainbowFn,
   useInterval,
@@ -13131,6 +12972,7 @@ export {
   walletConnectWallet,
   walletModalOpenState,
   xdefiWallet,
+  zAceLink,
   zerionWallet,
   zkBingo,
   zkBingoV0
