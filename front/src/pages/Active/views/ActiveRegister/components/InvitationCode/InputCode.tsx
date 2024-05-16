@@ -38,7 +38,6 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
   const inputsRef = useRef<(HTMLInputElement | null)[]>(new Array(CODELENGTH).fill(null))
   const { code: codeFromParams } = useParams()
   const { codeCheck } = useCodeCheckCall()
-  // const setActiveData = useSetRecoilState<IActiveDataState>(activeDataState)
   const { setActiveData } = useActiveData()
   const { chainId } = useActiveWeb3React()
   const initializeCode = useCallback(

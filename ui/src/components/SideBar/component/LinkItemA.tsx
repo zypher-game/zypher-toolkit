@@ -39,7 +39,7 @@ const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
       }
       setTimeout(() => {
         try {
-          if (link.link.indexOf("http") > -1) {
+          if (link.link && link.link.indexOf("http") > -1) {
             window.open(link.link, "_blank");
           } else {
             setDefaultSelectedKey(link.keyValue);

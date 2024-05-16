@@ -60,7 +60,8 @@ const LeaderBoardRow = memo((props: IProps) => {
       return colorArr[rank - 1]
     }
     return colorArr[3]
-  }, [rank])
+  }, [rank, isMy])
+  console.log({ borderTopColor })
   const editNicknameHandle = useCallback(() => {
     setIsModalOpen(true)
   }, [])

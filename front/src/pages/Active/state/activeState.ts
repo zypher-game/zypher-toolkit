@@ -268,3 +268,9 @@ export const tvlPathState = atom<number>({
   default: 0,
   effects_UNSTABLE: [localStorageEffect('tvlPathState')]
 })
+
+export const chainIndexState = atom<number>({
+  key: 'chainIndexState',
+  default: 0
+  // effects_UNSTABLE: [localStorageEffect('activeDataV1')]
+})

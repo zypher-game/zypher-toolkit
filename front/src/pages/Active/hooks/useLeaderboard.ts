@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
-import { TVLStakingSupportedChainId } from '../constants/activeConstants'
 import { useActiveData } from './useActiveData'
+import { useChainIndex } from './useChainIndex'
 import { useLeaderBoardCall } from './useDataCall'
 export type IRankBoard = {
   nickname: string
@@ -17,14 +17,11 @@ type IRecentUser = {
   joinTime: number
 }
 export const useLeaderBoard = () => {
-  const [chainIndex, setChainIndex] = useState(0)
   const [recentUser, setRecentUser] = useState<IRecentUser[]>([])
   const [rankBoard, setRankBoard] = useState<IRankBoard[]>([])
   const [my, setMy] = useState<IRankBoard>()
   const { getRecentUser, getRankBoard, getMyRankBoard } = useLeaderBoardCall()
-  const chainIdLocal = useMemo(() => {
-    return TVLStakingSupportedChainId[chainIndex]
-  }, [chainIndex, JSON.stringify(TVLStakingSupportedChainId)])
+  const { chainIndex, setChainIndex, chainIdLocal } = useChainIndex()
   const { activeData } = useActiveData()
   const { id } = activeData
   console.log({ recentUser })

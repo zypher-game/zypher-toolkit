@@ -6,7 +6,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import { NavKey } from '@/components/Layout/Navigation'
 import BigNumberJs from '@/utils/BigNumberJs'
 
-import { activeDataState, IActiveData, IActiveDataState, tvlPathState } from '../state/activeState'
+import { IActiveData, tvlPathState } from '../state/activeState'
 import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
 import { useActiveData } from './useActiveData'
 

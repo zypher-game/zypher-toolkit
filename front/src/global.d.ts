@@ -1,3 +1,3 @@
-// declare module '@ui/src' {
-//   export * from '@ui/ui'
-// }
+declare module '@ui/src' {
+  export * from '@ui/ui'
+}

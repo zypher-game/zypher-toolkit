@@ -18,25 +18,35 @@ import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { getLinkPre } from '../../constants/activeConstants'
+import { canNext } from '../../hooks/activeHooks'
 import { useActiveData } from '../../hooks/useActiveData'
+import { useChainIndex } from '../../hooks/useChainIndex'
 import { useUpdateInfoCall } from '../../hooks/useDataCall'
 import { useGetData, useInit } from '../../hooks/useInit'
-import { activeDataState, changeNameDialogState, IActiveDataState } from '../../state/activeState'
+import { activeDataState, changeNameDialogState, IActiveDataState, initActiveData } from '../../state/activeState'
 import Avatar from '../../views/ActiveTVLHome/components/Avatar/Avatar'
 import css from './ChangeNameDialog.module.styl'
 const ChangeNameDialog = memo(() => {
   const isModalOpen = useRecoilValue(changeNameDialogState)
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
-  const { activeData } = useActiveData()
-  const { avatar, nickname } = activeData
+
   const [avatarLocal, setAvatarLocal] = useState<FormData | null>(null)
   const [previewSrc, setPreviewSrc] = useState<string>('')
   const [nicknameLocal, setNicknameLocal] = useState('')
   const [loading, setLoading] = useState(false)
   // const [selectedFile, setSelectedFile] = useState<File | null>(null)
   const { updateInfo, updateHeadImg } = useUpdateInfoCall()
-  const { account, chainId } = useActiveWeb3React()
+  const { account } = useActiveWeb3React()
+  const { chainIdLocal: chainId } = useChainIndex()
+  console.log(12121322, { chainId })
   const { getData } = useGetData()
+  const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
+  const { avatar, nickname } = useMemo(() => {
+    if (canNext(account, chainId)) {
+      return activeDataSource[chainId] ?? initActiveData
+    }
+    return initActiveData
+  }, [JSON.stringify(activeDataSource), chainId])
   useEffect(() => {
     if (avatar && nickname) {
       setPreviewSrc(avatar)

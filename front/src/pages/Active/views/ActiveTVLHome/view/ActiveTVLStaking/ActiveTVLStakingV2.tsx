@@ -1,6 +1,6 @@
-import React, { memo, useCallback, useMemo, useState } from 'react'
+import React, { memo, useCallback } from 'react'
 
-import { TVLStakingSupportedChainId } from '@/pages/Active/constants/activeConstants'
+import { useChainIndex } from '@/pages/Active/hooks/useChainIndex'
 import { useReStakingHandle } from '@/pages/Active/hooks/useStakeHandle'
 
 import TVLWrap from '../TVLWrap'
@@ -10,10 +10,8 @@ import StakingTab from './components/StakingTab/StakingTab'
 import Table from './components/Table/Table'
 
 const ActiveTVLStakingV2 = memo(() => {
-  const [chainIndex, setChainIndex] = useState(0)
-  const chainIdLocal = useMemo(() => {
-    return TVLStakingSupportedChainId[chainIndex]
-  }, [chainIndex, TVLStakingSupportedChainId])
+  const { chainIndex, setChainIndex, chainIdLocal } = useChainIndex()
+
   const changeChainIndexHandle = useCallback((index: number) => {
     setChainIndex(index)
   }, [])

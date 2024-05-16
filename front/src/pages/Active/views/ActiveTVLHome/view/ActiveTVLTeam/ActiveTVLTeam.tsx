@@ -102,7 +102,7 @@ const ActiveTVLTeam = memo(() => {
               <h3 className={css.fr_title}>Restaked</h3>
               <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
               <div className={css.fr_number}>
-                <p>{groupGoal.totalStr}</p>
+                <p>{activeData.userStakedAmountStr}</p>
                 <img src={CurrencyLogo[chainId]} />
               </div>
               <ActivePixelButtonColor className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={stakingHandle}>

@@ -34,7 +34,7 @@ export const activeTokenList: Record<ChainId, Record<string, Address>> = {
     CRHero: '0x76E08f9D5f76590E12427F003325768290602De1'
   },
   [TVLChainId.LineaTestnet]: {
-    Restaking: '0x3BbBe5929db5EAdF580537874bBA0a961F505E40',
+    Restaking: '0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637',
     ZypherGameToken: '0x5275A8593ce6a967Ae6782a70F417135A44bCd27',
     CRHero: '0x76E08f9D5f76590E12427F003325768290602De1',
     Soulbound: '0xd64dd18365cCb07B7a0cc22Fbf5ec39Bd89B5FfA'

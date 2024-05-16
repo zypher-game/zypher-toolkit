@@ -23,7 +23,7 @@ import GameIndex from '@/pages/GamesIndex/view/GamesIndex/GamesIndex'
 import GamesList from '@/pages/GamesList'
 // import Invitation from '@/pages/invitation'
 // import Monster from '@/pages/Monster'
-// import NotFound from '@/pages/NotFound'
+import NotFound from '@/pages/NotFound'
 import { ThemeProvider } from '@/theme'
 
 // import Ranking from '@/pages/Ranking'
@@ -94,7 +94,7 @@ export default (): JSX.Element => {
                       {/* <Route path="/dp" element={<DP />} />*/}
                       <Route path="/games/list" element={<GamesList />} />
                       {/* 404页面 */}
-                      <Route path="*" element={<GamesList />} />
+                      <Route path="*" element={<NotFound />} />
                     </Routes>
                   </>
                 </ScrollToTop>

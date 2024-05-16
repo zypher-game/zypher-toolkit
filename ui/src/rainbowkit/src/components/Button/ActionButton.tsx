@@ -1,6 +1,5 @@
 import React from "react";
 import { touchableStyles } from "../../css/touchableStyles";
-import { isMobile } from "../../utils/isMobile";
 import { Box, BoxProps } from "../Box/Box";
 import { Text, TextProps } from "../Text/Text";
 import { PixelCube2 } from "../../../../components/PixelBtn/ActivePixelButton";
@@ -57,7 +56,7 @@ export function ActionButton({
 }) {
   const isPrimary = type === "primary";
   const isNotLarge = size !== "large";
-  const mobile = isMobile();
+  // const mobile = isMobile();
   const background = !disabled
     ? isPrimary
       ? "#1649FF"
@@ -66,7 +65,7 @@ export function ActionButton({
       : undefined
     : "#1D263B";
   const { fontSize, height, paddingX, paddingY } = sizeVariants[size];
-  const hasBorder = !mobile || !isNotLarge;
+  // const hasBorder = !mobile || !isNotLarge;
   return (
     <PixelCube2
       pixel_height={2}

@@ -1,10 +1,9 @@
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import { useActiveWeb3React } from "./useActiveWeb3React";
-import { ChainId, localStorageEffect, txStatus } from "..";
+import { ChainId, localStorageEffect } from "..";
 import { useCallback } from "react";
 import { TransactionReceipt } from "viem";
 
-import { request } from "../utils/request";
 // 分享者的address
 export type IInvitationAddress = {
   address: string;

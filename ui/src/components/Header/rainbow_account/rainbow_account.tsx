@@ -3,11 +3,7 @@ import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
-import {
-  useIsMd,
-  useIsMd1100,
-  useIsMobile,
-} from "../../../hooks/useWindowSize";
+import { useIsMobile } from "../../../hooks/useWindowSize";
 
 // import AccountInfoDialog from "../../ConnectWallet/components/AccountInfoDialog";
 import Balance from "../../ConnectWallet/components/Balance/Balance";
