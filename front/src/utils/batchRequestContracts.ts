@@ -5,7 +5,7 @@ import sample from 'lodash/sample'
 import { Address, WalletClient } from 'wagmi'
 
 import { TransactionsCount } from '@/constants/constants'
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 
 import { env } from './config'
 import sleep from './sleep'

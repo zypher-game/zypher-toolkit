@@ -1,11 +1,11 @@
-import { AddressZero } from '@ethersproject/constants'
 import { useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { NavKey } from '@/components/Layout/Navigation'
-import BigNumberJs from '@/utils/BigNumberJs'
 
+import { minStakingValue, TVLChainId } from '../constants/activeConstants'
 import { IActiveData, tvlPathState } from '../state/activeState'
 import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
 import { useActiveData } from './useActiveData'
@@ -16,13 +16,13 @@ export const useActiveRouter = () => {
   const tvlPathLink = useRecoilValue(tvlPathState)
   const { account, chainId } = useActiveWeb3React()
   const location = useLocation()
+  const { isInitLoading, id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
   useEffect(() => {
     const pathnameArr = location.pathname.split('/')
     if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
       return
     }
     // 需要跳转路由
-    const { isInitLoading, id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
     if (!id && isInitLoading) {
       navigate(`/${NavKey[0][1]}/${NavKey[0][2]}`)
       return
@@ -41,7 +41,8 @@ export const useActiveRouter = () => {
       // 已经获得了额外的奖励
 
       // 用户有没有质押 0.1 个eth
-      if (userStakedAmount !== '' && new BigNumberJs(userStakedAmount).gte(0.1)) {
+      console.log('userStakedAmount', { userStakedAmount })
+      if (userStakedAmount !== '' && new BigNumberJs(userStakedAmount).gte(minStakingValue[chainId as unknown as TVLChainId])) {
         // 有质押，看看有没有英雄
         if (!tvlHero) {
           navigate(`/${preAirdropPathname}/${airdropPathname.chooseHunter}`)
@@ -83,5 +84,5 @@ export const useActiveRouter = () => {
     }
 
     // navigate(`/${NavKey[0][0]}`)
-  }, [JSON.stringify(activeData), account, chainId, tvlPathLink])
+  }, [isInitLoading, id, isRegistered, airdropPoints, JSON.stringify(airdropPointsDetail), userStakedAmount, tvlHero, account, chainId, tvlPathLink])
 }

@@ -25,6 +25,7 @@ export const useActiveData = () => {
             ...pre[chainId],
             ...obj(pre[chainId]!)
           }
+          console.log({ nextValue: chainObj })
           return {
             ...pre,
             [chainId]: chainObj

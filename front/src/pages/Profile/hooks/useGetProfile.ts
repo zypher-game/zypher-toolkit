@@ -2,7 +2,7 @@ import { formatMoney, useActiveWeb3React } from '@ui/src'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import bingoLobby from '@/contract/bingoLobby'
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 import { env } from '@/utils/config'
 
 export const useGetProfile = () => {

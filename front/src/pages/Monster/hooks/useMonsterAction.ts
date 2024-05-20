@@ -19,6 +19,7 @@ import {
   walletModalOpenState,
   zkBingo
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
@@ -27,7 +28,6 @@ import MonsterContract from '@/contract/monsterContract'
 import { useAppDispatch } from '@/store/hooks'
 import { useMonsterState } from '@/store/monster/hooks'
 import { fetchAccountMonsterAsync } from '@/store/monster/reducer'
-import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { toBingoHref } from '@/utils/toBingoHref'

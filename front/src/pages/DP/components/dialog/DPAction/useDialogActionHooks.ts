@@ -1,6 +1,5 @@
+import { BigNumberJs } from '@ui/src'
 import { useMemo, useState } from 'react'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { DP_PRICE_LIST, IDpBalance, IStakeParam } from '../../../hooks/useGPAction'
 

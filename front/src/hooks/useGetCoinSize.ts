@@ -1,7 +1,5 @@
-import { pow10, useActiveWeb3React } from '@ui/src'
+import { BigNumberJs, pow10, useActiveWeb3React } from '@ui/src'
 import { useEffect, useState } from 'react'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import bingoLobbyFee from '../contract/bingoLobbyFee'
 import { env } from '../utils/config'

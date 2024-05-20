@@ -11,11 +11,13 @@ import {
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
+import { ethers } from 'ethers'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
+import { getWeb3Sign } from '@/utils/getSign'
 
 import { getLinkPre } from '../../constants/activeConstants'
 import { canNext } from '../../hooks/activeHooks'
@@ -81,29 +83,47 @@ const ChangeNameDialog = memo(() => {
         return
       }
       console.log(1, account, avatarLocal, nicknameLocal)
-      // updateHeadImg
-      const linkType = getLinkPre(chainId).key
-      let updateHeadRes = false
-      let updateInfoRes = false
-      setLoading(true)
-      if (!avatarLocal) {
-        updateHeadRes = true
-      } else {
-        const formData = avatarLocal
-        formData.append('address', account!)
-        formData.append('linkType', `${linkType}`)
-        updateHeadRes = await updateHeadImg({ formData: avatarLocal })
+      const hashedCardBytes = ethers.utils.hexConcat([account!])
+      let _signedStr
+      try {
+        _signedStr = await getWeb3Sign(hashedCardBytes, account!, false)
+      } catch (err) {
+        setErrorToast(GlobalVar.dispatch, err)
+        return
       }
-      // || previewSrc
-      if (updateHeadRes && nicknameLocal !== nickname) {
-        updateInfoRes = await updateInfo({ address: account!, nickname: nicknameLocal, linkType: linkType })
-      } else {
-        updateInfoRes = true
+      if (typeof _signedStr === 'string') {
+        // updateHeadImg
+        const linkType = getLinkPre(chainId).key
+        let updateHeadRes = false
+        let updateInfoRes = false
+        setLoading(true)
+        if (!avatarLocal) {
+          updateHeadRes = true
+        } else {
+          const formData = avatarLocal
+          formData.append('address', account!)
+          formData.append('linkType', `${linkType}`)
+          formData.append('signature', `${_signedStr}`)
+          updateHeadRes = await updateHeadImg({ formData: avatarLocal })
+        }
+        // || previewSrc
+        if (updateHeadRes && nicknameLocal !== nickname) {
+          const formData = new FormData()
+          formData.append('address', account!)
+          formData.append('nickname', nicknameLocal)
+          formData.append('linkType', `${linkType}`)
+          formData.append('signature', _signedStr)
+          updateInfoRes = await updateInfo({
+            formData
+          })
+        } else {
+          updateInfoRes = true
+        }
+        if (updateInfoRes && updateHeadRes) {
+          getData()
+        }
+        setLoading(false)
       }
-      if (updateInfoRes && updateHeadRes) {
-        getData()
-      }
-      setLoading(false)
     } catch (e) {
       setErrorToast(GlobalVar.dispatch, e)
       setLoading(false)

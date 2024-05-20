@@ -15,9 +15,8 @@ import {
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { defaultActiveChainId } from '../../constants/activeConstants'
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'

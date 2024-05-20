@@ -1,6 +1,5 @@
 import { ChainId, formatMoney } from '@ui/src'
-
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 
 import { getLinkPre } from '../constants/activeConstants'
 

@@ -1,11 +1,11 @@
 import { preStaticUrl } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useMemo } from 'react'
 import styled from 'styled-components'
 
 import { IMonsterData } from '@/store/monster/reducer'
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IFightInfo } from '../../hooks/monster.types'
 import css from './MonsterFightPercent.module.stylus'

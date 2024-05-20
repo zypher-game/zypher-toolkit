@@ -76,48 +76,6 @@ export const tvlTokens = Object.fromEntries(
     )
   ])
 )
-// [TVLChainId.Sepolia]:,
-// [TVLChainId.LineaTestnet]: {
-//   USDT: {
-//     address: tvlTokenAddress[TVLChainId.LineaTestnet].USDT,
-//     symbol: 'USDT',
-//     logoPath: getCryptoImg('token', 'USDT', '.png'),
-//     index: 2
-//   },
-//   WETH: {
-//     address: tvlTokenAddress[TVLChainId.LineaTestnet].WETH,
-//     symbol: 'WETH',
-//     logoPath: getCryptoImg('token', 'WETH', '.png'),
-//     index: 1
-//   }
-//   // GP: {
-//   //   address: tvlTokenAddress[TVLChainId.LineaTestnet].ZypherGameToken,
-//   //   symbol: 'GP',
-//   //   logoPath: '',
-//   //   index: 4
-//   // }
-// },
-// [TVLChainId.B2Testnet]: {
-//   USDT: {
-//     address: tvlTokenAddress[TVLChainId.B2Testnet].USDT,
-//     symbol: 'USDT',
-//     logoPath: getCryptoImg('token', 'USDT', '.png'),
-//     index: 2
-//   },
-//   WETH: {
-//     address: tvlTokenAddress[TVLChainId.B2Testnet].WETH,
-//     symbol: 'WETH',
-//     logoPath: getCryptoImg('token', 'BTC'),
-//     index: 1
-//   }
-//   // GP: {
-//   //   address: tvlTokenAddress[TVLChainId.LineaTestnet].ZypherGameToken,
-//   //   symbol: 'GP',
-//   //   logoPath: '',
-//   //   index: 4
-//   // }
-// }
-// } as unknown as Record<ChainId, TVLToken>
 type ILinkPre = {
   key: number
   label: string
@@ -142,5 +100,13 @@ export const LinkPre: Record<string, ILinkPre> = {
 }
 export const getLinkPre = (chainId: ChainId): ILinkPre => {
   return Object.values(LinkPre).filter(v => v.chainId === chainId)[0]
+}
+
+export const minStakingValue: Record<TVLChainId, string> = {
+  [TVLChainId.Sepolia]: '0.01',
+  [TVLChainId.B2]: '0.0005',
+  [TVLChainId.B2Testnet]: '0.0005',
+  [TVLChainId.LineaMainnet]: '0.01',
+  [TVLChainId.LineaTestnet]: '0.01'
 }
 export const CODELENGTH = 6

@@ -15,13 +15,13 @@ import {
   useSetRecoilState,
   useWalletClient
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 
 import { GlobalVar } from '@/constants/constants'
 import { crHeroContract } from '@/contract/crHero'
 import { TVLStakingContract } from '@/contract/tvlStaking'
-import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 

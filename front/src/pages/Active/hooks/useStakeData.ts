@@ -1,12 +1,12 @@
 import { AddressZero } from '@ethersproject/constants'
 import { ChainId, Currency, divisorBigNumber, erc20Abi, useActiveWeb3React, useRecoilState, useSetRecoilState } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 
 import { crHeroAbi } from '@/contract/crHero'
 import { TVLStakingABI } from '@/contract/tvlStaking'
 import { batchRequestMulticall, batchRequestNativeContracts } from '@/utils/batchRequestContracts'
-import BigNumberJs from '@/utils/BigNumberJs'
 import { calculateSumByNumber } from '@/utils/calculateSum'
 
 import { activeTokenList, TVLStakingSupportedChainId, tvlTokens } from '../constants/activeConstants'
@@ -236,20 +236,20 @@ export const useStakeData = () => {
           defaultValue: 0
         })
         console.log({ nextRes, nextParams })
-        let stakeDataFromApi: any
-        try {
-          stakeDataFromApi = await Promise.all(TVLStakingSupportedChainId.map(v => getRestaking({ userId: id, chainId: v })))
-          setRestakingData(
-            Object.fromEntries(TVLStakingSupportedChainId.map((vvv, index) => [vvv, stakeDataFromApi[index]])) as unknown as Record<
-              ChainId,
-              IRestakingDataState
-            >
-          )
-        } catch (stakeDataFromApiErr: any) {
-          console.log('stakeDataFromApi Error', stakeDataFromApiErr)
-        }
+        // let stakeDataFromApi: any
+        // try {
+        //   stakeDataFromApi = await Promise.all(TVLStakingSupportedChainId.map(v => getRestaking({ userId: id, chainId: v })))
+        //   setRestakingData(
+        //     Object.fromEntries(TVLStakingSupportedChainId.map((vvv, index) => [vvv, stakeDataFromApi[index]])) as unknown as Record<
+        //       ChainId,
+        //       IRestakingDataState
+        //     >
+        //   )
+        // } catch (stakeDataFromApiErr: any) {
+        //   console.log('stakeDataFromApi Error', stakeDataFromApiErr)
+        // }
 
-        console.log({ stakeDataFromApi })
+        // console.log({ stakeDataFromApi })
         let END_TIME = '0'
         // let mintMinimum = '0'
         let sbtBalanceOf = '0'

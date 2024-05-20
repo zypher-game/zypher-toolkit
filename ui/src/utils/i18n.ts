@@ -16,7 +16,7 @@ export const LngNs = {
   common: "common",
   defense: "defense",
   points: "points",
-  siderBar: "siderBar",
+  sideBar: "siderBar",
   home: "home",
   zBingo: "zBingo",
   invitation: "invitation",

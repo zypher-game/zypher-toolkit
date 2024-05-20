@@ -1,4 +1,5 @@
 import { useRecoilValue } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useEffect, useMemo, useState } from 'react'
 
 import {
@@ -9,7 +10,6 @@ import {
   useMonsterState
 } from '@/store/monster/hooks'
 import { AccountMonsterKeyType, IAccountMonsterData, IMonsterData, MonsterKeyType } from '@/store/monster/reducer'
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { refreshMonsterState } from '../state/monsterState'
 import { IDefenceRankDataItem, IFightInfo, IMonsterStatus, ImonsterUserStatus } from './monster.types'

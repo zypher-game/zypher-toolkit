@@ -1,6 +1,6 @@
 import './index.styl'
 
-import { Header, siderCollapseState, useIsW1100, useRecoilValue } from '@ui/src'
+import { Header, sideCollapseState, useIsW1100, useRecoilValue } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
@@ -12,7 +12,7 @@ import { env } from '@/utils/config'
 import copy from '@/utils/copy'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
-import CountupNumber from '../CountupNumber/CountupNumber'
+import CountUpNumber from '../CountUpNumber/CountUpNumber'
 import Navigation, { NavKey } from './Navigation'
 
 const { Content } = LayoutAntd
@@ -23,7 +23,7 @@ interface IProps {
 const Layout: React.FC<IProps> = memo((props: IProps) => {
   const location = useLocation()
   const [pathnameArr, setPathname] = useState<string[]>([])
-  const collapsed = useRecoilValue(siderCollapseState)
+  const collapsed = useRecoilValue(sideCollapseState)
   const isMobile = useIsW1100()
   const [zIndex, setZIndex] = useState(21)
   const dispatch = useAppDispatch()
@@ -54,29 +54,27 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         copy={copy}
         useNavigate={useNavigate}
         useLocation={useLocation}
-        showLang={true}
-        CountupNumber={CountupNumber}
-        type="pixel"
+        CountUpNumber={CountUpNumber}
         pathname={pathnameArr[1]}
         Middle={Navigation}
       />
       <LayoutAntd className="lt-layout-content">
         {/* {NavKey[1].includes(pathnameArr[1]) || (isMobile && !collapsed) ? (
-          <Sider
+          <Side
             collapsible
             breakpoint="md"
             trigger={null}
-            className={`custom-sider ${collapsed && isMobile ? 'hidden' : ''}`}
+            className={`custom-side ${collapsed && isMobile ? 'hidden' : ''}`}
             style={{ zIndex: zIndex }}
           >
             <SideBar className="lt-sidebar" isMobile={isMobile} useNavigate={useNavigate} />
-          </Sider>
+          </Side>
         ) : null} */}
         <Content className="lt-content">
           <div className="lt-main">{props.children}</div>
         </Content>
       </LayoutAntd>
-      {/* {isMobile && !collapsed && <div className="lt-sidebar-layer" onClick={() => setSiderCollapse(true)} />} */}
+      {/* {isMobile && !collapsed && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />} */}
       {/* <div id="snow" /> */}
     </LayoutAntd>
   )

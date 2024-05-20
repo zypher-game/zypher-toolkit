@@ -2,11 +2,11 @@ import { CloseOutlined } from '@ant-design/icons'
 import { LoadingOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { formatMoney, LngNs, pointsDialogState, preStaticUrl, useCustomTranslation, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
-import BigNumberJs from '@/utils/BigNumberJs'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { dpBuyDialogState } from '../../hooks/state'

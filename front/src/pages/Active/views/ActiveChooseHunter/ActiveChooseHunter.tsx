@@ -1,11 +1,13 @@
 import './ActiveChooseHunter.styl'
 
 import { ActivePixelButtonColor, ActivePixelCard, LoadingButton, preStaticUrl } from '@ui/src'
+import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
+import { getWeb3Sign } from '@/utils/getSign'
 import sleep from '@/utils/sleep'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
@@ -60,23 +62,39 @@ const ActiveChooseHunter = memo(() => {
   const { toSetHero } = useToPath()
 
   const { activeData } = useActiveData()
+  const { id, accountAddress } = activeData
   const { chooseHero, loading: isHeroLoading } = useUserHeroCall()
   const heroClickHandle = useCallback(index => {
     setHeroKey(index)
   }, [])
   const heroConfirmHandle = useCallback(async () => {
     try {
-      const res = await chooseHero({ userId: activeData.id, hero: hero[heroKey].keyValue })
-      if (res) {
-        toSetHero(hero[heroKey].keyValue)
-        navigate(tvlPath[0])
-      } else {
-        setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
+      const hashedCardBytes = ethers.utils.hexConcat([accountAddress])
+      let _signedStr
+      try {
+        _signedStr = await getWeb3Sign(hashedCardBytes, accountAddress, false)
+      } catch (err) {
+        setErrorToast(GlobalVar.dispatch, err)
+        return
+      }
+      if (typeof _signedStr === 'string') {
+        const res = await chooseHero({
+          userId: id,
+          role: hero[heroKey].keyValue,
+          signature: _signedStr,
+          address: accountAddress
+        })
+        if (res) {
+          toSetHero(hero[heroKey].keyValue)
+          navigate(tvlPath[0])
+        } else {
+          setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
+        }
       }
     } catch {
       setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
     }
-  }, [heroKey, JSON.stringify(activeData)])
+  }, [heroKey, accountAddress, id])
 
   return (
     <ActiveComp>

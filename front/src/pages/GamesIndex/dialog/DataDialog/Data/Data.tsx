@@ -6,7 +6,7 @@ import { isEqual } from 'lodash'
 import React, { memo, useMemo } from 'react'
 import styled from 'styled-components'
 
-import CountupNumber from '@/components/CountupNumber/CountupNumber'
+import CountUpNumber from '@/components/CountUpNumber/CountUpNumber'
 import Skeleton from '@/components/Skeleton/Skeleton'
 import { IData, IDataKey, IDataTotal } from '@/pages/GamesIndex/state/dataState'
 import { env } from '@/utils/config'
@@ -111,7 +111,7 @@ const Data = memo(({ data }: IProps) => {
                 {isLoading ? (
                   <Skeleton className={css.munSke} />
                 ) : (
-                  <CountupNumber
+                  <CountUpNumber
                     value={data[v.value]}
                     decimals={data[`${v.value}Decimal`]}
                     prefix={v.dataKey === IDataKey.totalVault ? '$' : ''}

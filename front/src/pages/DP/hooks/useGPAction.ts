@@ -19,6 +19,7 @@ import {
   walletModalOpenState,
   zkBingo
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
@@ -28,7 +29,6 @@ import { GlobalVar } from '@/constants/constants'
 import DPABI from '@/contract/dpStaking/abis/contracts/DP.sol/DP.json'
 import STAKINGABI from '@/contract/dpStaking/abis/contracts/Staking.sol/Staking.json'
 import { DPContract, DPStakingContract, getDpStakingAddress, IDPContract } from '@/contract/dpStaking/dpStaking'
-import BigNumberJs from '@/utils/BigNumberJs'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 

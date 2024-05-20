@@ -1,6 +1,5 @@
 import { ChainId, Currency, request } from '@ui/src'
-
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 
 import { IPriceType } from './reducer'
 const COINGECKO_CHAIN_ID = {

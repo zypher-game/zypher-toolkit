@@ -30,7 +30,7 @@ import {
   batchRequestTransCountFromScan,
   IContractResponse
 } from '@/utils/batchRequestContracts'
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 import { calculateSum, calculateSumByNumber, calculateSumWithKey } from '@/utils/calculateSum'
 import { env } from '@/utils/config'
 

@@ -11,7 +11,7 @@ const IsPixelWidget = memo(
     onClick,
   }: {
     className?: string;
-    type: HeaderUIType;
+    type?: HeaderUIType;
     children: React.ReactNode;
     onClick?: any;
   }) => {

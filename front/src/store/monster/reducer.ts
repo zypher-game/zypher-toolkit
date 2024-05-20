@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { ChainId, divisorBigNumber, formatMoney } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { isEqual } from 'lodash'
 import { Address } from 'wagmi'
 
 import { IDefenceRankDataItem } from '@/pages/Monster/hooks/monster.types'
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { fetchAccountMonster } from './fetchAccountMonster'
 import { fetchAccountMonsterNft } from './fetchAccountMonsterNft'

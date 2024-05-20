@@ -16,7 +16,7 @@ interface IBalanceProps {
   showDiv: boolean
   duration?: number
 }
-const CountupNumber: FC<IBalanceProps> = memo(
+const CountUpNumber: FC<IBalanceProps> = memo(
   ({ value, decimals = 3, unit, prefix, duration, startFromValue = false, showDiv, className }: IBalanceProps) => {
     const prefixProp = useMemo(() => (prefix ? { prefix } : {}), [prefix])
     const suffixProp = useMemo(() => (unit ? { suffix: unit } : {}), [unit])
@@ -42,4 +42,4 @@ const CountupNumber: FC<IBalanceProps> = memo(
   },
   isEqual
 )
-export default CountupNumber
+export default CountUpNumber

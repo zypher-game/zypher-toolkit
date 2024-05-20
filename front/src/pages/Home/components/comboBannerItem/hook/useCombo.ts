@@ -18,7 +18,7 @@ import { TransactionReceipt } from 'viem'
 import { useSwitchNetwork, useWalletClient } from 'wagmi'
 
 import { GlobalVar } from '@/constants/constants'
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 

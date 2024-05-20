@@ -9,6 +9,7 @@ import {
   request,
   useActiveWeb3React
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { Address, Chain } from 'wagmi'
@@ -17,7 +18,6 @@ import TILE_REWARD_HELPER_ABI from '@/contract/abi/tile_reward_helper.json'
 import NFT_ABI from '@/contract/abi/z2048SBT.json'
 import z2048SBT from '@/contract/z2048SBT'
 import { batchRequestContracts, batchRequestMulticall, IContractResponse } from '@/utils/batchRequestContracts'
-import BigNumberJs from '@/utils/BigNumberJs'
 export type I2048GameList = {
   chainId: ChainId
   tokenId: string

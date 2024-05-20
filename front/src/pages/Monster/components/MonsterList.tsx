@@ -2,11 +2,10 @@ import { preStaticUrl, useActiveWeb3React } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
 import { getShortenAddress, LngNs } from '@ui/src'
 import { PlayerAvatar } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useMemo } from 'react'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IDefenceRankDataItem } from '../hooks/monster.types'
 import css from './MonsterList.module.stylus'

@@ -2,10 +2,10 @@
 import { ChainId, divisor6xBigNumber, IContractName, zkBingo } from '@ui/src'
 // import MonsterAbi from '@/contract/abi/MonsterAbi.json'
 import { MulticallContract } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import MonsterAbi from '@zypher-game/events/abi/MonsterSlayer202310.json'
 
 import { IMonsterStatus } from '@/pages/Monster/hooks/monster.types'
-import BigNumberJs from '@/utils/BigNumberJs'
 
 export const Time = {
   [IMonsterStatus.MonsterNftWait]: {

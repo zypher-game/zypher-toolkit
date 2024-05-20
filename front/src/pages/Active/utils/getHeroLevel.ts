@@ -1,7 +1,6 @@
 import { ChainId } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { utils } from 'ethers'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 // 定义等级对应的质押阈值数组
 const DEFAULT_LEVEL_THRESHOLDS = [

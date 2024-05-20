@@ -11,7 +11,7 @@ interface IProps {
 }
 const SideBarTitle = memo(
   ({ className, logo_url_name, logo_title }: IProps) => {
-    const { t } = useCustomTranslation([LngNs.siderBar]);
+    const { t } = useCustomTranslation([LngNs.sideBar]);
     return (
       <div className={className}>
         <img

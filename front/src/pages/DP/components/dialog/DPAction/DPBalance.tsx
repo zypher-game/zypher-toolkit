@@ -1,9 +1,8 @@
 import { LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { DP_PRICE_LIST, IBalance, IDpBalance, IStakeParam } from '../../../hooks/useGPAction'
 import { DPAmountInputItem } from '../../UIWidget'

@@ -16,8 +16,9 @@ import {
 } from "../../PixelBtn/ActivePixelButton";
 import SvgComponent from "../../SvgComponent/SvgComponent";
 import IsPixelWidget from "../../Header/rainbow_account/IsPixelWidget";
+import Icon from "../../icons";
 type IProps = {
-  type: "side" | "top" | "pixel";
+  type: "top" | "pixel" | "list";
 };
 export const languageList = [
   {
@@ -86,7 +87,10 @@ const Language = memo(({ type }: IProps) => {
           </IsPixelWidget>
         ) : (
           <>
-            <p>{t("language")}</p>
+            <p>
+              <Icon name={""} />
+              {t("language")}
+            </p>
             <img
               src={
                 preStaticUrl +

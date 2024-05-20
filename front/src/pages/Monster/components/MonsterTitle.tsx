@@ -1,11 +1,11 @@
 import { LngNs, PointsIcon, useCustomTranslation, useIsW768, useSetRecoilState } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import Icon from '@/assets/iconsLocal'
 import { IMonsterData, MonsterKeyType } from '@/store/monster/reducer'
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { IFightInfo, IMonsterStatus, ImonsterUserStatus } from '../hooks/monster.types'
 import { Rule1DialogState, Rule2DialogState } from '../state/monsterState'

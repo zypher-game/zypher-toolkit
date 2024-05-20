@@ -1,7 +1,6 @@
 import { divisorBigNumber, useActiveWeb3React } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { useActiveData } from './useActiveData'
 import { useAvailableCode, useTeamCall } from './useDataCall'

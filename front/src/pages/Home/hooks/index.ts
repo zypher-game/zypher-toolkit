@@ -24,7 +24,7 @@ import { TransactionReceipt } from 'viem'
 import { Address, useWalletClient } from 'wagmi'
 
 import { useAppDispatch } from '@/store/hooks'
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 

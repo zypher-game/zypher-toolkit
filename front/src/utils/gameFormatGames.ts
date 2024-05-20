@@ -1,6 +1,6 @@
 import { ChainId, formatMoney, getFormattedTime, getFormattedTimeMobile, IGameList, IGameName, IGameStatus, IRecentGame } from '@ui/src'
 
-import BigNumberJs from '@/utils/BigNumberJs'
+import { BigNumberJs } from '@ui/src'
 
 export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Bsc]: 'BNB',

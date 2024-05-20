@@ -1,8 +1,7 @@
 import { ChainId, divisorBigNumber, request, useActiveWeb3React } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
 import { Address } from 'wagmi'
-
-import BigNumberJs from '@/utils/BigNumberJs'
 
 import { getLinkPre, TVL_API } from '../constants/activeConstants'
 import { initActiveData, IRestakingItem } from '../state/activeState'
@@ -353,13 +352,21 @@ export const useLeaderBoardCall = () => {
 }
 export const useUpdateInfoCall = () => {
   // 更新用户昵称
-  const updateInfo = useCallback(async ({ address, nickname, linkType }: { address: Address; nickname: string; linkType: number }) => {
+  const updateInfo = useCallback(async ({ formData }: { formData: FormData }) => {
     try {
+      // const res = await request(`${TVL_API}/api/updateInfo`, {
+      //   method: 'POST',
+      //   data: JSON.stringify({ address, nickname, linkType, signature }),
+      //   headers: {
+      //     'Content-Type': 'application/json'
+      //   }
+      // })
       const res = await request(`${TVL_API}/api/updateInfo`, {
         method: 'POST',
-        data: JSON.stringify({ address, nickname, linkType }),
+        data: formData,
         headers: {
-          'Content-Type': 'application/json'
+          accept: 'application/json; charset=utf-8',
+          'Content-Type': 'multipart/form-data'
         }
       })
       if (res.data && res.data['message'] == 'ok') {
@@ -422,32 +429,35 @@ export const useIsRegistered = () => {
 }
 export const useUserHeroCall = () => {
   const [loading, setLoading] = useState(false)
-  const chooseHero = useCallback(async ({ userId, hero }: { userId: string; hero: string }) => {
-    try {
-      setLoading(true)
-      const res = await request(`${TVL_API}/api/choose-role`, {
-        method: 'POST',
-        data: JSON.stringify({ userId: Number(userId), role: hero }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      if (res.data && res.data['message'] == 'ok') {
-        const rres = await getHero(userId)
-        setLoading(false)
-        if (rres) {
-          return rres
+  const chooseHero = useCallback(
+    async ({ userId, role, signature, address }: { userId: string; role: string; signature: string; address: string }) => {
+      try {
+        setLoading(true)
+        const res = await request(`${TVL_API}/api/choose-role`, {
+          method: 'POST',
+          data: JSON.stringify({ userId: Number(userId), role: role, signature, address }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        if (res.data && res.data['message'] == 'ok') {
+          const rres = await getHero(userId)
+          setLoading(false)
+          if (rres) {
+            return rres
+          } else {
+            throw new Error('Choose Hero has Error By get')
+          }
         } else {
-          throw new Error('Choose Hero has Error By get')
+          throw new Error('Choose Hero has Error by Post')
         }
-      } else {
-        throw new Error('Choose Hero has Error by Post')
+      } catch (e: any) {
+        setLoading(false)
+        throw new Error('Choose Hero has Error by Catch')
       }
-    } catch (e: any) {
-      setLoading(false)
-      throw new Error('Choose Hero has Error by Catch')
-    }
-  }, [])
+    },
+    []
+  )
   const getHero = useCallback(async (userId: string) => {
     try {
       const res = await request(`${TVL_API}/api/user-role/${userId}`, {
