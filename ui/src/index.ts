@@ -109,9 +109,9 @@ export { default as PointsRuleDialog } from "./components/ConnectWallet/componen
 
 export {
   IsMdProvider,
-  IsMobileProvider,
-  IsMd1100Provider,
-  IsMd1220Provider,
+  IsW768Provider,
+  IsW1100Provider,
+  IsW1220Provider,
 } from "./provider/IsMobileProvider";
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
@@ -135,10 +135,10 @@ export { useSwapPoint } from "./hooks/usePoint";
 export { usePublicNodeWaitForTransaction } from "./hooks/usePublicNodeWaitForTransaction";
 export {
   default as useWindowSize,
-  useIsMobile,
+  useIsW768,
   useIsMd,
-  useIsMd1100,
-  useIsMd1220,
+  useIsW1100,
+  useIsW1220,
 } from "./hooks/useWindowSize";
 import { changeLanguage } from "i18next";
 export { changeLanguage };

@@ -505,7 +505,7 @@ var localStorageEffect = (key) => ({ setSelf, onSet }) => {
 };
 
 // src/hooks/useNavItem.tsx
-import React4, { useEffect as useEffect4, useMemo as useMemo2 } from "react";
+import React7, { useEffect as useEffect5, useMemo as useMemo2 } from "react";
 import { useSetRecoilState } from "recoil";
 
 // src/utils/i18n.ts
@@ -637,7 +637,7 @@ function isEqual(value1, value2) {
 }
 
 // src/components/SideBar/component/Language.tsx
-import React2, { memo as memo2, useCallback, useState as useState2 } from "react";
+import React6, { memo as memo4, useCallback as useCallback3, useState as useState4 } from "react";
 
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
@@ -660,6 +660,10 @@ var useCurrentLanguage = () => {
 
 // src/components/SideBar/component/Language.tsx
 import classnames from "classnames";
+
+// src/components/PixelBtn/ActivePixelButton.tsx
+import React2, { memo as memo2, useCallback, useRef } from "react";
+import styled from "styled-components";
 
 // src/components/PixelBtn/PixelFlatBtn.tsx
 import React, { memo } from "react";
@@ -687,6 +691,678 @@ var PixelFlatBtn = memo((props) => {
 });
 var PixelFlatBtn_default = PixelFlatBtn;
 
+// src/components/PixelBtn/ActivePixelButton.tsx
+var PixelStyled = styled(PixelFlatBtn_default)`
+  height: ${({ height }) => height};
+  min-height: ${({ height }) => height};
+  max-width: ${({ width }) => width};
+  width: ${({ width }) => width};
+  opacity: ${({ disable }) => disable ? 0.8 : 1};
+  &.pixel_loading {
+    opacity: 0.8;
+  }
+  > .pixel_flat_btn_bg {
+    color: #fff;
+    > div {
+      transition: all 0.3s ease;
+      background-color: ${({ backgroundColor }) => backgroundColor};
+    }
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      height: ${({ pixel_height }) => pixel_height}px;
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      top: calc(${({ pixel_height }) => pixel_height}px * 2);
+      left: 0;
+    }
+
+    > .pixel_flat_btn_top_1 {
+      top: 0;
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      left: calc(${({ pixel_height }) => pixel_height}px * 2);
+    }
+    > .pixel_flat_btn_top_2 {
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
+      top: ${({ pixel_height }) => pixel_height}px;
+      left: ${({ pixel_height }) => pixel_height}px;
+    }
+
+    > .pixel_flat_btn_bottom_2 {
+      bottom: 0;
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      left: calc(${({ pixel_height }) => pixel_height}px * 2);
+    }
+    > .pixel_flat_btn_bottom_1 {
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
+      bottom: ${({ pixel_height }) => pixel_height}px;
+      left: ${({ pixel_height }) => pixel_height}px;
+    }
+  }
+  > .pixel_flat_inner {
+    width: 100%;
+    height: 100%;
+  }
+`;
+var ActivePixelCard = memo2((props) => {
+  const { onClick } = props;
+  const lastClickTimeRef = useRef(Date.now());
+  const clickHandle = useCallback(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+  return /* @__PURE__ */ React2.createElement(PixelStyled, {
+    ...props,
+    onClick: clickHandle
+  });
+});
+var ActivePixelCardStyled = styled(ActivePixelCard)`
+  cursor: pointer;
+`;
+var ActivePixelButton = memo2((props) => {
+  const {
+    className,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    height
+  } = props;
+  return /* @__PURE__ */ React2.createElement(ActivePixelCardStyled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor
+  });
+});
+var PixelColorStyled = styled(PixelStyled)`
+  > .pixel_flat_btn_bg {
+    > div {
+      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1649ff"};
+    }
+    > .pixel_flat_btn_inner {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: ${({ pixel_height }) => pixel_height}px;
+        height: ${({ pixel_height }) => pixel_height}px;
+      }
+      &:before {
+        top: 0;
+        left: 0;
+        background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+      }
+      &:after {
+        bottom: 0;
+        right: 0;
+        background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+      }
+    }
+    > .pixel_flat_btn_top_1 {
+      background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+    }
+    > .pixel_flat_btn_top_2 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+    }
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+    }
+  }
+`;
+var ActivePixelColorCard = memo2((props) => {
+  const {
+    className,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    height
+  } = props;
+  return /* @__PURE__ */ React2.createElement(PixelColorStyled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor
+  });
+});
+var ActivePixelColorCardStyled = styled(ActivePixelColorCard)`
+  cursor: pointer;
+`;
+var ActivePixelButtonColor = memo2((props) => {
+  return /* @__PURE__ */ React2.createElement(ActivePixelColorCardStyled, {
+    ...props
+  });
+});
+var PixelBorderStyled = styled(PixelFlatBtn_default)`
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
+  & > .pixel_flat_btn_bg {
+    & > div {
+      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1d263b"};
+    }
+    .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      height: calc(${({ pixel_height }) => pixel_height + "px"} + 1px);
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      left: 0;
+      @media screen and (max-width: 768px) {
+        height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      border: 1px solid ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
+      transition: border 0.3s ease;
+    }
+    > .pixel_flat_btn_top_1 {
+      border-bottom: none !important;
+      z-index: 3;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      border-bottom: none !important;
+      z-index: 2;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+      top: ${({ pixel_height }) => pixel_height + "px"};
+      left: ${({ pixel_height }) => pixel_height + "px"};
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+        top: ${({ pixel_height }) => pixel_height + "px"};
+        left: ${({ pixel_height }) => pixel_height + "px"};
+      }
+    }
+    > .pixel_flat_btn_bottom_2 {
+      border-top: none !important;
+      z-index: 4;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-top: none !important;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+      bottom: ${({ pixel_height }) => pixel_height + "px"};
+      left: ${({ pixel_height }) => pixel_height + "px"};
+      @media screen and (max-width: 768px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+        bottom: ${({ pixel_height }) => pixel_height + "px"};
+        left: ${({ pixel_height }) => pixel_height + "px"};
+      }
+    }
+  }
+  > .pixel_flat_inner {
+    width: 100%;
+    height: 100%;
+  }
+`;
+var PixelBorderCard = memo2((props) => {
+  const {
+    className,
+    pixel_height,
+    width,
+    height,
+    backgroundColor,
+    borderColor,
+    showHover,
+    onClick
+  } = props;
+  const lastClickTimeRef = useRef(Date.now());
+  const clickHandle = useCallback(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+  return /* @__PURE__ */ React2.createElement(PixelBorderStyled, {
+    ...props,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor,
+    className: `${className} pixelBorderCard`,
+    showHover,
+    onClick: clickHandle
+  });
+});
+var PixelCube2Styled = styled(PixelStyled)`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_bottom_2 {
+        background-color: ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ borderColor }) => borderColor};
+    }
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+    }
+  }
+`;
+var PixelCube2 = memo2((props) => {
+  const {
+    className,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    height,
+    borderTopColor,
+    borderBottomColor
+  } = props;
+  return /* @__PURE__ */ React2.createElement(PixelCube2Styled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor,
+    borderTopColor,
+    borderBottomColor
+  });
+});
+var PixelCube3Styled = styled(PixelCube2)`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        &:before {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+        }
+      }
+    }
+  }
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_bottom_2 {
+      width: calc(
+        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
+      );
+      left: calc(${({ pixel_height, size }) => `${pixel_height}px * ${size}`});
+    }
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      width: calc(
+        100% -
+          ${({ pixel_height, size }) => `${pixel_height}px * ${2 * (size - 1)}`}
+      );
+      left: calc(
+        ${({ pixel_height, size }) => `${pixel_height}px * ${size - 1}`}
+      );
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(
+        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
+      );
+      top: calc(${({ pixel_height, size }) => `${size} * ${pixel_height}px`});
+    }
+
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      &:before {
+        content: "";
+        transition: background-color, border 0.3s ease;
+        position: absolute;
+        height: ${({ pixel_height }) => pixel_height}px;
+        width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
+        left: calc(-${({ pixel_height }) => pixel_height}px * 2);
+        background-color: ${({ backgroundColor }) => backgroundColor};
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      &:before {
+        top: ${({ pixel_height }) => pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      &:before {
+        top: -${({ pixel_height }) => pixel_height}px;
+      }
+    }
+  }
+`;
+var PixelCube3 = memo2((props) => {
+  const { size } = props;
+  return /* @__PURE__ */ React2.createElement(PixelCube3Styled, {
+    ...props,
+    size: size != null ? size : 3
+  });
+});
+var PixelCube5Styled = styled(PixelCube3Styled)`
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_inner {
+      &:after,
+      &:before {
+        content: "";
+        position: absolute;
+        height: ${({ pixel_height }) => pixel_height}px;
+        width: 100%;
+        left: 0;
+        background-color: ${({ backgroundColor }) => backgroundColor};
+      }
+      &:before {
+        top: -${({ pixel_height }) => pixel_height}px;
+      }
+      &:after {
+        bottom: -${({ pixel_height }) => pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_top_1:before,
+    > .pixel_flat_btn_bottom_2:after {
+      content: "";
+      position: absolute;
+      height: ${({ pixel_height }) => pixel_height}px;
+      width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
+      left: calc(-${({ pixel_height }) => pixel_height}px * 3);
+      background-color: ${({ backgroundColor }) => backgroundColor};
+    }
+    > .pixel_flat_btn_top_1:before {
+      top: calc(${({ pixel_height }) => pixel_height}px * 3);
+    }
+    > .pixel_flat_btn_bottom_2:after {
+      bottom: calc(${({ pixel_height }) => pixel_height}px * 3);
+    }
+  }
+`;
+var PixelCube5 = memo2((props) => {
+  const { size } = props;
+  return /* @__PURE__ */ React2.createElement(PixelCube5Styled, {
+    ...props,
+    size: size != null ? size : 5
+  });
+});
+var PixelBorderCardStyled = styled(PixelBorderCard)`
+  cursor: pointer;
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_2,
+      > .pixel_flat_btn_bottom_1 {
+        border: 1px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
+`;
+var PixelBorderCardButton = memo2((props) => {
+  return /* @__PURE__ */ React2.createElement(PixelBorderCardStyled, {
+    ...props
+  });
+});
+
+// src/components/SvgComponent/SvgComponent.tsx
+import React3, { useEffect as useEffect2, useState as useState2 } from "react";
+var SvgComponent = ({ src: src6, className, ...rest }) => {
+  const [svgContent, setSvgContent] = useState2(null);
+  useEffect2(() => {
+    (async () => {
+      try {
+        const response = await fetch(src6);
+        if (!response.ok)
+          throw new Error("Failed to load SVG");
+        const text = await response.text();
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = text;
+        const svgElement = wrapper.querySelector("svg");
+        if (svgElement) {
+          const Component = () => /* @__PURE__ */ React3.createElement("span", {
+            className: `svg_component ${className != null ? className : ""}`,
+            ...rest,
+            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
+          });
+          setSvgContent(Component);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [src6]);
+  return svgContent || /* @__PURE__ */ React3.createElement(React3.Fragment, null);
+};
+var SvgComponent_default = SvgComponent;
+
+// src/components/Header/rainbow_account/IsPixelWidget.tsx
+import React5, { memo as memo3 } from "react";
+
+// src/hooks/useWindowSize.ts
+import { useCallback as useCallback2, useContext, useEffect as useEffect4, useState as useState3 } from "react";
+
+// src/provider/IsMobileProvider.tsx
+import React4, { createContext, useEffect as useEffect3 } from "react";
+import { atom, useRecoilState } from "recoil";
+var isW768State = atom({
+  key: "isW768State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isW768State")]
+});
+var isWMdState = atom({
+  key: "isWMdState",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isWMdState")]
+});
+var isW1100State = atom({
+  key: "isW1100State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isW1100State")]
+});
+var isW1220State = atom({
+  key: "isW1220State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isW1220State")]
+});
+var IsW768Context = createContext(void 0);
+var IsW950Context = createContext(void 0);
+var IsW1100Context = createContext(void 0);
+var IsW1220Context = createContext(void 0);
+var IsW768Provider = ({ children }) => {
+  const [isMobile2, setIsMobile] = useRecoilState(isW768State);
+  const size = useWindowSize();
+  useEffect3(() => {
+    const nowIsMobile = size.width < 768;
+    if (isMobile2 !== nowIsMobile) {
+      setIsMobile(nowIsMobile);
+    }
+  }, [size.width, isMobile2]);
+  return /* @__PURE__ */ React4.createElement(IsW768Context.Provider, {
+    value: isMobile2
+  }, children);
+};
+var IsMdProvider = ({ children }) => {
+  const [isWMd, setIsWMd] = useRecoilState(isWMdState);
+  const size = useWindowSize();
+  useEffect3(() => {
+    const nowIsMdMobile = size.width < 950;
+    if (isWMd !== nowIsMdMobile) {
+      setIsWMd(nowIsMdMobile);
+    }
+  }, [size.width, isWMd]);
+  return /* @__PURE__ */ React4.createElement(IsW950Context.Provider, {
+    value: isWMd
+  }, children);
+};
+var IsW1100Provider = ({ children }) => {
+  const [isW1100, setIsW1100] = useRecoilState(isW1100State);
+  const size = useWindowSize();
+  useEffect3(() => {
+    const nowIsW1100Mobile = size.width < 1100;
+    if (isW1100 !== nowIsW1100Mobile) {
+      setIsW1100(nowIsW1100Mobile);
+    }
+  }, [size.width, isW1100]);
+  return /* @__PURE__ */ React4.createElement(IsW1100Context.Provider, {
+    value: isW1100
+  }, children);
+};
+var IsW1220Provider = ({ children }) => {
+  const [isW1220, setIsW1220] = useRecoilState(isW1220State);
+  const size = useWindowSize();
+  useEffect3(() => {
+    const nowIsW1220Mobile = size.width < 1220;
+    if (isW1220 !== nowIsW1220Mobile) {
+      setIsW1220(nowIsW1220Mobile);
+    }
+  }, [size.width, isW1220]);
+  return /* @__PURE__ */ React4.createElement(IsW1220Context.Provider, {
+    value: isW1220
+  }, children);
+};
+
+// src/hooks/useWindowSize.ts
+import { useRecoilState as useRecoilState2 } from "recoil";
+function useWindowSize() {
+  const [size, setSize] = useState3({
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight
+  });
+  const onResize = useCallback2(() => {
+    setSize({
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight
+    });
+  }, []);
+  useEffect4(() => {
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+  return size;
+}
+var useIsW768 = () => {
+  const [isW768] = useRecoilState2(isW768State);
+  if (isW768 === void 0) {
+    return false;
+  }
+  return isW768;
+};
+var useIsW1100 = () => {
+  try {
+    const IsW1100 = useContext(IsW1100Context);
+    if (IsW1100 === void 0) {
+      return false;
+    }
+    return IsW1100;
+  } catch (e) {
+    return false;
+  }
+};
+var useIsW1220 = () => {
+  try {
+    const isW1220 = useContext(IsW1220Context);
+    if (isW1220 === void 0) {
+      return false;
+    }
+    return isW1220;
+  } catch (e) {
+    return false;
+  }
+};
+var useIsMd = () => {
+  try {
+    const isMd = useContext(IsW950Context);
+    if (isMd === void 0) {
+      return false;
+    }
+    return isMd;
+  } catch (e) {
+    return false;
+  }
+};
+
+// src/components/Header/rainbow_account/IsPixelWidget.tsx
+var IsPixelWidget = memo3(
+  ({
+    className,
+    type,
+    children,
+    onClick
+  }) => {
+    const isW768 = useIsW768();
+    return type === "pixel" ? /* @__PURE__ */ React5.createElement(PixelBorderCardButton, {
+      className: `pixel_border ${className != null ? className : ""}`,
+      pixel_height: isW768 ? 3 : 5,
+      backgroundColor: "#1d263b",
+      borderColor: "#3a4254",
+      onClick
+    }, children) : /* @__PURE__ */ React5.createElement("div", {
+      className,
+      onClick
+    }, " ", children);
+  }
+);
+var IsPixelWidget_default = IsPixelWidget;
+
 // src/components/SideBar/component/Language.tsx
 var languageList = [
   {
@@ -705,47 +1381,73 @@ var languageList = [
     img: preStaticUrl + "/img/layout/zh_TW.png"
   }
 ];
-var Language = memo2(({ type }) => {
-  const [show, setShow] = useState2(false);
+var Language = memo4(({ type }) => {
+  const [show, setShow] = useState4(false);
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
-  const handle = useCallback(() => {
+  const handle = useCallback3(() => {
     setShow(!show);
   }, [show]);
-  const changeLanguageHandle = useCallback((item) => {
+  const changeLanguageHandle = useCallback3((item) => {
     changeLanguage(item.keyValue);
     setShow(false);
     storage_default.set("language", item.keyValue);
   }, []);
-  return /* @__PURE__ */ React2.createElement("div", {
+  return /* @__PURE__ */ React6.createElement("div", {
     className: classnames(
       type === "pixel" ? "language_pixel" : type === "top" ? "language_top" : "",
       "language"
     )
-  }, /* @__PURE__ */ React2.createElement("div", {
+  }, /* @__PURE__ */ React6.createElement("div", {
     className: classnames("horListItem", "languageItem"),
     onClick: handle
-  }, type === "top" ? /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("img", {
+  }, type === "top" ? /* @__PURE__ */ React6.createElement(React6.Fragment, null, /* @__PURE__ */ React6.createElement("img", {
     src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`,
     className: "img_arr"
-  }), /* @__PURE__ */ React2.createElement("img", {
+  }), /* @__PURE__ */ React6.createElement("img", {
     src: preStaticUrl + `/img/layout/${lang}.png`,
     className: "img_lang"
-  })) : type === "pixel" ? /* @__PURE__ */ React2.createElement(PixelFlatBtn_default, {
-    className: "pixel_logo"
-  }, /* @__PURE__ */ React2.createElement("img", {
+  })) : type === "pixel" ? /* @__PURE__ */ React6.createElement(IsPixelWidget_default, {
+    className: "pixel_logo",
+    type
+  }, /* @__PURE__ */ React6.createElement("img", {
     src: preStaticUrl + `/img/layout/${lang}.png`,
     className: "pixel_img_lang"
-  })) : /* @__PURE__ */ React2.createElement(React2.Fragment, null, /* @__PURE__ */ React2.createElement("p", null, t("language")), /* @__PURE__ */ React2.createElement("img", {
+  })) : /* @__PURE__ */ React6.createElement(React6.Fragment, null, /* @__PURE__ */ React6.createElement("p", null, t("language")), /* @__PURE__ */ React6.createElement("img", {
     src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
-  }))), show ? /* @__PURE__ */ React2.createElement("ul", {
-    className: "languageItemTip"
-  }, languageList.map((v) => /* @__PURE__ */ React2.createElement("li", {
+  }))), show ? /* @__PURE__ */ React6.createElement(PixelBorderCard, {
+    className: "address_wrap_pop_lang",
+    pixel_height: 4,
+    backgroundColor: "#1D263B",
+    borderColor: "#3A4254"
+  }, languageList.map((v) => /* @__PURE__ */ React6.createElement(PopItem, {
     key: v.label,
-    className: "languageItemOn",
-    onClick: () => changeLanguageHandle(v)
-  }, v.label))) : null);
+    onClick: () => changeLanguageHandle(v),
+    iconName: v.img,
+    label: v.label,
+    on: v.keyValue === lang
+  }))) : null);
 }, isEqual);
+var PopItem = memo4(
+  ({
+    iconName,
+    label,
+    onClick,
+    on
+  }) => {
+    return /* @__PURE__ */ React6.createElement(PixelCube2, {
+      className: `address_wrap_pop_item ${on ? "on" : ""}`,
+      onClick,
+      pixel_height: 3,
+      backgroundColor: "#1D263B",
+      borderColor: "#1D263B",
+      width: "100%",
+      height: "36px"
+    }, /* @__PURE__ */ React6.createElement(SvgComponent_default, {
+      src: iconName
+    }), /* @__PURE__ */ React6.createElement("p", null, label));
+  }
+);
 var Language_default = Language;
 
 // src/utils/i18n.ts
@@ -774,151 +1476,6 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
     escapeValue: false
   }
 });
-
-// src/hooks/useWindowSize.ts
-import { useCallback as useCallback2, useContext, useEffect as useEffect3, useState as useState3 } from "react";
-
-// src/provider/IsMobileProvider.tsx
-import React3, { createContext, useEffect as useEffect2 } from "react";
-import { atom, useRecoilState } from "recoil";
-var isMobileState = atom({
-  key: "isMobileState",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isMobileState")]
-});
-var isWMdState = atom({
-  key: "isWMdState",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isWMdState")]
-});
-var isWMd1100State = atom({
-  key: "isWMd1100State",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isWMd1100State")]
-});
-var isWMd1220State = atom({
-  key: "isWMd1220State",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isWMd1220State")]
-});
-var IsMobileContext = createContext(void 0);
-var IsMdContext = createContext(void 0);
-var IsMd1100Context = createContext(void 0);
-var IsMd1220Context = createContext(void 0);
-var IsMobileProvider = ({ children }) => {
-  const [isMobile2, setIsMobile] = useRecoilState(isMobileState);
-  const size = useWindowSize();
-  useEffect2(() => {
-    const nowIsMobile = size.width < 768;
-    if (isMobile2 !== nowIsMobile) {
-      setIsMobile(nowIsMobile);
-    }
-  }, [size.width, isMobile2]);
-  return /* @__PURE__ */ React3.createElement(IsMobileContext.Provider, {
-    value: isMobile2
-  }, children);
-};
-var IsMdProvider = ({ children }) => {
-  const [isWMd, setIsWMd] = useRecoilState(isWMdState);
-  const size = useWindowSize();
-  useEffect2(() => {
-    const nowIsMdMobile = size.width < 950;
-    if (isWMd !== nowIsMdMobile) {
-      setIsWMd(nowIsMdMobile);
-    }
-  }, [size.width, isWMd]);
-  return /* @__PURE__ */ React3.createElement(IsMdContext.Provider, {
-    value: isWMd
-  }, children);
-};
-var IsMd1100Provider = ({ children }) => {
-  const [isWMd1100, setIsWMd1100] = useRecoilState(isWMd1100State);
-  const size = useWindowSize();
-  useEffect2(() => {
-    const nowIsMd1100Mobile = size.width < 1100;
-    if (isWMd1100 !== nowIsMd1100Mobile) {
-      setIsWMd1100(nowIsMd1100Mobile);
-    }
-  }, [size.width, isWMd1100]);
-  return /* @__PURE__ */ React3.createElement(IsMd1100Context.Provider, {
-    value: isWMd1100
-  }, children);
-};
-var IsMd1220Provider = ({ children }) => {
-  const [isWMd1220, setIsWMd1220] = useRecoilState(isWMd1220State);
-  const size = useWindowSize();
-  useEffect2(() => {
-    const nowIsMd1220Mobile = size.width < 1220;
-    if (isWMd1220 !== nowIsMd1220Mobile) {
-      setIsWMd1220(nowIsMd1220Mobile);
-    }
-  }, [size.width, isWMd1220]);
-  return /* @__PURE__ */ React3.createElement(IsMd1220Context.Provider, {
-    value: isWMd1220
-  }, children);
-};
-
-// src/hooks/useWindowSize.ts
-import { useRecoilState as useRecoilState2 } from "recoil";
-function useWindowSize() {
-  const [size, setSize] = useState3({
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight
-  });
-  const onResize = useCallback2(() => {
-    setSize({
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight
-    });
-  }, []);
-  useEffect3(() => {
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-  return size;
-}
-var useIsMobile = () => {
-  const [isMobile2] = useRecoilState2(isMobileState);
-  if (isMobile2 === void 0) {
-    return false;
-  }
-  return isMobile2;
-};
-var useIsMd1100 = () => {
-  try {
-    const isMd1100 = useContext(IsMd1100Context);
-    if (isMd1100 === void 0) {
-      return false;
-    }
-    return isMd1100;
-  } catch (e) {
-    return false;
-  }
-};
-var useIsMd1220 = () => {
-  try {
-    const isMd1220 = useContext(IsMd1220Context);
-    if (isMd1220 === void 0) {
-      return false;
-    }
-    return isMd1220;
-  } catch (e) {
-    return false;
-  }
-};
-var useIsMd = () => {
-  try {
-    const isMd = useContext(IsMdContext);
-    if (isMd === void 0) {
-      return false;
-    }
-    return isMd;
-  } catch (e) {
-    return false;
-  }
-};
 
 // src/components/SideBar/state.ts
 import { atom as atom2 } from "recoil";
@@ -976,9 +1533,9 @@ var blankLinkList = [
   false
 ];
 var usePathname = () => {
-  const isMobile2 = useIsMobile();
+  const isMobile2 = useIsW768();
   const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
-  useEffect4(() => {
+  useEffect5(() => {
     const path = window.location.hash.split("/");
     const pathName = path[1];
     switch (pathName) {
@@ -1051,9 +1608,9 @@ var useNavItem = () => {
         link: LinkList[2],
         disabled: false,
         type: "Games" /* Games */,
-        content: (className) => /* @__PURE__ */ React4.createElement("div", {
+        content: (className) => /* @__PURE__ */ React7.createElement("div", {
           className
-        }, /* @__PURE__ */ React4.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React4.createElement("img", {
+        }, /* @__PURE__ */ React7.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React7.createElement("img", {
           src: preStaticUrl + "/img/games/star.svg"
         })),
         ...gameStatus.Live
@@ -1176,50 +1733,17 @@ var pointsBalanceState = atom3({
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames4 from "classnames";
-import React15, { memo as memo9, useCallback as useCallback7, useEffect as useEffect6, useState as useState7 } from "react";
+import React16, { memo as memo10, useCallback as useCallback7, useEffect as useEffect6, useState as useState7 } from "react";
 import { useRecoilState as useRecoilState5, useRecoilValue as useRecoilValue4 } from "recoil";
 
 // src/components/CurrencyLogo/index.tsx
-import React7, { useState as useState5 } from "react";
+import React9, { useState as useState5 } from "react";
 
 // src/components/icons/index.tsx
-import React6 from "react";
+import React8 from "react";
 import classnames2 from "classnames";
-
-// src/components/SvgComponent/SvgComponent.tsx
-import React5, { useEffect as useEffect5, useState as useState4 } from "react";
-var SvgComponent = ({ src: src6, className, ...rest }) => {
-  const [svgContent, setSvgContent] = useState4(null);
-  useEffect5(() => {
-    (async () => {
-      try {
-        const response = await fetch(src6);
-        if (!response.ok)
-          throw new Error("Failed to load SVG");
-        const text = await response.text();
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = text;
-        const svgElement = wrapper.querySelector("svg");
-        if (svgElement) {
-          const Component = () => /* @__PURE__ */ React5.createElement("span", {
-            className: `svg_component ${className != null ? className : ""}`,
-            ...rest,
-            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
-          });
-          setSvgContent(Component);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [src6]);
-  return svgContent || /* @__PURE__ */ React5.createElement(React5.Fragment, null);
-};
-var SvgComponent_default = SvgComponent;
-
-// src/components/icons/index.tsx
 var Icon = (props) => {
-  return /* @__PURE__ */ React6.createElement(SvgComponent_default, {
+  return /* @__PURE__ */ React8.createElement(SvgComponent_default, {
     className: classnames2("icon", props.className),
     src: preStaticUrl + `/img/icon/${props.name}.svg`,
     alt: ""
@@ -1231,7 +1755,7 @@ var icons_default = Icon;
 var Logo = ({ src: src6, alt, ...rest }) => {
   const [bad, setBad] = useState5(false);
   if (src6 && !bad) {
-    return /* @__PURE__ */ React7.createElement("img", {
+    return /* @__PURE__ */ React9.createElement("img", {
       ...rest,
       alt,
       src: src6,
@@ -1240,9 +1764,9 @@ var Logo = ({ src: src6, alt, ...rest }) => {
       }
     });
   }
-  return /* @__PURE__ */ React7.createElement("div", {
+  return /* @__PURE__ */ React9.createElement("div", {
     ...rest
-  }, /* @__PURE__ */ React7.createElement(icons_default, {
+  }, /* @__PURE__ */ React9.createElement(icons_default, {
     name: "help"
   }));
 };
@@ -1379,7 +1903,7 @@ import BigNumberjs2 from "bignumber.js";
 
 // src/hooks/useAccountInvitation.ts
 import { atom as atom4, useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
-import { useCallback as useCallback3 } from "react";
+import { useCallback as useCallback4 } from "react";
 var invitationAddressState = atom4({
   key: "invitationAddressState",
   default: void 0,
@@ -1391,7 +1915,7 @@ var useAccountInvitation = (env) => {
     invitationAddressState
   );
   const setInvitationAddressState = useSetRecoilState2(invitationAddressState);
-  const postAccountUpdate = useCallback3(
+  const postAccountUpdate = useCallback4(
     async ({ tx }) => {
     },
     [chainId, account, invitationAddres]
@@ -1402,11 +1926,11 @@ var useAccountInvitation = (env) => {
 };
 
 // src/hooks/usePoint.ts
-import { useCallback as useCallback5, useState as useState6 } from "react";
+import { useCallback as useCallback6, useState as useState6 } from "react";
 import { useRecoilState as useRecoilState3, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState3 } from "recoil";
 
 // src/hooks/usePublicNodeWaitForTransaction.ts
-import { useCallback as useCallback4 } from "react";
+import { useCallback as useCallback5 } from "react";
 import { waitForTransaction } from "wagmi/actions";
 
 // src/rainbow/rainbow.ts
@@ -2282,7 +2806,7 @@ var useActiveChainId = (env) => {
 // src/hooks/usePublicNodeWaitForTransaction.ts
 function usePublicNodeWaitForTransaction(env) {
   const { chainId } = useActiveChainId(env);
-  const waitForTransaction_ = useCallback4(
+  const waitForTransaction_ = useCallback5(
     async (opts) => {
       if (!chainId) {
         return void 0;
@@ -2430,7 +2954,7 @@ var useSwapPoint = ({
   const [pointsWarn, setPointsWarn] = useRecoilState3(pointsWarnState);
   const [choseIndex, setChoseIndex] = useState6();
   const { data: walletClient } = useWalletClient();
-  const swapPointHandle = useCallback5(
+  const swapPointHandle = useCallback6(
     async (index) => {
       if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {
         const _index = choseIndex || choseIndex === 0 ? choseIndex : index;
@@ -2532,573 +3056,19 @@ var usePointsBalanceStr = () => {
 };
 
 // src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
-import React9, { memo as memo4 } from "react";
+import React10, { memo as memo5 } from "react";
 import { useRecoilState as useRecoilState4 } from "recoil";
-
-// src/components/PixelBtn/ActivePixelButton.tsx
-import React8, { memo as memo3, useCallback as useCallback6, useRef } from "react";
-import styled from "styled-components";
-var PixelStyled = styled(PixelFlatBtn_default)`
-  height: ${({ height }) => height};
-  min-height: ${({ height }) => height};
-  max-width: ${({ width }) => width};
-  width: ${({ width }) => width};
-  opacity: ${({ disable }) => disable ? 0.8 : 1};
-  &.pixel_loading {
-    opacity: 0.8;
-  }
-  > .pixel_flat_btn_bg {
-    color: #fff;
-    > div {
-      transition: all 0.3s ease;
-      background-color: ${({ backgroundColor }) => backgroundColor};
-    }
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      height: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        height: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      top: calc(${({ pixel_height }) => pixel_height}px * 2);
-      left: 0;
-      @media screen and (max-width: 768px) {
-        height: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        top: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
-    }
-
-    > .pixel_flat_btn_top_1 {
-      top: 0;
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      left: calc(${({ pixel_height }) => pixel_height}px * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
-      top: ${({ pixel_height }) => pixel_height}px;
-      left: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
-        );
-        top: ${({ small_pixel_height }) => small_pixel_height}px;
-        left: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
-    }
-
-    > .pixel_flat_btn_bottom_2 {
-      bottom: 0;
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      left: calc(${({ pixel_height }) => pixel_height}px * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
-      bottom: ${({ pixel_height }) => pixel_height}px;
-      left: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
-        );
-        bottom: ${({ small_pixel_height }) => small_pixel_height}px;
-        left: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
-    }
-  }
-  > .pixel_flat_inner {
-    width: 100%;
-    height: 100%;
-  }
-`;
-var ActivePixelCard = memo3((props) => {
-  const {
-    pixel_height,
-    small_pixel_height,
-    onClick
-  } = props;
-  const lastClickTimeRef = useRef(Date.now());
-  const clickHandle = useCallback6(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return /* @__PURE__ */ React8.createElement(PixelStyled, {
-    ...props,
-    onClick: clickHandle,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height
-  });
-});
-var ActivePixelCardStyled = styled(ActivePixelCard)`
-  cursor: pointer;
-`;
-var ActivePixelButton = memo3((props) => {
-  const {
-    className,
-    isLoading,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    smallWidth,
-    height,
-    smallHeight,
-    small_pixel_height
-  } = props;
-  return /* @__PURE__ */ React8.createElement(ActivePixelCardStyled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    isLoading,
-    borderColor,
-    small_pixel_height,
-    smallWidth,
-    smallHeight
-  });
-});
-var PixelColorStyled = styled(PixelStyled)`
-  > .pixel_flat_btn_bg {
-    > div {
-      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1649ff"};
-    }
-    > .pixel_flat_btn_inner {
-      &:before,
-      &:after {
-        content: "";
-        position: absolute;
-        width: ${({ pixel_height }) => pixel_height}px;
-        height: ${({ pixel_height }) => pixel_height}px;
-        @media screen and (max-width: 768px) {
-          width: ${({ small_pixel_height }) => small_pixel_height}px;
-          height: ${({ small_pixel_height }) => small_pixel_height}px;
-        }
-      }
-      &:before {
-        top: 0;
-        left: 0;
-        background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      }
-      &:after {
-        bottom: 0;
-        right: 0;
-        background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      }
-    }
-    > .pixel_flat_btn_top_1 {
-      background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-    }
-    > .pixel_flat_btn_top_2 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      @media screen and (max-width: 768px) {
-        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
-          ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      }
-    }
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      @media screen and (max-width: 768px) {
-        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
-          ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      }
-    }
-  }
-`;
-var ActivePixelColorCard = memo3((props) => {
-  const {
-    className,
-    isLoading,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    smallWidth,
-    height,
-    smallHeight,
-    small_pixel_height
-  } = props;
-  return /* @__PURE__ */ React8.createElement(PixelColorStyled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    isLoading,
-    borderColor,
-    small_pixel_height: pixel_height != null ? pixel_height : small_pixel_height,
-    smallWidth,
-    smallHeight
-  });
-});
-var ActivePixelColorCardStyled = styled(ActivePixelColorCard)`
-  cursor: pointer;
-`;
-var ActivePixelButtonColor = memo3((props) => {
-  return /* @__PURE__ */ React8.createElement(ActivePixelColorCardStyled, {
-    ...props
-  });
-});
-var PixelBorderStyled = styled(PixelFlatBtn_default)`
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
-  & > .pixel_flat_btn_bg {
-    & > div {
-      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1d263b"};
-    }
-    .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      height: calc(${({ pixel_height }) => pixel_height + "px"} + 1px);
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      left: 0;
-      @media screen and (max-width: 768px) {
-        height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_inner,
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      border: 1px solid ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
-      transition: border 0.3s ease;
-    }
-    > .pixel_flat_btn_top_1 {
-      border-bottom: none !important;
-      z-index: 3;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      border-bottom: none !important;
-      z-index: 2;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-      top: ${({ pixel_height }) => pixel_height + "px"};
-      left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-        top: ${({ pixel_height }) => pixel_height + "px"};
-        left: ${({ pixel_height }) => pixel_height + "px"};
-      }
-    }
-    > .pixel_flat_btn_bottom_2 {
-      border-top: none !important;
-      z-index: 4;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-top: none !important;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-      bottom: ${({ pixel_height }) => pixel_height + "px"};
-      left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 768px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-        bottom: ${({ pixel_height }) => pixel_height + "px"};
-        left: ${({ pixel_height }) => pixel_height + "px"};
-      }
-    }
-  }
-  > .pixel_flat_inner {
-    width: 100%;
-    height: 100%;
-  }
-`;
-var PixelBorderCard = memo3((props) => {
-  const {
-    className,
-    pixel_height,
-    small_pixel_height,
-    width,
-    height,
-    backgroundColor,
-    borderColor,
-    showHover,
-    onClick
-  } = props;
-  const lastClickTimeRef = useRef(Date.now());
-  const clickHandle = useCallback6(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return /* @__PURE__ */ React8.createElement(PixelBorderStyled, {
-    ...props,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    borderColor,
-    className: `${className} pixelBorderCard`,
-    showHover,
-    small_pixel_height: pixel_height != null ? pixel_height : small_pixel_height,
-    onClick: clickHandle
-  });
-});
-var PixelCube2Styled = styled(PixelStyled)`
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_bottom_2 {
-        background-color: ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-      > .pixel_flat_btn_inner,
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_1 {
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-    }
-  }
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ borderColor }) => borderColor};
-    }
-    > .pixel_flat_btn_inner,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-    }
-  }
-`;
-var PixelCube2 = memo3((props) => {
-  const {
-    className,
-    isLoading,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    smallWidth,
-    height,
-    smallHeight,
-    small_pixel_height,
-    borderTopColor,
-    borderBottomColor
-  } = props;
-  return /* @__PURE__ */ React8.createElement(PixelCube2Styled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    isLoading,
-    borderColor,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height,
-    smallWidth,
-    smallHeight,
-    borderTopColor,
-    borderBottomColor
-  });
-});
-var PixelCube3Styled = styled(PixelCube2)`
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_1 {
-        &:before {
-          border-left: ${({ pixel_height }) => pixel_height}px solid
-            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-          border-right: ${({ pixel_height }) => pixel_height}px solid
-            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-        }
-      }
-    }
-  }
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_bottom_2 {
-      width: calc(
-        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
-      );
-      left: calc(${({ pixel_height, size }) => `${pixel_height}px * ${size}`});
-    }
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      width: calc(
-        100% -
-          ${({ pixel_height, size }) => `${pixel_height}px * ${2 * (size - 1)}`}
-      );
-      left: calc(
-        ${({ pixel_height, size }) => `${pixel_height}px * ${size - 1}`}
-      );
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(
-        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
-      );
-      top: calc(${({ pixel_height, size }) => `${size} * ${pixel_height}px`});
-    }
-
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      &:before {
-        content: "";
-        transition: background-color, border 0.3s ease;
-        position: absolute;
-        height: ${({ pixel_height }) => pixel_height}px;
-        width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
-        left: calc(-${({ pixel_height }) => pixel_height}px * 2);
-        background-color: ${({ backgroundColor }) => backgroundColor};
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      &:before {
-        top: ${({ pixel_height }) => pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      &:before {
-        top: -${({ pixel_height }) => pixel_height}px;
-      }
-    }
-  }
-`;
-var PixelCube3 = memo3((props) => {
-  const { pixel_height, small_pixel_height, size } = props;
-  return /* @__PURE__ */ React8.createElement(PixelCube3Styled, {
-    ...props,
-    size: size != null ? size : 3,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height
-  });
-});
-var PixelCube5Styled = styled(PixelCube3Styled)`
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_inner {
-      &:after,
-      &:before {
-        content: "";
-        position: absolute;
-        height: ${({ pixel_height }) => pixel_height}px;
-        width: 100%;
-        left: 0;
-        background-color: ${({ backgroundColor }) => backgroundColor};
-      }
-      &:before {
-        top: -${({ pixel_height }) => pixel_height}px;
-      }
-      &:after {
-        bottom: -${({ pixel_height }) => pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_top_1:before,
-    > .pixel_flat_btn_bottom_2:after {
-      content: "";
-      position: absolute;
-      height: ${({ pixel_height }) => pixel_height}px;
-      width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
-      left: calc(-${({ pixel_height }) => pixel_height}px * 3);
-      background-color: ${({ backgroundColor }) => backgroundColor};
-    }
-    > .pixel_flat_btn_top_1:before {
-      top: calc(${({ pixel_height }) => pixel_height}px * 3);
-    }
-    > .pixel_flat_btn_bottom_2:after {
-      bottom: calc(${({ pixel_height }) => pixel_height}px * 3);
-    }
-  }
-`;
-var PixelCube5 = memo3((props) => {
-  const { pixel_height, small_pixel_height, size } = props;
-  return /* @__PURE__ */ React8.createElement(PixelCube5Styled, {
-    ...props,
-    small_pixel_height: small_pixel_height != null ? small_pixel_height : pixel_height,
-    size: size != null ? size : 5
-  });
-});
-var PixelBorderCardStyled = styled(PixelBorderCard)`
-  cursor: pointer;
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_inner,
-      > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_2,
-      > .pixel_flat_btn_bottom_1 {
-        border: 1px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-    }
-  }
-`;
-var PixelBorderCardButton = memo3((props) => {
-  return /* @__PURE__ */ React8.createElement(PixelBorderCardStyled, {
-    ...props
-  });
-});
-
-// src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
-var PoinsWarn = memo4(({ handleNext }) => {
+var PoinsWarn = memo5(({ handleNext }) => {
   const { t } = useCustomTranslation([LngNs.points]);
   const [hidePointsWarn, setHidePointsWarn] = useRecoilState4(hidePointsWarnState);
-  return /* @__PURE__ */ React9.createElement("div", {
+  return /* @__PURE__ */ React10.createElement("div", {
     className: "points_dialog_dialogContainer"
-  }, /* @__PURE__ */ React9.createElement("p", null, t("poinsWarnText01")), /* @__PURE__ */ React9.createElement("p", null, /* @__PURE__ */ React9.createElement("em", null), /* @__PURE__ */ React9.createElement("i", null, t("poinsWarnText02")), /* @__PURE__ */ React9.createElement("br", null), /* @__PURE__ */ React9.createElement("em", null), /* @__PURE__ */ React9.createElement("i", null, t("poinsWarnText03"))), /* @__PURE__ */ React9.createElement("p", null, t("poinsWarnText04")), /* @__PURE__ */ React9.createElement("p", {
+  }, /* @__PURE__ */ React10.createElement("p", null, t("poinsWarnText01")), /* @__PURE__ */ React10.createElement("p", null, /* @__PURE__ */ React10.createElement("em", null), /* @__PURE__ */ React10.createElement("i", null, t("poinsWarnText02")), /* @__PURE__ */ React10.createElement("br", null), /* @__PURE__ */ React10.createElement("em", null), /* @__PURE__ */ React10.createElement("i", null, t("poinsWarnText03"))), /* @__PURE__ */ React10.createElement("p", null, t("poinsWarnText04")), /* @__PURE__ */ React10.createElement("p", {
     className: "points_dialog_flex",
     onClick: () => setHidePointsWarn(!hidePointsWarn)
-  }, /* @__PURE__ */ React9.createElement(icons_default, {
+  }, /* @__PURE__ */ React10.createElement(icons_default, {
     name: hidePointsWarn ? "checked" : "check"
-  }), t("poinsWarnText05")), /* @__PURE__ */ React9.createElement(ActivePixelButtonColor, {
+  }), t("poinsWarnText05")), /* @__PURE__ */ React10.createElement(ActivePixelButtonColor, {
     onClick: handleNext,
     width: "100%",
     height: "52px",
@@ -3107,13 +3077,13 @@ var PoinsWarn = memo4(({ handleNext }) => {
     borderBottomColor: "#0F33B2",
     borderTopColor: "#3360FF",
     className: "points_dialog_btn"
-  }, /* @__PURE__ */ React9.createElement("p", null, t("Ok"))));
+  }, /* @__PURE__ */ React10.createElement("p", null, t("Ok"))));
 }, isEqual);
 var PointsWarn_default = PoinsWarn;
 
 // src/components/icons/PointsIcon/PointsIcon.tsx
-import React10 from "react";
-import { memo as memo5 } from "react";
+import React11 from "react";
+import { memo as memo6 } from "react";
 import styled2 from "styled-components";
 var PointsImg = styled2.img`
   display: inline-block;
@@ -3121,9 +3091,9 @@ var PointsImg = styled2.img`
   margin-left: ${({ mr, isMobile: isMobile2 }) => mr ? "0" : isMobile2 ? "4px" : "10px"};
   margin-right: ${({ mr, isMobile: isMobile2 }) => mr ? isMobile2 ? "4px" : "10px" : "0"};
 `;
-var PointsIcon = memo5(
+var PointsIcon = memo6(
   ({ isMobile: isMobile2, classname, mr }) => {
-    return /* @__PURE__ */ React10.createElement(PointsImg, {
+    return /* @__PURE__ */ React11.createElement(PointsImg, {
       isMobile: isMobile2,
       src: preStaticUrl + `/img/home/data_points.svg`,
       alt: "",
@@ -3134,7 +3104,7 @@ var PointsIcon = memo5(
 );
 
 // src/components/Modal/Modal.tsx
-import React11 from "react";
+import React12 from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import classnames3 from "classnames";
@@ -3150,20 +3120,20 @@ var Modal = ({
   transitionName,
   children
 }) => {
-  return /* @__PURE__ */ React11.createElement(DialogOverlay, {
+  return /* @__PURE__ */ React12.createElement(DialogOverlay, {
     isOpen: open,
     onDismiss: onCancel,
     className: classnames3("customDialog", "bottom", wrapClassName),
     "aria-label": "Modal"
-  }, /* @__PURE__ */ React11.createElement(DialogContent, {
+  }, /* @__PURE__ */ React12.createElement(DialogContent, {
     style: { width }
   }, children));
 };
 var Modal_default = Modal;
 
 // src/components/PixelTable/PixelTable.tsx
-import React12, { memo as memo6 } from "react";
-var PixelTableBorder = memo6(
+import React13, { memo as memo7 } from "react";
+var PixelTableBorder = memo7(
   ({
     header_children,
     body_children,
@@ -3174,20 +3144,20 @@ var PixelTableBorder = memo6(
     borderColor,
     width
   }) => {
-    return /* @__PURE__ */ React12.createElement(PixelBorderCard, {
+    return /* @__PURE__ */ React13.createElement(PixelBorderCard, {
       className: "tvlPixelTable",
       pixel_height,
       backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
       borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
       width
-    }, /* @__PURE__ */ React12.createElement(ActivePixelCard, {
+    }, /* @__PURE__ */ React13.createElement(ActivePixelCard, {
       className: `tvlPixelTable_header ${classNameHeader != null ? classNameHeader : ""}`,
       pixel_height,
       backgroundColor: `${headerBackgroundColor != null ? headerBackgroundColor : "#293457"}`
     }, header_children), body_children);
   }
 );
-var PixelTable = memo6(
+var PixelTable = memo7(
   ({
     header_children,
     body_children,
@@ -3199,13 +3169,13 @@ var PixelTable = memo6(
     borderColor,
     width
   }) => {
-    return /* @__PURE__ */ React12.createElement(ActivePixelCard, {
+    return /* @__PURE__ */ React13.createElement(ActivePixelCard, {
       className: `tvlPixelTable ${className != null ? className : ""}`,
       pixel_height,
       backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
       borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
       width
-    }, /* @__PURE__ */ React12.createElement(ActivePixelCard, {
+    }, /* @__PURE__ */ React13.createElement(ActivePixelCard, {
       className: `tvlPixelTable_header ${classNameHeader != null ? classNameHeader : ""}`,
       pixel_height,
       backgroundColor: `${headerBackgroundColor != null ? headerBackgroundColor : "#293457"}`
@@ -3214,41 +3184,41 @@ var PixelTable = memo6(
 );
 
 // src/components/LoadingSvg/LoadingButton.tsx
-import React13, { memo as memo7 } from "react";
-var LoadingButton = memo7(
+import React14, { memo as memo8 } from "react";
+var LoadingButton = memo8(
   ({ className, isLoading }) => {
     if (isLoading) {
-      return /* @__PURE__ */ React13.createElement(SvgComponent_default, {
+      return /* @__PURE__ */ React14.createElement(SvgComponent_default, {
         className: `${className != null ? className : ""} animation_rotate LoadingButton`,
         src: preStaticUrl + "/img/icon/pixel_loading.svg"
       });
     }
-    return /* @__PURE__ */ React13.createElement(React13.Fragment, null);
+    return /* @__PURE__ */ React14.createElement(React14.Fragment, null);
   }
 );
 var LoadingButton_default = LoadingButton;
 
 // src/components/DialogClose/DialogClose.tsx
-import React14, { memo as memo8 } from "react";
-var DialogClose = memo8(({ onClick }) => {
-  return /* @__PURE__ */ React14.createElement("div", {
+import React15, { memo as memo9 } from "react";
+var DialogClose = memo9(({ onClick }) => {
+  return /* @__PURE__ */ React15.createElement("div", {
     className: "dialog_close",
     onClick
-  }, /* @__PURE__ */ React14.createElement(SvgComponent_default, {
+  }, /* @__PURE__ */ React15.createElement(SvgComponent_default, {
     src: preStaticUrl + "/img/icon/pixel_close.svg"
   }));
 });
 var DialogClose_default = DialogClose;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
-var PointsDialog = memo9(
+var PointsDialog = memo10(
   ({ env, dispatch, setSuccessToast, setErrorToast }) => {
     const { t } = useCustomTranslation([LngNs.points]);
     const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState5(pointsDialogState);
     const pointsWarn = useRecoilValue4(pointsWarnState);
     const { chainId } = useActiveWeb3React();
     const pointsBalanceStr = usePointsBalanceStr();
-    const isMobile2 = useIsMobile();
+    const isMobile2 = useIsW768();
     const [pointsList, setPointsList] = useState7([]);
     const { isLoading, swapPointHandle } = useSwapPoint({
       env,
@@ -3269,7 +3239,7 @@ var PointsDialog = memo9(
     const handleCancel = useCallback7(() => {
       setPointsDialogOpen(false);
     }, []);
-    return /* @__PURE__ */ React15.createElement(Modal_default, {
+    return /* @__PURE__ */ React16.createElement(Modal_default, {
       open: pointsDialogOpen,
       onCancel: () => setPointsDialogOpen(false),
       footer: null,
@@ -3279,73 +3249,73 @@ var PointsDialog = memo9(
       closable: false,
       centered: isMobile2 ? false : true,
       transitionName: isMobile2 ? "ant-slide-down" : void 0
-    }, /* @__PURE__ */ React15.createElement(PixelTable, {
+    }, /* @__PURE__ */ React16.createElement(PixelTable, {
       classNameHeader: "modalTitleInner",
       backgroundColor: "#1D263B",
-      header_children: /* @__PURE__ */ React15.createElement("p", {
+      header_children: /* @__PURE__ */ React16.createElement("p", {
         className: "modalTitleInnerTitle"
       }, t("Recharge Points")),
-      body_children: /* @__PURE__ */ React15.createElement(React15.Fragment, null, /* @__PURE__ */ React15.createElement("div", {
+      body_children: /* @__PURE__ */ React16.createElement(React16.Fragment, null, /* @__PURE__ */ React16.createElement("div", {
         className: "modalMain"
-      }, pointsWarn === 1 ? /* @__PURE__ */ React15.createElement(PointsWarn_default, {
+      }, pointsWarn === 1 ? /* @__PURE__ */ React16.createElement(PointsWarn_default, {
         isLoading,
         handleNext: swapPointHandle
-      }) : isLoading ? /* @__PURE__ */ React15.createElement(IsLoading, null) : /* @__PURE__ */ React15.createElement(React15.Fragment, null, /* @__PURE__ */ React15.createElement("div", {
+      }) : isLoading ? /* @__PURE__ */ React16.createElement(IsLoading, null) : /* @__PURE__ */ React16.createElement(React16.Fragment, null, /* @__PURE__ */ React16.createElement("div", {
         className: "balanceTitle"
-      }, /* @__PURE__ */ React15.createElement("p", null, t("Balance"), ": ", /* @__PURE__ */ React15.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React15.createElement(PointsIcon, {
+      }, /* @__PURE__ */ React16.createElement("p", null, t("Balance"), ": ", /* @__PURE__ */ React16.createElement("strong", null, pointsBalanceStr)), /* @__PURE__ */ React16.createElement(PointsIcon, {
         isMobile: isMobile2,
         classname: "pointsIcon"
-      })), /* @__PURE__ */ React15.createElement(PointsTable, {
+      })), /* @__PURE__ */ React16.createElement(PointsTable, {
         pointsList,
         chainId,
         onClick: swapPointHandle
       })))),
       pixel_height: 10
-    }), /* @__PURE__ */ React15.createElement(DialogClose_default, {
+    }), /* @__PURE__ */ React16.createElement(DialogClose_default, {
       onClick: handleCancel
     }));
   },
   isEqual
 );
-var IsLoading = memo9(() => {
+var IsLoading = memo10(() => {
   const { t } = useCustomTranslation([LngNs.points]);
-  return /* @__PURE__ */ React15.createElement("div", {
+  return /* @__PURE__ */ React16.createElement("div", {
     className: "loading"
-  }, /* @__PURE__ */ React15.createElement(LoadingButton_default, {
+  }, /* @__PURE__ */ React16.createElement(LoadingButton_default, {
     isLoading: true,
     className: "loading_size4"
-  }), /* @__PURE__ */ React15.createElement("p", null, t("IsLoadingText1")));
+  }), /* @__PURE__ */ React16.createElement("p", null, t("IsLoadingText1")));
 }, isEqual);
-var PointsTable = memo9(
+var PointsTable = memo10(
   ({ pointsList, chainId, onClick }) => {
-    return /* @__PURE__ */ React15.createElement("div", {
+    return /* @__PURE__ */ React16.createElement("div", {
       className: "table"
-    }, pointsList.map((v, index) => /* @__PURE__ */ React15.createElement(PixelBorderCardButton, {
+    }, pointsList.map((v, index) => /* @__PURE__ */ React16.createElement(PixelBorderCardButton, {
       pixel_height: 4,
       backgroundColor: "#343C4F",
       borderColor: "#484F60",
       key: v.index,
       onClick: () => onClick(index)
-    }, /* @__PURE__ */ React15.createElement("div", {
+    }, /* @__PURE__ */ React16.createElement("div", {
       className: classnames4("points", `points_${v.index}`)
-    }, /* @__PURE__ */ React15.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React15.createElement("img", {
+    }, /* @__PURE__ */ React16.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React16.createElement("img", {
       className: "points_img",
       src: preStaticUrl + `/img/points/points_${v.index}.png`,
       alt: "points"
-    }), /* @__PURE__ */ React15.createElement(ActivePixelCard, {
+    }), /* @__PURE__ */ React16.createElement(ActivePixelCard, {
       backgroundColor: "#1649FF",
       className: "bottom",
       pixel_height: 4
-    }, /* @__PURE__ */ React15.createElement("p", null, v.priceStr), /* @__PURE__ */ React15.createElement(CurrencyLogo_default, {
+    }, /* @__PURE__ */ React16.createElement("p", null, v.priceStr), /* @__PURE__ */ React16.createElement(CurrencyLogo_default, {
       className: "img",
       src: CurrencyLogo[chainId || 97]
-    })), v.discount && /* @__PURE__ */ React15.createElement("div", {
+    })), v.discount && /* @__PURE__ */ React16.createElement("div", {
       className: "discount"
-    }, /* @__PURE__ */ React15.createElement("img", {
+    }, /* @__PURE__ */ React16.createElement("img", {
       className: "discount_img",
       src: preStaticUrl + `/img/points/discord.svg`,
       alt: "points"
-    }), /* @__PURE__ */ React15.createElement("p", null, v.discount, "% ", /* @__PURE__ */ React15.createElement("br", null), "OFF"))))));
+    }), /* @__PURE__ */ React16.createElement("p", null, v.discount, "% ", /* @__PURE__ */ React16.createElement("br", null), "OFF"))))));
   },
   isEqual
 );
@@ -3353,46 +3323,46 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/SideBar/index.tsx
 import classnames6 from "classnames";
-import React22, { memo as memo16, useMemo as useMemo6 } from "react";
+import React23, { memo as memo17, useMemo as useMemo6 } from "react";
 
 // src/components/SideBar/component/CommunityLink.tsx
-import React16, { memo as memo10 } from "react";
-var CommunityLink = memo10(({ className }) => {
-  return /* @__PURE__ */ React16.createElement("div", {
+import React17, { memo as memo11 } from "react";
+var CommunityLink = memo11(({ className }) => {
+  return /* @__PURE__ */ React17.createElement("div", {
     className
-  }, /* @__PURE__ */ React16.createElement("a", {
+  }, /* @__PURE__ */ React17.createElement("a", {
     href: "https://twitter.com/Zypher_network",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+  }, /* @__PURE__ */ React17.createElement(SvgComponent_default, {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/twitter.svg"
-  })), /* @__PURE__ */ React16.createElement("a", {
+  })), /* @__PURE__ */ React17.createElement("a", {
     href: "https://discord.com/invite/MKJZhS4p2T",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+  }, /* @__PURE__ */ React17.createElement(SvgComponent_default, {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/discord.svg"
-  })), /* @__PURE__ */ React16.createElement("a", {
+  })), /* @__PURE__ */ React17.createElement("a", {
     href: "https://zyphergames.substack.com",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+  }, /* @__PURE__ */ React17.createElement(SvgComponent_default, {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/medium.svg"
-  })), /* @__PURE__ */ React16.createElement("a", {
+  })), /* @__PURE__ */ React17.createElement("a", {
     href: "https://github.com/zypher-game",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+  }, /* @__PURE__ */ React17.createElement(SvgComponent_default, {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/github.svg"
-  })), /* @__PURE__ */ React16.createElement("a", {
+  })), /* @__PURE__ */ React17.createElement("a", {
     href: "https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e",
     target: "_blank",
     rel: "noreferrer"
-  }, /* @__PURE__ */ React16.createElement(SvgComponent_default, {
+  }, /* @__PURE__ */ React17.createElement(SvgComponent_default, {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/gitbook.svg"
   })));
@@ -3401,7 +3371,7 @@ var CommunityLink_default = CommunityLink;
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames5 from "classnames";
-import React18, { memo as memo12, useCallback as useCallback8, useMemo as useMemo4 } from "react";
+import React19, { memo as memo13, useCallback as useCallback8, useMemo as useMemo4 } from "react";
 import { useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState4 } from "recoil";
 
 // src/components/Header/state.ts
@@ -3413,53 +3383,53 @@ var siderCollapseState = atom5({
 });
 
 // src/components/SideBar/component/SmokeIndex.tsx
-import React17, { memo as memo11 } from "react";
-var SmokeIndex = memo11(() => {
-  return /* @__PURE__ */ React17.createElement("div", {
+import React18, { memo as memo12 } from "react";
+var SmokeIndex = memo12(() => {
+  return /* @__PURE__ */ React18.createElement("div", {
     className: "h"
-  }, /* @__PURE__ */ React17.createElement("div", {
+  }, /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
-  }), /* @__PURE__ */ React17.createElement("div", {
+  }), /* @__PURE__ */ React18.createElement("div", {
     className: "c"
   }));
 }, isEqual);
@@ -3506,7 +3476,7 @@ var useLink = (link, isMobile2, useNavigate) => {
     linkClickHandle
   };
 };
-var LinkItem1 = memo12(
+var LinkItem1 = memo13(
   ({
     className,
     className_on,
@@ -3517,26 +3487,26 @@ var LinkItem1 = memo12(
     ...link
   }) => {
     const { isOn, linkClickHandle } = useLink(link, isMobile2, useNavigate);
-    return /* @__PURE__ */ React18.createElement("div", {
+    return /* @__PURE__ */ React19.createElement("div", {
       onClick: linkClickHandle,
       className: classnames5(
         className,
         link.disabled ? className_disable : "",
         isOn ? className_on : ""
       )
-    }, /* @__PURE__ */ React18.createElement("div", {
+    }, /* @__PURE__ */ React19.createElement("div", {
       className: className_imageContainer
-    }, /* @__PURE__ */ React18.createElement("img", {
+    }, /* @__PURE__ */ React19.createElement("img", {
       src: preStaticUrl + `/img/layout/${link.icon}`
-    })), /* @__PURE__ */ React18.createElement("p", null, link.label), isOn ? /* @__PURE__ */ React18.createElement(SmokeIndex_default, null) : null);
+    })), /* @__PURE__ */ React19.createElement("p", null, link.label), isOn ? /* @__PURE__ */ React19.createElement(SmokeIndex_default, null) : null);
   },
   isEqual
 );
 var LinkItemA_default = LinkItem1;
 
 // src/components/SideBar/component/SideBarActivitiesList.tsx
-import React19, { memo as memo13, useMemo as useMemo5 } from "react";
-var SideBarActivitiesList = memo13(
+import React20, { memo as memo14, useMemo as useMemo5 } from "react";
+var SideBarActivitiesList = memo14(
   ({
     className_on,
     className_list,
@@ -3560,9 +3530,9 @@ var SideBarActivitiesList = memo13(
         listItem: className_listItemHor
       };
     }, [isMobile2]);
-    return /* @__PURE__ */ React19.createElement("div", {
+    return /* @__PURE__ */ React20.createElement("div", {
       className: className_list
-    }, list.map((v) => /* @__PURE__ */ React19.createElement(LinkItemA_default, {
+    }, list.map((v) => /* @__PURE__ */ React20.createElement(LinkItemA_default, {
       useNavigate,
       className_on,
       className_disable: listItemDisable,
@@ -3577,8 +3547,8 @@ var SideBarActivitiesList = memo13(
 var SideBarActivitiesList_default = SideBarActivitiesList;
 
 // src/components/SideBar/component/SideBarGamesList.tsx
-import React20, { memo as memo14 } from "react";
-var SideBarGamesList = memo14(
+import React21, { memo as memo15 } from "react";
+var SideBarGamesList = memo15(
   ({
     className_on,
     className_list,
@@ -3589,9 +3559,9 @@ var SideBarGamesList = memo14(
     list,
     isMobile: isMobile2
   }) => {
-    return /* @__PURE__ */ React20.createElement("div", {
+    return /* @__PURE__ */ React21.createElement("div", {
       className: className_list
-    }, list.map((v) => /* @__PURE__ */ React20.createElement(LinkItemA_default, {
+    }, list.map((v) => /* @__PURE__ */ React21.createElement(LinkItemA_default, {
       useNavigate,
       isMobile: isMobile2,
       className_on,
@@ -3607,32 +3577,32 @@ var SideBarGamesList = memo14(
 var SideBarGamesList_default = SideBarGamesList;
 
 // src/components/SideBar/component/SideBarTitle.tsx
-import React21, { memo as memo15 } from "react";
-var SideBarTitle = memo15(
+import React22, { memo as memo16 } from "react";
+var SideBarTitle = memo16(
   ({ className, logo_url_name, logo_title }) => {
     const { t } = useCustomTranslation([LngNs.siderBar]);
-    return /* @__PURE__ */ React21.createElement("div", {
+    return /* @__PURE__ */ React22.createElement("div", {
       className
-    }, /* @__PURE__ */ React21.createElement("img", {
+    }, /* @__PURE__ */ React22.createElement("img", {
       src: preStaticUrl + `/img/layout/${logo_url_name}.svg`,
       title: t(logo_title)
-    }), /* @__PURE__ */ React21.createElement("p", null, t(logo_title)));
+    }), /* @__PURE__ */ React22.createElement("p", null, t(logo_title)));
   },
   isEqual
 );
 var SideBarTitle_default = SideBarTitle;
 
 // src/components/SideBar/index.tsx
-var ZypherLogo = memo16(({ isMobile: isMobile2 }) => {
-  return /* @__PURE__ */ React22.createElement("a", {
+var ZypherLogo = memo17(({ isMobile: isMobile2 }) => {
+  return /* @__PURE__ */ React23.createElement("a", {
     href: "/",
     target: "_black",
     className: "zypher_logo"
-  }, isMobile2 ? /* @__PURE__ */ React22.createElement("img", {
+  }, isMobile2 ? /* @__PURE__ */ React23.createElement("img", {
     src: preStaticUrl + "/img/layout/logo-min.svg"
-  }) : /* @__PURE__ */ React22.createElement("img", {
+  }) : /* @__PURE__ */ React23.createElement("img", {
     src: preStaticUrl + "/img/tvl/logo.svg"
-  }), /* @__PURE__ */ React22.createElement("img", {
+  }), /* @__PURE__ */ React23.createElement("img", {
     src: preStaticUrl + "/img/layout/ai.svg"
   }));
 });
@@ -3651,24 +3621,24 @@ var SideBar = (props) => {
       )
     };
   }, [items, isMobile2]);
-  return /* @__PURE__ */ React22.createElement("div", {
+  return /* @__PURE__ */ React23.createElement("div", {
     className: classnames6(`${props.className}`, "sidebarWrap")
-  }, /* @__PURE__ */ React22.createElement("div", {
+  }, /* @__PURE__ */ React23.createElement("div", {
     className: "sidebar"
-  }, isMobile2 ? null : /* @__PURE__ */ React22.createElement(React22.Fragment, null, /* @__PURE__ */ React22.createElement(LinkItemA_default, {
+  }, isMobile2 ? null : /* @__PURE__ */ React23.createElement(React23.Fragment, null, /* @__PURE__ */ React23.createElement(LinkItemA_default, {
     className_on: "item_on",
     className_disable: "horListItemDisable",
     className: "horListItem",
     isMobile: isMobile2,
     useNavigate,
     ...items[0]
-  }), /* @__PURE__ */ React22.createElement("div", {
+  }), /* @__PURE__ */ React23.createElement("div", {
     className: "line"
-  })), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+  })), /* @__PURE__ */ React23.createElement(SideBarTitle_default, {
     logo_title: "Games",
     logo_url_name: "games",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React22.createElement(SideBarGamesList_default, {
+  }), /* @__PURE__ */ React23.createElement(SideBarGamesList_default, {
     className_on: "item_on",
     className_list: "gamelist",
     className_listItem: "verListItem",
@@ -3677,13 +3647,13 @@ var SideBar = (props) => {
     isMobile: isMobile2,
     useNavigate,
     className_imageContainer: "imageContainerWaves"
-  }), /* @__PURE__ */ React22.createElement("div", {
+  }), /* @__PURE__ */ React23.createElement("div", {
     className: "line"
-  }), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+  }), /* @__PURE__ */ React23.createElement(SideBarTitle_default, {
     logo_title: "Activities",
     logo_url_name: "activities",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React22.createElement(SideBarActivitiesList_default, {
+  }), /* @__PURE__ */ React23.createElement(SideBarActivitiesList_default, {
     useNavigate,
     isMobile: isMobile2,
     className_on: "item_on",
@@ -3693,37 +3663,37 @@ var SideBar = (props) => {
     className_listItemVerDisable: "verListItemDisable",
     className_listItemVer: "verListItem",
     list: sideBarActivitiesLinkList
-  }), /* @__PURE__ */ React22.createElement("div", {
+  }), /* @__PURE__ */ React23.createElement("div", {
     className: "line"
-  }), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+  }), /* @__PURE__ */ React23.createElement(SideBarTitle_default, {
     logo_title: "Language",
     logo_url_name: "language",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React22.createElement(Language_default, {
+  }), /* @__PURE__ */ React23.createElement(Language_default, {
     type: "side"
-  }), /* @__PURE__ */ React22.createElement("div", {
+  }), /* @__PURE__ */ React23.createElement("div", {
     className: "line"
-  }), /* @__PURE__ */ React22.createElement(SideBarTitle_default, {
+  }), /* @__PURE__ */ React23.createElement(SideBarTitle_default, {
     logo_title: "Links",
     logo_url_name: "links",
     className: "sideBarTitle"
-  }), /* @__PURE__ */ React22.createElement(CommunityLink_default, {
+  }), /* @__PURE__ */ React23.createElement(CommunityLink_default, {
     className: "communityLink"
   })));
 };
 var SideBar_default = SideBar;
 
 // src/components/DivWrap/DivWrap.tsx
-import React23, { memo as memo17 } from "react";
-var DivWrap = memo17(
+import React24, { memo as memo18 } from "react";
+var DivWrap = memo18(
   ({
     className,
     showDiv,
     children
   }) => {
-    return showDiv ? /* @__PURE__ */ React23.createElement("div", {
+    return showDiv ? /* @__PURE__ */ React24.createElement("div", {
       className
-    }, " ", children) : /* @__PURE__ */ React23.createElement(React23.Fragment, null, children);
+    }, " ", children) : /* @__PURE__ */ React24.createElement(React24.Fragment, null, children);
   },
   isEqual
 );
@@ -3732,25 +3702,25 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React25, { memo as memo19, useCallback as useCallback10, useEffect as useEffect7, useMemo as useMemo7 } from "react";
+import React26, { memo as memo20, useCallback as useCallback10, useEffect as useEffect7, useMemo as useMemo7 } from "react";
 import { useRecoilState as useRecoilState6 } from "recoil";
 import styled3 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames7 from "classnames";
-import React24, { memo as memo18, useCallback as useCallback9 } from "react";
-var DialogTitle = memo18(
+import React25, { memo as memo19, useCallback as useCallback9 } from "react";
+var DialogTitle = memo19(
   ({ label, setDialogOpen, children, classNames }) => {
     const closeHandle = useCallback9(() => {
       setDialogOpen(false);
     }, [setDialogOpen]);
-    return /* @__PURE__ */ React24.createElement("div", {
+    return /* @__PURE__ */ React25.createElement("div", {
       className: classnames7("dialog_title_modalTitleInner", classNames)
-    }, /* @__PURE__ */ React24.createElement("p", {
+    }, /* @__PURE__ */ React25.createElement("p", {
       className: "dialog_title_title"
-    }, label), children ? children : null, /* @__PURE__ */ React24.createElement("span", {
+    }, label), children ? children : null, /* @__PURE__ */ React25.createElement("span", {
       onClick: closeHandle
-    }, /* @__PURE__ */ React24.createElement(icons_default, {
+    }, /* @__PURE__ */ React25.createElement(icons_default, {
       name: "close"
     })));
   }
@@ -3795,7 +3765,7 @@ var Text = styled3.div`
   font-size: 14px;
   padding-top: 30px;
 `;
-var LinkToBetaDialog = memo19(() => {
+var LinkToBetaDialog = memo20(() => {
   const { t } = useCustomTranslation([LngNs.common]);
   const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState6(
     linkToBetaDialogState
@@ -3803,7 +3773,7 @@ var LinkToBetaDialog = memo19(() => {
   const [linkToBetaDialogChainId, setLinkToBetaDialogChainId] = useRecoilState6(
     linkToBetaDialogChainIdState
   );
-  const isMobile2 = useIsMobile();
+  const isMobile2 = useIsW768();
   const ToUrlName = useMemo7(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === 9980 /* Combo */) {
@@ -3830,7 +3800,7 @@ var LinkToBetaDialog = memo19(() => {
       setLinkToBetaDialogChainId(void 0);
     }
   }, [linkToBetaDialogOpen]);
-  return /* @__PURE__ */ React25.createElement(Modal_default, {
+  return /* @__PURE__ */ React26.createElement(Modal_default, {
     open: linkToBetaDialogOpen,
     onCancel: () => setLinkToBetaDialogOpen(false),
     footer: null,
@@ -3839,18 +3809,18 @@ var LinkToBetaDialog = memo19(() => {
     closable: false,
     width: isMobile2 ? "100%" : 360,
     centered: isMobile2 ? false : true
-  }, /* @__PURE__ */ React25.createElement(DialogTitle_default, {
+  }, /* @__PURE__ */ React26.createElement(DialogTitle_default, {
     label: t("Switch Networks"),
     setDialogOpen: setLinkToBetaDialogOpen,
     classNames: isMobile2 ? "modalTitleInner" : ""
-  }), /* @__PURE__ */ React25.createElement(Content, null, /* @__PURE__ */ React25.createElement(WarningOutlined, {
+  }), /* @__PURE__ */ React26.createElement(Content, null, /* @__PURE__ */ React26.createElement(WarningOutlined, {
     style: { color: "#1649FF", fontSize: "50px" }
-  }), /* @__PURE__ */ React25.createElement(Text, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
+  }), /* @__PURE__ */ React26.createElement(Text, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
     chainName: linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "",
     toUrlName: ToUrlName[1]
-  }))), /* @__PURE__ */ React25.createElement("div", {
+  }))), /* @__PURE__ */ React26.createElement("div", {
     style: { padding: "0 20px 30px" }
-  }, /* @__PURE__ */ React25.createElement(DialogButton, {
+  }, /* @__PURE__ */ React26.createElement(DialogButton, {
     onClick: handleButtonClick
   }, linkToBetaDialogChainId === 9980 /* Combo */ ? "Go to Play 2048" : t("GotoVersion", {
     toUrlName: ToUrlName[0]
@@ -3860,7 +3830,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React93, { useEffect as useEffect26 } from "react";
+import React93, { useEffect as useEffect26, useMemo as useMemo17 } from "react";
 import { useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -4182,32 +4152,32 @@ import { LoadingOutlined } from "@ant-design/icons";
 import React28, { memo as memo22, useCallback as useCallback11, useEffect as useEffect8 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
-import React26, { memo as memo20 } from "react";
+import React27, { memo as memo21 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
-var GetPointsSuccess = memo20(() => {
+var GetPointsSuccess = memo21(() => {
   const [show] = useRecoilState7(pointsAnimState);
   if (show) {
-    return /* @__PURE__ */ React26.createElement("div", {
+    return /* @__PURE__ */ React27.createElement("div", {
       className: "getpointpoints"
-    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React26.createElement(PointsItem, {
+    }, new Array(3).fill("").map((c, index) => /* @__PURE__ */ React27.createElement(PointsItem, {
       key: index
     })));
   }
   return null;
 }, isEqual);
 var PointsItem = () => {
-  return /* @__PURE__ */ React26.createElement("div", {
+  return /* @__PURE__ */ React27.createElement("div", {
     className: "getpointcoin"
-  }, /* @__PURE__ */ React26.createElement("div", {
+  }, /* @__PURE__ */ React27.createElement("div", {
     className: "getpointcoin_front"
-  }, /* @__PURE__ */ React26.createElement("img", {
+  }, /* @__PURE__ */ React27.createElement("img", {
     src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
-  })), /* @__PURE__ */ React26.createElement("div", {
+  })), /* @__PURE__ */ React27.createElement("div", {
     className: "getpointcoin_middle"
-  }), /* @__PURE__ */ React26.createElement("div", {
+  }), /* @__PURE__ */ React27.createElement("div", {
     className: "getpointcoin_back"
-  }, /* @__PURE__ */ React26.createElement("img", {
+  }, /* @__PURE__ */ React27.createElement("img", {
     src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
   })));
@@ -4216,28 +4186,6 @@ var GetPointsSuccess_default = GetPointsSuccess;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { useRecoilState as useRecoilState8, useSetRecoilState as useSetRecoilState5 } from "recoil";
-
-// src/components/Header/rainbow_account/IsPixelWidget.tsx
-import React27, { memo as memo21 } from "react";
-var IsPixelWidget = memo21(
-  ({
-    className,
-    type,
-    children,
-    onClick
-  }) => {
-    return type === "pixel" ? /* @__PURE__ */ React27.createElement(PixelFlatBtn_default, {
-      className: `pixel_border ${className != null ? className : ""}`,
-      onClick
-    }, children) : /* @__PURE__ */ React27.createElement("div", {
-      className,
-      onClick
-    }, " ", children);
-  }
-);
-var IsPixelWidget_default = IsPixelWidget;
-
-// src/components/ConnectWallet/components/Balance/balanceItem.tsx
 var BalanceItem = memo22(
   ({
     className,
@@ -4322,7 +4270,7 @@ var AddIcon = styled4(icons_default)`
   width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "24px"};
 `;
 var Balance = memo23((props) => {
-  const { showPointsModal, isMobile: isMobile2, env, CountupNumber, type } = props;
+  const { showPointsModal, isMobile: isMobile2, env, CountupNumber, type, hideRefresh } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState8(false);
   const setNativeBalance = useSetRecoilState6(nativeBalanceState);
@@ -4367,7 +4315,7 @@ var Balance = memo23((props) => {
   const pointsBalance = useRecoilValue6(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
-  return /* @__PURE__ */ React29.createElement(React29.Fragment, null, /* @__PURE__ */ React29.createElement(IsPixelWidget_default, {
+  return /* @__PURE__ */ React29.createElement(React29.Fragment, null, hideRefresh ? null : /* @__PURE__ */ React29.createElement(IsPixelWidget_default, {
     type,
     className: `refresh_balance ${type === "pixel" ? "refresh_balance_pixel" : ""}`,
     onClick: fetchBalanceOf
@@ -4427,7 +4375,7 @@ var StatusI = styled5.i`
 `;
 var ChainSelectorWidget = memo24(({ className, type }) => {
   const { chainId } = useActiveWeb3React();
-  const isMobile2 = useIsMobile();
+  const isMobile2 = useIsW768();
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState9(
     accountInfoDialogState
   );
@@ -5110,7 +5058,7 @@ var MUserInfo = memo26(({ account, chainId, cancel, type }) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
-  const isMobile2 = useIsMobile();
+  const isMobile2 = useIsW768();
   const list = useMemo10(() => {
     return [
       {
@@ -5168,7 +5116,7 @@ var AccountInfoDialog = memo27(
       accountInfoDialogState
     );
     const { account, chainId } = useActiveWeb3React();
-    const isMobile2 = useIsMd1100();
+    const isMobile2 = useIsW1100();
     const { disconnect } = useDisconnect();
     const wallet = useActiveWallet();
     const cancel = useCallback15(() => {
@@ -5303,9 +5251,11 @@ var Account = memo28(
     copy,
     CountupNumber,
     supportedChainList,
-    type
+    type,
+    hideRefresh
   }) => {
-    const isMobile2 = useIsMobile();
+    console.log({ showLang });
+    const isMobile2 = useIsW768();
     const setPointsDialogState = useSetRecoilState8(pointsDialogState);
     const showPointsModal = useCallback16(() => {
       setPointsDialogState(true);
@@ -5316,6 +5266,7 @@ var Account = memo28(
     }, [setAccountInfoDialogState]);
     const { account } = useActiveWeb3React(env, supportedChainList);
     return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
+      hideRefresh,
       CountupNumber,
       env,
       isMobile: isMobile2,
@@ -5328,7 +5279,7 @@ var Account = memo28(
     }, /* @__PURE__ */ React38.createElement(PlayerAvatar_default, {
       className: "account",
       account,
-      size: isMobile2 ? 26 : 40,
+      size: isMobile2 ? 30 : 40,
       showAccount: isMobile2 ? false : true,
       type
     }), type === "pixel" ? /* @__PURE__ */ React38.createElement(AddressWrapPop, {
@@ -9974,8 +9925,10 @@ var RainbowConnectWallet = memo30((props) => {
     showLang,
     CountupNumber,
     supportedChainList,
-    type
+    type,
+    hideRefresh
   } = props;
+  console.log({ showLang });
   const location2 = useLocation();
   const isPathLocation = useMemo16(() => {
     if (window.location.href.indexOf("/bingo/") > -1) {
@@ -10008,7 +9961,8 @@ var RainbowConnectWallet = memo30((props) => {
       showLang,
       CountupNumber,
       supportedChainList,
-      type
+      type,
+      hideRefresh
     }));
   }), showLang ? /* @__PURE__ */ React92.createElement(Language_default, {
     type: type === "pixel" ? type : "top"
@@ -10018,7 +9972,6 @@ var rainbow_connectWallet_default = RainbowConnectWallet;
 
 // src/components/Header/header.tsx
 var Header = (props) => {
-  const isMobile2 = useIsMd1100();
   const setSiderCollapse = useSetRecoilState11(siderCollapseState);
   const collapsed = useRecoilValue8(siderCollapseState);
   const {
@@ -10036,19 +9989,37 @@ var Header = (props) => {
     Middle,
     pathname
   } = props;
+  const { width } = useWindowSize();
+  const { isW768, isW1190, isW1290, isW1540, isW1670 } = useMemo17(() => {
+    return {
+      isW768: width <= 768,
+      isW1190: width <= 1190,
+      isW1290: width <= 1290,
+      isW1540: width <= 1540,
+      isW1670: width < 1670
+    };
+  }, [width]);
   useEffect26(() => {
-    if (isMobile2 && collapsed === void 0) {
+    if (isW768 && collapsed === void 0) {
       setSiderCollapse(true);
     }
-  }, [isMobile2]);
+  }, [isW768]);
   return /* @__PURE__ */ React93.createElement("header", {
-    className: classnames11("header_header", props.className),
+    className: classnames11(
+      "header_header",
+      isW768 ? "header_header_768" : "",
+      isW1190 ? "header_header_1190" : "",
+      isW1290 ? "header_header_1290" : "",
+      isW1540 ? "header_header_1540" : "",
+      isW1670 ? "header_header_1670" : "",
+      props.className
+    ),
     style: { position: "sticky", top: 0, zIndex: 9, width: "100%" }
-  }, type === "pixel" || type === "other" && isMobile2 ? /* @__PURE__ */ React93.createElement("div", {
+  }, type === "pixel" || type === "other" && isW768 ? /* @__PURE__ */ React93.createElement("div", {
     className: "header_left"
   }, /* @__PURE__ */ React93.createElement(ZypherLogo, {
-    isMobile: isMobile2
-  })) : null, Middle && /* @__PURE__ */ React93.createElement(Middle, {
+    isMobile: isW768
+  })) : null, Middle && !isW768 && /* @__PURE__ */ React93.createElement(Middle, {
     pathname
   }), /* @__PURE__ */ React93.createElement("div", {
     className: "header_right"
@@ -10056,17 +10027,18 @@ var Header = (props) => {
     showLang,
     useLocation,
     copy,
-    isMobile: isMobile2,
+    isMobile: isW768,
     env,
     dispatch,
     setSuccessToast,
     setErrorToast,
     CountupNumber,
     supportedChainList,
-    type
-  }), isMobile2 && !hideMenu ? /* @__PURE__ */ React93.createElement(IsPixelWidget_default, {
     type,
-    className: `${type === "pixel" ? "header_btn_pixel" : ""}`
+    hideRefresh: isW1290
+  }), isW768 && !hideMenu ? /* @__PURE__ */ React93.createElement(IsPixelWidget_default, {
+    type,
+    className: "header_btn_pixel"
   }, /* @__PURE__ */ React93.createElement("div", {
     className: "header_btn",
     onClick: () => setSiderCollapse(!collapsed)
@@ -10078,7 +10050,7 @@ var Header = (props) => {
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React94, { useMemo as useMemo17 } from "react";
+import React94, { useMemo as useMemo18 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -10150,7 +10122,7 @@ var RainbowKitWithThemeProvider = ({
   chainIdList,
   type
 }) => {
-  const { wagmiConfig, chains, computedTheme } = useMemo17(() => {
+  const { wagmiConfig, chains, computedTheme } = useMemo18(() => {
     if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList);
       const { chains: chains2 } = getConfigureChains(env);
@@ -12801,10 +12773,10 @@ export {
   IGameName,
   IGameStatus,
   INavLinkType,
-  IsMd1100Provider,
-  IsMd1220Provider,
   IsMdProvider,
-  IsMobileProvider,
+  IsW1100Provider,
+  IsW1220Provider,
+  IsW768Provider,
   LinkList,
   LinkToBetaDialog_default as LinkToBetaDialog,
   LngNs,
@@ -12951,9 +12923,9 @@ export {
   useInitRainbowFn,
   useInterval,
   useIsMd,
-  useIsMd1100,
-  useIsMd1220,
-  useIsMobile,
+  useIsW1100,
+  useIsW1220,
+  useIsW768,
   useNativeBalanceStr,
   useNavItem,
   usePathname,

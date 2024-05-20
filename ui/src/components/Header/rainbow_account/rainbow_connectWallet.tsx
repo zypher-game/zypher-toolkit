@@ -25,6 +25,7 @@ interface IProps {
   showLang: boolean;
   CountupNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
+  hideRefresh?: boolean;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
@@ -40,7 +41,9 @@ const RainbowConnectWallet = memo((props: IProps) => {
     CountupNumber,
     supportedChainList,
     type,
+    hideRefresh,
   } = props;
+  console.log({ showLang });
   const location = useLocation();
   const isPathLocation = useMemo(() => {
     if (window.location.href.indexOf("/bingo/") > -1) {
@@ -90,6 +93,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   CountupNumber={CountupNumber}
                   supportedChainList={supportedChainList}
                   type={type}
+                  hideRefresh={hideRefresh}
                 />
               )}
             </>

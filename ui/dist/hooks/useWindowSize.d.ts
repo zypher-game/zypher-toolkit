@@ -2,7 +2,7 @@ export default function useWindowSize(): {
     height: number;
     width: number;
 };
-export declare const useIsMobile: () => boolean;
-export declare const useIsMd1100: () => boolean;
-export declare const useIsMd1220: () => boolean;
+export declare const useIsW768: () => boolean;
+export declare const useIsW1100: () => boolean;
+export declare const useIsW1220: () => boolean;
 export declare const useIsMd: () => boolean;

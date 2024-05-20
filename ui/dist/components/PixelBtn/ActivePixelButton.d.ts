@@ -5,13 +5,9 @@ type IChildren = {
 export type IPixelProps = {
     className?: string;
     onClick?: any;
-    isLoading?: boolean;
     pixel_height: number;
-    small_pixel_height?: number;
-    smallWidth?: string;
     width?: string;
     height?: string;
-    smallHeight?: string;
     borderBottomColor?: string;
     borderTopColor?: string;
     borderColor?: string;

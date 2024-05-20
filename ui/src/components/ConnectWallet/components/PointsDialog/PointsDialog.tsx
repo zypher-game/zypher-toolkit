@@ -6,7 +6,7 @@ import { useRecoilState, useRecoilValue } from "recoil";
 import CurrencyLogo from "../../../CurrencyLogo";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
-import { useIsMobile } from "../../../../hooks/useWindowSize";
+import { useIsW768 } from "../../../../hooks/useWindowSize";
 import { pointsListDefault, useSwapPoint } from "../../../../hooks/usePoint";
 import { LngNs } from "../../../../utils/i18n";
 import {
@@ -47,7 +47,7 @@ const PointsDialog = memo(
     const pointsWarn = useRecoilValue(pointsWarnState);
     const { chainId } = useActiveWeb3React();
     const pointsBalanceStr = usePointsBalanceStr();
-    const isMobile = useIsMobile();
+    const isMobile = useIsW768();
     const [pointsList, setPointsList] = useState<IPointsItem[]>([]);
 
     const { isLoading, swapPointHandle } = useSwapPoint({

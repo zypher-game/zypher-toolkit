@@ -25,7 +25,7 @@ export { default as ChainSelectorWidget } from "./components/ConnectWallet/compo
 export { PointsIcon } from "./components/icons/PointsIcon/PointsIcon";
 export { default as SvgComponent } from "./components/SvgComponent/SvgComponent";
 export { default as PointsRuleDialog } from "./components/ConnectWallet/components/PointsDialog/PointsRuleDialog";
-export { IsMdProvider, IsMobileProvider, IsMd1100Provider, IsMd1220Provider, } from "./provider/IsMobileProvider";
+export { IsMdProvider, IsW768Provider, IsW1100Provider, IsW1220Provider, } from "./provider/IsMobileProvider";
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useActiveChainId } from "./hooks/useActiveChainId";
@@ -38,7 +38,7 @@ export { useRecentGamesFromGraph, graphqlApiUrl, chainIdPre, getStatus, formatDa
 export { useInterval } from "./hooks/useInterval";
 export { useSwapPoint } from "./hooks/usePoint";
 export { usePublicNodeWaitForTransaction } from "./hooks/usePublicNodeWaitForTransaction";
-export { default as useWindowSize, useIsMobile, useIsMd, useIsMd1100, useIsMd1220, } from "./hooks/useWindowSize";
+export { default as useWindowSize, useIsW768, useIsMd, useIsW1100, useIsW1220, } from "./hooks/useWindowSize";
 import { changeLanguage } from "i18next";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";

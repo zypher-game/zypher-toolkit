@@ -5,7 +5,7 @@ import React, { memo, useCallback, useEffect, useMemo } from "react";
 import { useRecoilState } from "recoil";
 import styled from "styled-components";
 
-import { useIsMobile } from "../../../../hooks/useWindowSize";
+import { useIsW768 } from "../../../../hooks/useWindowSize";
 
 import {
   linkToBetaDialogChainIdState,
@@ -51,7 +51,7 @@ const LinkToBetaDialog = memo(() => {
   const [linkToBetaDialogChainId, setLinkToBetaDialogChainId] = useRecoilState(
     linkToBetaDialogChainIdState
   );
-  const isMobile = useIsMobile();
+  const isMobile = useIsW768();
   const ToUrlName = useMemo(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === ChainId.Combo) {

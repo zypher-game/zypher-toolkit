@@ -45,10 +45,12 @@ interface IProps {
   showPointsModal: any;
   CountupNumber?: React.FC<any>;
   type: HeaderUIType;
+  hideRefresh?: boolean;
 }
 
 const Balance = memo((props: IProps): React.ReactElement | null => {
-  const { showPointsModal, isMobile, env, CountupNumber, type } = props;
+  const { showPointsModal, isMobile, env, CountupNumber, type, hideRefresh } =
+    props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState(false);
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
@@ -100,15 +102,17 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
 
   return (
     <>
-      <IsPixelWidget
-        type={type}
-        className={`refresh_balance ${
-          type === "pixel" ? "refresh_balance_pixel" : ""
-        }`}
-        onClick={fetchBalanceOf}
-      >
-        <SyncOutlined />
-      </IsPixelWidget>
+      {hideRefresh ? null : (
+        <IsPixelWidget
+          type={type}
+          className={`refresh_balance ${
+            type === "pixel" ? "refresh_balance_pixel" : ""
+          }`}
+          onClick={fetchBalanceOf}
+        >
+          <SyncOutlined />
+        </IsPixelWidget>
+      )}
       {DPSupportChainId.includes(chainId) ? (
         <BalanceCountUpItem
           onClick={showPointsModal}

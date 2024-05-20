@@ -15,6 +15,7 @@ interface IProps {
     showLang: boolean;
     CountupNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
+    hideRefresh?: boolean;
 }
 declare const RainbowConnectWallet: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default RainbowConnectWallet;

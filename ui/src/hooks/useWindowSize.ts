@@ -1,10 +1,10 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 
 import {
-  IsMd1100Context,
-  IsMd1220Context,
-  IsMdContext,
-  isMobileState,
+  IsW1100Context,
+  IsW1220Context,
+  IsW950Context,
+  isW768State,
 } from "../provider/IsMobileProvider";
 import { useRecoilState } from "recoil";
 
@@ -29,40 +29,40 @@ export default function useWindowSize(): { height: number; width: number } {
   }, []);
   return size;
 }
-export const useIsMobile = (): boolean => {
-  const [isMobile] = useRecoilState(isMobileState);
-  if (isMobile === undefined) {
+export const useIsW768 = (): boolean => {
+  const [isW768] = useRecoilState(isW768State);
+  if (isW768 === undefined) {
     return false;
   }
-  return isMobile;
+  return isW768;
 };
 
-export const useIsMd1100 = (): boolean => {
+export const useIsW1100 = (): boolean => {
   try {
-    const isMd1100 = useContext(IsMd1100Context);
-    if (isMd1100 === undefined) {
+    const IsW1100 = useContext(IsW1100Context);
+    if (IsW1100 === undefined) {
       return false;
     }
-    return isMd1100;
+    return IsW1100;
   } catch (e) {
     return false;
   }
 };
 
-export const useIsMd1220 = (): boolean => {
+export const useIsW1220 = (): boolean => {
   try {
-    const isMd1220 = useContext(IsMd1220Context);
-    if (isMd1220 === undefined) {
+    const isW1220 = useContext(IsW1220Context);
+    if (isW1220 === undefined) {
       return false;
     }
-    return isMd1220;
+    return isW1220;
   } catch (e) {
     return false;
   }
 };
 export const useIsMd = (): boolean => {
   try {
-    const isMd = useContext(IsMdContext);
+    const isMd = useContext(IsW950Context);
     if (isMd === undefined) {
       return false;
     }

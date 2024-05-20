@@ -4,7 +4,7 @@ import { useRecoilState } from "recoil";
 
 import { useActiveWallet } from "../../../../hooks/useActiveWallet";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
-import { useIsMd1100 } from "../../../../hooks/useWindowSize";
+import { useIsW1100 } from "../../../../hooks/useWindowSize";
 
 import { accountInfoDialogState } from "../../state/connectWalletState";
 import DialogTitle from "../DialogComponents/DialogTitle";
@@ -30,7 +30,7 @@ const AccountInfoDialog = memo(
       accountInfoDialogState
     );
     const { account, chainId } = useActiveWeb3React();
-    const isMobile = useIsMd1100();
+    const isMobile = useIsW1100();
     const { disconnect } = useDisconnect();
     const wallet = useActiveWallet();
     const cancel = useCallback(() => {

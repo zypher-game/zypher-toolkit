@@ -1,4 +1,20 @@
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SideBar/component/Language.stylus */
+div .address_wrap_pop_lang {
+  position: absolute;
+  top: 50px;
+  right: 10px;
+  width: 220px;
+  z-index: 4;
+  overflow: hidden;
+  transition: height 0.3s ease;
+}
+div .address_wrap_pop_lang > .pixel_flat_inner {
+  padding: 10px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+}
 .language_top {
   display: flex;
   justify-content: center;
@@ -74,12 +90,9 @@
 }
 @media screen and (max-width: 768px) {
   .connect_pixel_connectWallet .pixel_logo {
-    width: 28px;
-    height: 28px;
+    width: 30px;
+    height: 30px;
   }
-}
-.connect_pixel_connectWallet .pixel_logo .pixel_flat_btn_bg > div {
-  background-color: #3e4350;
 }
 .connect_pixel_connectWallet .pixel_logo .pixel_img_lang {
   width: 26px;
@@ -194,6 +207,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
+.pixel_border.pixel_flat_btn {
+  height: 40px;
+}
+@media screen and (max-width: 768px) {
+  .pixel_border.pixel_flat_btn {
+    height: 30px;
+  }
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.stylus */
@@ -1411,7 +1434,6 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 .header_header .header_right .header_btn_pixel {
-  margin-left: 10px;
   width: 40px;
 }
 @media screen and (max-width: 768px) {
@@ -1657,50 +1679,6 @@ body .tvlPixelTable_header > .pixel_flat_inner {
     right: 0;
     transform: perspective(1000px) rotateY(0deg) scale(0.3);
   }
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */
-.pixel_border.pixel_flat_btn {
-  height: 40px;
-}
-@media screen and (max-width: 768px) {
-  .pixel_border.pixel_flat_btn {
-    height: 30px;
-  }
-}
-.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
-.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
-.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
-.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2,
-.pixel_border.pixel_flat_btn:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
-  border: 1px solid #1649ff;
-}
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2,
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
-  border: 1px solid #3a4254;
-  transition: border 0.3s ease;
-}
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_1 {
-  border-bottom: none !important;
-  height: 5px;
-  z-index: 3;
-}
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_top_2 {
-  border-bottom: none !important;
-  height: 5px;
-  z-index: 2;
-}
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
-  border-top: none !important;
-  height: 5px;
-  z-index: 4;
-}
-.pixel_border.pixel_flat_btn > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
-  border-top: none !important;
-  height: 5px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.stylus */
@@ -2099,23 +2077,9 @@ body .address_wrap_pop > .pixel_flat_inner {
   cursor: pointer;
   display: flex;
   align-items: center;
+}
+.header_header .connect_pixel_connectWallet {
   gap: 20px;
-}
-@media screen and (max-width: 1400px) {
-  .connect_pixel_connectWallet {
-    gap: 10px;
-  }
-}
-@media screen and (max-width: 1300px) {
-  .connect_pixel_connectWallet {
-    gap: 4px;
-  }
-}
-.connect_pixel_connectWallet .pixel_flat_btn_bg > div {
-  background-color: #1d263b;
-}
-.pixel_border .pixel_flat_btn_bg > div {
-  background-color: #1d263b;
 }
 .connect_connectWallet {
   cursor: pointer;

@@ -8,6 +8,7 @@ interface IProps {
     showPointsModal: any;
     CountupNumber?: React.FC<any>;
     type: HeaderUIType;
+    hideRefresh?: boolean;
 }
 declare const Balance: React.MemoExoticComponent<(props: IProps) => React.ReactElement | null>;
 export default Balance;

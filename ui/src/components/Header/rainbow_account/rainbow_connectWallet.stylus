@@ -2,16 +2,9 @@
     cursor: pointer
     display: flex
     align-items: center
-    gap: 20px
-    @media screen and (max-width: 1400px)
-        gap: 10px
-    @media screen and (max-width: 1300px)
-        gap: 4px
-    .pixel_flat_btn_bg > div 
-        background-color: #1D263B
-.pixel_border
-    .pixel_flat_btn_bg > div 
-        background-color: #1D263B
+.header_header
+    .connect_pixel_connectWallet
+        gap: 20px
 .connect_connectWallet
     cursor: pointer
     display: flex
