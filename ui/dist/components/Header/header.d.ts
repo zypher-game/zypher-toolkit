@@ -3,7 +3,6 @@ import "./header.stylus";
 import { ChainId } from "../../constant/constant";
 export type HeaderUIType = "pixel" | "other";
 interface IProps {
-    type: HeaderUIType;
     env: string;
     dispatch: any;
     setSuccessToast: any;
@@ -13,8 +12,7 @@ interface IProps {
     copy: any;
     useNavigate: any;
     useLocation: any;
-    showLang: boolean;
-    CountupNumber?: React.FC<any>;
+    CountUpNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
     Middle?: React.FC<any>;
     pathname: string;

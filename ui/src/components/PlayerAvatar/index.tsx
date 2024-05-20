@@ -1,5 +1,5 @@
 import cx from "classnames";
-import React from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
 // import { BackgroundSets, generateAvatar } from 'robohash-avatars'
@@ -29,70 +29,75 @@ interface IPlayerAvatar {
   type?: HeaderUIType;
 }
 
-const PlayerAvatar: React.FC<IPlayerAvatar> = ({
-  account,
-  showAccount = false,
-  size = 60,
-  border = false,
-  AvatarBorder = React.Fragment,
-  AccountTextFrComp = React.Fragment,
-  className,
-  preLen,
-  endLen,
-  otherStr,
-  type = "other",
-}: IPlayerAvatar) => {
-  const { t } = useCustomTranslation([LngNs.zBingo]);
-  const { selectedAvatar, selectedBackground } = generateAvatar(account);
-  return (
-    <div className={cx(className, "player_playerAvatar")}>
-      {account ? (
-        <AvatarBorder>
-          <Avatar
-            type={type}
-            size={size}
-            src={selectedAvatar}
-            style={
-              border
-                ? {
-                    background: selectedBackground,
-                    border: "2px solid #62380C",
-                  }
-                : { background: selectedBackground }
+const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
+  ({
+    account,
+    showAccount = false,
+    size = 60,
+    border = false,
+    AvatarBorder = React.Fragment,
+    AccountTextFrComp = React.Fragment,
+    className,
+    preLen,
+    endLen,
+    otherStr,
+    type = "other",
+  }: IPlayerAvatar) => {
+    const { t } = useCustomTranslation([LngNs.zBingo]);
+    const { selectedAvatar, selectedBackground } = generateAvatar(account);
+    return (
+      <div className={cx(className, "player_playerAvatar")}>
+        {account ? (
+          <AvatarBorder>
+            <Avatar
+              type={type}
+              size={size}
+              src={selectedAvatar}
+              style={
+                border
+                  ? {
+                      background: selectedBackground,
+                      border: "2px solid #62380C",
+                    }
+                  : { background: selectedBackground }
+              }
+            />
+          </AvatarBorder>
+        ) : (
+          // <img className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
+          <div
+            className={"player_avatar"}
+            style={{
+              width: `${size}px`,
+              height: `${size}px`,
+              overflow: "hidden",
+              background: "rgba(138, 138, 138, 1)",
+            }}
+          >
+            <Avatar
+              size={size}
+              src={preStaticUrl + `/img/default_avatar.png`}
+            />
+          </div>
+        )}
+        {showAccount && (
+          <p
+            className={
+              className?.includes("account") ? "player_avatar_account" : ""
             }
-          />
-        </AvatarBorder>
-      ) : (
-        // <img className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
-        <div
-          className={"player_avatar"}
-          style={{
-            width: `${size}px`,
-            height: `${size}px`,
-            overflow: "hidden",
-            background: "rgba(138, 138, 138, 1)",
-          }}
-        >
-          <Avatar size={size} src={preStaticUrl + `/img/default_avatar.png`} />
-        </div>
-      )}
-      {showAccount && (
-        <p
-          className={
-            className?.includes("account") ? "player_avatar_account" : ""
-          }
-        >
-          {account
-            ? `${getShortenAddress(account, preLen, endLen)}${
-                otherStr ? ` ${otherStr}` : ""
-              }`
-            : t("waiting")}
-          <AccountTextFrComp />
-        </p>
-      )}
-    </div>
-  );
-};
+          >
+            {account
+              ? `${getShortenAddress(account, preLen, endLen)}${
+                  otherStr ? ` ${otherStr}` : ""
+                }`
+              : t("waiting")}
+            <AccountTextFrComp />
+          </p>
+        )}
+      </div>
+    );
+  }
+);
 
 const OuterCircle = styled.div<{
   isGrey?: boolean;

@@ -8,14 +8,13 @@ interface IProps {
     dispatch: any;
     setSuccessToast: any;
     setErrorToast: any;
-    isMobile: boolean;
     className?: string;
+    isBigWidth: boolean;
+    isMiddleWidth: boolean;
     copy: any;
     type: HeaderUIType;
-    showLang: boolean;
-    CountupNumber?: React.FC<any>;
+    CountUpNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
-    hideRefresh?: boolean;
 }
 declare const RainbowConnectWallet: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default RainbowConnectWallet;

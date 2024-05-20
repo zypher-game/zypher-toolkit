@@ -3,20 +3,13 @@
         padding: 20px 32px 33px
         @media screen and (max-width: 768px)
             padding: 82px 32px 33px
-body .pixel_border.pixel_flat_btn.address_wrap
-    // padding-top: 20px
-    // padding-bottom: 20px
-    // height: 80px;
-    :hover
-        .address_wrap_pop
-            height: 148px
-body .address_wrap_pop
+
+body .address_wrap_big_pop
     position absolute
-    top: 40px;
-    left: -10px;
+    top: 50px;
+    right: 0;
     width: 220px
     z-index: 4;
-    height: 0
     overflow: hidden
     transition: height 0.3s ease
 

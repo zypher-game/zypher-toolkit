@@ -12,7 +12,7 @@ import {
   accountInfoDialogState,
   pointsDialogState,
 } from "../../state/connectWalletState";
-import { siderCollapseState } from "../../../Header/state";
+import { sideCollapseState } from "../../../Header/state";
 import "./ChainSelectorWidget.stylus";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import { HeaderUIType } from "../../../Header/header";
@@ -52,7 +52,7 @@ const ChainSelectorWidget = memo(({ className, type }: IProps) => {
   const [pointsDialogOpen, setPointsDialogOpen] =
     useRecoilState(pointsDialogState);
 
-  const [siderCollapse, setSiderCollapse] = useRecoilState(siderCollapseState);
+  const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState);
 
   const { openChainModal } = useChainModal();
   const openChainModalHandle = useCallback(() => {
@@ -62,8 +62,8 @@ const ChainSelectorWidget = memo(({ className, type }: IProps) => {
     if (pointsDialogOpen) {
       setPointsDialogOpen(false);
     }
-    if (!siderCollapse) {
-      setSiderCollapse(true);
+    if (!sideCollapse) {
+      setSideCollapse(true);
     }
     if (openChainModal) {
       openChainModal();

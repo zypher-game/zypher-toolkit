@@ -58,7 +58,7 @@ export {
   getCryptoImg,
 } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
-
+export { default as BigNumberJs } from "./utils/BigNumberJs";
 export {
   LinkList,
   blankLinkList,
@@ -94,7 +94,7 @@ export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
 
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
-export { siderCollapseState } from "./components/Header/state";
+export { sideCollapseState } from "./components/Header/state";
 export {
   default as PlayerAvatar,
   PlayerAvatarList,

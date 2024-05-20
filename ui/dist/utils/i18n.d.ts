@@ -3,7 +3,7 @@ export declare const LngNs: {
     common: string;
     defense: string;
     points: string;
-    siderBar: string;
+    sideBar: string;
     home: string;
     zBingo: string;
     invitation: string;

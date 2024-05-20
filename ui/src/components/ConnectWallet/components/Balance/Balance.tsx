@@ -1,5 +1,4 @@
 import { SyncOutlined } from "@ant-design/icons";
-import BigNumberjs from "bignumber.js";
 
 import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useCallback, useEffect, useState } from "react";
@@ -32,6 +31,7 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import { HeaderUIType } from "../../../Header/header";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
+import BigNumberJs from "../../../../utils/BigNumberJs";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -40,17 +40,15 @@ const AddIcon = styled(Icon)<{ isMobile: boolean }>`
 `;
 interface IProps {
   env: string;
-  isMobile: boolean;
   className?: string;
   showPointsModal: any;
-  CountupNumber?: React.FC<any>;
+  CountUpNumber?: React.FC<any>;
   type: HeaderUIType;
-  hideRefresh?: boolean;
+  isMiddleWidth: boolean;
 }
 
 const Balance = memo((props: IProps): React.ReactElement | null => {
-  const { showPointsModal, isMobile, env, CountupNumber, type, hideRefresh } =
-    props;
+  const { showPointsModal, env, CountUpNumber, type, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState(false);
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
@@ -63,7 +61,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     setLoading(true);
     const balance = await provider.getBalance({ address: account });
     setNativeBalance(
-      new BigNumberjs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+      new BigNumberJs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
     );
     await fetchErc20Balance();
     setLoading(false);
@@ -80,7 +78,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
         const pointsContract = erc20Contract(chainId, env, pointsAddress);
         const balance = await pointsContract.read.balanceOf([account]);
         setPointsBalance(
-          new BigNumberjs(balance.toString())
+          new BigNumberJs(balance.toString())
             .dividedBy(divisorBigNumber)
             .toNumber()
         );
@@ -102,7 +100,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
 
   return (
     <>
-      {hideRefresh ? null : (
+      {isMiddleWidth ? null : (
         <IsPixelWidget
           type={type}
           className={`refresh_balance ${
@@ -116,17 +114,17 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       {DPSupportChainId.includes(chainId) ? (
         <BalanceCountUpItem
           onClick={showPointsModal}
-          logo={<PointsIcon isMobile={isMobile} />}
+          logo={<PointsIcon isMobile={isMiddleWidth} />}
           balance={pointsBalance}
           loading={loading}
           className={props.className}
-          CountupNumber={CountupNumber}
-          preChild={<AddIcon name="pixel_add" isMobile={isMobile} />}
+          CountUpNumber={CountUpNumber}
+          preChild={<AddIcon name="pixel_add" isMobile={isMiddleWidth} />}
           balanceStr={pointsBalanceStr}
           type={type}
         />
       ) : null}
-      {!isMobile && (
+      {!isMiddleWidth && (
         <BalanceItem
           logo={
             <CurrencyLogo

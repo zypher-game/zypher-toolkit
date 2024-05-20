@@ -1815,22 +1815,6 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_account.stylus */
-.address_wrap {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  position: relative;
-}
-.address_wrap .account {
-  display: flex;
-  flex-direction: row-reverse;
-  gap: 9px;
-}
-.address_wrap .account p {
-  padding-left: 14px;
-}
-
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */
 .account_info_dialog_dialog .account_info_dialog_modalMain {
   padding: 20px 32px 33px;
@@ -1840,20 +1824,16 @@ body .tvlPixelTable_header > .pixel_flat_inner {
     padding: 82px 32px 33px;
   }
 }
-body .pixel_border.pixel_flat_btn.address_wrap :hover .address_wrap_pop {
-  height: 148px;
-}
-body .address_wrap_pop {
+body .address_wrap_big_pop {
   position: absolute;
-  top: 40px;
-  left: -10px;
+  top: 50px;
+  right: 0;
   width: 220px;
   z-index: 4;
-  height: 0;
   overflow: hidden;
   transition: height 0.3s ease;
 }
-body .address_wrap_pop > .pixel_flat_inner {
+body .address_wrap_big_pop > .pixel_flat_inner {
   padding: 10px;
   flex-direction: column;
   justify-content: flex-start;
@@ -2070,6 +2050,22 @@ body .address_wrap_pop > .pixel_flat_inner {
 .pc_user_disconnect_btn:hover {
   color: var(--var-btn-hover);
   border: 1px solid var(--var-btn-hover);
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/AccountInfo/AccountInfo.stylus */
+.address_wrap {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+.address_wrap .account {
+  display: flex;
+  flex-direction: row-reverse;
+  gap: 9px;
+}
+.address_wrap .account p {
+  padding-left: 14px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */

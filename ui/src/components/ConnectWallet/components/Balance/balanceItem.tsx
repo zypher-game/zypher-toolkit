@@ -20,7 +20,7 @@ type IProps = {
   preChild?: React.ReactNode;
   onClick?: any;
   balance?: number;
-  CountupNumber?: React.FC<any>;
+  CountUpNumber?: React.FC<any>;
   type: HeaderUIType;
 };
 const BalanceItem = memo(
@@ -31,7 +31,7 @@ const BalanceItem = memo(
     logo,
     preChild,
     onClick,
-    CountupNumber,
+    CountUpNumber,
     balance,
     type,
   }: IProps) => {
@@ -53,8 +53,8 @@ const BalanceItem = memo(
           <LoadingOutlined />
         ) : (
           <>
-            {CountupNumber && (balance || balance === 0) ? (
-              <CountupNumber
+            {CountUpNumber && (balance || balance === 0) ? (
+              <CountUpNumber
                 value={balance}
                 decimals={0}
                 duration={1.5}
@@ -79,7 +79,7 @@ export const BalanceCountUpItem = memo(
     logo,
     preChild,
     onClick,
-    CountupNumber,
+    CountUpNumber,
     balanceStr,
     type,
   }: IProps) => {
@@ -113,8 +113,8 @@ export const BalanceCountUpItem = memo(
           <LoadingOutlined />
         ) : (
           <>
-            {CountupNumber && (balance || balance === 0) ? (
-              <CountupNumber
+            {CountUpNumber && (balance || balance === 0) ? (
+              <CountUpNumber
                 value={balance}
                 decimals={0}
                 duration={1.5}

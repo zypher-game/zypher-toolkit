@@ -1,6 +1,11 @@
 import classnames from "classnames";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
+import {
+  Currency,
+  CurrencyLogo as CurrencyLogoUrl,
+} from "../../../../constant/constant";
+import CurrencyLogo from "../../../../components/CurrencyLogo";
 
 import { useActiveWallet } from "../../../../hooks/useActiveWallet";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
@@ -22,6 +27,11 @@ import {
   PixelBorderCard,
   PixelCube2,
 } from "../../../../components/PixelBtn/ActivePixelButton";
+import PlayerAvatar from "../../../../components/PlayerAvatar";
+import { getShortenAddress } from "../../../../utils/tool";
+import ChainSelectorWidget from "../ChainSelector/ChainSelectorWidget";
+import { useNativeBalanceStr } from "../../hooks/connectWalletHooks";
+import Language from "../../../../components/SideBar/component/Language";
 
 const AccountInfoDialog = memo(
   ({ copy, type }: { copy: any; type: HeaderUIType }) => {
@@ -91,7 +101,7 @@ const AccountInfoDialog = memo(
   }
 );
 
-export const AddressWrapPop = memo(
+export const AddressBigWrapPop = memo(
   ({ copy }: { copy: any; type: HeaderUIType }) => {
     const [index, setIndex] = useState<number>();
     const { account, chainId } = useActiveWeb3React();
@@ -124,7 +134,7 @@ export const AddressWrapPop = memo(
     }, [disconnect]);
     return (
       <PixelBorderCard
-        className="address_wrap_pop"
+        className="address_wrap_big_pop"
         pixel_height={4}
         backgroundColor="#1D263B"
         borderColor="#3A4254"
@@ -135,6 +145,91 @@ export const AddressWrapPop = memo(
           onClick={copyAddressHandle}
           on={index === 0}
         />
+        <AddressWrapPopItem
+          iconName={"pixel_blackchain"}
+          label={"Blackchain Explorer"}
+          onClick={openHandle}
+          on={index === 1}
+        />
+        <AddressWrapPopItem
+          iconName={"pixel_disconnect"}
+          label={"Disconnect"}
+          onClick={cancelHandle}
+          on={index === 2}
+        />
+      </PixelBorderCard>
+    );
+  }
+);
+
+export const AddressMiddleWrapPop = memo(
+  ({ copy }: { copy: any; type: HeaderUIType }) => {
+    const [index, setIndex] = useState<number>();
+    const { account, chainId } = useActiveWeb3React();
+
+    const nativeBalanceStr = useNativeBalanceStr();
+    const { disconnect } = useDisconnect();
+    const [, setAccountInfoDialogOpen] = useRecoilState(accountInfoDialogState);
+    useEffect(() => {
+      if (index || index === 0) {
+        setTimeout(() => {
+          setIndex(undefined);
+        }, 2000);
+      }
+    }, [index]);
+    const copyAddressHandle = useCallback(() => {
+      copy(account);
+      setIndex(0);
+    }, [account]);
+
+    const openHandle = useCallback(() => {
+      window.open(
+        `${BlockExplorerUrls[chainId] ?? [0]}/address/${account}`,
+        "_blank"
+      );
+      setIndex(1);
+    }, [account, chainId]);
+
+    const cancelHandle = useCallback(() => {
+      setAccountInfoDialogOpen(false);
+      disconnect();
+      setIndex(2);
+    }, [disconnect]);
+    return (
+      <PixelBorderCard
+        className="address_wrap_middle_pop"
+        pixel_height={4}
+        backgroundColor="#1D263B"
+        borderColor="#3A4254"
+      >
+        <div className="account_info_pop">
+          <PlayerAvatar
+            border={true}
+            className="address_wrap_middle_account"
+            account={account}
+            size={62}
+            showAccount={false}
+            type="other"
+          />
+          <div className="address" onClick={copyAddressHandle}>
+            <p>{getShortenAddress(account)}</p>
+            <Icon name="pixel_copy" />
+          </div>
+        </div>
+        <ChainSelectorWidget type={"pixel"} />
+        <div className="balance">
+          <BalanceItem
+            currency={Currency[chainId]}
+            balanceStr={nativeBalanceStr}
+            logo={
+              <CurrencyLogo
+                className={"balance_item_img"}
+                src={CurrencyLogoUrl[chainId]}
+              />
+            }
+          />
+        </div>
+        <Language type={"list"} />
         <AddressWrapPopItem
           iconName={"pixel_blackchain"}
           label={"Blackchain Explorer"}
@@ -176,6 +271,28 @@ const AddressWrapPopItem = memo(
         <Icon name={iconName} />
         <p>{label}</p>
       </PixelCube2>
+    );
+  }
+);
+const BalanceItem = memo(
+  ({
+    logo,
+    balanceStr,
+    currency,
+  }: {
+    logo: React.ReactNode;
+    balanceStr: string;
+    currency: string;
+  }) => {
+    return (
+      <div className="balance_item">
+        <div className="fl">
+          {logo}
+          <p>{currency}</p>
+        </div>
+        <p>{balanceStr}</p>
+        <div className="point" />
+      </div>
     );
   }
 );

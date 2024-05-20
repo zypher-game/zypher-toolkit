@@ -3,7 +3,7 @@ import { HeaderUIType } from "../header";
 import "./IsPixelWidget.stylus";
 declare const IsPixelWidget: React.MemoExoticComponent<({ className, type, children, onClick, }: {
     className?: string | undefined;
-    type: HeaderUIType;
+    type?: HeaderUIType | undefined;
     children: React.ReactNode;
     onClick?: any;
 }) => React.JSX.Element>;

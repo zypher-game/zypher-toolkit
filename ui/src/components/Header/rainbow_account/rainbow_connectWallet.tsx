@@ -3,7 +3,7 @@ import React, { memo, useMemo } from "react";
 
 import { ChainId, supportedChainIds } from "../../../constant/constant";
 
-import Account from "./rainbow_account";
+import AccountInfo from "./rainbow_account";
 import "./rainbow_connectWallet.stylus";
 import WrongNetwork from "./WrongNetwork";
 import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
@@ -18,18 +18,19 @@ interface IProps {
   dispatch: any;
   setSuccessToast: any;
   setErrorToast: any;
-  isMobile: boolean;
   className?: string;
+  isBigWidth: boolean;
+  isMiddleWidth: boolean;
   copy: any;
   type: HeaderUIType;
-  showLang: boolean;
-  CountupNumber?: React.FC<any>;
+  CountUpNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
-  hideRefresh?: boolean;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const {
+    isBigWidth,
+    isMiddleWidth,
     useLocation,
     className,
     env,
@@ -37,13 +38,10 @@ const RainbowConnectWallet = memo((props: IProps) => {
     dispatch,
     setSuccessToast,
     setErrorToast,
-    showLang,
-    CountupNumber,
+    CountUpNumber,
     supportedChainList,
     type,
-    hideRefresh,
   } = props;
-  console.log({ showLang });
   const location = useLocation();
   const isPathLocation = useMemo(() => {
     if (window.location.href.indexOf("/bingo/") > -1) {
@@ -70,7 +68,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <IsPixelWidget
-                  type={type}
                   onClick={openConnectModal}
                   className={"connect_connect"}
                 >
@@ -83,24 +80,24 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   )) ? (
                 <WrongNetwork type={type} />
               ) : (
-                <Account
+                <AccountInfo
                   copy={copy}
                   env={env}
                   dispatch={dispatch}
                   setSuccessToast={setSuccessToast}
                   setErrorToast={setErrorToast}
-                  showLang={showLang}
-                  CountupNumber={CountupNumber}
+                  CountUpNumber={CountUpNumber}
+                  isMiddleWidth={isMiddleWidth}
                   supportedChainList={supportedChainList}
                   type={type}
-                  hideRefresh={hideRefresh}
                 />
               )}
             </>
           );
         }}
       </ConnectButton.Custom>
-      {showLang ? <Language type={type === "pixel" ? type : "top"} /> : null}
+      {/* {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null} */}
+      <Language type={type === "pixel" ? type : "top"} />
     </div>
   );
 }, isEqual);

@@ -8,6 +8,7 @@ export { useWalletClient, useSwitchNetwork, useDisconnect };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
 export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
+export { default as BigNumberJs } from "./utils/BigNumberJs";
 export { LinkList, blankLinkList, useNavItem, usePathname, zAceLink, crLink, } from "./hooks/useNavItem";
 export { connectorState, walletModalOpenState, ChainSelector, refreshBalanceState, pointsDialogState, pointsWarnState, hidePointsWarnState, pointsRuleDialogState, accountInfoDialogState, linkToBetaDialogState, linkToBetaDialogChainIdState, nativeBalanceState, pointsBalanceState, } from "./components/ConnectWallet/state/connectWalletState";
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
@@ -18,7 +19,7 @@ export { useNativeBalanceStr, usePointsBalanceStr, } from "./components/ConnectW
 export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
-export { siderCollapseState } from "./components/Header/state";
+export { sideCollapseState } from "./components/Header/state";
 export { default as PlayerAvatar, PlayerAvatarList, } from "./components/PlayerAvatar";
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
 export { default as ChainSelectorWidget } from "./components/ConnectWallet/components/ChainSelector/ChainSelectorWidget";

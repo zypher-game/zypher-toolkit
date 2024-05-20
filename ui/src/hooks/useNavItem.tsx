@@ -85,7 +85,7 @@ const gameStatus = {
   },
 };
 export const useNavItem = (): INavLink[] => {
-  const { t } = useCustomTranslation([LngNs.siderBar]);
+  const { t } = useCustomTranslation([LngNs.sideBar]);
   const { chainId } = useActiveWeb3React();
   return useMemo(() => {
     return [

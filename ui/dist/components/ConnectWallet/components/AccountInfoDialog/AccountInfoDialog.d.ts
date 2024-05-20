@@ -5,7 +5,11 @@ declare const AccountInfoDialog: React.MemoExoticComponent<({ copy, type }: {
     copy: any;
     type: HeaderUIType;
 }) => React.JSX.Element | null>;
-export declare const AddressWrapPop: React.MemoExoticComponent<({ copy }: {
+export declare const AddressBigWrapPop: React.MemoExoticComponent<({ copy }: {
+    copy: any;
+    type: HeaderUIType;
+}) => React.JSX.Element>;
+export declare const AddressMiddleWrapPop: React.MemoExoticComponent<({ copy }: {
     copy: any;
     type: HeaderUIType;
 }) => React.JSX.Element>;

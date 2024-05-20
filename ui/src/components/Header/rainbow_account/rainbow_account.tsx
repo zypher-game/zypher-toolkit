@@ -2,90 +2,62 @@ import { isEqual } from "../../../utils/lodash";
 import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 
-import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
 import { useIsW768 } from "../../../hooks/useWindowSize";
 
-// import AccountInfoDialog from "../../ConnectWallet/components/AccountInfoDialog";
 import Balance from "../../ConnectWallet/components/Balance/Balance";
 import ChainSelectorWidget from "../../ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDialog";
 import PointsRuleDialog from "../../ConnectWallet/components/PointsDialog/PointsRuleDialog";
-import {
-  accountInfoDialogState,
-  pointsDialogState,
-} from "../../ConnectWallet/state/connectWalletState";
-import PlayerAvatar from "../../PlayerAvatar";
+import { pointsDialogState } from "../../ConnectWallet/state/connectWalletState";
 import { ChainId } from "../../../constant/constant";
 import { HeaderUIType } from "../header";
-import IsPixelWidget from "./IsPixelWidget";
-import "./rainbow_account.stylus";
-import AccountInfoDialog, {
-  AddressWrapPop,
-} from "../../ConnectWallet/components/AccountInfoDialog/AccountInfoDialog";
+import AccountInfo from "./AccountInfo/AccountInfo";
+import { useNativeBalanceStr } from "../../ConnectWallet/hooks/connectWalletHooks";
+import CurrencyLogo from "../../CurrencyLogo";
 const Account = memo(
   ({
-    showLang,
+    isMiddleWidth,
     env,
     dispatch,
     setSuccessToast,
     setErrorToast,
     copy,
-    CountupNumber,
+    CountUpNumber,
     supportedChainList,
     type,
-    hideRefresh,
   }: {
-    showLang: boolean;
+    isMiddleWidth: boolean;
     env: string;
     dispatch: any;
     setSuccessToast: any;
     copy: any;
-    CountupNumber?: React.FC<any>;
+    CountUpNumber?: React.FC<any>;
     setErrorToast: any;
     supportedChainList?: ChainId[];
     type: HeaderUIType;
-    hideRefresh?: boolean;
   }) => {
-    console.log({ showLang });
-    const isMobile = useIsW768();
+    const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
     const showPointsModal = useCallback(() => {
       setPointsDialogState(true);
     }, [setPointsDialogState]);
-    const setAccountInfoDialogState = useSetRecoilState(accountInfoDialogState);
-    const showLogoutModal = useCallback(() => {
-      setAccountInfoDialogState(true);
-    }, [setAccountInfoDialogState]);
-    const { account } = useActiveWeb3React(env, supportedChainList);
     return (
       <>
         <Balance
-          hideRefresh={hideRefresh}
-          CountupNumber={CountupNumber}
+          isMiddleWidth={isMiddleWidth}
+          CountUpNumber={CountUpNumber}
           env={env}
-          isMobile={isMobile}
           showPointsModal={showPointsModal}
           type={type}
         />
-        <IsPixelWidget
+        <AccountInfo
           type={type}
-          className="address_wrap"
-          onClick={showLogoutModal}
-        >
-          <PlayerAvatar
-            className="account"
-            account={account}
-            size={isMobile ? 30 : 40}
-            showAccount={isMobile ? false : true}
-            type={type}
-          />
-          {type === "pixel" ? <AddressWrapPop copy={copy} type={type} /> : null}
-        </IsPixelWidget>
-        {!isMobile && <ChainSelectorWidget type={type} />}
-
-        {type !== "pixel" ? (
-          <AccountInfoDialog copy={copy} type={type} />
-        ) : null}
+          isMiddleWidth={isMiddleWidth}
+          isW768={isW768}
+          copy={copy}
+          env={env}
+        />
+        {!isMiddleWidth && <ChainSelectorWidget type={type} />}
         <PointsDialog
           env={env}
           dispatch={dispatch}
@@ -98,5 +70,4 @@ const Account = memo(
   },
   isEqual
 );
-
 export default Account;

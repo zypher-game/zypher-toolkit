@@ -1,1 +1,1 @@
-export declare const siderCollapseState: import("recoil").RecoilState<boolean | undefined>;
+export declare const sideCollapseState: import("recoil").RecoilState<boolean | undefined>;

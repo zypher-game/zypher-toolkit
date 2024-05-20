@@ -1,7 +1,7 @@
 import React from "react";
 import "./Language.stylus";
 type IProps = {
-    type: "side" | "top" | "pixel";
+    type: "top" | "pixel" | "list";
 };
 export declare const languageList: {
     label: string;

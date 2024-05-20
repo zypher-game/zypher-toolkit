@@ -7,7 +7,7 @@ import { INavLink } from "../../../hooks/useNavItem.type";
 import { preStaticUrl } from "../../../constant/constant";
 
 import { defaultSelectedKey } from "../state";
-import { siderCollapseState } from "../../Header/state";
+import { sideCollapseState } from "../../Header/state";
 import SmokeIndex from "./SmokeIndex";
 interface IProps extends INavLink {
   className_disable: string;
@@ -20,7 +20,7 @@ interface IProps extends INavLink {
 const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
   const selectedKey = useRecoilValue(defaultSelectedKey);
   const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
-  const setSiderCollapse = useSetRecoilState(siderCollapseState);
+  const setSideCollapse = useSetRecoilState(sideCollapseState);
   const navigate = useNavigate();
   const isOn = useMemo(() => {
     if (selectedKey === link.keyValue) {
@@ -35,7 +35,7 @@ const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
       }
       event.preventDefault();
       if (isMobile) {
-        setSiderCollapse(true);
+        setSideCollapse(true);
       }
       setTimeout(() => {
         try {
