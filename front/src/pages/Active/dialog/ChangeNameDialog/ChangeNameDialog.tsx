@@ -153,7 +153,7 @@ const ChangeNameDialog = memo(() => {
               <PixelCube3 className={css.input} pixel_height={2} width="100%" height="48px" backgroundColor="#343C4F" borderColor="#484F60">
                 <input onChange={handleChange} type="text" value={nicknameLocal} />
               </PixelCube3>
-              <ActivePixelButtonColor pixel_height={3} onClick={updateInfoHandle} width="144px" height="36px" disable={!_canNext}>
+              <ActivePixelButtonColor pixel_height={3} onClick={updateInfoHandle} width="144px" height="36px" disable={!_canNext || loading}>
                 <p className={css.save}>Save</p>
                 <LoadingButton isLoading={loading} />
               </ActivePixelButtonColor>

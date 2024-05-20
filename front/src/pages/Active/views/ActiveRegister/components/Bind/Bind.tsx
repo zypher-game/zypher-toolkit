@@ -80,7 +80,7 @@ const FrStatus = memo(({ label, btnLabel, onClick, isLoading }: { label?: string
   }
   return (
     <ActivePixelButton
-      isLoading={isLoading}
+      disable={isLoading}
       className={classnames(css.linkBtn)}
       onClick={onClick}
       width="170px"

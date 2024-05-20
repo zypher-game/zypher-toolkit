@@ -8,6 +8,7 @@ import {
   txStatus,
   useAccountInvitation,
   useActiveWeb3React,
+  useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useRecoilValue,
@@ -25,7 +26,7 @@ import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import { activeTokenList } from '../constants/activeConstants'
-import { depositCurrencyState, isTvlDataLoadingState, selectTokenDialogState, tvlStakingDataState } from '../state/activeState'
+import { depositCurrencyState, isTvlDataLoadingState, selectTokenDialogState, tvlStakingDataState, tvlStakingDialogState } from '../state/activeState'
 import { canNext, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { useStake, useStakeData } from './useStakeData'
@@ -43,11 +44,15 @@ export const useStakeHandle = () => {
   const tvlStakingData = useRecoilValue(tvlStakingDataState)
   const { data: walletClient } = useWalletClient()
   const { postAccountUpdate } = useAccountInvitation(env)
-
+  const { setActiveData } = useActiveData()
+  const isW768 = useIsW768()
   // const { isRegistered } = tvlStakingData
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
+  const [tvlStakingDialog, setTvlStakingDialog] = useRecoilState(tvlStakingDialogState)
+
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
+
   useStake()
   useEffect(() => {
     setIsApproveLoading(false)
@@ -64,9 +69,12 @@ export const useStakeHandle = () => {
         setIsDepositLoading(false)
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
+        if (tvlStakingDialog) {
+          setTvlStakingDialog(false)
+        }
       }
     },
-    [nativeChainId, account]
+    [nativeChainId, tvlStakingDialog, account]
   )
   const deposit = useCallback(async () => {
     const currency = depositCurrency
@@ -116,7 +124,9 @@ export const useStakeHandle = () => {
             setIsApproveLoading(false)
             setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
             getStakingData()
-            return
+            if (isW768) {
+              return
+            }
           }
         }
       }
@@ -149,6 +159,18 @@ export const useStakeHandle = () => {
           tx: depositTx,
           blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber()
         })
+        setActiveData(pre => {
+          const userPreVBig = new BigNumberJs(pre.userStakedAmount && pre.userStakedAmount !== '' ? pre.userStakedAmount : '0')
+          const userNowVBig = userPreVBig.plus(tokenAmount)
+          const totalPreVBig = new BigNumberJs(pre.totalStakedAmount && pre.totalStakedAmount !== '' ? pre.totalStakedAmount : '0')
+          const totalNowVBig = totalPreVBig.plus(tokenAmount)
+          return {
+            ...pre,
+            userStakedAmount: userNowVBig.toFixed(),
+            userStakedAmountStr: userNowVBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFormat(2),
+            totalStakedAmount: totalNowVBig.toFixed()
+          }
+        })
         setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Buy successful' })
       } else {
         throw Object.assign(new Error('Buy Transaction Failed'), { name: 'Buy' })
@@ -158,7 +180,7 @@ export const useStakeHandle = () => {
       setErrorToast(GlobalVar.dispatch, e)
       console.error('BuyHandle: ', e)
     }
-  }, [isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction])
+  }, [isW768, isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction])
   useEffect(() => {
     console.log({ nativeChainId, tvlStakingData, depositCurrency })
     if (

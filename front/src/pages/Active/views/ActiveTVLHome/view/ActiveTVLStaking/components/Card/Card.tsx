@@ -170,7 +170,7 @@ const PixelCardTwo = memo(
             height="36px"
             className={css.fr_btn}
             onClick={onClick}
-            disable={!title || title === '' || title === '0' ? true : false}
+            disable={!title || title === '' || title === '0' || loading ? true : false}
           >
             <p>{btnLabel}</p>
             <LoadingButton isLoading={loading} />

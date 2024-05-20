@@ -1,6 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { PointsIcon, useCustomTranslation, useIsMobile, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { PointsIcon, useCustomTranslation, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { Button } from 'antd'
 import React, { useCallback } from 'react'
@@ -12,7 +12,7 @@ type Props = {
 }
 const CheckInDialog: React.FC<Props> = () => {
   const { t } = useCustomTranslation([LngNs.defense])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const isModalOpen = useRecoilValue(checkInDialogState)
   const setIsModalOpen = useSetRecoilState(checkInDialogState)
 

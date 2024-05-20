@@ -1,7 +1,7 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { useSetRecoilState } from '@ui/src'
 // import VideoDialog from '@/components/VideoDialog'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { preStaticUrl } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
@@ -20,7 +20,7 @@ import InvitationWidget from './invitationWidget'
 const BannerWidget: FC<IBingoPointApi> = memo(({ pointsStr, dayClaimed, claimHandle, isClaimLoading, claimConfKey }: IBingoPointApi) => {
   // const setIsModalOpen = useSetRecoilState(videoDialogState)
   const setDailyRewordsIsModalOpen = useSetRecoilState(dailyRewardsRuleDialogState)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const isLive = useMemo(() => {
     // 10/10号超时
     // 获取当前时间

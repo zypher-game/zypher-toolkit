@@ -1,4 +1,4 @@
-import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
@@ -67,11 +67,12 @@ const Nav = memo(() => {
   )
 })
 const NavItemFl = memo(({ iconPath, label, onClick }: { iconPath: string; label: string; onClick?: any }) => {
+  const w768 = useIsW768()
   return (
     <ActivePixelButtonColor
       className={css.navItemFl}
-      height="40px"
-      pixel_height={4}
+      height={w768 ? '30px' : '40px'}
+      pixel_height={w768 ? 3 : 4}
       backgroundColor="#61341F"
       borderBottomColor="#30170B"
       borderTopColor="#7F5441"
@@ -83,10 +84,11 @@ const NavItemFl = memo(({ iconPath, label, onClick }: { iconPath: string; label:
   )
 })
 const NavItemFr = memo(({ className, children, onClick }: { className: string; children: React.ReactNode; onClick?: any }) => {
+  const w768 = useIsW768()
   return (
     <ActivePixelButtonColor
       className={className}
-      height="36px"
+      height={w768 ? '32px' : '36px'}
       pixel_height={3}
       backgroundColor="#1649FF"
       borderBottomColor="#0F33B2"

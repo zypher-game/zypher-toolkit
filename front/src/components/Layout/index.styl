@@ -41,7 +41,15 @@ body .lt-layout-content
     opacity: 1;
   }
 }
-
+//   a
+//     &.nav_airdrop
+//       width: 100px
+//     &.nav_games
+//       width: 80px
+//     &.nav_zero_gas
+//       width: 90px
+//     &.nav_network
+//       width: 140px
 .nav 
   float: left
   height: 100%;
@@ -50,8 +58,6 @@ body .lt-layout-content
   justify-content: center;
   padding-left: 40px;
   position: relative
-  @media screen and (max-width: 1400px)
-    display: none    
   .pixel_line
     position: absolute;
     bottom: 0;
@@ -68,14 +74,9 @@ body .lt-layout-content
     justify-content: center;
     height: 100%
     transition: all 0.3s ease
+    padding: 0 20px
     .nav_img
       margin-left: 4px
-    &.nav_airdrop
-      width: 110px
-    &.nav_games
-      width: 98px
-    &.nav_network
-      width: 183px
     &.nav_on
       font-weight: 600
       &:hover

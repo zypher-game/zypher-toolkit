@@ -1,5 +1,5 @@
 import { useCustomTranslation } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import React, { memo } from 'react'
 import Marquee from 'react-fast-marquee'
@@ -40,7 +40,7 @@ const MIcon = styled(Icon)<{ isMobile: boolean; color: string }>`
 `
 
 const MarqueeWidget = memo(() => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { t } = useCustomTranslation([LngNs.home])
   return (
     <Marquee gradient={false} pauseOnHover play={true}>

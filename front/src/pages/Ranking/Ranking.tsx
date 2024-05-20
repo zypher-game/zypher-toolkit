@@ -1,5 +1,5 @@
 import { useCustomTranslation } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { Spin } from 'antd'
 import classnames from 'classnames'
@@ -27,7 +27,7 @@ interface IProps {
 
 const Ranking = (props: IProps): React.ReactElement | null => {
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { ranking: rankingList, tab, setTab, loading, myItem } = useRanking()
   const rankingPreList: IPlayerRankingItem[] | undefined = useMemo(() => {
     if (rankingList) {

@@ -38,12 +38,12 @@ const GameItem = memo(() => {
   }, [JSON.stringify(items)])
   return (
     <div className={css.gameItem}>
-      <>
+      {/* <>
         {gameList.map(v => (
           <GameItemComp key={v.keyValue} item={v} />
         ))}
         <GameItemComingSoon disableGameList={disableGameList} />
-      </>
+      </> */}
       <div className="gameItem_bg">
         <div className="pixel_island1_div">
           <img src={preStaticUrl + '/img/games/island/pixel_litter_island1.png'} alt="pixel_litter_island1" className="pixel_litter_island1" />

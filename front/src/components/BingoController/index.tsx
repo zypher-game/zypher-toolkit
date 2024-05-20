@@ -1,4 +1,4 @@
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { preStaticUrl } from '@ui/src'
 import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
@@ -100,7 +100,7 @@ function BingoItem({ num, onClick }: { num: number; onClick: () => Promise<void>
 const BingoController: React.FC<IBingoCanvas> = ({ cardNumbers, isMyTurn, round, selectedNumbers = [], matchLines, onClick }) => {
   const [selfDisabled, setSelfDisabled] = useState<boolean>(false)
   const [showTimeOutModal, setShowTimeOutModal] = useState(false)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const curNumber = matchLines?.length > 0 ? matchLines?.reduce((prev, cur) => prev.concat(cur)) : []
   const handleClickSpace = async (num: number) => {
     setSelfDisabled(true)

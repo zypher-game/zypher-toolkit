@@ -3,7 +3,7 @@ import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
-import { useIsMobile } from "../../../hooks/useWindowSize";
+import { useIsW768 } from "../../../hooks/useWindowSize";
 
 // import AccountInfoDialog from "../../ConnectWallet/components/AccountInfoDialog";
 import Balance from "../../ConnectWallet/components/Balance/Balance";
@@ -33,6 +33,7 @@ const Account = memo(
     CountupNumber,
     supportedChainList,
     type,
+    hideRefresh,
   }: {
     showLang: boolean;
     env: string;
@@ -43,8 +44,10 @@ const Account = memo(
     setErrorToast: any;
     supportedChainList?: ChainId[];
     type: HeaderUIType;
+    hideRefresh?: boolean;
   }) => {
-    const isMobile = useIsMobile();
+    console.log({ showLang });
+    const isMobile = useIsW768();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
     const showPointsModal = useCallback(() => {
       setPointsDialogState(true);
@@ -57,6 +60,7 @@ const Account = memo(
     return (
       <>
         <Balance
+          hideRefresh={hideRefresh}
           CountupNumber={CountupNumber}
           env={env}
           isMobile={isMobile}
@@ -71,17 +75,14 @@ const Account = memo(
           <PlayerAvatar
             className="account"
             account={account}
-            size={isMobile ? 26 : 40}
+            size={isMobile ? 30 : 40}
             showAccount={isMobile ? false : true}
             type={type}
           />
           {type === "pixel" ? <AddressWrapPop copy={copy} type={type} /> : null}
-          {/* <img
-            className="hat"
-            src="https://static.zypher.game/img/layout/hat.png"
-          /> */}
         </IsPixelWidget>
         {!isMobile && <ChainSelectorWidget type={type} />}
+
         {type !== "pixel" ? (
           <AccountInfoDialog copy={copy} type={type} />
         ) : null}

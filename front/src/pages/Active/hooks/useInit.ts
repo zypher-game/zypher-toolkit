@@ -57,8 +57,9 @@ export const useInit = () => {
     getData()
   }, [account, chainId])
   useEffect(() => {
+    console.log({ a: 1111 })
     setActiveData(pre => {
-      return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? pre : initActiveData
+      return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? { ...pre } : { ...initActiveData }
     })
   }, [account, chainId])
   return {

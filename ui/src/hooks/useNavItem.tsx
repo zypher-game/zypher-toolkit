@@ -3,7 +3,7 @@ import { useSetRecoilState } from "recoil";
 
 import { LngNs } from "../utils/i18n";
 import { useCustomTranslation } from "./useCustomTranslation";
-import { useIsMobile } from "./useWindowSize";
+import { useIsW768 } from "./useWindowSize";
 import { defaultSelectedKey } from "../components/SideBar/state";
 import { INavLink, INavLinkType } from "./useNavItem.type";
 import { useActiveWeb3React } from "./useActiveWeb3React";
@@ -35,7 +35,7 @@ export const blankLinkList = [
 ];
 
 export const usePathname = () => {
-  const isMobile = useIsMobile();
+  const isMobile = useIsW768();
   const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
   useEffect(() => {
     const path = window.location.hash.split("/");

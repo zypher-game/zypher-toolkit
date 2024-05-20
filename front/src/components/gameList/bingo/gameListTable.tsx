@@ -1,5 +1,5 @@
 import { useCustomTranslation } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { ChainId, IBingoInfo, IGameList, IGameStatus } from '@ui/src'
 import { List } from 'antd'
@@ -33,7 +33,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
     }
     return dataSource.slice(0, 20)
   }, [dataSource.length, selectValue])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const columns = useMemo(() => {
     return [
       {

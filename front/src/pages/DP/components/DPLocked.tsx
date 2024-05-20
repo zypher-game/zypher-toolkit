@@ -1,5 +1,5 @@
 import { LngNs, useCustomTranslation, useSetRecoilState } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useState } from 'react'
 
@@ -27,7 +27,7 @@ const DPLocked = memo(
     dpData: IDPData
     lockedViewList?: ILockedItem[]
   }) => {
-    const isMobile = useIsMobile()
+    const isMobile = useIsW768()
     const { t } = useCustomTranslation([LngNs.dp])
     const [show, setShow] = useState(false)
     const setIsModalOpen = useSetRecoilState(viewDPLockedDpsDialogState)
@@ -107,7 +107,7 @@ const DPLocked = memo(
 )
 const ShowTableDetail = memo(({ lockedViewList }: { lockedViewList?: ILockedItem[] }) => {
   const { t } = useCustomTranslation([LngNs.dp])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   if (!lockedViewList || lockedViewList.length === 0) {
     return <NoDataPage style={{ padding: '20px 0 30px' }} />
   }

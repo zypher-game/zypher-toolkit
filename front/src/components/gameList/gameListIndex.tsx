@@ -1,4 +1,4 @@
-import { ChainId, IGameList, IGameName, useIsMobile } from '@ui/src'
+import { ChainId, IGameList, IGameName, useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useState } from 'react'
 import { Link } from 'react-router-dom'
@@ -33,7 +33,7 @@ const GameListIndex = memo(
   }: IGameListProps) => {
     const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
     const [chooseGame, setChooseGame] = useState<IGameName>(IGameName.z2048)
-    const isMobile = useIsMobile()
+    const isMobile = useIsW768()
     return (
       <div className={css.gameListIndex}>
         {showFilter ? (

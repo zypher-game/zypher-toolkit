@@ -14,7 +14,7 @@ export interface IActiveData {
   chainId?: ChainId
   accountAddress: Address
   id: string
-  isInitLoading: boolean // useInit 初始化fetch
+  isInitLoading?: boolean // useInit 初始化fetch
   isRegistered: boolean // 账号是否已注册
   invitationCode: string // 邀请码
   signedFalse: boolean // 拒绝签名
@@ -62,7 +62,6 @@ export interface IActiveData {
 export const initActiveData: IActiveData = {
   accountAddress: AddressZero,
   id: '',
-  isInitLoading: false,
   isRegistered: false,
   signedFalse: false,
   signedStr: '',

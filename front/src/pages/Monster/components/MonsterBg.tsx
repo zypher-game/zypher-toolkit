@@ -1,5 +1,5 @@
 import { preStaticUrl } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 import styled from 'styled-components'
@@ -52,7 +52,7 @@ type IProps = {
   monsterStatus: IMonsterStatus
 }
 const MonsterBg = memo(({ monsterStatus }: IProps) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <MonsterBgStyled className={monsterStatus}>
       <img src={preStaticUrl + `/img/monster/bg${isMobile ? '_m' : ''}.jpg`} alt="" />

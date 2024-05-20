@@ -14,6 +14,7 @@ module.exports = {
     main: './src/index'
   },
   output: {
+    publicPath: '/',
     filename: '[name].[contenthash:8].bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,

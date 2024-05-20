@@ -1,7 +1,7 @@
 import { AddressZero } from '@ethersproject/constants'
 import { PixelBorderCard, PlayerAvatar } from '@ui/src'
 import { IGameList, IGameStatus, useCustomTranslation } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
@@ -17,7 +17,7 @@ interface IProps {
   item: IGameList
 }
 const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { t } = useCustomTranslation([LngNs.home])
   const Len = useMemo(() => {
     const str = `${item.winnerOrPlayers}`

@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 
-import { useIsMobile } from "../../../../hooks/useWindowSize";
+import { useIsW768 } from "../../../../hooks/useWindowSize";
 import * as config from "../../../../constant/constant";
 import { useRecoilState } from "recoil";
 import {
@@ -45,7 +45,7 @@ type IProps = {
 };
 const ChainSelectorWidget = memo(({ className, type }: IProps) => {
   const { chainId } = useActiveWeb3React();
-  const isMobile = useIsMobile();
+  const isMobile = useIsW768();
   const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
     accountInfoDialogState
   );

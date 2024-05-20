@@ -115,7 +115,7 @@ const ActiveChooseHunter = memo(() => {
               </ActivePixelCard>
               <p>{hero[heroKey].detail}</p>
             </ActivePixelCard>
-            <ActivePixelButtonColor pixel_height={5} width="100%" height="52px" onClick={heroConfirmHandle}>
+            <ActivePixelButtonColor pixel_height={5} width="100%" height="52px" onClick={heroConfirmHandle} disable={isHeroLoading}>
               <p>Confirm</p>
               <LoadingButton isLoading={isHeroLoading} />
             </ActivePixelButtonColor>

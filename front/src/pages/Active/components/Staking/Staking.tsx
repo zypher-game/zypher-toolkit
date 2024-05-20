@@ -125,18 +125,24 @@ const Staking = memo(() => {
       if (!isDataLoading) {
         if (depositValue) {
           const _totalStaked = new BigNumberJs(depositValue).plus(chooseValue.userStakedAmount === '' ? '0' : chooseValue.userStakedAmount)
-          const X = new BigNumberJs(Math.ceil(new BigNumberJs(_totalStaked).toNumber())).times(10)
+          const X = new BigNumberJs(Math.ceil(new BigNumberJs(_totalStaked).toNumber())).times(10) // _totalStaked 的值向上取整就是其系数
 
-          const timestamp = +(chooseValue.END_TIME ?? '0') // 给定的时间戳（秒）
-          const nowTimestamp = Date.now() / 1000 // 当前时间戳（转换为秒）
-          const futureDate = new Date(timestamp * 1000) // 将时间戳转换为JavaScript Date对象
-          const currentDate = new Date(nowTimestamp * 1000) // 当前时间的Date对象
+          const END_TIME = +(chooseValue.END_TIME ?? '0') // 从合约获取的时间
+          console.log({ END_TIME })
+          const nowTimestamp = Date.now() / 1000 // 当前时间
+          const END_TIMEDate = new Date(END_TIME * 1000)
+          const currentDate = new Date(nowTimestamp * 1000)
+          console.log({ END_TIMEDate })
 
-          const differenceInMilliseconds = futureDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒）
+          const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
+          console.log({ differenceInMilliseconds })
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
+          console.log({ differenceInDays })
 
-          const _earnPoints = X.plus(new BigNumberJs(depositValue))
-          const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints)
+          const _earnPoints = X.plus(new BigNumberJs(depositValue)) // 系数值 + 输入值
+          console.log({ _earnPoints })
+          const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints) // 还剩多少天 乘 _earnPoints
+          console.log({ _finalPoints })
           return {
             totalStaked: _totalStaked.toFormat(2),
             earnPoints: _earnPoints.toFormat(2),
@@ -161,7 +167,7 @@ const Staking = memo(() => {
         <div className={css.staking_token_detail_fr}>
           <p className={css.balance}>
             Balance: {chooseValue.balanceStr}
-            <LoadingButton isLoading={isDataLoading} />
+            {chooseValue.balanceStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
           <TokenWithChain chainId={chainIdLocal} token={chooseValue} />
           <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
@@ -200,7 +206,15 @@ const Staking = memo(() => {
           <p>Released every week</p>
         </li>
       </ul>
-      <ActivePixelButtonColor className="staking_confirm" width="100%" height="52px" backgroundColor="#1649FF" pixel_height={5} onClick={deposit}>
+      <ActivePixelButtonColor
+        className="staking_confirm"
+        width="100%"
+        height="52px"
+        backgroundColor="#1649FF"
+        pixel_height={5}
+        onClick={deposit}
+        disable={isDepositLoading || isApproveLoading}
+      >
         <p>{btnLabel}</p>
         <LoadingButton isLoading={isDepositLoading || isApproveLoading} />
       </ActivePixelButtonColor>

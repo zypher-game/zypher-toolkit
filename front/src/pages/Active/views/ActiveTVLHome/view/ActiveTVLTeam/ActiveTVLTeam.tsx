@@ -37,6 +37,7 @@ const ActiveTVLTeam = memo(() => {
   const { chainId } = useActiveWeb3React()
   const [showTeamWarn, setShowTeamWarn] = useState(0)
   const { groupGoal, availableCode, teamMembers, activeData, openCard } = useTeam()
+  console.log({ teamMembers })
   const stakingHandle = useCallback(() => {
     setIsTvlStakingModalOpen(true)
   }, [])
@@ -87,7 +88,7 @@ const ActiveTVLTeam = memo(() => {
                     <p>{getNickname(v.nickname)}</p>
                   </div>
                   <div className={css.team_item_fr}>
-                    <p>{v.staking}</p>
+                    <p>{v.stakingStr}</p>
                     <SvgComponent src={ChainImage[chainId]} />
                   </div>
                 </PixelCube3>

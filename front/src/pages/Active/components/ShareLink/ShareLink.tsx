@@ -15,7 +15,7 @@ const ShareLink = memo(({ css, preWidth, nextWidth, pixel_styled }: { preWidth: 
   const { account } = useActiveWeb3React()
   const navigate = useNavigate()
   const location = useLocation()
-  const { height, pixel_height, small_pixel_height, backgroundColor, borderBottomColor, borderTopColor } = pixel_styled
+  const { height, pixel_height, backgroundColor, borderBottomColor, borderTopColor } = pixel_styled
   const twitterShare = useMemo(() => {
     if (account) {
       const title01 = '🔥 Get set for an exhilarating journey! 🙌 Join me at Zypher Games with my exclusive invitation link'
@@ -54,7 +54,6 @@ const ShareLink = memo(({ css, preWidth, nextWidth, pixel_styled }: { preWidth: 
         width={preWidth}
         height={height}
         pixel_height={pixel_height}
-        small_pixel_height={small_pixel_height}
         backgroundColor={backgroundColor}
         borderBottomColor={borderBottomColor}
         borderTopColor={borderTopColor}
@@ -71,10 +70,10 @@ const ShareLink = memo(({ css, preWidth, nextWidth, pixel_styled }: { preWidth: 
         width={nextWidth}
         height={height}
         pixel_height={pixel_height}
-        small_pixel_height={small_pixel_height}
         backgroundColor={backgroundColor}
         borderBottomColor={borderBottomColor}
         borderTopColor={borderTopColor}
+        disable={loading}
       >
         <p>Verify</p>
         <LoadingButton isLoading={loading} />

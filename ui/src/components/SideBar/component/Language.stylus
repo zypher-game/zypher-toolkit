@@ -1,3 +1,18 @@
+div .address_wrap_pop_lang
+  position absolute
+  top: 50px;
+  right: 10px;
+  width: 220px
+  z-index: 4;
+  overflow: hidden
+  transition: height 0.3s ease
+
+  >.pixel_flat_inner
+    padding: 10px
+    flex-direction: column
+    justify-content: flex-start
+    align-items: flex-start
+    gap: 10px
 .language_top
   display: flex;
   justify-content: center;
@@ -52,10 +67,8 @@
   width: 40px
   height: 40px
   @media screen and (max-width: 768px)
-    width: 28px
-    height: 28px
-  .pixel_flat_btn_bg > div 
-      background-color: #3E4350
+    width: 30px
+    height: 30px
   .pixel_img_lang
     width: 26px
     height: 26px

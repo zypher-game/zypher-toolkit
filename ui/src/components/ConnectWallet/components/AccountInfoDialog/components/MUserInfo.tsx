@@ -4,7 +4,7 @@ import React, { memo, useMemo } from "react";
 
 import CurrencyLogo from "../../../../CurrencyLogo";
 import PlayerAvatar from "../../../../PlayerAvatar";
-import { useIsMobile } from "../../../../../hooks/useWindowSize";
+import { useIsW768 } from "../../../../../hooks/useWindowSize";
 import { PointsIcon } from "../../../../icons/PointsIcon/PointsIcon";
 import {
   Currency,
@@ -25,7 +25,7 @@ const MUserInfo = memo(({ account, chainId, cancel, type }: IUserInfoProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
-  const isMobile = useIsMobile();
+  const isMobile = useIsW768();
   const list = useMemo(() => {
     return [
       {

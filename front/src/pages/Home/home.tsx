@@ -1,4 +1,4 @@
-import { IsMdProvider, useIsMobile } from '@ui/src'
+import { IsMdProvider, useIsW768 } from '@ui/src'
 import React from 'react'
 
 import GameListIndex from '@/components/gameList/gameListIndex'
@@ -16,7 +16,7 @@ const Home: React.FC = () => {
   const { bingoHasError, bingoDataSource, z2048Source, z2048HasError, bingoDataSourceLoading, z2048DataSourceLoading } = useGameListIndex()
 
   const { data } = useDataInfo()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <IsMdProvider>
       {/* <ButtonFollowerCount /> */}

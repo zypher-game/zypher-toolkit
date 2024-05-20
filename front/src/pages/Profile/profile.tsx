@@ -1,4 +1,4 @@
-import { IGameList, LngNs, useActiveWeb3React, useCustomTranslation, useIsMobile, useRecoilState } from '@ui/src'
+import { IGameList, LngNs, useActiveWeb3React, useCustomTranslation, useIsW768, useRecoilState } from '@ui/src'
 import React, { memo, useState } from 'react'
 
 import GameListIndex from '@/components/gameList/gameListIndex'
@@ -27,7 +27,7 @@ const Profile = memo((): React.ReactElement | null => {
   const { list: bingoList, listLoading: bingoListLoading } = useBingoCard({ tab, bingoHistoryList })
   const { list: z2048List, listLoading: z2048ListLoading } = useZ2048Card({ tab, z2048HistoryList })
 
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { t } = useCustomTranslation([LngNs.profile])
 
   return (

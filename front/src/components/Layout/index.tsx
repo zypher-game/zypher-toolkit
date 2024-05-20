@@ -1,6 +1,6 @@
 import './index.styl'
 
-import { Header, siderCollapseState, useIsMd1100, useRecoilValue } from '@ui/src'
+import { Header, siderCollapseState, useIsW1100, useRecoilValue } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
@@ -24,7 +24,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
   const location = useLocation()
   const [pathnameArr, setPathname] = useState<string[]>([])
   const collapsed = useRecoilValue(siderCollapseState)
-  const isMobile = useIsMd1100()
+  const isMobile = useIsW1100()
   const [zIndex, setZIndex] = useState(21)
   const dispatch = useAppDispatch()
 
@@ -54,7 +54,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         copy={copy}
         useNavigate={useNavigate}
         useLocation={useLocation}
-        showLang={false}
+        showLang={true}
         CountupNumber={CountupNumber}
         type="pixel"
         pathname={pathnameArr[1]}

@@ -1,4 +1,4 @@
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { preStaticUrl } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useCallback } from 'react'
@@ -9,7 +9,7 @@ import { IBingoPointApi } from '../hooks'
 import css from './bannerv1.module.stylus'
 
 const BannerV1Widget: FC<IBingoPointApi> = memo(() => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const flOnclikHandle = useCallback(() => {
     return toBingoHref()
   }, [])

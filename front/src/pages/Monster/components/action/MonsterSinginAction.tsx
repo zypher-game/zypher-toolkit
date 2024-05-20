@@ -1,7 +1,7 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { preStaticUrl } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { Button, Tooltip } from 'antd'
 import classnames from 'classnames'
@@ -24,7 +24,7 @@ const MonsterSinginAction = memo(
     monsterUserStatus
   }: IMonsterBottom) => {
     const { t } = useCustomTranslation([LngNs.defense])
-    const isMobile = useIsMobile()
+    const isMobile = useIsW768()
     const width = useMemo(() => {
       if (isMobile) {
         return 'calc(30vw * 3 + 36px * 3 - 36px * 2 + 4px)'

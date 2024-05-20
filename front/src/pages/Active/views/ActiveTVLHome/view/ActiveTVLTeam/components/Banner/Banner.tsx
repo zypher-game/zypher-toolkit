@@ -31,7 +31,6 @@ const Banner = memo(() => {
           css={ShareLinkcss}
           pixel_styled={{
             pixel_height: 3,
-            small_pixel_height: 3,
             borderBottomColor: '#D99716',
             borderTopColor: '#FFE99A',
             backgroundColor: '#FFD02B',

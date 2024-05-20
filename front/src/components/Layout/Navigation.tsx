@@ -1,9 +1,9 @@
-import { preStaticUrl, useIsMd1220 } from '@ui/src'
-import React, { forwardRef, memo, Ref, useCallback, useEffect, useRef, useState } from 'react'
+import { preStaticUrl, useIsW1220, useWindowSize } from '@ui/src'
+import React, { forwardRef, memo, Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Link, LinkProps } from 'react-router-dom'
 
 import sleep from '@/utils/sleep'
-export const NavKey = [['', 'airdrop'], ['games']]
+export const NavKey = [['', 'airdrop', 'airdropLoading'], ['games'], ['zeroGas']]
 type NavLinkProps = {
   label: string
   ref: Ref<HTMLAnchorElement> | undefined
@@ -19,29 +19,40 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
   const [chooseIndex, setChooseIndex] = useState<number | null | undefined>(null)
   const [activeIndex, setActiveIndex] = useState<number | null | undefined>(null)
   const linksRefs = useRef<(HTMLAnchorElement | null)[]>([])
-  const isM1200 = useIsMd1220()
+  const { width } = useWindowSize()
+  const { isW768, isW1670, isWBig } = useMemo(() => {
+    return {
+      isW768: width <= 768,
+      isW1540: width <= 1540 && width > 768,
+      isW1670: width < 1670 && width > 1540,
+      isWBig: width >= 1670
+    }
+  }, [width])
   const init = useCallback(async () => {
-    if (!isM1200) {
-      let index = null
-      if (NavKey[0].includes(pathname)) {
-        index = 0
-      } else if (NavKey[1].includes(pathname)) {
-        index = 1
-      }
-      if (index !== null) {
+    if (!isW768) {
+      const index = NavKey.findIndex(key => key.includes(pathname))
+      console.log({ sdafasdf: index })
+      if (index > -1) {
         setChooseIndex(index)
         setActiveIndex(index)
       }
     }
-  }, [pathname, isM1200])
+  }, [pathname, isW768])
   useEffect(() => {
     init()
   }, [init])
   const init2 = useCallback(async () => {
-    if (!isM1200) {
-      linksRefs.current.forEach((linkRef, index) => {
+    if (!isW768) {
+      linksRefs.current.forEach(async (linkRef, index) => {
         if (linkRef?.className === 'nav_on') {
-          setActiveIndex(index)
+          const w = hasFontWeight600(linkRef)
+          if (!w) {
+            await sleep(0.2)
+          }
+          if (w) {
+            console.log({ linkRefclassName: index })
+            setActiveIndex(index)
+          }
         }
         if (chooseIndex !== null) {
           const handleMouseEnter = () => {
@@ -63,10 +74,11 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
         }
       })
     }
-  }, [isM1200, chooseIndex, pathname])
+  }, [chooseIndex, pathname])
   useEffect(() => {
     init2()
-  }, [init2])
+  }, [chooseIndex, pathname])
+
   const updateLinePosition = useCallback(async () => {
     if (activeIndex !== null && activeIndex !== undefined && linksRefs.current[activeIndex]) {
       const line = document.querySelector('.pixel_line') as HTMLElement
@@ -86,25 +98,17 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
         }
       }
     }
-  }, [chooseIndex, activeIndex, pathname])
+  }, [chooseIndex, activeIndex, pathname, linksRefs])
   useEffect(() => {
-    // const loadFont = async () => {
-    //   const myFont = new FontFaceObserver('PixeloidSans', {
-    //     weight: 600
-    //   })
-    //   try {
-    //     await myFont.load()
-    //     console.log('Font is available')
-    //     updateLinePosition()
-    //   } catch (error) {
-    //     console.error('Font is not available')
-    //     updateLinePosition()
-    //   }
-    // }
-    // loadFont()
     updateLinePosition()
-  }, [updateLinePosition])
-
+  }, [chooseIndex, activeIndex, pathname])
+  console.log({ isW768, isW1670, isWBig })
+  useEffect(() => {
+    ;(async () => {
+      await sleep(0.3)
+      updateLinePosition()
+    })()
+  }, [isW768, isW1670, isWBig])
   return (
     <div className="nav">
       <NavLink
@@ -119,7 +123,13 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
         className={`nav_games ${NavKey[1].includes(pathname) ? 'nav_on' : ''}`}
         ref={ref => (linksRefs.current[1] = ref)}
       />
-      <a className="nav_network" href="https://zypher.network/" target="_blank" rel="noreferrer" ref={ref => (linksRefs.current[2] = ref)}>
+      <NavLink
+        to={NavKey[2][0]}
+        label="Zero Gas"
+        className={`nav_zero_gas ${NavKey[2].includes(pathname) ? 'nav_on' : ''}`}
+        ref={ref => (linksRefs.current[2] = ref)}
+      />
+      <a className="nav_network" href="https://zypher.network/" target="_blank" rel="noreferrer" ref={ref => (linksRefs.current[3] = ref)}>
         Zypher Network
         <img src={preStaticUrl + '/img/icon/pixel_link.svg'} alt="pixel_link" className="nav_img" />
       </a>
@@ -127,5 +137,15 @@ const Navigation: React.FC<{ pathname: string }> = memo(({ pathname }: { pathnam
     </div>
   )
 })
+function hasFontWeight600(element: HTMLAnchorElement | null): boolean {
+  if (!element) {
+    return false
+  }
 
+  const computedStyle = window.getComputedStyle(element)
+  const fontWeight = computedStyle.getPropertyValue('font-weight')
+  console.log({ fontWeight })
+  // 类型断言，确保 fontWeight 是 string 类型，尽管在实际应用中这应该是安全的
+  return fontWeight === ('600' as unknown as string)
+}
 export default Navigation

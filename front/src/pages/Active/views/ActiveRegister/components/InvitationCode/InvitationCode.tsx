@@ -65,7 +65,14 @@ const InvitationCode = memo(({ isComing }: { isComing?: boolean }) => {
     <div className={css.invitationCode}>
       <h5>Enter the invitation code</h5>
       <InputCode setCodeStr={setCodeStr} />
-      <ActivePixelButtonColor className={css.join} onClick={checkInvitationCode} width="216px" height="52px" pixel_height={5}>
+      <ActivePixelButtonColor
+        className={css.join}
+        onClick={checkInvitationCode}
+        width="216px"
+        height="52px"
+        pixel_height={5}
+        disable={loading || activeData.isInitLoading}
+      >
         <p>{isComing ? 'Coming Soom' : 'Join Now'}</p>
         <LoadingButton isLoading={loading || activeData.isInitLoading} />
       </ActivePixelButtonColor>

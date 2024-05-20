@@ -9,6 +9,13 @@ import { useCurrentLanguage } from "../../../hooks/useCurrentLanguage";
 import classnames from "classnames";
 import "./Language.stylus";
 import PixelFlatBtn from "../../PixelBtn/PixelFlatBtn";
+import {
+  PixelBorderCard,
+  PixelBorderCardButton,
+  PixelCube2,
+} from "../../PixelBtn/ActivePixelButton";
+import SvgComponent from "../../SvgComponent/SvgComponent";
+import IsPixelWidget from "../../Header/rainbow_account/IsPixelWidget";
 type IProps = {
   type: "side" | "top" | "pixel";
 };
@@ -71,12 +78,12 @@ const Language = memo(({ type }: IProps) => {
             />
           </>
         ) : type === "pixel" ? (
-          <PixelFlatBtn className="pixel_logo">
+          <IsPixelWidget className="pixel_logo" type={type}>
             <img
               src={preStaticUrl + `/img/layout/${lang}.png`}
               className="pixel_img_lang"
             />
-          </PixelFlatBtn>
+          </IsPixelWidget>
         ) : (
           <>
             <p>{t("language")}</p>
@@ -90,19 +97,53 @@ const Language = memo(({ type }: IProps) => {
         )}
       </div>
       {show ? (
-        <ul className="languageItemTip">
+        <PixelBorderCard
+          className="address_wrap_pop_lang"
+          // className="languageItemTip"
+          pixel_height={4}
+          backgroundColor="#1D263B"
+          borderColor="#3A4254"
+        >
           {languageList.map((v) => (
-            <li
+            <PopItem
               key={v.label}
-              className="languageItemOn"
               onClick={() => changeLanguageHandle(v)}
-            >
-              {v.label}
-            </li>
+              iconName={v.img}
+              label={v.label}
+              on={v.keyValue === lang}
+            />
           ))}
-        </ul>
+        </PixelBorderCard>
       ) : null}
     </div>
   );
 }, isEqual);
+const PopItem = memo(
+  ({
+    iconName,
+    label,
+    onClick,
+    on,
+  }: {
+    iconName: string;
+    label: string;
+    onClick: any;
+    on: boolean;
+  }) => {
+    return (
+      <PixelCube2
+        className={`address_wrap_pop_item ${on ? "on" : ""}`}
+        onClick={onClick}
+        pixel_height={3}
+        backgroundColor="#1D263B"
+        borderColor="#1D263B"
+        width="100%"
+        height="36px"
+      >
+        <SvgComponent src={iconName} />
+        <p>{label}</p>
+      </PixelCube2>
+    );
+  }
+);
 export default Language;

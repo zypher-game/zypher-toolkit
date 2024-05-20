@@ -10,6 +10,7 @@ export type ITeamMember = {
   headImg: string
   nickname: string
   staking: string
+  stakingStr: string
   role: string
 }
 export const useTeam = () => {
@@ -53,9 +54,18 @@ export const useTeam = () => {
       setLoading(false)
 
       if (_team.members) {
-        setTeamMembers(_team.members)
+        setTeamMembers(
+          _team.members.map((vd: any) => ({
+            headImg: vd.headImg,
+            nickname: vd.nickname,
+            role: vd.role,
+            staking: vd.staking,
+            stakingStr: new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFixed(2)
+          }))
+        )
         setActiveData(pre => ({
-          ...pre,
+          staking: `${_team['userInfo']['staking']}`,
+          stakingStr: new BigNumberJs(`${_team['userInfo']['staking']}`).dividedBy(divisorBigNumber).toFixed(2),
           airdropPoints: _team['userInfo']['points'],
           ranking: `${_team['userInfo']['rank']}`,
           airdropPointsCardNumber: point['cardNum']

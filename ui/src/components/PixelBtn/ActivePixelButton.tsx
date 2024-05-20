@@ -7,13 +7,9 @@ type IChildren = {
 export type IPixelProps = {
   className?: string;
   onClick?: any;
-  isLoading?: boolean;
   pixel_height: number;
-  small_pixel_height?: number;
-  smallWidth?: string;
   width?: string;
   height?: string;
-  smallHeight?: string;
   borderBottomColor?: string;
   borderTopColor?: string;
   borderColor?: string;
@@ -44,68 +40,33 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
       height: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        height: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
     }
     > .pixel_flat_btn_inner {
       height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
       top: calc(${({ pixel_height }) => pixel_height}px * 2);
       left: 0;
-      @media screen and (max-width: 768px) {
-        height: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        top: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
     }
 
     > .pixel_flat_btn_top_1 {
       top: 0;
       width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
       left: calc(${({ pixel_height }) => pixel_height}px * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
     }
     > .pixel_flat_btn_top_2 {
       width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
       top: ${({ pixel_height }) => pixel_height}px;
       left: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
-        );
-        top: ${({ small_pixel_height }) => small_pixel_height}px;
-        left: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
     }
 
     > .pixel_flat_btn_bottom_2 {
       bottom: 0;
       width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
       left: calc(${({ pixel_height }) => pixel_height}px * 2);
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 4
-        );
-        left: calc(${({ small_pixel_height }) => small_pixel_height}px * 2);
-      }
     }
     > .pixel_flat_btn_bottom_1 {
       width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
       bottom: ${({ pixel_height }) => pixel_height}px;
       left: ${({ pixel_height }) => pixel_height}px;
-      @media screen and (max-width: 768px) {
-        width: calc(
-          100% - ${({ small_pixel_height }) => small_pixel_height}px * 2
-        );
-        bottom: ${({ small_pixel_height }) => small_pixel_height}px;
-        left: ${({ small_pixel_height }) => small_pixel_height}px;
-      }
     }
   }
   > .pixel_flat_inner {
@@ -114,13 +75,7 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
   }
 `;
 export const ActivePixelCard = memo((props: IPixel) => {
-  const {
-    pixel_height,
-
-    small_pixel_height,
-
-    onClick,
-  } = props;
+  const { onClick } = props;
   const lastClickTimeRef = useRef(Date.now());
   const clickHandle = useCallback(() => {
     const currentTime = Date.now();
@@ -136,13 +91,7 @@ export const ActivePixelCard = memo((props: IPixel) => {
       onClick();
     }
   }, [onClick]);
-  return (
-    <PixelStyled
-      {...props}
-      onClick={clickHandle}
-      small_pixel_height={small_pixel_height ?? pixel_height}
-    />
-  );
+  return <PixelStyled {...props} onClick={clickHandle} />;
 });
 
 const ActivePixelCardStyled = styled(ActivePixelCard)`
@@ -151,15 +100,11 @@ const ActivePixelCardStyled = styled(ActivePixelCard)`
 export const ActivePixelButton = memo((props: IPixel) => {
   const {
     className,
-    isLoading,
     borderColor,
     backgroundColor,
     pixel_height,
     width,
-    smallWidth,
     height,
-    smallHeight,
-    small_pixel_height,
   } = props;
   return (
     <ActivePixelCardStyled
@@ -169,11 +114,7 @@ export const ActivePixelButton = memo((props: IPixel) => {
       backgroundColor={backgroundColor}
       width={width}
       height={height}
-      isLoading={isLoading}
       borderColor={borderColor}
-      small_pixel_height={small_pixel_height}
-      smallWidth={smallWidth}
-      smallHeight={smallHeight}
     />
   );
 });
@@ -191,10 +132,6 @@ const PixelColorStyled = styled(PixelStyled)<IPixel>`
         position: absolute;
         width: ${({ pixel_height }) => pixel_height}px;
         height: ${({ pixel_height }) => pixel_height}px;
-        @media screen and (max-width: 768px) {
-          width: ${({ small_pixel_height }) => small_pixel_height}px;
-          height: ${({ small_pixel_height }) => small_pixel_height}px;
-        }
       }
       &:before {
         top: 0;
@@ -215,10 +152,6 @@ const PixelColorStyled = styled(PixelStyled)<IPixel>`
     > .pixel_flat_btn_top_2 {
       border-left: ${({ pixel_height }) => pixel_height}px solid
         ${({ borderTopColor }) => borderTopColor ?? "#3360ff"};
-      @media screen and (max-width: 768px) {
-        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
-          ${({ borderTopColor }) => borderTopColor ?? "#3360ff"};
-      }
     }
     > .pixel_flat_btn_bottom_2 {
       background-color: ${({ borderBottomColor }) =>
@@ -227,25 +160,17 @@ const PixelColorStyled = styled(PixelStyled)<IPixel>`
     > .pixel_flat_btn_bottom_1 {
       border-right: ${({ pixel_height }) => pixel_height}px solid
         ${({ borderBottomColor }) => borderBottomColor ?? "#0f33b2"};
-      @media screen and (max-width: 768px) {
-        border-left: ${({ small_pixel_height }) => small_pixel_height}px solid
-          ${({ borderBottomColor }) => borderBottomColor ?? "#0f33b2"};
-      }
     }
   }
 `;
 export const ActivePixelColorCard = memo((props: IPixel) => {
   const {
     className,
-    isLoading,
     borderColor,
     backgroundColor,
     pixel_height,
     width,
-    smallWidth,
     height,
-    smallHeight,
-    small_pixel_height,
   } = props;
   return (
     <PixelColorStyled
@@ -255,11 +180,7 @@ export const ActivePixelColorCard = memo((props: IPixel) => {
       backgroundColor={backgroundColor}
       width={width}
       height={height}
-      isLoading={isLoading}
       borderColor={borderColor}
-      small_pixel_height={pixel_height ?? small_pixel_height}
-      smallWidth={smallWidth}
-      smallHeight={smallHeight}
     />
   );
 });
@@ -354,7 +275,6 @@ export const PixelBorderCard = memo((props: IPixel) => {
   const {
     className,
     pixel_height,
-    small_pixel_height,
     width,
     height,
     backgroundColor,
@@ -387,7 +307,6 @@ export const PixelBorderCard = memo((props: IPixel) => {
       borderColor={borderColor}
       className={`${className} pixelBorderCard`}
       showHover={showHover}
-      small_pixel_height={pixel_height ?? small_pixel_height}
       onClick={clickHandle}
     />
   );
@@ -432,15 +351,11 @@ const PixelCube2Styled = styled(PixelStyled)<IPixel>`
 export const PixelCube2 = memo((props: IPixel) => {
   const {
     className,
-    isLoading,
     borderColor,
     backgroundColor,
     pixel_height,
     width,
-    smallWidth,
     height,
-    smallHeight,
-    small_pixel_height,
     borderTopColor,
     borderBottomColor,
   } = props;
@@ -452,11 +367,7 @@ export const PixelCube2 = memo((props: IPixel) => {
       backgroundColor={backgroundColor}
       width={width}
       height={height}
-      isLoading={isLoading}
       borderColor={borderColor}
-      small_pixel_height={small_pixel_height ?? pixel_height}
-      smallWidth={smallWidth}
-      smallHeight={smallHeight}
       borderTopColor={borderTopColor}
       borderBottomColor={borderBottomColor}
     />
@@ -535,14 +446,8 @@ const PixelCube3Styled = styled(PixelCube2)<IPixel>`
 `;
 
 export const PixelCube3 = memo((props: IPixel) => {
-  const { pixel_height, small_pixel_height, size } = props;
-  return (
-    <PixelCube3Styled
-      {...props}
-      size={size ?? 3}
-      small_pixel_height={small_pixel_height ?? pixel_height}
-    />
-  );
+  const { size } = props;
+  return <PixelCube3Styled {...props} size={size ?? 3} />;
 });
 
 const PixelCube5Styled = styled(PixelCube3Styled)<IPixel>`
@@ -583,14 +488,8 @@ const PixelCube5Styled = styled(PixelCube3Styled)<IPixel>`
 `;
 
 export const PixelCube5 = memo((props: IPixel) => {
-  const { pixel_height, small_pixel_height, size } = props;
-  return (
-    <PixelCube5Styled
-      {...props}
-      small_pixel_height={small_pixel_height ?? pixel_height}
-      size={size ?? 5}
-    />
-  );
+  const { size } = props;
+  return <PixelCube5Styled {...props} size={size ?? 5} />;
 });
 
 const PixelBorderCardStyled = styled(PixelBorderCard)`

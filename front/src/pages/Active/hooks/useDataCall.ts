@@ -5,7 +5,7 @@ import { Address } from 'wagmi'
 import BigNumberJs from '@/utils/BigNumberJs'
 
 import { getLinkPre, TVL_API } from '../constants/activeConstants'
-import { IRestakingItem } from '../state/activeState'
+import { initActiveData, IRestakingItem } from '../state/activeState'
 import { form_info, form_primary_score } from '../utils/formmate'
 import { IRankBoard } from './useLeaderboard'
 
@@ -29,7 +29,6 @@ export const useGetDataCall = () => {
             'Content-Type': 'application/json'
           }
         })
-        console.log({ info_res })
         if (info_res.data) {
           const infoObj = form_info(info_res.data, chainId)
           // console.log(1)
@@ -44,8 +43,10 @@ export const useGetDataCall = () => {
           if (checkRes) {
             if (infoObj.twitter.nickname && isInit) {
               // 获取头像 有头像就注册完成了
-              const heroKey = await getHero(infoObj.id)
-
+              let heroKey
+              try {
+                heroKey = await getHero(infoObj.id)
+              } catch (e) {}
               // 获取积分
               const primary_score_res = await getPrimaryScore()
               const primaryScoreRes = form_primary_score(infoObj, primary_score_res)
@@ -68,7 +69,7 @@ export const useGetDataCall = () => {
         }
       } catch (e: any) {
         console.log('getUserInfo err', e)
-        return {}
+        return undefined
       }
     },
     [account]

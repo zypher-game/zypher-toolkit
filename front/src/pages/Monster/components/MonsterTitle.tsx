@@ -1,4 +1,4 @@
-import { LngNs, PointsIcon, useCustomTranslation, useIsMobile, useSetRecoilState } from '@ui/src'
+import { LngNs, PointsIcon, useCustomTranslation, useIsW768, useSetRecoilState } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
@@ -20,7 +20,7 @@ type IMonsterTitle = {
 }
 const MonsterTitle = memo(({ monsterStatus, fightInfo, monsterState }: IMonsterTitle) => {
   const { t } = useCustomTranslation([LngNs.defense])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const setRule1IsModalOpen = useSetRecoilState(Rule1DialogState)
   const setRule2IsModalOpen = useSetRecoilState(Rule2DialogState)
   const handleRule1Dialog = useCallback(() => {

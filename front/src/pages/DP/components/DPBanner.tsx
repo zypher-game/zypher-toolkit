@@ -1,4 +1,4 @@
-import { LngNs, preStaticUrl, useCustomTranslation, useIsMobile, useSetRecoilState } from '@ui/src'
+import { LngNs, preStaticUrl, useCustomTranslation, useIsW768, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
@@ -8,7 +8,7 @@ import css from './DPBanner.module.stylus'
 const DPBanner = memo(({ preHandleAction, dpData }: { preHandleAction: any; dpData: IDPData }) => {
   const { t } = useCustomTranslation([LngNs.dp])
   const setIsModalOpen = useSetRecoilState(dpBuyDialogState)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const buyDialogHandle = useCallback(() => {
     const isOk = preHandleAction()
     if (isOk) {

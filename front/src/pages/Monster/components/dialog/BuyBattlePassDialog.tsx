@@ -1,6 +1,6 @@
 import { CloseOutlined, LoadingOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { LngNs, pointsDialogState, PointsIcon, preStaticUrl, useCustomTranslation, useIsMobile, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { LngNs, pointsDialogState, PointsIcon, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { Button } from 'antd'
 import classnames from 'classnames'
 import React, { useCallback } from 'react'
@@ -19,7 +19,7 @@ type IProps = {
 }
 const BuyBattlePassDialog: React.FC<IProps> = ({ handleBuyBattlePass, monsterState, isBuyNftLoading, isApprove, isPointBalanceEnough }: IProps) => {
   const { t } = useCustomTranslation([LngNs.common])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const isModalOpen = useRecoilValue(buyBattlePassDialogState)
   const setIsModalOpen = useSetRecoilState(buyBattlePassDialogState)
   const setPointsDialogOpen = useSetRecoilState(pointsDialogState)

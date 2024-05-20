@@ -1,5 +1,5 @@
 import { useCustomTranslation } from '@ui/src'
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { ChainId } from '@ui/src'
 import { List } from 'antd'
@@ -34,7 +34,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
     }
     return dataSource.slice(0, 20)
   }, [dataSource.length, selectValue])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const columns = useMemo(() => {
     return [
       {

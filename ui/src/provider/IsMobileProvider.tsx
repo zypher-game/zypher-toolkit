@@ -4,10 +4,10 @@ import { atom, useRecoilState } from "recoil";
 import useWindowSize from "../hooks/useWindowSize";
 import { localStorageEffect } from "../utils/localStorageEffect";
 
-export const isMobileState = atom({
-  key: "isMobileState",
+export const isW768State = atom({
+  key: "isW768State",
   default: false,
-  effects_UNSTABLE: [localStorageEffect("isMobileState")],
+  effects_UNSTABLE: [localStorageEffect("isW768State")],
 });
 
 const isWMdState = atom({
@@ -16,23 +16,23 @@ const isWMdState = atom({
   effects_UNSTABLE: [localStorageEffect("isWMdState")],
 });
 
-const isWMd1100State = atom({
-  key: "isWMd1100State",
+const isW1100State = atom({
+  key: "isW1100State",
   default: false,
-  effects_UNSTABLE: [localStorageEffect("isWMd1100State")],
+  effects_UNSTABLE: [localStorageEffect("isW1100State")],
 });
-const isWMd1220State = atom({
-  key: "isWMd1220State",
+const isW1220State = atom({
+  key: "isW1220State",
   default: false,
-  effects_UNSTABLE: [localStorageEffect("isWMd1220State")],
+  effects_UNSTABLE: [localStorageEffect("isW1220State")],
 });
-export const IsMobileContext = createContext<boolean | undefined>(undefined);
-export const IsMdContext = createContext<boolean | undefined>(undefined);
-export const IsMd1100Context = createContext<boolean | undefined>(undefined);
-export const IsMd1220Context = createContext<boolean | undefined>(undefined);
+export const IsW768Context = createContext<boolean | undefined>(undefined);
+export const IsW950Context = createContext<boolean | undefined>(undefined);
+export const IsW1100Context = createContext<boolean | undefined>(undefined);
+export const IsW1220Context = createContext<boolean | undefined>(undefined);
 
-export const IsMobileProvider: React.FC = ({ children }) => {
-  const [isMobile, setIsMobile] = useRecoilState(isMobileState);
+export const IsW768Provider: React.FC = ({ children }) => {
+  const [isMobile, setIsMobile] = useRecoilState(isW768State);
   const size = useWindowSize();
   useEffect(() => {
     const nowIsMobile = size.width < 768;
@@ -42,9 +42,7 @@ export const IsMobileProvider: React.FC = ({ children }) => {
   }, [size.width, isMobile]);
 
   return (
-    <IsMobileContext.Provider value={isMobile}>
-      {children}
-    </IsMobileContext.Provider>
+    <IsW768Context.Provider value={isMobile}>{children}</IsW768Context.Provider>
   );
 };
 
@@ -58,39 +56,41 @@ export const IsMdProvider: React.FC = ({ children }) => {
     }
   }, [size.width, isWMd]);
 
-  return <IsMdContext.Provider value={isWMd}>{children}</IsMdContext.Provider>;
-};
-
-export const IsMd1100Provider: React.FC = ({ children }) => {
-  const [isWMd1100, setIsWMd1100] = useRecoilState(isWMd1100State);
-  const size = useWindowSize();
-  useEffect(() => {
-    const nowIsMd1100Mobile = size.width < 1100;
-    if (isWMd1100 !== nowIsMd1100Mobile) {
-      setIsWMd1100(nowIsMd1100Mobile);
-    }
-  }, [size.width, isWMd1100]);
-
   return (
-    <IsMd1100Context.Provider value={isWMd1100}>
-      {children}
-    </IsMd1100Context.Provider>
+    <IsW950Context.Provider value={isWMd}>{children}</IsW950Context.Provider>
   );
 };
 
-export const IsMd1220Provider: React.FC = ({ children }) => {
-  const [isWMd1220, setIsWMd1220] = useRecoilState(isWMd1220State);
+export const IsW1100Provider: React.FC = ({ children }) => {
+  const [isW1100, setIsW1100] = useRecoilState(isW1100State);
   const size = useWindowSize();
   useEffect(() => {
-    const nowIsMd1220Mobile = size.width < 1220;
-    if (isWMd1220 !== nowIsMd1220Mobile) {
-      setIsWMd1220(nowIsMd1220Mobile);
+    const nowIsW1100Mobile = size.width < 1100;
+    if (isW1100 !== nowIsW1100Mobile) {
+      setIsW1100(nowIsW1100Mobile);
     }
-  }, [size.width, isWMd1220]);
+  }, [size.width, isW1100]);
 
   return (
-    <IsMd1220Context.Provider value={isWMd1220}>
+    <IsW1100Context.Provider value={isW1100}>
       {children}
-    </IsMd1220Context.Provider>
+    </IsW1100Context.Provider>
+  );
+};
+
+export const IsW1220Provider: React.FC = ({ children }) => {
+  const [isW1220, setIsW1220] = useRecoilState(isW1220State);
+  const size = useWindowSize();
+  useEffect(() => {
+    const nowIsW1220Mobile = size.width < 1220;
+    if (isW1220 !== nowIsW1220Mobile) {
+      setIsW1220(nowIsW1220Mobile);
+    }
+  }, [size.width, isW1220]);
+
+  return (
+    <IsW1220Context.Provider value={isW1220}>
+      {children}
+    </IsW1220Context.Provider>
   );
 };

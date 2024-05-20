@@ -1,8 +1,8 @@
 import classnames from "classnames";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 
-import { useIsMd1100 } from "../../hooks/useWindowSize";
+import useWindowSize, { useIsW1100 } from "../../hooks/useWindowSize";
 import Icon from "../../components/icons";
 
 import LinkToBetaDialog from "../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
@@ -12,6 +12,7 @@ import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { siderCollapseState } from "./state";
 import { ChainId } from "../../constant/constant";
 import IsPixelWidget from "./rainbow_account/IsPixelWidget";
+import { PixelBorderCardButton } from "../PixelBtn/ActivePixelButton";
 export type HeaderUIType = "pixel" | "other";
 interface IProps {
   type: HeaderUIType;
@@ -32,7 +33,6 @@ interface IProps {
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
-  const isMobile = useIsMd1100();
   const setSiderCollapse = useSetRecoilState(siderCollapseState);
   const collapsed = useRecoilValue(siderCollapseState);
   const {
@@ -50,29 +50,47 @@ const Header = (props: IProps): React.ReactElement | null => {
     Middle,
     pathname,
   } = props;
+  const { width } = useWindowSize();
+  const { isW768, isW1190, isW1290, isW1540, isW1670 } = useMemo(() => {
+    return {
+      isW768: width <= 768,
+      isW1190: width <= 1190,
+      isW1290: width <= 1290,
+      isW1540: width <= 1540,
+      isW1670: width < 1670,
+    };
+  }, [width]);
   useEffect(() => {
-    if (isMobile && collapsed === undefined) {
+    if (isW768 && collapsed === undefined) {
       setSiderCollapse(true);
     }
-  }, [isMobile]);
+  }, [isW768]);
   return (
     <header
-      className={classnames("header_header", props.className)}
+      className={classnames(
+        "header_header",
+        isW768 ? "header_header_768" : "",
+        isW1190 ? "header_header_1190" : "",
+        isW1290 ? "header_header_1290" : "",
+        isW1540 ? "header_header_1540" : "",
+        isW1670 ? "header_header_1670" : "",
+        props.className
+      )}
       style={{ position: "sticky", top: 0, zIndex: 9, width: "100%" }}
     >
-      {type === "pixel" || (type === "other" && isMobile) ? (
+      {type === "pixel" || (type === "other" && isW768) ? (
         <div className={"header_left"}>
-          <ZypherLogo isMobile={isMobile} />
+          <ZypherLogo isMobile={isW768} />
         </div>
       ) : null}
-      {Middle && <Middle pathname={pathname} />}
+      {Middle && !isW768 && <Middle pathname={pathname} />}
       <div className={"header_right"}>
         {/* <ConnectWallet isMobile={isMobile} /> */}
         <RainbowConnectWallet
           showLang={showLang}
           useLocation={useLocation}
           copy={copy}
-          isMobile={isMobile}
+          isMobile={isW768}
           env={env}
           dispatch={dispatch}
           setSuccessToast={setSuccessToast}
@@ -80,12 +98,10 @@ const Header = (props: IProps): React.ReactElement | null => {
           CountupNumber={CountupNumber}
           supportedChainList={supportedChainList}
           type={type}
+          hideRefresh={isW1290}
         />
-        {isMobile && !hideMenu ? (
-          <IsPixelWidget
-            type={type}
-            className={`${type === "pixel" ? "header_btn_pixel" : ""}`}
-          >
+        {isW768 && !hideMenu ? (
+          <IsPixelWidget type={type} className="header_btn_pixel">
             <div
               className="header_btn"
               onClick={() => setSiderCollapse(!collapsed)}

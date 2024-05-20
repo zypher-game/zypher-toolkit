@@ -17,16 +17,16 @@ export const useActiveRouter = () => {
   const { account, chainId } = useActiveWeb3React()
   const location = useLocation()
   useEffect(() => {
-    if (activeData.isInitLoading) {
-      return
-    }
     const pathnameArr = location.pathname.split('/')
     if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
       return
     }
-
     // 需要跳转路由
-    const { id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
+    const { isInitLoading, id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
+    if (!id && isInitLoading) {
+      navigate(`/${NavKey[0][1]}/${NavKey[0][2]}`)
+      return
+    }
     console.log({ isRegistered })
     if (!id || id === '' || !canNext(account, chainId)) {
       navigate(`/${NavKey[0][0]}`)

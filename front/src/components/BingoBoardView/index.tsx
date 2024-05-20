@@ -1,4 +1,4 @@
-import { useIsMobile } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { Input } from 'antd'
 import cx from 'classnames'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
@@ -174,7 +174,7 @@ export const CardNumber: React.FC<ICardNumberInput> = props => {
 
 const BingoBoardView: React.FC<IBingoBoardView> = ({ cardNumbers, editable = false, onChange, selectedNumbers }) => {
   const excludeNums = useMemo(() => cardNumbers.map(cardNumber => cardNumber.num), [cardNumbers])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const handleNumberSwitch = (currentNum: number, nextNum: number) => {
     const newCardNumber: CardNumbersType = []
     for (const cardNumber of cardNumbers) {

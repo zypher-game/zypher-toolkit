@@ -16,7 +16,6 @@ const MoreActive = memo(() => {
           css={css}
           pixel_styled={{
             pixel_height: 5,
-            small_pixel_height: 5,
             height: '52px'
           }}
           preWidth={'360px'}

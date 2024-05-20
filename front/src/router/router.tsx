@@ -1,5 +1,5 @@
-import { IsMd1100Provider, IsMd1220Provider, IsMdProvider } from '@ui/src'
-import React, { Suspense } from 'react'
+import { IsMdProvider, IsW1100Provider, IsW1220Provider } from '@ui/src'
+import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import { NavKey } from '@/components/Layout/Navigation'
@@ -11,6 +11,7 @@ import MoreActiveNormal from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveNo
 import MoreActiveSuccess from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'
 import NoActive from '@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'
 import NormalActive from '@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'
+import ActiveLoading from '@/pages/Active/views/ActiveLoading/ActiveLoading'
 // import ActiveComing from '@/pages/Active/views/ActiveRegister/ActiveComing'
 import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister'
 import ActiveStaking from '@/pages/Active/views/ActiveStaking/ActiveStaking'
@@ -23,7 +24,6 @@ import GameIndex from '@/pages/GamesIndex/view/GamesIndex/GamesIndex'
 import GamesList from '@/pages/GamesList'
 // import Invitation from '@/pages/invitation'
 // import Monster from '@/pages/Monster'
-import NotFound from '@/pages/NotFound'
 import { ThemeProvider } from '@/theme'
 
 // import Ranking from '@/pages/Ranking'
@@ -36,7 +36,8 @@ import { useToastMessage } from '../hooks/useToastMessage'
 // import { useGetInvitationAddress } from '../pages/invitation/hooks/invitationHooks'
 import { usePollPrice } from '../store/price/hooks'
 
-// const Home = lazy(() => import('@/pages/Home'))
+const ZeroGas = lazy(() => import('@/pages/ZeroGas/ZeroGas'))
+const NotFound = lazy(() => import('@/pages/NotFound'))
 // const Monster = lazy(() => import('@/pages/Monster'))
 // const NotFound = lazy(() => import('@/pages/NotFound'))
 // const Ranking = lazy(() => import('@/pages/Ranking'))
@@ -54,8 +55,8 @@ export default (): JSX.Element => {
   usePollPrice()
   return (
     <Suspense fallback={null}>
-      <IsMd1220Provider>
-        <IsMd1100Provider>
+      <IsW1220Provider>
+        <IsW1100Provider>
           <IsMdProvider>
             <ThemeProvider>
               <Layout>
@@ -63,6 +64,7 @@ export default (): JSX.Element => {
                   <>
                     <Routes>
                       <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} />
+                      <Route path={`/${NavKey[0][1]}/${NavKey[0][2]}`} element={<ActiveLoading />} />
                       <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                       <Route
                         path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`}
@@ -86,6 +88,8 @@ export default (): JSX.Element => {
                       <Route path={tvlPath[0]} element={<ActiveTVLTeam />} />
                       <Route path={tvlPath[1]} element={<ActiveTVLStakingV2 />} />
                       <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />
+
+                      <Route path={`/${NavKey[2][0]}`} element={<ZeroGas />} />
                       <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
                       {/* <Route path="/defense" element={<Monster />} /> */}
                       {/* <Route path="/invitation" element={<Invitation />} /> */}
@@ -94,15 +98,15 @@ export default (): JSX.Element => {
                       {/* <Route path="/dp" element={<DP />} />*/}
                       <Route path="/games/list" element={<GamesList />} />
                       {/* 404页面 */}
-                      <Route path="*" element={<NotFound />} />
+                      <Route path="*" element={<ActiveRegister />} />
                     </Routes>
                   </>
                 </ScrollToTop>
               </Layout>
             </ThemeProvider>
           </IsMdProvider>
-        </IsMd1100Provider>
-      </IsMd1220Provider>
+        </IsW1100Provider>
+      </IsW1220Provider>
       <div className="toast__" ref={ref => (toastContainerRef.current = ref)} />
     </Suspense>
   )
