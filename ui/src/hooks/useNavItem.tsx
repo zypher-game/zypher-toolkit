@@ -1,10 +1,7 @@
 import React, { useEffect, useMemo } from "react";
-import { useSetRecoilState } from "recoil";
 
 import { LngNs } from "../utils/i18n";
 import { useCustomTranslation } from "./useCustomTranslation";
-import { useIsW768 } from "./useWindowSize";
-import { defaultSelectedKey } from "../components/SideBar/state";
 import { INavLink, INavLinkType } from "./useNavItem.type";
 import { useActiveWeb3React } from "./useActiveWeb3React";
 import { isPro, preStaticUrl } from "../constant/constant";
@@ -34,46 +31,6 @@ export const blankLinkList = [
   false, //game_muder.jpg
 ];
 
-export const usePathname = () => {
-  const isMobile = useIsW768();
-  const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
-  useEffect(() => {
-    const path = window.location.hash.split("/");
-    const pathName = path[1];
-    switch (pathName) {
-      case "zBingo":
-        return setDefaultSelectedKey("2");
-      // case "TCG":
-      //   return setDefaultSelectedKey("14");
-      // case "Murder Mystery":
-      //   return setDefaultSelectedKey("13");
-      // case "Candy Crush":
-      //   return setDefaultSelectedKey("12");
-      // case "zMahjong":
-      //   return setDefaultSelectedKey("11");
-      // case "z2048":
-      //   return setDefaultSelectedKey("10");
-      // case "zAce":
-      //   return setDefaultSelectedKey("6");
-      case "profile":
-        return setDefaultSelectedKey("3");
-      case "gbBox":
-        return setDefaultSelectedKey("4");
-      case "invitation":
-        return setDefaultSelectedKey("7");
-      case "ranking":
-        return setDefaultSelectedKey("8");
-      case "defense":
-        return setDefaultSelectedKey("9");
-      case "shop":
-        return setDefaultSelectedKey("5");
-      case "dp":
-        return setDefaultSelectedKey("15");
-      default:
-        setDefaultSelectedKey("1");
-    }
-  }, [location, isMobile]);
-};
 const gameStatus = {
   Live: {
     btn_label: "Live",

@@ -2,21 +2,24 @@ import classnames from "classnames";
 import React, { memo, useMemo } from "react";
 
 import { INavLink, INavLinkType } from "../../hooks/useNavItem.type";
-import { useNavItem, usePathname } from "../../hooks/useNavItem";
+import { useNavItem } from "../../hooks/useNavItem";
 import { preStaticUrl } from "../../constant/constant";
 
 import CommunityLink from "./component/CommunityLink";
 import Language from "./component/Language";
-import LinkItem from "./component/LinkItemA";
-import SideBarActivitiesList from "./component/SideBarActivitiesList";
 import SideBarGamesList from "./component/SideBarGamesList";
-import SideBarTitle from "./component/SideBarTitle";
+import { SideBarTitle, SideBarTitleLink } from "./component/SideBarTitle";
 import "./sidebar.stylus";
+import { sideCollapseState } from "../Header/state";
+import { useSetRecoilState } from "recoil";
+import Icon from "../icons";
+import { NavList } from "../Header/Navigation/Navigation";
 
 interface IProps {
   isMobile: boolean;
   useNavigate: any;
   className?: string;
+  pathname: string;
 }
 export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
   return (
@@ -31,12 +34,12 @@ export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
   );
 });
 const SideBar: React.FC<IProps> = (props: IProps) => {
-  const { isMobile, useNavigate } = props;
+  const { isMobile, useNavigate, pathname } = props;
+  console.log({ pathname });
   const items = useNavItem();
-  usePathname();
+  const setSideCollapse = useSetRecoilState(sideCollapseState);
   const {
     sideBarGamesLinkList,
-    sideBarActivitiesLinkList,
   }: {
     sideBarGamesLinkList: INavLink[];
     sideBarActivitiesLinkList: INavLink[];
@@ -53,34 +56,25 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
 
   return (
     <div className={classnames(`${props.className}`, "sidebarWrap")}>
-      {/* {isMobile ? null : (
-        <a
-          href={"https://zypher.game/"}
-          target="_black"
-          className={classnames("logo")}
-        >
-          <img src={preStaticUrl + "/img/layout/logo.svg"} />
-          <img src={preStaticUrl + "/img/layout/ai.svg"} />
-        </a>
-      )} */}
+      <div className="side_close" onClick={() => setSideCollapse(true)}>
+        <Icon name={"close"} />
+      </div>
       <div className={"sidebar"}>
-        {isMobile ? null : (
-          <>
-            <LinkItem
-              className_on={"item_on"}
-              className_disable={"horListItemDisable"}
-              className={"horListItem"}
-              isMobile={isMobile}
-              useNavigate={useNavigate}
-              {...items[0]}
-            />
-            <div className={"line"} />
-          </>
-        )}
+        {NavList.map((v) => (
+          <SideBarTitleLink
+            key={v.label}
+            logo_title={v.label}
+            className={`sideBarTitle sideBarTitleLink ${
+              (v.linkList ?? []).includes(pathname) ? "on" : ""
+            }`}
+            link={v.link}
+            logo_url_name={v.icon}
+          />
+        ))}
         <SideBarTitle
           logo_title="Games"
-          logo_url_name="games"
-          className={"sideBarTitle"}
+          logo_url_name="pixel_games"
+          className={"sideBarTitle mt40"}
         />
         <SideBarGamesList
           className_on={"item_on"}
@@ -92,34 +86,12 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           useNavigate={useNavigate}
           className_imageContainer={"imageContainerWaves"}
         />
-        <div className={"line"} />
-        <SideBarTitle
-          logo_title="Activities"
-          logo_url_name="activities"
-          className={"sideBarTitle"}
-        />
-        <SideBarActivitiesList
-          useNavigate={useNavigate}
-          isMobile={isMobile}
-          className_on={"item_on"}
-          className_list={"activitiesList"}
-          className_listItemHorDisable={"horListItemDisable"}
-          className_listItemHor={"horListItem"}
-          className_listItemVerDisable={"verListItemDisable"}
-          className_listItemVer={"verListItem"}
-          list={sideBarActivitiesLinkList}
-        />
-        <div className={"line"} />
-        <SideBarTitle
-          logo_title="Language"
-          logo_url_name="language"
-          className={"sideBarTitle"}
-        />
-        <Language type={"side"} />
-        <div className={"line"} />
+        <Language type={"list"} />
+      </div>
+      <div className="sideBar_Bottom">
         <SideBarTitle
           logo_title="Links"
-          logo_url_name="links"
+          logo_url_name="pixel_link02"
           className={"sideBarTitle"}
         />
         <CommunityLink className={"communityLink"} />

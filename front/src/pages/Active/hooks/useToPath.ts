@@ -1,16 +1,10 @@
-import { useSetRecoilState } from '@ui/src'
 import { useCallback } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-import sleep from '@/utils/sleep'
-
-import { activeDataState, IActiveDataState, ITvlHero } from '../state/activeState'
-import { airdropPathname, preAirdropPathname } from './activeHooks'
+import { ITvlHero } from '../state/activeState'
 import { useActiveData } from './useActiveData'
 
 export const useToPath = () => {
   const { setActiveData } = useActiveData()
-  const navigate = useNavigate()
   const toSetByTwitterMore = useCallback(() => {
     setActiveData(pre => ({ ...pre, airdropPointsDetail: { ...pre.airdropPointsDetail, byTwitterMore: '0' } }))
     return

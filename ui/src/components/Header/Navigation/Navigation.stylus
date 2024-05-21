@@ -1,0 +1,32 @@
+.nav 
+  float: left
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 40px;
+  position: relative
+  .pixel_line
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background-color: #fff;
+    transition: width 0.3s, left 0.3s, opacity  0.3s
+  a
+    color: #fff
+    font-size: 14px
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%
+    transition: all 0.3s ease
+    .nav_img
+      margin-left: 4px
+    &.nav_on
+      font-weight: 600
+      &:hover
+        opacity: 1
+    &:hover
+      opacity: 0.9

@@ -1,11 +1,10 @@
-import { ActivePixelButtonColor, IPixelProps, LoadingButton, preStaticUrl, SvgComponent, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { ActivePixelButtonColor, IPixelProps, LoadingButton, preStaticUrl, sleep, SvgComponent, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { GlobalVar } from '@/constants/constants'
 import ShareComponent from '@/pages/invitation/components/shareComponent'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
-import sleep from '@/utils/sleep'
 
 import { airdropPathname, getAirdropPathname, preAirdropPathname } from '../../hooks/activeHooks'
 import { useActiveData } from '../../hooks/useActiveData'

@@ -1,8 +1,7 @@
-import { IsMdProvider, IsW1100Provider, IsW1220Provider } from '@ui/src'
+import { IsMdProvider, IsW1100Provider, IsW1220Provider, NavKey } from '@ui/src'
 import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
-import { NavKey } from '@/components/Layout/Navigation'
 import ScrollToTop from '@/components/ScrollToTop'
 import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
 import ActiveChooseHunter from '@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'
@@ -63,7 +62,7 @@ export default (): JSX.Element => {
                 <ScrollToTop>
                   <>
                     <Routes>
-                      <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} />
+                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} />
                       <Route path={`/${NavKey[0][1]}/${NavKey[0][2]}`} element={<ActiveLoading />} />
                       <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                       <Route
@@ -90,15 +89,15 @@ export default (): JSX.Element => {
                       <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />
 
                       <Route path={`/${NavKey[2][0]}`} element={<ZeroGas />} />
-                      <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
+                      <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} /> */}
                       {/* <Route path="/defense" element={<Monster />} /> */}
                       {/* <Route path="/invitation" element={<Invitation />} /> */}
                       {/* <Route path="/gbBox" element={<GBBox />} /> */}
                       {/* <Route path="/ranking" element={<Ranking />} /> */}
                       {/* <Route path="/dp" element={<DP />} />*/}
-                      <Route path="/games/list" element={<GamesList />} />
+                      {/* <Route path="/games/list" element={<GamesList />} /> */}
                       {/* 404页面 */}
-                      <Route path="*" element={<ActiveRegister />} />
+                      {/* <Route path="*" element={<ActiveRegister />} /> */}
                     </Routes>
                   </>
                 </ScrollToTop>

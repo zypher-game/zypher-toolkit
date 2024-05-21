@@ -4,6 +4,6 @@ import { localStorageEffect } from "../../utils/localStorageEffect";
 
 export const sideCollapseState = atom<boolean | undefined>({
   key: "sideCollapseState",
-  default: undefined,
+  default: false,
   effects_UNSTABLE: [localStorageEffect("sideCollapseState")],
 });

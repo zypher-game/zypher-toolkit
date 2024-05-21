@@ -1,6 +1,6 @@
 import './ActiveChooseHunter.styl'
 
-import { ActivePixelButtonColor, ActivePixelCard, LoadingButton, preStaticUrl } from '@ui/src'
+import { ActivePixelButtonColor, ActivePixelCard, LoadingButton, preStaticUrl, sleep } from '@ui/src'
 import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -8,7 +8,6 @@ import { useNavigate } from 'react-router-dom'
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
-import sleep from '@/utils/sleep'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
 import HeroImageLoader from '../../components/ImageLoader/HeroImageLoader'

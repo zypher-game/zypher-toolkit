@@ -1,9 +1,8 @@
-import { useActiveWeb3React } from '@ui/src'
+import { sleep, useActiveWeb3React } from '@ui/src'
 import { useCallback } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
-import sleep from '@/utils/sleep'
 
 import { getLinkPre, TVL_API } from '../constants/activeConstants'
 import { form_primary_score } from '../utils/formmate'

@@ -1,14 +1,14 @@
 import { AddressZero } from '@ethersproject/constants'
-import { ChainId, ChainRpcUrls, getProvider, IContractName, MulticallContract, request, supportedChainIds, zkBingo } from '@ui/src'
+import { ChainId, ChainRpcUrls, getProvider, IContractName, MulticallContract, request, sleep, supportedChainIds, zkBingo } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import sample from 'lodash/sample'
 import { Address, WalletClient } from 'wagmi'
 
 import { TransactionsCount } from '@/constants/constants'
-import { BigNumberJs } from '@ui/src'
 
 import { env } from './config'
-import sleep from './sleep'
+
 export interface IContractRequest {
   contractName: IContractName
   method: string

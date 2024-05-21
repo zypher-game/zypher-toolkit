@@ -96,8 +96,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
           );
         }}
       </ConnectButton.Custom>
-      {/* {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null} */}
-      <Language type={type === "pixel" ? type : "top"} />
+      {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null}
     </div>
   );
 }, isEqual);

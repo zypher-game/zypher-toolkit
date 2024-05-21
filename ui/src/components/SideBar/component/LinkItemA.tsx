@@ -6,7 +6,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import { INavLink } from "../../../hooks/useNavItem.type";
 import { preStaticUrl } from "../../../constant/constant";
 
-import { defaultSelectedKey } from "../state";
 import { sideCollapseState } from "../../Header/state";
 import SmokeIndex from "./SmokeIndex";
 interface IProps extends INavLink {
@@ -18,16 +17,8 @@ interface IProps extends INavLink {
   useNavigate: any;
 }
 const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
-  const selectedKey = useRecoilValue(defaultSelectedKey);
-  const setDefaultSelectedKey = useSetRecoilState(defaultSelectedKey);
   const setSideCollapse = useSetRecoilState(sideCollapseState);
   const navigate = useNavigate();
-  const isOn = useMemo(() => {
-    if (selectedKey === link.keyValue) {
-      return true;
-    }
-    return false;
-  }, [selectedKey]);
   const linkClickHandle = useCallback(
     (event) => {
       if (link.disabled) {
@@ -42,7 +33,6 @@ const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
           if (link.link && link.link.indexOf("http") > -1) {
             window.open(link.link, "_blank");
           } else {
-            setDefaultSelectedKey(link.keyValue);
             navigate(link.link);
           }
         } catch (e) {
@@ -53,7 +43,6 @@ const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
     [navigate, isMobile]
   );
   return {
-    isOn,
     linkClickHandle,
   };
 };
@@ -67,21 +56,19 @@ const LinkItem1: FC<IProps> = memo(
     useNavigate,
     ...link
   }: IProps) => {
-    const { isOn, linkClickHandle } = useLink(link, isMobile, useNavigate);
+    const { linkClickHandle } = useLink(link, isMobile, useNavigate);
     return (
       <div
         onClick={linkClickHandle}
         className={classnames(
           className,
-          link.disabled ? className_disable : "",
-          isOn ? className_on : ""
+          link.disabled ? className_disable : ""
         )}
       >
         <div className={className_imageContainer}>
           <img src={preStaticUrl + `/img/layout/${link.icon}`} />
         </div>
         <p>{link.label}</p>
-        {isOn ? <SmokeIndex /> : null}
       </div>
     );
   },

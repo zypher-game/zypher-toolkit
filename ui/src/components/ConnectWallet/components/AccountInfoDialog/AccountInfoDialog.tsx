@@ -202,22 +202,26 @@ export const AddressMiddleWrapPop = memo(
         backgroundColor="#1D263B"
         borderColor="#3A4254"
       >
-        <div className="account_info_pop">
+        <div className="middle_account">
           <PlayerAvatar
             border={true}
-            className="address_wrap_middle_account"
+            className="account"
             account={account}
             size={62}
             showAccount={false}
             type="other"
           />
-          <div className="address" onClick={copyAddressHandle}>
+          <div className="middle_address" onClick={copyAddressHandle}>
             <p>{getShortenAddress(account)}</p>
             <Icon name="pixel_copy" />
           </div>
         </div>
-        <ChainSelectorWidget type={"pixel"} />
-        <div className="balance">
+        <ChainSelectorWidget
+          type={"pixel"}
+          direction_type="userPop"
+          className="middle_selector"
+        />
+        <div className="middle_balance">
           <BalanceItem
             currency={Currency[chainId]}
             balanceStr={nativeBalanceStr}
@@ -285,13 +289,12 @@ const BalanceItem = memo(
     currency: string;
   }) => {
     return (
-      <div className="balance_item">
+      <div className="middle_balance_item">
         <div className="fl">
           {logo}
           <p>{currency}</p>
         </div>
-        <p>{balanceStr}</p>
-        <div className="point" />
+        <p className="frText">{balanceStr}</p>
       </div>
     );
   }
