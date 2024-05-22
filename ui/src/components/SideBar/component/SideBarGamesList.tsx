@@ -12,7 +12,6 @@ type IProps = {
   className_imageContainer: string;
   list: INavLink[];
   useNavigate: any;
-  isMobile: boolean;
 };
 const SideBarGamesList: FC<IProps> = memo(
   ({
@@ -23,14 +22,13 @@ const SideBarGamesList: FC<IProps> = memo(
     className_imageContainer,
     useNavigate,
     list,
-    isMobile,
   }: IProps) => {
     return (
       <div className={className_list}>
         {list.map((v) => (
           <LinkItem
             useNavigate={useNavigate}
-            isMobile={isMobile}
+            isMobile={true}
             className_on={className_on}
             className_disable={className_listItemDisable}
             key={v.keyValue}

@@ -8,12 +8,7 @@ import { preStaticUrl } from "../../../constant/constant";
 import { useCurrentLanguage } from "../../../hooks/useCurrentLanguage";
 import classnames from "classnames";
 import "./Language.stylus";
-import PixelFlatBtn from "../../PixelBtn/PixelFlatBtn";
-import {
-  PixelBorderCard,
-  PixelBorderCardButton,
-  PixelCube2,
-} from "../../PixelBtn/ActivePixelButton";
+import { PixelBorderCard, PixelCube2 } from "../../PixelBtn/ActivePixelButton";
 import SvgComponent from "../../SvgComponent/SvgComponent";
 import IsPixelWidget from "../../Header/rainbow_account/IsPixelWidget";
 import Icon from "../../icons";
@@ -56,12 +51,16 @@ const Language = memo(({ type }: IProps) => {
           ? "language_pixel"
           : type === "top"
           ? "language_top"
+          : type === "list"
+          ? "language_list"
           : "",
         "language"
       )}
     >
       <div
-        className={classnames("horListItem", "languageItem")}
+        className={
+          type === "list" ? "" : classnames("horListItem", "languageItem")
+        }
         onClick={handle}
       >
         {type === "top" ? (
@@ -86,18 +85,26 @@ const Language = memo(({ type }: IProps) => {
             />
           </IsPixelWidget>
         ) : (
-          <>
-            <p>
-              <Icon name={""} />
+          <div className="lang">
+            <p className="lang_title">
+              <Icon name={"language"} />
               {t("language")}
             </p>
-            <img
-              src={
-                preStaticUrl +
-                `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
-              }
-            />
-          </>
+            <div className="lang_list">
+              {languageList.map((v) => (
+                <PopItem
+                  color="transparent"
+                  onColor="#3A4254"
+                  classNames="address_list_item"
+                  key={v.label}
+                  onClick={() => changeLanguageHandle(v)}
+                  iconName={v.img}
+                  label={v.label}
+                  on={v.keyValue === lang}
+                />
+              ))}
+            </div>
+          </div>
         )}
       </div>
       {show ? (
@@ -110,6 +117,8 @@ const Language = memo(({ type }: IProps) => {
         >
           {languageList.map((v) => (
             <PopItem
+              color="#1D263B"
+              classNames="address_wrap_pop_item"
               key={v.label}
               onClick={() => changeLanguageHandle(v)}
               iconName={v.img}
@@ -128,19 +137,25 @@ const PopItem = memo(
     label,
     onClick,
     on,
+    classNames,
+    color,
+    onColor,
   }: {
     iconName: string;
     label: string;
     onClick: any;
     on: boolean;
+    classNames: string;
+    color: string;
+    onColor?: string;
   }) => {
     return (
       <PixelCube2
-        className={`address_wrap_pop_item ${on ? "on" : ""}`}
+        className={`${classNames} ${on ? "on" : ""}`}
         onClick={onClick}
         pixel_height={3}
-        backgroundColor="#1D263B"
-        borderColor="#1D263B"
+        backgroundColor={on && onColor ? onColor : color}
+        borderColor={on && onColor ? onColor : color}
         width="100%"
         height="36px"
       >

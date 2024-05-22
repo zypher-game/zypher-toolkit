@@ -59,11 +59,12 @@ export {
 } from "./constant/constant";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs } from "./utils/BigNumberJs";
+export { default as sleep } from "./utils/sleep";
+
 export {
   LinkList,
   blankLinkList,
   useNavItem,
-  usePathname,
   zAceLink,
   crLink,
 } from "./hooks/useNavItem";
@@ -83,9 +84,11 @@ export {
   pointsBalanceState,
 } from "./components/ConnectWallet/state/connectWalletState";
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
-export { default as SideBar } from "./components/SideBar";
-export { defaultSelectedKey } from "./components/SideBar/state";
+export { default as SideBar } from "./components/SideBar/SideBar";
 export { default as DivWrap } from "./components/DivWrap/DivWrap";
+export { NavKey } from "./components/Header/Navigation/Navigation";
+export { default as IsPixelWidget } from "./components/Header/rainbow_account/IsPixelWidget";
+
 export {
   useNativeBalanceStr,
   usePointsBalanceStr,
@@ -94,7 +97,7 @@ export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
 
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
-export { sideCollapseState } from "./components/Header/state";
+export { sideCollapseState, pathnameState } from "./components/Header/state";
 export {
   default as PlayerAvatar,
   PlayerAvatarList,
@@ -222,6 +225,7 @@ export { Theme } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKit
 export { cssObjectFromTheme } from "./rainbowkit/src/css/cssObjectFromTheme";
 export { cssStringFromTheme } from "./rainbowkit/src/css/cssStringFromTheme";
 export { useChainId } from "./rainbowkit/src/hooks/useChainId";
+export { useConnectionStatus } from "./rainbowkit/src/hooks/useConnectionStatus";
 export { darkTheme } from "./rainbowkit/src/themes/darkTheme";
 export { lightTheme } from "./rainbowkit/src/themes/lightTheme";
 export { midnightTheme } from "./rainbowkit/src/themes/midnightTheme";

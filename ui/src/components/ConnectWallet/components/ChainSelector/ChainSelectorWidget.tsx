@@ -21,7 +21,7 @@ const StatusI = styled.i<{ isMobile: boolean }>`
   display: inline-block;
   width: ${({ isMobile }) => (isMobile ? "5px" : "6px")};
   height: ${({ isMobile }) => (isMobile ? "5px" : "6px")};
-  background-color: #65edbc;
+  background-color: #47ff1a;
   margin-left: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
   border-radius: 50%;
   position: relative;
@@ -42,46 +42,61 @@ const StatusI = styled.i<{ isMobile: boolean }>`
 type IProps = {
   className?: string;
   type: HeaderUIType;
+  direction_type?: "userPop";
 };
-const ChainSelectorWidget = memo(({ className, type }: IProps) => {
-  const { chainId } = useActiveWeb3React();
-  const isMobile = useIsW768();
-  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
-    accountInfoDialogState
-  );
-  const [pointsDialogOpen, setPointsDialogOpen] =
-    useRecoilState(pointsDialogState);
+const ChainSelectorWidget = memo(
+  ({ className, type, direction_type }: IProps) => {
+    const { chainId } = useActiveWeb3React();
+    const isMobile = useIsW768();
+    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
+      accountInfoDialogState
+    );
+    const [pointsDialogOpen, setPointsDialogOpen] =
+      useRecoilState(pointsDialogState);
 
-  const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState);
+    const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState);
 
-  const { openChainModal } = useChainModal();
-  const openChainModalHandle = useCallback(() => {
-    if (accountInfoDialogOpen) {
-      setAccountInfoDialogOpen(false);
-    }
-    if (pointsDialogOpen) {
-      setPointsDialogOpen(false);
-    }
-    if (!sideCollapse) {
-      setSideCollapse(true);
-    }
-    if (openChainModal) {
-      openChainModal();
-    }
-  }, [openChainModal]);
-  return chainId ? (
-    <IsPixelWidget type={type} onClick={openChainModalHandle}>
-      <div className={`ChainSelectorWidgetWrapper ${className ?? ""}`}>
-        <div className="img">
-          <img
-            src={config.ChainImage[chainId]}
-            alt={config.ChainName[chainId]}
-          />
-          <p>{config.ChainName[chainId]}</p>
+    const { openChainModal } = useChainModal();
+    const openChainModalHandle = useCallback(() => {
+      if (accountInfoDialogOpen) {
+        setAccountInfoDialogOpen(false);
+      }
+      if (pointsDialogOpen) {
+        setPointsDialogOpen(false);
+      }
+      if (!sideCollapse) {
+        setSideCollapse(true);
+      }
+      if (openChainModal) {
+        openChainModal();
+      }
+    }, [openChainModal]);
+    return chainId ? (
+      <IsPixelWidget
+        type={type}
+        onClick={openChainModalHandle}
+        {...(direction_type === "userPop"
+          ? {
+              backgroundColor: "#343C4F",
+              borderColor: "#484F60",
+              pixel_height: 3,
+            }
+          : {})}
+        className={className ?? ""}
+      >
+        <div className="ChainSelectorWidgetWrapper">
+          <div className="img">
+            <img
+              src={config.ChainImage[chainId]}
+              alt={config.ChainName[chainId]}
+            />
+            <p>{config.ChainName[chainId]}</p>
+          </div>
+          <StatusI isMobile={isMobile} />
         </div>
-        <StatusI isMobile={isMobile} />
-      </div>
-    </IsPixelWidget>
-  ) : null;
-}, isEqual);
+      </IsPixelWidget>
+    ) : null;
+  },
+  isEqual
+);
 export default ChainSelectorWidget;

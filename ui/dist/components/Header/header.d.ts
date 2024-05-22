@@ -14,7 +14,6 @@ interface IProps {
     useLocation: any;
     CountUpNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
-    Middle?: React.FC<any>;
     pathname: string;
 }
 declare const Header: (props: IProps) => React.ReactElement | null;

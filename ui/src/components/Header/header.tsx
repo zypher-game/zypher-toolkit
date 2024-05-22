@@ -6,12 +6,13 @@ import useWindowSize from "../../hooks/useWindowSize";
 import Icon from "../../components/icons";
 
 import LinkToBetaDialog from "../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
-import { ZypherLogo } from "../SideBar";
+import { ZypherLogo } from "../SideBar/SideBar";
 import "./header.stylus";
 import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
 import { sideCollapseState } from "./state";
 import { ChainId } from "../../constant/constant";
 import IsPixelWidget from "./rainbow_account/IsPixelWidget";
+import Navigation from "./Navigation/Navigation";
 export type HeaderUIType = "pixel" | "other";
 interface IProps {
   env: string;
@@ -25,7 +26,6 @@ interface IProps {
   useLocation: any;
   CountUpNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
-  Middle?: React.FC<any>;
   pathname: string;
 }
 
@@ -42,15 +42,14 @@ const Header = (props: IProps): React.ReactElement | null => {
     useLocation,
     CountUpNumber,
     supportedChainList,
-    Middle,
     pathname,
   } = props;
   const { width } = useWindowSize();
-  const { isW768, isW1190, isW1300, isW1540, isW1670, isWBig } = useMemo(() => {
+  const { isW768, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo(() => {
     return {
       isW768: width <= 768,
       isW1190: width <= 1190,
-      isW1300: width <= 1300,
+      isW1340: width <= 1340,
       isW1540: width <= 1540,
       isW1670: width < 1670,
       isWBig: width >= 1670,
@@ -67,7 +66,7 @@ const Header = (props: IProps): React.ReactElement | null => {
         "header_header",
         isW768 ? "header_header_768" : "",
         isW1190 ? "header_header_1190" : "",
-        isW1300 ? "header_header_1300" : "",
+        isW1340 ? "header_header_1340" : "",
         isW1540 ? "header_header_1540" : "",
         isW1670 ? "header_header_1670" : "",
         props.className
@@ -77,12 +76,12 @@ const Header = (props: IProps): React.ReactElement | null => {
       <div className={"header_left"}>
         <ZypherLogo isMobile={isW768} />
       </div>
-      {Middle && !isW768 && <Middle pathname={pathname} />}
+      {!isW768 && <Navigation pathname={pathname} />}
       <div className={"header_right"}>
         <RainbowConnectWallet
           type="pixel"
           isBigWidth={isWBig}
-          isMiddleWidth={isW1300}
+          isMiddleWidth={isW1340}
           useLocation={useLocation}
           copy={copy}
           env={env}
@@ -98,10 +97,7 @@ const Header = (props: IProps): React.ReactElement | null => {
               className="header_btn"
               onClick={() => setSideCollapse(!collapsed)}
             >
-              <Icon
-                className={`header_icon ${collapsed ? "" : "header_close"}`}
-                name={`${collapsed ? "menu" : "close"}`}
-              />
+              <Icon className="header_icon" name="menu" />
             </div>
           </IsPixelWidget>
         ) : null}

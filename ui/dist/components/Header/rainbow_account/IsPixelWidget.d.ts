@@ -1,10 +1,10 @@
 import React from "react";
 import { HeaderUIType } from "../header";
 import "./IsPixelWidget.stylus";
-declare const IsPixelWidget: React.MemoExoticComponent<({ className, type, children, onClick, }: {
-    className?: string | undefined;
-    type?: HeaderUIType | undefined;
+import { IPixelProps } from "../../PixelBtn/ActivePixelButton";
+interface IProps extends IPixelProps {
+    type?: HeaderUIType;
     children: React.ReactNode;
-    onClick?: any;
-}) => React.JSX.Element>;
+}
+declare const IsPixelWidget: React.MemoExoticComponent<({ className, type, children, onClick, backgroundColor, borderColor, pixel_height, }: IProps) => React.JSX.Element>;
 export default IsPixelWidget;

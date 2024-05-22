@@ -8,7 +8,6 @@ type IProps = {
     className_imageContainer: string;
     list: INavLink[];
     useNavigate: any;
-    isMobile: boolean;
 };
 declare const SideBarGamesList: FC<IProps>;
 export default SideBarGamesList;

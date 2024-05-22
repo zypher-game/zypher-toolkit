@@ -13,6 +13,40 @@ div .address_wrap_pop_lang
     justify-content: flex-start
     align-items: flex-start
     gap: 10px
+.address_list_pop_lang
+  >.pixel_flat_inner
+    justify-content: space-between
+    align-items: flex-start
+.language_list
+  width 100%
+  .on
+    p
+      color: #fff
+  p
+    color: rgba(255, 255, 255, 0.6)
+.lang
+  padding-bottom: 14px
+  border-bottom: 1px solid #484F60
+.lang_title
+  padding: 15px 0 20px
+  display: flex
+  gap: 10px
+  align-items: center
+  justify-content: flex-start
+  p
+    color: #B1B5BE
+    font-size: 14px
+    font-weight: normal
+.lang_list
+  display: flex
+  align-items: center
+  justify-content: space-between
+  .address_list_item
+    cursor: pointer;
+    padding: 0 10px
+    &:hover
+      p
+        color: #fff
 .language_top
   display: flex;
   justify-content: center;
@@ -22,6 +56,7 @@ div .address_wrap_pop_lang
     display: flex;
     justify-content: center;
     align-items: center;
+    
 .language
   position: relative
   .img_arr, .img_lang

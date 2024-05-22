@@ -1,55 +1,61 @@
+.side_close
+  padding-top: 25px
+  padding-right: 15px
+  padding-bottom: 15px
+  display: flex;
+  align-items: flex-end;
+  justify-content: right;
+  width: 100%;
+
+.sidebar
+  height 70%
+  overflow-y: scroll
 .sidebarWrap
-  padding: 40px 24px 
-  overflow-y: scroll;
-  @media screen and (max-width: 768px)
-    padding-top: 24px
+  padding-left: 20px
+  padding-right: 20px
   p
     color: #fff
     font-size: 14px
     white-space: nowrap; /* 禁止换行 */
     overflow: hidden; /* 隐藏溢出部分 */
     text-overflow: ellipsis; /* 使用省略号显示溢出的文本 */
-  .logo
-    position: fixed
-    top: 0
-    left: 0
-    width: 312px
-    background-color: #10253E
-    display: flex
-    justify-content: flex-start
-    align-items: center
-    padding: 28px 24px
-    gap: 8px
-    z-index: 9
-    border-right: 1px solid rgba(255,255,255,0.1)
-    @media screen and (max-width: 1440px)
-      width: 250px
-
-  .line
-    margin-top: 24px
-    margin-bottom: 28px
-    width: 100%
-    height: 1px
-    background: rgba(255, 255, 255, 0.10);
+  .sideBarTitle
+    &.mt40
+      margin-top: 40px
+    &.sideBarTitleLink
+      margin-left: -20px
+      p
+        font-weight: bold
+        opacity 1
   .sideBarTitle
     display: flex
     justify-content: flex-start
     align-items: center
-    gap: 8px
-    margin-bottom: 20px
+    gap: 14px
+    margin-top: 14px
+    margin-bottom: 14px
+    &.on
+      .side_title_line
+        background-color: #1649FF
     p
       font-weight: 500;
       opacity: 0.7
-    img
-      display: block
-      width: 24px
-      height: 24px
+    .side_title_line
+      width: 6px
+      height 20px
+      background-color: #1D263B
+  
   .gamelist
     display: flex
     justify-content: flex-start
     align-items: center
     flex-wrap: wrap;
     gap: 22px
+  .lang
+    padding-bottom: 0
+    border-bottom: none
+  .language_list
+    margin-top: 40px
   .activitiesList
     display: flex
     flex-direction: column
@@ -100,6 +106,9 @@
     align-items: center
     max-width: 48px
     cursor: pointer
+    @media screen and (max-width: 375px)
+      max-width: 38px
+
     &.item_on
       p
         color: #1649FF;
@@ -114,6 +123,8 @@
       width: 57px
       text-align: center
       margin-top: 8px
+      @media screen and (max-width: 375px)
+        width: 38px
     &:nth-child(1) 
       .imageContainerWaves::before 
         animation-delay: -0.4s;
@@ -134,6 +145,9 @@
       overflow: hidden
       border-radius: 8px
       transform: translate3d(0, 0, 0);
+      @media screen and (max-width: 375px)
+        width: 38px
+        height: 38px
       img 
         width: 100%;
         height: 100%
@@ -154,11 +168,11 @@
     flex-wrap: wrap;
     justify-content: flex-start
     align-items: center
-    gap: 25px
+    gap: 10px
     a 
       display: block
-      width: 32px
-      height: 32px
+      width: 24px
+      height: 24px
       .community_svg 
         fill: #fff;
         transition: all 0.3 ease;
@@ -168,6 +182,12 @@
         .community_svg 
           path 
             fill-opacity: 1;
+.sideBar_Bottom
+  position: absolute
+  bottom: 0
+  left: 0
+  width: 100%
+  padding: 20px 20px 50px;
 @keyframes glow-animation {
   from {
     left: -150px;

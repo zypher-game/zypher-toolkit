@@ -68,6 +68,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <IsPixelWidget
+                  type="pixel"
                   onClick={openConnectModal}
                   className={"connect_connect"}
                 >
@@ -96,8 +97,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
           );
         }}
       </ConnectButton.Custom>
-      {/* {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null} */}
-      <Language type={type === "pixel" ? type : "top"} />
+      {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null}
     </div>
   );
 }, isEqual);

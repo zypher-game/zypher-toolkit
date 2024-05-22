@@ -7,7 +7,7 @@ type IChildren = {
 export type IPixelProps = {
   className?: string;
   onClick?: any;
-  pixel_height: number;
+  pixel_height?: number;
   width?: string;
   height?: string;
   borderBottomColor?: string;

@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useState } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import IsPixelWidget from "../IsPixelWidget";
 import { HeaderUIType } from "../../header";
 import { useSetRecoilState } from "recoil";
@@ -31,16 +31,24 @@ const AccountInfo = memo(
     const { account } = useActiveWeb3React(env, supportedChainList);
     const setAccountInfoDialogState = useSetRecoilState(accountInfoDialogState);
     const [showBig, setShowBig] = useState(false);
-    const [showMiddle, setShowMiddle] = useState(true);
+    const [showMiddle, setShowMiddle] = useState(false);
     const accountClick = useCallback(() => {
       if (isW768) {
+        setShowBig(false);
+        setShowMiddle(false);
         setAccountInfoDialogState(true);
       } else if (isMiddleWidth) {
-        setShowBig((pre) => !pre);
-      } else {
         setShowMiddle((pre) => !pre);
+      } else {
+        setShowBig((pre) => !pre);
       }
-    }, [isW768, setAccountInfoDialogState]);
+    }, [isW768, isMiddleWidth, setAccountInfoDialogState]);
+    useEffect(() => {
+      if (isW768 || isMiddleWidth) {
+        setShowBig(false);
+        setShowMiddle(false);
+      }
+    }, [isW768, isMiddleWidth]);
     return (
       <>
         <IsPixelWidget
