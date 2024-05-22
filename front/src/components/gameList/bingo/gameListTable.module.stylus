@@ -13,13 +13,15 @@
 .inner
   max-height: 70vh
   overflow-y: scroll
-.account
+body .account
   display: flex
   flex-direction: row
   gap: 10px
   @media screen and (max-width: 768px)
     gap: 7px
-    opacity: 0.7;
+    :global(p.player_avatar_account)
+      color: #959BA8
+
   & > div
     min-height: 32px !important
     min-width: 32px !important

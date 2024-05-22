@@ -146,8 +146,8 @@ export const AddressBigWrapPop = memo(
           on={index === 0}
         />
         <AddressWrapPopItem
-          iconName={"pixel_blackchain"}
-          label={"Blackchain Explorer"}
+          iconName={"pixel_blockchain"}
+          label={"Blockchain Explorer"}
           onClick={openHandle}
           on={index === 1}
         />
@@ -235,8 +235,8 @@ export const AddressMiddleWrapPop = memo(
         </div>
         <Language type={"list"} />
         <AddressWrapPopItem
-          iconName={"pixel_blackchain"}
-          label={"Blackchain Explorer"}
+          iconName={"pixel_blockchain"}
+          label={"Blockchain Explorer"}
           onClick={openHandle}
           on={index === 1}
         />

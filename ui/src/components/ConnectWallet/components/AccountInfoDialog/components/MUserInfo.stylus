@@ -1,37 +1,67 @@
 .m_user_m_content
-  .m_user_border
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.10);
-    padding: 16px
-    margin-bottom: 16px
-    &.m_user_chain
+  .m_user_chain
+    display: flex
+    flex-direction: row
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 10px
+    height: 56px
+    :global(.img)
       display: flex
-      flex-direction: row
-      justify-content: space-between
+      justify-content: flex-start
       align-items: center
-      :global(.img)
-        display: flex
-        justify-content: flex-start
-        align-items: center
-        gap: 10px
+      gap: 10px
+    .ChainSelectorWidgetWrapper
+      justify-content: space-between;
+      width: 100%;
+  .m_user_border
+    padding: 16px
+    margin-bottom: 10px
+    >.pixel_flat_inner
+      width 100%
+      flex-direction: column
+      justify-content: flex-start
+      align-items: flex-start
     .m_user_account
       flex-direction: row;
       gap: 9px;
       p
-        font-size: 20px;
-        font-weight: 500;
+        font-size: 16px;
+        font-weight: bold;
         color: #fff;
   .m_user_tit
-    color: #5F5D77;
+    color: #D3D4D7;
     font-size: 14px;
     line-height: 16px;
   .m_user_userInfoInner
+    width 100%
     display: flex
     justify-content: space-between
     align-items: center
     padding: 16px 0
     border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  .m_user_fun
+    width 100%
+    display: flex
+    justify-content: space-between
+    align-content: flex-start
+    .m_user_info_FunItem
+      cursor pointer
+      width 50%
+      text-align: center
+      p
+        margin-top: 5px
+        color: #D3D4D7
+      .svg_component
+        margin: 0 auto
+        svg
+          rect
+            fill: #D3D4D7
+          path
+            stroke: #D3D4D7
 
+  .m_user_balance
+    width 100%
   .m_user_item
     margin-top: 16px
     display: flex

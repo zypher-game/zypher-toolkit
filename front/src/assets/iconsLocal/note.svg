@@ -6,9 +6,9 @@
 		</clipPath>
 	</defs>
 	<style>
-		.s0 { fill: none;stroke: #62380c;stroke-linejoin: round;stroke-width: 1.3 } 
-		.s1 { fill: #62380c } 
-		.s2 { fill: none;stroke: #62380c;stroke-linecap: round;stroke-linejoin: round;stroke-width: 1.3 } 
+		.s0 { fill: none;stroke: #eeeeee;stroke-linejoin: round;stroke-width: 1.3 } 
+		.s1 { fill: #eeeeee } 
+		.s2 { fill: none;stroke: #eeeeee;stroke-linecap: round;stroke-linejoin: round;stroke-width: 1.3 } 
 	</style>
 	<g id="Clip-Path" clip-path="url(#cp1)">
 		<g id="Layer" style="opacity: .6">

@@ -1,3 +1,8 @@
+body [data-reach-dialog-overlay].bottom
+  @media screen and (max-width: 768px)
+    align-items: flex-end
+.table_body
+  background-color: #1D263B
 .title
   width: 100%
   font-weight: 600
@@ -5,16 +10,24 @@
   font-size: 20px
   @media screen and (max-width: 768px)
     font-size: 16px;
-div.dataDialog
+    padding-top: 15px
+    padding-bottom: 30px
+    padding-left: 15px
+    text-align: left
+body [data-reach-dialog-content].dataDialog
   width: 690px
   @media screen and (max-width: 768px)
-    width: auto
+    width: 100%;
+    margin: 0
+    background-color: #1D263B
+    overflow-y: scroll
 .content
   padding: 30px 40px 40px
   max-height: 460px
   overflow-y: scroll
   @media screen and (max-width: 768px)
-    padding: 20px
+    max-height: 60vh
+    padding: 20px 15px
   .item
     margin-bottom: 20px
     display: flex
@@ -39,10 +52,4 @@ div.dataDialog
       color: #23BDFF
       font-size: 12px
       text-decoration: underline
-
-:global(body .dialogAnnouncementDialog)
-  background: linear-gradient(180deg, rgba(29, 38, 59, 0) 0%, #1D263B 100%);
-  @media screen and (max-width: 768px)
-    display: block
-    height: 50px;
 

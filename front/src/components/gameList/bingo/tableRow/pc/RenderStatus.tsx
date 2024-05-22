@@ -19,7 +19,7 @@ export const StatusI = styled.i<{ isMobile: boolean }>`
     position: absolute;
     top: ${({ isMobile }) => (isMobile ? '-2px' : '-3px')};
     left: ${({ isMobile }) => (isMobile ? '-2px' : '-3px')};
-    border: ${({ isMobile }) => (isMobile ? '2px' : '3px')} solid rgba(101, 237, 188, 0.19);
+    border: ${({ isMobile }) => (isMobile ? '2px' : '3px')} solid rgba(71, 255, 26, 0.29);
     box-sizing: content-box;
     border-radius: 50%;
   }

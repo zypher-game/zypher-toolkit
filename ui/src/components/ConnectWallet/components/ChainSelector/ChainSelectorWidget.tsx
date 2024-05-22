@@ -1,4 +1,4 @@
-import { useChainModal } from "../../../../index";
+import { IPixelProps, useChainModal } from "../../../../index";
 import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useCallback } from "react";
 import styled from "styled-components";
@@ -19,8 +19,8 @@ import { HeaderUIType } from "../../../Header/header";
 const StatusI = styled.i<{ isMobile: boolean }>`
   box-sizing: content-box;
   display: inline-block;
-  width: ${({ isMobile }) => (isMobile ? "5px" : "6px")};
-  height: ${({ isMobile }) => (isMobile ? "5px" : "6px")};
+  width: 6px;
+  height: 6px;
   background-color: #47ff1a;
   margin-left: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
   border-radius: 50%;
@@ -30,10 +30,9 @@ const StatusI = styled.i<{ isMobile: boolean }>`
     width: 100%;
     height: 100%;
     position: absolute;
-    top: ${({ isMobile }) => (isMobile ? "-2px" : "-3px")};
-    left: ${({ isMobile }) => (isMobile ? "-2px" : "-3px")};
-    border: ${({ isMobile }) => (isMobile ? "2px" : "3px")} solid
-      rgba(101, 237, 188, 0.19);
+    top: -3px;
+    left: -3px;
+    border: 3px solid rgba(71, 255, 26, 0.29);
     box-sizing: content-box;
     border-radius: 50%;
   }

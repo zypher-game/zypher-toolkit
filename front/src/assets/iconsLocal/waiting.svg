@@ -1,8 +1,8 @@
 <svg version="1.2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
 	<title>waitiing-svg</title>
 	<style>
-		.s0 { fill: none;stroke: #62380c;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2 } 
-		.s1 { fill: none;stroke: #62380c;stroke-linejoin: round;stroke-width: 2 } 
+		.s0 { fill: none;stroke: #eeeeee;stroke-linecap: round;stroke-linejoin: round;stroke-width: 2 } 
+		.s1 { fill: none;stroke: #eeeeee;stroke-linejoin: round;stroke-width: 2 } 
 	</style>
 	<path id="Layer" class="s0" d="m3.5 2h17"/>
 	<path id="Layer" class="s0" d="m3.5 22h17"/>

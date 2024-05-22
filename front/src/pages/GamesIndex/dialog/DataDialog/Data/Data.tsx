@@ -29,7 +29,7 @@ const TooltipNode = memo(
           // open={true}
           overlayClassName={'datatooltip'}
           title={
-            <ActivePixelCard pixel_height={4} backgroundColor="#3E4350">
+            <ActivePixelCard pixel_height={4} backgroundColor="#404C61">
               <Space className={className} direction="vertical" split={<Divider />}>
                 {supportedChainIds(env).map(chainId => {
                   if (total[dataKey][chainId]) {
@@ -39,7 +39,7 @@ const TooltipNode = memo(
                   }
                 })}
               </Space>
-              <ActivePixelCard pixel_height={4} backgroundColor="#3E4350" width="16px" height="16px" className="pixel_tooltip_arrow" />
+              <ActivePixelCard pixel_height={4} backgroundColor="#404C61" width="16px" height="16px" className="pixel_tooltip_arrow" />
             </ActivePixelCard>
           }
         >
@@ -126,7 +126,6 @@ const Data = memo(({ data }: IProps) => {
           </PixelBorderCard>
         ))}
       </div>
-      <div className="pixelTableInnerBottom pixelTableInnerBottomData" />
     </div>
   )
 }, isEqual)

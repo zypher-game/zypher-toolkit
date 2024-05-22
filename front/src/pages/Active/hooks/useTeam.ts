@@ -30,7 +30,7 @@ export const useTeam = () => {
   const { getAvailableCode } = useAvailableCode()
   const [loading, setLoading] = useState(false)
   const { getTeam, getGroupScoreCardNum, setOpenCard } = useTeamCall()
-  const { id } = activeData
+  const { id, userStakedAmount } = activeData
   const getDataTeam = useCallback(async () => {
     if (id) {
       if (loading || teamMembers.length) {
@@ -89,7 +89,7 @@ export const useTeam = () => {
   }, [id])
   useEffect(() => {
     getDataTeam()
-  }, [getDataTeam])
+  }, [id, userStakedAmount])
   const openCard = useCallback(
     async (key: string) => {
       const isSingle = key === 'all'

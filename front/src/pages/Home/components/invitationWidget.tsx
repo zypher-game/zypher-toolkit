@@ -8,7 +8,7 @@ type IProps = {
 }
 const Invitation = styled.div<{ isMobile: boolean }>`
   border-radius: 50px;
-  background: rgba(101, 237, 188, 0.1);
+  background: rgba(71, 255, 26, 0.2);
   padding: 0 50px;
   display: flex;
   justify-content: space-between;
@@ -67,7 +67,7 @@ const Invitation = styled.div<{ isMobile: boolean }>`
 const GoDiv = styled.div<{ isMobile: boolean }>`
   padding: 12px 20px;
   color: #65edbc;
-  background: rgba(101, 237, 188, 0.1);
+  background: rgba(71, 255, 26, 0.2);
   border: 1px solid #65edbc;
   border-radius: 28px;
   font-size: 16px;

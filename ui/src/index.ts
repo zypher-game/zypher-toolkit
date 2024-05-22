@@ -196,6 +196,7 @@ export { default as PixelTabBorder } from "./components/PixelTab/PixelTabBorder"
 export {
   PixelTableBorder,
   PixelTable,
+  IsTablePixelWidget,
 } from "./components/PixelTable/PixelTable";
 export { default as LoadingButton } from "./components/LoadingSvg/LoadingButton";
 export { default as DialogClose } from "./components/DialogClose/DialogClose";

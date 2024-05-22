@@ -8,7 +8,7 @@ import { IsW768Provider, RainbowKitWithThemeProvider, RecoilRoot, supportedChain
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter, HashRouter } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 import AppRouter from '@/router'
 import store from '@/store'

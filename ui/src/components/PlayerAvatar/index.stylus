@@ -7,11 +7,11 @@
   font-size: 14px
   line-height: 22px
   text-align: center
-  color: #62380C
+  color: #eeeeee
 
   .player_avatar
     background: #FFE8C4
-    border: 2px solid #62380C
+    border: 2px solid #eeeeee
     border-radius: 50%
 
     &.player_highLight

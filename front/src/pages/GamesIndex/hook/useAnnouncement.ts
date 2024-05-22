@@ -27,7 +27,7 @@ export const useAnnouncement = () => {
   useEffect(() => {
     if (isModalOpen) {
       const last = announcement.sort((a, b) => b.time - a.time)[0]
-      setAnnouncementTime([false, last.time])
+      setAnnouncementTime([false, last?.time ?? ''])
     }
   }, [isModalOpen])
   useEffect(() => {

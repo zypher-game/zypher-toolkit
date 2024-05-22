@@ -1,5 +1,5 @@
 import { AddressZero } from '@ethersproject/constants'
-import { PixelBorderCard, PlayerAvatar } from '@ui/src'
+import { PixelBorderCard, PixelTable, PlayerAvatar } from '@ui/src'
 import { IGameList, IGameStatus, useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
@@ -32,49 +32,59 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
     return Len.length === 0 && item.status === IGameStatus.End && item.bingoInfo && item.bingoInfo.cardNumbers
   }, [])
   return (
-    <PixelBorderCard className={css.mItem} pixel_height={4} backgroundColor="#343C4F" borderColor="#484F60">
-      <div className={css.mTop}>
-        <div className={css.mTitle}>
-          <p className={css.mTitleGrey}>
-            {item.roomIDStr}
-            <em>|</em>
-            {item.startTimeMobile}
-          </p>
-          <p className={classnames(css.mStatus, item.status === IGameStatus.Live ? css.mStatusLive : '')}>
-            {item.status}
-            {item.status === IGameStatus.Live ? <StatusI isMobile={isMobile} /> : null}
-          </p>
+    <PixelTable
+      className={css.mItem}
+      pixel_height={4}
+      backgroundColor="#161E2E"
+      borderColor="#3A4254"
+      headerBackgroundColor="#293457"
+      classNameHeader={`${css.header} row_header`}
+      header_children={
+        <div className={css.mTop}>
+          <div className={css.mTitle}>
+            <p className={css.mTitleGrey}>
+              {item.roomIDStr}
+              <em>|</em>
+              {item.startTimeMobile}
+            </p>
+            <p className={classnames(css.mStatus, item.status === IGameStatus.Live ? css.mStatusLive : '')}>
+              {item.status}
+              {item.status === IGameStatus.Live ? <StatusI isMobile={isMobile} /> : null}
+            </p>
+          </div>
+          <div className={css.mTable}>
+            <div className={css.mTableHeader}>
+              <p>{t('Pledged per player')}</p>
+              <p>{t('Multiplier')}</p>
+              <p>{t('Winnings')}</p>
+            </div>
+            <div className={css.mTableBody}>
+              <RenderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} />
+              <RenderNormalText label={item.multiplier} showPoint={false} isMobile={isMobile} />
+              <RenderNormalText label={item.win} showPoint={true} isMobile={isMobile} />
+            </div>
+          </div>
         </div>
-        <div className={css.mTable}>
-          <div className={css.mTableHeader}>
-            <p>{t('Pledged per player')}</p>
-            <p>{t('Multiplier')}</p>
-            <p>{t('Winnings')}</p>
-          </div>
-          <div className={css.mTableBody}>
-            <RenderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} />
-            <RenderNormalText label={item.multiplier} showPoint={false} isMobile={isMobile} />
-            <RenderNormalText label={item.win} showPoint={true} isMobile={isMobile} />
-          </div>
+      }
+      body_children={
+        <div className={css.mBottom}>
+          {Len.length === 0 ? (
+            <RenderNormalText label={item.winnerOrPlayers} showPoint={false} isMobile={isMobile} />
+          ) : (
+            <div className={css.avatarList}>
+              {Len.map((_, index) => (
+                <PlayerAvatar key={index} size={22} account={AddressZero} showAccount={false} border={true} />
+              ))}
+            </div>
+          )}
+          {showBingoCard ? (
+            <ViewCard cardNumbers={item.bingoInfo.cardNumbers} selectedNumbers={item.bingoInfo.selectedNumbers} isMobile={isMobile} />
+          ) : (
+            <p className={css.grey}>{item.winnerOrPlayers}</p>
+          )}
         </div>
-      </div>
-      <div className={css.mBottom}>
-        {Len.length === 0 ? (
-          <RenderNormalText label={item.winnerOrPlayers} showPoint={false} isMobile={isMobile} />
-        ) : (
-          <div className={css.avatarList}>
-            {Len.map((_, index) => (
-              <PlayerAvatar key={index} size={22} account={AddressZero} showAccount={false} border={true} />
-            ))}
-          </div>
-        )}
-        {showBingoCard ? (
-          <ViewCard cardNumbers={item.bingoInfo.cardNumbers} selectedNumbers={item.bingoInfo.selectedNumbers} isMobile={isMobile} />
-        ) : (
-          <p className={css.grey}>{item.winnerOrPlayers}</p>
-        )}
-      </div>
-    </PixelBorderCard>
+      }
+    />
   )
 }, isEqual)
 export default MobileRow

@@ -18,9 +18,8 @@ export const useActiveRouter = () => {
   const location = useLocation()
   const { isInitLoading, id, isRegistered, airdropPoints, airdropPointsDetail, userStakedAmount, tvlHero }: IActiveData = activeData
   const pathname = useRecoilValue(pathnameState)
-
   useEffect(() => {
-    if (NavKey[0].includes(pathname[0])) {
+    if (NavKey[0].includes(pathname[1])) {
       const pathnameArr = location.pathname.split('/')
       if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
         return

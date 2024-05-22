@@ -37,10 +37,10 @@ const BingoItemWrap = styled.div`
   & > div {
     @media (max-width: 768px) {
       transform-origin: 0% 0%;
-      scale: 0.5;
+      scale: 0.8;
     }
     @media (max-width: 370px) {
-      scale: 0.35;
+      scale: 0.5;
     }
   }
 `

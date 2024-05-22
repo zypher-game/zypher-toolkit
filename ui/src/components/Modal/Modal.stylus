@@ -31,6 +31,8 @@
             // background: transparent
             [data-reach-dialog-content]
                 margin: 0
+                @media screen and (max-width: 768px)
+                    background-color: #1D263B
             .ant-modal
                 max-height: 100%;
                 flex: 1

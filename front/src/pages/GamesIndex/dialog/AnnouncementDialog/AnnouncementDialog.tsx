@@ -1,5 +1,14 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, PixelTable, preStaticUrl, SvgComponent, timestampToDateStr, useRecoilValue, useSetRecoilState } from '@ui/src'
+import {
+  DialogClose,
+  IsTablePixelWidget,
+  PixelTable,
+  preStaticUrl,
+  SvgComponent,
+  timestampToDateStr,
+  useRecoilValue,
+  useSetRecoilState
+} from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
@@ -16,14 +25,14 @@ const AnnouncementDialog = memo(() => {
   }, [])
 
   return (
-    <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
+    <DialogOverlay className={css.bottom} isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className={`pixel_DialogContent ${css.dataDialog}`}>
-        <PixelTable
+        <IsTablePixelWidget
           width="100%"
           height="100%"
           className={css.table_body}
           backgroundColor="#1D263B"
-          header_children={<p className="modalTitleInnerTitle">Announcement</p>}
+          header_children={<p className={`modalTitleInnerTitle ${css.title}`}>Announcement</p>}
           body_children={
             <div className={css.content}>
               {announcement.map(v => (
@@ -38,7 +47,6 @@ const AnnouncementDialog = memo(() => {
                   ) : null}
                 </div>
               ))}
-              <div className="pixelTableInnerBottom dialogAnnouncementDialog" />
             </div>
           }
           pixel_height={10}

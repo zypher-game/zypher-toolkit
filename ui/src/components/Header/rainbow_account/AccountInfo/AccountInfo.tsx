@@ -66,7 +66,7 @@ const AccountInfo = memo(
           {showBig ? <AddressBigWrapPop copy={copy} type={type} /> : null}
           {showMiddle ? <AddressMiddleWrapPop copy={copy} type={type} /> : null}
         </IsPixelWidget>
-        <AccountInfoDialog copy={copy} type={type} />
+        {isW768 ? <AccountInfoDialog copy={copy} type={type} /> : null}
       </>
     );
   }

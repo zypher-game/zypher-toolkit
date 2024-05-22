@@ -22,9 +22,10 @@ const Z2048MobileRow: FC<IProps> = memo(({ showFilter, item }: IProps) => {
     <PixelTable
       className={css.mItem}
       pixel_height={4}
-      backgroundColor={isMobile ? '#293457' : '#343C4F'}
-      borderColor={isMobile ? '#3A4254' : '#484F60'}
-      classNameHeader={css.header}
+      backgroundColor="#161E2E"
+      borderColor="#3A4254"
+      headerBackgroundColor="#293457"
+      classNameHeader={`${css.header} row_header`}
       header_children={
         <div className={css.mTop}>
           <div className={css.mTable}>
@@ -48,26 +49,6 @@ const Z2048MobileRow: FC<IProps> = memo(({ showFilter, item }: IProps) => {
         </div>
       }
     />
-    // <PixelBorderCard className={css.mItem} pixel_height={4} backgroundColor="#343C4F" borderColor="#484F60">
-    //   <div className={css.mTop} pixel_height={4} backgroundColor="#293457">
-    //     <div className={css.mTable}>
-    //       <div className={css.mTableHeader}>
-    //         <p>{t('Tiles')}</p>
-    //         <p>{t('2048 NFT')}</p>
-    //         <p>{t('Win')}</p>
-    //       </div>
-    //       <div className={css.mTableBody}>
-    //         <RenderNormalText label={item.maxTile} showPoint={true} isMobile={isMobile} />
-    //         <NftTokenIdCol chainId={item.chainId} tokenId={item.tokenId} showFilter={showFilter} tokenIdLink={item.tokenIdLink} />
-    //         <RenderNormalText label={item.reward} showPoint={true} isMobile={isMobile} />
-    //       </div>
-    //     </div>
-    //   </div>
-    //   <div className={css.mBottom}>
-    //     <RenderNormalText label={item.player} showPoint={false} isMobile={isMobile} />
-    //     <p className={css.grey}>{item.beginTimeStr}</p>
-    //   </div>
-    // </PixelBorderCard>
   )
 }, isEqual)
 export default Z2048MobileRow

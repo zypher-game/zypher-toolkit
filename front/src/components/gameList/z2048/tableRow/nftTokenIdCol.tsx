@@ -7,7 +7,7 @@ const NftTokenIdColStyled = styled.div`
   justify-content: flex-start;
   align-items: center;
   p {
-    color: #65edbc;
+    color: #1649ff;
     white-space: nowrap;
     @media screen and (max-width: 768px) {
       font-size: 13px;

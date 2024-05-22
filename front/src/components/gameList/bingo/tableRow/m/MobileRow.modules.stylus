@@ -1,4 +1,9 @@
-.header
+body
+  :global(.row_header.tvlPixelTable_header)
+    width calc(100% - 2px)
+    margin-left: 1px
+    margin-top: 1px
+body .header
   :global(>div.pixel_flat_inner)
     padding: 0
 .mItem
@@ -41,9 +46,12 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        color: #B1B5BE
+        &:first-letter 
+          text-transform: capitalize;
       .mStatusLive
-        color: #65EDBC;
-        background: rgba(101, 237, 188, 0.06);
+        color: #47FF19;
+        background: rgba(71, 255, 25, 0.1);
     .mTable
       .mTableHeader
         &>p
@@ -65,9 +73,10 @@
             text-align: right
             justify-content: right 
       .mTableHeader
-        opacity: 0.4;
         margin-bottom: 2px
         font-size: 12px;
+        p
+          color: #959BA8
       .mTableBody
         font-size: 16px
         font-weight: 600;
@@ -86,4 +95,4 @@
         border: 1px solid rgba(255, 255,255, 0.2) !important
     .grey
       font-size: 12px
-      opacity 0.7
+      color: #959BA8
