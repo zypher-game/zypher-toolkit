@@ -8,14 +8,12 @@ import { ITVLStakingData, tvlStakingDataState } from '@/pages/Active/state/activ
 import css from './Table.module.styl'
 const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
   const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
-  console.log({ tvlStakingData })
   const { native, erc20 } = useMemo(() => {
     const obj: Record<string, ITVLStakingData[]> = {
       native: [],
       erc20: []
     }
     const o = tvlStakingData[chainIdLocal]
-    console.log(111, { o, tvlStakingData, currency: Currency[chainIdLocal] })
     if (o) {
       const all = Object.keys(o)
       const w_native = 'W' + Currency[chainIdLocal]
@@ -26,17 +24,13 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
         if (ETHIndex > WETHIndex) {
           ETHIndex--
         }
-        console.log({ all })
         all.splice(ETHIndex, 1)
-        console.log({ all })
       }
       obj.native = [o[w_native]]
-      console.log({ all })
       obj.erc20 = all.map(v => o[v])
     }
     return obj
   }, [chainIdLocal, JSON.stringify(tvlStakingData)])
-  console.log({ native, erc20 })
   return (
     <>
       <h3 className={css.title}>Native Token Stake</h3>

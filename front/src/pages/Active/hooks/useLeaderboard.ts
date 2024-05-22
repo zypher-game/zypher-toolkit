@@ -24,7 +24,6 @@ export const useLeaderBoard = () => {
   const { chainIndex, setChainIndex, chainIdLocal } = useChainIndex()
   const { activeData } = useActiveData()
   const { id } = activeData
-  console.log({ recentUser })
   useEffect(() => {
     const getData = async () => {
       try {
@@ -32,7 +31,6 @@ export const useLeaderBoard = () => {
         const res_rankBoard = await getRankBoard({ chainId: chainIdLocal })
         if (id) {
           const res_myRankBoard = await getMyRankBoard({ chainId: chainIdLocal, userId: id })
-          console.log({ res_recentUser, res_rankBoard, res_myRankBoard })
           setMy(res_myRankBoard)
         }
         if (res_recentUser) {

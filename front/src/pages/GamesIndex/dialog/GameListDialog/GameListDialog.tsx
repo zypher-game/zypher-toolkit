@@ -1,6 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@ui/src'
-import { ActivePixelCard } from '@ui/src'
+import { ActivePixelCard, DialogClose, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import GameListIndex, { IGameListProps } from '@/components/gameList/gameListIndex'
@@ -15,15 +14,25 @@ const GameListDialog = memo((props: IGameListProps) => {
     setIsModalOpen(false)
   }, [])
   return (
-    <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
+    <DialogOverlay className={css.bottom} isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className={css.center}>
-        <ActivePixelCard className={css.GameListDialog} backgroundColor="#1D263B" pixel_height={10}>
-          <h3>Game list</h3>
+        <IsPixelWidget>
+          <h3 className={css.title}>Game list</h3>
           <GameListIndex {...props} />
-        </ActivePixelCard>
+        </IsPixelWidget>
         <DialogClose onClick={handleCancel} />
       </DialogContent>
     </DialogOverlay>
+  )
+})
+const IsPixelWidget = memo(({ children }: { children: React.ReactNode }) => {
+  const isW768 = useIsW768()
+  return isW768 ? (
+    <>{children}</>
+  ) : (
+    <ActivePixelCard className={css.GameListDialog} backgroundColor="#1D263B" pixel_height={10}>
+      {children}
+    </ActivePixelCard>
   )
 })
 export default GameListDialog

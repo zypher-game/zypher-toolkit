@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
 import ScrollToTop from '@/components/ScrollToTop'
+import { useConnectWallet } from '@/hooks/useConnectWallet'
 import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
 import ActiveChooseHunter from '@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'
 import MoreActive from '@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'
@@ -18,9 +19,10 @@ import ActiveTVLLeaderboard from '@/pages/Active/views/ActiveTVLHome/view/Active
 import ActiveTVLStakingV2 from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLStaking/ActiveTVLStakingV2'
 import ActiveTVLTeam from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLTeam/ActiveTVLTeam'
 import GameIndex from '@/pages/GamesIndex/view/GamesIndex/GamesIndex'
+import NotFound from '@/pages/NotFound'
 // import Bingo from '@/pages/Bingo'
 // import DP from '@/pages/DP'
-import GamesList from '@/pages/GamesList'
+// import GamesList from '@/pages/GamesList'
 // import Invitation from '@/pages/invitation'
 // import Monster from '@/pages/Monster'
 import { ThemeProvider } from '@/theme'
@@ -29,14 +31,12 @@ import { ThemeProvider } from '@/theme'
 import Layout from '../components/Layout'
 // import ProfileBox from '@/pages/Profile/profileBox'
 // import GBBox from '@/pages/GBBox'
-import { useConnectWallet } from '../hooks/useConnectWallet'
 import { useInit } from '../hooks/useInit'
 import { useToastMessage } from '../hooks/useToastMessage'
 // import { useGetInvitationAddress } from '../pages/invitation/hooks/invitationHooks'
 import { usePollPrice } from '../store/price/hooks'
 
 const ZeroGas = lazy(() => import('@/pages/ZeroGas/ZeroGas'))
-const NotFound = lazy(() => import('@/pages/NotFound'))
 // const Monster = lazy(() => import('@/pages/Monster'))
 // const NotFound = lazy(() => import('@/pages/NotFound'))
 // const Ranking = lazy(() => import('@/pages/Ranking'))
@@ -48,7 +48,6 @@ const NotFound = lazy(() => import('@/pages/NotFound'))
 
 export default (): JSX.Element => {
   useInit()
-  // useGetInvitationAddress()
   const { toastContainerRef } = useToastMessage()
   useConnectWallet()
   usePollPrice()
@@ -62,7 +61,7 @@ export default (): JSX.Element => {
                 <ScrollToTop>
                   <>
                     <Routes>
-                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} />
+                      {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
                       <Route path={`/${NavKey[0][1]}/${NavKey[0][2]}`} element={<ActiveLoading />} />
                       <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
                       <Route
@@ -89,7 +88,7 @@ export default (): JSX.Element => {
                       <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />
 
                       <Route path={`/${NavKey[2][0]}`} element={<ZeroGas />} />
-                      <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} /> */}
+                      <Route path={`/${NavKey[1][0]}`} element={<GameIndex />} />
                       {/* <Route path="/defense" element={<Monster />} /> */}
                       {/* <Route path="/invitation" element={<Invitation />} /> */}
                       {/* <Route path="/gbBox" element={<GBBox />} /> */}
@@ -97,7 +96,8 @@ export default (): JSX.Element => {
                       {/* <Route path="/dp" element={<DP />} />*/}
                       {/* <Route path="/games/list" element={<GamesList />} /> */}
                       {/* 404页面 */}
-                      {/* <Route path="*" element={<ActiveRegister />} /> */}
+                      {/* <Route path="/:code" element={<ActiveRegister />} /> */}
+                      <Route path="*" element={<ActiveRegister />} />
                     </Routes>
                   </>
                 </ScrollToTop>

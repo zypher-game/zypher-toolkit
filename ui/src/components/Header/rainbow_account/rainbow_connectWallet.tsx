@@ -68,6 +68,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <IsPixelWidget
+                  type="pixel"
                   onClick={openConnectModal}
                   className={"connect_connect"}
                 >

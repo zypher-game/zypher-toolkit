@@ -1,6 +1,6 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@ui/src'
-import { ActivePixelButtonColor, ActivePixelCard } from '@ui/src'
+import { DialogClose, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ActivePixelCard } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 

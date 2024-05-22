@@ -52,17 +52,7 @@ const Staking = memo(() => {
     }
   }, [chainIdFromStake, chooseChain])
   const chooseValue = useMemo(() => {
-    console.log({
-      chooseChain,
-      tvlStakingData,
-      depositCurrency,
-      chainIdFromStake,
-      defaultActiveChainId,
-      chainIdLocal,
-      Currency: chainIdLocal ? Currency[chainIdLocal] : '-'
-    })
     const can = canNext(account, chainIdLocal)
-    console.log({ can })
     if (can && depositCurrency) {
       return tvlStakingData[chainIdLocal!][depositCurrency]
     }
@@ -127,21 +117,15 @@ const Staking = memo(() => {
           const X = new BigNumberJs(Math.ceil(new BigNumberJs(_totalStaked).toNumber())).times(10) // _totalStaked 的值向上取整就是其系数
 
           const END_TIME = +(chooseValue.END_TIME ?? '0') // 从合约获取的时间
-          console.log({ END_TIME })
           const nowTimestamp = Date.now() / 1000 // 当前时间
           const END_TIMEDate = new Date(END_TIME * 1000)
           const currentDate = new Date(nowTimestamp * 1000)
-          console.log({ END_TIMEDate })
 
           const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
-          console.log({ differenceInMilliseconds })
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
-          console.log({ differenceInDays })
 
           const _earnPoints = X.plus(new BigNumberJs(depositValue)) // 系数值 + 输入值
-          console.log({ _earnPoints })
           const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints) // 还剩多少天 乘 _earnPoints
-          console.log({ _finalPoints })
           return {
             totalStaked: _totalStaked.toFormat(2),
             earnPoints: _earnPoints.toFormat(2),

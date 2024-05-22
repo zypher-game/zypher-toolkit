@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
+import { useActiveInit } from '@/pages/Active/hooks/useActiveInit'
+import { useActiveRouter } from '@/pages/Active/hooks/useActiveRouter'
 
 import { useAppDispatch } from '../store/hooks'
 export const useInit = () => {
@@ -14,4 +16,8 @@ export const useInit = () => {
       GlobalVar.dispatch = dispatch
     }, 10)
   }, [])
+  // L-XKSUA
+
+  useActiveRouter()
+  useActiveInit()
 }

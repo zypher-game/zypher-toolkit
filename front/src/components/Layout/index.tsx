@@ -1,6 +1,7 @@
 import './index.styl'
 
-import { Header, NavKey, SideBar, sideCollapseState, useIsW1100, useRecoilState } from '@ui/src'
+import { Header, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
+import { pathnameState } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
@@ -21,9 +22,9 @@ interface IProps {
 }
 const Layout: React.FC<IProps> = memo((props: IProps) => {
   const location = useLocation()
-  const [pathnameArr, setPathname] = useState<string[]>([])
+  const [pathnameArr, setPathname] = useRecoilState<string[]>(pathnameState)
   const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState)
-  const isMobile = useIsW1100()
+  const isW768 = useIsW768()
   const [zIndex, setZIndex] = useState(21)
   const dispatch = useAppDispatch()
 
@@ -32,7 +33,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
     setPathname(arr)
   }, [location])
   useEffect(() => {
-    if (isMobile) {
+    if (isW768) {
       if (sideCollapse) {
         setTimeout(() => {
           setZIndex(10)
@@ -41,7 +42,7 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         setZIndex(21)
       }
     }
-  }, [isMobile, sideCollapse])
+  }, [isW768, sideCollapse])
   return (
     <LayoutAntd className={classnames('lt-layout', pathnameArr[1] === '' ? NavKey[0][1] : pathnameArr[1])}>
       <Header
@@ -56,22 +57,22 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         CountUpNumber={CountUpNumber}
         pathname={pathnameArr[1]}
       />
-      <LayoutAntd className="lt-layout-content">
-        <Content className="lt-content">
-          <div className="lt-main">{props.children}</div>
-        </Content>
-      </LayoutAntd>
-      <Sider
-        collapsible
-        breakpoint="md"
-        trigger={null}
-        className={`custom-side ${sideCollapse ? 'hidden' : ''}`}
-        // className="custom-side"
-        style={{ zIndex: zIndex }}
-      >
-        <SideBar pathname={pathnameArr[1]} className="lt-sidebar" isMobile={isMobile} useNavigate={useNavigate} />
-      </Sider>
-      {!sideCollapse && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />}
+      <Content className="lt-content">
+        <div className="lt-main">{props.children}</div>
+      </Content>
+      {isW768 ? (
+        <Sider
+          collapsible
+          breakpoint="md"
+          trigger={null}
+          className={`custom-side ${sideCollapse ? 'hidden' : ''}`}
+          // className="custom-side"
+          style={{ zIndex: zIndex }}
+        >
+          <SideBar pathname={pathnameArr[1]} className="lt-sidebar" useNavigate={useNavigate} />
+        </Sider>
+      ) : null}
+      {isW768 && !sideCollapse && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />}
       {/* <div id="snow" /> */}
     </LayoutAntd>
   )

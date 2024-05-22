@@ -1,6 +1,16 @@
 import './GameItem.styl'
 
-import { ActivePixelButton, DPSupportChainId, INavLink, INavLinkType, pointsDialogState, preStaticUrl, useNavItem, useSetRecoilState } from '@ui/src'
+import {
+  ActivePixelButton,
+  DPSupportChainId,
+  INavLink,
+  INavLinkType,
+  pointsDialogState,
+  preStaticUrl,
+  useIsW768,
+  useNavItem,
+  useSetRecoilState
+} from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
@@ -38,12 +48,12 @@ const GameItem = memo(() => {
   }, [JSON.stringify(items)])
   return (
     <div className={css.gameItem}>
-      {/* <>
+      <>
         {gameList.map(v => (
           <GameItemComp key={v.keyValue} item={v} />
         ))}
         <GameItemComingSoon disableGameList={disableGameList} />
-      </> */}
+      </>
       <div className="gameItem_bg">
         <div className="pixel_island1_div">
           <img src={preStaticUrl + '/img/games/island/pixel_litter_island1.png'} alt="pixel_litter_island1" className="pixel_litter_island1" />
@@ -85,9 +95,9 @@ const GameItem = memo(() => {
 })
 const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
   return (
-    <div className={`${css.gameItemComp ?? ''} gameItemCompComing`}>
+    <div className={`${css.gameItemComp ?? ''} ${css.gameItemCompComing} gameItemCompComing`}>
       <GameItemBgLeft />
-      <GameItemMiddle>
+      <GameItemMiddle className={css.gamComing}>
         <div className={css.gameItemCompComingImg}>
           {disableGameList.map(item => (
             <img className={css.icon} key={item.keyValue} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
@@ -101,6 +111,7 @@ const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLin
 })
 const GameItemComp = memo(({ item }: { item: INavLink }) => {
   const preHandleAction = usePreHandleGlobal()
+  const isW768 = useIsW768()
   const setPointsDialogState = useSetRecoilState(pointsDialogState)
   const showPointsModal = useCallback(() => {
     setPointsDialogState(true)
@@ -124,8 +135,8 @@ const GameItemComp = memo(({ item }: { item: INavLink }) => {
         <img className={css.icon} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
         <div className={css.fr}>
           <h4>{item.label}</h4>
-          {item.content ? item.content(css.content) : null}
-          <ActivePixelButton className={css.btn} pixel_height={2} backgroundColor={item.btn_background_color}>
+          {item.content && !isW768 ? item.content(css.content) : null}
+          <ActivePixelButton className={css.btn} pixel_height={isW768 ? 1 : 2} backgroundColor={item.btn_background_color}>
             <p className={css.btn_label}>{item.btn_label}</p>
           </ActivePixelButton>
         </div>
@@ -191,7 +202,7 @@ const GameItemMiddle = memo(({ children, className }: { children: React.ReactNod
         </div>
         <div className={css.Right} />
       </div>
-      <div className={`${css.inner} ${className ?? ''}`}>{children}</div>
+      <div className={`${className ?? ''}`}>{children}</div>
     </div>
   )
 })

@@ -29,7 +29,6 @@ export const useStake = () => {
   const { account } = useActiveWeb3React()
   const [, setTvlStakingData] = useRecoilState(tvlStakingDataState)
   useEffect(() => {
-    console.log('asdasdasa21')
     if (id) {
       // 读取数据
       getStakingData()
@@ -50,7 +49,6 @@ export const useStakeData = () => {
   // const { isRegistered } = tvlStakingData
   const { activeData, setActiveData } = useActiveData()
   const { id } = activeData
-  console.log({ id })
   const getNative = useCallback(async (): Promise<string[][]> => {
     if (!id) {
       throw Error('getNative Error by no id')
@@ -205,7 +203,6 @@ export const useStakeData = () => {
           chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
           params
         })
-        console.log({ res, params })
         const week = Object.fromEntries(res.map(v => [v.chainId, new BigNumberJs(v.response[v.response.length - 1][0].hex).toNumber()]))
         const nextParams = Object.fromEntries(
           TVLStakingSupportedChainId.map(chainId => {
@@ -235,7 +232,6 @@ export const useStakeData = () => {
           params: nextParams,
           defaultValue: 0
         })
-        console.log({ nextRes, nextParams })
         // let stakeDataFromApi: any
         // try {
         //   stakeDataFromApi = await Promise.all(TVLStakingSupportedChainId.map(v => getRestaking({ userId: id, chainId: v })))
@@ -246,10 +242,8 @@ export const useStakeData = () => {
         //     >
         //   )
         // } catch (stakeDataFromApiErr: any) {
-        //   console.log('stakeDataFromApi Error', stakeDataFromApiErr)
         // }
 
-        // console.log({ stakeDataFromApi })
         let END_TIME = '0'
         // let mintMinimum = '0'
         let sbtBalanceOf = '0'
@@ -273,7 +267,6 @@ export const useStakeData = () => {
               const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
               // const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
               const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf${_chainId}`)
-              console.log({ _chainId, claimableIndex, aaa: v.response[claimableIndex].map((cv: any) => new BigNumberJs(cv.hex).toFixed()) })
 
               const allowanceBig = v.response[allowanceIndex] ? new BigNumberJs(v.response[allowanceIndex][0].hex) : '0'
               const symbol = v.response[symbolIndex][0]
@@ -282,11 +275,9 @@ export const useStakeData = () => {
               const balanceBig = new BigNumberJs(v.response[balanceOfIndex][0].hex)
               const earnGP = v.response[claimableIndex][index]
               const crHero = new BigNumberJs(v.response[crHeroIndex][0].hex).toFixed()
-              console.log({ crHero })
 
               END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
               // mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
-              console.log({ sbtBalanceOfIndex, sbtBalanceOf: v.response[sbtBalanceOfIndex] })
               sbtBalanceOf = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
 
@@ -296,7 +287,6 @@ export const useStakeData = () => {
               // let stakeDataFromApiItemI = '0'
               // if (stakeDataFromApiItem) {
               //   stakeDataFromApiItemI = stakeDataFromApiItem.records[vv.address.toLowerCase()].total
-              //   console.log({ stakeDataFromApiItem, stakeDataFromApiItemI, vv: vv.address.toLowerCase() })
               // }
               // const totalStakeBig = new BigNumberJs(stakeDataFromApi[index])
               const earnGPBig = new BigNumberJs(earnGP.hex)
@@ -347,7 +337,6 @@ export const useStakeData = () => {
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
         setTvlStakingData(resMap)
-        console.log({ ass: resMap[nativeChainId] })
         const userStakedAmount = ethers.utils
           .formatEther(calculateSumByNumber(Object.values(resMap[nativeChainId]).map(({ userStakedAmount: user }) => (user === '' ? '0' : user))))
           .toString()
@@ -360,7 +349,6 @@ export const useStakeData = () => {
             earnGP === '' ? '0' : new BigNumberJs(earnGP).dividedBy(divisorBigNumber).toFixed(2)
           )
         )
-        console.log({ gpAmount })
         setActiveData(pre => ({
           ...pre,
           userStakedAmount: userStakedAmount,
@@ -372,9 +360,7 @@ export const useStakeData = () => {
         }))
         setIsDataLoading(false)
       }
-    } catch (e) {
-      console.log('eeeeeeee', e)
-    }
+    } catch (e) {}
   }, [getNative])
 
   const getStakingData = useCallback(() => {

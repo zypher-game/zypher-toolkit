@@ -37,7 +37,6 @@ const ActiveTVLTeam = memo(() => {
   const { chainId } = useActiveWeb3React()
   const [showTeamWarn, setShowTeamWarn] = useState(0)
   const { groupGoal, availableCode, teamMembers, activeData, openCard } = useTeam()
-  console.log({ teamMembers })
   const stakingHandle = useCallback(() => {
     setIsTvlStakingModalOpen(true)
   }, [])

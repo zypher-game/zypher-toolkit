@@ -32,35 +32,48 @@
   left: -3%;
   @media screen and (max-width: 1200px)
     left: 1%;
+  @media screen and (max-width: 768px)
+    left: 6%;
+    top: 27%;
 // cr
 .gameItemComp12
   animation: tag3-float 1s ease-in-out infinite
   top: 6%;
   right: 27%;
+  @media screen and (max-width: 768px)
+    right: 15%;
 // 2048
 .gameItemComp10
   animation: tag3-float 1s ease-in-out infinite
   animation-delay: 0.4s
   top: 28%;
   left: 27%;
+  @media screen and (max-width: 768px)
+    top: 48%;
+    left: 20%;
 // zBingo
 .gameItemComp2
   animation: tag3-float 1s ease-in-out infinite
   animation-delay: 0.6s
   top: 22%;
   right: 11%;
-
+  @media screen and (max-width: 768px)
+    top: 15%
 // points
 .gameItemComppoints
   animation: tag3-float 1s ease-in-out infinite
   animation-delay: 0.8s
   top: 44%;
   right: 12%;
+  @media screen and (max-width: 768px)
+    top: 35%;
 div.gameItemCompComing
   top: 45%;
   left: 6%;
   z-index: 9
-
+  @media screen and (max-width: 768px)
+    top: 66%;
+    left: 27%;
 
 .gameItem_bg,
 .pixel_island1_div,
@@ -105,10 +118,10 @@ div.gameItemCompComing
   width 632px
   height 300px
   @media screen and (max-width: 768px)
-    width 55%
-    height 300px
-    top: 25vh
-    left: -6%
+    width: 48%;
+    height: 300px;
+    top: 20%;
+    left: 4%;
   .pixel_island1
     width: 48%
     right: 0
@@ -120,6 +133,8 @@ div.gameItemCompComing
     width: 16%;
     left: 34%;
     bottom: -3%
+    @media screen and (max-width: 768px)
+      left: 47%
   .pixel_cloud1
     width: 19%;
     top: 10%;
@@ -142,9 +157,9 @@ div.gameItemCompComing
   width: 964px
   height: 344px
   @media screen and (max-width: 768px)
-    top: 0
-    right: -5%
-    width: 80%
+    top: 0;
+    right: 5%;
+    width: 70%;
 
   .pixel_island2
     width: 58%
@@ -172,10 +187,10 @@ div.gameItemCompComing
   width: 964px
   height: 344px
   @media screen and (max-width: 768px)
-    width: 80%;
-    top: 54vh;
+    width: 77%;
+    top: 51vh;
     right: auto;
-    left: 19%;
+    left: 22%;
   .pixel_island3
     width: 45%
     left: 10%
@@ -202,14 +217,21 @@ div.gameItemCompComing
   width: 684px;
   height: 292px;
   @media screen and (max-width: 768px)
-    width 100vw
-    left 31vw
+    width: 96vw;
+    left: 60vw;
+    top: 61%;
+    bottom: auto
   .pixel_island4
     width: 100%
   .pixel_litter_island3
     width: 17%;
     bottom: -11%;
     left: -30%;
+    @media screen and (max-width: 768px)
+      left: auto;
+      right: 0;
+      bottom: 100%;
+      width: 11%;
   .pixel_cloud9
     width: 11%;
     left: -15%;
@@ -220,7 +242,10 @@ div.gameItemCompComing
   width: 572px;
   height: 288px;
   @media screen and (max-width: 768px)
-    width 50vw
+    width: 51%;
+    top: 21%;
+    right: 1%;
+    bottom: auto;
     
   .pixel_island5
     width: 55%
@@ -234,21 +259,27 @@ div.gameItemCompComing
     width: 20%
     bottom: 0
     right: 25%
+    @media screen and (max-width: 768px)
+      top: 209%;
+      right: 54%;
   .pixel_cloud7
     bottom: 10%;
     width: 14%;
     right: 3%;
+    @media screen and (max-width: 768px)
+      bottom: 68%;
+      right: 63%
 
 
-@keyframes tag3-float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
-  100% { transform: translateY(0); }
-}
+// @keyframes tag3-float {
+//   0% { transform: translateY(0); }
+//   50% { transform: translateY(-2px); }
+//   100% { transform: translateY(0); }
+// }
 
 
-@keyframes cloud1-float {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
-  100% { transform: translateY(0); }
-}
+// @keyframes cloud1-float {
+//   0% { transform: translateY(0); }
+//   50% { transform: translateY(-2px); }
+//   100% { transform: translateY(0); }
+// }

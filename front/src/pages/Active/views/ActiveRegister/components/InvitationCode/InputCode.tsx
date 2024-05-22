@@ -2,7 +2,7 @@ import { ActivePixelCard, useActiveWeb3React } from '@ui/src'
 import React, { ChangeEventHandler, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { CODELENGTH, getLinkPre } from '@/pages/Active/constants/activeConstants'
+import { CODELENGTH, getLinkPre, LinkPre } from '@/pages/Active/constants/activeConstants'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
 import { getHrefCode } from '@/pages/Active/utils/getHrefParams'
@@ -39,7 +39,7 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
   const { code: codeFromParams } = useParams()
   const { codeCheck } = useCodeCheckCall()
   const { setActiveData } = useActiveData()
-  const { chainId } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const initializeCode = useCallback(
     async (value: string) => {
       const trimmedValue = value.trim().replace('-', '')
@@ -55,27 +55,26 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
             nextInput.focus()
           }
         } else if (currentLength === CODELENGTH) {
-          const link = getLinkPre(chainId)
-          if (trimmedValue[0] === link.label) {
-            console.log(2)
-            const check = await codeCheck(trimmedValue)
-            console.log(2, check)
-            if (check) {
-              setActiveData(pre => {
-                console.log({ pre })
-                return pre.signedFalse
-                  ? pre
-                  : {
-                      ...pre,
-                      invitationCode: trimmedValue
-                    }
-              })
-            } else {
-              inputsRef.current.forEach(input => {
-                if (input) {
-                  input.blur()
-                }
-              })
+          if (chainId) {
+            const link = LinkPre[initialCode[0]]
+            if (trimmedValue[0] === link.label) {
+              const check = await codeCheck(trimmedValue)
+              if (check) {
+                setActiveData(pre => {
+                  return pre.signedFalse
+                    ? pre
+                    : {
+                        ...pre,
+                        invitationCode: trimmedValue
+                      }
+                })
+              } else {
+                inputsRef.current.forEach(input => {
+                  if (input) {
+                    input.blur()
+                  }
+                })
+              }
             }
           }
         }
@@ -90,7 +89,7 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
     if (__code) {
       initializeCode(__code)
     }
-  }, [])
+  }, [account, chainId])
   useEffect(() => {
     const arr = code.every(e => !!e)
     if (code.length === CODELENGTH && arr) {

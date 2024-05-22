@@ -14,6 +14,7 @@ import {
   zkBingo,
   zkBingoV0
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { Address } from '@wagmi/core'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
@@ -30,7 +31,6 @@ import {
   batchRequestTransCountFromScan,
   IContractResponse
 } from '@/utils/batchRequestContracts'
-import { BigNumberJs } from '@ui/src'
 import { calculateSum, calculateSumByNumber, calculateSumWithKey } from '@/utils/calculateSum'
 import { env } from '@/utils/config'
 
@@ -94,7 +94,6 @@ export const useDataInfo = () => {
           defaultValue: new BigNumberJs('0')
         })
         const totalVault = calculateSum(value, true, chainNativePrice)
-        console.log({ totalVaul22t: totalVault, totalVault: new BigNumberJs(totalVault).toFixed() })
         // 交易数量
         const transactionCount = await batchRequestTransCountFromScan({
           contractName: IContractName.Lobby,

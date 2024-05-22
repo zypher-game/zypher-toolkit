@@ -85,7 +85,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
   }, [isMobile, t])
 
   return (
-    <PixelGameListTable className={css.gameList}>
+    <IsPixelWidgetTable>
       {isMobile ? (
         showData.length === 0 ? (
           <List
@@ -121,8 +121,12 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
           scroll={{ y: 400, x: 400 }}
         />
       )}
-    </PixelGameListTable>
+    </IsPixelWidgetTable>
   )
 }, isEqual)
 
+export const IsPixelWidgetTable = memo(({ children }: { children: React.ReactNode }) => {
+  const isW768 = useIsW768()
+  return isW768 ? <div className={css.inner}>{children}</div> : <PixelGameListTable className={css.gameList}>{children}</PixelGameListTable>
+})
 export default GameListTableWidget

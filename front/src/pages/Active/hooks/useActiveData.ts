@@ -16,16 +16,12 @@ export const useActiveData = () => {
 
   const setActiveData = useCallback(
     (obj: (preVal: IActiveData) => Partial<IActiveData>) => {
-      console.log({ obj })
       setActiveDataData(pre => {
-        console.log({ pre, chainId })
         if (pre[chainId]) {
-          console.log({ preValue: pre[chainId] })
           const chainObj = {
             ...pre[chainId],
             ...obj(pre[chainId]!)
           }
-          console.log({ nextValue: chainObj })
           return {
             ...pre,
             [chainId]: chainObj

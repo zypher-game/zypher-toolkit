@@ -182,7 +182,6 @@ export const useStakeHandle = () => {
     }
   }, [isW768, isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction])
   useEffect(() => {
-    console.log({ nativeChainId, tvlStakingData, depositCurrency })
     if (
       canNext(account, nativeChainId) &&
       depositCurrency &&

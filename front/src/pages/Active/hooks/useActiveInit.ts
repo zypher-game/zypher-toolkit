@@ -1,4 +1,5 @@
-import { ChainId, useActiveWeb3React } from '@ui/src'
+import { NavKey, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { pathnameState } from '@ui/src'
 import { useCallback, useEffect } from 'react'
 
 import { initActiveData } from '../state/activeState'
@@ -16,12 +17,10 @@ export const useGetData = () => {
         ...pre,
         isInitLoading: true
       }))
-      console.log(111222333)
       const userInfo = await getUserInfo({
         isInit: true,
         chainId
       })
-      console.log({ userInfo })
       if (userInfo) {
         setActiveData(pre => ({
           ...pre,
@@ -48,19 +47,20 @@ export const useGetData = () => {
     getData
   }
 }
-export const useInit = () => {
+export const useActiveInit = () => {
   const { account, chainId } = useActiveWeb3React()
   const { setActiveData } = useActiveData()
   // const { isInitLoading, id } = activeData
   const { getData } = useGetData()
+  const pathname = useRecoilValue(pathnameState)
+
   useEffect(() => {
-    getData()
-  }, [account, chainId])
-  useEffect(() => {
-    console.log({ a: 1111 })
-    setActiveData(pre => {
-      return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? { ...pre } : { ...initActiveData }
-    })
+    if (NavKey[0].includes(pathname[0])) {
+      getData()
+      setActiveData(pre => {
+        return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? { ...pre } : { ...initActiveData }
+      })
+    }
   }, [account, chainId])
   return {
     getData

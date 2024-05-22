@@ -3,8 +3,8 @@ import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
 import { useActiveData } from './useActiveData'
+import { useGetData } from './useActiveInit'
 import { useAvailableCode, useTeamCall } from './useDataCall'
-import { useGetData } from './useInit'
 export type ITeamMember = {
   headImg: string
   nickname: string
@@ -44,7 +44,6 @@ export const useTeam = () => {
       }
       // 获取队伍信息
       const _team = await getTeam(activeData.id, chainId)
-      console.log({ _team })
       // 获取待领取小组积分卡片数量
       const point = await getGroupScoreCardNum(activeData.id)
       if (_availableCode) {
@@ -95,7 +94,6 @@ export const useTeam = () => {
     async (key: string) => {
       const isSingle = key === 'all'
       const setOpenCard_res = await setOpenCard(activeData.id, isSingle)
-      console.log({ setOpenCard_res })
       if (setOpenCard_res) {
         getData()
       }

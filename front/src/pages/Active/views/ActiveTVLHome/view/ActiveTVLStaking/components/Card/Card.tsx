@@ -53,7 +53,6 @@ const Card = memo(
         availableInvitationsTooltip: ['']
       }
     }, [chainIdLocal])
-    console.log({ activeDataSource, sbtAmount })
     return (
       <div className={css.card}>
         <div className={css.cardOne}>

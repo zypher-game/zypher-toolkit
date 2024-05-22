@@ -1,7 +1,7 @@
 import './gameListBorderSelect.styl'
 
 import { CaretDownOutlined } from '@ant-design/icons'
-import { IGameName, PixelBorderCard, PixelBorderCardButton, PixelCube2, useCustomTranslation } from '@ui/src'
+import { IGameName, PixelBorderCard, PixelBorderCardButton, PixelCube2, useCustomTranslation, useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { ChainId, ChainName, supportedChainIds } from '@ui/src'
 import { Select } from 'antd'
@@ -68,6 +68,7 @@ const GameListBorderSelect = memo(
     setSelectValue: React.Dispatch<React.SetStateAction<ChainId | 'All'>>
     showFilter: boolean
   }) => {
+    const isW768 = useIsW768()
     const { t } = useCustomTranslation([LngNs.home])
     const [finalOption, setFinalOption] = useState<IChainOption[]>()
     const options: IChainOption[] = useMemo(() => {
@@ -108,7 +109,12 @@ const GameListBorderSelect = memo(
 
     const Dropdown = useCallback(
       (menu: any) => (
-        <PixelBorderCard className="selectDropdownBox" pixel_height={4} backgroundColor="#1D263B" borderColor="#3A4254">
+        <PixelBorderCard
+          className="selectDropdownBox"
+          pixel_height={isW768 ? 3 : 4}
+          backgroundColor={isW768 ? '#343C4F' : '#1D263B'}
+          borderColor={isW768 ? '#484F60' : '#3A4254'}
+        >
           {menu}
         </PixelBorderCard>
       ),

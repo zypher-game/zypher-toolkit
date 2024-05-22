@@ -11,16 +11,13 @@ import { setErrorToast } from '@/utils/Error/setErrorToast'
 import InputCode from './InputCode'
 import css from './InvitationCode.module.styl'
 
-const InvitationCode = memo(({ isComing }: { isComing?: boolean }) => {
+const InvitationCode = memo(() => {
   const [codeStr, setCodeStr] = useState<string>('')
   const { activeData, setActiveData } = useActiveData()
   const { account, chainId } = useActiveWeb3React()
   const preHandleAction = usePreHandleAction()
   const { loading, codeCheck } = useCodeCheckCall()
   const checkInvitationCode = useCallback(async () => {
-    if (isComing) {
-      return
-    }
     if (loading || activeData.isInitLoading) {
       return
     }
@@ -73,7 +70,7 @@ const InvitationCode = memo(({ isComing }: { isComing?: boolean }) => {
         pixel_height={5}
         disable={loading || activeData.isInitLoading}
       >
-        <p>{isComing ? 'Coming Soom' : 'Join Now'}</p>
+        <p>Join Now</p>
         <LoadingButton isLoading={loading || activeData.isInitLoading} />
       </ActivePixelButtonColor>
       {!account || !chainId ? (

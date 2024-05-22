@@ -33,7 +33,6 @@ const IsPixelWidget = memo(
       </PixelBorderCardButton>
     ) : (
       <div className={className} onClick={onClick}>
-        {" "}
         {children}
       </div>
     );

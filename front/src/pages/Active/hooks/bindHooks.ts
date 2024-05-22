@@ -6,7 +6,7 @@ import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import { getLinkPre, TVL_API } from '../constants/activeConstants'
 import { form_primary_score } from '../utils/formmate'
-import { usePreHandleAction } from './activeHooks'
+import { usePreHandleAction, useSignCall } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { usePrimaryScore } from './useDataCall'
 
@@ -14,9 +14,11 @@ export const useBind = () => {
   const { account, chainId } = useActiveWeb3React()
   const { activeData, setActiveData } = useActiveData()
   const { getPrimaryScore } = usePrimaryScore()
+  const { getSignCall } = useSignCall()
   const {
     twitter: { nickname: twitterNickname },
-    discord
+    discord,
+    signedStr
   } = activeData
   const preHandleAction = usePreHandleAction()
   const CheckPointHandle = useCallback(async () => {
@@ -49,11 +51,15 @@ export const useBind = () => {
     if (!isOk) {
       return
     }
+    if (!signedStr || signedStr === '') {
+      getSignCall()
+      return
+    }
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: true } }))
     const linkType = getLinkPre(chainId)
     window.open(`${TVL_API}/connect-twitter?addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
-  }, [twitterNickname, preHandleAction, chainId])
+  }, [signedStr, twitterNickname, preHandleAction, chainId])
   return {
     CheckPointHandle,
     CheckDiscordHandle,

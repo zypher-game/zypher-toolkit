@@ -5,8 +5,6 @@ import {
   LoadingButton,
   PixelCube3,
   PixelTable,
-  preStaticUrl,
-  SvgComponent,
   useActiveWeb3React,
   useRecoilValue,
   useSetRecoilState
@@ -21,10 +19,9 @@ import { getWeb3Sign } from '@/utils/getSign'
 
 import { getLinkPre } from '../../constants/activeConstants'
 import { canNext } from '../../hooks/activeHooks'
-import { useActiveData } from '../../hooks/useActiveData'
+import { useGetData } from '../../hooks/useActiveInit'
 import { useChainIndex } from '../../hooks/useChainIndex'
 import { useUpdateInfoCall } from '../../hooks/useDataCall'
-import { useGetData, useInit } from '../../hooks/useInit'
 import { activeDataState, changeNameDialogState, IActiveDataState, initActiveData } from '../../state/activeState'
 import Avatar from '../../views/ActiveTVLHome/components/Avatar/Avatar'
 import css from './ChangeNameDialog.module.styl'
@@ -40,7 +37,6 @@ const ChangeNameDialog = memo(() => {
   const { updateInfo, updateHeadImg } = useUpdateInfoCall()
   const { account } = useActiveWeb3React()
   const { chainIdLocal: chainId } = useChainIndex()
-  console.log(12121322, { chainId })
   const { getData } = useGetData()
   const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
   const { avatar, nickname } = useMemo(() => {
@@ -82,7 +78,6 @@ const ChangeNameDialog = memo(() => {
       if (!_canNext) {
         return
       }
-      console.log(1, account, avatarLocal, nicknameLocal)
       const hashedCardBytes = ethers.utils.hexConcat([account!])
       let _signedStr
       try {

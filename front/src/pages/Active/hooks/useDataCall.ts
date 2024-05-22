@@ -52,7 +52,6 @@ export const useGetDataCall = () => {
               let isRegistered = false
               if (heroKey) {
                 isRegistered = await getIsRegistered(infoObj.id)
-                console.log({ isRegistered })
               }
               return {
                 ...infoObj,

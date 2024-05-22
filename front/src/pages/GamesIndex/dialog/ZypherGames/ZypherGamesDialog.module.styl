@@ -1,9 +1,11 @@
 .center
   max-width: 550px
+  @media screen and (max-width: 768px)
+    max-width 90%
 .ZypherGamesDialog
   padding: 60px
   @media screen and (max-width: 768px)
-    padding: 30px
+    padding: 58px 20px
   :global(>.pixel_flat_inner)
     flex-direction: column
   .card
@@ -13,3 +15,10 @@
     font-size: 24px
     line-height: 30px
     padding: 20px 0
+    @media screen and (max-width: 768px)
+      font-size: 18px
+      padding: 20px 0 10px
+  p
+    font-size: 16px
+    @media screen and (max-width: 768px)
+      font-size: 12px

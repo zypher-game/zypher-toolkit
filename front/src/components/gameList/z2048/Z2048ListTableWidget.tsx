@@ -11,10 +11,10 @@ import React, { memo, useMemo } from 'react'
 import { NotDataWithLoading } from '@/components/NoData'
 import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 
+import { IsPixelWidgetTable } from '../bingo/gameListTable'
 import css from '../bingo/gameListTable.module.stylus'
 import { MyTable } from '../bingo/gameListTable.style'
 import RenderNormalText from '../bingo/tableRow/pc/RenderNormalText'
-import PixelGameListTable from '../components/PixelGameListTable'
 import Z2048MobileRow from './tableRow/m/Z2048MobileRow'
 import NftTokenIdCol from './tableRow/nftTokenIdCol'
 type IProps = {
@@ -71,7 +71,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
   }, [isMobile, t])
 
   return (
-    <PixelGameListTable className={css.gameList}>
+    <IsPixelWidgetTable>
       {isMobile ? (
         showData.length === 0 ? (
           <List
@@ -108,7 +108,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
           scroll={{ y: 400, x: 400 }}
         />
       )}
-    </PixelGameListTable>
+    </IsPixelWidgetTable>
   )
 }, isEqual)
 

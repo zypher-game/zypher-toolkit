@@ -1,9 +1,7 @@
-import { ChainId, IGameList, IGameName, useIsW768 } from '@ui/src'
+import { ChainId, IGameList, IGameName } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useState } from 'react'
-import { Link } from 'react-router-dom'
 
-import Icon from '@/assets/iconsLocal'
 import { I2048GameList } from '@/pages/GamesIndex/hook/useRecentZ2048FromContract'
 
 import GameListTableWidget from './bingo/gameListTable'
@@ -33,17 +31,9 @@ const GameListIndex = memo(
   }: IGameListProps) => {
     const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
     const [chooseGame, setChooseGame] = useState<IGameName>(IGameName.z2048)
-    const isMobile = useIsW768()
+
     return (
       <div className={css.gameListIndex}>
-        {showFilter ? (
-          isMobile ? (
-            <Link to={'/games/list'} className={css.more_right}>
-              More
-              <Icon name="right" />
-            </Link>
-          ) : null
-        ) : null}
         <GameListBorderSelect
           chooseGame={chooseGame}
           setSelectValue={setSelectValue}

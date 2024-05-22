@@ -22,8 +22,8 @@ const Z2048MobileRow: FC<IProps> = memo(({ showFilter, item }: IProps) => {
     <PixelTable
       className={css.mItem}
       pixel_height={4}
-      backgroundColor="#343C4F"
-      borderColor="#484F60"
+      backgroundColor={isMobile ? '#293457' : '#343C4F'}
+      borderColor={isMobile ? '#3A4254' : '#484F60'}
       classNameHeader={css.header}
       header_children={
         <div className={css.mTop}>

@@ -9,14 +9,13 @@ import CommunityLink from "./component/CommunityLink";
 import Language from "./component/Language";
 import SideBarGamesList from "./component/SideBarGamesList";
 import { SideBarTitle, SideBarTitleLink } from "./component/SideBarTitle";
-import "./sidebar.stylus";
+import "./SideBar.stylus";
 import { sideCollapseState } from "../Header/state";
 import { useSetRecoilState } from "recoil";
 import Icon from "../icons";
 import { NavList } from "../Header/Navigation/Navigation";
 
 interface IProps {
-  isMobile: boolean;
   useNavigate: any;
   className?: string;
   pathname: string;
@@ -34,25 +33,24 @@ export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
   );
 });
 const SideBar: React.FC<IProps> = (props: IProps) => {
-  const { isMobile, useNavigate, pathname } = props;
-  console.log({ pathname });
+  const { useNavigate, pathname } = props;
   const items = useNavItem();
   const setSideCollapse = useSetRecoilState(sideCollapseState);
   const {
     sideBarGamesLinkList,
   }: {
     sideBarGamesLinkList: INavLink[];
-    sideBarActivitiesLinkList: INavLink[];
+    // sideBarActivitiesLinkList: INavLink[];
   } = useMemo(() => {
     return {
       sideBarGamesLinkList: items.filter((v) => v.type === INavLinkType.Games),
-      sideBarActivitiesLinkList: items.filter((v) =>
-        !isMobile
-          ? v.type === INavLinkType.Activities && v.keyValue !== "1"
-          : v.type === INavLinkType.Activities
-      ),
+      // sideBarActivitiesLinkList: items.filter((v) =>
+      //   !isMobile
+      //     ? v.type === INavLinkType.Activities && v.keyValue !== "1"
+      //     : v.type === INavLinkType.Activities
+      // ),
     };
-  }, [items, isMobile]);
+  }, [items]);
 
   return (
     <div className={classnames(`${props.className}`, "sidebarWrap")}>
@@ -82,7 +80,6 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
           className_listItem={"verListItem"}
           className_listItemDisable={"verListItemDisable"}
           list={sideBarGamesLinkList}
-          isMobile={isMobile}
           useNavigate={useNavigate}
           className_imageContainer={"imageContainerWaves"}
         />

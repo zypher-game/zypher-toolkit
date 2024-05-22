@@ -78,10 +78,10 @@ i.ant-spin-dot-item
         color: #DC4F26
     .ant-spin-dot-item
         background: #DC4F26
-body .lt-layout
+body .ant-layout.lt-layout
     overflow: auto
     background:  #01040E
-    
+    flex-direction: column;
     .lt-side-mode
         position: fixed;
         z-index: 9
@@ -145,12 +145,13 @@ body .ant-layout
             @media screen and (max-width: 768px)
                 background-color: transparent
                 border-bottom: none
-
-    .lt-content
+.ant-layout.lt-layout
+    .ant-layout-content.lt-content
         box-sizing: border-box
         flex: 1
         display: flex
         flex-direction: column
+        width 100vw
         .lt-main
             // min-width: 1200px
             flex: 1

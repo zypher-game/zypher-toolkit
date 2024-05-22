@@ -12,13 +12,17 @@ import css from './Bind.module.styl'
 const Bind = memo(({ CheckPointHandle, CheckTwitterHandle }: { CheckPointHandle: any; CheckDiscordHandle: any; CheckTwitterHandle: any }) => {
   const { activeData, setActiveData } = useActiveData()
   const { account, chainId } = useActiveWeb3React()
-  const { invitationCode, twitter } = activeData
+  const {
+    invitationCode,
+    twitter: { nickname: twitterNickname, isLoading },
+    signedStr
+  } = activeData
   const [isClick, setIsClick] = useState(false)
   const { getUserInfo } = useGetDataCall()
   const shareOnTwitter = useCallback(() => {
     CheckTwitterHandle()
     setIsClick(true)
-  }, [])
+  }, [twitterNickname, signedStr])
 
   const handleVisibilityChange = useCallback(async () => {
     setTimeout(async () => {
@@ -59,7 +63,7 @@ const Bind = memo(({ CheckPointHandle, CheckTwitterHandle }: { CheckPointHandle:
       />
       <LiItem
         fl={'2. Follow @Zypher_network on Twitter'}
-        fr={<FrStatus label={twitter.nickname} isLoading={twitter.isLoading} btnLabel="Link to Twitter" onClick={shareOnTwitter} />}
+        fr={<FrStatus label={twitterNickname} isLoading={isLoading} btnLabel="Link to Twitter" onClick={shareOnTwitter} />}
       />
       {/* <LiItem
           fl={'3. Join Zypher Games Discord'}

@@ -10,7 +10,9 @@
       top: 0
 .gameList
   position: relative
-
+.inner
+  max-height: 70vh
+  overflow-y: scroll
 .account
   display: flex
   flex-direction: row

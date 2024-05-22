@@ -37,7 +37,7 @@ export const zypherGamesDialogState = atom({
 
 export const gameListDialogState = atom({
   key: 'gameListDialogState',
-  default: false
+  default: true
 })
 
 export const dataDialogState = atom({

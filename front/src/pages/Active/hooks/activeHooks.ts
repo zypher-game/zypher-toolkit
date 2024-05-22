@@ -63,17 +63,14 @@ export const usePreHandleAction = () => {
   return preHandleAction
 }
 
-export const useSign = () => {
-  const { chainId } = useActiveWeb3React()
+export const useSignCall = () => {
   const { activeData, setActiveData } = useActiveData()
-  const { accountAddress, invitationCode, signedStr, id, isInitLoading } = activeData
-  console.log({ activeData })
+  const { accountAddress, invitationCode, id, isInitLoading } = activeData
   const getSignCall = useCallback(async () => {
     if (accountAddress !== AddressZero && invitationCode && !id && !isInitLoading) {
       try {
         const hashedCardBytes = ethers.utils.hexConcat([accountAddress])
         const _signedStr = await getWeb3Sign(hashedCardBytes, accountAddress, false)
-        console.log({ _signedStr })
         if (typeof _signedStr === 'string') {
           setActiveData(pre => ({ ...pre, signedStr: _signedStr }))
         } else {
@@ -85,7 +82,13 @@ export const useSign = () => {
       }
     }
   }, [accountAddress, isInitLoading, invitationCode, id])
-
+  return { getSignCall }
+}
+export const useSign = () => {
+  const { chainId } = useActiveWeb3React()
+  const { activeData, setActiveData } = useActiveData()
+  const { accountAddress, invitationCode, signedStr, id, isInitLoading } = activeData
+  const { getSignCall } = useSignCall()
   const getLoginCall = useCallback(async () => {
     if (signedStr && signedStr !== '0000' && !id && chainId) {
       try {

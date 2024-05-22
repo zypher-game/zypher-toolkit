@@ -1,14 +1,11 @@
 import React, {
-  forwardRef,
   memo,
-  Ref,
   useCallback,
   useEffect,
   useMemo,
   useRef,
   useState,
 } from "react";
-import { Link, LinkProps } from "react-router-dom";
 import "./Navigation.stylus";
 import useWindowSize from "../../../hooks/useWindowSize";
 import sleep from "../../../utils/sleep";
@@ -24,37 +21,30 @@ export const NavList = [
     label: "Airdrop",
     linkList: NavKey[0],
     classNames: "airdrop",
+    isTarget: false,
   },
   {
     link: `/${NavKey[1][0]}`,
     label: "Games",
     linkList: NavKey[1],
     classNames: "games",
+    isTarget: false,
   },
   {
     link: `/${NavKey[2][0]}`,
     label: "Zero Gas",
     linkList: NavKey[2],
     classNames: "zero_gas",
+    isTarget: false,
   },
   {
     link: "https://zypher.network/",
     label: "Zypher Network",
     icon: preStaticUrl + "/img/icon/pixel_link.svg",
     classNames: "network",
+    isTarget: true,
   },
 ];
-type NavLinkProps = {
-  label: string;
-  ref: Ref<HTMLAnchorElement> | undefined;
-};
-
-const NavLink: React.FC<NavLinkProps & Omit<LinkProps, "children">> =
-  forwardRef(({ label, ...rest }: NavLinkProps & LinkProps, ref) => (
-    <Link {...rest} ref={ref}>
-      {label}
-    </Link>
-  ));
 
 const Navigation: React.FC<{ pathname: string }> = memo(
   ({ pathname }: { pathname: string }) => {
@@ -95,7 +85,6 @@ const Navigation: React.FC<{ pathname: string }> = memo(
               await sleep(0.2);
             }
             if (w) {
-              console.log({ linkRefclassName: index });
               setActiveIndex(index);
             }
           }
@@ -151,7 +140,6 @@ const Navigation: React.FC<{ pathname: string }> = memo(
     useEffect(() => {
       updateLinePosition();
     }, [chooseIndex, activeIndex, pathname]);
-    console.log({ isW768, isW1670, isWBig });
     useEffect(() => {
       (async () => {
         await sleep(0.3);
@@ -165,8 +153,8 @@ const Navigation: React.FC<{ pathname: string }> = memo(
             key={v.label}
             className={`nav_${v.classNames}`}
             href={v.link}
-            target="_blank"
-            rel="noreferrer"
+            target={v.isTarget ? "_blank" : undefined}
+            rel={v.isTarget ? "noreferrer" : undefined}
             ref={(ref) => (linksRefs.current[index] = ref)}
           >
             {v.label}
@@ -187,7 +175,6 @@ function hasFontWeight600(element: HTMLAnchorElement | null): boolean {
 
   const computedStyle = window.getComputedStyle(element);
   const fontWeight = computedStyle.getPropertyValue("font-weight");
-  console.log({ fontWeight });
   // 类型断言，确保 fontWeight 是 string 类型，尽管在实际应用中这应该是安全的
   return fontWeight === ("600" as unknown as string);
 }

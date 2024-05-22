@@ -3,6 +3,7 @@ import {
   supportedChainIds,
   useActiveWeb3React,
   useChainModal,
+  useConnectModal,
   useRecoilValue,
   useSetRecoilState,
   useSwitchNetwork,
@@ -14,31 +15,39 @@ import { chooseChainState } from '@/pages/Active/state/activeState'
 
 export const usePreHandleGlobal = () => {
   const chooseChain = useRecoilValue(chooseChainState)
+  const { openConnectModal } = useConnectModal()
   const { account, chainId: nativeChainId } = useActiveWeb3React()
   const { openChainModal } = useChainModal()
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
   const { switchNetwork } = useSwitchNetwork()
   const preHandleAction = useCallback(
     (env?: string, chainList?: ChainId[]) => {
-      if (openChainModal && !supportedChainIds(env, chainList).includes(nativeChainId)) {
-        if (switchNetwork && chainList?.length === 1) {
-          switchNetwork(chainList[0])
-        } else {
-          openChainModal()
+      try {
+        if (!supportedChainIds(env, chainList).includes(nativeChainId)) {
+          if (switchNetwork && chainList?.length === 1) {
+            switchNetwork(chainList[0])
+            return
+          } else {
+            if (openChainModal) {
+              openChainModal()
+              return
+            } else if (openConnectModal) {
+              setDialogOpen(true)
+              return
+            }
+          }
         }
-        return
+        if (switchNetwork && chooseChain && chooseChain !== nativeChainId) {
+          switchNetwork(chooseChain)
+          return
+        }
+        return true
+      } catch (e) {
+        console.log(e)
       }
-      if (!account) {
-        setDialogOpen(true)
-        return
-      }
-      if (switchNetwork && chooseChain && chooseChain !== nativeChainId) {
-        switchNetwork(chooseChain)
-        return
-      }
-      return true
     },
-    [account, nativeChainId, chooseChain, openChainModal]
+    [account, openConnectModal, nativeChainId, chooseChain, openChainModal]
   )
+
   return preHandleAction
 }
