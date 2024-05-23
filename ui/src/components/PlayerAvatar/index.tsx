@@ -57,7 +57,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
                 border
                   ? {
                       background: selectedBackground,
-                      border: "2px solid #62380C",
+                      border: "2px solid #eeeeee",
                     }
                   : { background: selectedBackground }
               }

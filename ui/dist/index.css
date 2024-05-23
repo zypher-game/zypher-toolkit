@@ -645,6 +645,11 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   fill: #fff;
   cursor: pointer;
 }
+@media screen and (max-width: 768px) and (max-width: 768px) {
+  .customDialog [data-reach-dialog-content] {
+    background-color: #1d263b;
+  }
+}
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelTable/PixelTable.styl */
 .tvlPixelTable > .pixel_flat_inner {
@@ -1018,14 +1023,13 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 62px;
-  padding: 20px 32px;
-  background: #1c1c1c;
-  border-radius: 20px 20px 0 0;
+  height: 64px;
+  padding: 15px 20px;
+  background: #293457;
 }
 .dialog_title_modalTitleInner .dialog_title_title {
   font-style: normal;
-  font-weight: 500;
+  font-weight: bold;
   font-size: 16px;
   color: var(--var-text-light);
   line-height: 24px;
@@ -1035,7 +1039,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   cursor: pointer;
 }
 .dialog_title_modalTitleInner span :global(.icon) {
-  size: 14px;
+  size: 24px;
   fill: var(--var-text-light);
 }
 
@@ -1366,11 +1370,11 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   font-size: 14px;
   line-height: 22px;
   text-align: center;
-  color: #62380c;
+  color: #eee;
 }
 .player_playerAvatar .player_avatar {
   background: #ffe8c4;
-  border: 2px solid #62380c;
+  border: 2px solid #eee;
   border-radius: 50%;
 }
 .player_playerAvatar .player_avatar.player_highLight {
@@ -1467,7 +1471,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 @media screen and (max-width: 768px) {
   .account_info_dialog_dialog .account_info_dialog_modalMain {
-    padding: 82px 32px 33px;
+    padding: 82px 15px 33px;
   }
 }
 body .address_wrap_big_pop,
@@ -1620,44 +1624,82 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.stylus */
-.m_user_m_content .m_user_border {
-  border-radius: 10px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 16px;
-  margin-bottom: 16px;
-}
-.m_user_m_content .m_user_border.m_user_chain {
+.m_user_m_content .m_user_chain {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+  height: 56px;
 }
-.m_user_m_content .m_user_border.m_user_chain :global(.img) {
+.m_user_m_content .m_user_chain :global(.img) {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+}
+.m_user_m_content .m_user_chain .ChainSelectorWidgetWrapper {
+  justify-content: space-between;
+  width: 100%;
+}
+.m_user_m_content .m_user_border {
+  padding: 16px;
+  margin-bottom: 10px;
+}
+.m_user_m_content .m_user_border > .pixel_flat_inner {
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
 }
 .m_user_m_content .m_user_border .m_user_account {
   flex-direction: row;
   gap: 9px;
 }
 .m_user_m_content .m_user_border .m_user_account p {
-  font-size: 20px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: bold;
   color: #fff;
 }
 .m_user_m_content .m_user_tit {
-  color: #5f5d77;
+  color: #d3d4d7;
   font-size: 14px;
   line-height: 16px;
 }
 .m_user_m_content .m_user_userInfoInner {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.m_user_m_content .m_user_fun {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-content: flex-start;
+}
+.m_user_m_content .m_user_fun .m_user_info_FunItem {
+  cursor: pointer;
+  width: 50%;
+  text-align: center;
+}
+.m_user_m_content .m_user_fun .m_user_info_FunItem p {
+  margin-top: 5px;
+  color: #d3d4d7;
+}
+.m_user_m_content .m_user_fun .m_user_info_FunItem .svg_component {
+  margin: 0 auto;
+}
+.m_user_m_content .m_user_fun .m_user_info_FunItem .svg_component svg rect {
+  fill: #d3d4d7;
+}
+.m_user_m_content .m_user_fun .m_user_info_FunItem .svg_component svg path {
+  stroke: #d3d4d7;
+}
+.m_user_m_content .m_user_balance {
+  width: 100%;
 }
 .m_user_m_content .m_user_item {
   margin-top: 16px;
@@ -4089,8 +4131,19 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   position: relative;
   cursor: pointer;
 }
+@media screen and (max-width: 768px) {
+  .ActiveTVLStaking_tab .ActiveTVLStaking_tab_li {
+    padding: 0 10px;
+  }
+}
 .ActiveTVLStaking_tab .ActiveTVLStaking_tab_li p {
+  font-size: 16px;
   transition: opacity 0.3s ease;
+}
+@media screen and (max-width: 768px) {
+  .ActiveTVLStaking_tab .ActiveTVLStaking_tab_li p {
+    font-size: 14px;
+  }
 }
 .ActiveTVLStaking_tab .ActiveTVLStaking_tab_li:hover p {
   opacity: 0.8;

@@ -21,7 +21,13 @@ interface IPixel extends IChildren, IPixelProps {
 export declare const ActivePixelCard: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const ActivePixelButton: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const ActivePixelColorCard: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
-export declare const ActivePixelButtonColor: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
+type IActivePixelColorCardTheme = "yellow" | "brown" | "brightBlue";
+export interface IPixelButtonTheme extends IPixelProps {
+    themeType: IActivePixelColorCardTheme;
+}
+interface IPixelButton extends IChildren, IPixelButtonTheme {
+}
+export declare const ActivePixelButtonColor: React.MemoExoticComponent<(props: IPixelButton) => React.JSX.Element>;
 export declare const PixelBorderCard: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const PixelCube2: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;
 export declare const PixelCube3: React.MemoExoticComponent<(props: IPixel) => React.JSX.Element>;

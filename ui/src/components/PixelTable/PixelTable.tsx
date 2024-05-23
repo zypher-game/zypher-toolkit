@@ -1,3 +1,4 @@
+import { useIsW768 } from "../../hooks/useWindowSize";
 import {
   ActivePixelCard,
   IPixelProps,
@@ -57,7 +58,7 @@ export const PixelTable = memo(
     width,
   }: IProps) => {
     return (
-      <ActivePixelCard
+      <PixelBorderCard
         className={`tvlPixelTable ${className ?? ""}`}
         pixel_height={pixel_height}
         backgroundColor={`${backgroundColor ?? "#0d1120"}`}
@@ -72,7 +73,45 @@ export const PixelTable = memo(
           {header_children}
         </ActivePixelCard>
         {body_children}
-      </ActivePixelCard>
+      </PixelBorderCard>
+    );
+  }
+);
+
+export const IsTablePixelWidget = memo(
+  ({
+    width,
+    height,
+    className,
+    backgroundColor,
+    header_children,
+    body_children,
+    pixel_height,
+  }: {
+    width: string;
+    height: string;
+    className: string;
+    backgroundColor: string;
+    header_children: React.ReactNode;
+    body_children: React.ReactNode;
+    pixel_height: number;
+  }) => {
+    const isW768 = useIsW768();
+    return isW768 ? (
+      <div className={className}>
+        {header_children}
+        {body_children}
+      </div>
+    ) : (
+      <PixelTable
+        width={width}
+        height={height}
+        className={className}
+        backgroundColor={backgroundColor}
+        header_children={header_children}
+        body_children={body_children}
+        pixel_height={pixel_height}
+      />
     );
   }
 );

@@ -57,8 +57,7 @@ export const pointsRuleDialogState = atom({
 
 export const accountInfoDialogState = atom({
   key: "accountInfoDialog",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("accountInfoDialog")],
+  default: true,
 });
 
 export const linkToBetaDialogState = atom({
