@@ -11,6 +11,7 @@
   justify-content: space-evenly
   align-items: flex-end
   z-index: 8;
+  overflow: hidden;
 
   .hero_big
     width: 35%;
@@ -53,3 +54,27 @@
     gap: 4px
     p
       font-size: 14px
+.team_hero_middle
+  position: absolute;
+  width:44%;
+  top: 20px;
+  left: 28%;
+  z-index: 9;
+  height: 44px;
+  animation: spin 0.6s ease infinite;
+  .team_hero_middle_in
+    width calc(100% - 8px)
+    height calc(100% - 8px)
+    margin: auto
+  p
+    color: #934417
+    font-size: 14px
+    text-align: center
+
+@keyframes spin 
+  0% 
+    transform: translateY(0);
+  50%
+    transform: translateY(3px);
+  100% 
+    transform: translateY(0);

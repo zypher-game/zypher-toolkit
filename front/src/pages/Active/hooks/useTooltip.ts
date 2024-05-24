@@ -26,11 +26,11 @@ const GPNumber: Record<TVLChainId, string> = {
 }
 
 const stakeAmountListConfig: Record<TVLChainId, string[]> = {
-  [TVLChainId.Sepolia]: ['0.01', '5'],
-  [TVLChainId.B2]: ['0.0005', '0.25'],
-  [TVLChainId.B2Testnet]: ['0.0005', '0.25'],
-  [TVLChainId.LineaMainnet]: ['0.01'],
-  [TVLChainId.LineaTestnet]: ['0.01']
+  [TVLChainId.Sepolia]: ['0.01 ', '5 '],
+  [TVLChainId.B2]: ['0.0005 ', '0.25 '],
+  [TVLChainId.B2Testnet]: ['0.0005 ', '0.25 '],
+  [TVLChainId.LineaMainnet]: ['0.01 ', '5 '],
+  [TVLChainId.LineaTestnet]: ['0.01 ', '5 ']
 }
 export const useAirdropPointsTooltip = () => {
   const getTooltip = useCallback((chainId: ChainId) => {
@@ -63,13 +63,13 @@ export const useAirdropPointsTooltip = () => {
         } through the [$GP to DP] function.`
       ],
       availableInvitationsTooltip: [
-        `1. After staking ${(stakeAmountListConfig[chainId as unknown as TVLChainId] ?? [])[0]}${
+        `1. After staking ${stakeAmountListConfig[chainId as unknown as TVLChainId][0]} ${
           Currency[chainId]
         } for the first time, activate 5 invitation codes.`,
         '2. After successfully inviting 2 players, you will get 2 invitation codes.',
         '3. After successfully inviting 2 more players, you will get 3 invitation codes.',
         '4. Complete 1 group goal and activate 1 invitation code.',
-        `5. If the total pledge amount of the group reaches ${(stakeAmountListConfig[chainId as unknown as TVLChainId] ?? ['-', '-'])[1]}${
+        `5. If the total pledge amount of the group reaches ${stakeAmountListConfig[chainId as unknown as TVLChainId][1]} ${
           Currency[chainId]
         }, a permanent invitation code will be obtained.`
       ]

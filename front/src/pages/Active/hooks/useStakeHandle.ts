@@ -15,6 +15,7 @@ import {
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
+  useSwitchNetwork,
   useWalletClient
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
@@ -27,7 +28,7 @@ import { TVLStakingContract } from '@/contract/tvlStaking'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
-import { activeTokenList } from '../constants/activeConstants'
+import { activeTokenList, tvlTokenAddress } from '../constants/activeConstants'
 import {
   depositCurrencyState,
   isTvlDataLoadingState,
@@ -247,6 +248,7 @@ export const useStakeHandle = (): {
 }
 
 export const useReStakingHandle = () => {
+  const { switchNetwork } = useSwitchNetwork()
   const preHandleAction = usePreHandleAction()
   const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
   const [claimSBTLoading, setClaimSBTLoading] = useState(false)
@@ -282,88 +284,72 @@ export const useReStakingHandle = () => {
     ({ loading, setLoading, amount }: { loading: boolean; setLoading: (value: React.SetStateAction<boolean>) => void; amount: string }): boolean => {
       const isOk = preHandleAction()
       if (!isOk) {
+        console.log(111)
         setLoading(false)
         return false
       }
       if (loading) {
+        console.log(333)
         return false
       }
-      if (!amount || amount !== '') {
+      if (!amount || amount === '' || Number(amount) === 0) {
+        console.log(444)
         return false
       }
 
       if (!walletClient) {
         throw new Error('walletClient not Ready')
       }
-      return false
+      return true
     },
     [preHandleAction, walletClient]
   )
-  const onClaimGPHandle = useCallback(async () => {
-    try {
-      const isOk = _pre({ loading: claimGpLoading, setLoading: setClaimGpLoading, amount: dollarGpRewords })
-      if (!isOk) {
-        return
-      }
-      const contract = TVLStakingContract({ chainId: nativeChainId, env, signer: walletClient! })
-      if (!contract) {
-        setErrorToast(GlobalVar.dispatch, 'StakingContract is not ready')
-        return
-      }
-      setClaimGpLoading(true)
-      const res = await contract.write.claim()
-      const hash = typeof res === 'string' ? res : res.hash
-      const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-      if (depositTx && depositTx.status === txStatus) {
+  const onClaimGPHandle = useCallback(
+    async chainId => {
+      try {
+        const isOk = _pre({ loading: claimGpLoading, setLoading: setClaimGpLoading, amount: dollarGpRewords })
+        console.log(3, isOk)
+        if (!isOk) {
+          return
+        }
+        if (chainId !== nativeChainId && switchNetwork) {
+          switchNetwork(chainId)
+          return
+        }
+        console.log(4)
+        const contract = TVLStakingContract({ chainId: nativeChainId, env, signer: walletClient! })
+        if (!contract) {
+          setErrorToast(GlobalVar.dispatch, 'StakingContract is not ready')
+          return
+        }
+        setClaimGpLoading(true)
+        const addressList = Object.values(tvlTokenAddress[nativeChainId])
+        console.log({ addressList })
+        const res = await contract.write.claim([addressList])
+        const hash = typeof res === 'string' ? res : res.hash
+        const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+        if (depositTx && depositTx.status === txStatus) {
+          setClaimGpLoading(false)
+          _successGet({
+            tx: depositTx,
+            blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber(),
+            successText: 'Claim $GP  successful'
+          })
+        } else {
+          throw Object.assign(new Error('Claim $GP Transaction Failed'), { name: 'Buy' })
+        }
+      } catch (e) {
         setClaimGpLoading(false)
-        _successGet({
-          tx: depositTx,
-          blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber(),
-          successText: 'Claim $GP  successful'
-        })
-      } else {
-        throw Object.assign(new Error('Claim $GP Transaction Failed'), { name: 'Buy' })
+        setErrorToast(GlobalVar.dispatch, e)
+        console.error('Claim $GP Handle: ', e)
       }
-    } catch (e) {
-      setClaimGpLoading(false)
-      setErrorToast(GlobalVar.dispatch, e)
-      console.error('Claim $GP Handle: ', e)
-    }
-  }, [dollarGpRewords, _pre])
+    },
+    [dollarGpRewords, _pre]
+  )
 
   const onOpenCrHeroHandle = useCallback(async () => {
-    try {
-      const isOk = _pre({ loading: claimCrLoading, setLoading: setClaimCrLoading, amount: crHeroBoxAmount })
-      if (!isOk) {
-        return
-      }
-      // const contract = crHeroContract({ chainId: nativeChainId, env, signer: walletClient! })
-      // if (!contract) {
-      //   setErrorToast(GlobalVar.dispatch, 'CrHeroContract is not ready')
-      //   return
-      // }
-      window.open(crLink, '_blank')
-
-      // setClaimGpLoading(true)
-      // const res = await contract.write.mint([crHeroBoxAmount])
-      // const hash = typeof res === 'string' ? res : res.hash
-      // const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-      // if (depositTx && depositTx.status === txStatus) {
-      //   setClaimGpLoading(false)
-      //   _successGet({
-      //     tx: depositTx,
-      //     blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber(),
-      //     successText: 'Claim Cr Hero successful'
-      //   })
-      // } else {
-      //   throw Object.assign(new Error('Claim Cr Hero Transaction Failed'), { name: 'Buy' })
-      // }
-    } catch (e) {
-      setClaimGpLoading(false)
-      setErrorToast(GlobalVar.dispatch, e)
-      console.error('Claim Cr Hero Handle: ', e)
-    }
-  }, [crHeroBoxAmount, _pre])
+    window.open(crLink + '/airdrop', '_blank')
+  }, [])
 
   const onClaimSBTHandle = useCallback(async () => {
     setIsModalOpen(true)

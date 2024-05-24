@@ -28,11 +28,10 @@ import FrPixelBorder from '../../components/FrPixelBorder/FrPixelBorder'
 import Tab from '../../components/Tab/Tab'
 import TVLWrap from '../TVLWrap'
 import css from './ActiveTVLTeam.module.styl'
+import AvailableCode from './components/AvailableCode/AvailableCode'
 import Banner from './components/Banner/Banner'
 import TeamWarn from './components/TeamWarn/TeamWarn'
 const ActiveTVLTeam = memo(() => {
-  const { availableInvitationsTooltip } = useTeamTooltip()
-  const toastContainerRef = useRef<HTMLElement | null>(null)
   const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
   const setIsTvlPointModalOpen = useSetRecoilState(tvlPointDialogState)
   const isDataLoading = useRecoilValue(isTvlDataLoadingState)
@@ -122,7 +121,9 @@ const ActiveTVLTeam = memo(() => {
             <FrPixelBorder>
               <h3 className={css.fr_title}>Airdrop Points Card</h3>
               <p className={css.fr_grey}>
-                You still need {groupGoal.needStr} {Currency[chainId]} to get another free Airdrop Points Card
+                {Number(groupGoal.need) === 0
+                  ? `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card`
+                  : null}
               </p>
               <div className={css.fr_number}>
                 <p>{activeData.airdropPointsCardNumber === '' ? '0' : activeData.airdropPointsCardNumber}</p>
@@ -139,36 +140,7 @@ const ActiveTVLTeam = memo(() => {
                 <p>Open</p>
               </ActivePixelButtonColor>
             </FrPixelBorder>
-            <PixelTableBorder
-              pixel_height={6}
-              header_children={
-                <div className={css.tvl_fr_title}>
-                  <h2>Available invitations</h2>
-                  <PixelTooltip title={availableInvitationsTooltip} />
-                </div>
-              }
-              body_children={
-                <ul className={css.tvl_fr_table_ul}>
-                  {availableCode.map(v => (
-                    <li key={v.inviteCode}>
-                      <p>
-                        {window.location.origin}/{getLinkPre(chainId).label}-{v.inviteCode}
-                      </p>
-                      <ActivePixelButtonColor
-                        themeType="brightBlue"
-                        width="88px"
-                        height="36px"
-                        pixel_height={3}
-                        onClick={() => copy(`${window.location.origin}/${getLinkPre(chainId).label}-${v.inviteCode}`, toastContainerRef)}
-                      >
-                        <p>Copy</p>
-                      </ActivePixelButtonColor>
-                    </li>
-                  ))}
-                </ul>
-              }
-            />
-            <div className="toast__" ref={ref => (toastContainerRef.current = ref)} />
+            <AvailableCode availableCode={availableCode} />
           </>
         }
       />

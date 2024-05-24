@@ -40,32 +40,19 @@ const Banner = memo(() => {
       </div>
       <div className={css.bottom}>
         <ul className={css.bottom_card}>
-          <LiItem
-            title={'#' + activeData.ranking ?? ''}
-            label={'Ranking'}
-            iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'}
-            backgroundColor={'#FF7A00'}
-          />
-          <LiItem
-            title={activeData.airdropPoints}
-            label={'Airdrop Points'}
-            iconPath={preStaticUrl + '/img/icon/pixel_airdrop.svg'}
-            backgroundColor={'#2A59FF'}
-          />
+          <LiItem title={'#' + activeData.ranking ?? ''} label={'Ranking'} iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'} />
+          <LiItem title={activeData.airdropPoints} label={'Airdrop Points'} iconPath={preStaticUrl + '/img/icon/pixel_airdrop.svg'} />
         </ul>
         <p className={css.bottom_card_text}>Get more points and improve your ranking by staking more assets or inviting more friends!</p>
       </div>
     </ActivePixelCard>
   )
 })
-const LiItem = memo(({ title, label, iconPath, backgroundColor }: { title: string; label: string; iconPath: string; backgroundColor: string }) => {
+const LiItem = memo(({ title, label, iconPath }: { title: string; label: string; iconPath: string }) => {
   return (
     <li className={css.liItem}>
-      <ActivePixelCard pixel_height={4} backgroundColor="#9F3365" className="banner_liItem_card">
-        <ActivePixelCard className="banner_liItem_card_icon" pixel_height={2} width="36px" height="36px" backgroundColor={backgroundColor}>
-          <SvgComponent src={iconPath} />
-        </ActivePixelCard>
-
+      <ActivePixelCard pixel_height={4} backgroundColor="#BD3E79" className="banner_liItem_card">
+        <SvgComponent src={iconPath} />
         <div className={css.liItemFr}>
           <h5>{title}</h5>
           <p>{label}</p>

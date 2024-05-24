@@ -46,7 +46,7 @@ export const activeTokenList: Record<ChainId, Record<string, Address>> = {
     Soulbound: '0x79aDd9Be54429A034B2F89E8C5C46CEC5F9a2359'
   }
 } as unknown as Record<ChainId, Record<string, Address>>
-const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
+export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
   [TVLChainId.Sepolia]: {
     WETH: '0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9'
   },
@@ -69,7 +69,7 @@ export const tvlTokens = Object.fromEntries(
         {
           address: tvlTokenAddress[chainId][currency],
           symbol: currency,
-          logoPath: getCryptoImg('token', currency, '.png'),
+          logoPath: getCryptoImg('token', currency, currency === 'BTC' || currency === 'WBTC' ? '.svg' : '.png'),
           index: 2
         }
       ])

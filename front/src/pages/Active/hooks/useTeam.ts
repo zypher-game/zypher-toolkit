@@ -90,7 +90,8 @@ export const useTeam = () => {
 
         const totalBig = new BigNumberJs(total)
         const targetBig = new BigNumberJs(target)
-        const need = totalBig.minus(targetBig).abs().toFixed(3)
+        const needBig = totalBig.minus(targetBig)
+        const need = needBig.gte(0) ? needBig : new BigNumberJs('0')
         const totalStr = totalBig.dividedBy(divisorBigNumber).toFixed(2)
         const targetStr = targetBig.dividedBy(divisorBigNumber).toFixed(2)
         const percent = target === '0' ? '0' : totalBig.div(target).times(100).toFixed(0)
@@ -100,7 +101,7 @@ export const useTeam = () => {
           totalStr: totalStr,
           target: target,
           targetStr: targetStr,
-          need: need,
+          need: need.toFixed(3),
           needStr: new BigNumberJs(need).dividedBy(divisorBigNumber).toFixed(2)
         })
       }
@@ -121,6 +122,7 @@ export const useTeam = () => {
       const isSingle = key !== 'all'
       try {
         if (account) {
+          console.log(2)
           if (isSingle) {
             if (isLoadingSingle) {
               return
@@ -132,6 +134,7 @@ export const useTeam = () => {
             }
             setIsLoadingAll(true)
           }
+          console.log(1)
           const hashedCardBytes = ethers.utils.hexConcat([account])
           let _signedStr
           try {
@@ -156,11 +159,8 @@ export const useTeam = () => {
             if (setOpenCard_res) {
               await getData()
               await getDataTeam()
-              if (isSingle) {
-                setIsLoadingSingle(false)
-              } else {
-                setIsLoadingAll(false)
-              }
+              setIsLoadingSingle(false)
+              setIsLoadingAll(false)
               setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Open Card successful' })
               setIsTvlPointModalOpen(false)
             } else {
@@ -177,7 +177,7 @@ export const useTeam = () => {
         setErrorToast(GlobalVar.dispatch, e)
       }
     },
-    [JSON.stringify(activeData)]
+    [JSON.stringify(activeData), isLoadingSingle, isLoadingAll]
   )
   return {
     groupGoal,

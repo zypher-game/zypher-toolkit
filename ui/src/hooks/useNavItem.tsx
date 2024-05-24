@@ -9,7 +9,7 @@ import { isPro, preStaticUrl } from "../constant/constant";
 export const zAceLink = isPro()
   ? "https://acequest.io/zAce/"
   : "https://testnet.acequest.io/zAce/";
-export const crLink = "https://test.zypher.game/CryptoRumble/";
+export const crLink = "https://testnet.cryptorumble.io";
 
 export const LinkList = [
   // "/zBingo",

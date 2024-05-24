@@ -24,6 +24,7 @@ import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
 import { useStakeHandle } from '../../hooks/useStakeHandle'
 import { chooseChainState, selectChainDialogState } from '../../state/activeState'
+import ActiveLoading from '../../views/ActiveLoading/ActiveLoading'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
 const Staking = memo(() => {
@@ -52,14 +53,20 @@ const Staking = memo(() => {
     }
   }, [chainIdFromStake, chooseChain])
   const chooseValue = useMemo(() => {
-    const can = canNext(account, chainIdLocal)
-    if (can && depositCurrency) {
-      return tvlStakingData[chainIdLocal!][depositCurrency]
+    try {
+      let res = tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
+      const can = canNext(account, chainIdLocal)
+      if (can && depositCurrency) {
+        res = tvlStakingData[chainIdLocal!][depositCurrency]
+      }
+      if (can) {
+        res = tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
+      }
+      console.log({ chainIdLocal, depositCurrency, defaultActiveChainId, tvlStakingData, res })
+      return res
+    } catch {
+      return undefined
     }
-    if (can) {
-      return tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
-    }
-    return tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
   }, [JSON.stringify(tvlStakingData), chainIdLocal, depositCurrency])
   const { btnLabel } = useMemo(() => {
     const decimal = chooseValue?.decimal ?? 18
@@ -75,10 +82,10 @@ const Staking = memo(() => {
         } else {
           if (!isDataLoading) {
             const tokenAmount = new BigNumberJs(depositValue).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
-            if (chooseValue.balance !== '0' && new BigNumberJs(chooseValue.balance).gte(tokenAmount)) {
+            if (chooseValue?.balance !== '0' && new BigNumberJs(chooseValue?.balance ?? '0').gte(tokenAmount)) {
               obj.isBalanceEnough = true
               obj.btnLabel = 'Confirm'
-              if (chooseValue.address !== AddressZero && new BigNumberJs(chooseValue.allowance).lt(tokenAmount)) {
+              if (chooseValue?.address !== AddressZero && new BigNumberJs(chooseValue?.allowance ?? '0').lt(tokenAmount)) {
                 obj.isApprove = false
                 obj.btnLabel = 'Approve'
               }
@@ -115,13 +122,13 @@ const Staking = memo(() => {
         if (depositValue) {
           const decimal = chooseValue?.decimal ?? 18
           const _totalStaked = new BigNumberJs(depositValue).plus(
-            new BigNumberJs(chooseValue.userStakedAmount === '' ? '0' : chooseValue.userStakedAmount).dividedBy(
+            new BigNumberJs(chooseValue && chooseValue.userStakedAmount === '' ? '0' : chooseValue?.userStakedAmount ?? '').dividedBy(
               new BigNumberJs('10').exponentiatedBy(decimal)
             )
           )
           const X = new BigNumberJs(Math.ceil(new BigNumberJs(_totalStaked).toNumber())).times(10) // _totalStaked 的值向上取整就是其系数
 
-          const END_TIME = +(chooseValue.END_TIME ?? '0') // 从合约获取的时间
+          const END_TIME = +(chooseValue?.END_TIME ?? '0') // 从合约获取的时间
           const nowTimestamp = Date.now() / 1000 // 当前时间
           const END_TIMEDate = new Date(END_TIME * 1000)
           const currentDate = new Date(nowTimestamp * 1000)
@@ -132,6 +139,7 @@ const Staking = memo(() => {
           const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints) // 还剩多少天 乘 _earnPoints
           console.log({
             depositValue,
+            userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
             X: X.toFixed(),
             END_TIME,
             differenceInDays,
@@ -161,10 +169,10 @@ const Staking = memo(() => {
         <p className={css.staking_token_detail_fl}>You can restake</p>
         <div className={css.staking_token_detail_fr}>
           <p className={css.balance}>
-            Balance: {chooseValue.balanceStr}
-            {chooseValue.balanceStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
+            Balance: {chooseValue?.balanceStr}
+            {chooseValue?.balanceStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
-          <TokenWithChain chainId={chainIdLocal} token={chooseValue} />
+          {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
           <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
             <p>MAX</p>
           </ActivePixelButton>
@@ -178,27 +186,38 @@ const Staking = memo(() => {
           pixel_height={6}
           onClick={changeDepositCurrencyHandle}
         >
-          <TokenWithChain chainId={chainIdLocal} token={chooseValue} width={22} />
-          <p>{chooseValue.symbol}</p>
+          {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} width={22} /> : null}
+          <p>{chooseValue?.symbol}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
         </ActivePixelButton>
       </PixelBorderCard>
       <ul className={css.text_li}>
         <li>
           <p>Total Staked</p>
-          <p>{totalStaked}</p>
+          <div className={css.fr}>
+            <p>{totalStaked}</p>
+            <LoadingButton isLoading={isDataLoading} />
+          </div>
         </li>
         <li>
           <p>Earn Points</p>
-          <p>{earnPoints}</p>
+          <div className={css.fr}>
+            <p>{earnPoints}</p>
+            <LoadingButton isLoading={isDataLoading} />
+          </div>
         </li>
         <li>
           <p>Estimated final points based on duration</p>
-          <p>{finalPoints}</p>
+          <div className={css.fr}>
+            <p>{finalPoints}</p>
+            <LoadingButton isLoading={isDataLoading} />
+          </div>
         </li>
         <li>
           <p>$GP earned</p>
-          <p>Released every week</p>
+          <div className={css.fr}>
+            <p>Released every week</p>
+          </div>
         </li>
       </ul>
       <ActivePixelButtonColor

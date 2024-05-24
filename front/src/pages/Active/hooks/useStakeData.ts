@@ -179,6 +179,12 @@ export const useStakeData = () => {
                   abi: erc20Abi,
                   calls: [{ methodName: 'balanceOf', reference: 'sbtBalanceOf' + chainId, methodParameters: [account] }]
                 },
+                // {
+                //   reference: 'getMintAmount' + chainId, // 得到当前是第几周
+                //   contractAddress: activeTokenList[chainId].CRHero,
+                //   abi: crHeroAbi,
+                //   calls: [{ methodName: 'getMintAmount', reference: 'getMintAmount' + chainId }]
+                // },
                 ...Object.values(tvlTokens[chainId])
                   .filter((v: any) => v.address !== AddressZero)
                   .map((v: any) => {
@@ -250,7 +256,7 @@ export const useStakeData = () => {
         let sbtBalanceOf = '0'
         const resMap = Object.fromEntries(
           res.map((v, chainIndex) => {
-            const _chainId = v.chainId as unknown as ChainId
+            const _chainId = v.chainId
 
             const nextMethodArr = nextRes[chainIndex].method.split(',')
 
@@ -314,6 +320,7 @@ export const useStakeData = () => {
                 } as ITVLStakingData
               ]
             })
+            const WNative = tvlObj.filter(ddv => ddv[0] === 'W' + Currency[_chainId])[0]
             return [
               _chainId,
               Object.fromEntries([
@@ -321,6 +328,7 @@ export const useStakeData = () => {
                   Currency[_chainId],
                   {
                     ...initData,
+                    ...WNative[1],
                     symbol: Currency[_chainId],
                     name: Currency[_chainId],
                     chainId: v.chainId,
@@ -336,6 +344,7 @@ export const useStakeData = () => {
             ]
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
+        console.log({ resMap })
         setTvlStakingData(resMap)
         const userStakedAmount = ethers.utils
           .formatEther(calculateSumByNumber(Object.values(resMap[nativeChainId]).map(({ userStakedAmount: user }) => (user === '' ? '0' : user))))
@@ -355,6 +364,7 @@ export const useStakeData = () => {
           userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat(),
           crHeroBoxAmount: crHeroBoxAmount,
           dollarGpRewords: gpAmount,
+          dollarGpRewordsStr: new BigNumberJs(gpAmount).toFormat(2),
           // mintMinimum: mintMinimum,
           sbtAmount: sbtBalanceOf
         }))

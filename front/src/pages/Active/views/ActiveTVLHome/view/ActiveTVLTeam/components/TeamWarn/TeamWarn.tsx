@@ -1,4 +1,4 @@
-import { DialogClose, preStaticUrl, SvgComponent, useActiveWeb3React } from '@ui/src'
+import { DialogClose, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React } from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
@@ -66,7 +66,12 @@ const TeamWarn = memo(
     }, [showTeamWarn])
     if (showTeamWarn === 0) {
       return (
-        <>
+        <div className={css.team_hero}>
+          <PixelCube5 className={css.team_hero_middle} pixel_height={2} borderColor="#fff" backgroundColor="#000">
+            <ActivePixelButtonColor themeType="yellow" pixel_height={4} className={css.team_hero_middle_in}>
+              <p>Staking more to update your hunter!</p>
+            </ActivePixelButtonColor>
+          </PixelCube5>
           <div className={css.show_team_hero}>
             {teamMembers.map((v, index) => (
               <HeroImageLoader
@@ -78,7 +83,7 @@ const TeamWarn = memo(
             ))}
           </div>
           <img src={preStaticUrl + '/img/tvl/tvl_team_bg.png'} alt="tvl_team_bg" className={css.tvl_team_bg} />
-        </>
+        </div>
       )
     }
     if (showTeamWarn === 1 || showTeamWarn === 2) {

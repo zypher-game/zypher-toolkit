@@ -84,7 +84,7 @@ const Card = memo(
         <div className={css.cardTwo}>
           <PixelCardTwo
             title="SBT"
-            content={hasSbt ? 'Play games on L3 with zero gas!' : 'Still need more BTC to unlock'}
+            content={hasSbt ? 'Play games on L3 with zero gas!' : `Still need more ${Currency[chainIdLocal]} to unlock`}
             warning={SBTTooltip}
             btnLabel={hasSbt ? 'Go' : 'Stake'}
             onClick={onClaimSBTHandle}
@@ -101,11 +101,11 @@ const Card = memo(
             disable={false}
           />
           <PixelCardTwo
-            title={`${dollarGpRewords}$GP`}
+            title={`${dollarGpRewords} $GP`}
             content="Rewards"
             warning={gpTooltip}
             btnLabel="Claim"
-            onClick={onClaimGPHandle}
+            onClick={() => onClaimGPHandle(chainIdLocal)}
             loading={claimGpLoading}
             disable={!dollarGpRewords || dollarGpRewords === '' || dollarGpRewords === '0' ? true : false}
           />
