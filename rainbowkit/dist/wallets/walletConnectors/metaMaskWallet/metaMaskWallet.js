@@ -1,9 +1,9 @@
 "use client";
 import {
   metaMaskWallet
-} from "../chunk-ZLHVCOEA.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-SOOFY6MU.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   metaMaskWallet
 };

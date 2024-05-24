@@ -1,9 +1,9 @@
 "use client";
 import {
   ledgerWallet
-} from "../chunk-2SE7OIY4.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-ZQSEDKNM.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   ledgerWallet
 };

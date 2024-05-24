@@ -41,7 +41,8 @@ type ChainName =
   | "Combo"
   | "ComboTestnet"
   | "Mantle"
-  | "MantleTestnet";
+  | "MantleTestnet"
+  | "TaikoHeklaTestnet9";
 type IconMetadata = {
   iconUrl: () => Promise<string>;
   iconBackground: string;
@@ -131,6 +132,11 @@ const ScrollIcon: IconMetadata = {
   iconUrl: async () => (await import("./chainIcons/scroll.svg")).default,
 };
 
+const TaikoHekla: IconMetadata = {
+  iconBackground: "#131313",
+  iconUrl: async () => (await import("./chainIcons/167009.svg")).default,
+};
+
 const chainMetadataByName: Record<ChainName, ChainMetadata | null> = {
   arbitrum: { chainId: 42161, name: "Arbitrum", ...arbitrumIcon },
   arbitrumGoerli: { chainId: 421613, ...arbitrumIcon },
@@ -165,6 +171,7 @@ const chainMetadataByName: Record<ChainName, ChainMetadata | null> = {
   polygonZkEVMTestnet: { chainId: 1442, ...polygonIcon },
   GSCTestnet: { chainId: 1205, ...GSCIcon },
   scrollSepolia: { chainId: 534351, ...ScrollIcon },
+  TaikoHeklaTestnet9: { chainId: 167009, ...TaikoHekla },
   MantaPacificMainnet: { chainId: 169, ...mantaIcon },
   MantaPacificTestnet: { chainId: 3441005, ...mantaIcon },
   Combo: { chainId: 9980, ...comboIcon },

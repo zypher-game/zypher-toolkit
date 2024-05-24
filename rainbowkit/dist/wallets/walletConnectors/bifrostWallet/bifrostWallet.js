@@ -1,9 +1,9 @@
 "use client";
 import {
   bifrostWallet
-} from "../chunk-VWVFC735.js";
-import "../chunk-ZOLACFTK.js";
+} from "../chunk-QPXGY57C.js";
 import "../chunk-IY4T55P4.js";
+import "../chunk-ZOLACFTK.js";
 export {
   bifrostWallet
 };
