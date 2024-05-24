@@ -1173,6 +1173,13 @@
     "@motionone/dom" "^10.16.2"
     tslib "^2.3.1"
 
+"@my/rainbowkit@../rainbowkit":
+  version "1.0.10"
+  dependencies:
+    clsx "1.1.1"
+    qrcode "1.5.0"
+    react-remove-scroll "2.5.4"
+
 "@noble/curves@1.2.0", "@noble/curves@^1.0.0", "@noble/curves@~1.2.0":
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@noble/curves/-/curves-1.2.0.tgz#92d7e12e4e49b23105a2555c6984d41733d65c35"
@@ -2324,8 +2331,8 @@
   resolved "https://codeload.github.com/zypher-game/bingo-periphery-v1/tar.gz/f20bffa37a858c68b88c505262d42d84b6675773"
 
 "@zypher-game/bingo-periphery@zypher-game/bingo-periphery":
-  version "1.1.15"
-  resolved "https://codeload.github.com/zypher-game/bingo-periphery/tar.gz/41e17cb902ef5e966deffed6cd43180949444812"
+  version "1.1.25"
+  resolved "https://codeload.github.com/zypher-game/bingo-periphery/tar.gz/beb88c484494a8d36d31c2dc5f850b5617ed2d25"
 
 "@zypher-game/events@0.231025.34125":
   version "0.231025.34125"

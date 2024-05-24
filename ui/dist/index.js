@@ -416,13 +416,16 @@ var IContractName = /* @__PURE__ */ ((IContractName2) => {
   return IContractName2;
 })(IContractName || {});
 var zkBingoV0 = (chainId, name) => {
-  var _a, _b, _c;
+  var _a, _b, _c, _d, _e;
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = (_b = (_a = zkBingoContracts) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
+    let address = (_b = (_a = zkBingoContracts) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
+    if (!address) {
+      address = (_d = (_c = zkBingoContracts) == null ? void 0 : _c[chainId]) == null ? void 0 : _d[_repo === "develop" ? "release" : "develop"];
+    }
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -431,7 +434,7 @@ var zkBingoV0 = (chainId, name) => {
     } else if (name === "points" /* Points */) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === "ZypherGameToken" /* ZypherGameToken */) {
-      returnAddress = (_c = address.ZypherGameToken) != null ? _c : address.ZkBingoToken;
+      returnAddress = (_e = address.ZypherGameToken) != null ? _e : address.ZkBingoToken;
     } else if (name === "reward" /* Reward */) {
       returnAddress = address.Reward;
     } else if (name === "ZkBingoFee" /* Fee */) {
@@ -440,7 +443,7 @@ var zkBingoV0 = (chainId, name) => {
     return returnAddress ? returnAddress : AddressZero;
   } catch (e) {
     throw Error(
-      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`
+      `zkBingo V0 Invalid 'chainId' parameter '${chainId}', name: ${name}`
     );
   }
 };

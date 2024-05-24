@@ -434,7 +434,13 @@ export const zkBingoV0 = (
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = zkBingoContracts?.[chainId]?.[_repo];
+    let address = zkBingoContracts?.[chainId]?.[_repo];
+    if (!address) {
+      address =
+        zkBingoContracts?.[chainId]?.[
+          _repo === "develop" ? "release" : "develop"
+        ];
+    }
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {
       returnAddress = address.ZkBingoLobby;
@@ -452,7 +458,7 @@ export const zkBingoV0 = (
     return (returnAddress ? returnAddress : AddressZero) as Address;
   } catch (e) {
     throw Error(
-      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`
+      `zkBingo V0 Invalid 'chainId' parameter '${chainId}', name: ${name}`
     );
   }
 };
