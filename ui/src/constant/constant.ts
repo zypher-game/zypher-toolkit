@@ -47,6 +47,8 @@ export enum ChainId {
   MantleTestnet = 5_001,
 
   Sepolia = 11_155_111,
+
+  TaikoHeklaTestnet9 = 167009,
 }
 export const DPSupportChainId = !isPro()
   ? [
@@ -78,6 +80,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
+      ChainId.TaikoHeklaTestnet9,
     ]
   : [
       ChainId.Arbitrum,
@@ -110,6 +113,7 @@ export const supportedChainIds = (
         ChainId.ComboTestnet,
         ChainId.Combo,
         ChainId.Sepolia,
+        ChainId.TaikoHeklaTestnet9,
       ]
     : [
         ChainId.LineaMainnet,
@@ -177,6 +181,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
     "https://endpoints.omniatech.io/v1/eth/sepolia/public",
     "https://ethereum-sepolia-rpc.publicnode.com",
   ],
+  [ChainId.TaikoHeklaTestnet9]: ["https://hekla.taiko.tools"],
 };
 export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
   [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -208,6 +213,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.MantleTestnet]: ["https://explorer.testnet.mantle.xyz"],
   [ChainId.Combo]: ["https://combotrace.nodereal.io"],
   [ChainId.Sepolia]: ["https://sepolia.etherscan.io"],
+  [ChainId.TaikoHeklaTestnet9]: ["https://blockscoutapi.hekla.taiko.xyz"],
 };
 
 export const ChainBridge: { [key: number]: string } = {
@@ -238,6 +244,7 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.MantleTestnet]: "Mantle Testnet",
   [ChainId.Combo]: "Combo",
   [ChainId.Sepolia]: "Sepolia",
+  [ChainId.TaikoHeklaTestnet9]: "Taiko Hekla L2 Testnet",
 };
 export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Mainnet]: "bsc",
@@ -261,6 +268,7 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Mantle]: "Mantle",
   [ChainId.MantleTestnet]: "Mantle Testnet",
   [ChainId.Sepolia]: "Sepolia",
+  [ChainId.TaikoHeklaTestnet9]: "Taiko Hekla L2",
 };
 
 export const isTestnet: Record<ChainId, boolean> = {
@@ -284,30 +292,9 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.Mantle]: false,
   [ChainId.MantleTestnet]: true,
   [ChainId.Sepolia]: true,
+  [ChainId.TaikoHeklaTestnet9]: true,
 };
 
-export const ChainImage: Record<ChainId, string> = {
-  [ChainId.Mainnet]: preStaticUrl + "/img/bsc.png",
-  [ChainId.Testnet]: preStaticUrl + "/img/bsc.png",
-  [ChainId.Arbitrum]: preStaticUrl + "/img/arbitrum.png",
-  [ChainId.ArbitrumGoerli]: preStaticUrl + "/img/arbitrum.png",
-  [ChainId.ArbitrumRinkeby]: preStaticUrl + "/img/arbitrum.png",
-  [ChainId.LineaTestnet]: preStaticUrl + "/img/linea.svg",
-  [ChainId.LineaMainnet]: preStaticUrl + "/img/linea_logo.svg",
-  [ChainId.POLYGON_MUMBAI]: preStaticUrl + "/img/matic-token-icon.svg",
-  [ChainId.POLYGON_ZKEVM]: preStaticUrl + "/img/matic-token-icon.svg",
-  [ChainId.OPBNBTEST]: preStaticUrl + "/img/bsc.png",
-  [ChainId.OPBNB]: preStaticUrl + "/img/bsc.png",
-  [ChainId.ScrollAlphaTestnet]: preStaticUrl + "/img/scroll.svg",
-  [ChainId.ScrollSepoliaTestnet]: preStaticUrl + "/img/scroll.svg",
-  [ChainId.MantaPacificMainnet]: preStaticUrl + "/img/manta.svg",
-  [ChainId.MantaPacificTestnet]: preStaticUrl + "/img/manta.svg",
-  [ChainId.Combo]: preStaticUrl + "/crypto/chain/9980.svg",
-  [ChainId.ComboTestnet]: preStaticUrl + "/img/combo.svg",
-  [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
-  [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",
-  [ChainId.Sepolia]: preStaticUrl + "/img/ethereum.png",
-};
 export const Currency: Record<ChainId, string> = {
   [ChainId.Mainnet]: "BNB",
   [ChainId.Testnet]: "BNB",
@@ -329,30 +316,25 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.Mantle]: "MNT",
   [ChainId.MantleTestnet]: "MNT",
   [ChainId.Sepolia]: "ETH",
+  [ChainId.TaikoHeklaTestnet9]: "ETH",
 };
 
-export const CurrencyLogo: Record<ChainId, string> = {
-  [ChainId.Mainnet]: preStaticUrl + "/img/bnb.svg",
-  [ChainId.Testnet]: preStaticUrl + "/img/bnb.svg",
-  [ChainId.Arbitrum]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.ArbitrumRinkeby]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.LineaTestnet]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.LineaMainnet]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.POLYGON_MUMBAI]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.ArbitrumGoerli]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.POLYGON_ZKEVM]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.OPBNBTEST]: preStaticUrl + "/img/bnb.svg",
-  [ChainId.OPBNB]: preStaticUrl + "/img/bnb.svg",
-  [ChainId.ScrollSepoliaTestnet]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.ScrollAlphaTestnet]: preStaticUrl + "/img/ethereum.png",
-  [ChainId.MantaPacificMainnet]: preStaticUrl + "/img/ethereum-logo.png",
-  [ChainId.MantaPacificTestnet]: preStaticUrl + "/img/ethereum-logo.png",
-  [ChainId.Combo]: preStaticUrl + "/img/bnb.svg",
-  [ChainId.ComboTestnet]: preStaticUrl + "/img/bnb.svg",
-  [ChainId.Mantle]: preStaticUrl + "/img/MNT.webp",
-  [ChainId.MantleTestnet]: preStaticUrl + "/img/MNT.webp",
-  [ChainId.Sepolia]: preStaticUrl + "/img/ethereum.png",
+export const getCryptoImg = (fileName: string, key: any, type = ".svg") => {
+  // https://zypher-static.s3.amazonaws.com/lib/public/chain/167009.svg
+  return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
 };
+export const ChainImage: Record<ChainId, string> = Object.fromEntries(
+  (Object.values(ChainId) as ChainId[]).map((v) => [
+    v,
+    getCryptoImg("chain", v),
+  ])
+) as Record<ChainId, string>;
+export const CurrencyLogo: Record<ChainId, string> = Object.fromEntries(
+  (Object.values(ChainId) as ChainId[]).map((v) => [
+    v,
+    getCryptoImg("token", Currency[v]),
+  ])
+) as Record<ChainId, string>;
 
 interface IExternalMarketContract {
   multicall: string[];
@@ -424,6 +406,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"],
   },
   [ChainId.Sepolia]: {
+    multicall: [MulticallV3],
+  },
+  [ChainId.TaikoHeklaTestnet9]: {
     multicall: [MulticallV3],
   },
 };
