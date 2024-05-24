@@ -41,7 +41,7 @@ export const useAirdropPointsTooltip = () => {
       ],
       growthCoefficientTooltip: [
         'The growth coefficient of airdrop points depends on your pledge amount. The higher the pledge amount, the greater the coefficient.',
-        'Note: The coefficients of Staking and Restaking are different.'
+        'Note: The coefficients of Staking and Staking are different.'
       ],
       SBTTooltip: [
         'Pledge any token and meet the pledge amount requirements to obtain SBT. Users with SBT can experience gas-free gaming on Zytron L3.',

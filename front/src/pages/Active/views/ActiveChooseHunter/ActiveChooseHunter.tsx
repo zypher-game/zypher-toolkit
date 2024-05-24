@@ -14,6 +14,7 @@ import HeroImageLoader from '../../components/ImageLoader/HeroImageLoader'
 import { tvlPath } from '../../hooks/activeHooks'
 import { useActiveData } from '../../hooks/useActiveData'
 import { useUserHeroCall } from '../../hooks/useDataCall'
+import { useStake } from '../../hooks/useStakeData'
 import { useToPath } from '../../hooks/useToPath'
 import { ITvlHero } from '../../state/activeState'
 import css from './ActiveChooseHunter.module.styl'
@@ -56,10 +57,10 @@ const hero = [
   }
 ]
 const ActiveChooseHunter = memo(() => {
+  useStake()
   const navigate = useNavigate()
   const [heroKey, setHeroKey] = useState(0)
   const { toSetHero } = useToPath()
-
   const { activeData } = useActiveData()
   const { id, accountAddress } = activeData
   const { chooseHero, loading: isHeroLoading } = useUserHeroCall()
@@ -116,7 +117,7 @@ const ActiveChooseHunter = memo(() => {
             ))}
           </ul>
           <div className={css.inner_inner}>
-            <HeroImageLoader heroKey={hero[heroKey].keyValue} level={'1'} />
+            <HeroImageLoader heroKey={hero[heroKey].keyValue} className={css.hero_big} level={'1'} />
           </div>
           <div className={css.fr}>
             <ActivePixelCard className="hunter_kkk_border" pixel_height={4} backgroundColor="#1D263B" borderColor="#3A4254">
@@ -132,7 +133,14 @@ const ActiveChooseHunter = memo(() => {
               </ActivePixelCard>
               <p>{hero[heroKey].detail}</p>
             </ActivePixelCard>
-            <ActivePixelButtonColor pixel_height={5} width="100%" height="52px" onClick={heroConfirmHandle} disable={isHeroLoading}>
+            <ActivePixelButtonColor
+              themeType="brightBlue"
+              pixel_height={5}
+              width="100%"
+              height="52px"
+              onClick={heroConfirmHandle}
+              disable={isHeroLoading}
+            >
               <p>Confirm</p>
               <LoadingButton isLoading={isHeroLoading} />
             </ActivePixelButtonColor>

@@ -63,6 +63,7 @@ const InvitationCode = memo(() => {
       <h5>Enter the invitation code</h5>
       <InputCode setCodeStr={setCodeStr} />
       <ActivePixelButtonColor
+        themeType="brightBlue"
         className={css.join}
         onClick={checkInvitationCode}
         width="216px"

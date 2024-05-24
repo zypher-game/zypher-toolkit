@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useRef } from "react";
+import React, { memo, useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import PixelFlatBtn from "./PixelFlatBtn";
 type IChildren = {
@@ -77,6 +77,7 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
 export const ActivePixelCard = memo((props: IPixel) => {
   const { onClick } = props;
   const lastClickTimeRef = useRef(Date.now());
+
   const clickHandle = useCallback(() => {
     const currentTime = Date.now();
     const timeSinceLastClick = currentTime - lastClickTimeRef.current;
@@ -184,11 +185,230 @@ export const ActivePixelColorCard = memo((props: IPixel) => {
     />
   );
 });
-const ActivePixelColorCardStyled = styled(ActivePixelColorCard)`
+
+type IActivePixelColorCardTheme = "yellow" | "brown" | "brightBlue";
+type IActivePixelColorCardColor = {
+  borderBottomColor: string;
+  borderTopColor: string;
+  backgroundColor: string;
+};
+
+export interface IPixelButtonTheme extends IPixelProps {
+  themeType: IActivePixelColorCardTheme;
+}
+interface IPixelButton extends IChildren, IPixelButtonTheme {}
+
+const cardTheme: Record<
+  IActivePixelColorCardTheme,
+  {
+    normal: IActivePixelColorCardColor;
+    hover: IActivePixelColorCardColor;
+    click: IActivePixelColorCardColor;
+  }
+> = {
+  yellow: {
+    normal: {
+      borderBottomColor: "#E1820C",
+      borderTopColor: "#FFE299",
+      backgroundColor: "#FEBE1E",
+    },
+    hover: {
+      borderBottomColor: "#DEA534",
+      borderTopColor: "#FFEFB8",
+      backgroundColor: "#FFDA58",
+    },
+    click: {
+      borderBottomColor: "#A4720E",
+      borderTopColor: "#FDD64C",
+      backgroundColor: "#F0BE0C",
+    },
+  },
+  brown: {
+    normal: {
+      backgroundColor: "#61341F",
+      borderBottomColor: "#30170B",
+      borderTopColor: "#7F5441",
+    },
+    hover: {
+      backgroundColor: "#805440",
+      borderBottomColor: "#61341F",
+      borderTopColor: "#A17560",
+    },
+    click: {
+      borderBottomColor: "#2C180F",
+      borderTopColor: "#533628",
+      backgroundColor: "#412315",
+    },
+  },
+  brightBlue: {
+    normal: {
+      backgroundColor: "#1649FF",
+      borderBottomColor: "#0F33B2",
+      borderTopColor: "#3360FF",
+    },
+    hover: {
+      backgroundColor: "#406AFF",
+      borderBottomColor: "#183BB7",
+      borderTopColor: "#5C80FF",
+    },
+    click: {
+      borderBottomColor: "#0E267D",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#022FD0",
+    },
+  },
+};
+const ActivePixelButtonColorStyled = styled(PixelStyled)<IPixelButtonTheme>`
   cursor: pointer;
+  > .pixel_flat_btn_bg {
+    > div {
+      background-color: ${({ themeType }) =>
+        cardTheme[themeType].normal.backgroundColor};
+    }
+    > .pixel_flat_btn_inner {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: ${({ pixel_height }) => pixel_height}px;
+        height: ${({ pixel_height }) => pixel_height}px;
+      }
+      &:before {
+        top: 0;
+        left: 0;
+        background-color: ${({ themeType }) =>
+          cardTheme[themeType].normal.borderTopColor};
+      }
+      &:after {
+        bottom: 0;
+        right: 0;
+        background-color: ${({ themeType }) =>
+          cardTheme[themeType].normal.borderBottomColor};
+      }
+    }
+    > .pixel_flat_btn_top_1 {
+      background-color: ${({ themeType }) =>
+        cardTheme[themeType].normal.borderTopColor};
+    }
+    > .pixel_flat_btn_top_2 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
+    }
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ themeType }) =>
+        cardTheme[themeType].normal.borderBottomColor};
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
+    }
+  }
+  &.disable {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+  &.normal {
+    &:hover {
+      > .pixel_flat_btn_bg {
+        > div {
+          background-color: ${({ themeType }) =>
+            cardTheme[themeType].hover.backgroundColor};
+        }
+        > .pixel_flat_btn_inner {
+          &:before,
+          &:after {
+            content: "";
+          }
+          &:before {
+            background-color: ${({ themeType }) =>
+              cardTheme[themeType].hover.borderTopColor};
+          }
+          &:after {
+            background-color: ${({ themeType }) =>
+              cardTheme[themeType].hover.borderBottomColor};
+          }
+        }
+        > .pixel_flat_btn_top_1 {
+          background-color: ${({ themeType }) =>
+            cardTheme[themeType].hover.borderTopColor};
+        }
+        > .pixel_flat_btn_top_2 {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
+        }
+        > .pixel_flat_btn_bottom_2 {
+          background-color: ${({ themeType }) =>
+            cardTheme[themeType].hover.borderBottomColor};
+        }
+        > .pixel_flat_btn_bottom_1 {
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
+        }
+      }
+    }
+    &.click {
+      > .pixel_flat_btn_bg {
+        > div {
+          background-color: ${({ themeType }) =>
+            cardTheme[themeType].click.backgroundColor};
+        }
+        > .pixel_flat_btn_inner {
+          &:before,
+          &:after {
+            content: "";
+          }
+          &:before {
+            background-color: ${({ themeType }) =>
+              cardTheme[themeType].click.borderTopColor};
+          }
+          &:after {
+            background-color: ${({ themeType }) =>
+              cardTheme[themeType].click.borderBottomColor};
+          }
+        }
+        > .pixel_flat_btn_top_1 {
+          background-color: ${({ themeType }) =>
+            cardTheme[themeType].click.borderTopColor};
+        }
+        > .pixel_flat_btn_top_2 {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
+        }
+        > .pixel_flat_btn_bottom_2 {
+          background-color: ${({ themeType }) =>
+            cardTheme[themeType].click.borderBottomColor};
+        }
+        > .pixel_flat_btn_bottom_1 {
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
+        }
+      }
+    }
+  }
 `;
-export const ActivePixelButtonColor = memo((props: IPixel) => {
-  return <ActivePixelColorCardStyled {...props} />;
+
+export const ActivePixelButtonColor = memo((props: IPixelButton) => {
+  const { onClick, className, disable } = props;
+  const [isActive, setIsActive] = useState(false);
+  const clickHandle = useCallback(() => {
+    if (onClick) {
+      setIsActive(true);
+      setTimeout(() => {
+        setIsActive(false);
+      }, 1000);
+      onClick();
+    }
+  }, [onClick]);
+
+  return (
+    <ActivePixelButtonColorStyled
+      {...props}
+      className={`${className ?? ""} ${disable ? "disable" : "normal"} ${
+        isActive ? "click" : ""
+      }`}
+      onClick={clickHandle}
+    />
+  );
 });
 
 const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`

@@ -12,7 +12,7 @@ const MoreActiveNormal = memo(() => {
   return (
     <ActiveComp>
       <GetAirdropWrap>
-        <ActivePixelButtonColor width="206px" height="52px" className={css.verify} onClick={keepGoingHandle} pixel_height={5}>
+        <ActivePixelButtonColor themeType="brightBlue" width="206px" height="52px" className={css.verify} onClick={keepGoingHandle} pixel_height={5}>
           <p>Keep Going</p>
         </ActivePixelButtonColor>
       </GetAirdropWrap>

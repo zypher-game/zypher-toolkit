@@ -12,7 +12,7 @@ import { calculateSumByNumber } from '@/utils/calculateSum'
 import { activeTokenList, TVLStakingSupportedChainId, tvlTokens } from '../constants/activeConstants'
 import {
   initData,
-  IRestakingDataState,
+  IStakingDataState,
   isTvlDataLoadingState,
   ITVLStakingData,
   restakingDataState,
@@ -20,7 +20,7 @@ import {
   tvlStakingDataV2Init
 } from '../state/activeState'
 import { useActiveData } from './useActiveData'
-import { useRestakingCall } from './useDataCall'
+import { useStakingCall } from './useDataCall'
 
 export const useStake = () => {
   const { activeData } = useActiveData()
@@ -42,13 +42,14 @@ export const useStake = () => {
 }
 export const useStakeData = () => {
   const { account, chainId: nativeChainId } = useActiveWeb3React()
-  const { getRestaking } = useRestakingCall()
   const [isDataLoading, setIsDataLoading] = useRecoilState(isTvlDataLoadingState)
   const [, setTvlStakingData] = useRecoilState(tvlStakingDataState)
-  const setRestakingData = useSetRecoilState(restakingDataState)
   // const { isRegistered } = tvlStakingData
   const { activeData, setActiveData } = useActiveData()
   const { id } = activeData
+  const { getStaking } = useStakingCall()
+
+  const setRestakingData = useSetRecoilState(restakingDataState)
   const getNative = useCallback(async (): Promise<string[][]> => {
     if (!id) {
       throw Error('getNative Error by no id')
@@ -66,7 +67,7 @@ export const useStakeData = () => {
       return ['0', '0']
     })
   }, [account, id, nativeChainId])
-  const getStake = useCallback(async () => {
+  const getStakingData = useCallback(async () => {
     try {
       if (account && nativeChainId) {
         if (isDataLoading) {
@@ -92,7 +93,7 @@ export const useStakeData = () => {
                         {
                           methodName: 'allowance',
                           reference: 'allowance' + v.symbol,
-                          methodParameters: [account, activeTokenList[chainId].Restaking]
+                          methodParameters: [account, activeTokenList[chainId].Staking]
                         }
                       ]
                     }
@@ -140,7 +141,7 @@ export const useStakeData = () => {
                 // 最少质押多少给 SBT
                 // {
                 //   reference: 'mintMinimum' + chainId, // 得到当前是第几周
-                //   contractAddress: activeTokenList[chainId].Restaking,
+                //   contractAddress: activeTokenList[chainId].Staking,
                 //   abi: TVLStakingABI,
                 //   calls: [
                 //     {
@@ -151,7 +152,7 @@ export const useStakeData = () => {
                 // },
                 {
                   reference: 'END_TIME' + chainId, // 得到当前是第几周
-                  contractAddress: activeTokenList[chainId].Restaking,
+                  contractAddress: activeTokenList[chainId].Staking,
                   abi: TVLStakingABI,
                   calls: [
                     {
@@ -162,7 +163,7 @@ export const useStakeData = () => {
                 },
                 {
                   reference: 'claimable' + chainId, // 得到当前是第几周
-                  contractAddress: activeTokenList[chainId].Restaking,
+                  contractAddress: activeTokenList[chainId].Staking,
                   abi: TVLStakingABI,
                   calls: [
                     {
@@ -191,7 +192,7 @@ export const useStakeData = () => {
                 // 最后一位是getWeek  不要变
                 {
                   reference: 'getWeek' + chainId, // 得到当前是第几周
-                  contractAddress: activeTokenList[chainId].Restaking,
+                  contractAddress: activeTokenList[chainId].Staking,
                   abi: TVLStakingABI,
                   calls: [{ methodName: 'getWeek', reference: 'getWeek' + chainId }]
                 }
@@ -203,6 +204,7 @@ export const useStakeData = () => {
           chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
           params
         })
+        console.log({ params, res })
         const week = Object.fromEntries(res.map(v => [v.chainId, new BigNumberJs(v.response[v.response.length - 1][0].hex).toNumber()]))
         const nextParams = Object.fromEntries(
           TVLStakingSupportedChainId.map(chainId => {
@@ -212,7 +214,7 @@ export const useStakeData = () => {
                 ...Object.values(tvlTokens[chainId]).map((v: any) => {
                   return {
                     reference: 'getWeeklyWeight' + v.symbol,
-                    contractAddress: activeTokenList[chainId].Restaking,
+                    contractAddress: activeTokenList[chainId].Staking,
                     abi: TVLStakingABI,
                     calls: [
                       {
@@ -232,24 +234,22 @@ export const useStakeData = () => {
           params: nextParams,
           defaultValue: 0
         })
-        // let stakeDataFromApi: any
-        // try {
-        //   stakeDataFromApi = await Promise.all(TVLStakingSupportedChainId.map(v => getRestaking({ userId: id, chainId: v })))
-        //   setRestakingData(
-        //     Object.fromEntries(TVLStakingSupportedChainId.map((vvv, index) => [vvv, stakeDataFromApi[index]])) as unknown as Record<
-        //       ChainId,
-        //       IRestakingDataState
-        //     >
-        //   )
-        // } catch (stakeDataFromApiErr: any) {
-        // }
-
+        let stakeDataFromApi: any
+        try {
+          stakeDataFromApi = await Promise.all(TVLStakingSupportedChainId.map(v => getStaking({ userId: id, chainId: v })))
+          setRestakingData(
+            Object.fromEntries(TVLStakingSupportedChainId.map((vvv, index) => [vvv, stakeDataFromApi[index]])) as unknown as Record<
+              ChainId,
+              IStakingDataState
+            >
+          )
+        } catch (stakeDataFromApiErr: any) {}
+        console.log({ nextParams, nextRes, stakeDataFromApi })
         let END_TIME = '0'
         // let mintMinimum = '0'
         let sbtBalanceOf = '0'
         const resMap = Object.fromEntries(
           res.map((v, chainIndex) => {
-            // const stakeDataFromApiItem = stakeDataFromApi ? stakeDataFromApi[chainIndex] : undefined
             const _chainId = v.chainId as unknown as ChainId
 
             const nextMethodArr = nextRes[chainIndex].method.split(',')
@@ -360,15 +360,10 @@ export const useStakeData = () => {
         }))
         setIsDataLoading(false)
       }
-    } catch (e) {}
+    } catch (e) {
+      console.log('getStakingData Error', e)
+    }
   }, [getNative])
-
-  const getStakingData = useCallback(() => {
-    // if (isRegistered) {
-    // 获取stake合约
-    getStake()
-    // }
-  }, [getStake, id])
 
   return {
     getStakingData: getStakingData
@@ -379,9 +374,9 @@ export const useStakeData = () => {
 //   const { account } = useActiveWeb3React()
 //   const { activeData } = useActiveData()
 //   const getDataFromApi = useCallback(
-//     async (chainId: ChainId): Promise<IRestakingDataState | undefined> => {
+//     async (chainId: ChainId): Promise<IStakingDataState | undefined> => {
 //       if (canNext(account, chainId)) {
-//         const res = await getRestaking({ userId: activeData.id, chainId: chainId })
+//         const res = await getStaking({ userId: activeData.id, chainId: chainId })
 //         const records = Object.fromEntries(
 //           res.records.map((v: any) => {
 //             const tokenAddressBig = new BigNumberJs(v.tokenAddress)
@@ -394,7 +389,7 @@ export const useStakeData = () => {
 //                 total: v.total,
 //                 totalStr: '0',
 //                 ratio: '0'
-//               } as unknown as IRestakingItem
+//               } as unknown as IStakingItem
 //             ]
 //           })
 //         )
@@ -413,7 +408,7 @@ export const useStakeData = () => {
 //         }
 //       }
 //     },
-//     [account, getRestaking, JSON.stringify(activeData)]
+//     [account, getStaking, JSON.stringify(activeData)]
 //   )
 //   return getDataFromApi
 // }

@@ -27,8 +27,8 @@ export const TVLTabList = [
     label: 'Team'
   },
   {
-    path: 'restaking',
-    label: 'Restaking'
+    path: 'tvlStaking',
+    label: 'Staking'
   },
   {
     path: 'leaderboard',
@@ -87,7 +87,7 @@ export const useSignCall = () => {
 export const useSign = () => {
   const { chainId } = useActiveWeb3React()
   const { activeData, setActiveData } = useActiveData()
-  const { accountAddress, invitationCode, signedStr, id, isInitLoading } = activeData
+  const { accountAddress, invitationCode, signedStr, id } = activeData
   const { getSignCall } = useSignCall()
   const getLoginCall = useCallback(async () => {
     if (signedStr && signedStr !== '0000' && !id && chainId) {

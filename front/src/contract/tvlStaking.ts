@@ -19,7 +19,7 @@ export const TVLStakingContract = ({
   return getContract({
     env: env,
     abi: TVLStakingABI,
-    address: activeTokenList[chainId].Restaking,
+    address: activeTokenList[chainId].Staking,
     signer,
     chainId: chainId as unknown as ChainId
   })

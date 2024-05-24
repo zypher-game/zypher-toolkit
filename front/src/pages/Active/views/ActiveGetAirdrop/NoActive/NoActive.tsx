@@ -1,6 +1,8 @@
 import { preStaticUrl } from '@ui/src'
 import React, { memo } from 'react'
 
+import { useStake } from '@/pages/Active/hooks/useStakeData'
+
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
 import GetAirdropWrapV2 from '../components/GetAirdropWrapV2/GetAirdropWrapV2'
 

@@ -80,13 +80,11 @@ const PointsRuleDialog: React.FC<Props> = () => {
                 </div>
                 <div className={"points_dialog_btnWrap"}>
                   <ActivePixelButtonColor
+                    themeType="brightBlue"
                     onClick={handleCancel}
                     width="340px"
                     height="52px"
                     pixel_height={4}
-                    backgroundColor="#1649FF"
-                    borderBottomColor="#0F33B2"
-                    borderTopColor="#3360FF"
                   >
                     {t("Ok")}
                   </ActivePixelButtonColor>

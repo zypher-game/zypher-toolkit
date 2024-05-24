@@ -31,10 +31,8 @@ const Banner = memo(() => {
           css={ShareLinkcss}
           pixel_styled={{
             pixel_height: 3,
-            borderBottomColor: '#D99716',
-            borderTopColor: '#FFE99A',
-            backgroundColor: '#FFD02B',
-            height: '36px'
+            height: '36px',
+            themeType: 'yellow'
           }}
           preWidth="280px"
           nextWidth="78px"
@@ -55,7 +53,7 @@ const Banner = memo(() => {
             backgroundColor={'#2A59FF'}
           />
         </ul>
-        <p className={css.bottom_card_text}>Get more points and improve your ranking by restaking more assets or inviting more friends!</p>
+        <p className={css.bottom_card_text}>Get more points and improve your ranking by staking more assets or inviting more friends!</p>
       </div>
     </ActivePixelCard>
   )

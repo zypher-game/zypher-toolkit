@@ -1,10 +1,9 @@
 import { ChainId, divisorBigNumber, request, useActiveWeb3React } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
-import { Address } from 'wagmi'
 
 import { getLinkPre, TVL_API } from '../constants/activeConstants'
-import { initActiveData, IRestakingItem } from '../state/activeState'
+import { IStakingItem } from '../state/activeState'
 import { form_info, form_primary_score } from '../utils/formmate'
 import { IRankBoard } from './useLeaderboard'
 
@@ -48,11 +47,13 @@ export const useGetDataCall = () => {
               } catch (e) {}
               // 获取积分
               const primary_score_res = await getPrimaryScore()
+              console.log({ primary_score_res })
               const primaryScoreRes = form_primary_score(infoObj, primary_score_res)
               let isRegistered = false
-              if (heroKey) {
+              try {
                 isRegistered = await getIsRegistered(infoObj.id)
-              }
+                console.log({ isRegistered })
+              } catch (e) {}
               return {
                 ...infoObj,
                 ...primaryScoreRes,
@@ -192,29 +193,36 @@ export const useTeamCall = () => {
       throw new Error('getGroupScoreCardNum Error')
     }
   }, [])
-  const setOpenCard = useCallback(async (userId: string, isSingle: boolean) => {
-    try {
-      // get 检查初始空投积分
-      const _res = await request(`${TVL_API}/api/openCard/${userId}`, {
-        method: 'POST',
-        data: JSON.stringify({ isSingle }),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      return _res.data
-    } catch (e: any) {
-      throw new Error('setOpenCard Error')
-    }
-  }, [])
+  const setOpenCard = useCallback(
+    async ({ userId, address, signature, isSingle }: { userId: string; address: string; signature: string; isSingle: boolean }) => {
+      try {
+        // get 检查初始空投积分
+        const _res = await request(`${TVL_API}/api/openCard/${userId}`, {
+          method: 'POST',
+          data: JSON.stringify({
+            isSingle,
+            signature: signature,
+            address: address
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        return _res.data
+      } catch (e: any) {
+        throw new Error('setOpenCard Error')
+      }
+    },
+    []
+  )
   return {
     getTeam,
     getGroupScoreCardNum,
     setOpenCard
   }
 }
-export const useRestakingCall = () => {
-  const getRestaking = useCallback(async ({ userId, chainId }: { userId: string; chainId: ChainId }) => {
+export const useStakingCall = () => {
+  const getStaking = useCallback(async ({ userId, chainId }: { userId: string; chainId: ChainId }) => {
     try {
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
@@ -241,7 +249,7 @@ export const useRestakingCall = () => {
               total: v.total
               // totalStr: tokenAddressBig.dividedBy(divisorBigNumber).toFixed(2)
               // ratio: '0'
-            } as unknown as IRestakingItem
+            } as unknown as IStakingItem
           ]
         })
       )
@@ -259,12 +267,12 @@ export const useRestakingCall = () => {
         statistics: statistics
       }
     } catch (e: any) {
-      throw new Error('getRestaking Error', e)
+      throw new Error('getStaking Error', e)
     }
   }, [])
 
   return {
-    getRestaking
+    getStaking
   }
 }
 

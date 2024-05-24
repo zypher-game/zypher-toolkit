@@ -1,7 +1,7 @@
 import './LeaderBoardRow.styl'
 
 import { preStaticUrl, useSetRecoilState } from '@ui/src'
-import { ActivePixelButtonColor, ActivePixelCard } from '@ui/src'
+import { ActivePixelCard, ActivePixelColorCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { IRankBoard } from '@/pages/Active/hooks/useLeaderboard'
@@ -65,7 +65,7 @@ const LeaderBoardRow = memo((props: IProps) => {
     setIsModalOpen(true)
   }, [])
   return (
-    <ActivePixelButtonColor
+    <ActivePixelColorCard
       width="100%"
       height={height}
       pixel_height={4}
@@ -97,7 +97,7 @@ const LeaderBoardRow = memo((props: IProps) => {
         </div>
       </div>
       <p className={`leader_board_row_fr`}>{score}</p>
-    </ActivePixelButtonColor>
+    </ActivePixelColorCard>
   )
 })
 export default LeaderBoardRow

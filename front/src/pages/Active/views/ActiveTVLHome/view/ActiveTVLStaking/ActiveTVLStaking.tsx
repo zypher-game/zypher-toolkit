@@ -9,7 +9,7 @@ import Card from './components/Card/Card'
 import StakingTab from './components/StakingTab/StakingTab'
 import Table from './components/Table/Table'
 
-const ActiveTVLStakingV2 = memo(() => {
+const ActiveTVLStaking = memo(() => {
   const { chainIndex, setChainIndex, chainIdLocal } = useChainIndex()
 
   const changeChainIndexHandle = useCallback((index: number) => {
@@ -42,4 +42,4 @@ const ActiveTVLStakingV2 = memo(() => {
     </TVLWrap>
   )
 })
-export default ActiveTVLStakingV2
+export default ActiveTVLStaking

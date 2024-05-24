@@ -57,6 +57,7 @@ const PixelTabLiItem = memo(
       return (
         <li>
           <ActivePixelButtonColor
+            themeType="brightBlue"
             height={height}
             pixel_height={pixel_height}
             className="active_tvl_tab_on"

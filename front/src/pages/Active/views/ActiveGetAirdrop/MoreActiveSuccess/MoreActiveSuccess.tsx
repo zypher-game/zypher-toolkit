@@ -34,7 +34,7 @@ const MoreActiveSuccessCard = memo(({ isModal }: { isModal: boolean }) => {
     <GetAirdropCard className={css.moreActiveSuccess}>
       <h3>Congrats! Get bonus points!</h3>
       <AirdropPointCard amount="340" />
-      <ActivePixelButtonColor className={css.toPath} onClick={toPath} width="318px" height="52px" pixel_height={5}>
+      <ActivePixelButtonColor themeType="brightBlue" className={css.toPath} onClick={toPath} width="318px" height="52px" pixel_height={5}>
         <p>Staking ETH to activate points</p>
       </ActivePixelButtonColor>
     </GetAirdropCard>

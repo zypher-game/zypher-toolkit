@@ -69,15 +69,7 @@ const Nav = memo(() => {
 const NavItemFl = memo(({ iconPath, label, onClick }: { iconPath: string; label: string; onClick?: any }) => {
   const w768 = useIsW768()
   return (
-    <ActivePixelButtonColor
-      className={css.navItemFl}
-      height={w768 ? '30px' : '40px'}
-      pixel_height={w768 ? 3 : 4}
-      backgroundColor="#61341F"
-      borderBottomColor="#30170B"
-      borderTopColor="#7F5441"
-      onClick={onClick}
-    >
+    <ActivePixelButtonColor themeType="brown" className={css.navItemFl} height={w768 ? '30px' : '40px'} pixel_height={w768 ? 3 : 4} onClick={onClick}>
       <SvgComponent src={`${preStaticUrl}/img/games/${iconPath}.svg`} />
       <p>{label}</p>
     </ActivePixelButtonColor>
@@ -86,15 +78,7 @@ const NavItemFl = memo(({ iconPath, label, onClick }: { iconPath: string; label:
 const NavItemFr = memo(({ className, children, onClick }: { className: string; children: React.ReactNode; onClick?: any }) => {
   const w768 = useIsW768()
   return (
-    <ActivePixelButtonColor
-      className={className}
-      height={w768 ? '32px' : '36px'}
-      pixel_height={3}
-      backgroundColor="#1649FF"
-      borderBottomColor="#0F33B2"
-      borderTopColor="#3360FF"
-      onClick={onClick}
-    >
+    <ActivePixelButtonColor themeType="brightBlue" className={className} height={w768 ? '32px' : '36px'} pixel_height={3} onClick={onClick}>
       {children}
     </ActivePixelButtonColor>
   )

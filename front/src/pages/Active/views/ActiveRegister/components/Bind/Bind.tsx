@@ -69,7 +69,7 @@ const Bind = memo(({ CheckPointHandle, CheckTwitterHandle }: { CheckPointHandle:
           fl={'3. Join Zypher Games Discord'}
           fr={<FrStatus label={discord.nickname} isLoading={discord.isLoading} btnLabel="Link to Discord" onClick={CheckDiscordHandle} />}
         /> */}
-      <LiItem fl={'3. Check your airdrop points'} fr={<FrStatus label="" isLoading={false} btnLabel="Connect Wallet" onClick={CheckPointHandle} />} />
+      <LiItem fl={'3. Check your airdrop points'} fr={<FrStatus label="" isLoading={false} btnLabel="Check" onClick={CheckPointHandle} />} />
     </ul>
   )
 })

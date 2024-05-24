@@ -20,7 +20,7 @@ const SingleCharInput: React.FC<SingleCharInputProps> = memo(({ onChange, value,
     // 限制只输入一个字符
     const inputValue = event.target.value
     if (inputValue.length > 0 && /^[A-Za-z0-9]$/.test(inputValue)) {
-      onChange(inputValue.charAt(0))
+      onChange(inputValue.toUpperCase().charAt(0))
     }
   }
 

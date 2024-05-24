@@ -37,13 +37,11 @@ const PoinsWarn = memo(({ handleNext }: IProps) => {
         {t("poinsWarnText05")}
       </p>
       <ActivePixelButtonColor
+        themeType="brightBlue"
         onClick={handleNext}
         width="100%"
         height="52px"
         pixel_height={4}
-        backgroundColor="#1649FF"
-        borderBottomColor="#0F33B2"
-        borderTopColor="#3360FF"
         className={"points_dialog_btn"}
       >
         <p>{t("Ok")}</p>

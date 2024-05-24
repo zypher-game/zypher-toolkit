@@ -21,7 +21,7 @@ const ActiveTVLLeaderboard = memo(() => {
       fl_children={
         <>
           <h2 className={`${css.fl_title} ${css.pt30}`}>Leaderboard</h2>
-          <p className={`${css.fl_grey} ${css.mb40}`}>Restaking & invite friends to improve your ranking!</p>
+          <p className={`${css.fl_grey} ${css.mb40}`}>Staking & invite friends to improve your ranking!</p>
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
           <div className={css.fl_list}>
             {rankBoard.map((v, index) => (

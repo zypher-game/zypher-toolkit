@@ -2,7 +2,7 @@ import { AddressZero } from '@ethersproject/constants'
 import { atom, ChainId, Currency, CurrencyLogo, localStorageEffect } from '@ui/src'
 import { Address } from 'wagmi'
 
-import { defaultActiveChainId, IToken, TVLChainId, TVLStakingSupportedChainId, tvlTokens } from '../constants/activeConstants'
+import { IToken, TVLChainId, TVLStakingSupportedChainId, tvlTokens } from '../constants/activeConstants'
 export enum ITvlHero {
   Agil = 'Agil',
   Yueling = 'Yueling',
@@ -154,15 +154,15 @@ export const initData: ITVLStakingData = {
   crHeroAmount: '',
   ratio: ''
 }
-export type IRestakingItem = {
+export type IStakingItem = {
   tokenAddress: string
   // userStakeTotal: string
   total: string
   // totalStr: string
   // ratio: string
 }
-export type IRestakingDataState = {
-  records: Record<string, IRestakingItem>
+export type IStakingDataState = {
+  records: Record<string, IStakingItem>
   statistics: {
     stakingAirdrop: string
     stakingAirdropStr: string
@@ -172,7 +172,8 @@ export type IRestakingDataState = {
     restakingGrowthCoefficient: string
   }
 }
-export const restakingDataState = atom<Record<ChainId, IRestakingDataState>>({
+
+export const restakingDataState = atom<Record<ChainId, IStakingDataState>>({
   key: 'restakingDataState',
   default: Object.fromEntries(
     TVLStakingSupportedChainId.map(chainId => [
@@ -189,7 +190,8 @@ export const restakingDataState = atom<Record<ChainId, IRestakingDataState>>({
         }
       }
     ])
-  ) as unknown as Record<ChainId, IRestakingDataState>
+  ) as unknown as Record<ChainId, IStakingDataState>,
+  effects_UNSTABLE: [localStorageEffect('restakingDataState')]
 })
 export const isTvlDataLoadingState = atom<boolean>({
   key: 'isTvlDataLoadingState',
@@ -221,7 +223,7 @@ export const tvlStakingDataV2Init = Object.fromEntries(
     }
   ])
 ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>
-export const tvlStakingDataState = atom<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>({
+export const tvlStakingDataState = atom<Record<ChainId, Record<string, ITVLStakingData>>>({
   key: 'tvlStakingDataV2',
   default: tvlStakingDataV2Init,
   effects_UNSTABLE: [localStorageEffect('tvlStakingDataV2')]

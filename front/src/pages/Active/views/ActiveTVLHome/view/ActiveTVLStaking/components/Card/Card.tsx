@@ -7,6 +7,13 @@ import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
 import { activeDataState, IActiveDataState, initActiveData, restakingDataState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
+// const Growth: Record<TVLChainId, [string, string]> = {
+//   [TVLChainId.Sepolia]: ['10', '5'],
+//   [TVLChainId.B2]: ['200', '100'],
+//   [TVLChainId.B2Testnet]: ['200', '100'],
+//   [TVLChainId.LineaMainnet]: ['10', '5'],
+//   [TVLChainId.LineaTestnet]: ['10', '5']
+// }
 const Card = memo(
   ({
     claimGpLoading,
@@ -67,6 +74,9 @@ const Card = memo(
             title={'Obtained by restaking tokens'}
             airdropPoints={restakingAirdropStr}
             growthCoefficient={restakingGrowthCoefficient}
+            // !restakingGrowthCoefficient || restakingGrowthCoefficient === '0'
+            // ? Growth[chainIdLocal as unknown as TVLChainId][1]
+            // :
             airdropPointsTooltip={airdropPointsTooltip}
             growthCoefficientTooltip={growthCoefficientTooltip}
           />
@@ -76,10 +86,10 @@ const Card = memo(
             title="SBT"
             content={hasSbt ? 'Play games on L3 with zero gas!' : 'Still need more BTC to unlock'}
             warning={SBTTooltip}
-            hideBtn={!hasSbt}
-            btnLabel="Go"
+            btnLabel={hasSbt ? 'Go' : 'Stake'}
             onClick={onClaimSBTHandle}
             loading={claimSBTLoading}
+            disable={false}
           />
           <PixelCardTwo
             title={crHeroBoxAmount}
@@ -88,14 +98,16 @@ const Card = memo(
             btnLabel="Open"
             onClick={onOpenCrHeroHandle}
             loading={claimCrLoading}
+            disable={false}
           />
           <PixelCardTwo
-            title={`${dollarGpRewords}`}
+            title={`${dollarGpRewords}$GP`}
             content="Rewards"
             warning={gpTooltip}
             btnLabel="Claim"
             onClick={onClaimGPHandle}
             loading={claimGpLoading}
+            disable={!dollarGpRewords || dollarGpRewords === '' || dollarGpRewords === '0' ? true : false}
           />
         </div>
       </div>
@@ -119,7 +131,24 @@ const PixelCardOne = memo(
     return (
       <PixelCard>
         <h4 className={css.cardOneTitle}>{title}</h4>
-        <div className={css.title_content}>
+        <div className={css.space}>
+          <div className={css.fl}>
+            <p className={css.title_amount}>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
+            <div className={css.grey_title}>
+              <p>Airdrop Points</p>
+              <PixelTooltip title={airdropPointsTooltip} />
+            </div>
+          </div>
+          <div className={css.fr}>
+            <p className={css.title_amount}>{growthCoefficient}</p>
+            <div className={css.grey_title}>
+              <p>Growth coefficient</p>
+              <PixelTooltip title={growthCoefficientTooltip} />
+            </div>
+          </div>
+        </div>
+        {/* <div className={css.title_content}>
+
           <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
           <p>{growthCoefficient}</p>
         </div>
@@ -132,7 +161,7 @@ const PixelCardOne = memo(
             <p>Growth coefficient</p>
             <PixelTooltip title={growthCoefficientTooltip} />
           </div>
-        </div>
+        </div> */}
       </PixelCard>
     )
   }
@@ -145,7 +174,8 @@ const PixelCardTwo = memo(
     btnLabel,
     onClick,
     loading,
-    hideBtn
+    hideBtn,
+    disable
   }: {
     title: string
     content: string
@@ -154,6 +184,7 @@ const PixelCardTwo = memo(
     onClick: any
     loading: boolean
     hideBtn?: boolean
+    disable: boolean
   }) => {
     return (
       <PixelCard>
@@ -164,12 +195,13 @@ const PixelCardTwo = memo(
         </div>
         {hideBtn ? null : (
           <ActivePixelButtonColor
+            themeType="brightBlue"
             pixel_height={3}
             width="144px"
             height="36px"
             className={css.fr_btn}
             onClick={onClick}
-            disable={!title || title === '' || title === '0' || loading ? true : false}
+            disable={disable || loading}
           >
             <p>{btnLabel}</p>
             <LoadingButton isLoading={loading} />

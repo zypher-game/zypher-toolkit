@@ -180,6 +180,7 @@ export { getChainId } from "./utils/getChainId";
 export { languageList } from "./components/SideBar/component/Language";
 export {
   IPixelProps,
+  IPixelButtonTheme,
   ActivePixelCard,
   ActivePixelColorCard,
   PixelBorderCard,

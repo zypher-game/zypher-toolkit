@@ -3,22 +3,23 @@ import {
   ChainImage,
   Currency,
   CurrencyLogo,
+  LoadingButton,
   PixelCube3,
   PixelTableBorder,
   preStaticUrl,
   SvgComponent,
   useActiveWeb3React,
+  useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
-import { Tooltip } from 'antd'
 import React, { memo, useCallback, useRef, useState } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { getLinkPre } from '@/pages/Active/constants/activeConstants'
 import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
-import { useAirdropPointsTooltip, useTeamTooltip } from '@/pages/Active/hooks/useTooltip'
-import { tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
+import { useTeamTooltip } from '@/pages/Active/hooks/useTooltip'
+import { isTvlDataLoadingState, tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getNickname } from '@/pages/Active/utils/getNicknameStr'
 import copy from '@/utils/copy'
 
@@ -34,14 +35,15 @@ const ActiveTVLTeam = memo(() => {
   const toastContainerRef = useRef<HTMLElement | null>(null)
   const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
   const setIsTvlPointModalOpen = useSetRecoilState(tvlPointDialogState)
+  const isDataLoading = useRecoilValue(isTvlDataLoadingState)
   const { chainId } = useActiveWeb3React()
   const [showTeamWarn, setShowTeamWarn] = useState(0)
-  const { groupGoal, availableCode, teamMembers, activeData, openCard } = useTeam()
+  const { groupGoal, availableCode, teamMembers, activeData, openCard, isLoadingSingle, isLoadingAll } = useTeam()
   const stakingHandle = useCallback(() => {
     setIsTvlStakingModalOpen(true)
   }, [])
   const tvlPointHandle = useCallback(() => {
-    if (activeData.airdropPointsCardNumber === '') {
+    if (activeData.airdropPointsCardNumber === '' || activeData.airdropPointsCardNumber === '0') {
       return
     }
     setIsTvlPointModalOpen(true)
@@ -49,7 +51,7 @@ const ActiveTVLTeam = memo(() => {
   const myTeamWarnHandle = useCallback(() => {
     setShowTeamWarn(1)
   }, [])
-
+  console.log({ activeData: activeData.airdropPointsCardNumber })
   return (
     <>
       <TVLWrap
@@ -99,14 +101,22 @@ const ActiveTVLTeam = memo(() => {
           <>
             <div className={css.pt100} />
             <FrPixelBorder>
-              <h3 className={css.fr_title}>Restaked</h3>
+              <h3 className={css.fr_title}>Staked</h3>
               <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
               <div className={css.fr_number}>
                 <p>{activeData.userStakedAmountStr}</p>
+                <LoadingButton isLoading={isDataLoading} />
                 <img src={CurrencyLogo[chainId]} />
               </div>
-              <ActivePixelButtonColor className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={stakingHandle}>
-                <p>Restaking more</p>
+              <ActivePixelButtonColor
+                themeType="brightBlue"
+                className={css.fr_btn}
+                width="144px"
+                height="36px"
+                pixel_height={3}
+                onClick={stakingHandle}
+              >
+                <p>Staking more</p>
               </ActivePixelButtonColor>
             </FrPixelBorder>
             <FrPixelBorder>
@@ -117,11 +127,17 @@ const ActiveTVLTeam = memo(() => {
               <div className={css.fr_number}>
                 <p>{activeData.airdropPointsCardNumber === '' ? '0' : activeData.airdropPointsCardNumber}</p>
               </div>
-              {activeData.airdropPointsCardNumber === '' ? null : (
-                <ActivePixelButtonColor className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={tvlPointHandle}>
-                  <p>Open</p>
-                </ActivePixelButtonColor>
-              )}
+              <ActivePixelButtonColor
+                themeType="brightBlue"
+                className={css.fr_btn}
+                width="144px"
+                height="36px"
+                pixel_height={3}
+                disable={activeData.airdropPointsCardNumber === '' || activeData.airdropPointsCardNumber === '0'}
+                onClick={tvlPointHandle}
+              >
+                <p>Open</p>
+              </ActivePixelButtonColor>
             </FrPixelBorder>
             <PixelTableBorder
               pixel_height={6}
@@ -134,15 +150,16 @@ const ActiveTVLTeam = memo(() => {
               body_children={
                 <ul className={css.tvl_fr_table_ul}>
                   {availableCode.map(v => (
-                    <li key={v}>
+                    <li key={v.inviteCode}>
                       <p>
-                        {window.location.origin}/{getLinkPre(chainId).label}-{v}
+                        {window.location.origin}/{getLinkPre(chainId).label}-{v.inviteCode}
                       </p>
                       <ActivePixelButtonColor
+                        themeType="brightBlue"
                         width="88px"
                         height="36px"
                         pixel_height={3}
-                        onClick={() => copy(`${window.location.origin}/${getLinkPre(chainId).label}-${v}`, toastContainerRef)}
+                        onClick={() => copy(`${window.location.origin}/${getLinkPre(chainId).label}-${v.inviteCode}`, toastContainerRef)}
                       >
                         <p>Copy</p>
                       </ActivePixelButtonColor>
@@ -155,7 +172,7 @@ const ActiveTVLTeam = memo(() => {
           </>
         }
       />
-      <TVLPointDialog openCard={openCard} />
+      <TVLPointDialog openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} />
     </>
   )
 })

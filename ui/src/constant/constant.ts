@@ -103,6 +103,8 @@ export const supportedChainIds = (
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaTestnet,
+        ChainId.B2,
+        ChainId.B2Testnet,
         ChainId.OPBNB,
         ChainId.OPBNBTEST,
         ChainId.Arbitrum,
@@ -114,8 +116,6 @@ export const supportedChainIds = (
         ChainId.ComboTestnet,
         ChainId.Combo,
         ChainId.Sepolia,
-        ChainId.B2,
-        ChainId.B2Testnet,
       ]
     : [
         ChainId.LineaMainnet,

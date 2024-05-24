@@ -18,7 +18,7 @@ const EarthPart = memo(
         <img src={preStaticUrl + '/img/tvl/earth/earth_bg02.png'} alt="earth" className={css.earth_bg02} />
         <img src={preStaticUrl + '/img/tvl/earth/earth_bg03.png'} alt="earth" className={css.earth_bg03} />
         <img src={preStaticUrl + '/img/tvl/earth/leaderboard.png'} alt="earth" className={css.leaderboard} onClick={toLeaderBorder} />
-        <img src={preStaticUrl + '/img/tvl/earth/restaking.png'} alt="earth" className={css.restaking} />
+        <img src={preStaticUrl + '/img/tvl/earth/staking.png'} alt="earth" className={css.restaking} />
         <img src={preStaticUrl + '/img/tvl/earth/team.png'} alt="earth" className={css.team} />
       </div>
     )

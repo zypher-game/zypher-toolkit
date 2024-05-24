@@ -16,23 +16,14 @@ const StakingTab = memo(({ chainIndex, changeChainIndexHandle }: { chainIndex: n
     <>
       <div className={css.tab_col}>
         <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
-        <ActivePixelButtonColor
-          className={css.staking}
-          width="110px"
-          height="32px"
-          pixel_height={2}
-          borderBottomColor="#D99716"
-          borderTopColor="#FFE99A"
-          backgroundColor="#FFD02B"
-          onClick={showStakingHandle}
-        >
+        <ActivePixelButtonColor themeType="yellow" className={css.staking} width="110px" height="32px" pixel_height={2} onClick={showStakingHandle}>
           <p>Stake</p>
         </ActivePixelButtonColor>
       </div>
       {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaTestnet || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (
         <div className={css.warn_tab_tooltip}>
           <p>Earn Linea XP</p>
-          <PixelTooltip title={['Earn Linea XP']} />
+          <PixelTooltip title={['What is Linea Voyage XP? ']} showLink="https://docs.linea.build/users/linea-voyage/lxp#what-is-linea-voyage-xp" />
           <p>by staking! And Linea’s airdrop expectations!</p>
         </div>
       ) : (

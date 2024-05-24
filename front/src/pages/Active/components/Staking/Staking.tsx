@@ -113,19 +113,31 @@ const Staking = memo(() => {
     try {
       if (!isDataLoading) {
         if (depositValue) {
-          const _totalStaked = new BigNumberJs(depositValue).plus(chooseValue.userStakedAmount === '' ? '0' : chooseValue.userStakedAmount)
+          const decimal = chooseValue?.decimal ?? 18
+          const _totalStaked = new BigNumberJs(depositValue).plus(
+            new BigNumberJs(chooseValue.userStakedAmount === '' ? '0' : chooseValue.userStakedAmount).dividedBy(
+              new BigNumberJs('10').exponentiatedBy(decimal)
+            )
+          )
           const X = new BigNumberJs(Math.ceil(new BigNumberJs(_totalStaked).toNumber())).times(10) // _totalStaked 的值向上取整就是其系数
 
           const END_TIME = +(chooseValue.END_TIME ?? '0') // 从合约获取的时间
           const nowTimestamp = Date.now() / 1000 // 当前时间
           const END_TIMEDate = new Date(END_TIME * 1000)
           const currentDate = new Date(nowTimestamp * 1000)
-
           const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
 
           const _earnPoints = X.plus(new BigNumberJs(depositValue)) // 系数值 + 输入值
           const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints) // 还剩多少天 乘 _earnPoints
+          console.log({
+            depositValue,
+            X: X.toFixed(),
+            END_TIME,
+            differenceInDays,
+            _earnPoints: _earnPoints.toFixed(2),
+            _finalPoints: _finalPoints.toFixed(2)
+          })
           return {
             totalStaked: _totalStaked.toFormat(2),
             earnPoints: _earnPoints.toFormat(2),
@@ -140,7 +152,7 @@ const Staking = memo(() => {
   }, [JSON.stringify(chooseValue), isDataLoading, depositValue])
   return (
     <PixelBorderCard width="505px" className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
-      <h3 className={css.title}>Restaking</h3>
+      <h3 className={css.title}>Staking</h3>
       <PixelBorderCardButton className="staking_switch" height="36px" width="100%" pixel_height={6} onClick={changeChainHandle}>
         <p>Current network: {ChainName[chainIdFromStake]}</p>
         <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
@@ -193,10 +205,10 @@ const Staking = memo(() => {
         className="staking_confirm"
         width="100%"
         height="52px"
-        backgroundColor="#1649FF"
         pixel_height={5}
         onClick={deposit}
         disable={isDepositLoading || isApproveLoading}
+        themeType="brightBlue"
       >
         <p>{btnLabel}</p>
         <LoadingButton isLoading={isDepositLoading || isApproveLoading} />

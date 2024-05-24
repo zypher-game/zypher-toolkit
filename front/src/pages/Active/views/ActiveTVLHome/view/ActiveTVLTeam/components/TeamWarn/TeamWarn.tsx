@@ -91,7 +91,14 @@ const TeamWarn = memo(
             </p>
           ))}
           <img src={img} alt={title} className={css[imgClassName]} />
-          <ActivePixelButtonColor className={css.btn} pixel_height={3} width="144px" height="36px" onClick={showTeamWarnHandle}>
+          <ActivePixelButtonColor
+            themeType="brightBlue"
+            className={css.btn}
+            pixel_height={3}
+            width="144px"
+            height="36px"
+            onClick={showTeamWarnHandle}
+          >
             {btn}
           </ActivePixelButtonColor>
           <DialogClose onClick={handleCancel} />

@@ -16,8 +16,6 @@ export const useInit = () => {
       GlobalVar.dispatch = dispatch
     }, 10)
   }, [])
-  // L-XKSUA
-
   useActiveRouter()
   useActiveInit()
 }

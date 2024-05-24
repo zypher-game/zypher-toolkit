@@ -1,9 +1,9 @@
-import { ChainId, Currency, PixelTableBorder, useActiveWeb3React, useRecoilValue } from '@ui/src'
-import React, { memo, useMemo } from 'react'
+import { ChainId, Currency, PixelTableBorder, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@ui/src'
+import React, { memo, useCallback, useMemo } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
 import { TVLChainId } from '@/pages/Active/constants/activeConstants'
-import { ITVLStakingData, tvlStakingDataState } from '@/pages/Active/state/activeState'
+import { ITVLStakingData, tvlStakingDataState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 
 import css from './Table.module.styl'
 const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
@@ -41,16 +41,21 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
   )
 })
 const TableWrap = memo(({ list, type }: { list: ITVLStakingData[]; type: 'native' | 'erc20' }) => {
+  const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
+  const onClick = useCallback(() => {
+    setIsModalOpen(true)
+  }, [])
   return (
     <PixelTableBorder
       classNameHeader="tvlPixelTable_header_table"
       pixel_height={7}
-      header_children={<Row className={css.fl_tab_header} data={['Token', type === 'native' ? 'Staked' : 'Restaked', 'Ratio', 'GP', 'APR', 'TVL']} />}
+      header_children={<Row className={css.fl_tab_header} data={['Token', type === 'native' ? 'Staked' : 'Staked', 'Ratio', 'GP', 'APR', 'TVL']} />}
       body_children={
         <>
           {list.map(v => (
             <Row
               key={v.address}
+              onClick={onClick}
               className={css.fl_tab_body}
               data={[
                 <>
@@ -81,7 +86,11 @@ const TableWrap = memo(({ list, type }: { list: ITVLStakingData[]; type: 'native
     />
   )
 })
-const Row = memo(({ className, data }: { className: string; data: (string | React.ReactNode)[] }) => {
-  return <div className={`${css.row} ${className}`}>{data.filter(v => v).map(v => (typeof v === 'string' ? <p key={v}>{v} </p> : v))}</div>
+const Row = memo(({ className, data, onClick }: { className: string; data: (string | React.ReactNode)[]; onClick?: any }) => {
+  return (
+    <div className={`${css.row} ${className}`} onClick={onClick}>
+      {data.filter(v => v).map(v => (typeof v === 'string' ? <p key={v}>{v} </p> : v))}
+    </div>
+  )
 })
 export default Table

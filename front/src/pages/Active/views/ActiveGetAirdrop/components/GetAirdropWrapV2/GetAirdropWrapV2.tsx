@@ -1,6 +1,7 @@
 import { accountInfoDialogState, ActivePixelButtonColor, useDisconnect, useRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
+import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { useToPath } from '@/pages/Active/hooks/useToPath'
 
 import css from './GetAirdropWrapV2.module.styl'
@@ -21,11 +22,12 @@ const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; f
         <p className={css.text}>
           Alternatively, you can still use this wallet to <strong>stake assets</strong> and <strong>invite friends</strong> to earn more points.
         </p>
-        <ActivePixelButtonColor onClick={loginOut} className={css.link} width="200px" height="52px" pixel_height={5}>
-          <p>Try another wallet</p>
+        <ActivePixelButtonColor themeType="brightBlue" onClick={keepGoingHandle} className={css.link} width="200px" height="52px" pixel_height={5}>
+          <p>Keep Going</p>
         </ActivePixelButtonColor>
         <div className={css.linkA}>
-          <p onClick={keepGoingHandle}>Keep Going</p>
+          <p onClick={loginOut}>Try another wallet</p>
+          <PixelTooltip title={['Please switch your account address in the wallet']} />
         </div>
       </div>
       <img src={frImgPath} className={css.img} />

@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, preStaticUrl, SvgComponent, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { DialogClose, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
