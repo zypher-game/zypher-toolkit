@@ -816,6 +816,7 @@ var PixelColorStyled = styled(PixelStyled)`
         position: absolute;
         width: ${({ pixel_height }) => pixel_height}px;
         height: ${({ pixel_height }) => pixel_height}px;
+        transition: all 0.3s ease;
       }
       &:before {
         top: 0;
@@ -929,6 +930,7 @@ var ActivePixelButtonColorStyled = styled(PixelStyled)`
         position: absolute;
         width: ${({ pixel_height }) => pixel_height}px;
         height: ${({ pixel_height }) => pixel_height}px;
+        transition: all 0.3s ease;
       }
       &:before {
         top: 0;
@@ -1075,7 +1077,7 @@ var PixelBorderStyled = styled(PixelFlatBtn_default)`
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
       border: 1px solid ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
-      transition: border 0.3s ease;
+      transition: all 0.3s ease;
     }
     > .pixel_flat_btn_top_1 {
       border-bottom: none !important;
@@ -1259,7 +1261,7 @@ var PixelCube3Styled = styled(PixelCube2)`
     > .pixel_flat_btn_bottom_1 {
       &:before {
         content: "";
-        transition: background-color, border 0.3s ease;
+        transition: all 0.3s ease;
         position: absolute;
         height: ${({ pixel_height }) => pixel_height}px;
         width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
@@ -1301,6 +1303,10 @@ var PixelCube5Styled = styled(PixelCube3Styled)`
         width: 100%;
         left: 0;
         background-color: ${({ backgroundColor }) => backgroundColor};
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
       }
       &:before {
         top: -${({ pixel_height }) => pixel_height}px;
@@ -1317,6 +1323,10 @@ var PixelCube5Styled = styled(PixelCube3Styled)`
       width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
       left: calc(-${({ pixel_height }) => pixel_height}px * 3);
       background-color: ${({ backgroundColor }) => backgroundColor};
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
     }
     > .pixel_flat_btn_top_1:before {
       top: calc(${({ pixel_height }) => pixel_height}px * 3);
@@ -1733,7 +1743,7 @@ function useActiveWeb3React(env, chainList2) {
 
 // src/hooks/useNavItem.tsx
 var zAceLink = isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
-var crLink = "https://test.zypher.game/CryptoRumble/";
+var crLink = "https://testnet.cryptorumble.io";
 var LinkList = [
   window.location.origin + "/bingo/",
   window.location.origin + "/2048/",

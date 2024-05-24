@@ -133,6 +133,7 @@ const PixelColorStyled = styled(PixelStyled)<IPixel>`
         position: absolute;
         width: ${({ pixel_height }) => pixel_height}px;
         height: ${({ pixel_height }) => pixel_height}px;
+        transition: all 0.3s ease;
       }
       &:before {
         top: 0;
@@ -272,6 +273,7 @@ const ActivePixelButtonColorStyled = styled(PixelStyled)<IPixelButtonTheme>`
         position: absolute;
         width: ${({ pixel_height }) => pixel_height}px;
         height: ${({ pixel_height }) => pixel_height}px;
+        transition: all 0.3s ease;
       }
       &:before {
         top: 0;
@@ -440,7 +442,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
       border: 1px solid ${({ borderColor }) => borderColor ?? "#3a4254"};
-      transition: border 0.3s ease;
+      transition: all 0.3s ease;
     }
     > .pixel_flat_btn_top_1 {
       border-bottom: none !important;
@@ -640,7 +642,7 @@ const PixelCube3Styled = styled(PixelCube2)<IPixel>`
     > .pixel_flat_btn_bottom_1 {
       &:before {
         content: "";
-        transition: background-color, border 0.3s ease;
+        transition: all 0.3s ease;
         position: absolute;
         height: ${({ pixel_height }) => pixel_height}px;
         width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
@@ -681,6 +683,10 @@ const PixelCube5Styled = styled(PixelCube3Styled)<IPixel>`
         width: 100%;
         left: 0;
         background-color: ${({ backgroundColor }) => backgroundColor};
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
       }
       &:before {
         top: -${({ pixel_height }) => pixel_height}px;
@@ -697,6 +703,10 @@ const PixelCube5Styled = styled(PixelCube3Styled)<IPixel>`
       width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
       left: calc(-${({ pixel_height }) => pixel_height}px * 3);
       background-color: ${({ backgroundColor }) => backgroundColor};
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
     }
     > .pixel_flat_btn_top_1:before {
       top: calc(${({ pixel_height }) => pixel_height}px * 3);
