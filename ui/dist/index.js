@@ -77,6 +77,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9[ChainId9["Mantle"] = 5e3] = "Mantle";
   ChainId9[ChainId9["MantleTestnet"] = 5001] = "MantleTestnet";
   ChainId9[ChainId9["Sepolia"] = 11155111] = "Sepolia";
+  ChainId9[ChainId9["TaikoHeklaTestnet9"] = 167009] = "TaikoHeklaTestnet9";
   return ChainId9;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
@@ -100,7 +101,8 @@ var bingoBetaSupportedChainId = !isPro() ? [
   9980 /* Combo */,
   91715 /* ComboTestnet */,
   3441005 /* MantaPacificTestnet */,
-  169 /* MantaPacificMainnet */
+  169 /* MantaPacificMainnet */,
+  167009 /* TaikoHeklaTestnet9 */
 ] : [
   42161 /* Arbitrum */,
   5e3 /* Mantle */,
@@ -125,7 +127,8 @@ var supportedChainIds = (env, chainList2) => {
     5001 /* MantleTestnet */,
     91715 /* ComboTestnet */,
     9980 /* Combo */,
-    11155111 /* Sepolia */
+    11155111 /* Sepolia */,
+    167009 /* TaikoHeklaTestnet9 */
   ] : [
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
@@ -189,7 +192,8 @@ var ChainRpcUrls = {
   [11155111 /* Sepolia */]: [
     "https://endpoints.omniatech.io/v1/eth/sepolia/public",
     "https://ethereum-sepolia-rpc.publicnode.com"
-  ]
+  ],
+  [167009 /* TaikoHeklaTestnet9 */]: ["https://hekla.taiko.tools"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -219,7 +223,8 @@ var BlockExplorerUrls = {
   [5e3 /* Mantle */]: ["https://explorer.mantle.xyz"],
   [5001 /* MantleTestnet */]: ["https://explorer.testnet.mantle.xyz"],
   [9980 /* Combo */]: ["https://combotrace.nodereal.io"],
-  [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"]
+  [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"],
+  [167009 /* TaikoHeklaTestnet9 */]: ["https://blockscoutapi.hekla.taiko.xyz"]
 };
 var ChainName = {
   [56 /* Mainnet */]: "BSC Mainnet",
@@ -241,7 +246,8 @@ var ChainName = {
   [5e3 /* Mantle */]: "Mantle",
   [5001 /* MantleTestnet */]: "Mantle Testnet",
   [9980 /* Combo */]: "Combo",
-  [11155111 /* Sepolia */]: "Sepolia"
+  [11155111 /* Sepolia */]: "Sepolia",
+  [167009 /* TaikoHeklaTestnet9 */]: "Taiko Hekla L2 Testnet"
 };
 var ChainNetworkName = {
   [56 /* Mainnet */]: "bsc",
@@ -263,7 +269,8 @@ var ChainNetworkName = {
   [91715 /* ComboTestnet */]: "Combo Testnet",
   [5e3 /* Mantle */]: "Mantle",
   [5001 /* MantleTestnet */]: "Mantle Testnet",
-  [11155111 /* Sepolia */]: "Sepolia"
+  [11155111 /* Sepolia */]: "Sepolia",
+  [167009 /* TaikoHeklaTestnet9 */]: "Taiko Hekla L2"
 };
 var isTestnet = {
   [56 /* Mainnet */]: false,
@@ -285,29 +292,8 @@ var isTestnet = {
   [91715 /* ComboTestnet */]: true,
   [5e3 /* Mantle */]: false,
   [5001 /* MantleTestnet */]: true,
-  [11155111 /* Sepolia */]: true
-};
-var ChainImage = {
-  [56 /* Mainnet */]: preStaticUrl + "/img/bsc.png",
-  [97 /* Testnet */]: preStaticUrl + "/img/bsc.png",
-  [42161 /* Arbitrum */]: preStaticUrl + "/img/arbitrum.png",
-  [421613 /* ArbitrumGoerli */]: preStaticUrl + "/img/arbitrum.png",
-  [421611 /* ArbitrumRinkeby */]: preStaticUrl + "/img/arbitrum.png",
-  [59140 /* LineaTestnet */]: preStaticUrl + "/img/linea.svg",
-  [59144 /* LineaMainnet */]: preStaticUrl + "/img/linea_logo.svg",
-  [80001 /* POLYGON_MUMBAI */]: preStaticUrl + "/img/matic-token-icon.svg",
-  [1442 /* POLYGON_ZKEVM */]: preStaticUrl + "/img/matic-token-icon.svg",
-  [5611 /* OPBNBTEST */]: preStaticUrl + "/img/bsc.png",
-  [204 /* OPBNB */]: preStaticUrl + "/img/bsc.png",
-  [534353 /* ScrollAlphaTestnet */]: preStaticUrl + "/img/scroll.svg",
-  [534351 /* ScrollSepoliaTestnet */]: preStaticUrl + "/img/scroll.svg",
-  [169 /* MantaPacificMainnet */]: preStaticUrl + "/img/manta.svg",
-  [3441005 /* MantaPacificTestnet */]: preStaticUrl + "/img/manta.svg",
-  [9980 /* Combo */]: preStaticUrl + "/crypto/chain/9980.svg",
-  [91715 /* ComboTestnet */]: preStaticUrl + "/img/combo.svg",
-  [5e3 /* Mantle */]: preStaticUrl + "/img/MNT.webp",
-  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp",
-  [11155111 /* Sepolia */]: preStaticUrl + "/img/ethereum.png"
+  [11155111 /* Sepolia */]: true,
+  [167009 /* TaikoHeklaTestnet9 */]: true
 };
 var Currency = {
   [56 /* Mainnet */]: "BNB",
@@ -329,30 +315,24 @@ var Currency = {
   [91715 /* ComboTestnet */]: "BNB",
   [5e3 /* Mantle */]: "MNT",
   [5001 /* MantleTestnet */]: "MNT",
-  [11155111 /* Sepolia */]: "ETH"
+  [11155111 /* Sepolia */]: "ETH",
+  [167009 /* TaikoHeklaTestnet9 */]: "ETH"
 };
-var CurrencyLogo = {
-  [56 /* Mainnet */]: preStaticUrl + "/img/bnb.svg",
-  [97 /* Testnet */]: preStaticUrl + "/img/bnb.svg",
-  [42161 /* Arbitrum */]: preStaticUrl + "/img/ethereum.png",
-  [421611 /* ArbitrumRinkeby */]: preStaticUrl + "/img/ethereum.png",
-  [59140 /* LineaTestnet */]: preStaticUrl + "/img/ethereum.png",
-  [59144 /* LineaMainnet */]: preStaticUrl + "/img/ethereum.png",
-  [80001 /* POLYGON_MUMBAI */]: preStaticUrl + "/img/ethereum.png",
-  [421613 /* ArbitrumGoerli */]: preStaticUrl + "/img/ethereum.png",
-  [1442 /* POLYGON_ZKEVM */]: preStaticUrl + "/img/ethereum.png",
-  [5611 /* OPBNBTEST */]: preStaticUrl + "/img/bnb.svg",
-  [204 /* OPBNB */]: preStaticUrl + "/img/bnb.svg",
-  [534351 /* ScrollSepoliaTestnet */]: preStaticUrl + "/img/ethereum.png",
-  [534353 /* ScrollAlphaTestnet */]: preStaticUrl + "/img/ethereum.png",
-  [169 /* MantaPacificMainnet */]: preStaticUrl + "/img/ethereum-logo.png",
-  [3441005 /* MantaPacificTestnet */]: preStaticUrl + "/img/ethereum-logo.png",
-  [9980 /* Combo */]: preStaticUrl + "/img/bnb.svg",
-  [91715 /* ComboTestnet */]: preStaticUrl + "/img/bnb.svg",
-  [5e3 /* Mantle */]: preStaticUrl + "/img/MNT.webp",
-  [5001 /* MantleTestnet */]: preStaticUrl + "/img/MNT.webp",
-  [11155111 /* Sepolia */]: preStaticUrl + "/img/ethereum.png"
+var getCryptoImg = (fileName, key, type = ".svg") => {
+  return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
 };
+var ChainImage = Object.fromEntries(
+  Object.values(ChainId).map((v) => [
+    v,
+    getCryptoImg("chain", v)
+  ])
+);
+var CurrencyLogo = Object.fromEntries(
+  Object.values(ChainId).map((v) => [
+    v,
+    getCryptoImg("token", Currency[v])
+  ])
+);
 var MulticallV3 = "0xca11bde05977b3631167028862be2a173976ca11";
 var CurrencyContract = {
   [56 /* Mainnet */]: {
@@ -416,6 +396,9 @@ var CurrencyContract = {
     multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"]
   },
   [11155111 /* Sepolia */]: {
+    multicall: [MulticallV3]
+  },
+  [167009 /* TaikoHeklaTestnet9 */]: {
     multicall: [MulticallV3]
   }
 };
@@ -2041,7 +2024,7 @@ var CommunityLink = memo7(({ className }) => {
   return /* @__PURE__ */ React12.createElement("div", {
     className
   }, /* @__PURE__ */ React12.createElement("a", {
-    href: "https://twitter.com/Zypher_Games",
+    href: "https://twitter.com/Zypher_network",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React12.createElement(SvgComponent_default, {
@@ -4100,7 +4083,8 @@ var chainIdPre = {
   [5e3 /* Mantle */]: "MTM",
   [5001 /* MantleTestnet */]: "MTT",
   [9980 /* Combo */]: "Cb",
-  [11155111 /* Sepolia */]: "Sp"
+  [11155111 /* Sepolia */]: "Sp",
+  [167009 /* TaikoHeklaTestnet9 */]: "TKHT"
 };
 function getStatus(status) {
   if (status === 0) {

@@ -28,7 +28,8 @@ export declare enum ChainId {
     ComboTestnet = 91715,
     Mantle = 5000,
     MantleTestnet = 5001,
-    Sepolia = 11155111
+    Sepolia = 11155111,
+    TaikoHeklaTestnet9 = 167009
 }
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];
@@ -44,8 +45,9 @@ export declare const ChainBridge: {
 export declare const ChainName: Record<ChainId, string>;
 export declare const ChainNetworkName: Record<ChainId, string>;
 export declare const isTestnet: Record<ChainId, boolean>;
-export declare const ChainImage: Record<ChainId, string>;
 export declare const Currency: Record<ChainId, string>;
+export declare const getCryptoImg: (fileName: string, key: any, type?: string) => string;
+export declare const ChainImage: Record<ChainId, string>;
 export declare const CurrencyLogo: Record<ChainId, string>;
 interface IExternalMarketContract {
     multicall: string[];
