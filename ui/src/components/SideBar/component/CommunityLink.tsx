@@ -10,7 +10,7 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
   return (
     <div className={className}>
       <a
-        href="https://twitter.com/Zypher_Games"
+        href="https://twitter.com/Zypher_network"
         target="_blank"
         rel="noreferrer"
       >
