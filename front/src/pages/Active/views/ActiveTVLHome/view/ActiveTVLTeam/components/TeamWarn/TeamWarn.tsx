@@ -1,10 +1,10 @@
-import { DialogClose, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React } from '@ui/src'
+import { DialogClose, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoader'
 import { ITeamMember } from '@/pages/Active/hooks/useTeam'
-import { ITvlHero } from '@/pages/Active/state/activeState'
+import { ITvlHero, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getHeroLevel } from '@/pages/Active/utils/getHeroLevel'
 
 import css from './TeamWarn.module.styl'
@@ -18,6 +18,7 @@ const TeamWarn = memo(
     setShowTeamWarn: React.Dispatch<React.SetStateAction<number>>
     teamMembers: ITeamMember[]
   }) => {
+    const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
     const { chainId } = useActiveWeb3React()
     const showTeamWarnHandle = useCallback(() => {
       if (showTeamWarn === 1) {
@@ -28,6 +29,9 @@ const TeamWarn = memo(
     }, [showTeamWarn])
     const handleCancel = useCallback(() => {
       setShowTeamWarn(0)
+    }, [])
+    const stakingHandle = useCallback(() => {
+      setIsTvlStakingModalOpen(true)
     }, [])
     const { title, content, img, btn, imgClassName } = useMemo(() => {
       if (showTeamWarn === 1) {
@@ -67,7 +71,7 @@ const TeamWarn = memo(
     if (showTeamWarn === 0) {
       return (
         <div className={css.team_hero}>
-          <PixelCube5 className={css.team_hero_middle} pixel_height={2} borderColor="#fff" backgroundColor="#000">
+          <PixelCube5 className={css.team_hero_middle} pixel_height={2} borderColor="#fff" backgroundColor="#000" onClick={stakingHandle}>
             <ActivePixelButtonColor themeType="yellow" pixel_height={4} className={css.team_hero_middle_in}>
               <p>Staking more to update your hunter!</p>
             </ActivePixelButtonColor>
