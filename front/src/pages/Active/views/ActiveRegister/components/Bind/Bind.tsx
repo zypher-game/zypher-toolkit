@@ -14,15 +14,14 @@ const Bind = memo(({ CheckPointHandle, CheckTwitterHandle }: { CheckPointHandle:
   const { account, chainId } = useActiveWeb3React()
   const {
     invitationCode,
-    twitter: { nickname: twitterNickname, isLoading },
-    signedStr
+    twitter: { nickname: twitterNickname, isLoading }
   } = activeData
   const [isClick, setIsClick] = useState(false)
   const { getUserInfo } = useGetDataCall()
-  const shareOnTwitter = useCallback(() => {
+  const shareOnTwitter = () => {
     CheckTwitterHandle()
     setIsClick(true)
-  }, [twitterNickname, signedStr])
+  }
 
   const handleVisibilityChange = useCallback(async () => {
     setTimeout(async () => {

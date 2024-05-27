@@ -24,7 +24,6 @@ import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
 import { useStakeHandle } from '../../hooks/useStakeHandle'
 import { chooseChainState, selectChainDialogState } from '../../state/activeState'
-import ActiveLoading from '../../views/ActiveLoading/ActiveLoading'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
 const Staking = memo(() => {
@@ -56,11 +55,12 @@ const Staking = memo(() => {
     try {
       let res = tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
       const can = canNext(account, chainIdLocal)
-      if (can && depositCurrency) {
-        res = tvlStakingData[chainIdLocal!][depositCurrency]
-      }
       if (can) {
-        res = tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
+        if (depositCurrency) {
+          res = tvlStakingData[chainIdLocal!][depositCurrency]
+        } else {
+          res = tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
+        }
       }
       console.log({ chainIdLocal, depositCurrency, defaultActiveChainId, tvlStakingData, res })
       return res
@@ -68,6 +68,7 @@ const Staking = memo(() => {
       return undefined
     }
   }, [JSON.stringify(tvlStakingData), chainIdLocal, depositCurrency])
+  console.log({ chooseValue })
   const { btnLabel } = useMemo(() => {
     const decimal = chooseValue?.decimal ?? 18
     const obj = {
@@ -226,7 +227,7 @@ const Staking = memo(() => {
         height="52px"
         pixel_height={5}
         onClick={deposit}
-        disable={isDepositLoading || isApproveLoading}
+        disable={isDepositLoading || isApproveLoading || isDataLoading}
         themeType="brightBlue"
       >
         <p>{btnLabel}</p>

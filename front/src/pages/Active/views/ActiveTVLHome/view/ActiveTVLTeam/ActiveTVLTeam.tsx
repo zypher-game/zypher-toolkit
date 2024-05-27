@@ -5,23 +5,20 @@ import {
   CurrencyLogo,
   LoadingButton,
   PixelCube3,
-  PixelTableBorder,
   preStaticUrl,
   SvgComponent,
   useActiveWeb3React,
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
-import React, { memo, useCallback, useRef, useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import { getLinkPre } from '@/pages/Active/constants/activeConstants'
+import { tvlTokenAddress } from '@/pages/Active/constants/activeConstants'
 import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
-import { useTeamTooltip } from '@/pages/Active/hooks/useTooltip'
 import { isTvlDataLoadingState, tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getNickname } from '@/pages/Active/utils/getNicknameStr'
-import copy from '@/utils/copy'
 
 import Avatar from '../../components/Avatar/Avatar'
 import FrPixelBorder from '../../components/FrPixelBorder/FrPixelBorder'
@@ -50,6 +47,10 @@ const ActiveTVLTeam = memo(() => {
   const myTeamWarnHandle = useCallback(() => {
     setShowTeamWarn(1)
   }, [])
+  const stakingStr = useMemo(() => {
+    console.log('sadfsd', { aaa: Object.keys(tvlTokenAddress[chainId]) })
+    return Object.keys(tvlTokenAddress[chainId]).join(', ')
+  }, [chainId])
   console.log({ activeData: activeData.airdropPointsCardNumber })
   return (
     <>
@@ -100,7 +101,10 @@ const ActiveTVLTeam = memo(() => {
           <>
             <div className={css.pt100} />
             <FrPixelBorder>
-              <h3 className={css.fr_title}>Staked</h3>
+              <div className={css.fr_title}>
+                <h3>Staked</h3>
+                <PixelTooltip title={[`Your total pledge amount, including ${stakingStr} etc.`]} />
+              </div>
               <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
               <div className={css.fr_number}>
                 <p>{activeData.userStakedAmountStr}</p>
@@ -119,7 +123,12 @@ const ActiveTVLTeam = memo(() => {
               </ActivePixelButtonColor>
             </FrPixelBorder>
             <FrPixelBorder>
-              <h3 className={css.fr_title}>Airdrop Points Card</h3>
+              <div className={css.fr_title}>
+                <h3>Airdrop Points Card</h3>
+                <PixelTooltip
+                  title={['Points cards come from:', 'Your inviter has completed the group goal;', 'Your team accomplished the group goal.']}
+                />
+              </div>
               <p className={css.fr_grey}>
                 {Number(groupGoal.need) === 0
                   ? `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card`

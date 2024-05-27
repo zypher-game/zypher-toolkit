@@ -39,6 +39,7 @@ import {
 } from '../state/activeState'
 import { canNext, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
+import { useGetData } from './useActiveInit'
 import { useStake, useStakeData } from './useStakeData'
 
 export const useStakeHandle = (): {
@@ -256,6 +257,7 @@ export const useReStakingHandle = () => {
   const [claimGpLoading, setClaimGpLoading] = useState(false)
   const { data: walletClient } = useWalletClient()
 
+  const { getData } = useGetData()
   const { account, chainId: nativeChainId } = useActiveWeb3React()
   const { activeData } = useActiveData()
   const { crHeroBoxAmount, dollarGpRewords } = activeData
@@ -269,6 +271,7 @@ export const useReStakingHandle = () => {
     async ({ tx, successText }: { tx: TransactionReceipt; blockNumber: number; successText: string }) => {
       if (nativeChainId && account) {
         await sleep(1)
+        await getData()
         await getStakingData()
         setClaimSBTLoading(false)
         setClaimCrLoading(false)
