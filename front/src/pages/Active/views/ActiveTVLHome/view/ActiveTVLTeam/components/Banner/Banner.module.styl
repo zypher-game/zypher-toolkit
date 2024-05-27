@@ -17,10 +17,6 @@
     .edit
       margin-left: -2px
       cursor pointer
-.bottom_card_text
-  font-size: 12px
-  line-height: 14px
-  color: #993765
 
 .bottom_card
   display: flex
@@ -28,8 +24,12 @@
   align-items: center
   gap: 10px
   margin-bottom: 10px
+  @media screen and (max-width: 768px)
+    flex-direction: column
   .liItem
     min-width: 160px
+    @media screen and (max-width: 768px)
+      width 100%
     .liItemFr
       h5
         font-size: 16px
@@ -38,3 +38,22 @@
       p
         font-size: 12px
         line-height: 14px
+        display: flex
+        gap: 4px
+        justify-content: flex-start
+        align-items: center
+        :global(.svg_component)
+          scale: 0.8
+.box
+  position: absolute;
+  width: 33%;
+  right: 2%;
+  top: 37%;
+  @media screen and (max-width: 768px)
+    width: 41%;
+    right: 2%;
+    top: 3%;
+.bottom_card_text
+  font-size: 12px
+  line-height: 14px
+  color: #993765

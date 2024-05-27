@@ -1,4 +1,4 @@
-import { ActivePixelButton, ActivePixelButtonColor, LoadingButton, useActiveWeb3React, useRecoilState } from '@ui/src'
+import { ActivePixelButton, ActivePixelButtonColor, LoadingButton, useActiveWeb3React, useIsW768, useRecoilState } from '@ui/src'
 import React, { memo, useCallback, useState } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
@@ -16,6 +16,7 @@ const InvitationCode = memo(() => {
   const { activeData, setActiveData } = useActiveData()
   const { account, chainId } = useActiveWeb3React()
   const preHandleAction = usePreHandleAction()
+  const isW768 = useIsW768()
   const { loading, codeCheck } = useCodeCheckCall()
   const checkInvitationCode = useCallback(async () => {
     if (loading || activeData.isInitLoading) {
@@ -66,9 +67,9 @@ const InvitationCode = memo(() => {
         themeType="brightBlue"
         className={css.join}
         onClick={checkInvitationCode}
-        width="216px"
-        height="52px"
-        pixel_height={5}
+        width={isW768 ? '100%' : '216px'}
+        height={isW768 ? '48px' : '52px'}
+        pixel_height={isW768 ? 4 : 5}
         disable={loading || activeData.isInitLoading}
       >
         <p>Join Now</p>
@@ -80,7 +81,7 @@ const InvitationCode = memo(() => {
           <p className={css.text}>Already Joined ?</p>
           <ActivePixelButton
             className={css.continue}
-            width="260px"
+            width={isW768 ? '100%' : '260px'}
             height="36px"
             pixel_height={5}
             backgroundColor="#3E4350"

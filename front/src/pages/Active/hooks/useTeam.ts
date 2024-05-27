@@ -22,6 +22,15 @@ export type IAvailableCode = {
   codeType: number // 0 normal 7 forever
   inviteCode: string
 }
+export type IGroupGoal = {
+  percent: string
+  total: string
+  totalStr: string
+  target: string
+  targetStr: string
+  need: string
+  needStr: string
+}
 export const useTeam = () => {
   const { getData } = useGetData()
   const [availableCode, setAvailableCode] = useState<IAvailableCode[]>([])
@@ -30,7 +39,7 @@ export const useTeam = () => {
   const [isLoadingSingle, setIsLoadingSingle] = useState<boolean>(false)
   const [isLoadingAll, setIsLoadingAll] = useState<boolean>(false)
 
-  const [groupGoal, setGroupGoal] = useState({
+  const [groupGoal, setGroupGoal] = useState<IGroupGoal>({
     percent: '0',
     total: '0',
     totalStr: '0',

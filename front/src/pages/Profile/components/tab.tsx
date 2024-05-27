@@ -1,4 +1,4 @@
-import { PixelTabBorder } from '@ui/src'
+import { PixelTabBorder, useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
@@ -13,6 +13,7 @@ type IProps = {
   type?: 'primary' | 'lineBorder'
 }
 const ProfileTab = memo(({ tab, list, setTab, className, showImg, source, type }: IProps) => {
+  const isW768 = useIsW768()
   const handle = useCallback(index => {
     setTab(index)
   }, [])
@@ -28,17 +29,6 @@ const ProfileTab = memo(({ tab, list, setTab, className, showImg, source, type }
       height="32px"
       pixel_height={2}
     />
-    // <div
-    //   className={classnames(css.tab, css[type ?? ''], className)}
-    //   style={{ width: showImg ? 'auto' : (isMobile ? 110 : currentLanguage === 'ko_KR' ? 140 : 120) * list.length }}
-    // >
-    //   {list.map((v, index) => (
-    //     <div key={v} className={classnames(css.tabItem, { [css.cur]: tab === index })} onClick={() => setTab(index)}>
-    //       {showImg && source ? <img src={source[index]} alt={v} /> : null}
-    //       {v}
-    //     </div>
-    //   ))}
-    // </div>
   )
 }, isEqual)
 

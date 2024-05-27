@@ -1,11 +1,16 @@
 .active_tvl_banner
+  overflow: hidden
   >.pixel_flat_inner
     flex-direction: column
     padding: 20px
     align-items: flex-start;
     gap: 20px
     flex-wrap: wrap
+    @media screen and (max-width: 768px)
+      padding: 20px 20px 94px
 .banner_liItem_card
+  >.pixel_flat_btn_bg
+    opacity 0.5
   >.pixel_flat_inner
     padding: 10px 15px
     justify-content: flex-start;

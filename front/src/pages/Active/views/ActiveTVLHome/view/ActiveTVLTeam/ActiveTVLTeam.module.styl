@@ -6,18 +6,32 @@
   margin-bottom: 10px
 .mb20
   margin-bottom: 20px
-
+.fr
+  display: flex
+  flex-direction: column
+  gap: 20px
+  :global(.pixel_active_tab)
+    margin: 30px 0 45px
+    justify-content: flex-end
 .fl 
   padding-top: 30px
   width 675px
   max-width 675px
-  :global(.pixe_active_tvl_tab)
+  @media screen and (max-width: 768px)
+    display: flex
+    flex-direction: column
+    gap: 20px
+    width: 100%
+    max-width 100%
+  :global(.pixel_active_tab)
     margin-bottom: 30px
 .pt100
   padding-top: 80px
 .title
   font-size: 24px
   font-weight: 600
+  @media screen and (max-width: 768px)
+    font-size: 18px
 .title_tooltip
   display: flex
   gap: 10px
@@ -27,6 +41,11 @@
   display: flex
   justify-content: space-between
   align-items: center
+  margin-bottom: 10px
+  @media screen and (max-width: 768px)
+    font-size: 12px
+    p:last-child 
+      text-align: right
 .team_goal_line
   background-color: #1D263B
   height: 6px
@@ -63,10 +82,7 @@
     font-weight: 600
 .team_item_fr
   justify-content: flex-end
-.fr_grey
-  color: #959BA8
-  font-size: 12px
-  min-height: 54px
+
 .number
   display: flex
   gap: 10px
@@ -74,29 +90,17 @@
   p
     font-size: 20px
     font-weight: 600
-.fr_btn
-  position absolute
-  bottom: 25px
-  right: 24px
 
-.fr_number
-  display: flex
-  justify-content: flex-start
-  align-items: center
-  gap: 6px
-  p
-    font-size: 20px
-    font-weight: 600
-  img
-    width 32px
-
-
-.fr_title
-  display: flex
-  justify-content: flex-start
-  align-items: center
-  font-weight: bold
-  font-size: 18px
-  gap: 8px
-  h3
-    font-weight: bold
+.fl_text
+  font-size: 14px
+  line-height: 17px
+  color: #959BA8
+  margin-bottom: 40px
+.fl_text
+  font-size: 14px
+  line-height: 17px
+  color: #959BA8
+.fl_title
+  font-size: 16px
+  font-weight: 600
+  margin-bottom: 8px

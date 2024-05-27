@@ -1,4 +1,4 @@
-import { ActivePixelButtonColor, PixelBorderCard, PixelTableBorder, useActiveWeb3React } from '@ui/src'
+import { ActivePixelButtonColor, PixelBorderCard, PixelTableBorder, useActiveWeb3React, useIsW768 } from '@ui/src'
 import React, { memo, useRef } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
@@ -12,6 +12,7 @@ const AvailableCode = memo(({ availableCode }: { availableCode: IAvailableCode[]
   const { availableInvitationsTooltip } = useTeamTooltip()
   const toastContainerRef = useRef<HTMLElement | null>(null)
   const { chainId } = useActiveWeb3React()
+  const isW768 = useIsW768()
   return (
     <>
       <PixelTableBorder
@@ -36,8 +37,8 @@ const AvailableCode = memo(({ availableCode }: { availableCode: IAvailableCode[]
                   </div>
                   <ActivePixelButtonColor
                     themeType={v.codeType === 7 ? 'yellow' : 'brightBlue'}
-                    width="88px"
-                    height="36px"
+                    width={isW768 ? '64px' : '88px'}
+                    height={isW768 ? '28px' : '36px'}
                     pixel_height={3}
                     onClick={() => copy(`${window.location.origin}/${getLinkPre(chainId).label}-${v.inviteCode}`, toastContainerRef)}
                   >
@@ -45,10 +46,10 @@ const AvailableCode = memo(({ availableCode }: { availableCode: IAvailableCode[]
                   </ActivePixelButtonColor>
                 </IsPixelWidget>
               ))}
+            <div className="toast__" ref={ref => (toastContainerRef.current = ref)} />
           </div>
         }
       />
-      <div className="toast__" ref={ref => (toastContainerRef.current = ref)} />
     </>
   )
 })

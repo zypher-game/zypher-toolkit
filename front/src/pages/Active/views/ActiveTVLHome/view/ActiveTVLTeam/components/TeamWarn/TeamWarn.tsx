@@ -1,4 +1,4 @@
-import { DialogClose, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useSetRecoilState } from '@ui/src'
+import { DialogClose, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
@@ -18,6 +18,7 @@ const TeamWarn = memo(
     setShowTeamWarn: React.Dispatch<React.SetStateAction<number>>
     teamMembers: ITeamMember[]
   }) => {
+    const isW768 = useIsW768()
     const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
     const { chainId } = useActiveWeb3React()
     const showTeamWarnHandle = useCallback(() => {
@@ -86,7 +87,7 @@ const TeamWarn = memo(
               />
             ))}
           </div>
-          <img src={preStaticUrl + '/img/tvl/tvl_team_bg.png'} alt="tvl_team_bg" className={css.tvl_team_bg} />
+          <img src={`${preStaticUrl}/img/tvl/${isW768 ? 'tvl_team_bg_m' : 'tvl_team_bg'}.png`} alt="tvl_team_bg" className={css.tvl_team_bg} />
         </div>
       )
     }

@@ -15,3 +15,30 @@
   .pixel_flat_inner
     p
       padding: 0 24px
+.active_tab_m
+  position: fixed;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(1, 7, 23, 0.8)
+  padding: 6px 0 4px;
+  text-align: center;
+  z-index: 99
+  li
+    div 
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 0
+      rect,path
+        fill: #959BA8
+      p
+        color: #959BA8
+      &.active_tvl_tab_on
+        p
+          color: #fff  
+        rect,path
+          fill: #fff

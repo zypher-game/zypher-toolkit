@@ -9,21 +9,26 @@
   flex-wrap: wrap;
   @media screen and (max-width: 1132px)
     padding: 0 16px
+  @media screen and (max-width: 768px)
+    margin: 20px auto 100px
   .textPart
     position: relative
     z-index 2
     @media screen and (max-width: 768px)
       width 100%
   .textPartInner
+    text-align: center
+    h2, h3
+      font-weight: 600
+      font-size: 32px
+      line-height: 30px
+      @media screen and (max-width: 768px)
+        font-size: 28px
     h2
-      font-weight: 600
-      font-size: 32px
-      line-height: 30px
       margin-bottom: 20px
+      @media screen and (max-width: 768px)
+        margin-bottom: 10px
     h3
-      font-weight: 600
-      font-size: 32px
-      line-height: 30px
       background: linear-gradient(0, #1649FF 0%, #1649FF 19%, #4D74FF 20%, #4D74FF 39%, #809BFF 40%, #809BFF 59%, #809BFF 60%, #809BFF 79%,#B2C3FF 80%, #B2C3FF 100%);
       background-clip: text;
       -webkit-background-clip: text;
@@ -31,26 +36,18 @@
       color: transparent;
       margin-bottom: 30px
       display: inline-block
+      @media screen and (max-width: 768px)
+        margin-bottom: 15px
     p
       max-width: 515px
       font-size: 14px
       line-height: 22px
       color: #959BA8
       margin-bottom: 10px
+      @media screen and (max-width: 768px)
+        font-size: 12px
+        max-width: 100%
   .process
     margin-top: 60px
-  // border-radius: 8px;
-  // background-color: transparent;
-  // color: #fff;
-  // font-size: 16px;
-  // font-weight: 600;
-  // border: 1px solid rgba(255, 255, 255, 0.1);
-  // width: 160px;
-  // height: 50px;
-  // display: flex;
-  // align-items: center;
-  // @media (max-width: 768px) 
-  //   font-size: 14px;
-  //   height: 38px;
-  // :global(&.ant-select-single:not(.ant-select-customize-input) .ant-select-selector)
-  //   padding: 0 16px;
+    @media screen and (max-width: 768px)
+      margin-top: 30px

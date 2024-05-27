@@ -1,5 +1,5 @@
 import { AddressZero } from '@ethersproject/constants'
-import { ChainId, request, useActiveWeb3React } from '@ui/src'
+import { ChainId, preStaticUrl, request, useActiveWeb3React } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 import { Address } from 'wagmi'
@@ -24,14 +24,17 @@ export const airdropPathname = {
 export const TVLTabList = [
   {
     path: 'team',
+    logo: preStaticUrl + '/img/tvl/team.svg',
     label: 'Team'
   },
   {
     path: 'tvlStaking',
+    logo: preStaticUrl + '/img/tvl/staking.svg',
     label: 'Staking'
   },
   {
     path: 'leaderboard',
+    logo: preStaticUrl + '/img/tvl/leaderboard.svg',
     label: 'Leaderboard'
   }
 ]

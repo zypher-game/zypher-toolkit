@@ -17,6 +17,7 @@ export type IPixelProps = {
   showHover?: boolean;
   size?: number;
   disable?: boolean;
+  hidePixel?: boolean;
 };
 interface IPixel extends IChildren, IPixelProps {}
 
@@ -75,7 +76,7 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
   }
 `;
 export const ActivePixelCard = memo((props: IPixel) => {
-  const { onClick } = props;
+  const { onClick, hidePixel } = props;
   const lastClickTimeRef = useRef(Date.now());
 
   const clickHandle = useCallback(() => {
@@ -92,32 +93,18 @@ export const ActivePixelCard = memo((props: IPixel) => {
       onClick();
     }
   }, [onClick]);
-  return <PixelStyled {...props} onClick={clickHandle} />;
+  return hidePixel ? (
+    <PixelFlatBtn {...props} onClick={clickHandle} />
+  ) : (
+    <PixelStyled {...props} onClick={clickHandle} />
+  );
 });
 
 const ActivePixelCardStyled = styled(ActivePixelCard)`
   cursor: pointer;
 `;
 export const ActivePixelButton = memo((props: IPixel) => {
-  const {
-    className,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    height,
-  } = props;
-  return (
-    <ActivePixelCardStyled
-      {...props}
-      className={className}
-      pixel_height={pixel_height}
-      backgroundColor={backgroundColor}
-      width={width}
-      height={height}
-      borderColor={borderColor}
-    />
-  );
+  return <ActivePixelCardStyled {...props} />;
 });
 
 const PixelColorStyled = styled(PixelStyled)<IPixel>`
@@ -494,16 +481,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
   }
 `;
 export const PixelBorderCard = memo((props: IPixel) => {
-  const {
-    className,
-    pixel_height,
-    width,
-    height,
-    backgroundColor,
-    borderColor,
-    showHover,
-    onClick,
-  } = props;
+  const { className, onClick, hidePixel } = props;
   const lastClickTimeRef = useRef(Date.now());
   const clickHandle = useCallback(() => {
     const currentTime = Date.now();
@@ -519,18 +497,10 @@ export const PixelBorderCard = memo((props: IPixel) => {
       onClick();
     }
   }, [onClick]);
-  return (
-    <PixelBorderStyled
-      {...props}
-      pixel_height={pixel_height}
-      backgroundColor={backgroundColor}
-      width={width}
-      height={height}
-      borderColor={borderColor}
-      className={`${className} pixelBorderCard`}
-      showHover={showHover}
-      onClick={clickHandle}
-    />
+  return hidePixel ? (
+    <PixelFlatBtn {...props} onClick={clickHandle} />
+  ) : (
+    <PixelBorderStyled {...props} className={`${className} pixelBorderCard`} />
   );
 });
 

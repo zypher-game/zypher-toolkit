@@ -48,7 +48,10 @@ export const useGetDataCall = () => {
               // 获取积分
               const primary_score_res = await getPrimaryScore()
               console.log({ primary_score_res })
-              const primaryScoreRes = form_primary_score(infoObj, primary_score_res)
+              let primaryScoreRes
+              try {
+                primaryScoreRes = form_primary_score(infoObj, primary_score_res)
+              } catch (e) {}
               let isRegistered = false
               try {
                 isRegistered = await getIsRegistered(infoObj.id)
@@ -95,7 +98,7 @@ export const usePrimaryScore = () => {
       })
       return primary_score_res.data
     } catch (e: any) {
-      throw new Error('Verification code has been registered')
+      throw new Error('primary-score has Error')
     }
   }, [account, chainId])
   return {

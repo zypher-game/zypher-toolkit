@@ -2,17 +2,25 @@
   display: flex
   gap: 20px
   justify-content: space-between
-  height: 36px
   position: absolute;
   top: 26px;
   right: 20px;
   :global(.svg_component)
     width: 26px
+
+  @media screen and (max-width: 768px)
+    top: auto
+    bottom: 20px
+    width calc(100% - 40px)
   p
     color: #934417
     font-size: 12px
   .twitter 
     flex: 3
+    @media screen and (max-width: 768px)
+      flex: 4
+      padding: 0 20px
+      text-align: center
   .twitterIcon
     svg
       path
