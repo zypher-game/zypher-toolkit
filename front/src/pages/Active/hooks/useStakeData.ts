@@ -1,5 +1,16 @@
 import { AddressZero } from '@ethersproject/constants'
-import { ChainId, Currency, divisorBigNumber, erc20Abi, useActiveWeb3React, useRecoilState, useSetRecoilState } from '@ui/src'
+import {
+  activeTokenList,
+  ChainId,
+  Currency,
+  divisorBigNumber,
+  erc20Abi,
+  TVLStakingSupportedChainId,
+  tvlTokens,
+  useActiveWeb3React,
+  useRecoilState,
+  useSetRecoilState
+} from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
@@ -9,7 +20,6 @@ import { TVLStakingABI } from '@/contract/tvlStaking'
 import { batchRequestMulticall, batchRequestNativeContracts } from '@/utils/batchRequestContracts'
 import { calculateSumByNumber } from '@/utils/calculateSum'
 
-import { activeTokenList, TVLStakingSupportedChainId, tvlTokens } from '../constants/activeConstants'
 import {
   initData,
   IStakingDataState,

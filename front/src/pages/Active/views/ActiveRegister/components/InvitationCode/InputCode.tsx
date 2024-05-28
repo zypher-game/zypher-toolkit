@@ -1,8 +1,7 @@
-import { ActivePixelCard, useActiveWeb3React } from '@ui/src'
+import { ActivePixelCard, CODELENGTH, LinkPre, useActiveWeb3React } from '@ui/src'
 import React, { ChangeEventHandler, memo, useCallback, useEffect, useRef, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
-import { CODELENGTH, getLinkPre, LinkPre } from '@/pages/Active/constants/activeConstants'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useCodeCheckCall } from '@/pages/Active/hooks/useDataCall'
 import { getHrefCode } from '@/pages/Active/utils/getHrefParams'

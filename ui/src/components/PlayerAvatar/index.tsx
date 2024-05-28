@@ -1,22 +1,32 @@
 import cx from "classnames";
-import React, { memo } from "react";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
-// import { BackgroundSets, generateAvatar } from 'robohash-avatars'
+// import { BackgroundSets, generateAvatar } from 'robohash-avatars, setavatars'
 import generateAvatar from "../../utils/generateAvatar";
 import { getShortenAddress } from "../../utils/tool";
-import { preStaticUrl } from "../../constant/constant";
+import { ChainId, preStaticUrl } from "../../constant/constant";
 
 import "./index.stylus";
 import Avatar from "../Avatar/Avatar";
 import { useCustomTranslation } from "../../hooks/useCustomTranslation";
 import { LngNs } from "../../utils/i18n";
 import { HeaderUIType } from "../Header/header";
-
+import { useGetUserInfo } from "../../hooks/useGetActiveCall";
+import { useRecoilValue } from "recoil";
+import { refreshAvatarState } from "../ConnectWallet/state/connectWalletState";
+const bgColor = {
+  Agil: "#9269EB",
+  Yueling: "#EB6676",
+  Celus: "#FFD584",
+  Ivan: "#62A1FF",
+  Liana: "#7ADBB2",
+};
 interface IPlayerAvatar {
   className?: string;
   account?: string;
   highLight?: boolean;
+  hideAvatars?: boolean;
   showAccount?: boolean;
   size?: number;
   winner?: boolean;
@@ -27,6 +37,7 @@ interface IPlayerAvatar {
   endLen?: number;
   otherStr?: string;
   type?: HeaderUIType;
+  chainId?: ChainId;
 }
 
 const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
@@ -41,28 +52,75 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     preLen,
     endLen,
     otherStr,
+    chainId,
+    hideAvatars,
     type = "other",
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
-    const { selectedAvatar, selectedBackground } = generateAvatar(account);
+    const [avatars, setAvatars] = useState<{
+      selectedAvatar: string;
+      selectedBackground: string;
+    }>();
+    const refreshAvatar = useRecoilValue(refreshAvatarState);
+    console.log({ refreshAvatar });
+    const { getUserInfo } = useGetUserInfo();
+    useEffect(() => {
+      console.log({ account, chainId });
+      if (account && chainId && !hideAvatars) {
+        getHeroData();
+      } else {
+        const { selectedAvatar, selectedBackground } = generateAvatar(account);
+        setAvatars({ selectedAvatar, selectedBackground });
+      }
+    }, [account, chainId]);
+    useEffect(() => {
+      if (account && chainId && !hideAvatars) {
+        setAvatars((pre) => ({
+          selectedAvatar: pre?.selectedAvatar + "?" + refreshAvatar,
+          selectedBackground: pre?.selectedBackground ?? "",
+        }));
+      }
+    }, [refreshAvatar]);
+    const getHeroData = useCallback(async () => {
+      if (chainId && account) {
+        try {
+          const infoObj = await getUserInfo({ account, chainId });
+          console.log({ infoObj });
+          if (infoObj) {
+            setAvatars({
+              selectedAvatar: infoObj.avatar,
+              selectedBackground: bgColor[0],
+            });
+          } else {
+            throw new Error("getUserInfo Error");
+          }
+        } catch (e) {
+          const { selectedAvatar, selectedBackground } =
+            generateAvatar(account);
+          setAvatars({ selectedAvatar, selectedBackground });
+        }
+      }
+    }, [account, chainId]);
     return (
       <div className={cx(className, "player_playerAvatar")}>
-        {account ? (
-          <AvatarBorder>
-            <Avatar
-              type={type}
-              size={size}
-              src={selectedAvatar}
-              style={
-                border
-                  ? {
-                      background: selectedBackground,
-                      border: "2px solid #eeeeee",
-                    }
-                  : { background: selectedBackground }
-              }
-            />
-          </AvatarBorder>
+        {hideAvatars ? null : account ? (
+          avatars ? (
+            <AvatarBorder>
+              <Avatar
+                type={type}
+                size={size}
+                src={avatars.selectedAvatar}
+                style={
+                  border
+                    ? {
+                        background: avatars.selectedBackground,
+                        border: "2px solid #eeeeee",
+                      }
+                    : { background: avatars.selectedBackground }
+                }
+              />
+            </AvatarBorder>
+          ) : null
         ) : (
           // <img className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
           <div

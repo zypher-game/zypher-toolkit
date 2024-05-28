@@ -1,7 +1,6 @@
-import { ChainId, Currency, useActiveWeb3React } from '@ui/src'
+import { ChainId, Currency, TVLChainId, useActiveWeb3React } from '@ui/src'
 import { useCallback, useMemo } from 'react'
 
-import { TVLChainId } from '../constants/activeConstants'
 const CrHero: Record<TVLChainId, string> = {
   [TVLChainId.Sepolia]: '0.5 ETH / 0.5 wstETH / 0.5 ezETH',
   [TVLChainId.B2]: '0.025 BTC / 0.025 stBTC',

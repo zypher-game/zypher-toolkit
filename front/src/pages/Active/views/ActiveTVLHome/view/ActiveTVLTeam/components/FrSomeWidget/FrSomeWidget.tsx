@@ -1,8 +1,16 @@
-import { ActivePixelButtonColor, Currency, CurrencyLogo, LoadingButton, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@ui/src'
+import {
+  ActivePixelButtonColor,
+  Currency,
+  CurrencyLogo,
+  LoadingButton,
+  tvlTokenAddress,
+  useActiveWeb3React,
+  useRecoilValue,
+  useSetRecoilState
+} from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import { tvlTokenAddress } from '@/pages/Active/constants/activeConstants'
 import { IAvailableCode, IGroupGoal } from '@/pages/Active/hooks/useTeam'
 import { IActiveData, isTvlDataLoadingState, tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 

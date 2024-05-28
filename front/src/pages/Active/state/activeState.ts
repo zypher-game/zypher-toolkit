@@ -1,15 +1,18 @@
 import { AddressZero } from '@ethersproject/constants'
-import { atom, ChainId, Currency, CurrencyLogo, localStorageEffect } from '@ui/src'
+import {
+  atom,
+  ChainId,
+  Currency,
+  CurrencyLogo,
+  IToken,
+  ITvlHero,
+  localStorageEffect,
+  TVLChainId,
+  TVLStakingSupportedChainId,
+  tvlTokens
+} from '@ui/src'
 import { Address } from 'wagmi'
 
-import { IToken, TVLChainId, TVLStakingSupportedChainId, tvlTokens } from '../constants/activeConstants'
-export enum ITvlHero {
-  Agil = 'Agil',
-  Yueling = 'Yueling',
-  Celus = 'Celus',
-  Ivan = 'Ivan',
-  Liana = 'Liana'
-}
 export interface IActiveData {
   chainId?: ChainId
   accountAddress: Address

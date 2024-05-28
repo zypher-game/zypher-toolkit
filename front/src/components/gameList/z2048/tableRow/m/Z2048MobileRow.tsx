@@ -35,16 +35,16 @@ const Z2048MobileRow: FC<IProps> = memo(({ showFilter, item }: IProps) => {
               <p>{t('Win')}</p>
             </div>
             <div className={css.mTableBody}>
-              <RenderNormalText label={item.maxTile} showPoint={true} isMobile={isMobile} />
+              <RenderNormalText label={item.maxTile} showPoint={true} isMobile={isMobile} chainId={item.chainId} />
               <NftTokenIdCol chainId={item.chainId} tokenId={item.tokenId} showFilter={showFilter} tokenIdLink={item.tokenIdLink} />
-              <RenderNormalText label={item.reward} showPoint={true} isMobile={isMobile} />
+              <RenderNormalText label={item.reward} showPoint={true} isMobile={isMobile} chainId={item.chainId} />
             </div>
           </div>
         </div>
       }
       body_children={
         <div className={css.mBottom}>
-          <RenderNormalText label={item.player} showPoint={false} isMobile={isMobile} />
+          <RenderNormalText label={item.player} showPoint={false} isMobile={isMobile} chainId={item.chainId} />
           <p className={css.grey}>{item.beginTimeStr}</p>
         </div>
       }

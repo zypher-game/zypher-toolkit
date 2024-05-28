@@ -7,6 +7,7 @@ import {
   ChainId,
   ChainName,
   Currency,
+  defaultActiveChainId,
   LoadingButton,
   PixelBorderCard,
   PixelBorderCardButton,
@@ -18,7 +19,6 @@ import {
 import { BigNumberJs } from '@ui/src'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { defaultActiveChainId } from '../../constants/activeConstants'
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'

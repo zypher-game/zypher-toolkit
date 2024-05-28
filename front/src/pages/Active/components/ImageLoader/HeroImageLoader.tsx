@@ -1,7 +1,6 @@
-import { preStaticUrl, SvgComponent } from '@ui/src'
+import { ITvlHero, preStaticUrl, SvgComponent } from '@ui/src'
 import React, { memo, useState } from 'react'
 
-import { ITvlHero } from '../../state/activeState'
 import css from './HeroImageLoader.module.styl'
 import ImageLoader from './ImageLoader'
 interface IHeroImageLoader {

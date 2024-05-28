@@ -1,8 +1,7 @@
-import { ActivePixelButtonColor, PixelBorderCard, PixelTableBorder, useActiveWeb3React, useIsW768 } from '@ui/src'
+import { ActivePixelButtonColor, getLinkPre, PixelBorderCard, PixelTableBorder, useActiveWeb3React, useIsW768 } from '@ui/src'
 import React, { memo, useRef } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import { getLinkPre } from '@/pages/Active/constants/activeConstants'
 import { IAvailableCode } from '@/pages/Active/hooks/useTeam'
 import { useTeamTooltip } from '@/pages/Active/hooks/useTooltip'
 import copy from '@/utils/copy'

@@ -1,8 +1,6 @@
-import { ChainId, getContract } from '@ui/src'
+import { activeTokenList, ChainId, getContract } from '@ui/src'
 import { ethers } from 'ethers'
 import { Address, WalletClient } from 'wagmi'
-
-import { activeTokenList } from '@/pages/Active/constants/activeConstants'
 
 import crHeroAbi from './abi/crHeroAbi.json'
 

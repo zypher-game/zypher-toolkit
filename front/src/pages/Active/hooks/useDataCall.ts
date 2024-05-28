@@ -1,71 +1,66 @@
-import { ChainId, divisorBigNumber, request, useActiveWeb3React } from '@ui/src'
+import { ChainId, divisorBigNumber, getLinkPre, request, TVL_API, useActiveWeb3React, useGetHero, useGetUserInfo } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
 
-import { getLinkPre, TVL_API } from '../constants/activeConstants'
-import { IStakingItem } from '../state/activeState'
-import { form_info, form_primary_score } from '../utils/formmate'
+import { initActiveData, IStakingItem } from '../state/activeState'
+import { form_primary_score } from '../utils/formmate'
 import { IRankBoard } from './useLeaderboard'
 
 export const useGetDataCall = () => {
   const { account } = useActiveWeb3React()
   const { codeCheck } = useCodeCheckCall()
-  const { getHero } = useUserHeroCall()
+  const { getHero } = useGetHero()
   const { getPrimaryScore } = usePrimaryScore()
   const { getIsRegistered } = useIsRegistered()
+  const { getUserInfo: getUserInfoCall } = useGetUserInfo()
   const getUserInfo = useCallback(
     async ({ isInit, chainId }: { isInit: boolean; chainId: ChainId }) => {
       try {
-        const linkType = getLinkPre(chainId)
-        const info_res = await request(`${TVL_API}/api/info/${account}`, {
-          method: 'GET',
-          params: {
-            pageCount: 10,
-            linkType: linkType.key
-          },
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        })
-        if (info_res.data) {
-          const infoObj = form_info(info_res.data, chainId)
-          // console.log(1)
-          // check curInviteCode
-          let checkRes = false
-          if (infoObj.twitter.nickname !== '') {
-            checkRes = true
-          } else {
-            checkRes = await codeCheck(infoObj.invitationCode)
-          }
-
-          if (checkRes) {
-            if (infoObj.twitter.nickname && isInit) {
-              // 获取头像 有头像就注册完成了
-              let heroKey
-              try {
-                heroKey = await getHero(infoObj.id)
-              } catch (e) {}
-              // 获取积分
-              const primary_score_res = await getPrimaryScore()
-              console.log({ primary_score_res })
-              let primaryScoreRes
-              try {
-                primaryScoreRes = form_primary_score(infoObj, primary_score_res)
-              } catch (e) {}
-              let isRegistered = false
-              try {
-                isRegistered = await getIsRegistered(infoObj.id)
-                console.log({ isRegistered })
-              } catch (e) {}
-              return {
-                ...infoObj,
-                ...primaryScoreRes,
-                tvlHero: heroKey ?? '',
-                isRegistered: `${isRegistered}` === 'true'
-              }
+        if (account) {
+          const linkType = getLinkPre(chainId)
+          const infoObj = await getUserInfoCall({ account, chainId })
+          if (infoObj) {
+            let checkRes = false
+            if (infoObj.twitter.nickname !== '') {
+              checkRes = true
+            } else {
+              checkRes = await codeCheck(infoObj.invitationCode)
             }
-            return {
-              ...infoObj
+
+            if (checkRes) {
+              if (infoObj.twitter.nickname && isInit) {
+                // 获取头像 有头像就注册完成了
+                let heroKey
+                try {
+                  if (account) {
+                    heroKey = await getHero({
+                      address: account,
+                      linkType: linkType.key
+                    })
+                  }
+                } catch (e) {}
+                // 获取积分
+                let primary_score_res
+                try {
+                  primary_score_res = await getPrimaryScore()
+                  console.log({ primary_score_res })
+                } catch (e) {}
+                const primaryScoreRes = primary_score_res ? form_primary_score(infoObj, primary_score_res) : initActiveData
+                let isRegistered = false
+                try {
+                  isRegistered = await getIsRegistered(infoObj.id)
+                  console.log({ isRegistered })
+                } catch (e) {}
+                return {
+                  ...primaryScoreRes,
+                  ...infoObj,
+                  tvlHero: heroKey ?? '',
+                  isRegistered: `${isRegistered}` === 'true'
+                }
+              }
+              return {
+                ...infoObj
+              }
             }
           }
         }
@@ -439,9 +434,25 @@ export const useIsRegistered = () => {
 }
 export const useUserHeroCall = () => {
   const [loading, setLoading] = useState(false)
+  const { getHero } = useGetHero()
   const chooseHero = useCallback(
-    async ({ userId, role, signature, address }: { userId: string; role: string; signature: string; address: string }) => {
+    async ({
+      account,
+      chainId,
+      userId,
+      role,
+      signature,
+      address
+    }: {
+      account: string
+      chainId: ChainId
+      userId: string
+      role: string
+      signature: string
+      address: string
+    }) => {
       try {
+        const linkType = getLinkPre(chainId)
         setLoading(true)
         const res = await request(`${TVL_API}/api/choose-role`, {
           method: 'POST',
@@ -451,7 +462,7 @@ export const useUserHeroCall = () => {
           }
         })
         if (res.data && res.data['message'] == 'ok') {
-          const rres = await getHero(userId)
+          const rres = await getHero({ address: account, linkType: linkType.key })
           setLoading(false)
           if (rres) {
             return rres
@@ -468,29 +479,8 @@ export const useUserHeroCall = () => {
     },
     []
   )
-  const getHero = useCallback(async (userId: string) => {
-    try {
-      const res = await request(`${TVL_API}/api/user-role/${userId}`, {
-        method: 'GET',
-        params: {
-          userId: userId
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      if (res.data && res.data['message']) {
-        return res.data['message']
-      } else {
-        return undefined
-      }
-    } catch (e: any) {
-      return undefined
-    }
-  }, [])
   return {
     loading,
-    chooseHero,
-    getHero
+    chooseHero
   }
 }

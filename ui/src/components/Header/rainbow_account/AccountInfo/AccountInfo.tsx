@@ -28,7 +28,7 @@ const AccountInfo = memo(
     env,
     supportedChainList,
   }: IAccountInfo) => {
-    const { account } = useActiveWeb3React(env, supportedChainList);
+    const { chainId, account } = useActiveWeb3React(env, supportedChainList);
     const setAccountInfoDialogState = useSetRecoilState(accountInfoDialogState);
     const [showBig, setShowBig] = useState(false);
     const [showMiddle, setShowMiddle] = useState(false);
@@ -62,6 +62,7 @@ const AccountInfo = memo(
             size={isW768 ? 30 : 40}
             showAccount={isMiddleWidth ? false : true}
             type={type}
+            chainId={chainId}
           />
           {showBig ? <AddressBigWrapPop copy={copy} type={type} /> : null}
           {showMiddle ? <AddressMiddleWrapPop copy={copy} type={type} /> : null}

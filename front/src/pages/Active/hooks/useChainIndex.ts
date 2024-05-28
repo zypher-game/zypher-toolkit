@@ -1,7 +1,6 @@
-import { useActiveWeb3React, useRecoilState } from '@ui/src'
+import { TVLStakingSupportedChainId, useActiveWeb3React, useRecoilState } from '@ui/src'
 import { useEffect, useMemo } from 'react'
 
-import { TVLStakingSupportedChainId } from '../constants/activeConstants'
 import { chainIndexState } from '../state/activeState'
 
 export const useChainIndex = () => {

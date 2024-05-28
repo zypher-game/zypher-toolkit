@@ -1,4 +1,4 @@
-import { PlayerAvatar, PointsIcon } from '@ui/src'
+import { ChainId, PlayerAvatar, PointsIcon } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo } from 'react'
 import styled from 'styled-components'
@@ -18,10 +18,19 @@ type IProps = {
   label: string
   showPoint: boolean
   isMobile: boolean
+  chainId?: ChainId
 }
-const RenderNormalText: FC<IProps> = memo(({ label, showPoint, isMobile }: IProps) => {
+const RenderNormalText: FC<IProps> = memo(({ label, showPoint, chainId, isMobile }: IProps) => {
   return `${label}`.startsWith('0x') ? (
-    <PlayerAvatar className={css.account} size={22} account={label} showAccount={true} border={false} />
+    <PlayerAvatar
+      className={css.account}
+      size={22}
+      account={label}
+      // chainId={chainId}
+      hideAvatars={true}
+      showAccount={true}
+      border={false}
+    />
   ) : (
     <StatusP isMobile={isMobile}>
       {showPoint ? <PointsIcon isMobile={isMobile} mr={true} /> : null}

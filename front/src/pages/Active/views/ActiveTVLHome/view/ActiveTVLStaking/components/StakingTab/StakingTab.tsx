@@ -1,8 +1,7 @@
-import { ActivePixelButtonColor, ChainId, ChainName, PixelCube2, supportedChainIds, useSetRecoilState } from '@ui/src'
+import { ActivePixelButtonColor, ChainId, TVLStakingSupportedChainId, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import { TVLStakingSupportedChainId } from '@/pages/Active/constants/activeConstants'
 import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
 
 import ChainTab from '../../../../components/ChainTab/ChainTab'

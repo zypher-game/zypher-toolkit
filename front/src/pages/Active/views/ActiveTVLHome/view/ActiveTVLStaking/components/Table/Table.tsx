@@ -1,8 +1,7 @@
-import { ChainId, Currency, PixelTableBorder, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ChainId, Currency, PixelTableBorder, TVLChainId, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
-import { TVLChainId } from '@/pages/Active/constants/activeConstants'
 import { ITVLStakingData, tvlStakingDataState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 
 import css from './Table.module.styl'

@@ -2,10 +2,14 @@ import { DialogContent, DialogOverlay } from '@reach/dialog'
 import {
   ActivePixelButtonColor,
   DialogClose,
+  getLinkPre,
   LoadingButton,
   PixelCube3,
   PixelTable,
+  refreshAvatarState,
+  sleep,
   useActiveWeb3React,
+  useRecoilState,
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
@@ -14,10 +18,9 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
-import { setErrorToast } from '@/utils/Error/setErrorToast'
+import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 
-import { getLinkPre } from '../../constants/activeConstants'
 import { canNext } from '../../hooks/activeHooks'
 import { useGetData } from '../../hooks/useActiveInit'
 import { useChainIndex } from '../../hooks/useChainIndex'
@@ -37,8 +40,8 @@ const ChangeNameDialog = memo(() => {
   const { updateInfo, updateHeadImg } = useUpdateInfoCall()
   const { account } = useActiveWeb3React()
   const { chainIdLocal: chainId } = useChainIndex()
-  const { getData } = useGetData()
   const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
+  const [, setRefreshAvatar] = useRecoilState(refreshAvatarState)
   const { avatar, nickname } = useMemo(() => {
     if (canNext(account, chainId)) {
       return activeDataSource[chainId] ?? initActiveData
@@ -78,11 +81,13 @@ const ChangeNameDialog = memo(() => {
       if (!_canNext) {
         return
       }
+      setLoading(true)
       const hashedCardBytes = ethers.utils.hexConcat([account!])
       let _signedStr
       try {
         _signedStr = await getWeb3Sign(hashedCardBytes, account!, false)
       } catch (err) {
+        setLoading(false)
         setErrorToast(GlobalVar.dispatch, err)
         return
       }
@@ -91,7 +96,6 @@ const ChangeNameDialog = memo(() => {
         const linkType = getLinkPre(chainId).key
         let updateHeadRes = false
         let updateInfoRes = false
-        setLoading(true)
         if (!avatarLocal) {
           updateHeadRes = true
         } else {
@@ -102,10 +106,10 @@ const ChangeNameDialog = memo(() => {
           updateHeadRes = await updateHeadImg({ formData: avatarLocal })
         }
         // || previewSrc
-        if (updateHeadRes && nicknameLocal !== nickname) {
+        if (updateHeadRes && nicknameLocal.replace('@', '') !== nickname) {
           const formData = new FormData()
           formData.append('address', account!)
-          formData.append('nickname', nicknameLocal)
+          formData.append('nickname', nicknameLocal.replace('@', ''))
           formData.append('linkType', `${linkType}`)
           formData.append('signature', _signedStr)
           updateInfoRes = await updateInfo({
@@ -115,9 +119,14 @@ const ChangeNameDialog = memo(() => {
           updateInfoRes = true
         }
         if (updateInfoRes && updateHeadRes) {
-          getData()
+          await sleep(2)
+          setRefreshAvatar(pre => pre + 1)
+          setLoading(false)
+          setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Change successful' })
+          setIsModalOpen(false)
+        } else {
+          throw new Error('Update has Error')
         }
-        setLoading(false)
       }
     } catch (e) {
       setErrorToast(GlobalVar.dispatch, e)

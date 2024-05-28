@@ -4,8 +4,7 @@ import {
   ChainImage,
   ChainName,
   DialogClose,
-  preStaticUrl,
-  SvgComponent,
+  TVLStakingSupportedChainId,
   useActiveWeb3React,
   useRecoilValue,
   useSetRecoilState,
@@ -15,7 +14,6 @@ import { ActivePixelCard, PixelCube3 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
-import { TVLStakingSupportedChainId } from '../../constants/activeConstants'
 import { selectChainDialogState } from '../../state/activeState'
 import css from './SelectChainDialog.module.stylus'
 

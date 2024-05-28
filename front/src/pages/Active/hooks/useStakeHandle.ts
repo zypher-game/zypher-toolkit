@@ -1,5 +1,6 @@
 import { AddressZero } from '@ethersproject/constants'
 import {
+  activeTokenList,
   ChainId,
   crLink,
   Currency,
@@ -7,6 +8,7 @@ import {
   erc20Contract,
   refreshBalanceState,
   sleep,
+  tvlTokenAddress,
   txStatus,
   useAccountInvitation,
   useActiveWeb3React,
@@ -23,12 +25,10 @@ import { useCallback, useEffect, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 
 import { GlobalVar } from '@/constants/constants'
-import { crHeroContract } from '@/contract/crHero'
 import { TVLStakingContract } from '@/contract/tvlStaking'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
-import { activeTokenList, tvlTokenAddress } from '../constants/activeConstants'
 import {
   depositCurrencyState,
   isTvlDataLoadingState,

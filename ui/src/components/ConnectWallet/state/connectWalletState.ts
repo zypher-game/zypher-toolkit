@@ -26,6 +26,11 @@ export const refreshBalanceState = atom({
   key: "refreshBalance",
   default: "0",
 });
+
+export const refreshAvatarState = atom({
+  key: "refreshAvatar",
+  default: "0",
+});
 export const pointsDialogState = atom({
   key: "pointsDialog",
   default: false,

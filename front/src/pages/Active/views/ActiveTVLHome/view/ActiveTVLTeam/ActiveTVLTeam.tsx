@@ -1,9 +1,18 @@
-import { ChainImage, Currency, PixelCube3, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
+import {
+  ChainImage,
+  Currency,
+  PixelCube3,
+  preStaticUrl,
+  refreshAvatarState,
+  SvgComponent,
+  useActiveWeb3React,
+  useIsW768,
+  useRecoilValue
+} from '@ui/src'
 import React, { memo, useCallback, useState } from 'react'
 
 import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
-import { tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getNickname } from '@/pages/Active/utils/getNicknameStr'
 
 import Avatar from '../../components/Avatar/Avatar'
@@ -16,6 +25,7 @@ import PointText from './components/PointText/PointText'
 import TeamWarn from './components/TeamWarn/TeamWarn'
 const ActiveTVLTeam = memo(() => {
   const { chainId } = useActiveWeb3React()
+  const refreshAvatar = useRecoilValue(refreshAvatarState)
   const isW768 = useIsW768()
   const [showTeamWarn, setShowTeamWarn] = useState(0)
   const { groupGoal, availableCode, teamMembers, activeData, openCard, isLoadingSingle, isLoadingAll } = useTeam()
@@ -48,8 +58,7 @@ const ActiveTVLTeam = memo(() => {
                 <p>Team Goal</p>
                 <p>
                   {groupGoal.totalStr} / {groupGoal.targetStr} {Currency[chainId]}
-                  {isW768 ? <br /> : null}
-                  to receive team points bonus
+                  {isW768 ? <br /> : null} to receive team points bonus
                 </p>
               </div>
               <div className={css.team_goal_line}>
@@ -69,7 +78,7 @@ const ActiveTVLTeam = memo(() => {
               {teamMembers.map((v, index) => (
                 <PixelCube3 key={index} className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
                   <div className={css.team_item_fl}>
-                    <Avatar src={v.headImg} nickname={v.nickname} width="36px" />
+                    <Avatar src={v.headImg + '?' + refreshAvatar} nickname={v.nickname} width="36px" />
                     <p>{getNickname(v.nickname)}</p>
                   </div>
                   <div className={css.team_item_fr}>

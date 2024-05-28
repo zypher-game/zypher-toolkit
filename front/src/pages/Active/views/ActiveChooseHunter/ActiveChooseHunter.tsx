@@ -1,6 +1,6 @@
 import './ActiveChooseHunter.styl'
 
-import { ActivePixelButtonColor, ActivePixelCard, LoadingButton, preStaticUrl, sleep } from '@ui/src'
+import { ActivePixelButtonColor, ActivePixelCard, ITvlHero, LoadingButton, preStaticUrl } from '@ui/src'
 import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -16,7 +16,6 @@ import { useActiveData } from '../../hooks/useActiveData'
 import { useUserHeroCall } from '../../hooks/useDataCall'
 import { useStake } from '../../hooks/useStakeData'
 import { useToPath } from '../../hooks/useToPath'
-import { ITvlHero } from '../../state/activeState'
 import css from './ActiveChooseHunter.module.styl'
 const hero = [
   {
@@ -62,7 +61,7 @@ const ActiveChooseHunter = memo(() => {
   const [heroKey, setHeroKey] = useState(0)
   const { toSetHero } = useToPath()
   const { activeData } = useActiveData()
-  const { id, accountAddress } = activeData
+  const { id, accountAddress, chainId } = activeData
   const { chooseHero, loading: isHeroLoading } = useUserHeroCall()
   const heroClickHandle = useCallback(index => {
     setHeroKey(index)
@@ -77,8 +76,10 @@ const ActiveChooseHunter = memo(() => {
         setErrorToast(GlobalVar.dispatch, err)
         return
       }
-      if (typeof _signedStr === 'string') {
+      if (chainId && typeof _signedStr === 'string') {
         const res = await chooseHero({
+          account: accountAddress,
+          chainId: chainId,
           userId: id,
           role: hero[heroKey].keyValue,
           signature: _signedStr,

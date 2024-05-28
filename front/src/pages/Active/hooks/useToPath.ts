@@ -1,6 +1,6 @@
+import { ITvlHero } from '@ui/src'
 import { useCallback } from 'react'
 
-import { ITvlHero } from '../state/activeState'
 import { useActiveData } from './useActiveData'
 
 export const useToPath = () => {

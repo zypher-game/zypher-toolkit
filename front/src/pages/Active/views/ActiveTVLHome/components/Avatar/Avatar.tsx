@@ -12,8 +12,13 @@ const AvatarStyled = styled.div<{ width: string; borderRadius?: string }>`
   overflow: hidden;
   background-color: #c8d4ff;
   position: relative;
+  div:nth-child(2) {
+    display: none;
+  }
   img {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 `
 const AvatarDiv = styled.div`
@@ -44,6 +49,7 @@ const Avatar = memo(
     children?: React.ReactNode
   }) => {
     const [showError, setShowError] = useState(false)
+    console.log({ showError })
     return (
       <AvatarStyled width={width} borderRadius={borderRadius}>
         <ImageLoader

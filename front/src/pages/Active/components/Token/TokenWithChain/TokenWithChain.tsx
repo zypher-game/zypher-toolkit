@@ -1,8 +1,6 @@
-import { ChainId, ChainImage, Currency, CurrencyLogo } from '@ui/src'
+import { ChainId, ChainImage, Currency, CurrencyLogo, defaultActiveChainId, IToken, TVLChainId } from '@ui/src'
 import React, { memo, useMemo } from 'react'
 import styled from 'styled-components'
-
-import { defaultActiveChainId, IToken, TVLChainId } from '@/pages/Active/constants/activeConstants'
 
 import css from './TokenWithChain.module.styl'
 const Wrap = styled.div<{ width?: number }>`

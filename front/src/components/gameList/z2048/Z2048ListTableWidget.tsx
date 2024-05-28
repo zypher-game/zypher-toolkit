@@ -46,7 +46,9 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
         title: t('Players'),
         dataIndex: 'player',
         key: 'player',
-        render: (player: string) => <RenderNormalText label={player} showPoint={false} isMobile={isMobile} />
+        render: (player: string, { chainId }: I2048GameList) => (
+          <RenderNormalText label={player} showPoint={false} isMobile={isMobile} chainId={chainId} />
+        )
       },
       {
         title: t('Tiles'),
@@ -65,7 +67,7 @@ const Z2048ListTableWidget: React.FC<IProps> = memo(({ showFilter, loading, clas
         title: t('Winnings'),
         dataIndex: 'reward',
         key: 'reward',
-        render: (win: string) => <RenderNormalText label={win} showPoint={true} isMobile={isMobile} />
+        render: (win: string, { chainId }: I2048GameList) => <RenderNormalText label={win} showPoint={true} isMobile={isMobile} chainId={chainId} />
       }
     ] as (ColumnGroupType<object> | ColumnType<object>)[]
   }, [isMobile, t])

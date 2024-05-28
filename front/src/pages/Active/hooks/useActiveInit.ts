@@ -28,17 +28,19 @@ export const useGetData = () => {
           ...{
             ...userInfo,
             airdropPointsDetail: {
-              ...userInfo.airdropPointsDetail,
+              ...(userInfo?.airdropPointsDetail ?? {}),
               byTwitterMore: pre.airdropPointsDetail.byTwitterMore
             }
           },
           accountAddress: account,
+          chainId: chainId,
           isInitLoading: false
         }))
       } else {
         setActiveData(pre => ({
           ...pre,
           accountAddress: account,
+          chainId: chainId,
           isInitLoading: false
         }))
       }

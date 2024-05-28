@@ -1,11 +1,10 @@
-import { NavKey, useActiveWeb3React, useRecoilState, useRecoilValue } from '@ui/src'
+import { minStakingValue, NavKey, TVLChainId, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { pathnameState } from '@ui/src'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { minStakingValue, TVLChainId } from '../constants/activeConstants'
-import { IActiveData, isTvlDataLoadingState, tvlPathState } from '../state/activeState'
+import { IActiveData, tvlPathState } from '../state/activeState'
 import { getHrefCode } from '../utils/getHrefParams'
 import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
 import { useActiveData } from './useActiveData'

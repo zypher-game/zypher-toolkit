@@ -1,10 +1,10 @@
-import { DialogClose, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
+import { DialogClose, ITvlHero, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoader'
 import { ITeamMember } from '@/pages/Active/hooks/useTeam'
-import { ITvlHero, tvlStakingDialogState } from '@/pages/Active/state/activeState'
+import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getHeroLevel } from '@/pages/Active/utils/getHeroLevel'
 
 import css from './TeamWarn.module.styl'

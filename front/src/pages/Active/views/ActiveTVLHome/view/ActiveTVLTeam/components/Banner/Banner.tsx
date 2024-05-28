@@ -1,6 +1,6 @@
 import './Banner.styl'
 
-import { preStaticUrl, SvgComponent, useIsW768, useSetRecoilState } from '@ui/src'
+import { preStaticUrl, refreshAvatarState, SvgComponent, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
@@ -15,6 +15,7 @@ import PointText from '../PointText/PointText'
 import css from './Banner.module.styl'
 import ShareLinkcss from './ShareLink.module.styl'
 const Banner = memo(() => {
+  const refreshAvatar = useRecoilValue(refreshAvatarState)
   const { activeData } = useActiveData()
   const { avatar, nickname } = activeData
   const isW768 = useIsW768()
@@ -22,11 +23,12 @@ const Banner = memo(() => {
   const editNicknameHandle = useCallback(() => {
     setIsModalOpen(true)
   }, [])
+  console.log({ avatar })
   return (
     <ActivePixelCard pixel_height={4} backgroundColor="#FF5EAA" className="active_tvl_banner">
       <div className={css.top}>
         <div className={css.top_fl}>
-          <Avatar src={avatar} nickname={nickname} width="48px" />
+          <Avatar src={avatar + '?' + refreshAvatar} nickname={nickname} width="48px" />
           <p>{getNicknameStr(nickname)}</p>
           <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
         </div>

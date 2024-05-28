@@ -51,7 +51,9 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Winner/Players'),
         dataIndex: 'winnerOrPlayers',
         key: 'winnerOrPlayers',
-        render: (winnerOrPlayers: string) => <RenderNormalText label={winnerOrPlayers} showPoint={false} isMobile={isMobile} />
+        render: (winnerOrPlayers: string, item: IGameList) => (
+          <RenderNormalText label={winnerOrPlayers} showPoint={false} isMobile={isMobile} chainId={item.chainId} />
+        )
       },
       {
         title: t('Room ID'),
@@ -68,7 +70,9 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Pledged per player'),
         dataIndex: 'inputPerPlayer',
         key: 'inputPerPlayer',
-        render: (inputPerPlayer: string) => <RenderNormalText label={inputPerPlayer} showPoint={true} isMobile={isMobile} />
+        render: (inputPerPlayer: string, item: IGameList) => (
+          <RenderNormalText label={inputPerPlayer} showPoint={true} isMobile={isMobile} chainId={item.chainId} />
+        )
       },
       {
         title: t('Multiplier'),
@@ -79,7 +83,7 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
         title: t('Winnings'),
         dataIndex: 'win',
         key: 'win',
-        render: (win: string) => <RenderNormalText label={win} showPoint={true} isMobile={isMobile} />
+        render: (win: string, item: IGameList) => <RenderNormalText label={win} showPoint={true} isMobile={isMobile} chainId={item.chainId} />
       }
     ] as (ColumnGroupType<object> | ColumnType<object>)[]
   }, [isMobile, t])

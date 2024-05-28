@@ -5,9 +5,9 @@ import {
   ChainId,
   ChainImage,
   Currency,
+  defaultActiveChainId,
   DialogClose,
-  preStaticUrl,
-  SvgComponent,
+  TVLStakingSupportedChainId,
   useActiveWeb3React,
   useRecoilState,
   useRecoilValue,
@@ -15,10 +15,9 @@ import {
 } from '@ui/src'
 import { ActivePixelButton, ActivePixelCard, PixelBorderCardButton } from '@ui/src'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import TokenWithChain from '../../components/Token/TokenWithChain/TokenWithChain'
-import { defaultActiveChainId, TVLStakingSupportedChainId } from '../../constants/activeConstants'
 import { canNext } from '../../hooks/activeHooks'
 import { chooseChainState, depositCurrencyState, ITVLStakingData, selectTokenDialogState, tvlStakingDataState } from '../../state/activeState'
 

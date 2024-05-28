@@ -59,9 +59,9 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
               <p>{t('Winnings')}</p>
             </div>
             <div className={css.mTableBody}>
-              <RenderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} />
-              <RenderNormalText label={item.multiplier} showPoint={false} isMobile={isMobile} />
-              <RenderNormalText label={item.win} showPoint={true} isMobile={isMobile} />
+              <RenderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} chainId={item.chainId} />
+              <RenderNormalText label={item.multiplier} showPoint={false} isMobile={isMobile} chainId={item.chainId} />
+              <RenderNormalText label={item.win} showPoint={true} isMobile={isMobile} chainId={item.chainId} />
             </div>
           </div>
         </div>
@@ -69,7 +69,7 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
       body_children={
         <div className={css.mBottom}>
           {Len.length === 0 ? (
-            <RenderNormalText label={item.winnerOrPlayers} showPoint={false} isMobile={isMobile} />
+            <RenderNormalText label={item.winnerOrPlayers} showPoint={false} isMobile={isMobile} chainId={item.chainId} />
           ) : (
             <div className={css.avatarList}>
               {Len.map((_, index) => (
