@@ -27,7 +27,7 @@ const RenderNormalText: FC<IProps> = memo(({ label, showPoint, chainId, isMobile
       size={22}
       account={label}
       // chainId={chainId}
-      hideAvatars={true}
+      // hideAvatars={true}
       showAccount={true}
       border={false}
     />

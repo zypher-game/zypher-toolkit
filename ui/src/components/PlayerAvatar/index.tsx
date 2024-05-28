@@ -12,16 +12,9 @@ import Avatar from "../Avatar/Avatar";
 import { useCustomTranslation } from "../../hooks/useCustomTranslation";
 import { LngNs } from "../../utils/i18n";
 import { HeaderUIType } from "../Header/header";
-import { useGetUserInfo } from "../../hooks/useGetActiveCall";
 import { useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../ConnectWallet/state/connectWalletState";
-const bgColor = {
-  Agil: "#9269EB",
-  Yueling: "#EB6676",
-  Celus: "#FFD584",
-  Ivan: "#62A1FF",
-  Liana: "#7ADBB2",
-};
+
 interface IPlayerAvatar {
   className?: string;
   account?: string;
@@ -62,45 +55,62 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
       selectedBackground: string;
     }>();
     const refreshAvatar = useRecoilValue(refreshAvatarState);
-    console.log({ refreshAvatar });
-    const { getUserInfo } = useGetUserInfo();
+    // const { getUserInfo } = useGetUserInfo();
     useEffect(() => {
       console.log({ account, chainId });
       if (account && chainId && !hideAvatars) {
-        getHeroData();
+        getData();
+        // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
+        // setAvatars({ selectedAvatar, selectedBackground:bgColor[0] });
       } else {
         const { selectedAvatar, selectedBackground } = generateAvatar(account);
         setAvatars({ selectedAvatar, selectedBackground });
       }
-    }, [account, chainId]);
-    useEffect(() => {
-      if (account && chainId && !hideAvatars) {
-        setAvatars((pre) => ({
-          selectedAvatar: pre?.selectedAvatar + "?" + refreshAvatar,
-          selectedBackground: pre?.selectedBackground ?? "",
-        }));
-      }
-    }, [refreshAvatar]);
-    const getHeroData = useCallback(async () => {
-      if (chainId && account) {
-        try {
-          const infoObj = await getUserInfo({ account, chainId });
-          console.log({ infoObj });
-          if (infoObj) {
-            setAvatars({
-              selectedAvatar: infoObj.avatar,
-              selectedBackground: bgColor[0],
-            });
-          } else {
-            throw new Error("getUserInfo Error");
-          }
-        } catch (e) {
-          const { selectedAvatar, selectedBackground } =
-            generateAvatar(account);
-          setAvatars({ selectedAvatar, selectedBackground });
-        }
-      }
-    }, [account, chainId]);
+    }, [account, chainId, refreshAvatar]);
+    // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
+    const getData = useCallback(() => {
+      const img = new Image();
+      const src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;
+      img.src = src;
+      img.onload = () => {
+        setAvatars({
+          selectedAvatar: `${src}?${refreshAvatar}`,
+          selectedBackground: "#1d263b",
+        });
+      };
+      img.onerror = () => {
+        const { selectedAvatar, selectedBackground } = generateAvatar(account);
+        setAvatars({ selectedAvatar, selectedBackground });
+      };
+    }, [account, chainId, refreshAvatar]);
+    // useEffect(() => {
+    //   if (account && chainId && !hideAvatars) {
+    //     setAvatars((pre) => ({
+    //       selectedAvatar: pre?.selectedAvatar + "?" + refreshAvatar,
+    //       selectedBackground: pre?.selectedBackground ?? "",
+    //     }));
+    //   }
+    // }, [refreshAvatar]);
+    // const getHeroData = useCallback(async () => {
+    //   if (chainId && account) {
+    //     try {
+    //       const infoObj = await getUserInfo({ account, chainId });
+    //       console.log({ infoObj });
+    //       if (infoObj) {
+    //         setAvatars({
+    //           selectedAvatar: infoObj.avatar,
+    //           selectedBackground: bgColor[0],
+    //         });
+    //       } else {
+    //         throw new Error("getUserInfo Error");
+    //       }
+    //     } catch (e) {
+    //       const { selectedAvatar, selectedBackground } =
+    //         generateAvatar(account);
+    //       setAvatars({ selectedAvatar, selectedBackground });
+    //     }
+    //   }
+    // }, [account, chainId]);
     return (
       <div className={cx(className, "player_playerAvatar")}>
         {hideAvatars ? null : account ? (
