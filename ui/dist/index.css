@@ -4092,20 +4092,20 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelTab/PixelTab.styl */
-.pixe_active_tvl_tab {
+.pixel_active_tab {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
   height: 40px;
 }
-.pixe_active_tvl_tab .active_tvl_tab_on .pixel_flat_inner p {
+.pixel_active_tab .active_tvl_tab_on .pixel_flat_inner p {
   color: #fff;
 }
-.pixe_active_tvl_tab .active_tvl_tab .pixel_flat_inner p {
+.pixel_active_tab .active_tvl_tab .pixel_flat_inner p {
   color: #d3d4d7;
 }
-.pixe_active_tvl_tab .pixel_flat_inner p {
+.pixel_active_tab .pixel_flat_inner p {
   padding: 0 24px;
 }
 

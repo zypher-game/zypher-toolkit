@@ -29,6 +29,7 @@ const IsPixelWidgetStyled = styled(IsPixelWidget)<{
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 50%;
   }
   &.pixel_flat_btn {
     img {

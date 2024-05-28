@@ -1,10 +1,12 @@
 import React from "react";
+import { ChainId } from "../../constant/constant";
 import "./index.stylus";
 import { HeaderUIType } from "../Header/header";
 interface IPlayerAvatar {
     className?: string;
     account?: string;
     highLight?: boolean;
+    hideAvatars?: boolean;
     showAccount?: boolean;
     size?: number;
     winner?: boolean;
@@ -15,6 +17,7 @@ interface IPlayerAvatar {
     endLen?: number;
     otherStr?: string;
     type?: HeaderUIType;
+    chainId?: ChainId;
 }
 declare const PlayerAvatar: React.FC<IPlayerAvatar>;
 type IAvatar = {

@@ -204,6 +204,7 @@ export const AddressMiddleWrapPop = memo(
       >
         <div className="middle_account">
           <PlayerAvatar
+            chainId={chainId}
             border={true}
             className="account"
             account={account}

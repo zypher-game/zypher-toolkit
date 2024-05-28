@@ -5,6 +5,7 @@ interface IProps {
     children?: React.ReactNode;
     onClick?: any;
     style?: any;
+    hidePixel?: boolean;
 }
 declare const PixelFlatBtn: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default PixelFlatBtn;

@@ -15,6 +15,7 @@ export type IPixelProps = {
     showHover?: boolean;
     size?: number;
     disable?: boolean;
+    hidePixel?: boolean;
 };
 interface IPixel extends IChildren, IPixelProps {
 }

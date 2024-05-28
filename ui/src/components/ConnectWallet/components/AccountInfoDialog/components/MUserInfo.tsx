@@ -85,6 +85,7 @@ const MUserInfo = memo(
               account={account}
               size={24}
               showAccount={true}
+              chainId={chainId}
             />
             <span onClick={() => copy(account)}>
               <Icon name="copy" />

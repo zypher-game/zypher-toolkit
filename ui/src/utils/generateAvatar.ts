@@ -17,7 +17,6 @@ function hashToSeed(ethereumAddress?: string): number {
   }
   return 0;
 }
-
 export default (
   account?: string
 ): {

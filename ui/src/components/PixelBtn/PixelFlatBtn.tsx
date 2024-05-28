@@ -6,9 +6,18 @@ interface IProps {
   children?: React.ReactNode;
   onClick?: any;
   style?: any;
+  hidePixel?: boolean;
 }
+
 const PixelFlatBtn = memo((props: IProps) => {
-  const { onClick, children, className, style } = props;
+  const { onClick, children, className, style, hidePixel } = props;
+  if (hidePixel) {
+    return (
+      <div className={className} onClick={onClick}>
+        {children}
+      </div>
+    );
+  }
   return (
     <div
       className={`pixel_flat_btn ${className ?? ""}`}
