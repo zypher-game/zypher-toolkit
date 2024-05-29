@@ -63,14 +63,15 @@
   position: absolute;
   width:44%;
   top: 20px;
-  left: 28%;
+  left: 50%;
+  transform: translateX(-50%)
   z-index: 9;
   height: 44px;
   animation: spin 0.6s ease infinite;
+  min-width: 310px
   @media screen and (max-width: 768px)
     height: 60px;
     width: 80%;
-    left: 10%;
   .team_hero_middle_in
     width calc(100% - 8px)
     height calc(100% - 8px)
@@ -82,8 +83,8 @@
 
 @keyframes spin 
   0% 
-    transform: translateY(0);
+    top: 20px
   50%
-    transform: translateY(3px);
+    top: 24px
   100% 
-    transform: translateY(0);
+    top: 20px

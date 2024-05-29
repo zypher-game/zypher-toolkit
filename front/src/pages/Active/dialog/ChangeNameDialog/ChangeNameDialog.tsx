@@ -138,6 +138,11 @@ const ChangeNameDialog = memo(() => {
     event.preventDefault()
     if (event.target.files && event.target.files.length > 0) {
       const file = event.target.files[0]
+      if (file.size > 2 * 1024 * 1024) {
+        // 2MB
+        setErrorToast(GlobalVar.dispatch, 'The image size cannot exceed 2MB!')
+        return
+      }
       // setSelectedFile(file)
       // 创建一个新的FileReader实例
       const reader = new FileReader()

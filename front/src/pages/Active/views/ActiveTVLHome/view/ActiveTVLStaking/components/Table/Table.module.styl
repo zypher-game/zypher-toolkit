@@ -3,6 +3,9 @@
   margin-bottom: 10px
   font-size: 18px
   font-weight: 600
+  @media screen and (max-width: 768px)
+    font-size: 16px
+    margin-top: 20px
 .fl_tab_header
   p
     font-size: 12px
@@ -38,3 +41,30 @@
     width: 14%
   >p:nth-child(5),>div:nth-child(5)
     width: 18%
+.mTable
+  display: flex
+  flex-direction: column
+  gap: 10px
+.row_m_head
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width: 100%;
+.m_col
+  display: flex
+  justify-content: space-between
+  align-items: center
+  font-size: 14px
+  width: 100%;
+  padding: 10px 16px
+  .grey
+    color: #D3D4D7
+    font-size: 12px
+.row_m_body
+  padding: 10px 0
+  width: 100%;
+.fl_tab_body_col2
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-direction: row-reverse;

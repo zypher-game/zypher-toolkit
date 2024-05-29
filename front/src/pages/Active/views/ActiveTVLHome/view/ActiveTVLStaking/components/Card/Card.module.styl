@@ -9,17 +9,25 @@
   align-items: flex-start
   flex-wrap: wrap
   gap: 20px
+  @media screen and (max-width: 768px)
+    flex-direction: column
   &>div
     flex: 1
+    @media screen and (max-width: 768px)
+      width 100%
 .fr_btn
   margin-top: 25px
 :global(.tvl_card_one)
   height: 180px
+  @media screen and (max-width: 768px)
+    height: 140px
   :global(>.pixel_flat_inner)
     flex-direction: column
     justify-content: flex-start
     align-items: flex-start
     padding: 30px
+    @media screen and (max-width: 768px)
+      padding: 20px
 .space
   width: 100%
   display: flex;
@@ -29,9 +37,14 @@
   font-size: 22px
   font-weight: bold
   color: #fff
+  @media screen and (max-width: 768px)
+    font-size: 18px
 h4.title_content
   height: 34px
   line-height: 34px
+  @media screen and (max-width: 768px)
+    height: 24px
+    line-height: 24px
 .title_content
   width: 100%
   display: flex;
@@ -41,7 +54,8 @@ h4.title_content
   font-size: 22px
   font-weight: bold
   color: #fff
-  
+  @media screen and (max-width: 768px)
+    font-size: 16px
   p
     width 50%
     flex: 1
@@ -52,7 +66,8 @@ h4.title_content
   font-size: 18px
   font-weight: bold
   margin-bottom: 30px
-
+  @media screen and (max-width: 768px)
+    font-size: 16px
 .sub_title
   width: 100%
   display: flex;
@@ -67,6 +82,8 @@ h4.title_content
   align-items: center
   gap 6px
   :global(.svg_component)
+    @media screen and (max-width: 768px)
+      width 12px
     svg
       rect 
         fill: #959BA8
@@ -74,3 +91,5 @@ h4.title_content
     font-weight: 500
     font-size: 16px
     color: #959BA8
+    @media screen and (max-width: 768px)
+      font-size: 12px

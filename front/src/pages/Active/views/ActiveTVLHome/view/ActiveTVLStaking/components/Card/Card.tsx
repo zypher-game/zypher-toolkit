@@ -1,4 +1,4 @@
-import { ActivePixelButtonColor, ChainId, Currency, LoadingButton, PixelBorderCard, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { ActivePixelButtonColor, ChainId, Currency, LoadingButton, PixelBorderCard, useActiveWeb3React, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
@@ -186,6 +186,7 @@ const PixelCardTwo = memo(
     hideBtn?: boolean
     disable: boolean
   }) => {
+    const isW768 = useIsW768()
     return (
       <PixelCard>
         <h4 className={css.title_content}>{!title || title === '' ? '0' : title}</h4>
@@ -197,8 +198,8 @@ const PixelCardTwo = memo(
           <ActivePixelButtonColor
             themeType="brightBlue"
             pixel_height={3}
-            width="144px"
-            height="36px"
+            width={isW768 ? '120px' : '144px'}
+            height={isW768 ? '28px' : '36px'}
             className={css.fr_btn}
             onClick={onClick}
             disable={disable || loading}

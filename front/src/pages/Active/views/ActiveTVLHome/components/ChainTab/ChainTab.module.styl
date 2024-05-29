@@ -1,5 +1,8 @@
 .ActiveTVLStaking_tab
   width: fit-content;
+  @media screen and (max-width: 768px)
+    width: 100%
+
   &:first-child,
   &:last-child 
     .ActiveTVLStaking_tab_li
@@ -18,6 +21,8 @@
     min-width: 110px
     position relative
     cursor pointer
+    @media screen and (max-width: 768px)
+      width 50%
     p
       transition: opacity  0.3s ease
     &:hover

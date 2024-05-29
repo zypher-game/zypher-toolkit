@@ -1,4 +1,4 @@
-import { ChainId, Currency, PixelTableBorder, TVLChainId, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ChainId, Currency, PixelTableBorder, TVLChainId, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
@@ -40,15 +40,25 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
   )
 })
 const TableWrap = memo(({ list, type }: { list: ITVLStakingData[]; type: 'native' | 'erc20' }) => {
+  const isW768 = useIsW768()
   const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
   const onClick = useCallback(() => {
     setIsModalOpen(true)
   }, [])
+  if (isW768) {
+    return (
+      <div className={css.mTable}>
+        {list.map(v => (
+          <RowM key={v.address} onClick={onClick} v={v} type={type} />
+        ))}
+      </div>
+    )
+  }
   return (
     <PixelTableBorder
       classNameHeader="tvlPixelTable_header_table"
       pixel_height={7}
-      header_children={<Row className={css.fl_tab_header} data={['Token', type === 'native' ? 'Staked' : 'Staked', 'Ratio', 'GP', 'APR', 'TVL']} />}
+      header_children={<Row className={css.fl_tab_header} data={['Token', type === 'native' ? 'Staked' : 'Restaked', 'Ratio', 'GP', 'APR', 'TVL']} />}
       body_children={
         <>
           {list.map(v => (
@@ -92,4 +102,48 @@ const Row = memo(({ className, data, onClick }: { className: string; data: (stri
     </div>
   )
 })
+
+const RowM = memo(({ v, onClick, type }: { v: ITVLStakingData; onClick?: any; type: 'native' | 'erc20' }) => {
+  return (
+    <PixelTableBorder
+      pixel_height={5}
+      onClick={onClick}
+      header_children={
+        <div className={css.row_m_head}>
+          <p>Token</p>
+          <div className={css.fl_tab_body_col2}>
+            <TokenWithChain
+              width={32}
+              token={{
+                address: v.address,
+                symbol: v.symbol,
+                logoPath: v.logoPath,
+                index: v.index
+              }}
+              chainId={v.chainId}
+            />
+            <p>{v.symbol}</p>
+          </div>
+        </div>
+      }
+      body_children={
+        <div className={css.row_m_body}>
+          {[
+            [type === 'native' ? 'Staked' : 'Restaked', v.userStakedAmountStr],
+            ['Ratio', v.ratio + '%'],
+            ['GP', v.earnGPStr],
+            ['APR', v.apr + '%'],
+            ['TVL', v.totalStakedAmountStr]
+          ].map(vv => (
+            <div className={css.m_col} key={vv[0]}>
+              <p className={css.grey}>{vv[0]}</p>
+              <p>{vv[1]} </p>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  )
+})
+
 export default Table
