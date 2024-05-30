@@ -149,17 +149,17 @@ export const useStakeData = () => {
                     }
                   }),
                 // 最少质押多少给 SBT
-                // {
-                //   reference: 'mintMinimum' + chainId, // 得到当前是第几周
-                //   contractAddress: activeTokenList[chainId].Staking,
-                //   abi: TVLStakingABI,
-                //   calls: [
-                //     {
-                //       methodName: 'mintMinimum',
-                //       reference: 'mintMinimum' + chainId
-                //     }
-                //   ]
-                // },
+                {
+                  reference: 'mintMinimum' + chainId, // 得到当前是第几周
+                  contractAddress: activeTokenList[chainId].Staking,
+                  abi: TVLStakingABI,
+                  calls: [
+                    {
+                      methodName: 'mintMinimum',
+                      reference: 'mintMinimum' + chainId
+                    }
+                  ]
+                },
                 {
                   reference: 'END_TIME' + chainId, // 得到当前是第几周
                   contractAddress: activeTokenList[chainId].Staking,
@@ -189,18 +189,18 @@ export const useStakeData = () => {
                   abi: erc20Abi,
                   calls: [{ methodName: 'balanceOf', reference: 'sbtBalanceOf' + chainId, methodParameters: [account] }]
                 },
-                // {
-                //   reference: 'getMintAmount' + chainId, // 得到当前是第几周
-                //   contractAddress: activeTokenList[chainId].CRHero,
-                //   abi: crHeroAbi,
-                //   calls: [{ methodName: 'getMintAmount', reference: 'getMintAmount' + chainId }]
-                // },
+                {
+                  reference: 'getMinStake' + chainId, // 得到当前是第几周
+                  contractAddress: activeTokenList[chainId].CRHero,
+                  abi: crHeroAbi,
+                  calls: [{ methodName: 'getMinStake', reference: 'getMinStake' + chainId }]
+                },
                 ...Object.values(tvlTokens[chainId])
                   .filter((v: any) => v.address !== AddressZero)
                   .map((v: any) => {
                     return {
                       reference: 'getMintAmount' + v.symbol,
-                      contractAddress: activeTokenList[chainId].CRHero,
+                      contractAddress: activeTokenList[chainId].CRHero, // 拥有cr Hero的量
                       abi: crHeroAbi,
                       calls: [{ methodName: 'getMintAmount', reference: 'getMintAmount' + v.symbol, methodParameters: [v.address, account] }]
                     }
@@ -262,16 +262,33 @@ export const useStakeData = () => {
         } catch (stakeDataFromApiErr: any) {}
         console.log({ nextParams, nextRes, stakeDataFromApi })
         let END_TIME = '0'
-        // let mintMinimum = '0'
+        let mintMinimum = '0'
         let sbtBalanceOf = '0'
+        let getMinStake = '0'
         const resMap = Object.fromEntries(
           res.map((v, chainIndex) => {
             const _chainId = v.chainId
 
             const nextMethodArr = nextRes[chainIndex].method.split(',')
 
+            const methodArr = v.method.split(',')
+
+            const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
+            mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
+
+            const getMinStakeIndex = methodArr.indexOf(`getMinStake${_chainId}`)
+            getMinStake = new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
+            console.log('Asdfsadf', getMinStake)
+
+            const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
+
+            const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
+            END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
+
+            const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf${_chainId}`)
+            sbtBalanceOf = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
+
             const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[_chainId]).map((vv: any, index: number) => {
-              const methodArr = v.method.split(',')
               const allowanceIndex = methodArr.indexOf(`allowance${vv.symbol}`)
               const symbolIndex = methodArr.indexOf(`symbol${vv.symbol}`)
               const nameIndex = methodArr.indexOf(`name${vv.symbol}`)
@@ -279,22 +296,15 @@ export const useStakeData = () => {
               const balanceOfIndex = methodArr.indexOf(`balanceOf${vv.symbol}`)
               const crHeroIndex = methodArr.indexOf(`getMintAmount${vv.symbol}`)
 
-              const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
-              const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
-              // const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
-              const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf${_chainId}`)
-
               const allowanceBig = v.response[allowanceIndex] ? new BigNumberJs(v.response[allowanceIndex][0].hex) : '0'
               const symbol = v.response[symbolIndex][0]
               const name = v.response[nameIndex][0]
               const decimal = v.response[decimalIndex][0]
               const balanceBig = new BigNumberJs(v.response[balanceOfIndex][0].hex)
               const earnGP = v.response[claimableIndex][index]
+              const earnGPBig = new BigNumberJs(earnGP.hex)
               const crHero = new BigNumberJs(v.response[crHeroIndex][0].hex).toFixed()
 
-              END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
-              // mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
-              sbtBalanceOf = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
 
               const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
@@ -305,7 +315,6 @@ export const useStakeData = () => {
               //   stakeDataFromApiItemI = stakeDataFromApiItem.records[vv.address.toLowerCase()].total
               // }
               // const totalStakeBig = new BigNumberJs(stakeDataFromApi[index])
-              const earnGPBig = new BigNumberJs(earnGP.hex)
               return [
                 vv.symbol,
                 {
@@ -326,7 +335,8 @@ export const useStakeData = () => {
                   totalStakedAmount: totalStakeBig.toFixed(),
                   totalStakedAmountStr: totalStakeBig.dividedBy(divisorBigNumber).toFormat(2),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
-                  END_TIME: END_TIME
+                  END_TIME: END_TIME,
+                  getMinStake: getMinStake
                 } as ITVLStakingData
               ]
             })
@@ -347,7 +357,8 @@ export const useStakeData = () => {
                     balance: nativeValue[chainIndex][0],
                     balanceStr: nativeValue[chainIndex][1],
                     index: 0,
-                    END_TIME: END_TIME
+                    END_TIME: END_TIME,
+                    getMinStake: getMinStake
                   }
                 ],
                 ...tvlObj
@@ -375,8 +386,9 @@ export const useStakeData = () => {
           crHeroBoxAmount: crHeroBoxAmount,
           dollarGpRewords: gpAmount,
           dollarGpRewordsStr: new BigNumberJs(gpAmount).toFormat(2),
-          // mintMinimum: mintMinimum,
-          sbtAmount: sbtBalanceOf
+          mintMinimum: mintMinimum,
+          sbtAmount: sbtBalanceOf,
+          getMinStake: getMinStake
         }))
         setIsDataLoading(false)
       }

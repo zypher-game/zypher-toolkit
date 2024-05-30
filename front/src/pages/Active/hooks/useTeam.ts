@@ -85,14 +85,19 @@ export const useTeam = () => {
             nickname: vd.nickname,
             role: vd.role,
             staking: vd.staking,
-            stakingStr: new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFixed(2)
+            stakingStr: new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFormat(2)
           }))
         )
+        // const staking = `${_team['userInfo']['staking']}`
+        const airdropPoints = _team['userInfo']['points']
+        const ranking = `${_team['userInfo']['rank']}`
         setActiveData(pre => ({
-          staking: `${_team['userInfo']['staking']}`,
-          stakingStr: new BigNumberJs(`${_team['userInfo']['staking']}`).dividedBy(divisorBigNumber).toFixed(2),
-          airdropPoints: _team['userInfo']['points'],
-          ranking: `${_team['userInfo']['rank']}`,
+          // staking: staking,
+          // stakingStr: new BigNumberJs(staking).toFormat(2),
+          airdropPoints: airdropPoints,
+          airdropPointsStr: new BigNumberJs(airdropPoints).toFormat(2),
+          ranking: ranking,
+          rankingStr: new BigNumberJs(ranking).toFormat(0),
           airdropPointsCardNumber: `${point['cardNum']}`
         }))
         // group
@@ -114,7 +119,7 @@ export const useTeam = () => {
           target: target,
           targetStr: targetStr,
           need: need.toFixed(3),
-          needStr: new BigNumberJs(need).dividedBy(divisorBigNumber).toFixed(2)
+          needStr: new BigNumberJs(need).dividedBy(divisorBigNumber).toFormat(2)
         })
       }
     }

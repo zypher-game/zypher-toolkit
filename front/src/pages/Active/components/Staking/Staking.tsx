@@ -138,17 +138,17 @@ const Staking = memo(() => {
           const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
 
-          const _earnPoints = X.plus(new BigNumberJs(depositValue)) // 系数值 + 输入值
+          const _earnPoints = X.plus(new BigNumberJs(_totalStaked)) // 系数值 + 输入值
           const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints) // 还剩多少天 乘 _earnPoints
-          console.log({
-            depositValue,
-            userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
-            X: X.toFixed(),
-            END_TIME,
-            differenceInDays,
-            _earnPoints: _earnPoints.toFixed(2),
-            _finalPoints: _finalPoints.toFixed(2)
-          })
+          // console.log({
+          //   depositValue,
+          //   userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
+          //   X: X.toFixed(),
+          //   END_TIME,
+          //   differenceInDays,
+          //   _earnPoints: _earnPoints.toFixed(2),
+          //   _finalPoints: _finalPoints.toFixed(2)
+          // })
           return {
             totalStaked: _totalStaked.toFormat(2),
             earnPoints: _earnPoints.toFormat(2),

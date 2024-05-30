@@ -5,6 +5,7 @@ import React, { memo, useCallback } from 'react'
 
 import Staking from '../../components/Staking/Staking'
 import { tvlStakingDialogState } from '../../state/activeState'
+import css from './StakingDialog.module.stylus'
 const TVLStakingDialog = memo(() => {
   const isModalOpen = useRecoilValue(tvlStakingDialogState)
   const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
@@ -14,7 +15,7 @@ const TVLStakingDialog = memo(() => {
   }, [])
   return (
     <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent>
+      <DialogContent className={css.stakingDialog}>
         <Staking />
         <DialogClose onClick={handleCancel} />
       </DialogContent>

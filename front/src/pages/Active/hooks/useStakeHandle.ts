@@ -6,6 +6,7 @@ import {
   Currency,
   divisorBigNumber,
   erc20Contract,
+  NavKey,
   refreshBalanceState,
   sleep,
   tvlTokenAddress,
@@ -22,6 +23,7 @@ import {
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
 
 import { GlobalVar } from '@/constants/constants'
@@ -267,6 +269,7 @@ export const useReStakingHandle = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
 
+  const navigate = useNavigate()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
 
   const _successGet = useCallback(
@@ -357,8 +360,12 @@ export const useReStakingHandle = () => {
   }, [])
 
   const onClaimSBTHandle = useCallback(
-    async (chainId: ChainId) => {
-      setTvlStakingDialog(chainId, true)
+    async (chainId: ChainId, hasSbt: boolean) => {
+      if (hasSbt) {
+        navigate(`/${NavKey[2][0]}`)
+      } else {
+        setTvlStakingDialog(chainId, true)
+      }
     },
     [crHeroBoxAmount, _pre]
   )

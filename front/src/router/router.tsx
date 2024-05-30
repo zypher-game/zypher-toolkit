@@ -5,46 +5,29 @@ import { Route, Routes } from 'react-router-dom'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useConnectWallet } from '@/hooks/useConnectWallet'
 import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
-import ActiveChooseHunter from '@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'
-import MoreActive from '@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'
-import MoreActiveNormal from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveNormal/MoreActiveNormal'
-import MoreActiveSuccess from '@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'
-import NoActive from '@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'
-import NormalActive from '@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'
-import ActiveLoading from '@/pages/Active/views/ActiveLoading/ActiveLoading'
-// import ActiveComing from '@/pages/Active/views/ActiveRegister/ActiveComing'
 import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister'
-import ActiveStaking from '@/pages/Active/views/ActiveStaking/ActiveStaking'
-import ActiveTVLLeaderboard from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLLeaderboard/ActiveTVLLeaderboard'
-import ActiveTVLStakingV2 from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLStaking/ActiveTVLStaking'
-import ActiveTVLTeam from '@/pages/Active/views/ActiveTVLHome/view/ActiveTVLTeam/ActiveTVLTeam'
-import GameIndex from '@/pages/GamesIndex/view/GamesIndex/GamesIndex'
-import NotFound from '@/pages/NotFound'
-// import Bingo from '@/pages/Bingo'
-// import DP from '@/pages/DP'
-// import GamesList from '@/pages/GamesList'
-// import Invitation from '@/pages/invitation'
-// import Monster from '@/pages/Monster'
 import { ThemeProvider } from '@/theme'
 
-// import Ranking from '@/pages/Ranking'
 import Layout from '../components/Layout'
-// import ProfileBox from '@/pages/Profile/profileBox'
-// import GBBox from '@/pages/GBBox'
 import { useInit } from '../hooks/useInit'
 import { useToastMessage } from '../hooks/useToastMessage'
-// import { useGetInvitationAddress } from '../pages/invitation/hooks/invitationHooks'
 import { usePollPrice } from '../store/price/hooks'
 
 const ZeroGas = lazy(() => import('@/pages/ZeroGas/ZeroGas'))
-// const Monster = lazy(() => import('@/pages/Monster'))
-// const NotFound = lazy(() => import('@/pages/NotFound'))
-// const Ranking = lazy(() => import('@/pages/Ranking'))
-// const GamesList = lazy(() => import('@/pages/GamesList'))
-// // const Invitation = lazy(() => import('@/pages/invitation'))
-// const Bingo = lazy(() => import('@/pages/Bingo'))
-// const StartGame = lazy(() => import('@/pages/Bingo/zBingoPage/StartGame'))
-// const GameRoom = lazy(() => import('@/pages/Bingo/zBingoPage/GameRoom'))
+
+const ActiveChooseHunter = lazy(() => import('@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'))
+const MoreActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'))
+const MoreActiveNormal = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActiveNormal/MoreActiveNormal'))
+const MoreActiveSuccess = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'))
+const NoActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'))
+const NormalActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'))
+const ActiveLoading = lazy(() => import('@/pages/Active/views/ActiveLoading/ActiveLoading'))
+// const ActiveComing = lazy(()=>import('@/pages/Active/views/ActiveRegister/ActiveComing'))
+const ActiveStaking = lazy(() => import('@/pages/Active/views/ActiveStaking/ActiveStaking'))
+const ActiveTVLLeaderboard = lazy(() => import('@/pages/Active/views/ActiveTVLHome/view/ActiveTVLLeaderboard/ActiveTVLLeaderboard'))
+const ActiveTVLStakingV2 = lazy(() => import('@/pages/Active/views/ActiveTVLHome/view/ActiveTVLStaking/ActiveTVLStaking'))
+const ActiveTVLTeam = lazy(() => import('@/pages/Active/views/ActiveTVLHome/view/ActiveTVLTeam/ActiveTVLTeam'))
+const GameIndex = lazy(() => import('@/pages/GamesIndex/view/GamesIndex/GamesIndex'))
 
 export default (): JSX.Element => {
   useInit()

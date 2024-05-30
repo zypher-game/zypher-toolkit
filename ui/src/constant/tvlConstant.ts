@@ -9,7 +9,6 @@ export enum ITvlHero {
   Liana = "Liana",
 }
 export enum TVLChainId {
-  Sepolia = ChainId.Sepolia,
   B2 = ChainId.B2,
   B2Testnet = ChainId.B2Testnet,
   LineaMainnet = ChainId.LineaMainnet,
@@ -34,12 +33,10 @@ export type TVLToken = {
   WETH: IToken;
   // GP: IToken
 };
-export const activeTokenList: Record<ChainId, Record<string, Address>> = {
-  [TVLChainId.Sepolia]: {
-    Staking: "0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637",
-    ZypherGameToken: "0xb78fC41280f671a63ce701925F05E3dA1Da9a2Cc",
-    CRHero: "0x76E08f9D5f76590E12427F003325768290602De1",
-  },
+export const activeTokenList: Record<
+  ChainId,
+  Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>
+> = {
   [TVLChainId.LineaTestnet]: {
     Staking: "0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637",
     ZypherGameToken: "0x5275A8593ce6a967Ae6782a70F417135A44bCd27",
@@ -54,9 +51,6 @@ export const activeTokenList: Record<ChainId, Record<string, Address>> = {
   },
 } as unknown as Record<ChainId, Record<string, Address>>;
 export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
-  [TVLChainId.Sepolia]: {
-    WETH: "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9",
-  },
   [TVLChainId.LineaTestnet]: {
     WETH: "0x5131bc5Ed480a524932D2638922616fE968374FE",
     wstETH: "0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E",
@@ -118,7 +112,6 @@ export const getLinkPre = (chainId: ChainId): ILinkPre => {
 };
 
 export const minStakingValue: Record<TVLChainId, string> = {
-  [TVLChainId.Sepolia]: "0.01",
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
   [TVLChainId.LineaMainnet]: "0.01",

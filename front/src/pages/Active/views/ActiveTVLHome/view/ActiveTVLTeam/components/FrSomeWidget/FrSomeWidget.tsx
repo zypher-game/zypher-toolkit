@@ -11,6 +11,7 @@ import {
 import React, { memo, useCallback, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
+import StakingTitle from '@/pages/Active/components/StakingTitle/StakingTitle'
 import { IAvailableCode, IGroupGoal } from '@/pages/Active/hooks/useTeam'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { IActiveData, isTvlDataLoadingState, tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
@@ -49,14 +50,11 @@ const FrSomeWidget = memo(
     return (
       <>
         <FrPixelBorder>
-          <div className={css.fr_title}>
-            <h3>Staked</h3>
-            <PixelTooltip title={[`Your total pledge amount, including ${stakingStr} etc.`]} />
-          </div>
+          <StakingTitle />
           <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
           <div className={css.fr_number}>
             {isDataLoading ? null : <p>{activeData.userStakedAmountStr}</p>}
-            <LoadingButton isLoading={isDataLoading} />
+            <LoadingButton hideMl={true} isLoading={isDataLoading} />
             <img src={CurrencyLogo[chainId]} />
           </div>
           <ActivePixelButtonColor themeType="brightBlue" className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={stakingHandle}>

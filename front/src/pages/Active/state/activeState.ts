@@ -36,6 +36,7 @@ export interface IActiveData {
   }
   airdropPointsCardNumber: string
   airdropPoints: string
+  airdropPointsStr: string
   airdropPointsDetail: {
     init: string
     byTwitter: string
@@ -61,6 +62,7 @@ export interface IActiveData {
   avatar: string // 头像
   nickname: string // 昵称
   ranking: string // 当前用户的排名
+  rankingStr: string // 当前用户的排名
 }
 export const initActiveData: IActiveData = {
   accountAddress: AddressZero,
@@ -106,7 +108,9 @@ export const initActiveData: IActiveData = {
   ranking: '',
   isCheckedAirdropPoints: false,
   mintMinimum: '', // 最少质押多少给 SBT
-  sbtAmount: ''
+  sbtAmount: '',
+  airdropPointsStr: '',
+  rankingStr: ''
 }
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({
@@ -135,6 +139,7 @@ export interface ITVLStakingData extends IToken {
   name: string
   chainId?: ChainId
   END_TIME?: string
+  getMinStake?: string // CR Hero 最少质押量
 }
 export const initData: ITVLStakingData = {
   allowance: '',
@@ -273,7 +278,8 @@ export const chooseChainState = atom<ChainId | undefined>({
 })
 export const tvlPathState = atom<number>({
   key: 'tvlPathState',
-  default: 0
+  default: 0,
+  effects_UNSTABLE: [localStorageEffect('tvlPathState')]
 })
 
 export const chainIndexState = atom<number>({

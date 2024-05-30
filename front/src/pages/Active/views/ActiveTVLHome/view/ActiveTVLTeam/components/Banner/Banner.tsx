@@ -45,9 +45,9 @@ const Banner = memo(() => {
       <div className={css.bottom}>
         <img src={preStaticUrl + '/img/tvl/box.png'} className={css.box} />
         <ul className={css.bottom_card}>
-          <LiItem title={'#' + activeData.ranking ?? ''} label={'Ranking'} iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'} />
+          <LiItem title={'#' + activeData.rankingStr ?? ''} label={'Ranking'} iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'} />
           <LiItem
-            title={activeData.airdropPoints}
+            title={activeData.airdropPointsStr}
             label={'Airdrop Points'}
             warnText={[
               'Here is the total airdrop points, including:',

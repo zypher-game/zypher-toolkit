@@ -37,7 +37,7 @@ const Card = memo(
 
     const { account } = useActiveWeb3React()
     const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
-    const { crHeroBoxAmount, dollarGpRewords, sbtAmount } = useMemo(() => {
+    const { crHeroBoxAmount, dollarGpRewords, sbtAmount, mintMinimum } = useMemo(() => {
       if (canNext(account, chainIdLocal)) {
         return activeDataSource[chainIdLocal] ?? initActiveData
       }
@@ -48,19 +48,19 @@ const Card = memo(
     const hasSbt = useMemo(() => {
       return sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
     }, [sbtAmount])
-    const { airdropPointsTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip, availableInvitationsTooltip } = useMemo(() => {
+    const { airdropPointsTooltip, growthCoefficientNativeTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip } = useMemo(() => {
       if (chainIdLocal) {
-        return getTooltip(chainIdLocal)
+        return getTooltip({ chainId: chainIdLocal, mintMinimum })
       }
       return {
         airdropPointsTooltip: [''],
+        growthCoefficientNativeTooltip: [''],
         growthCoefficientTooltip: [''],
         SBTTooltip: [''],
         crHeroTooltip: [''],
-        gpTooltip: [''],
-        availableInvitationsTooltip: ['']
+        gpTooltip: ['']
       }
-    }, [chainIdLocal])
+    }, [chainIdLocal, getTooltip, mintMinimum])
     return (
       <div className={css.card}>
         <div className={css.cardOne}>
@@ -69,7 +69,7 @@ const Card = memo(
             airdropPoints={stakingAirdropStr}
             growthCoefficient={stakingGrowthCoefficient}
             airdropPointsTooltip={airdropPointsTooltip}
-            growthCoefficientTooltip={growthCoefficientTooltip}
+            growthCoefficientTooltip={growthCoefficientNativeTooltip}
           />
           <PixelCardOne
             title={'Obtained by restaking tokens'}
@@ -88,7 +88,7 @@ const Card = memo(
             content={hasSbt ? 'Play games on L3 with zero gas!' : `Still need more ${Currency[chainIdLocal]} to unlock`}
             warning={SBTTooltip}
             btnLabel={hasSbt ? 'Go' : 'Stake'}
-            onClick={() => onClaimSBTHandle(chainIdLocal)}
+            onClick={() => onClaimSBTHandle(chainIdLocal, hasSbt)}
             btnLoading={claimSBTLoading}
             disable={false}
             dataLoading={false}
@@ -181,7 +181,7 @@ const PixelCardTwo = memo(
     return (
       <PixelCard>
         <div className={css.title_content}>
-          <LoadingButton isLoading={dataLoading} />
+          <LoadingButton isLoading={dataLoading} hideMl={true} />
           <h4>{dataLoading ? ' ' : !title || title === '' ? '0' : title}</h4>
         </div>
         <div className={css.grey_title}>

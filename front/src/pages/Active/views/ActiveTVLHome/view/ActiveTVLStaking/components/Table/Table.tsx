@@ -3,7 +3,7 @@ import React, { memo, useCallback, useMemo } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
-import { ITVLStakingData, tvlStakingDataState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
+import { ITVLStakingData, tvlStakingDataState } from '@/pages/Active/state/activeState'
 
 import css from './Table.module.styl'
 const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {

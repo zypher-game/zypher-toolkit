@@ -164,9 +164,9 @@ const ChangeNameDialog = memo(() => {
   }
   return (
     <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent>
+      <DialogContent className={css.inner}>
         <PixelTable
-          width="380px"
+          width={isW768 ? '100%' : '380px'}
           height="390px"
           className={css.table_body}
           backgroundColor="#1D263B"

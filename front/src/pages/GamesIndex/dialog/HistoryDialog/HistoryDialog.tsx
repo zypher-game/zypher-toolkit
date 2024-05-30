@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, IsPixelWidget, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ActivePixelCard, DialogClose, IsPixelWidget, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
@@ -19,9 +19,9 @@ const HistoryDialog = memo(() => {
   return (
     <DialogOverlay className={css.bottom} isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className={`pixel_DialogContent ${css.dataDialog}`}>
-        <IsPixelWidget type={isM ? 'other' : 'pixel'} className={css.content} pixel_height={10} backgroundColor="#1D263B" borderColor="#1D263B">
+        <ActivePixelCard hidePixel={isM ? true : false} className={css.content} pixel_height={10} backgroundColor="#1D263B" borderColor="#1D263B">
           <Profile />
-        </IsPixelWidget>
+        </ActivePixelCard>
         <DialogClose onClick={handleCancel} />
       </DialogContent>
     </DialogOverlay>

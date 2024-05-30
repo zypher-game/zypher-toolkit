@@ -34,6 +34,8 @@
     input
       font-size: 18px
       font-weight: 600
+      @media screen and (max-width: 830px)
+        font-size: 16px
 .text
   margin: 20px 0 10px
   width: 100%
@@ -47,3 +49,8 @@
   justify-content: center
   align-items: center
   flex-direction: column
+body [data-reach-dialog-content].inner
+  @media screen and (max-width: 830px)
+    width calc(100% - 30px)
+    :global(.modalTitleInnerTitle)
+      text-align: left

@@ -254,10 +254,10 @@ export const useStakingCall = () => {
       const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
       const statistics = {
         stakingAirdrop: stakingAirdrop,
-        stakingAirdropStr: new BigNumberJs(stakingAirdrop).toFixed(2),
+        stakingAirdropStr: new BigNumberJs(stakingAirdrop).toFormat(2),
         stakingGrowthCoefficient: stakingGrowthCoefficient,
         restakingAirdrop: restakingAirdrop,
-        restakingAirdropStr: new BigNumberJs(restakingAirdrop).toFixed(2),
+        restakingAirdropStr: new BigNumberJs(restakingAirdrop).toFormat(2),
         restakingGrowthCoefficient: restakingGrowthCoefficient
       }
       return {
