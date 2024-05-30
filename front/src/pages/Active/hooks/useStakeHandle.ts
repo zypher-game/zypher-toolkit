@@ -41,6 +41,7 @@ import { canNext, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { useGetData } from './useActiveInit'
 import { useStake, useStakeData } from './useStakeData'
+import { useTvlStakingDialogState } from './useTvlStakingDialogState'
 
 export const useStakeHandle = (): {
   isDepositLoading: boolean
@@ -71,8 +72,8 @@ export const useStakeHandle = (): {
   const isW768 = useIsW768()
   // const { isRegistered } = tvlStakingData
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
-  const [tvlStakingDialog, setTvlStakingDialog] = useRecoilState(tvlStakingDialogState)
-
+  const tvlStakingDialog = useRecoilValue(tvlStakingDialogState)
+  const setTvlStakingDialog = useTvlStakingDialogState()
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
 
@@ -93,7 +94,7 @@ export const useStakeHandle = (): {
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
         if (tvlStakingDialog) {
-          setTvlStakingDialog(false)
+          setTvlStakingDialog(nativeChainId, false)
         }
       }
     },
@@ -251,7 +252,8 @@ export const useStakeHandle = (): {
 export const useReStakingHandle = () => {
   const { switchNetwork } = useSwitchNetwork()
   const preHandleAction = usePreHandleAction()
-  const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
+  const setTvlStakingDialog = useTvlStakingDialogState()
+
   const [claimSBTLoading, setClaimSBTLoading] = useState(false)
   const [claimCrLoading, setClaimCrLoading] = useState(false)
   const [claimGpLoading, setClaimGpLoading] = useState(false)
@@ -354,38 +356,12 @@ export const useReStakingHandle = () => {
     window.open(crLink + '/airdrop', '_blank')
   }, [])
 
-  const onClaimSBTHandle = useCallback(async () => {
-    setIsModalOpen(true)
-    // try {
-    //   const isOk = _pre({ loading: claimSBTLoading, setLoading: setClaimSBTLoading, amount: dollarGpRewords })
-    //   if (!isOk) {
-    //     return
-    //   }
-    //   const contract = TVLStakingContract({ chainId: nativeChainId, env, signer: walletClient! })
-    //   if (!contract) {
-    //     setErrorToast(GlobalVar.dispatch, 'StakingContract is not ready')
-    //     return
-    //   }
-    //   setClaimGpLoading(true)
-    //   const res = await contract.write.claim()
-    //   const hash = typeof res === 'string' ? res : res.hash
-    //   const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-    //   if (depositTx && depositTx.status === txStatus) {
-    //     setClaimGpLoading(false)
-    //     _successGet({
-    //       tx: depositTx,
-    //       blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber(),
-    //       successText: 'Claim $GP  successful'
-    //     })
-    //   } else {
-    //     throw Object.assign(new Error('Claim $GP Transaction Failed'), { name: 'Buy' })
-    //   }
-    // } catch (e) {
-    //   setClaimGpLoading(false)
-    //   setErrorToast(GlobalVar.dispatch, e)
-    //   console.error('Claim $GP Handle: ', e)
-    // }
-  }, [crHeroBoxAmount, _pre])
+  const onClaimSBTHandle = useCallback(
+    async (chainId: ChainId) => {
+      setTvlStakingDialog(chainId, true)
+    },
+    [crHeroBoxAmount, _pre]
+  )
 
   return {
     claimGpLoading,

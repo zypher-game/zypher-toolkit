@@ -24,9 +24,14 @@ body .staking_staking
   right: -19px;
   height: calc(100% - 2px)
   width 130px
+  @media screen and (max-width: 830px)
+    width 107px
   > .pixel_flat_inner 
     gap: 6px
     padding-left: 20px;
+    @media screen and (max-width: 830px)
+      gap: 4px
+      padding-left: 18px;
   &:after
     content: "";
     width: 20px;

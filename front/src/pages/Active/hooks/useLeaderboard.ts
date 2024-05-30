@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react'
 
+import { calculateTimeAgo } from '@/utils/calculateTimeAgo'
+
 import { useActiveData } from './useActiveData'
 import { useChainIndex } from './useChainIndex'
 import { useLeaderBoardCall } from './useDataCall'
@@ -8,13 +10,15 @@ export type IRankBoard = {
   headImg: string
   fromNickname: string
   score: string
+  scoreStr: string
   rank: number
 }
-type IRecentUser = {
+export type IRecentUser = {
   nickname: string
   fromNickname: string
   headImg: string
   joinTime: number
+  joinTimeStr: number
 }
 export const useLeaderBoard = () => {
   const [recentUser, setRecentUser] = useState<IRecentUser[]>([])
@@ -34,10 +38,15 @@ export const useLeaderBoard = () => {
           setMy(res_myRankBoard)
         }
         if (res_recentUser) {
-          setRecentUser(res_recentUser.data ?? [])
+          setRecentUser(
+            res_recentUser.data.map((v: any) => ({
+              ...v,
+              joinTimeStr: calculateTimeAgo(v['joinTime'])
+            })) ?? []
+          )
         }
         if (res_rankBoard) {
-          setRankBoard(res_rankBoard.data ?? [])
+          setRankBoard(res_rankBoard ?? [])
         }
       } catch (e) {
         console.log('useLeaderBoard err:', e)

@@ -8,7 +8,7 @@
   width: 420px;
   height: 420px;
   overflow: hidden
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     max-width: 340px
     height: 380px;
     width: 90%
@@ -33,7 +33,7 @@
       font-size: 16px
       margin-bottom: 16px
       margin-top: 10px;
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 14px
         margin-bottom: 10px
       :global(.KanitNormalBorder_inner) 
@@ -44,7 +44,7 @@
       font-weight: bold
       line-height: 32px
       margin-bottom: 50px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 24px
         margin-bottom: 40px
     .lineWrap
@@ -81,7 +81,7 @@
         justify-content: space-between
         align-items: center
         gap: 12px;
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           padding: 15px 20px
       .circle
         background: linear-gradient(to right, #C597FF, #5FD7FF); 
@@ -90,7 +90,7 @@
         height: 24px
         text-align: center
         padding: 1px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           width: 20px
           height: 20px
         .circleInner
@@ -104,17 +104,17 @@
           &.small
             p
               font-size: 12px;
-              @media screen and (max-width: 768px)
+              @media screen and (max-width: 830px)
                 font-size: 8px;
           p
             font-size: 16px;
-            @media screen and (max-width: 768px)
+            @media screen and (max-width: 830px)
               font-size: 14px;
       .line1,
       .line2
         width 107px
         height: 1px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           width 60px
       .line1
         background: #62D3FF
@@ -132,7 +132,7 @@
   border-radius: 8px;
   background: linear-gradient(90deg, #9274F9 0.27%, #5FD7FF 99.85%);
   transition: transform 0.3s ease;
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     font-size: 14px;
     padding: 9px 0
   &.forbid
@@ -173,7 +173,7 @@
     z-index 9
     position: relative
     padding-top: 230px;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       padding-top: 200px;
     .title
       width: 68%
@@ -181,7 +181,7 @@
       font-size: 24px;
       line-height: 24px;
       text-align: center
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 20px;
         line-height: 20px;
   .comboBanner_bg02
@@ -190,5 +190,5 @@
     top: -20px
     width 53%
     transform: translateX(50%)
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width 60%

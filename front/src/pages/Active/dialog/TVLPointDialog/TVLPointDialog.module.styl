@@ -1,6 +1,15 @@
+body [data-reach-dialog-content].center
+  @media screen and (max-width: 830px)
+    width: calc(100% - 32px)
+  :global(.dialog_close)
+    top 20px
+    right 20px
 .TVLPointDialog
   width: 580px
   padding: 60px 0
+  @media screen and (max-width: 830px)
+    width: 100%
+    padding: 0 20px
   :global(>.pixel_flat_inner)
     flex-direction: column
     text-align: center
@@ -8,13 +17,24 @@
     font-size: 18px
     line-height: 22px
     font-weight: 600
+    @media screen and (max-width: 830px)
+      width: 90%
+      font-size: 16px
+      line-height: 19px
+      padding-top: 50px
   .card
     width: 400px
     margin: 40px 0 34px
-  .btn
-    display: flex
-    justify-content: space-between
-    align-items: center
-    gap: 24px
+    @media screen and (max-width: 830px)
+      width: 100%
+      margin: 20px 0 30px
+.btn
+  display: flex
+  justify-content: space-between
+  align-items: center
+  gap: 24px
+  @media screen and (max-width: 830px)
+    gap: 15px
+    margin: 20px 0
   .yellow
     color: #934417

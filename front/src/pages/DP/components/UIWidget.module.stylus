@@ -89,7 +89,7 @@
   height: 44px;
   border-radius: 8px;
   background: linear-gradient(116deg, #FF0583 -38.28%, #FDAE65 37.22%, #FDF2CD 100.16%);
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 100px
   &.large
     width: 158px

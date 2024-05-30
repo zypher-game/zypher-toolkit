@@ -16,7 +16,7 @@
       font-weight: 600
       font-size: 32px
       line-height: 48px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         line-height: 36px
         font-size: 24px;
         padding-top: 26px
@@ -29,6 +29,6 @@
       @media screen and (max-width: 1200px)
         line-height: 22px
         font-size: 14px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         margin: 24px auto 76px
 

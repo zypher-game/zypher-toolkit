@@ -254,10 +254,10 @@ export const useStakingCall = () => {
       const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
       const statistics = {
         stakingAirdrop: stakingAirdrop,
-        stakingAirdropStr: new BigNumberJs(stakingAirdrop).dividedBy(divisorBigNumber).toFixed(2),
+        stakingAirdropStr: new BigNumberJs(stakingAirdrop).toFixed(2),
         stakingGrowthCoefficient: stakingGrowthCoefficient,
         restakingAirdrop: restakingAirdrop,
-        restakingAirdropStr: new BigNumberJs(restakingAirdrop).dividedBy(divisorBigNumber).toFixed(2),
+        restakingAirdropStr: new BigNumberJs(restakingAirdrop).toFixed(2),
         restakingGrowthCoefficient: restakingGrowthCoefficient
       }
       return {
@@ -317,6 +317,7 @@ export const useLeaderBoardCall = () => {
             headImg: `${v.headImg}`,
             fromNickname: `${v.fromNickname}`,
             score: `${v.score}`,
+            scoreStr: new BigNumberJs(v.score).toFormat(2),
             rank: Number(v.rank)
           } as IRankBoard)
       )
@@ -343,6 +344,7 @@ export const useLeaderBoardCall = () => {
         headImg: `${my_rank_board_res.data.headImg}`,
         fromNickname: `${my_rank_board_res.data.fromNickname}`,
         score: `${my_rank_board_res.data.score}`,
+        scoreStr: new BigNumberJs(my_rank_board_res.data.score).toFormat(2),
         rank: Number(my_rank_board_res.data.rank)
       } as IRankBoard
     } catch (e: any) {

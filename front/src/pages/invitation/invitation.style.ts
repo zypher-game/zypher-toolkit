@@ -23,7 +23,7 @@ export const MyTable = styled(Table)<{ isMobile: boolean }>`
       padding-left: 0;
       // width: 32%;
 
-      // @media (max-width: 768px) {
+      // @media (max-width: 830px) {
       //   width: 25%;
       // }
     }
@@ -32,7 +32,7 @@ export const MyTable = styled(Table)<{ isMobile: boolean }>`
     // }
     &:last-child {
       padding-right: 40px;
-      @media (max-width: 768px) {
+      @media (max-width: 830px) {
         padding-right: 10px;
         min-width: 50px;
       }
@@ -41,7 +41,7 @@ export const MyTable = styled(Table)<{ isMobile: boolean }>`
   tr > th {
     &:nth-child(1) {
       padding-left: 20px;
-      @media (max-width: 768px) {
+      @media (max-width: 830px) {
         padding-left: 10px;
       }
     }
@@ -57,7 +57,7 @@ export const MyTable = styled(Table)<{ isMobile: boolean }>`
         padding-top: 30px;
         padding-bottom: 30px;
 
-        @media (max-width: 768px) {
+        @media (max-width: 830px) {
           padding-top: 10px;
           padding-bottom: 10px;
         }
@@ -90,7 +90,7 @@ export const MyTable = styled(Table)<{ isMobile: boolean }>`
 
     ${({ isMobile }) =>
       css`
-        @media (max-width: 768px) {
+        @media (max-width: 830px) {
           font-size: ${isMobile ? '12px' : '14px'};
         }
       `}
@@ -120,7 +120,7 @@ export const MyTable = styled(Table)<{ isMobile: boolean }>`
   }
   tr > td,
   & tr > th {
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       padding: 0px;
       padding-top: 10px;
       padding-bottom: 10px;

@@ -1,4 +1,4 @@
-import { LoadingButton, preStaticUrl, SvgComponent, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { LoadingButton, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { ActivePixelButton, ActivePixelCard } from '@ui/src'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
@@ -99,7 +99,7 @@ const FrStatus = memo(({ label, btnLabel, onClick, isLoading }: { label?: string
 const LiItem = memo(({ fl, fr }: { fl: any; fr: any }) => {
   return (
     <li className={css.liItem}>
-      <ActivePixelCard className="bind_liBg" pixel_height={2} backgroundColor="#1D263B">
+      <ActivePixelCard className="bind_liBg" pixel_height={4} backgroundColor="#1D263B">
         {typeof fl === 'string' ? <p>{fl}</p> : fl}
         {typeof fr === 'string' ? <p>{fr}</p> : fr}
       </ActivePixelCard>

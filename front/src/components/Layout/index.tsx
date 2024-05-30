@@ -20,17 +20,20 @@ const { Sider, Content } = LayoutAntd
 interface IProps {
   children: React.ReactNode
 }
-const Layout: React.FC<IProps> = memo((props: IProps) => {
+const Layout = memo((props: IProps) => {
   const location = useLocation()
   const [pathnameArr, setPathname] = useRecoilState<string[]>(pathnameState)
   const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState)
   const isW768 = useIsW768()
   const [zIndex, setZIndex] = useState(21)
   const dispatch = useAppDispatch()
-
+  console.log({ location })
+  console.log(1, { pathnameArr })
   useEffect(() => {
     const arr = location.pathname.split('/')
+    console.log(1, arr)
     setPathname(arr)
+    console.log(2)
   }, [location])
   useEffect(() => {
     if (isW768) {

@@ -19,7 +19,7 @@ const MonsterCountdownStyled = styled.div`
   img {
     width: 32px;
     height: 32px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       width: 20px;
       height: 20px;
     }
@@ -33,7 +33,7 @@ const MonsterCountdownStyled = styled.div`
     font-family: 'Arial Rounded MT Bold';
     font-size: 30px;
     line-height: 50px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       line-height: 23px;
       font-size: 20px;
     }
@@ -41,7 +41,7 @@ const MonsterCountdownStyled = styled.div`
   &.fightAction {
     gap: 8px;
     margin-top: 16px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       margin-top: 10px;
     }
     img {

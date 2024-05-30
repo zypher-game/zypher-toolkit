@@ -7,7 +7,7 @@
   flex-wrap: wrap;
   padding: 40px
   gap: 20px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     flex-direction: column 
     padding: 0 15px;
     max-height: 80vh;
@@ -17,7 +17,7 @@
     padding: 24px 30px
     flex: 1;
     width: 47%;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 100%
       padding: 16px 20px
     :global(> .pixel_flat_inner)
@@ -33,7 +33,7 @@
       width: 20%
       margin-right: 20px
 
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         min-width: auto
         width: 40px
         margin-right: 10px
@@ -46,7 +46,7 @@
       color: #fff
       @media screen and (max-width: 1068px)
         font-size: 14px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 12px
         line-height: 18px
         font-weight: 400
@@ -54,7 +54,7 @@
     .munSke
       width: 120px
       height: 30px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: 80px
         height: 22px
 
@@ -66,7 +66,7 @@
       margin: 6px 0 0
       @media screen and (max-width: 1368px)
         font-size: 16px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 14px
         line-height: 22px
         margin: 0

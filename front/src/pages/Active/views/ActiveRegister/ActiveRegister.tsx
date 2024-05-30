@@ -1,3 +1,4 @@
+import { useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
@@ -11,6 +12,7 @@ import EarthPart from './components/EarthPart/EarthPart'
 import InvitationCode from './components/InvitationCode/InvitationCode'
 
 const ActiveRegister = memo(() => {
+  const isW768 = useIsW768()
   const { activeData } = useActiveData()
   const { invitationCode, checkAirdropPointsLoading } = activeData
   useSign()
@@ -19,16 +21,20 @@ const ActiveRegister = memo(() => {
     <ActiveComp>
       <div className={css.register}>
         <div className={css.textPart}>
-          <div className={css.textPartInner}>
-            <h2>{"King's League:"}</h2>
-            <h3>Asset Domination Tournament</h3>
-            <p>
-              In this virtual contest, participants will amass wealth through strategic staking, assert their dominance via competitive rankings, and
-              partake in the joy of both rivalry and camaraderie within team collaborations. Together, they vie for the ultimate crown of supremacy
-              within the Digital Kingdom.
-            </p>
-            <p>This round of competition time: April 20, 2024 ~ July 20, 2024</p>
-          </div>
+          {checkAirdropPointsLoading && isW768 ? (
+            <></>
+          ) : (
+            <div className={css.textPartInner}>
+              <h2>{"King's League:"}</h2>
+              <h3>Asset Domination Tournament</h3>
+              <p>
+                In this virtual contest, participants will amass wealth through strategic staking, assert their dominance via competitive rankings,
+                and partake in the joy of both rivalry and camaraderie within team collaborations. Together, they vie for the ultimate crown of
+                supremacy within the Digital Kingdom.
+              </p>
+              <p>This round of competition time: April 20, 2024 ~ July 20, 2024</p>
+            </div>
+          )}
           <div className={css.process}>
             {!invitationCode ? (
               <InvitationCode />
@@ -39,7 +45,7 @@ const ActiveRegister = memo(() => {
             )}
           </div>
         </div>
-        <EarthPart />
+        {checkAirdropPointsLoading && isW768 ? <></> : <EarthPart />}
       </div>
     </ActiveComp>
   )

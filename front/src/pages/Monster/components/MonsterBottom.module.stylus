@@ -5,12 +5,12 @@
   transform: translate(-50%, 0)
   @media screen and (max-width: 1440px)
     width: calc(100vw - 250px)
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 100vw
   &.MonsterNft
     bottom: 55px
   &.Fight, &.End
     bottom: 80px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       bottom: 30px
       width: 100vw

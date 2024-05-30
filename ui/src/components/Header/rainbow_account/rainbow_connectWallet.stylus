@@ -18,7 +18,7 @@
             border: 1px solid transparent;
             &:hover
                 border: 1px solid var(--var-btn-hover)
-            @media screen and (max-width: 768px)
+            @media screen and (max-width: 830px)
                 border: 1px solid rgba(255,255,255,0.2)
                 &:hover
                     border: 1px solid rgba(255,255,255,0.2)
@@ -29,7 +29,7 @@
         height: 38px;
         line-height: 38px
         transition: all 0.3s
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
             height: 28px;
             line-height: 28px
         &:hover
@@ -54,7 +54,7 @@
             transition: all 0.3s
             padding: 0 14px
             
-            @media screen and (max-width: 768px)
+            @media screen and (max-width: 830px)
                 padding: 0 12px
 
   

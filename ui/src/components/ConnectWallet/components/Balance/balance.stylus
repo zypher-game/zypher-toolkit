@@ -10,14 +10,14 @@
   &.balance_item_balance_pixel 
     padding: 0 16px
 
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding: 0 8px
     font-size: 12px
   .balance_item_img, img
     width: 24px
     height: 24px
     margin-left: 10px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 20px
       height: 24px
       margin-left: 4px
@@ -43,6 +43,6 @@
     svg 
       width: 24px
       height: 24px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: 16px
         height: 16px

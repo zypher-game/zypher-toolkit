@@ -28,7 +28,7 @@ const ActiveTVLStaking = memo(() => {
   return (
     <TVLWrap type="inner">
       <Banner />
-      <StakingTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
+      <StakingTab chainIdLocal={chainIdLocal} chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
       <Card
         claimGpLoading={claimGpLoading}
         onClaimGPHandle={onClaimGPHandle}

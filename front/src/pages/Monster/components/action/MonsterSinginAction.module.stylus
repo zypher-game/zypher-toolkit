@@ -15,7 +15,7 @@
     box-shadow: 0px 0px 2px 0px rgba(9, 14, 51, 0.30);
     top: 50%
     transform: translate(0, -50%)
-    // @media screen and (max-width: 768px)
+    // @media screen and (max-width: 830px)
     //   height: 6px;
     .line
       position: absolute
@@ -25,7 +25,7 @@
       top: 0
       left: 0
       padding: 1px 0
-      // @media screen and (max-width: 768px)
+      // @media screen and (max-width: 830px)
       //   padding: 1px 0
     .lineInner
       background-color: #9CA6FF
@@ -34,7 +34,7 @@
   .singInContent
     flexCenter()
     gap: 5vw
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       gap: 30vw
     .singIn
       width: 45px
@@ -45,7 +45,7 @@
       position: relative
       background: radial-gradient(circle at center, #0f1a4a 0%, #0f1a4a 40%, rgba(15, 26, 74, 0) 100%)
       border-radius: 50%
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: 36px
         height: 42px
         min-width: 36px
@@ -60,7 +60,7 @@
         font-size: 20px;
         font-weight: 400;
         color: #AFD9FF;
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           font-size: 12px;
       img
         width: 100%
@@ -71,7 +71,7 @@
   .btn
     flexCenter()
     gap: 24px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       gap: 10px
       width: 100vw;
       padding: 0 16px
@@ -102,7 +102,7 @@
         box-shadow: 0.5px 1px 0px 0px #ADF1FD inset, 0px 1px 0px 0px #000;
       @media screen and (max-width: 1450px)
         width: 240px;
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         flex: 1
     .battlePass
       width: 180px;
@@ -115,10 +115,10 @@
         box-shadow: 0.5px 1px 0px 0px #FFF inset, 0px 1px 0px 0px #000;
       @media screen and (max-width: 1450px)
         width: 180px;
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: 116px;
     .chechIn,
     .battlePass
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 20px;
         height: 46px;

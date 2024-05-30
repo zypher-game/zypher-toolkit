@@ -418,7 +418,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
       height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
       top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
       left: 0;
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 830px) {
         height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
         top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
       }
@@ -436,7 +436,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
       z-index: 3;
       width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
       left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 830px) {
         width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
         left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
       }
@@ -447,7 +447,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
       width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
       top: ${({ pixel_height }) => pixel_height + "px"};
       left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 830px) {
         width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
         top: ${({ pixel_height }) => pixel_height + "px"};
         left: ${({ pixel_height }) => pixel_height + "px"};
@@ -458,7 +458,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
       z-index: 4;
       width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
       left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 830px) {
         width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
         left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
       }
@@ -468,7 +468,7 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
       width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
       bottom: ${({ pixel_height }) => pixel_height + "px"};
       left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 830px) {
         width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
         bottom: ${({ pixel_height }) => pixel_height + "px"};
         left: ${({ pixel_height }) => pixel_height + "px"};

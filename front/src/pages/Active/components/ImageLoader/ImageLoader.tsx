@@ -8,7 +8,7 @@ export interface IImageProps {
 }
 
 const MAX_RETRY_ATTEMPTS = 3 // 最大重试次数
-const RETRY_DELAY = 2000 // 重试间隔时间，单位为毫秒
+const RETRY_DELAY = 300 // 重试间隔时间，单位为毫秒
 
 const ImageLoader: React.FC<IImageProps> = memo(({ src, className, alt, cb, errCb }: IImageProps) => {
   const [isLoading, setIsLoading] = useState(true)

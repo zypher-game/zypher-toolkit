@@ -1,6 +1,6 @@
 .dpBanner
   position: relative
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     display: flex
     flex-direction: column
     justify-content: center
@@ -12,7 +12,7 @@
     font-size: 42px;
     font-weight: 600;
     padding-bottom: 22px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       font-size: 32px;
       line-height: 38px; 
       font-weight: 500;  
@@ -24,7 +24,7 @@
     width: 100%
     min-width: 1608px
     height: 790px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 101%
       min-width: auto
   .content
@@ -37,7 +37,7 @@
     transform: translateY(-50%)
     width: 330px;
     height: 356px;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       position: relative
       top: auto
       right: auto
@@ -53,7 +53,7 @@
     margin:  0 auto
     @media screen and (max-width: 1540px)
       width: 90%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       padding: 70px 0 40px
     .grey
       font-size: 12px;
@@ -84,12 +84,12 @@
       gap: 32px
       padding-bottom: 50px
       margin: 0
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         justify-content: center
         gap: 0
         padding-bottom: 10px
       li
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           width: calc(50% - 1px);
           padding-bottom: 20px
           &.lineOn
@@ -112,5 +112,5 @@
       height: 56px;
       border-radius: 8px;
       background: linear-gradient(96deg, #E2FFEA -10.56%, #50DAFF 28.52%, #FF3E97 62.63%, #EE8248 108.53%);
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         height: 48px;

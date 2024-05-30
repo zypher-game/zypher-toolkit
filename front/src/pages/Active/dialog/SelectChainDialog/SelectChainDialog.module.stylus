@@ -13,9 +13,6 @@
   :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2:before)
     transition: all 0.3s ease
   &:hover
-    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_1),  
-    :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1)
-      background-color: #1649FF
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_inner), 
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_top_2), 
     :global(> .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2),

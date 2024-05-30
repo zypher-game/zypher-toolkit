@@ -1,4 +1,4 @@
-import { accountInfoDialogState, ActivePixelButtonColor, useDisconnect, useRecoilState } from '@ui/src'
+import { accountInfoDialogState, ActivePixelButtonColor, useDisconnect, useIsW768, useRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
@@ -7,6 +7,7 @@ import { useToPath } from '@/pages/Active/hooks/useToPath'
 import css from './GetAirdropWrapV2.module.styl'
 
 const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; frImgPath: string }) => {
+  const isW768 = useIsW768()
   const { disconnect } = useDisconnect()
   const [, setAccountInfoDialogOpen] = useRecoilState(accountInfoDialogState)
   const { keepGoingHandle } = useToPath()
@@ -22,7 +23,14 @@ const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; f
         <p className={css.text}>
           Alternatively, you can still use this wallet to <strong>stake assets</strong> and <strong>invite friends</strong> to earn more points.
         </p>
-        <ActivePixelButtonColor themeType="brightBlue" onClick={keepGoingHandle} className={css.link} width="200px" height="52px" pixel_height={5}>
+        <ActivePixelButtonColor
+          themeType="brightBlue"
+          onClick={keepGoingHandle}
+          className={css.link}
+          width={isW768 ? '100%' : '200px'}
+          height={isW768 ? '48px' : '52px'}
+          pixel_height={5}
+        >
           <p>Keep Going</p>
         </ActivePixelButtonColor>
         <div className={css.linkA}>

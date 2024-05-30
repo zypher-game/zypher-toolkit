@@ -12,14 +12,25 @@ import React, { memo, useCallback, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { IAvailableCode, IGroupGoal } from '@/pages/Active/hooks/useTeam'
+import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { IActiveData, isTvlDataLoadingState, tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 
 import FrPixelBorder from '../../../../components/FrPixelBorder/FrPixelBorder'
 import AvailableCode from '../AvailableCode/AvailableCode'
 import css from './FrSomeWidget.module.styl'
 const FrSomeWidget = memo(
-  ({ activeData, groupGoal, availableCode }: { activeData: IActiveData; groupGoal: IGroupGoal; availableCode: IAvailableCode[] }) => {
-    const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
+  ({
+    activeData,
+    groupGoal,
+    availableCode,
+    loading
+  }: {
+    activeData: IActiveData
+    groupGoal: IGroupGoal
+    availableCode: IAvailableCode[]
+    loading: boolean
+  }) => {
+    const setTvlStakingDialog = useTvlStakingDialogState()
     const setIsTvlPointModalOpen = useSetRecoilState(tvlPointDialogState)
     const isDataLoading = useRecoilValue(isTvlDataLoadingState)
     const { chainId } = useActiveWeb3React()
@@ -27,8 +38,8 @@ const FrSomeWidget = memo(
       return Object.keys(tvlTokenAddress[chainId]).join(', ')
     }, [chainId])
     const stakingHandle = useCallback(() => {
-      setIsTvlStakingModalOpen(true)
-    }, [])
+      setTvlStakingDialog(chainId, true)
+    }, [chainId])
     const tvlPointHandle = useCallback(() => {
       if (activeData.airdropPointsCardNumber === '' || activeData.airdropPointsCardNumber === '0') {
         return
@@ -44,7 +55,7 @@ const FrSomeWidget = memo(
           </div>
           <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
           <div className={css.fr_number}>
-            <p>{activeData.userStakedAmountStr}</p>
+            {isDataLoading ? null : <p>{activeData.userStakedAmountStr}</p>}
             <LoadingButton isLoading={isDataLoading} />
             <img src={CurrencyLogo[chainId]} />
           </div>
@@ -60,7 +71,7 @@ const FrSomeWidget = memo(
             />
           </div>
           <p className={css.fr_grey}>
-            {Number(groupGoal.need) === 0 ? `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card` : null}
+            {Number(groupGoal.need) === 0 ? null : `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card`}
           </p>
           <div className={css.fr_number}>
             <p>{activeData.airdropPointsCardNumber === '' ? '0' : activeData.airdropPointsCardNumber}</p>
@@ -77,7 +88,7 @@ const FrSomeWidget = memo(
             <p>Open</p>
           </ActivePixelButtonColor>
         </FrPixelBorder>
-        <AvailableCode availableCode={availableCode} />
+        <AvailableCode availableCode={availableCode} loading={loading} />
       </>
     )
   }

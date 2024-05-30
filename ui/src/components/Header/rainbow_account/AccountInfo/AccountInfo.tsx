@@ -1,8 +1,12 @@
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useRef } from "react";
 import IsPixelWidget from "../IsPixelWidget";
 import { HeaderUIType } from "../../header";
-import { useSetRecoilState } from "recoil";
-import { accountInfoDialogState } from "../../../../components/ConnectWallet/state/connectWalletState";
+import { useRecoilState, useSetRecoilState } from "recoil";
+import {
+  accountInfoDialogState,
+  showBigState,
+  showMiddleState,
+} from "../../../../components/ConnectWallet/state/connectWalletState";
 import PlayerAvatar from "../../../../components/PlayerAvatar";
 import AccountInfoDialog, {
   AddressBigWrapPop,
@@ -30,8 +34,33 @@ const AccountInfo = memo(
   }: IAccountInfo) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
     const setAccountInfoDialogState = useSetRecoilState(accountInfoDialogState);
-    const [showBig, setShowBig] = useState(false);
-    const [showMiddle, setShowMiddle] = useState(false);
+    const [showBig, setShowBig] = useRecoilState(showBigState);
+    const [showMiddle, setShowMiddle] = useRecoilState(showMiddleState);
+    const bigDivRef = useRef<HTMLDivElement>(null);
+    const middleDivRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      const handleClickOutside = (event: MouseEvent) => {
+        if (bigDivRef.current) {
+          if (!bigDivRef.current.contains(event.target as Node)) {
+            setShowBig(false);
+          }
+        }
+        if (middleDivRef.current) {
+          if (!middleDivRef.current.contains(event.target as Node)) {
+            setShowMiddle(false);
+          }
+        }
+      };
+
+      // 添加监听事件
+      document.addEventListener("mousedown", handleClickOutside);
+
+      // 清理函数，移除事件监听器
+      return () => {
+        document.removeEventListener("mousedown", handleClickOutside);
+      };
+    }, []);
     const accountClick = useCallback(() => {
       if (isW768) {
         setShowBig(false);
@@ -43,20 +72,12 @@ const AccountInfo = memo(
         setShowBig((pre) => !pre);
       }
     }, [isW768, isMiddleWidth, setAccountInfoDialogState]);
-    useEffect(() => {
-      if (isW768 || isMiddleWidth) {
-        setShowBig(false);
-        setShowMiddle(false);
-      }
-    }, [isW768, isMiddleWidth]);
+
     return (
       <>
-        <IsPixelWidget
-          type={type}
-          className="address_wrap"
-          onClick={accountClick}
-        >
+        <IsPixelWidget type={type} className="address_wrap">
           <PlayerAvatar
+            onClick={accountClick}
             className="account"
             account={account}
             size={isW768 ? 30 : 40}
@@ -64,8 +85,16 @@ const AccountInfo = memo(
             type={type}
             chainId={chainId}
           />
-          {showBig ? <AddressBigWrapPop copy={copy} type={type} /> : null}
-          {showMiddle ? <AddressMiddleWrapPop copy={copy} type={type} /> : null}
+          {showBig ? (
+            <div ref={bigDivRef}>
+              <AddressBigWrapPop copy={copy} />{" "}
+            </div>
+          ) : null}
+          {showMiddle ? (
+            <div ref={middleDivRef}>
+              <AddressMiddleWrapPop copy={copy} />
+            </div>
+          ) : null}
         </IsPixelWidget>
         {isW768 ? <AccountInfoDialog copy={copy} type={type} /> : null}
       </>

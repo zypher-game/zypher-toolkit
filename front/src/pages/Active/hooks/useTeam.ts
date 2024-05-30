@@ -7,7 +7,7 @@ import { GlobalVar } from '@/constants/constants'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 
-import { tvlPointDialogState, tvlStakingDialogState } from '../state/activeState'
+import { getPointAmount, pointSuccessDialogState, tvlPointDialogState, tvlStakingDialogState } from '../state/activeState'
 import { useActiveData } from './useActiveData'
 import { useGetData } from './useActiveInit'
 import { useAvailableCode, useTeamCall } from './useDataCall'
@@ -38,6 +38,7 @@ export const useTeam = () => {
   const [teamMembers, setTeamMembers] = useState<ITeamMember[]>([])
   const [isLoadingSingle, setIsLoadingSingle] = useState<boolean>(false)
   const [isLoadingAll, setIsLoadingAll] = useState<boolean>(false)
+  const [loading, setLoading] = useState(false)
 
   const [groupGoal, setGroupGoal] = useState<IGroupGoal>({
     percent: '0',
@@ -50,11 +51,12 @@ export const useTeam = () => {
   })
   const { account, chainId } = useActiveWeb3React()
   const { getAvailableCode } = useAvailableCode()
-  const [loading, setLoading] = useState(false)
   const { getTeam, getGroupScoreCardNum, setOpenCard } = useTeamCall()
   const { id } = activeData
   const setIsTvlPointModalOpen = useSetRecoilState(tvlPointDialogState)
+  const setIsPointSuccessModalOpen = useSetRecoilState(pointSuccessDialogState)
   const tvlStakingDialog = useRecoilValue(tvlStakingDialogState)
+  const setPointAmount = useSetRecoilState(getPointAmount)
   const getDataTeam = useCallback(async () => {
     if (id) {
       if (loading || teamMembers.length) {
@@ -99,7 +101,8 @@ export const useTeam = () => {
 
         const totalBig = new BigNumberJs(total)
         const targetBig = new BigNumberJs(target)
-        const needBig = totalBig.minus(targetBig)
+        const needBig = targetBig.minus(totalBig)
+
         const need = needBig.gte(0) ? needBig : new BigNumberJs('0')
         const totalStr = totalBig.dividedBy(divisorBigNumber).toFixed(2)
         const targetStr = targetBig.dividedBy(divisorBigNumber).toFixed(2)
@@ -164,12 +167,14 @@ export const useTeam = () => {
               signature: _signedStr,
               isSingle: isSingle
             })
-
+            console.log({ setOpenCard_res })
             if (setOpenCard_res) {
               await getData()
               await getDataTeam()
+              setPointAmount(new BigNumberJs(setOpenCard_res.message).toFormat(2))
               setIsLoadingSingle(false)
               setIsLoadingAll(false)
+              setIsPointSuccessModalOpen(true)
               setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Open Card successful' })
               setIsTvlPointModalOpen(false)
             } else {
@@ -195,6 +200,7 @@ export const useTeam = () => {
     activeData,
     openCard,
     isLoadingAll,
-    isLoadingSingle
+    isLoadingSingle,
+    loading: loading && !teamMembers.length
   }
 }

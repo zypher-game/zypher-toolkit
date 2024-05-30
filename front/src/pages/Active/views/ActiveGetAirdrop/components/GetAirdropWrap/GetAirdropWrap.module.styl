@@ -1,26 +1,73 @@
-.airdrop
+.airdropWrap
   width 706px
-  margin: 150px auto 0
-  padding: 60px
+  margin: 0 auto
+  padding-top: 150px
+  @media screen and (max-width: 830px)
+    width 100%
+    padding-top: 20px
+.GetAirdropWrap
+  @media screen and (max-width: 830px)
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    gap: 20px
+    padding-left: 16px
+    padding-right: 16px
+
+.airdrop
+  padding: 78px 60px 60px
+  @media screen and (max-width: 830px)
+    padding: 30px 20px
+  :global(>.pixel_flat_inner)
+    flex-direction: column
+    align-items: center
+    gap: 52px
+    @media screen and (max-width: 830px)
+      gap: 20px
 .inner
   display: flex
   justify-content: space-between
   align-items: flex-start
-  margin-bottom: 52px
+  gap: 60px
+  @media screen and (max-width: 830px)
+    flex-direction: column-reverse
+    width: 100%;
+    gap: 20px
   .img
     width 250px;
+    overflow: hidden
+    @media screen and (max-width: 830px)
+      width: 100%
+      height: 128px
+      object-fit: cover;
+      padding-top: 40px
   .fl
     width: 280px
+    @media screen and (max-width: 830px)
+      width: 100%
+        
     h3
       font-size: 24px
       font-weight: 600
       padding-bottom: 20px
       border-bottom: 2px solid #3A4357
       margin-bottom: 30px
+      @media screen and (max-width: 830px)
+        font-size: 16px
+        padding-top: 0
+        border-bottom: 0
+        margin: 0
+        position: absolute;
+        width: 100%;
+        text-align: center;
+        top: 0;
   ul
     display: flex
     flex-direction: column
     gap: 40px
+    @media screen and (max-width: 830px)
+      gap: 30px
     li
       display: flex
       justify-content: space-between

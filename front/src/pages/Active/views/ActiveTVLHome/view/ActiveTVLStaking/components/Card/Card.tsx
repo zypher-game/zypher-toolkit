@@ -4,7 +4,7 @@ import React, { memo, useMemo } from 'react'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { canNext } from '@/pages/Active/hooks/activeHooks'
 import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
-import { activeDataState, IActiveDataState, initActiveData, restakingDataState } from '@/pages/Active/state/activeState'
+import { activeDataState, IActiveDataState, initActiveData, isTvlDataLoadingState, restakingDataState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
 // const Growth: Record<TVLChainId, [string, string]> = {
@@ -33,6 +33,7 @@ const Card = memo(
     chainIdLocal: ChainId
   }) => {
     const { getTooltip } = useAirdropPointsTooltip()
+    const isTvlDataLoading = useRecoilValue(isTvlDataLoadingState)
 
     const { account } = useActiveWeb3React()
     const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
@@ -87,9 +88,10 @@ const Card = memo(
             content={hasSbt ? 'Play games on L3 with zero gas!' : `Still need more ${Currency[chainIdLocal]} to unlock`}
             warning={SBTTooltip}
             btnLabel={hasSbt ? 'Go' : 'Stake'}
-            onClick={onClaimSBTHandle}
-            loading={claimSBTLoading}
+            onClick={() => onClaimSBTHandle(chainIdLocal)}
+            btnLoading={claimSBTLoading}
             disable={false}
+            dataLoading={false}
           />
           <PixelCardTwo
             title={crHeroBoxAmount}
@@ -97,8 +99,9 @@ const Card = memo(
             warning={crHeroTooltip}
             btnLabel="Open"
             onClick={onOpenCrHeroHandle}
-            loading={claimCrLoading}
+            btnLoading={claimCrLoading}
             disable={false}
+            dataLoading={isTvlDataLoading}
           />
           <PixelCardTwo
             title={`${dollarGpRewords} $GP`}
@@ -106,8 +109,9 @@ const Card = memo(
             warning={gpTooltip}
             btnLabel="Claim"
             onClick={() => onClaimGPHandle(chainIdLocal)}
-            loading={claimGpLoading}
+            btnLoading={claimGpLoading}
             disable={!dollarGpRewords || dollarGpRewords === '' || dollarGpRewords === '0' ? true : false}
+            dataLoading={isTvlDataLoading}
           />
         </div>
       </div>
@@ -147,21 +151,6 @@ const PixelCardOne = memo(
             </div>
           </div>
         </div>
-        {/* <div className={css.title_content}>
-
-          <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
-          <p>{growthCoefficient}</p>
-        </div>
-        <div className={css.sub_title}>
-          <div className={css.grey_title}>
-            <p>Airdrop Points</p>
-            <PixelTooltip title={airdropPointsTooltip} />
-          </div>
-          <div className={css.grey_title}>
-            <p>Growth coefficient</p>
-            <PixelTooltip title={growthCoefficientTooltip} />
-          </div>
-        </div> */}
       </PixelCard>
     )
   }
@@ -173,23 +162,28 @@ const PixelCardTwo = memo(
     warning,
     btnLabel,
     onClick,
-    loading,
+    btnLoading,
     hideBtn,
-    disable
+    disable,
+    dataLoading
   }: {
     title: string
     content: string
     warning: string[]
     btnLabel: string
     onClick: any
-    loading: boolean
+    btnLoading: boolean
     hideBtn?: boolean
     disable: boolean
+    dataLoading: boolean
   }) => {
     const isW768 = useIsW768()
     return (
       <PixelCard>
-        <h4 className={css.title_content}>{!title || title === '' ? '0' : title}</h4>
+        <div className={css.title_content}>
+          <LoadingButton isLoading={dataLoading} />
+          <h4>{dataLoading ? ' ' : !title || title === '' ? '0' : title}</h4>
+        </div>
         <div className={css.grey_title}>
           <p>{content}</p>
           <PixelTooltip title={warning} />
@@ -202,10 +196,10 @@ const PixelCardTwo = memo(
             height={isW768 ? '28px' : '36px'}
             className={css.fr_btn}
             onClick={onClick}
-            disable={disable || loading}
+            disable={disable || btnLoading}
           >
             <p>{btnLabel}</p>
-            <LoadingButton isLoading={loading} />
+            <LoadingButton isLoading={btnLoading} />
           </ActivePixelButtonColor>
         )}
       </PixelCard>

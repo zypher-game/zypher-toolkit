@@ -9,6 +9,7 @@ import {
   refreshAvatarState,
   sleep,
   useActiveWeb3React,
+  useIsW768,
   useRecoilState,
   useRecoilValue,
   useSetRecoilState
@@ -22,13 +23,13 @@ import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 
 import { canNext } from '../../hooks/activeHooks'
-import { useGetData } from '../../hooks/useActiveInit'
 import { useChainIndex } from '../../hooks/useChainIndex'
 import { useUpdateInfoCall } from '../../hooks/useDataCall'
 import { activeDataState, changeNameDialogState, IActiveDataState, initActiveData } from '../../state/activeState'
 import Avatar from '../../views/ActiveTVLHome/components/Avatar/Avatar'
 import css from './ChangeNameDialog.module.styl'
 const ChangeNameDialog = memo(() => {
+  const isW768 = useIsW768()
   const isModalOpen = useRecoilValue(changeNameDialogState)
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
 
@@ -195,7 +196,7 @@ const ChangeNameDialog = memo(() => {
               </ActivePixelButtonColor>
             </div>
           }
-          pixel_height={10}
+          pixel_height={isW768 ? 5 : 10}
         />
         <DialogClose onClick={handleCancel} />
       </DialogContent>

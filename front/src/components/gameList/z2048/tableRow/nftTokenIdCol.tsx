@@ -9,7 +9,7 @@ const NftTokenIdColStyled = styled.div`
   p {
     color: #1649ff;
     white-space: nowrap;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 830px) {
       font-size: 13px;
     }
   }
@@ -18,7 +18,7 @@ const NftTokenIdColStyled = styled.div`
     border: 1px solid #4d4a4a;
     border-radius: 50%;
     margin-left: 8px;
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 830px) {
       margin-left: 4px;
       width: 24px;
     }

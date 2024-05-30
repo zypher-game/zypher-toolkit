@@ -1,10 +1,24 @@
+body [data-reach-dialog-overlay].select_dialogWrap
+  @media screen and (max-width: 830px)
+    align-items: flex-end
 .select_dialogWrap
   .select_dialogContent
     width: 380px
     background-color: transparent !important
     padding: 0;
     position relative
+    @media screen and (max-width: 830px)
+      width: 100%;
+      background-color: #1D263B !important
+body .select_dialogContent .dialog_close
+  @media screen and (max-width: 830px)
+    top: 22px
 body .select_dialogContentInnerTop
+  @media screen and (max-width: 830px)
+    background-color: #293457;
+    padding: 20px 15px;
+    &.select_dialogContentInnerTopToken
+      padding: 15px;
   > .pixel_flat_btn_bg 
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1
@@ -14,6 +28,8 @@ body .select_dialogContentInnerTop
     flex-direction: column
 body .select_dialogContentInnerBottom
   padding: 20px 30px
+  @media screen and (max-width: 830px)
+    padding: 20px 15px
   > .pixel_flat_btn_bg 
     > .pixel_flat_btn_top_2,
     > .pixel_flat_btn_top_1
@@ -31,6 +47,8 @@ body .select_dialogContentInnerBottom
     gap: 10px
     margin: 0
     width: 100%
+    @media screen and (max-width: 830px)
+      padding: 15px 0 0
     // background-color: #293457
     .select_chain_li_img 
       width: 48px
@@ -50,3 +68,5 @@ body .select_dialogContentInnerBottom
       font-weight: 600
   .select_currency 
     flex: 1
+    p
+      margin-top: 2px

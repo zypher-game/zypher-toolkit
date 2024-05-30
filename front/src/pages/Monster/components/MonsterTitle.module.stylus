@@ -41,7 +41,7 @@
     @media screen and (max-width: 1200px)
       font-size: 27px;
       line-height: 37px;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       font-size: 23px;
       line-height: 28px;
       &.marginTop

@@ -32,7 +32,7 @@ const MySelect = styled(Select)`
     height: 50px;
     display: flex;
     align-items: center;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       font-size: 14px;
       height: 38px;
     }

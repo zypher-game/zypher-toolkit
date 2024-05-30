@@ -23,7 +23,6 @@ const Banner = memo(() => {
   const editNicknameHandle = useCallback(() => {
     setIsModalOpen(true)
   }, [])
-  console.log({ avatar })
   return (
     <ActivePixelCard pixel_height={4} backgroundColor="#FF5EAA" className="active_tvl_banner">
       <div className={css.top}>

@@ -1,6 +1,6 @@
 import './ActiveChooseHunter.styl'
 
-import { ActivePixelButtonColor, ActivePixelCard, ITvlHero, LoadingButton, preStaticUrl } from '@ui/src'
+import { ActivePixelButtonColor, ActivePixelCard, ITvlHero, LoadingButton, preStaticUrl, useIsW768 } from '@ui/src'
 import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
@@ -57,6 +57,7 @@ const hero = [
 ]
 const ActiveChooseHunter = memo(() => {
   useStake()
+  const isW768 = useIsW768()
   const navigate = useNavigate()
   const [heroKey, setHeroKey] = useState(0)
   const { toSetHero } = useToPath()
@@ -101,7 +102,8 @@ const ActiveChooseHunter = memo(() => {
     <ActiveComp>
       <div className={css.bg}>
         <h2>
-          Please choose your<i>Zypher Points Hunter!</i>
+          Please choose your{isW768 ? <br /> : null}
+          <i>Zypher Points Hunter!</i>
         </h2>
         <p className={css.textGrey}>Once you’ve chosen your avatar, you can start inviting team members!</p>
         <div className={css.inner}>
@@ -119,13 +121,14 @@ const ActiveChooseHunter = memo(() => {
           </ul>
           <div className={css.inner_inner}>
             <HeroImageLoader heroKey={hero[heroKey].keyValue} className={css.hero_big} level={'1'} />
+            {isW768 ? <p className={css.name}>{hero[heroKey].keyValue}</p> : null}
           </div>
           <div className={css.fr}>
             <ActivePixelCard className="hunter_kkk_border" pixel_height={4} backgroundColor="#1D263B" borderColor="#3A4254">
               <ActivePixelCard
                 className="hunter_kkk_title"
                 width="calc(100% - 8px)"
-                height="48px"
+                height={isW768 ? '40px' : '48px'}
                 pixel_height={4}
                 backgroundColor="#FF5EAA"
                 borderColor="#9c3666"
@@ -165,6 +168,7 @@ const LiItem = memo(
     attribute: string
     onClick: any
   }) => {
+    const isW768 = useIsW768()
     return (
       <li className={`hero_liItem ${on ? 'hero_liItem_on' : ''}`} onClick={onClick}>
         <ActivePixelCard
@@ -173,21 +177,24 @@ const LiItem = memo(
           height={on ? '96px' : '88px'}
           pixel_height={4}
           backgroundColor={on ? '#FFD02B' : '#1D263B'}
+          hidePixel={isW768}
         >
           <ActivePixelCard
-            className="hero_li_avatar"
-            width={on ? '116px' : '88px'}
-            height={on ? '112px' : '88px'}
+            className={isW768 ? '' : 'hero_li_avatar'}
+            width={isW768 ? (on ? '67px' : '56px') : on ? '116px' : '88px'}
+            height={isW768 ? (on ? '67px' : '56px') : on ? '112px' : '88px'}
             pixel_height={4}
             backgroundColor={on ? '#FFD584' : '#62A1FF'}
           >
             <img src={preStaticUrl + '/img/tvl/hero/' + keyValue + '_Avatar.png'} alt={keyValue} className="hero_liItem_avatar" />
           </ActivePixelCard>
-          <div className="hero_text_fr">
-            <h3>{keyValue}</h3>
-            <p>{attribute}</p>
-            <p>{characteristic}</p>
-          </div>
+          {isW768 ? null : (
+            <div className="hero_text_fr">
+              <h3>{keyValue}</h3>
+              <p>{attribute}</p>
+              <p>{characteristic}</p>
+            </div>
+          )}
         </ActivePixelCard>
       </li>
     )

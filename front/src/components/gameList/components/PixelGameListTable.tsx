@@ -45,7 +45,7 @@ const PixelGameListTableStyle = styled.div<{ bgColor: string }>`
       overflow-y: scroll;
       justify-content: flex-start;
       flex-direction: column;
-      @media screen and (max-width: 768px) {
+      @media screen and (max-width: 830px) {
         max-height: 230px;
         padding-top: 16px;
         padding-bottom: 16px;

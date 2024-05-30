@@ -11,6 +11,7 @@ import {
 } from '@ui/src'
 import React, { memo, useCallback, useState } from 'react'
 
+import NoDataListLoading from '@/components/NoData/NoDataListLoading/NoDataListLoading'
 import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
 import { getNickname } from '@/pages/Active/utils/getNicknameStr'
@@ -28,7 +29,7 @@ const ActiveTVLTeam = memo(() => {
   const refreshAvatar = useRecoilValue(refreshAvatarState)
   const isW768 = useIsW768()
   const [showTeamWarn, setShowTeamWarn] = useState(0)
-  const { groupGoal, availableCode, teamMembers, activeData, openCard, isLoadingSingle, isLoadingAll } = useTeam()
+  const { groupGoal, availableCode, teamMembers, activeData, openCard, isLoadingSingle, isLoadingAll, loading } = useTeam()
 
   const myTeamWarnHandle = useCallback(() => {
     setShowTeamWarn(1)
@@ -48,7 +49,7 @@ const ActiveTVLTeam = memo(() => {
               </>
             )}
             <Banner />
-            {isW768 ? <FrSomeWidget activeData={activeData} groupGoal={groupGoal} availableCode={availableCode} /> : null}
+            {isW768 ? <FrSomeWidget activeData={activeData} groupGoal={groupGoal} availableCode={availableCode} loading={loading} /> : null}
             <div className={`${css.title_div} ${isW768 ? '' : css.mt30} ${css.mb10}`}>
               <h2 className={css.title}>My Team</h2>
               <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} onClick={myTeamWarnHandle} />
@@ -75,25 +76,30 @@ const ActiveTVLTeam = memo(() => {
             </div>
             <h2 className={`${css.title} ${isW768 ? '' : css.mt30} ${css.mb20}`}>Team member</h2>
             <div className={css.team}>
-              {teamMembers.map((v, index) => (
-                <PixelCube3 key={index} className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
-                  <div className={css.team_item_fl}>
-                    <Avatar src={v.headImg + '?' + refreshAvatar} nickname={v.nickname} width="36px" />
-                    <p>{getNickname(v.nickname)}</p>
-                  </div>
-                  <div className={css.team_item_fr}>
-                    <p>{v.stakingStr}</p>
-                    <SvgComponent src={ChainImage[chainId]} />
-                  </div>
-                </PixelCube3>
-              ))}
+              {loading ? <NoDataListLoading /> : null}
+              {!loading ? (
+                <>
+                  {teamMembers.map((v, index) => (
+                    <PixelCube3 key={index} className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
+                      <div className={css.team_item_fl}>
+                        <Avatar src={v.headImg + '?' + refreshAvatar} nickname={v.nickname} width="36px" />
+                        <p>{getNickname(v.nickname)}</p>
+                      </div>
+                      <div className={css.team_item_fr}>
+                        <p>{v.stakingStr}</p>
+                        <SvgComponent src={ChainImage[chainId]} />
+                      </div>
+                    </PixelCube3>
+                  ))}
+                </>
+              ) : null}
             </div>
           </div>
         }
         fr_children={
           <div className={css.fr}>
             <Tab />
-            {isW768 ? null : <FrSomeWidget activeData={activeData} groupGoal={groupGoal} availableCode={availableCode} />}
+            {isW768 ? null : <FrSomeWidget activeData={activeData} groupGoal={groupGoal} availableCode={availableCode} loading={loading} />}
           </div>
         }
       />

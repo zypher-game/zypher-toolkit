@@ -20,7 +20,7 @@
     // mix-blend-mode: multiply;
     transform-origin: bottom center;
     transition: scale 0.3s ease
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 70%;
       transition: none
       &:hover
@@ -34,16 +34,26 @@
   width 375px
   height 138px
   margin: 30px auto 40px
+  @media screen and (max-width: 830px)
+    width: 100%;
+    height: auto
+    margin: 20px auto 30px
 .tvl_team_bg_02
   width 615px
   height 157px
   margin: 20px auto 30px
+  @media screen and (max-width: 830px)
+    width: 100%;
+    height: auto
+    margin: 10px auto 20px
 .teamWarn_card
   :global(>.pixel_flat_inner)
     flex-direction: column
     justify-content: flex-start
     align-items: flex-start
     padding: 20px 30px
+    @media screen and (max-width: 830px)
+      padding: 30px 20px
   .title
     font-weight: 600
     margin-bottom: 10px
@@ -69,7 +79,7 @@
   height: 44px;
   animation: spin 0.6s ease infinite;
   min-width: 310px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     height: 60px;
     width: 80%;
   .team_hero_middle_in

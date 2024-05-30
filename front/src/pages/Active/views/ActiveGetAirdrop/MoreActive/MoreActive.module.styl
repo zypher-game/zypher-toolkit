@@ -2,9 +2,15 @@
   display: flex
   gap: 20px
   justify-content: space-between
-  height: 52px
+  @media screen and (max-width: 830px)
+    width 100%
+    gap: 10px
   .twitter 
     flex: 3
+    @media screen and (max-width: 830px)
+      flex: 4
+      padding: 0 20px
+      text-align: center
   .twitterIcon
     svg
       path
@@ -16,8 +22,13 @@
   justify-content: center
   align-items: center
   margin-top: 35px
+  @media screen and (max-width: 830px)
+    margin-top: 24px
   p
     color: #fff
     cursor pointer
+    font-size: 16px
+    @media screen and (max-width: 830px)
+      font-size: 14px
     &:hover
       color: #eee

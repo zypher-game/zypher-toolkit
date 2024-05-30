@@ -7,13 +7,13 @@
     width: 62px
     display: flex
     justify-content: center
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 42px
       img
         width 24px
   .nospan
     width 40px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width 16px
   .line
     width: 1px

@@ -24,7 +24,7 @@
     @media screen and (max-width: 950px)
       min-width: auto;
       width 100%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       border-radius: 12px
     .bannerImg
       width: 100%

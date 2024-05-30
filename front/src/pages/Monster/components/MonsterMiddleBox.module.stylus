@@ -63,17 +63,17 @@
       animation: breatheMonster 4s infinite;
   &.MonsterNft,&.WaitFight,&.MonsterNftWait
     width: 386px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 190px;
       top: 50%
   &.End
     width: 295px;
     left: 53%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 60vw
       top: 53%
   &.Fight
     width: 408px
     top: 45%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 75vw

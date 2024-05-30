@@ -17,7 +17,7 @@ const MonsterBgStyled = styled.div`
   &.End {
     img {
       left: 30%;
-      @media (max-width: 768px) {
+      @media (max-width: 830px) {
         left: 0;
       }
     }
@@ -39,7 +39,7 @@ const MonsterBgStyled = styled.div`
     display: block;
     width: 1920px;
     height: 1080px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       width: 100%;
       top: 0;
       left: 0;

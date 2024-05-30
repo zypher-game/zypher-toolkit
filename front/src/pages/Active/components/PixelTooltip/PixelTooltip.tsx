@@ -25,7 +25,7 @@ const PixelTooltip = memo(({ title, showLink }: { title: string[]; showLink?: st
         </ActivePixelCard>
       }
     >
-      <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} />
+      <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className="tooltip_pixel_warn" />
     </Tooltip>
   )
 })

@@ -1,5 +1,5 @@
 .pixel_border.pixel_flat_btn
   height: 40px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     height: 30px
   

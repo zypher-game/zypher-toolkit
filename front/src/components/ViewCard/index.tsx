@@ -79,7 +79,7 @@ const BingoBoard = styled.div`
 const BingoBoardWrapper = styled.div`
   width: 311px;
   height: 361px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 830px) {
     width: 255px;
     height: 295px;
   }

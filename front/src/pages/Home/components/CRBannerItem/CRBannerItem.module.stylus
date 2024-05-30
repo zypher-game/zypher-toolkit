@@ -20,25 +20,25 @@
     background-size: auto 150px;
     animation: fireworks 2s steps(24) infinite, random 8s steps(1) infinite;
     z-index 3
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       scale: 0.4
   .fireworks01
     left: 15%
     top: 5%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       top: 2%
       left: 10%
   .fireworks02
     left: 5%
     top: 23%
     animation-delay: -1.7s
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       top: 14%
   .fireworks03
     left: 25%
     top: 28%
     animation-delay: -3.1s
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       top: 1%
   .cr_bg
     display block

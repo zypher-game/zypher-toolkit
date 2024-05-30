@@ -119,5 +119,17 @@ export const useActiveRouter = () => {
       console.log(1)
     }
     // navigate(`/${NavKey[0][0]}`)
-  }, [isInitLoading, id, isRegistered, airdropPoints, JSON.stringify(airdropPointsDetail), userStakedAmount, tvlHero, account, chainId, tvlPathLink])
+  }, [
+    JSON.stringify(pathname),
+    isInitLoading,
+    id,
+    isRegistered,
+    airdropPoints,
+    JSON.stringify(airdropPointsDetail),
+    userStakedAmount,
+    tvlHero,
+    account,
+    chainId,
+    tvlPathLink
+  ])
 }

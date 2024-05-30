@@ -1,14 +1,28 @@
+.wrap
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 190px 16px 0
+  @media screen and (max-width: 830px)
+    padding: 20px 16px
 .moreActiveSuccess
   width: 580px
+  @media screen and (max-width: 830px)
+    width: 100%
   :global(>.pixel_flat_inner)
     flex-direction: column
     text-align: center
+    gap: 0
+    padding: 60px 0
+    @media screen and (max-width: 830px)
+      padding: 50px 20px 36px
   h3
     font-size: 18px
     line-height: 22px
     font-weight: 600
-  .more_card
-    width: 400px
-    height: 235px
-    margin-top: 40px
-    margin-bottom: 57px
+    @media screen and (max-width: 830px)
+      font-size: 16px
+      line-height: 20px
+.toPath
+  @media screen and (max-width: 830px)
+    margin-top: 20px

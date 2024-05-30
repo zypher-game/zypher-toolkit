@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, memo, useEffect } from "react";
 import { atom, useRecoilState } from "recoil";
 
 import useWindowSize from "../hooks/useWindowSize";
@@ -31,11 +31,11 @@ export const IsW950Context = createContext<boolean | undefined>(undefined);
 export const IsW1100Context = createContext<boolean | undefined>(undefined);
 export const IsW1220Context = createContext<boolean | undefined>(undefined);
 
-export const IsW768Provider: React.FC = ({ children }) => {
+export const IsW768Provider: React.FC = memo(({ children }) => {
   const [isMobile, setIsMobile] = useRecoilState(isW768State);
   const size = useWindowSize();
   useEffect(() => {
-    const nowIsMobile = size.width < 768;
+    const nowIsMobile = size.width < 830;
     if (isMobile !== nowIsMobile) {
       setIsMobile(nowIsMobile);
     }
@@ -44,7 +44,7 @@ export const IsW768Provider: React.FC = ({ children }) => {
   return (
     <IsW768Context.Provider value={isMobile}>{children}</IsW768Context.Provider>
   );
-};
+});
 
 export const IsMdProvider: React.FC = ({ children }) => {
   const [isWMd, setIsWMd] = useRecoilState(isWMdState);

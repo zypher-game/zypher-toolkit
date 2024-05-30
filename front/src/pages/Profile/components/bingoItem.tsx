@@ -15,7 +15,7 @@ const BingoItemWrap = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.1);
   background: rgba(255, 255, 255, 0.04);
   padding: 12px;
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     width: 164px;
     height: 190px;
     padding: 8px;
@@ -29,13 +29,13 @@ const BingoItemWrap = styled.div`
     line-height: 20px;
     color: #ffd02b;
     margin-bottom: 10px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       font-size: 12px;
       margin-bottom: 5px;
     }
   }
   & > div {
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       transform-origin: 0% 0%;
       scale: 0.8;
     }
@@ -50,7 +50,7 @@ const BingoWrapStyled = styled.div`
   gap: 20px;
   // justify-content: space-between;
   flex-wrap: wrap;
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     justify-content: space-between;
     gap: 10px;
   }

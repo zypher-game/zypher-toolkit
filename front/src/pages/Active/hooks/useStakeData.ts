@@ -72,7 +72,7 @@ export const useStakeData = () => {
     })
     return value.map(v => {
       if (v.response) {
-        return [v.response.toString(), new BigNumberJs(v.response.toString()).dividedBy(divisorBigNumber).toFormat(3)] as string[]
+        return [v.response.toString(), new BigNumberJs(v.response.toString()).dividedBy(divisorBigNumber).toFormat(2)] as string[]
       }
       return ['0', '0']
     })
@@ -318,13 +318,13 @@ export const useStakeData = () => {
                   name: name,
                   decimal: decimal,
                   balance: balanceBig.toFixed(),
-                  balanceStr: balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFormat(3),
+                  balanceStr: balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFormat(2),
                   earnGP: earnGPBig.toFixed(),
-                  earnGPStr: earnGPBig.dividedBy(divisorBigNumber).toFormat(3),
+                  earnGPStr: earnGPBig.dividedBy(divisorBigNumber).toFormat(2),
                   userStakedAmount: userStakeBig.toFixed(),
-                  userStakedAmountStr: userStakeBig.dividedBy(divisorBigNumber).toFormat(3),
+                  userStakedAmountStr: userStakeBig.dividedBy(divisorBigNumber).toFormat(2),
                   totalStakedAmount: totalStakeBig.toFixed(),
-                  totalStakedAmountStr: totalStakeBig.dividedBy(divisorBigNumber).toFormat(3),
+                  totalStakedAmountStr: totalStakeBig.dividedBy(divisorBigNumber).toFormat(2),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
                   END_TIME: END_TIME
                 } as ITVLStakingData
@@ -339,6 +339,7 @@ export const useStakeData = () => {
                   {
                     ...initData,
                     ...WNative[1],
+                    address: AddressZero,
                     symbol: Currency[_chainId],
                     name: Currency[_chainId],
                     chainId: v.chainId,
@@ -356,22 +357,21 @@ export const useStakeData = () => {
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
         console.log({ resMap })
         setTvlStakingData(resMap)
+
+        const stakingData = Object.values(resMap[nativeChainId]).filter(vs => vs.address !== AddressZero)
+        console.log({ stakingData })
         const userStakedAmount = ethers.utils
-          .formatEther(calculateSumByNumber(Object.values(resMap[nativeChainId]).map(({ userStakedAmount: user }) => (user === '' ? '0' : user))))
+          .formatEther(calculateSumByNumber(stakingData.map(({ userStakedAmount: user }) => (user === '' ? '0' : user))))
           .toString()
-        const crHeroBoxAmount = calculateSumByNumber(
-          Object.values(resMap[nativeChainId]).map(({ crHeroAmount }) => (crHeroAmount === '' ? '0' : crHeroAmount))
-        )
+        const crHeroBoxAmount = calculateSumByNumber(stakingData.map(({ crHeroAmount }) => (crHeroAmount === '' ? '0' : crHeroAmount)))
 
         const gpAmount = calculateSumByNumber(
-          Object.values(resMap[nativeChainId]).map(({ earnGP }) =>
-            earnGP === '' ? '0' : new BigNumberJs(earnGP).dividedBy(divisorBigNumber).toFixed(2)
-          )
+          stakingData.map(({ earnGP }) => (earnGP === '' ? '0' : new BigNumberJs(earnGP).dividedBy(divisorBigNumber).toFixed(2)))
         )
         setActiveData(pre => ({
           ...pre,
           userStakedAmount: userStakedAmount,
-          userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat(),
+          userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat(2),
           crHeroBoxAmount: crHeroBoxAmount,
           dollarGpRewords: gpAmount,
           dollarGpRewordsStr: new BigNumberJs(gpAmount).toFormat(2),

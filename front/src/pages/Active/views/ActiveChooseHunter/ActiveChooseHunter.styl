@@ -1,12 +1,20 @@
 .hero_liItem
   padding-top: 20px
   transition: all 0.3s ease
+  @media screen and (max-width: 830px)
+    padding-top: 10px
   .hero_liItem_avatar
     width: 88px
+    @media screen and (max-width: 830px)
+      width: 100%
   &.hero_liItem_on
     padding-top: 36px
+    @media screen and (max-width: 830px)
+      padding-top: 10px
     .hero_liItem_avatar
       width: 112px
+      @media screen and (max-width: 830px)
+        width: 100%
 .hero_li
   cursor pointer
   >.pixel_flat_inner
@@ -32,6 +40,8 @@
         margin-top: 2px
 body .hunter_kkk_border
   margin-bottom: 30px
+  @media screen and (max-width: 830px)
+    margin-bottom: 20px
   >.pixel_flat_btn_bg
     >.pixel_flat_btn_inner,
     >.pixel_flat_btn_top_1,
@@ -63,6 +73,12 @@ body .hunter_kkk_border
       line-height: 22px
       padding: 20px 30px
       min-height: 320px
+      @media screen and (max-width: 830px)
+        padding: 15px
+        min-height: auto
+        font-size: 12px
+        line-height: 17px
+
 body .hunter_kkk_title
   >.pixel_flat_btn_bg
     >.pixel_flat_btn_bottom_2,
@@ -94,6 +110,8 @@ body .hunter_kkk_title
       font-size: 16px
       font-weight: 600
       text-shadow: -1px -1px 0 #68233e, 1px 0 0 #68233e, 1px 0 0 #68233e, 0 1px 0 #68233e
+      @media screen and (max-width: 830px)
+        font-size: 14px
 
 body .hero_li_avatar
   >.pixel_flat_btn_bg

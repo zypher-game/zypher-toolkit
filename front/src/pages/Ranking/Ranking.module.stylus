@@ -2,14 +2,14 @@
   position: relative
   padding-bottom: 120px
   position relative
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding-top: 20px
     padding-bottom: 80px
   .rankingTab
     position absolute
     top: 64px
     left: 0
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       position relative
       top: auto
       left: auto

@@ -65,6 +65,16 @@ export const accountInfoDialogState = atom({
   default: true,
 });
 
+export const showBigState = atom({
+  key: "showBigState",
+  default: false,
+});
+
+export const showMiddleState = atom({
+  key: "showMiddleState",
+  default: false,
+});
+
 export const linkToBetaDialogState = atom({
   key: "linkToBetaDialog",
   default: false,

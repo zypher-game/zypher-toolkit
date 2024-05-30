@@ -15,7 +15,7 @@
       min-width: auto;
       width 100%
       height: 250px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       border-radius: 12px
     @media screen and (max-width: 468px)
       height: 168px
@@ -40,7 +40,7 @@
     z-index 2
     @media screen and (max-width: 1200px)
       width: 90%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 80%
   .bannerFlInnerImg
     width 55%
@@ -51,7 +51,7 @@
       // width 80%
     @media screen and (max-width: 950px)
       width 60%
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width 50%
     @media screen and (max-width: 468px)
       width 65%
@@ -114,7 +114,7 @@
           @media screen and (max-width: 1550px)
             font-size: 16px;
             line-height: 32px; 
-          @media screen and (max-width: 768px)
+          @media screen and (max-width: 830px)
             font-size: 12px;
             line-height: 24px; 
             margin-bottom: 8px
@@ -162,7 +162,7 @@
             font-size: 30px;
             line-height: 36px
             white-space: normal;
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           &.h21
             line-height: 36px
 
@@ -182,14 +182,14 @@
           margin-top: 6px
           margin-bottom: 16px
 
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           display: block
           margin-bottom: 0
 
         .headerFrInnerBg
           margin-top: 0
           margin-bottom: 0
-          @media screen and (max-width: 768px)
+          @media screen and (max-width: 830px)
             margin-bottom: 10px
        
       .headerFrInnerBg
@@ -206,7 +206,7 @@
           margin-bottom: 16px
         @media screen and (max-width: 1200px)
           padding: 0 14px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           margin-top: 6px
           margin-bottom: 16px
           padding: 0 14px
@@ -227,7 +227,7 @@
           width 48px
           @media screen and (max-width: 1550px)
             width 40px
-          @media screen and (max-width: 768px)
+          @media screen and (max-width: 830px)
             width 32px
       .btn
         text-transform: uppercase;

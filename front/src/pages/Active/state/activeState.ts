@@ -255,6 +255,10 @@ export const tvlPointDialogState = atom({
   default: false
 })
 
+export const getPointAmount = atom({
+  key: 'getPointAmount',
+  default: ''
+})
 export const pointSuccessDialogState = atom({
   key: 'pointSuccessDialogState',
   default: false
@@ -269,8 +273,7 @@ export const chooseChainState = atom<ChainId | undefined>({
 })
 export const tvlPathState = atom<number>({
   key: 'tvlPathState',
-  default: 0,
-  effects_UNSTABLE: [localStorageEffect('tvlPathState')]
+  default: 0
 })
 
 export const chainIndexState = atom<number>({

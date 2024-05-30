@@ -62,12 +62,12 @@ div .address_wrap_pop_lang
   .img_arr, .img_lang
     width: 24px
     height: 24px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 20px
       height: 20px
   .img_lang
     margin-left: 4px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       margin-left: 2px
   .language_top
     padding: 0 4px
@@ -101,13 +101,13 @@ div .address_wrap_pop_lang
 .connect_pixel_connectWallet .pixel_logo
   width: 40px
   height: 40px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 30px
     height: 30px
   .pixel_img_lang
     width: 26px
     height: 26px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 20px
       height: 20px
 .language_pixel 

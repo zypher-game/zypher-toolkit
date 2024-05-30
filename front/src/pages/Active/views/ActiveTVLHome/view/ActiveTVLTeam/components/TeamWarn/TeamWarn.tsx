@@ -4,6 +4,7 @@ import React, { memo, useCallback, useMemo } from 'react'
 
 import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoader'
 import { ITeamMember } from '@/pages/Active/hooks/useTeam'
+import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getHeroLevel } from '@/pages/Active/utils/getHeroLevel'
 
@@ -19,7 +20,9 @@ const TeamWarn = memo(
     teamMembers: ITeamMember[]
   }) => {
     const isW768 = useIsW768()
-    const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
+
+    const setTvlStakingDialog = useTvlStakingDialogState()
+
     const { chainId } = useActiveWeb3React()
     const showTeamWarnHandle = useCallback(() => {
       if (showTeamWarn === 1) {
@@ -32,8 +35,8 @@ const TeamWarn = memo(
       setShowTeamWarn(0)
     }, [])
     const stakingHandle = useCallback(() => {
-      setIsTvlStakingModalOpen(true)
-    }, [])
+      setTvlStakingDialog(chainId, true)
+    }, [chainId])
     const { title, content, img, btn, imgClassName } = useMemo(() => {
       if (showTeamWarn === 1) {
         return {

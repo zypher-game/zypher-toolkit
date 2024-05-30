@@ -12,12 +12,12 @@ const waves = keyframes`
 const Waves = styled.div`
   overflow: hidden;
   transform: translate3d(0, 0, 0);
-  background-color: rgba(255, 255, 255 0.7);
+  background-color: rgba(29, 28, 59, 0.7);
   border-radius: 2px;
   &:before {
     content: '';
     position: absolute;
-    background-image: linear-gradient(40deg, transparent, rgba(0, 0, 0, 0.1), transparent);
+    background-image: linear-gradient(40deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     top: 0;
     left: -150px;
     height: 100%;

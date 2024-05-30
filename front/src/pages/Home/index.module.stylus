@@ -1,17 +1,17 @@
 .home
   padding: 40px 0
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding: 20px 0
 
   .content 
     padding: 0 40px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       padding: 0 16px
   .top
     display: flex
     color: #fff
     margin: 0 0 40px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       margin: 0 0 20px
 
     .item

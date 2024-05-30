@@ -2,6 +2,7 @@ import { ChainId, Currency, PixelTableBorder, TVLChainId, useIsW768, useRecoilVa
 import React, { memo, useCallback, useMemo } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
+import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { ITVLStakingData, tvlStakingDataState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 
 import css from './Table.module.styl'
@@ -33,18 +34,18 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
   return (
     <>
       <h3 className={css.title}>Native Token Stake</h3>
-      <TableWrap list={native} type="native" />
+      <TableWrap list={native} type="native" chainId={chainIdLocal} />
       <h3 className={css.title}>Restaking Tokens</h3>
-      <TableWrap list={erc20} type="erc20" />
+      <TableWrap list={erc20} type="erc20" chainId={chainIdLocal} />
     </>
   )
 })
-const TableWrap = memo(({ list, type }: { list: ITVLStakingData[]; type: 'native' | 'erc20' }) => {
+const TableWrap = memo(({ list, type, chainId }: { list: ITVLStakingData[]; type: 'native' | 'erc20'; chainId: ChainId }) => {
   const isW768 = useIsW768()
-  const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
+  const setTvlStakingDialog = useTvlStakingDialogState()
   const onClick = useCallback(() => {
-    setIsModalOpen(true)
-  }, [])
+    setTvlStakingDialog(chainId, true)
+  }, [chainId])
   if (isW768) {
     return (
       <div className={css.mTable}>

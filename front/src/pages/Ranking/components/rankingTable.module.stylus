@@ -1,6 +1,6 @@
 .ranking_table 
   padding: 0 40px 
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding: 0 16px 
 .item
   color: #fff
@@ -12,7 +12,7 @@
   padding-bottom: 16px
   @media screen and (max-width: 1200px)
     padding-right: 34px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding-right: 16px
     padding-top: 10px;
     padding-bottom: 10px
@@ -29,7 +29,7 @@
     background-color: #131313;
     padding-top: 30px;
     padding-bottom: 30px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       padding-top: 20px;
       padding-bottom: 20px;
     &:hover 

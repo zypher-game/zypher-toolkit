@@ -5,6 +5,8 @@ import ImageLoader from '@/pages/Active/components/ImageLoader/ImageLoader'
 const AvatarStyled = styled.div<{ width: string; borderRadius?: string }>`
   width: ${({ width }) => width};
   height: ${({ width }) => width};
+  min-width: ${({ width }) => width};
+  min-height: ${({ width }) => width};
   display: flex;
   justify-content: center;
   align-items: center;

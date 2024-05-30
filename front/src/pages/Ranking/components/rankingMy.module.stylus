@@ -9,7 +9,7 @@
   align-items: center;
   .side
     width: 240px;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 0;
 
   .rank_my_item
@@ -19,5 +19,5 @@
     margin: 0 40px 40px
     div:first-child
       border-color: rgba(255,255,255,0.2)
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       margin: 0 16px 30px

@@ -1,43 +1,68 @@
-import { useSetRecoilState } from '@ui/src'
+import { ActivePixelCard, Currency, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import AirdropPointCard from '@/pages/Active/components/AirdropPointCard/AirdropPointCard'
 import { airdropPathname, preAirdropPathname } from '@/pages/Active/hooks/activeHooks'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
+import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { pointSuccessDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
-import { GetAirdropCard } from '../components/GetAirdropWrap/GetAirdropWrap'
 import css from './MoreActiveSuccess.module.styl'
 const MoreActiveSuccess = memo(() => {
+  const { activeData } = useActiveData()
+  const { airdropPoints } = activeData
   return (
     <ActiveComp>
-      <MoreActiveSuccessCard isModal={false} />
+      <div className={css.wrap}>
+        <MoreActiveSuccessCard isModal={false} amount={airdropPoints} />
+      </div>
     </ActiveComp>
   )
 })
 
-const MoreActiveSuccessCard = memo(({ isModal }: { isModal: boolean }) => {
+export const MoreActiveSuccessCard = memo(({ isModal, amount }: { isModal: boolean; amount: string }) => {
+  const isW768 = useIsW768()
+  return (
+    <>
+      <ActivePixelCard className={css.moreActiveSuccess} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
+        <h3>{"You've earned bonus points!"}</h3>
+        <h3>Congratulations!</h3>
+        <AirdropPointCard amount={amount} />
+        {!isW768 ? <Btn isModal={isModal} /> : null}
+      </ActivePixelCard>
+      {isW768 ? <Btn isModal={isModal} /> : null}
+    </>
+  )
+})
+const Btn = memo(({ isModal }: { isModal: boolean }) => {
+  const isW768 = useIsW768()
   const navigate = useNavigate()
-  const setIsTvlStakingModalOpen = useSetRecoilState(tvlStakingDialogState)
+  const setTvlStakingDialog = useTvlStakingDialogState()
+
   const setIsPointSuccessDialogOpen = useSetRecoilState(pointSuccessDialogState)
+  const { chainId } = useActiveWeb3React()
   const toPath = useCallback(() => {
     if (isModal) {
-      setIsTvlStakingModalOpen(true)
+      setTvlStakingDialog(chainId, true)
       setIsPointSuccessDialogOpen(false)
     } else {
       navigate(`/${preAirdropPathname}/${airdropPathname.staking}`)
     }
-  }, [navigate])
+  }, [isModal, chainId, navigate])
   return (
-    <GetAirdropCard className={css.moreActiveSuccess}>
-      <h3>Congrats! Get bonus points!</h3>
-      <AirdropPointCard amount="340" />
-      <ActivePixelButtonColor themeType="brightBlue" className={css.toPath} onClick={toPath} width="318px" height="52px" pixel_height={5}>
-        <p>Staking ETH to activate points</p>
-      </ActivePixelButtonColor>
-    </GetAirdropCard>
+    <ActivePixelButtonColor
+      themeType="brightBlue"
+      className={css.toPath}
+      onClick={toPath}
+      width={isW768 ? '100%' : '318px'}
+      height={isW768 ? '48px' : '52px'}
+      pixel_height={5}
+    >
+      <p>Staking {Currency[chainId]} to activate points</p>
+    </ActivePixelButtonColor>
   )
 })
 export default MoreActiveSuccess

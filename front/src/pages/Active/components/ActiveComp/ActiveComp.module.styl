@@ -2,8 +2,9 @@
   background: url($preStaticUrl + '/img/tvl/register_bg.jpg') no-repeat center
   width: 100%;
   background-size: 100% 100%
-  min-height: calc(100vh - 80px - 57px)
-  padding-bottom: 80px
+  min-height: calc(100vh - 70px)
+  @media screen and (max-width: 830px)
+    min-height: calc(100vh - 44px)
 .active_comp_inner
   position: relative
   z-index 8

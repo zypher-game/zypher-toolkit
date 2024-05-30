@@ -9,6 +9,7 @@ import {
   DialogClose,
   TVLStakingSupportedChainId,
   useActiveWeb3React,
+  useIsW768,
   useRecoilState,
   useRecoilValue,
   useSetRecoilState
@@ -22,6 +23,7 @@ import { canNext } from '../../hooks/activeHooks'
 import { chooseChainState, depositCurrencyState, ITVLStakingData, selectTokenDialogState, tvlStakingDataState } from '../../state/activeState'
 
 const SelectTokenDialog = memo(() => {
+  const isW768 = useIsW768()
   const isModalOpen = useRecoilValue(selectTokenDialogState)
   const setIsModalOpen = useSetRecoilState(selectTokenDialogState)
   const tvlStakingData = useRecoilValue(tvlStakingDataState)
@@ -62,7 +64,14 @@ const SelectTokenDialog = memo(() => {
   return (
     <DialogOverlay className="select_dialogWrap" isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className="select_dialogContent">
-        <ActivePixelCard className="select_dialogContentInnerTop" width="380px" height="142px" pixel_height={10} backgroundColor="#293457">
+        <ActivePixelCard
+          className="select_dialogContentInnerTop select_dialogContentInnerTopToken"
+          width="380px"
+          height="142px"
+          pixel_height={10}
+          backgroundColor="#293457"
+          hidePixel={isW768 ? true : false}
+        >
           <h3>Select Token</h3>
           <div className="select_chain_ul">
             {TVLStakingSupportedChainId.map(v => (

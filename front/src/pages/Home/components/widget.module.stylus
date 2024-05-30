@@ -3,13 +3,13 @@
   display: flex
   align-items: center
   gap: 8px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     margin: 0 0 16px
   img
     display: block
     width: 30px
     height: 30px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 24px
       height: 24px
   p
@@ -17,7 +17,7 @@
     font-weight: 600
     font-size: 20px
     line-height: 30px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       font-size: 16px
       line-height: 24px
 .list

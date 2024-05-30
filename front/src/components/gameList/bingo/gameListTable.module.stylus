@@ -1,7 +1,7 @@
 .games_list_content 
   padding: 0 40px
   position: relative
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding: 0
   .games_list_filter
     position: relative
@@ -17,7 +17,7 @@ body .account
   display: flex
   flex-direction: row
   gap: 10px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     gap: 7px
     :global(p.player_avatar_account)
       color: #959BA8
@@ -26,13 +26,13 @@ body .account
     min-height: 32px !important
     min-width: 32px !important
     box-shadow: 0 0 0 1px rgba(255, 255,255, 0.2) !important
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       min-height: 22px !important
       min-width: 22px !important
   span
     min-width: 24px
     min-height: 24px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       min-width: 22px
       min-height: 22px
   p

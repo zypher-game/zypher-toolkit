@@ -13,6 +13,7 @@ import {
   PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
+  useIsW768,
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
@@ -27,6 +28,7 @@ import { chooseChainState, selectChainDialogState } from '../../state/activeStat
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
 const Staking = memo(() => {
+  const isW768 = useIsW768()
   const chooseChain = useRecoilValue(chooseChainState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
@@ -160,9 +162,9 @@ const Staking = memo(() => {
     }
   }, [JSON.stringify(chooseValue), isDataLoading, depositValue])
   return (
-    <PixelBorderCard width="505px" className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
+    <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Staking</h3>
-      <PixelBorderCardButton className="staking_switch" height="36px" width="100%" pixel_height={6} onClick={changeChainHandle}>
+      <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
         <p>Current network: {ChainName[chainIdFromStake]}</p>
         <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
       </PixelBorderCardButton>
@@ -179,7 +181,14 @@ const Staking = memo(() => {
           </ActivePixelButton>
         </div>
       </div>
-      <PixelBorderCard className="staking_input" width="100%" height="58px" pixel_height={6} backgroundColor="#343C4F" borderColor="#484F60">
+      <PixelBorderCard
+        className="staking_input"
+        width="100%"
+        height={isW768 ? '44px' : '58px'}
+        pixel_height={6}
+        backgroundColor="#343C4F"
+        borderColor="#484F60"
+      >
         <input onChange={depositInputHandle} type="text" value={depositValue} />
         <ActivePixelButton
           className={`staking_input_btn ${css.staking_input_btn}`}
@@ -224,7 +233,7 @@ const Staking = memo(() => {
       <ActivePixelButtonColor
         className="staking_confirm"
         width="100%"
-        height="52px"
+        height={isW768 ? '48px' : '54px'}
         pixel_height={5}
         onClick={deposit}
         disable={isDepositLoading || isApproveLoading || isDataLoading}

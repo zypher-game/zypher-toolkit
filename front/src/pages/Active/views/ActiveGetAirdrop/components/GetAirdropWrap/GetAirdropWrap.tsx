@@ -1,59 +1,65 @@
-import { ChainImage, Currency, CurrencyLogo, preStaticUrl, SvgComponent, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { ChainImage, Currency, CurrencyLogo, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768 } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
 import React, { memo } from 'react'
 
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
-import { activeDataState, IActiveDataState } from '@/pages/Active/state/activeState'
 import classnames from '@/utils/classnames'
 
 import css from './GetAirdropWrap.module.styl'
 export const GetAirdropCard = memo(({ children, className }: { children: React.ReactNode; className?: string }) => {
   return (
-    <ActivePixelCard className={classnames(css.airdrop, className)} backgroundColor="#1D263B" pixel_height={10}>
-      {children}
-    </ActivePixelCard>
+    <div className={css.airdropWrap}>
+      <ActivePixelCard className={classnames(css.airdrop, className)} backgroundColor="#1D263B" pixel_height={10}>
+        {children}
+      </ActivePixelCard>
+    </div>
   )
 })
 const GetAirdropWrap = memo(({ children }: { children: React.ReactNode }) => {
   const { chainId } = useActiveWeb3React()
+  const isW768 = useIsW768()
   const { activeData } = useActiveData()
   const {
     airdropPoints,
     airdropPointsDetail: { gasStr, balanceStr }
   } = activeData
   return (
-    <GetAirdropCard>
-      <div className={css.inner}>
-        <div className={css.fl}>
-          <h3>Your Airdrop Data</h3>
-          <ul>
-            <li>
-              <p>Airdrop Points</p>
-              <div className={css.li_fr}>
-                <p>{airdropPoints}</p>
-              </div>
-            </li>
-            <li>
-              <p>Gas consumption</p>
-              <div className={css.li_fr}>
-                <p>{gasStr}</p>
-                <img src={CurrencyLogo[chainId]} title={Currency[chainId]} />
-              </div>
-            </li>
-            <li>
-              <p>Wallet Balance</p>
-              <div className={css.li_fr}>
-                <p>{balanceStr}</p>
-                <SvgComponent src={ChainImage[chainId]} />
-                {/* <img src={preStaticUrl + '/img/icon/pixel_eth.svg'} title="ETH" /> */}
-              </div>
-            </li>
-          </ul>
+    <div className={css.GetAirdropWrap}>
+      <GetAirdropCard>
+        <div className={css.inner}>
+          <div className={css.fl}>
+            <h3>Your Airdrop Data</h3>
+            <ul>
+              <li>
+                <p>Airdrop Points</p>
+                <div className={css.li_fr}>
+                  <p>{airdropPoints}</p>
+                </div>
+              </li>
+              <li>
+                <p>Gas consumption</p>
+                <div className={css.li_fr}>
+                  <p>{gasStr}</p>
+                  <img src={CurrencyLogo[chainId]} title={Currency[chainId]} />
+                </div>
+              </li>
+              <li>
+                <p>Wallet Balance</p>
+                <div className={css.li_fr}>
+                  <p>{balanceStr}</p>
+                  <img src={CurrencyLogo[chainId]} title={Currency[chainId]} />
+                  {/* <SvgComponent src={CurrencyLogo[chainId]} /> */}
+                  {/* <img src={preStaticUrl + '/img/icon/pixel_eth.svg'} title="ETH" /> */}
+                </div>
+              </li>
+            </ul>
+          </div>
+          <img src={preStaticUrl + '/img/tvl/airdrop_data.png'} className={css.img} />
         </div>
-        <img src={preStaticUrl + '/img/tvl/airdrop_data.png'} className={css.img} />
-      </div>
-      {children}
-    </GetAirdropCard>
+        {!isW768 ? children : null}
+      </GetAirdropCard>
+      {isW768 ? children : null}
+    </div>
   )
 })
 export default GetAirdropWrap

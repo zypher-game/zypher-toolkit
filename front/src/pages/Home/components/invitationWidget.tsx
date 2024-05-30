@@ -28,7 +28,7 @@ const Invitation = styled.div<{ isMobile: boolean }>`
     font-size: 12px;
     font-size: 14px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     font-size: 12px;
   }
   p {
@@ -40,7 +40,7 @@ const Invitation = styled.div<{ isMobile: boolean }>`
     @media (max-width: 950px) {
       padding: 10px 0 10px 70px;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       padding: 10px 0 10px 50px;
     }
   }
@@ -57,7 +57,7 @@ const Invitation = styled.div<{ isMobile: boolean }>`
       width: 68px;
       height: 68px;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       left: 4px;
       width: 58px;
       height: 58px;
@@ -81,7 +81,7 @@ const GoDiv = styled.div<{ isMobile: boolean }>`
     font-size: 14px;
     padding: 4px 10px;
   }
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     font-size: 12px;
   }
 `

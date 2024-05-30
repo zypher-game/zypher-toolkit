@@ -1,13 +1,13 @@
 .header
   padding: 40px 30px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     padding-top: 20px
 .bannerInner
   display: flex
   align-items: center
   justify-content: flex-start
   gap: 22px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     gap: 10px
   .avatarBorder
     border: 1px solid #2A2A2A
@@ -20,7 +20,7 @@
       line-height: 30px;
       margin-top: 8px
       margin-bottom: 24px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 16px;
         margin-bottom: 16px
 
@@ -35,7 +35,7 @@
       font-weight: 600;
       line-height: 30px
       height: 30px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         margin: 0 0 4px
         font-size: 16px
     .balance
@@ -43,12 +43,12 @@
       justify-content: flex-start
       align-items: center
       gap: 20px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         gap: 16px
       .balanceItem
         padding: 0 20px 0 10px
         font-size: 16px;
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           font-size: 14px;
           gap: 3px
         p
@@ -57,12 +57,12 @@
           width: 40px;
           margin-left: -10px;
           padding-left: 10px;
-          @media screen and (max-width: 768px)
+          @media screen and (max-width: 830px)
             width 30px
         img
           display: block
           position relative
           z-index 3
           width 28px
-          @media screen and (max-width: 768px)
+          @media screen and (max-width: 830px)
             width 24px

@@ -1,0 +1,27 @@
+.activeTab
+  display: flex
+  justify-content: space-between
+  align-items: center
+  border-bottom: 1px solid #3A4254
+  margin-bottom: 20px
+  li
+    flex: 1
+    margin-bottom: -1px
+    font-size: 14px
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    cursor pointer
+    &.on
+      p
+        color: #fff
+      .line
+        opacity: 1
+    p
+      color: #959BA8
+    .line
+      width 30%
+      height: 2px
+      background-color: #fff
+      opacity: 0

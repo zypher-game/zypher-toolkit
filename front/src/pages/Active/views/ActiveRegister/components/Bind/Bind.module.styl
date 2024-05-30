@@ -2,29 +2,53 @@
   display: flex
   flex-direction: column
   gap: 20px
+  @media screen and (max-width: 830px)
+    gap: 10px
 .tooltip
   display: flex
   justify-content: flex-start
   gap: 10px
+  p
+    font-size: 16px
+    @media screen and (max-width: 830px)
+      font-size: 14px
+
 .label 
   display: flex
   justify-content: flex-end
   align-items: center
   gap: 10px
+  @media screen and (max-width: 830px)
+    margin-top: 20px
   svg 
     fill: #1649FF
-
+  p
+    font-size: 14px
+    font-weight: bold
+    line-height: 24px;
+    @media screen and (max-width: 830px)
+      font-size: 16px
 .linkBtn
-    p
-      font-size: 12px
+  @media screen and (max-width: 830px)
+    margin-top: 20px
+  p
+    font-size: 12px
     
 .liItem
   :global(.bind_liBg)
     padding: 0 20px
     width: 540px
     height: 58px
+    @media screen and (max-width: 830px)
+      width: 100%
+      height: auto
+      padding: 15px
     :global(>.pixel_flat_inner)
       justify-content: space-between
       flex: 1;
+      @media screen and (max-width: 830px)
+        flex-direction: column
+        align-items: flex-start
+        justify-content: center
       >p
         font-size: 14px

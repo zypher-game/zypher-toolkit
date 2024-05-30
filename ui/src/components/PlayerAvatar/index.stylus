@@ -23,7 +23,7 @@
   .player_avatar_account
     color: #fff;
     font-size: 16px;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       font-size: 12px
 .player_winner
   position:relative
