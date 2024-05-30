@@ -19,7 +19,7 @@
     .pixel_flat_btn_bottom_1
       position: absolute
       height: 4px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         height: 2px
     .pixel_flat_btn_inner
       position: absolute
@@ -27,21 +27,21 @@
       height: calc(100% - 16px)
       top: 8px
       left: 0
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         height: calc(100% - 8px)
         top: 4px
     .pixel_flat_btn_top_1
       top: 0
       width: calc(100% - 16px)
       left: 8px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: calc(100% - 8px)
         left: 4px
     .pixel_flat_btn_top_2
       width: calc(100% - 8px)
       top: 4px
       left: 4px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: calc(100% - 4px)
         top: 2px
         left: 2px
@@ -50,14 +50,14 @@
       bottom: 0
       width: calc(100% - 16px)
       left: 8px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: calc(100% - 8px)
         left: 4px
     .pixel_flat_btn_bottom_1
       width: calc(100% - 8px)
       bottom: 4px
       left: 4px
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width: calc(100% - 4px)
         bottom: 2px
         left: 2px

@@ -23,11 +23,11 @@
         padding-right: 40px
         @media screen and (max-width: 1400px)
             padding-right: 16px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
             padding: 0 16px 0 0
         .header_btn_pixel
             width: 40px;
-            @media screen and (max-width: 768px)
+            @media screen and (max-width: 830px)
                 width: 30px;
             .header_btn
                 margin-left: 0;
@@ -41,7 +41,7 @@
             // margin: 0 8px
             margin-left: 8px
             color: var(--var-btn)
-            @media screen and (max-width: 768px)
+            @media screen and (max-width: 830px)
                 size: 28px
 
             :global(.icon)

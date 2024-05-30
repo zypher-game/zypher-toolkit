@@ -75,7 +75,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: 24px;
   height: 24px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .language .img_arr,
   .language .img_lang {
     width: 20px;
@@ -85,7 +85,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
 .language .img_lang {
   margin-left: 4px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .language .img_lang {
     margin-left: 2px;
   }
@@ -129,7 +129,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: 40px;
   height: 40px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .connect_pixel_connectWallet .pixel_logo {
     width: 30px;
     height: 30px;
@@ -139,7 +139,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: 26px;
   height: 26px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .connect_pixel_connectWallet .pixel_logo .pixel_img_lang {
     width: 20px;
     height: 20px;
@@ -175,7 +175,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   position: absolute;
   height: 4px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1,
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_2,
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_2,
@@ -190,7 +190,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   top: 8px;
   left: 0;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_inner {
     height: calc(100% - 8px);
     top: 4px;
@@ -201,7 +201,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: calc(100% - 16px);
   left: 8px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_1 {
     width: calc(100% - 8px);
     left: 4px;
@@ -212,7 +212,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   top: 4px;
   left: 4px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_top_2 {
     width: calc(100% - 4px);
     top: 2px;
@@ -224,7 +224,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: calc(100% - 16px);
   left: 8px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_2 {
     width: calc(100% - 8px);
     left: 4px;
@@ -235,7 +235,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   bottom: 4px;
   left: 4px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_flat_btn .pixel_flat_btn_bg .pixel_flat_btn_bottom_1 {
     width: calc(100% - 4px);
     bottom: 2px;
@@ -254,7 +254,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
 .pixel_border.pixel_flat_btn {
   height: 40px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pixel_border.pixel_flat_btn {
     height: 30px;
   }
@@ -377,7 +377,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: 100%;
   padding: 20px 32px 33px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .dialog .modalMain {
     padding: 20px 23px 33px;
     height: 80vh;
@@ -416,7 +416,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   align-items: center;
   margin-bottom: 20px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .dialog .balanceTitle {
     margin-bottom: 40px;
     height: 32px;
@@ -457,7 +457,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   flex-wrap: wrap;
   gap: 19px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .dialog .table {
     gap: 16px;
   }
@@ -471,7 +471,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   padding-top: 20px;
   cursor: pointer;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .dialog .table .points {
     min-width: 95px;
     padding-top: 15px;
@@ -561,7 +561,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   font-weight: 600;
   text-align: center;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .modalTitleInnerTitle {
     font-size: 16px;
   }
@@ -584,7 +584,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   backdrop-filter: blur(5px);
   --change-color: #367aff;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .customDialog .ant-modal {
     width: 90%;
   }
@@ -645,7 +645,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   fill: #fff;
   cursor: pointer;
 }
-@media screen and (max-width: 768px) and (max-width: 768px) {
+@media screen and (max-width: 830px) and (max-width: 830px) {
   .customDialog [data-reach-dialog-content] {
     background-color: #1d263b;
   }
@@ -670,7 +670,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   justify-content: flex-start;
   padding: 20px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   body .tvlPixelTable_header > .pixel_flat_inner {
     padding: 8px 16px;
   }
@@ -682,6 +682,9 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   animation-duration: 3s;
   animation-timing-function: linear;
   animation-iteration-count: infinite;
+}
+.LoadingButton.hideMl {
+  margin-left: 0;
 }
 .loading_size4 {
   scale: 4;
@@ -700,7 +703,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   cursor: pointer;
   z-index: 9;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .dialog_close {
     top: 15px;
     right: 15px;
@@ -786,7 +789,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   flex-direction: column;
   gap: 22px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .sidebarWrap .activitiesList {
     flex-direction: row;
     justify-content: flex-start;
@@ -1078,7 +1081,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
     padding-right: 16px;
   }
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .header_header .header_right {
     padding: 0 16px 0 0;
   }
@@ -1086,7 +1089,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 .header_header .header_right .header_btn_pixel {
   width: 40px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .header_header .header_right .header_btn_pixel {
     width: 30px;
   }
@@ -1104,7 +1107,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   margin-left: 8px;
   color: var(--var-btn);
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .header_header .header_right .header_btn {
     size: 28px;
   }
@@ -1142,7 +1145,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 .balance_item_balance.balance_item_balance_pixel {
   padding: 0 16px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .balance_item_balance {
     padding: 0 8px;
     font-size: 12px;
@@ -1154,7 +1157,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   height: 24px;
   margin-left: 10px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .balance_item_balance .balance_item_img,
   .balance_item_balance img {
     width: 20px;
@@ -1185,7 +1188,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   width: 24px;
   height: 24px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .refresh_balance span svg {
     width: 16px;
     height: 16px;
@@ -1388,7 +1391,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   color: #fff;
   font-size: 16px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .player_playerAvatar .player_avatar_account {
     font-size: 12px;
   }
@@ -1469,7 +1472,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 .account_info_dialog_dialog .account_info_dialog_modalMain {
   padding: 20px 32px 33px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .account_info_dialog_dialog .account_info_dialog_modalMain {
     padding: 82px 15px 33px;
   }
@@ -1747,7 +1750,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 .pc_user_pc_content .pc_user_box .pc_user_info img {
   width: 24px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pc_user_pc_content .pc_user_box .pc_user_info img {
     width: 20px;
   }
@@ -1760,7 +1763,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   line-height: 30px;
   margin: 0 0 0 10px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
     font-size: 18px;
   }
@@ -1770,7 +1773,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   cursor: pointer;
   padding: 0 0 0 15px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pc_user_pc_content .pc_user_box .pc_user_info span,
   .pc_user_pc_content .pc_user_box .pc_user_info a {
     padding: 0 0 0 8px;
@@ -1795,7 +1798,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   padding: 0 8px;
   cursor: pointer;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .pc_user_disconnect_btn {
     padding: 0 5px;
     height: 26px;
@@ -1850,7 +1853,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 .connect_connectWallet.connect_bgWallet > div:hover {
   border: 1px solid var(--var-btn-hover);
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .connect_connectWallet.connect_bgWallet > div {
     border: 1px solid rgba(255, 255, 255, 0.2);
   }
@@ -1865,7 +1868,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   line-height: 38px;
   transition: all 0.3s;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .connect_connectWallet > div {
     height: 28px;
     line-height: 28px;
@@ -1896,7 +1899,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   transition: all 0.3s;
   padding: 0 14px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .connect_connectWallet div.connect_connect p,
   .connect_pixel_connectWallet div.connect_connect p {
     padding: 0 12px;
@@ -4131,7 +4134,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   position: relative;
   cursor: pointer;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .ActiveTVLStaking_tab .ActiveTVLStaking_tab_li {
     padding: 0 10px;
   }
@@ -4140,7 +4143,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   font-size: 16px;
   transition: opacity 0.3s ease;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 830px) {
   .ActiveTVLStaking_tab .ActiveTVLStaking_tab_li p {
     font-size: 14px;
   }

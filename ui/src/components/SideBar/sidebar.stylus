@@ -60,7 +60,7 @@
     display: flex
     flex-direction: column
     gap: 22px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       flex-direction: row
       justify-content: flex-start
       align-items: center

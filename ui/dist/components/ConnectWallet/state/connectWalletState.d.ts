@@ -12,6 +12,8 @@ export declare const pointsWarnState: import("recoil").RecoilState<number>;
 export declare const hidePointsWarnState: import("recoil").RecoilState<boolean>;
 export declare const pointsRuleDialogState: import("recoil").RecoilState<boolean>;
 export declare const accountInfoDialogState: import("recoil").RecoilState<boolean>;
+export declare const showBigState: import("recoil").RecoilState<boolean>;
+export declare const showMiddleState: import("recoil").RecoilState<boolean>;
 export declare const linkToBetaDialogState: import("recoil").RecoilState<boolean>;
 export declare const linkToBetaDialogChainIdState: import("recoil").RecoilState<ChainId | undefined>;
 export declare const nativeBalanceState: import("recoil").RecoilState<number>;
