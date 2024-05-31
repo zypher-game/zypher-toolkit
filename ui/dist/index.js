@@ -142,7 +142,9 @@ var supportedChainIds = (env, chainList2) => {
 var ChainRpcUrls = {
   [59140 /* LineaTestnet */]: [
     "https://rpc.goerli.linea.build",
-    "https://linea-goerli.blockpi.network/v1/rpc/public"
+    "https://linea.drpc.org",
+    "https://1rpc.io/linea",
+    "https://linea.blockpi.network/v1/rpc/public"
   ],
   [59144 /* LineaMainnet */]: ["https://rpc.linea.build"],
   [42161 /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
@@ -741,7 +743,7 @@ function isEqual(value1, value2) {
 }
 
 // src/components/SideBar/component/Language.tsx
-import React7, { memo as memo5, useCallback as useCallback3, useState as useState5 } from "react";
+import React7, { memo as memo6, useCallback as useCallback3, useState as useState5 } from "react";
 
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
@@ -996,6 +998,23 @@ var cardTheme = {
       borderBottomColor: "#0E267D",
       borderTopColor: "#0E43FF",
       backgroundColor: "#022FD0"
+    }
+  },
+  pureBrightBlue: {
+    normal: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF"
+    },
+    hover: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF"
+    },
+    click: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF"
     }
   }
 };
@@ -1434,8 +1453,18 @@ var PixelBorderCardButton = memo2((props) => {
 });
 
 // src/components/SvgComponent/SvgComponent.tsx
-import React3, { useEffect as useEffect2, useState as useState3 } from "react";
-var SvgComponent = ({ src: src6, className, ...rest }) => {
+import React3, { memo as memo3, useEffect as useEffect2, useState as useState3 } from "react";
+var SvgComponent = memo3(({ src: src6, className, ...rest }) => {
+  return src6.endsWith(".svg") ? /* @__PURE__ */ React3.createElement(Svg, {
+    src: src6,
+    className,
+    ...rest
+  }) : /* @__PURE__ */ React3.createElement("img", {
+    src: src6,
+    className
+  });
+});
+var Svg = memo3(({ src: src6, className, ...rest }) => {
   const [svgContent, setSvgContent] = useState3(null);
   useEffect2(() => {
     (async () => {
@@ -1461,17 +1490,17 @@ var SvgComponent = ({ src: src6, className, ...rest }) => {
     })();
   }, [src6]);
   return svgContent || /* @__PURE__ */ React3.createElement(React3.Fragment, null);
-};
+});
 var SvgComponent_default = SvgComponent;
 
 // src/components/Header/rainbow_account/IsPixelWidget.tsx
-import React5, { memo as memo4 } from "react";
+import React5, { memo as memo5 } from "react";
 
 // src/hooks/useWindowSize.ts
 import { useCallback as useCallback2, useContext, useEffect as useEffect4, useState as useState4 } from "react";
 
 // src/provider/IsMobileProvider.tsx
-import React4, { createContext, memo as memo3, useEffect as useEffect3 } from "react";
+import React4, { createContext, memo as memo4, useEffect as useEffect3 } from "react";
 import { atom, useRecoilState } from "recoil";
 var isW768State = atom({
   key: "isW768State",
@@ -1497,7 +1526,7 @@ var IsW768Context = createContext(void 0);
 var IsW950Context = createContext(void 0);
 var IsW1100Context = createContext(void 0);
 var IsW1220Context = createContext(void 0);
-var IsW768Provider = memo3(({ children }) => {
+var IsW768Provider = memo4(({ children }) => {
   const [isMobile2, setIsMobile] = useRecoilState(isW768State);
   const size = useWindowSize();
   useEffect3(() => {
@@ -1613,7 +1642,7 @@ var useIsMd = () => {
 };
 
 // src/components/Header/rainbow_account/IsPixelWidget.tsx
-var IsPixelWidget = memo4(
+var IsPixelWidget = memo5(
   ({
     className,
     type,
@@ -1668,7 +1697,7 @@ var languageList = [
     img: preStaticUrl + "/img/layout/zh_TW.png"
   }
 ];
-var Language = memo5(({ type }) => {
+var Language = memo6(({ type }) => {
   const [show, setShow] = useState5(false);
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
@@ -1732,7 +1761,7 @@ var Language = memo5(({ type }) => {
     on: v.keyValue === lang
   }))) : null);
 }, isEqual);
-var PopItem = memo5(
+var PopItem = memo6(
   ({
     iconName,
     label,
@@ -1804,7 +1833,7 @@ function useActiveWeb3React(env, chainList2) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);
@@ -2109,7 +2138,7 @@ var pointsBalanceState = atom2({
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames4 from "classnames";
-import React16, { memo as memo11, useCallback as useCallback8, useEffect as useEffect6, useState as useState8 } from "react";
+import React16, { memo as memo12, useCallback as useCallback8, useEffect as useEffect6, useState as useState8 } from "react";
 import { useRecoilState as useRecoilState5, useRecoilValue as useRecoilValue4 } from "recoil";
 
 // src/components/CurrencyLogo/index.tsx
@@ -3418,9 +3447,9 @@ var usePointsBalanceStr = () => {
 };
 
 // src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
-import React10, { memo as memo6 } from "react";
+import React10, { memo as memo7 } from "react";
 import { useRecoilState as useRecoilState4 } from "recoil";
-var PoinsWarn = memo6(({ handleNext }) => {
+var PoinsWarn = memo7(({ handleNext }) => {
   const { t } = useCustomTranslation([LngNs.points]);
   const [hidePointsWarn, setHidePointsWarn] = useRecoilState4(hidePointsWarnState);
   return /* @__PURE__ */ React10.createElement("div", {
@@ -3443,7 +3472,7 @@ var PointsWarn_default = PoinsWarn;
 
 // src/components/icons/PointsIcon/PointsIcon.tsx
 import React11 from "react";
-import { memo as memo7 } from "react";
+import { memo as memo8 } from "react";
 import styled2 from "styled-components";
 var PointsImg = styled2.img`
   display: inline-block;
@@ -3451,7 +3480,7 @@ var PointsImg = styled2.img`
   margin-left: ${({ mr, isMobile: isMobile2 }) => mr ? "0" : isMobile2 ? "4px" : "10px"};
   margin-right: ${({ mr, isMobile: isMobile2 }) => mr ? isMobile2 ? "4px" : "10px" : "0"};
 `;
-var PointsIcon = memo7(
+var PointsIcon = memo8(
   ({ isMobile: isMobile2, classname, mr }) => {
     return /* @__PURE__ */ React11.createElement(PointsImg, {
       isMobile: isMobile2,
@@ -3492,8 +3521,8 @@ var Modal = ({
 var Modal_default = Modal;
 
 // src/components/PixelTable/PixelTable.tsx
-import React13, { memo as memo8 } from "react";
-var PixelTableBorder = memo8(
+import React13, { memo as memo9 } from "react";
+var PixelTableBorder = memo9(
   ({
     header_children,
     body_children,
@@ -3517,7 +3546,7 @@ var PixelTableBorder = memo8(
     }, header_children), body_children);
   }
 );
-var PixelTable = memo8(
+var PixelTable = memo9(
   ({
     header_children,
     body_children,
@@ -3542,7 +3571,7 @@ var PixelTable = memo8(
     }, header_children), body_children);
   }
 );
-var IsTablePixelWidget = memo8(
+var IsTablePixelWidget = memo9(
   ({
     width,
     height,
@@ -3568,8 +3597,8 @@ var IsTablePixelWidget = memo8(
 );
 
 // src/components/LoadingSvg/LoadingButton.tsx
-import React14, { memo as memo9 } from "react";
-var LoadingButton = memo9(
+import React14, { memo as memo10 } from "react";
+var LoadingButton = memo10(
   ({
     className,
     hideMl,
@@ -3587,8 +3616,8 @@ var LoadingButton = memo9(
 var LoadingButton_default = LoadingButton;
 
 // src/components/DialogClose/DialogClose.tsx
-import React15, { memo as memo10 } from "react";
-var DialogClose = memo10(({ onClick }) => {
+import React15, { memo as memo11 } from "react";
+var DialogClose = memo11(({ onClick }) => {
   return /* @__PURE__ */ React15.createElement("div", {
     className: "dialog_close",
     onClick
@@ -3599,7 +3628,7 @@ var DialogClose = memo10(({ onClick }) => {
 var DialogClose_default = DialogClose;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
-var PointsDialog = memo11(
+var PointsDialog = memo12(
   ({ env, dispatch, setSuccessToast, setErrorToast }) => {
     const { t } = useCustomTranslation([LngNs.points]);
     const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState5(pointsDialogState);
@@ -3665,7 +3694,7 @@ var PointsDialog = memo11(
   },
   isEqual
 );
-var IsLoading = memo11(() => {
+var IsLoading = memo12(() => {
   const { t } = useCustomTranslation([LngNs.points]);
   return /* @__PURE__ */ React16.createElement("div", {
     className: "loading"
@@ -3674,7 +3703,7 @@ var IsLoading = memo11(() => {
     className: "loading_size4"
   }), /* @__PURE__ */ React16.createElement("p", null, t("IsLoadingText1")));
 }, isEqual);
-var PointsTable = memo11(
+var PointsTable = memo12(
   ({ pointsList, chainId, onClick }) => {
     return /* @__PURE__ */ React16.createElement("div", {
       className: "table"
@@ -3711,11 +3740,11 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/SideBar/SideBar.tsx
 import classnames6 from "classnames";
-import React22, { memo as memo17, useMemo as useMemo6 } from "react";
+import React22, { memo as memo18, useMemo as useMemo6 } from "react";
 
 // src/components/SideBar/component/CommunityLink.tsx
-import React17, { memo as memo12 } from "react";
-var CommunityLink = memo12(({ className }) => {
+import React17, { memo as memo13 } from "react";
+var CommunityLink = memo13(({ className }) => {
   return /* @__PURE__ */ React17.createElement("div", {
     className
   }, /* @__PURE__ */ React17.createElement("a", {
@@ -3758,11 +3787,11 @@ var CommunityLink = memo12(({ className }) => {
 var CommunityLink_default = CommunityLink;
 
 // src/components/SideBar/component/SideBarGamesList.tsx
-import React19, { memo as memo14 } from "react";
+import React19, { memo as memo15 } from "react";
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames5 from "classnames";
-import React18, { memo as memo13, useCallback as useCallback9 } from "react";
+import React18, { memo as memo14, useCallback as useCallback9 } from "react";
 import { useSetRecoilState as useSetRecoilState3 } from "recoil";
 
 // src/components/Header/state.ts
@@ -3807,7 +3836,7 @@ var useLink = (link, isMobile2, useNavigate) => {
     linkClickHandle
   };
 };
-var LinkItem1 = memo13(
+var LinkItem1 = memo14(
   ({
     className,
     className_on,
@@ -3835,7 +3864,7 @@ var LinkItem1 = memo13(
 var LinkItemA_default = LinkItem1;
 
 // src/components/SideBar/component/SideBarGamesList.tsx
-var SideBarGamesList = memo14(
+var SideBarGamesList = memo15(
   ({
     className_on,
     className_list,
@@ -3863,8 +3892,8 @@ var SideBarGamesList = memo14(
 var SideBarGamesList_default = SideBarGamesList;
 
 // src/components/SideBar/component/SideBarTitle.tsx
-import React20, { memo as memo15 } from "react";
-var SideBarTitle = memo15(
+import React20, { memo as memo16 } from "react";
+var SideBarTitle = memo16(
   ({ className, logo_url_name, logo_title }) => {
     const { t } = useCustomTranslation([LngNs.sideBar]);
     return /* @__PURE__ */ React20.createElement("div", {
@@ -3876,7 +3905,7 @@ var SideBarTitle = memo15(
   },
   isEqual
 );
-var SideBarTitleLink = memo15(
+var SideBarTitleLink = memo16(
   ({ logo_url_name, link, className, logo_title }) => {
     const { t } = useCustomTranslation([LngNs.sideBar]);
     return /* @__PURE__ */ React20.createElement("a", {
@@ -3897,7 +3926,7 @@ import { useSetRecoilState as useSetRecoilState4 } from "recoil";
 
 // src/components/Header/Navigation/Navigation.tsx
 import React21, {
-  memo as memo16,
+  memo as memo17,
   useCallback as useCallback10,
   useEffect as useEffect7,
   useMemo as useMemo5,
@@ -3939,7 +3968,7 @@ var NavList = [
     isTarget: true
   }
 ];
-var Navigation = memo16(
+var Navigation = memo17(
   ({ pathname }) => {
     const [chooseIndex, setChooseIndex] = useState9(
       null
@@ -4061,7 +4090,7 @@ function hasFontWeight600(element2) {
 var Navigation_default = Navigation;
 
 // src/components/SideBar/SideBar.tsx
-var ZypherLogo = memo17(({ isMobile: isMobile2 }) => {
+var ZypherLogo = memo18(({ isMobile: isMobile2 }) => {
   return /* @__PURE__ */ React22.createElement("a", {
     href: "/",
     target: "_black",
@@ -4130,8 +4159,8 @@ var SideBar = (props) => {
 var SideBar_default = SideBar;
 
 // src/components/DivWrap/DivWrap.tsx
-import React23, { memo as memo18 } from "react";
-var DivWrap = memo18(
+import React23, { memo as memo19 } from "react";
+var DivWrap = memo19(
   ({
     className,
     showDiv,
@@ -4148,14 +4177,14 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React25, { memo as memo20, useCallback as useCallback12, useEffect as useEffect8, useMemo as useMemo7 } from "react";
+import React25, { memo as memo21, useCallback as useCallback12, useEffect as useEffect8, useMemo as useMemo7 } from "react";
 import { useRecoilState as useRecoilState6 } from "recoil";
 import styled3 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames7 from "classnames";
-import React24, { memo as memo19, useCallback as useCallback11 } from "react";
-var DialogTitle = memo19(
+import React24, { memo as memo20, useCallback as useCallback11 } from "react";
+var DialogTitle = memo20(
   ({ label, setDialogOpen, children, classNames }) => {
     const closeHandle = useCallback11(() => {
       setDialogOpen(false);
@@ -4211,7 +4240,7 @@ var Text = styled3.div`
   font-size: 14px;
   padding-top: 30px;
 `;
-var LinkToBetaDialog = memo20(() => {
+var LinkToBetaDialog = memo21(() => {
   const { t } = useCustomTranslation([LngNs.common]);
   const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState6(
     linkToBetaDialogState
@@ -4280,15 +4309,15 @@ import React93, { useEffect as useEffect29, useMemo as useMemo17 } from "react";
 import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue9, useSetRecoilState as useSetRecoilState12 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import React92, { memo as memo32, useMemo as useMemo16 } from "react";
+import React92, { memo as memo33, useMemo as useMemo16 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React38, { memo as memo30, useCallback as useCallback21 } from "react";
+import React38, { memo as memo31, useCallback as useCallback21 } from "react";
 import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
-import React28, { memo as memo23, useCallback as useCallback14, useEffect as useEffect10, useState as useState10 } from "react";
+import React28, { memo as memo24, useCallback as useCallback14, useEffect as useEffect10, useState as useState10 } from "react";
 import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState6 } from "recoil";
 import styled4 from "styled-components";
 
@@ -4594,12 +4623,12 @@ var erc20_default = erc20Contract;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
-import React27, { memo as memo22, useCallback as useCallback13, useEffect as useEffect9 } from "react";
+import React27, { memo as memo23, useCallback as useCallback13, useEffect as useEffect9 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
-import React26, { memo as memo21 } from "react";
+import React26, { memo as memo22 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
-var GetPointsSuccess = memo21(() => {
+var GetPointsSuccess = memo22(() => {
   const [show] = useRecoilState7(pointsAnimState);
   if (show) {
     return /* @__PURE__ */ React26.createElement("div", {
@@ -4631,7 +4660,7 @@ var GetPointsSuccess_default = GetPointsSuccess;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { useRecoilState as useRecoilState8, useSetRecoilState as useSetRecoilState5 } from "recoil";
-var BalanceItem = memo22(
+var BalanceItem = memo23(
   ({
     className,
     loading,
@@ -4663,7 +4692,7 @@ var BalanceItem = memo22(
   },
   isEqual
 );
-var BalanceCountUpItem = memo22(
+var BalanceCountUpItem = memo23(
   ({
     className,
     loading,
@@ -4714,7 +4743,7 @@ var AddIcon = styled4(icons_default)`
   margin-left: 0 !important;
   width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "24px"};
 `;
-var Balance = memo23((props) => {
+var Balance = memo24((props) => {
   const { showPointsModal, env, CountUpNumber, type, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState10(false);
@@ -4793,7 +4822,7 @@ var Balance = memo23((props) => {
 var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import React29, { memo as memo24, useCallback as useCallback15 } from "react";
+import React29, { memo as memo25, useCallback as useCallback15 } from "react";
 import styled5 from "styled-components";
 import { useRecoilState as useRecoilState9 } from "recoil";
 var StatusI = styled5.i`
@@ -4817,7 +4846,7 @@ var StatusI = styled5.i`
     border-radius: 50%;
   }
 `;
-var ChainSelectorWidget = memo24(
+var ChainSelectorWidget = memo25(
   ({ className, type, direction_type }) => {
     const { chainId } = useActiveWeb3React();
     const isMobile2 = useIsW768();
@@ -4920,12 +4949,12 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import React37, { memo as memo29, useCallback as useCallback20, useEffect as useEffect14, useRef as useRef3 } from "react";
+import React37, { memo as memo30, useCallback as useCallback20, useEffect as useEffect14, useRef as useRef3 } from "react";
 import { useRecoilState as useRecoilState12, useSetRecoilState as useSetRecoilState8 } from "recoil";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
-import React32, { memo as memo25, useCallback as useCallback17, useEffect as useEffect11, useState as useState11 } from "react";
+import React32, { memo as memo26, useCallback as useCallback17, useEffect as useEffect11, useState as useState11 } from "react";
 import styled7 from "styled-components";
 
 // src/utils/generateAvatar.ts
@@ -5024,7 +5053,7 @@ var Avatar_default = Avatar;
 
 // src/components/PlayerAvatar/index.tsx
 import { useRecoilValue as useRecoilValue8 } from "recoil";
-var PlayerAvatar = memo25(
+var PlayerAvatar = memo26(
   ({
     account,
     showAccount = false,
@@ -5209,7 +5238,7 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React36, { memo as memo28, useCallback as useCallback19, useEffect as useEffect13, useState as useState12 } from "react";
+import React36, { memo as memo29, useCallback as useCallback19, useEffect as useEffect13, useState as useState12 } from "react";
 import { useRecoilState as useRecoilState11 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
@@ -5439,10 +5468,10 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React34, { memo as memo26, useCallback as useCallback18, useMemo as useMemo10 } from "react";
+import React34, { memo as memo27, useCallback as useCallback18, useMemo as useMemo10 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState10 } from "recoil";
-var MUserInfo = memo26(
+var MUserInfo = memo27(
   ({ account, chainId, copy, cancel, type }) => {
     const { disconnect } = useDisconnect();
     const [, setAccountInfoDialogOpen] = useRecoilState10(accountInfoDialogState);
@@ -5531,7 +5560,7 @@ var MUserInfo = memo26(
   },
   isEqual
 );
-var FunItem = memo26(
+var FunItem = memo27(
   ({
     iconName,
     label,
@@ -5548,7 +5577,7 @@ var FunItem = memo26(
 var MUserInfo_default = MUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-import React35, { memo as memo27 } from "react";
+import React35, { memo as memo28 } from "react";
 
 // src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
 import { useEffect as useEffect12, useReducer } from "react";
@@ -5592,7 +5621,7 @@ function useAsyncImage(url) {
 }
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-var PcUserInfo = memo27(
+var PcUserInfo = memo28(
   ({
     connectName,
     connectIcon,
@@ -5638,7 +5667,7 @@ var PcUserInfo = memo27(
   },
   isEqual
 );
-var DisconnectBtn = memo27(({ cancel }) => {
+var DisconnectBtn = memo28(({ cancel }) => {
   const { t } = useCustomTranslation([LngNs.common]);
   return /* @__PURE__ */ React35.createElement("p", {
     className: "pc_user_disconnect_btn",
@@ -5649,7 +5678,7 @@ var PcUserInfo_default = PcUserInfo;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import { useDisconnect as useDisconnect2 } from "wagmi";
-var AccountInfoDialog = memo28(
+var AccountInfoDialog = memo29(
   ({ copy, type }) => {
     const { t } = useCustomTranslation([LngNs.common]);
     const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState11(
@@ -5705,7 +5734,7 @@ var AccountInfoDialog = memo28(
     })))) : null;
   }
 );
-var AddressBigWrapPop = memo28(({ copy }) => {
+var AddressBigWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState12();
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
@@ -5756,7 +5785,7 @@ var AddressBigWrapPop = memo28(({ copy }) => {
     on: index === 2
   }));
 });
-var AddressMiddleWrapPop = memo28(({ copy }) => {
+var AddressMiddleWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState12();
   const { account, chainId } = useActiveWeb3React();
   const nativeBalanceStr = useNativeBalanceStr();
@@ -5833,7 +5862,7 @@ var AddressMiddleWrapPop = memo28(({ copy }) => {
     on: index === 2
   }));
 });
-var AddressWrapPopItem = memo28(
+var AddressWrapPopItem = memo29(
   ({
     iconName,
     label,
@@ -5853,7 +5882,7 @@ var AddressWrapPopItem = memo28(
     }), /* @__PURE__ */ React36.createElement("p", null, label));
   }
 );
-var BalanceItem2 = memo28(
+var BalanceItem2 = memo29(
   ({
     logo,
     balanceStr,
@@ -5871,7 +5900,7 @@ var BalanceItem2 = memo28(
 var AccountInfoDialog_default = AccountInfoDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-var AccountInfo = memo29(
+var AccountInfo = memo30(
   ({
     isW768,
     isMiddleWidth,
@@ -5943,7 +5972,7 @@ var AccountInfo = memo29(
 var AccountInfo_default = AccountInfo;
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-var Account = memo30(
+var Account = memo31(
   ({
     isMiddleWidth,
     env,
@@ -5986,7 +6015,7 @@ var Account = memo30(
 var rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-import React88, { memo as memo31 } from "react";
+import React88, { memo as memo32 } from "react";
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
@@ -10334,7 +10363,7 @@ function useConnectModal() {
 }
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-var WrongNetwork = memo31(({ type }) => {
+var WrongNetwork = memo32(({ type }) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal();
   const setAccountInfoDialogOpen = useSetRecoilState11(accountInfoDialogState);
@@ -10596,7 +10625,7 @@ ConnectButton.__defaultProps = defaultProps;
 ConnectButton.Custom = ConnectButtonRenderer;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-var RainbowConnectWallet = memo32((props) => {
+var RainbowConnectWallet = memo33((props) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const {
     isBigWidth,
@@ -11305,19 +11334,21 @@ var getRecentGameById = async ({
 import { changeLanguage as changeLanguage2 } from "i18next";
 
 // src/components/PixelTab/PixelTab.tsx
-import React95, { memo as memo33 } from "react";
-var PixelTab = memo33(
+import React95, { memo as memo34 } from "react";
+var PixelTab = memo34(
   ({
     tabList,
     height,
     pixel_height,
     classNames,
+    themeType,
     hidePixel
   }) => {
-    console.log({ hidePixel });
+    console.log({ tabList, hidePixel });
     return /* @__PURE__ */ React95.createElement("ul", {
       className: classNames
     }, tabList.map((v, index) => /* @__PURE__ */ React95.createElement(PixelTabLiItem, {
+      themeType,
       hidePixel,
       onClick: v.onClick,
       key: v.label,
@@ -11329,7 +11360,7 @@ var PixelTab = memo33(
     })));
   }
 );
-var PixelTabLiItem = memo33(
+var PixelTabLiItem = memo34(
   ({
     onClick,
     on,
@@ -11337,18 +11368,19 @@ var PixelTabLiItem = memo33(
     height,
     pixel_height,
     hidePixel,
-    logo
+    logo,
+    themeType
   }) => {
     if (on) {
       return /* @__PURE__ */ React95.createElement("li", null, /* @__PURE__ */ React95.createElement(ActivePixelButtonColor, {
         hidePixel,
-        themeType: "brightBlue",
+        themeType: themeType != null ? themeType : "brightBlue",
         height,
         pixel_height,
         className: "active_tvl_tab_on"
       }, logo ? /* @__PURE__ */ React95.createElement(SvgComponent_default, {
         src: logo
-      }) : null, /* @__PURE__ */ React95.createElement("p", null, label)));
+      }) : null, label ? /* @__PURE__ */ React95.createElement("p", null, label) : null));
     }
     return /* @__PURE__ */ React95.createElement("li", null, /* @__PURE__ */ React95.createElement(ActivePixelButton, {
       hidePixel,
@@ -11359,14 +11391,14 @@ var PixelTabLiItem = memo33(
       onClick
     }, logo ? /* @__PURE__ */ React95.createElement(SvgComponent_default, {
       src: logo
-    }) : null, /* @__PURE__ */ React95.createElement("p", null, label)));
+    }) : null, label ? /* @__PURE__ */ React95.createElement("p", null, label) : null));
   }
 );
 var PixelTab_default = PixelTab;
 
 // src/components/PixelTab/PixelTabBorder.tsx
-import React96, { memo as memo34 } from "react";
-var PixelTabBorder = memo34(
+import React96, { memo as memo35 } from "react";
+var PixelTabBorder = memo35(
   ({
     className,
     tabList,
