@@ -13,6 +13,7 @@ import {
   PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
+  TVLChainId,
   useIsW768,
   useRecoilValue,
   useSetRecoilState
@@ -24,14 +25,33 @@ import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
 import { useStakeHandle } from '../../hooks/useStakeHandle'
-import { chooseChainState, selectChainDialogState } from '../../state/activeState'
+import { chooseChainState, restakingDataState, selectChainDialogState } from '../../state/activeState'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
+const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string }> = {
+  [TVLChainId.B2]: {
+    native: '200',
+    erc20: '100'
+  },
+  [TVLChainId.B2Testnet]: {
+    native: '200',
+    erc20: '100'
+  },
+  [TVLChainId.LineaMainnet]: {
+    native: '10',
+    erc20: '5'
+  },
+  [TVLChainId.LineaTestnet]: {
+    native: '10',
+    erc20: '5'
+  }
+}
 const Staking = memo(() => {
   const isW768 = useIsW768()
   const chooseChain = useRecoilValue(chooseChainState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
+  const restakingData = useRecoilValue(restakingDataState)
   const {
     deposit,
     account,
@@ -121,6 +141,18 @@ const Staking = memo(() => {
       finalPoints: ''
     }
     try {
+      const isNative = chooseValue?.address === AddressZero
+      let stakingAirdrop
+      let stakingGrowthCoefficient
+      let restakingAirdrop
+      let restakingGrowthCoefficient
+      if (chooseValue?.chainId && restakingData[chooseValue?.chainId]) {
+        const statistics = restakingData[chooseValue?.chainId].statistics
+        stakingAirdrop = statistics.stakingAirdrop
+        stakingGrowthCoefficient = statistics.stakingGrowthCoefficient
+        restakingAirdrop = statistics.restakingAirdrop
+        restakingGrowthCoefficient = statistics.restakingGrowthCoefficient
+      }
       if (!isDataLoading) {
         if (depositValue) {
           const decimal = chooseValue?.decimal ?? 18
@@ -129,7 +161,20 @@ const Staking = memo(() => {
               new BigNumberJs('10').exponentiatedBy(decimal)
             )
           )
-          const X = new BigNumberJs(Math.ceil(new BigNumberJs(_totalStaked).toNumber())).times(10) // _totalStaked 的值向上取整就是其系数
+
+          let X
+          let growthCoefficient = '0'
+          const _chainId = chooseValue?.chainId as unknown as TVLChainId
+          const CeilAmountPre = Math.ceil(new BigNumberJs(_totalStaked).toNumber())
+          console.log({ CeilAmountPre }, _totalStaked)
+          const CeilAmount = CeilAmountPre > 5 ? 5 : CeilAmountPre
+          if (isNative) {
+            X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['native']) // _totalStaked 的值向上取整就是其系数
+            growthCoefficient = stakingAirdrop ?? '0'
+          } else {
+            X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['erc20']) // _totalStaked 的值向上取整就是其系数
+            growthCoefficient = restakingAirdrop ?? '0'
+          }
 
           const END_TIME = +(chooseValue?.END_TIME ?? '0') // 从合约获取的时间
           const nowTimestamp = Date.now() / 1000 // 当前时间
@@ -138,17 +183,20 @@ const Staking = memo(() => {
           const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
           const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
 
-          const _earnPoints = X.plus(new BigNumberJs(_totalStaked)) // 系数值 + 输入值
-          const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints) // 还剩多少天 乘 _earnPoints
-          // console.log({
-          //   depositValue,
-          //   userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
-          //   X: X.toFixed(),
-          //   END_TIME,
-          //   differenceInDays,
-          //   _earnPoints: _earnPoints.toFixed(2),
-          //   _finalPoints: _finalPoints.toFixed(2)
-          // })
+          const _earnPoints = X.times(new BigNumberJs(_totalStaked)) // 系数值 + 输入值
+          const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints).plus(growthCoefficient) // 还剩多少天 乘 _earnPoints
+          console.log({
+            isNative,
+            depositValue,
+            userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
+            X: X.toFixed(),
+            END_TIME,
+            differenceInDays,
+            _totalStaked: _totalStaked.toFixed(),
+            _earnPoints: _earnPoints.toFixed(2),
+            _finalPoints: _finalPoints.toFixed(2),
+            growthCoefficient
+          })
           return {
             totalStaked: _totalStaked.toFormat(2),
             earnPoints: _earnPoints.toFormat(2),
@@ -160,7 +208,7 @@ const Staking = memo(() => {
     } catch {
       return obj
     }
-  }, [JSON.stringify(chooseValue), isDataLoading, depositValue])
+  }, [JSON.stringify(restakingData), JSON.stringify(chooseValue), isDataLoading, depositValue])
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Staking</h3>
@@ -210,7 +258,7 @@ const Staking = memo(() => {
           </div>
         </li>
         <li>
-          <p>Earn Points</p>
+          <p>Earn Points Per Day</p>
           <div className={css.fr}>
             <p>{earnPoints}</p>
             <LoadingButton isLoading={isDataLoading} />

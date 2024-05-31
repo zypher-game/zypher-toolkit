@@ -11,7 +11,7 @@ import {
 import React, { memo, useCallback, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import StakingTitle from '@/pages/Active/components/StakingTitle/StakingTitle'
+import { StakingTitle, Title } from '@/pages/Active/components/Title/Title'
 import { IAvailableCode, IGroupGoal } from '@/pages/Active/hooks/useTeam'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { IActiveData, isTvlDataLoadingState, tvlPointDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'
@@ -62,12 +62,10 @@ const FrSomeWidget = memo(
           </ActivePixelButtonColor>
         </FrPixelBorder>
         <FrPixelBorder>
-          <div className={css.fr_title}>
-            <h3>Airdrop Points Card</h3>
-            <PixelTooltip
-              title={['Points cards come from:', 'Your inviter has completed the group goal;', 'Your team accomplished the group goal.']}
-            />
-          </div>
+          <Title
+            label="Airdrop Points Card"
+            tooltip={['Points cards come from:', 'Your inviter has completed the group goal;', 'Your team accomplished the group goal.']}
+          />
           <p className={css.fr_grey}>
             {Number(groupGoal.need) === 0 ? null : `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card`}
           </p>

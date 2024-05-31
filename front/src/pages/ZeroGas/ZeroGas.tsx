@@ -1,12 +1,12 @@
 import { AddressZero } from '@ethersproject/constants'
 import {
   ActivePixelButtonColor,
+  ActivePixelCard,
   activeTokenList,
   BigNumberJs,
   ChainId,
   Currency,
   PixelBorderCard,
-  PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
   TVLChainId,
@@ -17,12 +17,14 @@ import React, { memo, useCallback, useMemo } from 'react'
 
 import copy from '@/utils/copy'
 
-import StakingTitle from '../Active/components/StakingTitle/StakingTitle'
+import { StakingTitle } from '../Active/components/Title/Title'
 import { useChainIndex } from '../Active/hooks/useChainIndex'
 import { useStake } from '../Active/hooks/useStakeData'
 import { useTvlStakingDialogState } from '../Active/hooks/useTvlStakingDialogState'
 import { activeDataState, IActiveDataState, initActiveData, ITVLStakingData, tvlStakingDataState } from '../Active/state/activeState'
-import ChainTab from '../Active/views/ActiveTVLHome/components/ChainTab/ChainTab'
+import DappItem, { IDappItem } from './components/DappItem/DappItem'
+import StakeItem, { IStakeItem } from './components/StakeItem/StakeItem'
+import Tab from './components/Tab/Tab'
 import css from './ZeroGas.module.styl'
 type ThemeKey = 'b2' | 'linea'
 const Theme: Record<TVLChainId, ThemeKey> = {
@@ -32,19 +34,6 @@ const Theme: Record<TVLChainId, ThemeKey> = {
   [TVLChainId.LineaTestnet]: 'linea'
 }
 
-type IStakeItem = {
-  stake: string
-  mintMinimum: string
-  currency: string
-  isOk: boolean
-}
-type IDappItem = {
-  logo: string
-  title: string
-  content: string
-  Rewards?: string[]
-  btnText: string
-}
 type IThemeItem = {
   bannerBorderColor: string
   text: string
@@ -53,7 +42,7 @@ type IThemeItem = {
 type ITheme = Record<ThemeKey, IThemeItem>
 const theme: ITheme = {
   b2: {
-    bannerBorderColor: '#60DFFF',
+    bannerBorderColor: '#FFB852',
     text: 'B²',
     dapp: [
       {
@@ -67,7 +56,7 @@ const theme: ITheme = {
     ]
   },
   linea: {
-    bannerBorderColor: '#FFB852',
+    bannerBorderColor: '#60DFFF',
     text: 'Linea',
     dapp: [
       {
@@ -143,48 +132,54 @@ const ZeroGas = memo(() => {
           <>
             <div className={css.top}>
               <div className={css.fl}>
-                <PixelBorderCard className={css.bannerCard} pixel_height={4} borderColor={bannerBorderColor} backgroundColor="#1D263B">
-                  <img className={css.bg} src={`${preStaticUrl}/img/zeroGas/${_themeKey}_bg.png`} alt={_themeKey} />
-                  <img className={css.logo} src={`${preStaticUrl}/img/zeroGas/${_themeKey}_logo.png`} alt={_themeKey} />
-                  <h2>{text} Zytron L3</h2>
-                  <p>Zytron is deployed on Layer3 of {text}</p>
-                </PixelBorderCard>
-                <h3>Staking for Zero Gas on {text} Zytron L3</h3>
-                <PixelBorderCard className={css.stakingCard} pixel_height={4} backgroundColor="#0d1425" borderColor="#3A4254">
-                  <div className={css.stakingTop}>
-                    <div className={css.stakingTopFl}>
-                      <StakingTitle />
-                      <p className={css.grey}>You got the Zypher SBT</p>
+                <ActivePixelCard className={css.bannerCard} pixel_height={6} backgroundColor={bannerBorderColor}>
+                  <ActivePixelCard className={css.bannerCardInner} pixel_height={6} backgroundColor="#1D263B">
+                    <img className={css.bg} src={`${preStaticUrl}/img/zeroGas/${_themeKey}_bg.png`} alt={_themeKey} />
+                    <img className={css.logo} src={`${preStaticUrl}/img/zeroGas/${_themeKey}_logo.png`} alt={_themeKey} />
+                    <div className={css.bannerText}>
+                      <h2>{text} Zytron L3</h2>
+                      <p>Zytron is deployed on Layer3 of {text}</p>
                     </div>
-                    <ActivePixelButtonColor
-                      themeType="yellow"
-                      className={css.staking}
-                      width="110px"
-                      height="32px"
-                      pixel_height={2}
-                      onClick={showStakingHandle}
-                    >
-                      <p>Stake</p>
-                    </ActivePixelButtonColor>
-                  </div>
-                  <div className={css.stakingBottom}>
-                    {dataMap.map(v => (
-                      <StakeItem key={v.currency} item={v} />
-                    ))}
-                  </div>
-                  <PixelBorderCard backgroundColor="#343C4F" borderColor="#3A4254" height="40px" width="100%">
-                    <p>
-                      {text} SBT: {activeTokenList[chainIdParams].Soulbound}
-                    </p>
-                    <span onClick={() => copy(activeTokenList[chainIdParams].Soulbound)}>
-                      <SvgComponent src={preStaticUrl + '/img/icon/copy.svg'} />
-                    </span>
+                  </ActivePixelCard>
+                </ActivePixelCard>
+                <div className={css.flBanner}>
+                  <h3>Staking for Zero Gas on {text} Zytron L3</h3>
+                  <PixelBorderCard className={css.stakingCard} pixel_height={4} backgroundColor="#0d1425" borderColor="#3A4254">
+                    <div className={css.stakingTop}>
+                      <div className={css.stakingTopFl}>
+                        <StakingTitle />
+                        <p className={css.grey}>You got the Zypher SBT</p>
+                      </div>
+                      <ActivePixelButtonColor
+                        themeType="yellow"
+                        className={css.staking}
+                        width="110px"
+                        height="32px"
+                        pixel_height={2}
+                        onClick={showStakingHandle}
+                      >
+                        <p>Stake</p>
+                      </ActivePixelButtonColor>
+                    </div>
+                    <div className={css.stakingBottom}>
+                      {dataMap.map(v => (
+                        <StakeItem key={v.currency} item={v} />
+                      ))}
+                    </div>
+                    <PixelBorderCard backgroundColor="#343C4F" borderColor="#3A4254" height="40px" width="100%">
+                      <p>
+                        {text} SBT: {activeTokenList[chainIdParams].Soulbound}
+                      </p>
+                      <span onClick={() => copy(activeTokenList[chainIdParams].Soulbound)}>
+                        <SvgComponent src={preStaticUrl + '/img/icon/copy.svg'} />
+                      </span>
+                    </PixelBorderCard>
                   </PixelBorderCard>
-                </PixelBorderCard>
+                </div>
               </div>
               <div className={css.fr}>
                 <img src={`${preStaticUrl}/img/zeroGas/SBT.png`} alt="SBT" className={css.SBT} />
-                <img src={`${preStaticUrl}/img/zeroGas/${_themeKey}_log_small.png`} alt="SBT" className={css.smallLogo} />
+                <img src={`${preStaticUrl}/img/zeroGas/${_themeKey}_logo_small.png`} alt="SBT" className={css.smallLogo} />
               </div>
             </div>
             <div className={css.dappList}>
@@ -198,41 +193,10 @@ const ZeroGas = memo(() => {
     )
   }, [])
   return (
-    <>
-      <ChainTab chainIndex={chainIndex} changeChainIndexHandle={setChainIndex} />
+    <div className={css.zeroGas}>
+      <Tab chainIdLocal={chainIdLocal} onClick={setChainIndex} />
       {Widget[chainIdLocal]}
-    </>
-  )
-})
-const StakeItem = memo(({ item }: { item: IStakeItem }) => {
-  return (
-    <div className={css.stakeItem}>
-      <div className={css.stakingText}>
-        <p>
-          {item.stake}/{item.mintMinimum}
-        </p>
-        {item.isOk ? <SvgComponent src={preStaticUrl + '/img/icon/pixel_success.svg'} /> : null}
-      </div>
-      <p className={css.grey}>{item.currency}</p>
     </div>
-  )
-})
-const DappItem = memo(({ item }: { item: IDappItem }) => {
-  return (
-    <PixelBorderCard className={css.dappCard} pixel_height={4} backgroundColor="#0d1425" borderColor="#3A4254">
-      <img src={item.logo} alt={item.title} />
-      <h4>{item.title}</h4>
-      <p>{item.content}</p>
-      <PixelBorderCard backgroundColor="#343C4F" borderColor="#3A4254" width="100%">
-        <p className={css.dappSmall}>Rewards</p>
-        <div className={css.dappContent}>
-          {item.Rewards ? item.Rewards.map(v => <p key={v} dangerouslySetInnerHTML={{ __html: v }} />) : <p>Coming Soon</p>}
-        </div>
-      </PixelBorderCard>
-      <ActivePixelButtonColor themeType="brightBlue" pixel_height={3} className={css.dappBtn}>
-        <p>{item.btnText}</p>
-      </ActivePixelButtonColor>
-    </PixelBorderCard>
   )
 })
 export default ZeroGas
