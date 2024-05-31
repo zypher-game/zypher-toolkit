@@ -495,7 +495,6 @@ var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
   return ITvlHero2;
 })(ITvlHero || {});
 var TVLChainId = ((TVLChainId2) => {
-  TVLChainId2[TVLChainId2["Sepolia"] = 11155111 /* Sepolia */] = "Sepolia";
   TVLChainId2[TVLChainId2["B2"] = 223 /* B2 */] = "B2";
   TVLChainId2[TVLChainId2["B2Testnet"] = 1123 /* B2Testnet */] = "B2Testnet";
   TVLChainId2[TVLChainId2["LineaMainnet"] = 59144 /* LineaMainnet */] = "LineaMainnet";
@@ -505,11 +504,6 @@ var TVLChainId = ((TVLChainId2) => {
 var defaultActiveChainId = TVLChainId.B2Testnet;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] : [];
 var activeTokenList = {
-  [TVLChainId.Sepolia]: {
-    Staking: "0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637",
-    ZypherGameToken: "0xb78fC41280f671a63ce701925F05E3dA1Da9a2Cc",
-    CRHero: "0x76E08f9D5f76590E12427F003325768290602De1"
-  },
   [TVLChainId.LineaTestnet]: {
     Staking: "0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637",
     ZypherGameToken: "0x5275A8593ce6a967Ae6782a70F417135A44bCd27",
@@ -524,9 +518,6 @@ var activeTokenList = {
   }
 };
 var tvlTokenAddress = {
-  [TVLChainId.Sepolia]: {
-    WETH: "0x7b79995e5f793A07Bc00c21412e50Ecae098E7f9"
-  },
   [TVLChainId.LineaTestnet]: {
     WETH: "0x5131bc5Ed480a524932D2638922616fE968374FE",
     wstETH: "0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E",
@@ -573,7 +564,6 @@ var getLinkPre = (chainId) => {
   return Object.values(LinkPre).filter((v) => v.chainId === chainId)[0];
 };
 var minStakingValue = {
-  [TVLChainId.Sepolia]: "0.01",
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
   [TVLChainId.LineaMainnet]: "0.01",
@@ -1814,7 +1804,7 @@ function useActiveWeb3React(env, chainList2) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);

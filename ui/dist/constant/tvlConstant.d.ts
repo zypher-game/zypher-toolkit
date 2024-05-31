@@ -9,7 +9,6 @@ export declare enum ITvlHero {
     Liana = "Liana"
 }
 export declare enum TVLChainId {
-    Sepolia = 11155111,
     B2 = 223,
     B2Testnet = 1123,
     LineaMainnet = 59144,
@@ -27,7 +26,7 @@ export type TVLToken = {
     USDT: IToken;
     WETH: IToken;
 };
-export declare const activeTokenList: Record<ChainId, Record<string, Address>>;
+export declare const activeTokenList: Record<ChainId, Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>>;
 export declare const tvlTokenAddress: Record<ChainId, Record<string, Address>>;
 export declare const tvlTokens: {
     [k: string]: {
