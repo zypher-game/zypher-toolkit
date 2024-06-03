@@ -1815,7 +1815,7 @@ function useActiveWeb3React(env, chainList2) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
+      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);

@@ -1612,8 +1612,10 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   gap: 10px;
   justify-content: flex-start;
 }
-.address_wrap_pop_item > .pixel_flat_inner .svg_component {
+.address_wrap_pop_item > .pixel_flat_inner .svg_component,
+.address_wrap_pop_item > .pixel_flat_inner img {
   width: 20px;
+  margin-right: 4px;
 }
 .address_wrap_pop_item > .pixel_flat_inner p {
   color: #fff;
