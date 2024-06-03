@@ -1,6 +1,6 @@
 import './index.styl'
 
-import { Header, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
+import { Header, isGames, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
 import { pathnameState } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
@@ -47,7 +47,7 @@ const Layout = memo((props: IProps) => {
     }
   }, [isW768, sideCollapse])
   return (
-    <LayoutAntd className={classnames('lt-layout', pathnameArr[1] === '' ? NavKey[0][1] : pathnameArr[1])}>
+    <LayoutAntd className={classnames('lt-layout', isGames ? NavKey[1][0] : pathnameArr[1] === '' ? NavKey[0][1] : pathnameArr[1])}>
       <Header
         className="lt-header"
         env={env}

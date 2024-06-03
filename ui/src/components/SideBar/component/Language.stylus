@@ -44,6 +44,9 @@ div .address_wrap_pop_lang
   .address_list_item
     cursor: pointer;
     padding: 0 10px
+    img
+      height 67%
+      padding-right: 5px
     &:hover
       p
         color: #fff

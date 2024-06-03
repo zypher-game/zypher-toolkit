@@ -2,19 +2,36 @@
   max-width: 1200px
   margin: 0 auto 
   padding-bottom: 100px
+  padding-top: 30px
   @media screen and (max-width: 1232px)
     padding: 0 16px 50px
+
+.list
+  @media screen and (max-width: 830px)
+    display: flex
+    flex-wrap: wrap;
+    gap: 15px
+    .bannerCard, .fr
+      flex: 1
+      width: 100%;
+      min-width: 100%
 .top
   display: flex
   justify-content: space-between
   gap: 20px
   flex-wrap: wrap
   padding-top: 30px
-  padding-bottom: 30px
-  .fl,.fr
+  @media screen and (max-width: 830px)
+    padding-top: 20px
+    flex-direction: column
+    gap: 0
+  div.fl,div.fr
     flex: 1; 
     display: flex;
     flex-direction: column; 
+    @media screen and (max-width: 830px)
+      width: 100%
+      max-width: 100%
   .fl
     width: 65%
     max-width: 793px
@@ -23,42 +40,94 @@
     position relative
     width: 35%
     max-width: 386px
+.bannerText
+  width: 100%
+  position: absolute
+  z-index: 1
+  top: 50%
+  transform: translateY(-50%)
+  padding-left: 40px
+  @media screen and (max-width: 830px)
+    padding-left: 20px
+.banner_text
+  font-size: 12px
+  @media screen and (max-width: 830px)
+    line-height: 14px
+.bannerTitle
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  gap: 16px
+  margin-bottom: 10px
+  @media screen and (max-width: 830px)
+    gap: 8px
+    margin-bottom: 5px
+  h2
+    font-size: 24px
+    font-weight: bold
+    @media screen and (max-width: 830px)
+      font-size: 18px
+
+.switchChain
+  cursor: pointer
+  padding: 6px 8px
+  @media screen and (max-width: 830px)
+    padding: 2px 11px
+  :global(.svg_component)
+    @media screen and (max-width: 830px)
+      width 12px
+  :global(>.pixel_flat_inner)
+    gap: 8px
+    @media screen and (max-width: 830px)
+      gap: 4px
+  p
+    font-size: 14px
+    @media screen and (max-width: 830px)
+      font-size: 12px
 .bannerCard
   position relative
   padding: 6px
-  height: 120px
+  @media screen and (max-width: 830px)
+    padding: 4px
   .bannerCardInner
     position relative
     height: 100%
+    width 100%
     .bg
       position: relative
       width: 100%;
       height: 100%;
     .logo
       position absolute
-      width 72px
-      top: 20px
-      right 30px
-    .bannerText
-      width: 100%
-      position: absolute
-      z-index: 1
-      top: 50%
-      transform: translateY(-50%)
-      padding-left: 40px
-      h2
-        font-size: 24px
-        font-weight: bold
-        margin-bottom: 10px
-      p
-        font-size: 12px
-.flBanner
+      height: 22px
+      top: 10px
+      right 20px
+      @media screen and (max-width: 830px)
+        height: 20px
+    
+.title
   margin-top: 30px
-  h3
-    font-size: 18px
-    font-weight: bold
+  margin-bottom: 10px
+  font-size: 18px
+  font-weight: bold
+  @media screen and (max-width: 830px)
+    font-size: 16px
+    margin-top: 20px
+    margin-bottom: 8px
+.flBanner
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+ 
   .stakingCard
     padding: 30px
+    flex: 1
+    @media screen and (max-width: 830px)
+      padding: 20px
+    :global(>.pixel_flat_inner)
+      flex-direction: column
+      align-items: flex-start
+      justify-content: space-around;
   .grey
     color: #959BA8
     font-size: 16px
@@ -66,19 +135,40 @@
   display: flex
   justify-content: space-between
   align-items: flex-start
+  width: 100%;
 .stakingTopFl
   display: flex
   flex-direction: column
   gap: 10px
 .stakingBottom
+  width 100%
   margin-top: 40px
   display: flex
-  justify-content: space-around
-.SBT
-  position: relative
-  width: 100%
-.smallLogo
-  position: absolute
-  height: 18px
-  bottom: 32px
-  right: 80px
+  justify-content: space-between
+  align-items: flex-start
+  @media screen and (max-width: 830px)
+    margin-top: 30px
+.sbtAddressCard
+  margin-top: 30px
+  padding: 12px 20px
+  @media screen and (max-width: 830px)
+    padding: 15px
+    margin-top: 20px
+  :global(>.pixel_flat_inner)
+    justify-content: flex-start
+    gap: 10px
+  p
+    font-size: 12px
+  svg
+    cursor pointer
+    path
+      fill: #B1B5BE;
+.dappList
+  width 100%
+  display: flex
+  justify-content: flex-start
+  align-items: flex-start
+  flex-wrap: wrap
+  align-items: stretch
+  @media screen and (max-width: 830px)
+    gap: 10px

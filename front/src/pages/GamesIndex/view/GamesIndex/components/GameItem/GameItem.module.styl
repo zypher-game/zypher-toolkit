@@ -1,3 +1,4 @@
+$PcDheight = 10px
 $dheight = 30px
 
 .gameItem
@@ -5,19 +6,39 @@ $dheight = 30px
   position: relative
   min-height: 83vh
   @media screen and (max-width: 830px)
-    min-height: 120vh
+    min-height: 820px
 .fr
   display flex
   // justify-content: flex-start
   // flex-wrap: wrap;
   flex-direction: column
   align-items: flex-start;
+:global(.gameItemComp25)
+  .gameItemMiddle
+    padding: 13px 7px
+    @media screen and (max-width: 830px)
+      padding: 20px 4px
+  .game
+    width: 100%;
+    height: 100%;
+  .icon
+    width auto
+    border-radius: 0
+    &:nth-child(1)
+      height: 20px
+      @media screen and (max-width: 830px)
+        height: 12px
+    &:nth-child(2)
+      height: 30px
+      @media screen and (max-width: 830px)
+        height: 20px
+
 .icon
   width 44px
-  border-radius: 9px
+  // border-radius: 9px
   @media screen and (max-width: 830px)
     width 32px
-    border-radius: 4px
+    // border-radius: 4px
 .gameItemCompComingImg
   display: flex
   justify-content: center
@@ -95,8 +116,8 @@ $dheight = 30px
     scale: 1.03
 
   .gameItemMiddle
-    height: 80px
     margin-top: 14px
+    height: 80px - $PcDheight
     @media screen and (max-width: 830px)
       height: 80px - $dheight
       margin-top: 11px
@@ -244,7 +265,7 @@ $dheight = 30px
 .gameItemMiddle
   position relative
   background-color: #F1D5A5
-  padding: 13px 11px
+  padding: 13px 16px
   @media screen and (max-width: 830px)
     padding: 8px 4px
   .bg
@@ -330,15 +351,15 @@ $dheight = 30px
   .item1
     margin-top: 6px
     width: 3px
-    height: 91px
     background-color: #1E4575
+    height: 91px - $PcDheight
     @media screen and (max-width: 830px)
       height: 91px - $dheight
       width 2px
   .item2
     margin-top: 0
     width: 3px
-    height: 103px
+    height: 103px - $PcDheight
     background-color: #F1D5A5
     border-top: 6px solid #1E4575
     border-bottom: 6px solid #1E4575
@@ -351,19 +372,19 @@ $dheight = 30px
   .item3
     margin-top: 2px
     width: 1px
-    height: 101px
     background-color: #F1D5A5
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 101px - $PcDheight
     @media screen and (max-width: 830px)
       height: 101px - $dheight
   .item4
     margin-top: 2px
   .item401
     width: 2px
-    height: 62px
     background-color: #D4AD6A
     border-top: 3px solid #1E4575
+    height: 62px - $PcDheight
     @media screen and (max-width: 830px)
       height: 62px - $dheight
   .item402
@@ -374,28 +395,28 @@ $dheight = 30px
   .item5
     margin-top: 5px
     width: 3px
-    height: 95px
     background-color: #D4AD6A
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 95px - $PcDheight
     @media screen and (max-width: 830px)
       height: 95px - $dheight
       width 2px
   .item6
     margin-top: 2px
     width: 3px
-    height: 98px
     background-color: #D4AD6A
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 98px - $PcDheight
     @media screen and (max-width: 830px)
       height: 98px - $dheight
       width 2px
   .item7
     margin-top: 4px
     width: 3px
-    height: 93px
     background-color: #1E4575
+    height: 93px - $PcDheight
     @media screen and (max-width: 830px)
       height: 93px - $dheight
       width 2px
@@ -403,37 +424,37 @@ $dheight = 30px
   .item1
     margin-top: 8px
     width: 3px
-    height: 89px
     background-color: #1E4575
+    height: 89px - $PcDheight
     @media screen and (max-width: 830px)
       height: 89px - $dheight
       width 2px
   .item2
     margin-top: 5px
     width: 3px
-    height: 95px
     background-color: #D4AD6A
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 95px - $PcDheight
     @media screen and (max-width: 830px)
       height: 95px - $dheight
       width 2px
   .item3
     margin-top: 2px
     width: 1px
-    height: 101px
     background-color: #D4AD6A
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 101px - $PcDheight
     @media screen and (max-width: 830px)
       height: 101px - $dheight
   .item4
     margin-top: 2px
   .item401
     width: 2px
-    height: 66px
     background-color: #D4AD6A
     border-top: 3px solid #1E4575
+    height: 66px - $PcDheight
     @media screen and (max-width: 830px)
       height: 66px - $dheight
       width 2px
@@ -445,28 +466,28 @@ $dheight = 30px
   .item5
     margin-top: 0
     width 3px
-    height 103px
     background-color: #F1D5A5
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 103px - $PcDheight
     @media screen and (max-width: 830px)
       height: 103px - $dheight
       width 2px
   .item6
     margin-top: 4px
     width 3px
-    height 96px
     background-color: #F1D5A5
     border-top: 3px solid #1E4575
     border-bottom: 3px solid #1E4575
+    height: 96px - $PcDheight
     @media screen and (max-width: 830px)
       height: 96px - $dheight
       width 2px
   .item7
     margin-top: 6px
     width 3px
-    height 91px
     background-color: #1E4575
+    height: 91px - $PcDheight
     @media screen and (max-width: 830px)
       height: 91px - $dheight
       width 2px

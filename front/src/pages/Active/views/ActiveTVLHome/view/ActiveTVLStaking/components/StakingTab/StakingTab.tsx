@@ -1,8 +1,8 @@
-import { ActivePixelButtonColor, ChainId, preStaticUrl, TVLStakingSupportedChainId, useIsW768, useSetRecoilState } from '@ui/src'
-import React, { memo, useCallback } from 'react'
+import { ChainId, TVLStakingSupportedChainId } from '@ui/src'
+import React, { memo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
+import StakingBtn from '@/pages/Active/components/StakingBtn/StakingBtn'
 
 import ChainTab from '../../../../components/ChainTab/ChainTab'
 import css from './StakingTab.module.styl'
@@ -16,27 +16,11 @@ const StakingTab = memo(
     chainIndex: number
     changeChainIndexHandle: (index: number) => void
   }) => {
-    const setTvlStakingDialog = useTvlStakingDialogState()
-
-    const showStakingHandle = useCallback(() => {
-      setTvlStakingDialog(chainIdLocal, true)
-    }, [chainIdLocal])
-    const isW768 = useIsW768()
     return (
       <>
         <div className={css.tab_col}>
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
-          <ActivePixelButtonColor
-            themeType="yellow"
-            className={css.staking}
-            width={isW768 ? '56px' : '110px'}
-            height={isW768 ? '56px' : '32px'}
-            pixel_height={2}
-            onClick={showStakingHandle}
-          >
-            {isW768 ? <img src={preStaticUrl + '/img/tvl/staking_icon.svg'} alt="staking" className={css.stakingImg} /> : null}
-            <p>Stake</p>
-          </ActivePixelButtonColor>
+          <StakingBtn chainId={chainIdLocal} />
         </div>
         {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaTestnet || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (
           <div className={css.warn_tab_tooltip}>

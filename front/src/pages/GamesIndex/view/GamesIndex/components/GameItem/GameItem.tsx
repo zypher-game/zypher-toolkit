@@ -3,56 +3,57 @@ import './GameItem.styl'
 import {
   ActivePixelButton,
   DPSupportChainId,
+  Games,
+  IGames,
+  IGamesItem,
   INavLink,
   INavLinkType,
   pointsDialogState,
   preStaticUrl,
+  useActiveWeb3React,
   useIsW768,
-  useNavItem,
   useSetRecoilState
 } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
+import { PixelCube2Tooltip } from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { env } from '@/utils/config'
 
 import css from './GameItem.module.styl'
 const GameItem = memo(() => {
-  const items = useNavItem()
+  const { chainId } = useActiveWeb3React()
   const setPointsDialogState = useSetRecoilState(pointsDialogState)
   const showPointsModal = useCallback(() => {
     setPointsDialogState(true)
   }, [setPointsDialogState])
-  const { gameList, disableGameList } = useMemo(() => {
-    const obj: Record<'gameList' | 'disableGameList', INavLink[]> = {
-      gameList: [],
-      disableGameList: []
-    }
-    if (items && items.length) {
-      obj.gameList = [
-        ...(items.filter(v => v.type === INavLinkType.Games && !v.disabled) ?? []),
-        {
-          label: 'Gold Points',
-          keyValue: 'points',
-          icon: 'points.png',
-          disabled: false,
-          type: INavLinkType.Games,
-          btn_label: 'Get More',
-          onClick: showPointsModal,
-          btn_background_color: '#264EDA'
-        }
-      ]
-      obj.disableGameList = items.filter(v => v.type === INavLinkType.Games && v.disabled)
+  const { gameList, GpItem } = useMemo(() => {
+    const obj: {
+      gameList: IGames[]
+      GpItem: INavLink
+    } = {
+      gameList: Games(chainId),
+      GpItem: {
+        label: 'Gold Points',
+        keyValue: 'points',
+        icon: 'points.png',
+        disabled: false,
+        type: INavLinkType.Games,
+        btn_label: 'Get More',
+        onClick: showPointsModal,
+        btn_background_color: '#264EDA'
+      }
     }
     return obj
-  }, [JSON.stringify(items)])
+  }, [chainId])
   return (
     <div className={css.gameItem}>
       <>
         {gameList.map(v => (
-          <GameItemComp key={v.keyValue} item={v} />
+          <GamesItemComp key={v.keyValue} item={v} />
         ))}
-        <GameItemComingSoon disableGameList={disableGameList} />
+        <GpItemComp item={GpItem} />
+        {/* <GameItemComingSoon disableGameList={disableGameList} /> */}
       </>
       <div className="gameItem_bg">
         <div className="pixel_island1_div">
@@ -93,23 +94,23 @@ const GameItem = memo(() => {
     </div>
   )
 })
-const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
-  return (
-    <div className={`${css.gameItemComp ?? ''} ${css.gameItemCompComing} gameItemCompComing`}>
-      <GameItemBgLeft />
-      <GameItemMiddle className={css.gamComing}>
-        <div className={css.gameItemCompComingImg}>
-          {disableGameList.map(item => (
-            <img className={css.icon} key={item.keyValue} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
-          ))}
-        </div>
-        <p className={css.label}>Coming soon</p>
-      </GameItemMiddle>
-      <GameItemBgRight />
-    </div>
-  )
-})
-const GameItemComp = memo(({ item }: { item: INavLink }) => {
+// const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
+//   return (
+//     <div className={`${css.gameItemComp ?? ''} ${css.gameItemCompComing} gameItemCompComing`}>
+//       <GameItemBgLeft />
+//       <GameItemMiddle className={css.gamComing}>
+//         <div className={css.gameItemCompComingImg}>
+//           {disableGameList.map(item => (
+//             <img className={css.icon} key={item.keyValue} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
+//           ))}
+//         </div>
+//         <p className={css.label}>Coming soon</p>
+//       </GameItemMiddle>
+//       <GameItemBgRight />
+//     </div>
+//   )
+// })
+const GpItemComp = memo(({ item }: { item: INavLink }) => {
   const preHandleAction = usePreHandleGlobal()
   const isW768 = useIsW768()
   const setPointsDialogState = useSetRecoilState(pointsDialogState)
@@ -140,6 +141,26 @@ const GameItemComp = memo(({ item }: { item: INavLink }) => {
             <p className={css.btn_label}>{item.btn_label}</p>
           </ActivePixelButton>
         </div>
+      </GameItemMiddle>
+      <GameItemBgRight />
+    </div>
+  )
+})
+const GamesItemComp = memo(({ item }: { item: IGames }) => {
+  const toPathHandle = useCallback(async (v: IGamesItem) => {
+    if (v.link || v.twitter) {
+      window.open(v.link ?? v.twitter)
+    }
+  }, [])
+  return (
+    <div className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}>
+      <GameItemBgLeft />
+      <GameItemMiddle className={css.game}>
+        {item.dapps.map(v => (
+          <PixelCube2Tooltip key={v.label} title={[v.label]}>
+            <img className={css.icon} src={preStaticUrl + '/img/games/games/' + v.icon} alt={v.label} onClick={() => toPathHandle(v)} />
+          </PixelCube2Tooltip>
+        ))}
       </GameItemMiddle>
       <GameItemBgRight />
     </div>

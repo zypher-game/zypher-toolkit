@@ -1,6 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import "./SvgComponent.stylus";
-const SvgComponent = ({ src, className, ...rest }: any) => {
+const SvgComponent = memo(({ src, className, ...rest }: any) => {
+  return src.endsWith(".svg") ? (
+    <Svg src={src} className={className} {...rest} />
+  ) : (
+    <img src={src} className={className} />
+  );
+});
+const Svg = memo(({ src, className, ...rest }: any) => {
   const [svgContent, setSvgContent] = useState<any>(null);
 
   useEffect(() => {
@@ -29,6 +36,6 @@ const SvgComponent = ({ src, className, ...rest }: any) => {
   }, [src]);
 
   return svgContent || <></>;
-};
+});
 
 export default SvgComponent;

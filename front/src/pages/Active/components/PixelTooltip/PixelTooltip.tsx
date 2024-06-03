@@ -1,10 +1,10 @@
 import './PixelTooltip.styl'
 
-import { ActivePixelCard, preStaticUrl, SvgComponent } from '@ui/src'
+import { ActivePixelCard, PixelBorderCard, PixelCube2, preStaticUrl, SvgComponent } from '@ui/src'
 import { Tooltip } from 'antd'
 import React, { memo } from 'react'
 
-const PixelTooltip = memo(({ title, showLink }: { title: string[]; showLink?: string }) => {
+const PixelTooltip = memo(({ title, showLink, children }: { title: string[]; showLink?: string; children?: React.ReactNode }) => {
   return (
     <Tooltip
       // open={false}
@@ -25,7 +25,42 @@ const PixelTooltip = memo(({ title, showLink }: { title: string[]; showLink?: st
         </ActivePixelCard>
       }
     >
-      <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className="tooltip_pixel_warn" />
+      {children ?? <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className="tooltip_pixel_warn" />}
+    </Tooltip>
+  )
+})
+
+export const PixelCube2Tooltip = memo(({ title, showLink, children }: { title: string[]; showLink?: string; children?: React.ReactNode }) => {
+  return (
+    <Tooltip
+      // open={true}
+      showArrow={false}
+      title={
+        <PixelCube2 pixel_height={3} backgroundColor="#1D263B" borderColor="#fff">
+          <div className="pixel_tooltip_text">
+            {title.map((v, index) => (
+              <p key={index} className={'bold'}>
+                {v}
+              </p>
+            ))}
+            {showLink ? (
+              <a href={showLink} className="pixel_tooltip_link" target="_blank" rel="noreferrer">
+                Learn more
+              </a>
+            ) : null}
+          </div>
+          <PixelBorderCard
+            pixel_height={3}
+            backgroundColor="#1D263B"
+            borderColor="#fff"
+            width="15px"
+            height="15px"
+            className="pixel_tooltip_cube_arrow"
+          />
+        </PixelCube2>
+      }
+    >
+      {children ?? <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className="tooltip_pixel_warn" />}
     </Tooltip>
   )
 })

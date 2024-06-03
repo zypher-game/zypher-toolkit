@@ -2,6 +2,8 @@ import { NavKey, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { pathnameState } from '@ui/src'
 import { useCallback, useEffect } from 'react'
 
+import { useIsGetActiveData } from '@/hooks/useInit'
+
 import { initActiveData } from '../state/activeState'
 import { canNext } from './activeHooks'
 import { useActiveData } from './useActiveData'
@@ -56,15 +58,16 @@ export const useActiveInit = () => {
   // const { isInitLoading, id } = activeData
   const { getData } = useGetData()
   const pathname = useRecoilValue(pathnameState)
-
+  const { isActiveInit } = useIsGetActiveData()
+  console.log('pathname', pathname)
   useEffect(() => {
-    if (NavKey[0].includes(pathname[0])) {
+    if (isActiveInit) {
       getData()
       setActiveData(pre => {
         return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? { ...pre } : { ...initActiveData }
       })
     }
-  }, [account, chainId])
+  }, [account, chainId, isActiveInit])
   return {
     getData
   }

@@ -2,6 +2,27 @@
   display: flex
   flex-direction: column
   gap: 10px
+  flex: 1
+  @media screen and (max-width: 830px)
+    gap: 5px
+    flex: auto
   .grey
     color: #959BA8
     font-size: 16px
+    @media screen and (max-width: 830px)
+      font-size: 12px
+  .stakingText
+    display: flex
+    align-items: center
+    justify-content: flex-start
+    gap: 5px
+    p
+      font-weight: bold
+      font-size: 22px
+      @media screen and (max-width: 830px)
+        font-size: 16px
+    :global(.svg_component)
+      width 18px
+    svg
+      fill: #1649FF
+

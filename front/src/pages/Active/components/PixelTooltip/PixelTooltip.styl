@@ -11,3 +11,61 @@
   @media screen and (max-width: 830px)
     width: 16px
     height: 16px
+.bold
+  font-weight: 600
+body .pixel_tooltip_cube_arrow
+  position: absolute;
+  bottom: -22px;
+  > .pixel_flat_btn_bg 
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_bottom_1,
+    > .pixel_flat_btn_bottom_2
+      left: 0;
+    > .pixel_flat_btn_top_1
+      width 15px
+      border-left: 3px solid #fff
+      border-right: 3px solid #fff
+      border-top: none
+      background-color: #1D263B
+    > .pixel_flat_btn_top_2
+      width: 12px
+      border-left: 3px solid #fff
+      border-right: 3px solid #fff
+    > .pixel_flat_btn_inner
+      width: 9px
+      border-left: 3px solid #fff
+      border-right: 3px solid #fff
+    > .pixel_flat_btn_bottom_1
+      width: 6px
+      background-color: #fff
+      border: none
+    > .pixel_flat_btn_bottom_2
+      width: 3px
+      background-color: #fff
+      border: none
+body .pixel_tooltip_arrow
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  bottom: -26px;
+  > .pixel_flat_btn_bg 
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2
+      left: 0;
+    > .pixel_flat_btn_top_1
+      width 100%
+    > .pixel_flat_btn_top_2
+      width: calc(100% - 4px* 1);
+    >.pixel_flat_btn_inner
+      left: 0;
+      width: calc(100% - 4px* 2);
+      height: 4px;
+    >.pixel_flat_btn_bottom_2
+      height: 4px;
+      width: 4px
+      left: 0;
+
+    >.pixel_flat_btn_bottom_1
+      display: none

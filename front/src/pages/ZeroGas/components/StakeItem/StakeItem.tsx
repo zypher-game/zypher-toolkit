@@ -15,7 +15,7 @@ const StakeItem = memo(({ item }: { item: IStakeItem }) => {
     <div className={css.stakeItem}>
       <div className={css.stakingText}>
         <p>
-          {item.stake}/{item.mintMinimum}
+          {item.stake ?? '-'}/{item.mintMinimum ?? '-'}
         </p>
         {item.isOk ? <SvgComponent src={preStaticUrl + '/img/icon/pixel_success.svg'} /> : null}
       </div>

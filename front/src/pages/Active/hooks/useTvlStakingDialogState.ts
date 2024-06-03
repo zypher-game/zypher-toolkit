@@ -12,6 +12,7 @@ export const useTvlStakingDialogState = () => {
   const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
   const setIsModalOpenHandle = useCallback(
     (params: ChainId, value: boolean) => {
+      console.log(value, switchNetwork, params !== chainId, params)
       if (value && switchNetwork && params !== chainId) {
         try {
           switchNetwork(params)

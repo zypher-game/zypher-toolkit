@@ -4,6 +4,8 @@ import { pathnameState } from '@ui/src'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
+import { useIsGetActiveData } from '@/hooks/useInit'
+
 import { IActiveData, tvlPathState } from '../state/activeState'
 import { getHrefCode } from '../utils/getHrefParams'
 import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
@@ -25,10 +27,9 @@ export const useActiveRouter = () => {
     userStakedAmount,
     tvlHero
   }: IActiveData = activeData
-  const pathname = useRecoilValue(pathnameState)
+  const { isActiveRouter } = useIsGetActiveData()
   useEffect(() => {
-    console.log(1, NavKey[0], pathname)
-    if (NavKey[0].includes(pathname[1]) || (pathname[1] ?? '').startsWith('L' || 'B')) {
+    if (isActiveRouter) {
       const pathnameArr = location.pathname.split('/')
       if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
         console.log(1)
@@ -120,7 +121,7 @@ export const useActiveRouter = () => {
     }
     // navigate(`/${NavKey[0][0]}`)
   }, [
-    JSON.stringify(pathname),
+    isActiveRouter,
     isInitLoading,
     id,
     isRegistered,

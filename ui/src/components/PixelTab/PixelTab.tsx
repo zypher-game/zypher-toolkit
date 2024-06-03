@@ -1,6 +1,7 @@
 import {
   ActivePixelButton,
   ActivePixelButtonColor,
+  IActivePixelColorCardTheme,
 } from "../PixelBtn/ActivePixelButton";
 import SvgComponent from "../SvgComponent/SvgComponent";
 import "./PixelTab.styl";
@@ -13,10 +14,11 @@ const PixelTab = memo(
     height,
     pixel_height,
     classNames,
+    themeType,
     hidePixel,
   }: {
     tabList: {
-      label: string;
+      label?: string;
       logo?: string;
       on: boolean;
       onClick: any;
@@ -24,13 +26,15 @@ const PixelTab = memo(
     height: string;
     pixel_height: number;
     classNames: string;
-    hidePixel: boolean;
+    themeType?: IActivePixelColorCardTheme;
+    hidePixel?: boolean;
   }) => {
-    console.log({ hidePixel });
+    console.log({ tabList, hidePixel });
     return (
       <ul className={classNames}>
         {tabList.map((v, index) => (
           <PixelTabLiItem
+            themeType={themeType}
             hidePixel={hidePixel}
             onClick={v.onClick}
             key={v.label}
@@ -54,27 +58,29 @@ const PixelTabLiItem = memo(
     pixel_height,
     hidePixel,
     logo,
+    themeType,
   }: {
     onClick: any;
     on: boolean;
-    label: string;
+    label?: string;
     height: string;
     pixel_height: number;
-    hidePixel: boolean;
+    hidePixel?: boolean;
     logo?: string;
+    themeType?: IActivePixelColorCardTheme;
   }) => {
     if (on) {
       return (
         <li>
           <ActivePixelButtonColor
             hidePixel={hidePixel}
-            themeType="brightBlue"
+            themeType={themeType ?? "brightBlue"}
             height={height}
             pixel_height={pixel_height}
             className="active_tvl_tab_on"
           >
             {logo ? <SvgComponent src={logo} /> : null}
-            <p>{label}</p>
+            {label ? <p>{label}</p> : null}
           </ActivePixelButtonColor>
         </li>
       );
@@ -90,7 +96,7 @@ const PixelTabLiItem = memo(
           onClick={onClick}
         >
           {logo ? <SvgComponent src={logo} /> : null}
-          <p>{label}</p>
+          {label ? <p>{label}</p> : null}
         </ActivePixelButton>
       </li>
     );

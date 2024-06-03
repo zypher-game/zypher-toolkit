@@ -2,7 +2,6 @@ import classnames from "classnames";
 import React, { memo, useMemo } from "react";
 
 import { INavLink, INavLinkType } from "../../hooks/useNavItem.type";
-import { useNavItem } from "../../hooks/useNavItem";
 import { preStaticUrl } from "../../constant/constant";
 
 import CommunityLink from "./component/CommunityLink";
@@ -14,6 +13,8 @@ import { sideCollapseState } from "../Header/state";
 import { useSetRecoilState } from "recoil";
 import Icon from "../icons";
 import { NavList } from "../Header/Navigation/Navigation";
+import { useActiveWeb3React } from "../../hooks/useActiveWeb3React";
+import { Games, IGamesItem } from "../../constant/gamesList";
 
 interface IProps {
   useNavigate: any;
@@ -34,7 +35,8 @@ export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
 });
 const SideBar: React.FC<IProps> = (props: IProps) => {
   const { useNavigate, pathname } = props;
-  const items = useNavItem();
+  // const items = useNavItem();
+  const { chainId } = useActiveWeb3React();
   const setSideCollapse = useSetRecoilState(sideCollapseState);
   const {
     sideBarGamesLinkList,
@@ -43,14 +45,25 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
     // sideBarActivitiesLinkList: INavLink[];
   } = useMemo(() => {
     return {
-      sideBarGamesLinkList: items.filter((v) => v.type === INavLinkType.Games),
+      sideBarGamesLinkList: Games(chainId)
+        .map((v) => v.dapps.map((vv) => vv))
+        .flat()
+        .map((v) => ({
+          label: v.label,
+          keyValue: v.label,
+          icon: v.icon,
+          disabled: false,
+          type: INavLinkType.Games,
+          link: v.link ?? v.twitter,
+        })),
+      // items.filter((v) => v.type === INavLinkType.Games),
       // sideBarActivitiesLinkList: items.filter((v) =>
       //   !isMobile
       //     ? v.type === INavLinkType.Activities && v.keyValue !== "1"
       //     : v.type === INavLinkType.Activities
       // ),
     };
-  }, [items]);
+  }, [chainId]);
 
   return (
     <div className={classnames(`${props.className}`, "sidebarWrap")}>

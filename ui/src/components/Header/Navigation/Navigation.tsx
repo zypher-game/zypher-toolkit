@@ -10,6 +10,7 @@ import "./Navigation.stylus";
 import useWindowSize from "../../../hooks/useWindowSize";
 import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
+import { isGames } from "../../../constant/tvlConstant";
 export const NavKey = [
   ["", "airdrop", "airdropLoading"],
   ["games"],
@@ -22,6 +23,7 @@ export const NavList = [
     linkList: NavKey[0],
     classNames: "airdrop",
     isTarget: false,
+    showIfGames: false, // 只显示 games 的时候显不显示
   },
   {
     link: `/${NavKey[1][0]}`,
@@ -29,6 +31,7 @@ export const NavList = [
     linkList: NavKey[1],
     classNames: "games",
     isTarget: false,
+    showIfGames: true,
   },
   {
     link: `/${NavKey[2][0]}`,
@@ -36,6 +39,7 @@ export const NavList = [
     linkList: NavKey[2],
     classNames: "zero_gas",
     isTarget: false,
+    showIfGames: false,
   },
   {
     link: "https://zypher.network/",
@@ -43,6 +47,7 @@ export const NavList = [
     icon: preStaticUrl + "/img/icon/pixel_link.svg",
     classNames: "network",
     isTarget: true,
+    showIfGames: true,
   },
 ];
 
@@ -148,21 +153,23 @@ const Navigation: React.FC<{ pathname: string }> = memo(
     }, [isW768, isW1670, isWBig]);
     return (
       <div className="nav">
-        {NavList.map((v, index) => (
-          <a
-            key={v.label}
-            className={`nav_${v.classNames}`}
-            href={v.link}
-            target={v.isTarget ? "_blank" : undefined}
-            rel={v.isTarget ? "noreferrer" : undefined}
-            ref={(ref) => (linksRefs.current[index] = ref)}
-          >
-            {v.label}
-            {v.icon ? (
-              <img src={v.icon} alt="pixel_link" className="nav_img" />
-            ) : null}
-          </a>
-        ))}
+        {NavList.filter((v) => (isGames ? v.showIfGames : true)).map(
+          (v, index) => (
+            <a
+              key={v.label}
+              className={`nav_${v.classNames}`}
+              href={v.link}
+              target={v.isTarget ? "_blank" : undefined}
+              rel={v.isTarget ? "noreferrer" : undefined}
+              ref={(ref) => (linksRefs.current[index] = ref)}
+            >
+              {v.label}
+              {v.icon ? (
+                <img src={v.icon} alt="pixel_link" className="nav_img" />
+              ) : null}
+            </a>
+          )
+        )}
         <div className="pixel_line" />
       </div>
     );

@@ -277,7 +277,8 @@ export const useStakeData = () => {
             mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
 
             const getMinStakeIndex = methodArr.indexOf(`getMinStake${_chainId}`)
-            getMinStake = new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
+            console.log({ getMinStakeIndex })
+            getMinStake = getMinStakeIndex === -1 ? '0' : new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
             console.log('Asdfsadf', getMinStake)
 
             const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)

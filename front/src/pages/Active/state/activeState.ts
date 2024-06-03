@@ -115,8 +115,8 @@ export const initActiveData: IActiveData = {
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({
   key: 'activeDataV1',
-  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }]))
-  // effects_UNSTABLE: [localStorageEffect('activeDataV1')]
+  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }])),
+  effects_UNSTABLE: [localStorageEffect('activeDataV1')]
 })
 
 export interface ITVLStakingData extends IToken {

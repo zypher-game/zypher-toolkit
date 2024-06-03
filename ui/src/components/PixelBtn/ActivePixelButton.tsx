@@ -174,7 +174,11 @@ export const ActivePixelColorCard = memo((props: IPixel) => {
   );
 });
 
-type IActivePixelColorCardTheme = "yellow" | "brown" | "brightBlue";
+export type IActivePixelColorCardTheme =
+  | "yellow"
+  | "brown"
+  | "brightBlue"
+  | "pureBrightBlue";
 type IActivePixelColorCardColor = {
   borderBottomColor: string;
   borderTopColor: string;
@@ -243,6 +247,23 @@ const cardTheme: Record<
       borderBottomColor: "#0E267D",
       borderTopColor: "#0E43FF",
       backgroundColor: "#022FD0",
+    },
+  },
+  pureBrightBlue: {
+    normal: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF",
+    },
+    hover: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF",
+    },
+    click: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF",
     },
   },
 };
