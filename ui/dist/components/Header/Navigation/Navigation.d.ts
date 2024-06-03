@@ -7,6 +7,7 @@ export declare const NavList: ({
     linkList: string[];
     classNames: string;
     isTarget: boolean;
+    showIfGames: boolean;
     icon?: undefined;
 } | {
     link: string;
@@ -14,6 +15,7 @@ export declare const NavList: ({
     icon: string;
     classNames: string;
     isTarget: boolean;
+    showIfGames: boolean;
     linkList?: undefined;
 })[];
 declare const Navigation: React.FC<{

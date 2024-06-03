@@ -1477,6 +1477,9 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 36: {
                     defaultClass: string;
                 };
+                34: {
+                    defaultClass: string;
+                };
                 30: {
                     defaultClass: string;
                 };
@@ -1484,9 +1487,6 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {
@@ -1844,6 +1844,9 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 36: {
                     defaultClass: string;
                 };
+                34: {
+                    defaultClass: string;
+                };
                 30: {
                     defaultClass: string;
                 };
@@ -1851,9 +1854,6 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {
@@ -1911,6 +1911,9 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 36: {
                     defaultClass: string;
                 };
+                34: {
+                    defaultClass: string;
+                };
                 30: {
                     defaultClass: string;
                 };
@@ -1918,9 +1921,6 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {
@@ -2290,6 +2290,9 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 36: {
                     defaultClass: string;
                 };
+                34: {
+                    defaultClass: string;
+                };
                 30: {
                     defaultClass: string;
                 };
@@ -2297,9 +2300,6 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {

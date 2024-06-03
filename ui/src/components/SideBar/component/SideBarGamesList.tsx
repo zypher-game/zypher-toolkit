@@ -4,6 +4,7 @@ import React, { FC, memo } from "react";
 import { INavLink } from "../../../hooks/useNavItem.type";
 
 import LinkItem from "./LinkItemA";
+import { ActivePixelCard } from "../../PixelBtn/ActivePixelButton";
 type IProps = {
   className_on: string;
   className_list: string;
@@ -24,19 +25,25 @@ const SideBarGamesList: FC<IProps> = memo(
     list,
   }: IProps) => {
     return (
-      <div className={className_list}>
-        {list.map((v) => (
-          <LinkItem
-            useNavigate={useNavigate}
-            isMobile={true}
-            className_on={className_on}
-            className_disable={className_listItemDisable}
-            key={v.keyValue}
-            className={className_listItem}
-            className_imageContainer={className_imageContainer}
-            {...v}
-          />
-        ))}
+      <div className="gamelist">
+        <ActivePixelCard
+          className="pixel_side_games"
+          pixel_height={3}
+          backgroundColor="#343C4F"
+        >
+          {list.map((v) => (
+            <LinkItem
+              useNavigate={useNavigate}
+              isMobile={true}
+              className_on={className_on}
+              className_disable={className_listItemDisable}
+              key={v.keyValue}
+              className={className_listItem}
+              className_imageContainer={className_imageContainer}
+              {...v}
+            />
+          ))}
+        </ActivePixelCard>
       </div>
     );
   },

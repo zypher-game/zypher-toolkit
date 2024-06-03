@@ -6,7 +6,7 @@ import {
   selector,
   RecoilRoot,
   useRecoilState as useRecoilState14,
-  useRecoilValue as useRecoilValue10,
+  useRecoilValue as useRecoilValue9,
   useResetRecoilState
 } from "recoil";
 
@@ -141,10 +141,7 @@ var supportedChainIds = (env, chainList2) => {
 };
 var ChainRpcUrls = {
   [59140 /* LineaTestnet */]: [
-    "https://rpc.goerli.linea.build",
-    "https://linea.drpc.org",
-    "https://1rpc.io/linea",
-    "https://linea.blockpi.network/v1/rpc/public"
+    "https://rpc.goerli.linea.build"
   ],
   [59144 /* LineaMainnet */]: ["https://rpc.linea.build"],
   [42161 /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
@@ -488,6 +485,7 @@ var zkBingo = (chainId, name) => {
 
 // src/constant/tvlConstant.ts
 var TVL_API = "https://tvl-backend-api.zypher.game";
+var isGames = true;
 var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
   ITvlHero2["Agil"] = "Agil";
   ITvlHero2["Yueling"] = "Yueling";
@@ -572,44 +570,6 @@ var minStakingValue = {
   [TVLChainId.LineaTestnet]: "0.01"
 };
 var CODELENGTH = 6;
-
-// src/utils/localStorageEffect.ts
-import { DefaultValue } from "recoil";
-var localStorageEffect = (key) => ({ setSelf, onSet }) => {
-  const savedValue = localStorage.getItem(key);
-  if (savedValue != null) {
-    try {
-      setSelf(JSON.parse(savedValue));
-    } catch (error) {
-      console.error("localStorageEffect:---", error);
-    }
-  }
-  onSet((newValue) => {
-    if (newValue instanceof DefaultValue || !newValue) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    }
-  });
-};
-
-// src/utils/BigNumberJs.ts
-import BigNumberJs from "bignumber.js";
-var BigNumberJs_default = BigNumberJs;
-
-// src/utils/sleep.ts
-function sleep(seconds) {
-  const now = +new Date();
-  let t;
-  return new Promise((resolve, reject) => {
-    t = setInterval(() => {
-      if (now + seconds * 1e3 < +new Date()) {
-        clearInterval(t);
-        resolve(true);
-      }
-    }, 10);
-  });
-}
 
 // src/hooks/useNavItem.tsx
 import React8, { useMemo as useMemo2 } from "react";
@@ -1502,6 +1462,28 @@ import { useCallback as useCallback2, useContext, useEffect as useEffect4, useSt
 // src/provider/IsMobileProvider.tsx
 import React4, { createContext, memo as memo4, useEffect as useEffect3 } from "react";
 import { atom, useRecoilState } from "recoil";
+
+// src/utils/localStorageEffect.ts
+import { DefaultValue } from "recoil";
+var localStorageEffect = (key) => ({ setSelf, onSet }) => {
+  const savedValue = localStorage.getItem(key);
+  if (savedValue != null) {
+    try {
+      setSelf(JSON.parse(savedValue));
+    } catch (error) {
+      console.error("localStorageEffect:---", error);
+    }
+  }
+  onSet((newValue) => {
+    if (newValue instanceof DefaultValue || !newValue) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    }
+  });
+};
+
+// src/provider/IsMobileProvider.tsx
 var isW768State = atom({
   key: "isW768State",
   default: false,
@@ -1833,7 +1815,7 @@ function useActiveWeb3React(env, chainList2) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);
@@ -1959,6 +1941,201 @@ var useNavItem = () => {
     ];
   }, [t, chainId]);
 };
+
+// src/constant/gamesList.ts
+var Games = (chainId) => {
+  return [
+    {
+      keyValue: "21",
+      dapps: [
+        {
+          label: "Candy Crush",
+          icon: "Candy.png",
+          link: LinkList[3]
+        },
+        {
+          label: "zBingo",
+          icon: "zBingo.png",
+          link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`
+        }
+      ]
+    },
+    {
+      keyValue: "22",
+      dapps: [
+        {
+          label: "zAce",
+          icon: "zAce.png",
+          link: LinkList[2]
+        },
+        {
+          label: "z2048",
+          icon: "z2048.png",
+          link: LinkList[1]
+        }
+      ]
+    },
+    {
+      keyValue: "23",
+      dapps: [
+        {
+          label: "TCG",
+          icon: "TCG.png",
+          link: "/tcg"
+        },
+        {
+          label: "zMahjong",
+          icon: "zMahjong.png",
+          link: "/zMahjong"
+        },
+        {
+          label: "Murder Mystery",
+          icon: "Murder.png",
+          link: "/murdermystery"
+        }
+      ]
+    },
+    {
+      keyValue: "24",
+      dapps: [
+        {
+          label: "Anome",
+          icon: "Anome.png",
+          twitter: "https://twitter.com/Anome_Official",
+          link: "https://b2.anome.xyz/"
+        },
+        {
+          label: "Gabby World",
+          icon: "Gabby World.png",
+          twitter: "https://twitter.com/gabby_world_",
+          link: "https://tabi.gabby.world/"
+        }
+      ]
+    },
+    {
+      keyValue: "25",
+      dapps: [
+        {
+          label: "PawX",
+          icon: "PawX.png",
+          twitter: "https://twitter.com/PawXcats",
+          link: "https://www.pawx.me/"
+        },
+        {
+          label: "Castle Of Blackwater",
+          icon: "Blackwater.png",
+          link: "https://castleofblackwater.com/"
+        }
+      ]
+    },
+    {
+      keyValue: "26",
+      dapps: [
+        {
+          label: "Cross The Ages",
+          icon: "CrossAges.png",
+          twitter: "https://twitter.com/CrossTheAges ",
+          link: "https://linktr.ee/crosstheages "
+        },
+        {
+          label: "Wildcard",
+          icon: "Wildcard.png",
+          twitter: "https://twitter.com/PlayWildcard"
+        },
+        {
+          label: "BitcoinLoot",
+          icon: "BitcoinLoot.png",
+          twitter: "https://twitter.com/btc_loot",
+          link: "https://www.bitcoinloot.co/home/"
+        }
+      ]
+    },
+    {
+      keyValue: "27",
+      dapps: [
+        {
+          label: "Degen Verse",
+          icon: "Degen Verse.png",
+          twitter: "https://twitter.com/degen_game",
+          link: "https://degengame.cc/#/home"
+        },
+        {
+          label: "Yuliverse",
+          icon: "Yuliverse.png",
+          twitter: "https://twitter.com/TheYuliverse",
+          link: "https://www.yuliverse.com/"
+        },
+        {
+          label: "Forge Heros",
+          icon: "Forge Heros.png",
+          twitter: "https://twitter.com/ForgeHeroesGame",
+          link: "https://x.com/ForgeHeroesGame"
+        }
+      ]
+    },
+    {
+      keyValue: "28",
+      dapps: [
+        {
+          label: "Splinterlands",
+          icon: "Splinterlands.png",
+          twitter: "https://twitter.com/Splinterlands"
+        },
+        {
+          label: "Core Engine",
+          icon: "Core Engine.png",
+          link: "https://www.creoengine.com/"
+        },
+        {
+          label: "Crystal Fun",
+          icon: "Crystal Fun.png",
+          twitter: "https://x.com/playCrystalFun",
+          link: "https://outer.gg/"
+        }
+      ]
+    },
+    {
+      keyValue: "29",
+      dapps: [
+        {
+          label: "Cellula",
+          icon: "Cellula.png",
+          link: "https://factory.cellula.life/welcome"
+        },
+        {
+          label: "Metaline X",
+          icon: "Metaline X.png",
+          twitter: "https://twitter.com/Metaline001",
+          link: "https://app.metaline.games/"
+        },
+        {
+          label: "Trumen World",
+          icon: "Trumen World.png",
+          twitter: "https://twitter.com/trumen_worl",
+          link: "https://www.trumen.world/"
+        }
+      ]
+    }
+  ];
+};
+
+// src/utils/BigNumberJs.ts
+import BigNumberJs from "bignumber.js";
+var BigNumberJs_default = BigNumberJs;
+
+// src/utils/sleep.ts
+function sleep(seconds) {
+  const now = +new Date();
+  let t;
+  return new Promise((resolve, reject) => {
+    t = setInterval(() => {
+      if (now + seconds * 1e3 < +new Date()) {
+        clearInterval(t);
+        resolve(true);
+      }
+    }, 10);
+  });
+}
 
 // src/hooks/useGetActiveCall.ts
 import { useCallback as useCallback4 } from "react";
@@ -3740,7 +3917,7 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/SideBar/SideBar.tsx
 import classnames6 from "classnames";
-import React22, { memo as memo18, useMemo as useMemo6 } from "react";
+import React22, { memo as memo18, useMemo as useMemo5 } from "react";
 
 // src/components/SideBar/component/CommunityLink.tsx
 import React17, { memo as memo13 } from "react";
@@ -3820,10 +3997,9 @@ var useLink = (link, isMobile2, useNavigate) => {
       }
       setTimeout(() => {
         try {
-          if (link.link && link.link.indexOf("http") > -1) {
-            window.open(link.link, "_blank");
-          } else {
-            navigate(link.link);
+          const _link = link.link;
+          if (_link) {
+            window.open(_link, "_blank");
           }
         } catch (e) {
           window.location.href = "/#" + link.link;
@@ -3856,7 +4032,7 @@ var LinkItem1 = memo14(
     }, /* @__PURE__ */ React18.createElement("div", {
       className: className_imageContainer
     }, /* @__PURE__ */ React18.createElement("img", {
-      src: preStaticUrl + `/img/layout/${link.icon}`
+      src: preStaticUrl + `/img/games/games/${link.icon}`
     })), /* @__PURE__ */ React18.createElement("p", null, link.label));
   },
   isEqual
@@ -3875,7 +4051,11 @@ var SideBarGamesList = memo15(
     list
   }) => {
     return /* @__PURE__ */ React19.createElement("div", {
-      className: className_list
+      className: "gamelist"
+    }, /* @__PURE__ */ React19.createElement(ActivePixelCard, {
+      className: "pixel_side_games",
+      pixel_height: 3,
+      backgroundColor: "#343C4F"
     }, list.map((v) => /* @__PURE__ */ React19.createElement(LinkItemA_default, {
       useNavigate,
       isMobile: true,
@@ -3885,7 +4065,7 @@ var SideBarGamesList = memo15(
       className: className_listItem,
       className_imageContainer,
       ...v
-    })));
+    }))));
   },
   isEqual
 );
@@ -3929,7 +4109,7 @@ import React21, {
   memo as memo17,
   useCallback as useCallback10,
   useEffect as useEffect7,
-  useMemo as useMemo5,
+  useMemo as useMemo4,
   useRef as useRef2,
   useState as useState9
 } from "react";
@@ -3944,28 +4124,32 @@ var NavList = [
     label: "Airdrop",
     linkList: NavKey[0],
     classNames: "airdrop",
-    isTarget: false
+    isTarget: false,
+    showIfGames: false
   },
   {
     link: `/${NavKey[1][0]}`,
     label: "Games",
     linkList: NavKey[1],
     classNames: "games",
-    isTarget: false
+    isTarget: false,
+    showIfGames: true
   },
   {
     link: `/${NavKey[2][0]}`,
     label: "Zero Gas",
     linkList: NavKey[2],
     classNames: "zero_gas",
-    isTarget: false
+    isTarget: false,
+    showIfGames: false
   },
   {
     link: "https://zypher.network/",
     label: "Zypher Network",
     icon: preStaticUrl + "/img/icon/pixel_link.svg",
     classNames: "network",
-    isTarget: true
+    isTarget: true,
+    showIfGames: true
   }
 ];
 var Navigation = memo17(
@@ -3978,7 +4162,7 @@ var Navigation = memo17(
     );
     const linksRefs = useRef2([]);
     const { width } = useWindowSize();
-    const { isW768, isW1670, isWBig } = useMemo5(() => {
+    const { isW768, isW1670, isWBig } = useMemo4(() => {
       return {
         isW768: width <= 768,
         isW1540: width <= 1540 && width > 768,
@@ -4063,18 +4247,20 @@ var Navigation = memo17(
     }, [isW768, isW1670, isWBig]);
     return /* @__PURE__ */ React21.createElement("div", {
       className: "nav"
-    }, NavList.map((v, index) => /* @__PURE__ */ React21.createElement("a", {
-      key: v.label,
-      className: `nav_${v.classNames}`,
-      href: v.link,
-      target: v.isTarget ? "_blank" : void 0,
-      rel: v.isTarget ? "noreferrer" : void 0,
-      ref: (ref) => linksRefs.current[index] = ref
-    }, v.label, v.icon ? /* @__PURE__ */ React21.createElement("img", {
-      src: v.icon,
-      alt: "pixel_link",
-      className: "nav_img"
-    }) : null)), /* @__PURE__ */ React21.createElement("div", {
+    }, NavList.filter((v) => isGames ? v.showIfGames : true).map(
+      (v, index) => /* @__PURE__ */ React21.createElement("a", {
+        key: v.label,
+        className: `nav_${v.classNames}`,
+        href: v.link,
+        target: v.isTarget ? "_blank" : void 0,
+        rel: v.isTarget ? "noreferrer" : void 0,
+        ref: (ref) => linksRefs.current[index] = ref
+      }, v.label, v.icon ? /* @__PURE__ */ React21.createElement("img", {
+        src: v.icon,
+        alt: "pixel_link",
+        className: "nav_img"
+      }) : null)
+    ), /* @__PURE__ */ React21.createElement("div", {
       className: "pixel_line"
     }));
   }
@@ -4105,15 +4291,25 @@ var ZypherLogo = memo18(({ isMobile: isMobile2 }) => {
 });
 var SideBar = (props) => {
   const { useNavigate, pathname } = props;
-  const items = useNavItem();
+  const { chainId } = useActiveWeb3React();
   const setSideCollapse = useSetRecoilState4(sideCollapseState);
   const {
     sideBarGamesLinkList
-  } = useMemo6(() => {
+  } = useMemo5(() => {
     return {
-      sideBarGamesLinkList: items.filter((v) => v.type === "Games" /* Games */)
+      sideBarGamesLinkList: Games(chainId).map((v) => v.dapps.map((vv) => vv)).flat().map((v) => {
+        var _a;
+        return {
+          label: v.label,
+          keyValue: v.label,
+          icon: v.icon,
+          disabled: false,
+          type: "Games" /* Games */,
+          link: (_a = v.link) != null ? _a : v.twitter
+        };
+      })
     };
-  }, [items]);
+  }, [chainId]);
   return /* @__PURE__ */ React22.createElement("div", {
     className: classnames6(`${props.className}`, "sidebarWrap")
   }, /* @__PURE__ */ React22.createElement("div", {
@@ -4177,7 +4373,7 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React25, { memo as memo21, useCallback as useCallback12, useEffect as useEffect8, useMemo as useMemo7 } from "react";
+import React25, { memo as memo21, useCallback as useCallback12, useEffect as useEffect8, useMemo as useMemo6 } from "react";
 import { useRecoilState as useRecoilState6 } from "recoil";
 import styled3 from "styled-components";
 
@@ -4249,7 +4445,7 @@ var LinkToBetaDialog = memo21(() => {
     linkToBetaDialogChainIdState
   );
   const isMobile2 = useIsW768();
-  const ToUrlName = useMemo7(() => {
+  const ToUrlName = useMemo6(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === 9980 /* Combo */) {
         return ["https://app.zypher.game/2048/"];
@@ -4305,11 +4501,11 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React93, { useEffect as useEffect29, useMemo as useMemo17 } from "react";
-import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue9, useSetRecoilState as useSetRecoilState12 } from "recoil";
+import React93, { useEffect as useEffect29, useMemo as useMemo16 } from "react";
+import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState12 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import React92, { memo as memo33, useMemo as useMemo16 } from "react";
+import React92, { memo as memo33, useMemo as useMemo15 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
 import React38, { memo as memo31, useCallback as useCallback21 } from "react";
@@ -4318,7 +4514,7 @@ import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import React28, { memo as memo24, useCallback as useCallback14, useEffect as useEffect10, useState as useState10 } from "react";
-import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState6 } from "recoil";
+import { useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState6 } from "recoil";
 import styled4 from "styled-components";
 
 // src/contract/abi/erc20Abi.json
@@ -4749,7 +4945,7 @@ var Balance = memo24((props) => {
   const [loading, setLoading] = useState10(false);
   const setNativeBalance = useSetRecoilState6(nativeBalanceState);
   const setPointsBalance = useSetRecoilState6(pointsBalanceState);
-  const refreshBalance = useRecoilValue6(refreshBalanceState);
+  const refreshBalance = useRecoilValue5(refreshBalanceState);
   const fetchBalanceOf = useCallback14(async () => {
     if (!chainId || !account) {
       return;
@@ -4786,7 +4982,7 @@ var Balance = memo24((props) => {
       fetchBalanceOf();
     }
   }, [account, chainId, refreshBalance]);
-  const pointsBalance = useRecoilValue6(pointsBalanceState);
+  const pointsBalance = useRecoilValue5(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
   return /* @__PURE__ */ React28.createElement(React28.Fragment, null, isMiddleWidth ? null : /* @__PURE__ */ React28.createElement(IsPixelWidget_default, {
@@ -4897,11 +5093,11 @@ var ChainSelectorWidget_default = ChainSelectorWidget;
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
 import React30, { useCallback as useCallback16 } from "react";
-import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState7 } from "recoil";
+import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState7 } from "recoil";
 import { Trans } from "react-i18next";
 var PointsRuleDialog = () => {
   const { t } = useCustomTranslation([LngNs.points]);
-  const isModalOpen = useRecoilValue7(pointsRuleDialogState);
+  const isModalOpen = useRecoilValue6(pointsRuleDialogState);
   const setIsModalOpen = useSetRecoilState7(pointsRuleDialogState);
   const handleCancel = useCallback16(() => {
     setIsModalOpen(false);
@@ -5052,7 +5248,7 @@ var Avatar = ({
 var Avatar_default = Avatar;
 
 // src/components/PlayerAvatar/index.tsx
-import { useRecoilValue as useRecoilValue8 } from "recoil";
+import { useRecoilValue as useRecoilValue7 } from "recoil";
 var PlayerAvatar = memo26(
   ({
     account,
@@ -5072,7 +5268,7 @@ var PlayerAvatar = memo26(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const [avatars2, setAvatars] = useState11();
-    const refreshAvatar = useRecoilValue8(refreshAvatarState);
+    const refreshAvatar = useRecoilValue7(refreshAvatarState);
     useEffect11(() => {
       console.log({ account, chainId });
       if (account && chainId && !hideAvatars) {
@@ -5242,7 +5438,7 @@ import React36, { memo as memo29, useCallback as useCallback19, useEffect as use
 import { useRecoilState as useRecoilState11 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
-import { useMemo as useMemo9 } from "react";
+import { useMemo as useMemo8 } from "react";
 
 // src/rainbowkit/src/wallets/useWalletConnectors.ts
 import { useConnect } from "wagmi";
@@ -5275,7 +5471,7 @@ function isNotNullish(value) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
-import React33, { createContext as createContext2, useContext as useContext2, useMemo as useMemo8 } from "react";
+import React33, { createContext as createContext2, useContext as useContext2, useMemo as useMemo7 } from "react";
 var RainbowKitChainContext = createContext2({
   chains: []
 });
@@ -5285,7 +5481,7 @@ function RainbowKitChainProvider({
   initialChain
 }) {
   return /* @__PURE__ */ React33.createElement(RainbowKitChainContext.Provider, {
-    value: useMemo8(
+    value: useMemo7(
       () => ({
         chains,
         initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
@@ -5300,7 +5496,7 @@ var useRainbowKitChains = () => {
 var useInitialChainId = () => useContext2(RainbowKitChainContext).initialChainId;
 var useRainbowKitChainsById = () => {
   const rainbowkitChains = useRainbowKitChains();
-  return useMemo8(() => {
+  return useMemo7(() => {
     const rainbowkitChainsById = {};
     rainbowkitChains.forEach((rkChain) => {
       rainbowkitChainsById[rkChain.id] = rkChain;
@@ -5457,7 +5653,7 @@ function useWalletConnectors() {
 // src/hooks/useActiveWallet.ts
 var useActiveWallet = () => {
   const wallets = useWalletConnectors();
-  return useMemo9(() => {
+  return useMemo8(() => {
     if (wallets) {
       const wall = wallets.filter((v) => v.ready && v.recent);
       return wall == null ? void 0 : wall[0];
@@ -5468,7 +5664,7 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React34, { memo as memo27, useCallback as useCallback18, useMemo as useMemo10 } from "react";
+import React34, { memo as memo27, useCallback as useCallback18, useMemo as useMemo9 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState10 } from "recoil";
 var MUserInfo = memo27(
@@ -5479,7 +5675,7 @@ var MUserInfo = memo27(
     const nativeBalanceStr = useNativeBalanceStr();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
-    const list = useMemo10(() => {
+    const list = useMemo9(() => {
       return [
         {
           balanceStr: pointsBalanceStr,
@@ -6023,7 +6219,7 @@ import React87, {
   createContext as createContext11,
   useCallback as useCallback31,
   useContext as useContext16,
-  useMemo as useMemo15,
+  useMemo as useMemo14,
   useRef as useRef8,
   useState as useState22
 } from "react";
@@ -6037,7 +6233,7 @@ import React39, {
   createContext as createContext3,
   useContext as useContext3,
   useEffect as useEffect15,
-  useMemo as useMemo11,
+  useMemo as useMemo10,
   useRef as useRef4
 } from "react";
 import { useAccount as useAccount2 } from "wagmi";
@@ -6069,7 +6265,7 @@ function RainbowKitAuthenticationProvider({
     }
   }, [status, adapter, isDisconnected]);
   return /* @__PURE__ */ React39.createElement(AuthenticationContext.Provider, {
-    value: useMemo11(
+    value: useMemo10(
       () => enabled ? { adapter, status } : null,
       [enabled, adapter, status]
     )
@@ -6559,17 +6755,17 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React44, { useEffect as useEffect18, useMemo as useMemo13, useState as useState15 } from "react";
+import React44, { useEffect as useEffect18, useMemo as useMemo12, useState as useState15 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-import React43, { useMemo as useMemo12 } from "react";
+import React43, { useMemo as useMemo11 } from "react";
 
 // src/rainbowkit/src/components/Icons/Icons.css.ts
 var SpinnerIconClassName = "Icons_SpinnerIconClassName__j63hpy2";
 var SpinnerIconPathClassName = "Icons_SpinnerIconPathClassName__j63hpy3";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-var useRandomId = (prefix) => useMemo12(
+var useRandomId = (prefix) => useMemo11(
   () => `${prefix}_${Math.round(Math.random() * 1e9)}`,
   [prefix]
 );
@@ -6692,7 +6888,7 @@ var EmojiAvatar = ({ address, ensImage, size }) => {
       img.onload = () => setLoaded(true);
     }
   }, [ensImage]);
-  const { color: backgroundColor, emoji } = useMemo13(
+  const { color: backgroundColor, emoji } = useMemo12(
     () => emojiAvatarForAddress(address),
     [address]
   );
@@ -8710,7 +8906,7 @@ var ScanIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
 
 // src/rainbowkit/src/components/QRCode/QRCode.tsx
 import QRCodeUtil from "qrcode";
-import React81, { useMemo as useMemo14 } from "react";
+import React81, { useMemo as useMemo13 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.css.ts
 var QRCodeBackgroundClassName = "DesktopOptions_QRCodeBackgroundClassName__vrwex40";
@@ -8741,7 +8937,7 @@ function QRCode({
 }) {
   const padding = "20";
   const size = sizeProp - parseInt(padding, 10) * 2;
-  const dots = useMemo14(() => {
+  const dots = useMemo13(() => {
     const dots2 = [];
     const matrix = generateMatrix(uri, ecl);
     const cellSize = size / matrix.length;
@@ -10305,7 +10501,7 @@ function ModalProvider({ children }) {
     onDisconnect: () => closeModals()
   });
   return /* @__PURE__ */ React87.createElement(ModalContext.Provider, {
-    value: useMemo15(
+    value: useMemo14(
       () => ({
         accountModalOpen,
         chainModalOpen,
@@ -10642,7 +10838,7 @@ var RainbowConnectWallet = memo33((props) => {
     type
   } = props;
   const location = useLocation();
-  const isPathLocation = useMemo16(() => {
+  const isPathLocation = useMemo15(() => {
     if (window.location.href.indexOf("/bingo/") > -1) {
       return true;
     }
@@ -10684,7 +10880,7 @@ var rainbow_connectWallet_default = RainbowConnectWallet;
 // src/components/Header/header.tsx
 var Header = (props) => {
   const setSideCollapse = useSetRecoilState12(sideCollapseState);
-  const collapsed = useRecoilValue9(sideCollapseState);
+  const collapsed = useRecoilValue8(sideCollapseState);
   const {
     hideMenu = false,
     env,
@@ -10700,7 +10896,7 @@ var Header = (props) => {
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState13(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState13(showMiddleState);
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo17(() => {
+  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo16(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
@@ -10769,7 +10965,7 @@ var Header = (props) => {
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React94, { useMemo as useMemo18 } from "react";
+import React94, { useMemo as useMemo17 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -10841,7 +11037,7 @@ var RainbowKitWithThemeProvider = ({
   chainIdList,
   type
 }) => {
-  const { wagmiConfig, chains, computedTheme } = useMemo18(() => {
+  const { wagmiConfig, chains, computedTheme } = useMemo17(() => {
     if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList);
       const { chains: chains2 } = getConfigureChains(env);
@@ -13487,6 +13683,7 @@ export {
   DPSupportChainId,
   DialogClose_default as DialogClose,
   DivWrap_default as DivWrap,
+  Games,
   header_default as Header,
   IContractName,
   IGameName,
@@ -13595,6 +13792,7 @@ export {
   hidePointsWarnState,
   imTokenWallet,
   injectedWallet,
+  isGames,
   isPro,
   isTestnet,
   isTimeout,
@@ -13670,7 +13868,7 @@ export {
   usePublicNodeWaitForTransaction,
   useRecentGamesFromGraph,
   useRecoilState14 as useRecoilState,
-  useRecoilValue10 as useRecoilValue,
+  useRecoilValue9 as useRecoilValue,
   useResetRecoilState,
   useSetRecoilState14 as useSetRecoilState,
   useSwapPoint,

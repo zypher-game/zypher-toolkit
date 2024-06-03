@@ -21,7 +21,7 @@
     text-overflow: ellipsis; /* 使用省略号显示溢出的文本 */
   .sideBarTitle
     &.mt40
-      margin-top: 40px
+      margin-top: 30px
     &.sideBarTitleLink
       margin-left: -20px
       p
@@ -56,6 +56,8 @@
     border-bottom: none
   .language_list
     margin-top: 40px
+    @media screen and (max-width: 830px)
+      margin-top: 0
   .activitiesList
     display: flex
     flex-direction: column
@@ -104,10 +106,12 @@
     flex-direction: column
     justify-content: center
     align-items: center
-    max-width: 48px
     cursor: pointer
-    @media screen and (max-width: 375px)
-      max-width: 38px
+    // max-height: 48px
+    // height: 48px
+    // @media screen and (max-width: 375px)
+    //   height: 38px
+    //   max-height: 38px
 
     &.item_on
       p
@@ -115,8 +119,7 @@
     &.verListItemDisable
       opacity: 0.5
       cursor: not-allowed
-      .imageContainerWaves::before 
-        display: none
+     
     p
       line-height: 18px
       font-size: 12px
@@ -125,32 +128,15 @@
       margin-top: 8px
       @media screen and (max-width: 375px)
         width: 38px
-    &:nth-child(1) 
-      .imageContainerWaves::before 
-        animation-delay: -0.4s;
-    &:nth-child(2) 
-      .imageContainerWaves::before 
-        animation-delay: -0.8s;
-    &:nth-child(3) 
-      .imageContainerWaves::before 
-        animation-delay: -1.2s;
-    &:nth-child(4) 
-      .imageContainerWaves::before 
-        animation-delay: -1.6s;
     .imageContainerWaves
       display: block
-      width: 48px
-      height: 48px
       position: relative
       overflow: hidden
-      border-radius: 8px
-      transform: translate3d(0, 0, 0);
-      @media screen and (max-width: 375px)
-        width: 38px
-        height: 38px
       img 
-        width: 100%;
-        height: 100%
+        display: block
+        height: 48px
+        @media screen and (max-width: 375px)
+          height: 38px
       &:before 
         content: '';
         position: absolute;
@@ -188,6 +174,15 @@
   left: 0
   width: 100%
   padding: 20px 20px 50px;
+.pixel_side_games
+  padding: 10px
+  >.pixel_flat_inner
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: 18px;
+    max-height: 184px;
+    overflow-y: scroll;
 @keyframes glow-animation {
   from {
     left: -150px;

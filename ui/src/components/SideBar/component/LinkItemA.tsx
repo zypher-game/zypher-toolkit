@@ -1,13 +1,12 @@
 import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
-import React, { FC, memo, useCallback, useMemo } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
+import React, { FC, memo, useCallback } from "react";
+import { useSetRecoilState } from "recoil";
 
 import { INavLink } from "../../../hooks/useNavItem.type";
 import { preStaticUrl } from "../../../constant/constant";
 
 import { sideCollapseState } from "../../Header/state";
-import SmokeIndex from "./SmokeIndex";
 interface IProps extends INavLink {
   className_disable: string;
   className: string;
@@ -30,10 +29,9 @@ const useLink = (link: INavLink, isMobile: boolean, useNavigate: any) => {
       }
       setTimeout(() => {
         try {
-          if (link.link && link.link.indexOf("http") > -1) {
-            window.open(link.link, "_blank");
-          } else {
-            navigate(link.link);
+          const _link = link.link;
+          if (_link) {
+            window.open(_link, "_blank");
           }
         } catch (e) {
           window.location.href = "/#" + link.link;
@@ -66,7 +64,7 @@ const LinkItem1: FC<IProps> = memo(
         )}
       >
         <div className={className_imageContainer}>
-          <img src={preStaticUrl + `/img/layout/${link.icon}`} />
+          <img src={preStaticUrl + `/img/games/games/${link.icon}`} />
         </div>
         <p>{link.label}</p>
       </div>
