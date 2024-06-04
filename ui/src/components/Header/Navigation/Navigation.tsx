@@ -10,7 +10,6 @@ import "./Navigation.stylus";
 import useWindowSize from "../../../hooks/useWindowSize";
 import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
-import { isGames } from "../../../constant/tvlConstant";
 export const NavKey = [
   ["", "airdrop", "airdropLoading"],
   ["games"],
@@ -153,7 +152,7 @@ const Navigation: React.FC<{ pathname: string }> = memo(
     }, [isW768, isW1670, isWBig]);
     return (
       <div className="nav">
-        {NavList.filter((v) => (isGames ? v.showIfGames : true)).map(
+        {NavList.filter((v) => (window.isGames ? v.showIfGames : true)).map(
           (v, index) => (
             <a
               key={v.label}

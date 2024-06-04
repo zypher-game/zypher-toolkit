@@ -1,7 +1,6 @@
 import { Address } from "wagmi";
 import { ChainId, getCryptoImg, isPro } from "./constant";
 export const TVL_API = "https://tvl-backend-api.zypher.game";
-export const isGames = window.isGames;
 export enum ITvlHero {
   Agil = "Agil",
   Yueling = "Yueling",

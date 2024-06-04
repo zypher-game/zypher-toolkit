@@ -486,7 +486,6 @@ var zkBingo = (chainId, name) => {
 
 // src/constant/tvlConstant.ts
 var TVL_API = "https://tvl-backend-api.zypher.game";
-var isGames = window.isGames;
 var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
   ITvlHero2["Agil"] = "Agil";
   ITvlHero2["Yueling"] = "Yueling";
@@ -4248,7 +4247,7 @@ var Navigation = memo17(
     }, [isW768, isW1670, isWBig]);
     return /* @__PURE__ */ React21.createElement("div", {
       className: "nav"
-    }, NavList.filter((v) => isGames ? v.showIfGames : true).map(
+    }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
       (v, index) => /* @__PURE__ */ React21.createElement("a", {
         key: v.label,
         className: `nav_${v.classNames}`,
@@ -4320,16 +4319,18 @@ var SideBar = (props) => {
     name: "close"
   })), /* @__PURE__ */ React22.createElement("div", {
     className: "sidebar"
-  }, NavList.filter((v) => isGames ? v.showIfGames : true).map((v) => {
-    var _a;
-    return /* @__PURE__ */ React22.createElement(SideBarTitleLink, {
-      key: v.label,
-      logo_title: v.label,
-      className: `sideBarTitle sideBarTitleLink ${((_a = v.linkList) != null ? _a : []).includes(pathname) ? "on" : ""}`,
-      link: v.link,
-      logo_url_name: v.icon
-    });
-  }), /* @__PURE__ */ React22.createElement(SideBarTitle, {
+  }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
+    (v) => {
+      var _a;
+      return /* @__PURE__ */ React22.createElement(SideBarTitleLink, {
+        key: v.label,
+        logo_title: v.label,
+        className: `sideBarTitle sideBarTitleLink ${((_a = v.linkList) != null ? _a : []).includes(pathname) ? "on" : ""}`,
+        link: v.link,
+        logo_url_name: v.icon
+      });
+    }
+  ), /* @__PURE__ */ React22.createElement(SideBarTitle, {
     logo_title: "Games",
     logo_url_name: "pixel_games",
     className: "sideBarTitle mt40"
@@ -13793,7 +13794,6 @@ export {
   hidePointsWarnState,
   imTokenWallet,
   injectedWallet,
-  isGames,
   isPro,
   isTestnet,
   isTimeout,
