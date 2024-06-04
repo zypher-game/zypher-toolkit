@@ -355,6 +355,7 @@ var CurrencyContract = {
   },
   [59140 /* LineaTestnet */]: {
     multicall: [
+      "0xd71fB4a432083fE1e78a73e5b8FC014244e8E266",
       "0xBA736a65D287D63012caF07558CA33abC925ea64",
       "0xae2F2660EdEf3197648cC89432a197a000b97EC3"
     ]
@@ -485,7 +486,7 @@ var zkBingo = (chainId, name) => {
 
 // src/constant/tvlConstant.ts
 var TVL_API = "https://tvl-backend-api.zypher.game";
-var isGames = true;
+var isGames = window.isGames;
 var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
   ITvlHero2["Agil"] = "Agil";
   ITvlHero2["Yueling"] = "Yueling";
@@ -505,16 +506,16 @@ var defaultActiveChainId = TVLChainId.B2Testnet;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] : [];
 var activeTokenList = {
   [TVLChainId.LineaTestnet]: {
-    Staking: "0x82D73A3AcbD6529dDA23E8Ea8883450697b1b637",
+    Staking: "0x4d188f021c519Cfd58289bBC59090555Cde947CE",
     ZypherGameToken: "0x5275A8593ce6a967Ae6782a70F417135A44bCd27",
     CRHero: "0x76E08f9D5f76590E12427F003325768290602De1",
-    Soulbound: "0xd64dd18365cCb07B7a0cc22Fbf5ec39Bd89B5FfA"
+    Soulbound: "0x7099d61d4DfF93F4A1815E0d2461d433d0B9075F"
   },
   [TVLChainId.B2Testnet]: {
-    Staking: "0xea37f290392cB0EeFC33621E1D4a60d2Ad372bA2",
-    ZypherGameToken: "0x6F36BF53bE9be182599CD7E937E5F32152cEAf41",
+    Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
+    ZypherGameToken: "0x48C459e81aAD8B98e27002D25f191682C9a9fFBb",
     CRHero: "0x5f441d16bA9A5e3a824f4c287eDA8019F97418f6",
-    Soulbound: "0x79aDd9Be54429A034B2F89E8C5C46CEC5F9a2359"
+    Soulbound: "0x77DB62EAB363e6DEF480e4C63210f162438eeD77"
   }
 };
 var tvlTokenAddress = {
@@ -525,7 +526,7 @@ var tvlTokenAddress = {
   },
   [TVLChainId.B2Testnet]: {
     WBTC: "0x9Cae525AdE710904FE81daF47fD26789608fe057",
-    uBTC: "0x4AC1Ba5885929aFDdbf035bA03013836db27012C"
+    stBTC: "0x4AC1Ba5885929aFDdbf035bA03013836db27012C"
   }
 };
 var tvlTokens = Object.fromEntries(
@@ -4319,7 +4320,7 @@ var SideBar = (props) => {
     name: "close"
   })), /* @__PURE__ */ React22.createElement("div", {
     className: "sidebar"
-  }, NavList.map((v) => {
+  }, NavList.filter((v) => isGames ? v.showIfGames : true).map((v) => {
     var _a;
     return /* @__PURE__ */ React22.createElement(SideBarTitleLink, {
       key: v.label,

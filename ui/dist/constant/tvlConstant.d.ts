@@ -1,7 +1,7 @@
 import { Address } from "wagmi";
 import { ChainId } from "./constant";
 export declare const TVL_API = "https://tvl-backend-api.zypher.game";
-export declare const isGames = true;
+export declare const isGames: boolean;
 export declare enum ITvlHero {
     Agil = "Agil",
     Yueling = "Yueling",

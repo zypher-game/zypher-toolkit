@@ -15,4 +15,6 @@ interface Window {
   ethereum: any;
   web3: any;
   mcrypto: any;
+  env: string;
+  isGames: boolean;
 }
