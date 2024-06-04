@@ -78,6 +78,8 @@ var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10[ChainId10["Sepolia"] = 11155111] = "Sepolia";
   ChainId10[ChainId10["B2"] = 223] = "B2";
   ChainId10[ChainId10["B2Testnet"] = 1123] = "B2Testnet";
+  ChainId10[ChainId10["ZytronLineaSepoliaTestnet"] = 50098] = "ZytronLineaSepoliaTestnet";
+  ChainId10[ChainId10["ZytronB2Testnet"] = 50097] = "ZytronB2Testnet";
   return ChainId10;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
@@ -194,7 +196,11 @@ var ChainRpcUrls = {
     "https://ethereum-sepolia-rpc.publicnode.com"
   ],
   [223 /* B2 */]: ["https://rpc.bsquared.network"],
-  [1123 /* B2Testnet */]: ["https://b2-testnet.alt.technology"]
+  [1123 /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
+  [50098 /* ZytronLineaSepoliaTestnet */]: [
+    "http://linea-testnet-zytron.zypher.game:8545/"
+  ],
+  [50097 /* ZytronB2Testnet */]: ["http://b2-testnet-zytron.zypher.game:8545/"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -226,7 +232,13 @@ var BlockExplorerUrls = {
   [9980 /* Combo */]: ["https://combotrace.nodereal.io"],
   [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"],
   [223 /* B2 */]: ["https://explorer.bsquared.network"],
-  [1123 /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"]
+  [1123 /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
+  [50098 /* ZytronLineaSepoliaTestnet */]: [
+    "http://linea-testnet-zytron-blockscout.zypher.game/"
+  ],
+  [50097 /* ZytronB2Testnet */]: [
+    "http://b2-testnet-zytron-blockscout.zypher.game/"
+  ]
 };
 var ChainName = {
   [56 /* Bsc */]: "BSC Mainnet",
@@ -250,7 +262,9 @@ var ChainName = {
   [9980 /* Combo */]: "Combo",
   [11155111 /* Sepolia */]: "Sepolia",
   [223 /* B2 */]: "B2",
-  [1123 /* B2Testnet */]: "B2 Testnet"
+  [1123 /* B2Testnet */]: "B2 Testnet",
+  [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  [50097 /* ZytronB2Testnet */]: "Zytron B2 Testnet"
 };
 var ChainNetworkName = {
   [56 /* Bsc */]: "bsc",
@@ -274,7 +288,9 @@ var ChainNetworkName = {
   [5001 /* MantleTestnet */]: "Mantle Testnet",
   [11155111 /* Sepolia */]: "Sepolia",
   [223 /* B2 */]: "B2 Mainnet",
-  [1123 /* B2Testnet */]: "B2 Testnet"
+  [1123 /* B2Testnet */]: "B2 Testnet",
+  [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  [50097 /* ZytronB2Testnet */]: "Zytron B2 Testnet"
 };
 var isTestnet = {
   [56 /* Bsc */]: false,
@@ -298,7 +314,9 @@ var isTestnet = {
   [5001 /* MantleTestnet */]: true,
   [11155111 /* Sepolia */]: true,
   [223 /* B2 */]: false,
-  [1123 /* B2Testnet */]: true
+  [1123 /* B2Testnet */]: true,
+  [50098 /* ZytronLineaSepoliaTestnet */]: true,
+  [50097 /* ZytronB2Testnet */]: true
 };
 var Currency = {
   [56 /* Bsc */]: "BNB",
@@ -322,7 +340,9 @@ var Currency = {
   [5001 /* MantleTestnet */]: "MNT",
   [11155111 /* Sepolia */]: "ETH",
   [223 /* B2 */]: "BTC",
-  [1123 /* B2Testnet */]: "BTC"
+  [1123 /* B2Testnet */]: "BTC",
+  [50098 /* ZytronLineaSepoliaTestnet */]: "ETH",
+  [50097 /* ZytronB2Testnet */]: "BTC"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -408,6 +428,12 @@ var CurrencyContract = {
   [223 /* B2 */]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
   [1123 /* B2Testnet */]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
+  },
+  [50098 /* ZytronLineaSepoliaTestnet */]: {
+    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
+  },
+  [50097 /* ZytronB2Testnet */]: {
+    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {
@@ -1680,12 +1706,17 @@ var languageList = [
   }
 ];
 var Language = memo6(({ type }) => {
+  const isW768 = useIsW768();
   const [show, setShow] = useState5(false);
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
   const handle = useCallback3(() => {
+    if (isW768) {
+      setShow(false);
+      return;
+    }
     setShow(!show);
-  }, [show]);
+  }, [show, isW768]);
   const changeLanguageHandle = useCallback3((item) => {
     changeLanguage(item.keyValue);
     setShow(false);
@@ -1717,7 +1748,7 @@ var Language = memo6(({ type }) => {
     className: "lang_title"
   }, /* @__PURE__ */ React7.createElement(icons_default, {
     name: "language"
-  }), t("language")), /* @__PURE__ */ React7.createElement("div", {
+  }), isW768 ? "Language" : t("language")), /* @__PURE__ */ React7.createElement("div", {
     className: "lang_list"
   }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
     color: "transparent",
@@ -3794,10 +3825,11 @@ var LoadingButton_default = LoadingButton;
 
 // src/components/DialogClose/DialogClose.tsx
 import React15, { memo as memo11 } from "react";
-var DialogClose = memo11(({ onClick }) => {
+var DialogClose = memo11(({ onClick, ...props }) => {
   return /* @__PURE__ */ React15.createElement("div", {
     className: "dialog_close",
-    onClick
+    onClick,
+    ...props
   }, /* @__PURE__ */ React15.createElement(SvgComponent_default, {
     src: preStaticUrl + "/img/icon/pixel_close.svg"
   }));
@@ -8230,6 +8262,7 @@ MenuButton.displayName = "MenuButton";
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
 function ChainModal({ onClose, open, fn }) {
   var _a;
+  const isW768 = useIsW768();
   const { chain: activeChain } = useNetwork6();
   const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
     onSettled: () => {
@@ -8270,13 +8303,14 @@ function ChainModal({ onClose, open, fn }) {
   }, /* @__PURE__ */ React70.createElement(Box, {
     display: "flex",
     flexDirection: "column",
-    gap: "14",
+    gap: isW768 ? "0" : "14",
     marginBottom: "14"
   }, /* @__PURE__ */ React70.createElement(ActivePixelCard, {
     pixel_height: 10,
     className: `tvlPixelTable_header`,
     backgroundColor: "#293457",
-    height: "64px"
+    height: "64px",
+    hidePixel: isW768
   }, /* @__PURE__ */ React70.createElement(Box, {
     display: "flex",
     flexDirection: "row",
@@ -8287,7 +8321,12 @@ function ChainModal({ onClose, open, fn }) {
     as: "h3",
     color: "modalText",
     weight: "bold",
-    id: titleId
+    id: titleId,
+    style: isW768 ? {
+      lineHeight: "55px",
+      textAlign: "left",
+      width: "100%"
+    } : void 0
   }, "Switch Networks"))), unsupportedChain && /* @__PURE__ */ React70.createElement(Box, {
     marginLeft: "20",
     marginRight: "20",
@@ -10401,7 +10440,8 @@ function MobileOptions({ onClose }) {
   }, /* @__PURE__ */ React84.createElement(Box, {
     style: { marginBottom: -20, marginTop: -20 }
   }, /* @__PURE__ */ React84.createElement(DialogClose_default, {
-    onClick: onClose
+    onClick: onClose,
+    style: { top: "6px" }
   }))))), /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column"

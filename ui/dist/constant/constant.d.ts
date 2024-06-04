@@ -30,7 +30,9 @@ export declare enum ChainId {
     MantleTestnet = 5001,
     Sepolia = 11155111,
     B2 = 223,
-    B2Testnet = 1123
+    B2Testnet = 1123,
+    ZytronLineaSepoliaTestnet = 50098,
+    ZytronB2Testnet = 50097
 }
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];

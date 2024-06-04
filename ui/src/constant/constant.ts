@@ -51,6 +51,9 @@ export enum ChainId {
   Sepolia = 11155111,
   B2 = 223,
   B2Testnet = 1123,
+
+  ZytronLineaSepoliaTestnet = 50098,
+  ZytronB2Testnet = 50097,
 }
 export const DPSupportChainId = !isPro()
   ? [
@@ -188,6 +191,10 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.B2]: ["https://rpc.bsquared.network"],
   [ChainId.B2Testnet]: ["https://b2-testnet.alt.technology"],
+  [ChainId.ZytronLineaSepoliaTestnet]: [
+    "http://linea-testnet-zytron.zypher.game:8545/",
+  ],
+  [ChainId.ZytronB2Testnet]: ["http://b2-testnet-zytron.zypher.game:8545/"],
 };
 export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
   [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -221,6 +228,12 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Sepolia]: ["https://sepolia.etherscan.io"],
   [ChainId.B2]: ["https://explorer.bsquared.network"],
   [ChainId.B2Testnet]: ["https://testnet-explorer.bsquared.network"],
+  [ChainId.ZytronLineaSepoliaTestnet]: [
+    "http://linea-testnet-zytron-blockscout.zypher.game/",
+  ],
+  [ChainId.ZytronB2Testnet]: [
+    "http://b2-testnet-zytron-blockscout.zypher.game/",
+  ],
 };
 
 export const ChainBridge: { [key: number]: string } = {
@@ -253,6 +266,8 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.Sepolia]: "Sepolia",
   [ChainId.B2]: "B2",
   [ChainId.B2Testnet]: "B2 Testnet",
+  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
+  [ChainId.ZytronB2Testnet]: "Zytron B2 Testnet",
 };
 export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Bsc]: "bsc",
@@ -278,6 +293,8 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Sepolia]: "Sepolia",
   [ChainId.B2]: "B2 Mainnet",
   [ChainId.B2Testnet]: "B2 Testnet",
+  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
+  [ChainId.ZytronB2Testnet]: "Zytron B2 Testnet",
 };
 
 export const isTestnet: Record<ChainId, boolean> = {
@@ -303,6 +320,8 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.Sepolia]: true,
   [ChainId.B2]: false,
   [ChainId.B2Testnet]: true,
+  [ChainId.ZytronLineaSepoliaTestnet]: true,
+  [ChainId.ZytronB2Testnet]: true,
 };
 
 export const Currency: Record<ChainId, string> = {
@@ -328,6 +347,8 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.Sepolia]: "ETH",
   [ChainId.B2]: "BTC",
   [ChainId.B2Testnet]: "BTC",
+  [ChainId.ZytronLineaSepoliaTestnet]: "ETH",
+  [ChainId.ZytronB2Testnet]: "BTC",
 };
 export const getCryptoImg = (fileName: string, key: any, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -421,6 +442,12 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   [ChainId.B2]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
   [ChainId.B2Testnet]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
+  },
+  [ChainId.ZytronLineaSepoliaTestnet]: {
+    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
+  },
+  [ChainId.ZytronB2Testnet]: {
+    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
   },
 };
 

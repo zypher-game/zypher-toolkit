@@ -14,6 +14,7 @@ import { Text } from "../Text/Text";
 import DialogClose from "../../../../components/DialogClose/DialogClose";
 import { ActivePixelCard } from "../../../../components/PixelBtn/ActivePixelButton";
 import { ChainImage } from "../../../../constant/constant";
+import { useIsW768 } from "../../../../hooks/useWindowSize";
 
 export interface ChainModalProps {
   fn: any;
@@ -22,6 +23,7 @@ export interface ChainModalProps {
 }
 
 export function ChainModal({ onClose, open, fn }: ChainModalProps) {
+  const isW768 = useIsW768();
   const { chain: activeChain } = useNetwork();
   const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
     onSettled: () => {
@@ -61,12 +63,18 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
   return (
     <Dialog onClose={onClose} open={open} titleId={titleId}>
       <DialogContent padding="0" bottomSheetOnMobile>
-        <Box display="flex" flexDirection="column" gap="14" marginBottom="14">
+        <Box
+          display="flex"
+          flexDirection="column"
+          gap={isW768 ? "0" : "14"}
+          marginBottom="14"
+        >
           <ActivePixelCard
             pixel_height={10}
             className={`tvlPixelTable_header`}
             backgroundColor="#293457"
             height="64px"
+            hidePixel={isW768}
           >
             <Box
               display="flex"
@@ -74,7 +82,21 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
               justifyContent="space-between"
             >
               {mobile && <Box width="30" />}
-              <Text as="h3" color="modalText" weight="bold" id={titleId}>
+              <Text
+                as="h3"
+                color="modalText"
+                weight="bold"
+                id={titleId}
+                style={
+                  isW768
+                    ? {
+                        lineHeight: "55px",
+                        textAlign: "left",
+                        width: "100%",
+                      }
+                    : undefined
+                }
+              >
                 Switch Networks
               </Text>
             </Box>

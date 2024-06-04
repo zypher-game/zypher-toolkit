@@ -12,6 +12,7 @@ import { PixelBorderCard, PixelCube2 } from "../../PixelBtn/ActivePixelButton";
 import SvgComponent from "../../SvgComponent/SvgComponent";
 import IsPixelWidget from "../../Header/rainbow_account/IsPixelWidget";
 import Icon from "../../icons";
+import { useIsW768 } from "../../../hooks/useWindowSize";
 type IProps = {
   type: "top" | "pixel" | "list";
 };
@@ -33,12 +34,17 @@ export const languageList = [
   },
 ];
 const Language = memo(({ type }: IProps) => {
+  const isW768 = useIsW768();
   const [show, setShow] = useState(false);
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
   const handle = useCallback(() => {
+    if (isW768) {
+      setShow(false);
+      return;
+    }
     setShow(!show);
-  }, [show]);
+  }, [show, isW768]);
   const changeLanguageHandle = useCallback((item) => {
     changeLanguage(item.keyValue);
     setShow(false);
@@ -88,7 +94,7 @@ const Language = memo(({ type }: IProps) => {
           <div className="lang">
             <p className="lang_title">
               <Icon name={"language"} />
-              {t("language")}
+              {isW768 ? "Language" : t("language")}
             </p>
             <div className="lang_list">
               {languageList.map((v) => (

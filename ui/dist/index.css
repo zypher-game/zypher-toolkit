@@ -48,6 +48,10 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+}
+.lang_list .pixel_flat_btn .pixel_flat_inner {
+  justify-content: flex-start;
 }
 .lang_list .address_list_item {
   cursor: pointer;
@@ -464,6 +468,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
 @media screen and (max-width: 830px) {
   .dialog .table {
     gap: 16px;
+    justify-content: space-around;
   }
 }
 .dialog .table .points {
