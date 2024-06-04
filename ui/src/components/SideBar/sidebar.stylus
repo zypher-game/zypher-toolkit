@@ -10,9 +10,9 @@
 .sidebar
   height 70%
   overflow-y: scroll
-.sidebarWrap
   padding-left: 20px
   padding-right: 20px
+.sidebarWrap
   p
     color: #fff
     font-size: 14px
@@ -181,7 +181,7 @@
     flex-wrap: wrap;
     align-items: flex-start;
     gap: 18px;
-    max-height: 184px;
+    max-height: 200px;
     overflow-y: scroll;
 @keyframes glow-animation {
   from {

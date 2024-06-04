@@ -732,8 +732,6 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 .sidebar {
   height: 70%;
   overflow-y: scroll;
-}
-.sidebarWrap {
   padding-left: 20px;
   padding-right: 20px;
 }
@@ -934,7 +932,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 18px;
-  max-height: 184px;
+  max-height: 200px;
   overflow-y: scroll;
 }
 @-moz-keyframes glow-animation {
