@@ -188,13 +188,13 @@ const GameItemBgRight = memo(() => {
     <div className={css.gameItemBgRight}>
       <div className={css.item1} />
       <div className={css.item2} />
-      <div className={css.item3} />
+      {/* <div className={css.item3} /> */}
+      <div className={css.item6} />
       <div className={css.item4}>
         <div className={css.item401} />
         <div className={css.item402} />
       </div>
       <div className={css.item5} />
-      <div className={css.item6} />
       <div className={css.item7} />
     </div>
   )
@@ -204,6 +204,7 @@ const GameItemMiddle = memo(({ children, className }: { children: React.ReactNod
     <div className={css.gameItemMiddle}>
       <div className={css.bg}>
         <div className={css.Left}>
+          <div className={css.Left3} />
           <div className={css.Left1} />
           <div className={css.Left2} />
         </div>
@@ -221,7 +222,11 @@ const GameItemMiddle = memo(({ children, className }: { children: React.ReactNod
             <div className={css.Bottom_tetris04} />
           </div>
         </div>
-        <div className={css.Right} />
+        <div className={css.Right}>
+          <div className={css.Right3} />
+          <div className={css.Right1} />
+          <div className={css.Right2} />
+        </div>
       </div>
       <div className={`${className ?? ''}`}>{children}</div>
     </div>

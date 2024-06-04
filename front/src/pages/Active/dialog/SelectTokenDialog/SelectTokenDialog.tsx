@@ -68,7 +68,7 @@ const SelectTokenDialog = memo(() => {
           className="select_dialogContentInnerTop select_dialogContentInnerTopToken"
           width="380px"
           height="142px"
-          pixel_height={10}
+          pixel_height={isW768 ? 5 : 10}
           backgroundColor="#293457"
           hidePixel={isW768 ? true : false}
         >
@@ -89,7 +89,7 @@ const SelectTokenDialog = memo(() => {
             ))}
           </div>
         </ActivePixelCard>
-        <ActivePixelCard className="select_dialogContentInnerBottom" width="380px" pixel_height={10} backgroundColor="#1D263B">
+        <ActivePixelCard className="select_dialogContentInnerBottom" width="380px" pixel_height={isW768 ? 5 : 10} backgroundColor="#1D263B">
           <div className="select_token_ul">
             {/* {tokenList.map((v, index) => (
               <p key={index}>{v.address}</p>

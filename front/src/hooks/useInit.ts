@@ -1,4 +1,4 @@
-import { isGames, NavKey, pathnameState, useRecoilValue } from '@ui/src'
+import { NavKey, pathnameState, useRecoilValue } from '@ui/src'
 import { useEffect, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
@@ -26,7 +26,7 @@ export const useInit = () => {
       GlobalVar.dispatch = dispatch
     }, 10)
   }, [])
-  if (!isGames) {
+  if (!window.isGames) {
     useActiveRouter()
     useActiveInit()
   }

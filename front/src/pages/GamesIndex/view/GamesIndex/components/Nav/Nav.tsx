@@ -69,7 +69,7 @@ const Nav = memo(() => {
 const NavItemFl = memo(({ iconPath, label, onClick }: { iconPath: string; label: string; onClick?: any }) => {
   const w768 = useIsW768()
   return (
-    <ActivePixelButtonColor themeType="brown" className={css.navItemFl} height={w768 ? '30px' : '40px'} pixel_height={w768 ? 3 : 4} onClick={onClick}>
+    <ActivePixelButtonColor themeType="brown" className={css.navItemFl} height={w768 ? '36px' : '40px'} pixel_height={w768 ? 3 : 4} onClick={onClick}>
       <SvgComponent src={`${preStaticUrl}/img/games/${iconPath}.svg`} />
       <p>{label}</p>
     </ActivePixelButtonColor>

@@ -1,6 +1,5 @@
-import { CloseOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, LngNs, PixelTable, preStaticUrl, useCustomTranslation } from '@ui/src'
+import { DialogClose, LngNs, PixelTable, preStaticUrl, useCustomTranslation, useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useMemo, useState } from 'react'
 import { DndProvider } from 'react-dnd'
@@ -255,6 +254,7 @@ const HistoryCardNumber = styled.div<{
 
 export const HistoryViewCard: React.FC<Props> = ({ showDialog, onClose, cardNumbers, selectedNumbers }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
+  const isW768 = useIsW768()
   return (
     // <StyledDialogOverlay isOpen={showDialog} onDismiss={onClose}>
     //   <HistoryDialogContent>
@@ -270,18 +270,18 @@ export const HistoryViewCard: React.FC<Props> = ({ showDialog, onClose, cardNumb
     //   </HistoryDialogContent>
     // </StyledDialogOverlay>
     <DialogOverlay isOpen={showDialog} onDismiss={onClose}>
-      <DialogContent className={`pixel_DialogContent ${css.dataDialog}`}>
+      <DialogContent className={`pixel_DialogContent ${css.BingoDataDialog}`}>
         <PixelTable
           width="100%"
           height="100%"
           backgroundColor="#1D263B"
-          header_children={<p className="modalTitleInnerTitle">{t('Bingo Card')}</p>}
+          header_children={<p className={css.modalTitleInnerTitle}>{t('Bingo Card')}</p>}
           body_children={
-            <BingoBoard style={{ padding: '30px' }}>
+            <BingoBoard style={{ padding: isW768 ? '16px' : '30px' }}>
               <HistoryCardItem cardNumbers={cardNumbers} selectedNumbers={selectedNumbers} />
             </BingoBoard>
           }
-          pixel_height={10}
+          pixel_height={isW768 ? 5 : 10}
         />
         <DialogClose onClick={onClose} />
       </DialogContent>

@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, IsTablePixelWidget, PixelTable, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { DialogClose, IsTablePixelWidget, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 

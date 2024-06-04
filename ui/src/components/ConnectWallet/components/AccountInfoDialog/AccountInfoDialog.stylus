@@ -103,8 +103,9 @@ body .middle_selector
         padding: 8px 10px
         gap: 10px
         justify-content: flex-start
-        .svg_component
-            width 20px
+        .svg_component, img
+            width: 20px;
+            margin-right: 4px
         p
             color: #fff
             font-size: 14px

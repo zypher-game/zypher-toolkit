@@ -14,7 +14,7 @@ import { useSetRecoilState } from "recoil";
 import Icon from "../icons";
 import { NavList } from "../Header/Navigation/Navigation";
 import { useActiveWeb3React } from "../../hooks/useActiveWeb3React";
-import { Games, IGamesItem } from "../../constant/gamesList";
+import { Games } from "../../constant/gamesList";
 
 interface IProps {
   useNavigate: any;
@@ -71,17 +71,19 @@ const SideBar: React.FC<IProps> = (props: IProps) => {
         <Icon name={"close"} />
       </div>
       <div className={"sidebar"}>
-        {NavList.map((v) => (
-          <SideBarTitleLink
-            key={v.label}
-            logo_title={v.label}
-            className={`sideBarTitle sideBarTitleLink ${
-              (v.linkList ?? []).includes(pathname) ? "on" : ""
-            }`}
-            link={v.link}
-            logo_url_name={v.icon}
-          />
-        ))}
+        {NavList.filter((v) => (window.isGames ? v.showIfGames : true)).map(
+          (v) => (
+            <SideBarTitleLink
+              key={v.label}
+              logo_title={v.label}
+              className={`sideBarTitle sideBarTitleLink ${
+                (v.linkList ?? []).includes(pathname) ? "on" : ""
+              }`}
+              link={v.link}
+              logo_url_name={v.icon}
+            />
+          )
+        )}
         <SideBarTitle
           logo_title="Games"
           logo_url_name="pixel_games"

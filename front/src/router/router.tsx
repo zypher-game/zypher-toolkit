@@ -1,4 +1,4 @@
-import { isGames, IsMdProvider, IsW1100Provider, IsW1220Provider, NavKey } from '@ui/src'
+import { IsMdProvider, IsW1100Provider, IsW1220Provider, NavKey } from '@ui/src'
 import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -44,7 +44,7 @@ export default (): JSX.Element => {
                 <ScrollToTop>
                   <>
                     <Routes>
-                      {isGames ? (
+                      {window.isGames ? (
                         <Route path="*" element={<GameIndex />} />
                       ) : (
                         <>

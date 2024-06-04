@@ -69,7 +69,7 @@ const SelectChainDialog = memo(() => {
           className="select_dialogContentInnerBottom select_dialogChainBottom"
           width="380px"
           height="290px"
-          pixel_height={10}
+          pixel_height={isW768 ? 5 : 10}
           backgroundColor="#1D263B"
         >
           <div className="select_token_ul">

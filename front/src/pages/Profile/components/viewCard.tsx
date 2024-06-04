@@ -9,6 +9,9 @@ import { HistoryViewCard } from '@/components/ViewCard'
 const ViewButton = styled(Button)<{ ismobile: string }>`
   color: ${({ ismobile }) => (ismobile === 'true' ? '#1649FF' : '#FFD02B')};
   background-color: transparent;
+  .themeColor {
+    color: #1649ff;
+  }
   &:active {
     color: ${({ ismobile }) => (ismobile === 'true' ? '#1649FF' : '#FFD02B')};
   }
@@ -24,6 +27,9 @@ const PixelBorderCardButtonStyled = styled(PixelBorderCardButton)`
   color: #fff;
   font-size: 12px;
   line-height: 22px;
+  .themeColor {
+    color: #1649ff;
+  }
 `
 type IViewCardProps = {
   cardNumbers: number[][]
@@ -36,7 +42,7 @@ const ViewCard: FC<IViewCardProps> = ({ cardNumbers, selectedNumbers, isMobile }
   return (
     <>
       <IWidget type="link" onClick={() => setShowDialog(true)} isMobile={isMobile}>
-        {isMobile ? t('Bingo Card') : t('view')}
+        <p className="themeColor">{isMobile ? t('Bingo Card') : t('view')}</p>
       </IWidget>
       <HistoryViewCard onClose={() => setShowDialog(false)} showDialog={showDialog} cardNumbers={cardNumbers} selectedNumbers={selectedNumbers} />
     </>

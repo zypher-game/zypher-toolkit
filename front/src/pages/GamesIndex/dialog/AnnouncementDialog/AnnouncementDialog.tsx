@@ -6,6 +6,7 @@ import {
   preStaticUrl,
   SvgComponent,
   timestampToDateStr,
+  useIsW768,
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
@@ -16,6 +17,7 @@ import { useAnnouncement } from '../../hook/useAnnouncement'
 import { announcementDialogState } from '../../state/GamesState'
 import css from './AnnouncementDialog.module.styl'
 const AnnouncementDialog = memo(() => {
+  const isW768 = useIsW768()
   const { announcement } = useAnnouncement()
   const isModalOpen = useRecoilValue(announcementDialogState)
   const setIsModalOpen = useSetRecoilState(announcementDialogState)
@@ -49,7 +51,7 @@ const AnnouncementDialog = memo(() => {
               ))}
             </div>
           }
-          pixel_height={10}
+          pixel_height={isW768 ? 5 : 10}
         />
         <DialogClose onClick={handleCancel} />
       </DialogContent>

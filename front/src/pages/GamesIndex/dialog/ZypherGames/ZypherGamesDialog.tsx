@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { DialogClose, preStaticUrl, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
@@ -9,7 +9,7 @@ import css from './ZypherGamesDialog.module.styl'
 const ZypherGamesDialog = memo(() => {
   const isModalOpen = useRecoilValue(zypherGamesDialogState)
   const setIsModalOpen = useSetRecoilState(zypherGamesDialogState)
-
+  const isW768 = useIsW768()
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
   }, [])
@@ -17,7 +17,7 @@ const ZypherGamesDialog = memo(() => {
   return (
     <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className={css.center}>
-        <ActivePixelCard className={css.ZypherGamesDialog} backgroundColor="#1D263B" pixel_height={10}>
+        <ActivePixelCard className={css.ZypherGamesDialog} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
           <img src={preStaticUrl + '/img/games/zypher_games.jpg'} alt="card2" className={`${css.card}`} />
           <h3>Zypher Games</h3>
           <p>

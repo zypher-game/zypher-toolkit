@@ -1,4 +1,4 @@
-import { ChainImage, Currency, CurrencyLogo, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768 } from '@ui/src'
+import { Currency, CurrencyLogo, preStaticUrl, useActiveWeb3React, useIsW768 } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
 import React, { memo } from 'react'
 
@@ -7,9 +7,10 @@ import classnames from '@/utils/classnames'
 
 import css from './GetAirdropWrap.module.styl'
 export const GetAirdropCard = memo(({ children, className }: { children: React.ReactNode; className?: string }) => {
+  const isW768 = useIsW768()
   return (
     <div className={css.airdropWrap}>
-      <ActivePixelCard className={classnames(css.airdrop, className)} backgroundColor="#1D263B" pixel_height={10}>
+      <ActivePixelCard className={classnames(css.airdrop, className)} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
         {children}
       </ActivePixelCard>
     </div>
