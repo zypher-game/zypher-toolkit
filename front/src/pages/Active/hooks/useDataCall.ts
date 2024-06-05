@@ -51,11 +51,12 @@ export const useGetDataCall = () => {
                   isRegistered = await getIsRegistered(infoObj.id)
                   console.log({ isRegistered })
                 } catch (e) {}
+                console.log('adfsdaf', { isRegistered: isRegistered })
                 return {
                   ...primaryScoreRes,
                   ...infoObj,
                   tvlHero: heroKey ?? '',
-                  isRegistered: `${isRegistered}` === 'true'
+                  isRegistered: `${isRegistered ?? false}` === 'true'
                 }
               }
               return {

@@ -121,17 +121,17 @@
                     position: relative
                     z-index: 2
                     color: #fff
-                    font-family: PoetsenOne;
-                    font-size: 14px
+                    font-size: 13px
                     line-height: 11px;
                     margin: 0
+                    font-weight: 600
 
             h3
                 color: #F5A027;
-                font-family: PoetsenOne;
                 font-size: 14px;
                 position: relative
                 z-index: 2
+                font-weight: 600
             .bottom 
                 width 100%
                 // background-color: #1649FF;

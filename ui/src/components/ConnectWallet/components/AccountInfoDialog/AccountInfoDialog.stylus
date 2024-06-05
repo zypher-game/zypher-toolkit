@@ -60,8 +60,8 @@ body .middle_selector
 .middle_balance_item
     display: flex
     justify-content: space-between
-    font-weight: bold
-    font-weight: bold;
+    font-weight: 600
+    font-weight: 600;
     align-items: center;
     .fl
         display: flex

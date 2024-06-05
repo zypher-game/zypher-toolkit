@@ -7,6 +7,7 @@ import {
   ChainName,
   Currency,
   getShortenAddress,
+  L3ChainId,
   PixelBorderCard,
   PixelCube3,
   preStaticUrl,
@@ -18,7 +19,6 @@ import {
   useRecoilValue,
   useSwitchNetwork
 } from '@ui/src'
-import { L3ChainId } from '@ui/src/constant/tvlConstant'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'

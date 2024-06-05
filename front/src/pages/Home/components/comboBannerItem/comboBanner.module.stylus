@@ -46,7 +46,7 @@
           padding: 0 8px
     .title
       font-size: 46px
-      font-weight: bold
+      font-weight: 600
       line-height: 46px
       margin-bottom: 12px
       transition: text-shadow 0.3s ease

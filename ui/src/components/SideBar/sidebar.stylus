@@ -25,7 +25,7 @@
     &.sideBarTitleLink
       margin-left: -20px
       p
-        font-weight: bold
+        font-weight: 600
         opacity 1
   .sideBarTitle
     display: flex

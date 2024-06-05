@@ -27,6 +27,7 @@ export const useActiveRouter = () => {
     userStakedAmount,
     tvlHero
   }: IActiveData = activeData
+  console.log({ isRegistered })
   const { isActiveRouter } = useIsGetActiveData()
   useEffect(() => {
     if (isActiveRouter) {

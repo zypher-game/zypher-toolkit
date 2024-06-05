@@ -1,4 +1,4 @@
-import { useActiveWeb3React, useRecoilState } from '@ui/src'
+import { ChainId, useActiveWeb3React, useRecoilState } from '@ui/src'
 import { useCallback, useMemo } from 'react'
 
 import { activeDataState, IActiveData, IActiveDataState, initActiveData } from '../state/activeState'
@@ -15,16 +15,17 @@ export const useActiveData = () => {
   }, [JSON.stringify(activeDataData), chainId])
 
   const setActiveData = useCallback(
-    (obj: (preVal: IActiveData) => Partial<IActiveData>) => {
+    (obj: (preVal: IActiveData) => Partial<IActiveData>, chainIdParams?: ChainId) => {
+      const _chainId = chainIdParams ?? chainId
       setActiveDataData(pre => {
         if (pre[chainId]) {
           const chainObj = {
-            ...pre[chainId],
-            ...obj(pre[chainId]!)
+            ...pre[_chainId],
+            ...obj(pre[_chainId]!)
           }
           return {
             ...pre,
-            [chainId]: chainObj
+            [_chainId]: chainObj
           }
         }
         return pre

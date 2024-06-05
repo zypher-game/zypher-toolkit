@@ -150,7 +150,7 @@ export const useStakeData = () => {
                   }),
                 // 最少质押多少给 SBT
                 {
-                  reference: 'mintMinimum' + chainId, // 得到当前是第几周
+                  reference: 'mintMinimum' + chainId, // 最少质押多少给 SBT
                   contractAddress: activeTokenList[chainId].Staking,
                   abi: TVLStakingABI,
                   calls: [
@@ -190,7 +190,7 @@ export const useStakeData = () => {
                   calls: [{ methodName: 'balanceOf', reference: 'sbtBalanceOf' + chainId, methodParameters: [account] }]
                 },
                 {
-                  reference: 'getMinStake' + chainId, // 得到当前是第几周
+                  reference: 'getMinStake' + chainId, // Cr最少质押多少
                   contractAddress: activeTokenList[chainId].CRHero,
                   abi: crHeroAbi,
                   calls: [{ methodName: 'getMinStake', reference: 'getMinStake' + chainId }]
@@ -261,10 +261,18 @@ export const useStakeData = () => {
           )
         } catch (stakeDataFromApiErr: any) {}
         console.log({ nextParams, nextRes, stakeDataFromApi })
-        let END_TIME = '0'
-        let mintMinimum = '0'
-        let sbtBalanceOf = '0'
-        let getMinStake = '0'
+
+        const userValue = Object.fromEntries(
+          TVLStakingSupportedChainId.map(chain => [
+            chain,
+            {
+              END_TIME: '0',
+              mintMinimum: '0',
+              sbtBalanceOf: '0',
+              getMinStake: '0'
+            }
+          ])
+        )
         const resMap = Object.fromEntries(
           res.map((v, chainIndex) => {
             const _chainId = v.chainId
@@ -274,21 +282,23 @@ export const useStakeData = () => {
             const methodArr = v.method.split(',')
 
             const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
-            mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
+            userValue[_chainId]['mintMinimum'] = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
 
             const getMinStakeIndex = methodArr.indexOf(`getMinStake${_chainId}`)
             console.log({ getMinStakeIndex })
-            getMinStake = getMinStakeIndex === -1 ? '0' : new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
-            console.log('Asdfsadf', getMinStake)
+            userValue[_chainId]['getMinStake'] =
+              getMinStakeIndex === -1 ? '0' : new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
+            console.log('Asdfsadf', userValue[_chainId]['getMinStake'])
 
             const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
 
             const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
-            END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
+            userValue[_chainId]['END_TIME'] = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
 
             const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf${_chainId}`)
-            sbtBalanceOf = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
 
+            userValue[_chainId]['sbtBalanceOf'] = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
+            console.log({ sbtBalanceOf: userValue[_chainId]['sbtBalanceOf'] })
             const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[_chainId]).map((vv: any, index: number) => {
               const allowanceIndex = methodArr.indexOf(`allowance${vv.symbol}`)
               const symbolIndex = methodArr.indexOf(`symbol${vv.symbol}`)
@@ -336,8 +346,8 @@ export const useStakeData = () => {
                   totalStakedAmount: totalStakeBig.toFixed(),
                   totalStakedAmountStr: totalStakeBig.dividedBy(divisorBigNumber).toFormat(2),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
-                  END_TIME: END_TIME,
-                  getMinStake: getMinStake
+                  END_TIME: userValue[_chainId]['END_TIME'],
+                  getMinStake: userValue[_chainId]['getMinStake']
                 } as ITVLStakingData
               ]
             })
@@ -358,8 +368,8 @@ export const useStakeData = () => {
                     balance: nativeValue[chainIndex][0],
                     balanceStr: nativeValue[chainIndex][1],
                     index: 0,
-                    END_TIME: END_TIME,
-                    getMinStake: getMinStake
+                    END_TIME: userValue[_chainId]['END_TIME'],
+                    getMinStake: userValue[_chainId]['getMinStake']
                   }
                 ],
                 ...tvlObj
@@ -371,7 +381,6 @@ export const useStakeData = () => {
         setTvlStakingData(resMap)
 
         const stakingData = Object.values(resMap[nativeChainId]).filter(vs => vs.address !== AddressZero)
-        console.log({ stakingData })
         const userStakedAmount = ethers.utils
           .formatEther(calculateSumByNumber(stakingData.map(({ userStakedAmount: user }) => (user === '' ? '0' : user))))
           .toString()
@@ -380,18 +389,23 @@ export const useStakeData = () => {
         const gpAmount = calculateSumByNumber(
           stakingData.map(({ earnGP }) => (earnGP === '' ? '0' : new BigNumberJs(earnGP).dividedBy(divisorBigNumber).toFixed(2)))
         )
-        setActiveData(pre => ({
-          ...pre,
-          userStakedAmount: userStakedAmount,
-          userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat(2),
-          crHeroBoxAmount: crHeroBoxAmount,
-          dollarGpRewords: gpAmount,
-          dollarGpRewordsStr: new BigNumberJs(gpAmount).toFormat(2),
-          mintMinimum: mintMinimum,
-          mintMinimumStr: new BigNumberJs(mintMinimum).dividedBy(divisorBigNumber).toFormat(2),
-          sbtAmount: sbtBalanceOf,
-          getMinStake: getMinStake
-        }))
+        console.log({ userValue })
+        TVLStakingSupportedChainId.forEach(chain => {
+          setActiveData(
+            pre => ({
+              ...pre,
+              userStakedAmount: userStakedAmount,
+              userStakedAmountStr: new BigNumberJs(userStakedAmount).toFormat(2),
+              crHeroBoxAmount: crHeroBoxAmount,
+              dollarGpRewords: gpAmount,
+              dollarGpRewordsStr: new BigNumberJs(gpAmount).toFormat(2),
+              mintMinimum: userValue[chain]['mintMinimum'],
+              mintMinimumStr: new BigNumberJs(userValue[chain]['mintMinimum']).dividedBy(divisorBigNumber).toFormat(2),
+              sbtAmount: userValue[chain]['sbtBalanceOf']
+            }),
+            chain
+          )
+        })
         setIsDataLoading(false)
       }
     } catch (e) {

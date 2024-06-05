@@ -105,6 +105,7 @@ const SelectTokenDialog = memo(() => {
                 backgroundColor={`${depositCurrency === v.symbol && v.chainId === chainIdLocal ? '#343C4F' : '#1D263B'}`}
                 borderColor={`${depositCurrency === v.symbol && v.chainId === chainIdLocal ? '#1649FF' : '#3A4254'}`}
                 showHover={true}
+                borderSize={2}
               >
                 <TokenWithChain chainId={chainIdLocal} token={v} width={44} />
                 <div className="select_currency">

@@ -72,6 +72,7 @@ export {
   minStakingValue,
   CODELENGTH,
   ITvlHero,
+  L3ChainId,
 } from "./constant/tvlConstant";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";

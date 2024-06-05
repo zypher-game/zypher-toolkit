@@ -146,7 +146,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
           >
             <Avatar
               size={size}
-              src={preStaticUrl + `/img/default_avatar.png`}
+              src={preStaticUrl + `/img/pixel_default_avatar.png`}
             />
           </div>
         )}

@@ -117,8 +117,8 @@ export const initActiveData: IActiveData = {
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({
   key: 'activeDataV1',
-  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }])),
-  effects_UNSTABLE: [localStorageEffect('activeDataV1')]
+  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }]))
+  // effects_UNSTABLE: [localStorageEffect('activeDataV1')]
 })
 
 export interface ITVLStakingData extends IToken {
@@ -140,8 +140,6 @@ export interface ITVLStakingData extends IToken {
   decimal: number
   name: string
   chainId?: ChainId
-  END_TIME?: string
-  getMinStake?: string // CR Hero 最少质押量
 }
 export const initData: ITVLStakingData = {
   allowance: '',

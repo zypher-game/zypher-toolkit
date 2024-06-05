@@ -10,7 +10,7 @@
  
   .dialog_title_title
     font-style: normal
-    font-weight: bold
+    font-weight: 600
     font-size: 16px
     color: var(--var-text-light)
     line-height: 24px;
