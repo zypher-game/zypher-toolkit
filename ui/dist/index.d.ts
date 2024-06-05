@@ -7,7 +7,7 @@ import { useWalletClient, useSwitchNetwork, useDisconnect } from "wagmi";
 export { useWalletClient, useSwitchNetwork, useDisconnect };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
 export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, } from "./constant/constant";
-export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, } from "./constant/tvlConstant";
+export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";

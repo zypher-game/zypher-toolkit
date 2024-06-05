@@ -13768,6 +13768,7 @@ export {
   IsW1100Provider,
   IsW1220Provider,
   IsW768Provider,
+  L3ChainId,
   LinkList,
   LinkPre,
   LinkToBetaDialog_default as LinkToBetaDialog,
