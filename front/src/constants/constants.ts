@@ -56,7 +56,9 @@ export const TransactionsCount: Record<ChainId, string> = {
   [ChainId.Combo]: '0',
   [ChainId.Sepolia]: '0',
   [ChainId.B2]: '0',
-  [ChainId.B2Testnet]: '0'
+  [ChainId.B2Testnet]: '0',
+  [ChainId.ZytronLineaSepoliaTestnet]: '0',
+  [ChainId.ZytronB2Testnet]: '0'
 }
 export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.LineaMainnet]: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo',
