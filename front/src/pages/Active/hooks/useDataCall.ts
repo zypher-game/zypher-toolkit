@@ -1,4 +1,4 @@
-import { ChainId, divisorBigNumber, getLinkPre, request, TVL_API, useActiveWeb3React, useGetHero, useGetUserInfo } from '@ui/src'
+import { BM, ChainId, FORMAT, getLinkPre, request, TVL_API, useActiveWeb3React, useGetHero, useGetUserInfo } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
 
@@ -317,7 +317,9 @@ export const useLeaderBoardCall = () => {
             headImg: `${v.headImg}`,
             fromNickname: `${v.fromNickname}`,
             score: `${v.score}`,
-            scoreStr: new BigNumberJs(v.score).toFormat(2),
+            scoreStr: new BigNumberJs(v.score).gte(BM)
+              ? new BigNumberJs(v.score).dividedBy(BM).toFormat(3, BigNumberJs.ROUND_HALF_UP, FORMAT)
+              : new BigNumberJs(v.score).toFormat(2),
             rank: Number(v.rank)
           } as IRankBoard)
       )
@@ -339,13 +341,16 @@ export const useLeaderBoardCall = () => {
           'Content-Type': 'application/json'
         }
       })
+      const { nickname, headImg, fromNickname, score, rank } = my_rank_board_res.data
       return {
-        nickname: `${my_rank_board_res.data.nickname}`,
-        headImg: `${my_rank_board_res.data.headImg}`,
-        fromNickname: `${my_rank_board_res.data.fromNickname}`,
-        score: `${my_rank_board_res.data.score}`,
-        scoreStr: new BigNumberJs(my_rank_board_res.data.score).toFormat(2),
-        rank: Number(my_rank_board_res.data.rank)
+        nickname: `${nickname}`,
+        headImg: `${headImg}`,
+        fromNickname: `${fromNickname}`,
+        score: `${score}`,
+        scoreStr: new BigNumberJs(score).gte(BM)
+          ? new BigNumberJs(score).dividedBy(BM).toFormat(3, BigNumberJs.ROUND_HALF_UP, FORMAT)
+          : new BigNumberJs(score).toFormat(2),
+        rank: Number(rank)
       } as IRankBoard
     } catch (e: any) {
       throw new Error('GetRecentUser Error')
