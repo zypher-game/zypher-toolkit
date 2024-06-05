@@ -27,7 +27,7 @@
       gap: 9px;
       p
         font-size: 16px;
-        font-weight: bold;
+        font-weight: 600;
         color: #fff;
   .m_user_tit
     color: #D3D4D7;

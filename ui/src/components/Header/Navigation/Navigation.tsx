@@ -156,7 +156,9 @@ const Navigation: React.FC<{ pathname: string }> = memo(
           (v, index) => (
             <a
               key={v.label}
-              className={`nav_${v.classNames}`}
+              className={`nav_${v.classNames} ${
+                chooseIndex === index ? "nav_on" : ""
+              }`}
               href={v.link}
               target={v.isTarget ? "_blank" : undefined}
               rel={v.isTarget ? "noreferrer" : undefined}

@@ -529,17 +529,17 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   position: relative;
   z-index: 2;
   color: #fff;
-  font-family: PoetsenOne;
-  font-size: 14px;
+  font-size: 13px;
   line-height: 11px;
   margin: 0;
+  font-weight: 600;
 }
 .dialog .table .points h3 {
   color: #f5a027;
-  font-family: PoetsenOne;
   font-size: 14px;
   position: relative;
   z-index: 2;
+  font-weight: 600;
 }
 .dialog .table .points .bottom {
   width: 100%;
@@ -667,7 +667,9 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   align-items: flex-start;
 }
 body .tvlPixelTable_header {
-  width: 100%;
+  width: calc(100% - 2px);
+  margin-left: 1px;
+  margin-top: 1px;
 }
 body .tvlPixelTable_header > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1,
 body .tvlPixelTable_header > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
@@ -754,7 +756,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   margin-left: -20px;
 }
 .sidebarWrap .sideBarTitle.sideBarTitleLink p {
-  font-weight: bold;
+  font-weight: 600;
   opacity: 1;
 }
 .sidebarWrap .sideBarTitle {
@@ -985,7 +987,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 .nav .pixel_line {
   position: absolute;
-  bottom: 0;
+  bottom: 19px;
   left: 0;
   width: 0;
   height: 2px;
@@ -1029,7 +1031,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 .dialog_title_modalTitleInner .dialog_title_title {
   font-style: normal;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
   color: var(--var-text-light);
   line-height: 24px;
@@ -1547,8 +1549,8 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 .middle_balance_item {
   display: flex;
   justify-content: space-between;
-  font-weight: bold;
-  font-weight: bold;
+  font-weight: 600;
+  font-weight: 600;
   align-items: center;
 }
 .middle_balance_item .fl {
@@ -1660,7 +1662,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 }
 .m_user_m_content .m_user_border .m_user_account p {
   font-size: 16px;
-  font-weight: bold;
+  font-weight: 600;
   color: #fff;
 }
 .m_user_m_content .m_user_tit {

@@ -8,6 +8,7 @@ export type IPixelProps = {
   className?: string;
   onClick?: any;
   pixel_height?: number;
+  borderSize?: number;
   width?: string;
   height?: string;
   borderBottomColor?: string;
@@ -433,7 +434,10 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
     > .pixel_flat_btn_top_2,
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
-      height: calc(${({ pixel_height }) => pixel_height + "px"} + 1px);
+      height: calc(
+        ${({ pixel_height }) => pixel_height + "px"} +
+          ${({ borderSize }) => borderSize ?? 1}px
+      );
     }
     > .pixel_flat_btn_inner {
       height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
@@ -449,7 +453,8 @@ const PixelBorderStyled = styled(PixelFlatBtn)<IPixel>`
     > .pixel_flat_btn_top_2,
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
-      border: 1px solid ${({ borderColor }) => borderColor ?? "#3a4254"};
+      border: ${({ borderSize }) => borderSize ?? 1}px solid
+        ${({ borderColor }) => borderColor ?? "#3a4254"};
       transition: all 0.3s ease;
     }
     > .pixel_flat_btn_top_1 {
@@ -722,7 +727,7 @@ const PixelBorderCardStyled = styled(PixelBorderCard)`
       > .pixel_flat_btn_top_2,
       > .pixel_flat_btn_bottom_2,
       > .pixel_flat_btn_bottom_1 {
-        border: 1px solid
+        border: ${({ borderSize }) => borderSize ?? 1}px solid
           ${({ showHover, borderColor }) =>
             showHover === true ? "#1649FF" : borderColor};
       }

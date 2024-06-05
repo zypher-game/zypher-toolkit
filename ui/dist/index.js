@@ -1155,7 +1155,10 @@ var PixelBorderStyled = styled(PixelFlatBtn_default)`
     > .pixel_flat_btn_top_2,
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
-      height: calc(${({ pixel_height }) => pixel_height + "px"} + 1px);
+      height: calc(
+        ${({ pixel_height }) => pixel_height + "px"} +
+          ${({ borderSize }) => borderSize != null ? borderSize : 1}px
+      );
     }
     > .pixel_flat_btn_inner {
       height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
@@ -1171,7 +1174,8 @@ var PixelBorderStyled = styled(PixelFlatBtn_default)`
     > .pixel_flat_btn_top_2,
     > .pixel_flat_btn_bottom_2,
     > .pixel_flat_btn_bottom_1 {
-      border: 1px solid ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
+      border: ${({ borderSize }) => borderSize != null ? borderSize : 1}px solid
+        ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
       transition: all 0.3s ease;
     }
     > .pixel_flat_btn_top_1 {
@@ -1434,7 +1438,7 @@ var PixelBorderCardStyled = styled(PixelBorderCard)`
       > .pixel_flat_btn_top_2,
       > .pixel_flat_btn_bottom_2,
       > .pixel_flat_btn_bottom_1 {
-        border: 1px solid
+        border: ${({ borderSize }) => borderSize != null ? borderSize : 1}px solid
           ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
       }
     }
@@ -4310,7 +4314,7 @@ var Navigation = memo17(
     }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
       (v, index) => /* @__PURE__ */ React21.createElement("a", {
         key: v.label,
-        className: `nav_${v.classNames}`,
+        className: `nav_${v.classNames} ${chooseIndex === index ? "nav_on" : ""}`,
         href: v.link,
         target: v.isTarget ? "_blank" : void 0,
         rel: v.isTarget ? "noreferrer" : void 0,
@@ -5376,7 +5380,7 @@ var PlayerAvatar = memo26(
       }
     }, /* @__PURE__ */ React32.createElement(Avatar_default, {
       size,
-      src: preStaticUrl + `/img/default_avatar.png`
+      src: preStaticUrl + `/img/pixel_default_avatar.png`
     })), showAccount && /* @__PURE__ */ React32.createElement("p", {
       className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
     }, account ? `${getShortenAddress(account, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}` : t("waiting"), /* @__PURE__ */ React32.createElement(AccountTextFrComp, null)));

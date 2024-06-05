@@ -6,6 +6,7 @@ export type IPixelProps = {
     className?: string;
     onClick?: any;
     pixel_height?: number;
+    borderSize?: number;
     width?: string;
     height?: string;
     borderBottomColor?: string;

@@ -43,15 +43,15 @@ export declare const Box: React.ForwardRefExoticComponent<{
     readonly fontSize?: "12" | "13" | "14" | "16" | "18" | "20" | "23" | undefined;
     readonly fontWeight?: "bold" | "medium" | "regular" | "semibold" | "heavy" | undefined;
     readonly gap?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
-    readonly height?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "32" | "36" | "34" | "30" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
+    readonly height?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "30" | "32" | "36" | "34" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
     readonly justifyContent?: "center" | "space-around" | "space-between" | "flex-end" | "flex-start" | undefined;
     readonly textAlign?: "inherit" | "left" | "center" | undefined;
     readonly marginBottom?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
     readonly marginLeft?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
     readonly marginRight?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
     readonly marginTop?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
-    readonly maxWidth?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "32" | "36" | "34" | "30" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
-    readonly minWidth?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "32" | "36" | "34" | "30" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
+    readonly maxWidth?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "30" | "32" | "36" | "34" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
+    readonly minWidth?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "30" | "32" | "36" | "34" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
     readonly overflow?: "hidden" | undefined;
     readonly paddingBottom?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
     readonly paddingLeft?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
@@ -61,7 +61,7 @@ export declare const Box: React.ForwardRefExoticComponent<{
     readonly right?: "0" | undefined;
     readonly transition?: "transform" | "default" | undefined;
     readonly userSelect?: "none" | undefined;
-    readonly width?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "32" | "36" | "34" | "30" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
+    readonly width?: "1" | "2" | "4" | "8" | "9" | "12" | "max" | "24" | "60" | "20" | "28" | "30" | "32" | "36" | "34" | "40" | "48" | "44" | "54" | "200" | "full" | undefined;
     readonly backdropFilter?: "modalOverlay" | undefined;
     margin?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
     marginX?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "14" | "16" | "18" | "24" | "20" | "28" | "32" | "36" | "64" | "44" | "-1" | undefined;
