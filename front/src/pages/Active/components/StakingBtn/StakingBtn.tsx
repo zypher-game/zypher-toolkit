@@ -6,7 +6,6 @@ import css from './StakingBtn.module.styl'
 const StakingBtn = memo(({ chainId }: { chainId: ChainId }) => {
   const setTvlStakingDialog = useTvlStakingDialogState()
   const showStakingHandle = useCallback(() => {
-    console.log(12312)
     setTvlStakingDialog(chainId, true)
   }, [chainId, setTvlStakingDialog])
   const isW768 = useIsW768()

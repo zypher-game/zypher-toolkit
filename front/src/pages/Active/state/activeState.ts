@@ -58,6 +58,7 @@ export interface IActiveData {
   crHeroBoxAmount: string // CR Hero Mystery Box
   sbtAmount: string // CR Hero Mystery Box
   mintMinimum: string // // 最少质押多少给 SBT
+  mintMinimumStr: string
   dollarGpRewords: string // 可claim的 $GP 量
   avatar: string // 头像
   nickname: string // 昵称
@@ -110,7 +111,8 @@ export const initActiveData: IActiveData = {
   mintMinimum: '', // 最少质押多少给 SBT
   sbtAmount: '',
   airdropPointsStr: '',
-  rankingStr: ''
+  rankingStr: '',
+  mintMinimumStr: ''
 }
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({

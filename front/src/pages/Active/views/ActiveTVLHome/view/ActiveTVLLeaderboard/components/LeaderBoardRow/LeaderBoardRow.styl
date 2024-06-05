@@ -9,12 +9,15 @@
     min-width: 24px
     min-height 24px
 .leader_board_row_fr
-  width 163px
+  width 200px
   display: flex
-  justify-content: center
+  justify-content: flex-end
   align-items: center
+  text-align: right 
+  padding-right: 28px
   @media screen and (max-width: 830px)
     width 150px
+    padding-right: 14px
 .leader_board_row_fr
     font-size: 18px
     font-weight: 600
@@ -37,13 +40,17 @@ body .leader_board_row_my
   position: absolute;
   bottom: -76px;
   width: 675px;
+  padding: 0 28px
   @media screen and (max-width: 830px)
     width: 100%;
     padding: 0 14px
   .leader_board_row_fl
-    width 24px
+    width: 36px
+    @media screen and (max-width: 830px)
+      width: 24px
   .leader_board_row_fr
     justify-content: flex-end;
+    padding-right: 0
   &.leader_board_row_text
     .leader_board_row_inner
       background-color: #1649FF

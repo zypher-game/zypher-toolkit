@@ -5,7 +5,7 @@ import css from './StakeItem.module.styl'
 
 export type IStakeItem = {
   stake: string
-  mintMinimum: string
+  mintMinimumStr: string
   currency: string
   isOk: boolean
 }
@@ -15,7 +15,7 @@ const StakeItem = memo(({ item }: { item: IStakeItem }) => {
     <div className={css.stakeItem}>
       <div className={css.stakingText}>
         <p>
-          {item.stake ?? '-'}/{item.mintMinimum ?? '-'}
+          {item.stake ?? '-'}/{item.mintMinimumStr ?? '-'}
         </p>
         {item.isOk ? <SvgComponent src={preStaticUrl + '/img/icon/pixel_success.svg'} /> : null}
       </div>

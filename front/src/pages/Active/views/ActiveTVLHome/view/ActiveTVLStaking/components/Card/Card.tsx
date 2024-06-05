@@ -37,7 +37,12 @@ const Card = memo(
 
     const { account } = useActiveWeb3React()
     const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
-    const { crHeroBoxAmount, dollarGpRewords, sbtAmount, mintMinimum } = useMemo(() => {
+    const {
+      crHeroBoxAmount,
+      dollarGpRewords,
+      sbtAmount,
+      mintMinimumStr: mintMinimum
+    } = useMemo(() => {
       if (canNext(account, chainIdLocal)) {
         return activeDataSource[chainIdLocal] ?? initActiveData
       }

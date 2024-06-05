@@ -274,7 +274,7 @@ export const useStakeData = () => {
             const methodArr = v.method.split(',')
 
             const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
-            mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
+            mintMinimum = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
 
             const getMinStakeIndex = methodArr.indexOf(`getMinStake${_chainId}`)
             console.log({ getMinStakeIndex })
@@ -388,6 +388,7 @@ export const useStakeData = () => {
           dollarGpRewords: gpAmount,
           dollarGpRewordsStr: new BigNumberJs(gpAmount).toFormat(2),
           mintMinimum: mintMinimum,
+          mintMinimumStr: new BigNumberJs(mintMinimum).dividedBy(divisorBigNumber).toFormat(2),
           sbtAmount: sbtBalanceOf,
           getMinStake: getMinStake
         }))

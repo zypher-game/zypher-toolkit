@@ -1,6 +1,5 @@
 import { AddressZero } from '@ethersproject/constants'
 import {
-  ActivePixelButtonColor,
   ActivePixelCard,
   activeTokenList,
   BigNumberJs,
@@ -9,7 +8,6 @@ import {
   Currency,
   getShortenAddress,
   PixelBorderCard,
-  PixelBorderCardButton,
   PixelCube3,
   preStaticUrl,
   SvgComponent,
@@ -20,6 +18,7 @@ import {
   useRecoilValue,
   useSwitchNetwork
 } from '@ui/src'
+import { L3ChainId } from '@ui/src/constant/tvlConstant'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
@@ -32,7 +31,6 @@ import TVLStakingDialog from '../Active/dialog/StakingDialog/StakingDialog'
 import { usePreHandleAction } from '../Active/hooks/activeHooks'
 import { useChainIndex } from '../Active/hooks/useChainIndex'
 import { useStake } from '../Active/hooks/useStakeData'
-import { useTvlStakingDialogState } from '../Active/hooks/useTvlStakingDialogState'
 import { activeDataState, IActiveDataState, initActiveData, ITVLStakingData, tvlStakingDataState } from '../Active/state/activeState'
 import DappItem, { IDappItem } from './components/DappItem/DappItem'
 import SBTCard from './components/SBTCard/SBTCard'
@@ -122,13 +120,9 @@ const ZeroGas = memo(() => {
   const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
   const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
   const { setChainIndex, chainIdLocal } = useChainIndex()
-  const setTvlStakingDialog = useTvlStakingDialogState()
   const { switchNetwork } = useSwitchNetwork()
   const { chainId } = useActiveWeb3React()
   const preHandleAction = usePreHandleAction()
-  const showStakingHandle = useCallback(() => {
-    setTvlStakingDialog(chainIdLocal, true)
-  }, [chainIdLocal])
   const switchChainHandle = useCallback(
     (params: ChainId) => {
       const isOk = preHandleAction()
@@ -149,14 +143,17 @@ const ZeroGas = memo(() => {
         const _themeKey = Theme[_chainIdParams]
         const _theme = getTheme(_themeKey)
         const { bannerBorderColor, text, dapp } = _theme
-        const { mintMinimum } = activeDataSource[_chainIdParams] ?? initActiveData
+        const { mintMinimum, mintMinimumStr, sbtAmount } = activeDataSource[_chainIdParams] ?? initActiveData
+        console.log({ sbtAmount })
+        const hasSbt = sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
         const stakingData = Object.values(tvlStakingData[chainIdParams]).filter(vs => vs.address !== AddressZero)
-        const showSwitch = chainIdParams !== chainId
+        const showSwitch = !L3ChainId[chainIdParams] || L3ChainId[chainIdParams] !== chainId
+        console.log({ mintMinimumStr, nnnn: stakingData.map(v => v.userStakedAmount) })
         const dataMap = stakingData.map(
           v =>
             ({
               stake: !chainId ? '-' : v.userStakedAmountStr,
-              mintMinimum: !chainId ? '-' : mintMinimum,
+              mintMinimumStr: !chainId ? '-' : mintMinimumStr,
               currency: `${v.symbol === `W${Currency[chainIdParams]}` ? Currency[chainIdParams] : v.symbol}`,
               isOk: new BigNumberJs(v.userStakedAmount).gte(mintMinimum)
             } as IStakeItem)
@@ -181,7 +178,7 @@ const ZeroGas = memo(() => {
                               pixel_height={2}
                               backgroundColor="#15161F"
                               borderColor="#fff"
-                              onClick={() => switchChainHandle(chainIdParams)}
+                              onClick={() => switchChainHandle(L3ChainId[chainIdParams])}
                             >
                               {!chainId ? (
                                 <p>Connect Wallet</p>
@@ -207,7 +204,7 @@ const ZeroGas = memo(() => {
                     <div className={css.stakingTop}>
                       <div className={css.stakingTopFl}>
                         <StakingTitle />
-                        <p className={css.grey}>You got the Zypher SBT</p>
+                        {hasSbt ? <p className={css.grey}>You got the Zypher SBT</p> : null}
                       </div>
                       <StakingBtn chainId={chainIdLocal} />
                     </div>

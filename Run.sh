@@ -1,4 +1,5 @@
 #!/bin/bash
+ssh-add -D && ssh-add -K ~/.ssh/kimikuo2016
 # 定义路径变量
 path_work="/Users/admin/Desktop/work"
 path_app_frontend="$path_work/app-frontend_test"

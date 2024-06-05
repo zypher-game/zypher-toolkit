@@ -19,7 +19,12 @@ export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
     [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] // , TVLChainId.LineaTestnet
   : []) as unknown as ChainId[];
-
+export const L3ChainId: Record<any, ChainId> = {
+  [TVLChainId.B2]: ChainId.ZytronB2Testnet,
+  [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
+  [TVLChainId.LineaMainnet]: ChainId.ZytronLineaSepoliaTestnet,
+  [TVLChainId.LineaTestnet]: ChainId.ZytronLineaSepoliaTestnet,
+};
 export type IToken = {
   address: Address;
   symbol: string;
