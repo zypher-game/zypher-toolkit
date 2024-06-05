@@ -10,7 +10,7 @@ export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, 
 export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, } from "./constant/tvlConstant";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
-export { default as BigNumberJs } from "./utils/BigNumberJs";
+export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
 export { default as sleep } from "./utils/sleep";
 export { LinkList, blankLinkList, useNavItem, zAceLink, crLink, } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";

@@ -130,7 +130,9 @@ var supportedChainIds = (env, chainList2) => {
     5001 /* MantleTestnet */,
     91715 /* ComboTestnet */,
     9980 /* Combo */,
-    11155111 /* Sepolia */
+    11155111 /* Sepolia */,
+    50098 /* ZytronLineaSepoliaTestnet */,
+    50097 /* ZytronB2Testnet */
   ] : [
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
@@ -198,9 +200,9 @@ var ChainRpcUrls = {
   [223 /* B2 */]: ["https://rpc.bsquared.network"],
   [1123 /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
   [50098 /* ZytronLineaSepoliaTestnet */]: [
-    "http://linea-testnet-zytron.zypher.game:8545/"
+    "https://linea-testnet-zytron.zypher.game"
   ],
-  [50097 /* ZytronB2Testnet */]: ["http://b2-testnet-zytron.zypher.game:8545/"]
+  [50097 /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -234,10 +236,10 @@ var BlockExplorerUrls = {
   [223 /* B2 */]: ["https://explorer.bsquared.network"],
   [1123 /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
   [50098 /* ZytronLineaSepoliaTestnet */]: [
-    "http://linea-testnet-zytron-blockscout.zypher.game/"
+    "https://linea-testnet-zytron-blockscout.zypher.game"
   ],
   [50097 /* ZytronB2Testnet */]: [
-    "http://b2-testnet-zytron-blockscout.zypher.game/"
+    "https://b2-testnet-zytron-blockscout.zypher.game"
   ]
 };
 var ChainName = {
@@ -529,6 +531,12 @@ var TVLChainId = ((TVLChainId2) => {
 })(TVLChainId || {});
 var defaultActiveChainId = TVLChainId.B2Testnet;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] : [];
+var L3ChainId = {
+  [TVLChainId.B2]: 50097 /* ZytronB2Testnet */,
+  [TVLChainId.B2Testnet]: 50097 /* ZytronB2Testnet */,
+  [TVLChainId.LineaMainnet]: 50098 /* ZytronLineaSepoliaTestnet */,
+  [TVLChainId.LineaTestnet]: 50098 /* ZytronLineaSepoliaTestnet */
+};
 var activeTokenList = {
   [TVLChainId.LineaTestnet]: {
     Staking: "0x4d188f021c519Cfd58289bBC59090555Cde947CE",
@@ -2152,6 +2160,26 @@ var Games = (chainId) => {
 
 // src/utils/BigNumberJs.ts
 import BigNumberJs from "bignumber.js";
+var BM = new BigNumberJs(1e6);
+var FORMAT = {
+  decimalSeparator: ".",
+  groupSeparator: ",",
+  groupSize: 3,
+  secondaryGroupSize: 0,
+  fractionGroupSeparator: " ",
+  fractionGroupSize: 0,
+  suffix: "M",
+  prefixes: {
+    "-": "",
+    "+": ""
+  },
+  abbreviations: {
+    K: "K",
+    M: "M",
+    B: "B",
+    T: "T"
+  }
+};
 var BigNumberJs_default = BigNumberJs;
 
 // src/utils/sleep.ts
@@ -13704,6 +13732,7 @@ export {
   ActivePixelButtonColor,
   ActivePixelCard,
   ActivePixelColorCard,
+  BM,
   Balance_default as Balance,
   BigNumberJs_default as BigNumberJs,
   BlockExplorerUrls,
@@ -13725,6 +13754,7 @@ export {
   DPSupportChainId,
   DialogClose_default as DialogClose,
   DivWrap_default as DivWrap,
+  FORMAT,
   Games,
   header_default as Header,
   IContractName,

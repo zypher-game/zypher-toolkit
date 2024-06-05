@@ -16,6 +16,7 @@ export declare enum TVLChainId {
 }
 export declare const defaultActiveChainId: ChainId;
 export declare const TVLStakingSupportedChainId: ChainId[];
+export declare const L3ChainId: Record<any, ChainId>;
 export type IToken = {
     address: Address;
     symbol: string;

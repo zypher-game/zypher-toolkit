@@ -119,6 +119,8 @@ export const supportedChainIds = (
         ChainId.ComboTestnet,
         ChainId.Combo,
         ChainId.Sepolia,
+        ChainId.ZytronLineaSepoliaTestnet,
+        ChainId.ZytronB2Testnet,
       ]
     : [
         ChainId.LineaMainnet,
@@ -192,9 +194,9 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   [ChainId.B2]: ["https://rpc.bsquared.network"],
   [ChainId.B2Testnet]: ["https://b2-testnet.alt.technology"],
   [ChainId.ZytronLineaSepoliaTestnet]: [
-    "http://linea-testnet-zytron.zypher.game:8545/",
+    "https://linea-testnet-zytron.zypher.game",
   ],
-  [ChainId.ZytronB2Testnet]: ["http://b2-testnet-zytron.zypher.game:8545/"],
+  [ChainId.ZytronB2Testnet]: ["https://b2-testnet-zytron.zypher.game"],
 };
 export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
   [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -229,10 +231,10 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.B2]: ["https://explorer.bsquared.network"],
   [ChainId.B2Testnet]: ["https://testnet-explorer.bsquared.network"],
   [ChainId.ZytronLineaSepoliaTestnet]: [
-    "http://linea-testnet-zytron-blockscout.zypher.game/",
+    "https://linea-testnet-zytron-blockscout.zypher.game",
   ],
   [ChainId.ZytronB2Testnet]: [
-    "http://b2-testnet-zytron-blockscout.zypher.game/",
+    "https://b2-testnet-zytron-blockscout.zypher.game",
   ],
 };
 

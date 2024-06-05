@@ -75,7 +75,7 @@ export {
 } from "./constant/tvlConstant";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
-export { default as BigNumberJs } from "./utils/BigNumberJs";
+export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
 export { default as sleep } from "./utils/sleep";
 
 export {
