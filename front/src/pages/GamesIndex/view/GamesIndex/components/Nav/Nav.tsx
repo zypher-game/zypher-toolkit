@@ -1,4 +1,4 @@
-import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ActivePixelButtonColor, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
@@ -34,15 +34,19 @@ const Nav = memo(() => {
   const announcementModalOpenHandle = useCallback(() => {
     setIsAnnouncementModalOpen(true)
   }, [])
-  const historyModalOpenHandle = useCallback((tabIndex: number) => {
-    const pre = preHandleAction()
-    if (pre) {
-      setHistoryTabIndex(tabIndex)
-      setTimeout(() => {
-        setIsHistoryModalOpen(true)
-      }, 200)
-    }
-  }, [])
+  const historyModalOpenHandle = useCallback(
+    (tabIndex: number) => {
+      const pre = preHandleAction()
+      console.log({ pre })
+      if (pre) {
+        setHistoryTabIndex(tabIndex)
+        setTimeout(() => {
+          setIsHistoryModalOpen(true)
+        }, 200)
+      }
+    },
+    [preHandleAction]
+  )
 
   return (
     <div className={css.nav}>

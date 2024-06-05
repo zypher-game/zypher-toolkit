@@ -439,7 +439,7 @@ export function MobileOptions({ onClose }: { onClose: () => void }) {
             <Box
               style={{ marginBottom: -20, marginTop: -20 }} // Vertical bleed
             >
-              <DialogClose onClick={onClose} />
+              <DialogClose onClick={onClose} style={{ top: "6px" }} />
             </Box>
           </Box>
         </Box>

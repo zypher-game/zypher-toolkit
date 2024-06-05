@@ -41,6 +41,10 @@ div .address_wrap_pop_lang
   display: flex
   align-items: center
   justify-content: space-between
+  flex-wrap: wrap
+  .pixel_flat_btn
+    .pixel_flat_inner
+      justify-content: flex-start
   .address_list_item
     cursor: pointer;
     padding: 0 10px
