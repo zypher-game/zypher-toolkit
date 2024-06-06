@@ -21,5 +21,11 @@ export declare const useGetUserInfo: () => {
             followerCount: string;
             isLoading: boolean;
         };
+        discord: {
+            avatar: any;
+            nickname: any;
+            followerCount: string;
+            isLoading: boolean;
+        };
     } | undefined>;
 };

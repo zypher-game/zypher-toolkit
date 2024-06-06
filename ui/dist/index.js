@@ -2290,6 +2290,12 @@ var form_info = (data, chainId) => {
       nickname: data.twitterName,
       followerCount: `${data.twitterFollower}`,
       isLoading: false
+    },
+    discord: {
+      avatar: data.discordImg,
+      nickname: data.discordName,
+      followerCount: "",
+      isLoading: false
     }
   };
 };
