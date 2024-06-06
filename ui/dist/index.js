@@ -6037,7 +6037,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     on: index === 0
   }), /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
     iconName: "pixel_blockchain",
-    label: "Blockchain Explorer",
+    label: "Explorer",
     onClick: openHandle,
     on: index === 1
   }), /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
