@@ -16,7 +16,7 @@ import TVLPointDialog from '@/pages/Active/dialog/TVLPointDialog/TVLPointDialog'
 import { useTeam } from '@/pages/Active/hooks/useTeam'
 import { getNickname } from '@/pages/Active/utils/getNicknameStr'
 
-import Avatar from '../../components/Avatar/Avatar'
+import Avatar, { getAvatar } from '../../components/Avatar/Avatar'
 import Tab from '../../components/Tab/Tab'
 import TVLWrap from '../TVLWrap'
 import css from './ActiveTVLTeam.module.styl'
@@ -82,7 +82,7 @@ const ActiveTVLTeam = memo(() => {
                   {teamMembers.map((v, index) => (
                     <PixelCube3 key={index} className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
                       <div className={css.team_item_fl}>
-                        <Avatar src={v.headImg + '?' + refreshAvatar} nickname={v.nickname} width="36px" />
+                        <Avatar src={getAvatar(v.headImg, refreshAvatar)} nickname={v.nickname} width="36px" />
                         <p>{getNickname(v.nickname)}</p>
                       </div>
                       <div className={css.team_item_fr}>

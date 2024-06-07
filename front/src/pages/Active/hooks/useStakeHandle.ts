@@ -146,9 +146,31 @@ export const useStakeHandle = (): {
               account: account
             })
             const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
-            await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
-            setIsApproveLoading(false)
-            setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+            // await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
+            // setIsApproveLoading(false)
+            // setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+            // 添加超时处理
+            const timeoutPromise = new Promise((resolve, reject) =>
+              setTimeout(async () => {
+                const allow = await _erc20Contract.read.allowance([account, activeTokenList[_nativeChainId].Staking])
+                resolve(new BigNumberJs(allow.toString()))
+              }, 4000)
+            )
+
+            Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise])
+              .then(result => {
+                console.log({ result })
+                setIsApproveLoading(false)
+                if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
+                  setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+                } else {
+                  setErrorToast(GlobalVar.dispatch, { title: '', message: 'Approve Error!' })
+                }
+              })
+              .catch(e => {
+                setIsApproveLoading(false)
+                setErrorToast(GlobalVar.dispatch, { title: '', message: 'Approve Error!' })
+              })
             if (isW768) {
               getStakingData()
               return

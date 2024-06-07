@@ -108,7 +108,7 @@ const Staking = memo(() => {
             if (chooseValue?.balance !== '0' && new BigNumberJs(chooseValue?.balance ?? '0').gte(tokenAmount)) {
               obj.isBalanceEnough = true
               obj.btnLabel = 'Confirm'
-              if (chooseValue?.address !== AddressZero && new BigNumberJs(chooseValue?.allowance ?? '0').lt(tokenAmount)) {
+              if (!isDepositLoading && chooseValue?.address !== AddressZero && new BigNumberJs(chooseValue?.allowance ?? '0').lt(tokenAmount)) {
                 obj.isApprove = false
                 obj.btnLabel = 'Approve'
               }
@@ -125,7 +125,7 @@ const Staking = memo(() => {
       obj.btnLabel = 'Connect Wallet'
     }
     return obj
-  }, [JSON.stringify(chooseValue), isDataLoading, depositValue, chainIdFromStake, chooseChain])
+  }, [JSON.stringify(chooseValue), isDepositLoading, isDataLoading, depositValue, chainIdFromStake, chooseChain])
 
   const changeChainHandle = useCallback(() => {
     // if (openChainModal) {
@@ -141,66 +141,64 @@ const Staking = memo(() => {
       finalPoints: ''
     }
     try {
-      const isNative = chooseValue?.address === AddressZero
-      let stakingAirdrop
-      let stakingGrowthCoefficient
-      let restakingAirdrop
-      let restakingGrowthCoefficient
-      if (chooseValue?.chainId && restakingData[chooseValue?.chainId]) {
-        const statistics = restakingData[chooseValue?.chainId].statistics
-        stakingAirdrop = statistics.stakingAirdrop
-        stakingGrowthCoefficient = statistics.stakingGrowthCoefficient
-        restakingAirdrop = statistics.restakingAirdrop
-        restakingGrowthCoefficient = statistics.restakingGrowthCoefficient
-      }
-      if (!isDataLoading) {
-        if (depositValue) {
-          const decimal = chooseValue?.decimal ?? 18
-          const _totalStaked = new BigNumberJs(depositValue).plus(
-            new BigNumberJs(chooseValue && chooseValue.userStakedAmount === '' ? '0' : chooseValue?.userStakedAmount ?? '').dividedBy(
-              new BigNumberJs('10').exponentiatedBy(decimal)
+      if (chooseValue?.chainId) {
+        const isNative = chooseValue?.symbol === Currency[chooseValue.chainId] || chooseValue?.symbol === 'W' + Currency[chooseValue.chainId]
+        let stakingAirdrop
+        let restakingAirdrop
+        if (chooseValue?.chainId && restakingData[chooseValue?.chainId]) {
+          const statistics = restakingData[chooseValue?.chainId].statistics
+          stakingAirdrop = statistics.stakingAirdrop
+          restakingAirdrop = statistics.restakingAirdrop
+        }
+        if (!isDataLoading) {
+          if (depositValue) {
+            const decimal = chooseValue?.decimal ?? 18
+            const _totalStaked = new BigNumberJs(depositValue).plus(
+              new BigNumberJs(chooseValue && chooseValue.userStakedAmount === '' ? '0' : chooseValue?.userStakedAmount ?? '').dividedBy(
+                new BigNumberJs('10').exponentiatedBy(decimal)
+              )
             )
-          )
 
-          let X
-          let growthCoefficient = '0'
-          const _chainId = chooseValue?.chainId as unknown as TVLChainId
-          const CeilAmountPre = Math.ceil(new BigNumberJs(_totalStaked).toNumber())
-          console.log({ CeilAmountPre }, _totalStaked)
-          const CeilAmount = CeilAmountPre > 5 ? 5 : CeilAmountPre
-          if (isNative) {
-            X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['native']) // _totalStaked 的值向上取整就是其系数
-            growthCoefficient = stakingAirdrop ?? '0'
-          } else {
-            X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['erc20']) // _totalStaked 的值向上取整就是其系数
-            growthCoefficient = restakingAirdrop ?? '0'
-          }
+            let X
+            let growthCoefficient = '0'
+            const _chainId = chooseValue?.chainId as unknown as TVLChainId
+            const CeilAmountPre = Math.ceil(new BigNumberJs(_totalStaked).toNumber())
+            console.log({ CeilAmountPre }, _totalStaked)
+            const CeilAmount = CeilAmountPre > 5 ? 5 : CeilAmountPre
+            if (isNative) {
+              X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['native']) // _totalStaked 的值向上取整就是其系数
+              growthCoefficient = stakingAirdrop ?? '0'
+            } else {
+              X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['erc20']) // _totalStaked 的值向上取整就是其系数
+              growthCoefficient = restakingAirdrop ?? '0'
+            }
 
-          const END_TIME = +(chooseValue?.END_TIME ?? '0') // 从合约获取的时间
-          const nowTimestamp = Date.now() / 1000 // 当前时间
-          const END_TIMEDate = new Date(END_TIME * 1000)
-          const currentDate = new Date(nowTimestamp * 1000)
-          const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
-          const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
+            const END_TIME = +(chooseValue?.END_TIME ?? '0') // 从合约获取的时间
+            const nowTimestamp = Date.now() / 1000 // 当前时间
+            const END_TIMEDate = new Date(END_TIME * 1000)
+            const currentDate = new Date(nowTimestamp * 1000)
+            const differenceInMilliseconds = END_TIMEDate.getTime() - currentDate.getTime() // 计算两者之间的时间差（毫秒），一共还剩多少
+            const differenceInDays = Math.floor(differenceInMilliseconds / (1000 * 60 * 60 * 24)) // 转换为天数
 
-          const _earnPoints = X.times(new BigNumberJs(_totalStaked)) // 系数值 + 输入值
-          const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints).plus(growthCoefficient) // 还剩多少天 乘 _earnPoints
-          console.log({
-            isNative,
-            depositValue,
-            userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
-            X: X.toFixed(),
-            END_TIME,
-            differenceInDays,
-            _totalStaked: _totalStaked.toFixed(),
-            _earnPoints: _earnPoints.toFixed(2),
-            _finalPoints: _finalPoints.toFixed(2),
-            growthCoefficient
-          })
-          return {
-            totalStaked: _totalStaked.toFormat(2),
-            earnPoints: _earnPoints.toFormat(2),
-            finalPoints: _finalPoints.toFormat(2)
+            const _earnPoints = X.times(new BigNumberJs(_totalStaked)) // 系数值 + 输入值
+            const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints).plus(growthCoefficient) // 还剩多少天 乘 _earnPoints
+            console.log({
+              isNative,
+              depositValue,
+              userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
+              X: X.toFixed(),
+              END_TIME,
+              differenceInDays,
+              _totalStaked: _totalStaked.toFixed(),
+              _earnPoints: _earnPoints.toFixed(2),
+              _finalPoints: _finalPoints.toFixed(2),
+              growthCoefficient
+            })
+            return {
+              totalStaked: _totalStaked.toFormat(2),
+              earnPoints: _earnPoints.toFormat(2),
+              finalPoints: _finalPoints.toFormat(2)
+            }
           }
         }
       }

@@ -2,6 +2,13 @@ import React, { memo, useState } from 'react'
 import styled from 'styled-components'
 
 import ImageLoader from '@/pages/Active/components/ImageLoader/ImageLoader'
+export const getAvatar = (avatar: string, refreshAvatar: string) => {
+  if (avatar.indexOf('tvl-avatar.s3') > -1) {
+    return avatar + '?' + refreshAvatar
+  } else {
+    return avatar
+  }
+}
 const AvatarStyled = styled.div<{ width: string; borderRadius?: string }>`
   width: ${({ width }) => width};
   height: ${({ width }) => width};

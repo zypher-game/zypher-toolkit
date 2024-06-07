@@ -157,6 +157,7 @@ export const useAvailableCode = () => {
 export const useTeamCall = () => {
   const getTeam = useCallback(async (userId: string, chainId: ChainId) => {
     try {
+      console.log('asdfasdfasdf')
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
       const recent_user_res = await request(`${TVL_API}/api/team`, {

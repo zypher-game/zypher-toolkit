@@ -59,6 +59,7 @@ export const useTeam = () => {
   const setPointAmount = useSetRecoilState(getPointAmount)
   const getDataTeam = useCallback(async () => {
     if (id) {
+      console.log('adsfsadf11111')
       if (loading || teamMembers.length) {
         return
       }

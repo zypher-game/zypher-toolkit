@@ -5,6 +5,7 @@ import {
   Currency,
   divisorBigNumber,
   erc20Abi,
+  formatMoney,
   TVLStakingSupportedChainId,
   tvlTokens,
   useActiveWeb3React,
@@ -72,7 +73,7 @@ export const useStakeData = () => {
     })
     return value.map(v => {
       if (v.response) {
-        return [v.response.toString(), new BigNumberJs(v.response.toString()).dividedBy(divisorBigNumber).toFormat(2)] as string[]
+        return [v.response.toString(), formatMoney(new BigNumberJs(v.response.toString()).dividedBy(divisorBigNumber).toFixed(), 2)] as string[]
       }
       return ['0', '0']
     })
@@ -338,7 +339,7 @@ export const useStakeData = () => {
                   name: name,
                   decimal: decimal,
                   balance: balanceBig.toFixed(),
-                  balanceStr: balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFormat(2),
+                  balanceStr: formatMoney(balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed(), 2),
                   earnGP: earnGPBig.toFixed(),
                   earnGPStr: earnGPBig.dividedBy(divisorBigNumber).toFormat(2),
                   userStakedAmount: userStakeBig.toFixed(),

@@ -1,8 +1,8 @@
 import './Banner.styl'
 
-import { preStaticUrl, refreshAvatarState, SvgComponent, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { BigNumberJs, preStaticUrl, refreshAvatarState, SvgComponent, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { ActivePixelCard } from '@ui/src'
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import ShareLink from '@/pages/Active/components/ShareLink/ShareLink'
@@ -10,37 +10,44 @@ import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { changeNameDialogState } from '@/pages/Active/state/activeState'
 import { getNicknameStr } from '@/pages/Active/utils/getNicknameStr'
 
-import Avatar from '../../../../components/Avatar/Avatar'
+import Avatar, { getAvatar } from '../../../../components/Avatar/Avatar'
 import PointText from '../PointText/PointText'
 import css from './Banner.module.styl'
 import ShareLinkcss from './ShareLink.module.styl'
 const Banner = memo(() => {
   const refreshAvatar = useRecoilValue(refreshAvatarState)
   const { activeData } = useActiveData()
-  const { avatar, nickname } = activeData
+  const {
+    avatar,
+    nickname,
+    airdropPointsDetail: { byTwitter, byTwitterMore }
+  } = activeData
   const isW768 = useIsW768()
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
   const editNicknameHandle = useCallback(() => {
     setIsModalOpen(true)
   }, [])
+
   return (
     <ActivePixelCard pixel_height={4} backgroundColor="#FF5EAA" className="active_tvl_banner">
       <div className={css.top}>
         <div className={css.top_fl}>
-          <Avatar src={avatar + '?' + refreshAvatar} nickname={nickname} width="48px" />
+          <Avatar src={getAvatar(avatar, refreshAvatar)} nickname={nickname} width="48px" />
           <p>{getNicknameStr(nickname)}</p>
           <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
         </div>
-        <ShareLink
-          css={ShareLinkcss}
-          pixel_styled={{
-            pixel_height: 3,
-            height: isW768 ? '54px' : '36px',
-            themeType: 'yellow'
-          }}
-          preWidth={isW768 ? '79%' : '280px'}
-          nextWidth={isW768 ? '20%' : '78px'}
-        />
+        {(byTwitterMore === '' || byTwitterMore === '0') && new BigNumberJs(byTwitter).gte(50) ? (
+          <ShareLink
+            css={ShareLinkcss}
+            pixel_styled={{
+              pixel_height: 3,
+              height: isW768 ? '54px' : '36px',
+              themeType: 'yellow'
+            }}
+            preWidth={isW768 ? '79%' : '280px'}
+            nextWidth={isW768 ? '20%' : '78px'}
+          />
+        ) : null}
       </div>
       <div className={css.bottom}>
         <img src={preStaticUrl + '/img/tvl/box.png'} className={css.box} />

@@ -146,7 +146,7 @@ export const AddressBigWrapPop = memo(({ copy }: { copy: any }) => {
       />
       <AddressWrapPopItem
         iconName={"pixel_blockchain"}
-        label={"Blockchain Explorer"}
+        label={"Explorer"}
         onClick={openHandle}
         on={index === 1}
       />

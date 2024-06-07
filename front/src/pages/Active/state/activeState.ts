@@ -140,6 +140,8 @@ export interface ITVLStakingData extends IToken {
   decimal: number
   name: string
   chainId?: ChainId
+  END_TIME?: string
+  getMinStake?: string
 }
 export const initData: ITVLStakingData = {
   allowance: '',

@@ -1,6 +1,5 @@
 import { minStakingValue, NavKey, TVLChainId, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
-import { pathnameState } from '@ui/src'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -22,7 +21,8 @@ export const useActiveRouter = () => {
     id,
     isRegistered,
     airdropPoints,
-    twitter: { nickname },
+    twitter: { nickname: twitterNickname },
+    discord: { nickname: discordNickname },
     airdropPointsDetail,
     userStakedAmount,
     tvlHero
@@ -37,7 +37,7 @@ export const useActiveRouter = () => {
         return
       }
       const _code = getHrefCode()
-      console.log({ id, nickname, airdropPoints })
+      console.log({ id, twitterNickname, airdropPoints })
       if (airdropPoints === '' && _code?.startsWith('L' || 'B')) {
         console.log(1)
         return
@@ -49,7 +49,15 @@ export const useActiveRouter = () => {
         return
       }
 
-      if (!id || id === '' || !nickname || nickname === '' || !canNext(account, chainId)) {
+      if (
+        !id ||
+        id === '' ||
+        !twitterNickname ||
+        twitterNickname === '' ||
+        !discordNickname ||
+        discordNickname === '' ||
+        !canNext(account, chainId)
+      ) {
         navigate(`/${NavKey[0][0]}`)
         console.log(1)
         return
@@ -97,9 +105,9 @@ export const useActiveRouter = () => {
         // 推特粉丝数量	gas 消耗（ETH）	钱包余额（ETH）	初始积分
         // 100	50	50
         // 钱包活跃
-        if (new BigNumberJs(airdropPointsDetail.byGas).gte(50)) {
+        if (new BigNumberJs(airdropPointsDetail.byGas).gte(50) || new BigNumberJs(airdropPointsDetail.byBalance).gte(50)) {
           // 钱包活跃，媒体活跃
-          if (new BigNumberJs(airdropPointsDetail.byBalance).gte(50)) {
+          if (new BigNumberJs(airdropPointsDetail.byTwitter).gte(50)) {
             // 媒体账号活跃
             navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`)
             console.log(1)

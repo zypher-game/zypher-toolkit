@@ -73,5 +73,11 @@ const form_info = (data: any, chainId: ChainId) => {
       followerCount: `${data.twitterFollower}`,
       isLoading: false,
     },
+    discord: {
+      avatar: data.discordImg,
+      nickname: data.discordName,
+      followerCount: "",
+      isLoading: false,
+    },
   };
 };

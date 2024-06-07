@@ -1,4 +1,4 @@
-import { formatMoney } from '@ui/src'
+import { divisorBigNumber, formatMoney } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 
 export const form_primary_score = (pre: any, data: any) => {
@@ -10,12 +10,12 @@ export const form_primary_score = (pre: any, data: any) => {
     airdropPointsDetail: {
       init: '0',
       byTwitter: `${data.twitterFollowerScore}`,
-      gas: data.gas,
-      gasStr: formatMoney(data.gas, 2),
+      gas: data.gasFee,
+      gasStr: formatMoney(new BigNumberJs(data.gasFee).dividedBy(divisorBigNumber).toFixed(), 4),
       byGas: `${data.gasScore}`,
       byBalance: `${data.balanceScore}`,
       balance: data.balance,
-      balanceStr: formatMoney(data.balance, 2)
+      balanceStr: formatMoney(new BigNumberJs(data.balance).dividedBy(divisorBigNumber).toFixed(), 4)
     }
   }
 }
