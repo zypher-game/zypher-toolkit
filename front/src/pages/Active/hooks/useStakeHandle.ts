@@ -159,7 +159,6 @@ export const useStakeHandle = (): {
 
             Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise])
               .then(result => {
-                console.log({ result })
                 setIsApproveLoading(false)
                 if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
                   setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
@@ -314,16 +313,13 @@ export const useReStakingHandle = () => {
     ({ loading, setLoading, amount }: { loading: boolean; setLoading: (value: React.SetStateAction<boolean>) => void; amount: string }): boolean => {
       const isOk = preHandleAction()
       if (!isOk) {
-        console.log(111)
         setLoading(false)
         return false
       }
       if (loading) {
-        console.log(333)
         return false
       }
       if (!amount || amount === '' || Number(amount) === 0) {
-        console.log(444)
         return false
       }
 
@@ -338,7 +334,6 @@ export const useReStakingHandle = () => {
     async chainId => {
       try {
         const isOk = _pre({ loading: claimGpLoading, setLoading: setClaimGpLoading, amount: dollarGpRewords })
-        console.log(3, isOk)
         if (!isOk) {
           return
         }
@@ -346,7 +341,6 @@ export const useReStakingHandle = () => {
           switchNetwork(chainId)
           return
         }
-        console.log(4)
         const contract = TVLStakingContract({ chainId: nativeChainId, env, signer: walletClient! })
         if (!contract) {
           setErrorToast(GlobalVar.dispatch, 'StakingContract is not ready')
@@ -354,7 +348,6 @@ export const useReStakingHandle = () => {
         }
         setClaimGpLoading(true)
         const addressList = Object.values(tvlTokenAddress[nativeChainId])
-        console.log({ addressList })
         const res = await contract.write.claim([addressList])
         const hash = typeof res === 'string' ? res : res.hash
         const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })

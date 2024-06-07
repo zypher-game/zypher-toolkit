@@ -84,13 +84,11 @@ const Staking = memo(() => {
           res = tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
         }
       }
-      console.log({ chainIdLocal, depositCurrency, defaultActiveChainId, tvlStakingData, res })
       return res
     } catch {
       return undefined
     }
   }, [JSON.stringify(tvlStakingData), chainIdLocal, depositCurrency])
-  console.log({ chooseValue })
   const { btnLabel } = useMemo(() => {
     const decimal = chooseValue?.decimal ?? 18
     const obj = {
@@ -163,7 +161,6 @@ const Staking = memo(() => {
             let growthCoefficient = '0'
             const _chainId = chooseValue?.chainId as unknown as TVLChainId
             const CeilAmountPre = Math.ceil(new BigNumberJs(_totalStaked).toNumber())
-            console.log({ CeilAmountPre }, _totalStaked)
             const CeilAmount = CeilAmountPre > 5 ? 5 : CeilAmountPre
             if (isNative) {
               X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['native']) // _totalStaked 的值向上取整就是其系数
@@ -182,18 +179,18 @@ const Staking = memo(() => {
 
             const _earnPoints = X.times(new BigNumberJs(_totalStaked)) // 系数值 + 输入值
             const _finalPoints = new BigNumberJs(differenceInDays).times(_earnPoints).plus(growthCoefficient) // 还剩多少天 乘 _earnPoints
-            console.log({
-              isNative,
-              depositValue,
-              userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
-              X: X.toFixed(),
-              END_TIME,
-              differenceInDays,
-              _totalStaked: _totalStaked.toFixed(),
-              _earnPoints: _earnPoints.toFixed(2),
-              _finalPoints: _finalPoints.toFixed(2),
-              growthCoefficient
-            })
+            // console.log({
+            //   isNative,
+            //   depositValue,
+            //   userStakedAmount: chooseValue ? chooseValue.userStakedAmount : 'ssss',
+            //   X: X.toFixed(),
+            //   END_TIME,
+            //   differenceInDays,
+            //   _totalStaked: _totalStaked.toFixed(),
+            //   _earnPoints: _earnPoints.toFixed(2),
+            //   _finalPoints: _finalPoints.toFixed(2),
+            //   growthCoefficient
+            // })
             return {
               totalStaked: _totalStaked.toFormat(2),
               earnPoints: _earnPoints.toFormat(2),

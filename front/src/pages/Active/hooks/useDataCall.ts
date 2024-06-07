@@ -43,15 +43,12 @@ export const useGetDataCall = () => {
                 let primary_score_res
                 try {
                   primary_score_res = await getPrimaryScore()
-                  console.log({ primary_score_res })
                 } catch (e) {}
                 const primaryScoreRes = primary_score_res ? form_primary_score(infoObj, primary_score_res) : initActiveData
                 let isRegistered = false
                 try {
                   isRegistered = await getIsRegistered(infoObj.id)
-                  console.log({ isRegistered })
                 } catch (e) {}
-                console.log('adfsdaf', { isRegistered: isRegistered })
                 return {
                   ...primaryScoreRes,
                   ...infoObj,
@@ -157,7 +154,6 @@ export const useAvailableCode = () => {
 export const useTeamCall = () => {
   const getTeam = useCallback(async (userId: string, chainId: ChainId) => {
     try {
-      console.log('asdfasdfasdf')
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
       const recent_user_res = await request(`${TVL_API}/api/team`, {

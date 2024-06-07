@@ -59,14 +59,12 @@ export const useTeam = () => {
   const setPointAmount = useSetRecoilState(getPointAmount)
   const getDataTeam = useCallback(async () => {
     if (id) {
-      console.log('adsfsadf11111')
       if (loading || teamMembers.length) {
         return
       }
       setLoading(true)
       // 获取邀请码
       const _availableCode = await getAvailableCode(account!, chainId)
-      console.log({ _availableCode })
       if (_availableCode) {
         setAvailableCode(_availableCode)
       }
@@ -140,7 +138,6 @@ export const useTeam = () => {
       const isSingle = key !== 'all'
       try {
         if (account) {
-          console.log(2)
           if (isSingle) {
             if (isLoadingSingle) {
               return
@@ -152,7 +149,6 @@ export const useTeam = () => {
             }
             setIsLoadingAll(true)
           }
-          console.log(1)
           const hashedCardBytes = ethers.utils.hexConcat([account])
           let _signedStr
           try {
@@ -173,7 +169,6 @@ export const useTeam = () => {
               signature: _signedStr,
               isSingle: isSingle
             })
-            console.log({ setOpenCard_res })
             if (setOpenCard_res) {
               await getData()
               await getDataTeam()

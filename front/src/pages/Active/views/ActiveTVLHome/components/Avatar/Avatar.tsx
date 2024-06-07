@@ -58,7 +58,6 @@ const Avatar = memo(
     children?: React.ReactNode
   }) => {
     const [showError, setShowError] = useState(false)
-    console.log({ showError })
     return (
       <AvatarStyled width={width} borderRadius={borderRadius}>
         <ImageLoader

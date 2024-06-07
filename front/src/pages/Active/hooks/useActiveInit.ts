@@ -23,7 +23,6 @@ export const useGetData = () => {
         isInit: true,
         chainId
       })
-      console.log({ userInfo })
       if (userInfo) {
         setActiveData(pre => ({
           ...pre,
@@ -57,9 +56,7 @@ export const useActiveInit = () => {
   const { setActiveData } = useActiveData()
   // const { isInitLoading, id } = activeData
   const { getData } = useGetData()
-  const pathname = useRecoilValue(pathnameState)
   const { isActiveInit } = useIsGetActiveData()
-  console.log('pathname', pathname)
   useEffect(() => {
     if (isActiveInit) {
       getData()

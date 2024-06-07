@@ -37,7 +37,6 @@ const Nav = memo(() => {
   const historyModalOpenHandle = useCallback(
     (tabIndex: number) => {
       const pre = preHandleAction()
-      console.log({ pre })
       if (pre) {
         setHistoryTabIndex(tabIndex)
         setTimeout(() => {

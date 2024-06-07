@@ -144,11 +144,9 @@ const ZeroGas = memo(() => {
         const _theme = getTheme(_themeKey)
         const { bannerBorderColor, text, dapp } = _theme
         const { mintMinimum, mintMinimumStr, sbtAmount } = activeDataSource[_chainIdParams] ?? initActiveData
-        console.log({ sbtAmount })
         const hasSbt = sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
         const stakingData = Object.values(tvlStakingData[chainIdParams]).filter(vs => vs.address !== AddressZero)
         const showSwitch = !L3ChainId[chainIdParams] || L3ChainId[chainIdParams] !== chainId
-        console.log({ mintMinimumStr, nnnn: stakingData.map(v => v.userStakedAmount) })
         const dataMap = stakingData.map(
           v =>
             ({

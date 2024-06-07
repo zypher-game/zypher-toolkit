@@ -31,7 +31,6 @@ const SelectTokenDialog = memo(() => {
   const [chainIdLocal, setChainIdLocal] = useRecoilState(chooseChainState)
   const [tokenList, setTokenList] = useState<ITVLStakingData[]>([])
   const [depositCurrency, setDepositCurrency] = useRecoilState(depositCurrencyState)
-  console.log({ depositCurrency })
   useEffect(() => {
     const can = canNext(account, chainId)
     if (can) {
@@ -48,7 +47,6 @@ const SelectTokenDialog = memo(() => {
     }
     setTokenList(arr.sort((a, b) => a.index - b.index))
   }, [JSON.stringify(tvlStakingData), chainIdLocal])
-  console.log({ tvlStakingData, tokenList, defaultActiveChainId, chainIdLocal })
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
   }, [])
@@ -56,7 +54,6 @@ const SelectTokenDialog = memo(() => {
     setChainIdLocal(v)
   }, [])
   const changeTokenHandle = useCallback((v: ITVLStakingData) => {
-    console.log({ v }, 3223)
     setDepositCurrency(v.symbol)
     setIsModalOpen(false)
   }, [])

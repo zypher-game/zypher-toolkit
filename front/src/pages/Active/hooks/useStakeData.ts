@@ -221,7 +221,6 @@ export const useStakeData = () => {
           chainIdList: TVLStakingSupportedChainId as unknown as ChainId[],
           params
         })
-        console.log({ params, res })
         const week = Object.fromEntries(res.map(v => [v.chainId, new BigNumberJs(v.response[v.response.length - 1][0].hex).toNumber()]))
         const nextParams = Object.fromEntries(
           TVLStakingSupportedChainId.map(chainId => {
@@ -261,7 +260,6 @@ export const useStakeData = () => {
             >
           )
         } catch (stakeDataFromApiErr: any) {}
-        console.log({ nextParams, nextRes, stakeDataFromApi })
 
         const userValue = Object.fromEntries(
           TVLStakingSupportedChainId.map(chain => [
@@ -286,10 +284,8 @@ export const useStakeData = () => {
             userValue[_chainId]['mintMinimum'] = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
 
             const getMinStakeIndex = methodArr.indexOf(`getMinStake${_chainId}`)
-            console.log({ getMinStakeIndex })
             userValue[_chainId]['getMinStake'] =
               getMinStakeIndex === -1 ? '0' : new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
-            console.log('Asdfsadf', userValue[_chainId]['getMinStake'])
 
             const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
 
@@ -299,7 +295,6 @@ export const useStakeData = () => {
             const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf${_chainId}`)
 
             userValue[_chainId]['sbtBalanceOf'] = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
-            console.log({ sbtBalanceOf: userValue[_chainId]['sbtBalanceOf'] })
             const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[_chainId]).map((vv: any, index: number) => {
               const allowanceIndex = methodArr.indexOf(`allowance${vv.symbol}`)
               const symbolIndex = methodArr.indexOf(`symbol${vv.symbol}`)
@@ -378,7 +373,6 @@ export const useStakeData = () => {
             ]
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
-        console.log({ resMap })
         setTvlStakingData(resMap)
 
         const stakingData = Object.values(resMap[nativeChainId]).filter(vs => vs.address !== AddressZero)
@@ -390,7 +384,6 @@ export const useStakeData = () => {
         const gpAmount = calculateSumByNumber(
           stakingData.map(({ earnGP }) => (earnGP === '' ? '0' : new BigNumberJs(earnGP).dividedBy(divisorBigNumber).toFixed(2)))
         )
-        console.log({ userValue })
         TVLStakingSupportedChainId.forEach(chain => {
           setActiveData(
             pre => ({

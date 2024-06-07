@@ -29,7 +29,6 @@ const PixelTab = memo(
     themeType?: IActivePixelColorCardTheme;
     hidePixel?: boolean;
   }) => {
-    console.log({ tabList, hidePixel });
     return (
       <ul className={classNames}>
         {tabList.map((v, index) => (

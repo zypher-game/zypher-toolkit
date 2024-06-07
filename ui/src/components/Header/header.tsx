@@ -67,7 +67,6 @@ const Header = (props: IProps): React.ReactElement | null => {
       setShowBig(false);
     }
     if (showMiddle) {
-      console.log("sdfsdafsd");
       setShowMiddle(false);
     }
   }, [width]);
