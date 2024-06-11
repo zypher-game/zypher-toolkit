@@ -1858,7 +1858,7 @@ function useActiveWeb3React(env, chainList2) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);
@@ -5342,7 +5342,6 @@ var PlayerAvatar = memo26(
     const [avatars2, setAvatars] = useState11();
     const refreshAvatar = useRecoilValue7(refreshAvatarState);
     useEffect11(() => {
-      console.log({ account, chainId });
       if (account && chainId && !hideAvatars) {
         getData();
       } else {
@@ -10991,7 +10990,6 @@ var Header = (props) => {
       setShowBig(false);
     }
     if (showMiddle) {
-      console.log("sdfsdafsd");
       setShowMiddle(false);
     }
   }, [width]);
@@ -11620,7 +11618,6 @@ var PixelTab = memo34(
     themeType,
     hidePixel
   }) => {
-    console.log({ tabList, hidePixel });
     return /* @__PURE__ */ React95.createElement("ul", {
       className: classNames
     }, tabList.map((v, index) => /* @__PURE__ */ React95.createElement(PixelTabLiItem, {

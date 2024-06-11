@@ -59,7 +59,6 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     const refreshAvatar = useRecoilValue(refreshAvatarState);
     // const { getUserInfo } = useGetUserInfo();
     useEffect(() => {
-      console.log({ account, chainId });
       if (account && chainId && !hideAvatars) {
         getData();
         // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
