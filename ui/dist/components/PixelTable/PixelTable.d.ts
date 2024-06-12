@@ -7,7 +7,7 @@ interface IProps extends IPixelProps {
     classNameHeader?: string;
     headerBackgroundColor?: string;
 }
-export declare const PixelTableBorder: React.MemoExoticComponent<({ header_children, body_children, pixel_height, classNameHeader, backgroundColor, headerBackgroundColor, borderColor, width, }: IProps) => React.JSX.Element>;
+export declare const PixelTableBorder: React.MemoExoticComponent<({ header_children, body_children, pixel_height, classNameHeader, backgroundColor, headerBackgroundColor, borderColor, width, className, }: IProps) => React.JSX.Element>;
 export declare const PixelTable: React.MemoExoticComponent<({ header_children, body_children, pixel_height, className, classNameHeader, backgroundColor, headerBackgroundColor, borderColor, width, }: IProps) => React.JSX.Element>;
 export declare const IsTablePixelWidget: React.MemoExoticComponent<({ width, height, className, backgroundColor, header_children, body_children, pixel_height, }: {
     width: string;

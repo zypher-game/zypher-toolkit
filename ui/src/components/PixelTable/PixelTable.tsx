@@ -24,10 +24,11 @@ export const PixelTableBorder = memo(
     headerBackgroundColor,
     borderColor,
     width,
+    className,
   }: IProps) => {
     return (
       <PixelBorderCard
-        className="tvlPixelTable"
+        className={`tvlPixelTable ${className ?? ""}`}
         pixel_height={pixel_height}
         backgroundColor={`${backgroundColor ?? "#0d1120"}`}
         borderColor={`${borderColor ?? "#3A4254"}`}

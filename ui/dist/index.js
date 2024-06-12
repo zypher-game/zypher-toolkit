@@ -3777,10 +3777,11 @@ var PixelTableBorder = memo9(
     backgroundColor,
     headerBackgroundColor,
     borderColor,
-    width
+    width,
+    className
   }) => {
     return /* @__PURE__ */ React13.createElement(PixelBorderCard, {
-      className: "tvlPixelTable",
+      className: `tvlPixelTable ${className != null ? className : ""}`,
       pixel_height,
       backgroundColor: `${backgroundColor != null ? backgroundColor : "#0d1120"}`,
       borderColor: `${borderColor != null ? borderColor : "#3A4254"}`,
