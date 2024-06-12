@@ -1350,6 +1350,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   margin-right: 10px;
 }
 .ChainSelectorWidgetWrapper img {
+  width: 24px;
   height: 24px;
 }
 .ChainSelectorWidgetWrapper .img {
@@ -1529,6 +1530,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper .img {
 }
 body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper img {
   width: 20px;
+  height: 20px;
 }
 body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   margin-right: 0;
