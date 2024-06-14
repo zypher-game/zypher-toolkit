@@ -2258,7 +2258,6 @@ var useGetUserInfo = () => {
         const info_res = await request(`${TVL_API}/api/info/${account}`, {
           method: "GET",
           params: {
-            pageCount: 10,
             linkType: linkType.key
           },
           headers: {
