@@ -252,6 +252,11 @@ export const tvlStakingDialogState = atom({
   default: false
 })
 
+export const tvlStakingForbidDialogState = atom({
+  key: 'tvlStakingForbidDialogState',
+  default: false
+})
+
 export const changeNameDialogState = atom({
   key: 'changeNameDialogState',
   default: false

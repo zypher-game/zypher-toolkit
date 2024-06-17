@@ -26,9 +26,9 @@ const ActiveTVLLeaderboard = memo(() => {
           <h2 className={`${css.fl_title} ${css.pt30}`}>Leaderboard</h2>
           <p className={`${css.fl_grey} ${isW768 ? css.mb20 : css.mb40}`}>Staking & invite friends to improve your ranking!</p>
           {isW768 ? <ActiveTab index={activeTab} setIndex={setActiveTab} /> : null}
-          {activeTab === 0 ? (
+          <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
+          {(activeTab === 0 && isW768) || !isW768 ? (
             <>
-              <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
               <div className={css.fl_list}>
                 {rankBoard.map((v, index) => (
                   <LeaderBoardRow key={index} {...v} />
@@ -37,7 +37,7 @@ const ActiveTVLLeaderboard = memo(() => {
               {my ? <LeaderBoardRow {...my} isMy={true} /> : null}
             </>
           ) : null}
-          {activeTab === 1 ? <RecentlyJoined recentUser={recentUser} /> : null}
+          {activeTab === 1 && isW768 ? <RecentlyJoined recentUser={recentUser} /> : null}
         </>
       }
       fr_children={

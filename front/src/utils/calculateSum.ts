@@ -1,5 +1,4 @@
 import { Currency } from '@ui/src'
-
 import { BigNumberJs } from '@ui/src'
 
 import { IPriceType } from '../store/price/reducer'

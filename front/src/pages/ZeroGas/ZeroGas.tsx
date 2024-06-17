@@ -28,9 +28,10 @@ import { setErrorToast } from '@/utils/Error/setErrorToast'
 import StakingBtn from '../Active/components/StakingBtn/StakingBtn'
 import { StakingTitle } from '../Active/components/Title/Title'
 import TVLStakingDialog from '../Active/dialog/StakingDialog/StakingDialog'
-import { usePreHandleAction } from '../Active/hooks/activeHooks'
+import StakingForbidDialog from '../Active/dialog/StakingDialog/StakingForbidDialog'
 import { useChainIndex } from '../Active/hooks/useChainIndex'
 import { useStake } from '../Active/hooks/useStakeData'
+import { useAirdropPointsTooltip } from '../Active/hooks/useTooltip'
 import { activeDataState, IActiveDataState, initActiveData, ITVLStakingData, tvlStakingDataState } from '../Active/state/activeState'
 import DappItem, { IDappItem } from './components/DappItem/DappItem'
 import SBTCard from './components/SBTCard/SBTCard'
@@ -118,15 +119,14 @@ const ZeroGas = memo(() => {
   useStake()
   const isW768 = useIsW768()
   const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
+  console.log({ activeDataSource })
   const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
   const { setChainIndex, chainIdLocal } = useChainIndex()
   const { switchNetwork } = useSwitchNetwork()
   const { chainId } = useActiveWeb3React()
-  const preHandleAction = usePreHandleAction()
   const switchChainHandle = useCallback(
     (params: ChainId) => {
-      const isOk = preHandleAction()
-      if (isOk && switchNetwork && params !== chainId) {
+      if (switchNetwork && params !== chainId) {
         try {
           switchNetwork(params)
         } catch (err) {
@@ -136,10 +136,13 @@ const ZeroGas = memo(() => {
     },
     [switchNetwork, chainId]
   )
+  const { getTooltip } = useAirdropPointsTooltip()
+
   const Widget = useMemo(() => {
     return Object.fromEntries(
       TVLStakingSupportedChainId.map(chainIdParams => {
         const _chainIdParams = chainIdParams as unknown as TVLChainId
+        console.log({ _chainIdParams })
         const _themeKey = Theme[_chainIdParams]
         const _theme = getTheme(_themeKey)
         const { bannerBorderColor, text, dapp } = _theme
@@ -147,16 +150,17 @@ const ZeroGas = memo(() => {
         const hasSbt = sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
         const stakingData = Object.values(tvlStakingData[chainIdParams]).filter(vs => vs.address !== AddressZero)
         const showSwitch = !L3ChainId[chainIdParams] || L3ChainId[chainIdParams] !== chainId
+
         const dataMap = stakingData.map(
           v =>
             ({
-              stake: !chainId ? '-' : v.userStakedAmountStr,
-              mintMinimumStr: !chainId ? '-' : mintMinimumStr,
+              stake: v.userStakedAmountStr,
+              mintMinimumStr: mintMinimumStr,
               currency: `${v.symbol === `W${Currency[chainIdParams]}` ? Currency[chainIdParams] : v.symbol}`,
               isOk: new BigNumberJs(v.userStakedAmount).gte(mintMinimum)
             } as IStakeItem)
         )
-
+        const { SBTTooltip } = getTooltip({ chainId: chainIdLocal, mintMinimum: mintMinimumStr })
         return [
           chainIdParams,
           <>
@@ -201,7 +205,7 @@ const ZeroGas = memo(() => {
                   <PixelBorderCard className={css.stakingCard} pixel_height={4} backgroundColor="#0d1425" borderColor="#3A4254">
                     <div className={css.stakingTop}>
                       <div className={css.stakingTopFl}>
-                        <StakingTitle />
+                        <StakingTitle tooltip={SBTTooltip} />
                         {hasSbt ? <p className={css.grey}>You got the Zypher SBT</p> : null}
                       </div>
                       <StakingBtn chainId={chainIdLocal} />
@@ -241,6 +245,7 @@ const ZeroGas = memo(() => {
       <Tab chainIdLocal={chainIdLocal} onClick={setChainIndex} />
       {Widget[chainIdLocal]}
       <TVLStakingDialog />
+      <StakingForbidDialog />
     </div>
   )
 })

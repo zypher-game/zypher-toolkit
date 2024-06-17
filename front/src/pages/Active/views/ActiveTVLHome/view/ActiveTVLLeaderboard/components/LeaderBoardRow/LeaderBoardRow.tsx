@@ -80,7 +80,7 @@ const LeaderBoardRow = memo((props: IProps) => {
       backgroundColor={backgroundColor}
       className={`leader_board_row ${rank < 4 ? 'leader_board_row_text' : ''} ${isMy ? 'leader_board_row_my' : ''}`}
     >
-      <div className="leader_board_row_fl">
+      <div className={`leader_board_row_fl ${rank < 4 ? '' : 'leader_board_row_fl_mr'}`}>
         {rank < 4 ? (
           <img src={`${preStaticUrl}/img/tvl/label_0${rank}.png`} className="leader_board_row_fl_img" />
         ) : (

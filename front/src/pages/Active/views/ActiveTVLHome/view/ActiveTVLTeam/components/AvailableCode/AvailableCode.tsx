@@ -30,16 +30,17 @@ const AvailableCode = memo(({ availableCode, loading }: { availableCode: IAvaila
               <>
                 {availableCode
                   .sort((a, b) => b.codeType - a.codeType)
+                  .map(v => ({ ...v, isForever: v.codeType === 255 }))
                   .map(v => (
-                    <IsPixelWidget key={v.inviteCode} isPixel={v.codeType === 7}>
+                    <IsPixelWidget key={v.inviteCode} isPixel={v.isForever}>
                       <div className={css.fl}>
-                        {v.codeType === 7 ? <p className={css.grey}>Permanent invitation code</p> : null}
+                        {v.isForever ? <p className={css.grey}>Permanent invitation code</p> : null}
                         <p className={css.text}>
                           {window.location.origin}/{getLinkPre(chainId).label}-{v.inviteCode}
                         </p>
                       </div>
                       <ActivePixelButtonColor
-                        themeType={v.codeType === 7 ? 'yellow' : 'brightBlue'}
+                        themeType={v.isForever ? 'yellow' : 'brightBlue'}
                         width={isW768 ? '64px' : '88px'}
                         height={isW768 ? '28px' : '36px'}
                         pixel_height={3}

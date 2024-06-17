@@ -1,108 +1,127 @@
-import { ChainId, Currency, PixelTableBorder, TVLChainId, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
-import React, { memo, useCallback, useMemo } from 'react'
+import { ChainId, LoadingButton, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
+import React, { memo, useCallback } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
+import { useTable } from '@/pages/Active/hooks/useStakeHandle'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
-import { ITVLStakingData, tvlStakingDataState } from '@/pages/Active/state/activeState'
+import { isTvlDataLoadingState, ITVLStakingData } from '@/pages/Active/state/activeState'
 
 import css from './Table.module.styl'
 const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
-  const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
-  const { native, erc20 } = useMemo(() => {
-    const obj: Record<string, ITVLStakingData[]> = {
-      native: [],
-      erc20: []
-    }
-    const o = tvlStakingData[chainIdLocal]
-    if (o) {
-      const all = Object.keys(o)
-      const w_native = 'W' + Currency[chainIdLocal]
-      const WETHIndex = all.indexOf(w_native)
-      let ETHIndex = all.indexOf(Currency[chainIdLocal])
-      if (WETHIndex !== -1 && ETHIndex !== -1) {
-        all.splice(WETHIndex, 1)
-        if (ETHIndex > WETHIndex) {
-          ETHIndex--
-        }
-        all.splice(ETHIndex, 1)
-      }
-      obj.native = [o[w_native]]
-      obj.erc20 = all.map(v => o[v])
-    }
-    return obj
-  }, [chainIdLocal, JSON.stringify(tvlStakingData)])
+  const isDataLoading = useRecoilValue(isTvlDataLoadingState)
+  const { native, erc20 } = useTable()
   return (
     <>
       <h3 className={css.title}>Native Token Stake</h3>
-      <TableWrap list={native} type="native" chainId={chainIdLocal} />
+      <TableWrap list={native} type="native" chainId={chainIdLocal} isDataLoading={isDataLoading} />
       <h3 className={css.title}>Restaking Tokens</h3>
-      <TableWrap list={erc20} type="erc20" chainId={chainIdLocal} />
+      <TableWrap list={erc20} type="erc20" chainId={chainIdLocal} isDataLoading={isDataLoading} />
     </>
   )
 })
-const TableWrap = memo(({ list, type, chainId }: { list: ITVLStakingData[]; type: 'native' | 'erc20'; chainId: ChainId }) => {
-  const isW768 = useIsW768()
-  const setTvlStakingDialog = useTvlStakingDialogState()
-  const onClick = useCallback(() => {
-    setTvlStakingDialog(chainId, true)
-  }, [chainId])
-  if (isW768) {
+const TableWrap = memo(
+  ({ list, type, chainId, isDataLoading }: { list: ITVLStakingData[]; type: 'native' | 'erc20'; chainId: ChainId; isDataLoading: boolean }) => {
+    const isW768 = useIsW768()
+    const setTvlStakingDialog = useTvlStakingDialogState()
+    const onClick = useCallback(
+      (currency: string) => {
+        console.log({ currency })
+        setTvlStakingDialog(chainId, true, currency)
+      },
+      [chainId]
+    )
+    if (isW768) {
+      return (
+        <div className={css.mTable}>
+          {list.map(v => (
+            <RowM key={JSON.stringify(v)} onClick={() => onClick(v.symbol)} v={v} type={type} />
+          ))}
+        </div>
+      )
+    }
     return (
-      <div className={css.mTable}>
-        {list.map(v => (
-          <RowM key={v.address} onClick={onClick} v={v} type={type} />
-        ))}
+      <PixelTableBorder
+        classNameHeader="tvlPixelTable_header_table"
+        pixel_height={7}
+        header_children={
+          <Row
+            className={css.fl_tab_header}
+            isHead={true}
+            data={['Token', type === 'native' ? 'Staked' : 'Restaked', 'Ratio', 'GP', 'APR', 'TVL']}
+            isDataLoading={isDataLoading}
+          />
+        }
+        body_children={
+          <>
+            {list.map(v => (
+              <Row
+                key={JSON.stringify(v)}
+                isHead={false}
+                onClick={() => onClick(v.symbol)}
+                className={css.fl_tab_body}
+                isDataLoading={isDataLoading}
+                data={[
+                  <>
+                    <div className={css.fl_tab_body_col1}>
+                      <TokenWithChain
+                        width={32}
+                        token={{
+                          address: v.address,
+                          symbol: v.symbol,
+                          logoPath: v.logoPath,
+                          index: v.index
+                        }}
+                        chainId={v.chainId}
+                      />
+                      <p>{v.symbol}</p>
+                    </div>
+                  </>,
+                  v.userStakedAmountStr,
+                  v.ratio + '%',
+                  v.earnGPStr,
+                  v.apr + '%',
+                  v.totalStakedAmountStr
+                ]}
+              />
+            ))}
+          </>
+        }
+      />
+    )
+  }
+)
+const Row = memo(
+  ({
+    className,
+    data,
+    onClick,
+    isDataLoading,
+    isHead
+  }: {
+    className: string
+    data: (string | React.ReactNode)[]
+    onClick?: any
+    isDataLoading: boolean
+    isHead: boolean
+  }) => {
+    return (
+      <div className={`${css.row} ${className}`} onClick={onClick}>
+        {data
+          .filter(v => v)
+          .map((v, index) =>
+            typeof v === 'string' ? (
+              <div className={css.text} key={JSON.stringify(v)}>
+                <p>{v}</p>
+                {!isHead && (index === 1 || index === 2 || index === 3 || index === 5) ? <LoadingButton isLoading={isDataLoading} /> : null}
+              </div>
+            ) : (
+              v
+            )
+          )}
       </div>
     )
   }
-  return (
-    <PixelTableBorder
-      classNameHeader="tvlPixelTable_header_table"
-      pixel_height={7}
-      header_children={<Row className={css.fl_tab_header} data={['Token', type === 'native' ? 'Staked' : 'Restaked', 'Ratio', 'GP', 'APR', 'TVL']} />}
-      body_children={
-        <>
-          {list.map(v => (
-            <Row
-              key={v.address}
-              onClick={onClick}
-              className={css.fl_tab_body}
-              data={[
-                <>
-                  <div className={css.fl_tab_body_col1}>
-                    <TokenWithChain
-                      width={32}
-                      token={{
-                        address: v.address,
-                        symbol: v.symbol,
-                        logoPath: v.logoPath,
-                        index: v.index
-                      }}
-                      chainId={v.chainId}
-                    />
-                    <p>{v.symbol}</p>
-                  </div>
-                </>,
-                v.userStakedAmountStr,
-                v.ratio + '%',
-                v.earnGPStr,
-                v.apr + '%',
-                v.totalStakedAmountStr
-              ]}
-            />
-          ))}
-        </>
-      }
-    />
-  )
-})
-const Row = memo(({ className, data, onClick }: { className: string; data: (string | React.ReactNode)[]; onClick?: any }) => {
-  return (
-    <div className={`${css.row} ${className}`} onClick={onClick}>
-      {data.filter(v => v).map(v => (typeof v === 'string' ? <p key={v}>{v} </p> : v))}
-    </div>
-  )
-})
+)
 
 const RowM = memo(({ v, onClick, type }: { v: ITVLStakingData; onClick?: any; type: 'native' | 'erc20' }) => {
   return (

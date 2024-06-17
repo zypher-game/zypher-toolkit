@@ -24,9 +24,14 @@ const StakingTab = memo(
         </div>
         {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaTestnet || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (
           <div className={css.warn_tab_tooltip}>
-            <p>Earn Linea XP</p>
-            <PixelTooltip title={['What is Linea Voyage XP? ']} showLink="https://docs.linea.build/users/linea-voyage/lxp#what-is-linea-voyage-xp" />
-            <p>by staking! And Linea’s airdrop expectations!</p>
+            <p>
+              Earn Linea XP
+              <PixelTooltip
+                title={['What is Linea Voyage XP? ']}
+                showLink="https://docs.linea.build/users/linea-voyage/lxp#what-is-linea-voyage-xp"
+              />
+              by staking! And Linea’s airdrop expectations!
+            </p>
           </div>
         ) : (
           <></>

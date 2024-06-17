@@ -1,4 +1,4 @@
-import { ChainId, defaultActiveChainId, tvlTokenAddress, useActiveWeb3React } from '@ui/src'
+import { ChainId, defaultActiveChainId, useActiveWeb3React } from '@ui/src'
 import React, { memo, useMemo } from 'react'
 
 import PixelTooltip from '../PixelTooltip/PixelTooltip'
@@ -20,10 +20,6 @@ export const Title = memo(({ label, tooltip }: { label: string; tooltip: string[
     </div>
   )
 })
-export const StakingTitle = memo(() => {
-  const chainId = useDefaultChainId()
-  const stakingStr = useMemo(() => {
-    return Object.keys(tvlTokenAddress[chainId]).join(', ')
-  }, [chainId])
-  return <Title label="Staked" tooltip={[`Your total pledge amount, including ${stakingStr} etc.`]} />
+export const StakingTitle = memo(({ tooltip }: { tooltip: string[] }) => {
+  return <Title label="Staked" tooltip={tooltip} />
 })

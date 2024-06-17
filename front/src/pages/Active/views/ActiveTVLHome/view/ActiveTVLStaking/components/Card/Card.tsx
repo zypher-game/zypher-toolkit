@@ -37,6 +37,7 @@ const Card = memo(
 
     const { account } = useActiveWeb3React()
     const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
+    console.log({ activeDataSource })
     const {
       crHeroBoxAmount,
       dollarGpRewords,

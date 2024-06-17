@@ -59,7 +59,7 @@ export const useActiveRouter = () => {
         !canNext(account, chainId)
       ) {
         navigate(`/${NavKey[0][0]}`)
-        console.log(1)
+        console.log(1, id)
         return
       }
       if (isRegistered) {

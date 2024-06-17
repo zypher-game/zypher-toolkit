@@ -1,10 +1,11 @@
 .games
-  min-height: 100vh
-  min-width: 100vw
+  overflow-x: hidden
+  @media screen and (min-width: 830px)
+    min-height: 100vh
+    min-width: 100vw
   // background-color: #346489
   // padding-top: 70px
   // margin-top: -70px
-  overflow-x: hidden
   @media screen and (max-width: 830px)
     padding-top: 44px
     margin-top: -44px
@@ -12,5 +13,8 @@
 .inner 
   max-width: 1200px
   margin: 0 auto
+  @media screen and (max-width: 830px)
+    overflow-y: scroll
+    height: calc(100vh - 44px)
   // @media screen and (max-width: 1232px)
     // margin: 0 16px 

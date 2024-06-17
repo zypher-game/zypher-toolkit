@@ -1,0 +1,19 @@
+body [data-reach-dialog-content].stakingForbidDialog
+  max-width 400px
+  @media screen and (max-width: 830px)
+    width calc(100% - 30px)
+.PixelCube2
+  :global(>.pixel_flat_inner)
+    flex-direction: column
+    padding: 40px 30px
+  .text
+    text-align: center
+    padding-bottom: 20px
+.title
+  font-size: 18px
+  font-weight: 600
+  padding-bottom: 20px
+  text-align: center
+  margin: 0
+  @media screen and (max-width: 830px)
+    font-size: 16px

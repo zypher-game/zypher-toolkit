@@ -57,7 +57,7 @@ export const useAirdropPointsTooltip = () => {
         ],
         SBTTooltip: [
           'Pledge any token and meet the pledge amount requirements to obtain SBT. Users with SBT can experience gas-free gaming on Zytron L3.',
-          ...(isTvlDataLoading ? [] : SBTWarn)
+          ...(mintMinimum && mintMinimum !== '' ? SBTWarn : [])
         ],
         crHeroTooltip: [
           'Hero mystery box rewards for platformer Crypto Rumble.',

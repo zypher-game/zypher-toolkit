@@ -52,6 +52,9 @@ const Btn = memo(({ isModal }: { isModal: boolean }) => {
       navigate(`/${preAirdropPathname}/${airdropPathname.staking}`)
     }
   }, [isModal, chainId, navigate])
+  if (isModal) {
+    return <></>
+  }
   return (
     <ActivePixelButtonColor
       themeType="brightBlue"

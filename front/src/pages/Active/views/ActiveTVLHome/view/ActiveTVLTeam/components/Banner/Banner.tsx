@@ -27,16 +27,18 @@ const Banner = memo(() => {
   const editNicknameHandle = useCallback(() => {
     setIsModalOpen(true)
   }, [])
-
+  const showTwitter = useMemo(() => {
+    return (byTwitterMore === '' || byTwitterMore === '0') && new BigNumberJs(byTwitter).gte(50)
+  }, [byTwitterMore, byTwitter])
   return (
-    <ActivePixelCard pixel_height={4} backgroundColor="#FF5EAA" className="active_tvl_banner">
+    <ActivePixelCard pixel_height={4} backgroundColor="#FF5EAA" className={`active_tvl_banner ${showTwitter ? 'active_tvl_banner_twitter' : ''}`}>
       <div className={css.top}>
         <div className={css.top_fl}>
           <Avatar src={getAvatar(avatar, refreshAvatar)} nickname={nickname} width="48px" />
           <p>{getNicknameStr(nickname)}</p>
           <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
         </div>
-        {(byTwitterMore === '' || byTwitterMore === '0') && new BigNumberJs(byTwitter).gte(50) ? (
+        {showTwitter ? (
           <ShareLink
             css={ShareLinkcss}
             pixel_styled={{

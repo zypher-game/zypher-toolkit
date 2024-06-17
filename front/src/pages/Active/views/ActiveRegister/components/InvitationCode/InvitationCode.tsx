@@ -19,14 +19,18 @@ const InvitationCode = memo(() => {
   const { loading, codeCheck } = useCodeCheckCall()
   const checkInvitationCode = useCallback(async () => {
     if (loading || activeData.isInitLoading) {
+      console.log(1)
       return
     }
+    console.log(2)
     if (!codeStr) {
       setErrorToast(GlobalVar.dispatch, 'Please enter the invitation code')
       return
     }
+    console.log(2)
     const chainKey = codeStr[0]
     const choseChainKey = LinkPre[chainKey]
+    console.log(2, activeData)
     if (!choseChainKey) {
       setErrorToast(GlobalVar.dispatch, 'Please enter the right invitation code')
       return
@@ -34,17 +38,22 @@ const InvitationCode = memo(() => {
     // 如果当前网络不是用户邀请码所在的网络，则要求用户切换网络
     const isOk = preHandleAction(choseChainKey.chainId)
     if (!isOk) {
+      console.log(2)
       return
     }
+    console.log(2)
     if (codeStr === activeData.invitationCode) {
+      console.log(2)
       setActiveData(pre => ({
         ...pre,
         signedStr: '0000'
       }))
     } else {
+      console.log(2)
       try {
         const check = await codeCheck(codeStr)
         if (check) {
+          console.log(2, codeStr)
           setActiveData(pre => ({
             ...pre,
             invitationCode: codeStr
@@ -54,9 +63,10 @@ const InvitationCode = memo(() => {
         }
       } catch (e: any) {
         setErrorToast(GlobalVar.dispatch, e)
+        console.log(2)
       }
     }
-  }, [codeStr, chainId, JSON.stringify(activeData)])
+  }, [preHandleAction, setActiveData, codeStr, chainId, account, JSON.stringify(activeData)])
 
   return (
     <div className={css.invitationCode}>

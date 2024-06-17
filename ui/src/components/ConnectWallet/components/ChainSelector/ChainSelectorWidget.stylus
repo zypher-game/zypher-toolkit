@@ -12,6 +12,7 @@
     margin: 0;
     margin-right: 10px;
   img 
+    width: 24px;
     height: 24px;
   .img 
     display: flex;

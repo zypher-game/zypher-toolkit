@@ -52,6 +52,9 @@ html, body, #root
 #root > [class^='page']
     position: relative
     padding: 0 15px
+body
+  touch-action: pan-x pan-left pan-right;
+  overscroll-behavior: contain;
 body input
     color: #fff
 .lt-spin
@@ -79,9 +82,10 @@ i.ant-spin-dot-item
     .ant-spin-dot-item
         background: #DC4F26
 body .ant-layout.lt-layout
-    overflow: auto
     background:  #01040E
-    flex-direction: column;
+    @media screen and (max-width: 830px)
+        overflow: auto
+        flex-direction: column;
     .lt-side-mode
         position: fixed;
         z-index: 9

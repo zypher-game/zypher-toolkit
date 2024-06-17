@@ -57,7 +57,8 @@ const Layout = memo((props: IProps) => {
         pathname={pathnameArr[1]}
       />
       <Content className="lt-content">
-        <div className="lt-main">{props.children}</div>
+        {/* <div className="lt-main"></div> */}
+        {props.children}
       </Content>
       {isW768 ? (
         <Sider

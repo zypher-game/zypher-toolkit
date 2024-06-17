@@ -34,8 +34,12 @@ export const useLeaderBoard = () => {
         const res_recentUser = await getRecentUser({ chainId: chainIdLocal })
         const res_rankBoard = await getRankBoard({ chainId: chainIdLocal })
         if (id) {
-          const res_myRankBoard = await getMyRankBoard({ chainId: chainIdLocal, userId: id })
-          setMy(res_myRankBoard)
+          try {
+            const res_myRankBoard = await getMyRankBoard({ chainId: chainIdLocal, userId: id })
+            setMy(res_myRankBoard)
+          } catch (e) {
+            setMy(undefined)
+          }
         }
         if (res_recentUser) {
           setRecentUser(
@@ -44,12 +48,19 @@ export const useLeaderBoard = () => {
               joinTimeStr: calculateTimeAgo(v['joinTime'])
             })) ?? []
           )
+        } else {
+          setRecentUser([])
         }
         if (res_rankBoard) {
           setRankBoard(res_rankBoard ?? [])
+        } else {
+          setRankBoard([])
         }
       } catch (e) {
         console.log('useLeaderBoard err:', e)
+        setRecentUser([])
+        setRankBoard([])
+        setMy(undefined)
       }
     }
     getData()

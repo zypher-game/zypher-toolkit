@@ -47,10 +47,11 @@ const FrSomeWidget = memo(
       }
       setIsTvlPointModalOpen(true)
     }, [activeData.airdropPointsCardNumber])
+
     return (
       <>
         <FrPixelBorder>
-          <StakingTitle />
+          <StakingTitle tooltip={[stakingStr]} />
           <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
           <div className={css.fr_number}>
             {isDataLoading ? null : <p>{activeData.userStakedAmountStr}</p>}

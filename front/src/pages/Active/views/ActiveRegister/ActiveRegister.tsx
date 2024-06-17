@@ -17,6 +17,7 @@ const ActiveRegister = memo(() => {
   const { invitationCode, checkAirdropPointsLoading } = activeData
   useSign()
   const { CheckPointHandle, CheckDiscordHandle, CheckTwitterHandle } = useBind()
+  console.log({ activeData })
   return (
     <ActiveComp>
       <div className={css.register}>

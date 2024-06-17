@@ -10,23 +10,192 @@
   display flex
   justify-content: space-evenly
   align-items: flex-end
-  z-index: 8;
+  z-index: 9;
   overflow: hidden;
+  @media screen and (max-width: 830px)
+    div.hero_big
+      position absolute
+      margin: 0;
+      mix-blend-mode: normal;
+      width: 40%;
+      transition: none
+      &:nth-child(2n+1)
+        .hero_big_img
+          transform: scaleX(-1);
 
+      &:nth-child(1)
+        width: 60%;
+        bottom: 0;
+        left: 20%;
+        z-index: 20
+        .hero_big_img
+          transform: scaleX(1);
+
+      &:nth-child(2),
+      &:nth-child(3)
+        width: 55%;
+        bottom: 5%;
+        z-index: 19
+      &:nth-child(2)
+        left: 0
+      &:nth-child(3)
+        right: 0
+       
+      &:nth-child(4),
+      &:nth-child(5)
+        width: 50%;
+        bottom: 9%;
+        z-index: 18
+      &:nth-child(4)
+        left: -20%
+      &:nth-child(5)
+        right: -20%
+
+      &:nth-child(6),
+      &:nth-child(7),
+      &:nth-child(8),
+      &:nth-child(9),
+      &:nth-child(10),
+      &:nth-child(12),
+      &:nth-child(13),
+      &:nth-child(14),
+      &:nth-child(15),
+      &:nth-child(16)
+        bottom: 13%
+      &:nth-child(17),
+      &:nth-child(18),
+      &:nth-child(19),
+      &:nth-child(20)
+        bottom: 15%
+
+      &:nth-child(6)
+        left: -10%
+      &:nth-child(7)
+        left: 0%
+      &:nth-child(8)
+        left: 10%
+      &:nth-child(9)
+        left: 20%
+      &:nth-child(10)
+        left: 30%
+      &:nth-child(12)
+        left: 40%
+      &:nth-child(13)
+        left: 60%
+      &:nth-child(14)
+        left: 70%
+      &:nth-child(15)
+        left: 80%
+      &:nth-child(16)
+        left: 90%
+      &:nth-child(17)
+        left: -30%
+      &:nth-child(18)
+        left: -20%
+      &:nth-child(19)
+        left: -10%
+      &:nth-child(20)
+        left: 0%
+
+  .Agil
+    .border1
+      margin-bottom: -10%;
+  .Celus
+    .border1
+      margin-bottom: -34%
+  .Yueling
+    .border1
+      margin-bottom: -9%
+  .Ivan
+    .border1
+      margin-bottom: -8%
+  .Liana
+    .border1
+      margin-bottom: -20%
+  .my
+    @media screen and (min-width: 830px)
+      & ~ .hero_big
+        .hero_big_img
+          transform: scaleX(-1);
+    .border3
+      animation: sparkleEffect 2s infinite;
+      text-shadow: 0 0 5px rgba(255, 255, 255, 0.5), 0 0 10px rgba(255, 255, 255, 0.3);
+      .border3inner
+        border-top-color: #ab581b
+        border-bottom-color: #ab581b
+        background-color: #e47524
+      .border3fl,
+      .border3fr
+        border-color: #ab581b
+        background-color: #e47524
+        &:after,
+        &:before 
+          background-color: #804214
+  .border1
+    padding: 1px
+    width: 40%;
+    margin: 0 auto;
+    @media screen and (max-width: 830px)
+      width: 48%
+  .border2
+    padding: 2px 
+    width: 100%;
+  .border3
+    width: 100%
+    height: 100%
+    display: flex
+    justify-content: space-between
+    align-items: stretch
+    .border3inner
+      border-top: 1px solid #492717
+      border-bottom: 1px solid #492717
+      background-color: #61341f
+      flex: 1
+      p
+        font-size: 10px
+        text-align: center
+    .border3fl,
+    .border3fr
+      margin-top: 2px
+      margin-bottom: 2px
+      position: relative
+      min-width: 2px
+      border: 1px solid #492717
+      background-color: #61341f
+      &:after,
+      &:before 
+        content: ""
+        display block
+        position absolute
+        width 1px
+        height 1px
+        background-color: #371d11
+      &:before 
+        top: -1px
+      &:after
+        bottom: -1px
+    .border3fl
+      border-right: none
+      &:after,
+      &:before 
+        left: -1px
+    .border3fr
+      border-left: none
+      &:after,
+      &:before 
+        right: -1px
+   
   .hero_big
-    width: 35%;
+    width: 31%;
     margin-left: -23%;
     margin-right: -23%;
-    // mix-blend-mode: multiply;
+    mix-blend-mode: multiply;
     transform-origin: bottom center;
-    transition: scale 0.3s ease
-    @media screen and (max-width: 830px)
-      width: 70%;
-      transition: none
+    transition: all 0.3s ease
+    @media screen and (min-width: 830px)
       &:hover
-        scale: 1
-    &:hover
-      scale: 1.04
+        width: 33%
+        
     svg
       path
         fill: #000
@@ -75,17 +244,22 @@
   top: 20px;
   left: 50%;
   transform: translateX(-50%)
-  z-index: 9;
+  z-index: 100;
   height: 44px;
   animation: spin 0.6s ease infinite;
   min-width: 310px
   @media screen and (max-width: 830px)
-    height: 60px;
+    min-height: auto
+    height auto
     width: 80%;
   .team_hero_middle_in
     width calc(100% - 8px)
     height calc(100% - 8px)
     margin: auto
+    @media screen and (max-width: 830px)
+      width 100%
+      height 100%
+      margin: 4px
   p
     color: #934417
     font-size: 14px
@@ -98,3 +272,11 @@
     top: 24px
   100% 
     top: 20px
+
+
+
+
+@keyframes sparkleEffect {
+  0%, 100% {opacity: 1;}
+  50% {opacity: 0.5;}
+}

@@ -65,6 +65,7 @@
   display: flex
   flex-direction: column
   gap: 10px
+  overflow: hidden
 .team_li
   :global(>.pixel_flat_inner)
     justify-content: space-between;
@@ -80,7 +81,9 @@
     font-weight: 600
 .team_item_fr
   justify-content: flex-end
-
+  :global(.svg_component),img
+    width: 28px
+    height: 28px
 .number
   display: flex
   gap: 10px

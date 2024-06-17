@@ -10,6 +10,7 @@ const RecentlyJoined = memo(({ recentUser }: { recentUser: IRecentUser[] }) => {
   const isW768 = useIsW768()
   return (
     <PixelTableBorder
+      className={css.border}
       classNameHeader="RecentlyJoined_header"
       pixel_height={6}
       header_children={<p className={css.fr_title}>Recently Joined</p>}

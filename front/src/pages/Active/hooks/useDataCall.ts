@@ -48,6 +48,7 @@ export const useGetDataCall = () => {
                 let isRegistered = false
                 try {
                   isRegistered = await getIsRegistered(infoObj.id)
+                  console.log({ isRegistered })
                 } catch (e) {}
                 return {
                   ...primaryScoreRes,

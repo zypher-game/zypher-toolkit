@@ -1,39 +1,61 @@
-.tab_m
-  position: fixed;
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(1, 7, 23, 0.8)
-  padding: 10px 22px 14px;
-  text-align: center;
-  z-index: 99
-  li
-    width 40%
+.ActiveTVLStaking_tab
+  margin-top: 20px;
+  width: fit-content;
+  @media screen and (max-width: 830px)
+    width: 100%
+
+  &:first-child,
+  &:last-child 
+    .ActiveTVLStaking_tab_li
+      &:after
+        contain: ""
+        width 2px 
+        height calc(100% - 4px)
+        top: 2px
+        background-color: #1649FF
+  .ActiveTVLStaking_tab_li
     display: flex;
+    padding: 0 23px;
+    height: 100%;
     justify-content: center;
     align-items: center;
-    div 
-      width 100%
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 0
-    &:nth-child(1)
+    min-width: 110px
+    position relative
+    cursor pointer
+    @media screen and (max-width: 830px)
+      width 50%
+    &:first-child
       img
-        height 16px
-    &:nth-child(2)
-      img
-        height 20px
-        
-    :global(.active_tvl_tab_on)
-      :global(.pixel_flat_btn_bg)
-        opacity: 1
-
-    :global(.pixel_flat_btn_bg)
-      opacity: 0
-    :global(.pixel_flat_inner)
-      width 100%
-      padding: 7px 21px
+        height 49%
+    img
+      height: 54%
+    p
+      transition: opacity  0.3s ease
+      @media screen and (max-width: 830px)
+        font-size: 14px
+    &:hover
+      p
+        opacity: 0.8
+    &.on
+      background-color: #1649FF
+      &:hover
+        p
+          opacity: 1
+      &:first-child,
+      &:last-child 
+        &:after
+          content: ""
+          position absolute
+          width 2px 
+          height calc(100% - 4px)
+          top: 2px
+          background-color: #1649FF
+      &:first-child
+        &:after
+          left: -2px
+      &:last-child
+        &:after
+          right: -2px
+  :global(>.pixel_flat_inner)
+    justify-content: flex-start
+    padding: 0 4px

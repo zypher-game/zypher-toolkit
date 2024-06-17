@@ -1,12 +1,15 @@
-import { DialogClose, ITvlHero, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
+import { DialogClose, ITvlHero, PixelCube2, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoader'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { ITeamMember } from '@/pages/Active/hooks/useTeam'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getHeroLevel } from '@/pages/Active/utils/getHeroLevel'
+import { getNicknameStr } from '@/pages/Active/utils/getNicknameStr'
+import { moveItemToMiddle } from '@/pages/Active/utils/moveItemToMiddle'
 
 import css from './TeamWarn.module.styl'
 const TeamWarn = memo(
@@ -20,7 +23,8 @@ const TeamWarn = memo(
     teamMembers: ITeamMember[]
   }) => {
     const isW768 = useIsW768()
-
+    const { activeData } = useActiveData()
+    const { id } = activeData
     const setTvlStakingDialog = useTvlStakingDialogState()
 
     const { chainId } = useActiveWeb3React()
@@ -61,7 +65,7 @@ const TeamWarn = memo(
         content: [
           'Your direct invitation will form your group. When your group deposits a total of 1 Ethereum, you will receive an additional point card reward and an additional invitation.',
           'The more you deposit, the higher the points rewards you may receive.',
-          'There are 5 set goals: 1ETH, 2ETH, 3ETH, 4ETH, 5ETH（including stETH, etc.)'
+          'There are 5 set goals: 1ETH, 2ETH, 3ETH, 4ETH, 5ETH (including stETH, etc.)'
         ],
         img: preStaticUrl + '/img/tvl/my_team_warn_02.png',
         imgClassName: 'tvl_team_bg_02',
@@ -81,14 +85,44 @@ const TeamWarn = memo(
             </ActivePixelButtonColor>
           </PixelCube5>
           <div className={css.show_team_hero}>
-            {teamMembers.map((v, index) => (
-              <HeroImageLoader
-                key={index}
-                className={css.hero_big}
-                heroKey={v.role as unknown as ITvlHero}
-                level={getHeroLevel({ stake: v.staking, chainId: chainId })}
-              />
-            ))}
+            {(isW768 ? teamMembers : moveItemToMiddle<ITeamMember>(teamMembers, id)).map(v => {
+              const isMy = `${v.userId}` === `${id}`
+              return (
+                <div key={v.userId} className={`${css.hero_big} ${css[v.role]} ${isMy ? css.my : ''}`}>
+                  {!isW768 || (isW768 && isMy) ? (
+                    <PixelCube5
+                      className={css.border1}
+                      pixel_height={1}
+                      borderColor={isMy ? '#E55300' : '#331A0F'}
+                      borderSize={2}
+                      backgroundColor="#61341F"
+                    >
+                      <PixelCube2
+                        className={css.border2}
+                        pixel_height={2}
+                        borderColor={isMy ? '#FFD336' : '#D18B38'}
+                        backgroundColor={isMy ? '#FFD336' : '#D18B38'}
+                      >
+                        <div className={css.border3}>
+                          <div className={css.border3fl} />
+                          <div className={css.border3inner}>
+                            <p>{getNicknameStr(v.nickname)}</p>
+                          </div>
+                          <div className={css.border3fr} />
+                        </div>
+                      </PixelCube2>
+                    </PixelCube5>
+                  ) : (
+                    <></>
+                  )}
+                  <HeroImageLoader
+                    className={css.hero_big_img}
+                    heroKey={v.role as unknown as ITvlHero}
+                    level={getHeroLevel({ stake: v.staking, chainId: chainId })}
+                  />
+                </div>
+              )
+            })}
           </div>
           <img src={`${preStaticUrl}/img/tvl/${isW768 ? 'tvl_team_bg_m' : 'tvl_team_bg'}.png`} alt="tvl_team_bg" className={css.tvl_team_bg} />
         </div>

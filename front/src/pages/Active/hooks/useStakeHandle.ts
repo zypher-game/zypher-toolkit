@@ -9,6 +9,7 @@ import {
   NavKey,
   refreshBalanceState,
   sleep,
+  TVLChainId,
   tvlTokenAddress,
   txStatus,
   useAccountInvitation,
@@ -22,7 +23,7 @@ import {
   useWalletClient
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
 
@@ -42,6 +43,7 @@ import {
 import { canNext, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { useGetData } from './useActiveInit'
+import { useChainIndex } from './useChainIndex'
 import { useStake, useStakeData } from './useStakeData'
 import { useTvlStakingDialogState } from './useTvlStakingDialogState'
 
@@ -84,7 +86,9 @@ export const useStakeHandle = (): {
     setIsApproveLoading(false)
     setIsDepositLoading(false)
     setDepositValue('')
-    setDepositCurrency(Currency[nativeChainId])
+    if (!depositCurrency) {
+      setDepositCurrency(Currency[nativeChainId])
+    }
   }, [account, nativeChainId])
 
   const _successGet = useCallback(
@@ -394,5 +398,37 @@ export const useReStakingHandle = () => {
 
     claimCrLoading,
     onOpenCrHeroHandle
+  }
+}
+
+export const useTable = () => {
+  const { chainIdLocal } = useChainIndex()
+  const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
+  const { native, erc20 } = useMemo(() => {
+    const obj: Record<string, ITVLStakingData[]> = {
+      native: [],
+      erc20: []
+    }
+    const o = tvlStakingData[chainIdLocal]
+    if (o) {
+      const all = Object.keys(o)
+      const w_native = 'W' + Currency[chainIdLocal]
+      const WETHIndex = all.indexOf(w_native)
+      let ETHIndex = all.indexOf(Currency[chainIdLocal])
+      if (WETHIndex !== -1 && ETHIndex !== -1) {
+        all.splice(WETHIndex, 1)
+        if (ETHIndex > WETHIndex) {
+          ETHIndex--
+        }
+        all.splice(ETHIndex, 1)
+      }
+      obj.native = [o[w_native]]
+      obj.erc20 = all.map(v => o[v])
+    }
+    return obj
+  }, [chainIdLocal, JSON.stringify(tvlStakingData)])
+  return {
+    native,
+    erc20
   }
 }

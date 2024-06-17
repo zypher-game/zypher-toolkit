@@ -17,6 +17,7 @@ export type ITeamMember = {
   staking: string
   stakingStr: string
   role: string
+  userId: string
 }
 export type IAvailableCode = {
   codeType: number // 0 normal 7 forever
@@ -84,7 +85,8 @@ export const useTeam = () => {
             nickname: vd.nickname,
             role: vd.role,
             staking: vd.staking,
-            stakingStr: new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFormat(2)
+            stakingStr: new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFormat(2),
+            userId: `${vd.userId}`
           }))
         )
         // const staking = `${_team['userInfo']['staking']}`

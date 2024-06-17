@@ -1,5 +1,5 @@
 import { getLinkPre, sleep, TVL_API, useActiveWeb3React } from '@ui/src'
-import { useCallback } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
@@ -15,6 +15,7 @@ export const useBind = () => {
   const { getPrimaryScore } = usePrimaryScore()
   const { getSignCall } = useSignCall()
   const {
+    invitationCode,
     twitter: { nickname: twitterNickname },
     discord: { nickname: discordNickname },
     signedStr
@@ -39,7 +40,10 @@ export const useBind = () => {
     const primaryScoreRes = form_primary_score(activeData, primary_score_res)
     setActiveData(pre => ({ ...pre, ...primaryScoreRes, checkAirdropPointsLoading: false }))
   }, [JSON.stringify(activeData), account, setSuccessToast])
-
+  console.log({ invitationCode })
+  const _invitationCode = useMemo(() => {
+    return invitationCode.slice(0, 1) + '-' + invitationCode.slice(1)
+  }, [invitationCode])
   const CheckDiscordHandle = useCallback(async () => {
     const isOk = preHandleAction()
     if (!isOk) {
@@ -51,9 +55,9 @@ export const useBind = () => {
     }
     setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: true } }))
     const linkType = getLinkPre(chainId)
-    window.open(`${TVL_API}/connect-discord?addr=${account}&linkType=${linkType.key}`)
+    window.open(`${TVL_API}/connect-discord?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: false } }))
-  }, [signedStr, discordNickname, preHandleAction, chainId])
+  }, [_invitationCode, signedStr, discordNickname, preHandleAction, chainId])
   const CheckTwitterHandle = useCallback(async () => {
     const isOk = preHandleAction()
     if (!isOk) {
@@ -64,10 +68,27 @@ export const useBind = () => {
       return
     }
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: true } }))
+
     const linkType = getLinkPre(chainId)
-    window.open(`${TVL_API}/connect-twitter?addr=${account}&linkType=${linkType.key}`)
+    // "https://tvl-backend-api.zypher.game/connect-twitter?linkCode=L-5UDW3&addr=0x9B233ABBD17e92FDD9ceebDe02513c78d95C0a5c&linkType=1"
+    // console.log({ asadf: `${TVL_API}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}` })
+    window.open(`${TVL_API}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
-  }, [signedStr, twitterNickname, preHandleAction, chainId])
+  }, [_invitationCode, signedStr, twitterNickname, preHandleAction, chainId])
+  useEffect(() => {
+    const url = new URL(window.location.href)
+    const twitterError = url.searchParams.get('TwitterError')
+    const discordError = url.searchParams.get('DiscordError')
+    if (twitterError || discordError) {
+      const msg = (twitterError ?? discordError ?? '').replace('"', '')
+      setErrorToast(GlobalVar.dispatch, msg)
+      setTimeout(() => {
+        url.searchParams.delete('TwitterError')
+        url.searchParams.delete('DiscordError')
+        window.history.replaceState({}, '', url.toString())
+      }, 2000)
+    }
+  }, [])
   return {
     CheckPointHandle,
     CheckDiscordHandle,

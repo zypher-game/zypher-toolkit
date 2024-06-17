@@ -21,10 +21,12 @@ import {
 import { BigNumberJs } from '@ui/src'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
+import { calculateSumByNumber } from '@/utils/calculateSum'
+
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
-import { useStakeHandle } from '../../hooks/useStakeHandle'
+import { useStakeHandle, useTable } from '../../hooks/useStakeHandle'
 import { chooseChainState, restakingDataState, selectChainDialogState } from '../../state/activeState'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
@@ -66,6 +68,8 @@ const Staking = memo(() => {
     isApproveLoading,
     isDataLoading
   } = useStakeHandle()
+  const { native, erc20 } = useTable()
+  console.log({ depositCurrency })
   useEffect(() => {
     if (chooseChain) {
       setChainIdLocal(chooseChain)
@@ -111,8 +115,13 @@ const Staking = memo(() => {
                 obj.btnLabel = 'Approve'
               }
             } else {
-              obj.isBalanceEnough = false
-              obj.btnLabel = 'No Balance'
+              if (depositValue !== '') {
+                obj.isBalanceEnough = false
+                obj.btnLabel = 'No Balance'
+              } else {
+                obj.btnLabel = 'Confirm'
+                obj.isBalanceEnough = false
+              }
             }
           }
         }
@@ -151,12 +160,16 @@ const Staking = memo(() => {
         if (!isDataLoading) {
           if (depositValue) {
             const decimal = chooseValue?.decimal ?? 18
-            const _totalStaked = new BigNumberJs(depositValue).plus(
-              new BigNumberJs(chooseValue && chooseValue.userStakedAmount === '' ? '0' : chooseValue?.userStakedAmount ?? '').dividedBy(
-                new BigNumberJs('10').exponentiatedBy(decimal)
-              )
-            )
+            let preStakingBig = new BigNumberJs(0)
+            if (isNative) {
+              preStakingBig = new BigNumberJs(native[0] && native[0].userStakedAmount === '' ? '0' : native[0]?.userStakedAmount ?? '')
+            } else {
+              preStakingBig = new BigNumberJs(calculateSumByNumber(erc20.map(({ userStakedAmount: user }) => (user === '' ? '0' : user))))
+            }
 
+            const _totalStaked = new BigNumberJs(depositValue).plus(
+              new BigNumberJs(preStakingBig).dividedBy(new BigNumberJs('10').exponentiatedBy(decimal))
+            )
             let X
             let growthCoefficient = '0'
             const _chainId = chooseValue?.chainId as unknown as TVLChainId
@@ -203,7 +216,7 @@ const Staking = memo(() => {
     } catch {
       return obj
     }
-  }, [JSON.stringify(restakingData), JSON.stringify(chooseValue), isDataLoading, depositValue])
+  }, [JSON.stringify(restakingData), JSON.stringify(chooseValue), isDataLoading, depositValue, JSON.stringify(native), JSON.stringify(erc20)])
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Staking</h3>

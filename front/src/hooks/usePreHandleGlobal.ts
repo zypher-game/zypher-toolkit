@@ -1,5 +1,6 @@
 import {
   ChainId,
+  sleep,
   supportedChainIds,
   useActiveWeb3React,
   useChainModal,
@@ -24,6 +25,7 @@ export const usePreHandleGlobal = () => {
     (env?: string, chainList?: ChainId[]) => {
       try {
         if (!supportedChainIds(env, chainList).includes(nativeChainId)) {
+          console.log(switchNetwork, chainList?.length === 1)
           if (switchNetwork && chainList?.length === 1) {
             switchNetwork(chainList[0])
             return
@@ -46,7 +48,7 @@ export const usePreHandleGlobal = () => {
         console.log(e)
       }
     },
-    [account, openConnectModal, nativeChainId, chooseChain, openChainModal]
+    [account, switchNetwork, openConnectModal, nativeChainId, chooseChain, openChainModal]
   )
 
   return preHandleAction
