@@ -275,6 +275,30 @@ export const pointSuccessDialogState = atom({
   key: 'pointSuccessDialogState',
   default: false
 })
+type Owner = string | undefined
+type Parent = string | undefined
+export const getPointCardDialogState = atom<[Owner, Parent]>({
+  key: 'getPointCardDialogState',
+  default: [undefined, undefined]
+  // default: [false, false]
+})
+export type IGetPointCardData = {
+  ownerTeam: {
+    num: number
+    scoreIds: number[]
+    captainNickname: string
+  }
+  parentTeam: {
+    num: number
+    scoreIds: number[]
+    captainNickname: string
+  }
+}
+export const getPointCardData = atom<IGetPointCardData | undefined>({
+  key: 'getPointCardData',
+  default: undefined
+})
+
 export const depositCurrencyState = atom<string | undefined>({
   key: 'depositCurrencyState',
   default: undefined

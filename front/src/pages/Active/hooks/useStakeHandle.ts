@@ -110,6 +110,9 @@ export const useStakeHandle = (): {
     const currency = depositCurrency
     const amount = depositValue
     try {
+      if (isDataLoading) {
+        return
+      }
       const isOk = preHandleAction()
       if (!isOk) {
         setIsDepositLoading(false)

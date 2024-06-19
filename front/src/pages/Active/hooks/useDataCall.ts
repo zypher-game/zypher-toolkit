@@ -218,6 +218,43 @@ export const useTeamCall = () => {
     setOpenCard
   }
 }
+export const useGetPointCard = () => {
+  const getGroupScoreCardRead = useCallback(async ({ userId, chainId }: { userId: string; chainId: ChainId }) => {
+    try {
+      const linkType = getLinkPre(chainId)
+      // get 检查初始空投积分
+      const groupScore_res = await request(`${TVL_API}/api/groupScoreCardRead/${userId}`, {
+        method: 'GET',
+        params: {
+          userId: userId,
+          linkType: linkType.key
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      return groupScore_res.data
+    } catch (e: any) {
+      throw new Error('groupScoreCardRead Error')
+    }
+  }, [])
+  const postGroupScoreCardRead = useCallback(async ({ scoreIds, chainId }: { scoreIds: number[]; chainId: ChainId }) => {
+    try {
+      const linkType = getLinkPre(chainId)
+      const res = await request(`${TVL_API}/api/groupScoreCardRead`, {
+        method: 'POST',
+        data: JSON.stringify({ scoreIds, linkType: linkType.key }),
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      return res.data['message']
+    } catch (e: any) {
+      throw new Error('groupScoreCardRead has Error by Catch')
+    }
+  }, [])
+  return { getGroupScoreCardRead, postGroupScoreCardRead }
+}
 export const useStakingCall = () => {
   const getStaking = useCallback(async ({ userId, chainId }: { userId: string; chainId: ChainId }) => {
     try {
