@@ -218,7 +218,7 @@ var BlockExplorerUrls = {
   [42161 /* Arbitrum */]: ["https://arbiscan.io"],
   [421611 /* ArbitrumRinkeby */]: ["https://testnet.arbiscan.io"],
   [59140 /* LineaTestnet */]: ["https://explorer.goerli.linea.build"],
-  [80001 /* POLYGON_MUMBAI */]: ["https://mumbai.polygonscan.com/"],
+  [80001 /* POLYGON_MUMBAI */]: ["https://mumbai.polygonscan.com"],
   [59144 /* LineaMainnet */]: ["https://lineascan.build"],
   [421613 /* ArbitrumGoerli */]: ["https://goerli.arbiscan.io/"],
   [1442 /* POLYGON_ZKEVM */]: ["https://testnet-zkevm.polygonscan.com"],

@@ -213,7 +213,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Arbitrum]: ["https://arbiscan.io"],
   [ChainId.ArbitrumRinkeby]: ["https://testnet.arbiscan.io"],
   [ChainId.LineaTestnet]: ["https://explorer.goerli.linea.build"],
-  [ChainId.POLYGON_MUMBAI]: ["https://mumbai.polygonscan.com/"],
+  [ChainId.POLYGON_MUMBAI]: ["https://mumbai.polygonscan.com"],
   [ChainId.LineaMainnet]: ["https://lineascan.build"],
   [ChainId.ArbitrumGoerli]: ["https://goerli.arbiscan.io/"],
   [ChainId.POLYGON_ZKEVM]: ["https://testnet-zkevm.polygonscan.com"],
