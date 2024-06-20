@@ -18,7 +18,7 @@ export const Games = (chainId: ChainId): IGames[] => {
       keyValue: "21",
       dapps: [
         {
-          label: "Candy Crush",
+          label: "CryptoRumble",
           icon: "Candy.png",
           link: LinkList[3],
         },

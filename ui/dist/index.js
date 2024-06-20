@@ -1941,7 +1941,7 @@ var useNavItem = () => {
         ...gameStatus.Live
       },
       {
-        label: t("Candy Crush"),
+        label: t("CryptoRumble"),
         keyValue: "12",
         icon: "Candy.png",
         link: LinkList[3],
@@ -1992,7 +1992,7 @@ var Games = (chainId) => {
       keyValue: "21",
       dapps: [
         {
-          label: "Candy Crush",
+          label: "CryptoRumble",
           icon: "Candy.png",
           link: LinkList[3]
         },

@@ -90,7 +90,7 @@ export const useNavItem = (): INavLink[] => {
       },
 
       {
-        label: t("Candy Crush"),
+        label: t("CryptoRumble"),
         keyValue: "12",
         icon: "Candy.png",
         link: LinkList[3],
