@@ -3,6 +3,7 @@ import {
   ActivePixelCard,
   activeTokenList,
   BigNumberJs,
+  BlockExplorerUrls,
   ChainId,
   ChainName,
   Currency,
@@ -146,7 +147,7 @@ const ZeroGas = memo(() => {
         const _themeKey = Theme[_chainIdParams]
         const _theme = getTheme(_themeKey)
         const { bannerBorderColor, text, dapp } = _theme
-        const { mintMinimum, mintMinimumStr, sbtAmount } = activeDataSource[_chainIdParams] ?? initActiveData
+        const { mintMinimum, mintMinimumStr, sbtAmount, hasSBT: sbtId } = activeDataSource[_chainIdParams] ?? initActiveData
         const hasSbt = sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
         const stakingData = Object.values(tvlStakingData[chainIdParams]).filter(vs => vs.address !== AddressZero)
         const showSwitch = !L3ChainId[chainIdParams] || L3ChainId[chainIdParams] !== chainId
@@ -206,7 +207,18 @@ const ZeroGas = memo(() => {
                     <div className={css.stakingTop}>
                       <div className={css.stakingTopFl}>
                         <StakingTitle tooltip={SBTTooltip} />
-                        {hasSbt ? <p className={css.grey}>You got the Zypher SBT</p> : null}
+                        {hasSbt ? (
+                          <p className={css.grey}>
+                            You got the Zypher SBT{' '}
+                            <a
+                              href={`${BlockExplorerUrls[chainIdLocal][0]}/address/${activeTokenList[chainId].Soulbound}`}
+                              target="_blank"
+                              rel="noreferrer"
+                            >
+                              ID: {sbtId}
+                            </a>
+                          </p>
+                        ) : null}
                       </div>
                       <StakingBtn chainId={chainIdLocal} />
                     </div>

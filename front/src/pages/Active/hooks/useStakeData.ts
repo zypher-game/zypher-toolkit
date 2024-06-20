@@ -184,6 +184,16 @@ export const useStakeData = () => {
                   abi: erc20Abi,
                   calls: [{ methodName: 'balanceOf', reference: 'sbtBalanceOf' + chainId, methodParameters: [account] }]
                 },
+                ...Object.values(tvlTokens[chainId])
+                  .filter((v: any) => v.address !== AddressZero)
+                  .map((v: any) => {
+                    return {
+                      reference: 'hasSBT' + v.symbol,
+                      contractAddress: activeTokenList[chainId].Staking, // 拥有cr Hero的量
+                      abi: TVLStakingABI,
+                      calls: [{ methodName: 'hasSBT', reference: 'hasSBT' + v.symbol, methodParameters: [account, v.address] }]
+                    }
+                  }),
                 {
                   reference: 'getMinStake' + chainId, // Cr最少质押多少
                   contractAddress: activeTokenList[chainId].CRHero,
@@ -265,7 +275,8 @@ export const useStakeData = () => {
               END_TIME: '0',
               mintMinimum: '0',
               sbtBalanceOf: '0',
-              getMinStake: '0'
+              getMinStake: '0',
+              hasSBT: ''
             }
           ])
         )
@@ -299,6 +310,7 @@ export const useStakeData = () => {
               const decimalIndex = methodArr.indexOf(`decimal${vv.symbol}`)
               const balanceOfIndex = methodArr.indexOf(`balanceOf${vv.symbol}`)
               const crHeroIndex = methodArr.indexOf(`getMintAmount${vv.symbol}`)
+              const hasSBTIndex = methodArr.indexOf(`hasSBT${vv.symbol}`)
 
               const allowanceBig = v.response[allowanceIndex] ? new BigNumberJs(v.response[allowanceIndex][0].hex) : '0'
               const symbol = v.response[symbolIndex][0]
@@ -308,7 +320,11 @@ export const useStakeData = () => {
               const earnGP = v.response[claimableIndex][index]
               const earnGPBig = new BigNumberJs(earnGP.hex)
               const crHero = new BigNumberJs(v.response[crHeroIndex][0].hex).toFixed()
-
+              const hasSBT = new BigNumberJs(v.response[hasSBTIndex][0].hex).toFixed()
+              console.log({ hasSBT })
+              if (hasSBT !== '0') {
+                userValue[_chainId]['hasSBT'] = userValue[_chainId]['hasSBT'] + hasSBT
+              }
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
 
               const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
@@ -406,7 +422,8 @@ export const useStakeData = () => {
               dollarGpRewordsStr: new BigNumberJs(reduceValue[chain]['gpAmount']).toFormat(2),
               mintMinimum: userValue[chain]['mintMinimum'],
               mintMinimumStr: new BigNumberJs(userValue[chain]['mintMinimum']).dividedBy(divisorBigNumber).toFormat(2),
-              sbtAmount: userValue[chain]['sbtBalanceOf']
+              sbtAmount: userValue[chain]['sbtBalanceOf'],
+              hasSBT: userValue[chain]['hasSBT']
             }),
             chain
           )

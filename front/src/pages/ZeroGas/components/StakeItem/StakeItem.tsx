@@ -1,4 +1,4 @@
-import { preStaticUrl, SvgComponent } from '@ui/src'
+import { LoadingButton, preStaticUrl, SvgComponent } from '@ui/src'
 import React, { memo } from 'react'
 
 import css from './StakeItem.module.styl'
@@ -14,9 +14,7 @@ const StakeItem = memo(({ item }: { item: IStakeItem }) => {
   return (
     <div className={css.stakeItem}>
       <div className={css.stakingText}>
-        <p>
-          {item.stake ?? '-'}/{item.mintMinimumStr ?? '-'}
-        </p>
+        <p>{item.stake && item.stake !== '' ? `${item.stake}/${item.mintMinimumStr}` : <LoadingButton isLoading={true} />}</p>
         {item.isOk ? <SvgComponent src={preStaticUrl + '/img/icon/pixel_success.svg'} /> : null}
       </div>
       <p className={css.grey}>{item.currency}</p>

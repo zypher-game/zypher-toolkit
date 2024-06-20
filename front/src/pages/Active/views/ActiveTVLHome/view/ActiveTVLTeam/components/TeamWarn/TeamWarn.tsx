@@ -6,7 +6,6 @@ import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoad
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { ITeamMember } from '@/pages/Active/hooks/useTeam'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
-import { tvlStakingDialogState } from '@/pages/Active/state/activeState'
 import { getHeroLevel } from '@/pages/Active/utils/getHeroLevel'
 import { getNicknameStr } from '@/pages/Active/utils/getNicknameStr'
 import { moveItemToMiddle } from '@/pages/Active/utils/moveItemToMiddle'
@@ -85,44 +84,46 @@ const TeamWarn = memo(
             </ActivePixelButtonColor>
           </PixelCube5>
           <div className={css.show_team_hero}>
-            {(isW768 ? teamMembers : moveItemToMiddle<ITeamMember>(teamMembers, id)).map(v => {
-              const isMy = `${v.userId}` === `${id}`
-              return (
-                <div key={v.userId} className={`${css.hero_big} ${css[v.role]} ${isMy ? css.my : ''}`}>
-                  {!isW768 || (isW768 && isMy) ? (
-                    <PixelCube5
-                      className={css.border1}
-                      pixel_height={1}
-                      borderColor={isMy ? '#E55300' : '#331A0F'}
-                      borderSize={2}
-                      backgroundColor="#61341F"
-                    >
-                      <PixelCube2
-                        className={css.border2}
-                        pixel_height={2}
-                        borderColor={isMy ? '#FFD336' : '#D18B38'}
-                        backgroundColor={isMy ? '#FFD336' : '#D18B38'}
+            {(isW768 ? teamMembers : moveItemToMiddle<ITeamMember>(teamMembers, id))
+              .filter(v => v.role !== '')
+              .map(v => {
+                const isMy = `${v.userId}` === `${id}`
+                return (
+                  <div key={v.userId} className={`${css.hero_big} ${css[v.role]} ${isMy ? css.my : ''}`}>
+                    {!isW768 || (isW768 && isMy) ? (
+                      <PixelCube5
+                        className={css.border1}
+                        pixel_height={1}
+                        borderColor={isMy ? '#E55300' : '#331A0F'}
+                        borderSize={2}
+                        backgroundColor="#61341F"
                       >
-                        <div className={css.border3}>
-                          <div className={css.border3fl} />
-                          <div className={css.border3inner}>
-                            <p>{getNicknameStr(v.nickname)}</p>
+                        <PixelCube2
+                          className={css.border2}
+                          pixel_height={2}
+                          borderColor={isMy ? '#FFD336' : '#D18B38'}
+                          backgroundColor={isMy ? '#FFD336' : '#D18B38'}
+                        >
+                          <div className={css.border3}>
+                            <div className={css.border3fl} />
+                            <div className={css.border3inner}>
+                              <p>{getNicknameStr(v.nickname)}</p>
+                            </div>
+                            <div className={css.border3fr} />
                           </div>
-                          <div className={css.border3fr} />
-                        </div>
-                      </PixelCube2>
-                    </PixelCube5>
-                  ) : (
-                    <></>
-                  )}
-                  <HeroImageLoader
-                    className={css.hero_big_img}
-                    heroKey={v.role as unknown as ITvlHero}
-                    level={getHeroLevel({ stake: v.staking, chainId: chainId })}
-                  />
-                </div>
-              )
-            })}
+                        </PixelCube2>
+                      </PixelCube5>
+                    ) : (
+                      <></>
+                    )}
+                    <HeroImageLoader
+                      className={css.hero_big_img}
+                      heroKey={v.role as unknown as ITvlHero}
+                      level={getHeroLevel({ stake: v.staking, chainId: chainId })}
+                    />
+                  </div>
+                )
+              })}
           </div>
           <img src={`${preStaticUrl}/img/tvl/${isW768 ? 'tvl_team_bg_m' : 'tvl_team_bg'}.png`} alt="tvl_team_bg" className={css.tvl_team_bg} />
         </div>

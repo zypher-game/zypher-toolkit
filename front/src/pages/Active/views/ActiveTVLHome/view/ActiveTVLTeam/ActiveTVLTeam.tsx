@@ -72,7 +72,7 @@ const ActiveTVLTeam = memo(() => {
               </div>
             </div>
             <div className={`${css.show_team} ${css.mt20}`}>
-              <TeamWarn showTeamWarn={showTeamWarn} setShowTeamWarn={setShowTeamWarn} teamMembers={teamMembers} />
+              <TeamWarn showTeamWarn={showTeamWarn} setShowTeamWarn={setShowTeamWarn} teamMembers={teamMembers.slice(0, 5)} />
             </div>
             <h2 className={`${css.title} ${isW768 ? '' : css.mt30} ${css.mb20}`}>Team member</h2>
             <div className={css.team}>
@@ -80,10 +80,17 @@ const ActiveTVLTeam = memo(() => {
               {!loading ? (
                 <>
                   {teamMembers.map((v, index) => (
-                    <PixelCube3 key={index} className={css.team_li} pixel_height={3} borderColor="#3A4254" backgroundColor="#1D263B">
+                    <PixelCube3
+                      key={index}
+                      className={css.team_li}
+                      pixel_height={3}
+                      borderColor={`${v.userId}` === `${activeData.id}` ? '#FFD02B' : '#3A4254'}
+                      backgroundColor="#1D263B"
+                    >
                       <div className={css.team_item_fl}>
                         <Avatar src={getAvatar(v.headImg, refreshAvatar)} nickname={v.nickname} width="36px" />
                         <p>{getNickname(v.nickname)}</p>
+                        {`${v.userId}` === `${activeData.id}` ? <SvgComponent src={preStaticUrl + '/img/icon/owner_icon.svg'} /> : null}
                       </div>
                       <div className={css.team_item_fr}>
                         <p>{v.stakingStr}</p>

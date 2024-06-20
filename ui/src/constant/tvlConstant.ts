@@ -43,10 +43,10 @@ export const activeTokenList: Record<
   Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>
 > = {
   [TVLChainId.LineaTestnet]: {
-    Staking: "0x4d188f021c519Cfd58289bBC59090555Cde947CE",
+    Staking: "0x9EB1f035C97ff649C1a2039b8e43d6Dd7182ED37",
     ZypherGameToken: "0x5275A8593ce6a967Ae6782a70F417135A44bCd27",
     CRHero: "0x76E08f9D5f76590E12427F003325768290602De1",
-    Soulbound: "0x7099d61d4DfF93F4A1815E0d2461d433d0B9075F",
+    Soulbound: "0x519dfE063BDB149eE70732148788b06303E12844",
   },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
