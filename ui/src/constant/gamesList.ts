@@ -50,17 +50,14 @@ export const Games = (chainId: ChainId): IGames[] => {
         {
           label: "TCG",
           icon: "TCG.png",
-          link: "/tcg",
         },
         {
           label: "zMahjong",
           icon: "zMahjong.png",
-          link: "/zMahjong",
         },
         {
           label: "Murder Mystery",
           icon: "Murder.png",
-          link: "/murdermystery",
         },
       ],
     },

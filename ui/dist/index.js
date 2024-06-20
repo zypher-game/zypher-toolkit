@@ -2023,18 +2023,15 @@ var Games = (chainId) => {
       dapps: [
         {
           label: "TCG",
-          icon: "TCG.png",
-          link: "/tcg"
+          icon: "TCG.png"
         },
         {
           label: "zMahjong",
-          icon: "zMahjong.png",
-          link: "/zMahjong"
+          icon: "zMahjong.png"
         },
         {
           label: "Murder Mystery",
-          icon: "Murder.png",
-          link: "/murdermystery"
+          icon: "Murder.png"
         }
       ]
     },
