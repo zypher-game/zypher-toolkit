@@ -49,17 +49,19 @@ const Avatar = memo(
     nickname,
     width,
     borderRadius,
-    children
+    children,
+    className
   }: {
     src: string
     nickname: string
     width: string
     borderRadius?: string
     children?: React.ReactNode
+    className?: string
   }) => {
     const [showError, setShowError] = useState(false)
     return (
-      <AvatarStyled width={width} borderRadius={borderRadius}>
+      <AvatarStyled className={className} width={width} borderRadius={borderRadius}>
         <ImageLoader
           src={src}
           alt={nickname}
@@ -74,7 +76,7 @@ const Avatar = memo(
             <img src={src} alt={nickname} />
           ) : (
             <AvatarDiv>
-              <p>{(nickname === '' ? '?' : nickname)[0]}</p>
+              <p>{(nickname === '' ? '??' : nickname)[1]}</p>
             </AvatarDiv>
           )
         ) : null}

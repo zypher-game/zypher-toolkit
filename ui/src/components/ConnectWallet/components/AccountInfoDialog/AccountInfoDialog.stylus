@@ -3,17 +3,25 @@
         padding: 20px 32px 33px
         @media screen and (max-width: 830px)
             padding: 82px 15px 33px
-body .address_wrap_big_pop,
-body .address_wrap_middle_pop
+body .address_wrap_big_pop_wrap
+    opacity 0
+    height 0
     position absolute  
-    top: 50px;
+    top: 36px;
     right: 0;
     z-index: 4;
+    transition: all 0.3s ease
+    overflow: hidden
+    padding-top: 0
+
+body .address_wrap_big_pop,
+body .address_wrap_middle_pop
     >.pixel_flat_inner
         flex-direction: column
         justify-content: flex-start
         align-items: flex-start
         gap: 10px
+
 body .address_wrap_big_pop
     width: 220px
     transition: height 0.3s ease

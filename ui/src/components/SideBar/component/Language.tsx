@@ -35,19 +35,10 @@ export const languageList = [
 ];
 const Language = memo(({ type }: IProps) => {
   const isW768 = useIsW768();
-  const [show, setShow] = useState(false);
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
-  const handle = useCallback(() => {
-    if (isW768) {
-      setShow(false);
-      return;
-    }
-    setShow(!show);
-  }, [show, isW768]);
   const changeLanguageHandle = useCallback((item) => {
     changeLanguage(item.keyValue);
-    setShow(false);
     storage.set("language", item.keyValue);
   }, []);
   return (
@@ -65,31 +56,46 @@ const Language = memo(({ type }: IProps) => {
     >
       <div
         className={
-          type === "list" ? "" : classnames("horListItem", "languageItem")
+          type === "list"
+            ? ""
+            : classnames(
+                "horListItem",
+                "languageItem",
+                type === "pixel" ? "languagePixelTop" : ""
+              )
         }
-        onClick={handle}
+        // onClick={handle}
       >
-        {type === "top" ? (
-          <>
-            <img
-              src={
-                preStaticUrl +
-                `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`
-              }
-              className="img_arr"
-            />
-            <img
-              src={preStaticUrl + `/img/layout/${lang}.png`}
-              className="img_lang"
-            />
-          </>
-        ) : type === "pixel" ? (
-          <IsPixelWidget className="pixel_logo" type={type}>
-            <img
-              src={preStaticUrl + `/img/layout/${lang}.png`}
-              className="pixel_img_lang"
-            />
-          </IsPixelWidget>
+        {type === "pixel" ? (
+          <div className="pixel_logo_wrap">
+            <IsPixelWidget className="pixel_logo" type={type}>
+              <img
+                src={preStaticUrl + `/img/layout/${lang}.png`}
+                className="pixel_img_lang"
+              />
+            </IsPixelWidget>
+            <div className="address_wrap_pop_lang_wrap">
+              <PixelBorderCard
+                className="address_wrap_pop_lang"
+                // className="languageItemTip"
+                pixel_height={4}
+                backgroundColor="#1D263B"
+                borderColor="#3A4254"
+              >
+                {languageList.map((v) => (
+                  <PopItem
+                    color="#1D263B"
+                    classNames="address_wrap_pop_item"
+                    key={v.label}
+                    onClick={() => changeLanguageHandle(v)}
+                    iconName={v.img}
+                    label={v.label}
+                    on={v.keyValue === lang}
+                  />
+                ))}
+              </PixelBorderCard>
+            </div>
+          </div>
         ) : (
           <div className="lang">
             <p className="lang_title">
@@ -113,27 +119,6 @@ const Language = memo(({ type }: IProps) => {
           </div>
         )}
       </div>
-      {show ? (
-        <PixelBorderCard
-          className="address_wrap_pop_lang"
-          // className="languageItemTip"
-          pixel_height={4}
-          backgroundColor="#1D263B"
-          borderColor="#3A4254"
-        >
-          {languageList.map((v) => (
-            <PopItem
-              color="#1D263B"
-              classNames="address_wrap_pop_item"
-              key={v.label}
-              onClick={() => changeLanguageHandle(v)}
-              iconName={v.img}
-              label={v.label}
-              on={v.keyValue === lang}
-            />
-          ))}
-        </PixelBorderCard>
-      ) : null}
     </div>
   );
 }, isEqual);

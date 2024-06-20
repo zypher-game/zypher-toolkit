@@ -59,7 +59,7 @@ const Header = (props: IProps): React.ReactElement | null => {
       isW1340: width <= 1340,
       isW1540: width <= 1540,
       isW1670: width < 1670,
-      isWBig: width >= 1670,
+      isWBig: width >= 1340,
     };
   }, [width]);
   useEffect(() => {

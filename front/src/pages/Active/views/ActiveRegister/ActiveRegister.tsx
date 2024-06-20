@@ -1,4 +1,4 @@
-import { useIsW768 } from '@ui/src'
+import { PixelBorderCard, useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
@@ -28,12 +28,23 @@ const ActiveRegister = memo(() => {
             <div className={css.textPartInner}>
               <h2>{"King's League:"}</h2>
               <h3>Asset Domination Tournament</h3>
-              <p>
+              <p className={css.textGrey}>
                 In this virtual contest, participants will amass wealth through strategic staking, assert their dominance via competitive rankings,
                 and partake in the joy of both rivalry and camaraderie within team collaborations. Together, they vie for the ultimate crown of
                 supremacy within the Digital Kingdom.
               </p>
-              <p>This round of competition time: April 20, 2024 ~ July 20, 2024</p>
+              <PixelBorderCard
+                // width='305px'
+                // height=''
+                className={css.textPixelBorder}
+                pixel_height={4}
+                backgroundColor="#161E2E"
+                borderColor="#3A4254"
+              >
+                <p>
+                  This round of Competition dates<i>April 20, 2024 ~ July 20, 2024</i>
+                </p>
+              </PixelBorderCard>
             </div>
           )}
           <div className={css.process}>

@@ -39,7 +39,7 @@
       display: inline-block
       @media screen and (max-width: 830px)
         margin-bottom: 15px
-    p
+    .textGrey
       max-width: 515px
       font-size: 14px
       line-height: 22px
@@ -49,6 +49,23 @@
         font-size: 12px
         max-width: 100%
   .process
-    margin-top: 60px
+    margin-top: 30px
+.textPixelBorder
+  width 305px
+  padding: 15px 16px
+  margin-top: 30px
+  @media screen and (max-width: 830px)
+    max-width: 100%
+  :global(>.pixel_flat_inner)
+    justify-content: flex-start
+    align-items: flex-start
+  p
+    font-size: 14px
+    line-height: 22px
+    color: #959BA8
     @media screen and (max-width: 830px)
-      margin-top: 30px
+      font-size: 12px
+    i
+      display: block
+      color: #fff
+      font-weight: 600
