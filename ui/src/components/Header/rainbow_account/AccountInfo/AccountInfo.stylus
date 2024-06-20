@@ -9,4 +9,8 @@
     gap: 9px;
     p 
       padding-left: 14px;
- 
+  &:hover
+    .address_wrap_big_pop_wrap
+      opacity 1
+      height auto
+      padding-top: 20px

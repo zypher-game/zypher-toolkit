@@ -5,6 +5,39 @@
   // flex-wrap: wrap
   gap: 10px
   height: 40px;
+  li
+    &:hover
+      .active_tvl_tab
+        // >.pixel_flat_btn_bg > div
+        //   background-color: #1649FF
+        >.pixel_flat_inner
+          p
+            color: #fff
+        > .pixel_flat_btn_bg
+          > div
+            background-color: #1649FF;
+          > .pixel_flat_btn_inner
+            &:before,
+            &:after
+              content: "";
+    
+            &:before
+              background-color: #3360FF;
+    
+            &:after
+              background-color: #0F33B2;
+          > .pixel_flat_btn_top_1
+            background-color: #3360FF;
+
+          > .pixel_flat_btn_top_2
+            border-left: #3360FF;
+
+          > .pixel_flat_btn_bottom_2
+            background-color: #0F33B2;
+
+          > .pixel_flat_btn_bottom_1
+            border-right: #0F33B2;
+
   .active_tvl_tab_on
     .pixel_flat_inner
       p
@@ -13,6 +46,7 @@
     .pixel_flat_inner
       p
         color: #D3D4D7
+        transition: all 0.3s ease
   .pixel_flat_inner
     p
       padding: 0 24px

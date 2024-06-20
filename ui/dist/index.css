@@ -1,8 +1,15 @@
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SideBar/component/Language.stylus */
-div .address_wrap_pop_lang {
+div .address_wrap_pop_lang_wrap {
   position: absolute;
-  top: 50px;
+  top: 36px;
   right: 10px;
+  padding-top: 0;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  opacity: 0;
+  height: 0;
+}
+div .address_wrap_pop_lang {
   width: 220px;
   z-index: 4;
   overflow: hidden;
@@ -132,6 +139,11 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
 .language .languageItemTip li.languageItemOn {
   color: #fff;
   background: #191919;
+}
+.pixel_logo_wrap:hover .address_wrap_pop_lang_wrap {
+  opacity: 1;
+  height: auto;
+  padding: 20px;
 }
 .connect_pixel_connectWallet .pixel_logo {
   width: 40px;
@@ -1477,12 +1489,16 @@ body .tvlPixelTable_header > .pixel_flat_inner {
     padding: 82px 15px 33px;
   }
 }
-body .address_wrap_big_pop,
-body .address_wrap_middle_pop {
+body .address_wrap_big_pop_wrap {
+  opacity: 0;
+  height: 0;
   position: absolute;
-  top: 50px;
+  top: 36px;
   right: 0;
   z-index: 4;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  padding-top: 0;
 }
 body .address_wrap_big_pop > .pixel_flat_inner,
 body .address_wrap_middle_pop > .pixel_flat_inner {
@@ -1827,6 +1843,11 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 }
 .address_wrap .account p {
   padding-left: 14px;
+}
+.address_wrap:hover .address_wrap_big_pop_wrap {
+  opacity: 1;
+  height: auto;
+  padding-top: 20px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */
@@ -4105,11 +4126,40 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   gap: 10px;
   height: 40px;
 }
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_inner p {
+  color: #fff;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > div {
+  background-color: #1649ff;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_inner:before,
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_inner:after {
+  content: "";
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_inner:before {
+  background-color: #3360ff;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_inner:after {
+  background-color: #0f33b2;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_top_1 {
+  background-color: #3360ff;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_top_2 {
+  border-left: #3360ff;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  background-color: #0f33b2;
+}
+.pixel_active_tab li:hover .active_tvl_tab > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1 {
+  border-right: #0f33b2;
+}
 .pixel_active_tab .active_tvl_tab_on .pixel_flat_inner p {
   color: #fff;
 }
 .pixel_active_tab .active_tvl_tab .pixel_flat_inner p {
   color: #d3d4d7;
+  transition: all 0.3s ease;
 }
 .pixel_active_tab .pixel_flat_inner p {
   padding: 0 24px;

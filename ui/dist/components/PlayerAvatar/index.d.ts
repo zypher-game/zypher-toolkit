@@ -19,6 +19,7 @@ interface IPlayerAvatar {
     type?: HeaderUIType;
     chainId?: ChainId;
     onClick?: any;
+    onMouseOver?: any;
 }
 declare const PlayerAvatar: React.FC<IPlayerAvatar>;
 type IAvatar = {

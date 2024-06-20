@@ -32,6 +32,7 @@ interface IPlayerAvatar {
   type?: HeaderUIType;
   chainId?: ChainId;
   onClick?: any;
+  onMouseOver?:any
 }
 
 const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
@@ -50,6 +51,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     hideAvatars,
     type = "other",
     onClick,
+    onMouseOver
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const [avatars, setAvatars] = useState<{
@@ -113,7 +115,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     //   }
     // }, [account, chainId]);
     return (
-      <div className={cx(className, "player_playerAvatar")} onClick={onClick}>
+      <div className={cx(className, "player_playerAvatar")} onClick={onClick} onMouseOver={onMouseOver}>
         {hideAvatars ? null : account ? (
           avatars ? (
             <AvatarBorder>

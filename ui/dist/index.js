@@ -1,11 +1,11 @@
 "use client";
 // src/index.ts
 import {
-  useSetRecoilState as useSetRecoilState14,
+  useSetRecoilState as useSetRecoilState13,
   atom as atom5,
   selector,
   RecoilRoot,
-  useRecoilState as useRecoilState14,
+  useRecoilState as useRecoilState13,
   useRecoilValue as useRecoilValue9,
   useResetRecoilState
 } from "recoil";
@@ -737,7 +737,7 @@ function isEqual(value1, value2) {
 }
 
 // src/components/SideBar/component/Language.tsx
-import React7, { memo as memo6, useCallback as useCallback3, useState as useState5 } from "react";
+import React7, { memo as memo6, useCallback as useCallback3 } from "react";
 
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
@@ -1719,19 +1719,10 @@ var languageList = [
 ];
 var Language = memo6(({ type }) => {
   const isW768 = useIsW768();
-  const [show, setShow] = useState5(false);
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
-  const handle = useCallback3(() => {
-    if (isW768) {
-      setShow(false);
-      return;
-    }
-    setShow(!show);
-  }, [show, isW768]);
   const changeLanguageHandle = useCallback3((item) => {
     changeLanguage(item.keyValue);
-    setShow(false);
     storage_default.set("language", item.keyValue);
   }, []);
   return /* @__PURE__ */ React7.createElement("div", {
@@ -1740,21 +1731,35 @@ var Language = memo6(({ type }) => {
       "language"
     )
   }, /* @__PURE__ */ React7.createElement("div", {
-    className: type === "list" ? "" : classnames2("horListItem", "languageItem"),
-    onClick: handle
-  }, type === "top" ? /* @__PURE__ */ React7.createElement(React7.Fragment, null, /* @__PURE__ */ React7.createElement("img", {
-    src: preStaticUrl + `/img/layout/${show ? "arrow-up" : "arrow-down"}.svg`,
-    className: "img_arr"
-  }), /* @__PURE__ */ React7.createElement("img", {
-    src: preStaticUrl + `/img/layout/${lang}.png`,
-    className: "img_lang"
-  })) : type === "pixel" ? /* @__PURE__ */ React7.createElement(IsPixelWidget_default, {
+    className: type === "list" ? "" : classnames2(
+      "horListItem",
+      "languageItem",
+      type === "pixel" ? "languagePixelTop" : ""
+    )
+  }, type === "pixel" ? /* @__PURE__ */ React7.createElement("div", {
+    className: "pixel_logo_wrap"
+  }, /* @__PURE__ */ React7.createElement(IsPixelWidget_default, {
     className: "pixel_logo",
     type
   }, /* @__PURE__ */ React7.createElement("img", {
     src: preStaticUrl + `/img/layout/${lang}.png`,
     className: "pixel_img_lang"
-  })) : /* @__PURE__ */ React7.createElement("div", {
+  })), /* @__PURE__ */ React7.createElement("div", {
+    className: "address_wrap_pop_lang_wrap"
+  }, /* @__PURE__ */ React7.createElement(PixelBorderCard, {
+    className: "address_wrap_pop_lang",
+    pixel_height: 4,
+    backgroundColor: "#1D263B",
+    borderColor: "#3A4254"
+  }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
+    color: "#1D263B",
+    classNames: "address_wrap_pop_item",
+    key: v.label,
+    onClick: () => changeLanguageHandle(v),
+    iconName: v.img,
+    label: v.label,
+    on: v.keyValue === lang
+  }))))) : /* @__PURE__ */ React7.createElement("div", {
     className: "lang"
   }, /* @__PURE__ */ React7.createElement("p", {
     className: "lang_title"
@@ -1771,20 +1776,7 @@ var Language = memo6(({ type }) => {
     iconName: v.img,
     label: v.label,
     on: v.keyValue === lang
-  }))))), show ? /* @__PURE__ */ React7.createElement(PixelBorderCard, {
-    className: "address_wrap_pop_lang",
-    pixel_height: 4,
-    backgroundColor: "#1D263B",
-    borderColor: "#3A4254"
-  }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
-    color: "#1D263B",
-    classNames: "address_wrap_pop_item",
-    key: v.label,
-    onClick: () => changeLanguageHandle(v),
-    iconName: v.img,
-    label: v.label,
-    on: v.keyValue === lang
-  }))) : null);
+  }))))));
 }, isEqual);
 var PopItem = memo6(
   ({
@@ -4570,15 +4562,15 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React93, { useEffect as useEffect29, useMemo as useMemo16 } from "react";
-import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState12 } from "recoil";
+import React93, { useEffect as useEffect28, useMemo as useMemo16 } from "react";
+import { useRecoilState as useRecoilState12, useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import React92, { memo as memo33, useMemo as useMemo15 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React38, { memo as memo31, useCallback as useCallback21 } from "react";
-import { useSetRecoilState as useSetRecoilState9 } from "recoil";
+import React38, { memo as memo31, useCallback as useCallback20 } from "react";
+import { useSetRecoilState as useSetRecoilState8 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
@@ -5214,8 +5206,7 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import React37, { memo as memo30, useCallback as useCallback20, useEffect as useEffect14, useRef as useRef3 } from "react";
-import { useRecoilState as useRecoilState12, useSetRecoilState as useSetRecoilState8 } from "recoil";
+import React37, { memo as memo30, useRef as useRef3 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
@@ -5333,7 +5324,8 @@ var PlayerAvatar = memo26(
     chainId,
     hideAvatars,
     type = "other",
-    onClick
+    onClick,
+    onMouseOver
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const [avatars2, setAvatars] = useState11();
@@ -5363,7 +5355,8 @@ var PlayerAvatar = memo26(
     }, [account, chainId, refreshAvatar]);
     return /* @__PURE__ */ React32.createElement("div", {
       className: cx(className, "player_playerAvatar"),
-      onClick
+      onClick,
+      onMouseOver
     }, hideAvatars ? null : account ? avatars2 ? /* @__PURE__ */ React32.createElement(AvatarBorder, null, /* @__PURE__ */ React32.createElement(Avatar_default, {
       type,
       size,
@@ -6027,7 +6020,9 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     disconnect();
     setIndex(2);
   }, [disconnect]);
-  return /* @__PURE__ */ React36.createElement(PixelBorderCard, {
+  return /* @__PURE__ */ React36.createElement("div", {
+    className: "address_wrap_big_pop_wrap"
+  }, /* @__PURE__ */ React36.createElement(PixelBorderCard, {
     className: "address_wrap_big_pop",
     pixel_height: 4,
     backgroundColor: "#1D263B",
@@ -6047,7 +6042,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     label: "Disconnect",
     onClick: cancelHandle,
     on: index === 2
-  }));
+  })));
 });
 var AddressMiddleWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState12();
@@ -6079,7 +6074,9 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
     disconnect();
     setIndex(2);
   }, [disconnect]);
-  return /* @__PURE__ */ React36.createElement(PixelBorderCard, {
+  return /* @__PURE__ */ React36.createElement("div", {
+    className: "address_wrap_big_pop_wrap"
+  }, /* @__PURE__ */ React36.createElement(PixelBorderCard, {
     className: "address_wrap_middle_pop",
     pixel_height: 4,
     backgroundColor: "#1D263B",
@@ -6124,7 +6121,7 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
     label: "Disconnect",
     onClick: cancelHandle,
     on: index === 2
-  }));
+  })));
 });
 var AddressWrapPopItem = memo29(
   ({
@@ -6174,56 +6171,23 @@ var AccountInfo = memo30(
     supportedChainList
   }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
-    const setAccountInfoDialogState = useSetRecoilState8(accountInfoDialogState);
-    const [showBig, setShowBig] = useRecoilState12(showBigState);
-    const [showMiddle, setShowMiddle] = useRecoilState12(showMiddleState);
     const bigDivRef = useRef3(null);
     const middleDivRef = useRef3(null);
-    useEffect14(() => {
-      const handleClickOutside = (event) => {
-        if (bigDivRef.current) {
-          if (!bigDivRef.current.contains(event.target)) {
-            setShowBig(false);
-          }
-        }
-        if (middleDivRef.current) {
-          if (!middleDivRef.current.contains(event.target)) {
-            setShowMiddle(false);
-          }
-        }
-      };
-      document.addEventListener("mousedown", handleClickOutside);
-      return () => {
-        document.removeEventListener("mousedown", handleClickOutside);
-      };
-    }, []);
-    const accountClick = useCallback20(() => {
-      if (isW768) {
-        setShowBig(false);
-        setShowMiddle(false);
-        setAccountInfoDialogState(true);
-      } else if (isMiddleWidth) {
-        setShowMiddle((pre) => !pre);
-      } else {
-        setShowBig((pre) => !pre);
-      }
-    }, [isW768, isMiddleWidth, setAccountInfoDialogState]);
     return /* @__PURE__ */ React37.createElement(React37.Fragment, null, /* @__PURE__ */ React37.createElement(IsPixelWidget_default, {
       type,
       className: "address_wrap"
     }, /* @__PURE__ */ React37.createElement(PlayerAvatar_default, {
-      onClick: accountClick,
       className: "account",
       account,
       size: isW768 ? 30 : 40,
       showAccount: isMiddleWidth ? false : true,
       type,
       chainId
-    }), showBig ? /* @__PURE__ */ React37.createElement("div", {
+    }), !isMiddleWidth && !isW768 ? /* @__PURE__ */ React37.createElement("div", {
       ref: bigDivRef
     }, /* @__PURE__ */ React37.createElement(AddressBigWrapPop, {
       copy
-    }), " ") : null, showMiddle ? /* @__PURE__ */ React37.createElement("div", {
+    }), " ") : null, isMiddleWidth ? /* @__PURE__ */ React37.createElement("div", {
       ref: middleDivRef
     }, /* @__PURE__ */ React37.createElement(AddressMiddleWrapPop, {
       copy
@@ -6249,8 +6213,8 @@ var Account = memo31(
     type
   }) => {
     const isW768 = useIsW768();
-    const setPointsDialogState = useSetRecoilState9(pointsDialogState);
-    const showPointsModal = useCallback21(() => {
+    const setPointsDialogState = useSetRecoilState8(pointsDialogState);
+    const showPointsModal = useCallback20(() => {
       setPointsDialogState(true);
     }, [setPointsDialogState]);
     return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
@@ -6280,12 +6244,12 @@ var rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
 import React88, { memo as memo32 } from "react";
-import { useSetRecoilState as useSetRecoilState11 } from "recoil";
+import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
 import React87, {
   createContext as createContext11,
-  useCallback as useCallback31,
+  useCallback as useCallback30,
   useContext as useContext16,
   useMemo as useMemo14,
   useRef as useRef8,
@@ -6300,7 +6264,7 @@ import { useAccount as useAccount3 } from "wagmi";
 import React39, {
   createContext as createContext3,
   useContext as useContext3,
-  useEffect as useEffect15,
+  useEffect as useEffect14,
   useMemo as useMemo10,
   useRef as useRef4
 } from "react";
@@ -6324,7 +6288,7 @@ function RainbowKitAuthenticationProvider({
   });
   const { isDisconnected } = useAccount2();
   const onceRef = useRef4(false);
-  useEffect15(() => {
+  useEffect14(() => {
     if (onceRef.current)
       return;
     onceRef.current = true;
@@ -6411,7 +6375,7 @@ function useMainnetEnsName(address) {
 }
 
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React54, { useCallback as useCallback26, useEffect as useEffect22, useState as useState16 } from "react";
+import React54, { useCallback as useCallback25, useEffect as useEffect21, useState as useState16 } from "react";
 import { createPortal } from "react-dom";
 import { RemoveScroll } from "react-remove-scroll";
 
@@ -6503,13 +6467,13 @@ function cssStringFromTheme(theme, options = {}) {
 }
 
 // src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect16, useState as useState13 } from "react";
+import { useEffect as useEffect15, useState as useState13 } from "react";
 var useWindowSize2 = () => {
   const [windowSize, setWindowSize] = useState13({
     height: void 0,
     width: void 0
   });
-  useEffect16(() => {
+  useEffect15(() => {
     function handleResize() {
       setWindowSize({
         height: window.innerHeight,
@@ -6649,7 +6613,7 @@ var lightTheme = ({
 lightTheme.accentColors = accentColors;
 
 // src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect17, useState as useState14 } from "react";
+import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect16, useState as useState14 } from "react";
 import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
 
 // src/rainbowkit/src/transactions/transactionStore.ts
@@ -6790,10 +6754,10 @@ function TransactionStoreProvider({ children }) {
   const { address } = useAccount4();
   const chainId = useChainId();
   const [store] = useState14(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
-  useEffect17(() => {
+  useEffect16(() => {
     store.setProvider(provider);
   }, [store, provider]);
-  useEffect17(() => {
+  useEffect16(() => {
     if (address && chainId) {
       store.waitForPendingTransactions(address, chainId);
     }
@@ -6823,7 +6787,7 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React44, { useEffect as useEffect18, useMemo as useMemo12, useState as useState15 } from "react";
+import React44, { useEffect as useEffect17, useMemo as useMemo12, useState as useState15 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
 import React43, { useMemo as useMemo11 } from "react";
@@ -6949,7 +6913,7 @@ function emojiAvatarForAddress(address) {
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
 var EmojiAvatar = ({ address, ensImage, size }) => {
   const [loaded, setLoaded] = useState15(false);
-  useEffect18(() => {
+  useEffect17(() => {
     if (ensImage) {
       const img = new Image();
       img.src = ensImage;
@@ -7018,22 +6982,22 @@ import { createContext as createContext9 } from "react";
 var ShowRecentTransactionsContext = createContext9(false);
 
 // src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback22, useEffect as useEffect19 } from "react";
+import { useCallback as useCallback21, useEffect as useEffect18 } from "react";
 var storageKey3 = "rk-version";
 function setRainbowKitVersion({ version }) {
   localStorage.setItem(storageKey3, version);
 }
 function useFingerprint() {
-  const fingerprint = useCallback22(() => {
+  const fingerprint = useCallback21(() => {
     setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
-  useEffect19(() => {
+  useEffect18(() => {
     fingerprint();
   }, [fingerprint]);
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback24, useEffect as useEffect20 } from "react";
+import { useCallback as useCallback23, useEffect as useEffect19 } from "react";
 
 // src/rainbowkit/src/components/Icons/Assets.tsx
 import React47 from "react";
@@ -7128,7 +7092,7 @@ var LoginIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/SignIn/SignIn.tsx
-import React51, { useCallback as useCallback23, useRef as useRef5 } from "react";
+import React51, { useCallback as useCallback22, useRef as useRef5 } from "react";
 import { UserRejectedRequestError } from "viem";
 import { useAccount as useAccount5, useDisconnect as useDisconnect3, useNetwork as useNetwork3, useSignMessage } from "wagmi";
 
@@ -7242,7 +7206,7 @@ var signInIcon = async () => (await import("./sign-IOXJRZQV.js")).default;
 function SignIn({ onClose }) {
   const [{ status, ...state }, setState] = React51.useState({ status: "idle" });
   const authAdapter = useAuthenticationAdapter();
-  const getNonce = useCallback23(async () => {
+  const getNonce = useCallback22(async () => {
     try {
       const nonce = await authAdapter.getNonce();
       setState((x) => ({ ...x, nonce }));
@@ -7413,7 +7377,7 @@ function usePreloadImages() {
   const rainbowKitChains = useRainbowKitChains();
   const walletConnectors = useWalletConnectors();
   const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
-  const preloadImages = useCallback24(() => {
+  const preloadImages = useCallback23(() => {
     loadImages(...walletConnectors.map((wallet) => wallet.iconUrl), ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish));
     if (!isMobile()) {
       preloadAssetsIcon();
@@ -7423,7 +7387,7 @@ function usePreloadImages() {
       loadImages(signInIcon);
     }
   }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
-  useEffect20(() => {
+  useEffect19(() => {
     preloadImages();
   }, [preloadImages]);
 }
@@ -7523,7 +7487,7 @@ var content = "Dialog_content__1dq44ga5 sprinkles_display_flex_smallScreen__dmay
 var overlay = "Dialog_overlay__1dq44ga3 sprinkles_backdropFilter_modalOverlay__dmay209g sprinkles_background_modalBackdrop_base__dmay20b5 sprinkles_display_flex_smallScreen__dmay20a sprinkles_justifyContent_center__dmay202n sprinkles_position_fixed__dmay208p";
 
 // src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React53, { useCallback as useCallback25, useEffect as useEffect21, useRef as useRef6 } from "react";
+import React53, { useCallback as useCallback24, useEffect as useEffect20, useRef as useRef6 } from "react";
 var moveFocusWithin = (element2, position) => {
   const focusableElements = element2.querySelectorAll(
     "button:not(:disabled), a[href]"
@@ -7534,14 +7498,14 @@ var moveFocusWithin = (element2, position) => {
 };
 function FocusTrap(props) {
   const contentRef = useRef6(null);
-  useEffect21(() => {
+  useEffect20(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
       var _a;
       (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
     };
   }, []);
-  useEffect21(() => {
+  useEffect20(() => {
     if (contentRef.current) {
       const elementToFocus = contentRef.current.querySelector("[data-auto-focus]");
       if (elementToFocus) {
@@ -7552,7 +7516,7 @@ function FocusTrap(props) {
     }
   }, [contentRef]);
   return /* @__PURE__ */ React53.createElement(React53.Fragment, null, /* @__PURE__ */ React53.createElement("div", {
-    onFocus: useCallback25(
+    onFocus: useCallback24(
       () => contentRef.current && moveFocusWithin(contentRef.current, "end"),
       []
     ),
@@ -7563,7 +7527,7 @@ function FocusTrap(props) {
     tabIndex: -1,
     ...props
   }), /* @__PURE__ */ React53.createElement("div", {
-    onFocus: useCallback25(
+    onFocus: useCallback24(
       () => contentRef.current && moveFocusWithin(contentRef.current, "start"),
       []
     ),
@@ -7574,16 +7538,16 @@ function FocusTrap(props) {
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
 var stopPropagation = (event) => event.stopPropagation();
 function Dialog({ children, onClose, open, titleId }) {
-  useEffect22(() => {
+  useEffect21(() => {
     const handleEscape = (event) => open && event.key === "Escape" && onClose();
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [open, onClose]);
   const [bodyScrollable, setBodyScrollable] = useState16(true);
-  useEffect22(() => {
+  useEffect21(() => {
     setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
   }, []);
-  const handleBackdropClick = useCallback26(() => onClose(), [onClose]);
+  const handleBackdropClick = useCallback25(() => onClose(), [onClose]);
   const themeRootProps = useThemeRootProps();
   const mobile = isMobile();
   return /* @__PURE__ */ React54.createElement(React54.Fragment, null, open ? createPortal(
@@ -7648,7 +7612,7 @@ function DialogContent3({
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React66, { useCallback as useCallback28, useContext as useContext9, useEffect as useEffect24, useState as useState18 } from "react";
+import React66, { useCallback as useCallback27, useContext as useContext9, useEffect as useEffect23, useState as useState18 } from "react";
 
 // src/rainbowkit/src/components/Avatar/Avatar.tsx
 import React56, { useContext as useContext7 } from "react";
@@ -7790,13 +7754,13 @@ import React64, { useContext as useContext8 } from "react";
 import { useNetwork as useNetwork5 } from "wagmi";
 
 // src/rainbowkit/src/transactions/useClearRecentTransactions.ts
-import { useCallback as useCallback27 } from "react";
+import { useCallback as useCallback26 } from "react";
 import { useAccount as useAccount7 } from "wagmi";
 function useClearRecentTransactions() {
   const store = useTransactionStore();
   const { address } = useAccount7();
   const chainId = useChainId();
-  return useCallback27(() => {
+  return useCallback26(() => {
     if (!address || !chainId) {
       throw new Error("No address or chain ID found");
     }
@@ -7805,7 +7769,7 @@ function useClearRecentTransactions() {
 }
 
 // src/rainbowkit/src/transactions/useRecentTransactions.ts
-import { useEffect as useEffect23, useState as useState17 } from "react";
+import { useEffect as useEffect22, useState as useState17 } from "react";
 import { useAccount as useAccount8 } from "wagmi";
 function useRecentTransactions() {
   const store = useTransactionStore();
@@ -7814,7 +7778,7 @@ function useRecentTransactions() {
   const [transactions, setTransactions] = useState17(
     () => store && address && chainId ? store.getTransactions(address, chainId) : []
   );
-  useEffect23(() => {
+  useEffect22(() => {
     if (store && address && chainId) {
       setTransactions(store.getTransactions(address, chainId));
       return store.onChange(() => {
@@ -8097,13 +8061,13 @@ function ProfileDetails({
 }) {
   const showRecentTransactions = useContext9(ShowRecentTransactionsContext);
   const [copiedAddress, setCopiedAddress] = useState18(false);
-  const copyAddressAction = useCallback28(() => {
+  const copyAddressAction = useCallback27(() => {
     if (address) {
       navigator.clipboard.writeText(address);
       setCopiedAddress(true);
     }
   }, [address]);
-  useEffect24(() => {
+  useEffect23(() => {
     if (copiedAddress) {
       const timer = setTimeout(() => {
         setCopiedAddress(false);
@@ -8222,7 +8186,7 @@ function AccountModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
-import React70, { Fragment, useCallback as useCallback29, useContext as useContext10 } from "react";
+import React70, { Fragment, useCallback as useCallback28, useContext as useContext10 } from "react";
 import { useDisconnect as useDisconnect5, useNetwork as useNetwork6, useSwitchNetwork } from "wagmi";
 
 // src/rainbowkit/src/components/Icons/DisconnectSq.tsx
@@ -8311,7 +8275,7 @@ function ChainModal({ onClose, open, fn }) {
   const chainIconSize = "24";
   const { appName } = useContext10(AppContext);
   const rainbowkitChains = useRainbowKitChains();
-  const chainClickHandle = useCallback29(
+  const chainClickHandle = useCallback28(
     ({ isCurrentChain, chain }) => {
       if (isCurrentChain) {
         return;
@@ -8509,7 +8473,7 @@ import React86 from "react";
 import React85 from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect27, useState as useState20 } from "react";
+import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect26, useState as useState20 } from "react";
 
 // src/rainbowkit/src/utils/groupBy.ts
 function groupBy(items, getKey) {
@@ -8721,12 +8685,12 @@ var InfoButton = ({
 import React77, { useState as useState19 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
-import { useContext as useContext12, useEffect as useEffect25, useRef as useRef7 } from "react";
+import { useContext as useContext12, useEffect as useEffect24, useRef as useRef7 } from "react";
 var useCoolMode = (imageUrl) => {
   const ref = useRef7(null);
   const coolModeEnabled = useContext12(CoolModeContext);
   const resolvedImageUrl = useAsyncImage(imageUrl);
-  useEffect25(() => {
+  useEffect24(() => {
     if (coolModeEnabled && ref.current && resolvedImageUrl) {
       return makeElementCool(ref.current, resolvedImageUrl);
     }
@@ -8938,7 +8902,7 @@ var ModalSelection = ({
 ModalSelection.displayName = "ModalSelection";
 
 // src/rainbowkit/src/components/ConnectOptions/ConnectDetails.tsx
-import React82, { useContext as useContext13, useEffect as useEffect26 } from "react";
+import React82, { useContext as useContext13, useEffect as useEffect25 } from "react";
 
 // src/rainbowkit/src/components/Icons/Create.tsx
 import React78 from "react";
@@ -9271,7 +9235,7 @@ function ConnectDetail({
   } : null;
   const { width: windowWidth } = useWindowSize2();
   const smallWindow = windowWidth && windowWidth < 768;
-  useEffect26(() => {
+  useEffect25(() => {
     preloadBrowserIcon();
   }, []);
   return /* @__PURE__ */ React82.createElement(Box, {
@@ -9534,7 +9498,7 @@ function DownloadOptionsDetail({
   const modalSize = useContext13(ModalSizeContext);
   const isCompact = modalSize === "compact";
   const { extension, extensionDownloadUrl, mobileDownloadUrl } = wallet;
-  useEffect26(() => {
+  useEffect25(() => {
     preloadCreateIcon();
     preloadScanIcon();
     preloadRefreshIcon();
@@ -9586,7 +9550,7 @@ function DownloadDetail({
   wallet
 }) {
   const { downloadUrls, qrCode } = wallet;
-  useEffect26(() => {
+  useEffect25(() => {
     preloadCreateIcon();
     preloadScanIcon();
   }, []);
@@ -9898,7 +9862,7 @@ function DesktopOptions({ onClose }) {
   let headerLabel = null;
   let headerBackButtonLink = null;
   let headerBackButtonCallback;
-  useEffect27(() => {
+  useEffect26(() => {
     setConnectionError(false);
   }, [walletStep, selectedWallet]);
   const hasExtension = !!(selectedWallet == null ? void 0 : selectedWallet.extensionDownloadUrl);
@@ -10145,7 +10109,7 @@ function DesktopOptions({ onClose }) {
 }
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.tsx
-import React84, { useCallback as useCallback30, useContext as useContext15, useState as useState21 } from "react";
+import React84, { useCallback as useCallback29, useContext as useContext15, useState as useState21 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.css.ts
 var scroll = "MobileOptions_scroll__1656yi90";
@@ -10175,7 +10139,7 @@ function WalletButton({
     disabled: !ready,
     fontFamily: "body",
     key: id,
-    onClick: useCallback30(async () => {
+    onClick: useCallback29(async () => {
       if (id === "walletConnect")
         onClose == null ? void 0 : onClose();
       connect == null ? void 0 : connect();
@@ -10524,17 +10488,17 @@ function ConnectModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
-import { useSetRecoilState as useSetRecoilState10 } from "recoil";
+import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 function useModalStateValue() {
   const [isModalOpen, setModalOpen] = useState22(false);
-  const setWalletDialogOpen = useSetRecoilState10(walletModalOpenState);
+  const setWalletDialogOpen = useSetRecoilState9(walletModalOpenState);
   return {
-    closeModal: useCallback31(() => {
+    closeModal: useCallback30(() => {
       setWalletDialogOpen(false);
       setModalOpen(false);
     }, []),
     isModalOpen,
-    openModal: useCallback31(() => setModalOpen(true), [])
+    openModal: useCallback30(() => setModalOpen(true), [])
   };
 }
 var ModalContext = createContext11({
@@ -10638,7 +10602,7 @@ function useConnectModal() {
 var WrongNetwork = memo32(({ type }) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal();
-  const setAccountInfoDialogOpen = useSetRecoilState11(accountInfoDialogState);
+  const setAccountInfoDialogOpen = useSetRecoilState10(accountInfoDialogState);
   return /* @__PURE__ */ React88.createElement(IsPixelWidget_default, {
     type,
     onClick: () => {
@@ -10676,10 +10640,10 @@ import React90, { useContext as useContext17 } from "react";
 import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork8 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
-import { useEffect as useEffect28, useReducer as useReducer3 } from "react";
+import { useEffect as useEffect27, useReducer as useReducer3 } from "react";
 var useIsMounted = () => {
   const [mounted, setMounted] = useReducer3(() => true, false);
-  useEffect28(setMounted, [setMounted]);
+  useEffect27(setMounted, [setMounted]);
   return mounted;
 };
 
@@ -10955,7 +10919,7 @@ var rainbow_connectWallet_default = RainbowConnectWallet;
 
 // src/components/Header/header.tsx
 var Header = (props) => {
-  const setSideCollapse = useSetRecoilState12(sideCollapseState);
+  const setSideCollapse = useSetRecoilState11(sideCollapseState);
   const collapsed = useRecoilValue8(sideCollapseState);
   const {
     hideMenu = false,
@@ -10970,8 +10934,8 @@ var Header = (props) => {
     pathname
   } = props;
   const { width } = useWindowSize();
-  const [showBig, setShowBig] = useRecoilState13(showBigState);
-  const [showMiddle, setShowMiddle] = useRecoilState13(showMiddleState);
+  const [showBig, setShowBig] = useRecoilState12(showBigState);
+  const [showMiddle, setShowMiddle] = useRecoilState12(showMiddleState);
   const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo16(() => {
     return {
       isW830: width <= 830,
@@ -10979,10 +10943,10 @@ var Header = (props) => {
       isW1340: width <= 1340,
       isW1540: width <= 1540,
       isW1670: width < 1670,
-      isWBig: width >= 1670
+      isWBig: width >= 1340
     };
   }, [width]);
-  useEffect29(() => {
+  useEffect28(() => {
     if (showBig) {
       setShowBig(false);
     }
@@ -10990,7 +10954,7 @@ var Header = (props) => {
       setShowMiddle(false);
     }
   }, [width]);
-  useEffect29(() => {
+  useEffect28(() => {
     if (isW830 && collapsed === void 0) {
       setSideCollapse(true);
     }
@@ -11142,10 +11106,10 @@ var RainbowKitWithThemeProvider = ({
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
 // src/hooks/useInitRainbowFn.ts
-import { useEffect as useEffect30 } from "react";
+import { useEffect as useEffect29 } from "react";
 var useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();
-  useEffect30(() => {
+  useEffect29(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
         return true;
@@ -11158,12 +11122,12 @@ var useInitRainbowFn = () => {
 };
 
 // src/hooks/useGetInvitationAddress.tsx
-import { useSetRecoilState as useSetRecoilState13 } from "recoil";
-import { useEffect as useEffect31 } from "react";
+import { useSetRecoilState as useSetRecoilState12 } from "recoil";
+import { useEffect as useEffect30 } from "react";
 import { ethers as ethers3 } from "ethers";
 var useGetInvitationAddress = () => {
-  const setInvitationAddressState = useSetRecoilState13(invitationAddressState);
-  useEffect31(() => {
+  const setInvitationAddressState = useSetRecoilState12(invitationAddressState);
+  useEffect30(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -11182,16 +11146,16 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback32, useEffect as useEffect33, useState as useState23 } from "react";
+import { useCallback as useCallback31, useEffect as useEffect32, useState as useState23 } from "react";
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect32, useRef as useRef9 } from "react";
+import { useEffect as useEffect31, useRef as useRef9 } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef9();
-  useEffect32(() => {
+  useEffect31(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect32(() => {
+  useEffect31(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();
@@ -11330,7 +11294,7 @@ var useRecentGamesFromGraph = ({
 }) => {
   const [list, setList] = useState23();
   const [hasError, setHasError] = useState23(false);
-  const fetchGameInfos = useCallback32(async () => {
+  const fetchGameInfos = useCallback31(async () => {
     var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
@@ -11353,7 +11317,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect33(() => {
+  useEffect32(() => {
     fetchGameInfos();
   }, []);
   useInterval(fetchGameInfos, 5e4);
@@ -11760,13 +11724,13 @@ var midnightTheme = ({
 midnightTheme.accentColors = accentColors3;
 
 // src/rainbowkit/src/transactions/useAddRecentTransaction.ts
-import { useCallback as useCallback33 } from "react";
+import { useCallback as useCallback32 } from "react";
 import { useAccount as useAccount13 } from "wagmi";
 function useAddRecentTransaction() {
   const store = useTransactionStore();
   const { address } = useAccount13();
   const chainId = useChainId();
-  return useCallback33(
+  return useCallback32(
     (transaction) => {
       if (!address || !chainId) {
         throw new Error("No address or chain ID found");
@@ -13943,10 +13907,10 @@ export {
   usePointsBalanceStr,
   usePublicNodeWaitForTransaction,
   useRecentGamesFromGraph,
-  useRecoilState14 as useRecoilState,
+  useRecoilState13 as useRecoilState,
   useRecoilValue9 as useRecoilValue,
   useResetRecoilState,
-  useSetRecoilState14 as useSetRecoilState,
+  useSetRecoilState13 as useSetRecoilState,
   useSwapPoint,
   useSwitchNetwork2 as useSwitchNetwork,
   useWalletClient2 as useWalletClient,

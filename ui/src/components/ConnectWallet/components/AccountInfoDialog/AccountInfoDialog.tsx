@@ -132,31 +132,33 @@ export const AddressBigWrapPop = memo(({ copy }: { copy: any }) => {
     setIndex(2);
   }, [disconnect]);
   return (
-    <PixelBorderCard
-      className="address_wrap_big_pop"
-      pixel_height={4}
-      backgroundColor="#1D263B"
-      borderColor="#3A4254"
-    >
-      <AddressWrapPopItem
-        iconName={"pixel_copy"}
-        label={"Copy address"}
-        onClick={copyAddressHandle}
-        on={index === 0}
-      />
-      <AddressWrapPopItem
-        iconName={"pixel_blockchain"}
-        label={"Explorer"}
-        onClick={openHandle}
-        on={index === 1}
-      />
-      <AddressWrapPopItem
-        iconName={"pixel_disconnect"}
-        label={"Disconnect"}
-        onClick={cancelHandle}
-        on={index === 2}
-      />
-    </PixelBorderCard>
+    <div className="address_wrap_big_pop_wrap">
+      <PixelBorderCard
+        className="address_wrap_big_pop"
+        pixel_height={4}
+        backgroundColor="#1D263B"
+        borderColor="#3A4254"
+      >
+        <AddressWrapPopItem
+          iconName={"pixel_copy"}
+          label={"Copy address"}
+          onClick={copyAddressHandle}
+          on={index === 0}
+        />
+        <AddressWrapPopItem
+          iconName={"pixel_blockchain"}
+          label={"Explorer"}
+          onClick={openHandle}
+          on={index === 1}
+        />
+        <AddressWrapPopItem
+          iconName={"pixel_disconnect"}
+          label={"Disconnect"}
+          onClick={cancelHandle}
+          on={index === 2}
+        />
+      </PixelBorderCard>
+    </div>
   );
 });
 
@@ -193,58 +195,60 @@ export const AddressMiddleWrapPop = memo(({ copy }: { copy: any }) => {
     setIndex(2);
   }, [disconnect]);
   return (
-    <PixelBorderCard
-      className="address_wrap_middle_pop"
-      pixel_height={4}
-      backgroundColor="#1D263B"
-      borderColor="#3A4254"
-    >
-      <div className="middle_account">
-        <PlayerAvatar
-          chainId={chainId}
-          border={true}
-          className="account"
-          account={account}
-          size={62}
-          showAccount={false}
-          type="other"
-        />
-        <div className="middle_address" onClick={copyAddressHandle}>
-          <p>{getShortenAddress(account)}</p>
-          <Icon name="pixel_copy" />
+    <div className="address_wrap_big_pop_wrap">
+      <PixelBorderCard
+        className="address_wrap_middle_pop"
+        pixel_height={4}
+        backgroundColor="#1D263B"
+        borderColor="#3A4254"
+      >
+        <div className="middle_account">
+          <PlayerAvatar
+            chainId={chainId}
+            border={true}
+            className="account"
+            account={account}
+            size={62}
+            showAccount={false}
+            type="other"
+          />
+          <div className="middle_address" onClick={copyAddressHandle}>
+            <p>{getShortenAddress(account)}</p>
+            <Icon name="pixel_copy" />
+          </div>
         </div>
-      </div>
-      <ChainSelectorWidget
-        type={"pixel"}
-        direction_type="userPop"
-        className="middle_selector"
-      />
-      <div className="middle_balance">
-        <BalanceItem
-          currency={Currency[chainId]}
-          balanceStr={nativeBalanceStr}
-          logo={
-            <CurrencyLogo
-              className={"balance_item_img"}
-              src={CurrencyLogoUrl[chainId]}
-            />
-          }
+        <ChainSelectorWidget
+          type={"pixel"}
+          direction_type="userPop"
+          className="middle_selector"
         />
-      </div>
-      <Language type={"list"} />
-      <AddressWrapPopItem
-        iconName={"pixel_blockchain"}
-        label={"Blockchain Explorer"}
-        onClick={openHandle}
-        on={index === 1}
-      />
-      <AddressWrapPopItem
-        iconName={"pixel_disconnect"}
-        label={"Disconnect"}
-        onClick={cancelHandle}
-        on={index === 2}
-      />
-    </PixelBorderCard>
+        <div className="middle_balance">
+          <BalanceItem
+            currency={Currency[chainId]}
+            balanceStr={nativeBalanceStr}
+            logo={
+              <CurrencyLogo
+                className={"balance_item_img"}
+                src={CurrencyLogoUrl[chainId]}
+              />
+            }
+          />
+        </div>
+        <Language type={"list"} />
+        <AddressWrapPopItem
+          iconName={"pixel_blockchain"}
+          label={"Blockchain Explorer"}
+          onClick={openHandle}
+          on={index === 1}
+        />
+        <AddressWrapPopItem
+          iconName={"pixel_disconnect"}
+          label={"Disconnect"}
+          onClick={cancelHandle}
+          on={index === 2}
+        />
+      </PixelBorderCard>
+    </div>
   );
 });
 const AddressWrapPopItem = memo(
