@@ -18,11 +18,13 @@ export function useActiveWeb3React(
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     return {
-      chainId: (chainId && !supportedChainIds(env, chainList).includes(chainId)
+      chainId: (chainId &&
+      !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
         ? undefined
-        : chainId) as ChainId,
+        : `${chainId}`) as ChainId,
       account:
-        chainId && !supportedChainIds(env, chainList).includes(chainId)
+        chainId &&
+        !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
           ? undefined
           : address,
       // account: "0xfe5d6F718fAb73a5b96964Cc65778cC600cdacA2",

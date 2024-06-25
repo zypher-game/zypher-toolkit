@@ -5,24 +5,19 @@ const setupNetwork = async (
   chainId: config.ChainId
 ): Promise<boolean> => {
   const provider = window.ethereum;
-  // const isSupported = config.supportedChainIds(env).includes(chainId);
-  // if (!isSupported) {
-  //   // throw new Error(`Unsupported network: ${chainId}`)
-  //   chainId = config.defaultChainId;
-  // }
   if (provider) {
     try {
       try {
         await provider.request({
           method: "wallet_switchEthereumChain",
-          params: [{ chainId: `0x${chainId.toString(16)}` }],
+          params: [{ chainId: `0x${parseInt(chainId, 10).toString(16)}` }],
         });
       } catch (error) {
         await provider.request({
           method: "wallet_addEthereumChain",
           params: [
             {
-              chainId: `0x${chainId.toString(16)}`,
+              chainId: `0x${parseInt(chainId, 10).toString(16)}`,
               chainName: `${config.ChainName[chainId]}`,
               nativeCurrency: {
                 name: `${config.Currency[chainId]}`,

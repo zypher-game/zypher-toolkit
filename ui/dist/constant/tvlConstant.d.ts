@@ -9,10 +9,10 @@ export declare enum ITvlHero {
     Liana = "Liana"
 }
 export declare enum TVLChainId {
-    B2 = 223,
-    B2Testnet = 1123,
-    LineaMainnet = 59144,
-    LineaTestnet = 59140
+    B2 = "223",
+    B2Testnet = "1123",
+    LineaMainnet = "59144",
+    LineaTestnet = "59140"
 }
 export declare const defaultActiveChainId: ChainId;
 export declare const TVLStakingSupportedChainId: ChainId[];

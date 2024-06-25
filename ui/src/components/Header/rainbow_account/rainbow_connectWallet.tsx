@@ -77,7 +77,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
               ) : chain &&
                 (chain.unsupported ||
                   !supportedChainIds(env, supportedChainList).includes(
-                    chain.id
+                    `${chain.id}` as ChainId
                   )) ? (
                 <>
                   <p>{supportedChainIds(env, supportedChainList).join("-")}</p>
@@ -87,7 +87,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   <p>
                     {chain.unsupported ? "true" : "false"}{" "}
                     {supportedChainIds(env, supportedChainList).includes(
-                      chain.id
+                      `${chain.id}` as ChainId
                     )
                       ? "true"
                       : "false"}

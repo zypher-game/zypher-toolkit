@@ -5,7 +5,7 @@ import { HeaderUIType } from "../components/Header/header";
 type IProps = {
     env: string;
     children: ReactNode;
-    chainIdList?: ChainId[];
+    chainIdList?: Array<ChainId>;
     type: HeaderUIType;
 };
 declare const RainbowKitWithThemeProvider: FC<IProps>;

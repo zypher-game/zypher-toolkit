@@ -29,13 +29,15 @@ const getSupportedChainIdList = (
   chainIdList?: ChainId[]
 ): Chain[] => {
   return supportedChainIds(env, chainIdList).map((chainId: ChainId) => {
-    const chainFilter: Chain[] = WagmiChainList.filter((v) => v.id === chainId);
+    const chainFilter: Chain[] = WagmiChainList.filter(
+      (v) => `${v.id}` === chainId
+    );
     if (chainFilter && chainFilter.length) {
       const chainLocal = chainFilter[0];
       return chainLocal;
     }
     return {
-      id: chainId,
+      id: parseInt(chainId, 10),
       name: ChainName[chainId],
       network: ChainNetworkName[chainId],
       nativeCurrency: {
@@ -154,7 +156,7 @@ export const viemClients = (env: string): Record<ChainId, PublicClient> => {
         ),
         batch: {
           multicall: {
-            batchSize: cur.id === ChainId.POLYGON_ZKEVM ? 128 : 1024 * 200,
+            batchSize: `${cur.id}` === ChainId.POLYGON_ZKEVM ? 128 : 1024 * 200,
           },
         },
       }),

@@ -55,61 +55,61 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = ((ChainId10) => {
-  ChainId10[ChainId10["Bsc"] = 56] = "Bsc";
-  ChainId10[ChainId10["BscTestnet"] = 97] = "BscTestnet";
-  ChainId10[ChainId10["Arbitrum"] = 42161] = "Arbitrum";
-  ChainId10[ChainId10["ArbitrumRinkeby"] = 421611] = "ArbitrumRinkeby";
-  ChainId10[ChainId10["ArbitrumGoerli"] = 421613] = "ArbitrumGoerli";
-  ChainId10[ChainId10["LineaTestnet"] = 59140] = "LineaTestnet";
-  ChainId10[ChainId10["LineaMainnet"] = 59144] = "LineaMainnet";
-  ChainId10[ChainId10["POLYGON_MUMBAI"] = 80001] = "POLYGON_MUMBAI";
-  ChainId10[ChainId10["POLYGON_ZKEVM"] = 1442] = "POLYGON_ZKEVM";
-  ChainId10[ChainId10["ScrollAlphaTestnet"] = 534353] = "ScrollAlphaTestnet";
-  ChainId10[ChainId10["OPBNBTEST"] = 5611] = "OPBNBTEST";
-  ChainId10[ChainId10["OPBNB"] = 204] = "OPBNB";
-  ChainId10[ChainId10["ScrollSepoliaTestnet"] = 534351] = "ScrollSepoliaTestnet";
-  ChainId10[ChainId10["MantaPacificMainnet"] = 169] = "MantaPacificMainnet";
-  ChainId10[ChainId10["MantaPacificTestnet"] = 3441005] = "MantaPacificTestnet";
-  ChainId10[ChainId10["Combo"] = 9980] = "Combo";
-  ChainId10[ChainId10["ComboTestnet"] = 91715] = "ComboTestnet";
-  ChainId10[ChainId10["Mantle"] = 5e3] = "Mantle";
-  ChainId10[ChainId10["MantleTestnet"] = 5001] = "MantleTestnet";
-  ChainId10[ChainId10["Sepolia"] = 11155111] = "Sepolia";
-  ChainId10[ChainId10["B2"] = 223] = "B2";
-  ChainId10[ChainId10["B2Testnet"] = 1123] = "B2Testnet";
-  ChainId10[ChainId10["ZytronLineaSepoliaTestnet"] = 50098] = "ZytronLineaSepoliaTestnet";
-  ChainId10[ChainId10["ZytronB2Testnet"] = 50097] = "ZytronB2Testnet";
-  ChainId10[ChainId10["Taiko"] = Number("167000")] = "Taiko";
+var ChainId = /* @__PURE__ */ ((ChainId10) => {
+  ChainId10["Bsc"] = "56";
+  ChainId10["BscTestnet"] = "97";
+  ChainId10["Arbitrum"] = "42161";
+  ChainId10["ArbitrumRinkeby"] = "421611";
+  ChainId10["ArbitrumGoerli"] = "421613";
+  ChainId10["LineaTestnet"] = "59140";
+  ChainId10["LineaMainnet"] = "59144";
+  ChainId10["POLYGON_MUMBAI"] = "80001";
+  ChainId10["POLYGON_ZKEVM"] = "1442";
+  ChainId10["ScrollAlphaTestnet"] = "534353";
+  ChainId10["OPBNBTEST"] = "5611";
+  ChainId10["OPBNB"] = "204";
+  ChainId10["ScrollSepoliaTestnet"] = "534351";
+  ChainId10["MantaPacificMainnet"] = "169";
+  ChainId10["MantaPacificTestnet"] = "3441005";
+  ChainId10["Combo"] = "9980";
+  ChainId10["ComboTestnet"] = "91715";
+  ChainId10["Mantle"] = "5000";
+  ChainId10["MantleTestnet"] = "5001";
+  ChainId10["Sepolia"] = "11155111";
+  ChainId10["B2"] = "223";
+  ChainId10["B2Testnet"] = "1123";
+  ChainId10["ZytronLineaSepoliaTestnet"] = "50098";
+  ChainId10["ZytronB2Testnet"] = "50097";
+  ChainId10["Taiko"] = "167000";
   return ChainId10;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
-  59140 /* LineaTestnet */,
-  59144 /* LineaMainnet */,
-  5611 /* OPBNBTEST */,
-  204 /* OPBNB */
-] : [59144 /* LineaMainnet */, 204 /* OPBNB */];
+  "59140" /* LineaTestnet */,
+  "59144" /* LineaMainnet */,
+  "5611" /* OPBNBTEST */,
+  "204" /* OPBNB */
+] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoV1SupportedChainId = !isPro() ? [
-  59144 /* LineaMainnet */,
-  59140 /* LineaTestnet */,
-  204 /* OPBNB */,
-  5611 /* OPBNBTEST */
-] : [59144 /* LineaMainnet */, 204 /* OPBNB */];
+  "59144" /* LineaMainnet */,
+  "59140" /* LineaTestnet */,
+  "204" /* OPBNB */,
+  "5611" /* OPBNBTEST */
+] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoBetaSupportedChainId = !isPro() ? [
-  42161 /* Arbitrum */,
-  421613 /* ArbitrumGoerli */,
-  534351 /* ScrollSepoliaTestnet */,
-  5001 /* MantleTestnet */,
-  5e3 /* Mantle */,
-  9980 /* Combo */,
-  91715 /* ComboTestnet */,
-  3441005 /* MantaPacificTestnet */,
-  169 /* MantaPacificMainnet */
+  "42161" /* Arbitrum */,
+  "421613" /* ArbitrumGoerli */,
+  "534351" /* ScrollSepoliaTestnet */,
+  "5001" /* MantleTestnet */,
+  "5000" /* Mantle */,
+  "9980" /* Combo */,
+  "91715" /* ComboTestnet */,
+  "3441005" /* MantaPacificTestnet */,
+  "169" /* MantaPacificMainnet */
 ] : [
-  42161 /* Arbitrum */,
-  5e3 /* Mantle */,
-  169 /* MantaPacificMainnet */,
-  9980 /* Combo */
+  "42161" /* Arbitrum */,
+  "5000" /* Mantle */,
+  "169" /* MantaPacificMainnet */,
+  "9980" /* Combo */
 ];
 var bingoSupportedChainId = [
   ...bingoV1SupportedChainId,
@@ -117,243 +117,243 @@ var bingoSupportedChainId = [
 ];
 var supportedChainIds = (env, chainList2) => {
   return chainList2 ? chainList2 : !isPro() || env === "develop" ? [
-    59144 /* LineaMainnet */,
-    59140 /* LineaTestnet */,
-    223 /* B2 */,
-    1123 /* B2Testnet */,
-    ChainId.Taiko,
-    204 /* OPBNB */,
-    5611 /* OPBNBTEST */,
-    42161 /* Arbitrum */,
-    421613 /* ArbitrumGoerli */,
-    169 /* MantaPacificMainnet */,
-    3441005 /* MantaPacificTestnet */,
-    5e3 /* Mantle */,
-    5001 /* MantleTestnet */,
-    91715 /* ComboTestnet */,
-    9980 /* Combo */,
-    11155111 /* Sepolia */,
-    50098 /* ZytronLineaSepoliaTestnet */,
-    50097 /* ZytronB2Testnet */
+    "59144" /* LineaMainnet */,
+    "59140" /* LineaTestnet */,
+    "223" /* B2 */,
+    "1123" /* B2Testnet */,
+    "167000" /* Taiko */,
+    "204" /* OPBNB */,
+    "5611" /* OPBNBTEST */,
+    "42161" /* Arbitrum */,
+    "421613" /* ArbitrumGoerli */,
+    "169" /* MantaPacificMainnet */,
+    "3441005" /* MantaPacificTestnet */,
+    "5000" /* Mantle */,
+    "5001" /* MantleTestnet */,
+    "91715" /* ComboTestnet */,
+    "9980" /* Combo */,
+    "11155111" /* Sepolia */,
+    "50098" /* ZytronLineaSepoliaTestnet */,
+    "50097" /* ZytronB2Testnet */
   ] : [
-    59144 /* LineaMainnet */,
-    204 /* OPBNB */,
-    ChainId.Taiko,
-    42161 /* Arbitrum */,
-    5e3 /* Mantle */,
-    9980 /* Combo */,
-    169 /* MantaPacificMainnet */,
-    223 /* B2 */
+    "59144" /* LineaMainnet */,
+    "204" /* OPBNB */,
+    "167000" /* Taiko */,
+    "42161" /* Arbitrum */,
+    "5000" /* Mantle */,
+    "9980" /* Combo */,
+    "169" /* MantaPacificMainnet */,
+    "223" /* B2 */
   ];
 };
 var ChainRpcUrls = {
-  [59140 /* LineaTestnet */]: [
+  ["59140" /* LineaTestnet */]: [
     "https://rpc.goerli.linea.build"
   ],
-  [59144 /* LineaMainnet */]: ["https://rpc.linea.build"],
-  [42161 /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
-  [5611 /* OPBNBTEST */]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
-  [204 /* OPBNB */]: [
+  ["59144" /* LineaMainnet */]: ["https://rpc.linea.build"],
+  ["42161" /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
+  ["5611" /* OPBNBTEST */]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
+  ["204" /* OPBNB */]: [
     "https://opbnb-mainnet-rpc.bnbchain.org",
     "https://opbnb-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3"
   ],
-  [534351 /* ScrollSepoliaTestnet */]: ["https://sepolia-rpc.scroll.io/"],
-  [534353 /* ScrollAlphaTestnet */]: ["https://scroll-alpha-public.unifra.io"],
-  [169 /* MantaPacificMainnet */]: ["https://pacific-rpc.manta.network/http"],
-  [56 /* Bsc */]: [
+  ["534351" /* ScrollSepoliaTestnet */]: ["https://sepolia-rpc.scroll.io/"],
+  ["534353" /* ScrollAlphaTestnet */]: ["https://scroll-alpha-public.unifra.io"],
+  ["169" /* MantaPacificMainnet */]: ["https://pacific-rpc.manta.network/http"],
+  ["56" /* Bsc */]: [
     "https://bsc-dataseed1.binance.org",
     "https://bsc-mainnet.nodereal.io/v1/a986025b4eae4b82b9c2d577c730d09a"
   ],
-  [97 /* BscTestnet */]: [
+  ["97" /* BscTestnet */]: [
     "https://endpoints.omniatech.io/v1/bsc/testnet/public",
     "https://bsc-testnet.publicnode.com",
     "https://bsc-testnet.nodereal.io/v1/9459391f32694c11b182c8d4d9cee750"
   ],
-  [421611 /* ArbitrumRinkeby */]: ["https://rinkeby.arbitrum.io/rpc"],
-  [421613 /* ArbitrumGoerli */]: [
+  ["421611" /* ArbitrumRinkeby */]: ["https://rinkeby.arbitrum.io/rpc"],
+  ["421613" /* ArbitrumGoerli */]: [
     "https://endpoints.omniatech.io/v1/arbitrum/goerli/public",
     "https://goerli-rollup.arbitrum.io/rpc"
   ],
-  [80001 /* POLYGON_MUMBAI */]: [
+  ["80001" /* POLYGON_MUMBAI */]: [
     "https://polygon-mumbai-bor.publicnode.com",
     "https://matic-mumbai.chainstacklabs.com",
     "https://rpc-mumbai.maticvigil.com",
     "https://matic-testnet-archive-rpc.bwarelabs.com"
   ],
-  [1442 /* POLYGON_ZKEVM */]: ["https://rpc.public.zkevm-test.net"],
-  [3441005 /* MantaPacificTestnet */]: [
+  ["1442" /* POLYGON_ZKEVM */]: ["https://rpc.public.zkevm-test.net"],
+  ["3441005" /* MantaPacificTestnet */]: [
     "https://manta-testnet.calderachain.xyz/http"
   ],
-  [9980 /* Combo */]: [
+  ["9980" /* Combo */]: [
     "https://combo-mainnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1",
     "https://combo-mainnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
     "https://combo-mainnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac"
   ],
-  [91715 /* ComboTestnet */]: [
+  ["91715" /* ComboTestnet */]: [
     "https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
     "https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
     "https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1"
   ],
-  [5e3 /* Mantle */]: ["https://mantle.publicnode.com"],
-  [5001 /* MantleTestnet */]: ["https://rpc.testnet.mantle.xyz"],
-  [11155111 /* Sepolia */]: [
+  ["5000" /* Mantle */]: ["https://mantle.publicnode.com"],
+  ["5001" /* MantleTestnet */]: ["https://rpc.testnet.mantle.xyz"],
+  ["11155111" /* Sepolia */]: [
     "https://endpoints.omniatech.io/v1/eth/sepolia/public",
     "https://ethereum-sepolia-rpc.publicnode.com"
   ],
-  [223 /* B2 */]: ["https://rpc.bsquared.network"],
-  [1123 /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
-  [50098 /* ZytronLineaSepoliaTestnet */]: [
+  ["223" /* B2 */]: ["https://rpc.bsquared.network"],
+  ["1123" /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
+  ["50098" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron.zypher.game"
   ],
-  [50097 /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
-  [ChainId.Taiko]: ["https://rpc.hekla.taiko.xyz"]
+  ["50097" /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
+  ["167000" /* Taiko */]: ["https://rpc.hekla.taiko.xyz"]
 };
 var ChainRpcWebSocketUrls = {
-  [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
-  [1442 /* POLYGON_ZKEVM */]: [],
-  [534353 /* ScrollAlphaTestnet */]: [],
-  [5611 /* OPBNBTEST */]: [],
-  [204 /* OPBNB */]: [],
-  [534351 /* ScrollSepoliaTestnet */]: []
+  ["421613" /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
+  ["1442" /* POLYGON_ZKEVM */]: [],
+  ["534353" /* ScrollAlphaTestnet */]: [],
+  ["5611" /* OPBNBTEST */]: [],
+  ["204" /* OPBNB */]: [],
+  ["534351" /* ScrollSepoliaTestnet */]: []
 };
 var BlockExplorerUrls = {
-  [56 /* Bsc */]: ["https://bscscan.com"],
-  [97 /* BscTestnet */]: ["https://testnet.bscscan.com"],
-  [42161 /* Arbitrum */]: ["https://arbiscan.io"],
-  [421611 /* ArbitrumRinkeby */]: ["https://testnet.arbiscan.io"],
-  [59140 /* LineaTestnet */]: ["https://explorer.goerli.linea.build"],
-  [80001 /* POLYGON_MUMBAI */]: ["https://mumbai.polygonscan.com"],
-  [59144 /* LineaMainnet */]: ["https://lineascan.build"],
-  [421613 /* ArbitrumGoerli */]: ["https://goerli.arbiscan.io/"],
-  [1442 /* POLYGON_ZKEVM */]: ["https://testnet-zkevm.polygonscan.com"],
-  [5611 /* OPBNBTEST */]: ["https://opbnb-testnet.bscscan.com"],
-  [204 /* OPBNB */]: ["https://opbnbscan.com/"],
-  [534351 /* ScrollSepoliaTestnet */]: ["https://sepolia-blockscout.scroll.io"],
-  [534353 /* ScrollAlphaTestnet */]: ["https://alpha-blockscout.scroll.io"],
-  [169 /* MantaPacificMainnet */]: ["https://pacific-explorer.manta.network"],
-  [3441005 /* MantaPacificTestnet */]: ["https://manta-testnet.calderaexplorer.xyz"],
-  [91715 /* ComboTestnet */]: ["https://combotrace-testnet.nodereal.io/"],
-  [5e3 /* Mantle */]: ["https://explorer.mantle.xyz"],
-  [5001 /* MantleTestnet */]: ["https://explorer.testnet.mantle.xyz"],
-  [9980 /* Combo */]: ["https://combotrace.nodereal.io"],
-  [11155111 /* Sepolia */]: ["https://sepolia.etherscan.io"],
-  [223 /* B2 */]: ["https://explorer.bsquared.network"],
-  [1123 /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
-  [50098 /* ZytronLineaSepoliaTestnet */]: [
+  ["56" /* Bsc */]: ["https://bscscan.com"],
+  ["97" /* BscTestnet */]: ["https://testnet.bscscan.com"],
+  ["42161" /* Arbitrum */]: ["https://arbiscan.io"],
+  ["421611" /* ArbitrumRinkeby */]: ["https://testnet.arbiscan.io"],
+  ["59140" /* LineaTestnet */]: ["https://explorer.goerli.linea.build"],
+  ["80001" /* POLYGON_MUMBAI */]: ["https://mumbai.polygonscan.com"],
+  ["59144" /* LineaMainnet */]: ["https://lineascan.build"],
+  ["421613" /* ArbitrumGoerli */]: ["https://goerli.arbiscan.io/"],
+  ["1442" /* POLYGON_ZKEVM */]: ["https://testnet-zkevm.polygonscan.com"],
+  ["5611" /* OPBNBTEST */]: ["https://opbnb-testnet.bscscan.com"],
+  ["204" /* OPBNB */]: ["https://opbnbscan.com/"],
+  ["534351" /* ScrollSepoliaTestnet */]: ["https://sepolia-blockscout.scroll.io"],
+  ["534353" /* ScrollAlphaTestnet */]: ["https://alpha-blockscout.scroll.io"],
+  ["169" /* MantaPacificMainnet */]: ["https://pacific-explorer.manta.network"],
+  ["3441005" /* MantaPacificTestnet */]: ["https://manta-testnet.calderaexplorer.xyz"],
+  ["91715" /* ComboTestnet */]: ["https://combotrace-testnet.nodereal.io/"],
+  ["5000" /* Mantle */]: ["https://explorer.mantle.xyz"],
+  ["5001" /* MantleTestnet */]: ["https://explorer.testnet.mantle.xyz"],
+  ["9980" /* Combo */]: ["https://combotrace.nodereal.io"],
+  ["11155111" /* Sepolia */]: ["https://sepolia.etherscan.io"],
+  ["223" /* B2 */]: ["https://explorer.bsquared.network"],
+  ["1123" /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
+  ["50098" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron-blockscout.zypher.game"
   ],
-  [50097 /* ZytronB2Testnet */]: [
+  ["50097" /* ZytronB2Testnet */]: [
     "https://b2-testnet-zytron-blockscout.zypher.game"
   ],
-  [ChainId.Taiko]: ["https://hekla.taikoscan.network"]
+  ["167000" /* Taiko */]: ["https://hekla.taikoscan.network"]
 };
 var ChainName = {
-  [56 /* Bsc */]: "BSC Mainnet",
-  [97 /* BscTestnet */]: "BSC Testnet",
-  [42161 /* Arbitrum */]: "Arbitrum One",
-  [421613 /* ArbitrumGoerli */]: "Arbitrum Goerli Testnet",
-  [421611 /* ArbitrumRinkeby */]: "Arbitrum Rinkeby",
-  [59140 /* LineaTestnet */]: "Linea Testnet",
-  [59144 /* LineaMainnet */]: "Linea Mainnet",
-  [80001 /* POLYGON_MUMBAI */]: "Polygon Mumbai",
-  [1442 /* POLYGON_ZKEVM */]: "Polygon zkEVM Testnet",
-  [5611 /* OPBNBTEST */]: "opBNB testnet",
-  [204 /* OPBNB */]: "opBNB Mainnet",
-  [534353 /* ScrollAlphaTestnet */]: "Scroll Alpha Testnet",
-  [534351 /* ScrollSepoliaTestnet */]: "Scroll Sepolia Testnet",
-  [169 /* MantaPacificMainnet */]: "Manta Pacific",
-  [3441005 /* MantaPacificTestnet */]: "Manta Pacific Testnet",
-  [91715 /* ComboTestnet */]: "Combo Testnet",
-  [5e3 /* Mantle */]: "Mantle",
-  [5001 /* MantleTestnet */]: "Mantle Testnet",
-  [9980 /* Combo */]: "Combo",
-  [11155111 /* Sepolia */]: "Sepolia",
-  [223 /* B2 */]: "B\xB2",
-  [1123 /* B2Testnet */]: "B\xB2 Testnet",
-  [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  [50097 /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
-  [ChainId.Taiko]: "Taiko Mainnet"
+  ["56" /* Bsc */]: "BSC Mainnet",
+  ["97" /* BscTestnet */]: "BSC Testnet",
+  ["42161" /* Arbitrum */]: "Arbitrum One",
+  ["421613" /* ArbitrumGoerli */]: "Arbitrum Goerli Testnet",
+  ["421611" /* ArbitrumRinkeby */]: "Arbitrum Rinkeby",
+  ["59140" /* LineaTestnet */]: "Linea Testnet",
+  ["59144" /* LineaMainnet */]: "Linea Mainnet",
+  ["80001" /* POLYGON_MUMBAI */]: "Polygon Mumbai",
+  ["1442" /* POLYGON_ZKEVM */]: "Polygon zkEVM Testnet",
+  ["5611" /* OPBNBTEST */]: "opBNB testnet",
+  ["204" /* OPBNB */]: "opBNB Mainnet",
+  ["534353" /* ScrollAlphaTestnet */]: "Scroll Alpha Testnet",
+  ["534351" /* ScrollSepoliaTestnet */]: "Scroll Sepolia Testnet",
+  ["169" /* MantaPacificMainnet */]: "Manta Pacific",
+  ["3441005" /* MantaPacificTestnet */]: "Manta Pacific Testnet",
+  ["91715" /* ComboTestnet */]: "Combo Testnet",
+  ["5000" /* Mantle */]: "Mantle",
+  ["5001" /* MantleTestnet */]: "Mantle Testnet",
+  ["9980" /* Combo */]: "Combo",
+  ["11155111" /* Sepolia */]: "Sepolia",
+  ["223" /* B2 */]: "B\xB2",
+  ["1123" /* B2Testnet */]: "B\xB2 Testnet",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
+  ["167000" /* Taiko */]: "Taiko Mainnet"
 };
 var ChainNetworkName = {
-  [56 /* Bsc */]: "bsc",
-  [97 /* BscTestnet */]: "bsc-testnet",
-  [42161 /* Arbitrum */]: "arbitrum",
-  [421611 /* ArbitrumRinkeby */]: "arbitrum-rinkeby",
-  [59140 /* LineaTestnet */]: "linea-testnet",
-  [59144 /* LineaMainnet */]: "linea",
-  [80001 /* POLYGON_MUMBAI */]: "maticmum",
-  [421613 /* ArbitrumGoerli */]: "arbitrum-goerli",
-  [1442 /* POLYGON_ZKEVM */]: "polygon_zkEVM_testnet",
-  [534353 /* ScrollAlphaTestnet */]: "Scroll Alpha Testnet",
-  [5611 /* OPBNBTEST */]: "opBNB testnet",
-  [204 /* OPBNB */]: "opBNB Mainnet",
-  [534351 /* ScrollSepoliaTestnet */]: "Scroll Sepolia Testnet",
-  [169 /* MantaPacificMainnet */]: "Manta Pacific",
-  [3441005 /* MantaPacificTestnet */]: "Manta Pacific",
-  [9980 /* Combo */]: "Combo",
-  [91715 /* ComboTestnet */]: "Combo Testnet",
-  [5e3 /* Mantle */]: "Mantle",
-  [5001 /* MantleTestnet */]: "Mantle Testnet",
-  [11155111 /* Sepolia */]: "Sepolia",
-  [223 /* B2 */]: "B\xB2 Mainnet",
-  [1123 /* B2Testnet */]: "B\xB2 Testnet",
-  [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  [50097 /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
-  [ChainId.Taiko]: "Taiko Mainnet"
+  ["56" /* Bsc */]: "bsc",
+  ["97" /* BscTestnet */]: "bsc-testnet",
+  ["42161" /* Arbitrum */]: "arbitrum",
+  ["421611" /* ArbitrumRinkeby */]: "arbitrum-rinkeby",
+  ["59140" /* LineaTestnet */]: "linea-testnet",
+  ["59144" /* LineaMainnet */]: "linea",
+  ["80001" /* POLYGON_MUMBAI */]: "maticmum",
+  ["421613" /* ArbitrumGoerli */]: "arbitrum-goerli",
+  ["1442" /* POLYGON_ZKEVM */]: "polygon_zkEVM_testnet",
+  ["534353" /* ScrollAlphaTestnet */]: "Scroll Alpha Testnet",
+  ["5611" /* OPBNBTEST */]: "opBNB testnet",
+  ["204" /* OPBNB */]: "opBNB Mainnet",
+  ["534351" /* ScrollSepoliaTestnet */]: "Scroll Sepolia Testnet",
+  ["169" /* MantaPacificMainnet */]: "Manta Pacific",
+  ["3441005" /* MantaPacificTestnet */]: "Manta Pacific",
+  ["9980" /* Combo */]: "Combo",
+  ["91715" /* ComboTestnet */]: "Combo Testnet",
+  ["5000" /* Mantle */]: "Mantle",
+  ["5001" /* MantleTestnet */]: "Mantle Testnet",
+  ["11155111" /* Sepolia */]: "Sepolia",
+  ["223" /* B2 */]: "B\xB2 Mainnet",
+  ["1123" /* B2Testnet */]: "B\xB2 Testnet",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
+  ["167000" /* Taiko */]: "Taiko Mainnet"
 };
 var isTestnet = {
-  [56 /* Bsc */]: false,
-  [97 /* BscTestnet */]: true,
-  [42161 /* Arbitrum */]: false,
-  [421611 /* ArbitrumRinkeby */]: true,
-  [59140 /* LineaTestnet */]: true,
-  [59144 /* LineaMainnet */]: false,
-  [80001 /* POLYGON_MUMBAI */]: true,
-  [1442 /* POLYGON_ZKEVM */]: true,
-  [204 /* OPBNB */]: false,
-  [5611 /* OPBNBTEST */]: true,
-  [421613 /* ArbitrumGoerli */]: true,
-  [534351 /* ScrollSepoliaTestnet */]: true,
-  [534353 /* ScrollAlphaTestnet */]: true,
-  [169 /* MantaPacificMainnet */]: false,
-  [3441005 /* MantaPacificTestnet */]: true,
-  [9980 /* Combo */]: false,
-  [91715 /* ComboTestnet */]: true,
-  [5e3 /* Mantle */]: false,
-  [5001 /* MantleTestnet */]: true,
-  [11155111 /* Sepolia */]: true,
-  [223 /* B2 */]: false,
-  [1123 /* B2Testnet */]: true,
-  [50098 /* ZytronLineaSepoliaTestnet */]: true,
-  [50097 /* ZytronB2Testnet */]: true,
-  [ChainId.Taiko]: false
+  ["56" /* Bsc */]: false,
+  ["97" /* BscTestnet */]: true,
+  ["42161" /* Arbitrum */]: false,
+  ["421611" /* ArbitrumRinkeby */]: true,
+  ["59140" /* LineaTestnet */]: true,
+  ["59144" /* LineaMainnet */]: false,
+  ["80001" /* POLYGON_MUMBAI */]: true,
+  ["1442" /* POLYGON_ZKEVM */]: true,
+  ["204" /* OPBNB */]: false,
+  ["5611" /* OPBNBTEST */]: true,
+  ["421613" /* ArbitrumGoerli */]: true,
+  ["534351" /* ScrollSepoliaTestnet */]: true,
+  ["534353" /* ScrollAlphaTestnet */]: true,
+  ["169" /* MantaPacificMainnet */]: false,
+  ["3441005" /* MantaPacificTestnet */]: true,
+  ["9980" /* Combo */]: false,
+  ["91715" /* ComboTestnet */]: true,
+  ["5000" /* Mantle */]: false,
+  ["5001" /* MantleTestnet */]: true,
+  ["11155111" /* Sepolia */]: true,
+  ["223" /* B2 */]: false,
+  ["1123" /* B2Testnet */]: true,
+  ["50098" /* ZytronLineaSepoliaTestnet */]: true,
+  ["50097" /* ZytronB2Testnet */]: true,
+  ["167000" /* Taiko */]: false
 };
 var Currency = {
-  [56 /* Bsc */]: "BNB",
-  [97 /* BscTestnet */]: "BNB",
-  [42161 /* Arbitrum */]: "ETH",
-  [421611 /* ArbitrumRinkeby */]: "ETH",
-  [59140 /* LineaTestnet */]: "ETH",
-  [59144 /* LineaMainnet */]: "ETH",
-  [80001 /* POLYGON_MUMBAI */]: "ETH",
-  [421613 /* ArbitrumGoerli */]: "ETH",
-  [1442 /* POLYGON_ZKEVM */]: "ETH",
-  [5611 /* OPBNBTEST */]: "BNB",
-  [204 /* OPBNB */]: "BNB",
-  [534353 /* ScrollAlphaTestnet */]: "ETH",
-  [534351 /* ScrollSepoliaTestnet */]: "ETH",
-  [169 /* MantaPacificMainnet */]: "ETH",
-  [3441005 /* MantaPacificTestnet */]: "ETH",
-  [9980 /* Combo */]: "BNB",
-  [91715 /* ComboTestnet */]: "BNB",
-  [5e3 /* Mantle */]: "MNT",
-  [5001 /* MantleTestnet */]: "MNT",
-  [11155111 /* Sepolia */]: "ETH",
-  [223 /* B2 */]: "BTC",
-  [1123 /* B2Testnet */]: "BTC",
-  [50098 /* ZytronLineaSepoliaTestnet */]: "ETH",
-  [50097 /* ZytronB2Testnet */]: "BTC",
-  [ChainId.Taiko]: "ETH"
+  ["56" /* Bsc */]: "BNB",
+  ["97" /* BscTestnet */]: "BNB",
+  ["42161" /* Arbitrum */]: "ETH",
+  ["421611" /* ArbitrumRinkeby */]: "ETH",
+  ["59140" /* LineaTestnet */]: "ETH",
+  ["59144" /* LineaMainnet */]: "ETH",
+  ["80001" /* POLYGON_MUMBAI */]: "ETH",
+  ["421613" /* ArbitrumGoerli */]: "ETH",
+  ["1442" /* POLYGON_ZKEVM */]: "ETH",
+  ["5611" /* OPBNBTEST */]: "BNB",
+  ["204" /* OPBNB */]: "BNB",
+  ["534353" /* ScrollAlphaTestnet */]: "ETH",
+  ["534351" /* ScrollSepoliaTestnet */]: "ETH",
+  ["169" /* MantaPacificMainnet */]: "ETH",
+  ["3441005" /* MantaPacificTestnet */]: "ETH",
+  ["9980" /* Combo */]: "BNB",
+  ["91715" /* ComboTestnet */]: "BNB",
+  ["5000" /* Mantle */]: "MNT",
+  ["5001" /* MantleTestnet */]: "MNT",
+  ["11155111" /* Sepolia */]: "ETH",
+  ["223" /* B2 */]: "BTC",
+  ["1123" /* B2Testnet */]: "BTC",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "ETH",
+  ["50097" /* ZytronB2Testnet */]: "BTC",
+  ["167000" /* Taiko */]: "ETH"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -372,81 +372,81 @@ var CurrencyLogo = Object.fromEntries(
 );
 var MulticallV3 = "0xca11bde05977b3631167028862be2a173976ca11";
 var CurrencyContract = {
-  [56 /* Bsc */]: {
+  ["56" /* Bsc */]: {
     multicall: [MulticallV3]
   },
-  [97 /* BscTestnet */]: {
+  ["97" /* BscTestnet */]: {
     multicall: [MulticallV3]
   },
-  [42161 /* Arbitrum */]: {
+  ["42161" /* Arbitrum */]: {
     multicall: [MulticallV3]
   },
-  [421611 /* ArbitrumRinkeby */]: {
+  ["421611" /* ArbitrumRinkeby */]: {
     multicall: [MulticallV3]
   },
-  [59140 /* LineaTestnet */]: {
+  ["59140" /* LineaTestnet */]: {
     multicall: [
       "0xd71fB4a432083fE1e78a73e5b8FC014244e8E266",
       "0xBA736a65D287D63012caF07558CA33abC925ea64",
       "0xae2F2660EdEf3197648cC89432a197a000b97EC3"
     ]
   },
-  [59144 /* LineaMainnet */]: {
+  ["59144" /* LineaMainnet */]: {
     multicall: [MulticallV3]
   },
-  [80001 /* POLYGON_MUMBAI */]: {
+  ["80001" /* POLYGON_MUMBAI */]: {
     multicall: [MulticallV3]
   },
-  [421613 /* ArbitrumGoerli */]: {
+  ["421613" /* ArbitrumGoerli */]: {
     multicall: [MulticallV3]
   },
-  [1442 /* POLYGON_ZKEVM */]: {
+  ["1442" /* POLYGON_ZKEVM */]: {
     multicall: [MulticallV3]
   },
-  [5611 /* OPBNBTEST */]: {
+  ["5611" /* OPBNBTEST */]: {
     multicall: [MulticallV3]
   },
-  [204 /* OPBNB */]: {
+  ["204" /* OPBNB */]: {
     multicall: [MulticallV3]
   },
-  [534351 /* ScrollSepoliaTestnet */]: {
+  ["534351" /* ScrollSepoliaTestnet */]: {
     multicall: [MulticallV3, "0xA10417e9210E8Ad2e8665e11b5E78d804956eb6E"]
   },
-  [534353 /* ScrollAlphaTestnet */]: {
+  ["534353" /* ScrollAlphaTestnet */]: {
     multicall: [MulticallV3]
   },
-  [169 /* MantaPacificMainnet */]: {
+  ["169" /* MantaPacificMainnet */]: {
     multicall: [MulticallV3]
   },
-  [3441005 /* MantaPacificTestnet */]: {
+  ["3441005" /* MantaPacificTestnet */]: {
     multicall: ["0xd4E91b4401EDb2BD95791462F4ccAaae4026540D"]
   },
-  [9980 /* Combo */]: {
+  ["9980" /* Combo */]: {
     multicall: ["0x67c369D697C7A3B5BAE1cA9AEF0bA32F6d4d815a"]
   },
-  [91715 /* ComboTestnet */]: {
+  ["91715" /* ComboTestnet */]: {
     multicall: ["0x4961661f732e995133fDAa7881481BB10e424f78"]
   },
-  [5e3 /* Mantle */]: {
+  ["5000" /* Mantle */]: {
     multicall: [MulticallV3]
   },
-  [5001 /* MantleTestnet */]: {
+  ["5001" /* MantleTestnet */]: {
     multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"]
   },
-  [11155111 /* Sepolia */]: {
+  ["11155111" /* Sepolia */]: {
     multicall: [MulticallV3]
   },
-  [223 /* B2 */]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
-  [1123 /* B2Testnet */]: {
+  ["223" /* B2 */]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
+  ["1123" /* B2Testnet */]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   },
-  [50098 /* ZytronLineaSepoliaTestnet */]: {
+  ["50098" /* ZytronLineaSepoliaTestnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
   },
-  [50097 /* ZytronB2Testnet */]: {
+  ["50097" /* ZytronB2Testnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
   },
-  [ChainId.Taiko]: {
+  ["167000" /* Taiko */]: {
     multicall: ["0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9"]
   }
 };
@@ -535,19 +535,19 @@ var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
   return ITvlHero2;
 })(ITvlHero || {});
 var TVLChainId = ((TVLChainId2) => {
-  TVLChainId2[TVLChainId2["B2"] = 223 /* B2 */] = "B2";
-  TVLChainId2[TVLChainId2["B2Testnet"] = 1123 /* B2Testnet */] = "B2Testnet";
-  TVLChainId2[TVLChainId2["LineaMainnet"] = 59144 /* LineaMainnet */] = "LineaMainnet";
-  TVLChainId2[TVLChainId2["LineaTestnet"] = 59140 /* LineaTestnet */] = "LineaTestnet";
+  TVLChainId2[TVLChainId2["B2"] = "223" /* B2 */] = "B2";
+  TVLChainId2[TVLChainId2["B2Testnet"] = "1123" /* B2Testnet */] = "B2Testnet";
+  TVLChainId2[TVLChainId2["LineaMainnet"] = "59144" /* LineaMainnet */] = "LineaMainnet";
+  TVLChainId2[TVLChainId2["LineaTestnet"] = "59140" /* LineaTestnet */] = "LineaTestnet";
   return TVLChainId2;
 })(TVLChainId || {});
 var defaultActiveChainId = TVLChainId.B2Testnet;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] : [];
 var L3ChainId = {
-  [TVLChainId.B2]: 50097 /* ZytronB2Testnet */,
-  [TVLChainId.B2Testnet]: 50097 /* ZytronB2Testnet */,
-  [TVLChainId.LineaMainnet]: 50098 /* ZytronLineaSepoliaTestnet */,
-  [TVLChainId.LineaTestnet]: 50098 /* ZytronLineaSepoliaTestnet */
+  [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
+  [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
+  [TVLChainId.LineaMainnet]: "50098" /* ZytronLineaSepoliaTestnet */,
+  [TVLChainId.LineaTestnet]: "50098" /* ZytronLineaSepoliaTestnet */
 };
 var activeTokenList = {
   [TVLChainId.LineaTestnet]: {
@@ -1861,8 +1861,8 @@ function useActiveWeb3React(env, chainList2) {
   const provider = usePublicClient();
   return useMemo(() => {
     return {
-      chainId: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : chainId,
-      account: chainId && !supportedChainIds(env, chainList2).includes(chainId) ? void 0 : address,
+      chainId: chainId && !supportedChainIds(env, chainList2).includes(`${chainId}`) ? void 0 : `${chainId}`,
+      account: chainId && !supportedChainIds(env, chainList2).includes(`${chainId}`) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -3306,13 +3306,15 @@ var WagmiChainList = Object.values(chainList);
 var getSupportedChainIdList = (env, chainIdList) => {
   return supportedChainIds(env, chainIdList).map((chainId) => {
     var _a;
-    const chainFilter = WagmiChainList.filter((v) => v.id === chainId);
+    const chainFilter = WagmiChainList.filter(
+      (v) => `${v.id}` === chainId
+    );
     if (chainFilter && chainFilter.length) {
       const chainLocal = chainFilter[0];
       return chainLocal;
     }
     return {
-      id: chainId,
+      id: parseInt(chainId, 10),
       name: ChainName[chainId],
       network: ChainNetworkName[chainId],
       nativeCurrency: {
@@ -3411,7 +3413,7 @@ var viemClients = (env) => {
         ),
         batch: {
           multicall: {
-            batchSize: cur.id === 1442 /* POLYGON_ZKEVM */ ? 128 : 1024 * 200
+            batchSize: `${cur.id}` === "1442" /* POLYGON_ZKEVM */ ? 128 : 1024 * 200
           }
         }
       })
@@ -3539,10 +3541,10 @@ var bingoPoints_default = ZkBingoPointsContract;
 // src/hooks/usePoint.ts
 import { ethers as ethers2 } from "ethers";
 var ChainPointPrice = {
-  [59144 /* LineaMainnet */]: 1 / 2e6,
-  [59140 /* LineaTestnet */]: 1 / 2e6,
-  [204 /* OPBNB */]: 1 / 25e4,
-  [5611 /* OPBNBTEST */]: 1 / 25e4
+  ["59144" /* LineaMainnet */]: 1 / 2e6,
+  ["59140" /* LineaTestnet */]: 1 / 2e6,
+  ["204" /* OPBNB */]: 1 / 25e4,
+  ["5611" /* OPBNBTEST */]: 1 / 25e4
 };
 var pointsListDefault = (chainId) => {
   try {
@@ -4474,11 +4476,11 @@ var DialogTitle_default = DialogTitle;
 // src/components/ConnectWallet/components/linkToBetaDialog/localPathUrl.ts
 var getChainNameText = (chainId) => {
   let text = "Beta";
-  if (chainId === 91715 /* ComboTestnet */) {
+  if (chainId === "91715" /* ComboTestnet */) {
     text = "Combo";
-  } else if (chainId === 169 /* MantaPacificMainnet */ || chainId === 3441005 /* MantaPacificTestnet */) {
+  } else if (chainId === "169" /* MantaPacificMainnet */ || chainId === "3441005" /* MantaPacificTestnet */) {
     text = "Manta";
-  } else if (chainId === 5e3 /* Mantle */ || chainId === 5001 /* MantleTestnet */) {
+  } else if (chainId === "5000" /* Mantle */ || chainId === "5001" /* MantleTestnet */) {
     text = "Mantle";
   }
   return [text.toLowerCase(), text];
@@ -4520,7 +4522,7 @@ var LinkToBetaDialog = memo21(() => {
   const isMobile2 = useIsW768();
   const ToUrlName = useMemo6(() => {
     if (linkToBetaDialogChainId) {
-      if (linkToBetaDialogChainId === 9980 /* Combo */) {
+      if (linkToBetaDialogChainId === "9980" /* Combo */) {
         return ["https://app.zypher.game/2048/"];
       }
       return getChainNameText(linkToBetaDialogChainId);
@@ -4559,14 +4561,14 @@ var LinkToBetaDialog = memo21(() => {
     classNames: isMobile2 ? "modalTitleInner" : ""
   }), /* @__PURE__ */ React25.createElement(Content, null, /* @__PURE__ */ React25.createElement(WarningOutlined, {
     style: { color: "#1649FF", fontSize: "50px" }
-  }), /* @__PURE__ */ React25.createElement(Text, null, linkToBetaDialogChainId === 9980 /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
+  }), /* @__PURE__ */ React25.createElement(Text, null, linkToBetaDialogChainId === "9980" /* Combo */ ? "Combo is currently only deployed in 2048." : t("linkToBeta", {
     chainName: linkToBetaDialogChainId ? ChainName[linkToBetaDialogChainId] : "",
     toUrlName: ToUrlName[1]
   }))), /* @__PURE__ */ React25.createElement("div", {
     style: { padding: "0 20px 30px" }
   }, /* @__PURE__ */ React25.createElement(DialogButton, {
     onClick: handleButtonClick
-  }, linkToBetaDialogChainId === 9980 /* Combo */ ? "Go to Play 2048" : t("GotoVersion", {
+  }, linkToBetaDialogChainId === "9980" /* Combo */ ? "Go to Play 2048" : t("GotoVersion", {
     toUrlName: ToUrlName[0]
   }))));
 }, isEqual);
@@ -10909,9 +10911,9 @@ var RainbowConnectWallet = memo33((props) => {
       onClick: openConnectModal,
       className: "connect_connect"
     }, /* @__PURE__ */ React92.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || !supportedChainIds(env, supportedChainList).includes(
-      chain.id
+      `${chain.id}`
     )) ? /* @__PURE__ */ React92.createElement(React92.Fragment, null, /* @__PURE__ */ React92.createElement("p", null, supportedChainIds(env, supportedChainList).join("-")), /* @__PURE__ */ React92.createElement("p", null, chain.id), /* @__PURE__ */ React92.createElement("p", null, typeof supportedChainIds(env, supportedChainList)[0]), /* @__PURE__ */ React92.createElement("p", null, typeof chain.id), /* @__PURE__ */ React92.createElement("p", null, chain.unsupported ? "true" : "false", " ", supportedChainIds(env, supportedChainList).includes(
-      chain.id
+      `${chain.id}`
     ) ? "true" : "false"), /* @__PURE__ */ React92.createElement(WrongNetwork_default, {
       type
     })) : /* @__PURE__ */ React92.createElement(rainbow_account_default, {
@@ -11341,35 +11343,35 @@ var useRecentGamesFromGraph = ({
   };
 };
 var graphqlApiUrl = {
-  [59144 /* LineaMainnet */]: "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
-  [59140 /* LineaTestnet */]: "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
-  [204 /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  [5611 /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  [421613 /* ArbitrumGoerli */]: "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo"
+  ["59144" /* LineaMainnet */]: "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
+  ["59140" /* LineaTestnet */]: "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
+  ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  ["421613" /* ArbitrumGoerli */]: "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo"
 };
 var chainIdPre = {
-  [56 /* Bsc */]: "BNB",
-  [97 /* BscTestnet */]: "BT",
-  [42161 /* Arbitrum */]: "AO",
-  [421613 /* ArbitrumGoerli */]: "AGT",
-  [421611 /* ArbitrumRinkeby */]: "ARBR",
-  [59140 /* LineaTestnet */]: "LT",
-  [59144 /* LineaMainnet */]: "LM",
-  [80001 /* POLYGON_MUMBAI */]: "PM",
-  [1442 /* POLYGON_ZKEVM */]: "PZT",
-  [204 /* OPBNB */]: "OB",
-  [534351 /* ScrollSepoliaTestnet */]: "SST",
-  [534353 /* ScrollAlphaTestnet */]: "SAT",
-  [5611 /* OPBNBTEST */]: "OBT",
-  [169 /* MantaPacificMainnet */]: "MPM",
-  [3441005 /* MantaPacificTestnet */]: "MPT",
-  [91715 /* ComboTestnet */]: "CbT",
-  [5e3 /* Mantle */]: "MTM",
-  [5001 /* MantleTestnet */]: "MTT",
-  [9980 /* Combo */]: "Cb",
-  [11155111 /* Sepolia */]: "Sp",
-  [223 /* B2 */]: "B2",
-  [1123 /* B2Testnet */]: "B2T"
+  ["56" /* Bsc */]: "BNB",
+  ["97" /* BscTestnet */]: "BT",
+  ["42161" /* Arbitrum */]: "AO",
+  ["421613" /* ArbitrumGoerli */]: "AGT",
+  ["421611" /* ArbitrumRinkeby */]: "ARBR",
+  ["59140" /* LineaTestnet */]: "LT",
+  ["59144" /* LineaMainnet */]: "LM",
+  ["80001" /* POLYGON_MUMBAI */]: "PM",
+  ["1442" /* POLYGON_ZKEVM */]: "PZT",
+  ["204" /* OPBNB */]: "OB",
+  ["534351" /* ScrollSepoliaTestnet */]: "SST",
+  ["534353" /* ScrollAlphaTestnet */]: "SAT",
+  ["5611" /* OPBNBTEST */]: "OBT",
+  ["169" /* MantaPacificMainnet */]: "MPM",
+  ["3441005" /* MantaPacificTestnet */]: "MPT",
+  ["91715" /* ComboTestnet */]: "CbT",
+  ["5000" /* Mantle */]: "MTM",
+  ["5001" /* MantleTestnet */]: "MTT",
+  ["9980" /* Combo */]: "Cb",
+  ["11155111" /* Sepolia */]: "Sp",
+  ["223" /* B2 */]: "B2",
+  ["1123" /* B2Testnet */]: "B2T"
 };
 function getStatus(status) {
   if (status === 0) {

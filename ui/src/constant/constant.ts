@@ -26,36 +26,36 @@ export const preStaticUrl = isPro()
   ? "https://static.zypher.game"
   : "https://static-dev.zypher.game";
 export enum ChainId {
-  Bsc = 56,
-  BscTestnet = 97,
-  Arbitrum = 42161,
-  ArbitrumRinkeby = 421611,
-  ArbitrumGoerli = 421613,
-  LineaTestnet = 59140,
-  LineaMainnet = 59144,
-  POLYGON_MUMBAI = 80001,
+  Bsc = "56",
+  BscTestnet = "97",
+  Arbitrum = "42161",
+  ArbitrumRinkeby = "421611",
+  ArbitrumGoerli = "421613",
+  LineaTestnet = "59140",
+  LineaMainnet = "59144",
+  POLYGON_MUMBAI = "80001",
 
   //develop
-  POLYGON_ZKEVM = 1442,
-  ScrollAlphaTestnet = 534353,
-  OPBNBTEST = 5611,
-  OPBNB = 204,
-  ScrollSepoliaTestnet = 534351,
-  MantaPacificMainnet = 169,
-  MantaPacificTestnet = 3441005,
-  Combo = 9980,
-  ComboTestnet = 91715,
-  Mantle = 5000,
-  MantleTestnet = 5001,
+  POLYGON_ZKEVM = "1442",
+  ScrollAlphaTestnet = "534353",
+  OPBNBTEST = "5611",
+  OPBNB = "204",
+  ScrollSepoliaTestnet = "534351",
+  MantaPacificMainnet = "169",
+  MantaPacificTestnet = "3441005",
+  Combo = "9980",
+  ComboTestnet = "91715",
+  Mantle = "5000",
+  MantleTestnet = "5001",
 
-  Sepolia = 11155111,
-  B2 = 223,
-  B2Testnet = 1123,
+  Sepolia = "11155111",
+  B2 = "223",
+  B2Testnet = "1123",
 
-  ZytronLineaSepoliaTestnet = 50098,
-  ZytronB2Testnet = 50097,
+  ZytronLineaSepoliaTestnet = "50098",
+  ZytronB2Testnet = "50097",
 
-  Taiko = Number("167000"),
+  Taiko = "167000",
 }
 export const DPSupportChainId = !isPro()
   ? [
@@ -101,7 +101,7 @@ export const bingoSupportedChainId = [
 export const supportedChainIds = (
   env?: string,
   chainList?: ChainId[]
-): ChainId[] => {
+): Array<ChainId> => {
   return chainList
     ? chainList
     : !isPro() || env === "develop"
@@ -472,7 +472,7 @@ export enum IContractName {
   ZkGame2048API = "ZkGame2048API",
 }
 export const zkBingoV0 = (
-  chainId: number | undefined,
+  chainId: ChainId | undefined,
   name: IContractName
 ): Address => {
   if (!chainId) {
@@ -503,7 +503,7 @@ export const zkBingoV0 = (
   }
 };
 export const zkBingo = (
-  chainId: number | undefined,
+  chainId: ChainId | undefined,
   name: IContractName
 ): Address => {
   if (!chainId) {
