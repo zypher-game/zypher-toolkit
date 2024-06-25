@@ -11162,31 +11162,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback31, useEffect as useEffect32, useState as useState23 } from "react";
-
-// src/hooks/useInterval.ts
-import { useEffect as useEffect31, useRef as useRef9 } from "react";
-function useInterval(callback, delay, leading = true) {
-  const savedCallback = useRef9();
-  useEffect31(() => {
-    savedCallback.current = callback;
-  }, [callback]);
-  useEffect31(() => {
-    function tick() {
-      const current = savedCallback.current;
-      current && current();
-    }
-    if (delay !== null) {
-      if (leading)
-        tick();
-      const id = setInterval(tick, delay);
-      return () => clearInterval(id);
-    }
-    return void 0;
-  }, [delay, leading]);
-}
-
-// src/hooks/useRecentGamesFromGraph.ts
+import { useCallback as useCallback31, useEffect as useEffect31, useState as useState23 } from "react";
 import BigNumberjs3 from "bignumber.js";
 import { ethers as ethers4 } from "ethers";
 
@@ -11313,7 +11289,9 @@ var useRecentGamesFromGraph = ({
   const fetchGameInfos = useCallback31(async () => {
     var _a, _b;
     try {
+      console.log(111123, batchRequestFromGraph);
       const value_pre = await batchRequestFromGraph({ env });
+      console.log({ value_pre });
       const value = value_pre.filter((v) => !!v);
       if (value.length) {
         const gameList = /* @__PURE__ */ new Map();
@@ -11329,14 +11307,13 @@ var useRecentGamesFromGraph = ({
         }
       }
     } catch (e) {
-      console.error("fetchGameInfos error: ", e);
+      console.log("fetchGameInfos error: ", e);
       setHasError(true);
     }
   }, []);
-  useEffect32(() => {
+  useEffect31(() => {
     fetchGameInfos();
   }, []);
-  useInterval(fetchGameInfos, 5e4);
   return {
     list,
     hasError
@@ -11346,8 +11323,7 @@ var graphqlApiUrl = {
   ["59144" /* LineaMainnet */]: "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
   ["59140" /* LineaTestnet */]: "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
   ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  ["421613" /* ArbitrumGoerli */]: "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo"
+  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo"
 };
 var chainIdPre = {
   ["56" /* Bsc */]: "BNB",
@@ -11371,7 +11347,10 @@ var chainIdPre = {
   ["9980" /* Combo */]: "Cb",
   ["11155111" /* Sepolia */]: "Sp",
   ["223" /* B2 */]: "B2",
-  ["1123" /* B2Testnet */]: "B2T"
+  ["1123" /* B2Testnet */]: "B2T",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "",
+  ["50097" /* ZytronB2Testnet */]: "",
+  ["167000" /* Taiko */]: "TK"
 };
 function getStatus(status) {
   if (status === 0) {
@@ -11464,17 +11443,19 @@ function formatDataFromGraph({
 async function batchRequestFromGraph({
   env
 }) {
-  const requests = supportedChainIds(env).map(async (chainIdLocal) => {
-    var _a;
-    const api = graphqlApiUrl[chainIdLocal];
-    if (!api) {
-      return void 0;
-    }
-    const result = await request(api, {
-      method: "POST",
-      data: JSON.stringify({
-        query: `query MyQuery {
-          gameInfos(orderBy: startedAt, orderDirection: desc, first: 40) {
+  try {
+    const requests = supportedChainIds(env).map(
+      async (chainIdLocal) => {
+        var _a;
+        const api = graphqlApiUrl[chainIdLocal];
+        if (!api) {
+          return void 0;
+        }
+        const result = await request(api, {
+          method: "POST",
+          data: JSON.stringify({
+            query: `query MyQuery {
+          gameInfos(orderBy: startedAt, orderDirection: desc, first: 20) {
             cardAddr
             endedAt
             feeAmount
@@ -11491,41 +11472,51 @@ async function batchRequestFromGraph({
             winner
           }
         }`,
-        variables: {},
-        operationName: "MyQuery"
-      }),
-      headers: {
-        "Content-Type": "application/json"
-      }
-    });
-    if (result.data && result.data.data && result.data.data.gameInfos) {
-      if (result.data.data.gameInfos.length) {
-        const gameIdList = result.data.data.gameInfos.map(
-          (v) => parseInt(v.id, 16).toFixed()
-        );
-        const lobbyAddrList = result.data.data.gameInfos.map(
-          (v) => v.lobbyAddr
-        );
-        const endFilter = result.data.data.gameInfos.filter((v) => getStatus(v.status) === "end" /* End */).map((v) => ({ winCardId: v.winCardId, cardAddr: v.cardAddr }));
-        const winCardIdList = endFilter.map((v) => v.winCardId);
-        const cardAddrList = endFilter.map((v) => v.cardAddr);
-        const recentGames = (_a = await getRecentGameById({
-          chainId: chainIdLocal,
-          lobbyAddrList,
-          gameIdList,
-          cardAddrList,
-          winCardIdList
-        })) != null ? _a : /* @__PURE__ */ new Map();
-        return formatDataFromGraph({
-          chainId: chainIdLocal,
-          data: result.data.data.gameInfos,
-          recentGames
+            variables: {},
+            operationName: "MyQuery"
+          }),
+          headers: {
+            "Content-Type": "application/json"
+          }
         });
+        if (result.data && result.data.data && result.data.data.gameInfos) {
+          if (result.data.data.gameInfos.length) {
+            const gameIdList = result.data.data.gameInfos.map(
+              (v) => parseInt(v.id, 16).toFixed()
+            );
+            const lobbyAddrList = result.data.data.gameInfos.map(
+              (v) => v.lobbyAddr
+            );
+            const endFilter = result.data.data.gameInfos.filter((v) => getStatus(v.status) === "end" /* End */).map((v) => ({
+              winCardId: v.winCardId,
+              cardAddr: v.cardAddr
+            }));
+            const winCardIdList = endFilter.map((v) => v.winCardId);
+            const cardAddrList = endFilter.map((v) => v.cardAddr);
+            const recentGames = (_a = await getRecentGameById({
+              chainId: chainIdLocal,
+              lobbyAddrList,
+              gameIdList,
+              cardAddrList,
+              winCardIdList
+            })) != null ? _a : /* @__PURE__ */ new Map();
+            const rres = formatDataFromGraph({
+              chainId: chainIdLocal,
+              data: result.data.data.gameInfos,
+              recentGames
+            });
+            console.log("asdfasfsadfds", { rres });
+            return rres;
+          }
+        }
+        return void 0;
       }
-    }
-    return void 0;
-  });
-  return Promise.all(requests);
+    );
+    return Promise.all(requests);
+  } catch (e) {
+    console.log("batchRequestFromGraph", e);
+    return [void 0];
+  }
 }
 var getRecentGameById = async ({
   chainId,
@@ -11580,6 +11571,28 @@ var getRecentGameById = async ({
     return void 0;
   }
 };
+
+// src/hooks/useInterval.ts
+import { useEffect as useEffect32, useRef as useRef9 } from "react";
+function useInterval(callback, delay, leading = true) {
+  const savedCallback = useRef9();
+  useEffect32(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+  useEffect32(() => {
+    function tick() {
+      const current = savedCallback.current;
+      current && current();
+    }
+    if (delay !== null) {
+      if (leading)
+        tick();
+      const id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+    return void 0;
+  }, [delay, leading]);
+}
 
 // src/index.ts
 import { changeLanguage as changeLanguage2 } from "i18next";
