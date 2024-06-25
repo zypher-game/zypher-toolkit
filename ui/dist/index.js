@@ -80,6 +80,7 @@ var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10[ChainId10["B2Testnet"] = 1123] = "B2Testnet";
   ChainId10[ChainId10["ZytronLineaSepoliaTestnet"] = 50098] = "ZytronLineaSepoliaTestnet";
   ChainId10[ChainId10["ZytronB2Testnet"] = 50097] = "ZytronB2Testnet";
+  ChainId10[ChainId10["Taiko"] = 167e3] = "Taiko";
   return ChainId10;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
@@ -120,6 +121,7 @@ var supportedChainIds = (env, chainList2) => {
     59140 /* LineaTestnet */,
     223 /* B2 */,
     1123 /* B2Testnet */,
+    167e3 /* Taiko */,
     204 /* OPBNB */,
     5611 /* OPBNBTEST */,
     42161 /* Arbitrum */,
@@ -136,6 +138,7 @@ var supportedChainIds = (env, chainList2) => {
   ] : [
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
+    167e3 /* Taiko */,
     42161 /* Arbitrum */,
     5e3 /* Mantle */,
     9980 /* Combo */,
@@ -202,7 +205,8 @@ var ChainRpcUrls = {
   [50098 /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron.zypher.game"
   ],
-  [50097 /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"]
+  [50097 /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
+  [167e3 /* Taiko */]: ["https://rpc.hekla.taiko.xyz"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -240,7 +244,8 @@ var BlockExplorerUrls = {
   ],
   [50097 /* ZytronB2Testnet */]: [
     "https://b2-testnet-zytron-blockscout.zypher.game"
-  ]
+  ],
+  [167e3 /* Taiko */]: ["https://hekla.taikoscan.network"]
 };
 var ChainName = {
   [56 /* Bsc */]: "BSC Mainnet",
@@ -263,10 +268,11 @@ var ChainName = {
   [5001 /* MantleTestnet */]: "Mantle Testnet",
   [9980 /* Combo */]: "Combo",
   [11155111 /* Sepolia */]: "Sepolia",
-  [223 /* B2 */]: "B2",
-  [1123 /* B2Testnet */]: "B2 Testnet",
+  [223 /* B2 */]: "B\xB2",
+  [1123 /* B2Testnet */]: "B\xB2 Testnet",
   [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  [50097 /* ZytronB2Testnet */]: "Zytron B2 Testnet"
+  [50097 /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
+  [167e3 /* Taiko */]: "Taiko Mainnet"
 };
 var ChainNetworkName = {
   [56 /* Bsc */]: "bsc",
@@ -289,10 +295,11 @@ var ChainNetworkName = {
   [5e3 /* Mantle */]: "Mantle",
   [5001 /* MantleTestnet */]: "Mantle Testnet",
   [11155111 /* Sepolia */]: "Sepolia",
-  [223 /* B2 */]: "B2 Mainnet",
-  [1123 /* B2Testnet */]: "B2 Testnet",
+  [223 /* B2 */]: "B\xB2 Mainnet",
+  [1123 /* B2Testnet */]: "B\xB2 Testnet",
   [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  [50097 /* ZytronB2Testnet */]: "Zytron B2 Testnet"
+  [50097 /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
+  [167e3 /* Taiko */]: "Taiko Mainnet"
 };
 var isTestnet = {
   [56 /* Bsc */]: false,
@@ -318,7 +325,8 @@ var isTestnet = {
   [223 /* B2 */]: false,
   [1123 /* B2Testnet */]: true,
   [50098 /* ZytronLineaSepoliaTestnet */]: true,
-  [50097 /* ZytronB2Testnet */]: true
+  [50097 /* ZytronB2Testnet */]: true,
+  [167e3 /* Taiko */]: false
 };
 var Currency = {
   [56 /* Bsc */]: "BNB",
@@ -344,7 +352,8 @@ var Currency = {
   [223 /* B2 */]: "BTC",
   [1123 /* B2Testnet */]: "BTC",
   [50098 /* ZytronLineaSepoliaTestnet */]: "ETH",
-  [50097 /* ZytronB2Testnet */]: "BTC"
+  [50097 /* ZytronB2Testnet */]: "BTC",
+  [167e3 /* Taiko */]: "ETH"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -436,6 +445,9 @@ var CurrencyContract = {
   },
   [50097 /* ZytronB2Testnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
+  },
+  [167e3 /* Taiko */]: {
+    multicall: ["0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9"]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {

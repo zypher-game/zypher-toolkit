@@ -32,7 +32,8 @@ export declare enum ChainId {
     B2 = 223,
     B2Testnet = 1123,
     ZytronLineaSepoliaTestnet = 50098,
-    ZytronB2Testnet = 50097
+    ZytronB2Testnet = 50097,
+    Taiko = 167000
 }
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];
@@ -42,9 +43,6 @@ export declare const supportedChainIds: (env?: string, chainList?: ChainId[]) =>
 export declare const ChainRpcUrls: Record<ChainId, string[]>;
 export declare const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>>;
 export declare const BlockExplorerUrls: Record<ChainId, string[]>;
-export declare const ChainBridge: {
-    [key: number]: string;
-};
 export declare const ChainName: Record<ChainId, string>;
 export declare const ChainNetworkName: Record<ChainId, string>;
 export declare const isTestnet: Record<ChainId, boolean>;
