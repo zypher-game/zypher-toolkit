@@ -55,7 +55,7 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId10) => {
+var ChainId = ((ChainId10) => {
   ChainId10[ChainId10["Bsc"] = 56] = "Bsc";
   ChainId10[ChainId10["BscTestnet"] = 97] = "BscTestnet";
   ChainId10[ChainId10["Arbitrum"] = 42161] = "Arbitrum";
@@ -80,7 +80,7 @@ var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10[ChainId10["B2Testnet"] = 1123] = "B2Testnet";
   ChainId10[ChainId10["ZytronLineaSepoliaTestnet"] = 50098] = "ZytronLineaSepoliaTestnet";
   ChainId10[ChainId10["ZytronB2Testnet"] = 50097] = "ZytronB2Testnet";
-  ChainId10[ChainId10["Taiko"] = 167e3] = "Taiko";
+  ChainId10[ChainId10["Taiko"] = Number("167000")] = "Taiko";
   return ChainId10;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
@@ -121,7 +121,7 @@ var supportedChainIds = (env, chainList2) => {
     59140 /* LineaTestnet */,
     223 /* B2 */,
     1123 /* B2Testnet */,
-    167e3 /* Taiko */,
+    ChainId.Taiko,
     204 /* OPBNB */,
     5611 /* OPBNBTEST */,
     42161 /* Arbitrum */,
@@ -138,7 +138,7 @@ var supportedChainIds = (env, chainList2) => {
   ] : [
     59144 /* LineaMainnet */,
     204 /* OPBNB */,
-    167e3 /* Taiko */,
+    ChainId.Taiko,
     42161 /* Arbitrum */,
     5e3 /* Mantle */,
     9980 /* Combo */,
@@ -206,7 +206,7 @@ var ChainRpcUrls = {
     "https://linea-testnet-zytron.zypher.game"
   ],
   [50097 /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
-  [167e3 /* Taiko */]: ["https://rpc.hekla.taiko.xyz"]
+  [ChainId.Taiko]: ["https://rpc.hekla.taiko.xyz"]
 };
 var ChainRpcWebSocketUrls = {
   [421613 /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -245,7 +245,7 @@ var BlockExplorerUrls = {
   [50097 /* ZytronB2Testnet */]: [
     "https://b2-testnet-zytron-blockscout.zypher.game"
   ],
-  [167e3 /* Taiko */]: ["https://hekla.taikoscan.network"]
+  [ChainId.Taiko]: ["https://hekla.taikoscan.network"]
 };
 var ChainName = {
   [56 /* Bsc */]: "BSC Mainnet",
@@ -272,7 +272,7 @@ var ChainName = {
   [1123 /* B2Testnet */]: "B\xB2 Testnet",
   [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
   [50097 /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
-  [167e3 /* Taiko */]: "Taiko Mainnet"
+  [ChainId.Taiko]: "Taiko Mainnet"
 };
 var ChainNetworkName = {
   [56 /* Bsc */]: "bsc",
@@ -299,7 +299,7 @@ var ChainNetworkName = {
   [1123 /* B2Testnet */]: "B\xB2 Testnet",
   [50098 /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
   [50097 /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
-  [167e3 /* Taiko */]: "Taiko Mainnet"
+  [ChainId.Taiko]: "Taiko Mainnet"
 };
 var isTestnet = {
   [56 /* Bsc */]: false,
@@ -326,7 +326,7 @@ var isTestnet = {
   [1123 /* B2Testnet */]: true,
   [50098 /* ZytronLineaSepoliaTestnet */]: true,
   [50097 /* ZytronB2Testnet */]: true,
-  [167e3 /* Taiko */]: false
+  [ChainId.Taiko]: false
 };
 var Currency = {
   [56 /* Bsc */]: "BNB",
@@ -353,7 +353,7 @@ var Currency = {
   [1123 /* B2Testnet */]: "BTC",
   [50098 /* ZytronLineaSepoliaTestnet */]: "ETH",
   [50097 /* ZytronB2Testnet */]: "BTC",
-  [167e3 /* Taiko */]: "ETH"
+  [ChainId.Taiko]: "ETH"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -446,7 +446,7 @@ var CurrencyContract = {
   [50097 /* ZytronB2Testnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
   },
-  [167e3 /* Taiko */]: {
+  [ChainId.Taiko]: {
     multicall: ["0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9"]
   }
 };
@@ -10910,9 +10910,11 @@ var RainbowConnectWallet = memo33((props) => {
       className: "connect_connect"
     }, /* @__PURE__ */ React92.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || !supportedChainIds(env, supportedChainList).includes(
       chain.id
-    )) ? /* @__PURE__ */ React92.createElement(WrongNetwork_default, {
+    )) ? /* @__PURE__ */ React92.createElement(React92.Fragment, null, /* @__PURE__ */ React92.createElement("p", null, supportedChainIds(env, supportedChainList).join("-")), /* @__PURE__ */ React92.createElement("p", null, chain.id), /* @__PURE__ */ React92.createElement("p", null, typeof supportedChainIds(env, supportedChainList)[0]), /* @__PURE__ */ React92.createElement("p", null, typeof chain.id), /* @__PURE__ */ React92.createElement("p", null, chain.unsupported ? "true" : "false", " ", supportedChainIds(env, supportedChainList).includes(
+      chain.id
+    ) ? "true" : "false"), /* @__PURE__ */ React92.createElement(WrongNetwork_default, {
       type
-    }) : /* @__PURE__ */ React92.createElement(rainbow_account_default, {
+    })) : /* @__PURE__ */ React92.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,

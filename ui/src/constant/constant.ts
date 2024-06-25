@@ -55,7 +55,7 @@ export enum ChainId {
   ZytronLineaSepoliaTestnet = 50098,
   ZytronB2Testnet = 50097,
 
-  Taiko = 167000,
+  Taiko = Number("167000"),
 }
 export const DPSupportChainId = !isPro()
   ? [
