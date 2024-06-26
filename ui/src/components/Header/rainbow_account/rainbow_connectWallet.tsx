@@ -79,21 +79,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   !supportedChainIds(env, supportedChainList).includes(
                     `${chain.id}` as ChainId
                   )) ? (
-                <>
-                  <p>{supportedChainIds(env, supportedChainList).join("-")}</p>
-                  <p>{chain.id}</p>
-                  <p>{typeof supportedChainIds(env, supportedChainList)[0]}</p>
-                  <p>{typeof chain.id}</p>
-                  <p>
-                    {chain.unsupported ? "true" : "false"}{" "}
-                    {supportedChainIds(env, supportedChainList).includes(
-                      `${chain.id}` as ChainId
-                    )
-                      ? "true"
-                      : "false"}
-                  </p>
-                  <WrongNetwork type={type} />
-                </>
+                <WrongNetwork type={type} />
               ) : (
                 <AccountInfo
                   copy={copy}

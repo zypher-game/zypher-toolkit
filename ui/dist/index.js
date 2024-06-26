@@ -10912,11 +10912,9 @@ var RainbowConnectWallet = memo33((props) => {
       className: "connect_connect"
     }, /* @__PURE__ */ React92.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || !supportedChainIds(env, supportedChainList).includes(
       `${chain.id}`
-    )) ? /* @__PURE__ */ React92.createElement(React92.Fragment, null, /* @__PURE__ */ React92.createElement("p", null, supportedChainIds(env, supportedChainList).join("-")), /* @__PURE__ */ React92.createElement("p", null, chain.id), /* @__PURE__ */ React92.createElement("p", null, typeof supportedChainIds(env, supportedChainList)[0]), /* @__PURE__ */ React92.createElement("p", null, typeof chain.id), /* @__PURE__ */ React92.createElement("p", null, chain.unsupported ? "true" : "false", " ", supportedChainIds(env, supportedChainList).includes(
-      `${chain.id}`
-    ) ? "true" : "false"), /* @__PURE__ */ React92.createElement(WrongNetwork_default, {
+    )) ? /* @__PURE__ */ React92.createElement(WrongNetwork_default, {
       type
-    })) : /* @__PURE__ */ React92.createElement(rainbow_account_default, {
+    }) : /* @__PURE__ */ React92.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,
