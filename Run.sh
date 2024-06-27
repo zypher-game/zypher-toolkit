@@ -6,7 +6,7 @@ path_app_frontend="$path_work/app-frontend_test"
 path_pixel="$path_work/zypher-toolkit-pixel"
 path_pixel_front="$path_work/zypher-toolkit-pixel_front"
 path_ui="$path_pixel/ui"
-path_front="$path_pixel_front/front"
+path_front="$path_pixel_front/games"
 
 # # # 删除指定目录
 rm -rf "$path_app_frontend/src"
@@ -47,6 +47,7 @@ fi
 cd "$path_ui"
 npm run build
 cd ..
+git fetch --prune
 git add .
 git commit -m "Bump version to $new_version"
 git push origin pixel_version

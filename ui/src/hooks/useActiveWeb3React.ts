@@ -18,14 +18,16 @@ export function useActiveWeb3React(
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     return {
-      chainId: (chainId && !supportedChainIds(env, chainList).includes(chainId)
+      chainId: (chainId &&
+      !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
         ? undefined
-        : chainId) as ChainId,
+        : `${chainId}`) as ChainId,
       account:
-        chainId && !supportedChainIds(env, chainList).includes(chainId)
+        chainId &&
+        !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
           ? undefined
           : address,
-      // account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
+      // account: "0xfe5d6F718fAb73a5b96964Cc65778cC600cdacA2",
       provider: provider,
     };
   }, [chainId, address, provider]);

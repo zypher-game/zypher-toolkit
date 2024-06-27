@@ -43,14 +43,14 @@ export const useRecentGamesFromGraph = ({
         }
       }
     } catch (e) {
-      console.error("fetchGameInfos error: ", e);
+      console.log("fetchGameInfos error: ", e);
       setHasError(true);
     }
   }, []);
   useEffect(() => {
     fetchGameInfos();
   }, []);
-  useInterval(fetchGameInfos, 50000);
+  // useInterval(fetchGameInfos, 50000);
   return {
     list: list,
     hasError: hasError,
@@ -67,8 +67,8 @@ export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
     "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   [ChainId.OPBNBTEST]:
     "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  [ChainId.ArbitrumGoerli]:
-    "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo",
+  // [ChainId.ArbitrumGoerli]:
+  // "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo",
 };
 export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Bsc]: "BNB",
@@ -93,6 +93,9 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Sepolia]: "Sp",
   [ChainId.B2]: "B2",
   [ChainId.B2Testnet]: "B2T",
+  [ChainId.ZytronLineaSepoliaTestnet]: "",
+  [ChainId.ZytronB2Testnet]: "",
+  [ChainId.Taiko]: "TK",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {
@@ -167,7 +170,6 @@ export function formatDataFromGraph({
     }
     inputPerPlayer =
       inputPerPlayer !== "-" ? formatMoney(Number(inputPerPlayer), 0) : "-";
-
     return {
       chainId: chainId,
       status: status,
@@ -199,17 +201,19 @@ async function batchRequestFromGraph({
 }: {
   env: string;
 }): Promise<(IGameList[] | undefined)[]> {
-  const requests = supportedChainIds(env).map(async (chainIdLocal: ChainId) => {
-    const api = graphqlApiUrl[chainIdLocal];
-    if (!api) {
-      return undefined;
-    }
-    // const client = ...
-    const result = await request(api, {
-      method: "POST",
-      data: JSON.stringify({
-        query: `query MyQuery {
-          gameInfos(orderBy: startedAt, orderDirection: desc, first: 40) {
+  try {
+    const requests = supportedChainIds(env).map(
+      async (chainIdLocal: ChainId) => {
+        const api = graphqlApiUrl[chainIdLocal];
+        if (!api) {
+          return undefined;
+        }
+        // const client = ...
+        const result = await request(api, {
+          method: "POST",
+          data: JSON.stringify({
+            query: `query MyQuery {
+          gameInfos(orderBy: startedAt, orderDirection: desc, first: 20) {
             cardAddr
             endedAt
             feeAmount
@@ -226,49 +230,57 @@ async function batchRequestFromGraph({
             winner
           }
         }`,
-        variables: {},
-        operationName: "MyQuery",
-      }),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-    if (result.data && result.data.data && result.data.data.gameInfos) {
-      if (result.data.data.gameInfos.length) {
-        // 获取 idList
-        const gameIdList = result.data.data.gameInfos.map((v: any) =>
-          parseInt(v.id, 16).toFixed()
-        );
-        const lobbyAddrList = result.data.data.gameInfos.map(
-          (v: any) => v.lobbyAddr
-        );
-        // const cardAddrList = result.data.data.gameInfos.map((v: any) => v.cardAddr)
-        // const winCardIdList = result.data.data.gameInfos.filter((v: any) => v.status === 2).map((v: any) => v.winCardId)
-
-        const endFilter = result.data.data.gameInfos
-          .filter((v: any) => getStatus(v.status) === IGameStatus.End)
-          .map((v: any) => ({ winCardId: v.winCardId, cardAddr: v.cardAddr }));
-        const winCardIdList = endFilter.map((v: any) => v.winCardId);
-        const cardAddrList = endFilter.map((v: any) => v.cardAddr);
-
-        const recentGames =
-          (await getRecentGameById({
-            chainId: chainIdLocal,
-            lobbyAddrList,
-            gameIdList,
-            cardAddrList,
-            winCardIdList,
-          })) ?? new Map();
-        return formatDataFromGraph({
-          chainId: chainIdLocal,
-          data: result.data.data.gameInfos,
-          recentGames,
+            variables: {},
+            operationName: "MyQuery",
+          }),
+          headers: {
+            "Content-Type": "application/json",
+          },
         });
+        if (result.data && result.data.data && result.data.data.gameInfos) {
+          if (result.data.data.gameInfos.length) {
+            // 获取 idList
+            const gameIdList = result.data.data.gameInfos.map((v: any) =>
+              parseInt(v.id, 16).toFixed()
+            );
+            const lobbyAddrList = result.data.data.gameInfos.map(
+              (v: any) => v.lobbyAddr
+            );
+            // const cardAddrList = result.data.data.gameInfos.map((v: any) => v.cardAddr)
+            // const winCardIdList = result.data.data.gameInfos.filter((v: any) => v.status === 2).map((v: any) => v.winCardId)
+
+            const endFilter = result.data.data.gameInfos
+              .filter((v: any) => getStatus(v.status) === IGameStatus.End)
+              .map((v: any) => ({
+                winCardId: v.winCardId,
+                cardAddr: v.cardAddr,
+              }));
+            const winCardIdList = endFilter.map((v: any) => v.winCardId);
+            const cardAddrList = endFilter.map((v: any) => v.cardAddr);
+            const recentGames =
+              (await getRecentGameById({
+                chainId: chainIdLocal,
+                lobbyAddrList,
+                gameIdList,
+                cardAddrList,
+                winCardIdList,
+              })) ?? new Map();
+            const rres = formatDataFromGraph({
+              chainId: chainIdLocal,
+              data: result.data.data.gameInfos,
+              recentGames,
+            });
+            return rres;
+          }
+        }
+        return undefined;
       }
-    }
-    return undefined;
-  });
-  return Promise.all(requests);
+    );
+    return Promise.all(requests);
+  } catch (e) {
+    console.log("batchRequestFromGraph", e);
+    return [undefined];
+  }
 }
 export const getRecentGameById = async ({
   chainId,

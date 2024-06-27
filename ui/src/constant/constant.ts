@@ -26,34 +26,36 @@ export const preStaticUrl = isPro()
   ? "https://static.zypher.game"
   : "https://static-dev.zypher.game";
 export enum ChainId {
-  Bsc = 56,
-  BscTestnet = 97,
-  Arbitrum = 42161,
-  ArbitrumRinkeby = 421611,
-  ArbitrumGoerli = 421613,
-  LineaTestnet = 59140,
-  LineaMainnet = 59144,
-  POLYGON_MUMBAI = 80001,
+  Bsc = "56",
+  BscTestnet = "97",
+  Arbitrum = "42161",
+  ArbitrumRinkeby = "421611",
+  ArbitrumGoerli = "421613",
+  LineaTestnet = "59140",
+  LineaMainnet = "59144",
+  POLYGON_MUMBAI = "80001",
 
   //develop
-  POLYGON_ZKEVM = 1442,
-  ScrollAlphaTestnet = 534353,
-  OPBNBTEST = 5611,
-  OPBNB = 204,
-  ScrollSepoliaTestnet = 534351,
-  MantaPacificMainnet = 169,
-  MantaPacificTestnet = 3441005,
-  Combo = 9980,
-  ComboTestnet = 91715,
-  Mantle = 5000,
-  MantleTestnet = 5001,
+  POLYGON_ZKEVM = "1442",
+  ScrollAlphaTestnet = "534353",
+  OPBNBTEST = "5611",
+  OPBNB = "204",
+  ScrollSepoliaTestnet = "534351",
+  MantaPacificMainnet = "169",
+  MantaPacificTestnet = "3441005",
+  Combo = "9980",
+  ComboTestnet = "91715",
+  Mantle = "5000",
+  MantleTestnet = "5001",
 
-  Sepolia = 11155111,
-  B2 = 223,
-  B2Testnet = 1123,
+  Sepolia = "11155111",
+  B2 = "223",
+  B2Testnet = "1123",
 
-  ZytronLineaSepoliaTestnet = 50098,
-  ZytronB2Testnet = 50097,
+  ZytronLineaSepoliaTestnet = "50098",
+  ZytronB2Testnet = "50097",
+
+  Taiko = "167000",
 }
 export const DPSupportChainId = !isPro()
   ? [
@@ -99,7 +101,7 @@ export const bingoSupportedChainId = [
 export const supportedChainIds = (
   env?: string,
   chainList?: ChainId[]
-): ChainId[] => {
+): Array<ChainId> => {
   return chainList
     ? chainList
     : !isPro() || env === "develop"
@@ -108,6 +110,7 @@ export const supportedChainIds = (
         ChainId.LineaTestnet,
         ChainId.B2,
         ChainId.B2Testnet,
+        ChainId.Taiko,
         ChainId.OPBNB,
         ChainId.OPBNBTEST,
         ChainId.Arbitrum,
@@ -125,6 +128,7 @@ export const supportedChainIds = (
     : [
         ChainId.LineaMainnet,
         ChainId.OPBNB,
+        ChainId.Taiko,
         ChainId.Arbitrum,
         ChainId.Mantle,
         ChainId.Combo,
@@ -197,6 +201,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
     "https://linea-testnet-zytron.zypher.game",
   ],
   [ChainId.ZytronB2Testnet]: ["https://b2-testnet-zytron.zypher.game"],
+  [ChainId.Taiko]: ["https://rpc.hekla.taiko.xyz"],
 };
 export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
   [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
@@ -236,15 +241,9 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.ZytronB2Testnet]: [
     "https://b2-testnet-zytron-blockscout.zypher.game",
   ],
+  [ChainId.Taiko]: ["https://hekla.taikoscan.network"],
 };
 
-export const ChainBridge: { [key: number]: string } = {
-  [ChainId.Bsc]: "",
-  [ChainId.BscTestnet]: "",
-  [ChainId.Arbitrum]: "https://bridge.arbitrum.io",
-  [ChainId.ArbitrumRinkeby]: "https://bridge.arbitrum.io",
-  [ChainId.OPBNBTEST]: "https://opbnb-testnet-bridge.bnbchain.org",
-};
 export const ChainName: Record<ChainId, string> = {
   [ChainId.Bsc]: "BSC Mainnet",
   [ChainId.BscTestnet]: "BSC Testnet",
@@ -266,10 +265,11 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.MantleTestnet]: "Mantle Testnet",
   [ChainId.Combo]: "Combo",
   [ChainId.Sepolia]: "Sepolia",
-  [ChainId.B2]: "B2",
-  [ChainId.B2Testnet]: "B2 Testnet",
+  [ChainId.B2]: "B²",
+  [ChainId.B2Testnet]: "B² Testnet",
   [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
-  [ChainId.ZytronB2Testnet]: "Zytron B2 Testnet",
+  [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
+  [ChainId.Taiko]: "Taiko Mainnet",
 };
 export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Bsc]: "bsc",
@@ -293,10 +293,11 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Mantle]: "Mantle",
   [ChainId.MantleTestnet]: "Mantle Testnet",
   [ChainId.Sepolia]: "Sepolia",
-  [ChainId.B2]: "B2 Mainnet",
-  [ChainId.B2Testnet]: "B2 Testnet",
+  [ChainId.B2]: "B² Mainnet",
+  [ChainId.B2Testnet]: "B² Testnet",
   [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
-  [ChainId.ZytronB2Testnet]: "Zytron B2 Testnet",
+  [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
+  [ChainId.Taiko]: "Taiko Mainnet",
 };
 
 export const isTestnet: Record<ChainId, boolean> = {
@@ -324,6 +325,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.B2Testnet]: true,
   [ChainId.ZytronLineaSepoliaTestnet]: true,
   [ChainId.ZytronB2Testnet]: true,
+  [ChainId.Taiko]: false,
 };
 
 export const Currency: Record<ChainId, string> = {
@@ -351,6 +353,7 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.B2Testnet]: "BTC",
   [ChainId.ZytronLineaSepoliaTestnet]: "ETH",
   [ChainId.ZytronB2Testnet]: "BTC",
+  [ChainId.Taiko]: "ETH",
 };
 export const getCryptoImg = (fileName: string, key: any, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -451,6 +454,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   [ChainId.ZytronB2Testnet]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
   },
+  [ChainId.Taiko]: {
+    multicall: ["0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9"],
+  },
 };
 
 export enum IContractName {
@@ -466,7 +472,7 @@ export enum IContractName {
   ZkGame2048API = "ZkGame2048API",
 }
 export const zkBingoV0 = (
-  chainId: number | undefined,
+  chainId: ChainId | undefined,
   name: IContractName
 ): Address => {
   if (!chainId) {
@@ -497,7 +503,7 @@ export const zkBingoV0 = (
   }
 };
 export const zkBingo = (
-  chainId: number | undefined,
+  chainId: ChainId | undefined,
   name: IContractName
 ): Address => {
   if (!chainId) {

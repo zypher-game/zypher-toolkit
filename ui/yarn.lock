@@ -2160,6 +2160,11 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
+"@types/recoilize@^0.8.3":
+  version "0.8.3"
+  resolved "https://registry.npmjs.org/@types/recoilize/-/recoilize-0.8.3.tgz#44ce29ede5a78f8af4ad5ad593898d9d8de13b1e"
+  integrity sha512-yPwSIFGH3iarEyk1n4ftiQVrxv5sMtnKVJfEMkCij4ixXqUaObQxRxGjPpzpscNqRLe93qovYQsAwD3B4OuTuw==
+
 "@types/sass@^1.43.1":
   version "1.45.0"
   resolved "https://registry.yarnpkg.com/@types/sass/-/sass-1.45.0.tgz#a949eb1e080ff34715e6c2040357b940bffb89bb"
@@ -5531,6 +5536,11 @@ recoil@^0.5.2:
   integrity sha512-Edibzpu3dbUMLy6QRg73WL8dvMl9Xqhp+kU+f2sJtXxsaXvAlxU/GcnDE8HXPkprXrhHF2e6SZozptNvjNF5fw==
   dependencies:
     hamt_plus "1.0.2"
+
+recoilize@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/recoilize/-/recoilize-3.2.0.tgz#aaf4c76390293a105a73b74dced7a49dfbeb1c84"
+  integrity sha512-2J0SEzefl8rKe5iaJ2vVg6AgWy5aQ8NFPfZbZfXagycF5ohUzCQA2c2SZDz5jtZfYmendR8hsILstPyofxfg7g==
 
 recursive-readdir-files@^2.0.7:
   version "2.3.0"

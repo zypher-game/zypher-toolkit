@@ -7,9 +7,12 @@ import {
   useRecoilValue,
   useResetRecoilState,
 } from "recoil";
+import RecoilizeDebugger from "recoilize";
+export { RecoilizeDebugger };
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
+
 export {
   IGameStatus,
   IGameName,

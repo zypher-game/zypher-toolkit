@@ -13,7 +13,7 @@ import { RainbowKitProvider } from "../rainbowkit/src/components/RainbowKitProvi
 type IProps = {
   env: string;
   children: ReactNode;
-  chainIdList?: ChainId[];
+  chainIdList?: Array<ChainId>;
   type: HeaderUIType;
 };
 const RainbowKitWithThemeProvider: FC<IProps> = ({
