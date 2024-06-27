@@ -1,4 +1,7 @@
 import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { motion, AnimatePresence } from "framer-motion";
+export { motion, AnimatePresence };
+export { dialogVariants } from "./constant/motionConstant";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";

@@ -27,9 +27,7 @@ export const useRecentGamesFromGraph = ({
   const [hasError, setHasError] = useState(false);
   const fetchGameInfos = useCallback(async () => {
     try {
-      console.log(111123, batchRequestFromGraph);
       const value_pre = await batchRequestFromGraph({ env });
-      console.log({ value_pre });
       const value = value_pre.filter((v) => !!v);
       if (value.length) {
         const gameList: Map<ChainId, IGameList[]> = new Map();
@@ -272,7 +270,6 @@ async function batchRequestFromGraph({
               data: result.data.data.gameInfos,
               recentGames,
             });
-            console.log("asdfasfsadfds", { rres });
             return rres;
           }
         }

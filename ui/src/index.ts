@@ -7,9 +7,13 @@ import {
   useRecoilValue,
   useResetRecoilState,
 } from "recoil";
+import { motion, AnimatePresence } from "framer-motion";
+export { motion, AnimatePresence };
+export { dialogVariants } from "./constant/motionConstant";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
+
 export {
   IGameStatus,
   IGameName,
@@ -164,6 +168,7 @@ export {
   useIsW1220,
 } from "./hooks/useWindowSize";
 import { changeLanguage } from "i18next";
+import { constants } from "ethers";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
 

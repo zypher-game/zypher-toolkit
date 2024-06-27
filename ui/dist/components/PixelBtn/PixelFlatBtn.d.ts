@@ -1,6 +1,7 @@
 import React from "react";
 import "./PixelFlatBtn.stylus";
-interface IProps {
+import { HTMLMotionProps } from "framer-motion";
+interface IProps extends HTMLMotionProps<"div"> {
     className?: string;
     children?: React.ReactNode;
     onClick?: any;

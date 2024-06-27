@@ -17,6 +17,8 @@ export const SideBarTitle = memo(
     return (
       <div className={className}>
         <img
+          decoding="async"
+          loading="lazy"
           src={preStaticUrl + `/img/icon/${logo_url_name}.svg`}
           title={t(logo_title)}
         />
@@ -34,7 +36,12 @@ export const SideBarTitleLink = memo(
         <div className="side_title_line" />
         <p>{t(logo_title)}</p>
         {logo_url_name ? (
-          <img src={logo_url_name} title={t(logo_title)} />
+          <img
+            decoding="async"
+            loading="lazy"
+            src={logo_url_name}
+            title={t(logo_title)}
+          />
         ) : null}
       </a>
     );

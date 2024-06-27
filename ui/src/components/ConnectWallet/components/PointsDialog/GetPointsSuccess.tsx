@@ -22,12 +22,22 @@ const PointsItem = () => {
   return (
     <div className="getpointcoin">
       <div className="getpointcoin_front">
-        <img src={preStaticUrl + "/img/layout/Star.png"} alt="star" />
+        <img
+          decoding="async"
+          loading="lazy"
+          src={preStaticUrl + "/img/layout/Star.png"}
+          alt="star"
+        />
       </div>
       <div className="getpointcoin_middle"></div>
 
       <div className="getpointcoin_back">
-        <img src={preStaticUrl + "/img/layout/Star.png"} alt="star" />
+        <img
+          decoding="async"
+          loading="lazy"
+          src={preStaticUrl + "/img/layout/Star.png"}
+          alt="star"
+        />
       </div>
     </div>
   );

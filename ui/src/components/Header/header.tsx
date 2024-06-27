@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React, { useEffect, useMemo } from "react";
+import React, { ForwardRefExoticComponent, useEffect, useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import useWindowSize from "../../hooks/useWindowSize";
@@ -17,6 +17,7 @@ import {
   showBigState,
   showMiddleState,
 } from "../ConnectWallet/state/connectWalletState";
+import { LinkProps, NavigateFunction } from "react-router-dom";
 export type HeaderUIType = "pixel" | "other";
 interface IProps {
   env: string;
@@ -26,11 +27,12 @@ interface IProps {
   className?: string;
   hideMenu?: boolean;
   copy: any;
-  useNavigate: any;
-  useLocation: any;
   CountUpNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
   pathname: string;
+  useLocation: any;
+  useNavigate: any;
+  Link: any;
 }
 
 const Header = (props: IProps): React.ReactElement | null => {
@@ -47,6 +49,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     CountUpNumber,
     supportedChainList,
     pathname,
+    Link,
   } = props;
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState(showBigState);
@@ -91,7 +94,7 @@ const Header = (props: IProps): React.ReactElement | null => {
       <div className={"header_left"}>
         <ZypherLogo isMobile={isW830} />
       </div>
-      {!isW830 && <Navigation pathname={pathname} />}
+      {!isW830 && <Navigation pathname={pathname} Link={Link} />}
       <div className={"header_right"}>
         <RainbowConnectWallet
           type="pixel"

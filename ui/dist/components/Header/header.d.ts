@@ -10,11 +10,12 @@ interface IProps {
     className?: string;
     hideMenu?: boolean;
     copy: any;
-    useNavigate: any;
-    useLocation: any;
     CountUpNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
     pathname: string;
+    useLocation: any;
+    useNavigate: any;
+    Link: any;
 }
 declare const Header: (props: IProps) => React.ReactElement | null;
 export default Header;

@@ -83,7 +83,11 @@ export const useNavItem = (): INavLink[] => {
         content: (className: string) => (
           <div className={className}>
             <p>Acequect Studio</p>
-            <img src={preStaticUrl + "/img/games/star.svg"} />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + "/img/games/star.svg"}
+            />
           </div>
         ),
         ...gameStatus.Live,

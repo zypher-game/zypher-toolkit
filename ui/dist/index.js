@@ -9,6 +9,29 @@ import {
   useRecoilValue as useRecoilValue9,
   useResetRecoilState
 } from "recoil";
+import { motion as motion2, AnimatePresence } from "framer-motion";
+
+// src/constant/motionConstant.ts
+var dialogVariants = {
+  hidden: {
+    opacity: 0,
+    scale: 0.8,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30
+    }
+  },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      type: "spring",
+      stiffness: 300,
+      damping: 30
+    }
+  }
+};
 
 // src/hooks/useNavItem.type.ts
 var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
@@ -779,13 +802,36 @@ import styled from "styled-components";
 
 // src/components/PixelBtn/PixelFlatBtn.tsx
 import React, { memo } from "react";
+import { motion } from "framer-motion";
 var PixelFlatBtn = memo((props) => {
-  const { onClick, children, className, style, hidePixel } = props;
+  const { onClick, children, className, style, hidePixel, ..._props } = props;
   if (hidePixel) {
     return /* @__PURE__ */ React.createElement("div", {
       className,
       onClick
     }, children);
+  }
+  if (onClick) {
+    return /* @__PURE__ */ React.createElement(motion.div, {
+      ..._props,
+      className: `pixel_flat_btn ${className != null ? className : ""}`,
+      onClick,
+      style
+    }, /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_bg"
+    }, /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_top_1"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_top_2"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_inner"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_bottom_1"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_bottom_2"
+    })), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_inner"
+    }, children));
   }
   return /* @__PURE__ */ React.createElement("div", {
     className: `pixel_flat_btn ${className != null ? className : ""}`,
@@ -1151,9 +1197,14 @@ var ActivePixelButtonColor = memo2((props) => {
     }
   }, [onClick]);
   return /* @__PURE__ */ React2.createElement(ActivePixelButtonColorStyled, {
-    ...props,
+    whileHover: {
+      scale: 1.02,
+      transition: { duration: 0.3 }
+    },
+    whileTap: { scale: 0.9 },
     className: `${className != null ? className : ""} ${disable ? "disable" : "normal"} ${isActive ? "click" : ""}`,
-    onClick: clickHandle
+    onClick: clickHandle,
+    ...props
   });
 });
 var PixelBorderStyled = styled(PixelFlatBtn_default)`
@@ -1470,6 +1521,8 @@ var SvgComponent = memo3(({ src: src6, className, ...rest }) => {
     className,
     ...rest
   }) : /* @__PURE__ */ React3.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     src: src6,
     className
   });
@@ -1754,6 +1807,8 @@ var Language = memo6(({ type }) => {
     className: "pixel_logo",
     type
   }, /* @__PURE__ */ React7.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     src: preStaticUrl + `/img/layout/${lang}.png`,
     className: "pixel_img_lang"
   })), /* @__PURE__ */ React7.createElement("div", {
@@ -1940,6 +1995,8 @@ var useNavItem = () => {
         content: (className) => /* @__PURE__ */ React8.createElement("div", {
           className
         }, /* @__PURE__ */ React8.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React8.createElement("img", {
+          decoding: "async",
+          loading: "lazy",
           src: preStaticUrl + "/img/games/star.svg"
         })),
         ...gameStatus.Live
@@ -2393,6 +2450,8 @@ var Logo = ({ src: src6, alt, ...rest }) => {
   const [bad, setBad] = useState6(false);
   if (src6 && !bad) {
     return /* @__PURE__ */ React9.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       ...rest,
       alt,
       src: src6,
@@ -3966,6 +4025,8 @@ var PointsTable = memo12(
     }, /* @__PURE__ */ React16.createElement("div", {
       className: classnames4("points", `points_${v.index}`)
     }, /* @__PURE__ */ React16.createElement("h3", null, v.pointAmountStr), /* @__PURE__ */ React16.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       className: "points_img",
       src: preStaticUrl + `/img/points/points_${v.index}.png`,
       alt: "points"
@@ -3979,6 +4040,8 @@ var PointsTable = memo12(
     })), v.discount && /* @__PURE__ */ React16.createElement("div", {
       className: "discount"
     }, /* @__PURE__ */ React16.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       className: "discount_img",
       src: preStaticUrl + `/img/points/discord.svg`,
       alt: "points"
@@ -4105,6 +4168,8 @@ var LinkItem1 = memo14(
     }, /* @__PURE__ */ React18.createElement("div", {
       className: className_imageContainer
     }, /* @__PURE__ */ React18.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       src: preStaticUrl + `/img/games/games/${link.icon}`
     })), /* @__PURE__ */ React18.createElement("p", null, link.label));
   },
@@ -4152,6 +4217,8 @@ var SideBarTitle = memo16(
     return /* @__PURE__ */ React20.createElement("div", {
       className
     }, /* @__PURE__ */ React20.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       src: preStaticUrl + `/img/icon/${logo_url_name}.svg`,
       title: t(logo_title)
     }), /* @__PURE__ */ React20.createElement("p", null, t(logo_title)));
@@ -4167,6 +4234,8 @@ var SideBarTitleLink = memo16(
     }, /* @__PURE__ */ React20.createElement("div", {
       className: "side_title_line"
     }), /* @__PURE__ */ React20.createElement("p", null, t(logo_title)), logo_url_name ? /* @__PURE__ */ React20.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       src: logo_url_name,
       title: t(logo_title)
     }) : null);
@@ -4194,39 +4263,44 @@ var NavKey = [
 var NavList = [
   {
     link: `/${NavKey[0][0]}`,
-    label: "Airdrop",
     linkList: NavKey[0],
+    label: "Airdrop",
     classNames: "airdrop",
     isTarget: false,
-    showIfGames: false
+    showIfGames: false,
+    isLink: true
   },
   {
     link: `/${NavKey[1][0]}`,
-    label: "Games",
     linkList: NavKey[1],
+    label: "Games",
     classNames: "games",
     isTarget: false,
-    showIfGames: true
+    showIfGames: true,
+    isLink: true
   },
   {
     link: `/${NavKey[2][0]}`,
-    label: "Zero Gas",
     linkList: NavKey[2],
+    label: "Zero Gas",
     classNames: "zero_gas",
     isTarget: false,
-    showIfGames: false
+    showIfGames: false,
+    isLink: true
   },
   {
     link: "https://zypher.network/",
+    linkList: [],
     label: "Zypher Network",
     icon: preStaticUrl + "/img/icon/pixel_link.svg",
     classNames: "network",
     isTarget: true,
-    showIfGames: true
+    showIfGames: true,
+    isLink: false
   }
 ];
 var Navigation = memo17(
-  ({ pathname }) => {
+  ({ pathname, Link }) => {
     const [chooseIndex, setChooseIndex] = useState9(
       null
     );
@@ -4244,19 +4318,19 @@ var Navigation = memo17(
       };
     }, [width]);
     const init = useCallback10(async () => {
-      if (!isW768) {
+      if (!isW768 && linksRefs.current.length) {
         const index = NavKey.findIndex((key) => key.includes(pathname));
         if (index > -1) {
           setChooseIndex(index);
           setActiveIndex(index);
         }
       }
-    }, [pathname, isW768]);
+    }, [pathname, isW768, linksRefs.current]);
     useEffect7(() => {
       init();
     }, [init]);
     const init2 = useCallback10(async () => {
-      if (!isW768) {
+      if (!isW768 && linksRefs.current.length) {
         linksRefs.current.forEach(async (linkRef, index) => {
           if ((linkRef == null ? void 0 : linkRef.className) === "nav_on") {
             const w = hasFontWeight600(linkRef);
@@ -4288,7 +4362,7 @@ var Navigation = memo17(
     }, [chooseIndex, pathname]);
     useEffect7(() => {
       init2();
-    }, [chooseIndex, pathname]);
+    }, [chooseIndex, pathname, linksRefs.current]);
     const updateLinePosition = useCallback10(async () => {
       if (activeIndex !== null && activeIndex !== void 0 && linksRefs.current[activeIndex]) {
         const line = document.querySelector(".pixel_line");
@@ -4321,14 +4395,17 @@ var Navigation = memo17(
     return /* @__PURE__ */ React21.createElement("div", {
       className: "nav"
     }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
-      (v, index) => /* @__PURE__ */ React21.createElement("a", {
+      (v, index) => /* @__PURE__ */ React21.createElement(LinkComp, {
+        Link,
+        item: v,
         key: v.label,
-        className: `nav_${v.classNames} ${chooseIndex === index ? "nav_on" : ""}`,
-        href: v.link,
-        target: v.isTarget ? "_blank" : void 0,
-        rel: v.isTarget ? "noreferrer" : void 0,
-        ref: (ref) => linksRefs.current[index] = ref
+        className: `nav_${v.classNames} `,
+        setLinksRefs: (ref) => {
+          linksRefs.current[index] = ref;
+        }
       }, v.label, v.icon ? /* @__PURE__ */ React21.createElement("img", {
+        decoding: "async",
+        loading: "lazy",
         src: v.icon,
         alt: "pixel_link",
         className: "nav_img"
@@ -4336,6 +4413,30 @@ var Navigation = memo17(
     ), /* @__PURE__ */ React21.createElement("div", {
       className: "pixel_line"
     }));
+  }
+);
+var LinkComp = memo17(
+  ({ item, children, setLinksRefs, className, Link }) => {
+    const ref = useRef2(null);
+    useEffect7(() => {
+      if (ref.current) {
+        setLinksRefs(ref.current);
+      }
+    }, [ref]);
+    if (item.isLink) {
+      return /* @__PURE__ */ React21.createElement(Link, {
+        to: item.link,
+        className,
+        ref
+      }, children);
+    }
+    return /* @__PURE__ */ React21.createElement("a", {
+      href: item.link,
+      ref,
+      target: item.isTarget ? "_blank" : void 0,
+      rel: item.isTarget ? "noreferrer" : void 0,
+      className
+    }, children);
   }
 );
 function hasFontWeight600(element2) {
@@ -4355,10 +4456,18 @@ var ZypherLogo = memo18(({ isMobile: isMobile2 }) => {
     target: "_black",
     className: "zypher_logo"
   }, isMobile2 ? /* @__PURE__ */ React22.createElement("img", {
+    fetchPriority: "high",
+    decoding: "async",
+    loading: "lazy",
     src: preStaticUrl + "/img/layout/logo-min.svg"
   }) : /* @__PURE__ */ React22.createElement("img", {
+    fetchPriority: "high",
+    decoding: "async",
+    loading: "lazy",
     src: preStaticUrl + "/img/tvl/logo.svg"
   }), /* @__PURE__ */ React22.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     src: preStaticUrl + "/img/layout/ai.svg"
   }));
 });
@@ -4916,6 +5025,8 @@ var PointsItem = () => {
   }, /* @__PURE__ */ React26.createElement("div", {
     className: "getpointcoin_front"
   }, /* @__PURE__ */ React26.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
   })), /* @__PURE__ */ React26.createElement("div", {
@@ -4923,6 +5034,8 @@ var PointsItem = () => {
   }), /* @__PURE__ */ React26.createElement("div", {
     className: "getpointcoin_back"
   }, /* @__PURE__ */ React26.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     src: preStaticUrl + "/img/layout/Star.png",
     alt: "star"
   })));
@@ -5155,6 +5268,8 @@ var ChainSelectorWidget = memo25(
     }, /* @__PURE__ */ React29.createElement("div", {
       className: "img"
     }, /* @__PURE__ */ React29.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       src: ChainImage[chainId],
       alt: ChainName[chainId]
     }), /* @__PURE__ */ React29.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React29.createElement(StatusI, {
@@ -5315,6 +5430,8 @@ var Avatar = ({
     size,
     style
   }, /* @__PURE__ */ React31.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     src: src6,
     alt: altText
   }));
@@ -5497,10 +5614,14 @@ var PlayerAvatarList = ({
   }, /* @__PURE__ */ React32.createElement("div", {
     className: "inner-circle"
   }, account ? /* @__PURE__ */ React32.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     width: "100%",
     src: selectedAvatar,
     style: { background: selectedBackground }
   }) : /* @__PURE__ */ React32.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
     width: "100%",
     src: preStaticUrl + `/img/default_avatar.png`
   }))));
@@ -5918,6 +6039,8 @@ var PcUserInfo = memo28(
     )), /* @__PURE__ */ React35.createElement("div", {
       className: "pc_user_info"
     }, connectIcon && /* @__PURE__ */ React35.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
       src: src6,
       alt: connectName
     }), /* @__PURE__ */ React35.createElement("div", {
@@ -8721,9 +8844,17 @@ var getContainer = () => {
   container.setAttribute("id", id);
   container.setAttribute(
     "style",
-    ["overflow:hidden", "position:fixed", "height:100%", "top:0", "left:0", "right:0", "bottom:0", "pointer-events:none", "z-index:2147483647"].join(
-      ";"
-    )
+    [
+      "overflow:hidden",
+      "position:fixed",
+      "height:100%",
+      "top:0",
+      "left:0",
+      "right:0",
+      "bottom:0",
+      "pointer-events:none",
+      "z-index:2147483647"
+    ].join(";")
   );
   document.body.appendChild(container);
   return container;
@@ -8748,10 +8879,16 @@ function makeElementCool(element2, imageUrl) {
     const left = mouseX - size / 2;
     const direction = Math.random() <= 0.5 ? -1 : 1;
     const particle = document.createElement("div");
-    particle.innerHTML = `<img src="${imageUrl}" width="${size}" height="${size}" style="border-radius: 25%">`;
+    particle.innerHTML = ` <img decoding="async" loading="lazy" src="${imageUrl}" width="${size}" height="${size}" style="border-radius: 25%">`;
     particle.setAttribute(
       "style",
-      ["position:absolute", "will-change:transform", `top:${top}px`, `left:${left}px`, `transform:rotate(${spinVal}deg)`].join(";")
+      [
+        "position:absolute",
+        "will-change:transform",
+        `top:${top}px`,
+        `left:${left}px`,
+        `transform:rotate(${spinVal}deg)`
+      ].join(";")
     );
     container.appendChild(particle);
     particles.push({
@@ -8778,7 +8915,13 @@ function makeElementCool(element2, imageUrl) {
       }
       p.element.setAttribute(
         "style",
-        ["position:absolute", "will-change:transform", `top:${p.top}px`, `left:${p.left}px`, `transform:rotate(${p.spinVal}deg)`].join(";")
+        [
+          "position:absolute",
+          "will-change:transform",
+          `top:${p.top}px`,
+          `left:${p.left}px`,
+          `transform:rotate(${p.spinVal}deg)`
+        ].join(";")
       );
     });
   }
@@ -10945,7 +11088,8 @@ var Header = (props) => {
     useLocation,
     CountUpNumber,
     supportedChainList,
-    pathname
+    pathname,
+    Link
   } = props;
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState12(showBigState);
@@ -10989,7 +11133,8 @@ var Header = (props) => {
   }, /* @__PURE__ */ React93.createElement(ZypherLogo, {
     isMobile: isW830
   })), !isW830 && /* @__PURE__ */ React93.createElement(Navigation_default, {
-    pathname
+    pathname,
+    Link
   }), /* @__PURE__ */ React93.createElement("div", {
     className: "header_right"
   }, /* @__PURE__ */ React93.createElement(rainbow_connectWallet_default, {
@@ -11287,9 +11432,7 @@ var useRecentGamesFromGraph = ({
   const fetchGameInfos = useCallback31(async () => {
     var _a, _b;
     try {
-      console.log(111123, batchRequestFromGraph);
       const value_pre = await batchRequestFromGraph({ env });
-      console.log({ value_pre });
       const value = value_pre.filter((v) => !!v);
       if (value.length) {
         const gameList = /* @__PURE__ */ new Map();
@@ -11503,7 +11646,6 @@ async function batchRequestFromGraph({
               data: result.data.data.gameInfos,
               recentGames
             });
-            console.log("asdfasfsadfds", { rres });
             return rres;
           }
         }
@@ -13727,6 +13869,7 @@ export {
   ActivePixelButtonColor,
   ActivePixelCard,
   ActivePixelColorCard,
+  AnimatePresence,
   BM,
   Balance_default as Balance,
   BigNumberJs_default as BigNumberJs,
@@ -13826,6 +13969,7 @@ export {
   darkTheme,
   dawnWallet,
   defaultActiveChainId,
+  dialogVariants,
   divisor6xBigNumber,
   divisorBigNumber,
   eX,
@@ -13874,6 +14018,7 @@ export {
   mewWallet,
   midnightTheme,
   minStakingValue,
+  motion2 as motion,
   nativeBalanceState,
   okxWallet,
   omniWallet,

@@ -64,7 +64,11 @@ const LinkItem1: FC<IProps> = memo(
         )}
       >
         <div className={className_imageContainer}>
-          <img src={preStaticUrl + `/img/games/games/${link.icon}`} />
+          <img
+            decoding="async"
+            loading="lazy"
+            src={preStaticUrl + `/img/games/games/${link.icon}`}
+          />
         </div>
         <p>{link.label}</p>
       </div>
