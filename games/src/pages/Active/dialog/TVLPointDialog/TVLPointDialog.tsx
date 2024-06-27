@@ -24,7 +24,7 @@ const TVLPointDialog = memo(({ openCard, isLoadingSingle, isLoadingAll }: IProps
       <DialogContent className={css.center}>
         <ActivePixelCard className={css.TVLPointDialog} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
           <h3>You Got {airdropPointsCardNumber} Airdrop Points Card</h3>
-          <img src={preStaticUrl + '/img/tvl/airdrop_point/bg.png'} alt="card2" className={`${css.card}`} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/bg.png'} alt="card2" className={`${css.card}`} />
           {!isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
         </ActivePixelCard>
         {isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}

@@ -87,7 +87,7 @@ const SelectChainDialog = memo(() => {
                 borderColor={`${v === chainId ? '#1649FF' : '#3A4254'}`}
                 showHover={true}
               >
-                <img src={ChainImage[v]} alt={ChainName[v]} className={css.chain} />
+                <img decoding="async" loading="lazy" src={ChainImage[v]} alt={ChainName[v]} className={css.chain} />
                 <div className="select_currency">
                   <h3>{ChainName[v]}</h3>
                 </div>

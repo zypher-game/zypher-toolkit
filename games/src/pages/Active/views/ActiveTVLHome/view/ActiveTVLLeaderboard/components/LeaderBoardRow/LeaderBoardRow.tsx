@@ -82,7 +82,7 @@ const LeaderBoardRow = memo((props: IProps) => {
     >
       <div className={`leader_board_row_fl ${rank < 4 ? '' : 'leader_board_row_fl_mr'}`}>
         {rank < 4 ? (
-          <img src={`${preStaticUrl}/img/tvl/label_0${rank}.png`} className="leader_board_row_fl_img" />
+          <img decoding="async" loading="lazy" src={`${preStaticUrl}/img/tvl/label_0${rank}.png`} className="leader_board_row_fl_img" />
         ) : (
           <ActivePixelCard
             pixel_height={3}
@@ -103,7 +103,15 @@ const LeaderBoardRow = memo((props: IProps) => {
               {getNicknameStr(nickname)}
               {isMy ? '(YOU)' : ''}
             </h3>
-            {isMy ? <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={'pixel_edit'} onClick={editNicknameHandle} /> : null}
+            {isMy ? (
+              <img
+                decoding="async"
+                loading="lazy"
+                src={preStaticUrl + '/img/icon/pixel_edit.svg'}
+                className={'pixel_edit'}
+                onClick={editNicknameHandle}
+              />
+            ) : null}
           </div>
           {!fromNickname || fromNickname !== '' ? <p>Invited by {getNicknameStr(fromNickname)}</p> : null}
         </div>

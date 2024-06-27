@@ -40,6 +40,8 @@ const HomeGameList = memo(() => {
       return (
         <div key={v} className={css.listItem}>
           <img
+            decoding="async"
+            loading="lazy"
             src={preStaticUrl + '/img/home/' + v}
             style={{ cursor: LinkList[_index] !== '' ? 'pointer' : 'auto' }}
             onClick={() =>
@@ -78,9 +80,9 @@ const HomeGameList = memo(() => {
             })
           }
         >
-          <img src={preStaticUrl + '/img/home/game_bingo_bg.jpg'} className={css.bingoBg} />
-          <img src={preStaticUrl + '/img/home/game_bingo_01.png'} className={css.bingo01} />
-          <img src={preStaticUrl + '/img/home/game_bingo_02.png'} className={css.bingo02} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/game_bingo_bg.jpg'} className={css.bingoBg} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/game_bingo_01.png'} className={css.bingo01} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/game_bingo_02.png'} className={css.bingo02} />
         </div>
       )
     }

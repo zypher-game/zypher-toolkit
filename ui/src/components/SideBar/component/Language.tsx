@@ -70,6 +70,8 @@ const Language = memo(({ type }: IProps) => {
           <div className="pixel_logo_wrap">
             <IsPixelWidget className="pixel_logo" type={type}>
               <img
+                decoding="async"
+                loading="lazy"
                 src={preStaticUrl + `/img/layout/${lang}.png`}
                 className="pixel_img_lang"
               />

@@ -25,7 +25,7 @@ export default (props: IProps): React.ReactElement | null => {
       <Content>
         <Row gutter={34} align={'top'}>
           <Col flex={'528px'}>
-            <img src={preStaticUrl + '/img/profile/card.png'} width={'100%'} alt="" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + '/img/profile/card.png'} width={'100%'} alt="" />
           </Col>
 
           <Col flex="814px">

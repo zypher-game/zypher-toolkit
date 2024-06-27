@@ -61,7 +61,7 @@ const NoDataPage = memo(({ style }: { style?: any }) => {
   return (
     <>
       <Warp style={style}>
-        <img src={preStaticUrl + `/img/icon/pixel_no_data_white.svg`} alt="" />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/img/icon/pixel_no_data_white.svg`} alt="" />
         <Text>{t('NO Data')}</Text>
       </Warp>
     </>

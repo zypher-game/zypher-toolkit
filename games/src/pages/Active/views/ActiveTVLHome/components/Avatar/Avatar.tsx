@@ -73,7 +73,7 @@ const Avatar = memo(
         />
         {showError ? (
           src.startsWith('data:image/png;base64') ? (
-            <img src={src} alt={nickname} />
+            <img decoding="async" loading="lazy" src={src} alt={nickname} />
           ) : (
             <AvatarDiv>
               <p>{(nickname === '' ? '??' : nickname)[1]}</p>

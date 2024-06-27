@@ -17,7 +17,7 @@ export const HomeTitle: FC<ITitleProps> = memo(({ label, label_icon }: ITitlePro
   const { t } = useCustomTranslation([LngNs.home])
   return (
     <div className={css.title}>
-      <img src={preStaticUrl + '/img/home/' + label_icon} loading="lazy" />
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/' + label_icon} loading="lazy" />
       <p>{t(`${label}`)}</p>
     </div>
   )

@@ -46,7 +46,7 @@ const BuyBattlePassDialog: React.FC<IProps> = ({ handleBuyBattlePass, monsterSta
           </div>
           <div className={css.dialogContainer}>
             <div className={css.card}>
-              <img src={preStaticUrl + `/img/monster/passCard.png`} alt="passCard" />
+              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/passCard.png`} alt="passCard" />
             </div>
             <div className={css.priceCard}>
               <p>{monsterState?.purchasePriceStr}</p>

@@ -63,11 +63,11 @@ const DPBuyDialog = memo(
             </div>
           </div>
           <div className={css.dPBuyDialogContainer}>
-            <img src={preStaticUrl + `/img/dp/buy_${DP_PRICE.num}.png`} className={css.buyimg} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/dp/buy_${DP_PRICE.num}.png`} className={css.buyimg} />
             <DPAmountInputItem size="middle" value={buyValue} setValue={setBuyValue} max="9999999999" />
             <button className={css.btn} onClick={buyHandle}>
               <div className={css.btnbg}>
-                <img src={preStaticUrl + '/img/dp/buy_btn_bg.png'} />
+                <img decoding="async" loading="lazy" src={preStaticUrl + '/img/dp/buy_btn_bg.png'} />
                 <p>{gpPrice} $GP</p>
               </div>
               <strong>

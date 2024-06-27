@@ -14,7 +14,7 @@ const ActiveStaking = memo(() => {
     <ActiveComp>
       <div className={css.inner}>
         <div className={css.fl}>
-          {isW768 ? <img src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
+          {isW768 ? <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
           <p className={css.text}>Congratulations on completing your registration!</p>
           <p className={css.text}>
             Please pledge{' '}
@@ -27,7 +27,7 @@ const ActiveStaking = memo(() => {
           <p className={css.greyText}>
             Notice: Please complete account activation as soon as possible to ensure that your invitation code is not registered by others.
           </p>
-          {!isW768 ? <img src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
+          {!isW768 ? <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
         </div>
         <Staking />
       </div>

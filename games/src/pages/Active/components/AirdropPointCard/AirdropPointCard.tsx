@@ -7,16 +7,16 @@ const AirdropPointCard = memo(({ amount }: { amount: string }) => {
     <div className={css.airdropPointCard}>
       <div className={css.title}>
         <p>Airdrop Points</p>
-        <img src={preStaticUrl + '/img/tvl/airdrop_point/card2.png'} alt="card2" className={`${css.card}`} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/card2.png'} alt="card2" className={`${css.card}`} />
       </div>
       <br />
       <div className={css.amount}>
         <p>{amount}</p>
-        <img src={preStaticUrl + '/img/tvl/airdrop_point/card.png'} alt="card" className={`${css.card}`} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/card.png'} alt="card" className={`${css.card}`} />
       </div>
       <div className={css.bg}>
-        <img src={preStaticUrl + '/img/tvl/airdrop_point/light.png'} alt="light" className={`${css.light}`} />
-        <img src={preStaticUrl + '/img/tvl/airdrop_point/number_bg.png'} alt="number_bg" className={css.number_bg} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/light.png'} alt="light" className={`${css.light}`} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/number_bg.png'} alt="number_bg" className={css.number_bg} />
       </div>
     </div>
   )

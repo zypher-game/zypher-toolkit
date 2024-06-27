@@ -41,6 +41,4 @@ interface Window {
   mcrypto: any
 }
 
-declare module 'jsonp'
-declare module 'to-querystring'
 // declare module "@ui/src"

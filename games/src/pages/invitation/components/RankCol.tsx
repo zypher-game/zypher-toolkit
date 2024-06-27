@@ -11,7 +11,7 @@ const RankCol: FC<IProp> = memo(({ rank, account, isMobile, showLine = false, ot
   const rankId = useMemo(() => {
     if (rank && rank !== 'undefined') {
       if (new BigNumber(rank).isLessThan(4)) {
-        return <img className={css.img} src={preStaticUrl + `/img/invitation/rank${rank}.svg`} title="invitation" />
+        return <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/invitation/rank${rank}.svg`} title="invitation" />
       }
       return <p className={css.p}>#{rank}</p>
     }

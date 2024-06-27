@@ -168,8 +168,20 @@ const ZeroGas = memo(() => {
                 <div className={css.list}>
                   <ActivePixelCard className={css.bannerCard} pixel_height={6} backgroundColor={bannerBorderColor}>
                     <ActivePixelCard className={css.bannerCardInner} pixel_height={6} backgroundColor="#1D263B">
-                      <img className={css.bg} src={`${preStaticUrl}/img/zeroGas/${_themeKey}_bg${isW768 ? '_m' : ''}.png`} alt={_themeKey} />
-                      <img className={css.logo} src={`${preStaticUrl}/img/zeroGas/${_themeKey}_logo.png`} alt={_themeKey} />
+                      <img
+                        decoding="async"
+                        loading="lazy"
+                        className={css.bg}
+                        src={`${preStaticUrl}/img/zeroGas/${_themeKey}_bg${isW768 ? '_m' : ''}.png`}
+                        alt={_themeKey}
+                      />
+                      <img
+                        decoding="async"
+                        loading="lazy"
+                        className={css.logo}
+                        src={`${preStaticUrl}/img/zeroGas/${_themeKey}_logo.png`}
+                        alt={_themeKey}
+                      />
                       <div className={css.bannerText}>
                         <div className={css.bannerTitle}>
                           <h2>{text} Zytron L3</h2>

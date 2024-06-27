@@ -36,7 +36,7 @@ const Banner = memo(() => {
         <div className={css.top_fl}>
           <Avatar className={css.top_fl_img} src={getAvatar(avatar, refreshAvatar)} nickname={nickname} width="48px" />
           <p>{getNicknameStr(nickname)}</p>
-          <img src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
         </div>
         {showTwitter ? (
           <ShareLink
@@ -52,7 +52,7 @@ const Banner = memo(() => {
         ) : null}
       </div>
       <div className={css.bottom}>
-        <img src={preStaticUrl + '/img/tvl/box.png'} className={css.box} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/box.png'} className={css.box} />
         <ul className={css.bottom_card}>
           <LiItem title={'#' + activeData.rankingStr ?? ''} label={'Ranking'} iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'} />
           <LiItem

@@ -48,7 +48,7 @@ const MonsterFightAction: FC<IProps> = memo(({ monsterStatus, handleMonsterBotto
   return (
     <div className={classnames(css.monsterFightAction, css[`monsterFightAction_${monsterStatus}`])}>
       {/* <div className={css.fl}>
-        <img src={preStaticUrl + `/img/monster/box03.png`} alt="box03" />
+         <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/box03.png`} alt="box03" />
         <p>x 15</p>
       </div> */}
       <div className={css.fr}>

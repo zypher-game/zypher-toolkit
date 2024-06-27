@@ -79,7 +79,7 @@ export const PlainArrowButton = memo(({ label, show, onClick }: IPlainArrowButto
   return (
     <button onClick={onClick} className={classnames(css.plainButton, css.plainArrowButton)}>
       {label}
-      <img src={preStaticUrl + `/img/layout/${show ? 'arrow-up' : 'arrow-down'}.svg`} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/layout/${show ? 'arrow-up' : 'arrow-down'}.svg`} />
     </button>
   )
 }, isEqual)

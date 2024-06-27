@@ -1,4 +1,4 @@
-import { PixelBorderCard, useIsW768 } from '@ui/src'
+import { motion, PixelBorderCard, useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
@@ -20,7 +20,7 @@ const ActiveRegister = memo(() => {
   return (
     <ActiveComp>
       <div className={css.register}>
-        <div className={css.textPart}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className={css.textPart}>
           {checkAirdropPointsLoading && isW768 ? (
             <></>
           ) : (
@@ -55,7 +55,7 @@ const ActiveRegister = memo(() => {
               <Bind CheckPointHandle={CheckPointHandle} CheckDiscordHandle={CheckDiscordHandle} CheckTwitterHandle={CheckTwitterHandle} />
             )}
           </div>
-        </div>
+        </motion.div>
         {checkAirdropPointsLoading && isW768 ? <></> : <EarthPart />}
       </div>
     </ActiveComp>

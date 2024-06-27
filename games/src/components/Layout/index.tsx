@@ -7,6 +7,7 @@ import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
@@ -55,6 +56,7 @@ const Layout = memo((props: IProps) => {
         useLocation={useLocation}
         CountUpNumber={CountUpNumber}
         pathname={pathnameArr[1]}
+        Link={Link}
       />
       <Content className="lt-content">
         {/* <div className="lt-main"></div> */}

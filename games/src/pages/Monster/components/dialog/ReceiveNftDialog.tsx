@@ -34,7 +34,7 @@ const ReceiveNftDialog: React.FC<Props> = () => {
           </div>
           <div className="liner_long" />
           <div className={css.card}>
-            <img src={preStaticUrl + `/img/monster/passCard.png`} alt="passCard" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/passCard.png`} alt="passCard" />
             <div className={css.text_card}>
               <p>{tokenId}</p>
               <svg xmlns="http://www.w3.org/2000/svg" width="89" height="22" viewBox="0 0 89 22" fill="none">

@@ -40,7 +40,7 @@ const Banner: FC = memo(() => {
         {banner.map((v, index) => (
           <SwiperSlide key={index}>
             <BannerItem v={v}>
-              <img src={v.imgPath} alt={v.alt} />
+              <img decoding="async" loading="lazy" src={v.imgPath} alt={v.alt} />
             </BannerItem>
           </SwiperSlide>
         ))}

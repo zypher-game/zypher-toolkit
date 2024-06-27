@@ -17,7 +17,7 @@ const DPBanner = memo(({ preHandleAction, dpData }: { preHandleAction: any; dpDa
   }, [preHandleAction])
   return (
     <div className={css.dpBanner}>
-      <img src={preStaticUrl + `/img/dp/dp_banner_bg${isMobile ? '_m' : ''}.png`} className={css.bannerBg} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/dp/dp_banner_bg${isMobile ? '_m' : ''}.png`} className={css.bannerBg} />
       <div className={css.dpBannerInner}>
         {isMobile ? (
           <h1>
@@ -26,7 +26,7 @@ const DPBanner = memo(({ preHandleAction, dpData }: { preHandleAction: any; dpDa
             {t('mBannerText02')}
           </h1>
         ) : null}
-        <img src={preStaticUrl + '/img/dp/dp_banner.png'} className={css.bannerBg01} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/dp/dp_banner.png'} className={css.bannerBg01} />
         <div className={css.content}>
           {isMobile ? null : <h1>{t('bannerText')}</h1>}
           <p className={css.grey}>{t('bannerTextSub')}</p>

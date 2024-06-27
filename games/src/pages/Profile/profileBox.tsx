@@ -10,7 +10,7 @@ interface IProps {
 export default (props: IProps): React.ReactElement | null => {
   return (
     <div className={css.profileBox}>
-      <img src={preStaticUrl + '/img/profile/card.png'} alt="" />
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/profile/card.png'} alt="" />
       <div className={css.content}>
         <div className={css.title}>{`What are the Genesis Blind Box？`}</div>
         <div className={css.text}>

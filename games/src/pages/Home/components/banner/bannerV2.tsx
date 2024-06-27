@@ -67,7 +67,7 @@ const BannerV2Widget: FC = memo(() => {
         {bannerData.map((v, index) => (
           <SwiperSlide key={index}>
             <div className={css.headerSwiper} onClick={() => onclikHandle(v.link)}>
-              <img src={v.imgPath} alt={v.imgPath} />
+              <img decoding="async" loading="lazy" src={v.imgPath} alt={v.imgPath} />
             </div>
           </SwiperSlide>
         ))}

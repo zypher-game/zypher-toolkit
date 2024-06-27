@@ -46,7 +46,14 @@ const PcUserInfo = memo(
             )}
           </div>
           <div className={"pc_user_info"}>
-            {connectIcon && <img src={src} alt={connectName} />}
+            {connectIcon && (
+              <img
+                decoding="async"
+                loading="lazy"
+                src={src}
+                alt={connectName}
+              />
+            )}
             <div className={"pc_user_text"}>{getShortenAddress(account)}</div>
             <span onClick={() => copy(account)}>
               <Icon name="copy" />

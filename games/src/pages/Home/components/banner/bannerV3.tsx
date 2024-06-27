@@ -65,7 +65,7 @@ const BannerV3Widget: FC = memo(() => {
               </div>
             ) : v ? (
               <div className={css.headerSwiper} onClick={() => onclikHandle(v.link)}>
-                <img src={v.imgPath} alt={v.imgPath} className={css.bannerImg} />
+                <img decoding="async" loading="lazy" src={v.imgPath} alt={v.imgPath} className={css.bannerImg} />
               </div>
             ) : null}
           </SwiperSlide>

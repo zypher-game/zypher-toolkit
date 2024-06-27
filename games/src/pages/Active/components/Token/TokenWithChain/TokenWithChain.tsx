@@ -20,8 +20,8 @@ const TokenWithChain = memo(({ token, chainId, width }: { token: IToken; chainId
   }, [JSON.stringify(token), chainId])
   return (
     <Wrap className={css.token_with_chain} width={width}>
-      <img className={css.token} src={cLogo} alt={token.symbol} />
-      <img className={css.chain_id} src={ChainImage[cChainId]} alt={Currency[cChainId]} />
+      <img decoding="async" loading="lazy" className={css.token} src={cLogo} alt={token.symbol} />
+      <img decoding="async" loading="lazy" className={css.chain_id} src={ChainImage[cChainId]} alt={Currency[cChainId]} />
     </Wrap>
   )
 })

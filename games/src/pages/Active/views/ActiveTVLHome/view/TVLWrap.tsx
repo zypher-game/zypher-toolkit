@@ -1,3 +1,4 @@
+import { motion } from '@ui/src'
 import React, { memo } from 'react'
 
 import ChangeNameDialog from '@/pages/Active/dialog/ChangeNameDialog/ChangeNameDialog'
@@ -27,8 +28,12 @@ const TVLWrap = memo(
             children
           ) : (
             <div className={css.inner_inner}>
-              <div className={css.fl}>{fl_children}</div>
-              <div className={css.fr}>{fr_children}</div>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className={css.fl}>
+                {fl_children}
+              </motion.div>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className={css.fr}>
+                {fr_children}
+              </motion.div>
             </div>
           )}
         </div>

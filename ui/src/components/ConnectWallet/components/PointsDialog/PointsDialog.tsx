@@ -157,6 +157,8 @@ const PointsTable = memo(
             <div className={classnames("points", `points_${v.index}`)}>
               <h3>{v.pointAmountStr}</h3>
               <img
+                decoding="async"
+                loading="lazy"
                 className={"points_img"}
                 src={preStaticUrl + `/img/points/points_${v.index}.png`}
                 alt="points"
@@ -172,6 +174,8 @@ const PointsTable = memo(
               {v.discount && (
                 <div className={"discount"}>
                   <img
+                    decoding="async"
+                    loading="lazy"
                     className={"discount_img"}
                     src={preStaticUrl + `/img/points/discord.svg`}
                     alt="points"

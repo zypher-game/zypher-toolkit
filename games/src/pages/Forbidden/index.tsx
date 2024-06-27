@@ -43,7 +43,7 @@ const Forbidden = () => {
     <Content>
       <div>
         <div className="image">
-          <img src={Rabbit} alt="Rabbit" />
+          <img decoding="async" loading="lazy" src={Rabbit} alt="Rabbit" />
         </div>
         <p>Zypher Games is unable to provide service in your country/region.</p>
         <p> Zypher Games 는 귀하의 국가/지역에서 서비스를 제공할 수 없습니다.</p>

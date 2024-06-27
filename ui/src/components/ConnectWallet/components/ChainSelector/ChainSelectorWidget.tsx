@@ -86,6 +86,8 @@ const ChainSelectorWidget = memo(
         <div className="ChainSelectorWidgetWrapper">
           <div className="img">
             <img
+              decoding="async"
+              loading="lazy"
               src={config.ChainImage[chainId]}
               alt={config.ChainName[chainId]}
             />

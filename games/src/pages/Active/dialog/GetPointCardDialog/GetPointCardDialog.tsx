@@ -56,7 +56,7 @@ const Item = memo(({ className, bg, icon, label, text }: { className: string; bg
       <SvgComponent src={icon} className={css.icon} />
       <p className={css.title}>{label}</p>
       <p className={css.text}>{text}</p>
-      <img src={bg} className={css.bg} />
+      <img decoding="async" loading="lazy" src={bg} className={css.bg} />
     </div>
   )
 })

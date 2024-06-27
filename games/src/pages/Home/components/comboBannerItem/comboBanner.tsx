@@ -21,9 +21,9 @@ const ComboBanner = memo(() => {
         <br /> <p className={classnames(css.btn, forbidcss ? css.forbid : '')}>{Text}</p>
       </div>
       <ComboBannerBg02 className={css.comboBanner_bg02} />
-      {/* <img src={preStaticUrl + '/img/home/comboBanner_bg02.png'} className={css.comboBanner_bg02} /> */}
-      <img src={preStaticUrl + '/img/home/comboBanner_bg.jpg'} className={css.comboBanner_bg01} />
-      <img src={preStaticUrl + `/img/home/banner06.jpg`} className={css.bg} />
+      {/*  <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/comboBanner_bg02.png'} className={css.comboBanner_bg02} /> */}
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/comboBanner_bg.jpg'} className={css.comboBanner_bg01} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/banner06.jpg`} className={css.bg} />
       <ComboBannerDialog />
     </div>
   )

@@ -57,7 +57,7 @@ const NFTs = memo((props: INFTsProp) => {
             dataSource={z2048List}
             renderItem={(item, index) => (
               <List.Item>
-                <img src={item} width={'100%'} />
+                <img decoding="async" loading="lazy" src={item} width={'100%'} />
               </List.Item>
             )}
           />
@@ -83,7 +83,7 @@ const NFTs = memo((props: INFTsProp) => {
             renderItem={(item, index) => (
               <List.Item>
                 <div className={css.item} key={index}>
-                  <img src={preStaticUrl + '/img/profile/card.png'} width={'100%'} />
+                  <img decoding="async" loading="lazy" src={preStaticUrl + '/img/profile/card.png'} width={'100%'} />
                   <CardTokenId>#{item}</CardTokenId>
                 </div>
               </List.Item>

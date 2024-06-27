@@ -25,11 +25,23 @@ export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
   return (
     <a href={"/"} target="_black" className="zypher_logo">
       {isMobile ? (
-        <img src={preStaticUrl + "/img/layout/logo-min.svg"} />
+        <img
+          decoding="async"
+          loading="lazy"
+          src={preStaticUrl + "/img/layout/logo-min.svg"}
+        />
       ) : (
-        <img src={preStaticUrl + "/img/tvl/logo.svg"} />
+        <img
+          decoding="async"
+          loading="lazy"
+          src={preStaticUrl + "/img/tvl/logo.svg"}
+        />
       )}
-      <img src={preStaticUrl + "/img/layout/ai.svg"} />
+      <img
+        decoding="async"
+        loading="lazy"
+        src={preStaticUrl + "/img/layout/ai.svg"}
+      />
     </a>
   );
 });

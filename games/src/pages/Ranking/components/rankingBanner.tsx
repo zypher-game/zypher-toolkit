@@ -31,7 +31,13 @@ const RankingBanner = memo(({ isMobile, players }: IProps) => {
         <div key={index} className={classnames(css.ranking_banner_item, css[`ranking_banner_item_${players[index]?.index ?? ''}`])}>
           {!players[index] ? null : (
             <>
-              <img src={preStaticUrl + `/img/ranking/rank0${players[index].index}.png`} alt="ranking" className={css.ranking_logo} />
+              <img
+                decoding="async"
+                loading="lazy"
+                src={preStaticUrl + `/img/ranking/rank0${players[index].index}.png`}
+                alt="ranking"
+                className={css.ranking_logo}
+              />
               <PlayerAvatar
                 className={css.account}
                 account={players[index].address}

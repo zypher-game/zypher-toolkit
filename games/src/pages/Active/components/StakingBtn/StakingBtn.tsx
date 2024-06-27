@@ -18,7 +18,9 @@ const StakingBtn = memo(({ chainId }: { chainId: ChainId }) => {
       pixel_height={2}
       onClick={showStakingHandle}
     >
-      {isW768 ? <img src={preStaticUrl + '/img/tvl/staking_icon.svg'} alt="staking" className={css.stakingImg} /> : null}
+      {isW768 ? (
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/staking_icon.svg'} alt="staking" className={css.stakingImg} />
+      ) : null}
       <p>Stake</p>
     </ActivePixelButtonColor>
   )

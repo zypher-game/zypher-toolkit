@@ -186,7 +186,13 @@ const LiItem = memo(
             pixel_height={4}
             backgroundColor={on ? '#FFD584' : '#62A1FF'}
           >
-            <img src={preStaticUrl + '/img/tvl/hero/' + keyValue + '_Avatar.png'} alt={keyValue} className="hero_liItem_avatar" />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/tvl/hero/' + keyValue + '_Avatar.png'}
+              alt={keyValue}
+              className="hero_liItem_avatar"
+            />
           </ActivePixelCard>
           {isW768 ? null : (
             <div className="hero_text_fr">

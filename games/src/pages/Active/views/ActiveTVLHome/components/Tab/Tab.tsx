@@ -4,7 +4,7 @@ import { PixelTab, useIsW768, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { tvlPath, TVLTabList } from '@/pages/Active/hooks/activeHooks'
+import { tvlPath, TVLTabList, usePreHandleAction } from '@/pages/Active/hooks/activeHooks'
 import { tvlPathState } from '@/pages/Active/state/activeState'
 
 const Tab = memo(() => {
@@ -17,12 +17,19 @@ const Tab = memo(() => {
   }, [location])
   const setTVLPath = useSetRecoilState(tvlPathState)
   const navigate = useNavigate()
+  const preHandleAction = usePreHandleAction()
   const toPath = useCallback(
     (index: number) => {
-      setTVLPath(index)
-      navigate(tvlPath[index])
+      const isOk = preHandleAction()
+      if (isOk) {
+        setTVLPath(index)
+        navigate(tvlPath[index])
+      } else {
+        setTVLPath(2)
+        navigate(tvlPath[2])
+      }
     },
-    [location]
+    [location, preHandleAction]
   )
   return (
     <PixelTab

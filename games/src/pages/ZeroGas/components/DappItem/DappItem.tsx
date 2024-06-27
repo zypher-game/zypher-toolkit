@@ -15,7 +15,7 @@ const DappItem = memo(({ item }: { item: IDappItem }) => {
   return (
     <PixelBorderCard className={css.dappCard} pixel_height={4} backgroundColor="#0c1220" borderColor="#3A4254">
       <div className={css.top}>
-        <img className={css.logo} src={item.logo} alt={item.title} />
+        <img decoding="async" loading="lazy" className={css.logo} src={item.logo} alt={item.title} />
         <h4 className={css.title}>{item.title}</h4>
         <p className={css.content}>{item.content}</p>
       </div>

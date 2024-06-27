@@ -125,7 +125,13 @@ const TeamWarn = memo(
                 )
               })}
           </div>
-          <img src={`${preStaticUrl}/img/tvl/${isW768 ? 'tvl_team_bg_m' : 'tvl_team_bg'}.png`} alt="tvl_team_bg" className={css.tvl_team_bg} />
+          <img
+            decoding="async"
+            loading="lazy"
+            src={`${preStaticUrl}/img/tvl/${isW768 ? 'tvl_team_bg_m' : 'tvl_team_bg'}.png`}
+            alt="tvl_team_bg"
+            className={css.tvl_team_bg}
+          />
         </div>
       )
     }
@@ -138,7 +144,7 @@ const TeamWarn = memo(
               {v}
             </p>
           ))}
-          <img src={img} alt={title} className={css[imgClassName]} />
+          <img decoding="async" loading="lazy" src={img} alt={title} className={css[imgClassName]} />
           <ActivePixelButtonColor
             themeType="brightBlue"
             className={css.btn}

@@ -81,7 +81,7 @@ const SelectTokenDialog = memo(() => {
                 onClick={() => changeChainHandle(v)}
                 className={chainIdLocal === v ? 'select_chain_li_on' : ''}
               >
-                <img src={ChainImage[v]} alt={Currency[v]} className="select_chain_li_img" />
+                <img decoding="async" loading="lazy" src={ChainImage[v]} alt={Currency[v]} className="select_chain_li_img" />
               </ActivePixelButton>
             ))}
           </div>

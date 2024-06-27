@@ -38,7 +38,7 @@ const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; f
           <PixelTooltip title={['Please switch your account address in the wallet']} />
         </div>
       </div>
-      <img src={frImgPath} className={css.img} />
+      <img decoding="async" loading="lazy" src={frImgPath} className={css.img} />
     </div>
   )
 })

@@ -4,7 +4,7 @@ const SvgComponent = memo(({ src, className, ...rest }: any) => {
   return src.endsWith(".svg") ? (
     <Svg src={src} className={className} {...rest} />
   ) : (
-    <img src={src} className={className} />
+    <img decoding="async" loading="lazy" src={src} className={className} />
   );
 });
 const Svg = memo(({ src, className, ...rest }: any) => {

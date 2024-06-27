@@ -10,14 +10,14 @@ const SBTCard = memo(({ className, themeKey }: { className: string; themeKey: Th
       {isW768 ? (
         <>
           <div className={css.SBTSmallWrap}>
-            <img src={`${preStaticUrl}/img/zeroGas/SBT_m_bg.png`} alt="SBT" className={css.SBTSmallBg} />
-            <img src={`${preStaticUrl}/img/zeroGas/SBT_m.png`} alt="SBT" className={css.SBTSmall} />
+            <img decoding="async" loading="lazy" src={`${preStaticUrl}/img/zeroGas/SBT_m_bg.png`} alt="SBT" className={css.SBTSmallBg} />
+            <img decoding="async" loading="lazy" src={`${preStaticUrl}/img/zeroGas/SBT_m.png`} alt="SBT" className={css.SBTSmall} />
           </div>
         </>
       ) : (
-        <img src={`${preStaticUrl}/img/zeroGas/SBT.png`} alt="SBT" className={css.SBT} />
+        <img decoding="async" loading="lazy" src={`${preStaticUrl}/img/zeroGas/SBT.png`} alt="SBT" className={css.SBT} />
       )}
-      <img src={`${preStaticUrl}/img/zeroGas/${themeKey}_logo_small.png`} alt="SBT" className={css.smallLogo} />
+      <img decoding="async" loading="lazy" src={`${preStaticUrl}/img/zeroGas/${themeKey}_logo_small.png`} alt="SBT" className={css.smallLogo} />
     </div>
   )
 })

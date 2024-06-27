@@ -10,35 +10,45 @@ import "./Navigation.stylus";
 import useWindowSize from "../../../hooks/useWindowSize";
 import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
+
 export const NavKey = [
   ["", "airdrop", "airdropLoading"],
   ["games"],
   ["zeroGas"],
 ];
-export const NavList = [
+type INavList = {
+  link: string;
+  label: string;
+  classNames: string;
+  isTarget: boolean;
+  showIfGames: boolean; // 只显示 games 的时候显不显示
+  isLink: boolean;
+  icon?: string;
+};
+export const NavList: INavList[] = [
   {
     link: `/${NavKey[0][0]}`,
     label: "Airdrop",
-    linkList: NavKey[0],
     classNames: "airdrop",
     isTarget: false,
     showIfGames: false, // 只显示 games 的时候显不显示
+    isLink: true,
   },
   {
     link: `/${NavKey[1][0]}`,
     label: "Games",
-    linkList: NavKey[1],
     classNames: "games",
     isTarget: false,
     showIfGames: true,
+    isLink: true,
   },
   {
     link: `/${NavKey[2][0]}`,
     label: "Zero Gas",
-    linkList: NavKey[2],
     classNames: "zero_gas",
     isTarget: false,
     showIfGames: false,
+    isLink: true,
   },
   {
     link: "https://zypher.network/",
@@ -47,11 +57,12 @@ export const NavList = [
     classNames: "network",
     isTarget: true,
     showIfGames: true,
+    isLink: false,
   },
 ];
 
-const Navigation: React.FC<{ pathname: string }> = memo(
-  ({ pathname }: { pathname: string }) => {
+const Navigation = memo(
+  ({ pathname, Link }: { pathname: string; Link: any }) => {
     const [chooseIndex, setChooseIndex] = useState<number | null | undefined>(
       null
     );
@@ -69,19 +80,19 @@ const Navigation: React.FC<{ pathname: string }> = memo(
       };
     }, [width]);
     const init = useCallback(async () => {
-      if (!isW768) {
+      if (!isW768 && linksRefs.current.length) {
         const index = NavKey.findIndex((key) => key.includes(pathname));
         if (index > -1) {
           setChooseIndex(index);
           setActiveIndex(index);
         }
       }
-    }, [pathname, isW768]);
+    }, [pathname, isW768, linksRefs.current]);
     useEffect(() => {
       init();
     }, [init]);
     const init2 = useCallback(async () => {
-      if (!isW768) {
+      if (!isW768 && linksRefs.current.length) {
         linksRefs.current.forEach(async (linkRef, index) => {
           if (linkRef?.className === "nav_on") {
             const w = hasFontWeight600(linkRef);
@@ -115,7 +126,7 @@ const Navigation: React.FC<{ pathname: string }> = memo(
     }, [chooseIndex, pathname]);
     useEffect(() => {
       init2();
-    }, [chooseIndex, pathname]);
+    }, [chooseIndex, pathname, linksRefs.current]);
 
     const updateLinePosition = useCallback(async () => {
       if (
@@ -154,25 +165,65 @@ const Navigation: React.FC<{ pathname: string }> = memo(
       <div className="nav">
         {NavList.filter((v) => (window.isGames ? v.showIfGames : true)).map(
           (v, index) => (
-            <a
+            <LinkComp
+              Link={Link}
+              item={v}
               key={v.label}
-              className={`nav_${v.classNames} ${
-                chooseIndex === index ? "nav_on" : ""
-              }`}
-              href={v.link}
-              target={v.isTarget ? "_blank" : undefined}
-              rel={v.isTarget ? "noreferrer" : undefined}
-              ref={(ref) => (linksRefs.current[index] = ref)}
+              className={`nav_${v.classNames} `}
+              setLinksRefs={(ref) => {
+                linksRefs.current[index] = ref;
+              }}
             >
               {v.label}
               {v.icon ? (
-                <img src={v.icon} alt="pixel_link" className="nav_img" />
+                <img
+                  decoding="async"
+                  loading="lazy"
+                  src={v.icon}
+                  alt="pixel_link"
+                  className="nav_img"
+                />
               ) : null}
-            </a>
+            </LinkComp>
           )
         )}
         <div className="pixel_line" />
       </div>
+    );
+  }
+);
+interface LinkProps {
+  className: string;
+  item: INavList;
+  children: React.ReactNode;
+  setLinksRefs: (ref: HTMLAnchorElement | null) => void;
+  Link: any;
+}
+const LinkComp = memo(
+  ({ item, children, setLinksRefs, className, Link }: LinkProps) => {
+    const ref = useRef<HTMLAnchorElement | null>(null);
+    useEffect(() => {
+      if (ref.current) {
+        setLinksRefs(ref.current);
+      }
+    }, [ref]);
+    if (item.isLink) {
+      return (
+        <Link to={item.link} className={className} ref={ref}>
+          {children}
+        </Link>
+      );
+    }
+    return (
+      <a
+        href={item.link}
+        ref={ref}
+        target={item.isTarget ? "_blank" : undefined}
+        rel={item.isTarget ? "noreferrer" : undefined}
+        className={className}
+      >
+        {children}
+      </a>
     );
   }
 );

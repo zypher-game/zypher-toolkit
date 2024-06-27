@@ -2,7 +2,6 @@ import cx from "classnames";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 
-// import { BackgroundSets, generateAvatar } from 'robohash-avatars, setavatars'
 import generateAvatar from "../../utils/generateAvatar";
 import { getShortenAddress } from "../../utils/tool";
 import { ChainId, preStaticUrl } from "../../constant/constant";
@@ -32,7 +31,7 @@ interface IPlayerAvatar {
   type?: HeaderUIType;
   chainId?: ChainId;
   onClick?: any;
-  onMouseOver?:any
+  onMouseOver?: any;
 }
 
 const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
@@ -51,7 +50,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     hideAvatars,
     type = "other",
     onClick,
-    onMouseOver
+    onMouseOver,
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const [avatars, setAvatars] = useState<{
@@ -115,7 +114,11 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     //   }
     // }, [account, chainId]);
     return (
-      <div className={cx(className, "player_playerAvatar")} onClick={onClick} onMouseOver={onMouseOver}>
+      <div
+        className={cx(className, "player_playerAvatar")}
+        onClick={onClick}
+        onMouseOver={onMouseOver}
+      >
         {hideAvatars ? null : account ? (
           avatars ? (
             <AvatarBorder>
@@ -135,7 +138,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
             </AvatarBorder>
           ) : null
         ) : (
-          // <img className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
+          //  <img decoding="async" loading="lazy" className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
           <div
             className={"player_avatar"}
             style={{
@@ -284,12 +287,16 @@ export const PlayerAvatarList: React.FC<IAvatar> = ({
         <div className="inner-circle">
           {account ? (
             <img
+              decoding="async"
+              loading="lazy"
               width={"100%"}
               src={selectedAvatar}
               style={{ background: selectedBackground }}
             />
           ) : (
             <img
+              decoding="async"
+              loading="lazy"
               width={"100%"}
               src={preStaticUrl + `/img/default_avatar.png`}
             />

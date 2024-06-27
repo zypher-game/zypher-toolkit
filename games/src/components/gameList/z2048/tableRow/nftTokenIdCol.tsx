@@ -28,7 +28,7 @@ const NftTokenIdColItem = memo(({ chainId, tokenId, showFilter }: { chainId: Cha
   return (
     <NftTokenIdColStyled>
       <p>Z2048 #{tokenId}</p>
-      {showFilter ? <img src={ChainImage[chainId]} /> : null}
+      {showFilter ? <img decoding="async" loading="lazy" src={ChainImage[chainId]} /> : null}
     </NftTokenIdColStyled>
   )
 }, isEqual)

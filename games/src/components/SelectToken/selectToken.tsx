@@ -27,7 +27,7 @@ export default (props: IProps): React.ReactElement | null => {
       {tokens.map(item => {
         return (
           <Menu.Item key={item.address} onClick={() => onSelect(item)}>
-            {/* <img src={`/img/${item.symbol.toLowerCase()}.svg`} alt={item.symbol} /> */}
+            {/*  <img decoding="async" loading="lazy" src={`/img/${item.symbol.toLowerCase()}.svg`} alt={item.symbol} /> */}
             {item.symbol}
           </Menu.Item>
         )
@@ -44,7 +44,7 @@ export default (props: IProps): React.ReactElement | null => {
   return symbol ? (
     <Dropdown overlay={menu} trigger={['click']}>
       <div className={classnames(style.symbol, props.className)}>
-        <img src={preStaticUrl + `/img/${symbol.toLowerCase()}.svg`} alt={symbol} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/img/${symbol.toLowerCase()}.svg`} alt={symbol} />
         <div>{symbol}</div>
         <Icon name="down" />
       </div>

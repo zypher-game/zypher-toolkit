@@ -22,7 +22,7 @@ const MonsterList = memo(({ defenceRankDataState, defenceAccountRankDataState, c
       <div className={css.monsterList}>
         <div className={css.title}>
           <div className={css.tip}>
-            <img src={preStaticUrl + `/img/monster/title_bg.png`} alt="tip" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/title_bg.png`} alt="tip" />
             <p>{t('Tips')}</p>
           </div>
           <p className={css.tipText}>{t('MonsterListText1')}</p>
@@ -48,7 +48,7 @@ const MonsterListItem = memo(({ item, className }: IMonsterListItem) => {
           {getShortenAddress(item.address)} {className === 'my' ? '( YOU )' : null}
         </p>
         <div className={css.monsterListItemInfoBg}>
-          <img src={preStaticUrl + `/img/monster/fight02.png`} alt="fight" />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/fight02.png`} alt="fight" />
           <p>{item.pointStr}</p>
         </div>
       </div>
@@ -61,7 +61,7 @@ const RankCol: FC<IProp> = memo(({ rank, account }: IProp) => {
   const rankId = useMemo(() => {
     if (rank && rank !== 'undefined') {
       if (new BigNumberJs(rank).isLessThan(4)) {
-        return <img className={css.img} src={preStaticUrl + `/img/invitation/rank${rank}.svg`} title="invitation" />
+        return <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/invitation/rank${rank}.svg`} title="invitation" />
       }
       return <p className={css.p}>{rank}</p>
     }

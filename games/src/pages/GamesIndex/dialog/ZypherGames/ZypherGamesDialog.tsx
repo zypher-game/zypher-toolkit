@@ -18,7 +18,7 @@ const ZypherGamesDialog = memo(() => {
     <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
       <DialogContent className={css.center}>
         <ActivePixelCard className={css.ZypherGamesDialog} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
-          <img src={preStaticUrl + '/img/games/zypher_games.jpg'} alt="card2" className={`${css.card}`} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/games/zypher_games.jpg'} alt="card2" className={`${css.card}`} />
           <h3>Zypher Games</h3>
           <p>
             Zypher Games is a decentralized publishing DAO committed to supporting games empowered by Zypher Network’s next-gen AI & ZKP based

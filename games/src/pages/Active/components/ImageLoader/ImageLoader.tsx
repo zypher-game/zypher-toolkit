@@ -47,7 +47,7 @@ const ImageLoader: React.FC<IImageProps> = memo(({ src, className, alt, cb, errC
     loadImage()
   }, [src])
 
-  return <>{!isLoading && !error && <img src={src} alt={alt} className={`${className ?? ''}`} />}</>
+  return <>{!isLoading && !error && <img decoding="async" loading="lazy" src={src} alt={alt} className={`${className ?? ''}`} />}</>
 })
 
 export default ImageLoader

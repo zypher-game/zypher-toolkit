@@ -11,20 +11,20 @@ const CRBannerItem = memo(() => {
         window.open('https://twitter.com/Zypher_network/status/1763459766066774238', '_blank')
       }}
     >
-      <img src={preStaticUrl + '/img/home/cr_bg.jpg'} alt="cr_bg" className={css.cr_bg} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_bg.jpg'} alt="cr_bg" className={css.cr_bg} />
       <div className={css.cr_fr}>
-        <img src={preStaticUrl + '/img/home/cr_light.png'} alt="cr_light" className={css.cr_light} />
-        <img src={preStaticUrl + '/img/home/cr_monster01.png'} alt="cr_monster01" className={css.cr_monster01} />
-        <img src={preStaticUrl + '/img/home/cr_monster02.png'} alt="cr_monster02" className={css.cr_monster02} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_light.png'} alt="cr_light" className={css.cr_light} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_monster01.png'} alt="cr_monster01" className={css.cr_monster01} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_monster02.png'} alt="cr_monster02" className={css.cr_monster02} />
       </div>
       <div className={css.cr_fl}>
         <div className={css.cr_title}>
-          <img src={preStaticUrl + '/img/home/cr_title.png'} alt="cr_title" />
-          <img src={preStaticUrl + '/img/home/cr_title.png'} alt="cr_title" />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_title.png'} alt="cr_title" />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_title.png'} alt="cr_title" />
         </div>
         <div className={css.cr_subTitle}>
-          <img src={preStaticUrl + '/img/home/cr_subTitle.png'} alt="cr_subTitle" />
-          <img src={preStaticUrl + '/img/home/cr_subTitle.png'} alt="cr_subTitle" />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_subTitle.png'} alt="cr_subTitle" />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/cr_subTitle.png'} alt="cr_subTitle" />
         </div>
       </div>
       <div className={css.fireBg}>

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const WebpackBar = require('webpackbar')
-const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
+// const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const { cssLoader } = require('./utils/cssLoader')
 const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
@@ -26,7 +26,7 @@ module.exports = {
     ethers: 'ethers'
   },
   plugins: [
-    new AntdDayjsWebpackPlugin(),
+    // new AntdDayjsWebpackPlugin(),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$|^\.\/lib\/chart\/(.)*/,
       contextRegExp: /moment$|echarts$/
@@ -49,7 +49,7 @@ module.exports = {
         {
           module: 'react',
           entry: {
-            path: 'https://static.zypher.game/lib/react/react.production.min.js',
+            path: 'https://static-dev.zypher.game/lib/react/react-v18.0.0.production.min.js',
             type: 'js'
             // cwpPatternConfig: {
             // context: path.resolve(__dirname, '../public/lib')
@@ -60,7 +60,7 @@ module.exports = {
         {
           module: 'react-dom',
           entry: {
-            path: 'https://static.zypher.game/lib/react-dom/react-dom.production.min.js',
+            path: 'https://static-dev.zypher.game/lib/react-dom/react-dom-v18.0.0.production.min.js',
             type: 'js'
             // cwpPatternConfig: {
             // context: path.resolve(__dirname, '../public/lib')

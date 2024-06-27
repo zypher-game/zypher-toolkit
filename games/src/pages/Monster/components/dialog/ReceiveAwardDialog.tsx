@@ -48,7 +48,7 @@ const ReceiveAwardDialog: React.FC<Props> = () => {
               }
             ].map((v, index) => (
               <div className={classnames(css.box, css[v.name])} key={index}>
-                <img src={v.img} alt={v.name} />
+                <img decoding="async" loading="lazy" src={v.img} alt={v.name} />
                 <p>{v.amount}</p>
               </div>
             ))}

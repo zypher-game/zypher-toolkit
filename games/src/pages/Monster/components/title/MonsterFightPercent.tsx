@@ -60,7 +60,7 @@ const MonsterFightPercent = memo(({ fightInfo, monsterState }: IProps) => {
         <div className={classnames('fightIcon', css.fightIcon)}>
           {Array.from({ length: len }).map((v, index) => (
             <div key={index}>
-              <img src={preStaticUrl + `/img/monster/fight.png`} alt="fight" />
+              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/fight.png`} alt="fight" />
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ const MonsterFightPercent = memo(({ fightInfo, monsterState }: IProps) => {
           </p>
         )}
       </FlItem>
-      <img src={preStaticUrl + `/img/monster/box02.png`} alt="box" className={css.box} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/box02.png`} alt="box" className={css.box} />
     </div>
   )
 }, isEqual)

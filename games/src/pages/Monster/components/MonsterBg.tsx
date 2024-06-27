@@ -55,7 +55,7 @@ const MonsterBg = memo(({ monsterStatus }: IProps) => {
   const isMobile = useIsW768()
   return (
     <MonsterBgStyled className={monsterStatus}>
-      <img src={preStaticUrl + `/img/monster/bg${isMobile ? '_m' : ''}.jpg`} alt="" />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/bg${isMobile ? '_m' : ''}.jpg`} alt="" />
     </MonsterBgStyled>
   )
 }, isEqual)

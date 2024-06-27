@@ -31,7 +31,7 @@ const MonsterNftDialog: React.FC<Props> = () => {
             </div>
           </div>
           <div className={css.dialogContainer}>
-            <img src={preStaticUrl + `/img/monster/passCard.png`} alt="level" className={css.levelImg} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/passCard.png`} alt="level" className={css.levelImg} />
             <div className={css.text}>
               <p>
                 <Trans i18nKey="MonsterNftDialogText2" defaults={t('MonsterNftDialogText2')} components={{ bold: <strong /> }} />

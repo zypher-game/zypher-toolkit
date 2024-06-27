@@ -21,11 +21,11 @@ const BannerV1Widget: FC<IBingoPointApi> = memo(() => {
       <div className={css.header}>
         <div className={css.headerFl}>
           <div className={css.banner} onClick={flOnclikHandle}>
-            <img src={preStaticUrl + `/img/home/banner01bgV1.png`} alt="zbingo" className={css.bannerbg} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/banner01bgV1.png`} alt="zbingo" className={css.bannerbg} />
           </div>
         </div>
         <div className={css.headerFr} onClick={frOnclikHandle}>
-          <img src={preStaticUrl + `/img/home/banner02bgV1.png`} alt="points" className={css.bannerbg} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/banner02bgV1.png`} alt="points" className={css.bannerbg} />
         </div>
       </div>
       {/* <InvitationWidget isMobile={isMobile} /> */}

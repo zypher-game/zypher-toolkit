@@ -12,6 +12,8 @@ const Logo: React.FC<LogoProps> = ({ src, alt, ...rest }) => {
   if (src && !bad) {
     return (
       <img
+        decoding="async"
+        loading="lazy"
         {...rest}
         alt={alt}
         src={src}

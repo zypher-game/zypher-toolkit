@@ -75,14 +75,14 @@ const ComboBannerDialog = memo(() => {
               {Question}
             </div>
             <ComboBannerBg02 className={css.comboBanner_bg02} />
-            {/* <img src={preStaticUrl + '/img/home/comboBanner_bg02.png'} className={css.comboBanner_bg02} /> */}
-            <img src={preStaticUrl + '/img/home/comboBanner_bg03.jpg'} className={css.comboBanner_bg01} />
+            {/*  <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/comboBanner_bg02.png'} className={css.comboBanner_bg02} /> */}
+            <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/comboBanner_bg03.jpg'} className={css.comboBanner_bg01} />
           </>
         ) : (
           <>
             <div className={css.claimed}>
               <ComboBannerBg02 className={css.comboBanner_bg02} />
-              {/* <img src={preStaticUrl + '/img/home/comboBanner_bg02.png'} className={css.comboBanner_bg02} /> */}
+              {/*  <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/comboBanner_bg02.png'} className={css.comboBanner_bg02} /> */}
               <div className={css.claimedInner}>
                 <KanitTitleText label={t('Congratulations')} className={css.title} />
                 <p className={classnames(css.btn, forbidcss ? css.forbid : '')} onClick={checkInHandle}>
@@ -97,7 +97,7 @@ const ComboBannerDialog = memo(() => {
                 {Question}
               </div>
             </div>
-            <img src={preStaticUrl + '/img/home/comboBanner_bg04.jpg'} className={css.comboBanner_bg01} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + '/img/home/comboBanner_bg04.jpg'} className={css.comboBanner_bg01} />
           </>
         )}
       </DialogContent>

@@ -41,21 +41,21 @@ const GetAirdropWrap = memo(({ children }: { children: React.ReactNode }) => {
                 <p>Gas consumption</p>
                 <div className={css.li_fr}>
                   <p>{gasStr}</p>
-                  <img src={CurrencyLogo[chainId]} title={Currency[chainId]} />
+                  <img decoding="async" loading="lazy" src={CurrencyLogo[chainId]} title={Currency[chainId]} />
                 </div>
               </li>
               <li>
                 <p>Wallet Balance</p>
                 <div className={css.li_fr}>
                   <p>{balanceStr}</p>
-                  <img src={CurrencyLogo[chainId]} title={Currency[chainId]} />
+                  <img decoding="async" loading="lazy" src={CurrencyLogo[chainId]} title={Currency[chainId]} />
                   {/* <SvgComponent src={CurrencyLogo[chainId]} /> */}
-                  {/* <img src={preStaticUrl + '/img/icon/pixel_eth.svg'} title="ETH" /> */}
+                  {/*  <img decoding="async" loading="lazy" src={preStaticUrl + '/img/icon/pixel_eth.svg'} title="ETH" /> */}
                 </div>
               </li>
             </ul>
           </div>
-          <img src={preStaticUrl + '/img/tvl/airdrop_data.png'} className={css.img} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_data.png'} className={css.img} />
         </div>
         {!isW768 ? children : null}
       </GetAirdropCard>

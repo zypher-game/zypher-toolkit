@@ -79,8 +79,8 @@ const NumberItem = memo(({ v, accountMonsterState }: any) => {
         overlayClassName={'nfttooltip'}
         title={
           <div className="nfttooltipcard">
-            <img src={preStaticUrl + `/img/monster/passCardbg.svg`} alt="passCard" className="nfttooltipcardimgbg" />
-            <img src={preStaticUrl + `/img/monster/passCard02.png`} alt="passCard" className="nfttooltipcardimg" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/passCardbg.svg`} alt="passCard" className="nfttooltipcardimgbg" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/passCard02.png`} alt="passCard" className="nfttooltipcardimg" />
             <p className="nfttooltipcardNumber">x1</p>
           </div>
         }
@@ -101,7 +101,7 @@ const NumberItemInner = memo(({ v, accountMonsterState }: any) => {
   return (
     <div className={classnames(css.singIn, isOn ? css.on : '')}>
       <p>{v}</p>
-      <img src={preStaticUrl + `/img/monster/singin_bg${isOn ? '_on' : ''}.png`} alt="singin" />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/singin_bg${isOn ? '_on' : ''}.png`} alt="singin" />
     </div>
   )
 }, isEqual)

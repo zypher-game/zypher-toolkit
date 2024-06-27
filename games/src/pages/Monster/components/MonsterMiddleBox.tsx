@@ -15,15 +15,15 @@ const MonsterMiddleBox = memo(({ monsterStatus }: IMonsterMiddleBox) => {
       monsterStatus === IMonsterStatus.MonsterNft ||
       monsterStatus === IMonsterStatus.WaitFight ? (
         <>
-          <img src={preStaticUrl + `/img/monster/box01.png`} alt="box" className={css.bg1} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/box01.png`} alt="box" className={css.bg1} />
         </>
       ) : monsterStatus === IMonsterStatus.Fight ? (
         <>
-          <img src={preStaticUrl + `/img/monster/monster.png`} alt="box" className={css.bg1} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/monster.png`} alt="box" className={css.bg1} />
         </>
       ) : monsterStatus === IMonsterStatus.End ? (
         <>
-          <img src={preStaticUrl + `/img/monster/box01.png`} alt="box" className={css.bg1} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/box01.png`} alt="box" className={css.bg1} />
         </>
       ) : null}
     </div>

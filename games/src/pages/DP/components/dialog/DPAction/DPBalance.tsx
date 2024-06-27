@@ -94,7 +94,7 @@ export const DPBalanceItemInner = memo(({ label, amount, price, children }: IDPB
   return (
     <div className={css.dPBalanceItemBorder}>
       <div className={css.fl}>
-        <img src={preStaticUrl + `/img/dp/price_${price}.png`} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/img/dp/price_${price}.png`} />
       </div>
       <div className={css.fr}>
         <p className={css.label}>{label}</p>

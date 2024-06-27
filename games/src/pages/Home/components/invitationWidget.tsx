@@ -93,7 +93,7 @@ const InvitationWidget: FC<IProps> = memo(({ isMobile }: IProps) => {
   }, [navigate])
   return (
     <Invitation onClick={handleButtonClick} isMobile={isMobile}>
-      <img src={preStaticUrl + `/img/home/Invitation_box.png`} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/Invitation_box.png`} />
       <p>
         <strong>Unlock Rewards Together! Invite Friends,</strong> Earn Points, and Win Fantastic Prizes!
       </p>

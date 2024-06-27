@@ -48,15 +48,15 @@ const BannerWidget: FC<IBingoPointApi> = memo(({ pointsStr, dayClaimed, claimHan
       <div className={css.header}>
         <div className={css.headerFl}>
           <div className={css.banner}>
-            <img src={preStaticUrl + `/img/home/banner01bgV0.png`} alt="zbingo" className={css.bannerbg} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/banner01bgV0.png`} alt="zbingo" className={css.bannerbg} />
             <div className={css.bannerInner}>
-              <img src={preStaticUrl + `/img/home/banner0101.png`} alt="zbingo" className={css.bannerFlInnerImg} />
+              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/banner0101.png`} alt="zbingo" className={css.bannerFlInnerImg} />
               <div className={css.bannerFlBtnWrap}>
                 <a href="/bingo" target="_blank" rel="noreferrer">
-                  <img src={preStaticUrl + `/img/home/playNow.png`} alt="playNow" width={'100%'} />
+                  <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/playNow.png`} alt="playNow" width={'100%'} />
                 </a>
                 {/* <div className={css.bannerFlBtn}>
-                  <img onClick={() => setIsModalOpen(true)} src={preStaticUrl + `/img/home/gameRule.png`} alt="gameRule" className={css.gameRuleBtnImg} />
+                   <img decoding="async" loading="lazy" onClick={() => setIsModalOpen(true)} src={preStaticUrl + `/img/home/gameRule.png`} alt="gameRule" className={css.gameRuleBtnImg} />
                   <VideoDialog />
                 </div> */}
               </div>
@@ -64,7 +64,7 @@ const BannerWidget: FC<IBingoPointApi> = memo(({ pointsStr, dayClaimed, claimHan
           </div>
         </div>
         <div className={css.headerFr}>
-          <img src={preStaticUrl + `/img/home/banner02bgV0.png`} alt="points" className={css.bannerbg} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/banner02bgV0.png`} alt="points" className={css.bannerbg} />
           <div className={css.headerFrInner}>
             {claimConfKey && claimConfKey === IClaimConfKey.princely ? (
               <h2 className={css.h21}>
@@ -88,7 +88,7 @@ const BannerWidget: FC<IBingoPointApi> = memo(({ pointsStr, dayClaimed, claimHan
               {/* <Wrap claimConfKey={claimConfKey} className={dayClaimed ? css.flex : ''}> */}
               {/* <div className={css.headerFrInnerBg}>
                 <h3>{pointsStr}</h3>
-                <img src={preStaticUrl + `/img/home/data_points.svg`} alt="points" />
+                 <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/data_points.svg`} alt="points" />
               </div> */}
               {dayClaimed ? (
                 <p className={classnames(css.btn, css.btnClaimed)}>CLAIMED</p>

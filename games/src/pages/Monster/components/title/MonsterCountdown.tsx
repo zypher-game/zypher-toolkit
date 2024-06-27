@@ -93,7 +93,7 @@ const MonsterCountdown: React.FC<IMonsterCountdown> = memo(({ endTime, className
 
   return (
     <MonsterCountdownStyled className={className}>
-      <img src={preStaticUrl + `/img/monster/clock.png`} alt="clock" />
+      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/monster/clock.png`} alt="clock" />
       <p>
         {Math.floor(countdown / (24 * 60 * 60))} D : {Math.floor((countdown % (24 * 60 * 60)) / (60 * 60))} h :
         {Math.floor((countdown % (60 * 60)) / 60)} m : {countdown % 60} s

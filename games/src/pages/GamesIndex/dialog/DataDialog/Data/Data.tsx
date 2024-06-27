@@ -71,7 +71,7 @@ const TooltipItem = memo(({ chainId, total, dataKey }: { chainId: ChainId; dataK
   }, [])
   return (
     <div className={css.tooltipItem}>
-      <img src={ChainImage[chainId]} alt="" width={20} />
+      <img decoding="async" loading="lazy" src={ChainImage[chainId]} alt="" width={20} />
       {total[dataKey][chainId]?.total ?? ''}
       {curreny}
     </div>
@@ -100,7 +100,7 @@ const Data = memo(({ data }: IProps) => {
         ].map(v => (
           <PixelBorderCard className={css.item} pixel_height={4} key={v.title} backgroundColor="#343C4F" borderColor="#484F60">
             <TooltipNode dataKey={v.dataKey} total={data.total} className={css.tooltip}>
-              <img src={preStaticUrl + `/img/games/data/${v.img}`} alt={v.title} className={css.dataImg} />
+              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/games/data/${v.img}`} alt={v.title} className={css.dataImg} />
               <div className={css.itemDetail}>
                 <div className={css.tit}>{v.title}</div>
                 {/* <div className={css.mun}>

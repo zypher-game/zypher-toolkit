@@ -55,7 +55,7 @@ const Avatar: React.FC<AvatarProps> = ({
 }) => {
   return (
     <IsPixelWidgetStyled type={type} size={size} style={style}>
-      <img src={src} alt={altText} />
+      <img decoding="async" loading="lazy" src={src} alt={altText} />
     </IsPixelWidgetStyled>
   );
 };

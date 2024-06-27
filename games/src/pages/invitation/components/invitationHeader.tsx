@@ -118,7 +118,7 @@ const InvitationHeader = memo(({ isMobile }: { isMobile: boolean }) => {
         </div>
         {isMobile && <InvitationData active={!!account} {...accountInfo} />}
         <div className={css.fr}>
-          <img className={css.img} src={preStaticUrl + `/img/invitation/header_bg.png`} title="invitation" />
+          <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/invitation/header_bg.png`} title="invitation" />
         </div>
       </div>
       {!isMobile && <InvitationData active={!!account} {...accountInfo} />}
