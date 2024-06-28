@@ -7,8 +7,22 @@ import {
   useRecoilValue,
   useResetRecoilState,
 } from "recoil";
-import { motion, AnimatePresence } from "framer-motion";
-export { motion, AnimatePresence };
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+  useTransform,
+  useSpring,
+} from "framer-motion";
+export {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+  useTransform,
+  useSpring,
+};
 export { dialogVariants } from "./constant/motionConstant";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
@@ -82,6 +96,7 @@ export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
 export { default as sleep } from "./utils/sleep";
+export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 
 export {
   LinkList,
@@ -249,6 +264,7 @@ export {
 } from "./rainbowkit/src/components/RainbowKitProvider/ModalContext";
 export { Chain } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
 export { Theme } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
+export { default as ModalWithMotion } from "./components/Modal/ModalWithMotion/ModalWithMotion";
 export { cssObjectFromTheme } from "./rainbowkit/src/css/cssObjectFromTheme";
 export { cssStringFromTheme } from "./rainbowkit/src/css/cssStringFromTheme";
 export { useChainId } from "./rainbowkit/src/hooks/useChainId";

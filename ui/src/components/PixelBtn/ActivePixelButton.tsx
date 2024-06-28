@@ -413,10 +413,6 @@ export const ActivePixelButtonColor = memo((props: IPixelButton) => {
 
   return (
     <ActivePixelButtonColorStyled
-      whileHover={{
-        scale: 1.02,
-        transition: { duration: 0.3 },
-      }}
       whileTap={{ scale: 0.9 }}
       className={`${className ?? ""} ${disable ? "disable" : "normal"} ${
         isActive ? "click" : ""

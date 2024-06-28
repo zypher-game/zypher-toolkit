@@ -23,7 +23,7 @@ interface IProps {
 }
 export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
   return (
-    <a href={"/"} target="_black" className="zypher_logo">
+    <a href={"/"} className="zypher_logo">
       {isMobile ? (
         <img
           fetchPriority="high"
