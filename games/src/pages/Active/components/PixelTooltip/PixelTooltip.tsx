@@ -1,6 +1,6 @@
 import './PixelTooltip.styl'
 
-import { ActivePixelCard, PixelBorderCard, PixelCube2, preStaticUrl, SvgComponent } from '@ui/src'
+import { ActivePixelCard, motion, PixelBorderCard, PixelCube2, preStaticUrl, SvgComponent } from '@ui/src'
 import { Tooltip } from 'antd'
 import React, { memo } from 'react'
 
@@ -37,7 +37,7 @@ export const PixelCube2Tooltip = memo(({ title, showLink, children }: { title: s
       showArrow={false}
       title={
         <PixelCube2 pixel_height={3} backgroundColor="#1D263B" borderColor="#fff">
-          <div className="pixel_tooltip_text">
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className="pixel_tooltip_text">
             {title.map((v, index) => (
               <p key={index} className={'bold'}>
                 {v}
@@ -48,7 +48,7 @@ export const PixelCube2Tooltip = memo(({ title, showLink, children }: { title: s
                 Learn more
               </a>
             ) : null}
-          </div>
+          </motion.div>
           <PixelBorderCard
             pixel_height={3}
             backgroundColor="#1D263B"

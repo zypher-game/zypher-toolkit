@@ -1,3 +1,4 @@
+import { motion } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import { useChainIndex } from '@/pages/Active/hooks/useChainIndex'

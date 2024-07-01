@@ -52,6 +52,7 @@ $mBorderH = 56px
     font-weight: 600
     color: #413416
     line-height: 17px
+    white-space: nowrap
     @media screen and (max-width: 830px)
       font-size: 12px
 
@@ -99,8 +100,9 @@ $mBorderH = 56px
   z-index: 2
   transition: scale 0.3s ease
   cursor pointer
-  &:hover
-    scale: 1.03
+  overflow: hidden 
+  // &:hover
+  //   scale: 1.03
   .gameItemMiddle
     margin-top: 10px
     height: 72px

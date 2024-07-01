@@ -1,9 +1,9 @@
-import { DialogContent, DialogOverlay } from '@reach/dialog'
 import {
   ActivePixelButtonColor,
   DialogClose,
   getLinkPre,
   LoadingButton,
+  ModalWithMotion,
   PixelCube3,
   PixelTable,
   refreshAvatarState,
@@ -163,44 +163,42 @@ const ChangeNameDialog = memo(() => {
     }
   }
   return (
-    <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent className={css.inner}>
-        <PixelTable
-          width={isW768 ? '100%' : '380px'}
-          height="390px"
-          className={css.table_body}
-          backgroundColor="#1D263B"
-          header_children={<p className="modalTitleInnerTitle">Change Name</p>}
-          body_children={
-            <div className={css.body_inner}>
-              <Avatar src={previewSrc} nickname={nickname} width="88px">
-                <p className={css.edit}>
-                  Edit
-                  <input type="file" accept="image/*" onChange={handleFileSelect} />
-                </p>
-              </Avatar>
-              <p className={css.text}>Name</p>
-              <PixelCube3 className={css.input} pixel_height={2} width="100%" height="48px" backgroundColor="#343C4F" borderColor="#484F60">
-                <input onChange={handleChange} type="text" value={nicknameLocal} />
-              </PixelCube3>
-              <ActivePixelButtonColor
-                themeType="brightBlue"
-                pixel_height={3}
-                onClick={updateInfoHandle}
-                width="144px"
-                height="36px"
-                disable={!_canNext || loading}
-              >
-                <p className={css.save}>Save</p>
-                <LoadingButton isLoading={loading} />
-              </ActivePixelButtonColor>
-            </div>
-          }
-          pixel_height={isW768 ? 5 : 10}
-        />
-        <DialogClose onClick={handleCancel} />
-      </DialogContent>
-    </DialogOverlay>
+    <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.inner}>
+      <PixelTable
+        width={isW768 ? '100%' : '380px'}
+        height="390px"
+        className={css.table_body}
+        backgroundColor="#1D263B"
+        header_children={<p className="modalTitleInnerTitle">Change Name</p>}
+        body_children={
+          <div className={css.body_inner}>
+            <Avatar src={previewSrc} nickname={nickname} width="88px">
+              <p className={css.edit}>
+                Edit
+                <input type="file" accept="image/*" onChange={handleFileSelect} />
+              </p>
+            </Avatar>
+            <p className={css.text}>Name</p>
+            <PixelCube3 className={css.input} pixel_height={2} width="100%" height="48px" backgroundColor="#343C4F" borderColor="#484F60">
+              <input onChange={handleChange} type="text" value={nicknameLocal} />
+            </PixelCube3>
+            <ActivePixelButtonColor
+              themeType="brightBlue"
+              pixel_height={3}
+              onClick={updateInfoHandle}
+              width="144px"
+              height="36px"
+              disable={!_canNext || loading}
+            >
+              <p className={css.save}>Save</p>
+              <LoadingButton isLoading={loading} />
+            </ActivePixelButtonColor>
+          </div>
+        }
+        pixel_height={isW768 ? 5 : 10}
+      />
+      <DialogClose onClick={handleCancel} />
+    </ModalWithMotion>
   )
 }, isEqual)
 

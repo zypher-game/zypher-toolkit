@@ -1,5 +1,4 @@
-import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { ActivePixelCard, DialogClose, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ActivePixelCard, DialogClose, ModalWithMotion, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import GameListIndex, { IGameListProps } from '@/components/gameList/gameListIndex'
@@ -14,15 +13,13 @@ const GameListDialog = memo((props: IGameListProps) => {
     setIsModalOpen(false)
   }, [])
   return (
-    <DialogOverlay className={css.bottom} isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent className={css.center}>
-        <IsPixelWidget>
-          <h3 className={css.title}>Game list</h3>
-          <GameListIndex {...props} />
-        </IsPixelWidget>
-        <DialogClose onClick={handleCancel} />
-      </DialogContent>
-    </DialogOverlay>
+    <ModalWithMotion overlayClassName={css.bottom} isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.center}>
+      <IsPixelWidget>
+        <h3 className={css.title}>Game list</h3>
+        <GameListIndex {...props} />
+      </IsPixelWidget>
+      <DialogClose onClick={handleCancel} />
+    </ModalWithMotion>
   )
 })
 const IsPixelWidget = memo(({ children }: { children: React.ReactNode }) => {

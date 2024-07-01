@@ -1,10 +1,11 @@
-import { motion, PixelBorderCard, useIsW768 } from '@ui/src'
+import { motion, PixelBorderCard, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
 import { useSign } from '../../hooks/activeHooks'
 import { useBind } from '../../hooks/bindHooks'
 import { useActiveData } from '../../hooks/useActiveData'
+import { useActiveRouterV2 } from '../../hooks/useActiveRouter'
 import css from './ActiveRegister.module.styl'
 import Bind from './components/Bind/Bind'
 import Checking from './components/Checking/Checking'
@@ -14,9 +15,16 @@ import InvitationCode from './components/InvitationCode/InvitationCode'
 const ActiveRegister = memo(() => {
   const isW768 = useIsW768()
   const { activeData } = useActiveData()
-  const { invitationCode, checkAirdropPointsLoading } = activeData
+  const { invitationCode, checkAirdropPointsLoading, id } = activeData
   useSign()
   const { CheckPointHandle, CheckDiscordHandle, CheckTwitterHandle } = useBind()
+  useActiveRouterV2()
+  // useEffect(() => {
+  //   const link = getActiveRouterFn()
+  //   if (link && link !== window.location.pathname) {
+  //     // navigate(link)
+  //   }
+  // }, [id, location, pathname])
   return (
     <ActiveComp>
       <div className={css.register}>

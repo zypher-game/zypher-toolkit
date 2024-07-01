@@ -7,10 +7,23 @@ import {
   useRecoilValue,
   useResetRecoilState,
 } from "recoil";
-import RecoilizeDebugger from "recoilize";
-export { RecoilizeDebugger };
-import { motion } from "framer-motion";
-export { motion };
+import {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+  useTransform,
+  useSpring,
+} from "framer-motion";
+export {
+  motion,
+  AnimatePresence,
+  useMotionValue,
+  animate,
+  useTransform,
+  useSpring,
+};
+export { dialogVariants } from "./constant/motionConstant";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
@@ -83,6 +96,7 @@ export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
 export { default as sleep } from "./utils/sleep";
+export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 
 export {
   LinkList,
@@ -169,6 +183,7 @@ export {
   useIsW1220,
 } from "./hooks/useWindowSize";
 import { changeLanguage } from "i18next";
+import { constants } from "ethers";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
 
@@ -249,6 +264,7 @@ export {
 } from "./rainbowkit/src/components/RainbowKitProvider/ModalContext";
 export { Chain } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
 export { Theme } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
+export { default as ModalWithMotion } from "./components/Modal/ModalWithMotion/ModalWithMotion";
 export { cssObjectFromTheme } from "./rainbowkit/src/css/cssObjectFromTheme";
 export { cssStringFromTheme } from "./rainbowkit/src/css/cssStringFromTheme";
 export { useChainId } from "./rainbowkit/src/hooks/useChainId";

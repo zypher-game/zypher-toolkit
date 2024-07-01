@@ -1,4 +1,4 @@
-import { ChainId, LoadingButton, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, LoadingButton, motion, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
@@ -11,12 +11,12 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
   const isDataLoading = useRecoilValue(isTvlDataLoadingState)
   const { native, erc20 } = useTable()
   return (
-    <>
+    <motion.div key={`${chainIdLocal}`} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
       <h3 className={css.title}>Native Token Stake</h3>
       <TableWrap list={native} type="native" chainId={chainIdLocal} isDataLoading={isDataLoading} />
       <h3 className={css.title}>Restaking Tokens</h3>
       <TableWrap list={erc20} type="erc20" chainId={chainIdLocal} isDataLoading={isDataLoading} />
-    </>
+    </motion.div>
   )
 })
 const TableWrap = memo(

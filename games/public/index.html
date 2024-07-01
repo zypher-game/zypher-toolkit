@@ -6,10 +6,23 @@
     <meta http-equiv="Strict-Transport-Security" content="max-age=31536000; includeSubDomains" />
     <meta http-equiv="X-Content-Type-Options" content="nosniff" />
     <meta http-equiv="X-XSS-Protection" content="1; mode=block" />
-
+    <link
+      rel="preload"
+      href="<%= htmlWebpackPlugin.options.preLink %>/fonts/pixeloid_sans/PixeloidSans.ttf"
+      as="font"
+      type="font/tff"
+    />
+    <link
+      rel="preload"
+      href="<%= htmlWebpackPlugin.options.preLink %>/fonts/pixeloid_sans/PixeloidSans-Bold.ttf"
+      as="font"
+      type="font/tff"
+    />
+    <link rel="preload" as="image" imagesrcset="<%= htmlWebpackPlugin.options.preLink %>/img/tvl/logo.svg" />
     <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <link rel="shortcut icon " type="images/x-icon" href="https://static.zypher.game/img/favicon.ico">
-    <link rel="dns-prefetch" href="//static.zypher.game/">
+    <link rel="shortcut icon " type="images/x-icon" href="<%= htmlWebpackPlugin.options.preLink %>/img/favicon.ico">
+    <link rel="dns-prefetch" href="<%= htmlWebpackPlugin.options.preLink %>">
+    <meta name="keywords" content="Zypher, Game, WEB3" />
     <meta
       name="description"
       content="Zypher Games, Portal for Revolutionary Fully-on-Chain Games using ZKP & AI"
@@ -18,7 +31,7 @@
 
     <meta property="og:title" content="Zypher Games" />
     <meta property="og:description" content="Zypher Games, Portal for Revolutionary Fully-on-Chain Games using ZKP & AI" />
-    <meta property="og:image" content="https://static.zypher.game/img/medium/app.jpg"/>
+    <meta property="og:image" content="<%= htmlWebpackPlugin.options.preLink %>/img/medium/app.jpg"/>
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Zypher Games" />
@@ -27,13 +40,13 @@
 
     <meta name="twitter:title" content="Zypher Games" />
     <meta name="twitter:description" content="Zypher Games, Portal for Revolutionary Fully-on-Chain Games using ZKP & AI" />
-    <meta name="twitter:image"content="https://static.zypher.game/img/medium/app.jpg" />
+    <meta name="twitter:image"content="<%= htmlWebpackPlugin.options.preLink %>/img/medium/app.jpg" />
     <meta name="twitter:site" content="Zypher_network" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:creator" content="@Zypher_network" />
     <meta name="twitter:image:alt" content="Zypher Games" />
     
-    <link rel="stylesheet" href="https://static-dev.zypher.game/css/home/init-v2.css" />
+    <link rel="stylesheet" href="<%= htmlWebpackPlugin.options.preLink %>/css/home/init-v2.css" />
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0QHB6VSZV"></script>

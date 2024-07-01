@@ -1,4 +1,4 @@
-import { motion } from '@ui/src'
+import { ListWithMotion, motion } from '@ui/src'
 import React, { memo } from 'react'
 
 import ChangeNameDialog from '@/pages/Active/dialog/ChangeNameDialog/ChangeNameDialog'
@@ -23,7 +23,7 @@ const TVLWrap = memo(
     useStake()
     return (
       <ActiveComp>
-        <div className={css.inner}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className={css.inner}>
           {type === 'inner' ? (
             children
           ) : (
@@ -36,7 +36,7 @@ const TVLWrap = memo(
               </motion.div>
             </div>
           )}
-        </div>
+        </motion.div>
         <TVLStakingDialog />
         <ChangeNameDialog />
         <GetPointDialog />

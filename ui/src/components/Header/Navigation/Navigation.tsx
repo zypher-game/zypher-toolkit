@@ -18,6 +18,7 @@ export const NavKey = [
 ];
 type INavList = {
   link: string;
+  linkList: string[];
   label: string;
   classNames: string;
   isTarget: boolean;
@@ -28,6 +29,7 @@ type INavList = {
 export const NavList: INavList[] = [
   {
     link: `/${NavKey[0][0]}`,
+    linkList: NavKey[0],
     label: "Airdrop",
     classNames: "airdrop",
     isTarget: false,
@@ -36,6 +38,7 @@ export const NavList: INavList[] = [
   },
   {
     link: `/${NavKey[1][0]}`,
+    linkList: NavKey[1],
     label: "Games",
     classNames: "games",
     isTarget: false,
@@ -44,6 +47,7 @@ export const NavList: INavList[] = [
   },
   {
     link: `/${NavKey[2][0]}`,
+    linkList: NavKey[2],
     label: "Zero Gas",
     classNames: "zero_gas",
     isTarget: false,
@@ -52,6 +56,7 @@ export const NavList: INavList[] = [
   },
   {
     link: "https://zypher.network/",
+    linkList: [],
     label: "Zypher Network",
     icon: preStaticUrl + "/img/icon/pixel_link.svg",
     classNames: "network",

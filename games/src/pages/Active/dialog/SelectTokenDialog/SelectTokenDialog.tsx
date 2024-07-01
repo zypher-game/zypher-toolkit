@@ -1,12 +1,12 @@
 import './SelectTokenDialog.stylus'
 
-import { DialogContent, DialogOverlay } from '@reach/dialog'
 import {
   ChainId,
   ChainImage,
   Currency,
   defaultActiveChainId,
   DialogClose,
+  ModalWithMotion,
   TVLStakingSupportedChainId,
   useActiveWeb3React,
   useIsW768,
@@ -59,64 +59,62 @@ const SelectTokenDialog = memo(() => {
   }, [])
 
   return (
-    <DialogOverlay className="select_dialogWrap" isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent className="select_dialogContent">
-        <ActivePixelCard
-          className="select_dialogContentInnerTop select_dialogContentInnerTopToken"
-          width="380px"
-          height="142px"
-          pixel_height={isW768 ? 5 : 10}
-          backgroundColor="#293457"
-          hidePixel={isW768 ? true : false}
-        >
-          <h3>Select Token</h3>
-          <div className="select_chain_ul">
-            {TVLStakingSupportedChainId.map(v => (
-              <ActivePixelButton
-                key={v}
-                width="58px"
-                height="58px"
-                backgroundColor={`${chainIdLocal === v ? '#1649FF' : '#1D263B'}`}
-                pixel_height={4}
-                onClick={() => changeChainHandle(v)}
-                className={chainIdLocal === v ? 'select_chain_li_on' : ''}
-              >
-                <img decoding="async" loading="lazy" src={ChainImage[v]} alt={Currency[v]} className="select_chain_li_img" />
-              </ActivePixelButton>
-            ))}
-          </div>
-        </ActivePixelCard>
-        <ActivePixelCard className="select_dialogContentInnerBottom" width="380px" pixel_height={isW768 ? 5 : 10} backgroundColor="#1D263B">
-          <div className="select_token_ul">
-            {/* {tokenList.map((v, index) => (
+    <ModalWithMotion overlayClassName="select_dialogWrap" isOpen={isModalOpen} onDismiss={handleCancel} contentClassName="select_dialogContent">
+      <ActivePixelCard
+        className="select_dialogContentInnerTop select_dialogContentInnerTopToken"
+        width="380px"
+        height="142px"
+        pixel_height={isW768 ? 5 : 10}
+        backgroundColor="#293457"
+        hidePixel={isW768 ? true : false}
+      >
+        <h3>Select Token</h3>
+        <div className="select_chain_ul">
+          {TVLStakingSupportedChainId.map(v => (
+            <ActivePixelButton
+              key={v}
+              width="58px"
+              height="58px"
+              backgroundColor={`${chainIdLocal === v ? '#1649FF' : '#1D263B'}`}
+              pixel_height={4}
+              onClick={() => changeChainHandle(v)}
+              className={chainIdLocal === v ? 'select_chain_li_on' : ''}
+            >
+              <img decoding="async" loading="lazy" src={ChainImage[v]} alt={Currency[v]} className="select_chain_li_img" />
+            </ActivePixelButton>
+          ))}
+        </div>
+      </ActivePixelCard>
+      <ActivePixelCard className="select_dialogContentInnerBottom" width="380px" pixel_height={isW768 ? 5 : 10} backgroundColor="#1D263B">
+        <div className="select_token_ul">
+          {/* {tokenList.map((v, index) => (
               <p key={index}>{v.address}</p>
             ))} */}
-            {tokenList.map((v, index) => (
-              <PixelBorderCardButton
-                key={index}
-                className={`select_staking_switch ${depositCurrency === v.symbol && v.chainId === chainIdLocal ? 'staking_switch_li_dialog' : ''}`}
-                height="68px"
-                width="100%"
-                pixel_height={6}
-                onClick={() => changeTokenHandle(v)}
-                backgroundColor={`${depositCurrency === v.symbol && v.chainId === chainIdLocal ? '#343C4F' : '#1D263B'}`}
-                borderColor={`${depositCurrency === v.symbol && v.chainId === chainIdLocal ? '#1649FF' : '#3A4254'}`}
-                showHover={true}
-                borderSize={2}
-              >
-                <TokenWithChain chainId={chainIdLocal} token={v} width={44} />
-                <div className="select_currency">
-                  <h3>{v.symbol}</h3>
-                  <p>{v.name}</p>
-                </div>
-                <p>{v.balanceStr}</p>
-              </PixelBorderCardButton>
-            ))}
-          </div>
-        </ActivePixelCard>
-        <DialogClose onClick={handleCancel} />
-      </DialogContent>
-    </DialogOverlay>
+          {tokenList.map((v, index) => (
+            <PixelBorderCardButton
+              key={index}
+              className={`select_staking_switch ${depositCurrency === v.symbol && v.chainId === chainIdLocal ? 'staking_switch_li_dialog' : ''}`}
+              height="68px"
+              width="100%"
+              pixel_height={6}
+              onClick={() => changeTokenHandle(v)}
+              backgroundColor={`${depositCurrency === v.symbol && v.chainId === chainIdLocal ? '#343C4F' : '#1D263B'}`}
+              borderColor={`${depositCurrency === v.symbol && v.chainId === chainIdLocal ? '#1649FF' : '#3A4254'}`}
+              showHover={true}
+              borderSize={2}
+            >
+              <TokenWithChain chainId={chainIdLocal} token={v} width={44} />
+              <div className="select_currency">
+                <h3>{v.symbol}</h3>
+                <p>{v.name}</p>
+              </div>
+              <p>{v.balanceStr}</p>
+            </PixelBorderCardButton>
+          ))}
+        </div>
+      </ActivePixelCard>
+      <DialogClose onClick={handleCancel} />
+    </ModalWithMotion>
   )
 }, isEqual)
 

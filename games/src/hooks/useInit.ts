@@ -1,5 +1,5 @@
 import { NavKey, pathnameState, useRecoilValue } from '@ui/src'
-import { useEffect, useMemo } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 
 import { GlobalVar } from '@/constants/constants'
 import { useActiveInit } from '@/pages/Active/hooks/useActiveInit'
@@ -17,7 +17,7 @@ export const useIsGetActiveData = () => {
 }
 export const useInit = () => {
   const dispatch = useAppDispatch()
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTimeout(() => {
       const el = document.querySelector('#rootLoading')
       if (el) {

@@ -184,25 +184,23 @@ export type IStakingDataState = {
     restakingGrowthCoefficient: string
   }
 }
-
+export const initStakingDataState: IStakingDataState = {
+  records: {},
+  statistics: {
+    stakingAirdrop: '',
+    stakingGrowthCoefficient: '',
+    restakingAirdrop: '',
+    restakingGrowthCoefficient: '',
+    stakingAirdropStr: '',
+    restakingAirdropStr: ''
+  }
+}
 export const restakingDataState = atom<Record<ChainId, IStakingDataState>>({
   key: 'restakingDataState',
-  default: Object.fromEntries(
-    TVLStakingSupportedChainId.map(chainId => [
-      chainId,
-      {
-        records: {},
-        statistics: {
-          stakingAirdrop: '',
-          stakingGrowthCoefficient: '',
-          restakingAirdrop: '',
-          restakingGrowthCoefficient: '',
-          stakingAirdropStr: '',
-          restakingAirdropStr: ''
-        }
-      }
-    ])
-  ) as unknown as Record<ChainId, IStakingDataState>,
+  default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, initStakingDataState])) as unknown as Record<
+    ChainId,
+    IStakingDataState
+  >,
   effects_UNSTABLE: [localStorageEffect('restakingDataState')]
 })
 export const isTvlDataLoadingState = atom<boolean>({

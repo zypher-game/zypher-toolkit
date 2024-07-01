@@ -8,7 +8,7 @@ const WebpackBar = require('webpackbar')
 const { cssLoader } = require('./utils/cssLoader')
 const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
-
+const preLink = process.env.NODE_ENV === 'development' ? 'https://static-dev.zypher.game' : 'https://static.zypher.game'
 module.exports = {
   entry: {
     main: './src/index'
@@ -26,13 +26,20 @@ module.exports = {
     ethers: 'ethers'
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env.REACT_APP_ENVIRONMENT': JSON.stringify(process.env.REACT_APP_ENVIRONMENT || 'development')
+    }),
     // new AntdDayjsWebpackPlugin(),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$|^\.\/lib\/chart\/(.)*/,
       contextRegExp: /moment$|echarts$/
     }),
     new WebpackBar(),
-    new HtmlWebpackPlugin({ template: './public/index.html' }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      preLink: preLink,
+      env: process.env.NODE_ENV || 'development'
+    }),
     new MiniCssExtractPlugin({
       // Options similar to the same options in webpackOptions.output
       // all options are optional
@@ -49,7 +56,7 @@ module.exports = {
         {
           module: 'react',
           entry: {
-            path: 'https://static-dev.zypher.game/lib/react/react-v18.0.0.production.min.js',
+            path: preLink + '/lib/react/react-v18.0.0.production.min.js',
             type: 'js'
             // cwpPatternConfig: {
             // context: path.resolve(__dirname, '../public/lib')
@@ -60,7 +67,7 @@ module.exports = {
         {
           module: 'react-dom',
           entry: {
-            path: 'https://static-dev.zypher.game/lib/react-dom/react-dom-v18.0.0.production.min.js',
+            path: preLink + '/lib/react-dom/react-dom-v18.0.0.production.min.js',
             type: 'js'
             // cwpPatternConfig: {
             // context: path.resolve(__dirname, '../public/lib')

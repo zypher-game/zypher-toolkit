@@ -9,7 +9,9 @@ import {
   useIsW768,
   useRecoilValue
 } from '@ui/src'
-import React, { memo, useCallback, useState } from 'react'
+import { upperCase } from 'lodash'
+import React, { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 import NoDataListLoading from '@/components/NoData/NoDataListLoading/NoDataListLoading'
 import GetPointCardDialog from '@/pages/Active/dialog/GetPointCardDialog/GetPointCardDialog'
@@ -31,11 +33,55 @@ const ActiveTVLTeam = memo(() => {
   const isW768 = useIsW768()
   const [showTeamWarn, setShowTeamWarn] = useState(0)
   const { groupGoal, availableCode, teamMembers, activeData, openCard, isLoadingSingle, isLoadingAll, loading } = useTeam()
+  const [percentWidth, setPercentWidth] = useState(0)
+  const animationFrameRef = useRef<number>(0)
+  const startTimeRef = useRef<number>(0)
 
   const myTeamWarnHandle = useCallback(() => {
     setShowTeamWarn(1)
   }, [])
-
+  const updatePercentWidth = useCallback(() => {
+    setPercentWidth(prevPercent => {
+      if (prevPercent >= 100) {
+        return 100
+      }
+      return prevPercent + 1
+    })
+  }, [])
+  const location = useLocation()
+  useEffect(() => {
+    cancelAnimationFrame(animationFrameRef.current)
+  }, [location])
+  useEffect(() => {
+    const animate = (timestamp: number) => {
+      if (!animationFrameRef) {
+        startTimeRef.current = timestamp
+      }
+      const elapsed = timestamp - startTimeRef.current
+      if (elapsed >= 5) {
+        startTimeRef.current = timestamp
+        updatePercentWidth()
+        if (percentWidth >= 100) {
+          cancelAnimationFrame(animationFrameRef.current)
+          return
+        }
+      }
+      animationFrameRef.current = requestAnimationFrame(animate)
+    }
+    const _num = Number(groupGoal.percent)
+    if (typeof _num === 'number' && !isNaN(_num)) {
+      if (_num > 100) {
+        setPercentWidth(100)
+      } else {
+        animationFrameRef.current = requestAnimationFrame(animate)
+      }
+    } else {
+      setPercentWidth(0)
+    }
+    return () => {
+      cancelAnimationFrame(animationFrameRef.current)
+    }
+  }, [groupGoal.percent, updatePercentWidth, percentWidth])
   return (
     <>
       <TVLWrap
@@ -67,7 +113,7 @@ const ActiveTVLTeam = memo(() => {
                 <div
                   className={css.team_goal_line_process}
                   style={{
-                    width: `${groupGoal.percent}%`
+                    width: `${percentWidth}%`
                   }}
                 />
               </div>

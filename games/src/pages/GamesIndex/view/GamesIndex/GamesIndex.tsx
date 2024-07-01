@@ -1,4 +1,4 @@
-import { useIsW768 } from '@ui/src'
+import { motion, useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
 import TVLFooter from '@/pages/Active/components/TVLFooter/TVLFooter'

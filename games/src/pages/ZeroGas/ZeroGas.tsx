@@ -9,6 +9,8 @@ import {
   Currency,
   getShortenAddress,
   L3ChainId,
+  ListWithMotion,
+  motion,
   PixelBorderCard,
   PixelCube3,
   preStaticUrl,
@@ -252,11 +254,12 @@ const ZeroGas = memo(() => {
               {isW768 ? null : <SBTCard className={css.fr} themeKey={_themeKey} />}
             </div>
             <h3 className={css.title}>Dapp on Linea Zytron L3</h3>
-            <div className={css.dappList}>
+            <ListWithMotion<IDappItem> parentClassName={css.dappList} data={dapp} renderItem={item => <DappItem item={item} />} />
+            {/* <div className={css.dappList}>
               {dapp.map((v, index) => (
                 <DappItem key={index} item={v} />
               ))}
-            </div>
+            </div> */}
           </>
         ]
       })
@@ -265,7 +268,9 @@ const ZeroGas = memo(() => {
   return (
     <div className={css.zeroGas}>
       <Tab chainIdLocal={chainIdLocal} onClick={setChainIndex} />
-      {Widget[chainIdLocal]}
+      <motion.div key={`${chainIdLocal}`} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
+        {Widget[chainIdLocal]}
+      </motion.div>
       <TVLStakingDialog />
       <StakingForbidDialog />
     </div>

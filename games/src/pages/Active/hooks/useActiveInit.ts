@@ -53,7 +53,7 @@ export const useGetData = () => {
 }
 export const useActiveInit = () => {
   const { account, chainId } = useActiveWeb3React()
-  const { setActiveData } = useActiveData()
+  const { activeData, setActiveData } = useActiveData()
   // const { isInitLoading, id } = activeData
   const { getData } = useGetData()
   const { isActiveInit } = useIsGetActiveData()

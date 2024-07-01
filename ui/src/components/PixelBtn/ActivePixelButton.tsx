@@ -397,7 +397,7 @@ const ActivePixelButtonColorStyled = styled(PixelStyled)<IPixelButtonTheme>`
     }
   }
 `;
-
+// const ActivePixelButtonColorStyledMotion = motion(ActivePixelButtonColorStyled);
 export const ActivePixelButtonColor = memo((props: IPixelButton) => {
   const { onClick, className, disable } = props;
   const [isActive, setIsActive] = useState(false);
@@ -413,11 +413,12 @@ export const ActivePixelButtonColor = memo((props: IPixelButton) => {
 
   return (
     <ActivePixelButtonColorStyled
-      {...props}
+      whileTap={{ scale: 0.9 }}
       className={`${className ?? ""} ${disable ? "disable" : "normal"} ${
         isActive ? "click" : ""
       }`}
       onClick={clickHandle}
+      {...props}
     />
   );
 });

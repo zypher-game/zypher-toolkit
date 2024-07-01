@@ -2,7 +2,7 @@ import 'swiper/css'
 import './swiper.pagination.styl'
 import './swiper.navigation.styl'
 
-import { ActivePixelCard, PixelCube2, PixelCube5, useIsMd } from '@ui/src'
+import { ActivePixelCard, motion, PixelCube2, PixelCube5, useIsMd } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useCallback } from 'react'
 import { Autoplay, Pagination } from 'swiper/modules'
@@ -16,9 +16,8 @@ import css from './Banner.module.styl'
 const Banner: FC = memo(() => {
   const isMobile = useIsMd()
   const { banner } = useBanner()
-
   return (
-    <>
+    <motion.div initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
       <Swiper
         direction="horizontal"
         loop={true}
@@ -40,7 +39,7 @@ const Banner: FC = memo(() => {
         {banner.map((v, index) => (
           <SwiperSlide key={index}>
             <BannerItem v={v}>
-              <img decoding="async" loading="lazy" src={v.imgPath} alt={v.alt} />
+              <img fetchPriority="high" decoding="sync" loading="eager" src={v.imgPath} alt={v.alt} />
             </BannerItem>
           </SwiperSlide>
         ))}
@@ -56,7 +55,7 @@ const Banner: FC = memo(() => {
           <div className="games_swap" />
         </ActivePixelCard>
       </div>
-    </>
+    </motion.div>
   )
 }, isEqual)
 const BannerItem = memo(({ children, v }: { v: IBanner; children: React.ReactNode }) => {

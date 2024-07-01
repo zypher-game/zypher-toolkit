@@ -1,7 +1,7 @@
-import { useIsW768 } from '@ui/src'
+import { ListWithMotion, useIsW768 } from '@ui/src'
 import React, { memo, useCallback, useState } from 'react'
 
-import { useLeaderBoard } from '@/pages/Active/hooks/useLeaderboard'
+import { IRankBoard, useLeaderBoard } from '@/pages/Active/hooks/useLeaderboard'
 
 import ChainTab from '../../components/ChainTab/ChainTab'
 import Tab from '../../components/Tab/Tab'
@@ -19,6 +19,7 @@ const ActiveTVLLeaderboard = memo(() => {
   const changeChainIndexHandle = useCallback((index: number) => {
     setChainIndex(index)
   }, [])
+
   return (
     <TVLWrap
       fl_children={
@@ -27,13 +28,9 @@ const ActiveTVLLeaderboard = memo(() => {
           <p className={`${css.fl_grey} ${isW768 ? css.mb20 : css.mb40}`}>Staking & invite friends to improve your ranking!</p>
           {isW768 ? <ActiveTab index={activeTab} setIndex={setActiveTab} /> : null}
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
-          {(activeTab === 0 && isW768) || !isW768 ? (
+          {((activeTab === 0 && isW768) || !isW768) && rankBoard.length ? (
             <>
-              <div className={css.fl_list}>
-                {rankBoard.map((v, index) => (
-                  <LeaderBoardRow key={index} {...v} />
-                ))}
-              </div>
+              <ListWithMotion<IRankBoard> parentClassName={css.fl_list} data={rankBoard} renderItem={item => <LeaderBoardRow {...item} />} />
               {my ? <LeaderBoardRow {...my} isMy={true} /> : null}
             </>
           ) : null}

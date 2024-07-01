@@ -1,5 +1,4 @@
-import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, LoadingButton, preStaticUrl, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { DialogClose, LoadingButton, ModalWithMotion, preStaticUrl, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { ActivePixelButtonColor, ActivePixelCard } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
@@ -20,17 +19,15 @@ const TVLPointDialog = memo(({ openCard, isLoadingSingle, isLoadingAll }: IProps
   }, [])
 
   return (
-    <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent className={css.center}>
-        <ActivePixelCard className={css.TVLPointDialog} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
-          <h3>You Got {airdropPointsCardNumber} Airdrop Points Card</h3>
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/bg.png'} alt="card2" className={`${css.card}`} />
-          {!isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
-        </ActivePixelCard>
-        {isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
-        <DialogClose onClick={handleCancel} />
-      </DialogContent>
-    </DialogOverlay>
+    <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.center}>
+      <ActivePixelCard className={css.TVLPointDialog} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
+        <h3>You Got {airdropPointsCardNumber} Airdrop Points Card</h3>
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/bg.png'} alt="card2" className={`${css.card}`} />
+        {!isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
+      </ActivePixelCard>
+      {isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
+      <DialogClose onClick={handleCancel} />
+    </ModalWithMotion>
   )
 }, isEqual)
 const Btn = memo(({ openCard, isLoadingSingle, isLoadingAll }: IProps) => {

@@ -1,4 +1,4 @@
-import { PixelTableBorder, useIsW768 } from '@ui/src'
+import { ListWithMotion, PixelTableBorder, useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
 import { IRecentUser } from '@/pages/Active/hooks/useLeaderboard'
@@ -15,20 +15,26 @@ const RecentlyJoined = memo(({ recentUser }: { recentUser: IRecentUser[] }) => {
       pixel_height={6}
       header_children={<p className={css.fr_title}>Recently Joined</p>}
       body_children={
-        <ul className={css.fr_ul}>
-          {recentUser.map((v, index) => (
-            <li key={index}>
-              <div className={css.fr_list_fl}>
-                <Avatar src={v.headImg} nickname={v.nickname} width={isW768 ? '36px' : '40px'} />
-                <div className={css.fr_list_fl_text}>
-                  <h6>{getNicknameStr(v.nickname)}</h6>
-                  <p>Invited by {getNicknameStr(v.fromNickname)}</p>
+        recentUser.length ? (
+          <ListWithMotion<IRecentUser>
+            parentClassName={css.fr_ul}
+            data={recentUser}
+            renderItem={item => (
+              <>
+                <div className={css.fr_list_fl}>
+                  <Avatar src={item.headImg} nickname={item.nickname} width={isW768 ? '36px' : '40px'} />
+                  <div className={css.fr_list_fl_text}>
+                    <h6>{getNicknameStr(item.nickname)}</h6>
+                    <p>Invited by {getNicknameStr(item.fromNickname)}</p>
+                  </div>
                 </div>
-              </div>
-              <p className={css.fr_list_fr_text}>{v.joinTimeStr}</p>
-            </li>
-          ))}
-        </ul>
+                <p className={css.fr_list_fr_text}>{item.joinTimeStr}</p>
+              </>
+            )}
+          />
+        ) : (
+          <ul className={css.fr_ul} />
+        )
       }
     />
   )

@@ -1,10 +1,21 @@
-import { ActivePixelButtonColor, ChainId, Currency, LoadingButton, PixelBorderCard, useActiveWeb3React, useIsW768, useRecoilValue } from '@ui/src'
+import {
+  ActivePixelButtonColor,
+  ChainId,
+  Currency,
+  LoadingButton,
+  motion,
+  PixelBorderCard,
+  useActiveWeb3React,
+  useIsW768,
+  useRecoilValue
+} from '@ui/src'
 import React, { memo, useMemo } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { canNext } from '@/pages/Active/hooks/activeHooks'
+import { useAllStakingData } from '@/pages/Active/hooks/useStakeData'
 import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
-import { activeDataState, IActiveDataState, initActiveData, isTvlDataLoadingState, restakingDataState } from '@/pages/Active/state/activeState'
+import { activeDataState, IActiveDataState, initActiveData, isTvlDataLoadingState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
 // const Growth: Record<TVLChainId, [string, string]> = {
@@ -48,8 +59,10 @@ const Card = memo(
       }
       return initActiveData
     }, [JSON.stringify(activeDataSource), chainIdLocal])
-    const restakingData = useRecoilValue(restakingDataState)
-    const { stakingAirdropStr, stakingGrowthCoefficient, restakingAirdropStr, restakingGrowthCoefficient } = restakingData[chainIdLocal].statistics
+    const { getAllStakingData } = useAllStakingData()
+    const {
+      statistics: { stakingAirdropStr, stakingGrowthCoefficient, restakingAirdropStr, restakingGrowthCoefficient }
+    } = getAllStakingData(chainIdLocal)
     const hasSbt = useMemo(() => {
       return sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
     }, [sbtAmount])
@@ -67,7 +80,13 @@ const Card = memo(
       }
     }, [chainIdLocal, getTooltip, mintMinimum])
     return (
-      <div className={css.card}>
+      <motion.div
+        key={`${chainIdLocal}`}
+        initial={{ y: 20, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className={css.card}
+      >
         <div className={css.cardOne}>
           <PixelCardOne
             title={`Obtained by staking $${Currency[chainIdLocal]}`}
@@ -119,7 +138,7 @@ const Card = memo(
             dataLoading={isTvlDataLoading}
           />
         </div>
-      </div>
+      </motion.div>
     )
   }
 )

@@ -1,3 +1,4 @@
+import { motion } from '@ui/src'
 import React, { memo } from 'react'
 
 import MeteorShower from '@/components/Meteor/Meteor'
@@ -9,11 +10,17 @@ interface IProps {
 }
 const ActiveComp = memo(({ children }: IProps) => {
   return (
-    <div className={css.ActiveComp}>
+    <motion.div
+      initial={{ y: 10, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      exit={{ y: -10, opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className={css.ActiveComp}
+    >
       <div className={css.active_comp_inner}>{children}</div>
       <TVLFooter />
       <MeteorShower />
-    </div>
+    </motion.div>
   )
 })
 export default ActiveComp

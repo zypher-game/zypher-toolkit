@@ -1,5 +1,4 @@
-import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { DialogClose, ModalWithMotion, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
@@ -14,12 +13,10 @@ const TVLStakingDialog = memo(() => {
     setIsModalOpen(false)
   }, [])
   return (
-    <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent className={css.stakingDialog}>
-        <Staking />
-        <DialogClose onClick={handleCancel} />
-      </DialogContent>
-    </DialogOverlay>
+    <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.stakingDialog}>
+      <Staking />
+      <DialogClose onClick={handleCancel} />
+    </ModalWithMotion>
   )
 }, isEqual)
 

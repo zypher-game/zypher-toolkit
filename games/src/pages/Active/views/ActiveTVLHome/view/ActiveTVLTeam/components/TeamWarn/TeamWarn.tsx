@@ -1,4 +1,15 @@
-import { DialogClose, ITvlHero, PixelCube2, PixelCube5, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useSetRecoilState } from '@ui/src'
+import {
+  DialogClose,
+  ITvlHero,
+  motion,
+  PixelCube2,
+  PixelCube5,
+  preStaticUrl,
+  SvgComponent,
+  useActiveWeb3React,
+  useIsW768,
+  useSetRecoilState
+} from '@ui/src'
 import { ActivePixelButtonColor, PixelBorderCard } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
@@ -89,7 +100,12 @@ const TeamWarn = memo(
               .map(v => {
                 const isMy = `${v.userId}` === `${id}`
                 return (
-                  <div key={v.userId} className={`${css.hero_big} ${css[v.role]} ${isMy ? css.my : ''}`}>
+                  <motion.div
+                    whileHover={{ scale: [null, 1.1, 1.06] }}
+                    transition={{ duration: 0.3 }}
+                    key={v.userId}
+                    className={`${css.hero_big} ${css[v.role]} ${isMy ? css.my : ''}`}
+                  >
                     {!isW768 || (isW768 && isMy) ? (
                       <PixelCube5
                         className={css.border1}
@@ -121,7 +137,7 @@ const TeamWarn = memo(
                       heroKey={v.role as unknown as ITvlHero}
                       level={getHeroLevel({ stake: v.staking, chainId: chainId })}
                     />
-                  </div>
+                  </motion.div>
                 )
               })}
           </div>

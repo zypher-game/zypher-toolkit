@@ -174,8 +174,18 @@
   width 100%
   display: flex
   justify-content: flex-start
-  align-items: flex-start
   flex-wrap: wrap
   align-items: stretch
   @media screen and (max-width: 830px)
     gap: 10px
+  &>li
+    flex: 0 0 calc(33.3% - 20px)
+    // min-width: 386px
+    width: 33%
+    margin-right: 20px
+    margin-bottom: 20px
+    @media screen and (max-width: 830px)
+      width 100%
+      min-width: 100%;
+      flex: 1
+      margin: 0

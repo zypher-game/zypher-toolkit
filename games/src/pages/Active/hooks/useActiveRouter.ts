@@ -1,6 +1,6 @@
-import { minStakingValue, NavKey, TVLChainId, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { ChainId, ITvlHero, minStakingValue, NavKey, pathnameState, TVLChainId, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
-import { useEffect } from 'react'
+import { useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useIsGetActiveData } from '@/hooks/useInit'
@@ -9,10 +9,8 @@ import { IActiveData, tvlPathState } from '../state/activeState'
 import { getHrefCode } from '../utils/getHrefParams'
 import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
 import { useActiveData } from './useActiveData'
-
-export const useActiveRouter = () => {
+export const useGetActiveRouterFn = () => {
   const { activeData } = useActiveData()
-  const navigate = useNavigate()
   const tvlPathLink = useRecoilValue(tvlPathState)
   const { account, chainId } = useActiveWeb3React()
   const location = useLocation()
@@ -28,7 +26,8 @@ export const useActiveRouter = () => {
     tvlHero
   }: IActiveData = activeData
   const { isActiveRouter } = useIsGetActiveData()
-  useEffect(() => {
+  console.log({ id })
+  const getActiveRouterFn = useCallback((): string | undefined => {
     if (isActiveRouter) {
       const pathnameArr = location.pathname.split('/')
       if ((pathnameArr[2] ?? '').toLowerCase() === TVLTabList[2].path.toLowerCase()) {
@@ -43,7 +42,7 @@ export const useActiveRouter = () => {
       }
       // 需要跳转路由
       if (!id && isInitLoading) {
-        navigate(`/${NavKey[0][1]}/${NavKey[0][2]}`)
+        return `/${NavKey[0][1]}/${NavKey[0][2]}`
         console.log(1)
         return
       }
@@ -57,19 +56,16 @@ export const useActiveRouter = () => {
         discordNickname === '' ||
         !canNext(account, chainId)
       ) {
-        navigate(`/${NavKey[0][0]}`)
         console.log(1, id)
-        return
+        return `/${NavKey[0][0]}`
       }
       if (isRegistered) {
         if (!tvlHero) {
-          navigate(`/${preAirdropPathname}/${airdropPathname.chooseHunter}`)
           console.log(1)
-          return
+          return `/${preAirdropPathname}/${airdropPathname.chooseHunter}`
         } else {
-          navigate(tvlPath[tvlPathLink])
-          console.log(1)
-          return
+          console.log(1, tvlPath[tvlPathLink])
+          return tvlPath[tvlPathLink]
         }
       }
       console.log({ airdropPoints, userStakedAmount, cc: minStakingValue[chainId as unknown as TVLChainId] })
@@ -80,26 +76,22 @@ export const useActiveRouter = () => {
         if (userStakedAmount !== '' && new BigNumberJs(userStakedAmount).gte(minStakingValue[chainId as unknown as TVLChainId])) {
           // 有质押，看看有没有英雄
           if (!tvlHero) {
-            navigate(`/${preAirdropPathname}/${airdropPathname.chooseHunter}`)
             console.log(1)
-            return
+            return `/${preAirdropPathname}/${airdropPathname.chooseHunter}`
           }
-          navigate(tvlPath[tvlPathLink])
           console.log(1)
-          return
+          return tvlPath[tvlPathLink]
         }
 
         // 没有空投积分 媒体账号和钱包地址都不活跃
         if (airdropPointsDetail.byTwitterMore === '0') {
-          navigate(`/${preAirdropPathname}/${airdropPathname.staking}`)
           console.log(1)
-          return
+          return `/${preAirdropPathname}/${airdropPathname.staking}`
         }
         // 没有空投积分 媒体账号和钱包地址都不活跃
         if (new BigNumberJs(airdropPoints).eq(0) && airdropPointsDetail.byTwitterMore !== '0') {
-          navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NoActive}`)
           console.log(1)
-          return
+          return `/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NoActive}`
         }
         // 推特粉丝数量	gas 消耗（ETH）	钱包余额（ETH）	初始积分
         // 100	50	50
@@ -108,26 +100,22 @@ export const useActiveRouter = () => {
           // 钱包活跃，媒体活跃
           if (new BigNumberJs(airdropPointsDetail.byTwitter).gte(50)) {
             // 媒体账号活跃
-            navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`)
             console.log(1)
-            return
+            return `/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`
           } else {
             // 钱包活跃，媒体账号不活跃
             // 直接去 tvl
-            navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveNormal}`)
             console.log(1)
-            return
+            return `/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveNormal}`
           }
         }
         // 钱包不活跃  媒体活跃
-        navigate(`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`)
         console.log(1)
-        return
+        return `/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`
       }
     } else {
       console.log(1)
     }
-    // navigate(`/${NavKey[0][0]}`)
   }, [
     isActiveRouter,
     isInitLoading,
@@ -141,4 +129,26 @@ export const useActiveRouter = () => {
     chainId,
     tvlPathLink
   ])
+  return { getActiveRouterFn }
+}
+export const useActiveRouter = () => {
+  const navigate = useNavigate()
+  const { getActiveRouterFn } = useGetActiveRouterFn()
+  useEffect(() => {
+    const link = getActiveRouterFn()
+    if (link) {
+      navigate(link)
+    }
+  }, [getActiveRouterFn])
+}
+
+export const useActiveRouterV2 = () => {
+  const navigate = useNavigate()
+  const { getActiveRouterFn } = useGetActiveRouterFn()
+  useEffect(() => {
+    const link = getActiveRouterFn()
+    if (link && link.length > 2 && link !== window.location.pathname) {
+      navigate(link)
+    }
+  }, [getActiveRouterFn])
 }

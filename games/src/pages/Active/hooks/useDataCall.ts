@@ -64,7 +64,7 @@ export const useGetDataCall = () => {
         }
       } catch (e: any) {
         console.log('getUserInfo err', e)
-        return undefined
+        return initActiveData
       }
     },
     [account]
@@ -100,7 +100,7 @@ export const usePrimaryScore = () => {
 }
 export const useCodeCheckCall = () => {
   const [loading, setLoading] = useState(false)
-  const codeCheck = useCallback(async codeStr => {
+  const codeCheck = useCallback(async (codeStr: string) => {
     try {
       setLoading(true)
       const res = await request(`${TVL_API}/api/code/check`, {

@@ -1,6 +1,6 @@
 import './index.styl'
 
-import { Header, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
+import { Header, motion, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
 import { pathnameState } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
@@ -59,8 +59,15 @@ const Layout = memo((props: IProps) => {
         Link={Link}
       />
       <Content className="lt-content">
-        {/* <div className="lt-main"></div> */}
-        {props.children}
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 10, scale: 0.98 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* <div className="lt-main"></div> */}
+          {props.children}
+        </motion.div>
       </Content>
       {isW768 ? (
         <Sider

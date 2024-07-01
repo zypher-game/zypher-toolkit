@@ -10,6 +10,7 @@ import {
   tvlTokens,
   useActiveWeb3React,
   useRecoilState,
+  useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
@@ -23,6 +24,7 @@ import { calculateSumByNumber } from '@/utils/calculateSum'
 
 import {
   initData,
+  initStakingDataState,
   IStakingDataState,
   isTvlDataLoadingState,
   ITVLStakingData,
@@ -436,7 +438,30 @@ export const useStakeData = () => {
     getStakingData: getStakingData
   }
 }
-
+export const useAllStakingData = () => {
+  const restakingData = useRecoilValue(restakingDataState)
+  const setRestakingData = useSetRecoilState(restakingDataState)
+  const getAllStakingData = useCallback(
+    (chainId: ChainId) => {
+      try {
+        if (!restakingData[chainId]) {
+          setRestakingData(
+            Object.fromEntries(TVLStakingSupportedChainId.map((vvv, index) => [vvv, initStakingDataState])) as unknown as Record<
+              ChainId,
+              IStakingDataState
+            >
+          )
+          return initStakingDataState
+        }
+        return restakingData[chainId]
+      } catch (err) {
+        return initStakingDataState
+      }
+    },
+    [JSON.stringify(restakingData)]
+  )
+  return { getAllStakingData }
+}
 // export const useStakeDataFromApi = () => {
 //   const { account } = useActiveWeb3React()
 //   const { activeData } = useActiveData()

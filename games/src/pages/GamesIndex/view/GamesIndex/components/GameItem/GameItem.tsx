@@ -2,12 +2,15 @@ import './GameItem.styl'
 
 import {
   ActivePixelButton,
+  AnimatePresence,
   DPSupportChainId,
   Games,
   IGames,
   IGamesItem,
   INavLink,
   INavLinkType,
+  ListWithMotion,
+  motion,
   pointsDialogState,
   preStaticUrl,
   useActiveWeb3React,
@@ -21,6 +24,29 @@ import { PixelCube2Tooltip } from '@/pages/Active/components/PixelTooltip/PixelT
 import { env } from '@/utils/config'
 
 import css from './GameItem.module.styl'
+
+const itemVariant = {
+  hidden: { width: 0, opacity: 0, x: -10 },
+  visible: {
+    width: 'auto',
+    x: 0,
+    opacity: 1,
+    transition: {
+      duration: 0.5,
+      type: 'spring',
+      bounce: 0.4,
+      once: true
+    }
+  },
+  hover: {
+    scale: 1.02,
+    transition: { duration: 0.3 }
+  },
+  tap: {
+    scale: 0.9
+  }
+}
+
 const GameItem = memo(() => {
   const { chainId } = useActiveWeb3React()
   const setPointsDialogState = useSetRecoilState(pointsDialogState)
@@ -47,135 +73,137 @@ const GameItem = memo(() => {
     return obj
   }, [chainId])
   return (
-    <div className={css.gameItem}>
-      <>
-        {gameList.map(v => (
-          <GamesItemComp key={v.keyValue} item={v} />
-        ))}
-        <GpItemComp item={GpItem} />
-        {/* <GameItemComingSoon disableGameList={disableGameList} /> */}
-      </>
-      <div className="gameItem_bg">
-        <div className="pixel_island1_div">
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island1.png'}
-            alt="pixel_litter_island1"
-            className="pixel_litter_island1"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island2.png'}
-            alt="pixel_litter_island2"
-            className="pixel_litter_island2"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_island1.png'}
-            alt="pixel_island1"
-            className="pixel_island1"
-          />
-          {['pixel_cloud1', 'pixel_cloud2', 'pixel_cloud5', 'pixel_cloud8'].map(v => (
-            <img decoding="async" loading="lazy" key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+    <AnimatePresence>
+      <div className={css.gameItem}>
+        <>
+          {/* <ListWithMotion<IGames> parentClassName={css.fl_list} data={gameList} renderItem={item => <GamesItemComp item={item} />} /> */}
+          {gameList.map(v => (
+            <GamesItemComp key={v.keyValue} item={v} />
           ))}
-        </div>
-
-        <div className="pixel_island2_div">
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island4.png'}
-            alt="pixel_litter_island4"
-            className="pixel_litter_island4"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island5.png'}
-            alt="pixel_litter_island5"
-            className="pixel_litter_island5"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_island2.png'}
-            alt="pixel_island2"
-            className="pixel_island2"
-          />
-          {['pixel_cloud13', 'pixel_cloud6'].map(v => (
-            <img decoding="async" loading="lazy" key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
-          ))}
-        </div>
-        <div className="pixel_island3_div">
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_island3.png'}
-            alt="pixel_island3"
-            className="pixel_island3"
-          />
-          {['pixel_cloud3', 'pixel_cloud4', 'pixel_cloud11', 'pixel_cloud12'].map(v => (
-            <img decoding="async" loading="lazy" key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
-          ))}
-        </div>
-        <div className="pixel_island4_div">
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_island4.png'}
-            alt="pixel_island4"
-            className="pixel_island4"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island3.png'}
-            alt="pixel_litter_island3"
-            className="pixel_litter_island3"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_cloud9.png'}
-            alt="pixel_cloud9"
-            className="pixel_cloud9"
-          />
-        </div>
-        <div className="pixel_island5_div">
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_island5.png'}
-            alt="pixel_island5"
-            className="pixel_island5"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island7.png'}
-            alt="pixel_litter_island7"
-            className="pixel_litter_island7"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_litter_island6.png'}
-            alt="pixel_litter_island6"
-            className="pixel_litter_island6"
-          />
-          <img
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + '/img/games/island/pixel_cloud7.png'}
-            alt="pixel_cloud7"
-            className="pixel_cloud7"
-          />
-        </div>
+          <GpItemComp item={GpItem} />
+          {/* <GameItemComingSoon disableGameList={disableGameList} /> */}
+        </>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="gameItem_bg">
+          <div className="pixel_island1_div">
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island1.png'}
+              alt="pixel_litter_island1"
+              className="pixel_litter_island1"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island2.png'}
+              alt="pixel_litter_island2"
+              className="pixel_litter_island2"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_island1.png'}
+              alt="pixel_island1"
+              className="pixel_island1"
+            />
+            {['pixel_cloud1', 'pixel_cloud2', 'pixel_cloud5', 'pixel_cloud8'].map(v => (
+              <img decoding="async" loading="lazy" key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+            ))}
+          </div>
+          <div className="pixel_island2_div">
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island4.png'}
+              alt="pixel_litter_island4"
+              className="pixel_litter_island4"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island5.png'}
+              alt="pixel_litter_island5"
+              className="pixel_litter_island5"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_island2.png'}
+              alt="pixel_island2"
+              className="pixel_island2"
+            />
+            {['pixel_cloud13', 'pixel_cloud6'].map(v => (
+              <img decoding="async" loading="lazy" key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+            ))}
+          </div>
+          <div className="pixel_island3_div">
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_island3.png'}
+              alt="pixel_island3"
+              className="pixel_island3"
+            />
+            {['pixel_cloud3', 'pixel_cloud4', 'pixel_cloud11', 'pixel_cloud12'].map(v => (
+              <img decoding="async" loading="lazy" key={v} src={preStaticUrl + '/img/games/island/' + v + '.png'} alt={v} className={v} />
+            ))}
+          </div>
+          <div className="pixel_island4_div">
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_island4.png'}
+              alt="pixel_island4"
+              className="pixel_island4"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island3.png'}
+              alt="pixel_litter_island3"
+              className="pixel_litter_island3"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_cloud9.png'}
+              alt="pixel_cloud9"
+              className="pixel_cloud9"
+            />
+          </div>
+          <div className="pixel_island5_div">
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_island5.png'}
+              alt="pixel_island5"
+              className="pixel_island5"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island7.png'}
+              alt="pixel_litter_island7"
+              className="pixel_litter_island7"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_litter_island6.png'}
+              alt="pixel_litter_island6"
+              className="pixel_litter_island6"
+            />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + '/img/games/island/pixel_cloud7.png'}
+              alt="pixel_cloud7"
+              className="pixel_cloud7"
+            />
+          </div>
+        </motion.div>
       </div>
-    </div>
+    </AnimatePresence>
   )
 })
 // const GameItemComingSoon = memo(({ disableGameList }: { disableGameList: INavLink[] }) => {
@@ -214,7 +242,15 @@ const GpItemComp = memo(({ item }: { item: INavLink }) => {
     }
   }, [JSON.stringify(item.keyValue)])
   return (
-    <div className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`} onClick={toPathHandle}>
+    <motion.div
+      className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}
+      onClick={toPathHandle}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
+      whileTap="tap"
+      variants={itemVariant}
+    >
       <GameItemBgLeft />
       <GameItemMiddle className={css.game}>
         <img decoding="async" loading="lazy" className={css.icon} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
@@ -227,7 +263,7 @@ const GpItemComp = memo(({ item }: { item: INavLink }) => {
         </div>
       </GameItemMiddle>
       <GameItemBgRight />
-    </div>
+    </motion.div>
   )
 })
 const GamesItemComp = memo(({ item }: { item: IGames }) => {
@@ -237,12 +273,20 @@ const GamesItemComp = memo(({ item }: { item: IGames }) => {
     }
   }, [])
   return (
-    <div className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}>
+    <motion.div
+      className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
+      whileTap="tap"
+      variants={itemVariant}
+    >
       <GameItemBgLeft />
       <GameItemMiddle className={css.game}>
         {item.dapps.map(v => (
           <PixelCube2Tooltip key={v.label} title={[v.label]}>
             <img
+              fetchPriority="high"
               decoding="async"
               loading="lazy"
               className={css.icon}
@@ -254,7 +298,7 @@ const GamesItemComp = memo(({ item }: { item: IGames }) => {
         ))}
       </GameItemMiddle>
       <GameItemBgRight />
-    </div>
+    </motion.div>
   )
 })
 

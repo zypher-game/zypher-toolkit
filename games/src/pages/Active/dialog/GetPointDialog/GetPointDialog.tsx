@@ -1,5 +1,4 @@
-import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { DialogClose, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { DialogClose, ModalWithMotion, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
@@ -16,12 +15,10 @@ const GetPointDialog = memo(() => {
   }, [])
 
   return (
-    <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel}>
-      <DialogContent className={css.center}>
-        <MoreActiveSuccessCard isModal={true} amount={amount} />
-        <DialogClose onClick={handleCancel} />
-      </DialogContent>
-    </DialogOverlay>
+    <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.center}>
+      <MoreActiveSuccessCard isModal={true} amount={amount} />
+      <DialogClose onClick={handleCancel} />
+    </ModalWithMotion>
   )
 }, isEqual)
 

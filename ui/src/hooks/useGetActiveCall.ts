@@ -52,6 +52,7 @@ export const useGetUserInfo = () => {
         }
       } catch (e) {
         console.log("useGetInfo", { e });
+        return form_info_init();
       }
     },
     []
@@ -75,6 +76,27 @@ const form_info = (data: any, chainId: ChainId) => {
     discord: {
       avatar: data.discordImg,
       nickname: data.discordName,
+      followerCount: "",
+      isLoading: false,
+    },
+  };
+};
+const form_info_init = () => {
+  return {
+    invitationCode: "",
+    signedStr: "",
+    avatar: "",
+    id: "",
+    nickname: "",
+    twitter: {
+      avatar: "",
+      nickname: "",
+      followerCount: "",
+      isLoading: false,
+    },
+    discord: {
+      avatar: "",
+      nickname: "",
       followerCount: "",
       isLoading: false,
     },
