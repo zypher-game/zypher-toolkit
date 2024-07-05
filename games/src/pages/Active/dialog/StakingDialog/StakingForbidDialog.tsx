@@ -16,6 +16,7 @@ const StakingForbidDialog = memo(() => {
   }, [])
   const go = useCallback(() => {
     navigate(`/${NavKey[0][1]}`)
+    handleCancel()
   }, [])
   return (
     <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.stakingForbidDialog}>

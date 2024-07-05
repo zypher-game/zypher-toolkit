@@ -11,7 +11,7 @@ export interface IUserState {
     message?: string
   }
 }
-const initialState = {
+const initialState: IUserState = {
   success: undefined,
   error: undefined,
   selectedChainId: undefined

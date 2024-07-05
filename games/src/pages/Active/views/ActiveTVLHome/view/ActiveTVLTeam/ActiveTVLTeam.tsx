@@ -34,54 +34,28 @@ const ActiveTVLTeam = memo(() => {
   const [showTeamWarn, setShowTeamWarn] = useState(0)
   const { groupGoal, availableCode, teamMembers, activeData, openCard, isLoadingSingle, isLoadingAll, loading } = useTeam()
   const [percentWidth, setPercentWidth] = useState(0)
-  const animationFrameRef = useRef<number>(0)
-  const startTimeRef = useRef<number>(0)
 
   const myTeamWarnHandle = useCallback(() => {
     setShowTeamWarn(1)
   }, [])
-  const updatePercentWidth = useCallback(() => {
-    setPercentWidth(prevPercent => {
-      if (prevPercent >= 100) {
-        return 100
-      }
-      return prevPercent + 1
-    })
-  }, [])
-  const location = useLocation()
+
   useEffect(() => {
-    cancelAnimationFrame(animationFrameRef.current)
-  }, [location])
-  useEffect(() => {
-    const animate = (timestamp: number) => {
-      if (!animationFrameRef) {
-        startTimeRef.current = timestamp
-      }
-      const elapsed = timestamp - startTimeRef.current
-      if (elapsed >= 5) {
-        startTimeRef.current = timestamp
-        updatePercentWidth()
-        if (percentWidth >= 100) {
-          cancelAnimationFrame(animationFrameRef.current)
-          return
+    let _num = Number(groupGoal.percent)
+    _num = _num > 100 ? 100 : _num
+    const timer = setInterval(() => {
+      console.log(111)
+      setPercentWidth(newPercent => {
+        const newVal = newPercent + Math.floor(Math.random() * 10)
+        if (newVal > _num) {
+          clearInterval(timer)
         }
-      }
-      animationFrameRef.current = requestAnimationFrame(animate)
-    }
-    const _num = Number(groupGoal.percent)
-    if (typeof _num === 'number' && !isNaN(_num)) {
-      if (_num > 100) {
-        setPercentWidth(100)
-      } else {
-        animationFrameRef.current = requestAnimationFrame(animate)
-      }
-    } else {
-      setPercentWidth(0)
-    }
+        return newVal
+      })
+    }, 200)
     return () => {
-      cancelAnimationFrame(animationFrameRef.current)
+      clearInterval(timer)
     }
-  }, [groupGoal.percent, updatePercentWidth, percentWidth])
+  }, [groupGoal.percent])
   return (
     <>
       <TVLWrap

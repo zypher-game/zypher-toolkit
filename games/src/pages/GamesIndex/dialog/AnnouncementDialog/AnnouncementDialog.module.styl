@@ -2,7 +2,8 @@ body [data-reach-dialog-overlay].bottom
   @media screen and (max-width: 830px)
     align-items: flex-end
 .table_body
-  background-color: #1D263B
+  @media screen and (max-width: 830px)
+    background-color: #1D263B
 .title
   width: 100%
   font-weight: 600
@@ -16,6 +17,7 @@ body [data-reach-dialog-overlay].bottom
     text-align: left
 body [data-reach-dialog-content].dataDialog
   width: 690px
+  background-color: transparent
   @media screen and (max-width: 830px)
     width: 100%;
     margin: 0

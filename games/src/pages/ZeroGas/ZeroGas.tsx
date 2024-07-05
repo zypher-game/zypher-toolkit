@@ -147,7 +147,7 @@ const ZeroGas = memo(() => {
         const _themeKey = Theme[_chainIdParams]
         const _theme = getTheme(_themeKey)
         const { bannerBorderColor, text, dapp } = _theme
-        const { mintMinimum, mintMinimumStr, sbtAmount, hasSBT: sbtId } = activeDataSource[_chainIdParams] ?? initActiveData
+        const { mintMinimum, mintMinimumStr, sbtAmount, hasSBT: sbtId, accountAddress } = activeDataSource[_chainIdParams] ?? initActiveData
         const hasSbt = sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
         const stakingData = Object.values(tvlStakingData[chainIdParams]).filter(vs => vs.address !== AddressZero)
         const showSwitch = !L3ChainId[chainIdParams] || L3ChainId[chainIdParams] !== chainId
@@ -155,8 +155,8 @@ const ZeroGas = memo(() => {
         const dataMap = stakingData.map(
           v =>
             ({
-              stake: v.userStakedAmountStr,
-              mintMinimumStr: mintMinimumStr,
+              stake: accountAddress && accountAddress !== AddressZero ? v.userStakedAmountStr : '',
+              mintMinimumStr: accountAddress && accountAddress !== AddressZero ? mintMinimumStr : '',
               currency: `${v.symbol === `W${Currency[chainIdParams]}` ? Currency[chainIdParams] : v.symbol}`,
               isOk: new BigNumberJs(v.userStakedAmount).gte(mintMinimum)
             } as IStakeItem)
