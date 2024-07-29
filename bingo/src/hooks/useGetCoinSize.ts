@@ -1,5 +1,4 @@
-import { pow10 } from '@zypher-game/toolkit/ui'
-import BigNumberjs from 'bignumber.js'
+import { BigNumberJs, pow10 } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
 import { IBingoVersion } from '@/pages/state/state'
@@ -17,7 +16,7 @@ const useGetCoinSize = () => {
     const Contract = bingoLobbyFee(chainId, env)
     const Coin = await Contract.read.gameInputPer()
 
-    setCoinSize(pow10(new BigNumberjs(Coin).toNumber()).toNumber())
+    setCoinSize(pow10(new BigNumberJs(Coin).toNumber()).toNumber())
   }, [account, chainId, bingoVersion])
   useEffect(() => {
     if (bingoVersion === IBingoVersion.v1) {

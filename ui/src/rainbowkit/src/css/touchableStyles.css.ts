@@ -1,7 +1,7 @@
 /* eslint-disable sort-keys-fix/sort-keys-fix */
-import { createVar, style, styleVariants } from '@vanilla-extract/css';
-import { calc } from '@vanilla-extract/css-utils';
-import { sprinkles } from './sprinkles.css';
+import { createVar, style, styleVariants } from "@vanilla-extract/css";
+import { calc } from "@vanilla-extract/css-utils";
+import { sprinkles } from "./sprinkles.css";
 
 const hoverScaleValues = {
   grow: 1.025,
@@ -18,28 +18,28 @@ const activeScaleVar = createVar();
 
 export const base = style([
   sprinkles({
-    position: 'relative',
+    position: "relative",
   }),
   {
     selectors: {
-      '&,&::after': {
+      "&,&::after": {
         vars: {
-          [hoverScaleVar]: '1',
-          [activeScaleVar]: '1',
+          [hoverScaleVar]: "1",
+          [activeScaleVar]: "1",
         },
       },
-      '&:hover': {
+      "&:hover": {
         transform: `scale(${hoverScaleVar})`,
       },
-      '&:active': {
+      "&:active": {
         transform: `scale(${activeScaleVar})`,
       },
-      '&:active::after': {
+      "&:active::after": {
         bottom: -1,
         content: '""',
-        display: 'block',
+        display: "block",
         left: -1,
-        position: 'absolute',
+        position: "absolute",
         right: -1,
         top: -1,
         transform: `scale(${calc(1)
@@ -51,17 +51,17 @@ export const base = style([
   },
 ]);
 
-export const hover = styleVariants(hoverScaleValues, scale => ({
+export const hover = styleVariants(hoverScaleValues, (scale) => ({
   selectors: {
-    '&,&::after': {
+    "&,&::after": {
       vars: { [hoverScaleVar]: String(scale) },
     },
   },
 }));
 
-export const active = styleVariants(activeScaleValues, scale => ({
+export const active = styleVariants(activeScaleValues, (scale) => ({
   selectors: {
-    '&,&::after': {
+    "&,&::after": {
       vars: { [activeScaleVar]: String(scale) },
     },
   },

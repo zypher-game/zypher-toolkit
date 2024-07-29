@@ -12,19 +12,18 @@ import {
   txStatus,
   useAccountInvitation,
   useCustomTranslation,
-  useIsMobile,
+  useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
   useWalletClient,
   zkBingo
-} from '@zypher-game/toolkit/ui'
+} from '@ui/src'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
 import { sample } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import styled from 'styled-components'
 import { formatEther } from 'viem'
 import { TransactionReceipt } from 'viem'
 
@@ -48,7 +47,7 @@ interface ISubmitCard {
 const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const [pending, setPending] = useState(false)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [joinGame] = useRecoilState(joinGameState)
   const [activeLevels, setActiveLevels] = useState([])
   const [winRate, setWinRate] = useState(0)
@@ -95,7 +94,12 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
   }, [chainId, account, activeLevels, walletClient, level])
   const getActiveLevels = useCallback(async () => {
     const provider = await getProvider(sample(ChainRpcUrls[chainId]))
-    const bingoLobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+    const bingoLobbyContract = await bingoLobbyFromRpc({
+      chainId,
+      bingoVersion,
+      library: provider,
+      account
+    })
     const { list, wins } = await bingoLobbyContract.functions.activeLevels()
     setActiveLevels(list)
     setWinRate(wins.toNumber())
@@ -112,13 +116,23 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
       return
     }
     setPending(true)
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken)
       const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
       // const lineupUsers = await lobbyContract.read.lineupUsers()
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
-      const bingoLobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+      const bingoLobbyContract = await bingoLobbyFromRpc({
+        chainId,
+        bingoVersion,
+        library: provider,
+        account
+      })
       const [lvId, lineupUsers] = await bingoLobbyContract.functions.lineupUsers()
       if (lineupUsers.map((v: string) => v.toLowerCase()).includes(account.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
@@ -131,7 +145,9 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
         if (leaveTx && leaveTx.status === txStatus) {
           postAccountUpdate({ tx: leaveTx })
         } else {
-          throw Object.assign(new Error('Leave Transaction Failed'), { name: 'Leave' })
+          throw Object.assign(new Error('Leave Transaction Failed'), {
+            name: 'Leave'
+          })
         }
       }
       const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
@@ -146,7 +162,10 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
         })
         const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
         await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
-        setSuccessToast(dispatch, { title: '', message: t('Approve successful') })
+        setSuccessToast(dispatch, {
+          title: '',
+          message: t('Approve successful')
+        })
         setIsApprove(true)
         setPending(false)
         getApprove()
@@ -159,13 +178,18 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
         maxPriorityFeePerGas: gasPrice[chainId]
       })
       const hash = typeof res === 'string' ? res : res.hash
-      const joinTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+      const joinTx: TransactionReceipt | undefined = await waitForTransaction({
+        confirmations: 1,
+        hash
+      })
       if (joinTx && joinTx.status === txStatus) {
         postAccountUpdate({ tx: joinTx })
         setRefreshBalanceState(refreshBalance + 1)
         setCurrentStep(3)
       } else {
-        throw Object.assign(new Error('Join Transaction Failed'), { name: 'Join' })
+        throw Object.assign(new Error('Join Transaction Failed'), {
+          name: 'Join'
+        })
       }
     } catch (e) {
       setErrorToast(dispatch, e, lobbyContract)

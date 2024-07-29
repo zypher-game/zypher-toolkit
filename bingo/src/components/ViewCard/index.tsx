@@ -1,6 +1,6 @@
 import { CloseOutlined } from '@ant-design/icons'
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { LngNs, preStaticUrl, useCustomTranslation } from '@zypher-game/toolkit/ui'
+import { LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useMemo, useState } from 'react'
 import { DndProvider } from 'react-dnd'

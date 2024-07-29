@@ -1,8 +1,8 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { preStaticUrl, useCurrentLanguage } from '@zypher-game/toolkit/ui'
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
-import { LngNs } from '@zypher-game/toolkit/ui'
+import { preStaticUrl, useCurrentLanguage } from '@ui/src'
+import { useCustomTranslation } from '@ui/src'
+import { useIsW768 } from '@ui/src'
+import { LngNs } from '@ui/src'
 import { Space } from 'antd'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
@@ -71,10 +71,17 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
   const { t } = useCustomTranslation([LngNs.zBingo])
   const { account } = useActiveWeb3ReactForBingo()
   const lang = useCurrentLanguage()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <DialogOverlay isOpen={open}>
-      <DialogContent style={{ background: 'transparent', width: '100vw', display: 'flex', justifyContent: 'center' }}>
+      <DialogContent
+        style={{
+          background: 'transparent',
+          width: '100vw',
+          display: 'flex',
+          justifyContent: 'center'
+        }}
+      >
         <Wrapper isMobile={isMobile}>
           <ResultM isMobile={isMobile}>
             {winner.toLowerCase() === `${account}`.toLowerCase() ? (

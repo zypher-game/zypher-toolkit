@@ -1,29 +1,38 @@
-import { Contract } from '@ethersproject/contracts'
-import { ChainId, getContract, useActiveChainId, useWalletClient } from '@zypher-game/toolkit/ui'
-import { useMemo } from 'react'
-import { Address } from 'viem'
+import { Contract } from "@ethersproject/contracts";
+import {
+  ChainId,
+  getContract,
+  useActiveChainId,
+  useWalletClient,
+} from "@ui/src";
+import { useMemo } from "react";
+import { Address } from "viem";
 
-import { defaultLocalChainId } from '@/constants/constants'
+import { defaultLocalChainId } from "@/constants/constants";
 
-import { env } from '../utils/config'
+import { env } from "../utils/config";
 
-export function useContract(addressOrAddressMap?: Address | { [chainId: number]: Address }, abi?: any, defaultChainId?: ChainId): Contract | null {
-  const { chainId } = useActiveChainId(env)
-  const { data: walletClient } = useWalletClient()
+export function useContract(
+  addressOrAddressMap?: Address | { [chainId: number]: Address },
+  abi?: any,
+  defaultChainId?: ChainId
+): Contract | null {
+  const { chainId } = useActiveChainId(env);
+  const { data: walletClient } = useWalletClient();
 
   return useMemo(() => {
-    const localChainId = chainId ?? defaultLocalChainId
+    const localChainId = chainId ?? defaultLocalChainId;
     if (!addressOrAddressMap || !abi || !localChainId) {
-      return null
+      return null;
     }
-    let address: Address | undefined
-    if (typeof addressOrAddressMap === 'string') {
-      address = addressOrAddressMap
+    let address: Address | undefined;
+    if (typeof addressOrAddressMap === "string") {
+      address = addressOrAddressMap;
     } else {
-      address = addressOrAddressMap[localChainId]
+      address = addressOrAddressMap[localChainId];
     }
     if (!address) {
-      return null
+      return null;
     }
     try {
       return getContract({
@@ -31,11 +40,11 @@ export function useContract(addressOrAddressMap?: Address | { [chainId: number]:
         abi,
         address,
         chainId: localChainId,
-        signer: walletClient ?? undefined
-      })
+        signer: walletClient ?? undefined,
+      });
     } catch (error) {
-      console.error('Failed to get contract', error)
-      return null
+      console.error("Failed to get contract", error);
+      return null;
     }
-  }, [addressOrAddressMap, abi, chainId, walletClient])
+  }, [addressOrAddressMap, abi, chainId, walletClient]);
 }

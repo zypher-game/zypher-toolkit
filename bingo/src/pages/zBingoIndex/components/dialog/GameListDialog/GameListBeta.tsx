@@ -1,10 +1,10 @@
 import { CaretDownOutlined } from '@ant-design/icons'
-import { bingoBetaSupportedChainId, ChainId, ChainName, supportedChainIds, useActiveWeb3React } from '@zypher-game/toolkit/ui'
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
-import { getShortenAddress, LngNs } from '@zypher-game/toolkit/ui'
-import { PlayerAvatar } from '@zypher-game/toolkit/ui'
-import { IBingoInfo, IGameStatus } from '@zypher-game/toolkit/ui'
+import { bingoBetaSupportedChainId, ChainId, ChainName, supportedChainIds, useActiveWeb3React } from '@ui/src'
+import { useCustomTranslation } from '@ui/src'
+import { useIsW768 } from '@ui/src'
+import { getShortenAddress, LngNs } from '@ui/src'
+import { PlayerAvatar } from '@ui/src'
+import { IBingoInfo, IGameStatus } from '@ui/src'
 import { Avatar, List, Select, Space, Spin, Table } from 'antd'
 import { ColumnGroupType, ColumnType } from 'antd/lib/table'
 import classnames from 'classnames'
@@ -133,7 +133,7 @@ type IProps = {
   listBetaMapList: Map<ChainId, IGameListBeta[]> | undefined
 }
 const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }: IProps) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { chainId } = useActiveWeb3ReactForBingo()
   const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
   const [bingoDataSource, setBingoDataSource] = useState<IGameListBeta[]>()
@@ -231,7 +231,15 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
             {status === IGameStatus.End ? (
               <ViewCardPage bingoInfo={bingoInfo} />
             ) : (
-              <div style={{ fontFamily: 'Poppins', fontWeight: 600, paddingLeft: '15px' }}>{t('None')}</div>
+              <div
+                style={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 600,
+                  paddingLeft: '15px'
+                }}
+              >
+                {t('None')}
+              </div>
             )}
           </div>
         )
@@ -281,7 +289,13 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
               {item.status === IGameStatus.End && (
                 <>
                   <Space size={10} align="center">
-                    <div style={{ border: '1px solid #613C17', borderRadius: '50%', display: 'flex' }}>
+                    <div
+                      style={{
+                        border: '1px solid #613C17',
+                        borderRadius: '50%',
+                        display: 'flex'
+                      }}
+                    >
                       <PlayerAvatar account={item.winnerOrPlayers} size={20} showAccount={false} />
                     </div>
                     {getShortenAddress(item.winnerOrPlayers)}

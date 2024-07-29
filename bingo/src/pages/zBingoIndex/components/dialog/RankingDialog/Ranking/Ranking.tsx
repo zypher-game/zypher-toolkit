@@ -1,6 +1,6 @@
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
-import { LngNs } from '@zypher-game/toolkit/ui'
+import { useCustomTranslation } from '@ui/src'
+import { useIsW768 } from '@ui/src'
+import { LngNs } from '@ui/src'
 import { Spin } from 'antd'
 import classnames from 'classnames'
 import React, { useMemo } from 'react'
@@ -31,7 +31,7 @@ interface IProps {
 const Ranking = (props: IProps): React.ReactElement | null => {
   const { rankingList, tab, setTab, loading, myItem } = props
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const Inner = useMemo(() => {
     if (loading || !rankingList || !rankingList) {
       return (

@@ -1,6 +1,6 @@
 // AudioManager.js
-import { useRecoilState } from '@zypher-game/toolkit/ui'
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { useRecoilState } from '@ui/src'
+import { preStaticUrl } from '@ui/src'
 import { Howl } from 'howler'
 import { useCallback, useEffect } from 'react'
 import React from 'react'
@@ -142,7 +142,16 @@ const useAudioManager = () => {
     }
   }
 
-  return { toggleMusic, isSoundOn, turnSound, playWinSound, playLoseSound, backgroundMusic, colseBackgroundMusic, buttonClickSound }
+  return {
+    toggleMusic,
+    isSoundOn,
+    turnSound,
+    playWinSound,
+    playLoseSound,
+    backgroundMusic,
+    colseBackgroundMusic,
+    buttonClickSound
+  }
 }
 
 export default useAudioManager

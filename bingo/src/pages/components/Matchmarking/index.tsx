@@ -1,21 +1,19 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
-  IContractName,
+  getProvider,
   LngNs,
   preStaticUrl,
   SvgComponent,
   txStatus,
   useAccountInvitation,
   useCustomTranslation,
-  useIsMobile,
-  useRecoilState,
-  zkBingo
-} from '@zypher-game/toolkit/ui'
-import { usePublicNodeWaitForTransaction } from '@zypher-game/toolkit/ui'
-import { getProvider } from '@zypher-game/toolkit/ui'
-import { useWalletClient } from '@zypher-game/toolkit/ui'
-import { PlayerAvatar } from '@zypher-game/toolkit/ui'
+  useIsW768,
+  useRecoilState
+} from '@ui/src'
+import { usePublicNodeWaitForTransaction } from '@ui/src'
+import { useWalletClient } from '@ui/src'
+import { PlayerAvatar } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cx from 'classnames'
 import { sample } from 'lodash'
@@ -94,7 +92,7 @@ interface IMatchmarking {
 const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const navigate = useNavigate()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [gameRoom, setGameRoom] = useRecoilState(gameRoomState)
   const [pending, setPending] = useState(false)
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
@@ -111,7 +109,12 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       return
     }
     const provider = await getProvider(sample(ChainRpcUrls[chainId]))
-    const bingoLobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+    const bingoLobbyContract = await bingoLobbyFromRpc({
+      chainId,
+      bingoVersion,
+      library: provider,
+      account
+    })
     const rres = await bingoLobbyContract.functions.lineupUsers()
     let lineupUsers: string[] = []
     if (bingoVersion === IBingoVersion.v1) {
@@ -143,7 +146,11 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
         lineupUsers: lineupUser
       }))
 
-      toBingoPlayHref({ chainIdParams: chainIdParams, navigate: navigate, path: `/${id.toNumber()}/gameRoom` })
+      toBingoPlayHref({
+        chainIdParams: chainIdParams,
+        navigate: navigate,
+        path: `/${id.toNumber()}/gameRoom`
+      })
     }
   }, 1000)
   const handleStartGame = async () => {
@@ -152,9 +159,18 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
     }
     setPending(true)
     if (isPlaying) {
-      return toBingoPlayHref({ chainIdParams: chainIdParams, navigate: navigate, path: `/${gameId}/gameRoom` })
+      return toBingoPlayHref({
+        chainIdParams: chainIdParams,
+        navigate: navigate,
+        path: `/${gameId}/gameRoom`
+      })
     }
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const txn = await lobbyContract.write.start({
         account: account,
@@ -162,11 +178,16 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
         maxPriorityFeePerGas: gasPrice[chainId]
       })
       const hash = typeof txn === 'string' ? txn : txn.hash
-      const startTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+      const startTx: TransactionReceipt | undefined = await waitForTransaction({
+        confirmations: 1,
+        hash
+      })
       if (startTx && startTx.status === txStatus) {
         postAccountUpdate({ tx: startTx })
       } else {
-        throw Object.assign(new Error('Start Transaction Failed'), { name: 'Start' })
+        throw Object.assign(new Error('Start Transaction Failed'), {
+          name: 'Start'
+        })
       }
     } catch (e) {
       setErrorToast(dispatch, e, lobbyContract)

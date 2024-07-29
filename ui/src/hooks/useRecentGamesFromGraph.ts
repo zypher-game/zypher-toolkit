@@ -3,7 +3,6 @@ import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json"
 import { useCallback, useEffect, useState } from "react";
 import { ChainId, supportedChainIds } from "../constant/constant";
 import { IGameList, IGameName, IGameStatus } from "../types/gameList.types";
-import { useInterval } from "./useInterval";
 import { request } from "../utils/request";
 import BigNumberjs from "bignumber.js";
 import { ethers } from "ethers";

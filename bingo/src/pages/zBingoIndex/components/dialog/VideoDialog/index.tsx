@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { useRecoilValue, useSetRecoilState } from '@zypher-game/toolkit/ui'
+import { useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useRef } from 'react'
 

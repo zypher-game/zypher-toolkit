@@ -1,4 +1,4 @@
-import { IGameStatus, LngNs, useCustomTranslation } from '@zypher-game/toolkit/ui'
+import { IGameStatus, LngNs, useCustomTranslation } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo } from 'react'
 import styled from 'styled-components'

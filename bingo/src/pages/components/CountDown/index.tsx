@@ -1,8 +1,8 @@
 import './index.css'
 
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { LngNs } from '@zypher-game/toolkit/ui'
+import { useCustomTranslation } from '@ui/src'
+import { LngNs } from '@ui/src'
 import { motion } from 'framer-motion'
 import React, { useEffect, useRef, useState } from 'react'
 

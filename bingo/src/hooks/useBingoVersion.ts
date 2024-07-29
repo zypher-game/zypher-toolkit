@@ -1,7 +1,6 @@
-import { bingoBetaSupportedChainId, bingoSupportedChainId, useActiveWeb3React } from '@zypher-game/toolkit/ui'
+import { bingoBetaSupportedChainId, bingoSupportedChainId, ChainId, useActiveWeb3React, useSetRecoilState } from '@ui/src'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { useSetRecoilState } from 'recoil'
 
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { toBingoHref } from '@/utils/toBingoHref'
@@ -27,7 +26,7 @@ export const useBingoVersion = () => {
     }
   }, [chainId, chainIdParams])
   useEffect(() => {
-    if (chainIdParams && bingoBetaSupportedChainId.includes(Number(chainIdParams))) {
+    if (chainIdParams && bingoBetaSupportedChainId.includes(chainIdParams as ChainId)) {
       setBingoVersion(IBingoVersion.beta)
     } else {
       setBingoVersion(IBingoVersion.v1)

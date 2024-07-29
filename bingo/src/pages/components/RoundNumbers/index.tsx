@@ -1,4 +1,4 @@
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { preStaticUrl } from '@ui/src'
 import React, { useEffect, useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 
@@ -86,12 +86,26 @@ const Box = ({ index, round, children, list }: any) => {
         {leftPosition === 0 && (
           <>
             {list[0] === 'loadding' ? (
-              <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              <span
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
                 <LatticeIcon src={preStaticUrl + '/img/loading.svg'} />
               </span>
             ) : (
               <span
-                style={list[0] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}
+                style={
+                  list[0] === 'pass'
+                    ? { fontSize: '20px', fontFamily: 'Lemon' }
+                    : {
+                        fontSize: '48px',
+                        fontFamily: 'Pacifico',
+                        height: '80px'
+                      }
+                }
               >
                 {list[0]}
               </span>

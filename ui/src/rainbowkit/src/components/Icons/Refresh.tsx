@@ -1,8 +1,8 @@
-import React from 'react';
-import { AsyncImage } from '../AsyncImage/AsyncImage';
-import { loadImages } from '../AsyncImage/useAsyncImage';
+import React from "react";
+import { AsyncImage } from "../AsyncImage/AsyncImage";
+import { loadImages } from "../AsyncImage/useAsyncImage";
 
-const src = async () => (await import('./refresh.svg')).default;
+const src = async () => (await import("./refresh.svg")).default;
 
 export const preloadRefreshIcon = () => loadImages(src);
 

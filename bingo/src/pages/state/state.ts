@@ -1,5 +1,5 @@
-import { atom } from '@zypher-game/toolkit/ui'
-import { localStorageEffect } from '@zypher-game/toolkit/ui'
+import { atom } from '@ui/src'
+import { localStorageEffect } from '@ui/src'
 
 import { CardNumbersType } from '@/utils/generateCardNumbers'
 

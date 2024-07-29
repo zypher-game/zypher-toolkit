@@ -5,10 +5,10 @@ import {
   preStaticUrl,
   useActiveWeb3React,
   useChainModal,
-  useIsMobile,
+  useIsW768,
   useSetRecoilState,
   walletModalOpenState
-} from '@zypher-game/toolkit/ui'
+} from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
@@ -38,7 +38,7 @@ const Inner = memo(({ bingoMapList, bingoHasError }: { bingoMapList: Map<ChainId
 const InnerItem = memo(({ v }: { v: ILevels }) => {
   const chainIdParams = useChainIdParams()
   const { account, chainId } = useActiveWeb3React()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const setIsModalOpen = useSetRecoilState(levelRuleDialogState)
   const navigate = useNavigate()
   const [isAnimating, setIsAnimating] = useState(false)

@@ -1,4 +1,4 @@
-import { ChainId, IGameList, preStaticUrl, useRecoilValue, useSetRecoilState } from '@zypher-game/toolkit/ui'
+import { ChainId, IGameList, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'

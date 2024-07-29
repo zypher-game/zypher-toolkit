@@ -1,5 +1,5 @@
-import { LngNs, preStaticUrl, useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
+import { LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -14,7 +14,7 @@ type IProps = {
 }
 const RoundTitle = memo(({ round, roomInfo }: IProps) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <div className={css.roundNumber}>
       <img src={preStaticUrl + `/img/bingo/game-title${isMobile ? '-m' : ''}.png`} className={css.game_title_img} alt="game" />

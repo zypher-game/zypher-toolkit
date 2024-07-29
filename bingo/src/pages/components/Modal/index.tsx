@@ -2,10 +2,10 @@ import './index.css'
 
 import { LoadingOutlined } from '@ant-design/icons'
 import { Dialog, DialogContent, DialogOverlay } from '@reach/dialog'
-import { preStaticUrl, useRecoilValue } from '@zypher-game/toolkit/ui'
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
-import { LngNs } from '@zypher-game/toolkit/ui'
+import { preStaticUrl, useRecoilValue } from '@ui/src'
+import { useCustomTranslation } from '@ui/src'
+import { useIsW768 } from '@ui/src'
+import { LngNs } from '@ui/src'
 import { Space } from 'antd'
 import React, { ReactNode } from 'react'
 import { Any } from 'react-spring'
@@ -170,7 +170,7 @@ const ConfirmIcon = styled.img``
 export function ConfirmModal(props: CustomDialogProps) {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const { open, confirm } = props
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <>
       <ConfirmConfirmDialog isMobile={isMobile} isOpen={open} style={{ zIndex: 9 }}>
@@ -198,7 +198,7 @@ const ConfirmTitile = styled.div`
 export function ConfirmCloseModal(props: CustomDialogProps) {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const { open, onCancel, onClose, closeLoading } = props
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const bingoVersion = useRecoilValue(bingoVersionState)
   return (
     <>
@@ -225,7 +225,7 @@ export function ConfirmCloseModal(props: CustomDialogProps) {
 export function TipsModal(props: CustomDialogProps) {
   const { open, onCancel, onClose, closeLoading, onBlack } = props
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const bingoVersion = useRecoilValue(bingoVersionState)
   return (
     <>
@@ -253,7 +253,7 @@ export function TipsOkModal(props: CustomDialogProps) {
   const { open, onCancel, onClose, closeLoading, onBlack } = props
   const { t } = useCustomTranslation([LngNs.zBingo])
   const bingoVersion = useRecoilValue(bingoVersionState)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <>
       <ConfirmConfirmDialog isMobile={isMobile} isOpen={open}>
@@ -284,7 +284,7 @@ export function TipsOkModal(props: CustomDialogProps) {
 export function OvertimeModal(props: CustomDialogProps) {
   const { open, onCancel, onClose } = props
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <>
       <ConfirmConfirmDialog isMobile={isMobile} isOpen={open}>
@@ -307,7 +307,7 @@ export function OvertimeModal(props: CustomDialogProps) {
 export function GradeModal(props: CustomDialogProps) {
   const { open, onCancel, title, content, garde } = props
   const { t } = useCustomTranslation([LngNs.common])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <>
       <ConfirmConfirmDialog isMobile={isMobile} isOpen={open} style={{ paddingLeft: '35px', paddingRight: '35px', maxWidth: '546px' }}>
@@ -343,7 +343,7 @@ type IGameModalProps = {
 }
 
 export const GameModal = ({ open, children, onCancel, title, footer, loading }: IGameModalProps) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <ConfirmConfirmDialog isMobile={isMobile} isOpen={open}>
       <ConfirmTitile>{loading ? <LoadingSpinner /> : title}</ConfirmTitile>
@@ -389,7 +389,7 @@ type ICountdownProps = {
 }
 
 export const CountdownModal: React.FC<ICountdownProps> = ({ children }) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <ConfirmConfirm isMobile={isMobile}>
       <Logo isMobile={isMobile}>

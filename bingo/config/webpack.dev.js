@@ -4,7 +4,6 @@ const common = require('./webpack.config')
 const { merge } = require('webpack-merge')
 const path = require('path')
 const os = require('os')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // 获取当前 IP 地址
 function getLocalIpAddress() {
@@ -22,21 +21,16 @@ function getLocalIpAddress() {
 
 module.exports = merge(common, {
   mode: 'development',
+  devtool: 'source-map',
   output: {
+    publicPath: '/',
     filename: '[name].[contenthash:8].bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,
-    publicPath: '/',
+    publicPath: '/bingo/',
     assetModuleFilename: 'asset/[hash:10][ext][query]'
   },
-  devtool: 'source-map',
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      publicPath: '/'
-    })
-  ],
+  plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
     contentBase: 'public',
     port: 9009,

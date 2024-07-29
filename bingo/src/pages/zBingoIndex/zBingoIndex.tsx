@@ -1,31 +1,46 @@
-import { useRecoilValue } from '@zypher-game/toolkit/ui'
-import { isEqual } from 'lodash'
-import React, { memo } from 'react'
+import { useRecoilValue } from "@ui/src";
+import { isEqual } from "lodash";
+import React, { memo } from "react";
 
-import { useBingoVersion } from '@/hooks/useBingoVersion'
-import { useRecentGames } from '@/hooks/useRecentGames'
+import { useBingoVersion } from "@/hooks/useBingoVersion";
+import { useRecentGames } from "@/hooks/useRecentGames";
 
-import { bingoVersionState, IBingoVersion } from '../state/state'
-import Inner from './components/Inner/Inner'
-import InnerBeta from './components/InnerBeta/InnerBeta'
-import RightBar from './components/rightBar/rightBar'
-import SideBar from './components/sideBar/sideBar'
-import UserCenter from './components/userCenter/userCenter'
-import { useAnim } from './hooks/useAnim'
+import { bingoVersionState, IBingoVersion } from "../state/state";
+import Inner from "./components/Inner/Inner";
+import InnerBeta from "./components/InnerBeta/InnerBeta";
+import RightBar from "./components/rightBar/rightBar";
+import SideBar from "./components/sideBar/sideBar";
+import UserCenter from "./components/userCenter/userCenter";
+import { useAnim } from "./hooks/useAnim";
 
 const zBingoIndex = memo(() => {
-  useBingoVersion()
-  const bingoVersion = useRecoilValue(bingoVersionState)
-  useAnim()
-  const { list: bingoMapList, listBeta: listBetaMapList, hasError: bingoHasError } = useRecentGames()
+  useBingoVersion();
+  const bingoVersion = useRecoilValue(bingoVersionState);
+  useAnim();
+  const {
+    list: bingoMapList,
+    listBeta: listBetaMapList,
+    hasError: bingoHasError,
+  } = useRecentGames();
   return (
     <>
       <UserCenter />
-      <SideBar bingoMapList={bingoMapList} listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} />
+      <SideBar
+        bingoMapList={bingoMapList}
+        listBetaMapList={listBetaMapList}
+        bingoHasError={bingoHasError}
+      />
       <RightBar />
-      {bingoVersion === IBingoVersion.beta ? <InnerBeta listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} /> : null}
-      {bingoVersion === IBingoVersion.v1 ? <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} /> : null}
+      {bingoVersion === IBingoVersion.beta ? (
+        <InnerBeta
+          listBetaMapList={listBetaMapList}
+          bingoHasError={bingoHasError}
+        />
+      ) : null}
+      {bingoVersion === IBingoVersion.v1 ? (
+        <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} />
+      ) : null}
     </>
-  )
-}, isEqual)
-export default zBingoIndex
+  );
+}, isEqual);
+export default zBingoIndex;

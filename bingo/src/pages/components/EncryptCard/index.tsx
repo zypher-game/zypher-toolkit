@@ -1,14 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import {
-  LngNs,
-  preStaticUrl,
-  SvgComponent,
-  useCustomTranslation,
-  useIsMobile,
-  useRecoilState,
-  useSetRecoilState,
-  useWalletClient
-} from '@zypher-game/toolkit/ui'
+import { LngNs, preStaticUrl, SvgComponent, useCustomTranslation, useIsW768, useRecoilState, useSetRecoilState, useWalletClient } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cx from 'classnames'
 import { ethers } from 'ethers'
@@ -95,7 +86,7 @@ interface IEncryptCard {
 const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const [pending, setPending] = useState(false)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [cardNumbers, setCardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const { data: walletClient } = useWalletClient()
@@ -117,7 +108,12 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
       return
     }
     setPending(true)
-    const cardContract = bingoCard({ chainId, env, bingoVersion, walletClient })
+    const cardContract = bingoCard({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const cardNums = cardNumbers.reduce(
         (prev, curr) => {
@@ -127,25 +123,12 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
         [[], [], [], [], []] as number[][]
       )
       const encodedNumbers = await cardContract.read.encodeCardNumbers([cardNums])
-      // const hashedCardBytes = ethers.utils.hexConcat([
-      //   '0x456e7472797074656420436172643a20', // 'Encrypted Card: '
-      //   joinGame.signedLabel,
-      //   encodedNumbers
-      // ])
-      // const signedCard = await getWeb3Sign(hashedCardBytes, account)
-      const salt = ethers.utils.hexConcat(['0x456e7472797074656420436172643a20', ethers.utils.toUtf8Bytes(signedGameLabel)])
-
-      const signedCard = await getEIP712Sign(
-        {},
-        {
-          SignedData: [
-            { name: 'data', type: 'bytes' },
-            { name: 'salt', type: 'bytes' }
-          ]
-        },
-        account
-      )
-
+      const hashedCardBytes = ethers.utils.hexConcat([
+        '0x456e7472797074656420436172643a20', // 'Encrypted Card: '
+        joinGame.signedLabel,
+        encodedNumbers
+      ])
+      const signedCard = await getWeb3Sign(hashedCardBytes, account)
       if (typeof signedCard === 'string') {
         setJoinGameState(state => ({
           ...state,

@@ -1,9 +1,9 @@
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { preStaticUrl } from '@ui/src'
 import React, { useEffect, useMemo, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import styled, { keyframes } from 'styled-components'
 
-import { useIsMobile } from '@zypher-game/toolkit/ui'
+import { useIsW768 } from '@ui/src'
 
 import css from './RoundNumbers.module.stylus'
 
@@ -27,7 +27,7 @@ interface IRoundNumbers {
 const RoundNumbers: React.FC<IRoundNumbers> = ({ round, selectNumber }) => {
   const [isMovingRight, setIsMovingRight] = useState(false)
   const [numbers, setNumbers] = useState<number[]>([1, 2, 3, 4, 5, 6, 7, 8])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const move = useMemo(() => {
     if (isMovingRight) {
       return 'translateX(0px)'

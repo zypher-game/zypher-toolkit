@@ -1,13 +1,23 @@
-import { useWalletClient } from '@zypher-game/toolkit/ui'
+import { useWalletClient } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
 import bingoLobby from '../contract/bingoLobby'
 import { env } from '../utils/config'
 import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'
 import { useChainIdParamsAsChainId } from './useChainIdParams'
-export type IRoundInfo = { player: string; round: number; remain: number; status: string }
+export type IRoundInfo = {
+  player: string
+  round: number
+  remain: number
+  status: string
+}
 const useGetCurrentRound = (gameId: number | string | undefined): IRoundInfo => {
-  const [roundInfo, setRoundInfo] = useState({ player: '', round: 0, remain: 28, status: '' })
+  const [roundInfo, setRoundInfo] = useState({
+    player: '',
+    round: 0,
+    remain: 28,
+    status: ''
+  })
   const { bingoVersion } = useActiveWeb3ReactForBingo()
   const { data: walletClient } = useWalletClient()
   const chainId = useChainIdParamsAsChainId()

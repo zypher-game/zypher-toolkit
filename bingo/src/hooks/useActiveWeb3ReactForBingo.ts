@@ -1,6 +1,14 @@
-import { bingoBetaSupportedChainId, bingoV1SupportedChainId, ChainId, useRecoilValue } from '@zypher-game/toolkit/ui'
+import {
+  bingoBetaSupportedChainId,
+  bingoV1SupportedChainId,
+  ChainId,
+  PublicClient,
+  useAccount,
+  useChainId,
+  usePublicClient,
+  useRecoilValue
+} from '@ui/src'
 import { useMemo } from 'react'
-import { PublicClient, useAccount, useChainId, usePublicClient } from 'wagmi'
 
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 
@@ -11,11 +19,12 @@ export function useActiveWeb3ReactForBingo(): {
   bingoVersion: IBingoVersion
 } {
   const bingoVersion = useRecoilValue(bingoVersionState)
-  const chainId = useChainId()
+  const _chainId = useChainId()
   const { address } = useAccount()
   const provider = usePublicClient() as PublicClient
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
+    const chainId = `${_chainId}` as ChainId
     const supportedChainId = bingoVersion === IBingoVersion.v1 ? bingoV1SupportedChainId : bingoBetaSupportedChainId
     return {
       chainId: (chainId && supportedChainId.includes(chainId) ? chainId : undefined) as ChainId,
@@ -26,5 +35,5 @@ export function useActiveWeb3ReactForBingo(): {
       provider: provider,
       bingoVersion: bingoVersion
     }
-  }, [chainId, address, bingoVersion, provider])
+  }, [_chainId, address, bingoVersion, provider])
 }

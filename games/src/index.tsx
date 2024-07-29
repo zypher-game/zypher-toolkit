@@ -18,7 +18,7 @@ import { env } from './utils/config'
 render(
   <Provider store={store}>
     <RecoilRoot>
-      <RainbowKitWithThemeProvider env={env} chainIdList={supportedChainIds(env)} type="pixel">
+      <RainbowKitWithThemeProvider env={env} chainIdList={supportedChainIds(env)}>
         <BrowserRouter>
           <IsW768Provider>
             <AppRouter />

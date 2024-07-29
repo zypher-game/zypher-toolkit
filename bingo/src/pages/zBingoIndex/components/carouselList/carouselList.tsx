@@ -8,8 +8,8 @@ import {
   LngNs,
   preStaticUrl,
   useCustomTranslation,
-  useIsMobile
-} from '@zypher-game/toolkit/ui'
+  useIsW768
+} from '@ui/src'
 import { Carousel } from 'antd'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
@@ -73,7 +73,7 @@ const CarouselList = memo(
     const [carouselList, setCarouselList] = useState<(IGameList | IGameListBeta)[]>([])
     const { account, chainId } = useActiveWeb3ReactForBingo()
     const { t } = useCustomTranslation([LngNs.zBingo])
-    const isMobile = useIsMobile()
+    const isMobile = useIsW768()
     const featchData = useCallback(async () => {
       if (!bingoMapList) {
         return

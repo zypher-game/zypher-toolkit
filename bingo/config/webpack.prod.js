@@ -4,7 +4,6 @@ const common = require('./webpack.config')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const TerserPlugin = require('terser-webpack-plugin')
 const path = require('path')
-const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 // const glob = require('glob')
 // const PurgeCSSPlugin = require('purgecss-webpack-plugin')
@@ -35,10 +34,10 @@ module.exports = merge(common, {
     }
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      template: './public/index.html',
-      publicPath: '/bingo/'
-    })
+    // new HtmlWebpackPlugin({
+    //   template: './public/index.html',
+    //   publicPath: '/bingo/'
+    // })
     // new PurgeCSSPlugin({
     //     paths: glob.sync(path.resolve(__dirname, 'src/**/*'), { nodir: true })
     // }),

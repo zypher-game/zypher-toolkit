@@ -1,12 +1,12 @@
-import user from '@testing-library/user-event';
-import React from 'react';
-import { describe, expect, it } from 'vitest';
-import { arbitrum, goerli, mainnet, optimism } from 'wagmi/chains';
-import { renderWithProviders } from '../../../test/';
-import { ChainModal } from './ChainModal';
+import user from "@testing-library/user-event";
+import React from "react";
+import { describe, expect, it } from "vitest";
+import { arbitrum, goerli, mainnet, optimism } from "wagmi/chains";
+import { renderWithProviders } from "../../../test/";
+import { ChainModal } from "./ChainModal";
 
-describe('<ChainModal />', () => {
-  it('Unsupported chain', async () => {
+describe("<ChainModal />", () => {
+  it("Unsupported chain", async () => {
     const { findByText } = renderWithProviders(
       <ChainModal onClose={() => {}} open />,
       {
@@ -17,12 +17,12 @@ describe('<ChainModal />', () => {
     );
     expect(
       await findByText(
-        'Wrong network detected, switch or disconnect to continue.'
+        "Wrong network detected, switch or disconnect to continue."
       )
     ).toBeVisible();
   });
 
-  it('Show current connected chain indicator', async () => {
+  it("Show current connected chain indicator", async () => {
     const modal = renderWithProviders(<ChainModal onClose={() => {}} open />, {
       mock: true,
     });
@@ -30,11 +30,11 @@ describe('<ChainModal />', () => {
       `rk-chain-option-${mainnet.id}`
     );
 
-    expect(mainnetOption).toHaveTextContent('Connected');
+    expect(mainnetOption).toHaveTextContent("Connected");
     expect(mainnetOption).toBeDisabled();
   });
 
-  it('List chains provided in <RainbowKitProvider />', async () => {
+  it("List chains provided in <RainbowKitProvider />", async () => {
     const modal = renderWithProviders(<ChainModal onClose={() => {}} open />, {
       chains: [mainnet, arbitrum, optimism],
       mock: true,
@@ -59,7 +59,7 @@ describe('<ChainModal />', () => {
     ).not.toBeInTheDocument();
   });
 
-  it('Can switch chains', async () => {
+  it("Can switch chains", async () => {
     let onCloseGotCalled = false;
     const modal = renderWithProviders(
       <ChainModal onClose={() => (onCloseGotCalled = true)} open />,
@@ -74,18 +74,18 @@ describe('<ChainModal />', () => {
       `rk-chain-option-${arbitrum.id}`
     );
 
-    expect(mainnetOption).toHaveTextContent('Connected');
-    expect(arbitrumOption).not.toHaveTextContent('Connected');
+    expect(mainnetOption).toHaveTextContent("Connected");
+    expect(arbitrumOption).not.toHaveTextContent("Connected");
 
     await user.click(arbitrumOption);
 
-    expect(mainnetOption).not.toHaveTextContent('Connected');
-    expect(arbitrumOption).toHaveTextContent('Connected');
+    expect(mainnetOption).not.toHaveTextContent("Connected");
+    expect(arbitrumOption).toHaveTextContent("Connected");
 
     expect(onCloseGotCalled).toBe(true);
   });
 
-  it('Just closes on switch error (user rejected, or other)', async () => {
+  it("Just closes on switch error (user rejected, or other)", async () => {
     let onCloseGotCalled = false;
     const modal = renderWithProviders(
       <ChainModal onClose={() => (onCloseGotCalled = true)} open />,
@@ -104,13 +104,13 @@ describe('<ChainModal />', () => {
       `rk-chain-option-${arbitrum.id}`
     );
 
-    expect(mainnetOption).toHaveTextContent('Connected');
-    expect(arbitrumOption).not.toHaveTextContent('Connected');
+    expect(mainnetOption).toHaveTextContent("Connected");
+    expect(arbitrumOption).not.toHaveTextContent("Connected");
 
     await user.click(arbitrumOption);
 
-    expect(mainnetOption).toHaveTextContent('Connected');
-    expect(arbitrumOption).not.toHaveTextContent('Connected'); // keep not having it lmao
+    expect(mainnetOption).toHaveTextContent("Connected");
+    expect(arbitrumOption).not.toHaveTextContent("Connected"); // keep not having it lmao
 
     expect(onCloseGotCalled).toBe(true);
   });
@@ -136,7 +136,7 @@ describe('<ChainModal />', () => {
         mock: true,
       }
     );
-    const closeButton = await modal.findByLabelText('Close');
+    const closeButton = await modal.findByLabelText("Close");
     await user.click(closeButton);
 
     expect(onCloseGotCalled).toBe(true);

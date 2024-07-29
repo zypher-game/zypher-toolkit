@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const webpack = require('webpack')
 const WebpackBar = require('webpackbar')
-const AntdDayjsWebpackPlugin = require('antd-dayjs-webpack-plugin')
 const { cssLoader } = require('./utils/cssLoader')
-
+const { VanillaExtractPlugin } = require('@vanilla-extract/webpack-plugin')
 const HtmlWebpackExternalsPlugin = require('html-webpack-externals-plugin')
+const preLink = process.env.NODE_ENV === 'development' ? 'https://static-dev.zypher.game' : 'https://static.zypher.game'
 module.exports = {
   entry: {
     main: './src/index'
@@ -17,48 +18,39 @@ module.exports = {
     ethers: 'ethers'
   },
   plugins: [
-    new AntdDayjsWebpackPlugin(),
+    new webpack.DefinePlugin({
+      'process.env.REACT_APP_ENVIRONMENT': JSON.stringify(process.env.REACT_APP_ENVIRONMENT || 'development')
+    }),
     new webpack.IgnorePlugin({
       resourceRegExp: /^\.\/locale$|^\.\/lib\/chart\/(.)*/,
       contextRegExp: /moment$|echarts$/
     }),
     new WebpackBar(),
-    // new HtmlWebpackPlugin({
-    //   template: './public/index.html',
-    //   publicPath: '/bingo/'
-    // }),
+    new HtmlWebpackPlugin({
+      template: './public/index.html',
+      preLink: preLink,
+      env: process.env.NODE_ENV || 'development'
+    }),
     new MiniCssExtractPlugin({
-      // Options similar to the same options in webpackOptions.output
-      // all options are optional
       filename: '[name].[contenthash:8].bundle.css',
       chunkFilename: '[id].[contenthash:8].chunk.css',
       ignoreOrder: false // Enable to remove warnings about conflicting order
     }),
-    // new webpack.ProvidePlugin({
-    //   process: 'process/browser.js',
-    //   Buffer: ['buffer', 'Buffer']
-    // })
     new HtmlWebpackExternalsPlugin({
       externals: [
         {
           module: 'react',
           entry: {
-            path: 'https://static.zypher.game/lib/react/react.production.min.js',
+            path: preLink + '/lib/react/react-v18.0.0.production.min.js',
             type: 'js'
-            // cwpPatternConfig: {
-            // context: path.resolve(__dirname, '../public/lib')
-            // }
           },
           global: 'React'
         },
         {
           module: 'react-dom',
           entry: {
-            path: 'https://static.zypher.game/lib/react-dom/react-dom.production.min.js',
+            path: preLink + '/lib/react-dom/react-dom-v18.0.0.production.min.js',
             type: 'js'
-            // cwpPatternConfig: {
-            // context: path.resolve(__dirname, '../public/lib')
-            // }
           },
           global: 'ReactDOM'
         },
@@ -67,9 +59,6 @@ module.exports = {
           entry: {
             path: 'https://static.zypher.game/lib/crypto/crypto-browserify/3.12.0/crypto-browserify.js',
             type: 'js'
-            // cwpPatternConfig: {
-            // context: path.resolve(__dirname, '../public/lib')
-            // }
           },
           global: 'crypto'
         },
@@ -78,24 +67,13 @@ module.exports = {
           entry: {
             path: 'https://static.zypher.game/lib/ethers/5.7.2/ethers.umd.min.js',
             type: 'js'
-            // cwpPatternConfig: {
-            // context: path.resolve(__dirname, '../public/lib')
-            // }
           },
           global: 'ethers'
         }
-        // {
-        //   module: 'ethereum-multicall',
-        //   entry: {
-        //     path: 'https://static.zypher.game/lib/ethereum-multicall/2.12.0/ethereum-multicall.js',
-        //     type: 'js'
-        //     // cwpPatternConfig: {
-        //     // context: path.resolve(__dirname, '../public/lib')
-        //     // }
-        //   },
-        //   global: 'ethereum-multicall'
-        // }
       ]
+    }),
+    new VanillaExtractPlugin({
+      identifiers: 'debug'
     })
   ],
   module: {
@@ -107,7 +85,7 @@ module.exports = {
       {
         test: /\.(ts|tsx|js|jsx)?$/,
         exclude: /node_modules\/(?!@zypher-game\/toolkit\/ui\/)/,
-        include: [path.resolve(__dirname, '../src/'), path.resolve(__dirname, '../node_modules/@zypher-game/toolkit/ui')],
+        include: [path.resolve(__dirname, '../../ui/src/'), path.resolve(__dirname, '../src/')],
         use: {
           loader: 'babel-loader',
           options: {
@@ -130,7 +108,7 @@ module.exports = {
 
       {
         test: /\.(gif|png|jpe?g|webp|svg|ico)$/i,
-        include: [path.resolve(__dirname, '../src/'), path.resolve(__dirname, '../src/assets/images')],
+        include: [path.resolve(__dirname, '../src/app'), path.resolve(__dirname, '../src/assets/images'), path.resolve(__dirname, '../../ui')],
         type: 'asset',
         parser: {
           dataUrlCondition: {
@@ -140,7 +118,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        include: path.resolve(__dirname, '../src/assets/icons'),
+        include: path.resolve(__dirname, '../src/assets/iconsLocal'),
         use: [
           { loader: 'svg-sprite-loader', options: {} },
           {
@@ -162,15 +140,10 @@ module.exports = {
     extensions: ['.tsx', '.ts', '.js', 'jsx'],
     alias: {
       '@': path.resolve(__dirname, '../src'),
-      '@my/rainbowkit': require.resolve('@zypher-game/toolkit/rainbowkit')
-      // lodash: 'lodash',
-      // wagmi: 'wagmi',
+      '@ui': path.resolve(__dirname, '../../ui/')
     },
     fallback: {
       'react/jsx-runtime': path.resolve(__dirname, '../public/lib/react/jsx-runtime.js'),
-      // react: 'https://static.zypher.game/lib/react/react.production.min.js',
-      // 'react-dom': 'https://static.zypher.game/lib/crypto/crypto-browserify/3.12.0/crypto-browserify.js',
-      // '@zypher-game/toolkit/rainbowkit': false,
       os: require.resolve('os-browserify/browser'),
       https: require.resolve('https-browserify'),
       http: require.resolve('stream-http'),
@@ -178,19 +151,9 @@ module.exports = {
       path: false,
       browser: false,
       assert: require.resolve('assert/'),
-      // fs: false,
-      // antd: false,
-      // net: false,
-      // tls: false,
-      // zlib: false,
-      // crypto: false,
+      wagmi: require.resolve('wagmi'),
       buffer: require.resolve('buffer/'),
-
-      // ethers: path.resolve(__dirname, '../public/lib/ethers/5.7.2/'),
-      // 'ethereum-multicall': path.resolve(__dirname, '../public/lib/ethereum-multicall/2.12.0/')
-
       ethers: 'https://static.zypher.game/lib/ethers/5.7.2/ethers.umd.min.js'
-      // 'ethereum-multicall': 'https://static.zypher.game/lib/ethereum-multicall/2.12.0/ethereum-multicall.js'
     }
   }
 }

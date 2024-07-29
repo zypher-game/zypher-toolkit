@@ -1,4 +1,4 @@
-import { PlayerAvatar, PointsIcon, preStaticUrl } from '@zypher-game/toolkit/ui'
+import { PlayerAvatar, PointsIcon, preStaticUrl } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo } from 'react'
 import styled from 'styled-components'

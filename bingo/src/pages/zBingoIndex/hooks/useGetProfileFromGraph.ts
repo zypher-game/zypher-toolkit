@@ -1,4 +1,4 @@
-import { formatMoney, request } from '@zypher-game/toolkit/ui'
+import { formatMoney, request } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
@@ -32,7 +32,12 @@ export const useGetProfileFromGraph = () => {
     if (!api || !account) {
       return
     }
-    setRankData({ joinGameNumber: '-', winGameNumber: '-', inputNum: '-', winNum: '-' })
+    setRankData({
+      joinGameNumber: '-',
+      winGameNumber: '-',
+      inputNum: '-',
+      winNum: '-'
+    })
     // const client = ...
     const result = await request(api, {
       method: 'POST',

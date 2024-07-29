@@ -1,63 +1,63 @@
-import { style } from '@vanilla-extract/css';
+import { style } from "@vanilla-extract/css";
 
 export const base = style({
   border: 0,
-  boxSizing: 'border-box',
-  fontSize: '100%',
-  lineHeight: 'normal',
+  boxSizing: "border-box",
+  fontSize: "100%",
+  lineHeight: "normal",
   margin: 0,
   padding: 0,
-  textAlign: 'left',
-  verticalAlign: 'baseline',
-  WebkitTapHighlightColor: 'transparent',
+  textAlign: "left",
+  verticalAlign: "baseline",
+  WebkitTapHighlightColor: "transparent",
 });
 
 const list = style({
-  listStyle: 'none',
+  listStyle: "none",
 });
 
 const quote = style({
-  quotes: 'none',
+  quotes: "none",
   selectors: {
-    '&:before, &:after': {
+    "&:before, &:after": {
       content: "''",
     },
   },
 });
 
 const table = style({
-  borderCollapse: 'collapse',
+  borderCollapse: "collapse",
   borderSpacing: 0,
 });
 
 const appearance = style({
-  appearance: 'none',
+  appearance: "none",
 });
 
 const field = style([
   appearance,
   {
-    '::placeholder': {
+    "::placeholder": {
       opacity: 1,
     },
-    'outline': 'none',
+    outline: "none",
   },
 ]);
 
 const mark = style({
-  backgroundColor: 'transparent',
-  color: 'inherit',
+  backgroundColor: "transparent",
+  color: "inherit",
 });
 
 const select = style([
   field,
   {
-    ':disabled': {
+    ":disabled": {
       opacity: 1,
     },
-    'selectors': {
-      '&::-ms-expand': {
-        display: 'none',
+    selectors: {
+      "&::-ms-expand": {
+        display: "none",
       },
     },
   },
@@ -67,25 +67,25 @@ const input = style([
   field,
   {
     selectors: {
-      '&::-ms-clear': {
-        display: 'none',
+      "&::-ms-clear": {
+        display: "none",
       },
-      '&::-webkit-search-cancel-button': {
-        WebkitAppearance: 'none',
+      "&::-webkit-search-cancel-button": {
+        WebkitAppearance: "none",
       },
     },
   },
 ]);
 
 const button = style({
-  background: 'none',
-  cursor: 'pointer',
-  textAlign: 'left',
+  background: "none",
+  cursor: "pointer",
+  textAlign: "left",
 });
 
 const a = style({
-  color: 'inherit',
-  textDecoration: 'none',
+  color: "inherit",
+  textDecoration: "none",
 });
 
 export const element = {

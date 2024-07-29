@@ -1,49 +1,49 @@
-import React from 'react';
-import { Box, BoxProps } from '../Box/Box';
+import React from "react";
+import { Box, BoxProps } from "../Box/Box";
 
 export type TextProps = {
   id?: string;
   as?:
-    | 'code'
-    | 'div'
-    | 'h1'
-    | 'h2'
-    | 'h3'
-    | 'h4'
-    | 'h5'
-    | 'h6'
-    | 'label'
-    | 'p'
-    | 'span';
+    | "code"
+    | "div"
+    | "h1"
+    | "h2"
+    | "h3"
+    | "h4"
+    | "h5"
+    | "h6"
+    | "label"
+    | "p"
+    | "span";
   children?: React.ReactNode;
-  color: BoxProps['color'];
-  font?: BoxProps['fontFamily'];
+  color: BoxProps["color"];
+  font?: BoxProps["fontFamily"];
   // lineHeight?: BoxProps['lineHeight']
-  size?: BoxProps['fontSize'];
+  size?: BoxProps["fontSize"];
   style?: React.CSSProperties;
   // transform?: BoxProps['textTransform']
-  weight?: BoxProps['fontWeight'];
+  weight?: BoxProps["fontWeight"];
   className?: string;
   tabIndex?: number;
-  textAlign?: BoxProps['textAlign'];
-  display?: BoxProps['display'];
+  textAlign?: BoxProps["textAlign"];
+  display?: BoxProps["display"];
 };
 
 export const Text = React.forwardRef(
   (
     {
-      as = 'div',
+      as = "div",
       children,
       className,
       color,
       display,
-      font = 'body',
+      font = "body",
       id,
-      size = '16',
+      size = "16",
       style,
       tabIndex,
-      textAlign = 'inherit',
-      weight = 'regular',
+      textAlign = "inherit",
+      weight = "regular",
     }: TextProps,
     ref: React.Ref<HTMLElement>
   ) => {
@@ -68,4 +68,4 @@ export const Text = React.forwardRef(
   }
 );
 
-Text.displayName = 'Text';
+Text.displayName = "Text";

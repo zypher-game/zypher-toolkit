@@ -1,13 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import {
-  LngNs,
-  preStaticUrl,
-  useCustomTranslation,
-  useIsMobile,
-  useResetRecoilState,
-  useSetRecoilState,
-  walletModalOpenState
-} from '@zypher-game/toolkit/ui'
+import { LngNs, preStaticUrl, useCustomTranslation, useIsW768, useResetRecoilState, useSetRecoilState, walletModalOpenState } from '@ui/src'
 import { Space } from 'antd'
 import cx from 'classnames'
 import React, { useCallback, useState } from 'react'
@@ -38,7 +30,7 @@ const Title = styled.div`
 `
 
 const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [pending, setPending] = useState(false)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
@@ -78,7 +70,13 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
       {isMobile && <Title>{t('Encryption Key Generation')}</Title>}
       <img src={preStaticUrl + '/img/bingo/key.svg'} alt="" />
       <SetUpSubText>{t('GenerateKeyText1')}</SetUpSubText>
-      <div style={{ display: 'flex', justifyContent: 'center', paddingTop: '24px' }}>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: '24px'
+        }}
+      >
         {account ? (
           <ButtonPrimary disabled={pending} width="258px" onClick={handleGenerateKey}>
             <Space size={10}>

@@ -1,5 +1,4 @@
 import { AddressZero } from '@ethersproject/constants'
-import ZkBingoLobbyAbiV0 from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
 import {
   bingoBetaSupportedChainId,
   ChainId,
@@ -13,8 +12,9 @@ import {
   useInterval,
   useRecoilValue,
   zkBingoV0
-} from '@zypher-game/toolkit/ui'
-import BigNumberjs from 'bignumber.js'
+} from '@ui/src'
+import { BigNumberJs } from '@ui/src'
+import ZkBingoLobbyAbiV0 from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
 import { useCallback, useEffect, useState } from 'react'
 
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
@@ -118,14 +118,14 @@ const batchRequestFromGraphBeta = async () => {
           ({
             chainId: chainId,
             status: getStatusBeta(v[1]),
-            gameId: new BigNumberjs(v[0].hex).toString(),
+            gameId: new BigNumberJs(v[0].hex).toString(),
             winner: v[2],
             players: v[5].map((vv: any) => ({
               user: vv[0],
-              cardId: new BigNumberjs(vv[1].hex).toString(),
+              cardId: new BigNumberJs(vv[1].hex).toString(),
               isAbandoned: false
             })),
-            roomIDStr: chainIdPre[chainId] + 'B#' + new BigNumberjs(v[0].hex).toString(),
+            roomIDStr: chainIdPre[chainId] + 'B#' + new BigNumberJs(v[0].hex).toString(),
             winnerOrPlayers: v[2] === AddressZero ? `${v[5].length} players` : v[2],
             bingoInfo: {
               cardNumbers: v[3],

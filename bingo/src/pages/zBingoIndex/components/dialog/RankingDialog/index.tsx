@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { preStaticUrl, useIsMobile, useRecoilValue, useSetRecoilState } from '@zypher-game/toolkit/ui'
+import { preStaticUrl, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useRef } from 'react'
 
@@ -11,7 +11,7 @@ import { useRanking } from './Ranking/hooks/rankingHooks'
 
 const RankingDialog = memo(() => {
   const { ranking: rankingList, tab, setTab, loading, myItem } = useRanking()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const isModalOpen = useRecoilValue(rankingDialogState)
   const setIsModalOpen = useSetRecoilState(rankingDialogState)
   const handleCancel = useCallback(() => {

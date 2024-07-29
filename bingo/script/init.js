@@ -2,10 +2,14 @@
 const env = require('dotenv')
 const fs = require('fs')
 const path = require('path')
-const res = env.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`) })
+const res = env.config({
+  path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`)
+})
 const base_res = env.config({ path: path.join(__dirname, `../.env.base`) })
 const str = `
-export const env = '${res.parsed.env}'
+window.env = '${res.parsed.env}';
+window.isGames = ${res.parsed.isGames};
+export const env = '${res.parsed.env}';
 export const BASE_URL = '${base_res.parsed.BASE_URL ?? ''}'
 `
 const strStyl = `

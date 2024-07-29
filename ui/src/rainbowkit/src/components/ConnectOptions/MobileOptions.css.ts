@@ -1,12 +1,12 @@
-import { style } from '@vanilla-extract/css';
+import { style } from "@vanilla-extract/css";
 
 export const scroll = style({
-  overflow: 'auto',
-  scrollbarWidth: 'none',
+  overflow: "auto",
+  scrollbarWidth: "none",
   selectors: {
-    '&::-webkit-scrollbar': {
-      display: 'none',
+    "&::-webkit-scrollbar": {
+      display: "none",
     },
   },
-  transform: 'translateZ(0)',
+  transform: "translateZ(0)",
 });

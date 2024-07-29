@@ -6,9 +6,9 @@ import {
   preStaticUrl,
   request,
   useCustomTranslation,
-  useIsMobile,
+  useIsW768,
   useRecoilValue
-} from '@zypher-game/toolkit/ui'
+} from '@ui/src'
 import { Col, List, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
 import { isEqual } from 'lodash'
@@ -181,7 +181,7 @@ const PlayerList = memo(
 )
 const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]; winner: string; isWinner: boolean }) => {
   const { account, chainId } = useActiveWeb3ReactForBingo()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const list = account ? customShort(data, account) : []
   const Header = (
     <Row className={css.header}>
@@ -256,14 +256,21 @@ const PlayerListV1 = memo(
     const { t } = useCustomTranslation([LngNs.zBingo])
     const { account, chainId } = useActiveWeb3ReactForBingo()
     const list = account ? customShort(data, account) : []
-    const isMobile = useIsMobile()
+    const isMobile = useIsW768()
     const Header = (
       <Row className={css.header}>
         <Col span={12} />
         <Col span={6} style={{ whiteSpace: 'nowrap', fontSize: isMobile ? '12px' : '14px' }}>
           {t('Winnings')}
         </Col>
-        <Col span={6} style={{ textAlign: 'right', whiteSpace: 'nowrap', fontSize: isMobile ? '12px' : '14px' }}>
+        <Col
+          span={6}
+          style={{
+            textAlign: 'right',
+            whiteSpace: 'nowrap',
+            fontSize: isMobile ? '12px' : '14px'
+          }}
+        >
           {t('Winning %')}
         </Col>
       </Row>

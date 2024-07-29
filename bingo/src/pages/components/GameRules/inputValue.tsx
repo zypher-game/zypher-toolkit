@@ -1,7 +1,7 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { formatMoney, LngNs, preStaticUrl, useCustomTranslation, useIsMobile, useRecoilValue } from '@zypher-game/toolkit/ui'
+import { formatMoney, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
 import { Space, Tooltip } from 'antd'
-import BigNumberJs from 'bignumber.js'
+import { BigNumberJs } from '@ui/src'
 import React, { useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
@@ -65,7 +65,7 @@ type InputValueProps = {
 
 const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, betSize }) => {
   const bingoVersion = useRecoilValue(bingoVersionState)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <>
       {bingoVersion === IBingoVersion.beta ? (
@@ -86,7 +86,7 @@ const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, bet
 }
 const InputValueBeta: React.FC<InputValueProps> = ({ color, playersNumber, room, betSize }) => {
   const { chainId } = useActiveWeb3ReactForBingo()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [gameRate, setGameRate] = useState(0)
   const [gameFee, setGameFee] = useState('0%')
   const realMultiplier = useMemo(() => {

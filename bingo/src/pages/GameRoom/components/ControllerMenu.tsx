@@ -1,5 +1,5 @@
-import { LngNs, preStaticUrl, useCustomTranslation, useRecoilState } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
+import { LngNs, preStaticUrl, useCustomTranslation, useRecoilState } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import { Space } from 'antd'
 import React, { memo, useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -46,7 +46,7 @@ const Box = styled.div``
 
 const ControllerMenu: React.FC = memo(() => {
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [resetGameRoom] = useRecoilState(gameRoomState)
   const [joinGame] = useRecoilState(joinGameState)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()

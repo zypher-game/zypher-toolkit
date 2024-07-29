@@ -1,4 +1,4 @@
-import { LngNs, useCustomTranslation, useIsMobile } from '@zypher-game/toolkit/ui'
+import { LngNs, useCustomTranslation, useIsW768 } from '@ui/src'
 import { Col, Row } from 'antd'
 import React from 'react'
 import styled from 'styled-components'
@@ -72,7 +72,7 @@ const BingoRules = styled.div`
 `
 const GameRules: React.FC = () => {
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   // const setIsModalOpen = useSetRecoilState(videoDialogState)
   return (
     <>

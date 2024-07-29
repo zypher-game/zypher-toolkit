@@ -1,4 +1,4 @@
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { preStaticUrl } from '@ui/src'
 
 function hashToSeed(ethereumAddress?: string): number {
   if (!ethereumAddress) {
@@ -50,7 +50,10 @@ export default (
   ][seed % 15]
 
   if (!account) {
-    return { selectedAvatar: preStaticUrl + '/img/default_avatar.png', selectedBackground: '#EFEFEF' }
+    return {
+      selectedAvatar: preStaticUrl + '/img/default_avatar.png',
+      selectedBackground: '#EFEFEF'
+    }
   }
 
   return { selectedAvatar, selectedBackground }

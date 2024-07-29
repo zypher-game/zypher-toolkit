@@ -1,5 +1,3 @@
-import ZkBingoCardAbi from '@zypher-game/bingo-periphery/abi/BingoCard.json'
-import ZkBingoLobbyAbi from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
 import {
   ChainId,
   chainIdPre,
@@ -14,8 +12,10 @@ import {
   request,
   supportedChainIds,
   useInterval
-} from '@zypher-game/toolkit/ui'
-import BigNumberjs from 'bignumber.js'
+} from '@ui/src'
+import { BigNumberJs } from '@ui/src'
+import ZkBingoCardAbi from '@zypher-game/bingo-periphery/abi/BingoCard.json'
+import ZkBingoLobbyAbi from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -104,16 +104,16 @@ export function formatDataFromGraph({ chainId, data, recentGames }: { chainId: C
     let status = getStatus(statusNumber)
     const id = parseInt(idHex, 16).toString()
     let winnerOrPlayers = `${pCount} players`
-    let inputPerPlayer = joinAmount ? new BigNumberjs(ethers.utils.formatEther(joinAmount)).dividedBy(new BigNumberjs(pCount)).toNumber() : '-'
+    let inputPerPlayer = joinAmount ? new BigNumberJs(ethers.utils.formatEther(joinAmount)).dividedBy(new BigNumberJs(pCount)).toNumber() : '-'
     let win = '-'
     let multiplier = '-'
     let cardNumbers
     let selectedNumbers
     if (status === IGameStatus.End && recentGames.size) {
       winnerOrPlayers = winner
-      const poolWin = new BigNumberjs(ethers.utils.formatEther(winAmount))
+      const poolWin = new BigNumberJs(ethers.utils.formatEther(winAmount))
       win = formatMoney(poolWin.toNumber())
-      multiplier = formatMoney(poolWin.dividedBy(new BigNumberjs(inputPerPlayer)).toNumber())
+      multiplier = formatMoney(poolWin.dividedBy(new BigNumberJs(inputPerPlayer)).toNumber())
       cardNumbers = recentGames.get('cardNumbers' + cardAddr.toLowerCase() + winCardId)
       selectedNumbers = recentGames.get('selectedNumbers' + lobbyAddr.toLowerCase() + id)
     }

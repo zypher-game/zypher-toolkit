@@ -1,4 +1,4 @@
-import { LngNs, useCustomTranslation, useIsMobile } from '@zypher-game/toolkit/ui'
+import { LngNs, useCustomTranslation, useIsW768 } from '@ui/src'
 import React, { ReactElement, useMemo } from 'react'
 import { TFunction } from 'react-i18next'
 import styled from 'styled-components'
@@ -85,7 +85,7 @@ const Steps = ({ currentStep, bingoVersion }: { currentStep: number; bingoVersio
       }
     ]
   }, [t, bingoVersion])
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   return (
     <StepsRoot isMobile={isMobile}>
       <StepsWrap>

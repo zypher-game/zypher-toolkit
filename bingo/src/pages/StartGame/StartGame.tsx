@@ -8,13 +8,13 @@ import {
   useAccountInvitation,
   useCurrentLanguage,
   useCustomTranslation,
-  useIsMobile,
+  useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useResetRecoilState
-} from '@zypher-game/toolkit/ui'
-import { getProvider } from '@zypher-game/toolkit/ui'
-import { useWalletClient } from '@zypher-game/toolkit/ui'
+} from '@ui/src'
+import { getProvider } from '@ui/src'
+import { useWalletClient } from '@ui/src'
 import { sample } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -115,7 +115,7 @@ const CardsWrap = styled.div<{ isMobile?: boolean }>`
 
 const StartGame: React.FC = () => {
   useBingoVersion()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const navigate = useNavigate()
   const { t } = useCustomTranslation([LngNs.zBingo])
   const lang = useCurrentLanguage()
@@ -150,10 +150,20 @@ const StartGame: React.FC = () => {
       setModalLoading(false)
       return
     }
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
-      const bingoLobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+      const bingoLobbyContract = await bingoLobbyFromRpc({
+        chainId,
+        bingoVersion,
+        library: provider,
+        account
+      })
       const rres = await bingoLobbyContract.functions.lineupUsers()
       let lineupUsers: string[] = []
       if (bingoVersion === IBingoVersion.v1) {
@@ -172,7 +182,9 @@ const StartGame: React.FC = () => {
         if (leaveTx && leaveTx.status === txStatus) {
           postAccountUpdate({ tx: leaveTx })
         } else {
-          throw Object.assign(new Error('Leave Transaction Failed'), { name: 'Leave' })
+          throw Object.assign(new Error('Leave Transaction Failed'), {
+            name: 'Leave'
+          })
         }
         setModalLoading(false)
         resetGameRoom()
@@ -207,10 +219,20 @@ const StartGame: React.FC = () => {
       setModalLoading(false)
       return
     }
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
-      const bingoLobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+      const bingoLobbyContract = await bingoLobbyFromRpc({
+        chainId,
+        bingoVersion,
+        library: provider,
+        account
+      })
       const rres = await bingoLobbyContract.functions.lineupUsers()
       let lineupUsers: string[] = []
       if (bingoVersion === IBingoVersion.v1) {
@@ -229,7 +251,9 @@ const StartGame: React.FC = () => {
         if (leaveTx && leaveTx.status === txStatus) {
           postAccountUpdate({ tx: leaveTx })
         } else {
-          throw Object.assign(new Error('Leave Transaction Failed'), { name: 'Leave' })
+          throw Object.assign(new Error('Leave Transaction Failed'), {
+            name: 'Leave'
+          })
         }
         setShowCloseModal(false)
         setModalLoading(false)
@@ -268,7 +292,15 @@ const StartGame: React.FC = () => {
   }, [account, chainId])
   return (
     <>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100%', paddingBottom: '70px' }}>
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '100%',
+          paddingBottom: '70px'
+        }}
+      >
         {/* <CountDown mss={5} open={showCountDown} /> */}
         <Wrapper>
           <StartGameWrapper isMobile={isMobile} lang={lang}>
@@ -305,7 +337,13 @@ const StartGame: React.FC = () => {
         open={playingState && (cardNumbers.length > 1 || bingoVersion === IBingoVersion.beta)}
         closeLoading={modalLoading}
         onClose={onCloseModal}
-        onCancel={() => toBingoPlayHref({ chainIdParams, navigate: navigate, path: `/${gameId}/gameRoom` })}
+        onCancel={() =>
+          toBingoPlayHref({
+            chainIdParams,
+            navigate: navigate,
+            path: `/${gameId}/gameRoom`
+          })
+        }
         onBlack={() => toBingoPage()}
       />
       <TipsOkModal

@@ -1,4 +1,4 @@
-import { Currency, request } from '@zypher-game/toolkit/ui'
+import { Currency, request } from '@ui/src'
 
 import { IPriceType } from './reducer'
 

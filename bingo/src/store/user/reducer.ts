@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ChainId } from '@zypher-game/toolkit/ui'
+import { ChainId } from '@ui/src'
 export interface IUserState {
   selectedChainId?: ChainId
   error?:

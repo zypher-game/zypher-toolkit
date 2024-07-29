@@ -1,4 +1,4 @@
-import { formatMoney, request } from '@zypher-game/toolkit/ui'
+import { formatMoney, request } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 

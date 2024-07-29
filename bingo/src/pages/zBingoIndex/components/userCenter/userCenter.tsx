@@ -1,4 +1,4 @@
-import { getShortenAddress, PlayerAvatar, useIsMobile } from '@zypher-game/toolkit/ui'
+import { getShortenAddress, PlayerAvatar, useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -9,7 +9,7 @@ import LevelIcon from '../icon/LevelIcon'
 import css from './userCenter.module.stylus'
 
 const UserCenter = memo(() => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { gamesLen, gamesWon, gamesWonNumber, winningPercent, account, bingoVersion } = useGetProfileFromGraph()
   // const { hasMonsterNft } = useMonster()
   if (!account) {
@@ -25,7 +25,7 @@ const UserCenter = memo(() => {
       </div>
       <ul className={css.userInfo}>
         <Item amount={gamesLen} label="Games" />
-        <Item amount={gamesWon} label="Games Won" />
+        <Item amount={gamesWon} label="Games Win" />
         <Item amount={winningPercent + '%'} label="Winning" />
       </ul>
     </div>

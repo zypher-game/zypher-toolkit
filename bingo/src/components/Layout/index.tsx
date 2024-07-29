@@ -4,16 +4,21 @@ import {
   bingoBetaSupportedChainId,
   bingoV1SupportedChainId,
   Header,
+  motion,
+  NavKey,
   SideBar,
-  siderCollapseState,
-  useIsMobile,
+  sideCollapseState,
+  useIsW768,
+  useRecoilState,
   useRecoilValue
-} from '@zypher-game/toolkit/ui'
+} from '@ui/src'
+import { pathnameState } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { useAppDispatch } from '@/store/hooks'
@@ -21,17 +26,19 @@ import { env } from '@/utils/config'
 import copy from '@/utils/copy'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
+import CountUpNumber from '../CountUpNumber/CountUpNumber'
+
 const { Sider, Content } = LayoutAntd
 
 interface IProps {
   children: React.ReactNode
 }
-const Layout: React.FC<IProps> = memo((props: IProps) => {
+const Layout = memo((props: IProps) => {
   const bingoVersion = useRecoilValue(bingoVersionState)
   const location = useLocation()
-  const [pathnameArr, setPathname] = useState<string[]>([])
-  const collapsed = useRecoilValue(siderCollapseState)
-  const isMobile = useIsMobile()
+  const [pathnameArr, setPathname] = useRecoilState<string[]>(pathnameState)
+  const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState)
+  const isW768 = useIsW768()
   const [zIndex, setZIndex] = useState(21)
   const dispatch = useAppDispatch()
   useEffect(() => {
@@ -39,8 +46,8 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
     setPathname(arr)
   }, [location])
   useEffect(() => {
-    if (isMobile) {
-      if (collapsed) {
+    if (isW768) {
+      if (sideCollapse) {
         setTimeout(() => {
           setZIndex(10)
         }, 600)
@@ -48,74 +55,51 @@ const Layout: React.FC<IProps> = memo((props: IProps) => {
         setZIndex(21)
       }
     }
-  }, [isMobile, collapsed])
+  }, [isW768, sideCollapse])
   const supportedChainList = useMemo(() => {
     return bingoVersion === IBingoVersion.beta ? bingoBetaSupportedChainId : bingoV1SupportedChainId
   }, [bingoVersion])
   return (
     <LayoutAntd className={classnames(`lt-layout ${bingoVersion}`, pathnameArr[1] === '' ? 'zBingo' : pathnameArr[1])}>
-      {!isMobile ? (
-        <div className="lt-content">
-          <div className="lt-main">
-            <Header
-              className="lt-header"
-              hideMenu={true}
-              env={env}
-              dispatch={dispatch}
-              setSuccessToast={setSuccessToast}
-              setErrorToast={setErrorToast}
-              copy={copy}
-              useNavigate={useNavigate}
-              useLocation={useLocation}
-              showLang={true}
-              supportedChainList={supportedChainList}
-            />
-            {props.children}
-          </div>
-        </div>
-      ) : (
-        <>
-          <Sider
-            collapsible
-            breakpoint="md"
-            trigger={null}
-            className={`custom-sider ${collapsed && isMobile ? 'hidden' : ''}`}
-            style={{ zIndex: zIndex }}
-          >
-            <SideBar className="lt-sidebar" isMobile={isMobile} useNavigate={useNavigate} />
-          </Sider>
-
-          <LayoutAntd className="lt-layout-right">
-            <Header
-              className="lt-header"
-              env={env}
-              dispatch={dispatch}
-              setSuccessToast={setSuccessToast}
-              setErrorToast={setErrorToast}
-              copy={copy}
-              useNavigate={useNavigate}
-              useLocation={useLocation}
-              showLang={true}
-              supportedChainList={supportedChainList}
-            />
-            <Content className="lt-content">
-              {/* <h1
-                style={{ color: '#fff' }}
-                onClick={() => {
-                  try {
-                    disconnect()
-                    window.location.reload()
-                  } catch (e) {}
-                }}
-              >
-                ddddd
-              </h1> */}
-              <div className="lt-main">{props.children}</div>
-            </Content>
-          </LayoutAntd>
-          {/* {isMobile && !collapsed && <div className="lt-sidebar-layer" onClick={() => setSiderCollapse(true)} />} */}
-        </>
-      )}
+      <Header
+        className="lt-header"
+        env={env}
+        dispatch={dispatch}
+        setSuccessToast={setSuccessToast}
+        setErrorToast={setErrorToast}
+        copy={copy}
+        useNavigate={useNavigate}
+        useLocation={useLocation}
+        CountUpNumber={CountUpNumber}
+        pathname={pathnameArr[1]}
+        supportedChainList={supportedChainList}
+        Link={Link}
+      />
+      <Content className="lt-content">
+        <motion.div
+          initial={{ opacity: 0, y: 10, scale: 0.98 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 10, scale: 0.98 }}
+          transition={{ duration: 0.3 }}
+        >
+          {/* <div className="lt-main"></div> */}
+          {props.children}
+        </motion.div>
+      </Content>
+      {isW768 ? (
+        <Sider
+          collapsible
+          breakpoint="md"
+          trigger={null}
+          className={`custom-side ${sideCollapse ? 'hidden' : ''}`}
+          // className="custom-side"
+          style={{ zIndex: zIndex }}
+        >
+          <SideBar pathname={pathnameArr[1]} className="lt-sidebar" useNavigate={useNavigate} />
+        </Sider>
+      ) : null}
+      {isW768 && !sideCollapse && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />}
+      {/* <div id="snow" /> */}
     </LayoutAntd>
   )
 }, isEqual)

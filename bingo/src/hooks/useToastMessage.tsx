@@ -1,4 +1,4 @@
-import { preStaticUrl, SvgComponent, useActiveChainId } from '@zypher-game/toolkit/ui'
+import { preStaticUrl, SvgComponent, useActiveChainId } from '@ui/src'
 import { notification } from 'antd'
 import React, { useEffect } from 'react'
 

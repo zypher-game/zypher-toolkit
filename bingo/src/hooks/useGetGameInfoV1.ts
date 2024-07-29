@@ -1,5 +1,5 @@
-import { bingoBetaSupportedChainId, ChainId, ChainRpcUrls, divisorBigNumber, IGameStatus, IPlayer } from '@zypher-game/toolkit/ui'
-import BigNumberjs from 'bignumber.js'
+import { bingoBetaSupportedChainId, ChainId, ChainRpcUrls, divisorBigNumber, IGameStatus, IPlayer } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { formatEther } from 'ethers/lib/utils'
 import { sample } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
@@ -22,10 +22,10 @@ const getGameInfo = (gameInfo: any[], bingoVersion: IBingoVersion) => {
         startedAt,
         endedAt,
         winner,
-        winAmount: new BigNumberjs(winAmount).dividedBy(divisorBigNumber).toString(),
+        winAmount: new BigNumberJs(winAmount).dividedBy(divisorBigNumber).toString(),
         players: players.map(v => ({
           user: v.user,
-          cardId: new BigNumberjs(v.cardId).toString(),
+          cardId: new BigNumberJs(v.cardId).toString(),
           isAbandoned: v.isAbandoned
         })),
         rounds,
@@ -41,7 +41,7 @@ const getGameInfo = (gameInfo: any[], bingoVersion: IBingoVersion) => {
       winner,
       players: players.map(v => ({
         user: v.user,
-        cardId: new BigNumberjs(v.cardId).toString(),
+        cardId: new BigNumberJs(v.cardId).toString(),
         isAbandoned: false
       })),
       winAmount: '0',

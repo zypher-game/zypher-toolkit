@@ -12,8 +12,8 @@ import {
   preStaticUrl,
   supportedChainIds,
   useCustomTranslation,
-  useIsMobile
-} from '@zypher-game/toolkit/ui'
+  useIsW768
+} from '@ui/src'
 import { Avatar, Divider, List, Select, Space, Spin, Table } from 'antd'
 import { ColumnGroupType, ColumnType } from 'antd/lib/table'
 import classnames from 'classnames'
@@ -136,7 +136,7 @@ type IProps = {
   bingoMapList: Map<ChainId, IGameList[]> | undefined
 }
 const GameList: React.FC<IProps> = memo(({ bingoMapList, bingoHasError }: IProps) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
   const [bingoDataSource, setBingoDataSource] = useState<IGameList[]>()
   const [bingoDataSourceLoading, setBingoDataSourceLoading] = useState(false)
@@ -233,7 +233,15 @@ const GameList: React.FC<IProps> = memo(({ bingoMapList, bingoHasError }: IProps
             {status === IGameStatus.End ? (
               <ViewCardPage bingoInfo={bingoInfo} />
             ) : (
-              <div style={{ fontFamily: 'Poppins', fontWeight: 600, paddingLeft: '15px' }}>{t('None')}</div>
+              <div
+                style={{
+                  fontFamily: 'Poppins',
+                  fontWeight: 600,
+                  paddingLeft: '15px'
+                }}
+              >
+                {t('None')}
+              </div>
             )}
           </div>
         )
@@ -301,7 +309,13 @@ const GameList: React.FC<IProps> = memo(({ bingoMapList, bingoHasError }: IProps
               {item.status === IGameStatus.End && (
                 <>
                   <Space size={10} align="center">
-                    <div style={{ border: '1px solid #613C17', borderRadius: '50%', display: 'flex' }}>
+                    <div
+                      style={{
+                        border: '1px solid #613C17',
+                        borderRadius: '50%',
+                        display: 'flex'
+                      }}
+                    >
                       <PlayerAvatar account={item.winnerOrPlayers} size={20} showAccount={false} />
                     </div>
                     {getShortenAddress(item.winnerOrPlayers)}

@@ -1,12 +1,12 @@
-import { bingoSupportedChainId, ChainId, useChainModal } from '@zypher-game/toolkit/ui'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { bingoSupportedChainId, ChainId, useChainModal } from "@ui/src";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
-import { toBingoHref } from '@/utils/toBingoHref'
+import { toBingoHref } from "@/utils/toBingoHref";
 
 export const useInitRainbowFn = () => {
-  const navigate = useNavigate()
-  const { setFn, closeChainModal } = useChainModal()
+  const navigate = useNavigate();
+  const { setFn, closeChainModal } = useChainModal();
 
   useEffect(() => {
     if (setFn && closeChainModal) {
@@ -14,14 +14,14 @@ export const useInitRainbowFn = () => {
         if (_c && bingoSupportedChainId.includes(_c)) {
           toBingoHref({
             chainIdParams: `${_c}`,
-            navigate
-          })
+            navigate,
+          });
         }
-        return false
-      })
+        return false;
+      });
     }
     return () => {
-      setFn(undefined)
-    }
-  }, [setFn, closeChainModal])
-}
+      setFn(undefined);
+    };
+  }, [setFn, closeChainModal]);
+};

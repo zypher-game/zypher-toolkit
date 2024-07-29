@@ -1,4 +1,4 @@
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { preStaticUrl } from '@ui/src'
 import { ButtonProps } from 'antd'
 import { Howl } from 'howler'
 import React from 'react'
@@ -139,7 +139,11 @@ export const ButtonWrap = styled.button<{
     opacity: 1;
   }
 `
-export const ButtonContent = styled.div<{ $borderRadius?: string; width?: string; disabled?: boolean | undefined }>`
+export const ButtonContent = styled.div<{
+  $borderRadius?: string
+  width?: string
+  disabled?: boolean | undefined
+}>`
   border-radius: ${({ $borderRadius }) => $borderRadius ?? '47px'};
   filter: blur(1px);
   border: 0px;
@@ -181,7 +185,10 @@ const disabledTextStyle = css`
   text-shadow: -1px -1.5px 0px #3f3f3f;
 `
 
-const ButtonTextPrimary = styled.div<{ size?: string; disabled?: boolean | undefined }>`
+const ButtonTextPrimary = styled.div<{
+  size?: string
+  disabled?: boolean | undefined
+}>`
   .div {
     font-family: 'Lemon';
   }

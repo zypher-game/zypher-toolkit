@@ -1,9 +1,10 @@
 import 'dayjs/locale/zh-cn'
 import './assets/stylus/index.styl'
 import '@reach/dialog/styles.css'
-import '@zypher-game/toolkit/ui/dist/index.css'
+import './react-extras.d.ts'
 
-import { bingoSupportedChainId, IsMobileProvider, RainbowKitWithThemeProvider, RecoilRoot } from '@zypher-game/toolkit/ui'
+// import '../node_modules/@ui/ui/dist/index.css'
+import { bingoSupportedChainId, IsW768Provider, RainbowKitWithThemeProvider, RecoilRoot } from '@ui/src'
 import { ConfigProvider } from 'antd'
 import enGB from 'antd/es/locale/en_GB'
 import React from 'react'
@@ -24,9 +25,9 @@ render(
         <ConfigProvider locale={enGB}>
           <BrowserRouter>
             <ThemeProvider>
-              <IsMobileProvider>
+              <IsW768Provider>
                 <AppRouter />
-              </IsMobileProvider>
+              </IsW768Provider>
             </ThemeProvider>
           </BrowserRouter>
         </ConfigProvider>

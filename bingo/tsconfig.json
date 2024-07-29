@@ -12,14 +12,14 @@
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true,
     "allowJs": true,
     "skipLibCheck": true,
     "experimentalDecorators": true,
     "strict": true,
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@ui/*": ["../ui/*"]
     }
   },
   "include": [

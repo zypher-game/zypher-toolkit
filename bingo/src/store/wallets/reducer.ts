@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { ChainId } from '@zypher-game/toolkit/ui'
+import { ChainId } from '@ui/src'
 import { shallowEqual } from 'react-redux'
 
 export interface IWallet {

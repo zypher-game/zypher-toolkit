@@ -1,6 +1,5 @@
-import { ChainRpcUrls, IContractName, zkBingo } from '@zypher-game/toolkit/ui'
-import { getProvider } from '@zypher-game/toolkit/ui'
-import { sample, some } from 'lodash'
+import { ChainRpcUrls, getProvider } from '@ui/src'
+import { sample } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 
 import { IBingoVersion } from '@/pages/state/state'
@@ -9,7 +8,11 @@ import { bingoLobbyFromRpc } from '../contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'
 
 const useGameStart = () => {
-  const [gameRoom, setGameRoom] = useState({ cardContract: '', gameId: -1, cardNumbers: [] })
+  const [gameRoom, setGameRoom] = useState({
+    cardContract: '',
+    gameId: -1,
+    cardNumbers: []
+  })
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const getGameRoom = useCallback(async () => {
     if (!chainId) {
@@ -19,7 +22,12 @@ const useGameStart = () => {
     const curBlock = await provider.getBlockNumber()
     setInterval(async () => {
       try {
-        const lobbyContract = await bingoLobbyFromRpc({ chainId: chainId, bingoVersion, library: provider, account })
+        const lobbyContract = await bingoLobbyFromRpc({
+          chainId: chainId,
+          bingoVersion,
+          library: provider,
+          account
+        })
         const filter = lobbyContract.filters.GameStarted()
         const [event] = await lobbyContract.queryFilter(filter, curBlock - 10)
         if (event) {

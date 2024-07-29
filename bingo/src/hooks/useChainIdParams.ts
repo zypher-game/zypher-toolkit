@@ -1,23 +1,23 @@
-import { bingoSupportedChainId, ChainId } from '@zypher-game/toolkit/ui'
-import { useMemo } from 'react'
-import { useParams } from 'react-router-dom'
+import { bingoSupportedChainId, ChainId } from "@ui/src";
+import { useMemo } from "react";
+import { useParams } from "react-router-dom";
 
-import { defaultChainId } from '@/constants/constants'
+import { defaultChainId } from "@/constants/constants";
 
 export const useChainIdParams = () => {
-  const { chainIdParams } = useParams()
+  const { chainIdParams } = useParams();
   return useMemo(() => {
-    return chainIdParams ? chainIdParams : defaultChainId.toString()
-  }, [chainIdParams])
-}
+    return chainIdParams ? chainIdParams : defaultChainId.toString();
+  }, [chainIdParams]);
+};
 
 export const useChainIdParamsAsChainId = () => {
-  const { chainIdParams } = useParams()
+  const { chainIdParams } = useParams();
   return useMemo(() => {
-    const _chainId = Number(chainIdParams) as ChainId
+    const _chainId = Number(chainIdParams) as ChainId;
     if (bingoSupportedChainId.includes(_chainId)) {
-      return _chainId
+      return _chainId;
     }
-    return undefined
-  }, [chainIdParams])
-}
+    return undefined;
+  }, [chainIdParams]);
+};

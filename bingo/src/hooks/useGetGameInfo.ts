@@ -1,5 +1,5 @@
-import { divisorBigNumber, IGameStatus, IPlayer } from '@zypher-game/toolkit/ui'
-import BigNumberJs from 'bignumber.js'
+import { divisorBigNumber, IGameStatus, IPlayer } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
 import { formatEther } from 'viem'
 

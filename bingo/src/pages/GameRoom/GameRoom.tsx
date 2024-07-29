@@ -14,7 +14,7 @@ import {
   useAccountInvitation,
   useCurrentLanguage,
   useCustomTranslation,
-  useIsMobile,
+  useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useRecoilValue,
@@ -22,7 +22,7 @@ import {
   useSetRecoilState,
   useWalletClient,
   zkBingo
-} from '@zypher-game/toolkit/ui'
+} from '@ui/src'
 import { Col, Progress, Row, Space, Tooltip } from 'antd'
 import { sample } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -215,7 +215,7 @@ const GameRoom: React.FC = () => {
   const [{ cardNumbers }] = useRecoilState(gameRoomState)
   const { id: gameId } = useParams()
   // useGetCurrentRound(gameId)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const joinGame = useRecoilValue(joinGameState)
   const { roomInfo, fetchGameInfo } = useGetGameInfoV1(gameId)
   const resetGameRoom = useResetRecoilState(gameRoomState)
@@ -394,7 +394,9 @@ const GameRoom: React.FC = () => {
           if (selectNumberTx && selectNumberTx.status === txStatus) {
             postAccountUpdate({ tx: selectNumberTx })
           } else {
-            throw Object.assign(new Error('SelectNumber Failed'), { name: 'SelectNumber' })
+            throw Object.assign(new Error('SelectNumber Failed'), {
+              name: 'SelectNumber'
+            })
           }
         }
       } catch (error) {
@@ -411,7 +413,12 @@ const GameRoom: React.FC = () => {
       if (!chainId || !walletClient) {
         return
       }
-      const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+      const lobbyContract = bingoLobby({
+        chainId,
+        env,
+        bingoVersion,
+        walletClient
+      })
       try {
         const txnReceipt = await lobbyContract.write.selectAndBingo([gameId, markedNum, cardNums, joinGame.signedLabel], {
           account: account,
@@ -423,7 +430,9 @@ const GameRoom: React.FC = () => {
         if (selectAndBingoTx && selectAndBingoTx.status === txStatus) {
           postAccountUpdate({ tx: selectAndBingoTx })
         } else {
-          throw Object.assign(new Error('SelectAndBingo Failed'), { name: 'SelectAndBingo' })
+          throw Object.assign(new Error('SelectAndBingo Failed'), {
+            name: 'SelectAndBingo'
+          })
         }
       } catch (error) {
         setErrorToast(dispatch, error, lobbyContract)
@@ -437,7 +446,12 @@ const GameRoom: React.FC = () => {
       return
     }
     setPending(true)
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const lastInfo = await fetchGameInfo()
       if (lastInfo?.status === 'end') {
@@ -450,7 +464,10 @@ const GameRoom: React.FC = () => {
         maxPriorityFeePerGas: gasPrice[chainId]
       })
       const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
-      const bingoTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+      const bingoTx: TransactionReceipt | undefined = await waitForTransaction({
+        confirmations: 1,
+        hash
+      })
       if (bingoTx && bingoTx.status === txStatus) {
         postAccountUpdate({ tx: bingoTx })
       } else {
@@ -500,7 +517,12 @@ const GameRoom: React.FC = () => {
     }
     const provider = await getProvider(sample(ChainRpcUrls[chainId]))
     bingoRef.current = setInterval(async () => {
-      const lobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+      const lobbyContract = await bingoLobbyFromRpc({
+        chainId,
+        bingoVersion,
+        library: provider,
+        account
+      })
       const gameInfo = await lobbyContract.functions.getGameInfo(gameId)
       if (gameInfo.status === 'end') {
         setWinner(gameInfo.winner)
@@ -569,7 +591,14 @@ const GameRoom: React.FC = () => {
         <ControllerMenu />
       </ControllerWrapper>
 
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '10px', position: 'relative' }}>
+      <div
+        style={{
+          maxWidth: '1200px',
+          margin: '0 auto',
+          padding: '10px',
+          position: 'relative'
+        }}
+      >
         {showTurn && <PlayerTurn lang={lang}>{t('Round number', { number: round })}</PlayerTurn>}
         <div id="game-room" className={css.gameRoom}>
           <div className={css.board}>
@@ -614,7 +643,15 @@ const GameRoom: React.FC = () => {
                               onClick={handleBingo}
                             >
                               <Space size={10}>
-                                <span style={{ fontSize: '20px', color: '#E2E2E2', fontFamily: 'lemon' }}>BINGO</span>
+                                <span
+                                  style={{
+                                    fontSize: '20px',
+                                    color: '#E2E2E2',
+                                    fontFamily: 'lemon'
+                                  }}
+                                >
+                                  BINGO
+                                </span>
                                 {pending && <LoadingOutlined />}
                               </Space>
                             </ButtonPrimary>
@@ -631,7 +668,15 @@ const GameRoom: React.FC = () => {
                             onClick={handleBingo}
                           >
                             <Space size={10}>
-                              <span style={{ fontSize: '32px', color: '#E2E2E2', fontFamily: 'lemon' }}>BINGO</span>
+                              <span
+                                style={{
+                                  fontSize: '32px',
+                                  color: '#E2E2E2',
+                                  fontFamily: 'lemon'
+                                }}
+                              >
+                                BINGO
+                              </span>
                               {pending && <LoadingOutlined />}
                             </Space>
                           </ButtonPrimary>

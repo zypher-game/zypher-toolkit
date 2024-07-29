@@ -1,4 +1,4 @@
-import { ChainId } from '@zypher-game/toolkit/ui'
+import { ChainId } from '@ui/src'
 import { Chain } from 'viem'
 import {
   arbitrum,

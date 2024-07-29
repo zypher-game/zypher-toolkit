@@ -1,11 +1,11 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { preStaticUrl, txStatus, useResetRecoilState, useSetRecoilState } from '@zypher-game/toolkit/ui'
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { useIsMobile } from '@zypher-game/toolkit/ui'
-import { LngNs } from '@zypher-game/toolkit/ui'
-import { useAccountInvitation } from '@zypher-game/toolkit/ui'
-import { usePublicNodeWaitForTransaction } from '@zypher-game/toolkit/ui'
-import { useWalletClient } from '@zypher-game/toolkit/ui'
+import { preStaticUrl, txStatus, useResetRecoilState, useSetRecoilState } from '@ui/src'
+import { useCustomTranslation } from '@ui/src'
+import { useIsW768 } from '@ui/src'
+import { LngNs } from '@ui/src'
+import { useAccountInvitation } from '@ui/src'
+import { usePublicNodeWaitForTransaction } from '@ui/src'
+import { useWalletClient } from '@ui/src'
 import { Modal, Space } from 'antd'
 import React, { useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -29,7 +29,7 @@ const GameExit: React.FC = () => {
   const navigate = useNavigate()
   const chainIdParams = useChainIdParams()
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [confirmLoading, setConfirmLoading] = useState(false)
   const { id: gameId } = useParams()
@@ -57,13 +57,18 @@ const GameExit: React.FC = () => {
           maxPriorityFeePerGas: gasPrice[chainId]
         })
         const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
-        const tx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+        const tx: TransactionReceipt | undefined = await waitForTransaction({
+          confirmations: 1,
+          hash
+        })
 
         if (tx && tx.status === txStatus) {
           postAccountUpdate({ tx: tx })
           return toBingoPage()
         } else {
-          throw Object.assign(new Error('Abandon Transaction Failed'), { name: 'Abandon' })
+          throw Object.assign(new Error('Abandon Transaction Failed'), {
+            name: 'Abandon'
+          })
         }
       } else {
         return toBingoPage()

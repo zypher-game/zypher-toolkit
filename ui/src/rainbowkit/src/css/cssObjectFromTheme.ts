@@ -1,8 +1,8 @@
-import { assignInlineVars } from '@vanilla-extract/dynamic';
-import { ThemeVars, themeVars } from './sprinkles.css';
+import { assignInlineVars } from "@vanilla-extract/dynamic";
+import { ThemeVars, themeVars } from "./sprinkles.css";
 
 const resolveThemeVars = (theme: ThemeVars | (() => ThemeVars)) =>
-  typeof theme === 'function' ? theme() : theme;
+  typeof theme === "function" ? theme() : theme;
 
 export function cssObjectFromTheme(
   theme: ThemeVars | (() => ThemeVars),

@@ -8,12 +8,12 @@ import {
   txStatus,
   useAccountInvitation,
   useCustomTranslation,
-  useIsMobile,
+  useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
   useWalletClient
-} from '@zypher-game/toolkit/ui'
+} from '@ui/src'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
 import { sample } from 'lodash'
@@ -41,7 +41,7 @@ interface ISubmitCard {
 const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const [pending, setPending] = useState(false)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const [joinGame] = useRecoilState(joinGameState)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [gameRoom] = useRecoilState(gameRoomState)
@@ -59,10 +59,20 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
       return
     }
     setPending(true)
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
-      const bingoLobbyContract = await bingoLobbyFromRpc({ chainId, bingoVersion, library: provider, account })
+      const bingoLobbyContract = await bingoLobbyFromRpc({
+        chainId,
+        bingoVersion,
+        library: provider,
+        account
+      })
       const [lineupUsers] = await bingoLobbyContract.functions.lineupUsers()
       if (lineupUsers && lineupUsers.length && lineupUsers.map((v: string) => v.toLowerCase()).includes(account.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
@@ -75,7 +85,9 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
         if (leaveTx && leaveTx.status === txStatus) {
           postAccountUpdate({ tx: leaveTx })
         } else {
-          throw Object.assign(new Error('Leave Transaction Failed'), { name: 'Leave' })
+          throw Object.assign(new Error('Leave Transaction Failed'), {
+            name: 'Leave'
+          })
         }
       }
       const localpath = localPathUrl(chainId)
@@ -102,13 +114,18 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
         })
       }
       const hash = typeof res === 'string' ? res : res.hash
-      const joinTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+      const joinTx: TransactionReceipt | undefined = await waitForTransaction({
+        confirmations: 1,
+        hash
+      })
       if (joinTx && joinTx.status === txStatus) {
         postAccountUpdate({ tx: joinTx })
         setRefreshBalanceState(refreshBalance + 1)
         setCurrentStep(3)
       } else {
-        throw Object.assign(new Error('Join Transaction Failed'), { name: 'Join' })
+        throw Object.assign(new Error('Join Transaction Failed'), {
+          name: 'Join'
+        })
       }
     } catch (e) {
       setErrorToast(dispatch, e, lobbyContract)

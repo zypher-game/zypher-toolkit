@@ -1,5 +1,5 @@
-import { useIsMobile } from '@zypher-game/toolkit/ui'
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { useIsW768 } from '@ui/src'
+import { preStaticUrl } from '@ui/src'
 import { Spin } from 'antd'
 import React, { useEffect, useState } from 'react'
 import styled, { css, keyframes } from 'styled-components'
@@ -53,7 +53,12 @@ const SpaceSelect = css`
   pointer-events: none;
 `
 
-const FlexCall = styled.div<{ active?: boolean; disabled?: boolean; turn?: boolean; isMobile: boolean }>`
+const FlexCall = styled.div<{
+  active?: boolean
+  disabled?: boolean
+  turn?: boolean
+  isMobile: boolean
+}>`
   border-radius: ${({ isMobile }) => (isMobile ? '18px' : '24px')};
   background: linear-gradient(180deg, #fff5e8 0%, #fbe7ce 100%);
   box-shadow: 0px 0px 3px 0px #5f3204, 0px 1px 2px 0px #fff inset, 0px -1px 1px 0px #c69452 inset;
@@ -100,7 +105,7 @@ function BingoItem({ num, onClick }: { num: number; onClick: () => Promise<void>
 const BingoController: React.FC<IBingoCanvas> = ({ cardNumbers, isMyTurn, round, selectedNumbers = [], matchLines, onClick }) => {
   const [selfDisabled, setSelfDisabled] = useState<boolean>(false)
   const [showTimeOutModal, setShowTimeOutModal] = useState(false)
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const curNumber = matchLines?.length > 0 ? matchLines?.reduce((prev, cur) => prev.concat(cur)) : []
   const handleClickSpace = async (num: number) => {
     setSelfDisabled(true)

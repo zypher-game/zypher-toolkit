@@ -1,8 +1,8 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { useRecoilValue, useSetRecoilState } from '@zypher-game/toolkit/ui'
-import { useCustomTranslation } from '@zypher-game/toolkit/ui'
-import { LngNs } from '@zypher-game/toolkit/ui'
-import { preStaticUrl } from '@zypher-game/toolkit/ui'
+import { useRecoilValue, useSetRecoilState } from '@ui/src'
+import { useCustomTranslation } from '@ui/src'
+import { LngNs } from '@ui/src'
+import { preStaticUrl } from '@ui/src'
 import React, { useCallback } from 'react'
 
 import { ButtonPrimary } from '@/pages/components/Button'

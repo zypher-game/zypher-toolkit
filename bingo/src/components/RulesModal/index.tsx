@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { LngNs, useCustomTranslation, useIsMobile } from '@zypher-game/toolkit/ui'
+import { LngNs, useCustomTranslation, useIsW768 } from '@ui/src'
 import React from 'react'
 import styled from 'styled-components'
 
@@ -72,7 +72,7 @@ const ConfirmButton = styled.div`
 `
 
 const RulesModal = ({ open, onDismiss }: { open: boolean; onDismiss: () => void }) => {
-  const isMobile = useIsMobile()
+  const isMobile = useIsW768()
   const { t } = useCustomTranslation([LngNs.zBingo])
   return (
     <StyledDialogOverlay isOpen={open} onDismiss={onDismiss}>

@@ -1,8 +1,8 @@
-import type { Address, PublicClient } from 'viem';
+import type { Address, PublicClient } from "viem";
 
-const storageKey = 'rk-transactions';
+const storageKey = "rk-transactions";
 
-type TransactionStatus = 'pending' | 'confirmed' | 'failed';
+type TransactionStatus = "pending" | "confirmed" | "failed";
 
 export interface Transaction {
   hash: string;
@@ -11,14 +11,14 @@ export interface Transaction {
   confirmations?: number;
 }
 
-export type NewTransaction = Omit<Transaction, 'status'>;
+export type NewTransaction = Omit<Transaction, "status">;
 
 type Data = Record<string, Record<number, Transaction[] | undefined>>;
 
 function safeParseJsonData(string: string | null): Data {
   try {
     const value = string ? JSON.parse(string) : {};
-    return typeof value === 'object' ? value : {};
+    return typeof value === "object" ? value : {};
   } catch (err) {
     return {};
   }
@@ -26,7 +26,7 @@ function safeParseJsonData(string: string | null): Data {
 
 function loadData(): Data {
   return safeParseJsonData(
-    typeof localStorage !== 'undefined'
+    typeof localStorage !== "undefined"
       ? localStorage.getItem(storageKey)
       : null
   );
@@ -40,19 +40,19 @@ function validateTransaction(
   const errors: string[] = [];
 
   if (!transactionHashRegex.test(transaction.hash)) {
-    errors.push('Invalid transaction hash');
+    errors.push("Invalid transaction hash");
   }
 
-  if (typeof transaction.description !== 'string') {
-    errors.push('Transaction must have a description');
+  if (typeof transaction.description !== "string") {
+    errors.push("Transaction must have a description");
   }
 
   if (
-    typeof transaction.confirmations !== 'undefined' &&
+    typeof transaction.confirmations !== "undefined" &&
     (!Number.isInteger(transaction.confirmations) ||
       transaction.confirmations < 1)
   ) {
-    errors.push('Transaction confirmations must be a positiver integer');
+    errors.push("Transaction confirmations must be a positiver integer");
   }
 
   return errors;
@@ -85,12 +85,12 @@ export function createTransactionStore({
     const errors = validateTransaction(transaction);
 
     if (errors.length > 0) {
-      throw new Error(['Unable to add transaction', ...errors].join('\n'));
+      throw new Error(["Unable to add transaction", ...errors].join("\n"));
     }
 
-    updateTransactions(account, chainId, transactions => {
+    updateTransactions(account, chainId, (transactions) => {
       return [
-        { ...transaction, status: 'pending' },
+        { ...transaction, status: "pending" },
         ...transactions.filter(({ hash }) => {
           // Omit any duplicate transactions
           return hash !== transaction.hash;
@@ -111,8 +111,8 @@ export function createTransactionStore({
     hash: string,
     status: TransactionStatus
   ): void {
-    updateTransactions(account, chainId, transactions => {
-      return transactions.map(transaction =>
+    updateTransactions(account, chainId, (transactions) => {
+      return transactions.map((transaction) =>
         transaction.hash === hash ? { ...transaction, status } : transaction
       );
     });
@@ -124,8 +124,8 @@ export function createTransactionStore({
   ): Promise<void> {
     await Promise.all(
       getTransactions(account, chainId)
-        .filter(transaction => transaction.status === 'pending')
-        .map(async transaction => {
+        .filter((transaction) => transaction.status === "pending")
+        .map(async (transaction) => {
           const { confirmations, hash } = transaction;
 
           const existingRequest = transactionRequestCache.get(hash);
@@ -148,7 +148,7 @@ export function createTransactionStore({
                 chainId,
                 hash,
                 // @ts-ignore - types changed with viem@1.1.0
-                status === 0 || status === 'reverted' ? 'failed' : 'confirmed'
+                status === 0 || status === "reverted" ? "failed" : "confirmed"
               );
             });
 
@@ -176,7 +176,7 @@ export function createTransactionStore({
     const transactions = updateFn(data[account][chainId] ?? [])
       // Keep the list of completed transactions from growing indefinitely
       .filter(({ status }) => {
-        return status === 'pending'
+        return status === "pending"
           ? true
           : completedTransactionCount++ <= MAX_COMPLETED_TRANSACTIONS;
       });
@@ -193,7 +193,7 @@ export function createTransactionStore({
   }
 
   function notifyListeners(): void {
-    listeners.forEach(listener => listener());
+    listeners.forEach((listener) => listener());
   }
 
   function onChange(fn: () => void): () => void {
