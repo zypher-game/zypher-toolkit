@@ -1,4 +1,4 @@
-import { JsonRpcProvider, JsonRpcSigner, Web3Provider } from '@ethersproject/providers'
+import { JsonRpcProvider } from '@ethersproject/providers'
 import { ChainId, IContractName, useActiveWeb3React, zkBingo } from '@ui/src'
 import { getContract, getContractFromRpc } from '@ui/src'
 import abi from '@zypher-game/bingo-periphery-v1/abi/ZkBingoLobby.json'

@@ -4,7 +4,7 @@ import {
   JsonRpcSigner,
   Web3Provider,
 } from "@ethersproject/providers";
-import { ethers, utils } from "ethers";
+import { ethers, providers, utils } from "ethers";
 // import { Contract } from 'ethers/lib/ethers'
 // import { getAddress } from 'ethers/lib/utils'
 import {
@@ -89,4 +89,35 @@ export const getContractFromRpc = async ({
     abi,
     getProviderOrSigner(library, account) as any
   );
+};
+let globalProvider: providers.JsonRpcProvider;
+
+const setProvider = async (): Promise<void | providers.JsonRpcProvider> => {
+  if (window.ethereum) {
+    // await connect()
+    return new providers.Web3Provider(window.ethereum);
+  } else if (window.web3) {
+    return new providers.Web3Provider(window.web3.currentProvider);
+  } else {
+    throw new Error("can't find default provider");
+  }
+};
+export const getProvider = (
+  url?: string
+): Promise<providers.JsonRpcProvider> => {
+  return new Promise(async (resolve, reject) => {
+    if (url) {
+      resolve(new providers.JsonRpcProvider(url));
+    } else if (globalProvider) {
+      resolve(globalProvider);
+    } else {
+      const res = await setProvider();
+      if (res) {
+        globalProvider = res;
+        resolve(res);
+      } else {
+        reject("can't find default provider");
+      }
+    }
+  });
 };

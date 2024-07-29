@@ -1,0 +1,61 @@
+.userCenter
+  width: 280px
+  height: 142px
+  padding: 7px
+  background: url($preStaticUrl + '/img/bingo/bingo_usercenter.png') no-repeat;
+  background-size: 100% 100%
+  position fixed
+  top: 8%
+  left: 40px
+  z-index: 99
+  @media screen and (max-width: 768px)
+    top: 7%
+    left: 16px
+    width: 208px
+    height: 100px
+  .userAddress
+    position absolute
+    top: 32px
+    left: 80px
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 4px
+    @media screen and (max-width: 768px)
+      left: 60px
+      top: 20px
+  .addressLabel
+    font-family: Rowdies;
+    font-size: 16px
+    color: #FFC273;
+    min-height: 30px
+    line-height: 30px
+    @media screen and (max-width: 768px)
+      font-size: 12px;
+  .userInfo
+    left: 2%
+    bottom: 8px
+    position absolute
+    width: 96%;
+    padding: 10px 14px 12px
+    margin: 0 auto
+    background-color: #FFF2D3;
+    border-radius: 14px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    @media screen and (max-width: 768px)
+      padding: 7px 8px 
+      bottom: 4px
+  p
+    color: #804700;
+    font-size: 14px;
+    text-align: center
+    font-family: Rowdies;
+    line-height: 17px
+    @media screen and (max-width: 768px)
+      font-size: 12px;
+      line-height: 14px
+    strong
+      display block
+      font-weight: bolder;

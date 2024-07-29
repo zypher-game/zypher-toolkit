@@ -1,0 +1,7 @@
+.customClass
+  .ant-message-notice-content
+    background:red
+
+.lockimg
+  width: 80px
+  

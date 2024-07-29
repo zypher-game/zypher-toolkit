@@ -1,0 +1,59 @@
+.header
+	color: #D0923D
+	opacity: 0.7;
+	font-size: 14px;
+	font-weight: 400;
+	line-height: 22px;
+  @media screen and (max-width: 768px)
+		font-size: 12px;
+
+.listBox
+	:global(.ant-list-item)
+		@media screen and (max-width: 768px)
+			padding: 10px 0
+	:global(.ant-list-item-meta-avatar)
+		@media screen and (max-width: 768px)
+			margin-right: 6px
+
+	&:first-child
+		.name 
+			color: #FFD64E
+			@media screen and (max-width: 768px)
+				font-size: 12px;
+				font-weight: 400;
+		.address
+			color: #FFD64E
+		.amount
+			color: #FFD64E
+	h4
+		@media screen and (max-width: 768px)
+			margin: 0
+	.name 
+		font-family: 'Lemon';
+		color:#fff
+		@media screen and (max-width: 768px)
+			font-size: 12px;
+			font-weight: 400;
+	.address
+		color: #FFFFFF;
+		opacity: 0.7;
+		@media screen and (max-width: 768px)
+			font-size: 12px;
+			font-weight: 400;
+	.amount
+		@media screen and (max-width: 768px)
+			font-size: 12px;
+			font-weight: 400;
+	.count
+		font-family: 'Pacifico';
+		@media screen and (max-width: 768px)
+			font-size: 12px;
+			font-weight: 400;
+	.arrowDown
+		@media screen and (max-width: 768px)
+			width: 16px
+.content
+	width:100%
+	font-size: 20px;
+	color: #FFFFFF;
+	font-family: 'Pacifico';

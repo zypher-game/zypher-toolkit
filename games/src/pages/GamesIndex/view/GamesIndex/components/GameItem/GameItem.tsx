@@ -13,6 +13,7 @@ import {
   motion,
   pointsDialogState,
   preStaticUrl,
+  useActiveChainId,
   useActiveWeb3React,
   useIsW768,
   useSetRecoilState
@@ -52,7 +53,7 @@ const GameItem = memo(() => {
   const setPointsDialogState = useSetRecoilState(pointsDialogState)
   const showPointsModal = useCallback(() => {
     setPointsDialogState(true)
-  }, [setPointsDialogState])
+  }, [setPointsDialogState, chainId])
   const { gameList, GpItem } = useMemo(() => {
     const obj: {
       gameList: IGames[]
@@ -224,11 +225,12 @@ const GameItem = memo(() => {
 // })
 const GpItemComp = memo(({ item }: { item: INavLink }) => {
   const preHandleAction = usePreHandleGlobal()
+  const { chainId } = useActiveWeb3React()
   const isW768 = useIsW768()
   const setPointsDialogState = useSetRecoilState(pointsDialogState)
   const showPointsModal = useCallback(() => {
     setPointsDialogState(true)
-  }, [setPointsDialogState])
+  }, [setPointsDialogState, chainId])
   const toPathHandle = useCallback(async () => {
     if (isNaN(Number(item.keyValue))) {
       if (item.keyValue === 'points') {
@@ -240,7 +242,7 @@ const GpItemComp = memo(({ item }: { item: INavLink }) => {
     } else {
       window.open(item.link)
     }
-  }, [JSON.stringify(item.keyValue)])
+  }, [JSON.stringify(item.keyValue), preHandleAction])
   return (
     <motion.div
       className={`${css.gameItemComp} ${`gameItemComp${item.keyValue}`}`}

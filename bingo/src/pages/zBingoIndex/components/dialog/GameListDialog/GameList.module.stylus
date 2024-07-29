@@ -1,0 +1,17 @@
+.loadMore
+  position: relative
+  margin-top: 40px
+  display: flex
+  justify-content: center
+  margin-bottom: 40px
+.error
+  position: relative
+  margin-top: 40px
+  display: flex
+  justify-content: center
+  margin-bottom: 40px
+  color: #fff
+.gameList
+  position: relative
+  @media screen and (max-width: 768px)
+    margin: 0 16px

@@ -1,0 +1,167 @@
+.gameRoom
+  position:relative
+  .board
+    border: 0px solid var(--var-btn-border)
+  .playersAvatarInfo 
+    padding-left: 10px
+  .players
+    flex: 1
+    display: flex
+    flex-direction: column
+    justify-content: flex-start
+    gap: 10px
+    margin: 20px 20px;
+    color: #fff
+  .choosing
+    color: #dc0097
+    font-size: 20px
+    line-height: 1.5
+  .playerNum
+    font-family: 'Lemon';
+    color: #804700
+    font-size: 16px
+    line-height: 1.5
+ 
+  .gameAction
+    display: flex
+    align-items: center
+    justify-content: space-between
+    margin-top: 24px
+    gap: 14px
+  .lineCompleted
+    color: #FFF5E1
+    font-size: 34px
+    text-shadow: -1px -1.5px 0px #381F05;
+    padding:10px 25px
+    font-family: 'Lemon';
+    text-align: center
+    border: 5px solid #FFD690
+    border-radius: 40px
+    background:#613C17
+  .bingoButton
+    flex: 1
+    border: none
+    background: linear-gradient(180deg, #88E413 0%, #2A9507 100%)
+    color: #FFF5E1
+    font-size: 28px
+    font-family: 'Lemon';
+    padding: 10px 25px
+    border-radius: 40px
+    border: 5px solid #FFD690
+    height: auto
+    box-shadow: 0px 1px 2px #6D6D6D;
+    &:disabled
+      color:#E2E2E2
+      background: linear-gradient(180deg, #FFFFFF 0%, #A0A5A5 39.58%, #696969 100%);
+      pointer-events: none
+  
+  .player
+    background: #8E571E
+    border-radius:21px
+    display:flex
+    left: 13px
+    position:absolute
+    align-items:center
+    .ant-progress-outer
+      height: 17px
+  .winerModalText
+    padding:20px 0
+    font-size:20px
+    color: #864802
+    font-family: 'Lemon';
+  .BoxCard 
+    background: #613C17;
+    box-shadow: inset 0px -1px 0px #BF905B;
+    border-radius: 24.0229px;
+    padding: 12px 20px
+.gameHome
+  
+  
+  .loadTitle
+    max-width: 673px
+    width: 60%;
+    position: absolute;
+    top: 30%
+    left: 50%
+    transform: translate(-50%, -50%)
+    @media screen and (max-width: 768px)
+      width: 80%;
+  .progressBox
+    max-width: 1082px
+    width: 60%;
+    position: absolute;
+    top: 75%
+    left: 50%
+    transform: translate(-50%, -50%)
+    @media screen and (max-width: 768px)
+      width: 90%;
+      top: 60%
+  .progress
+    width: 100%;
+    height: 62px;
+    padding: 0 39px 0 37px;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background: url($preStaticUrl + '/img/bingo/loading-box.png') no-repeat center;
+    background-size: 100% 100%;
+    @media screen and (max-width: 768px)
+      height: 20px;
+      padding: 0 3.3%;
+      :global(.ant-progress)
+        height: 20px;
+        line-height: 20px;
+      :global(.ant-progress-inner)
+        border-radius: 10.019px;
+        background: #8E571E;
+        box-shadow: 0px 1.4313037395477295px 3.816809892654419px 0px rgba(0, 0, 0, 0.25) inset;
+        vertical-align: baseline;
+    
+  .progressTip
+    text-align: center;
+    color: #8E571E;
+    padding-top: 20px;
+    font-family: 'Lemon';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    @media screen and (max-width: 768px)
+      font-size: 12px;
+      
+@keyframes borderColor
+  from
+    border-color: rgba(88, 211, 30, 1)
+
+  to
+    border-color: rgba(88, 211, 30, 1)
+.exit
+  padding: 5px 18px
+  background: #6673FF
+  display:flex
+  gap: 5px
+  align-items: center
+  justify-content: center
+  border-radius:24px
+  font-family: Poppins;
+  color: #FFF;
+  font-size: 16px;
+.countdown
+  padding: 5px 12px
+  background: rgba(0, 0, 0, 0.6)
+  display:flex
+  gap: 10px
+  align-items: center
+  justify-content: center
+  border-radius:24px
+  font-family: Poppins;
+  color: #FFF;
+  margin-left: 20px
+  font-size: 16px;
+  .countdownLabel
+    opacity: 0.69;
+
+  
+
+
+
+  

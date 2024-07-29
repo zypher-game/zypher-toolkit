@@ -1,4 +1,4 @@
-import { ListWithMotion, motion } from '@ui/src'
+import { motion } from '@ui/src'
 import React, { memo } from 'react'
 
 import ChangeNameDialog from '@/pages/Active/dialog/ChangeNameDialog/ChangeNameDialog'

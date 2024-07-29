@@ -1,0 +1,46 @@
+.zindex
+  z-index: 1001 !important
+.levelRule
+  width 700px
+  background: url($preStaticUrl + '/img/bingo/dialog_bg.png') no-repeat
+  position relative
+  padding: 60px 70px 100px
+  background-size: 100% 100%
+  .close
+    position absolute
+    top 40px
+    right 40px
+  .title
+    color: #864802;
+    font-family: Lemon;
+    font-size: 28px;
+    font-weight: 400;
+    padding: 30px 0
+    text-align: center
+    margin: 0
+.level
+  display: flex
+  padding: 16px 29px;
+  gap: 16px
+  flex: 1
+  margin-bottom: 10px
+  border-radius: 20px;
+  background: rgba(250, 210, 152, 0.64);
+  img
+    width: 64px;
+    height: 64px;
+  div
+    font-size: 14px;
+    line-height: 22px
+    font-family: Poppins;
+    color: #613C17;
+    h4
+      font-weight: 700;
+.btn
+  width: 180px
+  position absolute
+  bottom: 10px
+  left: 50%
+  transform: translateX(-50%)
+  @media screen and (max-width: 768px)
+    width: 140px

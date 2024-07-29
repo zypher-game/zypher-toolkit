@@ -1,0 +1,17 @@
+.rightBar
+  position: fixed
+  top: 10%
+  right: 40px
+  display: flex
+  justify-content: right 
+  align-items: center
+  gap: 40px
+  z-index: 99;
+  @media screen and (max-width: 768px)
+    top: 9%
+    right: 16px
+    gap: 16px
+  img 
+    width: 56px;
+    @media screen and (max-width: 768px) 
+      width: 32px;

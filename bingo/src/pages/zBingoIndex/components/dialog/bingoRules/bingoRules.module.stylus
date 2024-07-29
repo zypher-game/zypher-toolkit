@@ -1,0 +1,59 @@
+.levelRule
+  width 700px
+  background: url($preStaticUrl + '/img/bingo/dialog_bg.png') no-repeat
+  position relative
+  padding: 60px 80px 100px
+  background-size: 100% 100%
+  @media screen and (max-width: 768px)
+    width: 100%
+    padding: 47px 50px 80px 50px
+  .close
+    position absolute
+    top 40px
+    right 40px
+    @media screen and (max-width: 768px)
+      width 34px
+      height 34px
+      right 20px
+  .title
+    color: #864802;
+    font-family: Lemon;
+    font-size: 28px;
+    font-weight: 400;
+    padding: 30px 0
+    text-align: center
+    margin: 0
+    @media screen and (max-width: 768px)
+      font-size: 14px;
+      padding: 30px 0 24px
+.rulestitle
+  color: #613C17;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 700;
+  line-height: 24px;
+  @media screen and (max-width: 768px)
+    font-size: 14px;
+    line-height: 20px;
+  span 
+    color: #DB5F16;
+.rulesexample .rulestitle
+  margin: 16px 0
+.rulestext
+  margin-bottom: 16px
+  color: #613C17;
+  font-family: Poppins;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px
+  @media screen and (max-width: 768px)
+    font-size: 14px;
+    line-height: 20px
+.btn
+  width: 180px
+  position absolute
+  bottom: 10px
+  left: 50%
+  transform: translateX(-50%)
+  @media screen and (max-width: 768px)
+    width: 140px

@@ -1,0 +1,86 @@
+.encryptCard
+  min-width: 930px
+  @media screen and (max-width: 768px)
+    min-width: auto
+  .grid
+    flex: 1
+    margin: 0 0 0 80px
+
+  .control
+    display: flex
+    flex-direction: column
+    align-items: center
+    max-width: 584px
+
+    .title
+      font-family: 'Lemon'
+      font-style: normal
+      font-weight: 400
+      font-size: 14px
+      line-height: 24px
+      text-align: center
+      color: #62380C
+      text-align: center
+
+    .btnWrap
+      display: flex
+      padding-top: 50px
+
+    .change
+      background: url($preStaticUrl + '/img/bingo/switch.svg') no-repeat
+      background-size: 100% auto
+      width: 100px
+      height: 67px
+      border: 0 none
+
+    .button
+      font-family: 'Lemon'
+      font-style: normal
+      font-weight: 400
+      font-size: 24px
+      color: #FFF5E1
+      text-shadow: -1px -1.5px 0px #208001
+      background: linear-gradient(180deg, #88E413 0%, #2A9507 100%)
+      background-size: 100% auto
+      width: 258px
+      height: 67px
+      border: 0 none
+      border-radius: 47.5px;
+      flexCenter()
+
+      &:disabled
+        pointer-events: none
+        cursor: not-allowed
+        background:linear-gradient(180deg, #E2E2E2 0%, #828282 100%)
+
+    .modifyTip
+      font-family: 'Poppins'
+      font-style: normal
+      font-weight: 400
+      font-size: 12px
+      line-height: 18px
+      text-align: center
+      color: rgba(#62380C, 0.6)
+      flexCenter()
+      margin: 0 0 32px
+
+      :global(.icon)
+        size: 16px
+        margin: 0 6px 0 0
+
+    .tip
+      font-family: 'Poppins'
+      font-style: normal
+      font-weight: 400
+      font-size: 12px
+      line-height: 30px
+      text-align: center
+      color: #62380C
+      opacity: 0.6
+ .changeM
+      background: url($preStaticUrl + '/img/bingo/switch.svg') no-repeat
+      background-size: 100% auto
+      width: 78px
+      height: 53px
+      padding: 5px
+      border: 0 none

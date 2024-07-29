@@ -1,0 +1,18 @@
+body section.ant-layout
+  background-image: url($preStaticUrl + '/img/bingo/bg.jpg')
+  background-repeat: no-repeat
+  background-size: cover;
+  background-position: center;
+
+
+body section.ant-layout.beta
+  background-image: url($preStaticUrl + '/img/bingo/bg.jpg')
+  background-repeat: no-repeat
+  background-size: cover;
+  background-position: center;
+body .notification_icon
+  display: block
+  // background-image: url('https://static.zypher.game/img/bingo/bg.jpg') !important
+  // background-repeat: no-repeat !important
+  // background-size: cover !important;
+  // background-position: center !important;

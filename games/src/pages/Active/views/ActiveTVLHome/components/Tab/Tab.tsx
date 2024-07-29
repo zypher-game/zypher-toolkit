@@ -5,6 +5,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { tvlPath, TVLTabList, usePreHandleAction } from '@/pages/Active/hooks/activeHooks'
+import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { tvlPathState } from '@/pages/Active/state/activeState'
 
 const Tab = memo(() => {
@@ -18,10 +19,13 @@ const Tab = memo(() => {
   const setTVLPath = useSetRecoilState(tvlPathState)
   const navigate = useNavigate()
   const preHandleAction = usePreHandleAction()
+  const {
+    activeData: { tvlHero }
+  } = useActiveData()
   const toPath = useCallback(
     (index: number) => {
       const isOk = preHandleAction()
-      if (isOk) {
+      if (isOk && tvlHero) {
         setTVLPath(index)
         navigate(tvlPath[index])
       } else {
@@ -29,7 +33,7 @@ const Tab = memo(() => {
         navigate(tvlPath[2])
       }
     },
-    [location, preHandleAction]
+    [location, preHandleAction, tvlHero]
   )
   return (
     <PixelTab

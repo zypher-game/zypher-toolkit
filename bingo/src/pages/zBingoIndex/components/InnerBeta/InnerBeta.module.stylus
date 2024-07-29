@@ -1,0 +1,75 @@
+.inner
+  width: 690px
+  height: 680px
+  background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta.png') no-repeat
+  background-size: 100% 100%
+  background-position: center
+  position fixed
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  text-align: center
+  @media screen and (max-width: 768px)
+    padding-top: 50px;
+    max-width: 360px
+    width: 80%
+    height: 500px
+    background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m.png') no-repeat
+    background-size: 100% 100%
+  .title 
+    position absolute
+    width 313px
+    top: -20px
+    left: 50%
+    transform: translateX(-50%)
+    @media screen and (max-width: 768px)
+      width 50%
+      top: -42px
+  h3
+    font-family: 'Lemon'
+    font-size: 20px
+    color: #FFE7CC
+    margin: 160px 0 40px
+    @media screen and (max-width: 768px)
+      font-size: 16px
+      margin: 20px 0 20px
+  .border
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 6px solid #D17700;
+    padding: 10px
+    display: flex
+    align-items: center
+    justify-content: center
+    @media screen and (max-width: 768px)
+      padding: 2px
+      width: 120px;
+      height: 120px;
+    img 
+      display block
+      width: 100%
+  .button
+    font-family: 'Lemon'
+    font-style: normal
+    font-weight: 400
+    font-size: 34px
+    color: #FFF5E1
+    background: url($preStaticUrl + '/img/bingo/bingo_btn.png') no-repeat
+    background-size: 100% 100%
+    width: 350px
+    height: 80px
+    line-height: 80px
+    flexCenter()
+    margin: 40px auto 0
+    cursor pointer
+    @media screen and (max-width: 768px)
+      font-size: 20px
+      width: 60%
+      height: 50px
+      line-height: 50px
+    &:disabled
+      pointer-events: none
+      cursor: not-allowed

@@ -1,0 +1,79 @@
+.gameRules
+  display: flex
+  color: #613C17
+  padding: 70px
+
+  .left
+    margin: 54px 0 0 14px
+    border-radius: 28px;
+    padding: 24px
+    background: #FDE8C8;
+    width: 269px
+    >div
+      padding-bottom:35px
+      &:last-child
+          padding-bottom: 0
+
+  .right
+    flex:1
+    .header
+      display: flex
+      justify-content: space-between
+      align-items: center
+      margin: 0 0 24px
+
+      .title
+        font-family: 'Lemon'
+        font-style: normal
+        font-weight: 400
+        font-size: 20px
+        line-height: 30px
+
+      .question
+        cursor:pointer
+        font-family: 'Lemon'
+        font-style: normal
+        font-weight: 400
+        font-size: 16px
+        line-height: 20px
+        text-align: center
+        color: #DB5F16
+        display: flex
+        align-items: center
+
+        :global(.icon)
+          size: 24px
+          margin: 0 0 0 8px
+
+    .main
+      background: #FDE8C8
+      border-radius: 24px
+      padding: 24px
+
+      .txt1
+        font-family: 'Poppins'
+        font-style: normal
+        font-weight: 700
+        font-size: 16px
+        line-height: 24px
+        margin: 0 0 16px
+
+        span
+          color: #DB5F16
+
+      .txt2
+        font-family: 'Poppins'
+        font-style: normal
+        font-weight: 500
+        font-size: 16px
+        line-height: 24px
+        div
+          padding-bottom: 10px
+
+        .tit
+          margin: 0 0 10px
+          font-family: 'Poppins'
+          font-style: normal
+          font-weight: 700
+          font-size: 16px
+          line-height: 24px

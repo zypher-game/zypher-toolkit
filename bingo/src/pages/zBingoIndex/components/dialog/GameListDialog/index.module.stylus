@@ -1,0 +1,44 @@
+.bg
+  @media screen and (max-width: 768px)
+    background: transparent!important
+.gameList
+  position relative
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg02.png") no-repeat
+  background-size: 100% 100%
+  width: 1200px
+  padding: 0 20px 20px
+  @media screen and (max-width: 768px)
+    background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.png") no-repeat
+    width: 90%;
+    padding: 0 3px 10px;
+    background-size: 100% 100%
+  .close
+    position absolute
+    top: 20px
+    right 50px
+    cursor pointer
+    @media screen and (max-width: 768px)
+      width: 34px;
+      height: 34px;
+      right: 10px;
+      top: 10px;
+.inner
+  padding: 90px 50px 60px 40px
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg01.png") no-repeat
+  background-size: 100% 100%
+  @media screen and (max-width: 768px)
+    background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.png") no-repeat
+    background-size: 100% 100%
+    padding: 20px 20px 40px 15px;
+.title
+  color: #62380C;
+  font-family: Lemon;
+  font-size: 32px;
+  font-weight: 400;
+  line-height: 30px
+  text-align: center
+  padding: 50px 0 40px
+  @media screen and (max-width: 768px)
+    font-size: 18px;
+    line-height: 24px;
+    padding: 30px 0 16px;

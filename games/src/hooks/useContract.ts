@@ -12,7 +12,7 @@ export function useContract(addressOrAddressMap?: Address | { [chainId: number]:
   const { data: walletClient } = useWalletClient()
 
   return useMemo(() => {
-    const localChainId = chainId ?? defaultLocalChainId
+    const localChainId = (chainId ?? defaultLocalChainId) as ChainId
     if (!addressOrAddressMap || !abi || !localChainId) {
       return null
     }

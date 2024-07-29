@@ -1,0 +1,148 @@
+.sidebar
+  position fixed
+  top: 40%
+  left: 40px
+  z-index: 99;
+  transform: translateY(-50%)
+  @media screen and (max-width: 768px)
+    left: 16px
+  .sidebarItem
+    width: 80px
+    height: 80px
+    position relative
+    margin-bottom: 46px
+    cursor pointer
+    @media screen and (max-width: 768px)
+      width: 48px
+      height: 48px
+      margin-bottom: 26px
+    &:nth-child(1) 
+      .imageContainerWaves::before 
+        animation-delay: -0.4s;
+    &:nth-child(2) 
+      .imageContainerWaves::before 
+        animation-delay: -0.8s;
+    &:nth-child(3) 
+      .imageContainerWaves::before 
+        animation-delay: -1.2s;
+    &.blue
+      .sidebarItemBg
+        .sidebarItemBgInner
+          background-color: #385A9E;
+          border:1px solid #2C4C8C;
+      .labelImg
+        width: 58px
+        @media screen and (max-width: 768px)
+          width: 36px
+      .label
+        text-shadow: -1px -1px 0 #0B1E44, 1px -1px 0 #0B1E44, -1px 1px 0 #0B1E44, 1px 1px 0 #0B1E44;
+
+    &.red
+      .sidebarItemBg
+        .sidebarItemBgInner
+          background-color: #9E3838;
+          border:1px solid #8B2F2F;
+      .labelImg
+        width: 70px
+        @media screen and (max-width: 768px)
+          width: 45px
+      .label
+        text-shadow: -1px -1px 0 #712323, 1px -1px 0 #712323, -1px 1px 0 #712323, 1px 1px 0 #712323;
+      
+    &.green
+      .sidebarItemBg
+        .sidebarItemBgInner
+          background-color: #36755B;
+          border:1px solid #1C4735;
+      .labelImg
+        width: 55px
+        @media screen and (max-width: 768px)
+          width: 35px
+      .label
+        text-shadow: -1px -1px 0 #1C4735, 1px -1px 0 #1C4735, -1px 1px 0 #1C4735, 1px 1px 0 #1C4735;
+        
+    .sidebarItemBg
+      position absolute
+      width: 95%
+      height: 95%
+      border-radius: 50%
+      top: 50%
+      left: 50%
+      transform: translate(-50%, -50%)
+      background: linear-gradient(180deg, #BD7614 -1.65%, #E39325 -1.64%, #BC6D00 97.5%);
+      box-shadow: 0px -1.6px 1.6px 0px rgba(0, 0, 0, 0.25) inset, 0px 1.6px 0.8px 0px rgba(255, 255, 255, 0.26) inset;
+      padding: 5px
+      .sidebarItemBgInner
+        width: 100%
+        height: 100%
+        border-radius: 50%
+       
+
+    .labelImg
+      position absolute
+      width: 58px
+      top: 46%
+      left: 50%
+      transform: translate(-50%, -50%)
+    .label 
+      white-space: nowrap;
+      line-height: 24px
+      position absolute
+      left: 50%
+      transform: translate(-50%, 0)
+      bottom: 6px
+      font-family: Lemon;
+      font-size: 15px;
+      color: #fff
+      @media screen and (max-width: 768px)
+        font-size: 9px;
+        bottom: -2px
+
+.imageContainerWaves
+  display: block
+  position: relative
+  overflow: hidden
+  height: 100%
+  transform: translate3d(0, 0, 0);
+  border-radius: 50%
+  img 
+    width: 100%;
+    height: 100%
+  &:before 
+    content: '';
+    position: absolute;
+    background-image: linear-gradient(40deg, transparent, rgba(255, 255, 255, 0.2) , transparent);
+    top: 0;
+    left: -150px;
+    height: 40%;
+    width: 200%;
+    transform: rotate(45deg)
+    animation: glow-animation 2s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+:global(.labelImgAnim)
+  animation: shake 0.3s infinite;
+@keyframes glow-animation {
+  from {
+    left: -150px;
+  }
+  to {
+    left: 100%;
+  }
+}
+@keyframes shake {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  25% {
+    transform: translate(-50%, -50%) rotate(-5deg);
+  }
+  50% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  75% {
+    transform: translate(-50%, -50%) rotate(5deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+}
+

@@ -1,0 +1,92 @@
+import { atom } from '@zypher-game/toolkit/ui'
+import { localStorageEffect } from '@zypher-game/toolkit/ui'
+
+import { CardNumbersType } from '@/utils/generateCardNumbers'
+
+export enum IBingoVersion {
+  'v1' = 'v1',
+  'beta' = 'beta'
+}
+export const bingoVersionState = atom({
+  key: 'bingoVersionState',
+  default: IBingoVersion.v1
+})
+
+export const rankingDialogState = atom({
+  key: 'rankingDialog',
+  default: false
+})
+export const levelRuleDialogState = atom({
+  key: 'levelRuleDialog',
+  default: false
+})
+
+export const bingoRuleDialogState = atom({
+  key: 'bingoRuleDialog',
+  default: false
+})
+
+export const monsterNftRuleDialogState = atom({
+  key: 'monsterNftRuleDialog',
+  default: false
+})
+export const videoDialogState = atom({
+  key: 'videoDialog',
+  default: false
+})
+export const gameListDialogState = atom({
+  key: 'gameListDialog',
+  default: false
+})
+
+export type GameRuleType = {
+  maxPlayers: number
+  minPlayers: number
+  row: number
+  col: number
+  maxNumber: number
+  minNumber: number
+}
+
+export type JoinGameStateType = {
+  signedLabel: string
+  signedCard: string
+  lineupUsers: string[]
+}
+
+export type GameRoomStateType = {
+  cardContract: string
+  gameId: number
+  cardNumbers: CardNumbersType
+}
+
+export const joinGameState = atom<JoinGameStateType>({
+  key: 'joinGameState',
+  default: {
+    signedLabel: '',
+    signedCard: '',
+    lineupUsers: []
+  },
+  effects_UNSTABLE: [localStorageEffect('joinGameState')]
+})
+
+export const gameRoomState = atom<GameRoomStateType>({
+  key: 'gameRoomState',
+  default: {
+    cardContract: '',
+    gameId: -1,
+    cardNumbers: []
+  },
+  effects_UNSTABLE: [localStorageEffect('gameRoomState')]
+})
+
+export const startGameStep = atom({
+  key: 'startGameStep',
+  default: 0
+})
+
+export const SoundOn = atom({
+  key: 'soundOn',
+  default: 0,
+  effects_UNSTABLE: [localStorageEffect('soundOn')]
+})

@@ -349,7 +349,7 @@ export const useReStakingHandle = () => {
     [preHandleAction, walletClient]
   )
   const onClaimGPHandle = useCallback(
-    async chainId => {
+    async (chainId: string) => {
       try {
         const isOk = _pre({ loading: claimGpLoading, setLoading: setClaimGpLoading, amount: dollarGpRewords })
         if (!isOk) {

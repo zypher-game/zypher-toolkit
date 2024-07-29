@@ -1,0 +1,40 @@
+circle,
+rect,
+line {
+  stroke-width: 4px;
+  stroke-linecap: round;
+  fill: transparent;
+}
+.count-down{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    height: 128px;
+    left: 0;
+
+}
+.count-down-time{
+    font-size: 64px;
+    text-align: center;
+    font-family: Pacifico;
+    color: #fff;
+    width: 100%;
+}
+.notion-wrap{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    position: relative;
+}
+.notion-svg{
+    position: absolute;
+    top: 0;
+}
+.content{
+    font-size: 14px;
+    color: #fff;
+    width: 293px;
+    text-align: center;
+    padding-top: 40px;
+}

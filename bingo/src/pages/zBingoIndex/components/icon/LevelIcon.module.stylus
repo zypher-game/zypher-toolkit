@@ -1,0 +1,10 @@
+.levelImg
+  width: 40px
+  height: 40px
+  cursor: pointer
+  filter: drop-shadow(0 1px 1px #573101);
+  @media screen and (max-width: 768px)
+    width: 24px
+    height: 24px
+    &:nth-child(1)
+      margin-left: 6px

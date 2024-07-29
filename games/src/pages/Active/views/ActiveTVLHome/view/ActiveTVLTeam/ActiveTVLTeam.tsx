@@ -43,7 +43,6 @@ const ActiveTVLTeam = memo(() => {
     let _num = Number(groupGoal.percent)
     _num = _num > 100 ? 100 : _num
     const timer = setInterval(() => {
-      console.log(111)
       setPercentWidth(newPercent => {
         const newVal = newPercent + Math.floor(Math.random() * 10)
         if (newVal > _num) {
