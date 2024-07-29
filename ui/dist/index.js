@@ -68,7 +68,6 @@ import {
   useWalletClient as useWalletClient2,
   useSwitchNetwork as useSwitchNetwork2,
   useDisconnect as useDisconnect6,
-  PublicClient as PublicClient4,
   useAccount as useAccount14,
   usePublicClient as usePublicClient4
 } from "wagmi";
@@ -14025,7 +14024,6 @@ export {
   PointsDialog_default as PointsDialog,
   PointsIcon,
   PointsRuleDialog_default as PointsRuleDialog,
-  PublicClient4 as PublicClient,
   RainbowKitAuthenticationProvider,
   RainbowKitProvider,
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
