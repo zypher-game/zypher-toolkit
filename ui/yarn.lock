@@ -2160,11 +2160,6 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/recoilize@^0.8.3":
-  version "0.8.3"
-  resolved "https://registry.npmjs.org/@types/recoilize/-/recoilize-0.8.3.tgz#44ce29ede5a78f8af4ad5ad593898d9d8de13b1e"
-  integrity sha512-yPwSIFGH3iarEyk1n4ftiQVrxv5sMtnKVJfEMkCij4ixXqUaObQxRxGjPpzpscNqRLe93qovYQsAwD3B4OuTuw==
-
 "@types/sass@^1.43.1":
   version "1.45.0"
   resolved "https://registry.yarnpkg.com/@types/sass/-/sass-1.45.0.tgz#a949eb1e080ff34715e6c2040357b940bffb89bb"
@@ -2918,8 +2913,8 @@
     tslib "1.14.1"
 
 "@zypher-game/bingo-periphery-v1@zypher-game/bingo-periphery-v1":
-  version "0.1.8"
-  resolved "https://codeload.github.com/zypher-game/bingo-periphery-v1/tar.gz/f20bffa37a858c68b88c505262d42d84b6675773"
+  version "0.2.1"
+  resolved "https://codeload.github.com/zypher-game/bingo-periphery-v1/tar.gz/1c63000fb8e8e0e501d11e001458aa2aeea0ec83"
 
 "@zypher-game/bingo-periphery@zypher-game/bingo-periphery":
   version "1.1.24"
@@ -4003,9 +3998,9 @@ eth-rpc-errors@^4.0.2:
     fast-safe-stringify "^2.0.6"
 
 ethereum-multicall@^2.12.0:
-  version "2.21.0"
-  resolved "https://registryrainbowkit.yarnpkg.com/ethereum-multicall/-/ethereum-multicall-2.21.0.tgz#a0dc5d5e7bbddabd484a75037ecb9b77ad5688ba"
-  integrity sha512-J234OuvUheTKvZVhMk41SwyB66m+MU+Xe2FFWOln8xu6TXKzOzsjSFQn/f5OTDGEiRStKMnJpCvQDim+Uk+qBQ==
+  version "2.12.0"
+  resolved "https://registry.yarnpkg.com/ethereum-multicall/-/ethereum-multicall-2.12.0.tgz#ef7ea84ae44c5f43ef0bd4f5e493f7283adf9339"
+  integrity sha512-LarV0DzEMBbzTwIe+vpwUsba27WPuBRTQ45GudzczDSBXqGzDgbBEeUHF+I7TEaxJ4I2zZg5kllsRz5BAjVUYA==
   dependencies:
     "@ethersproject/providers" "^5.0.10"
     ethers "^5.0.15"
@@ -5541,11 +5536,6 @@ recoil@0.7.7:
   integrity sha512-8Og5KPQW9LwC577Vc7Ug2P0vQshkv1y3zG3tSSkWMqkWSwHmE+by06L8JtnGocjW6gcCvfwB3YtrJG6/tWivNQ==
   dependencies:
     hamt_plus "1.0.2"
-
-recoilize@^3.2.0:
-  version "3.2.0"
-  resolved "https://registry.npmjs.org/recoilize/-/recoilize-3.2.0.tgz#aaf4c76390293a105a73b74dced7a49dfbeb1c84"
-  integrity sha512-2J0SEzefl8rKe5iaJ2vVg6AgWy5aQ8NFPfZbZfXagycF5ohUzCQA2c2SZDz5jtZfYmendR8hsILstPyofxfg7g==
 
 recursive-readdir-files@^2.0.7:
   version "2.3.0"

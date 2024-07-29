@@ -24,6 +24,7 @@ const ChainPointPrice = {
   [ChainId.LineaTestnet]: 1 / 2_000_000,
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000,
+  [ChainId.ZytronLineaSepoliaTestnet]: 1 / 2_000_000,
 };
 export const pointsListDefault = (
   chainId: ChainId
@@ -40,7 +41,8 @@ export const pointsListDefault = (
       ["300000", "5"],
       ["500000", "10"],
     ].map((v, index) => {
-      const chainPrice = ChainPointPrice[chainId];
+      // @ts-ignore
+      const chainPrice = ChainPointPrice[chainId] ?? "0";
       const price = v[1]
         ? new BigNumberjs(chainPrice)
             .times(v[0])

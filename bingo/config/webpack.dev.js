@@ -27,7 +27,6 @@ module.exports = merge(common, {
     filename: '[name].[contenthash:8].bundle.js',
     path: path.resolve(__dirname, '../dist'),
     clean: true,
-    publicPath: '/bingo/',
     assetModuleFilename: 'asset/[hash:10][ext][query]'
   },
   plugins: [new webpack.HotModuleReplacementPlugin()],
