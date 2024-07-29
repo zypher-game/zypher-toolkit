@@ -1,8 +1,8 @@
-import React from 'react';
-import { AsyncImage } from '../AsyncImage/AsyncImage';
-import { loadImages } from '../AsyncImage/useAsyncImage';
+import React from "react";
+import { AsyncImage } from "../AsyncImage/AsyncImage";
+import { loadImages } from "../AsyncImage/useAsyncImage";
 
-const src = async () => (await import('./assets.svg')).default;
+const src = async () => (await import("./assets.svg")).default;
 
 export const preloadAssetsIcon = () => loadImages(src);
 

@@ -1,2 +1,2 @@
-import React from 'react';
+import React from "react";
 export declare const SuccessIcon: () => React.JSX.Element;

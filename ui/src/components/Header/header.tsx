@@ -1,5 +1,5 @@
 import classnames from "classnames";
-import React, { ForwardRefExoticComponent, useEffect, useMemo } from "react";
+import React, { useEffect, useMemo } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 
 import useWindowSize from "../../hooks/useWindowSize";
@@ -17,8 +17,6 @@ import {
   showBigState,
   showMiddleState,
 } from "../ConnectWallet/state/connectWalletState";
-import { LinkProps, NavigateFunction } from "react-router-dom";
-export type HeaderUIType = "pixel" | "other";
 interface IProps {
   env: string;
   dispatch: any;
@@ -78,6 +76,10 @@ const Header = (props: IProps): React.ReactElement | null => {
       setSideCollapse(true);
     }
   }, [isW830]);
+  const isBingo = useMemo(() => {
+    return pathname === "bingo";
+  }, [pathname]);
+  console.log({ pathname });
   return (
     <header
       className={classnames(
@@ -89,12 +91,14 @@ const Header = (props: IProps): React.ReactElement | null => {
         isW1670 ? "header_header_1670" : "",
         props.className
       )}
-      style={{ position: "sticky", top: 0, zIndex: 9, width: "100%" }}
+      style={{ position: "sticky", top: 0, zIndex: 99, width: "100%" }}
     >
-      <div className={"header_left"}>
-        <ZypherLogo isMobile={isW830} />
-      </div>
-      {!isW830 && <Navigation pathname={pathname} Link={Link} />}
+      {isBingo ? null : (
+        <div className={"header_left"}>
+          <ZypherLogo isMobile={isW830} />
+        </div>
+      )}
+      {!isW830 && !isBingo && <Navigation pathname={pathname} Link={Link} />}
       <div className={"header_right"}>
         <RainbowConnectWallet
           type="pixel"

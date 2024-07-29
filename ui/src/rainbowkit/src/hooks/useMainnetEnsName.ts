@@ -1,5 +1,5 @@
-import { useEnsName } from 'wagmi';
-import { useMainnet } from './useMainnet';
+import { useEnsName } from "wagmi";
+import { useMainnet } from "./useMainnet";
 
 export function useMainnetEnsName(address: string | undefined) {
   const { chainId, enabled } = useMainnet();

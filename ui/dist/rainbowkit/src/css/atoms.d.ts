@@ -1,4 +1,4 @@
-import { Sprinkles } from './sprinkles.css';
+import { Sprinkles } from "./sprinkles.css";
 export type Atoms = Sprinkles & {
     reset?: keyof JSX.IntrinsicElements;
 };

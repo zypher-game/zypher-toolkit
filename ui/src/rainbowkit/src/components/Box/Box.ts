@@ -1,11 +1,11 @@
-import clsx, { ClassValue } from 'clsx';
-import * as React from 'react';
-import { atoms, Atoms } from '../../css/atoms';
-import { sprinkles } from '../../css/sprinkles.css';
+import clsx, { ClassValue } from "clsx";
+import * as React from "react";
+import { atoms, Atoms } from "../../css/atoms";
+import { sprinkles } from "../../css/sprinkles.css";
 
 type HTMLProperties<T = HTMLElement> = Omit<
   React.AllHTMLAttributes<T>,
-  'as' | 'className' | 'color' | 'height' | 'width'
+  "as" | "className" | "color" | "height" | "width"
 >;
 
 type Props = Atoms &
@@ -16,12 +16,12 @@ type Props = Atoms &
   };
 
 export const Box = React.forwardRef<HTMLElement, Props>(
-  ({ as = 'div', className, testId, ...props }: Props, ref) => {
+  ({ as = "div", className, testId, ...props }: Props, ref) => {
     const atomProps: Record<string, unknown> = {};
     const nativeProps: Record<string, unknown> = {};
 
     for (const key in props) {
-      if (sprinkles.properties.has(key as keyof Omit<Atoms, 'reset'>)) {
+      if (sprinkles.properties.has(key as keyof Omit<Atoms, "reset">)) {
         atomProps[key] = props[key as keyof typeof props];
       } else {
         nativeProps[key] = props[key as keyof typeof props];
@@ -29,14 +29,14 @@ export const Box = React.forwardRef<HTMLElement, Props>(
     }
 
     const atomicClasses = atoms({
-      reset: typeof as === 'string' ? (as as Atoms['reset']) : 'div',
+      reset: typeof as === "string" ? (as as Atoms["reset"]) : "div",
       ...atomProps,
     });
 
     return React.createElement(as, {
-      'className': clsx(atomicClasses, className),
+      className: clsx(atomicClasses, className),
       ...nativeProps,
-      'data-testid': testId ? `rk-${testId.replace(/^rk-/, '')}` : undefined,
+      "data-testid": testId ? `rk-${testId.replace(/^rk-/, "")}` : undefined,
       ref,
     });
   }
@@ -44,4 +44,4 @@ export const Box = React.forwardRef<HTMLElement, Props>(
 
 export type BoxProps = Parameters<typeof Box>[0];
 
-Box.displayName = 'Box';
+Box.displayName = "Box";

@@ -1,8 +1,8 @@
-import { style } from '@vanilla-extract/css';
-import { sprinkles } from '../../css/sprinkles.css';
+import { style } from "@vanilla-extract/css";
+import { sprinkles } from "../../css/sprinkles.css";
 
 export const DropdownIconClassName = sprinkles({
-  marginLeft: '6',
+  marginLeft: "6",
 });
 
-export const ExternalLinkClassName = style([{ transform: 'rotate(230deg)' }]);
+export const ExternalLinkClassName = style([{ transform: "rotate(230deg)" }]);

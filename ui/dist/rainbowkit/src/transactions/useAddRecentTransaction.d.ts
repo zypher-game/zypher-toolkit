@@ -1,2 +1,2 @@
-import { NewTransaction } from './transactionStore';
+import { NewTransaction } from "./transactionStore";
 export declare function useAddRecentTransaction(): (transaction: NewTransaction) => void;

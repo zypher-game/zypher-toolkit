@@ -1,7 +1,7 @@
-import type { InjectedConnectorOptions } from '@wagmi/core/connectors/injected';
-import { InjectedConnector } from 'wagmi/connectors/injected';
-import type { InjectedProviderFlags, WindowProvider } from 'wagmi/window';
-import type { Chain } from '../components/RainbowKitProvider/RainbowKitChainContext';
+import type { InjectedConnectorOptions } from "@wagmi/core/connectors/injected";
+import { InjectedConnector } from "wagmi/connectors/injected";
+import type { InjectedProviderFlags, WindowProvider } from "wagmi/window";
+import type { Chain } from "../components/RainbowKitProvider/RainbowKitChainContext";
 
 /*
  * Returns the explicit window provider that matches the flag and the flag is true
@@ -9,11 +9,11 @@ import type { Chain } from '../components/RainbowKitProvider/RainbowKitChainCont
 function getExplicitInjectedProvider(
   flag: keyof InjectedProviderFlags
 ): WindowProvider | undefined {
-  if (typeof window === 'undefined' || typeof window.ethereum === 'undefined')
+  if (typeof window === "undefined" || typeof window.ethereum === "undefined")
     return;
   const providers = window.ethereum.providers;
   return providers
-    ? providers.find(provider => provider[flag])
+    ? providers.find((provider) => provider[flag])
     : window.ethereum[flag]
     ? window.ethereum
     : undefined;
@@ -31,12 +31,12 @@ export function hasInjectedProvider(
 function getInjectedProvider(
   flag: keyof InjectedProviderFlags
 ): WindowProvider | undefined {
-  if (typeof window === 'undefined' || typeof window.ethereum === 'undefined')
+  if (typeof window === "undefined" || typeof window.ethereum === "undefined")
     return;
   const providers = window.ethereum.providers;
   const provider = getExplicitInjectedProvider(flag);
   if (provider) return provider;
-  else if (typeof providers !== 'undefined' && providers.length > 0)
+  else if (typeof providers !== "undefined" && providers.length > 0)
     return providers[0];
   else return window.ethereum;
 }

@@ -1,25 +1,25 @@
-import React, { ReactNode, useContext, useEffect } from 'react';
-import { touchableStyles } from '../../css/touchableStyles';
-import { useWindowSize } from '../../hooks/useWindowSize';
-import { BrowserType, getBrowser, isSafari } from '../../utils/browsers';
-import { getGradientRGBAs } from '../../utils/colors';
-import { InstructionStepName } from '../../wallets/Wallet';
+import React, { ReactNode, useContext, useEffect } from "react";
+import { touchableStyles } from "../../css/touchableStyles";
+import { useWindowSize } from "../../hooks/useWindowSize";
+import { BrowserType, getBrowser, isSafari } from "../../utils/browsers";
+import { getGradientRGBAs } from "../../utils/colors";
+import { InstructionStepName } from "../../wallets/Wallet";
 import {
   useWalletConnectors,
   WalletConnector,
-} from '../../wallets/useWalletConnectors';
-import { AsyncImage } from '../AsyncImage/AsyncImage';
-import { loadImages } from '../AsyncImage/useAsyncImage';
-import { Box, BoxProps } from '../Box/Box';
-import { ActionButton } from '../Button/ActionButton';
-import { CreateIcon, preloadCreateIcon } from '../Icons/Create';
-import { preloadRefreshIcon, RefreshIcon } from '../Icons/Refresh';
-import { preloadScanIcon, ScanIcon } from '../Icons/Scan';
-import { SpinnerIcon } from '../Icons/Spinner';
-import { QRCode } from '../QRCode/QRCode';
-import { ModalSizeContext } from '../RainbowKitProvider/ModalSizeContext';
-import { Text } from '../Text/Text';
-import { WalletStep } from './DesktopOptions';
+} from "../../wallets/useWalletConnectors";
+import { AsyncImage } from "../AsyncImage/AsyncImage";
+import { loadImages } from "../AsyncImage/useAsyncImage";
+import { Box, BoxProps } from "../Box/Box";
+import { ActionButton } from "../Button/ActionButton";
+import { CreateIcon, preloadCreateIcon } from "../Icons/Create";
+import { preloadRefreshIcon, RefreshIcon } from "../Icons/Refresh";
+import { preloadScanIcon, ScanIcon } from "../Icons/Scan";
+import { SpinnerIcon } from "../Icons/Spinner";
+import { QRCode } from "../QRCode/QRCode";
+import { ModalSizeContext } from "../RainbowKitProvider/ModalSizeContext";
+import { Text } from "../Text/Text";
+import { WalletStep } from "./DesktopOptions";
 
 const getBrowserSrc: () => Promise<string> = async () => {
   const browser = getBrowser();
@@ -72,11 +72,11 @@ export function GetDetail({
       >
         {shownWallets
           ?.filter(
-            wallet =>
+            (wallet) =>
               wallet.extensionDownloadUrl ||
               (wallet.qrCode && wallet.downloadUrls?.qrCode)
           )
-          .map(wallet => {
+          .map((wallet) => {
             const { downloadUrls, iconBackground, iconUrl, id, name, qrCode } =
               wallet;
             const hasMobileCompanionApp = downloadUrls?.qrCode && qrCode;
@@ -112,11 +112,11 @@ export function GetDetail({
                     </Text>
                     <Text color="modalTextSecondary" size="14" weight="medium">
                       {hasMobileAndExtension
-                        ? 'Mobile Wallet and Extension'
+                        ? "Mobile Wallet and Extension"
                         : hasMobileCompanionApp
-                        ? 'Mobile Wallet'
+                        ? "Mobile Wallet"
                         : hasExtension
-                        ? 'Browser Extension'
+                        ? "Browser Extension"
                         : null}
                     </Text>
                   </Box>
@@ -141,7 +141,7 @@ export function GetDetail({
         justifyContent="space-between"
         marginBottom="4"
         paddingY="8"
-        style={{ maxWidth: 275, textAlign: 'center' }}
+        style={{ maxWidth: 275, textAlign: "center" }}
       >
         <Text color="modalText" size="14" weight="bold">
           Not what you&rsquo;re looking for?
@@ -155,7 +155,7 @@ export function GetDetail({
   );
 }
 
-const LOGO_SIZE: BoxProps['height'] = '44'; // size of wallet logo in Connect tab
+const LOGO_SIZE: BoxProps["height"] = "44"; // size of wallet logo in Connect tab
 export function ConnectDetail({
   changeWalletStep,
   compactModeEnabled,
@@ -197,9 +197,9 @@ export function ConnectDetail({
   } | null = showWalletConnectModal
     ? {
         description: `Need the ${
-          compactModeEnabled ? '' : 'official'
+          compactModeEnabled ? "" : "official"
         } WalletConnect modal?`,
-        label: 'OPEN',
+        label: "OPEN",
         onClick: () => {
           onClose();
           showWalletConnectModal();
@@ -208,7 +208,7 @@ export function ConnectDetail({
     : hasQrCode
     ? {
         description: `Don\u2019t have ${name}?`,
-        label: 'GET',
+        label: "GET",
         onClick: () =>
           changeWalletStep(
             hasQrCodeAndExtension
@@ -271,7 +271,7 @@ export function ConnectDetail({
               flexDirection="column"
               gap="4"
               paddingX="32"
-              style={{ textAlign: 'center' }}
+              style={{ textAlign: "center" }}
             >
               <Text color="modalText" size="18" weight="bold">
                 {ready
@@ -321,7 +321,7 @@ export function ConnectDetail({
                           getDesktopDeepLink
                             ? async () => {
                                 const uri = await getDesktopDeepLink();
-                                window.open(uri, safari ? '_blank' : '_self');
+                                window.open(uri, safari ? "_blank" : "_self");
                               }
                             : () => {
                                 reconnect(wallet);
@@ -389,9 +389,9 @@ const DownloadOptionsBox = ({
   isCompact: boolean;
   iconUrl: string | (() => Promise<string>);
   iconBackground?: string;
-  variant: 'browser' | 'app';
+  variant: "browser" | "app";
 }) => {
-  const isBrowserCard = variant === 'browser';
+  const isBrowserCard = variant === "browser";
   const gradientRgbas =
     !isBrowserCard && iconAccent && getGradientRGBAs(iconAccent);
   return (
@@ -401,9 +401,9 @@ const DownloadOptionsBox = ({
       display="flex"
       justifyContent="center"
       overflow="hidden"
-      paddingX={isCompact ? '18' : '44'}
+      paddingX={isCompact ? "18" : "44"}
       position="relative"
-      style={{ flex: 1, isolation: 'isolate' }}
+      style={{ flex: 1, isolation: "isolate" }}
       width="full"
     >
       <Box
@@ -412,11 +412,11 @@ const DownloadOptionsBox = ({
         borderStyle="solid"
         borderWidth="1"
         style={{
-          bottom: '0',
-          left: '0',
-          position: 'absolute',
-          right: '0',
-          top: '0',
+          bottom: "0",
+          left: "0",
+          position: "absolute",
+          right: "0",
+          top: "0",
           zIndex: 1,
         }}
       />
@@ -435,22 +435,22 @@ const DownloadOptionsBox = ({
             flexDirection="row"
             justifyContent="space-between"
             style={{
-              bottom: '0',
-              filter: 'blur(20px)',
-              left: '0',
-              position: 'absolute',
-              right: '0',
-              top: '0',
-              transform: 'translate3d(0, 0, 0)',
+              bottom: "0",
+              filter: "blur(20px)",
+              left: "0",
+              position: "absolute",
+              right: "0",
+              top: "0",
+              transform: "translate3d(0, 0, 0)",
             }}
           >
             <Box
               style={{
-                filter: 'blur(100px)',
+                filter: "blur(100px)",
                 marginLeft: -27,
                 marginTop: -20,
                 opacity: 0.6,
-                transform: 'translate3d(0, 0, 0)',
+                transform: "translate3d(0, 0, 0)",
               }}
             >
               <AsyncImage
@@ -462,12 +462,12 @@ const DownloadOptionsBox = ({
             </Box>
             <Box
               style={{
-                filter: 'blur(100px)',
+                filter: "blur(100px)",
                 marginRight: 0,
                 marginTop: 105,
                 opacity: 0.6,
-                overflow: 'auto',
-                transform: 'translate3d(0, 0, 0)',
+                overflow: "auto",
+                transform: "translate3d(0, 0, 0)",
               }}
             >
               <AsyncImage
@@ -484,11 +484,11 @@ const DownloadOptionsBox = ({
         <Box
           background="downloadBottomCardBackground"
           style={{
-            bottom: '0',
-            left: '0',
-            position: 'absolute',
-            right: '0',
-            top: '0',
+            bottom: "0",
+            left: "0",
+            position: "absolute",
+            right: "0",
+            top: "0",
           }}
         >
           <Box
@@ -498,7 +498,7 @@ const DownloadOptionsBox = ({
               height: 564,
               left: -215,
               top: -197,
-              transform: 'translate3d(0, 0, 0)',
+              transform: "translate3d(0, 0, 0)",
               width: 564,
             }}
           />
@@ -509,7 +509,7 @@ const DownloadOptionsBox = ({
               height: 564,
               left: -1,
               top: -76,
-              transform: 'translate3d(0, 0, 0)',
+              transform: "translate3d(0, 0, 0)",
               width: 564,
             }}
           />
@@ -532,8 +532,8 @@ const DownloadOptionsBox = ({
             {...(iconBackground
               ? {
                   background: iconBackground,
-                  borderColor: 'generalBorder',
-                  borderRadius: '10',
+                  borderColor: "generalBorder",
+                  borderRadius: "10",
                 }
               : null)}
           />
@@ -574,7 +574,7 @@ export function DownloadOptionsDetail({
 }) {
   const browser = getBrowser();
   const modalSize = useContext(ModalSizeContext);
-  const isCompact = modalSize === 'compact';
+  const isCompact = modalSize === "compact";
   const { extension, extensionDownloadUrl, mobileDownloadUrl } = wallet;
 
   useEffect(() => {
@@ -666,7 +666,7 @@ export function DownloadDetail({
       height="full"
       width="full"
     >
-      <Box style={{ maxWidth: 220, textAlign: 'center' }}>
+      <Box style={{ maxWidth: 220, textAlign: "center" }}>
         <Text color="modalTextSecondary" size="14" weight="semibold">
           Scan with your phone to download on iOS or Android
         </Text>
@@ -708,7 +708,7 @@ const stepIcons: Record<
   (wallet: WalletConnector) => ReactNode
 > = {
   create: () => <CreateIcon />,
-  install: wallet => (
+  install: (wallet) => (
     <AsyncImage
       background={wallet.iconBackground}
       borderColor="generalBorder"
@@ -787,13 +787,13 @@ export function InstructionMobileDetail({
         <ActionButton label="Connect" onClick={() => connectWallet(wallet)} />
         <Box
           as="a"
-          className={touchableStyles({ active: 'shrink', hover: 'grow' })}
+          className={touchableStyles({ active: "shrink", hover: "grow" })}
           display="block"
           href={wallet?.qrCode?.instructions?.learnMoreUrl}
           paddingX="12"
           paddingY="4"
           rel="noreferrer"
-          style={{ willChange: 'transform' }}
+          style={{ willChange: "transform" }}
           target="_blank"
           transition="default"
         >
@@ -872,13 +872,13 @@ export function InstructionExtensionDetail({
         />
         <Box
           as="a"
-          className={touchableStyles({ active: 'shrink', hover: 'grow' })}
+          className={touchableStyles({ active: "shrink", hover: "grow" })}
           display="block"
           href={wallet?.extension?.instructions?.learnMoreUrl}
           paddingX="12"
           paddingY="4"
           rel="noreferrer"
-          style={{ willChange: 'transform' }}
+          style={{ willChange: "transform" }}
           target="_blank"
           transition="default"
         >

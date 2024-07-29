@@ -1,6 +1,6 @@
-import React from 'react';
-import { WalletConnector } from '../../wallets/useWalletConnectors';
-import { WalletStep } from './DesktopOptions';
+import React from "react";
+import { WalletConnector } from "../../wallets/useWalletConnectors";
+import { WalletStep } from "./DesktopOptions";
 export declare function GetDetail({ getWalletDownload, }: {
     getWalletDownload: (walletId: string) => void;
 }): React.JSX.Element;

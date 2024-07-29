@@ -1,5 +1,5 @@
-import React from 'react';
-import { isMobile } from '../../utils/isMobile';
+import React from "react";
+import { isMobile } from "../../utils/isMobile";
 
 export const CloseIcon = () => {
   return isMobile() ? (

@@ -64,7 +64,14 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 })(IGameName || {});
 
 // src/index.ts
-import { useWalletClient as useWalletClient2, useSwitchNetwork as useSwitchNetwork2, useDisconnect as useDisconnect6 } from "wagmi";
+import {
+  useWalletClient as useWalletClient2,
+  useSwitchNetwork as useSwitchNetwork2,
+  useDisconnect as useDisconnect6,
+  PublicClient as PublicClient4,
+  useAccount as useAccount14,
+  usePublicClient as usePublicClient4
+} from "wagmi";
 
 // src/constant/constant.ts
 import { AddressZero } from "@ethersproject/constants";
@@ -108,7 +115,7 @@ var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10["Sepolia"] = "11155111";
   ChainId10["B2"] = "223";
   ChainId10["B2Testnet"] = "1123";
-  ChainId10["ZytronLineaSepoliaTestnet"] = "50098";
+  ChainId10["ZytronLineaSepoliaTestnet"] = "19546";
   ChainId10["ZytronB2Testnet"] = "50097";
   ChainId10["Taiko"] = "167000";
   return ChainId10;
@@ -117,13 +124,15 @@ var DPSupportChainId = !isPro() ? [
   "59140" /* LineaTestnet */,
   "59144" /* LineaMainnet */,
   "5611" /* OPBNBTEST */,
-  "204" /* OPBNB */
+  "204" /* OPBNB */,
+  "19546" /* ZytronLineaSepoliaTestnet */
 ] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoV1SupportedChainId = !isPro() ? [
   "59144" /* LineaMainnet */,
   "59140" /* LineaTestnet */,
   "204" /* OPBNB */,
-  "5611" /* OPBNBTEST */
+  "5611" /* OPBNBTEST */,
+  "19546" /* ZytronLineaSepoliaTestnet */
 ] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoBetaSupportedChainId = !isPro() ? [
   "42161" /* Arbitrum */,
@@ -163,7 +172,7 @@ var supportedChainIds = (env, chainList2) => {
     "91715" /* ComboTestnet */,
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
-    "50098" /* ZytronLineaSepoliaTestnet */,
+    "19546" /* ZytronLineaSepoliaTestnet */,
     "50097" /* ZytronB2Testnet */
   ] : [
     "59144" /* LineaMainnet */,
@@ -232,7 +241,7 @@ var ChainRpcUrls = {
   ],
   ["223" /* B2 */]: ["https://rpc.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
-  ["50098" /* ZytronLineaSepoliaTestnet */]: [
+  ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron.zypher.game"
   ],
   ["50097" /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
@@ -269,7 +278,7 @@ var BlockExplorerUrls = {
   ["11155111" /* Sepolia */]: ["https://sepolia.etherscan.io"],
   ["223" /* B2 */]: ["https://explorer.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
-  ["50098" /* ZytronLineaSepoliaTestnet */]: [
+  ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron-blockscout.zypher.game"
   ],
   ["50097" /* ZytronB2Testnet */]: [
@@ -300,7 +309,7 @@ var ChainName = {
   ["11155111" /* Sepolia */]: "Sepolia",
   ["223" /* B2 */]: "B\xB2",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
-  ["50098" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet"
 };
@@ -327,7 +336,7 @@ var ChainNetworkName = {
   ["11155111" /* Sepolia */]: "Sepolia",
   ["223" /* B2 */]: "B\xB2 Mainnet",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
-  ["50098" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet"
 };
@@ -354,7 +363,7 @@ var isTestnet = {
   ["11155111" /* Sepolia */]: true,
   ["223" /* B2 */]: false,
   ["1123" /* B2Testnet */]: true,
-  ["50098" /* ZytronLineaSepoliaTestnet */]: true,
+  ["19546" /* ZytronLineaSepoliaTestnet */]: true,
   ["50097" /* ZytronB2Testnet */]: true,
   ["167000" /* Taiko */]: false
 };
@@ -381,7 +390,7 @@ var Currency = {
   ["11155111" /* Sepolia */]: "ETH",
   ["223" /* B2 */]: "BTC",
   ["1123" /* B2Testnet */]: "BTC",
-  ["50098" /* ZytronLineaSepoliaTestnet */]: "ETH",
+  ["19546" /* ZytronLineaSepoliaTestnet */]: "ETH",
   ["50097" /* ZytronB2Testnet */]: "BTC",
   ["167000" /* Taiko */]: "ETH"
 };
@@ -470,7 +479,7 @@ var CurrencyContract = {
   ["1123" /* B2Testnet */]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   },
-  ["50098" /* ZytronLineaSepoliaTestnet */]: {
+  ["19546" /* ZytronLineaSepoliaTestnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
   },
   ["50097" /* ZytronB2Testnet */]: {
@@ -496,7 +505,7 @@ var IContractName = /* @__PURE__ */ ((IContractName2) => {
 var zkBingoV0 = (chainId, name) => {
   var _a, _b, _c;
   if (!chainId) {
-    throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
+    throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
@@ -518,7 +527,7 @@ var zkBingoV0 = (chainId, name) => {
     return returnAddress ? returnAddress : AddressZero;
   } catch (e) {
     throw Error(
-      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`
+      `zkBingo V0 Invalid 'chainId' parameter '${chainId}', name: ${name}`
     );
   }
 };
@@ -576,8 +585,8 @@ var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaTestnet, TVLChainId
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
-  [TVLChainId.LineaMainnet]: "50098" /* ZytronLineaSepoliaTestnet */,
-  [TVLChainId.LineaTestnet]: "50098" /* ZytronLineaSepoliaTestnet */
+  [TVLChainId.LineaMainnet]: "19546" /* ZytronLineaSepoliaTestnet */,
+  [TVLChainId.LineaTestnet]: "19546" /* ZytronLineaSepoliaTestnet */
 };
 var activeTokenList = {
   [TVLChainId.LineaTestnet]: {
@@ -3591,7 +3600,7 @@ import abi from "@zypher-game/bingo-periphery-v1/abi/ZkBingoPoints.json";
 
 // src/connectors/contractV2.ts
 import { AddressZero as AddressZero2 } from "@ethersproject/constants";
-import { ethers, utils as utils2 } from "ethers";
+import { ethers, providers, utils as utils2 } from "ethers";
 import {
   getContract as viemGetContract
 } from "viem";
@@ -3645,6 +3654,33 @@ var getContractFromRpc = async ({
     getProviderOrSigner(library, account)
   );
 };
+var globalProvider;
+var setProvider = async () => {
+  if (window.ethereum) {
+    return new providers.Web3Provider(window.ethereum);
+  } else if (window.web3) {
+    return new providers.Web3Provider(window.web3.currentProvider);
+  } else {
+    throw new Error("can't find default provider");
+  }
+};
+var getProvider = (url) => {
+  return new Promise(async (resolve, reject) => {
+    if (url) {
+      resolve(new providers.JsonRpcProvider(url));
+    } else if (globalProvider) {
+      resolve(globalProvider);
+    } else {
+      const res = await setProvider();
+      if (res) {
+        globalProvider = res;
+        resolve(res);
+      } else {
+        reject("can't find default provider");
+      }
+    }
+  });
+};
 
 // src/contract/bingoPoints.ts
 var ZkBingoPointsContract = (chainId, env, address, signer) => {
@@ -3664,7 +3700,8 @@ var ChainPointPrice = {
   ["59144" /* LineaMainnet */]: 1 / 2e6,
   ["59140" /* LineaTestnet */]: 1 / 2e6,
   ["204" /* OPBNB */]: 1 / 25e4,
-  ["5611" /* OPBNBTEST */]: 1 / 25e4
+  ["5611" /* OPBNBTEST */]: 1 / 25e4,
+  ["19546" /* ZytronLineaSepoliaTestnet */]: 1 / 2e6
 };
 var pointsListDefault = (chainId) => {
   try {
@@ -3678,7 +3715,8 @@ var pointsListDefault = (chainId) => {
       ["300000", "5"],
       ["500000", "10"]
     ].map((v, index) => {
-      const chainPrice = ChainPointPrice[chainId];
+      var _a;
+      const chainPrice = (_a = ChainPointPrice[chainId]) != null ? _a : "0";
       const price = v[1] ? new BigNumberjs2(chainPrice).times(v[0]).times((100 - Number(v[1])) * 0.01).toFixed(8) : new BigNumberjs2(chainPrice).times(v[0]).toFixed(8);
       const priceStr = formatMoney(Number(price), 8);
       const pointAmountStr = formatMoney(Number(v[0]));
@@ -6622,7 +6660,7 @@ var Box = React41.forwardRef(
       ...atomProps
     });
     return React41.createElement(as, {
-      "className": clsx2(atomicClasses, className),
+      className: clsx2(atomicClasses, className),
       ...nativeProps,
       "data-testid": testId ? `rk-${testId.replace(/^rk-/, "")}` : void 0,
       ref
@@ -11176,6 +11214,10 @@ var Header = (props) => {
       setSideCollapse(true);
     }
   }, [isW830]);
+  const isBingo = useMemo17(() => {
+    return pathname === "bingo";
+  }, [pathname]);
+  console.log({ pathname });
   return /* @__PURE__ */ React94.createElement("header", {
     className: classnames11(
       "header_header",
@@ -11186,12 +11228,12 @@ var Header = (props) => {
       isW1670 ? "header_header_1670" : "",
       props.className
     ),
-    style: { position: "sticky", top: 0, zIndex: 9, width: "100%" }
-  }, /* @__PURE__ */ React94.createElement("div", {
+    style: { position: "sticky", top: 0, zIndex: 99, width: "100%" }
+  }, isBingo ? null : /* @__PURE__ */ React94.createElement("div", {
     className: "header_left"
   }, /* @__PURE__ */ React94.createElement(ZypherLogo, {
     isMobile: isW830
-  })), !isW830 && /* @__PURE__ */ React94.createElement(Navigation_default, {
+  })), !isW830 && !isBingo && /* @__PURE__ */ React94.createElement(Navigation_default, {
     pathname,
     Link
   }), /* @__PURE__ */ React94.createElement("div", {
@@ -11291,8 +11333,7 @@ darkTheme.accentColors = accentColors2;
 var RainbowKitWithThemeProvider = ({
   children,
   env,
-  chainIdList,
-  type
+  chainIdList
 }) => {
   const { wagmiConfig, chains, computedTheme } = useMemo18(() => {
     if (env) {
@@ -11304,7 +11345,7 @@ var RainbowKitWithThemeProvider = ({
         computedTheme: darkTheme({
           accentColor: "#fff",
           borderRadius: "large",
-          fontStack: type === "pixel" ? "Pixel" : "system"
+          fontStack: "Pixel"
         })
       };
     }
@@ -11419,44 +11460,13 @@ var getFormattedTimeMobile = (timestamp) => {
 // src/contract/multicall.ts
 import { Multicall } from "ethereum-multicall";
 
-// src/connectors/contract.ts
-import { Contract as Contract2, providers } from "ethers";
-var globalProvider;
-var setProvider = async () => {
-  if (window.ethereum) {
-    return new providers.Web3Provider(window.ethereum);
-  } else if (window.web3) {
-    return new providers.Web3Provider(window.web3.currentProvider);
-  } else {
-    throw new Error("can't find default provider");
-  }
-};
-var getProvider = (url) => {
-  return new Promise(async (resolve, reject) => {
-    if (url) {
-      resolve(new providers.JsonRpcProvider(url));
-    } else if (globalProvider) {
-      resolve(globalProvider);
-    } else {
-      const res = await setProvider();
-      if (res) {
-        globalProvider = res;
-        resolve(res);
-      } else {
-        reject("can't find default provider");
-      }
-    }
-  });
-};
-window.addEventListener("load", async () => {
-  setProvider();
-});
-
 // src/utils/getChainId.ts
 var getChainId = async () => {
   const provider = await getProvider();
   const network = await provider.getNetwork();
-  const isError = !Object.values(ChainId).includes(network.chainId);
+  const isError = !Object.values(ChainId).includes(
+    `${network.chainId}`
+  );
   if (isError) {
     throw new Error("Network not supported");
   }
@@ -11466,7 +11476,7 @@ var getChainId = async () => {
 // src/contract/multicall.ts
 var MulticallContract = async (chainIdParams) => {
   try {
-    const chainId = chainIdParams != null ? chainIdParams : await getChainId();
+    const chainId = `${chainIdParams != null ? chainIdParams : await getChainId()}`;
     const provider = await getProvider(sample(ChainRpcUrls[chainId]));
     return new Multicall({
       ethersProvider: provider,
@@ -11548,7 +11558,7 @@ var chainIdPre = {
   ["11155111" /* Sepolia */]: "Sp",
   ["223" /* B2 */]: "B2",
   ["1123" /* B2Testnet */]: "B2T",
-  ["50098" /* ZytronLineaSepoliaTestnet */]: "",
+  ["19546" /* ZytronLineaSepoliaTestnet */]: "",
   ["50097" /* ZytronB2Testnet */]: "",
   ["167000" /* Taiko */]: "TK"
 };
@@ -14015,6 +14025,7 @@ export {
   PointsDialog_default as PointsDialog,
   PointsIcon,
   PointsRuleDialog_default as PointsRuleDialog,
+  PublicClient4 as PublicClient,
   RainbowKitAuthenticationProvider,
   RainbowKitProvider,
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
@@ -14140,6 +14151,7 @@ export {
   tvlTokens,
   txStatus,
   uniswapWallet,
+  useAccount14 as useAccount,
   useAccountInvitation,
   useAccountModal,
   useActiveChainId,
@@ -14166,6 +14178,7 @@ export {
   useNativeBalanceStr,
   useNavItem,
   usePointsBalanceStr,
+  usePublicClient4 as usePublicClient,
   usePublicNodeWaitForTransaction,
   useRecentGamesFromGraph,
   useRecoilState13 as useRecoilState,

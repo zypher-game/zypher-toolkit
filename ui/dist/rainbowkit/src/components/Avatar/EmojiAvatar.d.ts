@@ -1,2 +1,2 @@
-import { AvatarComponent } from '../RainbowKitProvider/AvatarContext';
+import { AvatarComponent } from "../RainbowKitProvider/AvatarContext";
 export declare const EmojiAvatar: AvatarComponent;

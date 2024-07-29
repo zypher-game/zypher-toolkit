@@ -1,7 +1,7 @@
-import React, { useContext } from 'react';
-import { Box } from '../Box/Box';
-import { SpinnerIcon } from '../Icons/Spinner';
-import { AvatarContext } from '../RainbowKitProvider/AvatarContext';
+import React, { useContext } from "react";
+import { Box } from "../Box/Box";
+import { SpinnerIcon } from "../Icons/Spinner";
+import { AvatarContext } from "../RainbowKitProvider/AvatarContext";
 
 interface AvatarProps {
   address: string;
@@ -35,17 +35,17 @@ export function Avatar({ address, imageUrl, loading, size }: AvatarProps) {
         style={{
           fontSize: `${Math.round(size * 0.55)}px`,
           height: `${size}px`,
-          transform: loading ? 'scale(0.72)' : undefined,
-          transition: '.25s ease',
-          transitionDelay: loading ? undefined : '.1s',
+          transform: loading ? "scale(0.72)" : undefined,
+          transition: ".25s ease",
+          transitionDelay: loading ? undefined : ".1s",
           width: `${size}px`,
-          willChange: 'transform',
+          willChange: "transform",
         }}
         userSelect="none"
       >
         <AvatarComponent address={address} ensImage={imageUrl} size={size} />
       </Box>
-      {typeof loading === 'boolean' && (
+      {typeof loading === "boolean" && (
         <Box
           color="accentColor"
           display="flex"
@@ -53,8 +53,8 @@ export function Avatar({ address, imageUrl, loading, size }: AvatarProps) {
           position="absolute"
           style={{
             opacity: loading ? 1 : 0,
-            transition: loading ? '0.6s ease' : '0.2s ease',
-            transitionDelay: loading ? '.05s' : undefined,
+            transition: loading ? "0.6s ease" : "0.2s ease",
+            transitionDelay: loading ? ".05s" : undefined,
           }}
           width="full"
         >

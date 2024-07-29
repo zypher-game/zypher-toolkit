@@ -1,9 +1,9 @@
-import { describe, expect, it } from 'vitest';
-import { lightTheme } from '../themes/lightTheme';
-import { cssObjectFromTheme } from './cssObjectFromTheme';
+import { describe, expect, it } from "vitest";
+import { lightTheme } from "../themes/lightTheme";
+import { cssObjectFromTheme } from "./cssObjectFromTheme";
 
-describe('cssObjectFromTheme', () => {
-  it('converts themes to CSS-in-JS objects', () => {
+describe("cssObjectFromTheme", () => {
+  it("converts themes to CSS-in-JS objects", () => {
     expect(cssObjectFromTheme(lightTheme)).toMatchInlineSnapshot(`
       {
         "--rk-blurs-modalOverlay": "blur(0px)",

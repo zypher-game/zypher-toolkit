@@ -1,5 +1,5 @@
-import React from 'react';
-import { Transaction } from '../../transactions/transactionStore';
+import React from "react";
+import { Transaction } from "../../transactions/transactionStore";
 interface TxProps {
     tx: Transaction;
 }

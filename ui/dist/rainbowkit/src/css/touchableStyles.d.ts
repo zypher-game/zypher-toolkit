@@ -1,4 +1,4 @@
-import * as styles from './touchableStyles.css';
+import * as styles from "./touchableStyles.css";
 interface TouchableStylesOptions {
     hover?: keyof typeof styles.hover;
     active: keyof typeof styles.active;

@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { SpinnerIconClassName, SpinnerIconPathClassName } from './Icons.css';
+import React, { useMemo } from "react";
+import { SpinnerIconClassName, SpinnerIconPathClassName } from "./Icons.css";
 
 const useRandomId = (prefix: string) =>
   useMemo(
@@ -14,7 +14,7 @@ export const SpinnerIcon = ({
   width?: string | number;
   height?: string | number;
 }) => {
-  const id = useRandomId('spinner');
+  const id = useRandomId("spinner");
 
   return (
     <svg

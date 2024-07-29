@@ -1,6 +1,6 @@
-import { ClassValue } from 'clsx';
-import * as React from 'react';
-type HTMLProperties<T = HTMLElement> = Omit<React.AllHTMLAttributes<T>, 'as' | 'className' | 'color' | 'height' | 'width'>;
+import { ClassValue } from "clsx";
+import * as React from "react";
+type HTMLProperties<T = HTMLElement> = Omit<React.AllHTMLAttributes<T>, "as" | "className" | "color" | "height" | "width">;
 export declare const Box: React.ForwardRefExoticComponent<{
     background?: ("error" | "accentColor" | "accentColorForeground" | "actionButtonBorder" | "actionButtonBorderMobile" | "actionButtonSecondaryBackground" | "closeButton" | "closeButtonBackground" | "connectButtonBackground" | "connectButtonBackgroundError" | "connectButtonInnerBackground" | "connectButtonText" | "connectButtonTextError" | "connectionIndicator" | "connectionIndicatorBorder" | "downloadBottomCardBackground" | "downloadTopCardBackground" | "generalBorder" | "generalBorderDim" | "menuItemBackground" | "modalBackdrop" | "modalBackground" | "modalBorder" | "modalText" | "modalTextDim" | "modalTextSecondary" | "profileAction" | "profileActionHover" | "profileForeground" | "selectedOptionBorder" | "standby" | "standbyBorder" | {
         base?: "error" | "accentColor" | "accentColorForeground" | "actionButtonBorder" | "actionButtonBorderMobile" | "actionButtonSecondaryBackground" | "closeButton" | "closeButtonBackground" | "connectButtonBackground" | "connectButtonBackgroundError" | "connectButtonInnerBackground" | "connectButtonText" | "connectButtonTextError" | "connectionIndicator" | "connectionIndicatorBorder" | "downloadBottomCardBackground" | "downloadTopCardBackground" | "generalBorder" | "generalBorderDim" | "menuItemBackground" | "modalBackdrop" | "modalBackground" | "modalBorder" | "modalText" | "modalTextDim" | "modalTextSecondary" | "profileAction" | "profileActionHover" | "profileForeground" | "selectedOptionBorder" | "standby" | "standbyBorder" | undefined;

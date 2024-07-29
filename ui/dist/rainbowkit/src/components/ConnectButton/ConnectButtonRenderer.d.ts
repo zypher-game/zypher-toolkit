@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-import { AuthenticationStatus } from '../RainbowKitProvider/AuthenticationContext';
+import React, { ReactNode } from "react";
+import { AuthenticationStatus } from "../RainbowKitProvider/AuthenticationContext";
 export interface ConnectButtonRendererProps {
     children: (renderProps: {
         account?: {

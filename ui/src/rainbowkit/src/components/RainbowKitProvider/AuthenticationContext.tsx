@@ -5,13 +5,13 @@ import React, {
   useEffect,
   useMemo,
   useRef,
-} from 'react';
-import { useAccount } from 'wagmi';
+} from "react";
+import { useAccount } from "wagmi";
 
 export type AuthenticationStatus =
-  | 'loading'
-  | 'unauthenticated'
-  | 'authenticated';
+  | "loading"
+  | "unauthenticated"
+  | "authenticated";
 
 export interface AuthenticationAdapter<Message> {
   getNonce: () => Promise<string>;
@@ -72,7 +72,7 @@ export function RainbowKitAuthenticationProvider<Message = unknown>({
     if (onceRef.current) return;
     onceRef.current = true;
 
-    if (isDisconnected && status === 'authenticated') {
+    if (isDisconnected && status === "authenticated") {
       adapter.signOut();
     }
   }, [status, adapter, isDisconnected]);
@@ -93,7 +93,7 @@ export function useAuthenticationAdapter() {
   const { adapter } = useContext(AuthenticationContext) ?? {};
 
   if (!adapter) {
-    throw new Error('No authentication adapter found');
+    throw new Error("No authentication adapter found");
   }
 
   return adapter;

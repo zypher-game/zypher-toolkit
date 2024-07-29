@@ -1,7 +1,6 @@
 import React from "react";
 import "./header.stylus";
 import { ChainId } from "../../constant/constant";
-export type HeaderUIType = "pixel" | "other";
 interface IProps {
     env: string;
     dispatch: any;

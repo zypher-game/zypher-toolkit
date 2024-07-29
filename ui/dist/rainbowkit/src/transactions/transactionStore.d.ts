@@ -1,12 +1,12 @@
-import type { PublicClient } from 'viem';
-type TransactionStatus = 'pending' | 'confirmed' | 'failed';
+import type { PublicClient } from "viem";
+type TransactionStatus = "pending" | "confirmed" | "failed";
 export interface Transaction {
     hash: string;
     description: string;
     status: TransactionStatus;
     confirmations?: number;
 }
-export type NewTransaction = Omit<Transaction, 'status'>;
+export type NewTransaction = Omit<Transaction, "status">;
 export declare function createTransactionStore({ provider: initialProvider, }: {
     provider: PublicClient;
 }): {

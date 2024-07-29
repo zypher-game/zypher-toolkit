@@ -1,3 +1,3 @@
-import { style } from '@vanilla-extract/css';
+import { style } from "@vanilla-extract/css";
 
-export const transparentBorder = style({ borderColor: 'transparent' });
+export const transparentBorder = style({ borderColor: "transparent" });

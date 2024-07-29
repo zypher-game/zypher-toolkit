@@ -1,8 +1,8 @@
-import QRCodeUtil from 'qrcode';
-import React, { ReactElement, useMemo } from 'react';
-import { AsyncImage } from '../AsyncImage/AsyncImage';
-import { Box, BoxProps } from '../Box/Box';
-import { QRCodeBackgroundClassName } from '../ConnectOptions/DesktopOptions.css';
+import QRCodeUtil from "qrcode";
+import React, { ReactElement, useMemo } from "react";
+import { AsyncImage } from "../AsyncImage/AsyncImage";
+import { Box, BoxProps } from "../Box/Box";
+import { QRCodeBackgroundClassName } from "../ConnectOptions/DesktopOptions.css";
 
 const generateMatrix = (
   value: string,
@@ -33,7 +33,7 @@ type Props = {
 };
 
 export function QRCode({
-  ecl = 'M',
+  ecl = "M",
   logoBackground,
   logoMargin = 10,
   logoSize = 50,
@@ -41,7 +41,7 @@ export function QRCode({
   size: sizeProp = 200,
   uri,
 }: Props) {
-  const padding: NonNullable<BoxProps['padding']> = '20';
+  const padding: NonNullable<BoxProps["padding"]> = "20";
   const size = sizeProp - parseInt(padding, 10) * 2;
 
   const dots = useMemo(() => {
@@ -60,7 +60,7 @@ export function QRCode({
       for (let i = 0; i < 3; i++) {
         dots.push(
           <rect
-            fill={i % 2 !== 0 ? 'white' : 'black'}
+            fill={i % 2 !== 0 ? "white" : "black"}
             height={cellSize * (7 - i * 2)}
             key={`${i}-${x}-${y}`}
             rx={(i - 2) * -5 + (i === 0 ? 2 : 0)} // calculated border radius for corner squares
@@ -129,7 +129,7 @@ export function QRCode({
       <Box
         style={{
           height: size,
-          userSelect: 'none',
+          userSelect: "none",
           width: size,
         }}
         userSelect="none"
@@ -147,14 +147,14 @@ export function QRCode({
         >
           <AsyncImage
             background={logoBackground}
-            borderColor={{ custom: 'rgba(0, 0, 0, 0.06)' }}
+            borderColor={{ custom: "rgba(0, 0, 0, 0.06)" }}
             borderRadius="13"
             height={logoSize}
             src={logoUrl}
             width={logoSize}
           />
         </Box>
-        <svg height={size} style={{ all: 'revert' }} width={size}>
+        <svg height={size} style={{ all: "revert" }} width={size}>
           <defs>
             <clipPath id="clip-wrapper">
               <rect height={logoWrapperSize} width={logoWrapperSize} />

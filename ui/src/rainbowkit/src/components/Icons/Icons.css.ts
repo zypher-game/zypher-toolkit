@@ -1,13 +1,13 @@
-import { keyframes, style } from '@vanilla-extract/css';
-import { sprinkles } from '../../css/sprinkles.css';
+import { keyframes, style } from "@vanilla-extract/css";
+import { sprinkles } from "../../css/sprinkles.css";
 
 export const CloseIconClassName = sprinkles({
-  marginLeft: '6',
+  marginLeft: "6",
 });
 
 const spin = keyframes({
-  '0%': { transform: 'rotate(0deg)' },
-  '100%': { transform: 'rotate(360deg)' },
+  "0%": { transform: "rotate(0deg)" },
+  "100%": { transform: "rotate(360deg)" },
 });
 
 export const SpinnerIconClassName = style({

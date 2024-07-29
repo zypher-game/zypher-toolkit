@@ -1,13 +1,13 @@
-import React, { useContext } from 'react';
-import { touchableStyles } from '../../css/touchableStyles';
-import { Box } from '../Box/Box';
-import { ActionButton } from '../Button/ActionButton';
-import { DisclaimerLink } from '../Disclaimer/DisclaimerLink';
-import { DisclaimerText } from '../Disclaimer/DisclaimerText';
-import { AssetsIcon } from '../Icons/Assets';
-import { LoginIcon } from '../Icons/Login';
-import { AppContext } from '../RainbowKitProvider/AppContext';
-import { Text } from '../Text/Text';
+import React, { useContext } from "react";
+import { touchableStyles } from "../../css/touchableStyles";
+import { Box } from "../Box/Box";
+import { ActionButton } from "../Button/ActionButton";
+import { DisclaimerLink } from "../Disclaimer/DisclaimerLink";
+import { DisclaimerText } from "../Disclaimer/DisclaimerText";
+import { AssetsIcon } from "../Icons/Assets";
+import { LoginIcon } from "../Icons/Login";
+import { AppContext } from "../RainbowKitProvider/AppContext";
+import { Text } from "../Text/Text";
 
 export function ConnectModalIntro({
   compactModeEnabled = false,
@@ -83,13 +83,13 @@ export function ConnectModalIntro({
           <ActionButton label="Get a Wallet" onClick={getWallet} />
           <Box
             as="a"
-            className={touchableStyles({ active: 'shrink', hover: 'grow' })}
+            className={touchableStyles({ active: "shrink", hover: "grow" })}
             display="block"
             href={learnMoreUrl}
             paddingX="12"
             paddingY="4"
             rel="noreferrer"
-            style={{ willChange: 'transform' }}
+            style={{ willChange: "transform" }}
             target="_blank"
             transition="default"
           >

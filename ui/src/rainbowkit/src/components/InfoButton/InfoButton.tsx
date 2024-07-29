@@ -1,15 +1,15 @@
-import React from 'react';
-import { touchableStyles } from '../../css/touchableStyles';
-import { isMobile } from '../../utils/isMobile';
-import { Box } from '../Box/Box';
-import { InfoIcon } from '../Icons/Info';
+import React from "react";
+import { touchableStyles } from "../../css/touchableStyles";
+import { isMobile } from "../../utils/isMobile";
+import { Box } from "../Box/Box";
+import { InfoIcon } from "../Icons/Info";
 
 export const InfoButton = ({
-  'aria-label': ariaLabel = 'Info',
+  "aria-label": ariaLabel = "Info",
   onClick,
 }: {
-  'aria-label'?: string;
-  'onClick': () => void;
+  "aria-label"?: string;
+  onClick: () => void;
 }) => {
   const mobile = isMobile();
   return (
@@ -21,17 +21,17 @@ export const InfoButton = ({
       borderColor="actionButtonBorder"
       borderRadius="full"
       borderStyle="solid"
-      borderWidth={mobile ? '0' : '1'}
-      className={touchableStyles({ active: 'shrinkSm', hover: 'growLg' })}
+      borderWidth={mobile ? "0" : "1"}
+      className={touchableStyles({ active: "shrinkSm", hover: "growLg" })}
       color="closeButton"
       display="flex"
-      height={mobile ? '30' : '28'}
+      height={mobile ? "30" : "28"}
       justifyContent="center"
       onClick={onClick}
-      style={{ willChange: 'transform' }}
+      style={{ willChange: "transform" }}
       transition="default"
       type="button"
-      width={mobile ? '30' : '28'}
+      width={mobile ? "30" : "28"}
     >
       <InfoIcon />
     </Box>

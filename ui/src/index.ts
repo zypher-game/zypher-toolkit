@@ -36,8 +36,22 @@ export {
   IRecentGame,
   IGameList,
 } from "./types/gameList.types";
-import { useWalletClient, useSwitchNetwork, useDisconnect } from "wagmi";
-export { useWalletClient, useSwitchNetwork, useDisconnect };
+import {
+  useWalletClient,
+  useSwitchNetwork,
+  useDisconnect,
+  PublicClient,
+  useAccount,
+  usePublicClient,
+} from "wagmi";
+export {
+  useWalletClient,
+  useSwitchNetwork,
+  useDisconnect,
+  PublicClient,
+  useAccount,
+  usePublicClient,
+};
 export {
   useSetRecoilState,
   atom,
@@ -183,12 +197,14 @@ export {
   useIsW1220,
 } from "./hooks/useWindowSize";
 import { changeLanguage } from "i18next";
-import { constants } from "ethers";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
 
-export { getProvider } from "./connectors/contract";
-export { getContract, getContractFromRpc } from "./connectors/contractV2";
+export {
+  getContract,
+  getContractFromRpc,
+  getProvider,
+} from "./connectors/contractV2";
 export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";

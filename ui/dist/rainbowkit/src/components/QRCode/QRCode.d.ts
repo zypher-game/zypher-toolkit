@@ -1,5 +1,5 @@
-import QRCodeUtil from 'qrcode';
-import React from 'react';
+import QRCodeUtil from "qrcode";
+import React from "react";
 type Props = {
     ecl?: QRCodeUtil.QRCodeErrorCorrectionLevel;
     logoBackground?: string;

@@ -1,5 +1,5 @@
-import React, { ReactNode } from 'react';
-export type AuthenticationStatus = 'loading' | 'unauthenticated' | 'authenticated';
+import React, { ReactNode } from "react";
+export type AuthenticationStatus = "loading" | "unauthenticated" | "authenticated";
 export interface AuthenticationAdapter<Message> {
     getNonce: () => Promise<string>;
     createMessage: (args: {

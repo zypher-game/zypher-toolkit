@@ -52,7 +52,7 @@ export enum ChainId {
   B2 = "223",
   B2Testnet = "1123",
 
-  ZytronLineaSepoliaTestnet = "50098",
+  ZytronLineaSepoliaTestnet = "19546",
   ZytronB2Testnet = "50097",
 
   Taiko = "167000",
@@ -63,6 +63,7 @@ export const DPSupportChainId = !isPro()
       ChainId.LineaMainnet,
       ChainId.OPBNBTEST,
       ChainId.OPBNB,
+      ChainId.ZytronLineaSepoliaTestnet,
     ]
   : [ChainId.LineaMainnet, ChainId.OPBNB];
 
@@ -74,6 +75,7 @@ export const bingoV1SupportedChainId = !isPro()
       ChainId.LineaTestnet,
       ChainId.OPBNB,
       ChainId.OPBNBTEST,
+      ChainId.ZytronLineaSepoliaTestnet,
     ]
   : [ChainId.LineaMainnet, ChainId.OPBNB];
 export const bingoBetaSupportedChainId = !isPro()
@@ -476,10 +478,11 @@ export const zkBingoV0 = (
   name: IContractName
 ): Address => {
   if (!chainId) {
-    throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
+    throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
+    // @ts-ignore
     const address = zkBingoContracts?.[chainId]?.[_repo];
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {
@@ -498,7 +501,7 @@ export const zkBingoV0 = (
     return (returnAddress ? returnAddress : AddressZero) as Address;
   } catch (e) {
     throw Error(
-      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`
+      `zkBingo V0 Invalid 'chainId' parameter '${chainId}', name: ${name}`
     );
   }
 };
@@ -511,6 +514,7 @@ export const zkBingo = (
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
+    // @ts-ignore
     const address = zkBingoContractsV1?.[chainId]?.[_repo];
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {

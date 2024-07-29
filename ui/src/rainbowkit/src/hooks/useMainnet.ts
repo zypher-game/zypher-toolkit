@@ -1,6 +1,6 @@
-import type { Chain } from 'wagmi';
-import { usePublicClient } from 'wagmi';
-import { mainnet } from 'wagmi/chains';
+import type { Chain } from "wagmi";
+import { usePublicClient } from "wagmi";
+import { mainnet } from "wagmi/chains";
 
 export function useMainnet() {
   const chainId = mainnet.id;
@@ -14,7 +14,7 @@ export function useMainnet() {
   // @ts-expect-error
   const provider = usePublicClient<{ chains?: Chain[] }>();
   const chains = Array.isArray(provider.chains) ? provider.chains : [];
-  const enabled = chains?.some(chain => chain?.id === chainId);
+  const enabled = chains?.some((chain) => chain?.id === chainId);
 
   return { chainId, enabled };
 }

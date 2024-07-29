@@ -1,6 +1,6 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from "react";
 
-const storageKey = 'rk-version';
+const storageKey = "rk-version";
 
 function setRainbowKitVersion({ version }: { version: string }) {
   localStorage.setItem(storageKey, version);
@@ -8,7 +8,7 @@ function setRainbowKitVersion({ version }: { version: string }) {
 
 export function useFingerprint() {
   const fingerprint = useCallback(() => {
-    setRainbowKitVersion({ version: '__buildVersion' });
+    setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
   useEffect(() => {
     fingerprint();
