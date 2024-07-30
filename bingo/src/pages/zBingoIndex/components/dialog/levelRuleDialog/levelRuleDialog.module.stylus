@@ -1,6 +1,6 @@
 .zindex
   z-index: 1001 !important
-.levelRule
+body [data-reach-dialog-content].levelRule
   width 700px
   background: url($preStaticUrl + '/img/bingo/dialog_bg.png') no-repeat
   position relative

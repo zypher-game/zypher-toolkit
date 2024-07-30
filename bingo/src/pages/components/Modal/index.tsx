@@ -105,17 +105,18 @@ function Modal(props: CustomDialogProps) {
 }
 
 const ConfirmConfirmDialog = styled(Dialog)<{ isMobile?: boolean }>`
-  background: #f8e9c8;
-  border-radius: 60px;
-  box-shadow: inset 0px -3.73819px 3.73819px rgba(0, 0, 0, 0.25);
-  border: 6px solid #ac6513;
-  max-width: 460px;
-  min-height: 260px;
-  text-align: center;
-  position: relative;
-  padding: ${({ isMobile }) => (isMobile ? '50px 20px 30px' : '54px 30px')};
-  margin: 0 15px;
-
+  &[data-reach-dialog-content] {
+    background: #f8e9c8;
+    border-radius: 60px;
+    box-shadow: inset 0px -3.73819px 3.73819px rgba(0, 0, 0, 0.25);
+    border: 6px solid #ac6513;
+    max-width: 460px;
+    min-height: 260px;
+    text-align: center;
+    position: relative;
+    padding: ${({ isMobile }) => (isMobile ? '50px 20px 30px' : '54px 30px')};
+    margin: 0 15px;
+  }
   &[data-reach-dialog-content] {
     width: ${({ isMobile }) => (isMobile ? '90vw' : '50vw')};
   }

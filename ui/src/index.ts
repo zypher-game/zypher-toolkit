@@ -40,7 +40,6 @@ import {
   useWalletClient,
   useSwitchNetwork,
   useDisconnect,
-  PublicClient,
   useAccount,
   usePublicClient,
 } from "wagmi";
@@ -48,7 +47,6 @@ export {
   useWalletClient,
   useSwitchNetwork,
   useDisconnect,
-  PublicClient,
   useAccount,
   usePublicClient,
 };

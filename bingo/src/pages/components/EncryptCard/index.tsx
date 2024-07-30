@@ -128,7 +128,9 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
         joinGame.signedLabel,
         encodedNumbers
       ])
+      console.log({ hashedCardBytes })
       const signedCard = await getWeb3Sign(hashedCardBytes, account)
+      console.log({ signedCard })
       if (typeof signedCard === 'string') {
         setJoinGameState(state => ({
           ...state,

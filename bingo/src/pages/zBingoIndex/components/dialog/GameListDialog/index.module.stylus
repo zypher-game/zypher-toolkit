@@ -1,7 +1,7 @@
 .bg
   @media screen and (max-width: 768px)
     background: transparent!important
-.gameList
+body [data-reach-dialog-content].gameList
   position relative
   background: url($preStaticUrl + "/img/bingo/bingoindexbg02.png") no-repeat
   background-size: 100% 100%

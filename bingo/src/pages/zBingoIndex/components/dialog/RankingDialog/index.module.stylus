@@ -12,7 +12,7 @@
     height: 34px;
     right: 0;
     top: 83px;
-.rankingInner
+body [data-reach-dialog-content].rankingInner
   position relative
   background-size: 100% 90% 
   background-position: center bottom

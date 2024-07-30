@@ -1,14 +1,6 @@
-import {
-  bingoBetaSupportedChainId,
-  bingoV1SupportedChainId,
-  ChainId,
-  PublicClient,
-  useAccount,
-  useChainId,
-  usePublicClient,
-  useRecoilValue
-} from '@ui/src'
+import { bingoBetaSupportedChainId, bingoV1SupportedChainId, ChainId, useAccount, useChainId, usePublicClient, useRecoilValue } from '@ui/src'
 import { useMemo } from 'react'
+import { PublicClient } from 'wagmi'
 
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 
