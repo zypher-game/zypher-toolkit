@@ -67,6 +67,7 @@ const form_info = (data: any, chainId: ChainId) => {
     avatar: data.headImg,
     id: `${data.id}`,
     nickname: data.nickname,
+    isTwitterPost: data.isTwitterPost,
     twitter: {
       avatar: data.twitterImg,
       nickname: data.twitterName,
