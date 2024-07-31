@@ -2,7 +2,7 @@
 ssh-add -D && ssh-add -K ~/.ssh/kimikuo2016
 # 定义路径变量
 path_work="/Users/admin/Desktop/work"
-path_app_frontend="$path_work/bingo_test_beta"
+path_app_frontend="$path_work/bingo/bingo_test_beta"
 path_pixel="$path_work/zypher-toolkit-pixel"
 path_pixel_front="$path_work/zypher-toolkit-pixel_front"
 path_ui="$path_pixel/ui"
@@ -75,57 +75,3 @@ echo "Updated dependencies in yarn.lock"
 # 最后运行命令
 yarn
 npm start
-
-# 将 yarn.lock 文件夹里的
-
-
-# "@ui@zypher-game/toolkit":
-#   version "0.1.20"
-#   resolved "https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/83a5745ee9cd503d71d76c38763d5ecc79604402"
-
-# 替换成 
-
-# version=0.1.22
-# latest_hash=94dbff562a754f90e1af03774f49c1dc784a4e91
-
-# "@ui@zypher-game/toolkit":
-#   version "$version"
-#   resolved "https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash"
-
-# 删除  /Users/admin/Desktop/work/bingo_test_beta/src 文件夹
-# 删除  /Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src 文件夹
-
-# 复制 /Users/admin/Desktop/work/zypher-toolkit-pixel_front/front 下的 src 文件夹 到 /Users/admin/Desktop/work/bingo_test_beta/ 
-# 复制 /Users/admin/Desktop/work/zypher-toolkit-pixel_front/ui 下的 src 文件夹 到 /Users/admin/Desktop/work/zypher-toolkit-pixel/ui/
-
-
-# 到/Users/admin/Desktop/work/zypher-toolkit-pixel/ 文件夹下 
-# 修改 package.json 使  version  的值 + 0.01 保存当前 version 的值
-# 运行 cd ui && npm run build && cd ..
-# git push 到  pixel_version 分支上， 并 复制 推上去的hash  保存 hash 的值
-
-
-# 到 /Users/admin/Desktop/work/bingo_test_beta/src 文件夹下 
-# 修改 index.tsx 将 // import '../node_modules/@ui/ui/dist/index.css'  改成  import '../node_modules/@ui/ui/dist/index.css'
-# 修改 global.d.ts 将 
-# // declare module '@ui/src' {
-# //   export * from '@ui/ui'
-# // }  
-# 改成  
-# declare module '@ui/src' {
-#   export * from '@ui/ui'
-# }
-
-# 到 /Users/admin/Desktop/work/bingo_test_beta 文件夹下 将
-
-# "@ui@zypher-game/toolkit":
-#   version "0.1.20"
-#   resolved "https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/83a5745ee9cd503d71d76c38763d5ecc79604402"
-# 替换成
-
-# "@ui@zypher-game/toolkit":
-#   version 上面保存的 version 值
-#   resolved "https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/上面保存的 hash 的值"
-
-# 到 /Users/admin/Desktop/work/bingo_test_beta 文件夹下运行  yarn && npm start
-

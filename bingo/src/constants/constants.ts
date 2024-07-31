@@ -1,31 +1,9 @@
 import { ChainId } from '@ui/src'
 import { Chain } from 'viem'
-import {
-  arbitrum,
-  arbitrumGoerli,
-  bsc,
-  bscTestnet,
-  linea,
-  lineaTestnet,
-  mantle,
-  opBNB,
-  opBNBTestnet,
-  polygonMumbai,
-  polygonZkEvmTestnet,
-  scrollSepolia,
-  scrollTestnet
-} from 'viem/chains'
 
 import { env } from '@/utils/config'
 
-import { combo } from './chains_definitions/combo'
-import { comboTestnet } from './chains_definitions/comboTestnet'
-import { manta } from './chains_definitions/manta'
-import { mantaTestnet } from './chains_definitions/mantaTestnet'
-import { mantleTestnet } from './chains_definitions/mantleTestnet'
-import { sepolia } from './chains_definitions/sepolia'
-import { TaikoHeklaTestnet9 } from './chains_definitions/TaikoHeklaTestnet9'
-
+import { ChainDefinitions } from './chains_definitions/chains_definitions'
 export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.LineaMainnet]: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo',
   [ChainId.LineaTestnet]: 'https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli',
@@ -59,8 +37,6 @@ export const defaultRankChainId = ChainId.ArbitrumGoerli
 export const defaultLocalChainId = env === 'develop' ? ChainId.OPBNBTEST : defaultChainId
 
 export const gasPrice: Record<ChainId, string | undefined> = {
-  [ChainId.Mainnet]: undefined,
-  [ChainId.Testnet]: undefined,
   [ChainId.Arbitrum]: undefined,
   [ChainId.ArbitrumGoerli]: undefined,
   [ChainId.ArbitrumRinkeby]: undefined,
@@ -79,29 +55,16 @@ export const gasPrice: Record<ChainId, string | undefined> = {
   [ChainId.MantleTestnet]: undefined,
   [ChainId.Combo]: undefined,
   [ChainId.Sepolia]: undefined,
-  [ChainId.TaikoHeklaTestnet9]: '3000000000' // wei
+  [ChainId.Bsc]: undefined,
+  [ChainId.BscTestnet]: undefined,
+  [ChainId.B2]: undefined,
+  [ChainId.B2Testnet]: undefined,
+  [ChainId.ZytronLineaSepoliaTestnet]: undefined,
+  [ChainId.ZytronB2Testnet]: undefined,
+  [ChainId.Taiko]: undefined,
+  [ChainId.SagaMainnet]: undefined
 }
 
-export const AllChainInfo: Record<ChainId, Chain | undefined> = {
-  [ChainId.Mainnet]: bsc,
-  [ChainId.Testnet]: bscTestnet,
-  [ChainId.Arbitrum]: arbitrum,
-  [ChainId.ArbitrumGoerli]: arbitrumGoerli,
-  [ChainId.ArbitrumRinkeby]: undefined,
-  [ChainId.LineaTestnet]: lineaTestnet,
-  [ChainId.LineaMainnet]: linea,
-  [ChainId.POLYGON_MUMBAI]: polygonMumbai,
-  [ChainId.POLYGON_ZKEVM]: polygonZkEvmTestnet,
-  [ChainId.OPBNBTEST]: opBNBTestnet,
-  [ChainId.OPBNB]: opBNB,
-  [ChainId.ScrollAlphaTestnet]: scrollTestnet,
-  [ChainId.ScrollSepoliaTestnet]: scrollSepolia,
-  [ChainId.MantaPacificMainnet]: manta,
-  [ChainId.MantaPacificTestnet]: mantaTestnet,
-  [ChainId.ComboTestnet]: comboTestnet,
-  [ChainId.Mantle]: mantle,
-  [ChainId.MantleTestnet]: mantleTestnet,
-  [ChainId.Combo]: combo,
-  [ChainId.Sepolia]: sepolia,
-  [ChainId.TaikoHeklaTestnet9]: TaikoHeklaTestnet9
-}
+export const AllChainInfo: Record<ChainId, Chain | undefined> = Object.fromEntries(
+  (Object.values(ChainId) as ChainId[]).map(v => [v, ChainDefinitions(v)])
+) as Record<ChainId, Chain>

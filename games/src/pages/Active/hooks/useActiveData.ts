@@ -1,4 +1,4 @@
-import { ChainId, defaultActiveChainId, useActiveWeb3React, useRecoilState } from '@ui/src'
+import { ChainId, useActiveWeb3React, useRecoilState } from '@ui/src'
 import { useCallback, useMemo } from 'react'
 
 import { activeDataState, IActiveData, IActiveDataState, initActiveData } from '../state/activeState'

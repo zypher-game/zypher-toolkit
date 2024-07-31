@@ -25,14 +25,7 @@ const ProfileBanner = memo(({ account, isMobile }: IProps) => {
   return (
     <div className={css.header}>
       <div className={css.bannerInner}>
-        <PlayerAvatar
-          className={css.account}
-          chainId={chainId}
-          account={account}
-          size={isMobile ? 64 : 80}
-          showAccount={false}
-          AvatarBorder={ShowAvatarBorderWidget}
-        />
+        <PlayerAvatar className={css.account} account={account} size={isMobile ? 64 : 80} showAccount={false} AvatarBorder={ShowAvatarBorderWidget} />
         {account ? (
           <div className={css.box}>
             <div className={css.address}>

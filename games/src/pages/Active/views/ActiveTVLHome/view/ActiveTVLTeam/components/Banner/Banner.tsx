@@ -20,6 +20,7 @@ const Banner = memo(() => {
   const {
     avatar,
     nickname,
+    isTwitterPost,
     airdropPointsDetail: { byTwitter, byTwitterMore }
   } = activeData
   const isW768 = useIsW768()
@@ -28,7 +29,8 @@ const Banner = memo(() => {
     setIsModalOpen(true)
   }, [])
   const showTwitter = useMemo(() => {
-    return (byTwitterMore === '' || byTwitterMore === '0') && new BigNumberJs(byTwitter).gte(50)
+    // return !
+    return (byTwitterMore === '' || byTwitterMore === '0') && new BigNumberJs(byTwitter).gte(50) && !isTwitterPost
   }, [byTwitterMore, byTwitter])
   return (
     <ActivePixelCard pixel_height={4} backgroundColor="#FF5EAA" className={`active_tvl_banner ${showTwitter ? 'active_tvl_banner_twitter' : ''}`}>
@@ -47,7 +49,6 @@ const Banner = memo(() => {
               themeType: 'yellow'
             }}
             preWidth={isW768 ? '79%' : '280px'}
-            nextWidth={isW768 ? '20%' : '78px'}
           />
         ) : null}
       </div>

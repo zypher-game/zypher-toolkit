@@ -8,19 +8,3 @@ body .ant-layout.lt-layout.games
 //     height: calc(100vh - 44px);
 //   .ant-layout-side
 //     background: var(--var-card)
-.ant-layout.lt-layout
-    .custom-side 
-      transition: transform 0.3s ease, opacity 0.3s ease;
-      opacity: 1;
-      width: 80vw !important;
-      max-width: 80vw !important;
-      min-width: 80vw !important;
-      height: 100vh;
-      position: fixed;
-      bottom: 0;
-      right: 0;
-      z-index: 100 !important;
-      &.hidden
-        @media screen and (max-width: 830px)
-          transform: translateX(100%);
-          opacity: 0;

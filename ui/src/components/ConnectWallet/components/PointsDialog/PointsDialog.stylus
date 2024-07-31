@@ -5,7 +5,7 @@
         width: 100%;
         padding: 20px 32px 33px
         @media screen and (max-width: 830px)
-            padding: 20px 23px 33px
+            padding: 60px 23px 33px
             height: 80vh;
     .modalTitleInner
         position relative
@@ -35,7 +35,6 @@
         align-items: center
         margin-bottom: 20px;
         @media screen and (max-width: 830px)
-            margin-bottom: 40px;
             height: 32px;
         p
             margin: 0

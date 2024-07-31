@@ -2,18 +2,22 @@
 ssh-add -D && ssh-add -K ~/.ssh/kimikuo2016
 # 定义路径变量
 path_work="/Users/admin/Desktop/work"
-path_app_frontend="$path_work/app/app-frontend_test"
+path_app_frontend1="$path_work/bingo/bingo_test_beta"
+path_app_frontend2="$path_work/app/app-frontend_test"
 path_pixel="$path_work/zypher-toolkit-pixel"
 path_pixel_front="$path_work/zypher-toolkit-pixel_front"
 path_ui="$path_pixel/ui"
-path_front="$path_pixel_front/games"
+path_front1="$path_pixel_front/bingo"
+path_front2="$path_pixel_front/games"
 
 # # # 删除指定目录
-rm -rf "$path_app_frontend/src"
+rm -rf "$path_app_frontend1/src"
+rm -rf "$path_app_frontend2/src"
 rm -rf "$path_ui/src"
 
 # 复制src目录
-cp -r "$path_front/src" "$path_app_frontend/"
+cp -r "$path_front1/src" "$path_app_frontend1/"
+cp -r "$path_front2/src" "$path_app_frontend2/"
 cp -r "$path_pixel_front/ui/src" "$path_ui/"
 
 # 进入目录并更新package.json的version字段
@@ -53,25 +57,43 @@ git commit -m "Bump version to $new_version"
 git push origin pixel_version
 latest_hash=$(git rev-parse HEAD)
 echo "Committed hash: $latest_hash"
-# version=0.1.22
-# latest_hash=94dbff562a754f90e1af03774f49c1dc784a4e91
-# # 修改app-frontend_test下的文件
-cd "$path_app_frontend/src"
+
+
+
+cd "$path_app_frontend1/src"
 perl -i -pe 's|^// import |import |' index.tsx
 perl -i -pe 's|^// | |'  global.d.ts
 
-# 更新app-frontend_test的 yarn.lock
-cd "$path_app_frontend"
-echo $path_app_frontend
-# 定义新版本号和hash值
-
-# 删除 yarn.lock 文件中的 "@ui@zypher-game/toolkit" 依赖项
+# 更新bingo_test_beta的 yarn.lock
+cd "$path_app_frontend1"
+echo $path_app_frontend1
 sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-
 # 添加新的 "@ui@zypher-game/toolkit" 依赖项
 echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
 echo "Updated dependencies in yarn.lock"
-
-# 最后运行命令
 yarn
-npm start
+
+git fetch --prune
+git add .
+git commit -m "add with @zypher-game/toolkit $new_version"
+git push origin test
+
+
+
+cd "$path_app_frontend2/src"
+perl -i -pe 's|^// import |import |' index.tsx
+perl -i -pe 's|^// | |'  global.d.ts
+
+# 更新bingo_test_beta的 yarn.lock
+cd "$path_app_frontend2"
+echo $path_app_frontend2
+sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# 添加新的 "@ui@zypher-game/toolkit" 依赖项
+echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+echo "Updated dependencies in yarn.lock"
+yarn
+
+git fetch --prune
+git add .
+git commit -m "add with @zypher-game/toolkit $new_version"
+git push origin test

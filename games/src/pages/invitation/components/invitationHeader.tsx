@@ -13,7 +13,6 @@ import { AccountInfo, accountInfoState, invitationRuleDialogState } from '../sta
 import InvitationData from './invitationData'
 import css from './invitationHeader.module.stylus'
 import RuleDialog from './RuleDialog'
-import ShareComponent from './shareComponent'
 const InvitationHeader = memo(({ isMobile }: { isMobile: boolean }) => {
   const accountInfo = useRecoilValue<AccountInfo>(accountInfoState)
   const navigate = useNavigate()
@@ -78,9 +77,9 @@ const InvitationHeader = memo(({ isMobile }: { isMobile: boolean }) => {
           <span onClick={() => copy(renderText)}>
             <Icon name="copy_invi" />
           </span>
-          <ShareComponent url={twitterShareLink}>
+          {/* <ShareComponent url={twitterShareLink}>
             <Icon name="share_invi" />
-          </ShareComponent>
+          </ShareComponent> */}
           {/* <a href={twitterShareLink} target="_blank" rel="noreferrer">
               <Icon name="link" />
             </a> */}

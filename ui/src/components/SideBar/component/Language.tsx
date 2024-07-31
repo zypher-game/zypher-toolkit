@@ -68,7 +68,7 @@ const Language = memo(({ type }: IProps) => {
       >
         {type === "pixel" ? (
           <div className="pixel_logo_wrap">
-            <IsPixelWidget className="pixel_logo" type={type}>
+            <IsPixelWidget className="pixel_logo">
               <img
                 decoding="async"
                 loading="lazy"

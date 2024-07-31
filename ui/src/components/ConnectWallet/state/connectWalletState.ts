@@ -34,7 +34,7 @@ export const refreshAvatarState = atom({
 export const pointsDialogState = atom({
   key: "pointsDialog",
   default: false,
-  effects_UNSTABLE: [localStorageEffect("pointsDialog")],
+  // effects_UNSTABLE: [localStorageEffect("pointsDialog")],
 });
 export const pointsAnimState = atom({
   key: "pointsAnim",
@@ -62,7 +62,7 @@ export const pointsRuleDialogState = atom({
 
 export const accountInfoDialogState = atom({
   key: "accountInfoDialog",
-  default: true,
+  default: false,
 });
 
 export const showBigState = atom({

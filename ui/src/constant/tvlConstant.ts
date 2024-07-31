@@ -14,10 +14,11 @@ export enum TVLChainId {
   LineaMainnet = ChainId.LineaMainnet,
   LineaTestnet = ChainId.LineaTestnet,
 }
-export const defaultActiveChainId = TVLChainId.B2Testnet as unknown as ChainId;
+export const defaultActiveChainId =
+  TVLChainId.LineaMainnet as unknown as ChainId;
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
-    [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] // , TVLChainId.LineaTestnet
+    [TVLChainId.LineaTestnet] // , TVLChainId.LineaTestnet
   : []) as unknown as ChainId[];
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,

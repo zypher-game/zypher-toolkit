@@ -1,5 +1,5 @@
 import { isEqual } from "../../../utils/lodash";
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 
 import { ChainId, supportedChainIds } from "../../../constant/constant";
 
@@ -8,10 +8,10 @@ import "./rainbow_connectWallet.stylus";
 import WrongNetwork from "./WrongNetwork";
 import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
-import { HeaderUIType } from "../header";
 import Language from "../../SideBar/component/Language";
 import IsPixelWidget from "./IsPixelWidget";
 import { ConnectButton } from "../../../rainbowkit/src/components/ConnectButton/ConnectButton";
+import { UIType } from "../header";
 interface IProps {
   useLocation: any;
   env: string;
@@ -22,16 +22,15 @@ interface IProps {
   isBigWidth: boolean;
   isMiddleWidth: boolean;
   copy: any;
-  type: HeaderUIType;
   CountUpNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
+  type?: UIType;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const {
     isBigWidth,
     isMiddleWidth,
-    useLocation,
     className,
     env,
     copy,
@@ -42,25 +41,10 @@ const RainbowConnectWallet = memo((props: IProps) => {
     supportedChainList,
     type,
   } = props;
-  const location = useLocation();
-  const isPathLocation = useMemo(() => {
-    if (window.location.href.indexOf("/bingo/") > -1) {
-      return true;
-    }
-    const arr = location.pathname.split("/");
-    return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
-  }, [location]);
   return (
     <div
-      className={`
-      ${
-        type === "pixel"
-          ? "connect_pixel_connectWallet"
-          : "connect_connectWallet"
-      }
-        ${type === "other" && isPathLocation ? "connect_bgWallet" : ""}
-        ${className ?? ""}
-        `}
+      className={`connect_pixel_connectWallet
+        ${className ?? ""}`}
     >
       <ConnectButton.Custom>
         {({ chain, openConnectModal, mounted }: any) => {
@@ -68,7 +52,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <IsPixelWidget
-                  type="pixel"
                   onClick={openConnectModal}
                   className={"connect_connect"}
                 >
@@ -79,7 +62,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   !supportedChainIds(env, supportedChainList).includes(
                     `${chain.id}` as ChainId
                   )) ? (
-                <WrongNetwork type={type} />
+                <WrongNetwork />
               ) : (
                 <AccountInfo
                   copy={copy}
@@ -90,7 +73,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   CountUpNumber={CountUpNumber}
                   isMiddleWidth={isMiddleWidth}
                   supportedChainList={supportedChainList}
-                  type={type}
                 />
               )}
             </>

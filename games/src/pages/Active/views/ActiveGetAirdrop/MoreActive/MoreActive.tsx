@@ -23,7 +23,6 @@ const MoreActive = memo(() => {
               themeType: 'brightBlue'
             }}
             preWidth={isW768 ? '79%' : '360px'}
-            nextWidth={isW768 ? '20%' : '206px'}
           />
           <div className={css.linkA} onClick={keepGoingHandle}>
             <p>Keep Going</p>

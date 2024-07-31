@@ -48,7 +48,7 @@ const ActiveTVLTeam = memo(() => {
         if (newVal > _num) {
           clearInterval(timer)
         }
-        return newVal
+        return newVal > 100 ? 100 : newVal
       })
     }, 200)
     return () => {

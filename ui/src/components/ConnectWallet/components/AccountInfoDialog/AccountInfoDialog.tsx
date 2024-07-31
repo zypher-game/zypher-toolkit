@@ -20,7 +20,6 @@ import Modal from "../../../../components/Modal/Modal";
 import { useDisconnect } from "wagmi";
 import { useCustomTranslation } from "../../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../../utils/i18n";
-import { HeaderUIType } from "../../../../components/Header/header";
 import Icon from "../../../icons";
 import { BlockExplorerUrls } from "../../../../constant/constant";
 import {
@@ -33,73 +32,69 @@ import ChainSelectorWidget from "../ChainSelector/ChainSelectorWidget";
 import { useNativeBalanceStr } from "../../hooks/connectWalletHooks";
 import Language from "../../../../components/SideBar/component/Language";
 
-const AccountInfoDialog = memo(
-  ({ copy, type }: { copy: any; type: HeaderUIType }) => {
-    const { t } = useCustomTranslation([LngNs.common]);
-    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
-      accountInfoDialogState
-    );
-    const { account, chainId } = useActiveWeb3React();
-    const isMobile = useIsW1100();
-    const { disconnect } = useDisconnect();
-    const wallet = useActiveWallet();
-    const cancel = useCallback(() => {
+const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState(
+    accountInfoDialogState
+  );
+  const { account, chainId } = useActiveWeb3React();
+  const isMobile = useIsW1100();
+  const { disconnect } = useDisconnect();
+  const wallet = useActiveWallet();
+  const cancel = useCallback(() => {
+    setAccountInfoDialogOpen(false);
+    disconnect();
+  }, [disconnect]);
+  useEffect(() => {
+    if (accountInfoDialogOpen && isMobile) {
       setAccountInfoDialogOpen(false);
-      disconnect();
-    }, [disconnect]);
-    useEffect(() => {
-      if (accountInfoDialogOpen && isMobile) {
-        setAccountInfoDialogOpen(false);
-      }
-    }, [isMobile]);
-    return account && chainId ? (
-      <>
-        <Modal
-          open={accountInfoDialogOpen}
-          onCancel={() => setAccountInfoDialogOpen(false)}
-          footer={null}
-          wrapClassName={classnames(
-            "customDialog",
-            "bottom",
-            "account_info_dialog_dialog"
-          )}
-          destroyOnClose={true}
-          closable={false}
-          width={isMobile ? "100%" : 440}
-          centered={isMobile ? false : true}
-          transitionName={isMobile ? "ant-slide-down" : undefined}
-        >
-          <DialogTitle
-            label={t("Your Wallet")}
-            setDialogOpen={setAccountInfoDialogOpen}
-            classNames={isMobile ? "modalTitleInner" : ""}
+    }
+  }, [isMobile]);
+  return account && chainId ? (
+    <>
+      <Modal
+        open={accountInfoDialogOpen}
+        onCancel={() => setAccountInfoDialogOpen(false)}
+        footer={null}
+        wrapClassName={classnames(
+          "customDialog",
+          "bottom",
+          "account_info_dialog_dialog"
+        )}
+        destroyOnClose={true}
+        closable={false}
+        width={isMobile ? "100%" : 440}
+        centered={isMobile ? false : true}
+        transitionName={isMobile ? "ant-slide-down" : undefined}
+      >
+        <DialogTitle
+          label={t("Your Wallet")}
+          setDialogOpen={setAccountInfoDialogOpen}
+          classNames={isMobile ? "modalTitleInner" : ""}
+        />
+        <div className={"account_info_dialog_modalMain"}>
+          {/* {isMobile ? ( */}
+          <MUserInfo
+            copy={copy}
+            account={account}
+            chainId={chainId}
+            cancel={cancel}
           />
-          <div className={"account_info_dialog_modalMain"}>
-            {isMobile ? (
-              <MUserInfo
-                copy={copy}
-                account={account}
-                chainId={chainId}
-                cancel={cancel}
-                type="other"
-              />
-            ) : (
-              <PcUserInfo
-                copy={copy}
-                account={account}
-                chainId={chainId}
-                cancel={cancel}
-                connectName={wallet?.name}
-                connectIcon={wallet?.iconUrl}
-                type={type}
-              />
-            )}
-          </div>
-        </Modal>
-      </>
-    ) : null;
-  }
-);
+          {/* ) : (
+            <PcUserInfo
+              copy={copy}
+              account={account}
+              chainId={chainId}
+              cancel={cancel}
+              connectName={wallet?.name}
+              connectIcon={wallet?.iconUrl}
+            />
+          )} */}
+        </div>
+      </Modal>
+    </>
+  ) : null;
+});
 
 export const AddressBigWrapPop = memo(({ copy }: { copy: any }) => {
   const [index, setIndex] = useState<number>();
@@ -204,13 +199,11 @@ export const AddressMiddleWrapPop = memo(({ copy }: { copy: any }) => {
       >
         <div className="middle_account">
           <PlayerAvatar
-            chainId={chainId}
             border={true}
             className="account"
             account={account}
             size={62}
             showAccount={false}
-            type="other"
           />
           <div className="middle_address" onClick={copyAddressHandle}>
             <p>{getShortenAddress(account)}</p>
@@ -218,7 +211,6 @@ export const AddressMiddleWrapPop = memo(({ copy }: { copy: any }) => {
           </div>
         </div>
         <ChainSelectorWidget
-          type={"pixel"}
           direction_type="userPop"
           className="middle_selector"
         />

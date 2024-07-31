@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react'
 
 import { initActiveData, IStakingItem } from '../state/activeState'
 import { form_primary_score } from '../utils/formmate'
+import { useGetData } from './useActiveInit'
 import { IRankBoard } from './useLeaderboard'
 
 export const useGetDataCall = () => {
@@ -527,5 +528,37 @@ export const useUserHeroCall = () => {
   return {
     loading,
     chooseHero
+  }
+}
+
+export const useTwitterForward = () => {
+  const [loading, setLoading] = useState(false)
+  const { getData } = useGetData()
+  const twitterForward = useCallback(
+    async ({ userId }: { userId: string }) => {
+      try {
+        setLoading(true)
+        const res = await request(`${TVL_API}/api/twitterForward`, {
+          method: 'POST',
+          data: JSON.stringify({ userId: Number(userId) }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        if (res.data && res.data['message'] == 'ok') {
+          getData()
+        } else {
+          throw new Error('twitterForward has Error by Post')
+        }
+      } catch (e: any) {
+        setLoading(false)
+        throw new Error('twitterForward has Error by Catch')
+      }
+    },
+    [getData]
+  )
+  return {
+    loading,
+    twitterForward
   }
 }

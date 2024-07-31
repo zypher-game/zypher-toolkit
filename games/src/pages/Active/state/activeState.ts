@@ -22,6 +22,7 @@ export interface IActiveData {
   invitationCode: string // 邀请码
   signedFalse: boolean // 拒绝签名
   signedStr: string //签名
+  isTwitterPost: boolean
   twitter: {
     avatar: string // 昵称
     nickname: string // 头像
@@ -114,7 +115,8 @@ export const initActiveData: IActiveData = {
   airdropPointsStr: '',
   rankingStr: '',
   mintMinimumStr: '',
-  hasSBT: ''
+  hasSBT: '',
+  isTwitterPost: false
 }
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({

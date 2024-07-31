@@ -1,17 +1,16 @@
 import React from "react";
-import { HeaderUIType } from "../Header/header";
 import IsPixelWidget from "../Header/rainbow_account/IsPixelWidget";
 import styled, { css } from "styled-components";
-
+import { UIType } from "../Header/header";
 interface AvatarProps {
   src: string;
   altText?: string;
   size?: number;
   style?: any;
-  type?: HeaderUIType;
+  type?: UIType;
 }
 const IsPixelWidgetStyled = styled(IsPixelWidget)<{
-  type: HeaderUIType;
+  type: UIType;
   size: number;
   style: any;
 }>`

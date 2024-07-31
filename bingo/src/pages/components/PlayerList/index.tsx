@@ -1,4 +1,5 @@
 import {
+  ChainId,
   getShortenAddress,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
@@ -100,11 +101,11 @@ function customShort(arr: IPlayersProps[], condition: string): string[] {
 }
 
 interface WinProps {
-  chainId: number | undefined
+  chainId: string | undefined
   account: string
 }
 
-export const WinBeta = ({ chainId, account }: { chainId: number | undefined; account: string }) => {
+export const WinBeta = ({ chainId, account }: { chainId: ChainId | undefined; account: string }) => {
   const [count, setCount] = useState<number | string>('--')
   const { bingoVersion } = useActiveWeb3ReactForBingo()
   const data = useCallback(async () => {

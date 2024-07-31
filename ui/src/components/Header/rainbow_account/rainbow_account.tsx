@@ -10,10 +10,7 @@ import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDial
 import PointsRuleDialog from "../../ConnectWallet/components/PointsDialog/PointsRuleDialog";
 import { pointsDialogState } from "../../ConnectWallet/state/connectWalletState";
 import { ChainId } from "../../../constant/constant";
-import { HeaderUIType } from "../header";
 import AccountInfo from "./AccountInfo/AccountInfo";
-import { useNativeBalanceStr } from "../../ConnectWallet/hooks/connectWalletHooks";
-import CurrencyLogo from "../../CurrencyLogo";
 const Account = memo(
   ({
     isMiddleWidth,
@@ -24,7 +21,6 @@ const Account = memo(
     copy,
     CountUpNumber,
     supportedChainList,
-    type,
   }: {
     isMiddleWidth: boolean;
     env: string;
@@ -34,7 +30,6 @@ const Account = memo(
     CountUpNumber?: React.FC<any>;
     setErrorToast: any;
     supportedChainList?: ChainId[];
-    type: HeaderUIType;
   }) => {
     const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
@@ -48,16 +43,14 @@ const Account = memo(
           CountUpNumber={CountUpNumber}
           env={env}
           showPointsModal={showPointsModal}
-          type={type}
         />
         <AccountInfo
-          type={type}
           isMiddleWidth={isMiddleWidth}
           isW768={isW768}
           copy={copy}
           env={env}
         />
-        {!isMiddleWidth && <ChainSelectorWidget type={type} />}
+        {!isMiddleWidth && <ChainSelectorWidget />}
         <PointsDialog
           env={env}
           dispatch={dispatch}

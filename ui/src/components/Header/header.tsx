@@ -17,6 +17,7 @@ import {
   showBigState,
   showMiddleState,
 } from "../ConnectWallet/state/connectWalletState";
+export type UIType = "pixel" | "other";
 interface IProps {
   env: string;
   dispatch: any;
@@ -79,7 +80,6 @@ const Header = (props: IProps): React.ReactElement | null => {
   const isBingo = useMemo(() => {
     return pathname === "bingo";
   }, [pathname]);
-  console.log({ pathname });
   return (
     <header
       className={classnames(
@@ -114,7 +114,7 @@ const Header = (props: IProps): React.ReactElement | null => {
           supportedChainList={supportedChainList}
         />
         {isW830 && !hideMenu ? (
-          <IsPixelWidget type="pixel" className="header_btn_pixel">
+          <IsPixelWidget className="header_btn_pixel">
             <div
               className="header_btn"
               onClick={() => setSideCollapse(!collapsed)}

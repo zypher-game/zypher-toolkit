@@ -1,5 +1,4 @@
-import { NavKey, useActiveWeb3React, useRecoilValue } from '@ui/src'
-import { pathnameState } from '@ui/src'
+import { useActiveWeb3React } from '@ui/src'
 import { useCallback, useEffect } from 'react'
 
 import { useIsGetActiveData } from '@/hooks/useInit'

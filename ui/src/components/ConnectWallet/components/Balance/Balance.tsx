@@ -29,7 +29,6 @@ import {
 } from "../../state/connectWalletState";
 import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
-import { HeaderUIType } from "../../../Header/header";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
 
@@ -43,12 +42,11 @@ interface IProps {
   className?: string;
   showPointsModal: any;
   CountUpNumber?: React.FC<any>;
-  type: HeaderUIType;
   isMiddleWidth: boolean;
 }
 
 const Balance = memo((props: IProps): React.ReactElement | null => {
-  const { showPointsModal, env, CountUpNumber, type, isMiddleWidth } = props;
+  const { showPointsModal, env, CountUpNumber, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState(false);
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
@@ -102,10 +100,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     <>
       {isMiddleWidth ? null : (
         <IsPixelWidget
-          type={type}
-          className={`refresh_balance ${
-            type === "pixel" ? "refresh_balance_pixel" : ""
-          }`}
+          className="refresh_balance  refresh_balance_pixel"
           onClick={fetchBalanceOf}
         >
           <SyncOutlined />
@@ -121,7 +116,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           CountUpNumber={CountUpNumber}
           preChild={<AddIcon name="pixel_add" isMobile={isMiddleWidth} />}
           balanceStr={pointsBalanceStr}
-          type={type}
         />
       ) : null}
       {!isMiddleWidth && (
@@ -135,7 +129,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           balanceStr={nativeBalanceStr}
           loading={loading}
           className={props.className}
-          type={type}
         />
       )}
     </>

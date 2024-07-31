@@ -153,3 +153,19 @@ body [data-reach-dialog-content]
     &.pixel_DialogContent
         margin-left: 16px
         margin-right: 16px
+.ant-layout.lt-layout
+    .custom-side 
+      transition: transform 0.3s ease, opacity 0.3s ease;
+      opacity: 1;
+      width: 80vw !important;
+      max-width: 80vw !important;
+      min-width: 80vw !important;
+      height: 100vh;
+      position: fixed;
+      bottom: 0;
+      right: 0;
+      z-index: 100 !important;
+      &.hidden
+        @media screen and (max-width: 830px)
+          transform: translateX(100%);
+          opacity: 0;
