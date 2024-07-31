@@ -1,5 +1,5 @@
 import { isEqual } from "../../../utils/lodash";
-import React, { memo, useMemo } from "react";
+import React, { memo } from "react";
 
 import { ChainId, supportedChainIds } from "../../../constant/constant";
 
@@ -11,6 +11,7 @@ import { LngNs } from "../../../utils/i18n";
 import Language from "../../SideBar/component/Language";
 import IsPixelWidget from "./IsPixelWidget";
 import { ConnectButton } from "../../../rainbowkit/src/components/ConnectButton/ConnectButton";
+import { UIType } from "../header";
 interface IProps {
   useLocation: any;
   env: string;
@@ -23,13 +24,13 @@ interface IProps {
   copy: any;
   CountUpNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
+  type?: UIType;
 }
 const RainbowConnectWallet = memo((props: IProps) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const {
     isBigWidth,
     isMiddleWidth,
-    useLocation,
     className,
     env,
     copy,
@@ -38,15 +39,8 @@ const RainbowConnectWallet = memo((props: IProps) => {
     setErrorToast,
     CountUpNumber,
     supportedChainList,
+    type,
   } = props;
-  const location = useLocation();
-  const isPathLocation = useMemo(() => {
-    if (window.location.href.indexOf("/bingo/") > -1) {
-      return true;
-    }
-    const arr = location.pathname.split("/");
-    return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
-  }, [location]);
   return (
     <div
       className={`connect_pixel_connectWallet
@@ -85,7 +79,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
           );
         }}
       </ConnectButton.Custom>
-      {isBigWidth ? <Language type={"top"} /> : null}
+      {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null}
     </div>
   );
 }, isEqual);

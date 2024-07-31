@@ -62,7 +62,7 @@ export const pointsRuleDialogState = atom({
 
 export const accountInfoDialogState = atom({
   key: "accountInfoDialog",
-  default: true,
+  default: false,
 });
 
 export const showBigState = atom({

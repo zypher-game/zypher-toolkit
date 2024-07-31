@@ -73,14 +73,14 @@ const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
           classNames={isMobile ? "modalTitleInner" : ""}
         />
         <div className={"account_info_dialog_modalMain"}>
-          {isMobile ? (
-            <MUserInfo
-              copy={copy}
-              account={account}
-              chainId={chainId}
-              cancel={cancel}
-            />
-          ) : (
+          {/* {isMobile ? ( */}
+          <MUserInfo
+            copy={copy}
+            account={account}
+            chainId={chainId}
+            cancel={cancel}
+          />
+          {/* ) : (
             <PcUserInfo
               copy={copy}
               account={account}
@@ -89,7 +89,7 @@ const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
               connectName={wallet?.name}
               connectIcon={wallet?.iconUrl}
             />
-          )}
+          )} */}
         </div>
       </Modal>
     </>
@@ -199,7 +199,6 @@ export const AddressMiddleWrapPop = memo(({ copy }: { copy: any }) => {
       >
         <div className="middle_account">
           <PlayerAvatar
-            chainId={chainId}
             border={true}
             className="account"
             account={account}

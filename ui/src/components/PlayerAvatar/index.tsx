@@ -4,7 +4,7 @@ import styled from "styled-components";
 
 import generateAvatar from "../../utils/generateAvatar";
 import { getShortenAddress } from "../../utils/tool";
-import { ChainId, preStaticUrl } from "../../constant/constant";
+import { preStaticUrl } from "../../constant/constant";
 
 import "./index.stylus";
 import Avatar from "../Avatar/Avatar";
@@ -27,7 +27,6 @@ interface IPlayerAvatar {
   preLen?: number;
   endLen?: number;
   otherStr?: string;
-  chainId?: ChainId;
   onClick?: any;
   onMouseOver?: any;
 }
@@ -44,7 +43,6 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     preLen,
     endLen,
     otherStr,
-    chainId,
     hideAvatars,
     onClick,
     onMouseOver,
@@ -57,7 +55,8 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     const refreshAvatar = useRecoilValue(refreshAvatarState);
     // const { getUserInfo } = useGetUserInfo();
     useEffect(() => {
-      if (account && chainId && !hideAvatars) {
+      console.log(account, !hideAvatars);
+      if (account && !hideAvatars) {
         getData();
         // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
         // setAvatars({ selectedAvatar, selectedBackground:bgColor[0] });
@@ -65,51 +64,26 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
         const { selectedAvatar, selectedBackground } = generateAvatar(account);
         setAvatars({ selectedAvatar, selectedBackground });
       }
-    }, [account, chainId, refreshAvatar]);
+    }, [account, refreshAvatar]);
     // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
     const getData = useCallback(() => {
       const img = new Image();
       const src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;
       img.src = src;
       img.onload = () => {
+        console.log(1111, { src });
         setAvatars({
           selectedAvatar: `${src}?${refreshAvatar}`,
           selectedBackground: "#1d263b",
         });
       };
       img.onerror = () => {
+        console.log(2222, { src });
         const { selectedAvatar, selectedBackground } = generateAvatar(account);
         setAvatars({ selectedAvatar, selectedBackground });
       };
-    }, [account, chainId, refreshAvatar]);
-    // useEffect(() => {
-    //   if (account && chainId && !hideAvatars) {
-    //     setAvatars((pre) => ({
-    //       selectedAvatar: pre?.selectedAvatar + "?" + refreshAvatar,
-    //       selectedBackground: pre?.selectedBackground ?? "",
-    //     }));
-    //   }
-    // }, [refreshAvatar]);
-    // const getHeroData = useCallback(async () => {
-    //   if (chainId && account) {
-    //     try {
-    //       const infoObj = await getUserInfo({ account, chainId });
-    //       console.log({ infoObj });
-    //       if (infoObj) {
-    //         setAvatars({
-    //           selectedAvatar: infoObj.avatar,
-    //           selectedBackground: bgColor[0],
-    //         });
-    //       } else {
-    //         throw new Error("getUserInfo Error");
-    //       }
-    //     } catch (e) {
-    //       const { selectedAvatar, selectedBackground } =
-    //         generateAvatar(account);
-    //       setAvatars({ selectedAvatar, selectedBackground });
-    //     }
-    //   }
-    // }, [account, chainId]);
+    }, [account, refreshAvatar]);
+
     return (
       <div
         className={cx(className, "player_playerAvatar")}

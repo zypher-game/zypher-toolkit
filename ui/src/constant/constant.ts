@@ -385,7 +385,7 @@ export const CurrencyLogo: Record<ChainId, string> = Object.fromEntries(
 ) as Record<ChainId, string>;
 
 interface IExternalMarketContract {
-  multicall: string[];
+  multicall: Address[];
 }
 // 支持的链
 const MulticallV3 = "0xca11bde05977b3631167028862be2a173976ca11";

@@ -535,7 +535,8 @@ const PixelCube2Styled = styled(PixelStyled)<IPixel>`
   &:hover {
     > .pixel_flat_btn_bg {
       > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_bottom_2 {
+      > .pixel_flat_btn_bottom_2,
+      > .pixel_flat_btn_inner {
         background-color: ${({ showHover, borderColor }) =>
           showHover === true ? "#1649FF" : borderColor};
       }

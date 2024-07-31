@@ -2,7 +2,7 @@
     .account_info_dialog_modalMain
         padding: 20px 32px 33px
         @media screen and (max-width: 830px)
-            padding: 82px 15px 33px
+            padding: 20px 15px 33px
 body .address_wrap_big_pop_wrap
     opacity 0
     height 0
