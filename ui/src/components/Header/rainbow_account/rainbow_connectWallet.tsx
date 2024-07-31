@@ -8,7 +8,6 @@ import "./rainbow_connectWallet.stylus";
 import WrongNetwork from "./WrongNetwork";
 import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
 import { LngNs } from "../../../utils/i18n";
-import { HeaderUIType } from "../header";
 import Language from "../../SideBar/component/Language";
 import IsPixelWidget from "./IsPixelWidget";
 import { ConnectButton } from "../../../rainbowkit/src/components/ConnectButton/ConnectButton";
@@ -22,7 +21,6 @@ interface IProps {
   isBigWidth: boolean;
   isMiddleWidth: boolean;
   copy: any;
-  type: HeaderUIType;
   CountUpNumber?: React.FC<any>;
   supportedChainList?: ChainId[];
 }
@@ -40,7 +38,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
     setErrorToast,
     CountUpNumber,
     supportedChainList,
-    type,
   } = props;
   const location = useLocation();
   const isPathLocation = useMemo(() => {
@@ -52,15 +49,8 @@ const RainbowConnectWallet = memo((props: IProps) => {
   }, [location]);
   return (
     <div
-      className={`
-      ${
-        type === "pixel"
-          ? "connect_pixel_connectWallet"
-          : "connect_connectWallet"
-      }
-        ${type === "other" && isPathLocation ? "connect_bgWallet" : ""}
-        ${className ?? ""}
-        `}
+      className={`connect_pixel_connectWallet
+        ${className ?? ""}`}
     >
       <ConnectButton.Custom>
         {({ chain, openConnectModal, mounted }: any) => {
@@ -68,7 +58,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
             <>
               {!mounted || !chain ? (
                 <IsPixelWidget
-                  type="pixel"
                   onClick={openConnectModal}
                   className={"connect_connect"}
                 >
@@ -79,7 +68,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   !supportedChainIds(env, supportedChainList).includes(
                     `${chain.id}` as ChainId
                   )) ? (
-                <WrongNetwork type={type} />
+                <WrongNetwork />
               ) : (
                 <AccountInfo
                   copy={copy}
@@ -90,14 +79,13 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   CountUpNumber={CountUpNumber}
                   isMiddleWidth={isMiddleWidth}
                   supportedChainList={supportedChainList}
-                  type={type}
                 />
               )}
             </>
           );
         }}
       </ConnectButton.Custom>
-      {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null}
+      {isBigWidth ? <Language type={"top"} /> : null}
     </div>
   );
 }, isEqual);

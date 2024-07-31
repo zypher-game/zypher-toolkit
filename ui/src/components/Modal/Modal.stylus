@@ -26,13 +26,14 @@
             justify-content: flex-end;
             align-items: flex-end;
             top: auto;
-            border-radius: 20px 20px 0 0
             overflow-y: scroll
             // background: transparent
             [data-reach-dialog-content]
                 margin: 0
                 @media screen and (max-width: 830px)
                     background-color: #1D263B
+                &>.pixel_flat_btn>.pixel_flat_btn_bg
+                    display: none;
             .ant-modal
                 max-height: 100%;
                 flex: 1
@@ -46,6 +47,9 @@
                 left: 0
                 width: 100%
                 z-index: 3
+                background-color: #293457
+                &>.pixel_flat_btn_bg
+                    display: none
             .ant-modal-content
                 border: none;
                 border-radius: 20px 20px 0 0

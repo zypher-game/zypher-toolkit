@@ -1,6 +1,5 @@
 import React, { memo, useRef } from "react";
 import IsPixelWidget from "../IsPixelWidget";
-import { HeaderUIType } from "../../header";
 import PlayerAvatar from "../../../../components/PlayerAvatar";
 import AccountInfoDialog, {
   AddressBigWrapPop,
@@ -10,7 +9,6 @@ import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { ChainId } from "../../../../constant/constant";
 import "./AccountInfo.stylus";
 type IAccountInfo = {
-  type: HeaderUIType;
   isMiddleWidth: boolean;
   isW768: boolean;
   copy: any;
@@ -18,14 +16,7 @@ type IAccountInfo = {
   supportedChainList?: ChainId[];
 };
 const AccountInfo = memo(
-  ({
-    isW768,
-    isMiddleWidth,
-    type,
-    copy,
-    env,
-    supportedChainList,
-  }: IAccountInfo) => {
+  ({ isW768, isMiddleWidth, copy, env, supportedChainList }: IAccountInfo) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
     // const setAccountInfoDialogState = useSetRecoilState(accountInfoDialogState);
     // const [showBig, setShowBig] = useRecoilState(showBigState);
@@ -69,14 +60,13 @@ const AccountInfo = memo(
 
     return (
       <>
-        <IsPixelWidget type={type} className="address_wrap">
+        <IsPixelWidget className="address_wrap">
           <PlayerAvatar
             // onMouseOver={accountClick}
             className="account"
             account={account}
             size={isW768 ? 30 : 40}
             showAccount={isMiddleWidth ? false : true}
-            type={type}
             chainId={chainId}
           />
           {/* {showBig ? ( */}
@@ -94,7 +84,7 @@ const AccountInfo = memo(
           ) : null}
           {/* ) : null} */}
         </IsPixelWidget>
-        {isW768 ? <AccountInfoDialog copy={copy} type={type} /> : null}
+        {isW768 ? <AccountInfoDialog copy={copy} /> : null}
       </>
     );
   }

@@ -91,7 +91,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
-      ChainId.SagaMainnet,
+      // ChainId.SagaMainnet,
     ]
   : [
       ChainId.Arbitrum,

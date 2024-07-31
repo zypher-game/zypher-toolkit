@@ -10,7 +10,6 @@ import "./index.stylus";
 import Avatar from "../Avatar/Avatar";
 import { useCustomTranslation } from "../../hooks/useCustomTranslation";
 import { LngNs } from "../../utils/i18n";
-import { HeaderUIType } from "../Header/header";
 import { useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../ConnectWallet/state/connectWalletState";
 
@@ -28,7 +27,6 @@ interface IPlayerAvatar {
   preLen?: number;
   endLen?: number;
   otherStr?: string;
-  type?: HeaderUIType;
   chainId?: ChainId;
   onClick?: any;
   onMouseOver?: any;
@@ -48,7 +46,6 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     otherStr,
     chainId,
     hideAvatars,
-    type = "other",
     onClick,
     onMouseOver,
   }: IPlayerAvatar) => {
@@ -123,7 +120,6 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
           avatars ? (
             <AvatarBorder>
               <Avatar
-                type={type}
                 size={size}
                 src={avatars.selectedAvatar}
                 style={

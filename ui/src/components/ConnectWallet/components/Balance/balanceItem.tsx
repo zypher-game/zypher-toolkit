@@ -10,7 +10,6 @@ import {
   pointsAnimState,
 } from "../../state/connectWalletState";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
-import { HeaderUIType } from "../../../../components/Header/header";
 
 type IProps = {
   loading: boolean;
@@ -21,7 +20,6 @@ type IProps = {
   onClick?: any;
   balance?: number;
   CountUpNumber?: React.FC<any>;
-  type: HeaderUIType;
 };
 const BalanceItem = memo(
   ({
@@ -33,7 +31,6 @@ const BalanceItem = memo(
     onClick,
     CountUpNumber,
     balance,
-    type,
   }: IProps) => {
     const onClickHandle = useCallback(() => {
       if (onClick) {
@@ -42,10 +39,8 @@ const BalanceItem = memo(
     }, [onClick]);
     return (
       <IsPixelWidget
-        type={type}
-        className={`balance_item_balance
-        ${className ?? ""}
-        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`}
+        className={`balance_item_balance balance_item_balance_pixel
+        ${className ?? ""}`}
         onClick={onClickHandle}
       >
         {preChild}
@@ -81,7 +76,6 @@ export const BalanceCountUpItem = memo(
     onClick,
     CountUpNumber,
     balanceStr,
-    type,
   }: IProps) => {
     const setPointsAnimState = useSetRecoilState(pointsAnimState);
     const [mount, setMount] = useRecoilState(pointsAnimNumState);
@@ -102,11 +96,9 @@ export const BalanceCountUpItem = memo(
 
     return (
       <IsPixelWidget
-        className={`balance_item_balance_point balance_item_balance 
-        ${className ?? ""}
-        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`}
+        className={`balance_item_balance_point balance_item_balance  balance_item_balance_pixel
+        ${className ?? ""}`}
         onClick={onClickHandle}
-        type={type}
       >
         {preChild}
         {loading ? (
