@@ -25,7 +25,6 @@ const AccountInfo = memo(
     // const [showMiddle, setShowMiddle] = useRecoilState(showMiddleState);
 
     const accountClick = useCallback(() => {
-      console.log({ isW768 });
       if (isW768) {
         //     setShowBig(false);
         //     setShowMiddle(false);

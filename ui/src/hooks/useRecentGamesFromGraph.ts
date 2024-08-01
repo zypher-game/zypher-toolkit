@@ -95,6 +95,7 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.ZytronLineaSepoliaTestnet]: "",
   [ChainId.ZytronB2Testnet]: "",
   [ChainId.Taiko]: "TK",
+  [ChainId.SagaMainnet]: "SM",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {

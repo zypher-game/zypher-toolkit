@@ -16,6 +16,7 @@ const IsPixelWidget = memo(
     backgroundColor,
     borderColor,
     pixel_height,
+    ...props
   }: IProps) => {
     const isW768 = useIsW768();
     return (
@@ -25,6 +26,7 @@ const IsPixelWidget = memo(
         backgroundColor={backgroundColor ?? "#1d263b"}
         borderColor={borderColor ?? "#3a4254"}
         onClick={onClick}
+        {...props}
       >
         {children}
       </PixelBorderCardButton>
