@@ -18,6 +18,8 @@ declare global {
     mcrypto: any;
     env: string;
     isGames: boolean;
+    IS_TELEGRAM: boolean;
+    Telegram: Telegram;
   }
 }
 import "react";

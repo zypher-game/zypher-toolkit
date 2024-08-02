@@ -2,7 +2,6 @@ import cx from "classnames";
 import React, { memo } from "react";
 import styled from "styled-components";
 
-import generateAvatar from "../../utils/generateAvatar";
 import { getShortenAddress } from "../../utils/tool";
 import { preStaticUrl } from "../../constant/constant";
 
@@ -65,19 +64,10 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
                 size={size}
                 src={avatars.selectedAvatar}
                 backgroundColor={avatars.selectedBackground}
-                // style={
-                //   border
-                //     ? {
-                //         background: avatars.selectedBackground,
-                //         border: "2px solid #eeeeee",
-                //       }
-                //     : { background: avatars.selectedBackground }
-                // }
               />
             </AvatarBorder>
           ) : null
         ) : (
-          //  <img decoding="async" loading="lazy" className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
           <div
             className={"player_avatar"}
             style={{

@@ -13,15 +13,17 @@ type IProps = {
   env: string;
   children: ReactNode;
   chainIdList?: Array<ChainId>;
+  isTelegram?: boolean;
 };
 const RainbowKitWithThemeProvider: FC<IProps> = ({
   children,
   env,
   chainIdList,
+  isTelegram,
 }: IProps) => {
   const { wagmiConfig, chains, computedTheme } = useMemo(() => {
     if (env) {
-      const wagmiConfig = getWagmiConfig(env, chainIdList);
+      const wagmiConfig = getWagmiConfig(env, chainIdList, isTelegram);
       const { chains } = getConfigureChains(env);
       console.log({ chainIdList, chains });
       return {

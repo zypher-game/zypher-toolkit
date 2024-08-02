@@ -12,18 +12,14 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
     selectedBackground: "",
   });
   const refreshAvatar = useRecoilValue(refreshAvatarState);
-  // const { getUserInfo } = useGetUserInfo();
   useEffect(() => {
     if (account && !hideAvatars) {
       getData();
-      // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
-      // setAvatars({ selectedAvatar, selectedBackground:bgColor[0] });
     } else {
       const { selectedAvatar, selectedBackground } = generateAvatar(account);
       setAvatars({ selectedAvatar, selectedBackground });
     }
   }, [account, refreshAvatar]);
-  // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
   const getData = useCallback(() => {
     const img = new Image();
     const src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;

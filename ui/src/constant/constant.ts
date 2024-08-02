@@ -91,7 +91,6 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
-      ChainId.SagaMainnet,
     ]
   : [
       ChainId.Arbitrum,
@@ -129,7 +128,6 @@ export const supportedChainIds = (
         ChainId.Sepolia,
         ChainId.ZytronLineaSepoliaTestnet,
         ChainId.ZytronB2Testnet,
-        ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
