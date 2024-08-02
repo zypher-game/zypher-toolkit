@@ -429,7 +429,7 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: [MulticallV3],
   },
   [ChainId.ScrollSepoliaTestnet]: {
-    multicall: [MulticallV3, "0xA10417e9210E8Ad2e8665e11b5E78d804956eb6E"],
+    multicall: [MulticallV3],
   },
   [ChainId.ScrollAlphaTestnet]: {
     multicall: [MulticallV3],
