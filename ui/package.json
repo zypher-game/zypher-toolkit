@@ -38,7 +38,6 @@
   "peerDependencies": {
     "@reach/dialog": "^0.18.0",
     "@vanilla-extract/dynamic": "2.0.2",
-    "@vanilla-extract/esbuild-plugin": "^2.2.0",
     "@vanilla-extract/sprinkles": "1.5.0",
     "@zypher-game/bingo-periphery": "zypher-game/bingo-periphery",
     "@zypher-game/bingo-periphery-v1": "zypher-game/bingo-periphery-v1",

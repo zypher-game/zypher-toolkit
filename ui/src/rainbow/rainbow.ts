@@ -48,9 +48,12 @@ const projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 // })
 
 const getConnectors = (env: string, chainIdList?: ChainId[]) => {
-  if (window.IS_TELEGRAM) {
-    alert(JSON.stringify(window.Telegram?.WebApp.initData));
-  }
+  // if (window.IS_TELEGRAM) {
+  //   const provider = new ethers.providers.JsonRpcProvider(
+  //     ChainRpcUrls[ChainId.SagaMainnet][0]
+  //   );
+  //   const acc = new Teleg();
+  // }
 
   const { chains } = getConfigureChains(env, chainIdList);
   return connectorsForWallets([

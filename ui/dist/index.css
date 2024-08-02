@@ -399,7 +399,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
 }
 @media screen and (max-width: 830px) {
   .dialog .modalMain {
-    padding: 20px 23px 33px;
+    padding: 60px 23px 33px;
     height: 80vh;
   }
 }
@@ -438,7 +438,6 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
 }
 @media screen and (max-width: 830px) {
   .dialog .balanceTitle {
-    margin-bottom: 40px;
     height: 32px;
   }
 }
@@ -617,11 +616,13 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
     justify-content: flex-end;
     align-items: flex-end;
     top: auto;
-    border-radius: 20px 20px 0 0;
     overflow-y: scroll;
   }
   .customDialog.bottom [data-reach-dialog-content] {
     margin: 0;
+  }
+  .customDialog.bottom [data-reach-dialog-content] > .pixel_flat_btn > .pixel_flat_btn_bg {
+    display: none;
   }
   .customDialog.bottom .ant-modal {
     max-height: 100%;
@@ -637,6 +638,10 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
     left: 0;
     width: 100%;
     z-index: 3;
+    background-color: #293457;
+  }
+  .customDialog.bottom .modalTitleInner > .pixel_flat_btn_bg {
+    display: none;
   }
   .customDialog.bottom .ant-modal-content {
     border: none;
@@ -1486,7 +1491,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 @media screen and (max-width: 830px) {
   .account_info_dialog_dialog .account_info_dialog_modalMain {
-    padding: 82px 15px 33px;
+    padding: 20px 15px 33px;
   }
 }
 body .address_wrap_big_pop_wrap {
@@ -1742,91 +1747,6 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   width: 24px;
   height: 24px;
   margin: 0;
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.stylus */
-.pc_user_pc_content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.pc_user_pc_content .pc_user_box {
-  border-radius: 8px;
-}
-.pc_user_pc_content .pc_user_box .pc_user_tit {
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 16px;
-  color: var(--var-text-dark-grey);
-}
-.pc_user_pc_content .pc_user_box .pc_user_info {
-  margin: 16px 0 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.pc_user_pc_content .pc_user_box .pc_user_info img {
-  width: 24px;
-}
-@media screen and (max-width: 830px) {
-  .pc_user_pc_content .pc_user_box .pc_user_info img {
-    width: 20px;
-  }
-}
-.pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
-  color: var(--var-text-light);
-  font-style: normal;
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 30px;
-  margin: 0 0 0 10px;
-}
-@media screen and (max-width: 830px) {
-  .pc_user_pc_content .pc_user_box .pc_user_info .pc_user_text {
-    font-size: 18px;
-  }
-}
-.pc_user_pc_content .pc_user_box .pc_user_info span,
-.pc_user_pc_content .pc_user_box .pc_user_info a {
-  cursor: pointer;
-  padding: 0 0 0 15px;
-}
-@media screen and (max-width: 830px) {
-  .pc_user_pc_content .pc_user_box .pc_user_info span,
-  .pc_user_pc_content .pc_user_box .pc_user_info a {
-    padding: 0 0 0 8px;
-  }
-}
-.pc_user_pc_content .pc_user_box .pc_user_info span :global(.icon),
-.pc_user_pc_content .pc_user_box .pc_user_info a :global(.icon) {
-  size: 12px;
-  fill: var(--var-text-dark-grey);
-}
-.pc_user_disconnect_btn {
-  color: var(--var-btn);
-  border: 1px solid var(--var-btn);
-  border-radius: 4px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-style: normal;
-  font-weight: 400;
-  font-size: 14px;
-  padding: 0 8px;
-  cursor: pointer;
-}
-@media screen and (max-width: 830px) {
-  .pc_user_disconnect_btn {
-    padding: 0 5px;
-    height: 26px;
-    font-size: 12px;
-  }
-}
-.pc_user_disconnect_btn:hover {
-  color: var(--var-btn-hover);
-  border: 1px solid var(--var-btn-hover);
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/AccountInfo/AccountInfo.stylus */

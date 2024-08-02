@@ -1,7 +1,7 @@
 "use client";
 // src/index.ts
 import {
-  useSetRecoilState as useSetRecoilState13,
+  useSetRecoilState as useSetRecoilState14,
   atom as atom5,
   selector,
   RecoilRoot,
@@ -40,38 +40,6 @@ var dialogVariants = {
   }
 };
 
-// src/hooks/useNavItem.type.ts
-var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
-  INavLinkType2["Games"] = "Games";
-  INavLinkType2["Activities"] = "Activities";
-  INavLinkType2["Language"] = "Language";
-  INavLinkType2["Links"] = "Links";
-  return INavLinkType2;
-})(INavLinkType || {});
-
-// src/types/gameList.types.ts
-var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
-  IGameStatus2["Live"] = "live";
-  IGameStatus2["End"] = "end";
-  IGameStatus2["Overtime"] = "overtime";
-  IGameStatus2["Invalid"] = "invalid";
-  return IGameStatus2;
-})(IGameStatus || {});
-var IGameName = /* @__PURE__ */ ((IGameName2) => {
-  IGameName2["zBingo"] = "zBingo";
-  IGameName2["z2048"] = "z2048";
-  return IGameName2;
-})(IGameName || {});
-
-// src/index.ts
-import {
-  useWalletClient as useWalletClient2,
-  useSwitchNetwork as useSwitchNetwork2,
-  useDisconnect as useDisconnect6,
-  useAccount as useAccount14,
-  usePublicClient as usePublicClient4
-} from "wagmi";
-
 // src/constant/constant.ts
 import { AddressZero } from "@ethersproject/constants";
 import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
@@ -97,6 +65,7 @@ var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10["Arbitrum"] = "42161";
   ChainId10["ArbitrumRinkeby"] = "421611";
   ChainId10["ArbitrumGoerli"] = "421613";
+  ChainId10["LineaSepolia"] = "59141";
   ChainId10["LineaTestnet"] = "59140";
   ChainId10["LineaMainnet"] = "59144";
   ChainId10["POLYGON_MUMBAI"] = "80001";
@@ -117,11 +86,13 @@ var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10["ZytronLineaSepoliaTestnet"] = "19546";
   ChainId10["ZytronB2Testnet"] = "50097";
   ChainId10["Taiko"] = "167000";
+  ChainId10["SagaMainnet"] = "2717465680371000";
   return ChainId10;
 })(ChainId || {});
 var DPSupportChainId = !isPro() ? [
   "59140" /* LineaTestnet */,
   "59144" /* LineaMainnet */,
+  "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
   "204" /* OPBNB */,
   "19546" /* ZytronLineaSepoliaTestnet */
@@ -129,6 +100,7 @@ var DPSupportChainId = !isPro() ? [
 var bingoV1SupportedChainId = !isPro() ? [
   "59144" /* LineaMainnet */,
   "59140" /* LineaTestnet */,
+  "59141" /* LineaSepolia */,
   "204" /* OPBNB */,
   "5611" /* OPBNBTEST */,
   "19546" /* ZytronLineaSepoliaTestnet */
@@ -153,10 +125,11 @@ var bingoSupportedChainId = [
   ...bingoV1SupportedChainId,
   ...bingoBetaSupportedChainId
 ];
-var supportedChainIds = (env, chainList2) => {
-  return chainList2 ? chainList2 : !isPro() || env === "develop" ? [
+var supportedChainIds = (env, chainList) => {
+  return chainList ? chainList : !isPro() || env === "develop" ? [
     "59144" /* LineaMainnet */,
     "59140" /* LineaTestnet */,
+    "59141" /* LineaSepolia */,
     "223" /* B2 */,
     "1123" /* B2Testnet */,
     "167000" /* Taiko */,
@@ -185,9 +158,8 @@ var supportedChainIds = (env, chainList2) => {
   ];
 };
 var ChainRpcUrls = {
-  ["59140" /* LineaTestnet */]: [
-    "https://rpc.goerli.linea.build"
-  ],
+  ["59140" /* LineaTestnet */]: ["https://rpc.goerli.linea.build"],
+  ["59141" /* LineaSepolia */]: ["https://rpc.sepolia.linea.build"],
   ["59144" /* LineaMainnet */]: ["https://rpc.linea.build"],
   ["42161" /* Arbitrum */]: ["https://arb1.arbitrum.io/rpc"],
   ["5611" /* OPBNBTEST */]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
@@ -244,24 +216,20 @@ var ChainRpcUrls = {
     "https://linea-testnet-zytron.zypher.game"
   ],
   ["50097" /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
-  ["167000" /* Taiko */]: ["https://rpc.hekla.taiko.xyz"]
-};
-var ChainRpcWebSocketUrls = {
-  ["421613" /* ArbitrumGoerli */]: ["wss://arbitrum-goerli.publicnode.com"],
-  ["1442" /* POLYGON_ZKEVM */]: [],
-  ["534353" /* ScrollAlphaTestnet */]: [],
-  ["5611" /* OPBNBTEST */]: [],
-  ["204" /* OPBNB */]: [],
-  ["534351" /* ScrollSepoliaTestnet */]: []
+  ["167000" /* Taiko */]: ["https://rpc.hekla.taiko.xyz"],
+  ["2717465680371000" /* SagaMainnet */]: [
+    "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io"
+  ]
 };
 var BlockExplorerUrls = {
   ["56" /* Bsc */]: ["https://bscscan.com"],
   ["97" /* BscTestnet */]: ["https://testnet.bscscan.com"],
   ["42161" /* Arbitrum */]: ["https://arbiscan.io"],
   ["421611" /* ArbitrumRinkeby */]: ["https://testnet.arbiscan.io"],
-  ["59140" /* LineaTestnet */]: ["https://explorer.goerli.linea.build"],
   ["80001" /* POLYGON_MUMBAI */]: ["https://mumbai.polygonscan.com"],
   ["59144" /* LineaMainnet */]: ["https://lineascan.build"],
+  ["59140" /* LineaTestnet */]: ["https://explorer.goerli.linea.build"],
+  ["59141" /* LineaSepolia */]: ["https://sepolia.lineascan.build"],
   ["421613" /* ArbitrumGoerli */]: ["https://goerli.arbiscan.io/"],
   ["1442" /* POLYGON_ZKEVM */]: ["https://testnet-zkevm.polygonscan.com"],
   ["5611" /* OPBNBTEST */]: ["https://opbnb-testnet.bscscan.com"],
@@ -283,7 +251,8 @@ var BlockExplorerUrls = {
   ["50097" /* ZytronB2Testnet */]: [
     "https://b2-testnet-zytron-blockscout.zypher.game"
   ],
-  ["167000" /* Taiko */]: ["https://hekla.taikoscan.network"]
+  ["167000" /* Taiko */]: ["https://hekla.taikoscan.network"],
+  ["2717465680371000" /* SagaMainnet */]: ["https://zypher-2717465680371000-1.sagaexplorer.io"]
 };
 var ChainName = {
   ["56" /* Bsc */]: "BSC Mainnet",
@@ -292,6 +261,7 @@ var ChainName = {
   ["421613" /* ArbitrumGoerli */]: "Arbitrum Goerli Testnet",
   ["421611" /* ArbitrumRinkeby */]: "Arbitrum Rinkeby",
   ["59140" /* LineaTestnet */]: "Linea Testnet",
+  ["59141" /* LineaSepolia */]: "Linea Sepolia",
   ["59144" /* LineaMainnet */]: "Linea Mainnet",
   ["80001" /* POLYGON_MUMBAI */]: "Polygon Mumbai",
   ["1442" /* POLYGON_ZKEVM */]: "Polygon zkEVM Testnet",
@@ -310,7 +280,8 @@ var ChainName = {
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
-  ["167000" /* Taiko */]: "Taiko Mainnet"
+  ["167000" /* Taiko */]: "Taiko Mainnet",
+  ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
 };
 var ChainNetworkName = {
   ["56" /* Bsc */]: "bsc",
@@ -318,6 +289,7 @@ var ChainNetworkName = {
   ["42161" /* Arbitrum */]: "arbitrum",
   ["421611" /* ArbitrumRinkeby */]: "arbitrum-rinkeby",
   ["59140" /* LineaTestnet */]: "linea-testnet",
+  ["59141" /* LineaSepolia */]: "Linea Sepolia",
   ["59144" /* LineaMainnet */]: "linea",
   ["80001" /* POLYGON_MUMBAI */]: "maticmum",
   ["421613" /* ArbitrumGoerli */]: "arbitrum-goerli",
@@ -337,7 +309,8 @@ var ChainNetworkName = {
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
-  ["167000" /* Taiko */]: "Taiko Mainnet"
+  ["167000" /* Taiko */]: "Taiko Mainnet",
+  ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
 };
 var isTestnet = {
   ["56" /* Bsc */]: false,
@@ -345,6 +318,7 @@ var isTestnet = {
   ["42161" /* Arbitrum */]: false,
   ["421611" /* ArbitrumRinkeby */]: true,
   ["59140" /* LineaTestnet */]: true,
+  ["59141" /* LineaSepolia */]: true,
   ["59144" /* LineaMainnet */]: false,
   ["80001" /* POLYGON_MUMBAI */]: true,
   ["1442" /* POLYGON_ZKEVM */]: true,
@@ -364,7 +338,8 @@ var isTestnet = {
   ["1123" /* B2Testnet */]: true,
   ["19546" /* ZytronLineaSepoliaTestnet */]: true,
   ["50097" /* ZytronB2Testnet */]: true,
-  ["167000" /* Taiko */]: false
+  ["167000" /* Taiko */]: false,
+  ["2717465680371000" /* SagaMainnet */]: false
 };
 var Currency = {
   ["56" /* Bsc */]: "BNB",
@@ -372,6 +347,7 @@ var Currency = {
   ["42161" /* Arbitrum */]: "ETH",
   ["421611" /* ArbitrumRinkeby */]: "ETH",
   ["59140" /* LineaTestnet */]: "ETH",
+  ["59141" /* LineaSepolia */]: "ETH",
   ["59144" /* LineaMainnet */]: "ETH",
   ["80001" /* POLYGON_MUMBAI */]: "ETH",
   ["421613" /* ArbitrumGoerli */]: "ETH",
@@ -391,7 +367,8 @@ var Currency = {
   ["1123" /* B2Testnet */]: "BTC",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "ETH",
   ["50097" /* ZytronB2Testnet */]: "BTC",
-  ["167000" /* Taiko */]: "ETH"
+  ["167000" /* Taiko */]: "ETH",
+  ["2717465680371000" /* SagaMainnet */]: "zyp"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -429,6 +406,9 @@ var CurrencyContract = {
       "0xae2F2660EdEf3197648cC89432a197a000b97EC3"
     ]
   },
+  ["59141" /* LineaSepolia */]: {
+    multicall: [MulticallV3]
+  },
   ["59144" /* LineaMainnet */]: {
     multicall: [MulticallV3]
   },
@@ -448,7 +428,7 @@ var CurrencyContract = {
     multicall: [MulticallV3]
   },
   ["534351" /* ScrollSepoliaTestnet */]: {
-    multicall: [MulticallV3, "0xA10417e9210E8Ad2e8665e11b5E78d804956eb6E"]
+    multicall: [MulticallV3]
   },
   ["534353" /* ScrollAlphaTestnet */]: {
     multicall: [MulticallV3]
@@ -486,6 +466,9 @@ var CurrencyContract = {
   },
   ["167000" /* Taiko */]: {
     multicall: ["0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9"]
+  },
+  ["2717465680371000" /* SagaMainnet */]: {
+    multicall: ["0xA8712E98aeDF7d4D7AA140c50D4E33F3a4712B68"]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {
@@ -562,6 +545,72 @@ var zkBingo = (chainId, name) => {
   }
 };
 
+// src/constant/chains_definitions/chains_definitions.ts
+import { defineChain } from "viem";
+var ChainDefinitions = (chainId) => defineChain({
+  id: Number(chainId),
+  name: ChainNetworkName[chainId],
+  network: ChainName[chainId],
+  nativeCurrency: {
+    name: Currency[chainId],
+    symbol: Currency[chainId],
+    decimals: 18
+  },
+  rpcUrls: {
+    default: {
+      http: ChainRpcUrls[chainId]
+    },
+    public: {
+      http: ChainRpcUrls[chainId]
+    }
+  },
+  blockExplorers: {
+    default: { name: "Nodereal", url: BlockExplorerUrls[chainId][0] },
+    nodereal: { name: "Nodereal", url: BlockExplorerUrls[chainId][0] }
+  },
+  contracts: {
+    multicall3: { address: CurrencyContract[chainId].multicall[0] }
+  },
+  testnet: isTestnet[chainId]
+});
+
+// src/constant/chains.ts
+var AllChainInfo = Object.fromEntries(
+  Object.values(ChainId).map((v) => [v, ChainDefinitions(v)])
+);
+
+// src/hooks/useNavItem.type.ts
+var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
+  INavLinkType2["Games"] = "Games";
+  INavLinkType2["Activities"] = "Activities";
+  INavLinkType2["Language"] = "Language";
+  INavLinkType2["Links"] = "Links";
+  return INavLinkType2;
+})(INavLinkType || {});
+
+// src/types/gameList.types.ts
+var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
+  IGameStatus2["Live"] = "live";
+  IGameStatus2["End"] = "end";
+  IGameStatus2["Overtime"] = "overtime";
+  IGameStatus2["Invalid"] = "invalid";
+  return IGameStatus2;
+})(IGameStatus || {});
+var IGameName = /* @__PURE__ */ ((IGameName2) => {
+  IGameName2["zBingo"] = "zBingo";
+  IGameName2["z2048"] = "z2048";
+  return IGameName2;
+})(IGameName || {});
+
+// src/index.ts
+import {
+  useWalletClient as useWalletClient2,
+  useSwitchNetwork as useSwitchNetwork2,
+  useDisconnect as useDisconnect6,
+  useAccount as useAccount14,
+  usePublicClient as usePublicClient4
+} from "wagmi";
+
 // src/constant/tvlConstant.ts
 var TVL_API = "https://tvl-backend-api.zypher.game";
 var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
@@ -577,15 +626,17 @@ var TVLChainId = ((TVLChainId2) => {
   TVLChainId2[TVLChainId2["B2Testnet"] = "1123" /* B2Testnet */] = "B2Testnet";
   TVLChainId2[TVLChainId2["LineaMainnet"] = "59144" /* LineaMainnet */] = "LineaMainnet";
   TVLChainId2[TVLChainId2["LineaTestnet"] = "59140" /* LineaTestnet */] = "LineaTestnet";
+  TVLChainId2[TVLChainId2["LineaSepolia"] = "59141" /* LineaSepolia */] = "LineaSepolia";
   return TVLChainId2;
 })(TVLChainId || {});
-var defaultActiveChainId = TVLChainId.B2Testnet;
-var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaTestnet, TVLChainId.B2Testnet] : [];
+var defaultActiveChainId = TVLChainId.LineaMainnet;
+var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaSepolia] : [];
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.LineaMainnet]: "19546" /* ZytronLineaSepoliaTestnet */,
-  [TVLChainId.LineaTestnet]: "19546" /* ZytronLineaSepoliaTestnet */
+  [TVLChainId.LineaTestnet]: "19546" /* ZytronLineaSepoliaTestnet */,
+  [TVLChainId.LineaSepolia]: "19546" /* ZytronLineaSepoliaTestnet */
 };
 var activeTokenList = {
   [TVLChainId.LineaTestnet]: {
@@ -593,6 +644,12 @@ var activeTokenList = {
     ZypherGameToken: "0x5275A8593ce6a967Ae6782a70F417135A44bCd27",
     CRHero: "0x76E08f9D5f76590E12427F003325768290602De1",
     Soulbound: "0x519dfE063BDB149eE70732148788b06303E12844"
+  },
+  [TVLChainId.LineaSepolia]: {
+    Staking: "0x1818BC25102B0b0919c84eE0A765E110A211a774",
+    ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
+    CRHero: "0xb7aA019d86aa3aE5568DFf21DA6209fe68B9c45b",
+    Soulbound: "0x7b00c14c7D0087C3a0d37cAbbc6924566B4481E9"
   },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
@@ -606,6 +663,11 @@ var tvlTokenAddress = {
     WETH: "0x5131bc5Ed480a524932D2638922616fE968374FE",
     wstETH: "0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E",
     ezETH: "0xbd36B55DF798a2031A9E06A9e8a1AC0C625911dE"
+  },
+  [TVLChainId.LineaSepolia]: {
+    WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
+    wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
+    ezETH: "0x79A67D40f3e7396FC122268DC0136896cC7D7271"
   },
   [TVLChainId.B2Testnet]: {
     WBTC: "0x9Cae525AdE710904FE81daF47fD26789608fe057",
@@ -636,7 +698,7 @@ var LinkPre = {
   L: {
     key: 1,
     label: "L",
-    chainId: isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaTestnet
+    chainId: isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia
   },
   B: {
     key: 2,
@@ -651,7 +713,8 @@ var minStakingValue = {
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
   [TVLChainId.LineaMainnet]: "0.01",
-  [TVLChainId.LineaTestnet]: "0.01"
+  [TVLChainId.LineaTestnet]: "0.01",
+  [TVLChainId.LineaSepolia]: "0.01"
 };
 var CODELENGTH = 6;
 
@@ -1741,23 +1804,21 @@ var useIsMd = () => {
 var IsPixelWidget = memo5(
   ({
     className,
-    type,
     children,
     onClick,
     backgroundColor,
     borderColor,
-    pixel_height
+    pixel_height,
+    ...props
   }) => {
     const isW768 = useIsW768();
-    return type === "pixel" ? /* @__PURE__ */ React5.createElement(PixelBorderCardButton, {
+    return /* @__PURE__ */ React5.createElement(PixelBorderCardButton, {
       className: `pixel_border ${className != null ? className : ""}`,
       pixel_height: pixel_height != null ? pixel_height : isW768 ? 3 : 5,
       backgroundColor: backgroundColor != null ? backgroundColor : "#1d263b",
       borderColor: borderColor != null ? borderColor : "#3a4254",
-      onClick
-    }, children) : /* @__PURE__ */ React5.createElement("div", {
-      className,
-      onClick
+      onClick,
+      ...props
     }, children);
   }
 );
@@ -1815,8 +1876,7 @@ var Language = memo6(({ type }) => {
   }, type === "pixel" ? /* @__PURE__ */ React7.createElement("div", {
     className: "pixel_logo_wrap"
   }, /* @__PURE__ */ React7.createElement(IsPixelWidget_default, {
-    className: "pixel_logo",
-    type
+    className: "pixel_logo"
   }, /* @__PURE__ */ React7.createElement("img", {
     decoding: "async",
     loading: "lazy",
@@ -1921,14 +1981,14 @@ function useChainId() {
 }
 
 // src/hooks/useActiveWeb3React.ts
-function useActiveWeb3React(env, chainList2) {
+function useActiveWeb3React(env, chainList) {
   const chainId = useChainId();
   const { address } = useAccount();
   const provider = usePublicClient();
   return useMemo(() => {
     return {
-      chainId: chainId && !supportedChainIds(env, chainList2).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList2).includes(`${chainId}`) ? void 0 : address,
+      chainId: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
+      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -2390,6 +2450,7 @@ var form_info = (data, chainId) => {
     avatar: data.headImg,
     id: `${data.id}`,
     nickname: data.nickname,
+    isTwitterPost: data.isTwitterPost,
     twitter: {
       avatar: data.twitterImg,
       nickname: data.twitterName,
@@ -2453,8 +2514,7 @@ var refreshAvatarState = atom2({
 });
 var pointsDialogState = atom2({
   key: "pointsDialog",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("pointsDialog")]
+  default: false
 });
 var pointsAnimState = atom2({
   key: "pointsAnim",
@@ -2479,7 +2539,7 @@ var pointsRuleDialogState = atom2({
 });
 var accountInfoDialogState = atom2({
   key: "accountInfoDialog",
-  default: true
+  default: false
 });
 var showBigState = atom2({
   key: "showBigState",
@@ -2701,7 +2761,6 @@ import { waitForTransaction } from "wagmi/actions";
 // src/rainbow/rainbow.ts
 import { createPublicClient, fallback, http } from "viem";
 import { configureChains, createConfig } from "wagmi";
-import * as chainList from "wagmi/chains";
 import { publicProvider } from "wagmi/providers/public";
 import { particleWallet } from "@particle-network/rainbowkit-ext";
 import { ParticleNetwork } from "@particle-network/auth";
@@ -3430,45 +3489,11 @@ var tokenPocketWallet = ({
 };
 
 // src/rainbow/rainbow.ts
-var WagmiChainList = Object.values(chainList);
 var getSupportedChainIdList = (env, chainIdList) => {
-  return supportedChainIds(env, chainIdList).map((chainId) => {
-    var _a;
-    const chainFilter = WagmiChainList.filter(
-      (v) => `${v.id}` === chainId
-    );
-    if (chainFilter && chainFilter.length) {
-      const chainLocal = chainFilter[0];
-      return chainLocal;
-    }
-    return {
-      id: parseInt(chainId, 10),
-      name: ChainName[chainId],
-      network: ChainNetworkName[chainId],
-      nativeCurrency: {
-        name: `${Currency[chainId]}`,
-        symbol: `${Currency[chainId]}`,
-        decimals: 18
-      },
-      rpcUrls: {
-        default: {
-          http: ChainRpcUrls[chainId],
-          webSocket: ChainRpcWebSocketUrls[chainId]
-        },
-        public: {
-          http: ChainRpcUrls[chainId],
-          webSocket: ChainRpcWebSocketUrls[chainId]
-        }
-      },
-      blockExplorers: {
-        default: {
-          name: `${ChainName[chainId]} Explorer`,
-          url: (_a = sample(BlockExplorerUrls[chainId])) != null ? _a : ""
-        }
-      },
-      testnet: isTestnet[chainId]
-    };
-  });
+  const list = (chainIdList != null ? chainIdList : supportedChainIds(env)).map(
+    (v) => AllChainInfo[v]
+  );
+  return window.IS_TELEGRAM ? [...list, AllChainInfo["2717465680371000" /* SagaMainnet */]] : list;
 };
 new ParticleNetwork({
   appId: "a2ecac32-b520-477a-abf6-4fa8cdfcc046",
@@ -4781,15 +4806,15 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React94, { useEffect as useEffect28, useMemo as useMemo17 } from "react";
-import { useRecoilState as useRecoilState12, useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState11 } from "recoil";
+import React93, { useEffect as useEffect28, useMemo as useMemo16 } from "react";
+import { useRecoilState as useRecoilState12, useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState12 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-import React93, { memo as memo34, useMemo as useMemo16 } from "react";
+import React92, { memo as memo33 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React39, { memo as memo32, useCallback as useCallback20 } from "react";
-import { useSetRecoilState as useSetRecoilState8 } from "recoil";
+import React38, { memo as memo31, useCallback as useCallback21 } from "react";
+import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
@@ -5149,8 +5174,7 @@ var BalanceItem = memo24(
     preChild,
     onClick,
     CountUpNumber,
-    balance,
-    type
+    balance
   }) => {
     const onClickHandle = useCallback13(() => {
       if (onClick) {
@@ -5158,10 +5182,8 @@ var BalanceItem = memo24(
       }
     }, [onClick]);
     return /* @__PURE__ */ React28.createElement(IsPixelWidget_default, {
-      type,
-      className: `balance_item_balance
-        ${className != null ? className : ""}
-        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`,
+      className: `balance_item_balance balance_item_balance_pixel
+        ${className != null ? className : ""}`,
       onClick: onClickHandle
     }, preChild, loading ? /* @__PURE__ */ React28.createElement(LoadingOutlined, null) : /* @__PURE__ */ React28.createElement(React28.Fragment, null, CountUpNumber && (balance || balance === 0) ? /* @__PURE__ */ React28.createElement(CountUpNumber, {
       value: balance,
@@ -5181,8 +5203,7 @@ var BalanceCountUpItem = memo24(
     preChild,
     onClick,
     CountUpNumber,
-    balanceStr,
-    type
+    balanceStr
   }) => {
     const setPointsAnimState = useSetRecoilState5(pointsAnimState);
     const [mount, setMount] = useRecoilState8(pointsAnimNumState);
@@ -5201,11 +5222,9 @@ var BalanceCountUpItem = memo24(
       }
     }, [mount]);
     return /* @__PURE__ */ React28.createElement(IsPixelWidget_default, {
-      className: `balance_item_balance_point balance_item_balance 
-        ${className != null ? className : ""}
-        ${type === "pixel" ? "balance_item_balance_pixel" : ""}`,
-      onClick: onClickHandle,
-      type
+      className: `balance_item_balance_point balance_item_balance  balance_item_balance_pixel
+        ${className != null ? className : ""}`,
+      onClick: onClickHandle
     }, preChild, loading ? /* @__PURE__ */ React28.createElement(LoadingOutlined, null) : /* @__PURE__ */ React28.createElement(React28.Fragment, null, CountUpNumber && (balance || balance === 0) ? /* @__PURE__ */ React28.createElement(CountUpNumber, {
       value: balance,
       decimals: 0,
@@ -5224,7 +5243,7 @@ var AddIcon = styled4(icons_default)`
   width: ${({ isMobile: isMobile2 }) => isMobile2 ? "20px" : "24px"};
 `;
 var Balance = memo25((props) => {
-  const { showPointsModal, env, CountUpNumber, type, isMiddleWidth } = props;
+  const { showPointsModal, env, CountUpNumber, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState10(false);
   const setNativeBalance = useSetRecoilState6(nativeBalanceState);
@@ -5270,8 +5289,7 @@ var Balance = memo25((props) => {
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
   return /* @__PURE__ */ React29.createElement(React29.Fragment, null, isMiddleWidth ? null : /* @__PURE__ */ React29.createElement(IsPixelWidget_default, {
-    type,
-    className: `refresh_balance ${type === "pixel" ? "refresh_balance_pixel" : ""}`,
+    className: "refresh_balance  refresh_balance_pixel",
     onClick: fetchBalanceOf
   }, /* @__PURE__ */ React29.createElement(SyncOutlined, null)), DPSupportChainId.includes(chainId) ? /* @__PURE__ */ React29.createElement(BalanceCountUpItem, {
     onClick: showPointsModal,
@@ -5286,8 +5304,7 @@ var Balance = memo25((props) => {
       name: "pixel_add",
       isMobile: isMiddleWidth
     }),
-    balanceStr: pointsBalanceStr,
-    type
+    balanceStr: pointsBalanceStr
   }) : null, !isMiddleWidth && /* @__PURE__ */ React29.createElement(balanceItem_default, {
     logo: /* @__PURE__ */ React29.createElement(CurrencyLogo_default, {
       className: "balance_item_img",
@@ -5295,8 +5312,7 @@ var Balance = memo25((props) => {
     }),
     balanceStr: nativeBalanceStr,
     loading,
-    className: props.className,
-    type
+    className: props.className
   }));
 }, isEqual);
 var Balance_default = Balance;
@@ -5326,54 +5342,50 @@ var StatusI = styled5.i`
     border-radius: 50%;
   }
 `;
-var ChainSelectorWidget = memo26(
-  ({ className, type, direction_type }) => {
-    const { chainId } = useActiveWeb3React();
-    const isMobile2 = useIsW768();
-    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState9(
-      accountInfoDialogState
-    );
-    const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState9(pointsDialogState);
-    const [sideCollapse, setSideCollapse] = useRecoilState9(sideCollapseState);
-    const { openChainModal } = useChainModal();
-    const openChainModalHandle = useCallback15(() => {
-      if (accountInfoDialogOpen) {
-        setAccountInfoDialogOpen(false);
-      }
-      if (pointsDialogOpen) {
-        setPointsDialogOpen(false);
-      }
-      if (!sideCollapse) {
-        setSideCollapse(true);
-      }
-      if (openChainModal) {
-        openChainModal();
-      }
-    }, [openChainModal]);
-    return chainId ? /* @__PURE__ */ React30.createElement(IsPixelWidget_default, {
-      type,
-      onClick: openChainModalHandle,
-      ...direction_type === "userPop" ? {
-        backgroundColor: "#343C4F",
-        borderColor: "#484F60",
-        pixel_height: 3
-      } : {},
-      className: className != null ? className : ""
-    }, /* @__PURE__ */ React30.createElement("div", {
-      className: "ChainSelectorWidgetWrapper"
-    }, /* @__PURE__ */ React30.createElement("div", {
-      className: "img"
-    }, /* @__PURE__ */ React30.createElement("img", {
-      decoding: "async",
-      loading: "lazy",
-      src: ChainImage[chainId],
-      alt: ChainName[chainId]
-    }), /* @__PURE__ */ React30.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React30.createElement(StatusI, {
-      isMobile: isMobile2
-    }))) : null;
-  },
-  isEqual
-);
+var ChainSelectorWidget = memo26(({ className, direction_type }) => {
+  const { chainId } = useActiveWeb3React();
+  const isMobile2 = useIsW768();
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState9(
+    accountInfoDialogState
+  );
+  const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState9(pointsDialogState);
+  const [sideCollapse, setSideCollapse] = useRecoilState9(sideCollapseState);
+  const { openChainModal } = useChainModal();
+  const openChainModalHandle = useCallback15(() => {
+    if (accountInfoDialogOpen) {
+      setAccountInfoDialogOpen(false);
+    }
+    if (pointsDialogOpen) {
+      setPointsDialogOpen(false);
+    }
+    if (!sideCollapse) {
+      setSideCollapse(true);
+    }
+    if (openChainModal) {
+      openChainModal();
+    }
+  }, [openChainModal]);
+  return chainId ? /* @__PURE__ */ React30.createElement(IsPixelWidget_default, {
+    onClick: openChainModalHandle,
+    ...direction_type === "userPop" ? {
+      backgroundColor: "#343C4F",
+      borderColor: "#484F60",
+      pixel_height: 3
+    } : {},
+    className: className != null ? className : ""
+  }, /* @__PURE__ */ React30.createElement("div", {
+    className: "ChainSelectorWidgetWrapper"
+  }, /* @__PURE__ */ React30.createElement("div", {
+    className: "img"
+  }, /* @__PURE__ */ React30.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
+    src: ChainImage[chainId],
+    alt: ChainName[chainId]
+  }), /* @__PURE__ */ React30.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React30.createElement(StatusI, {
+    isMobile: isMobile2
+  }))) : null;
+}, isEqual);
 var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
@@ -5431,12 +5443,59 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import React38, { memo as memo31, useRef as useRef3 } from "react";
+import React37, { memo as memo30, useCallback as useCallback20 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
-import React33, { memo as memo27, useCallback as useCallback17, useEffect as useEffect11, useState as useState11 } from "react";
+import React33, { memo as memo27 } from "react";
 import styled7 from "styled-components";
+
+// src/components/Avatar/Avatar.tsx
+import React32 from "react";
+import styled6 from "styled-components";
+var IsPixelWidgetStyled = styled6(IsPixelWidget_default)`
+  width: ${({ size }) => size}px !important;
+  height: ${({ size }) => size}px !important;
+  border-radius: ${({ hidePixel }) => !hidePixel ? "0" : "50%"};
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+  &.pixel_flat_btn {
+    img {
+      width: 75%;
+      height: 75%;
+    }
+  }
+`;
+var Avatar = ({
+  src: src6,
+  altText,
+  style = {},
+  size = 64,
+  backgroundColor,
+  hidePixel
+}) => {
+  return /* @__PURE__ */ React32.createElement(IsPixelWidgetStyled, {
+    hidePixel,
+    size,
+    style,
+    backgroundColor
+  }, /* @__PURE__ */ React32.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
+    src: src6,
+    alt: altText
+  }));
+};
+var Avatar_default = Avatar;
+
+// src/hooks/useAvatar.ts
+import { useCallback as useCallback17, useEffect as useEffect11, useState as useState11 } from "react";
+import { useRecoilValue as useRecoilValue7 } from "recoil";
 
 // src/utils/generateAvatar.ts
 function hashToSeed(ethereumAddress) {
@@ -5485,57 +5544,40 @@ var generateAvatar_default = (account) => {
   return { selectedAvatar, selectedBackground };
 };
 
-// src/components/Avatar/Avatar.tsx
-import React32 from "react";
-import styled6, { css } from "styled-components";
-var IsPixelWidgetStyled = styled6(IsPixelWidget_default)`
-  width: ${({ size }) => size}px !important;
-  height: ${({ size }) => size}px !important;
-  border-radius: ${({ type }) => type === "pixel" ? "0" : "50%"};
-  overflow: hidden;
-  ${({ type, style }) => type === "other" && style && css`
-      ${style}
-    `};
-  img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    border-radius: 50%;
-  }
-  &.pixel_flat_btn {
-    img {
-      width: 75%;
-      height: 75%;
+// src/hooks/useAvatar.ts
+var useAvatar = (account, hideAvatars) => {
+  const [avatars2, setAvatars] = useState11({
+    selectedAvatar: "",
+    selectedBackground: ""
+  });
+  const refreshAvatar = useRecoilValue7(refreshAvatarState);
+  useEffect11(() => {
+    if (account && !hideAvatars) {
+      getData();
+    } else {
+      const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
+      setAvatars({ selectedAvatar, selectedBackground });
     }
-  }
-  .pixel_flat_btn_bg > div {
-    ${({ type, style }) => type === "pixel" && style && css`
-        ${style}
-      `};
-  }
-`;
-var Avatar = ({
-  src: src6,
-  altText,
-  style = {},
-  size = 64,
-  type = "other"
-}) => {
-  return /* @__PURE__ */ React32.createElement(IsPixelWidgetStyled, {
-    type,
-    size,
-    style
-  }, /* @__PURE__ */ React32.createElement("img", {
-    decoding: "async",
-    loading: "lazy",
-    src: src6,
-    alt: altText
-  }));
+  }, [account, refreshAvatar]);
+  const getData = useCallback17(() => {
+    const img = new Image();
+    const src6 = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account == null ? void 0 : account.toLowerCase()}.png`;
+    img.src = src6;
+    img.onload = () => {
+      setAvatars({
+        selectedAvatar: `${src6}?${refreshAvatar}`,
+        selectedBackground: "#1d263b"
+      });
+    };
+    img.onerror = () => {
+      const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
+      setAvatars({ selectedAvatar, selectedBackground });
+    };
+  }, [account, refreshAvatar]);
+  return avatars2 || {};
 };
-var Avatar_default = Avatar;
 
 // src/components/PlayerAvatar/index.tsx
-import { useRecoilValue as useRecoilValue7 } from "recoil";
 var PlayerAvatar = memo27(
   ({
     account,
@@ -5548,50 +5590,22 @@ var PlayerAvatar = memo27(
     preLen,
     endLen,
     otherStr,
-    chainId,
     hideAvatars,
-    type = "other",
     onClick,
-    onMouseOver
+    onMouseOver,
+    hidePixel
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
-    const [avatars2, setAvatars] = useState11();
-    const refreshAvatar = useRecoilValue7(refreshAvatarState);
-    useEffect11(() => {
-      if (account && chainId && !hideAvatars) {
-        getData();
-      } else {
-        const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-        setAvatars({ selectedAvatar, selectedBackground });
-      }
-    }, [account, chainId, refreshAvatar]);
-    const getData = useCallback17(() => {
-      const img = new Image();
-      const src6 = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account == null ? void 0 : account.toLowerCase()}.png`;
-      img.src = src6;
-      img.onload = () => {
-        setAvatars({
-          selectedAvatar: `${src6}?${refreshAvatar}`,
-          selectedBackground: "#1d263b"
-        });
-      };
-      img.onerror = () => {
-        const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
-        setAvatars({ selectedAvatar, selectedBackground });
-      };
-    }, [account, chainId, refreshAvatar]);
+    const avatars2 = useAvatar(account, hideAvatars);
     return /* @__PURE__ */ React33.createElement("div", {
       className: cx(className, "player_playerAvatar"),
       onClick,
       onMouseOver
     }, hideAvatars ? null : account ? avatars2 ? /* @__PURE__ */ React33.createElement(AvatarBorder, null, /* @__PURE__ */ React33.createElement(Avatar_default, {
-      type,
+      hidePixel,
       size,
       src: avatars2.selectedAvatar,
-      style: border ? {
-        background: avatars2.selectedBackground,
-        border: "2px solid #eeeeee"
-      } : { background: avatars2.selectedBackground }
+      backgroundColor: avatars2.selectedBackground
     })) : null : /* @__PURE__ */ React33.createElement("div", {
       className: "player_avatar",
       style: {
@@ -5601,6 +5615,7 @@ var PlayerAvatar = memo27(
         background: "rgba(138, 138, 138, 1)"
       }
     }, /* @__PURE__ */ React33.createElement(Avatar_default, {
+      hidePixel,
       size,
       src: preStaticUrl + `/img/pixel_default_avatar.png`
     })), showAccount && /* @__PURE__ */ React33.createElement("p", {
@@ -5699,7 +5714,7 @@ var PlayerAvatarList = ({
   isGrey = false,
   winner
 }) => {
-  const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
+  const { selectedAvatar, selectedBackground } = useAvatar(account, false);
   return /* @__PURE__ */ React33.createElement(OuterCircle, {
     size,
     isGreen,
@@ -5726,7 +5741,7 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React37, { memo as memo30, useCallback as useCallback19, useEffect as useEffect13, useState as useState12 } from "react";
+import React36, { memo as memo29, useCallback as useCallback19, useEffect as useEffect12, useState as useState12 } from "react";
 import { useRecoilState as useRecoilState11 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
@@ -6016,8 +6031,7 @@ var MUserInfo = memo28(
       className: "m_user_account",
       account,
       size: 24,
-      showAccount: true,
-      chainId
+      showAccount: true
     }), /* @__PURE__ */ React35.createElement("span", {
       onClick: () => copy(account)
     }, /* @__PURE__ */ React35.createElement(icons_default, {
@@ -6064,172 +6078,59 @@ var FunItem = memo28(
 );
 var MUserInfo_default = MUserInfo;
 
-// src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-import React36, { memo as memo29 } from "react";
-
-// src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
-import { useEffect as useEffect12, useReducer } from "react";
-var cachedUrls = /* @__PURE__ */ new Map();
-var cachedRequestPromises = /* @__PURE__ */ new Map();
-async function loadAsyncImage(asyncImage) {
-  const cachedRequestPromise = cachedRequestPromises.get(asyncImage);
-  if (cachedRequestPromise) {
-    return cachedRequestPromise;
-  }
-  const load = async () => asyncImage().then(async (url) => {
-    cachedUrls.set(asyncImage, url);
-    return url;
-  });
-  const requestPromise = load().catch((_err) => {
-    return load().catch((_err2) => {
-      cachedRequestPromises.delete(asyncImage);
-    });
-  });
-  cachedRequestPromises.set(asyncImage, requestPromise);
-  return requestPromise;
-}
-async function loadImages(...urls) {
-  return await Promise.all(
-    urls.map((url) => typeof url === "function" ? loadAsyncImage(url) : url)
-  );
-}
-function useForceUpdate() {
-  const [, forceUpdate] = useReducer((x) => x + 1, 0);
-  return forceUpdate;
-}
-function useAsyncImage(url) {
-  const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
-  const forceUpdate = useForceUpdate();
-  useEffect12(() => {
-    if (typeof url === "function" && !cachedUrl) {
-      loadAsyncImage(url).then(forceUpdate);
-    }
-  }, [url, cachedUrl, forceUpdate]);
-  return typeof url === "function" ? cachedUrl : url;
-}
-
-// src/components/ConnectWallet/components/AccountInfoDialog/components/PcUserInfo.tsx
-var PcUserInfo = memo29(
-  ({
-    connectName,
-    connectIcon,
-    account,
-    chainId,
-    cancel,
-    copy
-  }) => {
-    var _a;
-    const { t } = useCustomTranslation([LngNs.common]);
-    const src6 = useAsyncImage(connectIcon);
-    return /* @__PURE__ */ React36.createElement("div", {
-      className: "pc_user_pc_content"
-    }, /* @__PURE__ */ React36.createElement("div", {
-      className: "pc_user_box"
-    }, /* @__PURE__ */ React36.createElement("div", {
-      className: "pc_user_tit"
-    }, t(
-      "Connected with",
-      {
-        walletName: connectName
-      }
-    )), /* @__PURE__ */ React36.createElement("div", {
-      className: "pc_user_info"
-    }, connectIcon && /* @__PURE__ */ React36.createElement("img", {
-      decoding: "async",
-      loading: "lazy",
-      src: src6,
-      alt: connectName
-    }), /* @__PURE__ */ React36.createElement("div", {
-      className: "pc_user_text"
-    }, getShortenAddress(account)), /* @__PURE__ */ React36.createElement("span", {
-      onClick: () => copy(account)
-    }, /* @__PURE__ */ React36.createElement(icons_default, {
-      name: "copy"
-    })), BlockExplorerUrls[chainId] && /* @__PURE__ */ React36.createElement("a", {
-      href: `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
-      target: "_blank",
-      rel: "noreferrer"
-    }, /* @__PURE__ */ React36.createElement(icons_default, {
-      name: "link"
-    })))), /* @__PURE__ */ React36.createElement(DisconnectBtn, {
-      cancel
-    }));
-  },
-  isEqual
-);
-var DisconnectBtn = memo29(({ cancel }) => {
-  const { t } = useCustomTranslation([LngNs.common]);
-  return /* @__PURE__ */ React36.createElement("p", {
-    className: "pc_user_disconnect_btn",
-    onClick: cancel
-  }, t("Disconnect"));
-}, isEqual);
-var PcUserInfo_default = PcUserInfo;
-
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import { useDisconnect as useDisconnect2 } from "wagmi";
-var AccountInfoDialog = memo30(
-  ({ copy, type }) => {
-    const { t } = useCustomTranslation([LngNs.common]);
-    const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState11(
-      accountInfoDialogState
-    );
-    const { account, chainId } = useActiveWeb3React();
-    const isMobile2 = useIsW1100();
-    const { disconnect } = useDisconnect2();
-    const wallet = useActiveWallet();
-    const cancel = useCallback19(() => {
+var AccountInfoDialog = memo29(({ copy }) => {
+  const { t } = useCustomTranslation([LngNs.common]);
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState11(
+    accountInfoDialogState
+  );
+  const { account, chainId } = useActiveWeb3React();
+  const isMobile2 = useIsW1100();
+  const { disconnect } = useDisconnect2();
+  const wallet = useActiveWallet();
+  const cancel = useCallback19(() => {
+    setAccountInfoDialogOpen(false);
+    disconnect();
+  }, [disconnect]);
+  useEffect12(() => {
+    if (accountInfoDialogOpen && isMobile2) {
       setAccountInfoDialogOpen(false);
-      disconnect();
-    }, [disconnect]);
-    useEffect13(() => {
-      if (accountInfoDialogOpen && isMobile2) {
-        setAccountInfoDialogOpen(false);
-      }
-    }, [isMobile2]);
-    return account && chainId ? /* @__PURE__ */ React37.createElement(React37.Fragment, null, /* @__PURE__ */ React37.createElement(Modal_default, {
-      open: accountInfoDialogOpen,
-      onCancel: () => setAccountInfoDialogOpen(false),
-      footer: null,
-      wrapClassName: classnames10(
-        "customDialog",
-        "bottom",
-        "account_info_dialog_dialog"
-      ),
-      destroyOnClose: true,
-      closable: false,
-      width: isMobile2 ? "100%" : 440,
-      centered: isMobile2 ? false : true,
-      transitionName: isMobile2 ? "ant-slide-down" : void 0
-    }, /* @__PURE__ */ React37.createElement(DialogTitle_default, {
-      label: t("Your Wallet"),
-      setDialogOpen: setAccountInfoDialogOpen,
-      classNames: isMobile2 ? "modalTitleInner" : ""
-    }), /* @__PURE__ */ React37.createElement("div", {
-      className: "account_info_dialog_modalMain"
-    }, isMobile2 ? /* @__PURE__ */ React37.createElement(MUserInfo_default, {
-      copy,
-      account,
-      chainId,
-      cancel,
-      type: "other"
-    }) : /* @__PURE__ */ React37.createElement(PcUserInfo_default, {
-      copy,
-      account,
-      chainId,
-      cancel,
-      connectName: wallet == null ? void 0 : wallet.name,
-      connectIcon: wallet == null ? void 0 : wallet.iconUrl,
-      type
-    })))) : null;
-  }
-);
-var AddressBigWrapPop = memo30(({ copy }) => {
+    }
+  }, [isMobile2]);
+  return account && chainId ? /* @__PURE__ */ React36.createElement(React36.Fragment, null, /* @__PURE__ */ React36.createElement(Modal_default, {
+    open: accountInfoDialogOpen,
+    onCancel: () => setAccountInfoDialogOpen(false),
+    footer: null,
+    wrapClassName: classnames10(
+      "customDialog",
+      "bottom",
+      "account_info_dialog_dialog"
+    ),
+    destroyOnClose: true,
+    closable: false,
+    width: isMobile2 ? "100%" : 440,
+    centered: isMobile2 ? false : true,
+    transitionName: isMobile2 ? "ant-slide-down" : void 0
+  }, /* @__PURE__ */ React36.createElement(DialogTitle_default, {
+    label: t("Your Wallet"),
+    setDialogOpen: setAccountInfoDialogOpen,
+    classNames: isMobile2 ? "modalTitleInner" : ""
+  }), /* @__PURE__ */ React36.createElement("div", {
+    className: "account_info_dialog_modalMain"
+  }, /* @__PURE__ */ React36.createElement(MUserInfo_default, {
+    copy,
+    account,
+    chainId,
+    cancel
+  })))) : null;
+});
+var AddressBigWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState12();
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState11(accountInfoDialogState);
-  useEffect13(() => {
+  useEffect12(() => {
     if (index || index === 0) {
       setTimeout(() => {
         setIndex(void 0);
@@ -6253,37 +6154,37 @@ var AddressBigWrapPop = memo30(({ copy }) => {
     disconnect();
     setIndex(2);
   }, [disconnect]);
-  return /* @__PURE__ */ React37.createElement("div", {
+  return /* @__PURE__ */ React36.createElement("div", {
     className: "address_wrap_big_pop_wrap"
-  }, /* @__PURE__ */ React37.createElement(PixelBorderCard, {
+  }, /* @__PURE__ */ React36.createElement(PixelBorderCard, {
     className: "address_wrap_big_pop",
     pixel_height: 4,
     backgroundColor: "#1D263B",
     borderColor: "#3A4254"
-  }, /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+  }, /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
     iconName: "pixel_copy",
     label: "Copy address",
     onClick: copyAddressHandle,
     on: index === 0
-  }), /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+  }), /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
     iconName: "pixel_blockchain",
     label: "Explorer",
     onClick: openHandle,
     on: index === 1
-  }), /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+  }), /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
     iconName: "pixel_disconnect",
     label: "Disconnect",
     onClick: cancelHandle,
     on: index === 2
   })));
 });
-var AddressMiddleWrapPop = memo30(({ copy }) => {
+var AddressMiddleWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState12();
   const { account, chainId } = useActiveWeb3React();
   const nativeBalanceStr = useNativeBalanceStr();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState11(accountInfoDialogState);
-  useEffect13(() => {
+  useEffect12(() => {
     if (index || index === 0) {
       setTimeout(() => {
         setIndex(void 0);
@@ -6307,63 +6208,60 @@ var AddressMiddleWrapPop = memo30(({ copy }) => {
     disconnect();
     setIndex(2);
   }, [disconnect]);
-  return /* @__PURE__ */ React37.createElement("div", {
+  return /* @__PURE__ */ React36.createElement("div", {
     className: "address_wrap_big_pop_wrap"
-  }, /* @__PURE__ */ React37.createElement(PixelBorderCard, {
+  }, /* @__PURE__ */ React36.createElement(PixelBorderCard, {
     className: "address_wrap_middle_pop",
     pixel_height: 4,
     backgroundColor: "#1D263B",
     borderColor: "#3A4254"
-  }, /* @__PURE__ */ React37.createElement("div", {
+  }, /* @__PURE__ */ React36.createElement("div", {
     className: "middle_account"
-  }, /* @__PURE__ */ React37.createElement(PlayerAvatar_default, {
-    chainId,
+  }, /* @__PURE__ */ React36.createElement(PlayerAvatar_default, {
     border: true,
     className: "account",
     account,
     size: 62,
-    showAccount: false,
-    type: "other"
-  }), /* @__PURE__ */ React37.createElement("div", {
+    showAccount: false
+  }), /* @__PURE__ */ React36.createElement("div", {
     className: "middle_address",
     onClick: copyAddressHandle
-  }, /* @__PURE__ */ React37.createElement("p", null, getShortenAddress(account)), /* @__PURE__ */ React37.createElement(icons_default, {
+  }, /* @__PURE__ */ React36.createElement("p", null, getShortenAddress(account)), /* @__PURE__ */ React36.createElement(icons_default, {
     name: "pixel_copy"
-  }))), /* @__PURE__ */ React37.createElement(ChainSelectorWidget_default, {
-    type: "pixel",
+  }))), /* @__PURE__ */ React36.createElement(ChainSelectorWidget_default, {
     direction_type: "userPop",
     className: "middle_selector"
-  }), /* @__PURE__ */ React37.createElement("div", {
+  }), /* @__PURE__ */ React36.createElement("div", {
     className: "middle_balance"
-  }, /* @__PURE__ */ React37.createElement(BalanceItem2, {
+  }, /* @__PURE__ */ React36.createElement(BalanceItem2, {
     currency: Currency[chainId],
     balanceStr: nativeBalanceStr,
-    logo: /* @__PURE__ */ React37.createElement(CurrencyLogo_default, {
+    logo: /* @__PURE__ */ React36.createElement(CurrencyLogo_default, {
       className: "balance_item_img",
       src: CurrencyLogo[chainId]
     })
-  })), /* @__PURE__ */ React37.createElement(Language_default, {
+  })), /* @__PURE__ */ React36.createElement(Language_default, {
     type: "list"
-  }), /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+  }), /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
     iconName: "pixel_blockchain",
     label: "Blockchain Explorer",
     onClick: openHandle,
     on: index === 1
-  }), /* @__PURE__ */ React37.createElement(AddressWrapPopItem, {
+  }), /* @__PURE__ */ React36.createElement(AddressWrapPopItem, {
     iconName: "pixel_disconnect",
     label: "Disconnect",
     onClick: cancelHandle,
     on: index === 2
   })));
 });
-var AddressWrapPopItem = memo30(
+var AddressWrapPopItem = memo29(
   ({
     iconName,
     label,
     onClick,
     on
   }) => {
-    return /* @__PURE__ */ React37.createElement(PixelCube2, {
+    return /* @__PURE__ */ React36.createElement(PixelCube2, {
       className: `address_wrap_pop_item ${on ? "on" : ""}`,
       onClick,
       pixel_height: 3,
@@ -6371,22 +6269,22 @@ var AddressWrapPopItem = memo30(
       borderColor: "#1D263B",
       width: "100%",
       height: "36px"
-    }, /* @__PURE__ */ React37.createElement(icons_default, {
+    }, /* @__PURE__ */ React36.createElement(icons_default, {
       name: iconName
-    }), /* @__PURE__ */ React37.createElement("p", null, label));
+    }), /* @__PURE__ */ React36.createElement("p", null, label));
   }
 );
-var BalanceItem2 = memo30(
+var BalanceItem2 = memo29(
   ({
     logo,
     balanceStr,
     currency
   }) => {
-    return /* @__PURE__ */ React37.createElement("div", {
+    return /* @__PURE__ */ React36.createElement("div", {
       className: "middle_balance_item"
-    }, /* @__PURE__ */ React37.createElement("div", {
+    }, /* @__PURE__ */ React36.createElement("div", {
       className: "fl"
-    }, logo, /* @__PURE__ */ React37.createElement("p", null, currency)), /* @__PURE__ */ React37.createElement("p", {
+    }, logo, /* @__PURE__ */ React36.createElement("p", null, currency)), /* @__PURE__ */ React36.createElement("p", {
       className: "frText"
     }, balanceStr));
   }
@@ -6394,46 +6292,37 @@ var BalanceItem2 = memo30(
 var AccountInfoDialog_default = AccountInfoDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-var AccountInfo = memo31(
-  ({
-    isW768,
-    isMiddleWidth,
-    type,
-    copy,
-    env,
-    supportedChainList
-  }) => {
+import { useSetRecoilState as useSetRecoilState8 } from "recoil";
+var AccountInfo = memo30(
+  ({ isW768, isMiddleWidth, copy, env, supportedChainList }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
-    const bigDivRef = useRef3(null);
-    const middleDivRef = useRef3(null);
-    return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(IsPixelWidget_default, {
-      type,
+    const setAccountInfoDialogState = useSetRecoilState8(accountInfoDialogState);
+    const accountClick = useCallback20(() => {
+      if (isW768) {
+        setAccountInfoDialogState(true);
+      }
+    }, [isW768, setAccountInfoDialogState]);
+    return /* @__PURE__ */ React37.createElement(React37.Fragment, null, /* @__PURE__ */ React37.createElement(IsPixelWidget_default, {
       className: "address_wrap"
-    }, /* @__PURE__ */ React38.createElement(PlayerAvatar_default, {
+    }, /* @__PURE__ */ React37.createElement(PlayerAvatar_default, {
+      onClick: accountClick,
       className: "account",
       account,
       size: isW768 ? 30 : 40,
-      showAccount: isMiddleWidth ? false : true,
-      type,
-      chainId
-    }), !isMiddleWidth && !isW768 ? /* @__PURE__ */ React38.createElement("div", {
-      ref: bigDivRef
-    }, /* @__PURE__ */ React38.createElement(AddressBigWrapPop, {
+      showAccount: isMiddleWidth ? false : true
+    }), !isMiddleWidth && !isW768 ? /* @__PURE__ */ React37.createElement(AddressBigWrapPop, {
       copy
-    }), " ") : null, isMiddleWidth ? /* @__PURE__ */ React38.createElement("div", {
-      ref: middleDivRef
-    }, /* @__PURE__ */ React38.createElement(AddressMiddleWrapPop, {
+    }) : null, isMiddleWidth && !isW768 ? /* @__PURE__ */ React37.createElement(AddressMiddleWrapPop, {
       copy
-    })) : null), isW768 ? /* @__PURE__ */ React38.createElement(AccountInfoDialog_default, {
-      copy,
-      type
+    }) : null), isW768 ? /* @__PURE__ */ React37.createElement(AccountInfoDialog_default, {
+      copy
     }) : null);
   }
 );
 var AccountInfo_default = AccountInfo;
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-var Account = memo32(
+var Account = memo31(
   ({
     isMiddleWidth,
     env,
@@ -6442,47 +6331,42 @@ var Account = memo32(
     setErrorToast,
     copy,
     CountUpNumber,
-    supportedChainList,
-    type
+    supportedChainList
   }) => {
     const isW768 = useIsW768();
-    const setPointsDialogState = useSetRecoilState8(pointsDialogState);
-    const showPointsModal = useCallback20(() => {
+    const setPointsDialogState = useSetRecoilState9(pointsDialogState);
+    const showPointsModal = useCallback21(() => {
       setPointsDialogState(true);
     }, [setPointsDialogState]);
-    return /* @__PURE__ */ React39.createElement(React39.Fragment, null, /* @__PURE__ */ React39.createElement(Balance_default, {
+    return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
       isMiddleWidth,
       CountUpNumber,
       env,
-      showPointsModal,
-      type
-    }), /* @__PURE__ */ React39.createElement(AccountInfo_default, {
-      type,
+      showPointsModal
+    }), /* @__PURE__ */ React38.createElement(AccountInfo_default, {
       isMiddleWidth,
       isW768,
       copy,
       env
-    }), !isMiddleWidth && /* @__PURE__ */ React39.createElement(ChainSelectorWidget_default, {
-      type
-    }), /* @__PURE__ */ React39.createElement(PointsDialog_default, {
+    }), !isMiddleWidth && /* @__PURE__ */ React38.createElement(ChainSelectorWidget_default, null), /* @__PURE__ */ React38.createElement(PointsDialog_default, {
       env,
       dispatch,
       setSuccessToast,
       setErrorToast
-    }), /* @__PURE__ */ React39.createElement(PointsRuleDialog_default, null));
+    }), /* @__PURE__ */ React38.createElement(PointsRuleDialog_default, null));
   },
   isEqual
 );
 var rainbow_account_default = Account;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-import React89, { memo as memo33 } from "react";
-import { useSetRecoilState as useSetRecoilState10 } from "recoil";
+import React88, { memo as memo32 } from "react";
+import { useSetRecoilState as useSetRecoilState11 } from "recoil";
 
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
-import React88, {
+import React87, {
   createContext as createContext11,
-  useCallback as useCallback30,
+  useCallback as useCallback31,
   useContext as useContext16,
   useMemo as useMemo15,
   useRef as useRef8,
@@ -6494,10 +6378,10 @@ import { useAccount as useAccount11, useNetwork as useNetwork7 } from "wagmi";
 import { useAccount as useAccount3 } from "wagmi";
 
 // src/rainbowkit/src/components/RainbowKitProvider/AuthenticationContext.tsx
-import React40, {
+import React39, {
   createContext as createContext3,
   useContext as useContext3,
-  useEffect as useEffect14,
+  useEffect as useEffect13,
   useMemo as useMemo11,
   useRef as useRef4
 } from "react";
@@ -6521,7 +6405,7 @@ function RainbowKitAuthenticationProvider({
   });
   const { isDisconnected } = useAccount2();
   const onceRef = useRef4(false);
-  useEffect14(() => {
+  useEffect13(() => {
     if (onceRef.current)
       return;
     onceRef.current = true;
@@ -6529,7 +6413,7 @@ function RainbowKitAuthenticationProvider({
       adapter.signOut();
     }
   }, [status, adapter, isDisconnected]);
-  return /* @__PURE__ */ React40.createElement(AuthenticationContext.Provider, {
+  return /* @__PURE__ */ React39.createElement(AuthenticationContext.Provider, {
     value: useMemo11(
       () => enabled ? { adapter, status } : null,
       [enabled, adapter, status]
@@ -6567,7 +6451,7 @@ function useConnectionStatus() {
 }
 
 // src/rainbowkit/src/components/AccountModal/AccountModal.tsx
-import React68 from "react";
+import React67 from "react";
 import { useAccount as useAccount10, useBalance, useDisconnect as useDisconnect4 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
@@ -6608,13 +6492,13 @@ function useMainnetEnsName(address) {
 }
 
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React55, { useCallback as useCallback25, useEffect as useEffect21, useState as useState16 } from "react";
+import React54, { useCallback as useCallback26, useEffect as useEffect21, useState as useState16 } from "react";
 import { createPortal } from "react-dom";
 import { RemoveScroll } from "react-remove-scroll";
 
 // src/rainbowkit/src/components/Box/Box.ts
 import clsx2 from "clsx";
-import * as React41 from "react";
+import * as React40 from "react";
 
 // src/rainbowkit/src/css/atoms.ts
 import clsx from "clsx";
@@ -6643,7 +6527,7 @@ var atoms = ({ reset, ...rest }) => {
 };
 
 // src/rainbowkit/src/components/Box/Box.ts
-var Box = React41.forwardRef(
+var Box = React40.forwardRef(
   ({ as = "div", className, testId, ...props }, ref) => {
     const atomProps = {};
     const nativeProps = {};
@@ -6658,7 +6542,7 @@ var Box = React41.forwardRef(
       reset: typeof as === "string" ? as : "div",
       ...atomProps
     });
-    return React41.createElement(as, {
+    return React40.createElement(as, {
       className: clsx2(atomicClasses, className),
       ...nativeProps,
       "data-testid": testId ? `rk-${testId.replace(/^rk-/, "")}` : void 0,
@@ -6669,7 +6553,7 @@ var Box = React41.forwardRef(
 Box.displayName = "Box";
 
 // src/rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider.tsx
-import React53, { createContext as createContext10, useContext as useContext5 } from "react";
+import React52, { createContext as createContext10, useContext as useContext5 } from "react";
 import { useAccount as useAccount6 } from "wagmi";
 
 // src/rainbowkit/src/css/cssObjectFromTheme.ts
@@ -6700,13 +6584,13 @@ function cssStringFromTheme(theme, options = {}) {
 }
 
 // src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect15, useState as useState13 } from "react";
+import { useEffect as useEffect14, useState as useState13 } from "react";
 var useWindowSize2 = () => {
   const [windowSize, setWindowSize] = useState13({
     height: void 0,
     width: void 0
   });
-  useEffect15(() => {
+  useEffect14(() => {
     function handleResize() {
       setWindowSize({
         height: window.innerHeight,
@@ -6846,7 +6730,7 @@ var lightTheme = ({
 lightTheme.accentColors = accentColors;
 
 // src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React42, { createContext as createContext4, useContext as useContext4, useEffect as useEffect16, useState as useState14 } from "react";
+import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect15, useState as useState14 } from "react";
 import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
 
 // src/rainbowkit/src/transactions/transactionStore.ts
@@ -6987,15 +6871,15 @@ function TransactionStoreProvider({ children }) {
   const { address } = useAccount4();
   const chainId = useChainId();
   const [store] = useState14(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
-  useEffect16(() => {
+  useEffect15(() => {
     store.setProvider(provider);
   }, [store, provider]);
-  useEffect16(() => {
+  useEffect15(() => {
     if (address && chainId) {
       store.waitForPendingTransactions(address, chainId);
     }
   }, [store, address, chainId]);
-  return /* @__PURE__ */ React42.createElement(TransactionStoreContext.Provider, {
+  return /* @__PURE__ */ React41.createElement(TransactionStoreContext.Provider, {
     value: store
   }, children);
 }
@@ -7020,10 +6904,10 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React45, { useEffect as useEffect17, useMemo as useMemo13, useState as useState15 } from "react";
+import React44, { useEffect as useEffect16, useMemo as useMemo13, useState as useState15 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-import React44, { useMemo as useMemo12 } from "react";
+import React43, { useMemo as useMemo12 } from "react";
 
 // src/rainbowkit/src/components/Icons/Icons.css.ts
 var SpinnerIconClassName = "Icons_SpinnerIconClassName__j63hpy2";
@@ -7039,24 +6923,24 @@ var SpinnerIcon = ({
   width = 21
 }) => {
   const id = useRandomId("spinner");
-  return /* @__PURE__ */ React44.createElement("svg", {
+  return /* @__PURE__ */ React43.createElement("svg", {
     className: SpinnerIconClassName,
     fill: "none",
     height,
     viewBox: "0 0 21 21",
     width,
     xmlns: "http://www.w3.org/2000/svg"
-  }, /* @__PURE__ */ React44.createElement("clipPath", {
+  }, /* @__PURE__ */ React43.createElement("clipPath", {
     id
-  }, /* @__PURE__ */ React44.createElement("path", {
+  }, /* @__PURE__ */ React43.createElement("path", {
     d: "M10.5 3C6.35786 3 3 6.35786 3 10.5C3 14.6421 6.35786 18 10.5 18C11.3284 18 12 18.6716 12 19.5C12 20.3284 11.3284 21 10.5 21C4.70101 21 0 16.299 0 10.5C0 4.70101 4.70101 0 10.5 0C16.299 0 21 4.70101 21 10.5C21 11.3284 20.3284 12 19.5 12C18.6716 12 18 11.3284 18 10.5C18 6.35786 14.6421 3 10.5 3Z"
-  })), /* @__PURE__ */ React44.createElement("foreignObject", {
+  })), /* @__PURE__ */ React43.createElement("foreignObject", {
     clipPath: `url(#${id})`,
     height: "21",
     width: "21",
     x: "0",
     y: "0"
-  }, /* @__PURE__ */ React44.createElement("div", {
+  }, /* @__PURE__ */ React43.createElement("div", {
     className: SpinnerIconPathClassName
   })));
 };
@@ -7146,7 +7030,7 @@ function emojiAvatarForAddress(address) {
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
 var EmojiAvatar = ({ address, ensImage, size }) => {
   const [loaded, setLoaded] = useState15(false);
-  useEffect17(() => {
+  useEffect16(() => {
     if (ensImage) {
       const img = new Image();
       img.src = ensImage;
@@ -7157,7 +7041,7 @@ var EmojiAvatar = ({ address, ensImage, size }) => {
     () => emojiAvatarForAddress(address),
     [address]
   );
-  return ensImage ? loaded ? /* @__PURE__ */ React45.createElement(Box, {
+  return ensImage ? loaded ? /* @__PURE__ */ React44.createElement(Box, {
     backgroundSize: "cover",
     borderRadius: "full",
     position: "absolute",
@@ -7167,7 +7051,7 @@ var EmojiAvatar = ({ address, ensImage, size }) => {
       height: size,
       width: size
     }
-  }) : /* @__PURE__ */ React45.createElement(Box, {
+  }) : /* @__PURE__ */ React44.createElement(Box, {
     alignItems: "center",
     backgroundSize: "cover",
     borderRadius: "full",
@@ -7179,7 +7063,7 @@ var EmojiAvatar = ({ address, ensImage, size }) => {
       height: size,
       width: size
     }
-  }, /* @__PURE__ */ React45.createElement(SpinnerIcon, null)) : /* @__PURE__ */ React45.createElement(Box, {
+  }, /* @__PURE__ */ React44.createElement(SpinnerIcon, null)) : /* @__PURE__ */ React44.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "center",
@@ -7215,28 +7099,69 @@ import { createContext as createContext9 } from "react";
 var ShowRecentTransactionsContext = createContext9(false);
 
 // src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback21, useEffect as useEffect18 } from "react";
+import { useCallback as useCallback22, useEffect as useEffect17 } from "react";
 var storageKey3 = "rk-version";
 function setRainbowKitVersion({ version }) {
   localStorage.setItem(storageKey3, version);
 }
 function useFingerprint() {
-  const fingerprint = useCallback21(() => {
+  const fingerprint = useCallback22(() => {
     setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
-  useEffect18(() => {
+  useEffect17(() => {
     fingerprint();
   }, [fingerprint]);
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback23, useEffect as useEffect19 } from "react";
+import { useCallback as useCallback24, useEffect as useEffect19 } from "react";
+
+// src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
+import { useEffect as useEffect18, useReducer } from "react";
+var cachedUrls = /* @__PURE__ */ new Map();
+var cachedRequestPromises = /* @__PURE__ */ new Map();
+async function loadAsyncImage(asyncImage) {
+  const cachedRequestPromise = cachedRequestPromises.get(asyncImage);
+  if (cachedRequestPromise) {
+    return cachedRequestPromise;
+  }
+  const load = async () => asyncImage().then(async (url) => {
+    cachedUrls.set(asyncImage, url);
+    return url;
+  });
+  const requestPromise = load().catch((_err) => {
+    return load().catch((_err2) => {
+      cachedRequestPromises.delete(asyncImage);
+    });
+  });
+  cachedRequestPromises.set(asyncImage, requestPromise);
+  return requestPromise;
+}
+async function loadImages(...urls) {
+  return await Promise.all(
+    urls.map((url) => typeof url === "function" ? loadAsyncImage(url) : url)
+  );
+}
+function useForceUpdate() {
+  const [, forceUpdate] = useReducer((x) => x + 1, 0);
+  return forceUpdate;
+}
+function useAsyncImage(url) {
+  const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
+  const forceUpdate = useForceUpdate();
+  useEffect18(() => {
+    if (typeof url === "function" && !cachedUrl) {
+      loadAsyncImage(url).then(forceUpdate);
+    }
+  }, [url, cachedUrl, forceUpdate]);
+  return typeof url === "function" ? cachedUrl : url;
+}
 
 // src/rainbowkit/src/components/Icons/Assets.tsx
-import React48 from "react";
+import React47 from "react";
 
 // src/rainbowkit/src/components/AsyncImage/AsyncImage.tsx
-import React47, { useReducer as useReducer2 } from "react";
+import React46, { useReducer as useReducer2 } from "react";
 function AsyncImage({
   alt,
   background,
@@ -7253,7 +7178,7 @@ function AsyncImage({
     () => true,
     false
   );
-  return /* @__PURE__ */ React47.createElement(Box, {
+  return /* @__PURE__ */ React46.createElement(Box, {
     "aria-label": alt,
     borderRadius,
     boxShadow,
@@ -7266,7 +7191,7 @@ function AsyncImage({
       width: typeof width === "number" ? width : void 0
     },
     width: typeof width === "string" ? width : void 0
-  }, /* @__PURE__ */ React47.createElement(Box, {
+  }, /* @__PURE__ */ React46.createElement(Box, {
     ...isRemoteImage ? {
       "aria-hidden": true,
       as: "img",
@@ -7290,7 +7215,7 @@ function AsyncImage({
       }
     },
     width: "full"
-  }), borderColor ? /* @__PURE__ */ React47.createElement(Box, {
+  }), borderColor ? /* @__PURE__ */ React46.createElement(Box, {
     ...typeof borderColor === "object" && "custom" in borderColor ? { style: { borderColor: borderColor.custom } } : { borderColor },
     borderRadius,
     borderStyle: "solid",
@@ -7304,7 +7229,7 @@ function AsyncImage({
 // src/rainbowkit/src/components/Icons/Assets.tsx
 var src = async () => (await import("./assets-KLGNUBLR.js")).default;
 var preloadAssetsIcon = () => loadImages(src);
-var AssetsIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
+var AssetsIcon = () => /* @__PURE__ */ React47.createElement(AsyncImage, {
   background: "#d0d5de",
   borderRadius: "10",
   height: "48",
@@ -7313,10 +7238,10 @@ var AssetsIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/Icons/Login.tsx
-import React49 from "react";
+import React48 from "react";
 var src2 = async () => (await import("./login-L4DFYQAF.js")).default;
 var preloadLoginIcon = () => loadImages(src2);
-var LoginIcon = () => /* @__PURE__ */ React49.createElement(AsyncImage, {
+var LoginIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
   background: "#d0d5de",
   borderRadius: "10",
   height: "48",
@@ -7325,7 +7250,7 @@ var LoginIcon = () => /* @__PURE__ */ React49.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/SignIn/SignIn.tsx
-import React52, { useCallback as useCallback22, useRef as useRef5 } from "react";
+import React51, { useCallback as useCallback23, useRef as useRef5 } from "react";
 import { UserRejectedRequestError } from "viem";
 import { useAccount as useAccount5, useDisconnect as useDisconnect3, useNetwork as useNetwork3, useSignMessage } from "wagmi";
 
@@ -7340,11 +7265,11 @@ function touchableStyles({ active: active2, hover: hover2 }) {
 }
 
 // src/rainbowkit/src/components/Button/ActionButton.tsx
-import React51 from "react";
+import React50 from "react";
 
 // src/rainbowkit/src/components/Text/Text.tsx
-import React50 from "react";
-var Text2 = React50.forwardRef(
+import React49 from "react";
+var Text2 = React49.forwardRef(
   ({
     as = "div",
     children,
@@ -7359,7 +7284,7 @@ var Text2 = React50.forwardRef(
     textAlign = "inherit",
     weight = "regular"
   }, ref) => {
-    return /* @__PURE__ */ React50.createElement(Box, {
+    return /* @__PURE__ */ React49.createElement(Box, {
       as,
       className,
       color,
@@ -7411,12 +7336,12 @@ function ActionButton({
   const isNotLarge = size !== "large";
   const background = !disabled ? isPrimary ? "#1649FF" : isNotLarge ? "#3360FF" : void 0 : "#1D263B";
   const { fontSize, height, paddingX, paddingY } = sizeVariants[size];
-  return /* @__PURE__ */ React51.createElement(PixelCube2, {
+  return /* @__PURE__ */ React50.createElement(PixelCube2, {
     pixel_height: 2,
     borderColor: background,
     backgroundColor: background,
     height: height ? height + "px" : void 0
-  }, /* @__PURE__ */ React51.createElement(Box, {
+  }, /* @__PURE__ */ React50.createElement(Box, {
     ...href ? !disabled ? { as: "a", href, rel, target } : {} : { as: "button", type: "button" },
     onClick: !disabled ? onClick : void 0,
     className: !disabled && touchableStyles({ active: "shrinkSm", hover: "grow" }),
@@ -7427,7 +7352,7 @@ function ActionButton({
     testId,
     textAlign: "center",
     transition: "transform"
-  }, /* @__PURE__ */ React51.createElement(Text2, {
+  }, /* @__PURE__ */ React50.createElement(Text2, {
     color: !disabled ? isPrimary ? "accentColorForeground" : "accentColor" : "modalTextSecondary",
     size: fontSize,
     weight: "bold"
@@ -7437,9 +7362,9 @@ function ActionButton({
 // src/rainbowkit/src/components/SignIn/SignIn.tsx
 var signInIcon = async () => (await import("./sign-IOXJRZQV.js")).default;
 function SignIn({ onClose }) {
-  const [{ status, ...state }, setState] = React52.useState({ status: "idle" });
+  const [{ status, ...state }, setState] = React51.useState({ status: "idle" });
   const authAdapter = useAuthenticationAdapter();
-  const getNonce = useCallback22(async () => {
+  const getNonce = useCallback23(async () => {
     try {
       const nonce = await authAdapter.getNonce();
       setState((x) => ({ ...x, nonce }));
@@ -7452,7 +7377,7 @@ function SignIn({ onClose }) {
     }
   }, [authAdapter]);
   const onceRef = useRef5(false);
-  React52.useEffect(() => {
+  React51.useEffect(() => {
     if (onceRef.current)
       return;
     onceRef.current = true;
@@ -7517,17 +7442,17 @@ function SignIn({ onClose }) {
       });
     }
   };
-  return /* @__PURE__ */ React52.createElement(Box, {
+  return /* @__PURE__ */ React51.createElement(Box, {
     position: "relative"
-  }, /* @__PURE__ */ React52.createElement(Box, {
+  }, /* @__PURE__ */ React51.createElement(Box, {
     display: "flex",
     paddingRight: "16",
     paddingTop: "16",
     position: "absolute",
     right: "0"
-  }, /* @__PURE__ */ React52.createElement(DialogClose_default, {
+  }, /* @__PURE__ */ React51.createElement(DialogClose_default, {
     onClick: onClose
-  })), /* @__PURE__ */ React52.createElement(Box, {
+  })), /* @__PURE__ */ React51.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -7535,58 +7460,58 @@ function SignIn({ onClose }) {
     padding: "24",
     paddingX: "18",
     style: { paddingTop: mobile ? "60px" : "36px" }
-  }, /* @__PURE__ */ React52.createElement(Box, {
+  }, /* @__PURE__ */ React51.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: mobile ? "6" : "4",
     style: { maxWidth: mobile ? 320 : 280 }
-  }, /* @__PURE__ */ React52.createElement(Box, {
+  }, /* @__PURE__ */ React51.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: mobile ? "32" : "16"
-  }, /* @__PURE__ */ React52.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React51.createElement(AsyncImage, {
     height: 40,
     src: signInIcon,
     width: 40
-  }), /* @__PURE__ */ React52.createElement(Text2, {
+  }), /* @__PURE__ */ React51.createElement(Text2, {
     color: "modalText",
     size: mobile ? "20" : "18",
     textAlign: "center",
     weight: "heavy"
-  }, "Verify your account")), /* @__PURE__ */ React52.createElement(Box, {
+  }, "Verify your account")), /* @__PURE__ */ React51.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: mobile ? "16" : "12"
-  }, /* @__PURE__ */ React52.createElement(Text2, {
+  }, /* @__PURE__ */ React51.createElement(Text2, {
     color: "modalTextSecondary",
     size: mobile ? "16" : "14",
     textAlign: "center"
-  }, "To finish connecting, you must sign a message in your wallet to verify that you are the owner of this account."), status === "idle" && state.errorMessage ? /* @__PURE__ */ React52.createElement(Text2, {
+  }, "To finish connecting, you must sign a message in your wallet to verify that you are the owner of this account."), status === "idle" && state.errorMessage ? /* @__PURE__ */ React51.createElement(Text2, {
     color: "error",
     size: mobile ? "16" : "14",
     textAlign: "center",
     weight: "bold"
-  }, state.errorMessage) : null)), /* @__PURE__ */ React52.createElement(Box, {
+  }, state.errorMessage) : null)), /* @__PURE__ */ React51.createElement(Box, {
     alignItems: !mobile ? "center" : void 0,
     display: "flex",
     flexDirection: "column",
     gap: "8",
     width: "full"
-  }, /* @__PURE__ */ React52.createElement(ActionButton, {
+  }, /* @__PURE__ */ React51.createElement(ActionButton, {
     disabled: !state.nonce || status === "signing" || status === "verifying",
     label: !state.nonce ? "Preparing message..." : status === "signing" ? "Waiting for signature..." : status === "verifying" ? "Verifying signature..." : "Send message",
     onClick: signIn,
     size: mobile ? "large" : "medium",
     testId: "auth-message-button"
-  }), mobile ? /* @__PURE__ */ React52.createElement(ActionButton, {
+  }), mobile ? /* @__PURE__ */ React51.createElement(ActionButton, {
     label: "Cancel",
     onClick: cancel,
     size: "large",
     type: "secondary"
-  }) : /* @__PURE__ */ React52.createElement(Box, {
+  }) : /* @__PURE__ */ React51.createElement(Box, {
     as: "button",
     borderRadius: "full",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
@@ -7598,7 +7523,7 @@ function SignIn({ onClose }) {
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React52.createElement(Text2, {
+  }, /* @__PURE__ */ React51.createElement(Text2, {
     color: "closeButton",
     size: mobile ? "16" : "14",
     weight: "bold"
@@ -7610,7 +7535,7 @@ function usePreloadImages() {
   const rainbowKitChains = useRainbowKitChains();
   const walletConnectors = useWalletConnectors();
   const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
-  const preloadImages = useCallback23(() => {
+  const preloadImages = useCallback24(() => {
     loadImages(...walletConnectors.map((wallet) => wallet.iconUrl), ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish));
     if (!isMobile()) {
       preloadAssetsIcon();
@@ -7686,24 +7611,24 @@ function RainbowKitProvider({
   const avatarContext = avatar != null ? avatar : defaultAvatar;
   const { width } = useWindowSize2();
   const isSmallScreen = width && width < largeScreenMinWidth;
-  return /* @__PURE__ */ React53.createElement(RainbowKitChainProvider, {
+  return /* @__PURE__ */ React52.createElement(RainbowKitChainProvider, {
     chains,
     initialChain
-  }, /* @__PURE__ */ React53.createElement(CoolModeContext.Provider, {
+  }, /* @__PURE__ */ React52.createElement(CoolModeContext.Provider, {
     value: coolMode
-  }, /* @__PURE__ */ React53.createElement(ModalSizeContext.Provider, {
+  }, /* @__PURE__ */ React52.createElement(ModalSizeContext.Provider, {
     value: isSmallScreen ? ModalSizeOptions.COMPACT : modalSize
-  }, /* @__PURE__ */ React53.createElement(ShowRecentTransactionsContext.Provider, {
+  }, /* @__PURE__ */ React52.createElement(ShowRecentTransactionsContext.Provider, {
     value: showRecentTransactions
-  }, /* @__PURE__ */ React53.createElement(TransactionStoreProvider, null, /* @__PURE__ */ React53.createElement(AvatarContext.Provider, {
+  }, /* @__PURE__ */ React52.createElement(TransactionStoreProvider, null, /* @__PURE__ */ React52.createElement(AvatarContext.Provider, {
     value: avatarContext
-  }, /* @__PURE__ */ React53.createElement(AppContext.Provider, {
+  }, /* @__PURE__ */ React52.createElement(AppContext.Provider, {
     value: appContext
-  }, /* @__PURE__ */ React53.createElement(ThemeIdContext.Provider, {
+  }, /* @__PURE__ */ React52.createElement(ThemeIdContext.Provider, {
     value: id
-  }, /* @__PURE__ */ React53.createElement(ModalProvider, null, theme ? /* @__PURE__ */ React53.createElement("div", {
+  }, /* @__PURE__ */ React52.createElement(ModalProvider, null, theme ? /* @__PURE__ */ React52.createElement("div", {
     ...createThemeRootProps(id)
-  }, /* @__PURE__ */ React53.createElement("style", {
+  }, /* @__PURE__ */ React52.createElement("style", {
     dangerouslySetInnerHTML: {
       __html: [
         `${selector2}{${cssStringFromTheme("lightMode" in theme ? theme.lightMode : theme)}}`,
@@ -7720,7 +7645,7 @@ var content = "Dialog_content__1dq44ga5 sprinkles_display_flex_smallScreen__dmay
 var overlay = "Dialog_overlay__1dq44ga3 sprinkles_backdropFilter_modalOverlay__dmay209g sprinkles_background_modalBackdrop_base__dmay20b5 sprinkles_display_flex_smallScreen__dmay20a sprinkles_justifyContent_center__dmay202n sprinkles_position_fixed__dmay208p";
 
 // src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React54, { useCallback as useCallback24, useEffect as useEffect20, useRef as useRef6 } from "react";
+import React53, { useCallback as useCallback25, useEffect as useEffect20, useRef as useRef6 } from "react";
 var moveFocusWithin = (element2, position) => {
   const focusableElements = element2.querySelectorAll(
     "button:not(:disabled), a[href]"
@@ -7748,19 +7673,19 @@ function FocusTrap(props) {
       }
     }
   }, [contentRef]);
-  return /* @__PURE__ */ React54.createElement(React54.Fragment, null, /* @__PURE__ */ React54.createElement("div", {
-    onFocus: useCallback24(
+  return /* @__PURE__ */ React53.createElement(React53.Fragment, null, /* @__PURE__ */ React53.createElement("div", {
+    onFocus: useCallback25(
       () => contentRef.current && moveFocusWithin(contentRef.current, "end"),
       []
     ),
     tabIndex: 0
-  }), /* @__PURE__ */ React54.createElement("div", {
+  }), /* @__PURE__ */ React53.createElement("div", {
     ref: contentRef,
     style: { outline: "none" },
     tabIndex: -1,
     ...props
-  }), /* @__PURE__ */ React54.createElement("div", {
-    onFocus: useCallback24(
+  }), /* @__PURE__ */ React53.createElement("div", {
+    onFocus: useCallback25(
       () => contentRef.current && moveFocusWithin(contentRef.current, "start"),
       []
     ),
@@ -7780,15 +7705,15 @@ function Dialog({ children, onClose, open, titleId }) {
   useEffect21(() => {
     setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
   }, []);
-  const handleBackdropClick = useCallback25(() => onClose(), [onClose]);
+  const handleBackdropClick = useCallback26(() => onClose(), [onClose]);
   const themeRootProps = useThemeRootProps();
   const mobile = isMobile();
-  return /* @__PURE__ */ React55.createElement(React55.Fragment, null, open ? createPortal(
-    /* @__PURE__ */ React55.createElement(RemoveScroll, {
+  return /* @__PURE__ */ React54.createElement(React54.Fragment, null, open ? createPortal(
+    /* @__PURE__ */ React54.createElement(RemoveScroll, {
       enabled: bodyScrollable
-    }, /* @__PURE__ */ React55.createElement(Box, {
+    }, /* @__PURE__ */ React54.createElement(Box, {
       ...themeRootProps
-    }, /* @__PURE__ */ React55.createElement(Box, {
+    }, /* @__PURE__ */ React54.createElement(Box, {
       ...themeRootProps,
       alignItems: mobile ? "flex-end" : "center",
       "aria-labelledby": titleId,
@@ -7797,7 +7722,7 @@ function Dialog({ children, onClose, open, titleId }) {
       onClick: handleBackdropClick,
       position: "fixed",
       role: "dialog"
-    }, /* @__PURE__ */ React55.createElement(FocusTrap, {
+    }, /* @__PURE__ */ React54.createElement(FocusTrap, {
       className: content,
       onClick: stopPropagation,
       role: "document"
@@ -7807,7 +7732,7 @@ function Dialog({ children, onClose, open, titleId }) {
 }
 
 // src/rainbowkit/src/components/Dialog/DialogContent.tsx
-import React56, { useContext as useContext6 } from "react";
+import React55, { useContext as useContext6 } from "react";
 
 // src/rainbowkit/src/components/Dialog/DialogContent.css.ts
 var bottomSheetOverrides = "DialogContent_bottomSheetOverrides__1h0hnyy7";
@@ -7828,9 +7753,9 @@ function DialogContent3({
   const mobile = isMobile();
   const modalSize = useContext6(ModalSizeContext);
   const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
-  return /* @__PURE__ */ React56.createElement(Box, {
+  return /* @__PURE__ */ React55.createElement(Box, {
     marginTop
-  }, /* @__PURE__ */ React56.createElement(PixelBorderCard, {
+  }, /* @__PURE__ */ React55.createElement(PixelBorderCard, {
     className: [
       wide ? mobile ? dialogContentWideMobile : compactModeEnabled ? dialogContentCompactMode : dialogContentWideDesktop : dialogContent,
       mobile ? dialogContentMobile : null,
@@ -7838,20 +7763,20 @@ function DialogContent3({
     ].join(" "),
     pixel_height: 10,
     backgroundColor: "#1D263B"
-  }, /* @__PURE__ */ React56.createElement(Box, {
+  }, /* @__PURE__ */ React55.createElement(Box, {
     padding,
     width: "full"
   }, children)));
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React67, { useCallback as useCallback27, useContext as useContext9, useEffect as useEffect23, useState as useState18 } from "react";
+import React66, { useCallback as useCallback28, useContext as useContext9, useEffect as useEffect23, useState as useState18 } from "react";
 
 // src/rainbowkit/src/components/Avatar/Avatar.tsx
-import React57, { useContext as useContext7 } from "react";
+import React56, { useContext as useContext7 } from "react";
 function Avatar2({ address, imageUrl, loading, size }) {
   const AvatarComponent3 = useContext7(AvatarContext);
-  return /* @__PURE__ */ React57.createElement(Box, {
+  return /* @__PURE__ */ React56.createElement(Box, {
     "aria-hidden": true,
     borderRadius: "full",
     overflow: "hidden",
@@ -7861,7 +7786,7 @@ function Avatar2({ address, imageUrl, loading, size }) {
       width: `${size}px`
     },
     userSelect: "none"
-  }, /* @__PURE__ */ React57.createElement(Box, {
+  }, /* @__PURE__ */ React56.createElement(Box, {
     alignItems: "center",
     borderRadius: "full",
     display: "flex",
@@ -7878,11 +7803,11 @@ function Avatar2({ address, imageUrl, loading, size }) {
       willChange: "transform"
     },
     userSelect: "none"
-  }, /* @__PURE__ */ React57.createElement(AvatarComponent3, {
+  }, /* @__PURE__ */ React56.createElement(AvatarComponent3, {
     address,
     ensImage: imageUrl,
     size
-  })), typeof loading === "boolean" && /* @__PURE__ */ React57.createElement(Box, {
+  })), typeof loading === "boolean" && /* @__PURE__ */ React56.createElement(Box, {
     color: "accentColor",
     display: "flex",
     height: "full",
@@ -7893,7 +7818,7 @@ function Avatar2({ address, imageUrl, loading, size }) {
       transitionDelay: loading ? ".05s" : void 0
     },
     width: "full"
-  }, /* @__PURE__ */ React57.createElement(SpinnerIcon, {
+  }, /* @__PURE__ */ React56.createElement(SpinnerIcon, {
     height: "100%",
     width: "100%"
   })));
@@ -7944,56 +7869,56 @@ function formatENS(name) {
 }
 
 // src/rainbowkit/src/components/Icons/Copied.tsx
-import React58 from "react";
-var CopiedIcon = () => /* @__PURE__ */ React58.createElement("svg", {
+import React57 from "react";
+var CopiedIcon = () => /* @__PURE__ */ React57.createElement("svg", {
   fill: "none",
   height: "13",
   viewBox: "0 0 13 13",
   width: "13",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React58.createElement("path", {
+}, /* @__PURE__ */ React57.createElement("path", {
   d: "M4.94568 12.2646C5.41052 12.2646 5.77283 12.0869 6.01892 11.7109L12.39 1.96973C12.5677 1.69629 12.6429 1.44336 12.6429 1.2041C12.6429 0.561523 12.1644 0.0966797 11.5082 0.0966797C11.057 0.0966797 10.7767 0.260742 10.5033 0.691406L4.9115 9.50977L2.07458 5.98926C1.82166 5.68848 1.54822 5.55176 1.16541 5.55176C0.502319 5.55176 0.0238037 6.02344 0.0238037 6.66602C0.0238037 6.95312 0.112671 7.20605 0.358765 7.48633L3.88611 11.7588C4.18005 12.1074 4.50818 12.2646 4.94568 12.2646Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/Icons/Copy.tsx
-import React59 from "react";
-var CopyIcon = () => /* @__PURE__ */ React59.createElement("svg", {
+import React58 from "react";
+var CopyIcon = () => /* @__PURE__ */ React58.createElement("svg", {
   fill: "none",
   height: "16",
   viewBox: "0 0 17 16",
   width: "17",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React59.createElement("path", {
+}, /* @__PURE__ */ React58.createElement("path", {
   d: "M3.04236 12.3027H4.18396V13.3008C4.18396 14.8525 5.03845 15.7002 6.59705 15.7002H13.6244C15.183 15.7002 16.0375 14.8525 16.0375 13.3008V6.24609C16.0375 4.69434 15.183 3.84668 13.6244 3.84668H12.4828V2.8418C12.4828 1.29688 11.6283 0.442383 10.0697 0.442383H3.04236C1.48376 0.442383 0.629272 1.29004 0.629272 2.8418V9.90332C0.629272 11.4551 1.48376 12.3027 3.04236 12.3027ZM3.23376 10.5391C2.68689 10.5391 2.39294 10.2656 2.39294 9.68457V3.06055C2.39294 2.47949 2.68689 2.21289 3.23376 2.21289H9.8783C10.4252 2.21289 10.7191 2.47949 10.7191 3.06055V3.84668H6.59705C5.03845 3.84668 4.18396 4.69434 4.18396 6.24609V10.5391H3.23376ZM6.78845 13.9365C6.24158 13.9365 5.94763 13.6699 5.94763 13.0889V6.45801C5.94763 5.87695 6.24158 5.61035 6.78845 5.61035H13.433C13.9799 5.61035 14.2738 5.87695 14.2738 6.45801V13.0889C14.2738 13.6699 13.9799 13.9365 13.433 13.9365H6.78845Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/Icons/Disconnect.tsx
-import React60 from "react";
-var DisconnectIcon = () => /* @__PURE__ */ React60.createElement("svg", {
+import React59 from "react";
+var DisconnectIcon = () => /* @__PURE__ */ React59.createElement("svg", {
   fill: "none",
   height: "16",
   viewBox: "0 0 18 16",
   width: "18",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React60.createElement("path", {
+}, /* @__PURE__ */ React59.createElement("path", {
   d: "M2.67834 15.5908H9.99963C11.5514 15.5908 12.399 14.7432 12.399 13.1777V10.2656H10.6354V12.9863C10.6354 13.5332 10.3688 13.8271 9.78772 13.8271H2.89026C2.3092 13.8271 2.0426 13.5332 2.0426 12.9863V3.15625C2.0426 2.60254 2.3092 2.30859 2.89026 2.30859H9.78772C10.3688 2.30859 10.6354 2.60254 10.6354 3.15625V5.89746H12.399V2.95801C12.399 1.39941 11.5514 0.544922 9.99963 0.544922H2.67834C1.12659 0.544922 0.278931 1.39941 0.278931 2.95801V13.1777C0.278931 14.7432 1.12659 15.5908 2.67834 15.5908ZM7.43616 8.85059H14.0875L15.0924 8.78906L14.566 9.14453L13.6842 9.96484C13.5406 10.1016 13.4586 10.2861 13.4586 10.4844C13.4586 10.8398 13.7321 11.168 14.1217 11.168C14.3199 11.168 14.4635 11.0928 14.6002 10.9561L16.7809 8.68652C16.986 8.48145 17.0543 8.27637 17.0543 8.06445C17.0543 7.85254 16.986 7.64746 16.7809 7.43555L14.6002 5.17285C14.4635 5.03613 14.3199 4.9541 14.1217 4.9541C13.7321 4.9541 13.4586 5.27539 13.4586 5.6377C13.4586 5.83594 13.5406 6.02734 13.6842 6.15723L14.566 6.98438L15.0924 7.33984L14.0875 7.27148H7.43616C7.01917 7.27148 6.65686 7.62012 6.65686 8.06445C6.65686 8.50195 7.01917 8.85059 7.43616 8.85059Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/Txs/TxList.tsx
-import React65, { useContext as useContext8 } from "react";
+import React64, { useContext as useContext8 } from "react";
 import { useNetwork as useNetwork5 } from "wagmi";
 
 // src/rainbowkit/src/transactions/useClearRecentTransactions.ts
-import { useCallback as useCallback26 } from "react";
+import { useCallback as useCallback27 } from "react";
 import { useAccount as useAccount7 } from "wagmi";
 function useClearRecentTransactions() {
   const store = useTransactionStore();
   const { address } = useAccount7();
   const chainId = useChainId();
-  return useCallback26(() => {
+  return useCallback27(() => {
     if (!address || !chainId) {
       throw new Error("No address or chain ID found");
     }
@@ -8029,44 +7954,44 @@ var chainToExplorerUrl = (chain) => {
 };
 
 // src/rainbowkit/src/components/Icons/ExternalLink.tsx
+import React60 from "react";
+var ExternalLinkIcon = () => /* @__PURE__ */ React60.createElement("svg", {
+  fill: "none",
+  height: "19",
+  viewBox: "0 0 20 19",
+  width: "20",
+  xmlns: "http://www.w3.org/2000/svg"
+}, /* @__PURE__ */ React60.createElement("path", {
+  d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM12.7158 12.1416C13.2432 12.1416 13.5684 11.7549 13.5684 11.1836V7.19336C13.5684 6.44629 13.1377 6.05957 12.417 6.05957H8.40918C7.8291 6.05957 7.45117 6.38477 7.45117 6.91211C7.45117 7.43945 7.8291 7.77344 8.40918 7.77344H9.69238L10.7207 7.63281L9.53418 8.67871L6.73047 11.4912C6.53711 11.6758 6.41406 11.9395 6.41406 12.2031C6.41406 12.7832 6.85352 13.1699 7.39844 13.1699C7.68848 13.1699 7.92578 13.0732 8.1543 12.8623L10.9316 10.0762L11.9775 8.89844L11.8545 9.98828V11.1836C11.8545 11.7725 12.1885 12.1416 12.7158 12.1416Z",
+  fill: "currentColor"
+}));
+
+// src/rainbowkit/src/components/Txs/TxItem.tsx
+import React63 from "react";
+import { useNetwork as useNetwork4 } from "wagmi";
+
+// src/rainbowkit/src/components/Icons/Cancel.tsx
 import React61 from "react";
-var ExternalLinkIcon = () => /* @__PURE__ */ React61.createElement("svg", {
+var CancelIcon = () => /* @__PURE__ */ React61.createElement("svg", {
   fill: "none",
   height: "19",
   viewBox: "0 0 20 19",
   width: "20",
   xmlns: "http://www.w3.org/2000/svg"
 }, /* @__PURE__ */ React61.createElement("path", {
-  d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM12.7158 12.1416C13.2432 12.1416 13.5684 11.7549 13.5684 11.1836V7.19336C13.5684 6.44629 13.1377 6.05957 12.417 6.05957H8.40918C7.8291 6.05957 7.45117 6.38477 7.45117 6.91211C7.45117 7.43945 7.8291 7.77344 8.40918 7.77344H9.69238L10.7207 7.63281L9.53418 8.67871L6.73047 11.4912C6.53711 11.6758 6.41406 11.9395 6.41406 12.2031C6.41406 12.7832 6.85352 13.1699 7.39844 13.1699C7.68848 13.1699 7.92578 13.0732 8.1543 12.8623L10.9316 10.0762L11.9775 8.89844L11.8545 9.98828V11.1836C11.8545 11.7725 12.1885 12.1416 12.7158 12.1416Z",
-  fill: "currentColor"
-}));
-
-// src/rainbowkit/src/components/Txs/TxItem.tsx
-import React64 from "react";
-import { useNetwork as useNetwork4 } from "wagmi";
-
-// src/rainbowkit/src/components/Icons/Cancel.tsx
-import React62 from "react";
-var CancelIcon = () => /* @__PURE__ */ React62.createElement("svg", {
-  fill: "none",
-  height: "19",
-  viewBox: "0 0 20 19",
-  width: "20",
-  xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React62.createElement("path", {
   d: "M10 18.9443C15.0977 18.9443 19.2812 14.752 19.2812 9.6543C19.2812 4.56543 15.0889 0.373047 10 0.373047C4.90234 0.373047 0.71875 4.56543 0.71875 9.6543C0.71875 14.752 4.91113 18.9443 10 18.9443ZM10 16.6328C6.1416 16.6328 3.03906 13.5215 3.03906 9.6543C3.03906 5.7959 6.13281 2.68457 10 2.68457C13.8584 2.68457 16.9697 5.7959 16.9697 9.6543C16.9785 13.5215 13.8672 16.6328 10 16.6328ZM7.29297 13.3018C7.58301 13.3018 7.81152 13.2139 7.99609 13.0205L10 11.0166L12.0127 13.0205C12.1973 13.2051 12.4258 13.3018 12.707 13.3018C13.2432 13.3018 13.6562 12.8887 13.6562 12.3525C13.6562 12.0977 13.5508 11.8691 13.3662 11.6934L11.3535 9.67188L13.375 7.6416C13.5596 7.44824 13.6562 7.22852 13.6562 6.98242C13.6562 6.44629 13.2432 6.0332 12.7158 6.0332C12.4346 6.0332 12.2148 6.12109 12.0215 6.31445L10 8.32715L7.9873 6.32324C7.80273 6.12988 7.58301 6.04199 7.29297 6.04199C6.76562 6.04199 6.35254 6.45508 6.35254 6.99121C6.35254 7.2373 6.44922 7.46582 6.63379 7.6416L8.65527 9.67188L6.63379 11.6934C6.44922 11.8691 6.35254 12.1064 6.35254 12.3525C6.35254 12.8887 6.76562 13.3018 7.29297 13.3018Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/Icons/Success.tsx
-import React63 from "react";
-var SuccessIcon = () => /* @__PURE__ */ React63.createElement("svg", {
+import React62 from "react";
+var SuccessIcon = () => /* @__PURE__ */ React62.createElement("svg", {
   fill: "none",
   height: "20",
   viewBox: "0 0 20 20",
   width: "20",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React63.createElement("path", {
+}, /* @__PURE__ */ React62.createElement("path", {
   d: "M10 19.4443C15.0977 19.4443 19.2812 15.252 19.2812 10.1543C19.2812 5.06543 15.0889 0.873047 10 0.873047C4.90234 0.873047 0.71875 5.06543 0.71875 10.1543C0.71875 15.252 4.91113 19.4443 10 19.4443ZM10 17.1328C6.1416 17.1328 3.03906 14.0215 3.03906 10.1543C3.03906 6.2959 6.13281 3.18457 10 3.18457C13.8584 3.18457 16.9697 6.2959 16.9697 10.1543C16.9785 14.0215 13.8672 17.1328 10 17.1328ZM9.07715 14.3379C9.4375 14.3379 9.7627 14.1533 9.97363 13.8369L13.7441 8.00977C13.8848 7.79883 13.9814 7.5791 13.9814 7.36816C13.9814 6.84961 13.5244 6.48926 13.0322 6.48926C12.707 6.48926 12.4258 6.66504 12.2148 7.0166L9.05957 12.0967L7.5918 10.2949C7.37207 10.0225 7.13477 9.9082 6.84473 9.9082C6.33496 9.9082 5.92188 10.3125 5.92188 10.8223C5.92188 11.0684 6.00098 11.2793 6.18555 11.5078L8.1543 13.8545C8.40918 14.1709 8.70801 14.3379 9.07715 14.3379Z",
   fill: "currentColor"
 }));
@@ -8091,7 +8016,7 @@ function TxItem({ tx }) {
   const { chain: activeChain } = useNetwork4();
   const confirmationStatus = tx.status === "confirmed" ? "Confirmed" : tx.status === "failed" ? "Failed" : "Pending";
   const explorerLink = chainToExplorerUrl(activeChain);
-  return /* @__PURE__ */ React64.createElement(React64.Fragment, null, /* @__PURE__ */ React64.createElement(Box, {
+  return /* @__PURE__ */ React63.createElement(React63.Fragment, null, /* @__PURE__ */ React63.createElement(Box, {
     ...explorerLink ? {
       as: "a",
       background: { hover: "profileForeground" },
@@ -8108,32 +8033,32 @@ function TxItem({ tx }) {
     justifyContent: "space-between",
     padding: "8",
     width: "full"
-  }, /* @__PURE__ */ React64.createElement(Box, {
+  }, /* @__PURE__ */ React63.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: mobile ? "16" : "14"
-  }, /* @__PURE__ */ React64.createElement(Box, {
+  }, /* @__PURE__ */ React63.createElement(Box, {
     color
-  }, /* @__PURE__ */ React64.createElement(Icon2, null)), /* @__PURE__ */ React64.createElement(Box, {
+  }, /* @__PURE__ */ React63.createElement(Icon2, null)), /* @__PURE__ */ React63.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: mobile ? "3" : "1"
-  }, /* @__PURE__ */ React64.createElement(Box, null, /* @__PURE__ */ React64.createElement(Text2, {
+  }, /* @__PURE__ */ React63.createElement(Box, null, /* @__PURE__ */ React63.createElement(Text2, {
     color: "modalText",
     font: "body",
     size: mobile ? "16" : "14",
     weight: "bold"
-  }, tx == null ? void 0 : tx.description)), /* @__PURE__ */ React64.createElement(Box, null, /* @__PURE__ */ React64.createElement(Text2, {
+  }, tx == null ? void 0 : tx.description)), /* @__PURE__ */ React63.createElement(Box, null, /* @__PURE__ */ React63.createElement(Text2, {
     color: tx.status === "pending" ? "modalTextSecondary" : color,
     font: "body",
     size: "14",
     weight: mobile ? "medium" : "regular"
-  }, confirmationStatus)))), explorerLink && /* @__PURE__ */ React64.createElement(Box, {
+  }, confirmationStatus)))), explorerLink && /* @__PURE__ */ React63.createElement(Box, {
     alignItems: "center",
     color: "modalTextDim",
     display: "flex"
-  }, /* @__PURE__ */ React64.createElement(ExternalLinkIcon, null))));
+  }, /* @__PURE__ */ React63.createElement(ExternalLinkIcon, null))));
 }
 
 // src/rainbowkit/src/components/Txs/TxList.tsx
@@ -8147,32 +8072,32 @@ function TxList({ address }) {
   const hasTransactions = visibleTxs.length > 0;
   const mobile = isMobile();
   const { appName } = useContext8(AppContext);
-  return /* @__PURE__ */ React65.createElement(React65.Fragment, null, /* @__PURE__ */ React65.createElement(Box, {
+  return /* @__PURE__ */ React64.createElement(React64.Fragment, null, /* @__PURE__ */ React64.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "10",
     paddingBottom: "2",
     paddingTop: "16",
     paddingX: mobile ? "8" : "18"
-  }, hasTransactions && /* @__PURE__ */ React65.createElement(Box, {
+  }, hasTransactions && /* @__PURE__ */ React64.createElement(Box, {
     paddingBottom: mobile ? "4" : "0",
     paddingTop: "8",
     paddingX: mobile ? "12" : "6"
-  }, /* @__PURE__ */ React65.createElement(Box, {
+  }, /* @__PURE__ */ React64.createElement(Box, {
     display: "flex",
     justifyContent: "space-between"
-  }, /* @__PURE__ */ React65.createElement(Text2, {
+  }, /* @__PURE__ */ React64.createElement(Text2, {
     color: "modalTextSecondary",
     size: mobile ? "16" : "14",
     weight: "semibold"
-  }, "Recent Transactions"), /* @__PURE__ */ React65.createElement(Box, {
+  }, "Recent Transactions"), /* @__PURE__ */ React64.createElement(Box, {
     style: {
       marginBottom: -6,
       marginLeft: -10,
       marginRight: -10,
       marginTop: -6
     }
-  }, /* @__PURE__ */ React65.createElement(Box, {
+  }, /* @__PURE__ */ React64.createElement(Box, {
     as: "button",
     background: {
       hover: "profileForeground"
@@ -8184,32 +8109,32 @@ function TxList({ address }) {
     paddingY: mobile ? "4" : "5",
     transition: "default",
     type: "button"
-  }, /* @__PURE__ */ React65.createElement(Text2, {
+  }, /* @__PURE__ */ React64.createElement(Text2, {
     color: "modalTextSecondary",
     size: mobile ? "16" : "14",
     weight: "semibold"
-  }, "Clear All"))))), /* @__PURE__ */ React65.createElement(Box, {
+  }, "Clear All"))))), /* @__PURE__ */ React64.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4"
-  }, hasTransactions ? visibleTxs.map((tx) => /* @__PURE__ */ React65.createElement(TxItem, {
+  }, hasTransactions ? visibleTxs.map((tx) => /* @__PURE__ */ React64.createElement(TxItem, {
     key: tx.hash,
     tx
-  })) : /* @__PURE__ */ React65.createElement(React65.Fragment, null, /* @__PURE__ */ React65.createElement(Box, {
+  })) : /* @__PURE__ */ React64.createElement(React64.Fragment, null, /* @__PURE__ */ React64.createElement(Box, {
     padding: mobile ? "12" : "8"
-  }, /* @__PURE__ */ React65.createElement(Text2, {
+  }, /* @__PURE__ */ React64.createElement(Text2, {
     color: "modalTextDim",
     size: mobile ? "16" : "14",
     weight: mobile ? "medium" : "bold"
-  }, appName != null ? appName : "Your", " transactions will appear here...")), mobile && /* @__PURE__ */ React65.createElement(Box, {
+  }, appName != null ? appName : "Your", " transactions will appear here...")), mobile && /* @__PURE__ */ React64.createElement(Box, {
     background: "generalBorderDim",
     height: "1",
     marginX: "12",
     marginY: "8"
-  })))), explorerLink && /* @__PURE__ */ React65.createElement(Box, {
+  })))), explorerLink && /* @__PURE__ */ React64.createElement(Box, {
     paddingBottom: "18",
     paddingX: mobile ? "8" : "18"
-  }, /* @__PURE__ */ React65.createElement(Box, {
+  }, /* @__PURE__ */ React64.createElement(Box, {
     alignItems: "center",
     as: "a",
     background: { hover: "profileForeground" },
@@ -8228,16 +8153,16 @@ function TxList({ address }) {
     transition: "default",
     width: "full",
     ...mobile ? { paddingLeft: "12" } : {}
-  }, /* @__PURE__ */ React65.createElement(Text2, {
+  }, /* @__PURE__ */ React64.createElement(Text2, {
     color: "modalText",
     font: "body",
     size: mobile ? "16" : "14",
     weight: mobile ? "semibold" : "bold"
-  }, "View more on Explorer"), /* @__PURE__ */ React65.createElement(ExternalLinkIcon, null))));
+  }, "View more on Explorer"), /* @__PURE__ */ React64.createElement(ExternalLinkIcon, null))));
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetailsAction.tsx
-import React66 from "react";
+import React65 from "react";
 function ProfileDetailsAction({
   action,
   icon,
@@ -8246,7 +8171,7 @@ function ProfileDetailsAction({
   url
 }) {
   const mobile = isMobile();
-  return /* @__PURE__ */ React66.createElement(Box, {
+  return /* @__PURE__ */ React65.createElement(Box, {
     ...url ? { as: "a", href: url, rel: "noreferrer noopener", target: "_blank" } : { as: "button", type: "button" },
     background: {
       base: "profileAction",
@@ -8265,7 +8190,7 @@ function ProfileDetailsAction({
     testId,
     transition: "default",
     width: "full"
-  }, /* @__PURE__ */ React66.createElement(Box, {
+  }, /* @__PURE__ */ React65.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -8273,10 +8198,10 @@ function ProfileDetailsAction({
     justifyContent: "center",
     paddingTop: "2",
     width: "full"
-  }, /* @__PURE__ */ React66.createElement(Box, {
+  }, /* @__PURE__ */ React65.createElement(Box, {
     color: "modalText",
     height: "max"
-  }, icon), /* @__PURE__ */ React66.createElement(Box, null, /* @__PURE__ */ React66.createElement(Text2, {
+  }, icon), /* @__PURE__ */ React65.createElement(Box, null, /* @__PURE__ */ React65.createElement(Text2, {
     color: "modalText",
     size: mobile ? "12" : "13",
     weight: "semibold"
@@ -8294,7 +8219,7 @@ function ProfileDetails({
 }) {
   const showRecentTransactions = useContext9(ShowRecentTransactionsContext);
   const [copiedAddress, setCopiedAddress] = useState18(false);
-  const copyAddressAction = useCallback27(() => {
+  const copyAddressAction = useCallback28(() => {
     if (address) {
       navigator.clipboard.writeText(address);
       setCopiedAddress(true);
@@ -8316,13 +8241,13 @@ function ProfileDetails({
   if (!address) {
     return null;
   }
-  return /* @__PURE__ */ React67.createElement(React67.Fragment, null, /* @__PURE__ */ React67.createElement(Box, {
+  return /* @__PURE__ */ React66.createElement(React66.Fragment, null, /* @__PURE__ */ React66.createElement(Box, {
     display: "flex",
     flexDirection: "column"
-  }, /* @__PURE__ */ React67.createElement(Box, {
+  }, /* @__PURE__ */ React66.createElement(Box, {
     background: "profileForeground",
     padding: "16"
-  }, /* @__PURE__ */ React67.createElement(Box, {
+  }, /* @__PURE__ */ React66.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -8330,62 +8255,62 @@ function ProfileDetails({
     justifyContent: "center",
     margin: "8",
     style: { textAlign: "center" }
-  }, /* @__PURE__ */ React67.createElement(Box, {
+  }, /* @__PURE__ */ React66.createElement(Box, {
     style: {
       position: "absolute",
       right: 16,
       top: 16,
       willChange: "transform"
     }
-  }, /* @__PURE__ */ React67.createElement(DialogClose_default, {
+  }, /* @__PURE__ */ React66.createElement(DialogClose_default, {
     onClick: onClose
-  })), /* @__PURE__ */ React67.createElement(Box, {
+  })), /* @__PURE__ */ React66.createElement(Box, {
     marginTop: mobile ? "24" : "0"
-  }, /* @__PURE__ */ React67.createElement(Avatar2, {
+  }, /* @__PURE__ */ React66.createElement(Avatar2, {
     address,
     imageUrl: ensAvatar,
     size: mobile ? 82 : 74
-  })), /* @__PURE__ */ React67.createElement(Box, {
+  })), /* @__PURE__ */ React66.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: mobile ? "4" : "0",
     textAlign: "center"
-  }, /* @__PURE__ */ React67.createElement(Box, {
+  }, /* @__PURE__ */ React66.createElement(Box, {
     textAlign: "center"
-  }, /* @__PURE__ */ React67.createElement(Text2, {
+  }, /* @__PURE__ */ React66.createElement(Text2, {
     as: "h1",
     color: "modalText",
     id: titleId,
     size: mobile ? "20" : "18",
     weight: "heavy"
-  }, accountName)), balanceData && /* @__PURE__ */ React67.createElement(Box, {
+  }, accountName)), balanceData && /* @__PURE__ */ React66.createElement(Box, {
     textAlign: "center"
-  }, /* @__PURE__ */ React67.createElement(Text2, {
+  }, /* @__PURE__ */ React66.createElement(Text2, {
     as: "h1",
     color: "modalTextSecondary",
     id: titleId,
     size: mobile ? "16" : "14",
     weight: "semibold"
-  }, displayBalance, " ", balanceData.symbol)))), /* @__PURE__ */ React67.createElement(Box, {
+  }, displayBalance, " ", balanceData.symbol)))), /* @__PURE__ */ React66.createElement(Box, {
     display: "flex",
     flexDirection: "row",
     gap: "8",
     margin: "2",
     marginTop: "16"
-  }, /* @__PURE__ */ React67.createElement(ProfileDetailsAction, {
+  }, /* @__PURE__ */ React66.createElement(ProfileDetailsAction, {
     action: copyAddressAction,
-    icon: copiedAddress ? /* @__PURE__ */ React67.createElement(CopiedIcon, null) : /* @__PURE__ */ React67.createElement(CopyIcon, null),
+    icon: copiedAddress ? /* @__PURE__ */ React66.createElement(CopiedIcon, null) : /* @__PURE__ */ React66.createElement(CopyIcon, null),
     label: copiedAddress ? "Copied!" : "Copy Address"
-  }), /* @__PURE__ */ React67.createElement(ProfileDetailsAction, {
+  }), /* @__PURE__ */ React66.createElement(ProfileDetailsAction, {
     action: onDisconnect,
-    icon: /* @__PURE__ */ React67.createElement(DisconnectIcon, null),
+    icon: /* @__PURE__ */ React66.createElement(DisconnectIcon, null),
     label: "Disconnect",
     testId: "disconnect-button"
-  }))), showRecentTransactions && /* @__PURE__ */ React67.createElement(React67.Fragment, null, /* @__PURE__ */ React67.createElement(Box, {
+  }))), showRecentTransactions && /* @__PURE__ */ React66.createElement(React66.Fragment, null, /* @__PURE__ */ React66.createElement(Box, {
     background: "generalBorder",
     height: "1",
     marginTop: "-1"
-  }), /* @__PURE__ */ React67.createElement(Box, null, /* @__PURE__ */ React67.createElement(TxList, {
+  }), /* @__PURE__ */ React66.createElement(Box, null, /* @__PURE__ */ React66.createElement(TxList, {
     address
   })))));
 }
@@ -8401,14 +8326,14 @@ function AccountModal({ onClose, open }) {
   if (!address) {
     return null;
   }
-  return /* @__PURE__ */ React68.createElement(React68.Fragment, null, address && /* @__PURE__ */ React68.createElement(Dialog, {
+  return /* @__PURE__ */ React67.createElement(React67.Fragment, null, address && /* @__PURE__ */ React67.createElement(Dialog, {
     onClose,
     open,
     titleId
-  }, /* @__PURE__ */ React68.createElement(DialogContent3, {
+  }, /* @__PURE__ */ React67.createElement(DialogContent3, {
     bottomSheetOnMobile: true,
     padding: "0"
-  }, /* @__PURE__ */ React68.createElement(ProfileDetails, {
+  }, /* @__PURE__ */ React67.createElement(ProfileDetails, {
     address,
     balanceData,
     ensAvatar,
@@ -8419,30 +8344,30 @@ function AccountModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
-import React71, { Fragment, useCallback as useCallback28, useContext as useContext10 } from "react";
+import React70, { Fragment, useCallback as useCallback29, useContext as useContext10 } from "react";
 import { useDisconnect as useDisconnect5, useNetwork as useNetwork6, useSwitchNetwork } from "wagmi";
 
 // src/rainbowkit/src/components/Icons/DisconnectSq.tsx
-import React69 from "react";
-var DisconnectSqIcon = ({ size }) => /* @__PURE__ */ React69.createElement("svg", {
+import React68 from "react";
+var DisconnectSqIcon = ({ size }) => /* @__PURE__ */ React68.createElement("svg", {
   fill: "none",
   height: size,
   viewBox: "0 0 28 28",
   width: size,
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React69.createElement("path", {
+}, /* @__PURE__ */ React68.createElement("path", {
   d: "M6.742 22.195h8.367c1.774 0 2.743-.968 2.743-2.758V16.11h-2.016v3.11c0 .625-.305.96-.969.96H6.984c-.664 0-.968-.335-.968-.96V7.984c0-.632.304-.968.968-.968h7.883c.664 0 .969.336.969.968v3.133h2.016v-3.36c0-1.78-.97-2.757-2.743-2.757H6.742C4.97 5 4 5.977 4 7.758v11.68c0 1.789.969 2.757 2.742 2.757Zm5.438-7.703h7.601l1.149-.07-.602.406-1.008.938a.816.816 0 0 0-.258.593c0 .407.313.782.758.782.227 0 .39-.086.547-.243l2.492-2.593c.235-.235.313-.47.313-.711 0-.242-.078-.477-.313-.719l-2.492-2.586c-.156-.156-.32-.25-.547-.25-.445 0-.758.367-.758.781 0 .227.094.446.258.594l1.008.945.602.407-1.149-.079H12.18a.904.904 0 0 0 0 1.805Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/MenuButton/MenuButton.tsx
-import React70 from "react";
+import React69 from "react";
 
 // src/rainbowkit/src/components/MenuButton/MenuButton.css.ts
 var unsetBackgroundOnHover = "MenuButton_unsetBackgroundOnHover__1cd9qhx0";
 
 // src/rainbowkit/src/components/MenuButton/MenuButton.tsx
-var MenuButton = React70.forwardRef(
+var MenuButton = React69.forwardRef(
   ({
     children,
     currentlySelected = false,
@@ -8452,7 +8377,7 @@ var MenuButton = React70.forwardRef(
     ...urlProps
   }, ref) => {
     const mobile = isMobile();
-    return /* @__PURE__ */ React70.createElement(Box, {
+    return /* @__PURE__ */ React69.createElement(Box, {
       as: "button",
       borderRadius: "menuButton",
       disabled: disabled != null ? disabled : false,
@@ -8465,13 +8390,13 @@ var MenuButton = React70.forwardRef(
       marginTop: "8",
       marginBottom: "8",
       onClick
-    }, /* @__PURE__ */ React70.createElement(PixelCube3, {
+    }, /* @__PURE__ */ React69.createElement(PixelCube3, {
       pixel_height: 3,
       backgroundColor: `${currentlySelected ? "#343C4F" : "#1D263B"}`,
       borderColor: `${currentlySelected ? "#1649FF" : "#3A4254"}`,
       showHover: true,
       width: "100%"
-    }, /* @__PURE__ */ React70.createElement(Box, {
+    }, /* @__PURE__ */ React69.createElement(Box, {
       className: [
         mobile ? unsetBackgroundOnHover : void 0,
         !currentlySelected && touchableStyles({ active: "shrink" })
@@ -8508,7 +8433,7 @@ function ChainModal({ onClose, open, fn }) {
   const chainIconSize = "24";
   const { appName } = useContext10(AppContext);
   const rainbowkitChains = useRainbowKitChains();
-  const chainClickHandle = useCallback28(
+  const chainClickHandle = useCallback29(
     ({ isCurrentChain, chain }) => {
       if (isCurrentChain) {
         return;
@@ -8524,31 +8449,31 @@ function ChainModal({ onClose, open, fn }) {
   if (!activeChain || !(activeChain == null ? void 0 : activeChain.id)) {
     return null;
   }
-  return /* @__PURE__ */ React71.createElement(Dialog, {
+  return /* @__PURE__ */ React70.createElement(Dialog, {
     onClose,
     open,
     titleId
-  }, /* @__PURE__ */ React71.createElement(DialogContent3, {
+  }, /* @__PURE__ */ React70.createElement(DialogContent3, {
     padding: "0",
     bottomSheetOnMobile: true
-  }, /* @__PURE__ */ React71.createElement(Box, {
+  }, /* @__PURE__ */ React70.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: isW768 ? "0" : "14",
     marginBottom: "14"
-  }, /* @__PURE__ */ React71.createElement(ActivePixelCard, {
+  }, /* @__PURE__ */ React70.createElement(ActivePixelCard, {
     pixel_height: 10,
     className: `tvlPixelTable_header`,
     backgroundColor: "#293457",
     height: "64px",
     hidePixel: isW768
-  }, /* @__PURE__ */ React71.createElement(Box, {
+  }, /* @__PURE__ */ React70.createElement(Box, {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between"
-  }, mobile && /* @__PURE__ */ React71.createElement(Box, {
+  }, mobile && /* @__PURE__ */ React70.createElement(Box, {
     width: "30"
-  }), /* @__PURE__ */ React71.createElement(Text2, {
+  }), /* @__PURE__ */ React70.createElement(Text2, {
     as: "h3",
     color: "modalText",
     weight: "bold",
@@ -8558,15 +8483,15 @@ function ChainModal({ onClose, open, fn }) {
       textAlign: "left",
       width: "100%"
     } : void 0
-  }, "Switch Networks"))), unsupportedChain && /* @__PURE__ */ React71.createElement(Box, {
+  }, "Switch Networks"))), unsupportedChain && /* @__PURE__ */ React70.createElement(Box, {
     marginLeft: "20",
     marginRight: "20",
     textAlign: mobile ? "center" : "left"
-  }, /* @__PURE__ */ React71.createElement(Text2, {
+  }, /* @__PURE__ */ React70.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "Wrong network detected, switch or disconnect to continue.")), /* @__PURE__ */ React71.createElement(Box, {
+  }, "Wrong network detected, switch or disconnect to continue.")), /* @__PURE__ */ React70.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4",
@@ -8580,9 +8505,9 @@ function ChainModal({ onClose, open, fn }) {
     if (!chain) {
       return null;
     }
-    return /* @__PURE__ */ React71.createElement(Fragment, {
+    return /* @__PURE__ */ React70.createElement(Fragment, {
       key: chain.id
-    }, /* @__PURE__ */ React71.createElement(MenuButton, {
+    }, /* @__PURE__ */ React70.createElement(MenuButton, {
       disabled: false,
       currentlySelected: isCurrentChain,
       onClick: () => chainClickHandle({
@@ -8590,40 +8515,40 @@ function ChainModal({ onClose, open, fn }) {
         chain
       }),
       testId: `chain-option-${chain.id}`
-    }, /* @__PURE__ */ React71.createElement(Box, {
+    }, /* @__PURE__ */ React70.createElement(Box, {
       fontFamily: "body",
       fontSize: "16"
-    }, /* @__PURE__ */ React71.createElement(Box, {
+    }, /* @__PURE__ */ React70.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between"
-    }, /* @__PURE__ */ React71.createElement(Box, {
+    }, /* @__PURE__ */ React70.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "4",
       height: chainIconSize
-    }, /* @__PURE__ */ React71.createElement(Box, {
+    }, /* @__PURE__ */ React70.createElement(Box, {
       height: "full",
       marginRight: "8"
-    }, /* @__PURE__ */ React71.createElement(AsyncImage, {
+    }, /* @__PURE__ */ React70.createElement(AsyncImage, {
       alt: name != null ? name : chain.name,
       background: iconBackground,
       borderRadius: "full",
       height: chainIconSize,
       src: ChainImage[chain.id],
       width: chainIconSize
-    })), /* @__PURE__ */ React71.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React71.createElement(Box, {
+    })), /* @__PURE__ */ React70.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       marginRight: "6"
-    }, /* @__PURE__ */ React71.createElement(Text2, {
+    }, /* @__PURE__ */ React70.createElement(Text2, {
       color: "accentColorForeground",
       size: "14",
       weight: "medium"
-    }, "Connected"), /* @__PURE__ */ React71.createElement(Box, {
+    }, "Connected"), /* @__PURE__ */ React70.createElement(Box, {
       background: "connectionIndicator",
       borderColor: "connectionIndicatorBorder",
       borderRadius: "full",
@@ -8632,16 +8557,16 @@ function ChainModal({ onClose, open, fn }) {
       height: "12",
       marginLeft: "8",
       width: "12"
-    })), switching && /* @__PURE__ */ React71.createElement(Box, {
+    })), switching && /* @__PURE__ */ React70.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       marginRight: "6"
-    }, /* @__PURE__ */ React71.createElement(Text2, {
+    }, /* @__PURE__ */ React70.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "medium"
-    }, "Confirm in Wallet"), /* @__PURE__ */ React71.createElement(Box, {
+    }, "Confirm in Wallet"), /* @__PURE__ */ React70.createElement(Box, {
       background: "standby",
       borderRadius: "full",
       height: "12",
@@ -8650,63 +8575,63 @@ function ChainModal({ onClose, open, fn }) {
       borderColor: "standbyBorder",
       borderStyle: "solid",
       borderWidth: "3"
-    }))))), mobile && idx < rainbowkitChains.length - 1 && /* @__PURE__ */ React71.createElement(Box, {
+    }))))), mobile && idx < rainbowkitChains.length - 1 && /* @__PURE__ */ React70.createElement(Box, {
       background: "generalBorderDim",
       height: "1",
       marginX: "8"
     }));
-  }) : /* @__PURE__ */ React71.createElement(Box, {
+  }) : /* @__PURE__ */ React70.createElement(Box, {
     background: "generalBorder",
     borderRadius: "menuButton",
     paddingX: "18",
     paddingY: "12"
-  }, /* @__PURE__ */ React71.createElement(Text2, {
+  }, /* @__PURE__ */ React70.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "medium"
-  }, "Your wallet does not support switching networks from", " ", appName != null ? appName : "this app", ". Try switching networks from within your wallet instead.")), unsupportedChain && /* @__PURE__ */ React71.createElement(React71.Fragment, null, /* @__PURE__ */ React71.createElement(Box, {
+  }, "Your wallet does not support switching networks from", " ", appName != null ? appName : "this app", ". Try switching networks from within your wallet instead.")), unsupportedChain && /* @__PURE__ */ React70.createElement(React70.Fragment, null, /* @__PURE__ */ React70.createElement(Box, {
     background: "generalBorderDim",
     height: "1",
     marginX: "8"
-  }), /* @__PURE__ */ React71.createElement(MenuButton, {
+  }), /* @__PURE__ */ React70.createElement(MenuButton, {
     onClick: () => disconnect(),
     testId: "chain-option-disconnect"
-  }, /* @__PURE__ */ React71.createElement(Box, {
+  }, /* @__PURE__ */ React70.createElement(Box, {
     color: "error",
     fontFamily: "body",
     fontSize: "16"
-  }, /* @__PURE__ */ React71.createElement(Box, {
+  }, /* @__PURE__ */ React70.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between"
-  }, /* @__PURE__ */ React71.createElement(Box, {
+  }, /* @__PURE__ */ React70.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "4",
     height: chainIconSize
-  }, /* @__PURE__ */ React71.createElement(Box, {
+  }, /* @__PURE__ */ React70.createElement(Box, {
     alignItems: "center",
     color: "error",
     height: chainIconSize,
     justifyContent: "center",
     marginRight: "8"
-  }, /* @__PURE__ */ React71.createElement(DisconnectSqIcon, {
+  }, /* @__PURE__ */ React70.createElement(DisconnectSqIcon, {
     size: Number(chainIconSize)
-  })), /* @__PURE__ */ React71.createElement("div", null, "Disconnect")))))))), /* @__PURE__ */ React71.createElement(DialogClose_default, {
+  })), /* @__PURE__ */ React70.createElement("div", null, "Disconnect")))))))), /* @__PURE__ */ React70.createElement(DialogClose_default, {
     onClick: onClose
   })));
 }
 
 // src/rainbowkit/src/components/ConnectModal/ConnectModal.tsx
-import React87 from "react";
-
-// src/rainbowkit/src/components/ConnectOptions/ConnectOptions.tsx
 import React86 from "react";
 
+// src/rainbowkit/src/components/ConnectOptions/ConnectOptions.tsx
+import React85 from "react";
+
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React84, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect26, useState as useState20 } from "react";
+import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect26, useState as useState20 } from "react";
 
 // src/rainbowkit/src/utils/groupBy.ts
 function groupBy(items, getKey) {
@@ -8725,15 +8650,15 @@ function groupBy(items, getKey) {
 }
 
 // src/rainbowkit/src/components/ConnectModal/ConnectModalIntro.tsx
-import React74, { useContext as useContext11 } from "react";
+import React73, { useContext as useContext11 } from "react";
 
 // src/rainbowkit/src/components/Disclaimer/DisclaimerLink.tsx
-import React72 from "react";
+import React71 from "react";
 var DisclaimerLink = ({
   children,
   href
 }) => {
-  return /* @__PURE__ */ React72.createElement(Box, {
+  return /* @__PURE__ */ React71.createElement(Box, {
     as: "a",
     color: "accentColor",
     href,
@@ -8743,9 +8668,9 @@ var DisclaimerLink = ({
 };
 
 // src/rainbowkit/src/components/Disclaimer/DisclaimerText.tsx
-import React73 from "react";
+import React72 from "react";
 var DisclaimerText = ({ children }) => {
-  return /* @__PURE__ */ React73.createElement(Text2, {
+  return /* @__PURE__ */ React72.createElement(Text2, {
     color: "modalTextSecondary",
     size: "12",
     weight: "medium"
@@ -8758,81 +8683,81 @@ function ConnectModalIntro({
   getWallet
 }) {
   const { disclaimer: Disclaimer, learnMoreUrl } = useContext11(AppContext);
-  return /* @__PURE__ */ React74.createElement(React74.Fragment, null, /* @__PURE__ */ React74.createElement(Box, {
+  return /* @__PURE__ */ React73.createElement(React73.Fragment, null, /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     color: "accentColor",
     display: "flex",
     flexDirection: "column",
     height: "full",
     justifyContent: "space-around"
-  }, /* @__PURE__ */ React74.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     marginBottom: "10"
-  }, !compactModeEnabled && /* @__PURE__ */ React74.createElement(Text2, {
+  }, !compactModeEnabled && /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalText",
     size: "18",
     weight: "heavy"
-  }, "What is a Wallet?")), /* @__PURE__ */ React74.createElement(Box, {
+  }, "What is a Wallet?")), /* @__PURE__ */ React73.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "32",
     justifyContent: "center",
     marginY: "20",
     style: { maxWidth: 312 }
-  }, /* @__PURE__ */ React74.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "16"
-  }, /* @__PURE__ */ React74.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     borderRadius: "6",
     height: "48",
     minWidth: "48",
     width: "48"
-  }, /* @__PURE__ */ React74.createElement(AssetsIcon, null)), /* @__PURE__ */ React74.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(AssetsIcon, null)), /* @__PURE__ */ React73.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4"
-  }, /* @__PURE__ */ React74.createElement(Text2, {
+  }, /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, "A Home for your Digital Assets"), /* @__PURE__ */ React74.createElement(Text2, {
+  }, "A Home for your Digital Assets"), /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "Wallets are used to send, receive, store, and display digital assets like Ethereum and NFTs."))), /* @__PURE__ */ React74.createElement(Box, {
+  }, "Wallets are used to send, receive, store, and display digital assets like Ethereum and NFTs."))), /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "16"
-  }, /* @__PURE__ */ React74.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(Box, {
     borderRadius: "6",
     height: "48",
     minWidth: "48",
     width: "48"
-  }, /* @__PURE__ */ React74.createElement(LoginIcon, null)), /* @__PURE__ */ React74.createElement(Box, {
+  }, /* @__PURE__ */ React73.createElement(LoginIcon, null)), /* @__PURE__ */ React73.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4"
-  }, /* @__PURE__ */ React74.createElement(Text2, {
+  }, /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, "A New Way to Log In"), /* @__PURE__ */ React74.createElement(Text2, {
+  }, "A New Way to Log In"), /* @__PURE__ */ React73.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "Instead of creating new accounts and passwords on every website, just connect your wallet.")))), /* @__PURE__ */ React74.createElement(Box, {
+  }, "Instead of creating new accounts and passwords on every website, just connect your wallet.")))), /* @__PURE__ */ React73.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "12",
     justifyContent: "center",
     margin: "10"
-  }, /* @__PURE__ */ React74.createElement(ActionButton, {
+  }, /* @__PURE__ */ React73.createElement(ActionButton, {
     label: "Get a Wallet",
     onClick: getWallet
-  }), /* @__PURE__ */ React74.createElement(Box, {
+  }), /* @__PURE__ */ React73.createElement(Box, {
     as: "a",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
     display: "block",
@@ -8843,45 +8768,45 @@ function ConnectModalIntro({
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React74.createElement(Text2, {
+  }, /* @__PURE__ */ React73.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
-  }, "Learn More"))), Disclaimer && !compactModeEnabled && /* @__PURE__ */ React74.createElement(Box, {
+  }, "Learn More"))), Disclaimer && !compactModeEnabled && /* @__PURE__ */ React73.createElement(Box, {
     marginBottom: "8",
     marginTop: "12",
     textAlign: "center"
-  }, /* @__PURE__ */ React74.createElement(Disclaimer, {
+  }, /* @__PURE__ */ React73.createElement(Disclaimer, {
     Link: DisclaimerLink,
     Text: DisclaimerText
   }))));
 }
 
 // src/rainbowkit/src/components/Icons/Back.tsx
-import React75 from "react";
-var BackIcon = () => /* @__PURE__ */ React75.createElement("svg", {
+import React74 from "react";
+var BackIcon = () => /* @__PURE__ */ React74.createElement("svg", {
   fill: "none",
   height: "17",
   viewBox: "0 0 11 17",
   width: "11",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React75.createElement("path", {
+}, /* @__PURE__ */ React74.createElement("path", {
   d: "M0.99707 8.6543C0.99707 9.08496 1.15527 9.44531 1.51562 9.79688L8.16016 16.3096C8.43262 16.5732 8.74902 16.7051 9.13574 16.7051C9.90918 16.7051 10.5508 16.0811 10.5508 15.3076C10.5508 14.9121 10.3838 14.5605 10.0938 14.2705L4.30176 8.64551L10.0938 3.0293C10.3838 2.74805 10.5508 2.3877 10.5508 2.00098C10.5508 1.23633 9.90918 0.603516 9.13574 0.603516C8.74902 0.603516 8.43262 0.735352 8.16016 0.999023L1.51562 7.51172C1.15527 7.85449 1.00586 8.21484 0.99707 8.6543Z",
   fill: "currentColor"
 }));
 
 // src/rainbowkit/src/components/InfoButton/InfoButton.tsx
-import React77 from "react";
+import React76 from "react";
 
 // src/rainbowkit/src/components/Icons/Info.tsx
-import React76 from "react";
-var InfoIcon = () => /* @__PURE__ */ React76.createElement("svg", {
+import React75 from "react";
+var InfoIcon = () => /* @__PURE__ */ React75.createElement("svg", {
   fill: "none",
   height: "12",
   viewBox: "0 0 8 12",
   width: "8",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React76.createElement("path", {
+}, /* @__PURE__ */ React75.createElement("path", {
   d: "M3.64258 7.99609C4.19336 7.99609 4.5625 7.73828 4.68555 7.24609C4.69141 7.21094 4.70312 7.16406 4.70898 7.13477C4.80859 6.60742 5.05469 6.35547 6.04492 5.76367C7.14648 5.10156 7.67969 4.3457 7.67969 3.24414C7.67969 1.39844 6.17383 0.255859 3.95898 0.255859C2.32422 0.255859 1.05859 0.894531 0.548828 1.86719C0.396484 2.14844 0.320312 2.44727 0.320312 2.74023C0.314453 3.37305 0.742188 3.79492 1.42188 3.79492C1.91406 3.79492 2.33594 3.54883 2.53516 3.11523C2.78711 2.47656 3.23242 2.21289 3.83594 2.21289C4.55664 2.21289 5.10742 2.65234 5.10742 3.29102C5.10742 3.9707 4.7793 4.29883 3.81836 4.87891C3.02148 5.36523 2.50586 5.92773 2.50586 6.76562V6.90039C2.50586 7.55664 2.96289 7.99609 3.64258 7.99609ZM3.67188 11.4473C4.42773 11.4473 5.04297 10.8672 5.04297 10.1406C5.04297 9.41406 4.42773 8.83984 3.67188 8.83984C2.91602 8.83984 2.30664 9.41406 2.30664 10.1406C2.30664 10.8672 2.91602 11.4473 3.67188 11.4473Z",
   fill: "currentColor"
 }));
@@ -8892,7 +8817,7 @@ var InfoButton = ({
   onClick
 }) => {
   const mobile = isMobile();
-  return /* @__PURE__ */ React77.createElement(Box, {
+  return /* @__PURE__ */ React76.createElement(Box, {
     alignItems: "center",
     "aria-label": ariaLabel,
     as: "button",
@@ -8911,11 +8836,11 @@ var InfoButton = ({
     transition: "default",
     type: "button",
     width: mobile ? "30" : "28"
-  }, /* @__PURE__ */ React77.createElement(InfoIcon, null));
+  }, /* @__PURE__ */ React76.createElement(InfoIcon, null));
 };
 
 // src/rainbowkit/src/components/ModalSelection/ModalSelection.tsx
-import React78, { useState as useState19 } from "react";
+import React77, { useState as useState19 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
 import { useContext as useContext12, useEffect as useEffect24, useRef as useRef7 } from "react";
@@ -9090,20 +9015,20 @@ var ModalSelection = ({
 }) => {
   const coolModeRef = useCoolMode(iconUrl);
   const [isMouseOver, setIsMouseOver] = useState19(false);
-  return /* @__PURE__ */ React78.createElement(Box, {
+  return /* @__PURE__ */ React77.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     onMouseEnter: () => setIsMouseOver(true),
     onMouseLeave: () => setIsMouseOver(false),
     ref: coolModeRef
-  }, /* @__PURE__ */ React78.createElement(ActivePixelCard, {
+  }, /* @__PURE__ */ React77.createElement(ActivePixelCard, {
     pixel_height: 4,
     ...currentlySelected ? {
       backgroundColor: "#1649FF"
     } : {
       backgroundColor: "#3A4254"
     }
-  }, /* @__PURE__ */ React78.createElement(Box, {
+  }, /* @__PURE__ */ React77.createElement(Box, {
     as,
     borderRadius: "menuButton",
     borderStyle: "solid",
@@ -9123,29 +9048,29 @@ var ModalSelection = ({
     transition: "default",
     width: "full",
     ...urlProps
-  }, /* @__PURE__ */ React78.createElement(Box, {
+  }, /* @__PURE__ */ React77.createElement(Box, {
     color: currentlySelected ? "accentColorForeground" : "modalText",
     disabled: !ready,
     fontFamily: "body",
     fontSize: "16",
     fontWeight: "bold",
     transition: "default"
-  }, /* @__PURE__ */ React78.createElement(Box, {
+  }, /* @__PURE__ */ React77.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "12",
     width: "max"
-  }, /* @__PURE__ */ React78.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React77.createElement(AsyncImage, {
     background: iconBackground,
     ...isMouseOver ? {} : { borderColor: "actionButtonBorder" },
     borderRadius: "6",
     height: "28",
     src: iconUrl,
     width: "28"
-  }), /* @__PURE__ */ React78.createElement(Box, null, /* @__PURE__ */ React78.createElement(Box, {
+  }), /* @__PURE__ */ React77.createElement(Box, null, /* @__PURE__ */ React77.createElement(Box, {
     style: { marginTop: recent ? -2 : void 0 }
-  }, name), recent && /* @__PURE__ */ React78.createElement(Text2, {
+  }, name), recent && /* @__PURE__ */ React77.createElement(Text2, {
     color: currentlySelected ? "accentColorForeground" : "accentColor",
     size: "12",
     style: { lineHeight: 1, marginTop: -1 },
@@ -9155,13 +9080,13 @@ var ModalSelection = ({
 ModalSelection.displayName = "ModalSelection";
 
 // src/rainbowkit/src/components/ConnectOptions/ConnectDetails.tsx
-import React83, { useContext as useContext13, useEffect as useEffect25 } from "react";
+import React82, { useContext as useContext13, useEffect as useEffect25 } from "react";
 
 // src/rainbowkit/src/components/Icons/Create.tsx
-import React79 from "react";
+import React78 from "react";
 var src3 = async () => (await import("./create-FJBUAUYV.js")).default;
 var preloadCreateIcon = () => loadImages(src3);
-var CreateIcon = () => /* @__PURE__ */ React79.createElement(AsyncImage, {
+var CreateIcon = () => /* @__PURE__ */ React78.createElement(AsyncImage, {
   background: "#e3a5e8",
   borderColor: "generalBorder",
   borderRadius: "10",
@@ -9171,10 +9096,10 @@ var CreateIcon = () => /* @__PURE__ */ React79.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/Icons/Refresh.tsx
-import React80 from "react";
+import React79 from "react";
 var src4 = async () => (await import("./refresh-IPTTFCYG.js")).default;
 var preloadRefreshIcon = () => loadImages(src4);
-var RefreshIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
+var RefreshIcon = () => /* @__PURE__ */ React79.createElement(AsyncImage, {
   background: "#515a70",
   borderColor: "generalBorder",
   borderRadius: "10",
@@ -9184,10 +9109,10 @@ var RefreshIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/Icons/Scan.tsx
-import React81 from "react";
+import React80 from "react";
 var src5 = async () => (await import("./scan-WU4WMXIE.js")).default;
 var preloadScanIcon = () => loadImages(src5);
-var ScanIcon = () => /* @__PURE__ */ React81.createElement(AsyncImage, {
+var ScanIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
   background: "#515a70",
   borderColor: "generalBorder",
   borderRadius: "10",
@@ -9198,7 +9123,7 @@ var ScanIcon = () => /* @__PURE__ */ React81.createElement(AsyncImage, {
 
 // src/rainbowkit/src/components/QRCode/QRCode.tsx
 import QRCodeUtil from "qrcode";
-import React82, { useMemo as useMemo14 } from "react";
+import React81, { useMemo as useMemo14 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.css.ts
 var QRCodeBackgroundClassName = "DesktopOptions_QRCodeBackgroundClassName__vrwex40";
@@ -9243,7 +9168,7 @@ function QRCode({
       const y1 = (matrix.length - 7) * cellSize * y;
       for (let i = 0; i < 3; i++) {
         dots2.push(
-          /* @__PURE__ */ React82.createElement("rect", {
+          /* @__PURE__ */ React81.createElement("rect", {
             fill: i % 2 !== 0 ? "white" : "black",
             height: cellSize * (7 - i * 2),
             key: `${i}-${x}-${y}`,
@@ -9265,7 +9190,7 @@ function QRCode({
           if (!(i < 7 && j < 7 || i > matrix.length - 8 && j < 7 || i < 7 && j > matrix.length - 8)) {
             if (!(i > matrixMiddleStart && i < matrixMiddleEnd && j > matrixMiddleStart && j < matrixMiddleEnd)) {
               dots2.push(
-                /* @__PURE__ */ React82.createElement("circle", {
+                /* @__PURE__ */ React81.createElement("circle", {
                   cx: i * cellSize + cellSize / 2,
                   cy: j * cellSize + cellSize / 2,
                   fill: "black",
@@ -9282,7 +9207,7 @@ function QRCode({
   }, [ecl, logoSize, size, uri]);
   const logoPosition = size / 2 - logoSize / 2;
   const logoWrapperSize = logoSize + logoMargin * 2;
-  return /* @__PURE__ */ React82.createElement(Box, {
+  return /* @__PURE__ */ React81.createElement(Box, {
     borderColor: "generalBorder",
     borderRadius: "menuButton",
     borderStyle: "solid",
@@ -9290,14 +9215,14 @@ function QRCode({
     className: QRCodeBackgroundClassName,
     padding,
     width: "max"
-  }, /* @__PURE__ */ React82.createElement(Box, {
+  }, /* @__PURE__ */ React81.createElement(Box, {
     style: {
       height: size,
       userSelect: "none",
       width: size
     },
     userSelect: "none"
-  }, /* @__PURE__ */ React82.createElement(Box, {
+  }, /* @__PURE__ */ React81.createElement(Box, {
     display: "flex",
     justifyContent: "center",
     position: "relative",
@@ -9307,28 +9232,28 @@ function QRCode({
       width: size
     },
     width: "full"
-  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React81.createElement(AsyncImage, {
     background: logoBackground,
     borderColor: { custom: "rgba(0, 0, 0, 0.06)" },
     borderRadius: "13",
     height: logoSize,
     src: logoUrl,
     width: logoSize
-  })), /* @__PURE__ */ React82.createElement("svg", {
+  })), /* @__PURE__ */ React81.createElement("svg", {
     height: size,
     style: { all: "revert" },
     width: size
-  }, /* @__PURE__ */ React82.createElement("defs", null, /* @__PURE__ */ React82.createElement("clipPath", {
+  }, /* @__PURE__ */ React81.createElement("defs", null, /* @__PURE__ */ React81.createElement("clipPath", {
     id: "clip-wrapper"
-  }, /* @__PURE__ */ React82.createElement("rect", {
+  }, /* @__PURE__ */ React81.createElement("rect", {
     height: logoWrapperSize,
     width: logoWrapperSize
-  })), /* @__PURE__ */ React82.createElement("clipPath", {
+  })), /* @__PURE__ */ React81.createElement("clipPath", {
     id: "clip-logo"
-  }, /* @__PURE__ */ React82.createElement("rect", {
+  }, /* @__PURE__ */ React81.createElement("rect", {
     height: logoSize,
     width: logoSize
-  }))), /* @__PURE__ */ React82.createElement("rect", {
+  }))), /* @__PURE__ */ React81.createElement("rect", {
     fill: "transparent",
     height: size,
     width: size
@@ -9363,14 +9288,14 @@ function GetDetail({
 }) {
   const wallets = useWalletConnectors();
   const shownWallets = wallets.splice(0, 5);
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "full",
     marginTop: "18",
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -9387,47 +9312,47 @@ function GetDetail({
     const hasMobileCompanionApp = (downloadUrls == null ? void 0 : downloadUrls.qrCode) && qrCode;
     const hasExtension = !!wallet.extensionDownloadUrl;
     const hasMobileAndExtension = (downloadUrls == null ? void 0 : downloadUrls.qrCode) && hasExtension;
-    return /* @__PURE__ */ React83.createElement(Box, {
+    return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "16",
       justifyContent: "space-between",
       key: wallet.id,
       width: "full"
-    }, /* @__PURE__ */ React83.createElement(Box, {
+    }, /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "16"
-    }, /* @__PURE__ */ React83.createElement(AsyncImage, {
+    }, /* @__PURE__ */ React82.createElement(AsyncImage, {
       background: iconBackground,
       borderColor: "actionButtonBorder",
       borderRadius: "10",
       height: "48",
       src: iconUrl,
       width: "48"
-    }), /* @__PURE__ */ React83.createElement(Box, {
+    }), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "2"
-    }, /* @__PURE__ */ React83.createElement(Text2, {
+    }, /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "bold"
-    }, name), /* @__PURE__ */ React83.createElement(Text2, {
+    }, name), /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "medium"
-    }, hasMobileAndExtension ? "Mobile Wallet and Extension" : hasMobileCompanionApp ? "Mobile Wallet" : hasExtension ? "Browser Extension" : null))), /* @__PURE__ */ React83.createElement(Box, {
+    }, hasMobileAndExtension ? "Mobile Wallet and Extension" : hasMobileCompanionApp ? "Mobile Wallet" : hasExtension ? "Browser Extension" : null))), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
-    }, /* @__PURE__ */ React83.createElement(ActionButton, {
+    }, /* @__PURE__ */ React82.createElement(ActionButton, {
       label: "GET",
       onClick: () => getWalletDownload(id),
       type: "secondary"
     })));
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "10",
     display: "flex",
@@ -9437,11 +9362,11 @@ function GetDetail({
     marginBottom: "4",
     paddingY: "8",
     style: { maxWidth: 275, textAlign: "center" }
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React83.createElement(Text2, {
+  }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
@@ -9491,75 +9416,75 @@ function ConnectDetail({
   useEffect25(() => {
     preloadBrowserIcon();
   }, []);
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     height: "full",
     width: "full"
-  }, hasQrCode ? /* @__PURE__ */ React83.createElement(Box, {
+  }, hasQrCode ? /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     height: "full",
     justifyContent: "center"
-  }, /* @__PURE__ */ React83.createElement(QRCode, {
+  }, /* @__PURE__ */ React82.createElement(QRCode, {
     logoBackground: iconBackground,
     logoSize: compactModeEnabled ? 60 : 72,
     logoUrl: iconUrl,
     size: compactModeEnabled ? 318 : smallWindow ? Math.max(280, Math.min(windowWidth - 308, 382)) : 382,
     uri: qrCodeUri
-  })) : /* @__PURE__ */ React83.createElement(Box, {
+  })) : /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "center",
     style: { flexGrow: 1 }
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "8"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     borderRadius: "10",
     height: LOGO_SIZE,
     overflow: "hidden"
-  }, /* @__PURE__ */ React83.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
     height: LOGO_SIZE,
     src: iconUrl,
     width: LOGO_SIZE
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "4",
     paddingX: "32",
     style: { textAlign: "center" }
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalText",
     size: "18",
     weight: "bold"
-  }, ready ? `Opening ${name}...` : hasExtension ? `${name} is not installed` : `${name} is not available`), !ready && hasExtension ? /* @__PURE__ */ React83.createElement(Box, {
+  }, ready ? `Opening ${name}...` : hasExtension ? `${name} is not installed` : `${name} is not available`), !ready && hasExtension ? /* @__PURE__ */ React82.createElement(Box, {
     paddingTop: "20"
-  }, /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     href: wallet.extensionDownloadUrl,
     label: "INSTALL",
     type: "secondary"
-  })) : null, ready && !hasQrCode && /* @__PURE__ */ React83.createElement(React83.Fragment, null, /* @__PURE__ */ React83.createElement(Box, {
+  })) : null, ready && !hasQrCode && /* @__PURE__ */ React82.createElement(React82.Fragment, null, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     textAlign: "center",
     weight: "medium"
-  }, "Confirm connection in the extension")), /* @__PURE__ */ React83.createElement(Box, {
+  }, "Confirm connection in the extension")), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     color: "modalText",
     display: "flex",
     flexDirection: "row",
     height: "32",
     marginTop: "8"
-  }, connectionError ? /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, connectionError ? /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "RETRY",
     onClick: getDesktopDeepLink ? async () => {
       const uri = await getDesktopDeepLink();
@@ -9567,9 +9492,9 @@ function ConnectDetail({
     } : () => {
       reconnect(wallet);
     }
-  }) : /* @__PURE__ */ React83.createElement(Box, {
+  }) : /* @__PURE__ */ React82.createElement(Box, {
     color: "modalTextSecondary"
-  }, /* @__PURE__ */ React83.createElement(SpinnerIcon, null))))))), /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(SpinnerIcon, null))))))), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "10",
     display: "flex",
@@ -9578,11 +9503,11 @@ function ConnectDetail({
     height: "28",
     justifyContent: "space-between",
     marginTop: "12"
-  }, ready && secondaryAction && /* @__PURE__ */ React83.createElement(React83.Fragment, null, /* @__PURE__ */ React83.createElement(Text2, {
+  }, ready && secondaryAction && /* @__PURE__ */ React82.createElement(React82.Fragment, null, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, secondaryAction.description), /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, secondaryAction.description), /* @__PURE__ */ React82.createElement(ActionButton, {
     label: secondaryAction.label,
     onClick: secondaryAction.onClick,
     type: "secondary"
@@ -9602,7 +9527,7 @@ var DownloadOptionsBox = ({
 }) => {
   const isBrowserCard = variant === "browser";
   const gradientRgbas = !isBrowserCard && iconAccent && getGradientRGBAs(iconAccent);
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "13",
     display: "flex",
@@ -9612,7 +9537,7 @@ var DownloadOptionsBox = ({
     position: "relative",
     style: { flex: 1, isolation: "isolate" },
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     borderColor: "actionButtonBorder",
     borderRadius: "13",
     borderStyle: "solid",
@@ -9625,7 +9550,7 @@ var DownloadOptionsBox = ({
       top: "0",
       zIndex: 1
     }
-  }), isBrowserCard && /* @__PURE__ */ React83.createElement(Box, {
+  }), isBrowserCard && /* @__PURE__ */ React82.createElement(Box, {
     background: "downloadTopCardBackground",
     height: "full",
     position: "absolute",
@@ -9633,7 +9558,7 @@ var DownloadOptionsBox = ({
       zIndex: 0
     },
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
@@ -9646,7 +9571,7 @@ var DownloadOptionsBox = ({
       top: "0",
       transform: "translate3d(0, 0, 0)"
     }
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     style: {
       filter: "blur(100px)",
       marginLeft: -27,
@@ -9654,12 +9579,12 @@ var DownloadOptionsBox = ({
       opacity: 0.6,
       transform: "translate3d(0, 0, 0)"
     }
-  }, /* @__PURE__ */ React83.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
     borderRadius: "full",
     height: "200",
     src: iconUrl,
     width: "200"
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     style: {
       filter: "blur(100px)",
       marginRight: 0,
@@ -9668,12 +9593,12 @@ var DownloadOptionsBox = ({
       overflow: "auto",
       transform: "translate3d(0, 0, 0)"
     }
-  }, /* @__PURE__ */ React83.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(AsyncImage, {
     borderRadius: "full",
     height: "200",
     src: iconUrl,
     width: "200"
-  })))), !isBrowserCard && gradientRgbas && /* @__PURE__ */ React83.createElement(Box, {
+  })))), !isBrowserCard && gradientRgbas && /* @__PURE__ */ React82.createElement(Box, {
     background: "downloadBottomCardBackground",
     style: {
       bottom: "0",
@@ -9682,7 +9607,7 @@ var DownloadOptionsBox = ({
       right: "0",
       top: "0"
     }
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     position: "absolute",
     style: {
       background: `radial-gradient(50% 50% at 50% 50%, ${gradientRgbas[0]} 0%, ${gradientRgbas[1]} 25%, rgba(0,0,0,0) 100%)`,
@@ -9692,7 +9617,7 @@ var DownloadOptionsBox = ({
       transform: "translate3d(0, 0, 0)",
       width: 564
     }
-  }), /* @__PURE__ */ React83.createElement(Box, {
+  }), /* @__PURE__ */ React82.createElement(Box, {
     position: "absolute",
     style: {
       background: `radial-gradient(50% 50% at 50% 50%, ${gradientRgbas[2]} 0%, rgba(0, 0, 0, 0) 100%)`,
@@ -9702,7 +9627,7 @@ var DownloadOptionsBox = ({
       transform: "translate3d(0, 0, 0)",
       width: 564
     }
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "flex-start",
     display: "flex",
     flexDirection: "row",
@@ -9710,7 +9635,7 @@ var DownloadOptionsBox = ({
     height: "max",
     justifyContent: "center",
     style: { zIndex: 1 }
-  }, /* @__PURE__ */ React83.createElement(Box, null, /* @__PURE__ */ React83.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React82.createElement(Box, null, /* @__PURE__ */ React82.createElement(AsyncImage, {
     height: "60",
     src: iconUrl,
     width: "60",
@@ -9719,24 +9644,24 @@ var DownloadOptionsBox = ({
       borderColor: "generalBorder",
       borderRadius: "10"
     } : null
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "4",
     style: { flex: 1 },
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalText",
     size: "14",
     weight: "bold"
-  }, title), /* @__PURE__ */ React83.createElement(Text2, {
+  }, title), /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, description), /* @__PURE__ */ React83.createElement(Box, {
+  }, description), /* @__PURE__ */ React82.createElement(Box, {
     marginTop: "14",
     width: "max"
-  }, /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     href: url,
     label: actionLabel,
     onClick: onAction,
@@ -9756,7 +9681,7 @@ function DownloadOptionsDetail({
     preloadScanIcon();
     preloadRefreshIcon();
   }, []);
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -9765,7 +9690,7 @@ function DownloadOptionsDetail({
     marginBottom: "8",
     marginTop: "4",
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -9773,7 +9698,7 @@ function DownloadOptionsDetail({
     height: "full",
     justifyContent: "center",
     width: "full"
-  }, extensionDownloadUrl && /* @__PURE__ */ React83.createElement(DownloadOptionsBox, {
+  }, extensionDownloadUrl && /* @__PURE__ */ React82.createElement(DownloadOptionsBox, {
     actionLabel: `Add to ${browser}`,
     description: "Access your wallet right from your favorite web browser.",
     iconUrl: getBrowserSrc,
@@ -9784,7 +9709,7 @@ function DownloadOptionsDetail({
     title: `${wallet.name} for ${browser}`,
     url: extensionDownloadUrl,
     variant: "browser"
-  }), mobileDownloadUrl && /* @__PURE__ */ React83.createElement(DownloadOptionsBox, {
+  }), mobileDownloadUrl && /* @__PURE__ */ React82.createElement(DownloadOptionsBox, {
     actionLabel: "Get the app",
     description: "Use the mobile wallet to explore the world of Ethereum.",
     iconAccent: wallet.iconAccent,
@@ -9807,26 +9732,26 @@ function DownloadDetail({
     preloadCreateIcon();
     preloadScanIcon();
   }, []);
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "24",
     height: "full",
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     style: { maxWidth: 220, textAlign: "center" }
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "semibold"
-  }, "Scan with your phone to download on iOS or Android")), /* @__PURE__ */ React83.createElement(Box, {
+  }, "Scan with your phone to download on iOS or Android")), /* @__PURE__ */ React82.createElement(Box, {
     height: "full"
-  }, (downloadUrls == null ? void 0 : downloadUrls.qrCode) ? /* @__PURE__ */ React83.createElement(QRCode, {
+  }, (downloadUrls == null ? void 0 : downloadUrls.qrCode) ? /* @__PURE__ */ React82.createElement(QRCode, {
     logoSize: 0,
     size: 268,
     uri: downloadUrls.qrCode
-  }) : null), /* @__PURE__ */ React83.createElement(Box, {
+  }) : null), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     borderRadius: "10",
     display: "flex",
@@ -9836,7 +9761,7 @@ function DownloadDetail({
     justifyContent: "space-between",
     marginBottom: "12",
     paddingY: "8"
-  }, /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "Continue",
     onClick: () => changeWalletStep(
       (qrCode == null ? void 0 : qrCode.instructions) ? "INSTRUCTIONS_MOBILE" /* InstructionsMobile */ : "CONNECT" /* Connect */
@@ -9844,8 +9769,8 @@ function DownloadDetail({
   })));
 }
 var stepIcons = {
-  create: () => /* @__PURE__ */ React83.createElement(CreateIcon, null),
-  install: (wallet) => /* @__PURE__ */ React83.createElement(AsyncImage, {
+  create: () => /* @__PURE__ */ React82.createElement(CreateIcon, null),
+  install: (wallet) => /* @__PURE__ */ React82.createElement(AsyncImage, {
     background: wallet.iconBackground,
     borderColor: "generalBorder",
     borderRadius: "10",
@@ -9853,21 +9778,21 @@ var stepIcons = {
     src: wallet.iconUrl,
     width: "48"
   }),
-  refresh: () => /* @__PURE__ */ React83.createElement(RefreshIcon, null),
-  scan: () => /* @__PURE__ */ React83.createElement(ScanIcon, null)
+  refresh: () => /* @__PURE__ */ React82.createElement(RefreshIcon, null),
+  scan: () => /* @__PURE__ */ React82.createElement(ScanIcon, null)
 };
 function InstructionMobileDetail({
   connectWallet,
   wallet
 }) {
   var _a, _b, _c, _d;
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "full",
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "28",
@@ -9877,43 +9802,43 @@ function InstructionMobileDetail({
     style: { maxWidth: 320 }
   }, (_b = (_a = wallet == null ? void 0 : wallet.qrCode) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
     var _a2;
-    return /* @__PURE__ */ React83.createElement(Box, {
+    return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "16",
       key: idx
-    }, /* @__PURE__ */ React83.createElement(Box, {
+    }, /* @__PURE__ */ React82.createElement(Box, {
       borderRadius: "10",
       height: "48",
       minWidth: "48",
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React83.createElement(Box, {
+    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
-    }, /* @__PURE__ */ React83.createElement(Text2, {
+    }, /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "bold"
-    }, d.title), /* @__PURE__ */ React83.createElement(Text2, {
+    }, d.title), /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "medium"
     }, d.description)));
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "12",
     justifyContent: "center",
     marginBottom: "16"
-  }, /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "Connect",
     onClick: () => connectWallet(wallet)
-  }), /* @__PURE__ */ React83.createElement(Box, {
+  }), /* @__PURE__ */ React82.createElement(Box, {
     as: "a",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
     display: "block",
@@ -9924,7 +9849,7 @@ function InstructionMobileDetail({
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
@@ -9934,13 +9859,13 @@ function InstructionExtensionDetail({
   wallet
 }) {
   var _a, _b, _c, _d;
-  return /* @__PURE__ */ React83.createElement(Box, {
+  return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     height: "full",
     width: "full"
-  }, /* @__PURE__ */ React83.createElement(Box, {
+  }, /* @__PURE__ */ React82.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     gap: "28",
@@ -9950,43 +9875,43 @@ function InstructionExtensionDetail({
     style: { maxWidth: 320 }
   }, (_b = (_a = wallet == null ? void 0 : wallet.extension) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
     var _a2;
-    return /* @__PURE__ */ React83.createElement(Box, {
+    return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
       gap: "16",
       key: idx
-    }, /* @__PURE__ */ React83.createElement(Box, {
+    }, /* @__PURE__ */ React82.createElement(Box, {
       borderRadius: "10",
       height: "48",
       minWidth: "48",
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React83.createElement(Box, {
+    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
-    }, /* @__PURE__ */ React83.createElement(Text2, {
+    }, /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalText",
       size: "14",
       weight: "bold"
-    }, d.title), /* @__PURE__ */ React83.createElement(Text2, {
+    }, d.title), /* @__PURE__ */ React82.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "medium"
     }, d.description)));
-  })), /* @__PURE__ */ React83.createElement(Box, {
+  })), /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     gap: "12",
     justifyContent: "center",
     marginBottom: "16"
-  }, /* @__PURE__ */ React83.createElement(ActionButton, {
+  }, /* @__PURE__ */ React82.createElement(ActionButton, {
     label: "Refresh",
     onClick: window.location.reload.bind(window.location)
-  }), /* @__PURE__ */ React83.createElement(Box, {
+  }), /* @__PURE__ */ React82.createElement(Box, {
     as: "a",
     className: touchableStyles({ active: "shrink", hover: "grow" }),
     display: "block",
@@ -9997,7 +9922,7 @@ function InstructionExtensionDetail({
     style: { willChange: "transform" },
     target: "_blank",
     transition: "default"
-  }, /* @__PURE__ */ React83.createElement(Text2, {
+  }, /* @__PURE__ */ React82.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
@@ -10122,12 +10047,12 @@ function DesktopOptions({ onClose }) {
   const hasExtensionAndMobile = !!(hasExtension && (selectedWallet == null ? void 0 : selectedWallet.mobileDownloadUrl));
   switch (walletStep) {
     case "NONE" /* None */:
-      walletContent = /* @__PURE__ */ React84.createElement(ConnectModalIntro, {
+      walletContent = /* @__PURE__ */ React83.createElement(ConnectModalIntro, {
         getWallet: () => changeWalletStep("GET" /* Get */)
       });
       break;
     case "LEARN_COMPACT" /* LearnCompact */:
-      walletContent = /* @__PURE__ */ React84.createElement(ConnectModalIntro, {
+      walletContent = /* @__PURE__ */ React83.createElement(ConnectModalIntro, {
         compactModeEnabled,
         getWallet: () => changeWalletStep("GET" /* Get */)
       });
@@ -10135,14 +10060,14 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = "NONE" /* None */;
       break;
     case "GET" /* Get */:
-      walletContent = /* @__PURE__ */ React84.createElement(GetDetail, {
+      walletContent = /* @__PURE__ */ React83.createElement(GetDetail, {
         getWalletDownload
       });
       headerLabel = "Get a Wallet";
       headerBackButtonLink = compactModeEnabled ? "LEARN_COMPACT" /* LearnCompact */ : "NONE" /* None */;
       break;
     case "CONNECT" /* Connect */:
-      walletContent = selectedWallet && /* @__PURE__ */ React84.createElement(ConnectDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(ConnectDetail, {
         changeWalletStep,
         compactModeEnabled,
         connectionError,
@@ -10157,7 +10082,7 @@ function DesktopOptions({ onClose }) {
       };
       break;
     case "DOWNLOAD_OPTIONS" /* DownloadOptions */:
-      walletContent = selectedWallet && /* @__PURE__ */ React84.createElement(DownloadOptionsDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(DownloadOptionsDetail, {
         changeWalletStep,
         wallet: selectedWallet
       });
@@ -10165,7 +10090,7 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = hasExtensionAndMobile && "CONNECT" /* Connect */ ? initialWalletStep : null;
       break;
     case "DOWNLOAD" /* Download */:
-      walletContent = selectedWallet && /* @__PURE__ */ React84.createElement(DownloadDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(DownloadDetail, {
         changeWalletStep,
         wallet: selectedWallet
       });
@@ -10173,7 +10098,7 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = hasExtensionAndMobile ? "DOWNLOAD_OPTIONS" /* DownloadOptions */ : initialWalletStep;
       break;
     case "INSTRUCTIONS_MOBILE" /* InstructionsMobile */:
-      walletContent = selectedWallet && /* @__PURE__ */ React84.createElement(InstructionMobileDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(InstructionMobileDetail, {
         connectWallet: selectWallet,
         wallet: selectedWallet
       });
@@ -10181,7 +10106,7 @@ function DesktopOptions({ onClose }) {
       headerBackButtonLink = "DOWNLOAD" /* Download */;
       break;
     case "INSTRUCTIONS_EXTENSION" /* InstructionsExtension */:
-      walletContent = selectedWallet && /* @__PURE__ */ React84.createElement(InstructionExtensionDetail, {
+      walletContent = selectedWallet && /* @__PURE__ */ React83.createElement(InstructionExtensionDetail, {
         wallet: selectedWallet
       });
       headerLabel = selectedWallet && `Get started with ${compactModeEnabled ? selectedWallet.shortName || selectedWallet.name : selectedWallet.name}`;
@@ -10190,61 +10115,61 @@ function DesktopOptions({ onClose }) {
     default:
       break;
   }
-  return /* @__PURE__ */ React84.createElement(Box, {
+  return /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     flexDirection: "row",
     style: { maxHeight: compactModeEnabled ? 468 : 504 }
-  }, (compactModeEnabled ? walletStep === "NONE" /* None */ : true) && /* @__PURE__ */ React84.createElement(Box, {
+  }, (compactModeEnabled ? walletStep === "NONE" /* None */ : true) && /* @__PURE__ */ React83.createElement(Box, {
     className: compactModeEnabled ? sidebarCompactMode : sidebar,
     display: "flex",
     flexDirection: "column",
     marginTop: "16"
-  }, /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     justifyContent: "space-between"
-  }, compactModeEnabled && Disclaimer && /* @__PURE__ */ React84.createElement(Box, {
+  }, compactModeEnabled && Disclaimer && /* @__PURE__ */ React83.createElement(Box, {
     marginLeft: "16",
     width: "28"
-  }, /* @__PURE__ */ React84.createElement(InfoButton, {
+  }, /* @__PURE__ */ React83.createElement(InfoButton, {
     onClick: () => changeWalletStep("LEARN_COMPACT" /* LearnCompact */)
-  })), compactModeEnabled && !Disclaimer && /* @__PURE__ */ React84.createElement(Box, {
+  })), compactModeEnabled && !Disclaimer && /* @__PURE__ */ React83.createElement(Box, {
     marginLeft: "16",
     width: "28"
-  }), /* @__PURE__ */ React84.createElement(Box, {
+  }), /* @__PURE__ */ React83.createElement(Box, {
     marginLeft: compactModeEnabled ? "0" : "6",
     paddingBottom: "8",
     paddingTop: "2",
     paddingX: "18"
-  }, /* @__PURE__ */ React84.createElement(Text2, {
+  }, /* @__PURE__ */ React83.createElement(Text2, {
     as: "h1",
     color: "modalText",
     id: titleId,
     size: "18",
     weight: "heavy"
-  }, "Connect a Wallet")), compactModeEnabled && /* @__PURE__ */ React84.createElement(Box, {
+  }, "Connect a Wallet")), compactModeEnabled && /* @__PURE__ */ React83.createElement(Box, {
     marginRight: "16"
-  }, /* @__PURE__ */ React84.createElement(DialogClose_default, {
+  }, /* @__PURE__ */ React83.createElement(DialogClose_default, {
     onClick: onClose
-  }))), /* @__PURE__ */ React84.createElement(Box, {
+  }))), /* @__PURE__ */ React83.createElement(Box, {
     className: ScrollClassName,
     paddingBottom: "18"
   }, Object.entries(groupedWallets).map(
-    ([groupName, wallets2], index) => wallets2.length > 0 && /* @__PURE__ */ React84.createElement(Fragment2, {
+    ([groupName, wallets2], index) => wallets2.length > 0 && /* @__PURE__ */ React83.createElement(Fragment2, {
       key: index
-    }, groupName ? /* @__PURE__ */ React84.createElement(Box, {
+    }, groupName ? /* @__PURE__ */ React83.createElement(Box, {
       marginBottom: "8",
       marginTop: "16",
       marginX: "6"
-    }, /* @__PURE__ */ React84.createElement(Text2, {
+    }, /* @__PURE__ */ React83.createElement(Text2, {
       color: "modalTextSecondary",
       size: "14",
       weight: "bold"
-    }, groupName)) : null, /* @__PURE__ */ React84.createElement(Box, {
+    }, groupName)) : null, /* @__PURE__ */ React83.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
     }, wallets2.map((wallet) => {
-      return /* @__PURE__ */ React84.createElement(ModalSelection, {
+      return /* @__PURE__ */ React83.createElement(ModalSelection, {
         currentlySelected: wallet.id === selectedOptionId,
         iconBackground: wallet.iconBackground,
         iconUrl: wallet.iconUrl,
@@ -10256,36 +10181,36 @@ function DesktopOptions({ onClose }) {
         testId: `wallet-option-${wallet.id}`
       });
     })))
-  )), compactModeEnabled && /* @__PURE__ */ React84.createElement(React84.Fragment, null, /* @__PURE__ */ React84.createElement(Box, {
+  )), compactModeEnabled && /* @__PURE__ */ React83.createElement(React83.Fragment, null, /* @__PURE__ */ React83.createElement(Box, {
     background: "generalBorder",
     height: "1",
     marginTop: "-1"
-  }), Disclaimer ? /* @__PURE__ */ React84.createElement(Box, {
+  }), Disclaimer ? /* @__PURE__ */ React83.createElement(Box, {
     paddingX: "24",
     paddingY: "16",
     textAlign: "center"
-  }, /* @__PURE__ */ React84.createElement(Disclaimer, {
+  }, /* @__PURE__ */ React83.createElement(Disclaimer, {
     Link: DisclaimerLink,
     Text: DisclaimerText
-  })) : /* @__PURE__ */ React84.createElement(Box, {
+  })) : /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "space-between",
     paddingX: "24",
     paddingY: "16"
-  }, /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     paddingY: "4"
-  }, /* @__PURE__ */ React84.createElement(Text2, {
+  }, /* @__PURE__ */ React83.createElement(Text2, {
     color: "modalTextSecondary",
     size: "14",
     weight: "medium"
-  }, "New to Ethereum wallets?")), /* @__PURE__ */ React84.createElement(Box, {
+  }, "New to Ethereum wallets?")), /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "row",
     gap: "4",
     justifyContent: "center"
-  }, /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     className: touchableStyles({
       active: "shrink",
       hover: "grow"
@@ -10295,27 +10220,27 @@ function DesktopOptions({ onClose }) {
     paddingY: "4",
     style: { willChange: "transform" },
     transition: "default"
-  }, /* @__PURE__ */ React84.createElement(Text2, {
+  }, /* @__PURE__ */ React83.createElement(Text2, {
     color: "accentColor",
     size: "14",
     weight: "bold"
-  }, "Learn More")))))), (compactModeEnabled ? walletStep !== "NONE" /* None */ : true) && /* @__PURE__ */ React84.createElement(React84.Fragment, null, !compactModeEnabled && /* @__PURE__ */ React84.createElement(Box, {
+  }, "Learn More")))))), (compactModeEnabled ? walletStep !== "NONE" /* None */ : true) && /* @__PURE__ */ React83.createElement(React83.Fragment, null, !compactModeEnabled && /* @__PURE__ */ React83.createElement(Box, {
     background: "generalBorder",
     minWidth: "1",
     width: "1"
-  }), /* @__PURE__ */ React84.createElement(Box, {
+  }), /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     margin: "16",
     style: { flexGrow: 1 }
-  }, /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     justifyContent: "space-between",
     marginBottom: "12"
-  }, /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     width: "28"
-  }, headerBackButtonLink && /* @__PURE__ */ React84.createElement(Box, {
+  }, headerBackButtonLink && /* @__PURE__ */ React83.createElement(Box, {
     as: "button",
     className: touchableStyles({
       active: "shrinkSm",
@@ -10335,22 +10260,22 @@ function DesktopOptions({ onClose }) {
     },
     transition: "default",
     type: "button"
-  }, /* @__PURE__ */ React84.createElement(BackIcon, null))), /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(BackIcon, null))), /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     justifyContent: "center",
     style: { flexGrow: 1 }
-  }, headerLabel && /* @__PURE__ */ React84.createElement(Text2, {
+  }, headerLabel && /* @__PURE__ */ React83.createElement(Text2, {
     color: "modalText",
     size: "18",
     textAlign: "center",
     weight: "heavy"
-  }, headerLabel)), /* @__PURE__ */ React84.createElement(DialogClose_default, {
+  }, headerLabel)), /* @__PURE__ */ React83.createElement(DialogClose_default, {
     onClick: onClose
-  })), /* @__PURE__ */ React84.createElement(Box, {
+  })), /* @__PURE__ */ React83.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     style: { minHeight: compactModeEnabled ? 396 : 432 }
-  }, /* @__PURE__ */ React84.createElement(Box, {
+  }, /* @__PURE__ */ React83.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
@@ -10362,7 +10287,7 @@ function DesktopOptions({ onClose }) {
 }
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.tsx
-import React85, { useCallback as useCallback29, useContext as useContext15, useState as useState21 } from "react";
+import React84, { useCallback as useCallback30, useContext as useContext15, useState as useState21 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.css.ts
 var scroll = "MobileOptions_scroll__1656yi90";
@@ -10386,13 +10311,13 @@ function WalletButton({
   } = wallet;
   const getMobileUri = mobile == null ? void 0 : mobile.getUri;
   const coolModeRef = useCoolMode(iconUrl);
-  return /* @__PURE__ */ React85.createElement(Box, {
+  return /* @__PURE__ */ React84.createElement(Box, {
     as: "button",
     color: ready ? "modalText" : "modalTextSecondary",
     disabled: !ready,
     fontFamily: "body",
     key: id,
-    onClick: useCallback29(async () => {
+    onClick: useCallback30(async () => {
       if (id === "walletConnect")
         onClose == null ? void 0 : onClose();
       connect == null ? void 0 : connect();
@@ -10423,34 +10348,34 @@ function WalletButton({
     testId: `wallet-option-${id}`,
     type: "button",
     width: "full"
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     alignItems: "center",
     display: "flex",
     flexDirection: "column",
     justifyContent: "center"
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     paddingBottom: "8",
     paddingTop: "10"
-  }, /* @__PURE__ */ React85.createElement(AsyncImage, {
+  }, /* @__PURE__ */ React84.createElement(AsyncImage, {
     background: iconBackground,
     borderRadius: "13",
     boxShadow: "walletLogo",
     height: "60",
     src: iconUrl,
     width: "60"
-  })), /* @__PURE__ */ React85.createElement(Box, {
+  })), /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     textAlign: "center"
-  }, /* @__PURE__ */ React85.createElement(Text2, {
+  }, /* @__PURE__ */ React84.createElement(Text2, {
     as: "h2",
     color: wallet.ready ? "modalText" : "modalTextSecondary",
     size: "13",
     weight: "medium"
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     as: "span",
     position: "relative"
-  }, shortName != null ? shortName : name, !wallet.ready && " (unsupported)")), wallet.recent && /* @__PURE__ */ React85.createElement(Text2, {
+  }, shortName != null ? shortName : name, !wallet.ready && " (unsupported)")), wallet.recent && /* @__PURE__ */ React84.createElement(Text2, {
     color: "accentColor",
     size: "12",
     weight: "medium"
@@ -10473,71 +10398,71 @@ function MobileOptions({ onClose }) {
     case "CONNECT" /* Connect */: {
       headerLabel = "Connect a Wallet";
       headerBackgroundContrast = true;
-      walletContent = /* @__PURE__ */ React85.createElement(Box, null, /* @__PURE__ */ React85.createElement(Box, {
+      walletContent = /* @__PURE__ */ React84.createElement(Box, null, /* @__PURE__ */ React84.createElement(Box, {
         background: "profileForeground",
         className: scroll,
         display: "flex",
         paddingBottom: "20",
         paddingTop: "6"
-      }, /* @__PURE__ */ React85.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         style: { margin: "0 auto" }
       }, wallets.filter((wallet) => wallet.ready).map((wallet) => {
-        return /* @__PURE__ */ React85.createElement(Box, {
+        return /* @__PURE__ */ React84.createElement(Box, {
           key: wallet.id,
           paddingX: "20"
-        }, /* @__PURE__ */ React85.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           width: "60"
-        }, /* @__PURE__ */ React85.createElement(WalletButton, {
+        }, /* @__PURE__ */ React84.createElement(WalletButton, {
           onClose,
           wallet
         })));
-      }))), /* @__PURE__ */ React85.createElement(Box, {
+      }))), /* @__PURE__ */ React84.createElement(Box, {
         background: "generalBorder",
         height: "1",
         marginBottom: "32",
         marginTop: "-1"
-      }), /* @__PURE__ */ React85.createElement(Box, {
+      }), /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
         gap: "32",
         paddingX: "32",
         style: { textAlign: "center" }
-      }, /* @__PURE__ */ React85.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         flexDirection: "column",
         gap: "8",
         textAlign: "center"
-      }, /* @__PURE__ */ React85.createElement(Text2, {
+      }, /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalText",
         size: "16",
         weight: "bold"
-      }, "What is a Wallet?"), /* @__PURE__ */ React85.createElement(Text2, {
+      }, "What is a Wallet?"), /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalTextSecondary",
         size: "16"
-      }, "A wallet is used to send, receive, store, and display digital assets. It\u2019s also a new way to log in, without needing to create new accounts and passwords on\xA0every\xA0website."))), /* @__PURE__ */ React85.createElement(Box, {
+      }, "A wallet is used to send, receive, store, and display digital assets. It\u2019s also a new way to log in, without needing to create new accounts and passwords on\xA0every\xA0website."))), /* @__PURE__ */ React84.createElement(Box, {
         paddingTop: "32",
         paddingX: "20"
-      }, /* @__PURE__ */ React85.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         gap: "14",
         justifyContent: "center"
-      }, /* @__PURE__ */ React85.createElement(ActionButton, {
+      }, /* @__PURE__ */ React84.createElement(ActionButton, {
         label: "Get a Wallet",
         onClick: () => setWalletStep("GET" /* Get */),
         size: "large",
         type: "secondary"
-      }), /* @__PURE__ */ React85.createElement(ActionButton, {
+      }), /* @__PURE__ */ React84.createElement(ActionButton, {
         href: learnMoreUrl,
         label: "Learn More",
         size: "large",
         type: "secondary"
-      }))), Disclaimer && /* @__PURE__ */ React85.createElement(Box, {
+      }))), Disclaimer && /* @__PURE__ */ React84.createElement(Box, {
         marginTop: "28",
         marginX: "32",
         textAlign: "center"
-      }, /* @__PURE__ */ React85.createElement(Disclaimer, {
+      }, /* @__PURE__ */ React84.createElement(Disclaimer, {
         Link: DisclaimerLink,
         Text: DisclaimerText
       })));
@@ -10552,7 +10477,7 @@ function MobileOptions({ onClose }) {
           return ((_a2 = wallet.downloadUrls) == null ? void 0 : _a2.ios) || ((_b = wallet.downloadUrls) == null ? void 0 : _b.android) || ((_c = wallet.downloadUrls) == null ? void 0 : _c.mobile);
         }
       )) == null ? void 0 : _a.splice(0, 3);
-      walletContent = /* @__PURE__ */ React85.createElement(Box, null, /* @__PURE__ */ React85.createElement(Box, {
+      walletContent = /* @__PURE__ */ React84.createElement(Box, null, /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
@@ -10566,88 +10491,88 @@ function MobileOptions({ onClose }) {
         if (!(downloadUrls == null ? void 0 : downloadUrls.ios) && !(downloadUrls == null ? void 0 : downloadUrls.android) && !(downloadUrls == null ? void 0 : downloadUrls.mobile)) {
           return null;
         }
-        return /* @__PURE__ */ React85.createElement(Box, {
+        return /* @__PURE__ */ React84.createElement(Box, {
           display: "flex",
           gap: "16",
           key: wallet.id,
           paddingX: "20",
           width: "full"
-        }, /* @__PURE__ */ React85.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           style: { minHeight: 48, minWidth: 48 }
-        }, /* @__PURE__ */ React85.createElement(AsyncImage, {
+        }, /* @__PURE__ */ React84.createElement(AsyncImage, {
           background: iconBackground,
           borderColor: "generalBorder",
           borderRadius: "10",
           height: "48",
           src: iconUrl,
           width: "48"
-        })), /* @__PURE__ */ React85.createElement(Box, {
+        })), /* @__PURE__ */ React84.createElement(Box, {
           display: "flex",
           flexDirection: "column",
           width: "full"
-        }, /* @__PURE__ */ React85.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           alignItems: "center",
           display: "flex",
           height: "48"
-        }, /* @__PURE__ */ React85.createElement(Box, {
+        }, /* @__PURE__ */ React84.createElement(Box, {
           width: "full"
-        }, /* @__PURE__ */ React85.createElement(Text2, {
+        }, /* @__PURE__ */ React84.createElement(Text2, {
           color: "modalText",
           size: "18",
           weight: "bold"
-        }, name)), /* @__PURE__ */ React85.createElement(ActionButton, {
+        }, name)), /* @__PURE__ */ React84.createElement(ActionButton, {
           href: (ios ? downloadUrls == null ? void 0 : downloadUrls.ios : downloadUrls == null ? void 0 : downloadUrls.android) || (downloadUrls == null ? void 0 : downloadUrls.mobile),
           label: "GET",
           size: "small",
           type: "secondary"
-        })), index < mobileWallets.length - 1 && /* @__PURE__ */ React85.createElement(Box, {
+        })), index < mobileWallets.length - 1 && /* @__PURE__ */ React84.createElement(Box, {
           background: "generalBorderDim",
           height: "1",
           marginY: "10",
           width: "full"
         })));
-      })), /* @__PURE__ */ React85.createElement(Box, {
+      })), /* @__PURE__ */ React84.createElement(Box, {
         style: { marginBottom: "42px" }
-      }), /* @__PURE__ */ React85.createElement(Box, {
+      }), /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
         flexDirection: "column",
         gap: "36",
         paddingX: "36",
         style: { textAlign: "center" }
-      }, /* @__PURE__ */ React85.createElement(Box, {
+      }, /* @__PURE__ */ React84.createElement(Box, {
         display: "flex",
         flexDirection: "column",
         gap: "12",
         textAlign: "center"
-      }, /* @__PURE__ */ React85.createElement(Text2, {
+      }, /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalText",
         size: "16",
         weight: "bold"
-      }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React85.createElement(Text2, {
+      }, "Not what you\u2019re looking for?"), /* @__PURE__ */ React84.createElement(Text2, {
         color: "modalTextSecondary",
         size: "16"
       }, "Select a wallet on the main screen to get started with a different wallet provider."))));
       break;
     }
   }
-  return /* @__PURE__ */ React85.createElement(Box, {
+  return /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column",
     paddingBottom: "36"
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     background: headerBackgroundContrast ? "profileForeground" : "modalBackground",
     display: "flex",
     flexDirection: "column",
     paddingBottom: "4",
     paddingTop: "14"
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     justifyContent: "center",
     paddingBottom: "6",
     paddingX: "20",
     position: "relative"
-  }, headerBackButtonLink && /* @__PURE__ */ React85.createElement(Box, {
+  }, headerBackButtonLink && /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     position: "absolute",
     style: {
@@ -10655,7 +10580,7 @@ function MobileOptions({ onClose }) {
       marginBottom: -20,
       marginTop: -20
     }
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     alignItems: "center",
     as: "button",
     className: touchableStyles({
@@ -10671,29 +10596,29 @@ function MobileOptions({ onClose }) {
     style: { height: 17, willChange: "transform" },
     transition: "default",
     type: "button"
-  }, /* @__PURE__ */ React85.createElement(BackIcon, null))), /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(BackIcon, null))), /* @__PURE__ */ React84.createElement(Box, {
     marginTop: "4",
     textAlign: "center",
     width: "full"
-  }, /* @__PURE__ */ React85.createElement(Text2, {
+  }, /* @__PURE__ */ React84.createElement(Text2, {
     as: "h1",
     color: "modalText",
     id: titleId,
     size: "20",
     weight: "bold"
-  }, headerLabel)), /* @__PURE__ */ React85.createElement(Box, {
+  }, headerLabel)), /* @__PURE__ */ React84.createElement(Box, {
     alignItems: "center",
     display: "flex",
     height: "32",
     paddingRight: "14",
     position: "absolute",
     right: "0"
-  }, /* @__PURE__ */ React85.createElement(Box, {
+  }, /* @__PURE__ */ React84.createElement(Box, {
     style: { marginBottom: -20, marginTop: -20 }
-  }, /* @__PURE__ */ React85.createElement(DialogClose_default, {
+  }, /* @__PURE__ */ React84.createElement(DialogClose_default, {
     onClick: onClose,
     style: { top: "6px" }
-  }))))), /* @__PURE__ */ React85.createElement(Box, {
+  }))))), /* @__PURE__ */ React84.createElement(Box, {
     display: "flex",
     flexDirection: "column"
   }, walletContent));
@@ -10701,9 +10626,9 @@ function MobileOptions({ onClose }) {
 
 // src/rainbowkit/src/components/ConnectOptions/ConnectOptions.tsx
 function ConnectOptions({ onClose }) {
-  return isMobile() ? /* @__PURE__ */ React86.createElement(MobileOptions, {
+  return isMobile() ? /* @__PURE__ */ React85.createElement(MobileOptions, {
     onClose
-  }) : /* @__PURE__ */ React86.createElement(DesktopOptions, {
+  }) : /* @__PURE__ */ React85.createElement(DesktopOptions, {
     onClose
   });
 }
@@ -10713,27 +10638,27 @@ function ConnectModal({ onClose, open }) {
   const titleId = "rk_connect_title";
   const connectionStatus = useConnectionStatus();
   if (connectionStatus === "disconnected") {
-    return /* @__PURE__ */ React87.createElement(Dialog, {
+    return /* @__PURE__ */ React86.createElement(Dialog, {
       onClose,
       open,
       titleId
-    }, /* @__PURE__ */ React87.createElement(DialogContent3, {
+    }, /* @__PURE__ */ React86.createElement(DialogContent3, {
       bottomSheetOnMobile: true,
       padding: "0",
       wide: true
-    }, /* @__PURE__ */ React87.createElement(ConnectOptions, {
+    }, /* @__PURE__ */ React86.createElement(ConnectOptions, {
       onClose
     })));
   }
   if (connectionStatus === "unauthenticated") {
-    return /* @__PURE__ */ React87.createElement(Dialog, {
+    return /* @__PURE__ */ React86.createElement(Dialog, {
       onClose,
       open,
       titleId
-    }, /* @__PURE__ */ React87.createElement(DialogContent3, {
+    }, /* @__PURE__ */ React86.createElement(DialogContent3, {
       bottomSheetOnMobile: true,
       padding: "0"
-    }, /* @__PURE__ */ React87.createElement(SignIn, {
+    }, /* @__PURE__ */ React86.createElement(SignIn, {
       onClose
     })));
   }
@@ -10741,17 +10666,17 @@ function ConnectModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
-import { useSetRecoilState as useSetRecoilState9 } from "recoil";
+import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 function useModalStateValue() {
   const [isModalOpen, setModalOpen] = useState22(false);
-  const setWalletDialogOpen = useSetRecoilState9(walletModalOpenState);
+  const setWalletDialogOpen = useSetRecoilState10(walletModalOpenState);
   return {
-    closeModal: useCallback30(() => {
+    closeModal: useCallback31(() => {
       setWalletDialogOpen(false);
       setModalOpen(false);
     }, []),
     isModalOpen,
-    openModal: useCallback30(() => setModalOpen(true), [])
+    openModal: useCallback31(() => setModalOpen(true), [])
   };
 }
 var ModalContext = createContext11({
@@ -10793,7 +10718,7 @@ function ModalProvider({ children }) {
     onConnect: () => closeModals({ keepConnectModalOpen: isUnauthenticated }),
     onDisconnect: () => closeModals()
   });
-  return /* @__PURE__ */ React88.createElement(ModalContext.Provider, {
+  return /* @__PURE__ */ React87.createElement(ModalContext.Provider, {
     value: useMemo15(
       () => ({
         accountModalOpen,
@@ -10818,13 +10743,13 @@ function ModalProvider({ children }) {
         openConnectModal
       ]
     )
-  }, children, /* @__PURE__ */ React88.createElement(ConnectModal, {
+  }, children, /* @__PURE__ */ React87.createElement(ConnectModal, {
     onClose: closeConnectModal,
     open: connectModalOpen
-  }), /* @__PURE__ */ React88.createElement(AccountModal, {
+  }), /* @__PURE__ */ React87.createElement(AccountModal, {
     onClose: closeAccountModal,
     open: accountModalOpen
-  }), /* @__PURE__ */ React88.createElement(ChainModal, {
+  }), /* @__PURE__ */ React87.createElement(ChainModal, {
     onClose: closeChainModal,
     open: chainModalOpen,
     fn: fn.current
@@ -10852,12 +10777,11 @@ function useConnectModal() {
 }
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
-var WrongNetwork = memo33(({ type }) => {
+var WrongNetwork = memo32(() => {
   const { t } = useCustomTranslation([LngNs.common]);
   const { openChainModal } = useChainModal();
-  const setAccountInfoDialogOpen = useSetRecoilState10(accountInfoDialogState);
-  return /* @__PURE__ */ React89.createElement(IsPixelWidget_default, {
-    type,
+  const setAccountInfoDialogOpen = useSetRecoilState11(accountInfoDialogState);
+  return /* @__PURE__ */ React88.createElement(IsPixelWidget_default, {
     onClick: () => {
       if (openChainModal) {
         openChainModal();
@@ -10865,21 +10789,21 @@ var WrongNetwork = memo33(({ type }) => {
       }
     },
     className: "connect_connect"
-  }, /* @__PURE__ */ React89.createElement("p", null, t("Wrong network")));
+  }, /* @__PURE__ */ React88.createElement("p", null, t("Wrong network")));
 }, isEqual);
 var WrongNetwork_default = WrongNetwork;
 
 // src/rainbowkit/src/components/ConnectButton/ConnectButton.tsx
-import React92 from "react";
+import React91 from "react";
 
 // src/rainbowkit/src/components/Icons/Dropdown.tsx
-import React90 from "react";
-var DropdownIcon = () => /* @__PURE__ */ React90.createElement("svg", {
+import React89 from "react";
+var DropdownIcon = () => /* @__PURE__ */ React89.createElement("svg", {
   fill: "none",
   height: "7",
   width: "14",
   xmlns: "http://www.w3.org/2000/svg"
-}, /* @__PURE__ */ React90.createElement("path", {
+}, /* @__PURE__ */ React89.createElement("path", {
   d: "M12.75 1.54001L8.51647 5.0038C7.77974 5.60658 6.72026 5.60658 5.98352 5.0038L1.75 1.54001",
   stroke: "currentColor",
   strokeLinecap: "round",
@@ -10889,7 +10813,7 @@ var DropdownIcon = () => /* @__PURE__ */ React90.createElement("svg", {
 }));
 
 // src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
-import React91, { useContext as useContext17 } from "react";
+import React90, { useContext as useContext17 } from "react";
 import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork8 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
@@ -10927,7 +10851,7 @@ function ConnectButtonRenderer({
   const { openChainModal } = useChainModal();
   const { openAccountModal } = useAccountModal();
   const { accountModalOpen, chainModalOpen, connectModalOpen } = useModalState();
-  return /* @__PURE__ */ React91.createElement(React91.Fragment, null, children({
+  return /* @__PURE__ */ React90.createElement(React90.Fragment, null, children({
     account: address ? {
       address,
       balanceDecimals: balanceData == null ? void 0 : balanceData.decimals,
@@ -10974,11 +10898,11 @@ function ConnectButton({
 }) {
   const chains = useRainbowKitChains();
   const connectionStatus = useConnectionStatus();
-  return /* @__PURE__ */ React92.createElement(ConnectButtonRenderer, null, ({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
+  return /* @__PURE__ */ React91.createElement(ConnectButtonRenderer, null, ({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
     var _a, _b, _c;
     const ready = mounted && connectionStatus !== "loading";
     const unsupportedChain = (_a = chain == null ? void 0 : chain.unsupported) != null ? _a : false;
-    return /* @__PURE__ */ React92.createElement(Box, {
+    return /* @__PURE__ */ React91.createElement(Box, {
       display: "flex",
       gap: "12",
       ...!ready && {
@@ -10989,7 +10913,7 @@ function ConnectButton({
           userSelect: "none"
         }
       }
-    }, ready && account && connectionStatus === "connected" ? /* @__PURE__ */ React92.createElement(React92.Fragment, null, chain && (chains.length > 1 || unsupportedChain) && /* @__PURE__ */ React92.createElement(Box, {
+    }, ready && account && connectionStatus === "connected" ? /* @__PURE__ */ React91.createElement(React91.Fragment, null, chain && (chains.length > 1 || unsupportedChain) && /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       "aria-label": "Chain Selector",
       as: "button",
@@ -11012,34 +10936,34 @@ function ConnectButton({
       testId: unsupportedChain ? "wrong-network-button" : "chain-button",
       transition: "default",
       type: "button"
-    }, unsupportedChain ? /* @__PURE__ */ React92.createElement(Box, {
+    }, unsupportedChain ? /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       height: "24",
       paddingX: "4"
-    }, "Wrong network") : /* @__PURE__ */ React92.createElement(Box, {
+    }, "Wrong network") : /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "6"
-    }, chain.hasIcon ? /* @__PURE__ */ React92.createElement(Box, {
+    }, chain.hasIcon ? /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(chainStatus, (value) => value === "full" || value === "icon" ? "block" : "none"),
       height: "24",
       width: "24"
-    }, /* @__PURE__ */ React92.createElement(AsyncImage, {
+    }, /* @__PURE__ */ React91.createElement(AsyncImage, {
       alt: (_b = chain.name) != null ? _b : "Chain icon",
       background: chain.iconBackground,
       borderRadius: "full",
       height: "24",
       src: chain.iconUrl,
       width: "24"
-    })) : null, /* @__PURE__ */ React92.createElement(Box, {
+    })) : null, /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(chainStatus, (value) => {
         if (value === "icon" && !chain.iconUrl) {
           return "block";
         }
         return value === "full" || value === "name" ? "block" : "none";
       })
-    }, (_c = chain.name) != null ? _c : chain.id)), /* @__PURE__ */ React92.createElement(DropdownIcon, null)), !unsupportedChain && /* @__PURE__ */ React92.createElement(Box, {
+    }, (_c = chain.name) != null ? _c : chain.id)), /* @__PURE__ */ React91.createElement(DropdownIcon, null)), !unsupportedChain && /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       as: "button",
       background: "connectButtonBackground",
@@ -11057,11 +10981,11 @@ function ConnectButton({
       testId: "account-button",
       transition: "default",
       type: "button"
-    }, account.displayBalance && /* @__PURE__ */ React92.createElement(Box, {
+    }, account.displayBalance && /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(showBalance, (value) => value ? "block" : "none"),
       padding: "8",
       paddingLeft: "12"
-    }, account.displayBalance), /* @__PURE__ */ React92.createElement(Box, {
+    }, account.displayBalance), /* @__PURE__ */ React91.createElement(Box, {
       background: normalizeResponsiveValue(showBalance)[isMobile() ? "smallScreen" : "largeScreen"] ? "connectButtonInnerBackground" : "connectButtonBackground",
       borderColor: "connectButtonBackground",
       borderRadius: "connectButton",
@@ -11073,25 +10997,25 @@ function ConnectButton({
       paddingX: "8",
       paddingY: "6",
       transition: "default"
-    }, /* @__PURE__ */ React92.createElement(Box, {
+    }, /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "6",
       height: "24"
-    }, /* @__PURE__ */ React92.createElement(Box, {
+    }, /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(accountStatus, (value) => value === "full" || value === "avatar" ? "block" : "none")
-    }, /* @__PURE__ */ React92.createElement(Avatar2, {
+    }, /* @__PURE__ */ React91.createElement(Avatar2, {
       address: account.address,
       imageUrl: account.ensAvatar,
       loading: account.hasPendingTransactions,
       size: 24
-    })), /* @__PURE__ */ React92.createElement(Box, {
+    })), /* @__PURE__ */ React91.createElement(Box, {
       alignItems: "center",
       display: "flex",
       gap: "6"
-    }, /* @__PURE__ */ React92.createElement(Box, {
+    }, /* @__PURE__ */ React91.createElement(Box, {
       display: mapResponsiveValue(accountStatus, (value) => value === "full" || value === "address" ? "block" : "none")
-    }, account.displayName), /* @__PURE__ */ React92.createElement(DropdownIcon, null)))))) : /* @__PURE__ */ React92.createElement(Box, {
+    }, account.displayName), /* @__PURE__ */ React91.createElement(DropdownIcon, null)))))) : /* @__PURE__ */ React91.createElement(Box, {
       as: "button",
       background: "accentColor",
       borderRadius: "connectButton",
@@ -11114,12 +11038,11 @@ ConnectButton.__defaultProps = defaultProps;
 ConnectButton.Custom = ConnectButtonRenderer;
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
-var RainbowConnectWallet = memo34((props) => {
+var RainbowConnectWallet = memo33((props) => {
   const { t } = useCustomTranslation([LngNs.common]);
   const {
     isBigWidth,
     isMiddleWidth,
-    useLocation,
     className,
     env,
     copy,
@@ -11130,30 +11053,16 @@ var RainbowConnectWallet = memo34((props) => {
     supportedChainList,
     type
   } = props;
-  const location = useLocation();
-  const isPathLocation = useMemo16(() => {
-    if (window.location.href.indexOf("/bingo/") > -1) {
-      return true;
-    }
-    const arr = location.pathname.split("/");
-    return arr[1] === "play" || arr[1] === "zBingo" || arr[1] === "monster";
-  }, [location]);
-  return /* @__PURE__ */ React93.createElement("div", {
-    className: `
-      ${type === "pixel" ? "connect_pixel_connectWallet" : "connect_connectWallet"}
-        ${type === "other" && isPathLocation ? "connect_bgWallet" : ""}
-        ${className != null ? className : ""}
-        `
-  }, /* @__PURE__ */ React93.createElement(ConnectButton.Custom, null, ({ chain, openConnectModal, mounted }) => {
-    return /* @__PURE__ */ React93.createElement(React93.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React93.createElement(IsPixelWidget_default, {
-      type: "pixel",
+  return /* @__PURE__ */ React92.createElement("div", {
+    className: `connect_pixel_connectWallet
+        ${className != null ? className : ""}`
+  }, /* @__PURE__ */ React92.createElement(ConnectButton.Custom, null, ({ chain, openConnectModal, mounted }) => {
+    return /* @__PURE__ */ React92.createElement(React92.Fragment, null, !mounted || !chain ? /* @__PURE__ */ React92.createElement(IsPixelWidget_default, {
       onClick: openConnectModal,
       className: "connect_connect"
-    }, /* @__PURE__ */ React93.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || !supportedChainIds(env, supportedChainList).includes(
+    }, /* @__PURE__ */ React92.createElement("p", null, t("Connect Wallet"))) : chain && (chain.unsupported || !supportedChainIds(env, supportedChainList).includes(
       `${chain.id}`
-    )) ? /* @__PURE__ */ React93.createElement(WrongNetwork_default, {
-      type
-    }) : /* @__PURE__ */ React93.createElement(rainbow_account_default, {
+    )) ? /* @__PURE__ */ React92.createElement(WrongNetwork_default, null) : /* @__PURE__ */ React92.createElement(rainbow_account_default, {
       copy,
       env,
       dispatch,
@@ -11161,10 +11070,9 @@ var RainbowConnectWallet = memo34((props) => {
       setErrorToast,
       CountUpNumber,
       isMiddleWidth,
-      supportedChainList,
-      type
+      supportedChainList
     }));
-  }), isBigWidth ? /* @__PURE__ */ React93.createElement(Language_default, {
+  }), isBigWidth ? /* @__PURE__ */ React92.createElement(Language_default, {
     type: type === "pixel" ? type : "top"
   }) : null);
 }, isEqual);
@@ -11172,7 +11080,7 @@ var rainbow_connectWallet_default = RainbowConnectWallet;
 
 // src/components/Header/header.tsx
 var Header = (props) => {
-  const setSideCollapse = useSetRecoilState11(sideCollapseState);
+  const setSideCollapse = useSetRecoilState12(sideCollapseState);
   const collapsed = useRecoilValue8(sideCollapseState);
   const {
     hideMenu = false,
@@ -11190,7 +11098,7 @@ var Header = (props) => {
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState12(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState12(showMiddleState);
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo17(() => {
+  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo16(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
@@ -11213,11 +11121,10 @@ var Header = (props) => {
       setSideCollapse(true);
     }
   }, [isW830]);
-  const isBingo = useMemo17(() => {
+  const isBingo = useMemo16(() => {
     return pathname === "bingo";
   }, [pathname]);
-  console.log({ pathname });
-  return /* @__PURE__ */ React94.createElement("header", {
+  return /* @__PURE__ */ React93.createElement("header", {
     className: classnames11(
       "header_header",
       isW830 ? "header_header_830" : "",
@@ -11228,16 +11135,16 @@ var Header = (props) => {
       props.className
     ),
     style: { position: "sticky", top: 0, zIndex: 99, width: "100%" }
-  }, isBingo ? null : /* @__PURE__ */ React94.createElement("div", {
+  }, isBingo ? null : /* @__PURE__ */ React93.createElement("div", {
     className: "header_left"
-  }, /* @__PURE__ */ React94.createElement(ZypherLogo, {
+  }, /* @__PURE__ */ React93.createElement(ZypherLogo, {
     isMobile: isW830
-  })), !isW830 && !isBingo && /* @__PURE__ */ React94.createElement(Navigation_default, {
+  })), !isW830 && !isBingo && /* @__PURE__ */ React93.createElement(Navigation_default, {
     pathname,
     Link
-  }), /* @__PURE__ */ React94.createElement("div", {
+  }), /* @__PURE__ */ React93.createElement("div", {
     className: "header_right"
-  }, /* @__PURE__ */ React94.createElement(rainbow_connectWallet_default, {
+  }, /* @__PURE__ */ React93.createElement(rainbow_connectWallet_default, {
     type: "pixel",
     isBigWidth: isWBig,
     isMiddleWidth: isW1340,
@@ -11249,21 +11156,20 @@ var Header = (props) => {
     setErrorToast,
     CountUpNumber,
     supportedChainList
-  }), isW830 && !hideMenu ? /* @__PURE__ */ React94.createElement(IsPixelWidget_default, {
-    type: "pixel",
+  }), isW830 && !hideMenu ? /* @__PURE__ */ React93.createElement(IsPixelWidget_default, {
     className: "header_btn_pixel"
-  }, /* @__PURE__ */ React94.createElement("div", {
+  }, /* @__PURE__ */ React93.createElement("div", {
     className: "header_btn",
     onClick: () => setSideCollapse(!collapsed)
-  }, /* @__PURE__ */ React94.createElement(icons_default, {
+  }, /* @__PURE__ */ React93.createElement(icons_default, {
     className: "header_icon",
     name: "menu"
-  }))) : null), /* @__PURE__ */ React94.createElement(LinkToBetaDialog_default, null));
+  }))) : null), /* @__PURE__ */ React93.createElement(LinkToBetaDialog_default, null));
 };
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React95, { useMemo as useMemo18 } from "react";
+import React94, { useMemo as useMemo17 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -11334,10 +11240,11 @@ var RainbowKitWithThemeProvider = ({
   env,
   chainIdList
 }) => {
-  const { wagmiConfig, chains, computedTheme } = useMemo18(() => {
+  const { wagmiConfig, chains, computedTheme } = useMemo17(() => {
     if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList);
       const { chains: chains2 } = getConfigureChains(env);
+      console.log({ chainIdList, chains: chains2 });
       return {
         wagmiConfig: wagmiConfig2,
         chains: chains2,
@@ -11353,9 +11260,9 @@ var RainbowKitWithThemeProvider = ({
   if (!wagmiConfig || !chains || !computedTheme) {
     return null;
   }
-  return /* @__PURE__ */ React95.createElement(WagmiConfig, {
+  return /* @__PURE__ */ React94.createElement(WagmiConfig, {
     config: wagmiConfig
-  }, /* @__PURE__ */ React95.createElement(RainbowKitProvider, {
+  }, /* @__PURE__ */ React94.createElement(RainbowKitProvider, {
     chains,
     appInfo,
     theme: computedTheme
@@ -11380,11 +11287,11 @@ var useInitRainbowFn = () => {
 };
 
 // src/hooks/useGetInvitationAddress.tsx
-import { useSetRecoilState as useSetRecoilState12 } from "recoil";
+import { useSetRecoilState as useSetRecoilState13 } from "recoil";
 import { useEffect as useEffect30 } from "react";
 import { ethers as ethers3 } from "ethers";
 var useGetInvitationAddress = () => {
-  const setInvitationAddressState = useSetRecoilState12(invitationAddressState);
+  const setInvitationAddressState = useSetRecoilState13(invitationAddressState);
   useEffect30(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
@@ -11404,7 +11311,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback31, useEffect as useEffect31, useState as useState23 } from "react";
+import { useCallback as useCallback32, useEffect as useEffect31, useState as useState23 } from "react";
 import BigNumberjs3 from "bignumber.js";
 import { ethers as ethers4 } from "ethers";
 
@@ -11497,7 +11404,7 @@ var useRecentGamesFromGraph = ({
 }) => {
   const [list, setList] = useState23();
   const [hasError, setHasError] = useState23(false);
-  const fetchGameInfos = useCallback31(async () => {
+  const fetchGameInfos = useCallback32(async () => {
     var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
@@ -11529,10 +11436,12 @@ var useRecentGamesFromGraph = ({
   };
 };
 var graphqlApiUrl = {
-  ["59144" /* LineaMainnet */]: "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
+  ["59144" /* LineaMainnet */]: "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
   ["59140" /* LineaTestnet */]: "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
+  ["59141" /* LineaSepolia */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
   ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo"
+  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  ["421613" /* ArbitrumGoerli */]: "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo"
 };
 var chainIdPre = {
   ["56" /* Bsc */]: "BNB",
@@ -11540,6 +11449,7 @@ var chainIdPre = {
   ["42161" /* Arbitrum */]: "AO",
   ["421613" /* ArbitrumGoerli */]: "AGT",
   ["421611" /* ArbitrumRinkeby */]: "ARBR",
+  ["59141" /* LineaSepolia */]: "LS",
   ["59140" /* LineaTestnet */]: "LT",
   ["59144" /* LineaMainnet */]: "LM",
   ["80001" /* POLYGON_MUMBAI */]: "PM",
@@ -11559,7 +11469,8 @@ var chainIdPre = {
   ["1123" /* B2Testnet */]: "B2T",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "",
   ["50097" /* ZytronB2Testnet */]: "",
-  ["167000" /* Taiko */]: "TK"
+  ["167000" /* Taiko */]: "TK",
+  ["2717465680371000" /* SagaMainnet */]: "SM"
 };
 function getStatus(status) {
   if (status === 0) {
@@ -11806,8 +11717,8 @@ function useInterval(callback, delay, leading = true) {
 import { changeLanguage as changeLanguage2 } from "i18next";
 
 // src/components/PixelTab/PixelTab.tsx
-import React96, { memo as memo35 } from "react";
-var PixelTab = memo35(
+import React95, { memo as memo34 } from "react";
+var PixelTab = memo34(
   ({
     tabList,
     height,
@@ -11816,9 +11727,9 @@ var PixelTab = memo35(
     themeType,
     hidePixel
   }) => {
-    return /* @__PURE__ */ React96.createElement("ul", {
+    return /* @__PURE__ */ React95.createElement("ul", {
       className: classNames
-    }, tabList.map((v, index) => /* @__PURE__ */ React96.createElement(PixelTabLiItem, {
+    }, tabList.map((v, index) => /* @__PURE__ */ React95.createElement(PixelTabLiItem, {
       themeType,
       hidePixel,
       onClick: v.onClick,
@@ -11831,7 +11742,7 @@ var PixelTab = memo35(
     })));
   }
 );
-var PixelTabLiItem = memo35(
+var PixelTabLiItem = memo34(
   ({
     onClick,
     on,
@@ -11843,50 +11754,50 @@ var PixelTabLiItem = memo35(
     themeType
   }) => {
     if (on) {
-      return /* @__PURE__ */ React96.createElement("li", null, /* @__PURE__ */ React96.createElement(ActivePixelButtonColor, {
+      return /* @__PURE__ */ React95.createElement("li", null, /* @__PURE__ */ React95.createElement(ActivePixelButtonColor, {
         hidePixel,
         themeType: themeType != null ? themeType : "brightBlue",
         height,
         pixel_height,
         className: "active_tvl_tab_on"
-      }, logo ? /* @__PURE__ */ React96.createElement(SvgComponent_default, {
+      }, logo ? /* @__PURE__ */ React95.createElement(SvgComponent_default, {
         src: logo
-      }) : null, label ? /* @__PURE__ */ React96.createElement("p", null, label) : null));
+      }) : null, label ? /* @__PURE__ */ React95.createElement("p", null, label) : null));
     }
-    return /* @__PURE__ */ React96.createElement("li", null, /* @__PURE__ */ React96.createElement(ActivePixelButton, {
+    return /* @__PURE__ */ React95.createElement("li", null, /* @__PURE__ */ React95.createElement(ActivePixelButton, {
       hidePixel,
       height,
       pixel_height,
       backgroundColor: "#1D263B",
       className: "active_tvl_tab",
       onClick
-    }, logo ? /* @__PURE__ */ React96.createElement(SvgComponent_default, {
+    }, logo ? /* @__PURE__ */ React95.createElement(SvgComponent_default, {
       src: logo
-    }) : null, label ? /* @__PURE__ */ React96.createElement("p", null, label) : null));
+    }) : null, label ? /* @__PURE__ */ React95.createElement("p", null, label) : null));
   }
 );
 var PixelTab_default = PixelTab;
 
 // src/components/PixelTab/PixelTabBorder.tsx
-import React97, { memo as memo36 } from "react";
-var PixelTabBorder = memo36(
+import React96, { memo as memo35 } from "react";
+var PixelTabBorder = memo35(
   ({
     className,
     tabList,
     height,
     pixel_height
   }) => {
-    return /* @__PURE__ */ React97.createElement(PixelCube2, {
+    return /* @__PURE__ */ React96.createElement(PixelCube2, {
       className: `ActiveTVLStaking_tab ${className != null ? className : ""}`,
       pixel_height,
       height,
       backgroundColor: "#1D263B",
       borderColor: "#1649FF"
-    }, tabList.map((v, index) => /* @__PURE__ */ React97.createElement("div", {
+    }, tabList.map((v, index) => /* @__PURE__ */ React96.createElement("div", {
       className: `ActiveTVLStaking_tab_li ${v.on ? "on" : ""}`,
       key: v.label,
       onClick: v.onClick
-    }, /* @__PURE__ */ React97.createElement("p", null, v.label))));
+    }, /* @__PURE__ */ React96.createElement("p", null, v.label))));
   }
 );
 var PixelTabBorder_default = PixelTabBorder;
@@ -11900,7 +11811,7 @@ var __private__ = {
 };
 
 // src/components/Modal/ModalWithMotion/ModalWithMotion.tsx
-import React98 from "react";
+import React97 from "react";
 import { DialogContent as DialogContent4, DialogOverlay as DialogOverlay3 } from "@reach/dialog";
 import { motion as motion3 } from "framer-motion";
 var ModalWithMotion = ({
@@ -11910,16 +11821,16 @@ var ModalWithMotion = ({
   children,
   contentClassName
 }) => {
-  return /* @__PURE__ */ React98.createElement(DialogOverlay3, {
+  return /* @__PURE__ */ React97.createElement(DialogOverlay3, {
     className: overlayClassName,
     isOpen,
     onDismiss
-  }, /* @__PURE__ */ React98.createElement(motion3.div, {
+  }, /* @__PURE__ */ React97.createElement(motion3.div, {
     variants: dialogVariants,
     initial: "hidden",
     animate: isOpen ? "visible" : "hidden",
     exit: "hidden"
-  }, /* @__PURE__ */ React98.createElement(DialogContent4, {
+  }, /* @__PURE__ */ React97.createElement(DialogContent4, {
     className: contentClassName
   }, children)));
 };
@@ -11987,13 +11898,13 @@ var midnightTheme = ({
 midnightTheme.accentColors = accentColors3;
 
 // src/rainbowkit/src/transactions/useAddRecentTransaction.ts
-import { useCallback as useCallback32 } from "react";
+import { useCallback as useCallback33 } from "react";
 import { useAccount as useAccount13 } from "wagmi";
 function useAddRecentTransaction() {
   const store = useTransactionStore();
   const { address } = useAccount13();
   const chainId = useChainId();
-  return useCallback32(
+  return useCallback33(
     (transaction) => {
       if (!address || !chainId) {
         throw new Error("No address or chain ID found");
@@ -13963,6 +13874,7 @@ export {
   ActivePixelButtonColor,
   ActivePixelCard,
   ActivePixelColorCard,
+  AllChainInfo,
   AnimatePresence2 as AnimatePresence,
   BM,
   Balance_default as Balance,
@@ -13974,7 +13886,6 @@ export {
   ChainName,
   ChainNetworkName,
   ChainRpcUrls,
-  ChainRpcWebSocketUrls,
   ChainSelector,
   ChainSelectorWidget_default as ChainSelectorWidget,
   CommunityLink_default as CommunityLink,
@@ -14156,6 +14067,7 @@ export {
   useActiveWeb3React,
   useAddRecentTransaction,
   useAsyncImage,
+  useAvatar,
   useChainId,
   useChainModal,
   useConnectModal,
@@ -14182,7 +14094,7 @@ export {
   useRecoilState13 as useRecoilState,
   useRecoilValue9 as useRecoilValue,
   useResetRecoilState,
-  useSetRecoilState13 as useSetRecoilState,
+  useSetRecoilState14 as useSetRecoilState,
   useSpring,
   useSwapPoint,
   useSwitchNetwork2 as useSwitchNetwork,

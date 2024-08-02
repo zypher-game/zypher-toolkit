@@ -2,6 +2,7 @@ import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoi
 import { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring } from "framer-motion";
 export { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring, };
 export { dialogVariants } from "./constant/motionConstant";
+export { AllChainInfo } from "./constant/chains";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
@@ -9,7 +10,7 @@ export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameList, } 
 import { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient } from "wagmi";
 export { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
-export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, ChainRpcWebSocketUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, } from "./constant/constant";
+export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, } from "./constant/constant";
 export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
@@ -29,7 +30,7 @@ export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
 export { sideCollapseState, pathnameState } from "./components/Header/state";
-export { default as PlayerAvatar, PlayerAvatarList, } from "./components/PlayerAvatar";
+export { default as PlayerAvatar, IPlayerAvatar, PlayerAvatarList, } from "./components/PlayerAvatar";
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
 export { default as ChainSelectorWidget } from "./components/ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 export { PointsIcon } from "./components/icons/PointsIcon/PointsIcon";
@@ -38,6 +39,7 @@ export { default as PointsRuleDialog } from "./components/ConnectWallet/componen
 export { IsMdProvider, IsW768Provider, IsW1100Provider, IsW1220Provider, } from "./provider/IsMobileProvider";
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
+export { useAvatar } from "./hooks/useAvatar";
 export { useActiveChainId } from "./hooks/useActiveChainId";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";

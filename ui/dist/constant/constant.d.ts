@@ -14,6 +14,7 @@ export declare enum ChainId {
     Arbitrum = "42161",
     ArbitrumRinkeby = "421611",
     ArbitrumGoerli = "421613",
+    LineaSepolia = "59141",
     LineaTestnet = "59140",
     LineaMainnet = "59144",
     POLYGON_MUMBAI = "80001",
@@ -33,7 +34,8 @@ export declare enum ChainId {
     B2Testnet = "1123",
     ZytronLineaSepoliaTestnet = "19546",
     ZytronB2Testnet = "50097",
-    Taiko = "167000"
+    Taiko = "167000",
+    SagaMainnet = "2717465680371000"
 }
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];
@@ -41,7 +43,6 @@ export declare const bingoBetaSupportedChainId: ChainId[];
 export declare const bingoSupportedChainId: ChainId[];
 export declare const supportedChainIds: (env?: string, chainList?: ChainId[]) => Array<ChainId>;
 export declare const ChainRpcUrls: Record<ChainId, string[]>;
-export declare const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>>;
 export declare const BlockExplorerUrls: Record<ChainId, string[]>;
 export declare const ChainName: Record<ChainId, string>;
 export declare const ChainNetworkName: Record<ChainId, string>;
@@ -51,7 +52,7 @@ export declare const getCryptoImg: (fileName: string, key: any, type?: string) =
 export declare const ChainImage: Record<ChainId, string>;
 export declare const CurrencyLogo: Record<ChainId, string>;
 interface IExternalMarketContract {
-    multicall: string[];
+    multicall: Address[];
 }
 export declare const CurrencyContract: Record<ChainId, IExternalMarketContract>;
 export declare enum IContractName {

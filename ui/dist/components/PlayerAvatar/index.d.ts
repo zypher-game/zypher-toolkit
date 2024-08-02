@@ -1,8 +1,7 @@
 import React from "react";
-import { ChainId } from "../../constant/constant";
 import "./index.stylus";
-import { HeaderUIType } from "../Header/header";
-interface IPlayerAvatar {
+export interface IPlayerAvatar {
+    hidePixel?: boolean;
     className?: string;
     account?: string;
     highLight?: boolean;
@@ -16,8 +15,6 @@ interface IPlayerAvatar {
     preLen?: number;
     endLen?: number;
     otherStr?: string;
-    type?: HeaderUIType;
-    chainId?: ChainId;
     onClick?: any;
     onMouseOver?: any;
 }

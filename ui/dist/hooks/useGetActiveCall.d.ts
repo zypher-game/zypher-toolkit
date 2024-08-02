@@ -15,6 +15,7 @@ export declare const useGetUserInfo: () => {
         avatar: any;
         id: string;
         nickname: any;
+        isTwitterPost: any;
         twitter: {
             avatar: any;
             nickname: any;
@@ -24,6 +25,24 @@ export declare const useGetUserInfo: () => {
         discord: {
             avatar: any;
             nickname: any;
+            followerCount: string;
+            isLoading: boolean;
+        };
+    } | {
+        invitationCode: string;
+        signedStr: string;
+        avatar: string;
+        id: string;
+        nickname: string;
+        twitter: {
+            avatar: string;
+            nickname: string;
+            followerCount: string;
+            isLoading: boolean;
+        };
+        discord: {
+            avatar: string;
+            nickname: string;
             followerCount: string;
             isLoading: boolean;
         };

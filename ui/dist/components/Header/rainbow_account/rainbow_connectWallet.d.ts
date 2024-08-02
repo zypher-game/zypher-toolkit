@@ -1,7 +1,7 @@
 import React from "react";
 import { ChainId } from "../../../constant/constant";
 import "./rainbow_connectWallet.stylus";
-import { HeaderUIType } from "../header";
+import { UIType } from "../header";
 interface IProps {
     useLocation: any;
     env: string;
@@ -12,9 +12,9 @@ interface IProps {
     isBigWidth: boolean;
     isMiddleWidth: boolean;
     copy: any;
-    type: HeaderUIType;
     CountUpNumber?: React.FC<any>;
     supportedChainList?: ChainId[];
+    type?: UIType;
 }
 declare const RainbowConnectWallet: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default RainbowConnectWallet;

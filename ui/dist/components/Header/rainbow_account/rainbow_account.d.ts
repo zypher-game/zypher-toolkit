@@ -1,7 +1,6 @@
 import React from "react";
 import { ChainId } from "../../../constant/constant";
-import { HeaderUIType } from "../header";
-declare const Account: React.MemoExoticComponent<({ isMiddleWidth, env, dispatch, setSuccessToast, setErrorToast, copy, CountUpNumber, supportedChainList, type, }: {
+declare const Account: React.MemoExoticComponent<({ isMiddleWidth, env, dispatch, setSuccessToast, setErrorToast, copy, CountUpNumber, supportedChainList, }: {
     isMiddleWidth: boolean;
     env: string;
     dispatch: any;
@@ -10,6 +9,5 @@ declare const Account: React.MemoExoticComponent<({ isMiddleWidth, env, dispatch
     CountUpNumber?: React.FC<any> | undefined;
     setErrorToast: any;
     supportedChainList?: ChainId[] | undefined;
-    type: HeaderUIType;
 }) => React.JSX.Element>;
 export default Account;
