@@ -13,18 +13,20 @@ export enum TVLChainId {
   B2Testnet = ChainId.B2Testnet,
   LineaMainnet = ChainId.LineaMainnet,
   LineaTestnet = ChainId.LineaTestnet,
+  LineaSepolia = ChainId.LineaSepolia,
 }
 export const defaultActiveChainId =
   TVLChainId.LineaMainnet as unknown as ChainId;
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
-    [TVLChainId.LineaTestnet] // , TVLChainId.LineaTestnet
+    [TVLChainId.LineaSepolia] // , TVLChainId.LineaTestnet
   : []) as unknown as ChainId[];
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
   [TVLChainId.LineaMainnet]: ChainId.ZytronLineaSepoliaTestnet,
   [TVLChainId.LineaTestnet]: ChainId.ZytronLineaSepoliaTestnet,
+  [TVLChainId.LineaSepolia]: ChainId.ZytronLineaSepoliaTestnet,
 };
 export type IToken = {
   address: Address;
@@ -49,6 +51,12 @@ export const activeTokenList: Record<
     CRHero: "0x76E08f9D5f76590E12427F003325768290602De1",
     Soulbound: "0x519dfE063BDB149eE70732148788b06303E12844",
   },
+  [TVLChainId.LineaSepolia]: {
+    Staking: "0x1818BC25102B0b0919c84eE0A765E110A211a774",
+    ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
+    CRHero: "0xb7aA019d86aa3aE5568DFf21DA6209fe68B9c45b",
+    Soulbound: "0x7b00c14c7D0087C3a0d37cAbbc6924566B4481E9",
+  },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
     ZypherGameToken: "0x48C459e81aAD8B98e27002D25f191682C9a9fFBb",
@@ -61,6 +69,11 @@ export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
     WETH: "0x5131bc5Ed480a524932D2638922616fE968374FE",
     wstETH: "0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E",
     ezETH: "0xbd36B55DF798a2031A9E06A9e8a1AC0C625911dE",
+  },
+  [TVLChainId.LineaSepolia]: {
+    WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
+    wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
+    ezETH: "0x79A67D40f3e7396FC122268DC0136896cC7D7271",
   },
   [TVLChainId.B2Testnet]: {
     WBTC: "0x9Cae525AdE710904FE81daF47fD26789608fe057",
@@ -103,7 +116,7 @@ export const LinkPre: Record<string, ILinkPre> = {
     label: "L",
     chainId: (isPro()
       ? TVLChainId.LineaMainnet
-      : TVLChainId.LineaTestnet) as unknown as ChainId,
+      : TVLChainId.LineaSepolia) as unknown as ChainId,
   },
   B: {
     key: 2,
@@ -122,5 +135,6 @@ export const minStakingValue: Record<TVLChainId, string> = {
   [TVLChainId.B2Testnet]: "0.0005",
   [TVLChainId.LineaMainnet]: "0.01",
   [TVLChainId.LineaTestnet]: "0.01",
+  [TVLChainId.LineaSepolia]: "0.01",
 };
 export const CODELENGTH = 6;

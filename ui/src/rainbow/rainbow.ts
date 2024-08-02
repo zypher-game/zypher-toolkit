@@ -14,13 +14,14 @@ import { tokenPocketWallet } from "../rainbowkit/src/wallets/walletConnectors/to
 import { AllChainInfo } from "../constant/chains";
 const getSupportedChainIdList = (
   env: string,
-  chainIdList?: ChainId[],
-  isTelegram?: boolean
+  chainIdList?: ChainId[]
 ): Chain[] => {
   const list = (chainIdList ?? supportedChainIds(env)).map(
     (v) => AllChainInfo[v]
   );
-  return isTelegram ? [...list, AllChainInfo[ChainId.SagaMainnet]] : list;
+  return window.IS_TELEGRAM
+    ? [...list, AllChainInfo[ChainId.SagaMainnet]]
+    : list;
 };
 // const { chains, publicClient, webSocketPublicClient } = configureChains(supportedChainIdList, [publicProvider()])
 
@@ -31,13 +32,9 @@ new ParticleNetwork({
   projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199",
 });
 
-export const getConfigureChains = (
-  env: string,
-  chainIdList?: ChainId[],
-  isTelegram?: boolean
-) => {
+export const getConfigureChains = (env: string, chainIdList?: ChainId[]) => {
   const { chains, publicClient, webSocketPublicClient } = configureChains(
-    getSupportedChainIdList(env, chainIdList, isTelegram),
+    getSupportedChainIdList(env, chainIdList),
     [publicProvider()]
   );
   return { chains, publicClient, webSocketPublicClient };
@@ -50,14 +47,12 @@ const projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 //   chains
 // })
 
-const getConnectors = (
-  env: string,
-  chainIdList?: ChainId[],
-  isTelegram?: boolean
-) => {
-  alert(JSON.stringify(window.Telegram?.WebApp.initData));
+const getConnectors = (env: string, chainIdList?: ChainId[]) => {
+  if (window.IS_TELEGRAM) {
+    alert(JSON.stringify(window.Telegram?.WebApp.initData));
+  }
 
-  const { chains } = getConfigureChains(env, chainIdList, isTelegram);
+  const { chains } = getConfigureChains(env, chainIdList);
   return connectorsForWallets([
     {
       groupName: "Recommended",
@@ -82,12 +77,8 @@ const getConnectors = (
     },
   ]);
 };
-export const getWagmiConfig = (
-  env: string,
-  chainIdList?: ChainId[],
-  isTelegram?: boolean
-) => {
-  const connectors = getConnectors(env, chainIdList, isTelegram);
+export const getWagmiConfig = (env: string, chainIdList?: ChainId[]) => {
+  const connectors = getConnectors(env, chainIdList);
   const { publicClient, webSocketPublicClient } = getConfigureChains(
     env,
     chainIdList
