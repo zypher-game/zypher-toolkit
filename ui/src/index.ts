@@ -24,6 +24,8 @@ export {
   useSpring,
 };
 export { dialogVariants } from "./constant/motionConstant";
+export { AllChainInfo } from "./constant/chains";
+
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";

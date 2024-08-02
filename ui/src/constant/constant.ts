@@ -129,6 +129,7 @@ export const supportedChainIds = (
         ChainId.Sepolia,
         ChainId.ZytronLineaSepoliaTestnet,
         ChainId.ZytronB2Testnet,
+        ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
