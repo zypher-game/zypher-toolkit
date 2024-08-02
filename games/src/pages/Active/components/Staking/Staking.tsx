@@ -46,6 +46,10 @@ const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string
   [TVLChainId.LineaTestnet]: {
     native: '10',
     erc20: '5'
+  },
+  [TVLChainId.LineaSepolia]: {
+    native: '10',
+    erc20: '5'
   }
 }
 const Staking = memo(() => {

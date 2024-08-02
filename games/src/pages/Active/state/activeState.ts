@@ -236,9 +236,9 @@ export const tvlStakingDataV2Init = Object.fromEntries(
   ])
 ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>
 export const tvlStakingDataState = atom<Record<ChainId, Record<string, ITVLStakingData>>>({
-  key: 'tvlStakingDataV2',
+  key: 'tvlStakingDataV3',
   default: tvlStakingDataV2Init,
-  effects_UNSTABLE: [localStorageEffect('tvlStakingDataV2')]
+  effects_UNSTABLE: [localStorageEffect('tvlStakingDataV3')]
 })
 export const selectChainDialogState = atom({
   key: 'selectChainDialogState',

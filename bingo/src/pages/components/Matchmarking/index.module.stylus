@@ -4,9 +4,7 @@
   padding: 0 7px
 
   .title
-    font-family: 'Poppins'
     font-style: normal
-    font-weight: 400
     font-size: 12px
     line-height: 18px
     text-align: center
@@ -16,19 +14,19 @@
 
   .pending
     flexCenter()
-    font-family: 'Poppins'
     font-style: normal
-    font-weight: 500
+    font-weight: 600
     font-size: 16px
     line-height: 30px
     color: #62380C
     gap: 9px
+    padding-top: 20px
     :global(.icon)
       margin: 0 8px 0 0
     :global(.svg_component)
       width: 20px
   .button
-    font-family: 'Lemon'
+    
     font-style: normal
     font-weight: 400
     font-size: 24px
@@ -47,7 +45,7 @@
       cursor: not-allowed
 
   .tip
-    font-family: 'Poppins'
+    
     font-style: normal
     font-weight: 400
     font-size: 12px
@@ -60,7 +58,7 @@
 
   .checkCard
     margin: 24px 0 16px
-    font-family: 'Lemon'
+    
     font-style: normal
     font-weight: 400
     font-size: 12px
@@ -84,4 +82,4 @@
     padding: 34px 84px
     font-size: 16px;
     color:#613C17;
-    font-family: 'Lemon';
+    

@@ -21,7 +21,7 @@ import { IGameListBeta } from '@/hooks/useRecentGames'
 const CarouselText = styled.div<{ isMobile: boolean }>`
   font-size: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
   color: #fff0cf;
-  font-family: 'Lemon';
+
   height: ${({ isMobile }) => (isMobile ? '30px' : '50px')};
   display: flex;
   align-items: center;

@@ -9,7 +9,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
   border-radius: ${({ isMobile }) => (isMobile ? '8px' : '24px')};
   background: #fde8c8;
   padding: ${({ isMobile }) => (isMobile ? '15px' : '24px')};
-  font-family: Poppins;
+
   color: #613c17;
   font-size: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
   line-height: 24px;
@@ -21,7 +21,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
   }
   .rules-text {
     padding-top: 10px;
-    font-weight: 500;
+    font-weight: 600;
     font-size: 16px;
     line-height: 24px;
     @media (max-width: 768px) {
@@ -33,7 +33,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
   .rules-title {
     font-weight: 700;
     color: #613c17;
-    font-family: Poppins;
+
     font-size: 16px;
     line-height: 24px;
     margin: 0;
@@ -64,7 +64,7 @@ const RulseWrapper = styled(Wrapper)`
 
 const BingoRules = styled.div`
   color: #613c17;
-  font-family: Lemon;
+
   font-size: 20px;
   @media (max-width: 768px) {
     font-size: 14px;

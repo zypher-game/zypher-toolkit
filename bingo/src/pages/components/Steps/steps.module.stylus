@@ -1,93 +1,62 @@
 .stepsRoot
-  height: 114px
   padding: 20px 60px 20px 40px
   box-sizing: border-box
+  @media screen and (max-width: 830px)
+    padding: 15px
+.steps
+  display: flex
+.step
+  display: flex
+  align-items: center
+  flex-direction: row
+  position: relative
+  flex: 1
+  &:last-child
+    flex: none
+  &:not(:last-child)::after
+    content: '';
+    position: absolute;
+    height: 1px;
+    border-top: 1px solid #b46f26
+    width: calc(100% - 64px);
+    left: 54px
+    @media screen and (max-width: 830px)
+      width: calc(100% - 40px)
+      left: 30px
+  &.stePactive:not(:last-child)::after
+    border-top: 1px solid #59b407
 
-  .steps
-    display: flex
-
-    .step
-      display: flex
-      align-items: center
-      flex-direction: row
-      position: relative
-      font-family: 'Lemon'
-      font-weight: 400
-      flex: 1
-
-      &:last-child
-        width: 208px
-        flex: none
-
-      &:not(:last-child)::after
-        content: ''
-        position: absolute
-        height: 1px
-        border-top: 1px solid #B46F26
-        width: calc(100% - 50px)
-        left: 42px
-
-      &.stepActive
-        &::after
-          border-top-color: #59B407
-
-        .stepNum
-          background: #59B407
-          border: 1px solid #59B407
-          color: #fff
-
-        .stepDesc
-          color: #59B407
-
-        .matchIcon
-          border-color: #59B407
-
-          &::before
-            animation: pending 1s infinite
-            animation-direction: alternate
-            background: #59B407
-
-    .item
-      display: inline-flex
-
-      .stepNum
-        flexCenter()
-        size: 30px
-        border: 1px solid #B46F26
-        border-radius: 50%
-        font-family: 'Lemon'
-        color: #B46F26
-
-      .stepDesc
-        position: absolute
-        left: 0
-        top: 30px
-        font-family: 'Lemon'
-        color: #B46F26
-        max-width: 218px
-
-    .checkIcon
-      color: #59B407
-      font-size: 27px
-
-    .matchIcon
-      display: inline-flex
-      flex: 0 0 27px
-      height: 27px
-      background: #fff
-      border: 2px solid var(--var-btn-border)
-      border-radius: 50%
-      position: relative
-
-      &::before
-        content: ''
-        position: absolute
-        width: 14px
-        height: 14px
-        top: calc(50% - 7px)
-        left: calc(50% - 7px)
-        background: var(--var-btn-border)
-        border-radius: 50%
+.item
+  display: inline-flex
+.stepNum
+  flexCenter()
+  size: 30px
+  line-height: 30px
+  border: 1px solid #B46F26
+  border-radius: 50%
+  color: #B46F26
+  font-size: 16px
+  padding-left: 1px;
+  @media screen and (max-width: 830px)
+    font-size: 12px
+    size: 20px
+    line-height: 20px
+  &.stepNumStePactive
+    color: #fff
+    background: #59b407
+    border: 1px solid #59b407
+    font-weight: 600
+.label
+  font-size: 14px;
+  position: absolute;
+  left: 0;
+  top: 38px;
+  max-width: 218px;
+  color: #b46f26
+  @media screen and (max-width: 830px)
+    font-weight: 600
+  &.on
+    color: #59b407
 
 @keyframes pending
   from

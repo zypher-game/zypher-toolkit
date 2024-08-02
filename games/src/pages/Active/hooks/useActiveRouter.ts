@@ -20,7 +20,7 @@ export const useGetActiveRouterFn = () => {
     isRegistered,
     airdropPoints,
     twitter: { nickname: twitterNickname },
-    discord: { nickname: discordNickname },
+    // discord: { nickname: discordNickname },
     airdropPointsDetail,
     userStakedAmount,
     tvlHero
@@ -47,15 +47,7 @@ export const useGetActiveRouterFn = () => {
         return
       }
 
-      if (
-        !id ||
-        id === '' ||
-        !twitterNickname ||
-        twitterNickname === '' ||
-        !discordNickname ||
-        discordNickname === '' ||
-        !canNext(account, chainId)
-      ) {
+      if (!id || id === '' || !twitterNickname || twitterNickname === '' || !canNext(account, chainId)) {
         console.log(1, id)
         return `/${NavKey[0][0]}`
       }

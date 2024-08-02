@@ -67,7 +67,6 @@ const BingoBoard = styled.div<{ isMobile: boolean }>`
     border-bottom: 1px solid #804700;
     border-right: 1px solid #804700;
     cursor: grab;
-    font-family: 'Pacifico';
     font-style: normal;
     font-weight: 400;
     &:nth-child(1) {

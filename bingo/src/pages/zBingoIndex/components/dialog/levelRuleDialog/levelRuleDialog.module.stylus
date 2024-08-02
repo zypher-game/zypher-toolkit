@@ -12,9 +12,8 @@ body [data-reach-dialog-content].levelRule
     right 40px
   .title
     color: #864802;
-    font-family: Lemon;
     font-size: 28px;
-    font-weight: 400;
+    font-weight: 600;
     padding: 30px 0
     text-align: center
     margin: 0
@@ -32,7 +31,7 @@ body [data-reach-dialog-content].levelRule
   div
     font-size: 14px;
     line-height: 22px
-    font-family: Poppins;
+    
     color: #613C17;
     h4
       font-weight: 700;
@@ -42,5 +41,5 @@ body [data-reach-dialog-content].levelRule
   bottom: 10px
   left: 50%
   transform: translateX(-50%)
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 140px

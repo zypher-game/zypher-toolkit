@@ -1,5 +1,5 @@
 .bg
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     background: transparent!important
 
 .close
@@ -7,7 +7,7 @@
   top: 82px
   right -16px
   cursor pointer
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 34px;
     height: 34px;
     right: 0;
@@ -20,13 +20,13 @@ body [data-reach-dialog-content].rankingInner
   padding: 100px 0 108px
   background-repeat: no-repeat
   background-color: transparent
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 90%
   .title
     width: 340px;
     margin: 0 auto;
     margin-top: -137px;
     display: block;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 60%;
       margin-top: -106px;

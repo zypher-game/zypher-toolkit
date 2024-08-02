@@ -20,8 +20,7 @@ import {
   useRecoilValue,
   useResetRecoilState,
   useSetRecoilState,
-  useWalletClient,
-  zkBingo
+  useWalletClient
 } from '@ui/src'
 import { Col, Progress, Row, Space, Tooltip } from 'antd'
 import { sample } from 'lodash'
@@ -38,7 +37,6 @@ import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import useAudioManager from '@/hooks/useAudioManager'
 import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
-import useGetCurrentRound from '@/hooks/useGetCurrentRound'
 import useGetGameInfoV1 from '@/hooks/useGetGameInfoV1'
 import { gameRoomState, IBingoVersion, joinGameState, startGameStep } from '@/pages/state/state'
 import { useAppDispatch } from '@/store/hooks'
@@ -61,10 +59,10 @@ const RoundTip = styled.div<{ isMobile: boolean }>`
     text-align: center;
     font-size: ${({ isMobile }) => (isMobile ? '12px' : '14px ')};
     color: #804700;
-    font-family: Poppins;
+
     width: ${({ isMobile }) => isMobile && '199px'};
     margin: 0 auto;
-    font-weight: 500;
+    font-weight: 600;
     line-height: ${({ isMobile }) => (isMobile ? '14px' : '27px')};
     padding: ${({ isMobile }) => isMobile && '11px 0 8px'};
     span {
@@ -102,7 +100,7 @@ const GameBackground = styled.div`
 const Title = styled.div`
   color: #fff0cf;
   text-shadow: -1.5px -1px 0px #3b2d1a;
-  font-family: Lemon;
+  font-weight: 600;
   font-size: 20px;
 `
 const RulesCard = styled.div`
@@ -110,7 +108,7 @@ const RulesCard = styled.div`
   background: #613c17;
   margin-top: 10px;
   box-shadow: 0px -1px 0px 0px #bf905b inset;
-  font-family: Poppins;
+
   font-size: 16px;
   line-height: 30px;
   padding: 10px 18px;
@@ -122,7 +120,7 @@ const RulesCard = styled.div`
   }
   .rules-amounrt-value {
     color: #db5f16;
-    font-family: Pacifico;
+
     font-size: 24px;
     padding-bottom: 23px;
   }
@@ -142,11 +140,9 @@ const PlayersWrapper = styled.div<{ highLight: boolean; leave: boolean }>`
       : '0px 0px 3px 0px #5f3204, 0px 1px 2px 0px #fffbef inset, 0px -1px 1px 0px #c7852e inset'};*/
   background: linear-gradient(180deg, #fff2d1 0%, #ffd893 100%);
   .players-name {
-    font-family: Lemon;
     font-size: 16px;
   }
   .players-address {
-    font-family: Poppins;
     font-size: 14px;
   }
   opacity: ${({ leave }) => leave && 0.7};
@@ -162,7 +158,7 @@ const MatchLinesWrapper = styled.div<{ isMobile: boolean }>`
   border-color: #ffd690;
   border-width: 3px;
   border-style: solid;
-  font-family: Lemon;
+
   font-size: ${({ isMobile }) => (isMobile ? '24px' : ' 34px')};
   color: #fff5e1;
   text-shadow: -1px -1.5px 0px #381f05;
@@ -184,7 +180,7 @@ const PlayerTurn = styled.div<{ lang: string }>`
   text-align: center;
   color: #62380c;
   font-size: 20px;
-  font-family: 'Lemon';
+
   width: 100%;
   height: 100%;
   max-width: 633px;
@@ -203,7 +199,7 @@ const ControllerWrapper = styled.div<{ isMobile: boolean }>`
   position: absolute;
   top: ${({ isMobile }) => (isMobile ? '44px' : ' 0px')};
   left: ${({ isMobile }) => (isMobile ? '0px' : ' 40px')};
-  z-index: 9999;
+  z-index: 9998;
   width: ${({ isMobile }) => (isMobile ? '100%' : ' 500px')};
 `
 

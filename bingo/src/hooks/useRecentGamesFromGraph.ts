@@ -4,6 +4,7 @@ import {
   formatMoney,
   getFormattedTime,
   getFormattedTimeMobile,
+  graphqlApiUrl,
   IGameList,
   IGameName,
   IGameStatus,
@@ -59,16 +60,6 @@ export const useRecentGamesFromGraph = ({
     list: list,
     hasError: hasError
   }
-}
-
-export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
-  [ChainId.LineaMainnet]:
-    // "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
-    'https://graph-query.linea.build/subgraphs/name/zypher/bingo',
-  [ChainId.LineaTestnet]: 'https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli',
-  [ChainId.OPBNB]: 'https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
-  [ChainId.OPBNBTEST]: 'https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
-  [ChainId.ArbitrumGoerli]: 'https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo'
 }
 
 export function getStatus(status: number): IGameStatus {

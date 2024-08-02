@@ -24,6 +24,8 @@ export {
   useSpring,
 };
 export { dialogVariants } from "./constant/motionConstant";
+export { AllChainInfo } from "./constant/chains";
+
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
@@ -69,7 +71,6 @@ export {
   supportedChainIds,
   DPSupportChainId,
   ChainRpcUrls,
-  ChainRpcWebSocketUrls,
   BlockExplorerUrls,
   ChainName,
   ChainNetworkName,
@@ -151,6 +152,7 @@ export { Header } from "./components/Header";
 export { sideCollapseState, pathnameState } from "./components/Header/state";
 export {
   default as PlayerAvatar,
+  IPlayerAvatar,
   PlayerAvatarList,
 } from "./components/PlayerAvatar";
 // export { default as AccountInfoDialog } from "./components/ConnectWallet/components/AccountInfoDialog";
@@ -169,6 +171,8 @@ export {
 } from "./provider/IsMobileProvider";
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
+export { useAvatar } from "./hooks/useAvatar";
+
 export { useActiveChainId } from "./hooks/useActiveChainId";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";

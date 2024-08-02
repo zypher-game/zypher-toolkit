@@ -109,7 +109,7 @@ const GameExit: React.FC = () => {
           <Space>
             <ButtonHover width={isMobile ? '140px' : '164px'} onClick={handleClick} loa>
               <Space size={10}>
-                <span style={{ fontFamily: 'lemon' }}>{t('Exit')}</span>
+                <span>{t('Exit')}</span>
                 {confirmLoading && <LoadingOutlined />}
               </Space>
             </ButtonHover>

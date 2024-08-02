@@ -40,64 +40,14 @@ import Steps from '../components/Steps'
 import SubmitCardBeta from '../components/SubmitCard/SubmitCardBeta'
 import SubmitCardV1 from '../components/SubmitCard/SubmitCardV1'
 import { gameRoomState, IBingoVersion, startGameStep } from '../state/state'
+import css from './StartGame.module.stylus'
 
-const StartGameWrapper = styled.div<{ isMobile: boolean; lang: string }>`
-  border-radius: ${({ isMobile }) => (isMobile ? '12px' : '32px')};
-  /* background: linear-gradient(180deg, #bd7614 0%, #e39325 0.01%, #bc6d00 100%); */
-  background: url(${({ isMobile, lang }) => preStaticUrl + `/img/bingo/${isMobile ? `pannel_m_${lang}` : 'pannel'}.png`}) no-repeat;
-  width: ${({ isMobile }) => (isMobile ? '355px' : '1165px')};
-  background-size: 100% 100%;
-  box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.25) inset, 0px 2px 1px 0px rgba(255, 255, 255, 0.3) inset,
-    0px 0px 4px 2px rgba(255, 255, 255, 0.2) inset;
-  /* max-width: 1165px; */
-  height: ${({ isMobile }) => (isMobile ? '621px' : '717px')};
-  margin: 0px auto;
-  position: relative;
-  padding-bottom: 10px;
-`
-const Wrapper = styled.div`
-  padding: 10px;
-`
-
-const Close = styled.img<{ isMobile: boolean }>`
-  position: absolute;
-  top: ${({ isMobile }) => (isMobile ? '15px' : '25px')};
-  right: ${({ isMobile }) => (isMobile ? '15px' : '25px')};
-  width: ${({ isMobile }) => (isMobile ? '24px' : '')};
-`
-const StartGameHead = styled.div<{ isMobile: boolean }>`
-  color: #62380c;
-  padding-left: 40px;
-  padding-right: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: ${({ isMobile }) => (isMobile ? '116px' : '141px')};
-  /* padding-bottom: 30px; */
-
-  font-size: ${({ isMobile }) => (isMobile ? '12px' : '25px')};
-  .title {
-    font-family: Lemon;
-    padding-bottom: 10px;
-    font-size: ${({ isMobile }) => (isMobile ? '18px' : '25px')};
-  }
-  .subtitle {
-    font-family: Lemon;
-    font-size: 12px;
-    img {
-      padding-right: 8px;
-    }
-  }
-`
 const StepsWrapper = styled.div<{ isMobile: boolean }>`
   margin-left: ${({ isMobile }) => (isMobile ? '19px' : '79px')};
   margin-right: ${({ isMobile }) => (isMobile ? '19px' : '79px')};
   height: ${({ isMobile }) => (isMobile ? '46px' : '102px')};
 `
 const Content = styled.div<{ isMobile: boolean }>`
-  /* padding: 30px 43px 45px; */
-  /* padding-top: ${({ isMobile }) => (isMobile ? '116px' : '141px')}; */
   height: ${({ isMobile }) => (isMobile ? '503px' : '623px')};
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -109,8 +59,6 @@ const CardsWrap = styled.div<{ isMobile?: boolean }>`
   justify-content: center;
   padding-left: ${({ isMobile }) => (isMobile ? '15px' : '29px')};
   padding-right: ${({ isMobile }) => (isMobile ? '15px' : '29px')};
-  /* background: radial-gradient(135.43% 117.95% at 48.97% 16.4%, #fff8ec 0%, #fff5e3 0.01%, #ffedd4 67.24%, #ffdcb1 100%); */
-  /* box-shadow: 0px 2px 1px 0px rgba(255, 255, 255, 0.3) inset, 0px 0px 34px 0px #ffdfb8 inset; */
 `
 
 const StartGame: React.FC = () => {
@@ -292,30 +240,21 @@ const StartGame: React.FC = () => {
   }, [account, chainId])
   return (
     <>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: '100%',
-          paddingBottom: '70px'
-        }}
-      >
-        {/* <CountDown mss={5} open={showCountDown} /> */}
-        <Wrapper>
-          <StartGameWrapper isMobile={isMobile} lang={lang}>
-            <Close isMobile={isMobile} src={preStaticUrl + `/img/bingo/close.png`} alt="" onClick={() => setShowCloseModal(true)} />
-            <StartGameHead isMobile={isMobile}>
+      <div className={css.startGame}>
+        <div className={css.wrap}>
+          <div className={`${css.startGameWrapper} ${css[lang]}`}>
+            <img className={css.close} src={preStaticUrl + `/img/bingo/close.png`} alt="" onClick={() => setShowCloseModal(true)} />
+            <div className={css.startGameHead}>
               {!isMobile && (
                 <div>
-                  <div className="title">{t('Setup')}</div>
-                  <div className="subtitle">
+                  <div className={css.title}>{t('Setup')}</div>
+                  <div className={css.subtitle}>
                     <img src={preStaticUrl + `/img/bingo/note.png`} alt="" />
                     {t('setup tip')}
                   </div>
                 </div>
               )}
-            </StartGameHead>
+            </div>
 
             <Content isMobile={isMobile}>
               <StepsWrapper isMobile={isMobile}>
@@ -324,14 +263,14 @@ const StartGame: React.FC = () => {
               <CardsWrap ref={cardsRef}>
                 {currentStep === 0 && <GenerateKey disabled={currentStep !== 0} />}
                 {currentStep === 1 && <EncryptCard disabled={currentStep !== 1} />}
-                {currentStep === 2 && bingoVersion === IBingoVersion.v1 && <SubmitCardV1 disabled={currentStep !== 2} />}
+                {currentStep === 2 && bingoVersion === IBingoVersion.v1 && <SubmitCardV1 />}
                 {currentStep === 2 && bingoVersion === IBingoVersion.beta && <SubmitCardBeta disabled={currentStep !== 2} />}
                 {currentStep === 3 && <Matchmarking disabled={currentStep !== 3} />}
               </CardsWrap>
             </Content>
             <ConfirmCloseModal open={showCloseModal} closeLoading={modalLoading} onClose={onExitQueue} onCancel={() => setShowCloseModal(false)} />
-          </StartGameWrapper>
-        </Wrapper>
+          </div>
+        </div>
       </div>
       <TipsModal
         open={playingState && (cardNumbers.length > 1 || bingoVersion === IBingoVersion.beta)}

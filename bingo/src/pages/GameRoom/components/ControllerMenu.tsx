@@ -21,10 +21,10 @@ const CountDownWrapper = styled.div`
   height: 38px;
   color: #fff;
   text-align: center;
-  font-family: Poppins;
+
   font-size: 16px;
   line-height: 38px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 830px) {
     font-size: 12px;
     height: 26px;
     line-height: 26px;

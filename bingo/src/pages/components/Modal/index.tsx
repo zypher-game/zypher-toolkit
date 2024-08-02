@@ -59,6 +59,15 @@ const GradeBorder = styled.div`
     align-items: center;
     justify-content: center;
     background: url(${preStaticUrl + '/img/bingo/grade-logo.svg'}) center no-repeat;
+    @media screen and (max-width: 830px) {
+      width: 130px;
+      margin: 0 auto;
+      padding-top: 0;
+      padding-bottom: 20px;
+      img {
+        width: 100%;
+      }
+    }
   }
 `
 
@@ -150,13 +159,8 @@ const ConfirmButton = styled.div`
 
 const ConfirmTip = styled.div`
   color: #864802;
-  font-family: 'Lemon';
   font-size: 16px;
   padding-bottom: 16px;
-  div {
-    font-family: 'Lemon';
-  }
-
   text-align: center;
 `
 const Logo = styled.div<{ isMobile: boolean }>`
@@ -192,7 +196,7 @@ export function ConfirmModal(props: CustomDialogProps) {
 const ConfirmTitile = styled.div`
   font-size: 24px;
   color: #864802;
-  font-family: 'Lemon';
+  font-weight: 600;
   padding-bottom: 24px;
   text-align: center;
 `
@@ -210,7 +214,7 @@ export function ConfirmCloseModal(props: CustomDialogProps) {
         <ConfirmButton>
           <Space>
             <ButtonHover width={isMobile ? '140px' : '164px'} onClick={onClose}>
-              <div style={{ fontFamily: 'Lemon' }}>
+              <div>
                 {t('Leave')} {closeLoading && <LoadingOutlined style={{ paddingLeft: '5px' }} />}
               </div>
             </ButtonHover>

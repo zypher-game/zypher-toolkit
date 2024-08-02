@@ -1,16 +1,7 @@
 import { ChainId } from '@ui/src'
-import { Chain } from 'viem'
 
 import { env } from '@/utils/config'
 
-import { ChainDefinitions } from './chains_definitions/chains_definitions'
-export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
-  [ChainId.LineaMainnet]: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo',
-  [ChainId.LineaTestnet]: 'https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli',
-  [ChainId.OPBNB]: 'https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
-  [ChainId.OPBNBTEST]: 'https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
-  [ChainId.ArbitrumGoerli]: 'https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo'
-}
 export const defaultChainId = ChainId.LineaMainnet
 
 export const gradeData = [
@@ -41,6 +32,7 @@ export const gasPrice: Record<ChainId, string | undefined> = {
   [ChainId.ArbitrumGoerli]: undefined,
   [ChainId.ArbitrumRinkeby]: undefined,
   [ChainId.LineaTestnet]: undefined,
+  [ChainId.LineaSepolia]: undefined,
   [ChainId.LineaMainnet]: undefined,
   [ChainId.POLYGON_MUMBAI]: undefined,
   [ChainId.POLYGON_ZKEVM]: undefined,
@@ -64,7 +56,13 @@ export const gasPrice: Record<ChainId, string | undefined> = {
   [ChainId.Taiko]: undefined,
   [ChainId.SagaMainnet]: undefined
 }
+type IGlobalVar = {
+  dispatch: (arg: any) => any
+  getContainer?: HTMLElement
+}
+export const GlobalVar: IGlobalVar = {
+  dispatch: (arg: any) => null as any,
+  getContainer: undefined
+}
 
-export const AllChainInfo: Record<ChainId, Chain | undefined> = Object.fromEntries(
-  (Object.values(ChainId) as ChainId[]).map(v => [v, ChainDefinitions(v)])
-) as Record<ChainId, Chain>
+export const TG_BOT_URL = 'https://2048-api.zypher.game'

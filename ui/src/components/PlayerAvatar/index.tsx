@@ -1,8 +1,7 @@
 import cx from "classnames";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo } from "react";
 import styled from "styled-components";
 
-import generateAvatar from "../../utils/generateAvatar";
 import { getShortenAddress } from "../../utils/tool";
 import { preStaticUrl } from "../../constant/constant";
 
@@ -10,10 +9,10 @@ import "./index.stylus";
 import Avatar from "../Avatar/Avatar";
 import { useCustomTranslation } from "../../hooks/useCustomTranslation";
 import { LngNs } from "../../utils/i18n";
-import { useRecoilValue } from "recoil";
-import { refreshAvatarState } from "../ConnectWallet/state/connectWalletState";
+import { useAvatar } from "../../hooks/useAvatar";
 
-interface IPlayerAvatar {
+export interface IPlayerAvatar {
+  hidePixel?: boolean;
   className?: string;
   account?: string;
   highLight?: boolean;
@@ -46,43 +45,10 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     hideAvatars,
     onClick,
     onMouseOver,
+    hidePixel,
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
-    const [avatars, setAvatars] = useState<{
-      selectedAvatar: string;
-      selectedBackground: string;
-    }>();
-    const refreshAvatar = useRecoilValue(refreshAvatarState);
-    // const { getUserInfo } = useGetUserInfo();
-    useEffect(() => {
-      console.log(account, !hideAvatars);
-      if (account && !hideAvatars) {
-        getData();
-        // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
-        // setAvatars({ selectedAvatar, selectedBackground:bgColor[0] });
-      } else {
-        const { selectedAvatar, selectedBackground } = generateAvatar(account);
-        setAvatars({ selectedAvatar, selectedBackground });
-      }
-    }, [account, refreshAvatar]);
-    // https://tvl-avatar.s3.us-west-2.amazonaws.com/0x2e1c9adc548963273d9e767413403719019bd639.png
-    const getData = useCallback(() => {
-      const img = new Image();
-      const src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;
-      img.src = src;
-      img.onload = () => {
-        console.log(1111, { src });
-        setAvatars({
-          selectedAvatar: `${src}?${refreshAvatar}`,
-          selectedBackground: "#1d263b",
-        });
-      };
-      img.onerror = () => {
-        console.log(2222, { src });
-        const { selectedAvatar, selectedBackground } = generateAvatar(account);
-        setAvatars({ selectedAvatar, selectedBackground });
-      };
-    }, [account, refreshAvatar]);
+    const avatars = useAvatar(account, hideAvatars);
 
     return (
       <div
@@ -94,21 +60,14 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
           avatars ? (
             <AvatarBorder>
               <Avatar
+                hidePixel={hidePixel}
                 size={size}
                 src={avatars.selectedAvatar}
-                style={
-                  border
-                    ? {
-                        background: avatars.selectedBackground,
-                        border: "2px solid #eeeeee",
-                      }
-                    : { background: avatars.selectedBackground }
-                }
+                backgroundColor={avatars.selectedBackground}
               />
             </AvatarBorder>
           ) : null
         ) : (
-          //  <img decoding="async" loading="lazy" className={cx("player_avatar", { ["player_highLight"]: highLight })} width={size} height={size} src={generateAvatar(account)} />
           <div
             className={"player_avatar"}
             style={{
@@ -119,6 +78,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
             }}
           >
             <Avatar
+              hidePixel={hidePixel}
               size={size}
               src={preStaticUrl + `/img/pixel_default_avatar.png`}
             />
@@ -250,7 +210,7 @@ export const PlayerAvatarList: React.FC<IAvatar> = ({
   isGrey = false,
   winner,
 }) => {
-  const { selectedAvatar, selectedBackground } = generateAvatar(account);
+  const { selectedAvatar, selectedBackground } = useAvatar(account, false);
   return (
     <OuterCircle size={size} isGreen={isGreen} isGrey={isGrey} winner={winner}>
       <div className="center-circle ">

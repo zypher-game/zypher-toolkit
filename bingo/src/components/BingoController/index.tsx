@@ -70,10 +70,6 @@ const FlexCall = styled.div<{
   ${({ disabled }) => disabled && SpaceDisabled};
   ${({ active }) => active && SpaceActive};
   ${({ turn }) => turn && SpaceSelect};
-
-  div {
-    font-family: Pacifico;
-  }
 `
 const LatticeIcon = styled.img`
   animation: ${rotateAnimation} 1s linear infinite;

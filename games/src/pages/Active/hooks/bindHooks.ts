@@ -17,7 +17,7 @@ export const useBind = () => {
   const {
     invitationCode,
     twitter: { nickname: twitterNickname },
-    discord: { nickname: discordNickname },
+    // discord: { nickname: discordNickname },
     signedStr
   } = activeData
   const preHandleAction = usePreHandleAction()
@@ -30,10 +30,10 @@ export const useBind = () => {
       setErrorToast(GlobalVar.dispatch, 'Please Follow @Zypher_Network on Twitter')
       return
     }
-    if (!discordNickname) {
-      setErrorToast(GlobalVar.dispatch, 'Please Follow @MKJZhS4p2T on Discord')
-      return
-    }
+    // if (!discordNickname) {
+    //   setErrorToast(GlobalVar.dispatch, 'Please Follow @MKJZhS4p2T on Discord')
+    //   return
+    // }
     setActiveData(pre => ({ ...pre, checkAirdropPointsLoading: true }))
     await sleep(3)
     const primary_score_res = await getPrimaryScore()
@@ -56,7 +56,7 @@ export const useBind = () => {
     const linkType = getLinkPre(chainId)
     window.open(`${TVL_API}/connect-discord?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: false } }))
-  }, [_invitationCode, signedStr, discordNickname, preHandleAction, chainId])
+  }, [_invitationCode, signedStr, preHandleAction, chainId])
   const CheckTwitterHandle = useCallback(async () => {
     const isOk = preHandleAction()
     if (!isOk) {

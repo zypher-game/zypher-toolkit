@@ -7,11 +7,11 @@
   align-items: center
   gap: 40px
   z-index: 9;
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     top: 9%
     right: 16px
     gap: 16px
   img 
     width: 56px;
-    @media screen and (max-width: 768px) 
+    @media screen and (max-width: 830px) 
       width: 32px;

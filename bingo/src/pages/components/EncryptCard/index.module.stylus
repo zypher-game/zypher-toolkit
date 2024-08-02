@@ -1,6 +1,6 @@
 .encryptCard
   min-width: 930px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     min-width: auto
   .grid
     flex: 1
@@ -13,9 +13,8 @@
     max-width: 584px
 
     .title
-      font-family: 'Lemon'
       font-style: normal
-      font-weight: 400
+      font-weight: 600
       font-size: 14px
       line-height: 24px
       text-align: center
@@ -34,7 +33,7 @@
       border: 0 none
 
     .button
-      font-family: 'Lemon'
+      
       font-style: normal
       font-weight: 400
       font-size: 24px
@@ -54,7 +53,7 @@
         background:linear-gradient(180deg, #E2E2E2 0%, #828282 100%)
 
     .modifyTip
-      font-family: 'Poppins'
+      
       font-style: normal
       font-weight: 400
       font-size: 12px
@@ -69,7 +68,7 @@
         margin: 0 6px 0 0
 
     .tip
-      font-family: 'Poppins'
+      
       font-style: normal
       font-weight: 400
       font-size: 12px

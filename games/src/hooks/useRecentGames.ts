@@ -2,8 +2,8 @@ import {
   ChainId,
   divisorBigNumber,
   formatMoney,
+  graphqlApiUrl,
   IContractName,
-  IGameIdInfo,
   IGameList,
   IRecentGame,
   MulticallContract,
@@ -14,8 +14,6 @@ import { BigNumberJs } from '@ui/src'
 import ZkBingoLobbyAbi from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
 import { ethers } from 'ethers'
 import { useEffect, useState } from 'react'
-
-import { graphqlApiUrl } from '@/constants/constants'
 
 import bingoLobby from '../contract/bingoLobby'
 import { batchRequestContracts } from '../utils/batchRequestContracts'

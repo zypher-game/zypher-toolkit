@@ -15,27 +15,26 @@ const Bind = memo(
     const { account, chainId } = useActiveWeb3React()
     const {
       invitationCode,
-      twitter: { nickname: twitterNickname, isLoading: twitterIsLoading },
-      discord: { nickname: discordNickname, isLoading: discordIsLoading }
+      twitter: { nickname: twitterNickname, isLoading: twitterIsLoading }
+      // discord: { nickname: discordNickname, isLoading: discordIsLoading }
     } = activeData
     const [isTwitterClick, setIsTwitterClick] = useState(false)
-    const [isDiscordClick, setIsDiscordClick] = useState(false)
+    // const [isDiscordClick, setIsDiscordClick] = useState(false)
     const { getUserInfo } = useGetDataCall()
     const shareOnTwitter = () => {
       CheckTwitterHandle()
       setIsTwitterClick(true)
     }
-    const shareOnDiscord = () => {
-      CheckDiscordHandle()
-      setIsDiscordClick(true)
-    }
+    // const shareOnDiscord = () => {
+    //   CheckDiscordHandle()
+    //   setIsDiscordClick(true)
+    // }
 
     const handleVisibilityChange = useCallback(async () => {
       setTimeout(async () => {
         if (!document.hidden && account && chainId) {
-          if ((isDiscordClick || isTwitterClick) && canNext(account, chainId)) {
+          if (isTwitterClick && canNext(account, chainId)) {
             setIsTwitterClick(false)
-            setIsDiscordClick(false)
             try {
               const userInfo = await getUserInfo({ isInit: false, chainId })
               setActiveData(pre => ({
@@ -43,9 +42,9 @@ const Bind = memo(
                 ...userInfo
               }))
             } catch {
-              if (isDiscordClick) {
-                setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: false } }))
-              }
+              // if (isDiscordClick) {
+              //   setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: false } }))
+              // }
               if (isTwitterClick) {
                 setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
               }
@@ -53,7 +52,7 @@ const Bind = memo(
           }
         }
       }, 1000)
-    }, [isDiscordClick, isTwitterClick, chainId, chainId])
+    }, [isTwitterClick, chainId, chainId])
 
     useEffect(() => {
       document.addEventListener('visibilitychange', handleVisibilityChange)
@@ -77,10 +76,10 @@ const Bind = memo(
           fl={'2. Follow @Zypher_network on Twitter'}
           fr={<FrStatus label={twitterNickname} isLoading={twitterIsLoading} btnLabel="Link to Twitter" onClick={shareOnTwitter} />}
         />
-        <LiItem
+        {/* <LiItem
           fl={'3. Join Zypher Games Discord'}
           fr={<FrStatus label={discordNickname} isLoading={discordIsLoading} btnLabel="Link to Discord" onClick={shareOnDiscord} />}
-        />
+        /> */}
         <LiItem fl={'3. Check your airdrop points'} fr={<FrStatus label="" isLoading={false} btnLabel="Check" onClick={CheckPointHandle} />} />
       </ul>
     )

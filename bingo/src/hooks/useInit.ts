@@ -1,11 +1,27 @@
-import { useEffect } from 'react'
+import { NavKey, pathnameState, useRecoilValue } from '@ui/src'
+import { useLayoutEffect, useMemo } from 'react'
+
+import { GlobalVar } from '@/constants/constants'
+
+import { useAppDispatch } from '../store/hooks'
+export const useIsGetActiveData = () => {
+  const pathname = useRecoilValue(pathnameState)
+  return useMemo(() => {
+    return {
+      isActiveRouter: NavKey[0].includes(pathname[1]) || (pathname[1] ?? '').startsWith('L' || 'B'),
+      isActiveInit: NavKey[0].includes(pathname[1]) || NavKey[2].includes(pathname[1]) || (pathname[1] ?? '').startsWith('L' || 'B')
+    }
+  }, [JSON.stringify(pathname)])
+}
 export const useInit = () => {
-  useEffect(() => {
+  const dispatch = useAppDispatch()
+  useLayoutEffect(() => {
     setTimeout(() => {
       const el = document.querySelector('#rootLoading')
       if (el) {
         el.remove()
       }
-    }, 1000)
+      GlobalVar.dispatch = dispatch
+    }, 10)
   }, [])
 }

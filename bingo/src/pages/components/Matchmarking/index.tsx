@@ -13,7 +13,6 @@ import {
 } from '@ui/src'
 import { usePublicNodeWaitForTransaction } from '@ui/src'
 import { useWalletClient } from '@ui/src'
-import { PlayerAvatar } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cx from 'classnames'
 import { sample } from 'lodash'
@@ -23,6 +22,7 @@ import styled, { keyframes } from 'styled-components'
 import { TransactionReceipt } from 'viem'
 
 import BingoBoardView from '@/components/BingoBoardView'
+import BingoPlayerAvatar from '@/components/BingoPlayerAvatar/BingoPlayerAvatar'
 import { gasPrice } from '@/constants/constants'
 import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
@@ -54,7 +54,6 @@ const CardBack = styled.div<{ isMobile: boolean }>`
   padding-bottom: ${({ isMobile }) => isMobile && '0px'};
   font-size: 16px;
   color: #613c17;
-  font-family: 'Lemon';
 `
 const FlexCenter = styled.div<{ isMobile: boolean }>`
   width: 100%;
@@ -73,8 +72,12 @@ const LineupUsersWrapper = styled.div<{ isMobile: boolean }>`
   flex-wrap: wrap;
   .lineup-users-item {
     width: ${({ isMobile }) => (isMobile ? '79px' : '100px')};
+    img {
+      border: 1px solid #62380c;
+    }
     p {
       font-size: ${({ isMobile }) => isMobile && '12px'};
+      color: #62380c;
     }
   }
 `
@@ -229,7 +232,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
           <div className={css.title}>{t('MatchmarkingText1')}</div>
           <LineupUsersWrapper isMobile={isMobile}>
             {joinGame.lineupUsers.concat(new Array(5 - joinGame.lineupUsers.length).fill('')).map((player, idx) => (
-              <PlayerAvatar
+              <BingoPlayerAvatar
                 size={isMobile ? 30 : 56}
                 className="lineup-users-item"
                 key={`player_${idx}`}
@@ -250,7 +253,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
           <Space>
             <ButtonPrimary width="250px" onClick={handleStartGame} disabled={[0, 1, 6].includes(joinGame.lineupUsers.length) || pending}>
               <Space size={10}>
-                <span style={{ fontFamily: 'lemon' }}>{t('Start')}</span>
+                <span>{t('Start')}</span>
                 {pending && <LoadingOutlined />}
               </Space>
             </ButtonPrimary>

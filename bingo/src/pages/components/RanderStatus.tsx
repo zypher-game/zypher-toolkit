@@ -26,7 +26,7 @@ export const StatusI = styled.i<{ isMobile: boolean }>`
 `
 const Upper = styled.em`
   text-transform: capitalize;
-  font-family: Poppins;
+
   font-weight: 600;
 `
 type IProps = {

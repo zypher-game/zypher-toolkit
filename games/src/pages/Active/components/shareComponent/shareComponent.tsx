@@ -38,7 +38,6 @@ const ShareComponent: FC<IProps> = memo(({ children, url }: IProps) => {
       document.removeEventListener('visibilitychange', handleVisibilityChange)
     }
   }, [handleVisibilityChange])
-  console.log({ isTwitterPost: activeData.isTwitterPost })
   const shareOnTwitter = useCallback(() => {
     window.open(url)
     setIsClick(true)

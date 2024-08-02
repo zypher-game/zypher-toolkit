@@ -1,11 +1,12 @@
 circle,
 rect,
 line {
-  stroke-width: 4px;
-  stroke-linecap: round;
-  fill: transparent;
+    stroke-width: 4px;
+    stroke-linecap: round;
+    fill: transparent;
 }
-.count-down{
+
+.count-down {
     display: flex;
     justify-content: center;
     position: relative;
@@ -13,25 +14,29 @@ line {
     left: 0;
 
 }
-.count-down-time{
+
+.count-down-time {
     font-size: 64px;
     text-align: center;
-    font-family: Pacifico;
+
     color: #fff;
     width: 100%;
 }
-.notion-wrap{
+
+.notion-wrap {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
 }
-.notion-svg{
+
+.notion-svg {
     position: absolute;
     top: 0;
 }
-.content{
+
+.content {
     font-size: 14px;
     color: #fff;
     width: 293px;

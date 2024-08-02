@@ -1,11 +1,10 @@
-import { bingoBetaSupportedChainId, ChainId, ChainRpcUrls, divisorBigNumber, IGameStatus, IPlayer } from '@ui/src'
+import { AllChainInfo, ChainRpcUrls, divisorBigNumber } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { formatEther } from 'ethers/lib/utils'
 import { sample } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 import { createPublicClient, http } from 'viem'
 
-import { AllChainInfo } from '@/constants/constants'
 import { IBingoVersion } from '@/pages/state/state'
 import { setIntervalAwait } from '@/utils/setIntervalAwait'
 

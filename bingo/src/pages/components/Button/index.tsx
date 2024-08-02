@@ -17,7 +17,7 @@ export const BaseButton = styled.button<BaseButtonProps>`
   font-weight: 400;
   height: auto;
   font-size: ${({ size }) => size ?? '22px'};
-  font-family: 'Lemon';
+
   text-align: center;
   border-radius: ${({ $borderRadius }) => $borderRadius ?? '47px'};
   outline: none;
@@ -58,7 +58,6 @@ export const BaseButton = styled.button<BaseButtonProps>`
     pointer-events: none;
   }
   div {
-    font-family: 'Lemon';
   }
 
   will-change: transform;
@@ -189,13 +188,6 @@ const ButtonTextPrimary = styled.div<{
   size?: string
   disabled?: boolean | undefined
 }>`
-  .div {
-    font-family: 'Lemon';
-  }
-  .span {
-    font-family: 'Lemon';
-  }
-  font-family: 'Lemon' !important;
   font-style: normal;
   pointer-events: none;
   border: 0px;
@@ -212,9 +204,13 @@ const ButtonTextPrimary = styled.div<{
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.3s ease;
   ${props => props.disabled && disabledTextStyle};
   &:hover {
     text-shadow: -1px -1.5px 0px #892702;
+  }
+  &.btn-text {
+    font-weight: 600;
   }
 `
 

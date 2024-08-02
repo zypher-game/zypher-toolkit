@@ -17,7 +17,6 @@ const InvitationCode = memo(() => {
   const preHandleAction = usePreHandleAction()
   const isW768 = useIsW768()
   const { loading, codeCheck } = useCodeCheckCall()
-  console.log({ codeStr })
   const checkInvitationCode = useCallback(async () => {
     if (loading || activeData.isInitLoading) {
       return

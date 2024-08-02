@@ -4,35 +4,34 @@ body [data-reach-dialog-content].levelRule
   position relative
   padding: 60px 80px 100px
   background-size: 100% 100%
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 100%
     padding: 47px 50px 80px 50px
   .close
     position absolute
     top 40px
     right 40px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width 34px
       height 34px
       right 20px
   .title
     color: #864802;
-    font-family: Lemon;
+    font-weight: 600
     font-size: 28px;
-    font-weight: 400;
     padding: 30px 0
     text-align: center
     margin: 0
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       font-size: 14px;
       padding: 30px 0 24px
 .rulestitle
   color: #613C17;
-  font-family: Poppins;
+  
   font-size: 16px;
   font-weight: 700;
   line-height: 24px;
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     font-size: 14px;
     line-height: 20px;
   span 
@@ -42,11 +41,11 @@ body [data-reach-dialog-content].levelRule
 .rulestext
   margin-bottom: 16px
   color: #613C17;
-  font-family: Poppins;
+  
   font-size: 16px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 24px
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     font-size: 14px;
     line-height: 20px
 .btn
@@ -55,5 +54,5 @@ body [data-reach-dialog-content].levelRule
   bottom: 10px
   left: 50%
   transform: translateX(-50%)
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 140px

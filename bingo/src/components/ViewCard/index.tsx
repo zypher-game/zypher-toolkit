@@ -78,7 +78,7 @@ const BingoBoard = styled.div`
 const BingoBoardWrapper = styled.div`
   width: 311px;
   height: 361px;
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 830px) {
     width: 255px;
     height: 295px;
   }
@@ -194,7 +194,6 @@ const HistoryCardNumber = styled.div<{
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   cursor: grab;
-  font-family: 'Pacifico';
   font-style: normal;
   font-weight: 400;
   font-size: 28px;

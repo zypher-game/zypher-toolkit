@@ -13,5 +13,5 @@
   color: #fff
 .gameList
   position: relative
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     margin: 0 16px

@@ -1,63 +1,9 @@
 import { LngNs, useCustomTranslation, useIsW768 } from '@ui/src'
 import React, { ReactElement, useMemo } from 'react'
-import { TFunction } from 'react-i18next'
-import styled from 'styled-components'
 
 import { IBingoVersion } from '@/pages/state/state'
 
-const StepsRoot = styled.div<{ isMobile: boolean }>`
-  padding: ${({ isMobile }) => (isMobile ? '15px' : '20px 160px 20px 40px')};
-  box-sizing: border-box;
-`
-const StepsWrap = styled.div`
-  display: flex;
-`
-const Step = styled.div<{ isMobile: boolean; stePactive: boolean }>`
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  position: relative;
-  font-family: 'Lemon';
-  font-weight: 400;
-  flex: 1;
-  &:last-child {
-    flex: none;
-  }
-  &:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    height: 1px;
-    border-top: 1px solid ${({ stePactive }) => (stePactive ? '#59b407' : '#b46f26')};
-    width: calc(100% - ${({ isMobile }) => (isMobile ? '40px' : '64px')});
-    left: ${({ isMobile }) => (isMobile ? '30px' : '54px')};
-  }
-`
-const StepItems = styled.div`
-  display: inline-flex;
-`
-const StepNum = styled.div<{ stePactive: boolean; isMobile: boolean }>`
-  display: flex;
-  font-size: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
-  width: ${({ isMobile }) => (isMobile ? '20px' : '30px')};
-  height: ${({ isMobile }) => (isMobile ? '20px' : '30px')};
-  align-items: center;
-  justify-content: center;
-  border-radius: 50%;
-  font-family: 'Lemon';
-  color: ${({ stePactive }) => (stePactive ? '#fff' : '#b46f26')};
-  background: ${({ stePactive }) => (stePactive ? '#59b407' : 'transparent')};
-  border: 1px solid ${({ stePactive }) => (stePactive ? '#59b407' : '#b46f26')};
-`
-
-const Label = styled.div<{ stePactive: boolean }>`
-  font-family: Lemon;
-  font-size: 14px;
-  position: absolute;
-  left: 0;
-  top: 38px;
-  color: ${({ stePactive }) => (stePactive ? '#59b407' : '#b46f26')};
-  max-width: 218px;
-`
+import css from './steps.module.stylus'
 
 const Steps = ({ currentStep, bingoVersion }: { currentStep: number; bingoVersion: IBingoVersion }): ReactElement => {
   const { t } = useCustomTranslation([LngNs.zBingo])
@@ -86,22 +32,20 @@ const Steps = ({ currentStep, bingoVersion }: { currentStep: number; bingoVersio
     ]
   }, [t, bingoVersion])
   const isMobile = useIsW768()
+
   return (
-    <StepsRoot isMobile={isMobile}>
-      <StepsWrap>
+    <div className={css.stepsRoot}>
+      <div className={css.steps}>
         {setupSteps.map(step => (
-          <Step key={step.stepIdx} isMobile={isMobile} stePactive={step.stepIdx <= currentStep}>
-            <StepItems>
-              <StepNum stePactive={step.stepIdx <= currentStep} isMobile={isMobile}>
-                {step.stepNum}
-                {/* {step.stepIdx < currentStep ? <CheckCircleFilled /> : <div>{step.stepNum}</div>} */}
-              </StepNum>
-              {!isMobile && <Label stePactive={step.stepIdx <= currentStep}>{step.label}</Label>}
-            </StepItems>
-          </Step>
+          <div className={`${css.step} ${step.stepIdx <= currentStep ? css['stePactive'] : ''}`} key={step.stepIdx}>
+            <div className={css.item}>
+              <div className={`${css.stepNum} ${step.stepIdx <= currentStep ? css['stepNumStePactive'] : ''}`}>{step.stepNum}</div>
+              {!isMobile && <p className={`${css.label} ${step.stepIdx <= currentStep ? css['on'] : ''}`}>{step.label}</p>}
+            </div>
+          </div>
         ))}
-      </StepsWrap>
-    </StepsRoot>
+      </div>
+    </div>
   )
 }
 

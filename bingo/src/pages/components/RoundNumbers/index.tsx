@@ -33,8 +33,6 @@ const NumberContent = styled.div`
   justify-content: center;
   margin: 5px;
   color: #804700;
-  /* font-family: 'Pacifico';
-  font-size: 48px; */
   span {
     width: 70px;
     height: 73px;
@@ -99,10 +97,9 @@ const Box = ({ index, round, children, list }: any) => {
               <span
                 style={
                   list[0] === 'pass'
-                    ? { fontSize: '20px', fontFamily: 'Lemon' }
+                    ? { fontSize: '20px' }
                     : {
                         fontSize: '48px',
-                        fontFamily: 'Pacifico',
                         height: '80px'
                       }
                 }
@@ -112,41 +109,13 @@ const Box = ({ index, round, children, list }: any) => {
             )}
           </>
         )}
-        {leftPosition === 92 * 1 && (
-          <span style={list[1] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[1]}
-          </span>
-        )}
-        {leftPosition === 92 * 2 && (
-          <span style={list[2] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[2]}
-          </span>
-        )}
-        {leftPosition === 92 * 3 && (
-          <span style={list[3] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[3]}
-          </span>
-        )}
-        {leftPosition === 92 * 4 && (
-          <span style={list[4] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[4]}
-          </span>
-        )}
-        {leftPosition === 92 * 5 && (
-          <span style={list[5] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[5]}
-          </span>
-        )}
-        {leftPosition === 92 * 6 && (
-          <span style={list[6] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[6]}
-          </span>
-        )}
-        {leftPosition === 92 * 7 && (
-          <span style={list[7] === 'pass' ? { fontSize: '20px', fontFamily: 'Lemon' } : { fontSize: '48px', fontFamily: 'Pacifico', height: '80px' }}>
-            {list[7]}
-          </span>
-        )}
+        {leftPosition === 92 * 1 && <span style={list[1] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[1]}</span>}
+        {leftPosition === 92 * 2 && <span style={list[2] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[2]}</span>}
+        {leftPosition === 92 * 3 && <span style={list[3] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[3]}</span>}
+        {leftPosition === 92 * 4 && <span style={list[4] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[4]}</span>}
+        {leftPosition === 92 * 5 && <span style={list[5] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[5]}</span>}
+        {leftPosition === 92 * 6 && <span style={list[6] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[6]}</span>}
+        {leftPosition === 92 * 7 && <span style={list[7] === 'pass' ? { fontSize: '20px' } : { fontSize: '48px', height: '80px' }}>{list[7]}</span>}
       </NumberContent>
     </NumberWrap>
   )

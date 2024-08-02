@@ -18,13 +18,7 @@ import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
 import { activeDataState, IActiveDataState, initActiveData, isTvlDataLoadingState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
-// const Growth: Record<TVLChainId, [string, string]> = {
-//   [TVLChainId.Sepolia]: ['10', '5'],
-//   [TVLChainId.B2]: ['200', '100'],
-//   [TVLChainId.B2Testnet]: ['200', '100'],
-//   [TVLChainId.LineaMainnet]: ['10', '5'],
-//   [TVLChainId.LineaTestnet]: ['10', '5']
-// }
+
 const Card = memo(
   ({
     claimGpLoading,

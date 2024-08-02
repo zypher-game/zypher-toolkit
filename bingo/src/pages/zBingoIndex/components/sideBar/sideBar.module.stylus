@@ -4,7 +4,7 @@
   left: 40px
   z-index: 99;
   transform: translateY(-50%)
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     left: 16px
   .sidebarItem
     width: 80px
@@ -12,7 +12,7 @@
     position relative
     margin-bottom: 46px
     cursor pointer
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 48px
       height: 48px
       margin-bottom: 26px
@@ -32,7 +32,7 @@
           border:1px solid #2C4C8C;
       .labelImg
         width: 58px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           width: 36px
       .label
         text-shadow: -1px -1px 0 #0B1E44, 1px -1px 0 #0B1E44, -1px 1px 0 #0B1E44, 1px 1px 0 #0B1E44;
@@ -44,7 +44,7 @@
           border:1px solid #8B2F2F;
       .labelImg
         width: 70px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           width: 45px
       .label
         text-shadow: -1px -1px 0 #712323, 1px -1px 0 #712323, -1px 1px 0 #712323, 1px 1px 0 #712323;
@@ -56,7 +56,7 @@
           border:1px solid #1C4735;
       .labelImg
         width: 55px
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
           width: 35px
       .label
         text-shadow: -1px -1px 0 #1C4735, 1px -1px 0 #1C4735, -1px 1px 0 #1C4735, 1px 1px 0 #1C4735;
@@ -91,10 +91,10 @@
       left: 50%
       transform: translate(-50%, 0)
       bottom: 6px
-      font-family: Lemon;
+      font-weight: 600
       font-size: 15px;
       color: #fff
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         font-size: 9px;
         bottom: -2px
 

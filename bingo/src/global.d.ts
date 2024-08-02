@@ -4,4 +4,6 @@
 interface Window {
   env: string
   isGames: boolean
+  IS_TELEGRAM: boolean
+  Telegram: Telegram
 }

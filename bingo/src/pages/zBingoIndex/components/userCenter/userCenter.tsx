@@ -1,7 +1,8 @@
-import { getShortenAddress, PlayerAvatar, useIsW768 } from '@ui/src'
+import { getShortenAddress, useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
+import BingoPlayerAvatar from '@/components/BingoPlayerAvatar/BingoPlayerAvatar'
 import { IBingoVersion } from '@/pages/state/state'
 
 import { useGetProfileFromGraph } from '../../hooks/useGetProfileFromGraph'
@@ -17,7 +18,7 @@ const UserCenter = memo(() => {
   }
   return (
     <div className={css.userCenter}>
-      <PlayerAvatar account={account} showAccount={false} size={isMobile ? 40 : 62} />
+      <BingoPlayerAvatar account={account} showAccount={false} size={isMobile ? 40 : 62} />
       <div className={css.userAddress}>
         <p className={css.addressLabel}>{getShortenAddress(account)}</p>
         {bingoVersion === IBingoVersion.v1 ? <LevelIcon gamesWonNumber={gamesWonNumber} /> : null}

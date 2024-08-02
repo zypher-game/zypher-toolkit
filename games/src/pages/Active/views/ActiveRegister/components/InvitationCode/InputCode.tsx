@@ -46,7 +46,6 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
       const currentLength = initialCode.length
 
       if (currentLength >= 1 && currentLength <= CODELENGTH) {
-        console.log(initialCode, 1)
         setCode(initialCode)
 
         if (currentLength < CODELENGTH) {
@@ -87,14 +86,12 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
     const _code = getHrefCode()
     const __code = codeFromParams ? codeFromParams : _code
     if (__code) {
-      console.log(_code)
       initializeCode(__code)
     }
   }, [account, chainId])
   useEffect(() => {
     const arr = code.every(e => !!e)
     if (code.length === CODELENGTH && arr) {
-      console.log({ arr })
       setCodeStr(code.join(''))
     }
   }, [JSON.stringify(code)])

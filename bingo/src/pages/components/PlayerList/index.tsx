@@ -1,6 +1,7 @@
 import {
   ChainId,
   getShortenAddress,
+  graphqlApiUrl,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
   PointsIcon,
@@ -16,7 +17,6 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { graphqlApiUrl } from '@/constants/constants'
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { IPlayersProps } from '@/hooks/useGetGameInfo'
@@ -27,7 +27,6 @@ import { env } from '@/utils/config'
 import css from './index.module.stylus'
 
 const Text = styled.div`
-  font-family: Pacifico;
   font-size: 20px;
 `
 const BoxImgWrap = styled.div<{ isMobile: boolean }>`
@@ -40,7 +39,7 @@ const BoxImgWrap = styled.div<{ isMobile: boolean }>`
   }
   p {
     color: rgb(255, 240, 207);
-    font-family: lemon;
+
     font-size: 14px;
   }
 `
@@ -122,7 +121,7 @@ export const WinBeta = ({ chainId, account }: { chainId: ChainId | undefined; ac
     data()
   }, [account, chainId])
 
-  return <div style={{ fontFamily: 'Pacifico', lineHeight: '35px' }}>{count} %</div>
+  return <div style={{ lineHeight: '35px' }}>{count} %</div>
 }
 export const Win: React.FC<WinProps> = ({ chainId, account }) => {
   const [count, setCount] = useState<number | string>('--')

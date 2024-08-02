@@ -1,8 +1,8 @@
-import { formatMoney, request } from '@ui/src'
+import { formatMoney, graphqlApiUrl, request } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
-import { defaultRankChainId, graphqlApiUrl } from '@/constants/constants'
+import { defaultRankChainId } from '@/constants/constants'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { IBingoVersion } from '@/pages/state/state'
 

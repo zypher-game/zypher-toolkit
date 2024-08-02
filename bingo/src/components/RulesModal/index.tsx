@@ -42,7 +42,7 @@ const StyledDialogContent = styled(DialogContent)<{ isMobile: boolean }>`
 `
 const Title = styled.div`
   color: #613c17;
-  font-family: Lemon;
+  font-weight: 600;
   font-size: 14px;
 `
 const Card = styled.div`
@@ -53,13 +53,13 @@ const Card = styled.div`
 `
 const Label = styled.div`
   color: rgba(97, 60, 23, 0.6);
-  font-family: Poppins;
+
   font-size: 14px;
   padding-bottom: 10px;
 `
 const Text = styled.div`
   color: #613c17;
-  font-family: Poppins;
+
   font-size: 14px;
   padding-bottom: 10px;
   font-weight: 600;

@@ -6,9 +6,8 @@
     pointer-events: none
 
   .title
-    font-family: 'Lemon'
     font-style: normal
-    font-weight: 400
+    font-weight: 600
     font-size: 14px
     line-height: 24px
     text-align: center
@@ -20,7 +19,7 @@
     display: block
 
   .button
-    font-family: 'Lemon'
+    
     font-style: normal
     font-weight: 400
     font-size: 24px
@@ -39,7 +38,7 @@
       cursor: not-allowed
 
   .tip
-    font-family: 'Poppins'
+    
     font-style: normal
     font-weight: 400
     font-size: 12px
@@ -48,3 +47,13 @@
     opacity: 0.6
     margin: 8px 0 0
     text-align: center
+.mTitle
+  color: #62380c;
+  text-align: center;
+  font-weight: 600;
+  font-size: 16px;
+.btnWrap
+  display: flex
+  justify-content: center
+  align-items: center
+  padding-top: 24px

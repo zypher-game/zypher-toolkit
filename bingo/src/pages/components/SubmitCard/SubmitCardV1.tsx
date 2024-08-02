@@ -40,11 +40,7 @@ import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { SetUpSubText } from '../Text'
 import { AmountValue, BingoCardView, BoxWrap, CardBack, CheckableTag, FlexCenter, SubmitCardEle, Tip, Title, ViewCard } from './SubmitCard.style'
 
-interface ISubmitCard {
-  disabled?: boolean
-}
-
-const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
+const SubmitCardV1 = () => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const [pending, setPending] = useState(false)
   const isMobile = useIsW768()
@@ -236,7 +232,7 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
                 <div key={levelInfo.level}>
                   {winRate >= levelInfo.minWinCounts && (
                     <CheckableTag isMobile={isMobile} checked={level == idx} onClick={e => setLevel(idx)}>
-                      <Space size={isMobile ? 2 : 10} align={isMobile ? 'center' : 'start'}>
+                      <Space size={isMobile ? 2 : 10} align="center">
                         <AmountValue checked={level == idx} isMobile={isMobile}>
                           {new BigNumber(levelInfo.betSize.toString(10)).div(10 ** 18).toFormat(0, 1)}
                         </AmountValue>
@@ -268,7 +264,7 @@ const SubmitCardV1: React.FC<ISubmitCard> = ({ disabled }) => {
           )}
           <ButtonPrimary disabled={pending || disable} width="250px" onClick={handleSubmitCard}>
             <Space>
-              <span style={{ fontFamily: 'lemon' }}>{disable ? t('No Gold points') : isApprove ? t('Submit') : t('Approve')}</span>
+              <span>{disable ? t('No Gold points') : isApprove ? t('Submit') : t('Approve')}</span>
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>

@@ -5,7 +5,7 @@
   margin-right: 4%
   margin-top: 14px
   margin-bottom: 3%
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     margin-top: 7px
   
 .roundNumbersV2
@@ -18,7 +18,7 @@
   box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.25) inset;
   padding: 1% 1% 1% 2%;
   width: 664px;
-  @media screen and (max-width: 768px)
+  @media screen and (max-width: 830px)
     width: 328px;
     padding: 6px 4px;
 
@@ -32,7 +32,6 @@
     width: 80px
     height: 83px
     border-radius: 19px;
-    font-family: 'Pacifico';
     font-weight: 400;
     color: #804700;
     margin-right: 13px;
@@ -53,16 +52,18 @@
       img
         display: block
         width 100%
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         width 22px
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 50px
       height: 50px
+      line-height: 50px
       margin-right: 4px;
       font-size: 28px;
       border-radius: 11px;
       .span_num
         height: 50px
+        font-weight: 600
 
 
     &::before 
@@ -75,17 +76,17 @@
       border-radius: 15px;
       border: 1px dashed #ad6c2b;
       box-shadow: 0.20000000298023224px 0px 1px 0px #4a2525 inset;
-      @media screen and (max-width: 768px)
+      @media screen and (max-width: 830px)
         border-radius: 9px;
         top: 3px;
         bottom: 3px;
         left: 3px;
         right: 3px;
+        font-weight: 600
     .span_box
       height: 100%
     .span_pass
-      font-family: 'Lemon';
       font-size: 20px
-      font-weight: 400
-      @media screen and (max-width: 768px)
+      font-weight: 600
+      @media screen and (max-width: 830px)
         font-size: 12px;

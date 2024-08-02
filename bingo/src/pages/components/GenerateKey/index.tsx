@@ -21,14 +21,6 @@ interface IGenerateKey {
   disabled?: boolean
 }
 
-const Title = styled.div`
-  color: #62380c;
-  text-align: center;
-  font-family: Lemon;
-  font-size: 16px;
-  /* padding-top: 38px; */
-`
-
 const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const isMobile = useIsW768()
   const [pending, setPending] = useState(false)
@@ -40,7 +32,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const resetJoinGame = useResetRecoilState(joinGameState)
   const dispatch = useAppDispatch()
 
-  const handleGenerateKey = useCallback(async () => {
+  const handleGenerateKey = async () => {
     if (!chainId || !account) {
       return
     }
@@ -49,38 +41,40 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     resetGameRoom()
     const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
     try {
-      const label = await lobbyContract.read.getNextKeyLabel([account])
-      const signedLabel = await getWeb3Sign(label, account, false)
-      if (typeof signedLabel === 'string') {
-        setJoinGameState((state: JoinGameStateType) => ({
-          ...state,
-          signedLabel
-        }))
-      }
-      setCurrentStep(1)
+      const timeoutPromise = new Promise((_, reject) => {
+        setTimeout(() => reject(new Error('Operation timed out')), 20000)
+      })
+      await Promise.race([
+        (async () => {
+          const label = await lobbyContract.read.getNextKeyLabel([account])
+          const signedLabel = await getWeb3Sign(label, account, false)
+          if (typeof signedLabel === 'string') {
+            setJoinGameState((state: JoinGameStateType) => ({
+              ...state,
+              signedLabel
+            }))
+          }
+          setCurrentStep(1)
+        })(),
+        timeoutPromise
+      ])
     } catch (e) {
       setErrorToast(dispatch, e, lobbyContract)
     } finally {
       setPending(false)
     }
-  }, [chainId, account])
+  }
   const { t } = useCustomTranslation([LngNs.zBingo])
   return (
     <div className={cx(css.generateKey, { [css.disabled]: disabled })}>
-      {isMobile && <Title>{t('Encryption Key Generation')}</Title>}
+      {isMobile && <h3 className={css.mTitle}>{t('Encryption Key Generation')}</h3>}
       <img src={preStaticUrl + '/img/bingo/key.svg'} alt="" />
       <SetUpSubText>{t('GenerateKeyText1')}</SetUpSubText>
-      <div
-        style={{
-          display: 'flex',
-          justifyContent: 'center',
-          paddingTop: '24px'
-        }}
-      >
+      <div className={css.btnWrap}>
         {account ? (
           <ButtonPrimary disabled={pending} width="258px" onClick={handleGenerateKey}>
             <Space size={10}>
-              <span style={{ fontFamily: 'lemon' }}>{t('Generate key')}</span>
+              <span>{t('Generate key')}</span>
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>
@@ -92,7 +86,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
               setPending(false)
             }}
           >
-            <span style={{ fontFamily: 'lemon' }}>{t('Connect wallet')}</span>
+            <span>{t('Connect wallet')}</span>
           </ButtonPrimary>
         )}
       </div>

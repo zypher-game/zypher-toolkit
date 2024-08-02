@@ -13,7 +13,7 @@ export const SubmitCardEle = styled.div`
 
 export const ViewCard = styled.div`
   color: #59b407;
-  font-family: 'Lemon';
+
   font-size: 12px;
   padding: 20px;
   cursor: pointer;
@@ -40,7 +40,6 @@ export const CardBack = styled.div<{ isMobile: boolean }>`
   padding-bottom: ${({ isMobile }) => isMobile && '0px'};
   font-size: 16px;
   color: #613c17;
-  font-family: 'Lemon';
 `
 export const BingoCardView = styled.div<{ isMobile: boolean }>`
   width: ${({ isMobile }) => (isMobile ? '294px' : '356px')};
@@ -51,14 +50,14 @@ export const BingoCardView = styled.div<{ isMobile: boolean }>`
 
 export const AmountValue = styled.div<{ isMobile: boolean; checked: boolean }>`
   color: ${({ checked }) => (checked ? '#FFF0CF' : '#db5f16')};
-  font-family: Pacifico;
+
   line-height: ${({ isMobile }) => (isMobile ? '20px' : '28px')};
   font-size: ${({ isMobile }) => (isMobile ? '16px' : '30px')};
 `
 export const Title = styled.div`
   color: #62380c;
   text-align: center;
-  font-family: Lemon;
+  font-weight: 600;
   font-size: 16px;
   padding-top: 15px;
   padding-bottom: 15px;

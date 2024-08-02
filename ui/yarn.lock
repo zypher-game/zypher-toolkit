@@ -2913,12 +2913,12 @@
     tslib "1.14.1"
 
 "@zypher-game/bingo-periphery-v1@zypher-game/bingo-periphery-v1":
-  version "0.2.1"
-  resolved "https://codeload.github.com/zypher-game/bingo-periphery-v1/tar.gz/1c63000fb8e8e0e501d11e001458aa2aeea0ec83"
+  version "0.2.2"
+  resolved "https://codeload.github.com/zypher-game/bingo-periphery-v1/tar.gz/5a65c4781848b6133c7012b87dcc879972010637"
 
 "@zypher-game/bingo-periphery@zypher-game/bingo-periphery":
-  version "1.1.24"
-  resolved "https://codeload.github.com/zypher-game/bingo-periphery/tar.gz/a80715d51e6716a85562d28db81263d0b52c7fac"
+  version "1.1.26"
+  resolved "https://codeload.github.com/zypher-game/bingo-periphery/tar.gz/a2362f3fc1a1487e312b9ec760ddad21fc9a8898"
 
 "@zypher-game/events@0.231025.34125":
   version "0.231025.34125"

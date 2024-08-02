@@ -17,7 +17,7 @@
     font-size: 20px
     line-height: 1.5
   .playerNum
-    font-family: 'Lemon';
+    
     color: #804700
     font-size: 16px
     line-height: 1.5
@@ -33,7 +33,7 @@
     font-size: 34px
     text-shadow: -1px -1.5px 0px #381F05;
     padding:10px 25px
-    font-family: 'Lemon';
+    
     text-align: center
     border: 5px solid #FFD690
     border-radius: 40px
@@ -44,7 +44,7 @@
     background: linear-gradient(180deg, #88E413 0%, #2A9507 100%)
     color: #FFF5E1
     font-size: 28px
-    font-family: 'Lemon';
+    
     padding: 10px 25px
     border-radius: 40px
     border: 5px solid #FFD690
@@ -68,7 +68,7 @@
     padding:20px 0
     font-size:20px
     color: #864802
-    font-family: 'Lemon';
+    
   .BoxCard 
     background: #613C17;
     box-shadow: inset 0px -1px 0px #BF905B;
@@ -84,7 +84,7 @@
     top: 30%
     left: 50%
     transform: translate(-50%, -50%)
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 80%;
   .progressBox
     max-width: 1082px
@@ -93,7 +93,7 @@
     top: 75%
     left: 50%
     transform: translate(-50%, -50%)
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       width: 90%;
       top: 60%
   .progress
@@ -105,7 +105,7 @@
     justify-content: center;
     background: url($preStaticUrl + '/img/bingo/loading-box.png') no-repeat center;
     background-size: 100% 100%;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       height: 20px;
       padding: 0 3.3%;
       :global(.ant-progress)
@@ -121,11 +121,11 @@
     text-align: center;
     color: #8E571E;
     padding-top: 20px;
-    font-family: 'Lemon';
+    
     font-style: normal;
     font-weight: 400;
     font-size: 18px;
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
       font-size: 12px;
       
 @keyframes borderColor
@@ -142,7 +142,7 @@
   align-items: center
   justify-content: center
   border-radius:24px
-  font-family: Poppins;
+  
   color: #FFF;
   font-size: 16px;
 .countdown
@@ -153,7 +153,7 @@
   align-items: center
   justify-content: center
   border-radius:24px
-  font-family: Poppins;
+  
   color: #FFF;
   margin-left: 20px
   font-size: 16px;

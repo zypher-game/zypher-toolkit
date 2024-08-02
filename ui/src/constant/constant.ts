@@ -31,6 +31,7 @@ export enum ChainId {
   Arbitrum = "42161",
   ArbitrumRinkeby = "421611",
   ArbitrumGoerli = "421613",
+  LineaSepolia = "59141",
   LineaTestnet = "59140",
   LineaMainnet = "59144",
   POLYGON_MUMBAI = "80001",
@@ -63,6 +64,7 @@ export const DPSupportChainId = !isPro()
   ? [
       ChainId.LineaTestnet,
       ChainId.LineaMainnet,
+      ChainId.LineaSepolia,
       ChainId.OPBNBTEST,
       ChainId.OPBNB,
       ChainId.ZytronLineaSepoliaTestnet,
@@ -75,6 +77,7 @@ export const bingoV1SupportedChainId = !isPro()
   ? [
       ChainId.LineaMainnet,
       ChainId.LineaTestnet,
+      ChainId.LineaSepolia,
       ChainId.OPBNB,
       ChainId.OPBNBTEST,
       ChainId.ZytronLineaSepoliaTestnet,
@@ -91,7 +94,6 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
-      // ChainId.SagaMainnet,
     ]
   : [
       ChainId.Arbitrum,
@@ -113,6 +115,7 @@ export const supportedChainIds = (
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaTestnet,
+        ChainId.LineaSepolia,
         ChainId.B2,
         ChainId.B2Testnet,
         ChainId.Taiko,
@@ -142,12 +145,8 @@ export const supportedChainIds = (
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {
-  [ChainId.LineaTestnet]: [
-    "https://rpc.goerli.linea.build",
-    // "https://linea.drpc.org",
-    // "https://1rpc.io/linea",
-    // "https://linea.blockpi.network/v1/rpc/public",
-  ],
+  [ChainId.LineaTestnet]: ["https://rpc.goerli.linea.build"],
+  [ChainId.LineaSepolia]: ["https://rpc.sepolia.linea.build"],
   [ChainId.LineaMainnet]: ["https://rpc.linea.build"],
   [ChainId.Arbitrum]: ["https://arb1.arbitrum.io/rpc"],
   [ChainId.OPBNBTEST]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
@@ -211,23 +210,16 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
     "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io",
   ],
 };
-export const ChainRpcWebSocketUrls: Partial<Record<ChainId, string[]>> = {
-  [ChainId.ArbitrumGoerli]: ["wss://arbitrum-goerli.publicnode.com"],
-  [ChainId.POLYGON_ZKEVM]: [],
-  [ChainId.ScrollAlphaTestnet]: [],
-  [ChainId.OPBNBTEST]: [],
-  [ChainId.OPBNB]: [],
-  [ChainId.ScrollSepoliaTestnet]: [],
-};
 
 export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Bsc]: ["https://bscscan.com"],
   [ChainId.BscTestnet]: ["https://testnet.bscscan.com"],
   [ChainId.Arbitrum]: ["https://arbiscan.io"],
   [ChainId.ArbitrumRinkeby]: ["https://testnet.arbiscan.io"],
-  [ChainId.LineaTestnet]: ["https://explorer.goerli.linea.build"],
   [ChainId.POLYGON_MUMBAI]: ["https://mumbai.polygonscan.com"],
   [ChainId.LineaMainnet]: ["https://lineascan.build"],
+  [ChainId.LineaTestnet]: ["https://explorer.goerli.linea.build"],
+  [ChainId.LineaSepolia]: ["https://sepolia.lineascan.build"],
   [ChainId.ArbitrumGoerli]: ["https://goerli.arbiscan.io/"],
   [ChainId.POLYGON_ZKEVM]: ["https://testnet-zkevm.polygonscan.com"],
   [ChainId.OPBNBTEST]: ["https://opbnb-testnet.bscscan.com"],
@@ -260,6 +252,7 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.ArbitrumGoerli]: "Arbitrum Goerli Testnet",
   [ChainId.ArbitrumRinkeby]: "Arbitrum Rinkeby",
   [ChainId.LineaTestnet]: "Linea Testnet",
+  [ChainId.LineaSepolia]: "Linea Sepolia",
   [ChainId.LineaMainnet]: "Linea Mainnet",
   [ChainId.POLYGON_MUMBAI]: "Polygon Mumbai",
   [ChainId.POLYGON_ZKEVM]: "Polygon zkEVM Testnet",
@@ -285,9 +278,9 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Bsc]: "bsc",
   [ChainId.BscTestnet]: "bsc-testnet",
   [ChainId.Arbitrum]: "arbitrum",
-
   [ChainId.ArbitrumRinkeby]: "arbitrum-rinkeby",
   [ChainId.LineaTestnet]: "linea-testnet",
+  [ChainId.LineaSepolia]: "Linea Sepolia",
   [ChainId.LineaMainnet]: "linea",
   [ChainId.POLYGON_MUMBAI]: "maticmum",
   [ChainId.ArbitrumGoerli]: "arbitrum-goerli",
@@ -317,6 +310,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.Arbitrum]: false,
   [ChainId.ArbitrumRinkeby]: true,
   [ChainId.LineaTestnet]: true,
+  [ChainId.LineaSepolia]: true,
   [ChainId.LineaMainnet]: false,
   [ChainId.POLYGON_MUMBAI]: true,
   [ChainId.POLYGON_ZKEVM]: true,
@@ -346,6 +340,7 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.Arbitrum]: "ETH",
   [ChainId.ArbitrumRinkeby]: "ETH",
   [ChainId.LineaTestnet]: "ETH",
+  [ChainId.LineaSepolia]: "ETH",
   [ChainId.LineaMainnet]: "ETH",
   [ChainId.POLYGON_MUMBAI]: "ETH",
   [ChainId.ArbitrumGoerli]: "ETH",
@@ -410,6 +405,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
       "0xae2F2660EdEf3197648cC89432a197a000b97EC3",
       // "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a",
     ],
+  },
+  [ChainId.LineaSepolia]: {
+    multicall: [MulticallV3],
   },
   [ChainId.LineaMainnet]: {
     multicall: [MulticallV3],

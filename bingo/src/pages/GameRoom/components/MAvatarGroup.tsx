@@ -1,8 +1,7 @@
+import { useAvatar } from '@ui/src'
 import { Avatar } from 'antd'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-
-import generateAvatar from '@/utils/generateAvatar'
 
 const { Group } = Avatar
 
@@ -93,7 +92,7 @@ type IAvatarGroupList = {
 }
 
 export const AvatarGroupList: React.FC<IAvatarGroupList> = ({ address, size, style, border }) => {
-  const { selectedAvatar, selectedBackground } = generateAvatar(address)
+  const { selectedAvatar, selectedBackground } = useAvatar(address, false)
 
   return (
     <Avatar

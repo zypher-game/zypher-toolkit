@@ -14,7 +14,7 @@ import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import generateCardNumbers, { CardNumbersType } from '@/utils/generateCardNumbers'
-import { getEIP712Sign, getWeb3Sign } from '@/utils/getSign'
+import { getWeb3Sign } from '@/utils/getSign'
 
 import { ButtonPrimary } from '../Button'
 import { SetUpSubText } from '../Text'
@@ -49,7 +49,7 @@ const BoxRight = styled.div<{ isMobile: boolean }>`
 const Title = styled.div`
   color: #62380c;
   text-align: center;
-  font-family: Lemon;
+  font-weight: 600;
   font-size: 16px;
   /* padding-top: 15px; */
   padding-bottom: 10px;
@@ -128,9 +128,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
         joinGame.signedLabel,
         encodedNumbers
       ])
-      console.log({ hashedCardBytes })
       const signedCard = await getWeb3Sign(hashedCardBytes, account)
-      console.log({ signedCard })
       if (typeof signedCard === 'string') {
         setJoinGameState(state => ({
           ...state,
@@ -190,7 +188,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
                       <div>
                         <ButtonPrimary disabled={pending} width={isMobile ? '180px' : '258px'} onClick={handleEncryptCard}>
                           <Space size={10}>
-                            <span style={{ fontFamily: 'lemon' }}>{t('Encrypt')}</span>
+                            <span>{t('Encrypt')}</span>
                             {pending && <LoadingOutlined />}
                           </Space>
                         </ButtonPrimary>
@@ -211,7 +209,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
               <button className={css.changeM} onClick={handleReset} />
               <ButtonPrimary disabled={pending} height={isMobile && '50px'} width={isMobile ? '180px' : '258px'} onClick={handleEncryptCard}>
                 <Space size={10}>
-                  <span style={{ fontFamily: 'lemon' }}>{t('Encrypt')}</span>
+                  <span>{t('Encrypt')}</span>
                   {pending && <LoadingOutlined />}
                 </Space>
               </ButtonPrimary>

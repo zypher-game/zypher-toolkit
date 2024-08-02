@@ -3,7 +3,6 @@ import { bingoBetaSupportedChainId, ChainId, ChainName, supportedChainIds, useAc
 import { useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { getShortenAddress, LngNs } from '@ui/src'
-import { PlayerAvatar } from '@ui/src'
 import { IBingoInfo, IGameStatus } from '@ui/src'
 import { Avatar, List, Select, Space, Spin, Table } from 'antd'
 import { ColumnGroupType, ColumnType } from 'antd/lib/table'
@@ -12,6 +11,7 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
+import BingoPlayerAvatar from '@/components/BingoPlayerAvatar/BingoPlayerAvatar'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { GetGameListBoxImg } from '@/hooks/useMText'
 import { IGameListBeta } from '@/hooks/useRecentGames'
@@ -91,7 +91,7 @@ const ListRow = styled.div`
 `
 const StateButton = styled.div<{ status: boolean }>`
   color: ${({ status }) => (status ? '#60e300' : '#613C17')};
-  font-family: Poppins;
+
   font-size: 12px;
   padding: 2px 8px;
   display: flex;
@@ -103,7 +103,7 @@ const StateButton = styled.div<{ status: boolean }>`
 const Card = styled.div`
   border-radius: 8px;
   background: #ffd6a2;
-  font-family: Poppins;
+
   margin-bottom: 10px;
   font-size: 12px;
   color: #613c17;
@@ -208,7 +208,7 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
             {status === IGameStatus.End && (
               <Space size={10} align="center">
                 <div style={{ height: '32px' }}>
-                  <PlayerAvatar account={winnerOrPlayers} size={32} showAccount={false} />
+                  <BingoPlayerAvatar account={winnerOrPlayers} size={32} showAccount={false} />
                 </div>
                 {getShortenAddress(winnerOrPlayers)}
               </Space>
@@ -296,7 +296,7 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
                         display: 'flex'
                       }}
                     >
-                      <PlayerAvatar account={item.winnerOrPlayers} size={20} showAccount={false} />
+                      <BingoPlayerAvatar account={item.winnerOrPlayers} size={20} showAccount={false} />
                     </div>
                     {getShortenAddress(item.winnerOrPlayers)}
                   </Space>

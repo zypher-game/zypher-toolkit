@@ -1,0 +1,63 @@
+.startGameWrapper
+  border-radius: 32px
+  background:url($preStaticUrl + '/img/bingo/pannel.png')  no-repeat;
+  width: 1165px
+  background-size: 100% 100%;
+  box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.25) inset, 0px 2px 1px 0px rgba(255, 255, 255, 0.3) inset,
+    0px 0px 4px 2px rgba(255, 255, 255, 0.2) inset;
+  height: 717px
+  margin: 0px auto;
+  position: relative;
+  padding-bottom: 10px;
+  @media screen and (max-width: 830px)
+    border-radius: 12px
+    width: 355px
+    height: 621px
+    &.en_US
+      background:url($preStaticUrl + '/img/bingo/pannel_m_en_US.png')  no-repeat;
+    &.ko_KR
+      background:url($preStaticUrl + '/img/bingo/pannel_m_ko_KR.png')  no-repeat;
+    &.zh_TW
+      background:url($preStaticUrl + '/img/bingo/pannel_m_zh_TW.png')  no-repeat;
+.startGameHead
+  color: #62380c;
+  padding-left: 40px;
+  padding-right: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 141px
+  font-size: 25px
+  @media screen and (max-width: 830px)
+    height:116px
+    font-size:12px
+  .title 
+    padding-bottom: 10px;
+    font-size: 25px
+    font-weight: 600;
+    @media screen and (max-width: 830px)
+      font-size: 18px
+  .subtitle 
+    font-size: 12px;
+    img 
+      padding-right: 8px;
+.startGame
+  display: flex
+  align-items: center
+  justify-content: center
+  height: 100%
+  padding-bottom: 70px
+.wrap 
+  padding: 10px
+  @media screen and (max-width: 830px)
+    padding: 4vh 10px 10px
+.close
+  position: absolute;
+  top: 25px
+  right: 25px
+  width:  ''
+  @media screen and (max-width: 830px)
+    top: 15px
+    right: 15px
+    width: 24px

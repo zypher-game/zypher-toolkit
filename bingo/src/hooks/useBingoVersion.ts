@@ -26,6 +26,7 @@ export const useBingoVersion = () => {
     }
   }, [chainId, chainIdParams])
   useEffect(() => {
+    console.log({ chainIdParams, bingoBetaSupportedChainId })
     if (chainIdParams && bingoBetaSupportedChainId.includes(chainIdParams as ChainId)) {
       setBingoVersion(IBingoVersion.beta)
     } else {

@@ -1,7 +1,7 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { formatMoney, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
-import { Space, Tooltip } from 'antd'
+import { ChainId, formatMoney, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import { Space, Tooltip } from 'antd'
 import React, { useCallback, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
@@ -21,7 +21,7 @@ const BoxImgWrap = styled.div<{ isMobile: boolean }>`
   }
   p {
     color: ${({ isMobile }) => (isMobile ? '#613c17' : 'rgb(255, 240, 207)')};
-    font-family: lemon;
+
     font-size: 24px;
   }
 `
@@ -38,7 +38,7 @@ const AmountValueItem = styled.div<{ isMobile: boolean }>`
 `
 const Label = styled.div<{ color?: string }>`
   color: ${({ color }) => (color ? color : '#613c17')};
-  font-family: Poppins;
+
   line-height: 30px;
   font-weight: 600;
 
@@ -48,9 +48,10 @@ const Label = styled.div<{ color?: string }>`
 `
 const AmountValue = styled.div<{ isMobile: boolean }>`
   color: #db5f16;
-  font-family: Pacifico;
-  font-size: ${({ isMobile }) => (isMobile ? '16px' : '24px')};
+  font-weight: 600;
+  font-size: ${({ isMobile }) => (isMobile ? '13px' : '24px')};
   line-height: ${({ isMobile }) => (isMobile ? '18px' : '42px')};
+  text-align: right;
 `
 
 const Icon = styled(ExclamationCircleOutlined)<{ color?: string }>`
@@ -106,10 +107,10 @@ const InputValueBeta: React.FC<InputValueProps> = ({ color, playersNumber, room,
     return a.multipliedBy(gameRate).toNumber().toFixed(2)
   }, [gameRate])
   const get = useCallback(async () => {
-    let DefaultChainId = chainId as number
+    let DefaultChainId = chainId as ChainId
     if (!DefaultChainId) {
       // DefaultChainId = supportedChainIds[0]
-      DefaultChainId = 5611 //因为合约不全 这里暂时默认opbnb testnet
+      DefaultChainId = ChainId.OPBNB //因为合约不全 这里暂时默认opbnb testnet
     }
     const Contract = bingoLobbyFee(DefaultChainId, env)
     const txnReceipt = await Contract.read.getGameFeeRatio()

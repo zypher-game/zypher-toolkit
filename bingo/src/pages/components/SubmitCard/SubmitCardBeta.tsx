@@ -183,7 +183,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
           </ViewCard>
           <ButtonPrimary disabled={pending} width="250px" onClick={handleSubmitCard}>
             <Space>
-              <span style={{ fontFamily: 'lemon' }}>{t('Submit')}</span>
+              <span>{t('Submit')}</span>
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>

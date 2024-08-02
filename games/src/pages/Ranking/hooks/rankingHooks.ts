@@ -1,8 +1,8 @@
-import { formatMoney, request, useActiveWeb3React } from '@ui/src'
+import { formatMoney, graphqlApiUrl, request, useActiveWeb3React } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
-import { defaultRankChainId, graphqlApiUrl } from '@/constants/constants'
+import { defaultRankChainId } from '@/constants/constants'
 
 import { IPlayerRankingItem } from '../Ranking'
 

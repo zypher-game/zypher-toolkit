@@ -14,7 +14,6 @@ export const useToastMessage = () => {
   const dispatch = useAppDispatch()
   useEffect(() => {
     if (toastContainerRef.current) {
-      console.log(3)
       GlobalVar.getContainer = toastContainerRef.current
     }
   }, [toastContainerRef])

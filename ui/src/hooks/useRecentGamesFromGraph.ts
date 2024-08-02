@@ -58,23 +58,26 @@ export const useRecentGamesFromGraph = ({
 
 export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.LineaMainnet]:
-    // "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
-    "https://graph-query.linea.build/subgraphs/name/zypher/bingo",
+    "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
   [ChainId.LineaTestnet]:
     "https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli",
+  [ChainId.LineaSepolia]:
+    "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
   [ChainId.OPBNB]:
     "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   [ChainId.OPBNBTEST]:
     "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  // [ChainId.ArbitrumGoerli]:
-  // "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo",
+  [ChainId.ArbitrumGoerli]:
+    "https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo",
 };
+
 export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Bsc]: "BNB",
   [ChainId.BscTestnet]: "BT",
   [ChainId.Arbitrum]: "AO",
   [ChainId.ArbitrumGoerli]: "AGT",
   [ChainId.ArbitrumRinkeby]: "ARBR",
+  [ChainId.LineaSepolia]: "LS",
   [ChainId.LineaTestnet]: "LT",
   [ChainId.LineaMainnet]: "LM",
   [ChainId.POLYGON_MUMBAI]: "PM",
@@ -95,6 +98,7 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.ZytronLineaSepoliaTestnet]: "",
   [ChainId.ZytronB2Testnet]: "",
   [ChainId.Taiko]: "TK",
+  [ChainId.SagaMainnet]: "SM",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {

@@ -39,7 +39,7 @@ html, body, #root
     height: 100%
     background: #131313
     color: #fff
-    @media screen and (max-width: 768px)
+    @media screen and (max-width: 830px)
         width: 100vw
         height: auto
         overflow-x: hidden
@@ -116,11 +116,14 @@ i.ant-spin-dot-item
     .lt-header
         height: 70px
         border: none
-        @media screen and (max-width: 768px)
+        @media screen and (max-width: 830px)
             height: 44px
             background-color:  #131313
         .pixel_flat_btn_bg
             opacity 0.6
+        .header_right
+            .pixel_flat_inner .pixel_flat_btn_bg
+                opacity 1
     &.home,
     &.ranking
         .lt-header
@@ -134,7 +137,7 @@ i.ant-spin-dot-item
             // min-width: 1200px
             flex: 1
             overflow: auto
-            @media screen and (max-width: 768px)
+            @media screen and (max-width: 830px)
                 min-width: 100vw;
                 padding: 0
                 height: 100vh
@@ -153,7 +156,13 @@ body [data-reach-dialog-content]
     &.pixel_DialogContent
         margin-left: 16px
         margin-right: 16px
-.ant-layout.lt-layout
+html body .ant-layout.ant-layout-has-sider > .ant-layout, .ant-layout.ant-layout-has-sider > .ant-layout-content
+    @media screen and (max-width: 830px)
+        width 100% !important
+body .ant-layout.lt-layout
+    @media screen and (max-width: 830px)
+        overflow: auto
+        flex-direction: column;
     .custom-side 
       transition: transform 0.3s ease, opacity 0.3s ease;
       opacity: 1;
@@ -164,7 +173,7 @@ body [data-reach-dialog-content]
       position: fixed;
       bottom: 0;
       right: 0;
-      z-index: 100 !important;
+      z-index: 999999 !important;
       &.hidden
         @media screen and (max-width: 830px)
           transform: translateX(100%);

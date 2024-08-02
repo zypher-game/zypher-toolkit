@@ -60,14 +60,8 @@ export const TransactionsCount: Record<ChainId, string> = {
   [ChainId.ZytronLineaSepoliaTestnet]: '0',
   [ChainId.ZytronB2Testnet]: '0',
   [ChainId.Taiko]: '0',
-  [ChainId.SagaMainnet]: '0'
-}
-export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
-  [ChainId.LineaMainnet]: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo',
-  [ChainId.LineaTestnet]: 'https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli',
-  [ChainId.OPBNB]: 'https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
-  [ChainId.OPBNBTEST]: 'https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
-  [ChainId.ArbitrumGoerli]: 'https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo'
+  [ChainId.SagaMainnet]: '0',
+  [ChainId.LineaSepolia]: '0'
 }
 
 export const monsterGraphqlApiUrl: Partial<Record<ChainId, string>> = {

@@ -1,7 +1,9 @@
-import { PlayerAvatar, PointsIcon, preStaticUrl } from '@ui/src'
+import { PointsIcon } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo } from 'react'
 import styled from 'styled-components'
+
+import BingoPlayerAvatar from '@/components/BingoPlayerAvatar/BingoPlayerAvatar'
 
 import css from './account.module.stylus'
 
@@ -21,7 +23,7 @@ type IProps = {
 }
 const RanderNormalText: FC<IProps> = memo(({ label, showPoint, isMobile }: IProps) => {
   return `${label}`.startsWith('0x') ? (
-    <PlayerAvatar className={css.account} size={22} account={label} showAccount={true} border={false} />
+    <BingoPlayerAvatar className={css.account} size={22} account={label} showAccount={true} border={false} />
   ) : (
     <StatusP isMobile={isMobile}>
       {label}
