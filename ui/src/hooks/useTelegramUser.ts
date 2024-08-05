@@ -31,10 +31,10 @@ export const useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
+      if (!window.IS_TELEGRAM) {
+        // if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
         return null;
       }
-      alert(JSON.stringify(WebAppData));
       const res = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/user/get`, {
         WebAppData,
       });

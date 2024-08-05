@@ -85,6 +85,7 @@ const getConnectors = (
       TG_BOT_URL
     );
     const account = acc.address as Address;
+    console.log("acc.", account);
     const pub = publicClient({ chainId: ChainId.SagaMainnet });
     const walletClient = createWalletClient({
       account,

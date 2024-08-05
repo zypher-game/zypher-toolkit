@@ -25,7 +25,7 @@ export const tonWeb = new TonWeb(tonProvider);
 //   console.error("WebAppData", err);
 // }
 export const WebAppData = {
-  query_id: "AAHoW-FSAAAAAOhb4VJOCgV9",
+  query_id: "AAHoW-FSAAAAAOhb4VLDThlv",
   user: {
     id: 1390500840,
     first_name: "sli",
@@ -34,6 +34,6 @@ export const WebAppData = {
     language_code: "zh-hans",
     allows_write_to_pm: true,
   },
-  auth_date: "1722840558",
-  hash: "049e617a1b234fef134391627cd45a17476587b90e468c0f4a2d4d9276a41d54",
+  auth_date: "1722849170",
+  hash: "2934d675e4210f9e3ded94f3ad3dc500cae3b51489fd2fbd96738a6145db009c",
 };

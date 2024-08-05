@@ -2556,7 +2556,7 @@ var tonProvider = new TonWeb.HttpProvider(TonChainInfo.endpoint, {
 });
 var tonWeb = new TonWeb(tonProvider);
 var WebAppData = {
-  query_id: "AAHoW-FSAAAAAOhb4VJOCgV9",
+  query_id: "AAHoW-FSAAAAAOhb4VLDThlv",
   user: {
     id: 1390500840,
     first_name: "sli",
@@ -2565,8 +2565,8 @@ var WebAppData = {
     language_code: "zh-hans",
     allows_write_to_pm: true
   },
-  auth_date: "1722840558",
-  hash: "049e617a1b234fef134391627cd45a17476587b90e468c0f4a2d4d9276a41d54"
+  auth_date: "1722849170",
+  hash: "2934d675e4210f9e3ded94f3ad3dc500cae3b51489fd2fbd96738a6145db009c"
 };
 
 // src/hooks/useTelegramUser.ts
@@ -2579,11 +2579,9 @@ var useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      var _a, _b;
-      if (!window.IS_TELEGRAM || !((_b = (_a = window.Telegram) == null ? void 0 : _a.WebApp) == null ? void 0 : _b.initData)) {
+      if (!window.IS_TELEGRAM) {
         return null;
       }
-      alert(JSON.stringify(WebAppData));
       const res = httpPost(`${TG_BOT_URL}/user/get`, {
         WebAppData
       });
@@ -3703,6 +3701,7 @@ var getConnectors = (env, publicClient, chainIdList) => {
       TG_BOT_URL
     );
     const account = acc.address;
+    console.log("acc.", account);
     const pub = publicClient({ chainId: "2717465680371000" /* SagaMainnet */ });
     const walletClient = createWalletClient({
       account,
