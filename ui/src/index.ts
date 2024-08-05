@@ -87,6 +87,8 @@ export {
   bingoSupportedChainId,
   isPro,
   getCryptoImg,
+  GlobalVar,
+  TG_BOT_URL,
 } from "./constant/constant";
 export {
   TVL_API,
@@ -119,6 +121,7 @@ export {
   crLink,
 } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
+export { useTelegramUser } from "./hooks/useTelegramUser";
 export {
   connectorState,
   walletModalOpenState,

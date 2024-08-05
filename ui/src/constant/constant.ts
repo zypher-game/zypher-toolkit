@@ -1,3 +1,4 @@
+import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
 import { AddressZero } from "@ethersproject/constants";
 import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
 import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
@@ -553,3 +554,15 @@ export const zkBingo = (
 };
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
+export const TG_BOT_URL = "https://bingo-api.zypher.game";
+
+type IGlobalVar = {
+  dispatch: (arg: any) => any;
+  getContainer?: HTMLElement;
+  mockAcc?: any;
+};
+export const GlobalVar: IGlobalVar = {
+  dispatch: (arg: any) => null as any,
+  getContainer: undefined,
+  mockAcc: (address: Address, proof?: TonProofItemReplySuccess) => null as any,
+};

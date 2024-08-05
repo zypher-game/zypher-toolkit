@@ -10,7 +10,7 @@ export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameList, } 
 import { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient } from "wagmi";
 export { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
-export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, } from "./constant/constant";
+export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, GlobalVar, TG_BOT_URL, } from "./constant/constant";
 export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
@@ -19,6 +19,7 @@ export { default as sleep } from "./utils/sleep";
 export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 export { LinkList, blankLinkList, useNavItem, zAceLink, crLink, } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
+export { useTelegramUser } from "./hooks/useTelegramUser";
 export { connectorState, walletModalOpenState, ChainSelector, refreshBalanceState, refreshAvatarState, pointsDialogState, pointsWarnState, hidePointsWarnState, pointsRuleDialogState, accountInfoDialogState, linkToBetaDialogState, linkToBetaDialogChainIdState, nativeBalanceState, pointsBalanceState, } from "./components/ConnectWallet/state/connectWalletState";
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
 export { default as SideBar } from "./components/SideBar/SideBar";

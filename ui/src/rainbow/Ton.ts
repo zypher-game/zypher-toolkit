@@ -13,7 +13,6 @@ export const tonWeb = new TonWeb(tonProvider);
 export const WebAppData: any = {};
 try {
   const search = new URLSearchParams(window.Telegram?.WebApp?.initData);
-  alert({ search });
   // @ts-ignore
   for (const [key, value] of search.entries()) {
     WebAppData[key] = value;
