@@ -2,7 +2,7 @@ import { isEqual } from 'lodash'
 import React, { FC, memo, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { setSuccessToast } from '@/utils/Error/setErrorToast'
 

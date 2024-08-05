@@ -25,7 +25,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { useWalletClient } from 'wagmi'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import DPABI from '@/contract/dpStaking/abis/contracts/DP.sol/DP.json'
 import STAKINGABI from '@/contract/dpStaking/abis/contracts/Staking.sol/Staking.json'
 import { DPContract, DPStakingContract, getDpStakingAddress, IDPContract } from '@/contract/dpStaking/dpStaking'

@@ -1,9 +1,25 @@
-import { createPublicClient, fallback, http, PublicClient } from "viem";
-import { configureChains, createConfig } from "wagmi";
+import {
+  createPublicClient,
+  fallback,
+  http,
+  PublicClient,
+  zeroAddress,
+  createWalletClient,
+  custom,
+  publicActions,
+} from "viem";
+import { Address, configureChains, Connector, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { particleWallet } from "@particle-network/rainbowkit-ext";
 import { ParticleNetwork } from "@particle-network/auth";
-import { ChainId, ChainRpcUrls, supportedChainIds } from "../constant/constant";
+import { MockConnector } from "wagmi/connectors/mock";
+import {
+  ChainId,
+  ChainRpcUrls,
+  GlobalVar,
+  supportedChainIds,
+  TG_BOT_URL,
+} from "../constant/constant";
 import { Chain } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
 import { connectorsForWallets } from "../rainbowkit/src/wallets/connectorsForWallets";
 import { metaMaskWallet } from "../rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet";
@@ -12,6 +28,11 @@ import { bitgetWallet } from "../rainbowkit/src/wallets/walletConnectors/bitgetW
 import { okxWallet } from "../rainbowkit/src/wallets/walletConnectors/okxWallet/okxWallet";
 import { tokenPocketWallet } from "../rainbowkit/src/wallets/walletConnectors/tokenPocketWallet/tokenPocketWallet";
 import { AllChainInfo } from "../constant/chains";
+import { ethers } from "ethers";
+import { TelegramWallet } from "./telegramWallet";
+import sleep from "../utils/sleep";
+// import mitt from "mitt";
+// export const mockBus = mitt<{ addressChange: string }>();
 const getSupportedChainIdList = (
   env: string,
   chainIdList?: ChainId[]
@@ -47,12 +68,54 @@ const projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 //   chains
 // })
 
-const getConnectors = (env: string, chainIdList?: ChainId[]) => {
+const getConnectors = (
+  env: string,
+  publicClient: any,
+  chainIdList?: ChainId[]
+): (() => Connector<any, any>[]) => {
+  const { chains } = getConfigureChains(env, chainIdList);
   if (window.IS_TELEGRAM) {
-    alert(JSON.stringify(window.Telegram?.WebApp.initData));
+    const provider = new ethers.providers.JsonRpcProvider(
+      ChainRpcUrls[ChainId.SagaMainnet][0]
+    );
+    const acc = new TelegramWallet(
+      (localStorage.getItem("TelegramUserIdEvmAddressKey") as Address) ||
+        zeroAddress,
+      provider,
+      TG_BOT_URL
+    );
+    const account = acc.address as Address;
+    const pub = publicClient({ chainId: ChainId.SagaMainnet });
+    const walletClient = createWalletClient({
+      account,
+      chain: AllChainInfo[ChainId.SagaMainnet],
+      transport: custom({
+        async request({ method, params }) {
+          console.log(method, params);
+          if (method !== "eth_sendTransaction") {
+            const res = await pub.request({ method, params });
+            console.log("res", res);
+            return res;
+          }
+          const fmt = { ...params[0] };
+          fmt.gasLimit = fmt.gas;
+          delete fmt.gas;
+          const txr = await acc.sendTransaction(fmt);
+          return txr.hash;
+        },
+      }),
+    }).extend(publicActions);
+    const mock = new MockConnector({ chains, options: { walletClient } });
+    GlobalVar.mockAcc = async (address: Address, proof: any) => {
+      acc.setAddress(address);
+      walletClient.account.address = address;
+      mock.emit("change", { account: address });
+      await sleep(0.2);
+      // mockBus.emit("addressChange", address);
+    };
+    return [mock] as any;
   }
 
-  const { chains } = getConfigureChains(env, chainIdList);
   return connectorsForWallets([
     {
       groupName: "Recommended",
@@ -77,12 +140,13 @@ const getConnectors = (env: string, chainIdList?: ChainId[]) => {
     },
   ]);
 };
-export const getWagmiConfig = (env: string, chainIdList?: ChainId[]) => {
-  const connectors = getConnectors(env, chainIdList);
+export const getWagmiConfig = (env: string, chainIdList?: ChainId[]): any => {
   const { publicClient, webSocketPublicClient } = getConfigureChains(
     env,
     chainIdList
   );
+  const connectors = getConnectors(env, publicClient, chainIdList);
+
   return createConfig({
     autoConnect: true,
     connectors,
@@ -106,7 +170,7 @@ export const viemClients = (env: string): Record<ChainId, PublicClient> => {
       [cur.id]: createPublicClient({
         chain: cur,
         transport: fallback(
-          (ChainRpcUrls[cur.id] as string[]).map((url) =>
+          (ChainRpcUrls[`${cur.id}` as ChainId] as string[]).map((url) =>
             http(url, {
               timeout: 15_000,
             })

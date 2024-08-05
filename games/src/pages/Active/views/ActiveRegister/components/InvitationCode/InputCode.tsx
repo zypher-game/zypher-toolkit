@@ -56,7 +56,7 @@ const InputCode = memo(({ setCodeStr }: IProps) => {
         } else if (currentLength === CODELENGTH) {
           if (chainId) {
             const link = LinkPre[initialCode[0]]
-            if (trimmedValue[0] === link.label) {
+            if (link && trimmedValue[0] === link.label) {
               const check = await codeCheck(trimmedValue)
               if (check) {
                 setActiveData(pre => {

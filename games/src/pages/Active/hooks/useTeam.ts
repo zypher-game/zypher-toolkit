@@ -3,7 +3,7 @@ import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 

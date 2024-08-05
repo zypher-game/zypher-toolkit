@@ -2,6 +2,7 @@ import 'dayjs/locale/zh-cn'
 import './assets/stylus/index.styl'
 import '@reach/dialog/styles.css'
 import './react-extras.d.ts'
+import './polyfills'
 
 // import '../node_modules/@ui/ui/dist/index.css'
 import { bingoSupportedChainId, IsW768Provider, RainbowKitWithThemeProvider, RecoilRoot } from '@ui/src'
@@ -17,7 +18,6 @@ import store from '@/store'
 
 import { ThemeProvider } from './theme'
 import { env } from './utils/config'
-
 render(
   <Provider store={store}>
     <RecoilRoot>

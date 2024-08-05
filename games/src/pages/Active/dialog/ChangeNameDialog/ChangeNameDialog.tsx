@@ -18,7 +18,7 @@ import { ethers } from 'ethers'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 

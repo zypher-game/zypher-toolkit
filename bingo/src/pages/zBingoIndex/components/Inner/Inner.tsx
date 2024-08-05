@@ -46,31 +46,33 @@ const InnerItem = memo(({ v }: { v: ILevels }) => {
   const { openChainModal } = useChainModal()
 
   useEffect(() => {
-    const handleMouseEnter = () => {
-      setTimeout(() => {
-        setIsAnimating(true)
-      }, 400)
-    }
+    if (!isMobile) {
+      const handleMouseEnter = () => {
+        setTimeout(() => {
+          setIsAnimating(true)
+        }, 400)
+      }
 
-    const handleMouseLeave = () => {
-      setTimeout(() => {
-        setIsAnimating(false)
-      }, 400)
-    }
+      const handleMouseLeave = () => {
+        setTimeout(() => {
+          setIsAnimating(false)
+        }, 400)
+      }
 
-    const element = document.getElementById(`innerItem-${v.index}`)
-    if (element) {
-      element.addEventListener('mouseenter', handleMouseEnter)
-      element.addEventListener('mouseleave', handleMouseLeave)
-    }
-
-    return () => {
+      const element = document.getElementById(`innerItem-${v.index}`)
       if (element) {
-        element.removeEventListener('mouseenter', handleMouseEnter)
-        element.removeEventListener('mouseleave', handleMouseLeave)
+        element.addEventListener('mouseenter', handleMouseEnter)
+        element.addEventListener('mouseleave', handleMouseLeave)
+      }
+
+      return () => {
+        if (element) {
+          element.removeEventListener('mouseenter', handleMouseEnter)
+          element.removeEventListener('mouseleave', handleMouseLeave)
+        }
       }
     }
-  }, [v.index])
+  }, [isMobile, v.index])
   const handleOnClick = useCallback(async () => {
     if (!account) {
       setDialogOpen(false)

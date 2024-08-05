@@ -3,6 +3,8 @@ execute_cd_yarn() {
   local dir=$1
   echo "Changing to directory: $dir"
   cd "$dir" || echo "Warning: Directory '$dir' not found or inaccessible, continuing anyway."
+  echo "node -v"
+  node -v
   yarn || echo "Error: yarn command failed in directory '$dir'"
 }
 

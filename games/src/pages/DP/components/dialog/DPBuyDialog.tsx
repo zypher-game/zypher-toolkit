@@ -6,7 +6,7 @@ import { BigNumberJs } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { dpBuyDialogState } from '../../hooks/state'

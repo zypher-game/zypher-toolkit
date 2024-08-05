@@ -2,7 +2,7 @@ import { preStaticUrl, SvgComponent } from '@ui/src'
 import { notification } from 'antd'
 import React, { useEffect, useRef } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { changeUserStateValue } from '../store/user/reducer'

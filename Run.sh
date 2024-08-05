@@ -49,6 +49,7 @@ fi
 
 # 构建ui并提交更改
 cd "$path_ui"
+yarn
 npm run build
 cd ..
 git fetch --prune

@@ -26,11 +26,14 @@ export const useBingoVersion = () => {
     }
   }, [chainId, chainIdParams])
   useEffect(() => {
-    console.log({ chainIdParams, bingoBetaSupportedChainId })
-    if (chainIdParams && bingoBetaSupportedChainId.includes(chainIdParams as ChainId)) {
+    if (window.IS_TELEGRAM) {
       setBingoVersion(IBingoVersion.beta)
     } else {
-      setBingoVersion(IBingoVersion.v1)
+      if (chainIdParams && bingoBetaSupportedChainId.includes(chainIdParams as ChainId)) {
+        setBingoVersion(IBingoVersion.beta)
+      } else {
+        setBingoVersion(IBingoVersion.v1)
+      }
     }
   }, [chainIdParams])
 }

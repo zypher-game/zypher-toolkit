@@ -15,7 +15,7 @@ import { ActivePixelCard, PixelCube3 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { selectChainDialogState } from '../../state/activeState'

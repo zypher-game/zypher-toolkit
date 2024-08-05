@@ -24,7 +24,7 @@ import {
 } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import copy from '@/utils/copy'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 

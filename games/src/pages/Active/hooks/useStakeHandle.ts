@@ -27,7 +27,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { TVLStakingContract } from '@/contract/tvlStaking'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'

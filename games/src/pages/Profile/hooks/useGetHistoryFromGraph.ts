@@ -4,6 +4,7 @@ import {
   getFormattedTime,
   getFormattedTimeMobile,
   getRecentGameById,
+  graphqlApiUrl,
   IGameList,
   IGameName,
   IGameStatus,
@@ -11,12 +12,11 @@ import {
   request,
   useActiveWeb3React
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 
-import { graphqlApiUrl } from '@/constants/constants'
-import { BigNumberJs } from '@ui/src'
 import { chainIdPre } from '@/utils/gameFormatGames'
 
 export function getStatus(status: number): IGameStatus {

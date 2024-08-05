@@ -18,7 +18,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { useSwitchNetwork, useWalletClient } from 'wagmi'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 

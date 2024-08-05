@@ -5,7 +5,7 @@ import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
 

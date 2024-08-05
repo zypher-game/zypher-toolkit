@@ -1,9 +1,9 @@
 import { NavKey, pathnameState, useRecoilValue } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { useLayoutEffect, useMemo } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
-
 import { useAppDispatch } from '../store/hooks'
+
 export const useIsGetActiveData = () => {
   const pathname = useRecoilValue(pathnameState)
   return useMemo(() => {

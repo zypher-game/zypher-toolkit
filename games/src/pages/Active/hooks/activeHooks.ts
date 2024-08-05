@@ -4,7 +4,7 @@ import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 import { Address } from 'wagmi'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'

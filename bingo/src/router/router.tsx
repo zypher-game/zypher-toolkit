@@ -1,4 +1,4 @@
-import { useGetInvitationAddress } from '@ui/src'
+import { useGetInvitationAddress, useTelegramUser } from '@ui/src'
 import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -26,6 +26,7 @@ export default (): JSX.Element => {
   usePollPrice()
   useAudio()
   useTelegram()
+  useTelegramUser()
   return (
     <Suspense fallback={null}>
       <Layout>

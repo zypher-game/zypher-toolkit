@@ -1,7 +1,7 @@
 import { ChainId, useActiveWeb3React, useRecoilState, useSetRecoilState, useSwitchNetwork } from '@ui/src'
 import { useCallback } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { depositCurrencyState, tvlStakingDialogState, tvlStakingForbidDialogState } from '../state/activeState'

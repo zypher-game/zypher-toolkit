@@ -1,7 +1,7 @@
 import { NavKey, pathnameState, useRecoilValue } from '@ui/src'
 import { useLayoutEffect, useMemo } from 'react'
 
-import { GlobalVar } from '@/constants/constants'
+import { GlobalVar } from '@ui/src'
 import { useActiveInit } from '@/pages/Active/hooks/useActiveInit'
 import { useActiveRouter } from '@/pages/Active/hooks/useActiveRouter'
 

@@ -56,13 +56,3 @@ export const gasPrice: Record<ChainId, string | undefined> = {
   [ChainId.Taiko]: undefined,
   [ChainId.SagaMainnet]: undefined
 }
-type IGlobalVar = {
-  dispatch: (arg: any) => any
-  getContainer?: HTMLElement
-}
-export const GlobalVar: IGlobalVar = {
-  dispatch: (arg: any) => null as any,
-  getContainer: undefined
-}
-
-export const TG_BOT_URL = 'https://2048-api.zypher.game'
