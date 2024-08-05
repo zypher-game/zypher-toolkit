@@ -3614,8 +3614,8 @@ var tokenPocketWallet = ({
 import { ethers } from "ethers";
 
 // src/rainbow/telegramWallet.tsx
-import { Signer } from "ethers";
-import { resolveProperties } from "ethers/lib/utils";
+import { Signer, utils as utils2 } from "ethers";
+var { resolveProperties } = utils2;
 var TelegramWallet = class extends Signer {
   constructor(address, provider, api) {
     super();
@@ -3844,12 +3844,12 @@ import abi from "@zypher-game/bingo-periphery-v1/abi/ZkBingoPoints.json";
 
 // src/connectors/contractV2.ts
 import { AddressZero as AddressZero2 } from "@ethersproject/constants";
-import { ethers as ethers2, providers, utils as utils2 } from "ethers";
+import { ethers as ethers2, providers, utils as utils3 } from "ethers";
 import {
   getContract as viemGetContract
 } from "viem";
 var Contract = ethers2.Contract;
-var getAddress = utils2.getAddress;
+var getAddress = utils3.getAddress;
 var getContract = ({
   abi: abi2,
   address,

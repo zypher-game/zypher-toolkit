@@ -3,12 +3,14 @@ import {
   Provider,
   TransactionResponse,
 } from "@ethersproject/abstract-provider";
-import { Bytes, Signer } from "ethers";
-import { Deferrable, resolveProperties } from "ethers/lib/utils";
+import { Bytes, Signer, utils } from "ethers";
+
 import { Address } from "wagmi";
 import { httpPost } from "../utils/request";
 import { WebAppData } from "./Ton";
 
+type Deferrable<T> = utils.Deferrable<T>;
+const { resolveProperties } = utils;
 export class TelegramWallet extends Signer {
   address: Address;
   provider: Provider;

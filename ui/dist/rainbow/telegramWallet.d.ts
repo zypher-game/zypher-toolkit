@@ -1,7 +1,7 @@
 import { TransactionRequest, Provider, TransactionResponse } from "@ethersproject/abstract-provider";
-import { Bytes, Signer } from "ethers";
-import { Deferrable } from "ethers/lib/utils";
+import { Bytes, Signer, utils } from "ethers";
 import { Address } from "wagmi";
+type Deferrable<T> = utils.Deferrable<T>;
 export declare class TelegramWallet extends Signer {
     address: Address;
     provider: Provider;
@@ -14,3 +14,4 @@ export declare class TelegramWallet extends Signer {
     setAddress(address: Address): void;
     sendTransaction(transaction: Deferrable<TransactionRequest>): Promise<TransactionResponse>;
 }
+export {};
