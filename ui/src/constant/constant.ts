@@ -61,6 +61,7 @@ export enum ChainId {
 
   SagaMainnet = "2717465680371000",
 }
+const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
 export const DPSupportChainId = !isPro()
   ? [
       ChainId.LineaTestnet,
@@ -84,7 +85,9 @@ export const bingoV1SupportedChainId = !isPro()
       ChainId.ZytronLineaSepoliaTestnet,
     ]
   : [ChainId.LineaMainnet, ChainId.OPBNB];
-export const bingoBetaSupportedChainId = !isPro()
+export const bingoBetaSupportedChainId = TGChainId
+  ? TGChainId
+  : !isPro()
   ? [
       ChainId.Arbitrum,
       ChainId.ArbitrumGoerli,
@@ -102,7 +105,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.MantaPacificMainnet,
       ChainId.Combo,
     ];
-export const bingoSupportedChainId = [
+export const bingoSupportedChainId = TGChainId || [
   ...bingoV1SupportedChainId,
   ...bingoBetaSupportedChainId,
 ];
@@ -110,7 +113,9 @@ export const supportedChainIds = (
   env?: string,
   chainList?: ChainId[]
 ): Array<ChainId> => {
-  return chainList
+  return TGChainId
+    ? TGChainId
+    : chainList
     ? chainList
     : !isPro() || env === "develop"
     ? [
@@ -332,7 +337,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.ZytronLineaSepoliaTestnet]: true,
   [ChainId.ZytronB2Testnet]: true,
   [ChainId.Taiko]: false,
-  [ChainId.SagaMainnet]: false,
+  [ChainId.SagaMainnet]: true,
 };
 
 export const Currency: Record<ChainId, string> = {

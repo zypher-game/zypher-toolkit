@@ -34,7 +34,10 @@ export const ChainDefinitions = (chainId: ChainId): Chain =>
       nodereal: { name: "Nodereal", url: BlockExplorerUrls[chainId][0] },
     },
     contracts: {
-      multicall3: { address: CurrencyContract[chainId].multicall[0] },
+      multicall3: {
+        address: CurrencyContract[chainId].multicall[0],
+        blockCreated: 0,
+      },
     },
     testnet: isTestnet[chainId],
   });

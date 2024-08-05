@@ -92,16 +92,27 @@ const getConnectors = (
       transport: custom({
         async request({ method, params }) {
           console.log(method, params);
-          if (method !== "eth_sendTransaction") {
+          const useLocal = ["eth_sendTransaction", "personal_sign"].includes(
+            method
+          );
+          if (!useLocal) {
             const res = await pub.request({ method, params });
             console.log("res", res);
             return res;
           }
+
           const fmt = { ...params[0] };
           fmt.gasLimit = fmt.gas;
           delete fmt.gas;
-          const txr = await acc.sendTransaction(fmt);
-          return txr.hash;
+          if (method === "eth_sendTransaction") {
+            const txr = await acc.sendTransaction(fmt);
+            return txr.hash;
+          }
+          if (method === "personal_sign") {
+            const txr = await acc.signMessage(fmt);
+            console.log({ txr });
+            return txr;
+          }
         },
       }),
     }).extend(publicActions);
@@ -146,6 +157,7 @@ export const getWagmiConfig = (env: string, chainIdList?: ChainId[]): any => {
     chainIdList
   );
   const connectors = getConnectors(env, publicClient, chainIdList);
+  console.log({ connectors });
 
   return createConfig({
     autoConnect: true,
