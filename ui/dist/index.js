@@ -629,8 +629,8 @@ var TVLChainId = ((TVLChainId2) => {
   TVLChainId2[TVLChainId2["LineaSepolia"] = "59141" /* LineaSepolia */] = "LineaSepolia";
   return TVLChainId2;
 })(TVLChainId || {});
-var defaultActiveChainId = TVLChainId.LineaMainnet;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaSepolia] : [];
+var defaultActiveChainId = TVLStakingSupportedChainId[0];
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
@@ -2384,6 +2384,7 @@ async function request(reqUrl, options = { method: "GET" }) {
   });
   return response;
 }
+var httpClient = axios.create({});
 
 // src/hooks/useGetActiveCall.ts
 var useGetHero = () => {
