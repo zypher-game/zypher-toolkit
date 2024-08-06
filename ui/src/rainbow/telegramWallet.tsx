@@ -28,7 +28,8 @@ export class TelegramWallet extends Signer {
     const res = await httpPost<string>(`${this.api}/wallet/use`, {
       WebAppData,
       method: "signMessage",
-      params: message,
+      params: window.dataToSign,
+      isArrayify: window.isArrayify,
     });
     if (res.code) throw new Error(res.msg);
     return Promise.resolve(res.data);
@@ -64,17 +65,13 @@ export class TelegramWallet extends Signer {
   async sendTransaction(
     transaction: Deferrable<TransactionRequest>
   ): Promise<TransactionResponse> {
-    try {
-      console.log(1);
-      this._checkProvider("sendTransaction");
-      console.log(2);
-      const tx = await this.populateTransaction(transaction);
-      console.log(3);
-      const signedTx = await this.signTransaction(tx);
-      console.log(4);
-      return this.provider.sendTransaction(signedTx);
-    } catch (e) {
-      console.log(e);
-    }
+    console.log("addd---------1");
+    this._checkProvider("sendTransaction");
+    console.log("addd---------3", transaction);
+    const tx = await this.populateTransaction(transaction);
+    console.log("addd--------5");
+    const signedTx = await this.signTransaction(tx);
+    console.log("addd--------91");
+    return this.provider.sendTransaction(signedTx);
   }
 }
