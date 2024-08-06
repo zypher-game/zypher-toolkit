@@ -22,9 +22,9 @@ import {
   useRecoilValue,
   useSwitchNetwork
 } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
-import { GlobalVar } from '@ui/src'
 import copy from '@/utils/copy'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
@@ -32,6 +32,7 @@ import StakingBtn from '../Active/components/StakingBtn/StakingBtn'
 import { StakingTitle } from '../Active/components/Title/Title'
 import TVLStakingDialog from '../Active/dialog/StakingDialog/StakingDialog'
 import StakingForbidDialog from '../Active/dialog/StakingDialog/StakingForbidDialog'
+import { usePreHandleAction } from '../Active/hooks/activeHooks'
 import { useChainIndex } from '../Active/hooks/useChainIndex'
 import { useStake } from '../Active/hooks/useStakeData'
 import { useAirdropPointsTooltip } from '../Active/hooks/useTooltip'
@@ -46,7 +47,8 @@ export const Theme: Record<TVLChainId, ThemeKey> = {
   [TVLChainId.B2]: 'b2',
   [TVLChainId.B2Testnet]: 'b2',
   [TVLChainId.LineaMainnet]: 'linea',
-  [TVLChainId.LineaTestnet]: 'linea'
+  [TVLChainId.LineaTestnet]: 'linea',
+  [TVLChainId.LineaSepolia]: 'linea'
 }
 
 type IThemeItem = {
@@ -125,14 +127,18 @@ const ZeroGas = memo(() => {
   const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
   const { setChainIndex, chainIdLocal } = useChainIndex()
   const { switchNetwork } = useSwitchNetwork()
-  const { chainId } = useActiveWeb3React()
+  const preHandleAction = usePreHandleAction()
+  const { chainId, account } = useActiveWeb3React()
   const switchChainHandle = useCallback(
     (params: ChainId) => {
-      if (switchNetwork && params !== chainId) {
-        try {
-          switchNetwork(parseInt(params, 10))
-        } catch (err) {
-          setErrorToast(GlobalVar.dispatch, err)
+      const isOk = preHandleAction()
+      if (isOk) {
+        if (switchNetwork && params !== chainId) {
+          try {
+            switchNetwork(parseInt(params, 10))
+          } catch (err) {
+            setErrorToast(GlobalVar.dispatch, err)
+          }
         }
       }
     },
@@ -162,6 +168,7 @@ const ZeroGas = memo(() => {
             } as IStakeItem)
         )
         const { SBTTooltip } = getTooltip({ chainId: chainIdLocal, mintMinimum: mintMinimumStr })
+        console.log({ stakingData, _chainIdParams, dataMap, accountAddress, activeDataSource })
         return [
           chainIdParams,
           <>
@@ -187,7 +194,7 @@ const ZeroGas = memo(() => {
                       <div className={css.bannerText}>
                         <div className={css.bannerTitle}>
                           <h2>{text} Zytron L3</h2>
-                          {!chainId || showSwitch ? (
+                          {!account || showSwitch ? (
                             <PixelCube3
                               className={css.switchChain}
                               pixel_height={2}
@@ -195,7 +202,7 @@ const ZeroGas = memo(() => {
                               borderColor="#fff"
                               onClick={() => switchChainHandle(L3ChainId[chainIdParams])}
                             >
-                              {!chainId ? (
+                              {!account ? (
                                 <p>Connect Wallet</p>
                               ) : (
                                 <>
@@ -223,7 +230,7 @@ const ZeroGas = memo(() => {
                           <p className={css.grey}>
                             You got the Zypher SBT{' '}
                             <a
-                              href={`${BlockExplorerUrls[chainIdLocal][0]}/address/${activeTokenList[chainId].Soulbound}`}
+                              href={`${BlockExplorerUrls[chainIdLocal][0]}/address/${activeTokenList[chainIdParams].Soulbound}`}
                               target="_blank"
                               rel="noreferrer"
                             >

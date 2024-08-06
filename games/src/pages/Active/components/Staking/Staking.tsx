@@ -14,6 +14,7 @@ import {
   preStaticUrl,
   SvgComponent,
   TVLChainId,
+  TVLStakingSupportedChainId,
   useIsW768,
   useRecoilValue,
   useSetRecoilState
@@ -223,10 +224,12 @@ const Staking = memo(() => {
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Staking</h3>
-      <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
-        <p>Current network: {ChainName[chainIdFromStake]}</p>
-        <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
-      </PixelBorderCardButton>
+      {TVLStakingSupportedChainId.length < 2 ? null : (
+        <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
+          <p>Current network: {ChainName[chainIdFromStake]}</p>
+          <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
+        </PixelBorderCardButton>
+      )}
       <div className={css.staking_token_detail}>
         <p className={css.staking_token_detail_fl}>You can restake</p>
         <div className={css.staking_token_detail_fr}>

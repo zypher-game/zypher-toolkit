@@ -23,7 +23,6 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
     if (env) {
       const wagmiConfig = getWagmiConfig(env, chainIdList);
       const { chains } = getConfigureChains(env);
-      console.log({ chainIdList, chains });
       return {
         wagmiConfig: wagmiConfig,
         chains: chains,

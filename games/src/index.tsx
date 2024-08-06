@@ -2,6 +2,7 @@ import 'dayjs/locale/zh-cn'
 import './assets/stylus/index.styl'
 import '@reach/dialog/styles.css'
 import './react-extras.d.ts'
+import './polyfills'
 
 // import '../node_modules/@ui/ui/dist/index.css'
 import { IsW768Provider, RainbowKitWithThemeProvider, RecoilRoot, supportedChainIds } from '@ui/src'

@@ -12,10 +12,10 @@ import {
   useSwitchNetwork
 } from '@ui/src'
 import { ActivePixelCard, PixelCube3 } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
-import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { selectChainDialogState } from '../../state/activeState'

@@ -4,4 +4,5 @@
 interface Window {
   env: string
   isGames: boolean
+  isArrayify: boolean
 }

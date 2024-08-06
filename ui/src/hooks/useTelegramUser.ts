@@ -25,19 +25,38 @@ export const TelegramUserInfoState = atom({
   default: null as null | TelegramUserInfoDto,
 });
 export const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
-
+const getFaucet = async () => {
+  try {
+    const resaaa = httpPost<string>(`${TG_BOT_URL}/wallet/get`, {
+      WebAppData,
+    });
+    const address = (await resaaa).data;
+    if (address && address.startsWith("0x")) {
+      const faucetURL = "https://mainnet-simple-faucet.zypher.game";
+      await fetch(faucetURL, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify({ address: address }),
+      });
+    }
+  } catch (e) {
+    console.log("getFaucet Error", e);
+  }
+};
 export const useTelegramUser = () => {
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
     async () => {
-      if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
+      if (!window.IS_TELEGRAM) {
+        // if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
         return null;
       }
-      alert(JSON.stringify(WebAppData));
       const res = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/user/get`, {
         WebAppData,
       });
+      getFaucet();
+      console.log({ res: await res });
       if ((await res).code) return null;
       return (await res).data;
     },

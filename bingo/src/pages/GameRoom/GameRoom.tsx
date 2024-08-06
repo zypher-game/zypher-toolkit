@@ -404,40 +404,40 @@ const GameRoom: React.FC = () => {
     [account, chainId, bingoVersion, selectedNumbers, cardNumbers, walletClient]
   )
 
-  const handleSelectAndBingo = useCallback(
-    async (markedNum: number | string) => {
-      if (!chainId || !walletClient) {
-        return
-      }
-      const lobbyContract = bingoLobby({
-        chainId,
-        env,
-        bingoVersion,
-        walletClient
+  const handleSelectAndBingo = async (markedNum: number | string) => {
+    if (!chainId || !walletClient) {
+      return
+    }
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
+    try {
+      console.log([gameId, markedNum, cardNums, joinGame.signedLabel])
+      const txnReceipt = await lobbyContract.write.selectAndBingo([gameId, markedNum, cardNums, joinGame.signedLabel], {
+        account: account,
+        gas: gasPrice[chainId],
+        maxFeePerGas: gasPrice[chainId],
+        maxPriorityFeePerGas: gasPrice[chainId]
       })
-      try {
-        const txnReceipt = await lobbyContract.write.selectAndBingo([gameId, markedNum, cardNums, joinGame.signedLabel], {
-          account: account,
-          maxFeePerGas: gasPrice[chainId],
-          maxPriorityFeePerGas: gasPrice[chainId]
+      const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
+      const selectAndBingoTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+      if (selectAndBingoTx && selectAndBingoTx.status === txStatus) {
+        postAccountUpdate({ tx: selectAndBingoTx })
+      } else {
+        throw Object.assign(new Error('SelectAndBingo Failed'), {
+          name: 'SelectAndBingo'
         })
-        const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
-        const selectAndBingoTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-        if (selectAndBingoTx && selectAndBingoTx.status === txStatus) {
-          postAccountUpdate({ tx: selectAndBingoTx })
-        } else {
-          throw Object.assign(new Error('SelectAndBingo Failed'), {
-            name: 'SelectAndBingo'
-          })
-        }
-      } catch (error) {
-        setErrorToast(dispatch, error, lobbyContract)
       }
-    },
-    [account, chainId, bingoVersion, walletClient]
-  )
+    } catch (error) {
+      console.log({ error })
+      setErrorToast(dispatch, error, lobbyContract)
+    }
+  }
 
-  const handleBingo = useCallback(async () => {
+  const handleBingo = async () => {
     if (!chainId || !walletClient) {
       return
     }
@@ -454,11 +454,13 @@ const GameRoom: React.FC = () => {
         setWinner(lastInfo.winner)
         return
       }
+      console.log('aaaa------1111', [gameId, cardNums, joinGame.signedLabel])
       const txnReceipt = await lobbyContract.write.bingo([gameId, cardNums, joinGame.signedLabel], {
         account: account,
         maxFeePerGas: gasPrice[chainId],
         maxPriorityFeePerGas: gasPrice[chainId]
       })
+      console.log('aaaa------2222')
       const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
       const bingoTx: TransactionReceipt | undefined = await waitForTransaction({
         confirmations: 1,
@@ -470,11 +472,12 @@ const GameRoom: React.FC = () => {
         throw Object.assign(new Error('Bingo Failed'), { name: 'Bingo' })
       }
     } catch (error) {
+      console.log('aaaa------3333')
       setErrorToast(dispatch, error, lobbyContract)
     } finally {
       setPending(false)
     }
-  }, [account, chainId, bingoVersion, walletClient])
+  }
   const setCurrentStep = useSetRecoilState(startGameStep)
   const toBingoPage = useCallback(() => {
     resetGameRoom()

@@ -42,17 +42,19 @@ const ActiveTVLTeam = memo(() => {
   useEffect(() => {
     let _num = Number(groupGoal.percent)
     _num = _num > 100 ? 100 : _num
-    const timer = setInterval(() => {
-      setPercentWidth(newPercent => {
-        const newVal = newPercent + Math.floor(Math.random() * 10)
-        if (newVal > _num) {
-          clearInterval(timer)
-        }
-        return newVal > 100 ? 100 : newVal
-      })
-    }, 200)
-    return () => {
-      clearInterval(timer)
+    if (_num) {
+      const timer = setInterval(() => {
+        setPercentWidth(newPercent => {
+          const newVal = newPercent + Math.floor(Math.random() * 10)
+          if (newVal > _num) {
+            clearInterval(timer)
+          }
+          return newVal > 100 ? 100 : newVal
+        })
+      }, 200)
+      return () => {
+        clearInterval(timer)
+      }
     }
   }, [groupGoal.percent])
   return (

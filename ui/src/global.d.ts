@@ -20,6 +20,8 @@ declare global {
     isGames: boolean;
     IS_TELEGRAM: boolean;
     Telegram: Telegram;
+    isArrayify: boolean;
+    dataToSign: any;
   }
 }
 import "react";

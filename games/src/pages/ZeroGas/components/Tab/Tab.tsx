@@ -14,6 +14,9 @@ const Tab = memo(({ chainIdLocal, onClick }: { chainIdLocal: ChainId; onClick: S
       onClick: () => onClick(index)
     }))
   }, [])
+  if (list.length < 2) {
+    return <></>
+  }
   if (isW768) {
     return (
       <PixelCube2 className={css.ActiveTVLStaking_tab} pixel_height={2} height="32px" backgroundColor="#1D263B" borderColor="#1649FF">

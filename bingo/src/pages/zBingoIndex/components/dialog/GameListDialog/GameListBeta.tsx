@@ -352,18 +352,20 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
   }, [bingoHasError, bingoDataSourceLoading, showData])
   return (
     <>
-      <BorderSelect isMobile={isMobile}>
-        <MySlelect
-          isMobile={isMobile}
-          bordered={false}
-          dropdownRender={menu => <div className={'selectDropdownBox'}>{menu}</div>}
-          defaultValue={selectValue}
-          value={selectValue}
-          onChange={changeHandle}
-          suffixIcon={<CaretDownOutlined style={{ color: '#52B70C' }} />}
-          options={options}
-        />
-      </BorderSelect>
+      {window.IS_TELEGRAM ? null : (
+        <BorderSelect isMobile={isMobile}>
+          <MySlelect
+            isMobile={isMobile}
+            bordered={false}
+            dropdownRender={menu => <div className={'selectDropdownBox'}>{menu}</div>}
+            defaultValue={selectValue}
+            value={selectValue}
+            onChange={changeHandle}
+            suffixIcon={<CaretDownOutlined style={{ color: '#52B70C' }} />}
+            options={options}
+          />
+        </BorderSelect>
+      )}
       {isMobile ? (
         renderMobile
       ) : (

@@ -54,5 +54,5 @@ export const gasPrice: Record<ChainId, string | undefined> = {
   [ChainId.ZytronLineaSepoliaTestnet]: undefined,
   [ChainId.ZytronB2Testnet]: undefined,
   [ChainId.Taiko]: undefined,
-  [ChainId.SagaMainnet]: undefined
+  [ChainId.SagaMainnet]: '10000000'
 }

@@ -6,4 +6,6 @@ interface Window {
   isGames: boolean
   IS_TELEGRAM: boolean
   Telegram: Telegram
+  isArrayify: boolean
+  dataToSign: any
 }

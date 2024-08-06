@@ -39,11 +39,14 @@ export const useStake = () => {
   const { activeData } = useActiveData()
   const { getStakingData } = useStakeData()
   const { accountAddress } = activeData
-  const { account } = useActiveWeb3React()
+  const { account, chainId } = useActiveWeb3React()
   const [, setTvlStakingData] = useRecoilState(tvlStakingDataState)
+
   useEffect(() => {
-    getStakingData()
-  }, [])
+    if (account && chainId) {
+      getStakingData()
+    }
+  }, [account, chainId])
   useEffect(() => {
     if (account && accountAddress !== account) {
       setTvlStakingData(tvlStakingDataV2Init)
@@ -387,7 +390,7 @@ export const useStakeData = () => {
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
         setTvlStakingData(resMap)
-
+        console.log({ resMap })
         const reduceValue = Object.fromEntries(
           Object.keys(resMap).map(chainId => {
             const _chainId = chainId as unknown as ChainId

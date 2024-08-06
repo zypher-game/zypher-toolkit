@@ -3,6 +3,9 @@ import React, { memo } from 'react'
 
 import css from './ChainTab.module.styl'
 const ChainTab = memo(({ chainIndex, changeChainIndexHandle }: { chainIndex: number; changeChainIndexHandle: (index: number) => void }) => {
+  if (TVLStakingSupportedChainId.length < 2) {
+    return <></>
+  }
   return (
     <PixelCube2
       className={css.ActiveTVLStaking_tab}

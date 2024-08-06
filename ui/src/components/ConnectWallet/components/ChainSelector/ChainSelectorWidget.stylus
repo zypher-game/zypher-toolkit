@@ -19,5 +19,11 @@
     justify-content: center;
     align-items: center;
     gap: 10px;
+    max-width: 120px
     p 
       white-space: nowrap;
+      max-width: 80%
+      overflow: hidden
+      white-space: nowrap
+      text-overflow: ellipsis
+

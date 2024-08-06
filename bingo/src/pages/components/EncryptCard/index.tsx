@@ -90,11 +90,11 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const [cardNumbers, setCardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const { data: walletClient } = useWalletClient()
-
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
   const dispatch = useAppDispatch()
+
   const handleReset = useCallback(() => {
     setCardNumbers(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   }, [])
@@ -103,7 +103,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
     setCardNumbers(n)
   }, [])
 
-  const handleEncryptCard = useCallback(async () => {
+  const handleEncryptCard = async () => {
     if (!chainId || !account || !walletClient) {
       return
     }
@@ -128,7 +128,8 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
         joinGame.signedLabel,
         encodedNumbers
       ])
-      const signedCard = await getWeb3Sign(hashedCardBytes, account)
+      const signedCard = await getWeb3Sign(hashedCardBytes, account, true, walletClient)
+      console.log({ signedCard })
       if (typeof signedCard === 'string') {
         setJoinGameState(state => ({
           ...state,
@@ -145,7 +146,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
     } finally {
       setPending(false)
     }
-  }, [chainId, account, walletClient, bingoVersion, JSON.stringify(cardNumbers), JSON.stringify(joinGame)])
+  }
 
   return (
     <div className={cx(css.encryptCard, { [css.disabled]: disabled })}>

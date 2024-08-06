@@ -1,10 +1,10 @@
 import { AddressZero } from '@ethersproject/constants'
 import { ChainId, CODELENGTH, getLinkPre, preStaticUrl, request, TVL_API, TVLStakingSupportedChainId, useActiveWeb3React } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 import { Address } from 'wagmi'
 
-import { GlobalVar } from '@ui/src'
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'

@@ -24,3 +24,16 @@ try {
 } catch (err) {
   console.error("WebAppData", err);
 }
+// export const WebAppData = {
+//   query_id: "AAHoW-FSAAAAAOhb4VLDThlv",
+//   user: JSON.stringify({
+//     id: 1390500840,
+//     first_name: "sli",
+//     last_name: "hai",
+//     username: "hailiting",
+//     language_code: "zh-hans",
+//     allows_write_to_pm: true,
+//   }),
+//   auth_date: "1722914942",
+//   hash: "ed0f6e4d2cd3b4ff071a5a87c26a48bb679bb9cb166a982e9f7165e0b98c5ecf",
+// };

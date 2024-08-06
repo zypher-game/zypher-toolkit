@@ -1,7 +1,7 @@
 import { getLinkPre, sleep, TVL_API, useActiveWeb3React } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { useCallback, useEffect, useMemo } from 'react'
 
-import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import { form_primary_score } from '../utils/formmate'
@@ -36,7 +36,7 @@ export const useBind = () => {
     // }
     setActiveData(pre => ({ ...pre, checkAirdropPointsLoading: true }))
     await sleep(3)
-    const primary_score_res = await getPrimaryScore()
+    const primary_score_res = await getPrimaryScore(chainId)
     const primaryScoreRes = form_primary_score(activeData, primary_score_res)
     setActiveData(pre => ({ ...pre, ...primaryScoreRes, checkAirdropPointsLoading: false }))
   }, [JSON.stringify(activeData), account, setSuccessToast])

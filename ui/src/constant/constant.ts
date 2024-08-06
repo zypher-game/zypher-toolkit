@@ -61,6 +61,7 @@ export enum ChainId {
 
   SagaMainnet = "2717465680371000",
 }
+const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
 export const DPSupportChainId = !isPro()
   ? [
       ChainId.LineaTestnet,
@@ -84,7 +85,9 @@ export const bingoV1SupportedChainId = !isPro()
       ChainId.ZytronLineaSepoliaTestnet,
     ]
   : [ChainId.LineaMainnet, ChainId.OPBNB];
-export const bingoBetaSupportedChainId = !isPro()
+export const bingoBetaSupportedChainId = TGChainId
+  ? TGChainId
+  : !isPro()
   ? [
       ChainId.Arbitrum,
       ChainId.ArbitrumGoerli,
@@ -95,6 +98,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
+      ChainId.SagaMainnet,
     ]
   : [
       ChainId.Arbitrum,
@@ -102,7 +106,7 @@ export const bingoBetaSupportedChainId = !isPro()
       ChainId.MantaPacificMainnet,
       ChainId.Combo,
     ];
-export const bingoSupportedChainId = [
+export const bingoSupportedChainId = TGChainId || [
   ...bingoV1SupportedChainId,
   ...bingoBetaSupportedChainId,
 ];
@@ -110,7 +114,9 @@ export const supportedChainIds = (
   env?: string,
   chainList?: ChainId[]
 ): Array<ChainId> => {
-  return chainList
+  return TGChainId
+    ? TGChainId
+    : chainList
     ? chainList
     : !isPro() || env === "develop"
     ? [
@@ -133,6 +139,7 @@ export const supportedChainIds = (
         ChainId.Sepolia,
         ChainId.ZytronLineaSepoliaTestnet,
         ChainId.ZytronB2Testnet,
+        ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
@@ -332,7 +339,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.ZytronLineaSepoliaTestnet]: true,
   [ChainId.ZytronB2Testnet]: true,
   [ChainId.Taiko]: false,
-  [ChainId.SagaMainnet]: false,
+  [ChainId.SagaMainnet]: true,
 };
 
 export const Currency: Record<ChainId, string> = {
@@ -554,7 +561,8 @@ export const zkBingo = (
 };
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
-export const TG_BOT_URL = "https://bingo-api.zypher.game";
+export const TG_BOT_URL = "http://localhost:4000";
+// "https://bingo-api.zypher.game";
 
 type IGlobalVar = {
   dispatch: (arg: any) => any;

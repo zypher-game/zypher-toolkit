@@ -1,6 +1,6 @@
 import './Tab.styl'
 
-import { PixelTab, useIsW768, useSetRecoilState } from '@ui/src'
+import { NavKey, PixelTab, useIsW768, useSetRecoilState } from '@ui/src'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -29,8 +29,7 @@ const Tab = memo(() => {
         setTVLPath(index)
         navigate(tvlPath[index])
       } else {
-        setTVLPath(2)
-        navigate(tvlPath[2])
+        navigate('/' + NavKey[0][0])
       }
     },
     [location, preHandleAction, tvlHero]

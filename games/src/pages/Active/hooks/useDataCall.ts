@@ -43,9 +43,11 @@ export const useGetDataCall = () => {
                 // 获取积分
                 let primary_score_res
                 try {
-                  primary_score_res = await getPrimaryScore()
-                } catch (e) {}
-                const primaryScoreRes = primary_score_res ? form_primary_score(infoObj, primary_score_res) : initActiveData
+                  primary_score_res = await getPrimaryScore(chainId)
+                } catch (e) {
+                  console.log('primary_score_res Error', e)
+                }
+                const primaryScoreRes = form_primary_score(infoObj, primary_score_res ?? {})
                 let isRegistered = false
                 try {
                   isRegistered = await getIsRegistered(infoObj.id)
@@ -75,26 +77,29 @@ export const useGetDataCall = () => {
   }
 }
 export const usePrimaryScore = () => {
-  const { account, chainId } = useActiveWeb3React()
-  const getPrimaryScore = useCallback(async () => {
-    try {
-      // get 检查初始空投积分
-      const linkType = getLinkPre(chainId)
-      const primary_score_res = await request(`${TVL_API}/api/primary-score`, {
-        method: 'GET',
-        params: {
-          addr: account,
-          linkType: linkType.key
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      return primary_score_res.data
-    } catch (e: any) {
-      throw new Error('primary-score has Error')
-    }
-  }, [account, chainId])
+  const { account } = useActiveWeb3React()
+  const getPrimaryScore = useCallback(
+    async (chainId: ChainId) => {
+      try {
+        // get 检查初始空投积分
+        const linkType = getLinkPre(chainId)
+        const primary_score_res = await request(`${TVL_API}/api/primary-score`, {
+          method: 'GET',
+          params: {
+            addr: account,
+            linkType: linkType.key
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        return primary_score_res.data
+      } catch (e: any) {
+        throw new Error('primary-score has Error')
+      }
+    },
+    [account]
+  )
   return {
     getPrimaryScore
   }

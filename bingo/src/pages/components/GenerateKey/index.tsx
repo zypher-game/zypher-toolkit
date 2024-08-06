@@ -1,9 +1,17 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { LngNs, preStaticUrl, useCustomTranslation, useIsW768, useResetRecoilState, useSetRecoilState, walletModalOpenState } from '@ui/src'
+import {
+  LngNs,
+  preStaticUrl,
+  useCustomTranslation,
+  useIsW768,
+  useResetRecoilState,
+  useSetRecoilState,
+  useWalletClient,
+  walletModalOpenState
+} from '@ui/src'
 import { Space } from 'antd'
 import cx from 'classnames'
-import React, { useCallback, useState } from 'react'
-import styled from 'styled-components'
+import React, { useState } from 'react'
 
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
@@ -31,7 +39,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
   const dispatch = useAppDispatch()
-
+  const { data: walletClient } = useWalletClient()
   const handleGenerateKey = async () => {
     if (!chainId || !account) {
       return
@@ -47,7 +55,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
       await Promise.race([
         (async () => {
           const label = await lobbyContract.read.getNextKeyLabel([account])
-          const signedLabel = await getWeb3Sign(label, account, false)
+          const signedLabel = await getWeb3Sign(label, account, false, walletClient)
           if (typeof signedLabel === 'string') {
             setJoinGameState((state: JoinGameStateType) => ({
               ...state,

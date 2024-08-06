@@ -52,14 +52,16 @@
       )
     }
     // tg
-    window.IS_TELEGRAM = isTelegram()
+    // window.IS_TELEGRAM = true
+    window.IS_TELEGRAM = true
+    // window.IS_TELEGRAM = isTelegram()
 
-    if (location.href.match(/tgtest=1/)) {
-      window.IS_TELEGRAM = true
-    }
-    if (window.IS_TELEGRAM) {
-      document.write('<script src="https://telegram.org/js/telegram-web-app.js">\<\/script>');
-    }
+    // if (location.href.match(/tgtest=1/)) {
+    //   window.IS_TELEGRAM = true
+    // }
+    // if (window.IS_TELEGRAM) {
+    //   document.write('<script src="https://telegram.org/js/telegram-web-app.js">\<\/script>');
+    // }
   </script>
 </head>
 
@@ -143,25 +145,24 @@
       });
     }
 
-    alert(window.IS_TELEGRAM)
     if (window.IS_TELEGRAM) {
       try {
-        window.Telegram.WebApp.setHeaderColor('#070823')
-        window.Telegram.WebApp.setBackgroundColor('#070823')
-        if (window.Telegram.WebApp.disableVerticalSwipes) {
-          window.Telegram.WebApp.disableVerticalSwipes()
-        }
-        if (!window.Telegram.WebApp.isExpanded) {
-          window.Telegram.WebApp.expand()
-        }
-        setTimeout(function () {
-          if (!window.Telegram.WebApp.isExpanded) {
-            window.Telegram.WebApp.expand()
-          }
-        }, 1000)
-        document.body.classList.add('mobile-body')
-        document.getElementById('wrap').classList.add('mobile-wrap')
-        document.getElementById('root').classList.add('mobile-content')
+      //   window.Telegram.WebApp.setHeaderColor('#070823')
+      //   window.Telegram.WebApp.setBackgroundColor('#070823')
+      //   if (window.Telegram.WebApp.disableVerticalSwipes) {
+      //     window.Telegram.WebApp.disableVerticalSwipes()
+      //   }
+      //   if (!window.Telegram.WebApp.isExpanded) {
+      //     window.Telegram.WebApp.expand()
+      //   }
+      //   setTimeout(function () {
+      //     if (!window.Telegram.WebApp.isExpanded) {
+      //       window.Telegram.WebApp.expand()
+      //     }
+      //   }, 1000)
+      //   document.body.classList.add('mobile-body')
+      //   document.getElementById('wrap').classList.add('mobile-wrap')
+      //   document.getElementById('root').classList.add('mobile-content')
       } catch (err) {
         alert(String(err))
       }

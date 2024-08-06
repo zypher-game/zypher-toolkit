@@ -7,7 +7,6 @@ import { defaultChainId } from '@/constants/constants'
 export const useChainIdParams = () => {
   const { chainIdParams } = useParams()
   const { chainId } = useActiveWeb3React()
-  console.log({ chainId })
   return useMemo(() => {
     return chainIdParams ? chainIdParams : chainId ? chainId : defaultChainId.toString()
   }, [chainIdParams])

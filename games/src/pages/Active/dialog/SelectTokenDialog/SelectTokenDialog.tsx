@@ -69,21 +69,25 @@ const SelectTokenDialog = memo(() => {
         hidePixel={isW768 ? true : false}
       >
         <h3>Select Token</h3>
-        <div className="select_chain_ul">
-          {TVLStakingSupportedChainId.map(v => (
-            <ActivePixelButton
-              key={v}
-              width="58px"
-              height="58px"
-              backgroundColor={`${chainIdLocal === v ? '#1649FF' : '#1D263B'}`}
-              pixel_height={4}
-              onClick={() => changeChainHandle(v)}
-              className={chainIdLocal === v ? 'select_chain_li_on' : ''}
-            >
-              <img decoding="async" loading="lazy" src={ChainImage[v]} alt={Currency[v]} className="select_chain_li_img" />
-            </ActivePixelButton>
-          ))}
-        </div>
+        {TVLStakingSupportedChainId.length < 2 ? (
+          <></>
+        ) : (
+          <div className="select_chain_ul">
+            {TVLStakingSupportedChainId.map(v => (
+              <ActivePixelButton
+                key={v}
+                width="58px"
+                height="58px"
+                backgroundColor={`${chainIdLocal === v ? '#1649FF' : '#1D263B'}`}
+                pixel_height={4}
+                onClick={() => changeChainHandle(v)}
+                className={chainIdLocal === v ? 'select_chain_li_on' : ''}
+              >
+                <img decoding="async" loading="lazy" src={ChainImage[v]} alt={Currency[v]} className="select_chain_li_img" />
+              </ActivePixelButton>
+            ))}
+          </div>
+        )}
       </ActivePixelCard>
       <ActivePixelCard className="select_dialogContentInnerBottom" width="380px" pixel_height={isW768 ? 5 : 10} backgroundColor="#1D263B">
         <div className="select_token_ul">
