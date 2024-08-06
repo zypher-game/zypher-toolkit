@@ -1375,9 +1375,14 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  max-width: 120px;
 }
 .ChainSelectorWidgetWrapper .img p {
   white-space: nowrap;
+  max-width: 80%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PlayerAvatar/index.stylus */
