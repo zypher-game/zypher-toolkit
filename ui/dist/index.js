@@ -11468,7 +11468,6 @@ var RainbowKitWithThemeProvider = ({
     if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList);
       const { chains: chains2 } = getConfigureChains(env);
-      console.log({ chainIdList, chains: chains2 });
       return {
         wagmiConfig: wagmiConfig2,
         chains: chains2,
