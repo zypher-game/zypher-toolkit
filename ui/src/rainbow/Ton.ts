@@ -34,6 +34,6 @@ export const WebAppData = {
     language_code: "zh-hans",
     allows_write_to_pm: true,
   }),
-  auth_date: "1722849170",
-  hash: "97b2275451c9ba363ebad7b74b9cad47d82a8663418b6cf94aee6ef2358ae8fb",
+  auth_date: "1722914942",
+  hash: "ed0f6e4d2cd3b4ff071a5a87c26a48bb679bb9cb166a982e9f7165e0b98c5ecf",
 };

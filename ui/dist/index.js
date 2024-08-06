@@ -115,7 +115,8 @@ var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
   "9980" /* Combo */,
   "91715" /* ComboTestnet */,
   "3441005" /* MantaPacificTestnet */,
-  "169" /* MantaPacificMainnet */
+  "169" /* MantaPacificMainnet */,
+  "2717465680371000" /* SagaMainnet */
 ] : [
   "42161" /* Arbitrum */,
   "5000" /* Mantle */,
@@ -146,7 +147,8 @@ var supportedChainIds = (env, chainList) => {
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
     "19546" /* ZytronLineaSepoliaTestnet */,
-    "50097" /* ZytronB2Testnet */
+    "50097" /* ZytronB2Testnet */,
+    "2717465680371000" /* SagaMainnet */
   ] : [
     "59144" /* LineaMainnet */,
     "204" /* OPBNB */,
@@ -545,7 +547,7 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = "https://bingo-api.zypher.game";
+var TG_BOT_URL = "http://localhost:4000";
 var GlobalVar = {
   dispatch: (arg) => null,
   getContainer: void 0,
@@ -2565,8 +2567,8 @@ var WebAppData = {
     language_code: "zh-hans",
     allows_write_to_pm: true
   }),
-  auth_date: "1722849170",
-  hash: "97b2275451c9ba363ebad7b74b9cad47d82a8663418b6cf94aee6ef2358ae8fb"
+  auth_date: "1722914942",
+  hash: "ed0f6e4d2cd3b4ff071a5a87c26a48bb679bb9cb166a982e9f7165e0b98c5ecf"
 };
 
 // src/hooks/useTelegramUser.ts
@@ -2585,6 +2587,10 @@ var useTelegramUser = () => {
       const res = httpPost(`${TG_BOT_URL}/user/get`, {
         WebAppData
       });
+      const resaaa = httpPost(`${TG_BOT_URL}/wallet/get`, {
+        WebAppData
+      });
+      console.log({ res: await res, resaaa: await resaaa });
       if ((await res).code)
         return null;
       return (await res).data;
@@ -3640,6 +3646,7 @@ var TelegramWallet = class extends Signer {
     try {
       console.log("signTransaction", `${this.api}/wallet/use`);
       return resolveProperties(transaction).then(async (tx) => {
+        console.log({ tx });
         const res = await httpPost(`${this.api}/wallet/use`, {
           WebAppData,
           method: "signTransaction",

@@ -98,6 +98,7 @@ export const bingoBetaSupportedChainId = TGChainId
       ChainId.ComboTestnet,
       ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
+      ChainId.SagaMainnet,
     ]
   : [
       ChainId.Arbitrum,
@@ -138,6 +139,7 @@ export const supportedChainIds = (
         ChainId.Sepolia,
         ChainId.ZytronLineaSepoliaTestnet,
         ChainId.ZytronB2Testnet,
+        ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
@@ -559,7 +561,8 @@ export const zkBingo = (
 };
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
-export const TG_BOT_URL = "https://bingo-api.zypher.game";
+export const TG_BOT_URL = "http://localhost:4000";
+// "https://bingo-api.zypher.game";
 
 type IGlobalVar = {
   dispatch: (arg: any) => any;

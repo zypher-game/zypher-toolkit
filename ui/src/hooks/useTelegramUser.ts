@@ -38,6 +38,10 @@ export const useTelegramUser = () => {
       const res = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/user/get`, {
         WebAppData,
       });
+      const resaaa = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/wallet/get`, {
+        WebAppData,
+      });
+      console.log({ res: await res, resaaa: await resaaa });
       if ((await res).code) return null;
       return (await res).data;
     },
