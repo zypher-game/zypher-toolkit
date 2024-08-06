@@ -92,7 +92,6 @@ const getConnectors = (
       chain: AllChainInfo[ChainId.SagaMainnet],
       transport: custom({
         async request({ method, params }) {
-          console.log(method, params);
           const useLocal = ["eth_sendTransaction", "personal_sign"].includes(
             method
           );
@@ -102,15 +101,17 @@ const getConnectors = (
             return res;
           }
 
-          const fmt = { ...params[0] };
-          fmt.gasLimit = fmt.gas;
-          delete fmt.gas;
+          console.log({ method, params });
           if (method === "eth_sendTransaction") {
+            const fmt = { ...params[0] };
+            fmt.gasLimit = fmt.gas;
+            delete fmt.gas;
+            console.log({ fmt });
             const txr = await acc.sendTransaction(fmt);
             return txr.hash;
           }
           if (method === "personal_sign") {
-            const txr = await acc.signMessage(fmt);
+            const txr = await acc.signMessage(params[0]);
             console.log({ txr });
             return txr;
           }

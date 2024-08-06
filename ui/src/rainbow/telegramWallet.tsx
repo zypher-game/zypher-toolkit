@@ -63,9 +63,17 @@ export class TelegramWallet extends Signer {
   async sendTransaction(
     transaction: Deferrable<TransactionRequest>
   ): Promise<TransactionResponse> {
-    this._checkProvider("sendTransaction");
-    const tx = await this.populateTransaction(transaction);
-    const signedTx = await this.signTransaction(tx);
-    return this.provider.sendTransaction(signedTx);
+    try {
+      console.log(1);
+      this._checkProvider("sendTransaction");
+      console.log(2);
+      const tx = await this.populateTransaction(transaction);
+      console.log(3);
+      const signedTx = await this.signTransaction(tx);
+      console.log(4);
+      return this.provider.sendTransaction(signedTx);
+    } catch (e) {
+      console.log(e);
+    }
   }
 }
