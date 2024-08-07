@@ -1383,6 +1383,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: #fff;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PlayerAvatar/index.stylus */
