@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { atom, useSetRecoilState } from "recoil";
+import { atom, SetterOrUpdater, useSetRecoilState } from "recoil";
 import { useEffectValue } from "./useEffectValue";
 import { httpPost } from "../utils/request";
 import { GlobalVar, TG_BOT_URL } from "../constant/constant";
 import { WebAppData } from "../rainbow/Ton";
+import { localStorageEffect } from "../utils/localStorageEffect";
 export interface TelegramUserInfoDto {
   id: string;
   name: string;
@@ -23,6 +24,7 @@ export interface TelegramUserInfoDto {
 export const TelegramUserInfoState = atom({
   key: "TelegramUserInfoState",
   default: null as null | TelegramUserInfoDto,
+  effects_UNSTABLE: [localStorageEffect("TelegramUserInfoState")],
 });
 export const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
 const getFaucet = async () => {
@@ -67,6 +69,29 @@ export const useTelegramUser = () => {
       localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);
       GlobalVar.mockAcc(user.evmWallet);
       _user(user);
+    } else {
+      _user(null);
     }
   }, [JSON.stringify(user)]);
+};
+
+export const useTelegramAccountInit = (
+  userInfo: TelegramUserInfoDto | null,
+  _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>
+) => {
+  return useEffectValue(
+    null,
+    async () => {
+      if (!userInfo?.star) return null;
+      if (userInfo.star !== "0") return null;
+      const res = await httpPost<TelegramUserInfoDto>(
+        `${TG_BOT_URL}/user/init-star`,
+        { WebAppData }
+      );
+      if (res.code) return null;
+      _userInfo(res.data);
+      return res.data;
+    },
+    [userInfo?.star]
+  );
 };

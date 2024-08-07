@@ -158,7 +158,7 @@ const SubmitCardV1 = () => {
         })
         const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
         await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
-        setSuccessToast(dispatch, {
+        setErrorToast({
           title: '',
           message: t('Approve successful')
         })
@@ -188,7 +188,7 @@ const SubmitCardV1 = () => {
         })
       }
     } catch (e) {
-      setErrorToast(dispatch, e, lobbyContract)
+      setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)
     }

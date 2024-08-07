@@ -11,6 +11,7 @@ import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
 import {
+  ChainId,
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
   DPSupportChainId,
@@ -31,6 +32,9 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
+import { fetchErc20 } from "../../../../utils/getBalanceOfByMulticall";
+import { erc20ABI, useBalance } from "wagmi";
+import { Contract } from "ethers";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -70,11 +74,42 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
+      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
+        // const lineaL3Gp = useBalance({
+        //   address: "0x2d15D52Cc138FFB322b732239CD3630735AbaC88",
+        //   token: "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
+        //   chainId: Number(ChainId.ZytronLineaSepoliaTestnet),
+        // });
+        // console.log({ lineaL3Gp });
+        // const res = await fetchErc20({
+        //   address: "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
+        //   chainId,
+        //   account,
+        // });
+        // console.log({ res });
+        // const l2Provider = new ethers.providers.JsonRpcProvider(
+        //   "https://linea-testnet-zytron.zypher.game",
+        //   "any"
+        // );
+        // const token = new Contract(
+        //   "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
+        //   // optimismMintableERC20.abi,
+        //   erc20ABI,
+        //   l2Provider
+        // );
+        // const balance1 = await token.balanceOf(
+        //   "0x2d15D52Cc138FFB322b732239CD3630735AbaC88"
+        // );
+        // const balance = await token.l1Token();
+        // console.log(balance1);
+
         const pointsContract = erc20Contract(chainId, env, pointsAddress);
         const balance = await pointsContract.read.balanceOf([account]);
+        console.log({ balance });
+
         setPointsBalance(
           new BigNumberJs(balance.toString())
             .dividedBy(divisorBigNumber)
@@ -82,6 +117,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
         );
       }
     } catch (e) {
+      console.log({ e });
       setPointsBalance(0);
     }
   }, [chainId, account, provider]);

@@ -8320,15 +8320,15 @@ fsevents@^1.2.7:
     bindings "^1.5.0"
     nan "^2.12.1"
 
+fsevents@^2.3.2, fsevents@~2.3.3:
+  version "2.3.3"
+  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
+  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
+
 fsevents@~2.3.2:
   version "2.3.2"
   resolved "https://registry.npmmirror.com/fsevents/download/fsevents-2.3.2.tgz"
   integrity sha1-ilJveLj99GI7cJ4Ll1xSwkwC/Ro=
-
-fsevents@~2.3.3:
-  version "2.3.3"
-  resolved "https://registry.npmjs.org/fsevents/-/fsevents-2.3.3.tgz#cac6407785d03675a2a5e1a5305c697b347d90d6"
-  integrity sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==
 
 function-bind@^1.1.1:
   version "1.1.1"
@@ -13424,6 +13424,13 @@ shelljs@^0.8.4:
     glob "^7.0.0"
     interpret "^1.0.0"
     rechoir "^0.6.2"
+
+shifty@^3.0.1:
+  version "3.0.3"
+  resolved "https://registry.npmjs.org/shifty/-/shifty-3.0.3.tgz#fc7f79988d767bf3a0804ea30056e10d6032461a"
+  integrity sha512-hNDhs8OsvWUB7GUGJ76/3JyKB3kMCJfbH54nf10ySde9U+Pr/su26CyKryso1DKeQ+le/LTGHSZldPkL3ZrUWw==
+  optionalDependencies:
+    fsevents "^2.3.2"
 
 side-channel@^1.0.4:
   version "1.0.4"

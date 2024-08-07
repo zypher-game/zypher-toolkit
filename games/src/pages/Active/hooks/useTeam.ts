@@ -156,7 +156,7 @@ export const useTeam = () => {
           try {
             _signedStr = await getWeb3Sign(hashedCardBytes, account, false)
           } catch (err) {
-            setErrorToast(GlobalVar.dispatch, err)
+            setErrorToast(err)
             if (isSingle) {
               setIsLoadingSingle(false)
             } else {
@@ -178,7 +178,7 @@ export const useTeam = () => {
               setIsLoadingSingle(false)
               setIsLoadingAll(false)
               setIsPointSuccessModalOpen(true)
-              setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Open Card successful' })
+              setSuccessToast({ title: '', message: 'Open Card successful' })
               setIsTvlPointModalOpen(false)
             } else {
               throw new Error('Open Card Failed')
@@ -191,7 +191,7 @@ export const useTeam = () => {
         } else {
           setIsLoadingAll(false)
         }
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
       }
     },
     [JSON.stringify(activeData), isLoadingSingle, isLoadingAll]

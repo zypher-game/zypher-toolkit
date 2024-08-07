@@ -1,25 +1,37 @@
+import { GlobalVar } from '@ui/src'
+
 import { changeUserStateValue } from '../../store/user/reducer'
 import extractError, { TransactionErrorOptions } from './extractError'
 
-export const setErrorToast = function (dispatch: any, rawError: any, options?: TransactionErrorOptions): void {
+export const setErrorToast = function (
+  msg:
+    | string
+    | {
+        title?: string
+        message?: string
+        shortMessage?: string
+      }
+    | any,
+  options?: TransactionErrorOptions
+): void {
   const obj = {
     title: '',
     message: ''
   }
-  if (typeof rawError === 'string') {
-    obj.message = rawError
+  if (typeof msg === 'string') {
+    obj.message = msg
   } else {
-    const { title, message, shortMessage } = rawError
+    const { title, message, shortMessage } = msg
     if (title && title !== 'Error') {
       obj.title = title
-      obj.message = shortMessage ?? message
+      obj.message = shortMessage ?? message ?? ''
     } else {
-      const res = extractError(rawError, options)
+      const res = extractError(msg, options)
       obj.title = res.reason ?? 'Error'
       obj.message = res.message ?? ''
     }
   }
-  dispatch(
+  GlobalVar.dispatch(
     changeUserStateValue({
       key: 'error',
       value: obj
@@ -28,7 +40,6 @@ export const setErrorToast = function (dispatch: any, rawError: any, options?: T
 }
 
 export const setSuccessToast = function (
-  dispatch: any,
   msg:
     | string
     | {
@@ -46,7 +57,7 @@ export const setSuccessToast = function (
     obj.title = msg.title ?? ''
     obj.message = msg.message ?? ''
   }
-  dispatch(
+  GlobalVar.dispatch(
     changeUserStateValue({
       key: 'success',
       value: obj

@@ -39,7 +39,7 @@ const DPBuyDialog = memo(
     }, [])
     const buyHandle = useCallback(() => {
       if (!buyValue) {
-        setErrorToast(GlobalVar.dispatch, 'Please input value')
+        setErrorToast('Please input value')
         return
       }
       buyHandleAction({

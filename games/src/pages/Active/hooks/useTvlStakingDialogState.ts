@@ -21,7 +21,7 @@ export const useTvlStakingDialogState = () => {
         try {
           switchNetwork(parseInt(params, 10))
         } catch (err) {
-          setErrorToast(GlobalVar.dispatch, err)
+          setErrorToast(err)
         }
         return
       }

@@ -47,7 +47,6 @@ export const Theme: Record<TVLChainId, ThemeKey> = {
   [TVLChainId.B2]: 'b2',
   [TVLChainId.B2Testnet]: 'b2',
   [TVLChainId.LineaMainnet]: 'linea',
-  [TVLChainId.LineaTestnet]: 'linea',
   [TVLChainId.LineaSepolia]: 'linea'
 }
 
@@ -137,7 +136,7 @@ const ZeroGas = memo(() => {
           try {
             switchNetwork(parseInt(params, 10))
           } catch (err) {
-            setErrorToast(GlobalVar.dispatch, err)
+            setErrorToast(err)
           }
         }
       }

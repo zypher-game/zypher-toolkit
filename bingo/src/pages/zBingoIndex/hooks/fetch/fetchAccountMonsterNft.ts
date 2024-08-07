@@ -1,7 +1,7 @@
-import MonsterAbi from '@zypher-game/events/abi/MonsterSlayer202310.json'
 import { ChainId, IContractName, zkBingo } from '@ui/src'
 import { MulticallContract } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import MonsterAbi from '@zypher-game/events/abi/MonsterSlayer202310.json'
 import { Address } from 'wagmi'
 export const fetchAccountMonsterNft = async ({ chainId, account }: { chainId: ChainId; account: Address }): Promise<boolean | undefined> => {
   try {

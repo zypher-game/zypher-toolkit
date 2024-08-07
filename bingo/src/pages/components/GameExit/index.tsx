@@ -74,7 +74,7 @@ const GameExit: React.FC = () => {
         return toBingoPage()
       }
     } catch (error) {
-      setErrorToast(dispatch, error, lobbyContract)
+      setErrorToast(error, lobbyContract)
     } finally {
       setConfirmLoading(false)
     }

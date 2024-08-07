@@ -1,0 +1,82 @@
+.bg
+  @media screen and (max-width: 830px)
+    background: transparent!important
+body [data-reach-dialog-content].taskBg
+  position relative
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.png") no-repeat
+  width: 90%;
+  padding: 0 3px 10px;
+  background-size: 100% 100%
+  max-width: 768px
+    // bingoindexbg01_m.png
+  .close
+    position absolute
+    cursor pointer
+    width: 34px;
+    height: 34px;
+    right: 10px;
+    top: 10px;
+.taskInnerBg
+  position relative
+  width: 97%
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.png") no-repeat
+  padding: 30px 25px
+  background-size: 100% 100%
+  overflow: hidden
+  margin: 0 auto
+.taskInner
+  max-height: 70vh;
+  overflow-y: scroll
+  &::-webkit-scrollbar 
+    width: 4px;
+    display: block;
+
+  &::-webkit-scrollbar-thumb 
+    background-color: rgba(143, 72, 0, 0.5); 
+    border-radius: 8px; 
+  
+.title
+  LemonFont()
+  text-align: center
+  font-size: 18px;
+  line-height: 24px;
+  padding: 30px 0 16px;
+.list
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFE4BB
+  border-radius: 8px
+  .left
+    font-size: 28px;
+    color: #fff;
+    > .name
+      font-weight: 400;
+    > .des
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+      font-weight: bold;
+  > .action
+    > img
+      display: none;
+  &.checked
+    background-color: #E8C38C
+    > .left
+      opacity: 0.8;
+    > .action
+      > .btn
+        display: none;
+      > img
+        display: block;
+    &.all
+      > .action
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > .btn
+          display: flex;
+          transform: scale(0.8);
+        > img 
+          display: block;

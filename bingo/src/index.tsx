@@ -5,7 +5,7 @@ import './react-extras.d.ts'
 import './polyfills'
 
 // import '../node_modules/@ui/ui/dist/index.css'
-import { bingoSupportedChainId, IsW768Provider, RainbowKitWithThemeProvider, RecoilRoot } from '@ui/src'
+import { bingoSupportedChainId, IsW768Provider, RainbowKitWithThemeProvider, RecoilRoot, TonConnectUIProvider } from '@ui/src'
 import { ConfigProvider } from 'antd'
 import enGB from 'antd/es/locale/en_GB'
 import React from 'react'
@@ -21,17 +21,19 @@ import { env } from './utils/config'
 render(
   <Provider store={store}>
     <RecoilRoot>
-      <RainbowKitWithThemeProvider env={env} chainIdList={bingoSupportedChainId}>
-        <ConfigProvider locale={enGB}>
-          <BrowserRouter>
-            <ThemeProvider>
-              <IsW768Provider>
-                <AppRouter />
-              </IsW768Provider>
-            </ThemeProvider>
-          </BrowserRouter>
-        </ConfigProvider>
-      </RainbowKitWithThemeProvider>
+      <TonConnectUIProvider>
+        <RainbowKitWithThemeProvider env={env} chainIdList={bingoSupportedChainId}>
+          <ConfigProvider locale={enGB}>
+            <BrowserRouter>
+              <ThemeProvider>
+                <IsW768Provider>
+                  <AppRouter />
+                </IsW768Provider>
+              </ThemeProvider>
+            </BrowserRouter>
+          </ConfigProvider>
+        </RainbowKitWithThemeProvider>
+      </TonConnectUIProvider>
     </RecoilRoot>
   </Provider>,
   document.getElementById('root')

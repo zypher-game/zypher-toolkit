@@ -22,7 +22,7 @@ const StakingTab = memo(
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
           <StakingBtn chainId={chainIdLocal} />
         </div>
-        {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaTestnet || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (
+        {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaSepolia || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (
           <div className={css.warn_tab_tooltip}>
             <p>
               Earn Linea XP

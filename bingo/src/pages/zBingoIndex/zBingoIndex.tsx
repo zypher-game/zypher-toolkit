@@ -9,7 +9,7 @@ import { bingoVersionState, IBingoVersion } from '../state/state'
 import Inner from './components/Inner/Inner'
 import InnerBeta from './components/InnerBeta/InnerBeta'
 import RightBar from './components/rightBar/rightBar'
-import SideBar from './components/sideBar/sideBar'
+import SideBar from './components/sideBar'
 import UserCenter from './components/userCenter/userCenter'
 import { useAnim } from './hooks/useAnim'
 

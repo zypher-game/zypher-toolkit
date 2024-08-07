@@ -1,8 +1,8 @@
+import { GlobalVar } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { FC, memo, useCallback, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
-import { GlobalVar } from '@ui/src'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { setSuccessToast } from '@/utils/Error/setErrorToast'
 
@@ -26,7 +26,7 @@ const ShareComponent: FC<IProps> = memo(({ children, url }: IProps) => {
   const handleVisibilityChange = useCallback(() => {
     if (!document.hidden) {
       if (isClick) {
-        setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Share Successful!' })
+        setSuccessToast({ title: '', message: 'Share Successful!' })
         setIsClick(false)
       }
     }

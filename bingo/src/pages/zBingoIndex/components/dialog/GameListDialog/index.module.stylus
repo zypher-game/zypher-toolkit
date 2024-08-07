@@ -31,12 +31,11 @@ body [data-reach-dialog-content].gameList
     background-size: 100% 100%
     padding: 20px 20px 40px 15px;
 .title
-  color: #62380C;
-  font-weight: 600
   font-size: 32px;
   line-height: 30px
   text-align: center
   padding: 50px 0 40px
+  LemonFont()
   @media screen and (max-width: 830px)
     font-size: 18px;
     line-height: 24px;

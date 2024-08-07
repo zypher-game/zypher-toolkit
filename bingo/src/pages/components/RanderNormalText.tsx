@@ -10,6 +10,7 @@ import css from './account.module.stylus'
 const StatusP = styled.p<{ isMobile: boolean }>`
   display: flex;
   align-items: center;
+  color: #613c17;
   img {
     display: inline-block;
     width: ${({ isMobile }) => (isMobile ? '20px' : '30px')};

@@ -79,7 +79,7 @@ export const useSignCall = () => {
           setActiveData(pre => ({ ...pre, invitationCode: '', signedFalse: true }))
         }
       } catch (err) {
-        setErrorToast(GlobalVar.dispatch, err)
+        setErrorToast(err)
         setActiveData(pre => ({ ...pre, invitationCode: '', signedFalse: true }))
       }
     }
@@ -110,11 +110,11 @@ export const useSign = () => {
         if (res.data && res.data['message'] == 'ok') {
         } else {
           setActiveData(pre => ({ ...pre, signedStr: '', invitationCode: '' }))
-          setErrorToast(GlobalVar.dispatch, 'loginByCode Error')
+          setErrorToast('loginByCode Error')
         }
       } catch (e: any) {
         setActiveData(pre => ({ ...pre, signedStr: '', invitationCode: '' }))
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
       }
     }
   }, [signedStr, invitationCode, chainId, id])

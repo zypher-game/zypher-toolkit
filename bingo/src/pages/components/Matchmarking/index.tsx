@@ -78,6 +78,8 @@ const LineupUsersWrapper = styled.div<{ isMobile: boolean }>`
     p {
       font-size: ${({ isMobile }) => isMobile && '12px'};
       color: #62380c;
+      font-weight: 400;
+      font-family: Lemon;
     }
   }
 `
@@ -193,7 +195,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
         })
       }
     } catch (e) {
-      setErrorToast(dispatch, e, lobbyContract)
+      setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)
     }

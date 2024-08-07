@@ -1,5 +1,4 @@
 import { ChainId, formatMoney, getFormattedTime, getFormattedTimeMobile, IGameList, IGameName, IGameStatus, IRecentGame } from '@ui/src'
-
 import { BigNumberJs } from '@ui/src'
 
 export const chainIdPre: Record<ChainId, string> = {
@@ -8,7 +7,6 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Arbitrum]: 'AO',
   [ChainId.ArbitrumGoerli]: 'AGT',
   [ChainId.ArbitrumRinkeby]: 'ARBR',
-  [ChainId.LineaTestnet]: 'LT',
   [ChainId.LineaMainnet]: 'LM',
   [ChainId.POLYGON_MUMBAI]: 'PM',
   [ChainId.POLYGON_ZKEVM]: 'PZT',
@@ -22,7 +20,14 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Mantle]: 'MTM',
   [ChainId.MantleTestnet]: 'MTT',
   [ChainId.Combo]: 'CB',
-  [ChainId.Sepolia]: 'Sp'
+  [ChainId.Sepolia]: 'Sp',
+  [ChainId.LineaSepolia]: '',
+  [ChainId.B2]: '',
+  [ChainId.B2Testnet]: '',
+  [ChainId.ZytronLineaSepoliaTestnet]: '',
+  [ChainId.ZytronB2Testnet]: '',
+  [ChainId.Taiko]: '',
+  [ChainId.SagaMainnet]: ''
 }
 export const gameFormatGamesWithIRecentGame = ({
   chainId,

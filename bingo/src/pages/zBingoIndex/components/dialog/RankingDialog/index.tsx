@@ -1,7 +1,7 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import { preStaticUrl, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useRef } from 'react'
+import React, { memo, useCallback } from 'react'
 
 import { rankingDialogState } from '@/pages/state/state'
 

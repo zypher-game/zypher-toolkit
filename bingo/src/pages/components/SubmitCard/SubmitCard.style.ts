@@ -21,6 +21,8 @@ export const ViewCard = styled.div`
 
 export const Tip = styled.div`
   color: #62380c;
+  font-weight: 400;
+  font-family: Lemon;
   opacity: 0.6;
   font-size: 12px;
   padding-top: 10px;
@@ -56,8 +58,9 @@ export const AmountValue = styled.div<{ isMobile: boolean; checked: boolean }>`
 `
 export const Title = styled.div`
   color: #62380c;
+  font-weight: 400;
+  font-family: Lemon;
   text-align: center;
-  font-weight: 600;
   font-size: 16px;
   padding-top: 15px;
   padding-bottom: 15px;

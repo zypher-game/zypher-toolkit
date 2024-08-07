@@ -9,7 +9,6 @@ import { useToastMessage } from '@/hooks/useToastMessage'
 import Bingo from '@/pages/'
 import GameRoom from '@/pages/GameRoom'
 import StartGame from '@/pages/StartGame/StartGame'
-import { useTelegram } from '@/store/telegram/hooks'
 import { BASE_URL } from '@/utils/config'
 
 import Layout from '../components/Layout'
@@ -25,7 +24,6 @@ export default (): JSX.Element => {
   useConnectWallet()
   usePollPrice()
   useAudio()
-  useTelegram()
   useTelegramUser()
   return (
     <Suspense fallback={null}>

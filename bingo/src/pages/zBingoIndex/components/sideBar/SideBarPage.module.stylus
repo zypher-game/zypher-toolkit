@@ -61,6 +61,18 @@
       .label
         text-shadow: -1px -1px 0 #1C4735, 1px -1px 0 #1C4735, -1px 1px 0 #1C4735, 1px 1px 0 #1C4735;
         
+    &.brown
+      .sidebarItemBg
+        .sidebarItemBgInner
+          background-color: #E39325;
+          border:1px solid #BC6D00;
+      .labelImg
+        width: 55px
+        @media screen and (max-width: 830px)
+          width: 35px
+      .label
+        text-shadow: -1px -1px 0 #BC6D00, 1px -1px 0 #BC6D00, -1px 1px 0 #BC6D00, 1px 1px 0 #BC6D00;
+        
     .sidebarItemBg
       position absolute
       width: 95%

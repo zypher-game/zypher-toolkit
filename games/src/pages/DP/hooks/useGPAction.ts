@@ -558,7 +558,7 @@ export const useGPAction = () => {
         }
         const dpContract = DPContract({ chainId, env, signer: walletClient })
         if (!dpContract) {
-          setErrorToast(GlobalVar.dispatch, 'dpContract is not ready')
+          setErrorToast('dpContract is not ready')
           return
         }
         if (isBuyNftLoading) {
@@ -578,7 +578,7 @@ export const useGPAction = () => {
             await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
             setIsBuyNftLoading(false)
             setIsApprove(true)
-            setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+            setSuccessToast({ title: '', message: 'Approve successful' })
             return
           }
         }
@@ -593,12 +593,12 @@ export const useGPAction = () => {
             tx: buyTx,
             blockNumber: new BigNumberJs(buyTx.blockNumber.toString()).toNumber()
           })
-          setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Buy successful' })
+          setSuccessToast({ title: '', message: 'Buy successful' })
         } else {
           throw Object.assign(new Error('Buy Transaction Failed'), { name: 'Buy' })
         }
       } catch (e) {
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
         console.error('BuyHandle: ', e)
       } finally {
         setIsBuyNftLoading(false)
@@ -625,7 +625,7 @@ export const useGPAction = () => {
       if (!isApprovedForStaking) {
         const dpContract = DPContract({ chainId, env, signer: walletClient })
         if (!dpContract) {
-          setErrorToast(GlobalVar.dispatch, 'dpContract is not ready')
+          setErrorToast('dpContract is not ready')
           return
         }
         setLoading(true)
@@ -634,7 +634,7 @@ export const useGPAction = () => {
         await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
         setLoading(false)
         setIsApprovedForAll(pre => [...pre, dpStakingAddress])
-        setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+        setSuccessToast({ title: '', message: 'Approve successful' })
         return
       }
       return true
@@ -649,7 +649,7 @@ export const useGPAction = () => {
         if (isOk && walletClient) {
           const dpStakingContract = DPStakingContract({ chainId, env, signer: walletClient })
           if (!dpStakingContract) {
-            setErrorToast(GlobalVar.dispatch, 'dpStakingContract is not ready')
+            setErrorToast('dpStakingContract is not ready')
             return
           }
           setIsStakeLoading(true)
@@ -670,13 +670,13 @@ export const useGPAction = () => {
               tx: stakeTx,
               blockNumber: new BigNumberJs(stakeTx.blockNumber.toString()).toNumber()
             })
-            setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Stake successful' })
+            setSuccessToast({ title: '', message: 'Stake successful' })
           } else {
             throw Object.assign(new Error('Stake Transaction Failed'), { name: 'Stake' })
           }
         }
       } catch (e) {
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
         console.error('stakeHandleAction: ', e)
       } finally {
         setIsStakeLoading(false)
@@ -693,7 +693,7 @@ export const useGPAction = () => {
           setIsStakeLockLoading(true)
           const dpStakingContract = DPStakingContract({ chainId, env, signer: walletClient })
           if (!dpStakingContract) {
-            setErrorToast(GlobalVar.dispatch, 'dpStakingContract is not ready')
+            setErrorToast('dpStakingContract is not ready')
             return
           }
 
@@ -714,13 +714,13 @@ export const useGPAction = () => {
               tx: stakeLockTx,
               blockNumber: new BigNumberJs(stakeLockTx.blockNumber.toString()).toNumber()
             })
-            setSuccessToast(GlobalVar.dispatch, { title: '', message: 'StakeLock successful' })
+            setSuccessToast({ title: '', message: 'StakeLock successful' })
           } else {
             throw Object.assign(new Error('StakeLock Transaction Failed'), { name: 'StakeLock' })
           }
         }
       } catch (e) {
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
         console.error('stakeLockHandleAction: ', e)
       } finally {
         setIsStakeLockLoading(false)
@@ -737,7 +737,7 @@ export const useGPAction = () => {
           setIsWithdrawLoading(true)
           const dpStakingContract = DPStakingContract({ chainId, env, signer: walletClient })
           if (!dpStakingContract) {
-            setErrorToast(GlobalVar.dispatch, 'dpStakingContract is not ready')
+            setErrorToast('dpStakingContract is not ready')
             return
           }
           // 贏 N 場後可以 stake Battle Pass
@@ -756,13 +756,13 @@ export const useGPAction = () => {
               tx: withdrawTx,
               blockNumber: new BigNumberJs(withdrawTx.blockNumber.toString()).toNumber()
             })
-            setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Withdraw successful' })
+            setSuccessToast({ title: '', message: 'Withdraw successful' })
           } else {
             throw Object.assign(new Error('Withdraw Transaction Failed'), { name: 'Withdraw' })
           }
         }
       } catch (e) {
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
         console.error('withdrawHandleAction: ', e)
       } finally {
         setIsWithdrawLoading(false)
@@ -790,7 +790,7 @@ export const useGPAction = () => {
         }
         const dpStakingContract = DPStakingContract({ chainId, env, signer: walletClient })
         if (!dpStakingContract) {
-          setErrorToast(GlobalVar.dispatch, 'dpStakingContract is not ready')
+          setErrorToast('dpStakingContract is not ready')
           return
         }
         if (loading) {
@@ -806,12 +806,12 @@ export const useGPAction = () => {
             tx: claimLockTx,
             blockNumber: new BigNumberJs(claimLockTx.blockNumber.toString()).toNumber()
           })
-          setSuccessToast(GlobalVar.dispatch, { title: '', message: func + ' successful' })
+          setSuccessToast({ title: '', message: func + ' successful' })
         } else {
           throw Object.assign(new Error(func + ' Transaction Failed'), { name: func + 'ClaimLock' })
         }
       } catch (e) {
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
         console.error('_claimHandleAction Handle: ', e)
       } finally {
         setLoading(false)

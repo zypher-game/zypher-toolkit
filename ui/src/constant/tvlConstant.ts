@@ -12,19 +12,17 @@ export enum TVLChainId {
   B2 = ChainId.B2,
   B2Testnet = ChainId.B2Testnet,
   LineaMainnet = ChainId.LineaMainnet,
-  LineaTestnet = ChainId.LineaTestnet,
   LineaSepolia = ChainId.LineaSepolia,
 }
 export const TVLStakingSupportedChainId = (!isPro()
-  ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, TVLChainId.LineaTestnet]
-    [TVLChainId.LineaSepolia] // , TVLChainId.LineaTestnet
+  ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
+    [TVLChainId.LineaSepolia] // ,
   : []) as unknown as ChainId[];
 export const defaultActiveChainId = TVLStakingSupportedChainId[0];
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
   [TVLChainId.LineaMainnet]: ChainId.ZytronLineaSepoliaTestnet,
-  [TVLChainId.LineaTestnet]: ChainId.ZytronLineaSepoliaTestnet,
   [TVLChainId.LineaSepolia]: ChainId.ZytronLineaSepoliaTestnet,
 };
 export type IToken = {
@@ -44,12 +42,6 @@ export const activeTokenList: Record<
   ChainId,
   Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>
 > = {
-  [TVLChainId.LineaTestnet]: {
-    Staking: "0x9EB1f035C97ff649C1a2039b8e43d6Dd7182ED37",
-    ZypherGameToken: "0x5275A8593ce6a967Ae6782a70F417135A44bCd27",
-    CRHero: "0x76E08f9D5f76590E12427F003325768290602De1",
-    Soulbound: "0x519dfE063BDB149eE70732148788b06303E12844",
-  },
   [TVLChainId.LineaSepolia]: {
     Staking: "0x1818BC25102B0b0919c84eE0A765E110A211a774",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
@@ -64,11 +56,6 @@ export const activeTokenList: Record<
   },
 } as unknown as Record<ChainId, Record<string, Address>>;
 export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
-  [TVLChainId.LineaTestnet]: {
-    WETH: "0x5131bc5Ed480a524932D2638922616fE968374FE",
-    wstETH: "0xc2DEc928E445Bb1E491ad7Ac077672037D339a3E",
-    ezETH: "0xbd36B55DF798a2031A9E06A9e8a1AC0C625911dE",
-  },
   [TVLChainId.LineaSepolia]: {
     WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
     wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
@@ -133,7 +120,6 @@ export const minStakingValue: Record<TVLChainId, string> = {
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
   [TVLChainId.LineaMainnet]: "0.01",
-  [TVLChainId.LineaTestnet]: "0.01",
   [TVLChainId.LineaSepolia]: "0.01",
 };
 export const CODELENGTH = 6;

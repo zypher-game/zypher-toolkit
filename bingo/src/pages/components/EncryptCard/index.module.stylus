@@ -13,14 +13,10 @@
     max-width: 584px
 
     .title
-      font-style: normal
-      font-weight: 600
-      font-size: 14px
-      line-height: 24px
-      text-align: center
-      color: #62380C
-      text-align: center
-
+      text-align: center;
+      font-size: 16px;
+      padding-bottom: 10px;
+      LemonFont()
     .btnWrap
       display: flex
       padding-top: 50px
@@ -51,31 +47,6 @@
         pointer-events: none
         cursor: not-allowed
         background:linear-gradient(180deg, #E2E2E2 0%, #828282 100%)
-
-    .modifyTip
-      
-      font-style: normal
-      font-weight: 400
-      font-size: 12px
-      line-height: 18px
-      text-align: center
-      color: rgba(#62380C, 0.6)
-      flexCenter()
-      margin: 0 0 32px
-
-      :global(.icon)
-        size: 16px
-        margin: 0 6px 0 0
-
-    .tip
-      
-      font-style: normal
-      font-weight: 400
-      font-size: 12px
-      line-height: 30px
-      text-align: center
-      color: #62380C
-      opacity: 0.6
  .changeM
       background: url($preStaticUrl + '/img/bingo/switch.svg') no-repeat
       background-size: 100% auto
@@ -83,3 +54,13 @@
       height: 53px
       padding: 5px
       border: 0 none
+.Tip 
+  LemonFont()
+  opacity: 0.6;
+  font-size: 12px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 18px
+  @media screen and (max-width: 830px)
+    padding-top: 4px

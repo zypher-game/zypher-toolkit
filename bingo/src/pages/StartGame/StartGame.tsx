@@ -158,7 +158,7 @@ const StartGame: React.FC = () => {
       toBingoPlayHrefHandle()
     } catch (e: any) {
       setModalLoading(false)
-      setErrorToast(dispatch, e, lobbyContract)
+      setErrorToast(e, lobbyContract)
     }
   }, [account, chainId, walletClient, setErrorToast, bingoVersion])
   const onExitQueue = async () => {
@@ -215,7 +215,7 @@ const StartGame: React.FC = () => {
     } catch (e: any) {
       setModalLoading(false)
       setShowCloseModal(false)
-      setErrorToast(dispatch, e, lobbyContract)
+      setErrorToast(e, lobbyContract)
     }
   }
   const toBingoPage = useCallback(() => {

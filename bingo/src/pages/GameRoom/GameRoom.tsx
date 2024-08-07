@@ -179,13 +179,13 @@ const PlayerTurn = styled.div<{ lang: string }>`
   transform: translateX(-50%);
   text-align: center;
   color: #62380c;
+  font-weight: 400;
+  font-family: Lemon;
   font-size: 20px;
-
   width: 100%;
   height: 100%;
   max-width: 633px;
   max-height: 133px;
-  position: absolute;
   padding: 20px;
   z-index: 1;
   background: url(${preStaticUrl + `/img/bingo/player-turn`}_${({ lang }) => lang}.png) no-repeat center;
@@ -396,7 +396,7 @@ const GameRoom: React.FC = () => {
           }
         }
       } catch (error) {
-        setErrorToast(dispatch, error, lobbyContract)
+        setErrorToast(error, lobbyContract)
         console.error('handleMarkNumber error', error)
       } finally {
       }
@@ -433,7 +433,7 @@ const GameRoom: React.FC = () => {
       }
     } catch (error) {
       console.log({ error })
-      setErrorToast(dispatch, error, lobbyContract)
+      setErrorToast(error, lobbyContract)
     }
   }
 
@@ -473,7 +473,7 @@ const GameRoom: React.FC = () => {
       }
     } catch (error) {
       console.log('aaaa------3333')
-      setErrorToast(dispatch, error, lobbyContract)
+      setErrorToast(error, lobbyContract)
     } finally {
       setPending(false)
     }

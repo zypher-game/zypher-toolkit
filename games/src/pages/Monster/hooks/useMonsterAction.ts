@@ -124,7 +124,7 @@ export const useMonsterAction = ({
       const monsterContract = MonsterContract(chainId, env, undefined, walletClient)
       if (!monsterContract) {
         if (!monsterContract) {
-          setErrorToast(dispatch, 'monsterContract is not ready')
+          setErrorToast('monsterContract is not ready')
         }
         setDialogOpen(true)
         return
@@ -143,13 +143,13 @@ export const useMonsterAction = ({
           claimTx,
           blockNumber: new BigNumberJs(claimTx.blockNumber.toString()).toNumber()
         })
-        setSuccessToast(dispatch, { title: '', message: 'Claim successful' })
+        setSuccessToast({ title: '', message: 'Claim successful' })
         // get account nft
       } else {
         throw Object.assign(new Error('Claim Transaction Failed'), { name: 'Claim' })
       }
     } catch (e) {
-      setErrorToast(dispatch, e)
+      setErrorToast(e)
       console.error('claimHandle: ', e)
     } finally {
       setIsGetNftLoading(false)
@@ -171,7 +171,7 @@ export const useMonsterAction = ({
       }
       setBuyBattlePassDialogState(true)
     } catch (e) {
-      setErrorToast(dispatch, e)
+      setErrorToast(e)
       console.error('handleOpenBuyBattlePass: ', e)
     } finally {
     }
@@ -198,7 +198,7 @@ export const useMonsterAction = ({
             const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
             await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
             setIsApprove(true)
-            setSuccessToast(dispatch, { title: '', message: t('Approve successful') })
+            setSuccessToast({ title: '', message: t('Approve successful') })
             return
           }
         } else {
@@ -210,7 +210,7 @@ export const useMonsterAction = ({
       const monsterContract = MonsterContract(chainId, env, undefined, walletClient)
       if (!monsterContract) {
         if (!monsterContract) {
-          setErrorToast(dispatch, 'monsterContract is not ready')
+          setErrorToast('monsterContract is not ready')
         }
         setDialogOpen(true)
         return
@@ -225,13 +225,13 @@ export const useMonsterAction = ({
           claimTx,
           blockNumber: new BigNumberJs(claimTx.blockNumber.toString()).toNumber()
         })
-        setSuccessToast(dispatch, { title: '', message: `Get ${monster?.name} successful` })
+        setSuccessToast({ title: '', message: `Get ${monster?.name} successful` })
         // get account nft
       } else {
         throw Object.assign(new Error(`Get ${monster?.name} Transaction Failed`), { name: `Get ${monster?.name}` })
       }
     } catch (e) {
-      setErrorToast(dispatch, e)
+      setErrorToast(e)
       console.error('handleBuyBattlePass: ', e)
     } finally {
       setIsBuyNftLoading(false)

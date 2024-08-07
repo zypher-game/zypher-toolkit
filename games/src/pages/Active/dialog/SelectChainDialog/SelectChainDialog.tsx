@@ -46,7 +46,7 @@ const SelectChainDialog = memo(() => {
         }
       } catch (err) {
         setLoading(false)
-        setErrorToast(GlobalVar.dispatch, err)
+        setErrorToast(err)
       }
     },
     [switchNetwork, chainId]

@@ -1,4 +1,10 @@
 import {
+  toUserFriendlyAddress,
+  useTonAddress,
+  useTonConnectUI,
+} from "@tonconnect/ui-react";
+export { toUserFriendlyAddress, useTonAddress, useTonConnectUI };
+import {
   useSetRecoilState,
   atom,
   selector,
@@ -44,6 +50,7 @@ import {
   useDisconnect,
   useAccount,
   usePublicClient,
+  useContractReads,
 } from "wagmi";
 export {
   useWalletClient,
@@ -51,6 +58,7 @@ export {
   useDisconnect,
   useAccount,
   usePublicClient,
+  useContractReads,
 };
 export {
   useSetRecoilState,
@@ -89,6 +97,10 @@ export {
   getCryptoImg,
   GlobalVar,
   TG_BOT_URL,
+  TaskJoinTelegramGroup,
+  TaskTelegramBot,
+  TaskFollowZypher,
+  TaskReweet1,
 } from "./constant/constant";
 export {
   TVL_API,
@@ -107,6 +119,8 @@ export {
   ITvlHero,
   L3ChainId,
 } from "./constant/tvlConstant";
+export { TelegramUserInfoState } from "./hooks/useTelegramUser";
+export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
@@ -121,7 +135,11 @@ export {
   crLink,
 } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
-export { useTelegramUser } from "./hooks/useTelegramUser";
+export {
+  useTelegramUser,
+  useTelegramAccountInit,
+  TelegramUserInfoDto,
+} from "./hooks/useTelegramUser";
 export {
   connectorState,
   walletModalOpenState,
@@ -173,6 +191,9 @@ export {
   IsW1220Provider,
 } from "./provider/IsMobileProvider";
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
+export { default as TonConnectUIProvider } from "./provider/TonConnectUIProvider";
+
+export { WebAppData } from "./rainbow/Ton";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useAvatar } from "./hooks/useAvatar";
 
@@ -229,7 +250,7 @@ export {
   convertToLargeNumberRepresentation,
   splitArrByLen,
 } from "./utils/tool";
-export { request } from "./utils/request";
+export { request, httpPost } from "./utils/request";
 export {
   getUTCSeconds,
   timestampToDateStr,

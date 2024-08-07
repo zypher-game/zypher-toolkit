@@ -20,7 +20,7 @@
     &.zh_TW
       background:url($preStaticUrl + '/img/bingo/pannel_m_zh_TW.png')  no-repeat;
 .startGameHead
-  color: #62380c;
+  LemonFont()
   padding-left: 40px;
   padding-right: 40px;
   display: flex;

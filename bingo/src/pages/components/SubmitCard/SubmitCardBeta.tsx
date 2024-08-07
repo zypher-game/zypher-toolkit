@@ -128,7 +128,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
         })
       }
     } catch (e) {
-      setErrorToast(dispatch, e, lobbyContract)
+      setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)
     }

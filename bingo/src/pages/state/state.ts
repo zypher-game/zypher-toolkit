@@ -16,6 +16,16 @@ export const rankingDialogState = atom({
   key: 'rankingDialog',
   default: false
 })
+
+export const rankingTgDialog = atom({
+  key: 'rankingTgDialog',
+  default: false
+})
+
+export const DialogTaskListState = atom({
+  key: 'DialogTaskListState',
+  default: true
+})
 export const levelRuleDialogState = atom({
   key: 'levelRuleDialog',
   default: false

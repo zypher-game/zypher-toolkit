@@ -9,16 +9,14 @@
     line-height: 18px
     text-align: center
     max-width: 570px
-    color: #62380C
     margin: 8px auto 32px
-
+    LemonFont()
   .pending
     flexCenter()
     font-style: normal
-    font-weight: 600
     font-size: 16px
     line-height: 30px
-    color: #62380C
+    LemonFont()
     gap: 9px
     padding-top: 20px
     :global(.icon)
@@ -45,17 +43,14 @@
       cursor: not-allowed
 
   .tip
-    
     font-style: normal
-    font-weight: 400
     font-size: 12px
     line-height: 30px
     /* identical to box height, or 250% */
     text-align: center
-    color: #62380C
     opacity: 0.6
     margin: 8px 0 0
-
+    LemonFont()
   .checkCard
     margin: 24px 0 16px
     

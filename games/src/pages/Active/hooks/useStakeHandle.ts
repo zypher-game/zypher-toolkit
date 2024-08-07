@@ -135,7 +135,7 @@ export const useStakeHandle = (): {
       const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
 
       if (!contract) {
-        setErrorToast(GlobalVar.dispatch, 'dpContract is not ready')
+        setErrorToast('dpContract is not ready')
         return
       }
 
@@ -155,7 +155,7 @@ export const useStakeHandle = (): {
             const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
             // await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
             // setIsApproveLoading(false)
-            // setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+            // setSuccessToast({ title: '', message: 'Approve successful' })
             // 添加超时处理
             const timeoutPromise = new Promise((resolve, reject) =>
               setTimeout(async () => {
@@ -168,14 +168,14 @@ export const useStakeHandle = (): {
               .then(result => {
                 setIsApproveLoading(false)
                 if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
-                  setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Approve successful' })
+                  setSuccessToast({ title: '', message: 'Approve successful' })
                 } else {
-                  setErrorToast(GlobalVar.dispatch, { title: '', message: 'Approve Error!' })
+                  setErrorToast({ title: '', message: 'Approve Error!' })
                 }
               })
               .catch(e => {
                 setIsApproveLoading(false)
-                setErrorToast(GlobalVar.dispatch, { title: '', message: 'Approve Error!' })
+                setErrorToast({ title: '', message: 'Approve Error!' })
               })
             if (isW768) {
               getStakingData()
@@ -213,14 +213,14 @@ export const useStakeHandle = (): {
           tx: depositTx,
           blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber()
         })
-        setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Staked successful' })
+        setSuccessToast({ title: '', message: 'Staked successful' })
       } else {
         throw Object.assign(new Error('Staked Transaction Failed'), { name: 'Staked' })
       }
     } catch (e) {
       setIsApproveLoading(false)
       setIsDepositLoading(false)
-      setErrorToast(GlobalVar.dispatch, e)
+      setErrorToast(e)
       console.error('StakedHandle: ', e)
     }
   }, [
@@ -322,7 +322,7 @@ export const useReStakingHandle = () => {
         setClaimGpLoading(false)
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
-        setSuccessToast(GlobalVar.dispatch, { title: '', message: successText })
+        setSuccessToast({ title: '', message: successText })
       }
     },
     [nativeChainId, getStakingData, account]
@@ -361,7 +361,7 @@ export const useReStakingHandle = () => {
         }
         const contract = TVLStakingContract({ chainId: nativeChainId, env, signer: walletClient! })
         if (!contract) {
-          setErrorToast(GlobalVar.dispatch, 'StakingContract is not ready')
+          setErrorToast('StakingContract is not ready')
           return
         }
         setClaimGpLoading(true)
@@ -381,7 +381,7 @@ export const useReStakingHandle = () => {
         }
       } catch (e) {
         setClaimGpLoading(false)
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
         console.error('Claim $GP Handle: ', e)
       }
     },

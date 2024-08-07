@@ -39,7 +39,6 @@ const MarketLinkPre: Record<ChainId, string> = {
   [ChainId.BscTestnet]: '',
   [ChainId.Arbitrum]: 'https://element.market/assets/arbitrum/',
   [ChainId.ArbitrumRinkeby]: '',
-  [ChainId.LineaTestnet]: '',
   [ChainId.LineaMainnet]: 'https://element.market/assets/linea/',
   [ChainId.POLYGON_MUMBAI]: '',
   [ChainId.POLYGON_ZKEVM]: '',
@@ -59,7 +58,9 @@ const MarketLinkPre: Record<ChainId, string> = {
   [ChainId.B2Testnet]: '',
   [ChainId.ZytronLineaSepoliaTestnet]: '',
   [ChainId.ZytronB2Testnet]: '',
-  [ChainId.Taiko]: ''
+  [ChainId.Taiko]: '',
+  [ChainId.LineaSepolia]: '',
+  [ChainId.SagaMainnet]: ''
 }
 export const z2048Constant: any = {
   [ChainId.LineaMainnet]: {
@@ -96,15 +97,6 @@ export const z2048Constant: any = {
       ZkGame2048: '0x159879B72B1bE7007aC56c4DcbbC31545F8D57bb',
       Z2048SBT: '0xC3915d66C197d15b51C3ED26012eC5836915b3a6',
       TILE_REWARD_HELPER_ADDRESS: '0xc55A0c445A80C8598b4757A07d3784e6F7d2b661'
-    }
-  },
-  [ChainId.LineaTestnet]: {
-    marketLinkPre: MarketLinkPre[ChainId.LineaTestnet],
-    graphql: 'https://linea-goerli-graph.zypher.game/subgraphs/name/linea/game2048',
-    Contracts: {
-      ZkGame2048: '0x8647178e0F1A130E1628D114e89988d558fbC734',
-      Z2048SBT: '0xD5052D8a2C2ff9160d132fcc1af17f8b7e96F230',
-      TILE_REWARD_HELPER_ADDRESS: '0x0a0BD82C5eB8213A24E37cC7297d4F0cD231e417'
     }
   },
   [ChainId.MantleTestnet]: {

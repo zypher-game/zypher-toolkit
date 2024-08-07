@@ -22,13 +22,13 @@ const InvitationCode = memo(() => {
       return
     }
     if (!codeStr) {
-      setErrorToast(GlobalVar.dispatch, 'Please enter the invitation code')
+      setErrorToast('Please enter the invitation code')
       return
     }
     const chainKey = codeStr[0]
     const choseChainKey = LinkPre[chainKey]
     if (!choseChainKey) {
-      setErrorToast(GlobalVar.dispatch, 'Please enter the right invitation code')
+      setErrorToast('Please enter the right invitation code')
       return
     }
     // 如果当前网络不是用户邀请码所在的网络，则要求用户切换网络
@@ -50,10 +50,10 @@ const InvitationCode = memo(() => {
             invitationCode: codeStr
           }))
         } else {
-          setErrorToast(GlobalVar.dispatch, 'Verification code has been registered')
+          setErrorToast('Verification code has been registered')
         }
       } catch (e: any) {
-        setErrorToast(GlobalVar.dispatch, e)
+        setErrorToast(e)
       }
     }
   }, [preHandleAction, setActiveData, codeStr, chainId, account, JSON.stringify(activeData)])

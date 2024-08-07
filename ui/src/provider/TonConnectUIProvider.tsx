@@ -1,10 +1,14 @@
-import { TonConnectUIProvider } from "@tonconnect/ui-react";
+import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
 import React from "react";
 import { memo, ReactNode } from "react";
 
-export const TelegramConnect = memo(({ children }: { children: ReactNode }) => {
+const TelegramConnect = memo(({ children }: { children: ReactNode }) => {
   return (
     <TonConnectUIProvider
+      uiPreferences={{
+        theme: THEME.DARK,
+        colorsSet: { [THEME.DARK]: { background: { primary: "#070823" } } },
+      }}
       walletsListConfiguration={{
         includeWallets: [
           {
@@ -38,3 +42,4 @@ export const TelegramConnect = memo(({ children }: { children: ReactNode }) => {
     </TonConnectUIProvider>
   );
 });
+export default TelegramConnect;

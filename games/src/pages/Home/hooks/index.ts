@@ -18,13 +18,13 @@ import {
   walletModalOpenState,
   ZkBingoPointsContract
 } from '@ui/src'
+import { BigNumberJs } from '@ui/src'
 import { BigNumber, ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { Address, useWalletClient } from 'wagmi'
 
 import { useAppDispatch } from '@/store/hooks'
-import { BigNumberJs } from '@ui/src'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
@@ -63,7 +63,6 @@ export const claimConfsDefault: IClaimConfMap = {
 // 优惠档C：500,000 = $ 500 = 0.25 ETH, 9 折 = 0.225 ETH
 const ChainPointPrice = {
   [ChainId.LineaMainnet]: 1 / 2_000_000,
-  [ChainId.LineaTestnet]: 1 / 2_000_000,
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000
 } as unknown as Record<ChainId, number>
@@ -186,7 +185,7 @@ export const useBingoPoint = (): IBingoPointApi => {
       const pointsContract = ZkBingoPointsContract(chainId, env, undefined, walletClient)
       if (!pointsContract) {
         if (!pointsContract) {
-          setErrorToast(dispatch, 'PointsContract is not ready')
+          setErrorToast('PointsContract is not ready')
         }
         setDialogOpen(true)
         return
@@ -200,13 +199,13 @@ export const useBingoPoint = (): IBingoPointApi => {
       if (claimTx && claimTx.status === txStatus) {
         postAccountUpdate({ tx: claimTx })
         setRefreshBalanceState(refreshBalance + 1)
-        setSuccessToast(dispatch, { title: '', message: 'Claim successful' })
+        setSuccessToast({ title: '', message: 'Claim successful' })
         setDayClaimed(true)
       } else {
         throw Object.assign(new Error('Claim Transaction Failed'), { name: 'Claim' })
       }
     } catch (e) {
-      setErrorToast(dispatch, e)
+      setErrorToast(e)
       console.error('claimHandle: ', e)
     } finally {
       setIsClaimLoading(false)

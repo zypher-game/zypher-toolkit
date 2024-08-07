@@ -117,7 +117,7 @@ export const useCombo = () => {
                 tx: stakeLockTx,
                 blockNumber: new BigNumberJs(stakeLockTx.blockNumber.toString()).toNumber()
               })
-              setSuccessToast(GlobalVar.dispatch, { title: '', message: 'CheckIn successful' })
+              setSuccessToast({ title: '', message: 'CheckIn successful' })
             } else {
               setCheckInLoading(false)
               throw Object.assign(new Error('CheckIn Transaction Failed'), { name: 'CheckIn' })
@@ -138,7 +138,7 @@ export const useCombo = () => {
       }
     } catch (err: any) {
       setCheckInLoading(false)
-      setErrorToast(GlobalVar.dispatch, err)
+      setErrorToast(err)
     }
   }, [checkInLoading, JSON.stringify(status), account, chainId, walletClient])
   const _successCheckIn = useCallback(

@@ -7,12 +7,10 @@
 
   .title
     font-style: normal
-    font-weight: 600
     font-size: 14px
     line-height: 24px
     text-align: center
-    color: #62380C
-
+    LemonFont()
   img
     margin: 0 auto 
     padding: 16px
@@ -38,20 +36,17 @@
       cursor: not-allowed
 
   .tip
-    
     font-style: normal
-    font-weight: 400
     font-size: 12px
     line-height: 30px
-    color: #62380C
     opacity: 0.6
     margin: 8px 0 0
     text-align: center
+    LemonFont()
 .mTitle
-  color: #62380c;
   text-align: center;
-  font-weight: 600;
   font-size: 16px;
+  LemonFont()
 .btnWrap
   display: flex
   justify-content: center

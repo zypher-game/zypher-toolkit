@@ -1,4 +1,4 @@
-import { getShortenAddress, useIsW768 } from '@ui/src'
+import { getShortenAddress, TelegramUserInfoState, useIsW768, useRecoilValue } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -12,6 +12,7 @@ import css from './userCenter.module.stylus'
 const UserCenter = memo(() => {
   const isMobile = useIsW768()
   const { gamesLen, gamesWon, gamesWonNumber, winningPercent, account, bingoVersion } = useGetProfileFromGraph()
+  const userInfo = useRecoilValue(TelegramUserInfoState)
   // const { hasMonsterNft } = useMonster()
   if (!account) {
     return <></>
@@ -20,7 +21,7 @@ const UserCenter = memo(() => {
     <div className={css.userCenter}>
       <BingoPlayerAvatar account={account} showAccount={false} size={isMobile ? 40 : 62} />
       <div className={css.userAddress}>
-        <p className={css.addressLabel}>{getShortenAddress(account)}</p>
+        <p className={css.addressLabel}>{userInfo ? userInfo.name : getShortenAddress(account)}</p>
         {bingoVersion === IBingoVersion.v1 ? <LevelIcon gamesWonNumber={gamesWonNumber} /> : null}
         {/* <MonsterIcon hasMonsterNft={hasMonsterNft} /> */}
       </div>

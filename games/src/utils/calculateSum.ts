@@ -12,7 +12,6 @@ export const calculateSumWithKey = (array: any[], index: number): string => {
 }
 // const ChainNativePrice = {
 //   [ChainId.LineaMainnet]: 1600,
-//   [ChainId.LineaTestnet]: 1600,
 //   [ChainId.OPBNB]: 210,
 //   [ChainId.OPBNBTEST]: 210
 // }

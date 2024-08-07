@@ -74,7 +74,7 @@ const ActiveChooseHunter = memo(() => {
       try {
         _signedStr = await getWeb3Sign(hashedCardBytes, accountAddress, false)
       } catch (err) {
-        setErrorToast(GlobalVar.dispatch, err)
+        setErrorToast(err)
         return
       }
       if (chainId && typeof _signedStr === 'string') {
@@ -90,11 +90,11 @@ const ActiveChooseHunter = memo(() => {
           toSetHero(hero[heroKey].keyValue)
           navigate(tvlPath[0])
         } else {
-          setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
+          setErrorToast('ChooseHero Failed')
         }
       }
     } catch {
-      setErrorToast(GlobalVar.dispatch, 'ChooseHero Failed')
+      setErrorToast('ChooseHero Failed')
     }
   }, [heroKey, accountAddress, id])
 

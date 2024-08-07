@@ -89,7 +89,7 @@ const ChangeNameDialog = memo(() => {
         _signedStr = await getWeb3Sign(hashedCardBytes, account!, false)
       } catch (err) {
         setLoading(false)
-        setErrorToast(GlobalVar.dispatch, err)
+        setErrorToast(err)
         return
       }
       if (typeof _signedStr === 'string') {
@@ -123,14 +123,14 @@ const ChangeNameDialog = memo(() => {
           await sleep(2)
           setRefreshAvatar(pre => pre + 1)
           setLoading(false)
-          setSuccessToast(GlobalVar.dispatch, { title: '', message: 'Change successful' })
+          setSuccessToast({ title: '', message: 'Change successful' })
           setIsModalOpen(false)
         } else {
           throw new Error('Update has Error')
         }
       }
     } catch (e) {
-      setErrorToast(GlobalVar.dispatch, e)
+      setErrorToast(e)
       setLoading(false)
     }
   }, [_canNext, nicknameLocal, account, avatarLocal])
@@ -141,7 +141,7 @@ const ChangeNameDialog = memo(() => {
       const file = event.target.files[0]
       if (file.size > 2 * 1024 * 1024) {
         // 2MB
-        setErrorToast(GlobalVar.dispatch, 'The image size cannot exceed 2MB!')
+        setErrorToast('The image size cannot exceed 2MB!')
         return
       }
       // setSelectedFile(file)

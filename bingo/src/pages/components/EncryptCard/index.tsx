@@ -20,16 +20,6 @@ import { ButtonPrimary } from '../Button'
 import { SetUpSubText } from '../Text'
 import css from './index.module.stylus'
 
-const Tip = styled.div<{ isMobile?: boolean }>`
-  color: #62380c;
-  /* text-align: center; */
-  opacity: 0.6;
-  font-size: 12px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: ${({ isMobile }) => (isMobile ? '4px' : '18px')};
-`
 const CustomIcon = styled(SvgComponent)`
   width: 16px;
   margin-right: 6px;
@@ -45,14 +35,6 @@ const BoxRight = styled.div<{ isMobile: boolean }>`
   display: flex;
   justify-content: ${({ isMobile }) => (isMobile ? 'center' : 'flex-end ')};
   width: 100%;
-`
-const Title = styled.div`
-  color: #62380c;
-  text-align: center;
-  font-weight: 600;
-  font-size: 16px;
-  /* padding-top: 15px; */
-  padding-bottom: 10px;
 `
 
 const ScrollableDiv = styled.div<{ isMobile: boolean }>`
@@ -142,7 +124,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
       }))
       setCurrentStep(2)
     } catch (e) {
-      setErrorToast(dispatch, e, cardContract)
+      setErrorToast(e, cardContract)
     } finally {
       setPending(false)
     }
@@ -163,23 +145,23 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
             <div className={css.control}>
               {isMobile && (
                 <>
-                  <Tip isMobile={isMobile}>
+                  <div className={css.tip}>
                     <CustomIcon src={preStaticUrl + '/img/icon/note.svg'} />
                     {t('EncryptCardText1')}
-                  </Tip>
-                  <Title>
+                  </div>
+                  <div className={css.title}>
                     {t('EncryptCardText201')}
                     <br />
                     {t('EncryptCardText202')}
-                  </Title>
+                  </div>
                 </>
               )}
               <SetUpSubText>{t('EncryptCardText3')}</SetUpSubText>
               {!isMobile && (
-                <Tip isMobile={isMobile}>
+                <div className={css.tip}>
                   <CustomIcon src={preStaticUrl + '/img/icon/note.svg'} />
                   {t('EncryptCardText4')}
-                </Tip>
+                </div>
               )}
               {!isMobile && (
                 <div className={css.btnWrap}>
@@ -194,7 +176,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
                           </Space>
                         </ButtonPrimary>
                       </div>
-                      <Tip>{t('EncryptCardText5')}</Tip>
+                      <div className={css.tip}>{t('EncryptCardText5')}</div>
                     </Space>
                   </div>
                 </div>

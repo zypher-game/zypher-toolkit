@@ -27,11 +27,11 @@ export const useBind = () => {
       return
     }
     if (!twitterNickname) {
-      setErrorToast(GlobalVar.dispatch, 'Please Follow @Zypher_Network on Twitter')
+      setErrorToast('Please Follow @Zypher_Network on Twitter')
       return
     }
     // if (!discordNickname) {
-    //   setErrorToast(GlobalVar.dispatch, 'Please Follow @MKJZhS4p2T on Discord')
+    //   setErrorToast('Please Follow @MKJZhS4p2T on Discord')
     //   return
     // }
     setActiveData(pre => ({ ...pre, checkAirdropPointsLoading: true }))
@@ -80,7 +80,7 @@ export const useBind = () => {
     const discordError = url.searchParams.get('DiscordError')
     if (twitterError || discordError) {
       const msg = (twitterError ?? discordError ?? '').replace('"', '')
-      setErrorToast(GlobalVar.dispatch, msg)
+      setErrorToast(msg)
       setTimeout(() => {
         url.searchParams.delete('TwitterError')
         url.searchParams.delete('DiscordError')

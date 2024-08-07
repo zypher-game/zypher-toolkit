@@ -31,7 +31,6 @@ export const gasPrice: Record<ChainId, string | undefined> = {
   [ChainId.Arbitrum]: undefined,
   [ChainId.ArbitrumGoerli]: undefined,
   [ChainId.ArbitrumRinkeby]: undefined,
-  [ChainId.LineaTestnet]: undefined,
   [ChainId.LineaSepolia]: undefined,
   [ChainId.LineaMainnet]: undefined,
   [ChainId.POLYGON_MUMBAI]: undefined,

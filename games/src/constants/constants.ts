@@ -6,7 +6,6 @@ export const TransactionsCount: Record<ChainId, string> = {
   // v0 59140 0xb29cAa2cB1fEb7f4cCaa9Dd9B8Ad2022EaCa6EC3
   // https://explorer.goerli.linea.build/address/0x7Ac84BB3e1bf4ffdbb86b3f9A41F99d255809Da6 59
   // https://explorer.goerli.linea.build/address/0xb29cAa2cB1fEb7f4cCaa9Dd9B8Ad2022EaCa6EC3 30
-  [ChainId.LineaTestnet]: 59 + 39 + '',
   // v1 59144 0xb5eE5a405eE2B27810Ca8d13eD80F16798208327
   // v0 59144 0xb29cAa2cB1fEb7f4cCaa9Dd9B8Ad2022EaCa6EC3
   // https://lineascan.build/address/0xb5eE5a405eE2B27810Ca8d13eD80F16798208327  180
@@ -66,7 +65,6 @@ export const TransactionsCount: Record<ChainId, string> = {
 
 export const monsterGraphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.LineaMainnet]: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo',
-  [ChainId.LineaTestnet]: 'https://linea-goerli-graph.zypher.game/subgraphs/name/linea/goerli',
   [ChainId.OPBNB]: 'https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo',
   [ChainId.OPBNBTEST]: 'https://opbnb-testnet-graph.zypher.game/subgraphs/name/zypher-events/monster-2023',
   [ChainId.ArbitrumGoerli]: 'https://arb-goerli-graph.zypher.game/subgraphs/name/arb/bingo'

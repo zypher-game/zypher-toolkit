@@ -23,7 +23,6 @@ const GPNumber: Record<TVLChainId, string> = {
   [TVLChainId.B2]: '40,000,000',
   [TVLChainId.B2Testnet]: '40,000,000',
   [TVLChainId.LineaMainnet]: '2,000,000',
-  [TVLChainId.LineaTestnet]: '2,000,000',
   [TVLChainId.LineaSepolia]: '2,000,000'
 }
 
@@ -31,7 +30,6 @@ const stakeAmountListConfig: Record<TVLChainId, string[]> = {
   [TVLChainId.B2]: ['0.25 '],
   [TVLChainId.B2Testnet]: ['0.25 '],
   [TVLChainId.LineaMainnet]: ['5 '],
-  [TVLChainId.LineaTestnet]: ['5 '],
   [TVLChainId.LineaSepolia]: ['5 ']
 }
 export const useAirdropPointsTooltip = () => {
