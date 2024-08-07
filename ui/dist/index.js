@@ -476,13 +476,13 @@ var IContractName = /* @__PURE__ */ ((IContractName2) => {
   return IContractName2;
 })(IContractName || {});
 var zkBingoV0 = (chainId, name) => {
-  var _a, _b, _c;
+  var _a2, _b2, _c;
   if (!chainId) {
     throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = (_b = (_a = zkBingoContracts) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
+    const address = (_b2 = (_a2 = zkBingoContracts) == null ? void 0 : _a2[chainId]) == null ? void 0 : _b2[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -505,13 +505,13 @@ var zkBingoV0 = (chainId, name) => {
   }
 };
 var zkBingo = (chainId, name) => {
-  var _a, _b;
+  var _a2, _b2;
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = (_b = (_a = zkBingoContractsV1) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
+    const address = (_b2 = (_a2 = zkBingoContractsV1) == null ? void 0 : _a2[chainId]) == null ? void 0 : _b2[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -785,19 +785,20 @@ var tonProvider = new TonWeb.HttpProvider(TonChainInfo.endpoint, {
   apiKey: TonChainInfo.key
 });
 var tonWeb = new TonWeb(tonProvider);
-var WebAppData = {
-  query_id: "AAHoW-FSAAAAAOhb4VLDThlv",
-  user: JSON.stringify({
-    id: 1390500840,
-    first_name: "sli",
-    last_name: "hai",
-    username: "hailiting",
-    language_code: "zh-hans",
-    allows_write_to_pm: true
-  }),
-  auth_date: "1722914942",
-  hash: "ed0f6e4d2cd3b4ff071a5a87c26a48bb679bb9cb166a982e9f7165e0b98c5ecf"
-};
+var WebAppData = {};
+var _a, _b;
+try {
+  const search = new URLSearchParams((_b = (_a = window.Telegram) == null ? void 0 : _a.WebApp) == null ? void 0 : _b.initData);
+  for (const [key, value] of search.entries()) {
+    WebAppData[key] = value;
+  }
+  if (!isPro() && !WebAppData.user) {
+    WebAppData.user = JSON.stringify({ id: 566752830 });
+    WebAppData.dev = true;
+  }
+} catch (err) {
+  console.error("WebAppData", err);
+}
 
 // src/utils/localStorageEffect.ts
 import { DefaultValue } from "recoil";
@@ -904,15 +905,15 @@ var useTonWalletProofMounted = () => {
   const [proof, _proof] = useState2(null);
   const wallet = useTonWallet();
   useEffect3(() => {
-    var _a, _b;
-    if (((_b = (_a = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a.tonProof) == null ? void 0 : _b.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
+    var _a2, _b2;
+    if (((_b2 = (_a2 = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a2.tonProof) == null ? void 0 : _b2.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
       _proof(wallet.connectItems.tonProof);
     } else {
       _proof(null);
     }
     ui.onStatusChange((wallet2) => {
-      var _a2;
-      if (((_a2 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a2.tonProof) && "proof" in wallet2.connectItems.tonProof) {
+      var _a3;
+      if (((_a3 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a3.tonProof) && "proof" in wallet2.connectItems.tonProof) {
         _proof(wallet2.connectItems.tonProof);
       }
     });
@@ -2154,9 +2155,9 @@ import { useAccount, usePublicClient } from "wagmi";
 // src/rainbowkit/src/hooks/useChainId.ts
 import { useNetwork } from "wagmi";
 function useChainId() {
-  var _a;
+  var _a2;
   const { chain: activeChain } = useNetwork();
-  return (_a = activeChain == null ? void 0 : activeChain.id) != null ? _a : null;
+  return (_a2 = activeChain == null ? void 0 : activeChain.id) != null ? _a2 : null;
 }
 
 // src/hooks/useActiveWeb3React.ts
@@ -2167,7 +2168,7 @@ function useActiveWeb3React(env, chainList) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);
@@ -2871,10 +2872,10 @@ var Units = [
   ["K", 1e3]
 ];
 function formatCurrency(amount, precision = 2) {
-  var _a;
-  const [unit, base3] = (_a = Units.find(
+  var _a2;
+  const [unit, base3] = (_a2 = Units.find(
     ([, min]) => Number(amount) >= Number(min)
-  )) != null ? _a : ["", 1];
+  )) != null ? _a2 : ["", 1];
   return `${utils.commify(
     (amount / base3).toFixed(precision)
   )}${unit}`;
@@ -3233,9 +3234,9 @@ var metaMaskWallet = ({
   walletConnectVersion = "2",
   ...options
 }) => {
-  var _a, _b;
-  const providers2 = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.providers);
-  const isMetaMaskInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (((_b = window.ethereum.providers) == null ? void 0 : _b.some(isMetaMask)) || window.ethereum.isMetaMask);
+  var _a2, _b2;
+  const providers2 = typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.providers);
+  const isMetaMaskInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (((_b2 = window.ethereum.providers) == null ? void 0 : _b2.some(isMetaMask)) || window.ethereum.isMetaMask);
   const shouldUseWalletConnect = !isMetaMaskInjected;
   return {
     id: "metaMask",
@@ -3574,8 +3575,8 @@ var tokenPocketWallet = ({
   walletConnectOptions,
   walletConnectVersion = "2"
 }) => {
-  var _a;
-  const isTokenPocketInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isTokenPocket) === true;
+  var _a2;
+  const isTokenPocketInjected = typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.isTokenPocket) === true;
   const shouldUseWalletConnect = !isTokenPocketInjected;
   return {
     id: "tokenPocket",
@@ -3869,9 +3870,9 @@ var getViemClients = ({
 // src/hooks/useActiveChainId.ts
 import { useNetwork as useNetwork2 } from "wagmi";
 var useActiveChainId = (env) => {
-  var _a;
+  var _a2;
   const { chain } = useNetwork2();
-  const chainId = (_a = chain == null ? void 0 : chain.id) != null ? _a : void 0;
+  const chainId = (_a2 = chain == null ? void 0 : chain.id) != null ? _a2 : void 0;
   const isError = !Object.values(supportedChainIds(env)).includes(
     Number(chainId)
   );
@@ -4024,8 +4025,8 @@ var pointsListDefault = (chainId) => {
       ["300000", "5"],
       ["500000", "10"]
     ].map((v, index) => {
-      var _a;
-      const chainPrice = (_a = ChainPointPrice[chainId]) != null ? _a : "0";
+      var _a2;
+      const chainPrice = (_a2 = ChainPointPrice[chainId]) != null ? _a2 : "0";
       const price = v[1] ? new BigNumberjs2(chainPrice).times(v[0]).times((100 - Number(v[1])) * 0.01).toFixed(8) : new BigNumberjs2(chainPrice).times(v[0]).toFixed(8);
       const priceStr = formatMoney(Number(price), 8);
       const pointAmountStr = formatMoney(Number(v[0]));
@@ -4886,14 +4887,14 @@ var SideBar = (props) => {
   } = useMemo6(() => {
     return {
       sideBarGamesLinkList: Games(chainId).map((v) => v.dapps.map((vv) => vv)).flat().map((v) => {
-        var _a;
+        var _a2;
         return {
           label: v.label,
           keyValue: v.label,
           icon: v.icon,
           disabled: false,
           type: "Games" /* Games */,
-          link: (_a = v.link) != null ? _a : v.twitter
+          link: (_a2 = v.link) != null ? _a2 : v.twitter
         };
       })
     };
@@ -4909,11 +4910,11 @@ var SideBar = (props) => {
     className: "sidebar"
   }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
     (v) => {
-      var _a;
+      var _a2;
       return /* @__PURE__ */ React23.createElement(SideBarTitleLink, {
         key: v.label,
         logo_title: v.label,
-        className: `sideBarTitle sideBarTitleLink ${((_a = v.linkList) != null ? _a : []).includes(pathname) ? "on" : ""}`,
+        className: `sideBarTitle sideBarTitleLink ${((_a2 = v.linkList) != null ? _a2 : []).includes(pathname) ? "on" : ""}`,
         link: v.link,
         logo_url_name: v.icon
       });
@@ -5554,7 +5555,7 @@ var Balance = memo25((props) => {
           walletClient
         );
         const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance });
+        console.log({ balance, account, pointsAddress });
         setPointsBalance(
           new BigNumberJs_default(balance.toString()).dividedBy(divisorBigNumber).toNumber()
         );
@@ -6123,11 +6124,11 @@ function isArc() {
   return typeof document !== "undefined" && getComputedStyle(document.body).getPropertyValue("--arc-palette-focus") !== "";
 }
 function getBrowser() {
-  var _a;
+  var _a2;
   if (typeof navigator === "undefined")
     return "Browser" /* Browser */;
   const ua = navigator.userAgent.toLowerCase();
-  if ((_a = navigator.brave) == null ? void 0 : _a.isBrave)
+  if ((_a2 = navigator.brave) == null ? void 0 : _a2.isBrave)
     return "Brave" /* Brave */;
   else if (ua.indexOf("edg/") > -1)
     return "Edge" /* Edge */;
@@ -6146,11 +6147,11 @@ function getBrowser() {
 
 // src/rainbowkit/src/wallets/downloadUrls.ts
 var getExtensionDownloadUrl = (wallet) => {
-  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
+  var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
   const browser = getBrowser();
   return (_l = {
-    ["Arc" /* Arc */]: (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.chrome,
-    ["Brave" /* Brave */]: (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.chrome,
+    ["Arc" /* Arc */]: (_a2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a2.chrome,
+    ["Brave" /* Brave */]: (_b2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b2.chrome,
     ["Chrome" /* Chrome */]: (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.chrome,
     ["Edge" /* Edge */]: ((_d = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _d.edge) || ((_e = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _e.chrome),
     ["Firefox" /* Firefox */]: (_f = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _f.firefox,
@@ -6160,9 +6161,9 @@ var getExtensionDownloadUrl = (wallet) => {
   }[browser]) != null ? _l : (_k = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _k.browserExtension;
 };
 var getMobileDownloadUrl = (wallet) => {
-  var _a, _b, _c, _d;
+  var _a2, _b2, _c, _d;
   const ios = isIOS();
-  return (_d = ios ? (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.ios : (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.android) != null ? _d : (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.mobile;
+  return (_d = ios ? (_a2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a2.ios : (_b2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b2.android) != null ? _d : (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.mobile;
 };
 
 // src/rainbowkit/src/wallets/recentWalletIds.ts
@@ -6193,10 +6194,10 @@ function useWalletConnectors() {
   const { connectAsync, connectors: defaultConnectors_untyped } = useConnect();
   const defaultConnectors = defaultConnectors_untyped;
   async function connectWallet(walletId, connector) {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const walletChainId = await connector.getChainId();
     const result = await connectAsync({
-      chainId: (_c = intialChainId != null ? intialChainId : (_a = rainbowKitChains.find(({ id }) => id === walletChainId)) == null ? void 0 : _a.id) != null ? _c : (_b = rainbowKitChains[0]) == null ? void 0 : _b.id,
+      chainId: (_c = intialChainId != null ? intialChainId : (_a2 = rainbowKitChains.find(({ id }) => id === walletChainId)) == null ? void 0 : _a2.id) != null ? _c : (_b2 = rainbowKitChains[0]) == null ? void 0 : _b2.id,
       connector
     });
     if (result) {
@@ -6216,8 +6217,8 @@ function useWalletConnectors() {
   }
   const walletInstances = flatten(
     defaultConnectors.map((connector) => {
-      var _a;
-      return (_a = connector._wallets) != null ? _a : [];
+      var _a2;
+      return (_a2 = connector._wallets) != null ? _a2 : [];
     })
   ).sort((a, b) => a.index - b.index);
   const walletInstanceById = indexBy(
@@ -6234,7 +6235,7 @@ function useWalletConnectors() {
   ];
   const walletConnectors = [];
   groupedWallets.forEach((wallet) => {
-    var _a;
+    var _a2;
     if (!wallet) {
       return;
     }
@@ -6249,7 +6250,7 @@ function useWalletConnectors() {
         "message",
         ({ type }) => type === "connecting" ? fn() : void 0
       ),
-      ready: ((_a = wallet.installed) != null ? _a : true) && wallet.connector.ready,
+      ready: ((_a2 = wallet.installed) != null ? _a2 : true) && wallet.connector.ready,
       recent,
       showWalletConnectModal: wallet.walletConnectModalConnector ? () => connectToWalletConnectModal(
         wallet.id,
@@ -6305,9 +6306,9 @@ var MUserInfo = memo28(
       ];
     }, []);
     const openHandle = useCallback18(() => {
-      var _a;
+      var _a2;
       window.open(
-        `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
+        `${(_a2 = BlockExplorerUrls[chainId]) != null ? _a2 : [0]}/address/${account}`,
         "_blank"
       );
     }, [account, chainId]);
@@ -6445,9 +6446,9 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     setIndex(0);
   }, [account]);
   const openHandle = useCallback19(() => {
-    var _a;
+    var _a2;
     window.open(
-      `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
+      `${(_a2 = BlockExplorerUrls[chainId]) != null ? _a2 : [0]}/address/${account}`,
       "_blank"
     );
     setIndex(1);
@@ -6499,9 +6500,9 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
     setIndex(0);
   }, [account]);
   const openHandle = useCallback19(() => {
-    var _a;
+    var _a2;
     window.open(
-      `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
+      `${(_a2 = BlockExplorerUrls[chainId]) != null ? _a2 : [0]}/address/${account}`,
       "_blank"
     );
     setIndex(1);
@@ -6724,17 +6725,17 @@ function RainbowKitAuthenticationProvider({
   }, children);
 }
 function useAuthenticationAdapter() {
-  var _a;
-  const { adapter } = (_a = useContext3(AuthenticationContext)) != null ? _a : {};
+  var _a2;
+  const { adapter } = (_a2 = useContext3(AuthenticationContext)) != null ? _a2 : {};
   if (!adapter) {
     throw new Error("No authentication adapter found");
   }
   return adapter;
 }
 function useAuthenticationStatus() {
-  var _a;
+  var _a2;
   const contextValue = useContext3(AuthenticationContext);
-  return (_a = contextValue == null ? void 0 : contextValue.status) != null ? _a : null;
+  return (_a2 = contextValue == null ? void 0 : contextValue.status) != null ? _a2 : null;
 }
 
 // src/rainbowkit/src/hooks/useConnectionStatus.ts
@@ -7076,8 +7077,8 @@ function createTransactionStore({
     provider = newProvider;
   }
   function getTransactions(account, chainId) {
-    var _a, _b;
-    return (_b = (_a = data[account]) == null ? void 0 : _a[chainId]) != null ? _b : [];
+    var _a2, _b2;
+    return (_b2 = (_a2 = data[account]) == null ? void 0 : _a2[chainId]) != null ? _b2 : [];
   }
   function addTransaction(account, chainId, transaction) {
     const errors = validateTransaction(transaction);
@@ -7131,12 +7132,12 @@ function createTransactionStore({
     );
   }
   function updateTransactions(account, chainId, updateFn) {
-    var _a, _b;
+    var _a2, _b2;
     data = loadData();
-    data[account] = (_a = data[account]) != null ? _a : {};
+    data[account] = (_a2 = data[account]) != null ? _a2 : {};
     let completedTransactionCount = 0;
     const MAX_COMPLETED_TRANSACTIONS = 10;
-    const transactions = updateFn((_b = data[account][chainId]) != null ? _b : []).filter(({ status }) => {
+    const transactions = updateFn((_b2 = data[account][chainId]) != null ? _b2 : []).filter(({ status }) => {
       return status === "pending" ? true : completedTransactionCount++ <= MAX_COMPLETED_TRANSACTIONS;
     });
     data[account][chainId] = transactions.length > 0 ? transactions : void 0;
@@ -7962,8 +7963,8 @@ function FocusTrap(props) {
   useEffect23(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
-      var _a;
-      (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
+      var _a2;
+      (_a2 = previouslyActiveElement.focus) == null ? void 0 : _a2.call(previouslyActiveElement);
     };
   }, []);
   useEffect23(() => {
@@ -8252,8 +8253,8 @@ function useRecentTransactions() {
 
 // src/rainbowkit/src/utils/chainToExplorerUrl.ts
 var chainToExplorerUrl = (chain) => {
-  var _a, _b;
-  return (_b = (_a = chain == null ? void 0 : chain.blockExplorers) == null ? void 0 : _a.default) == null ? void 0 : _b.url;
+  var _a2, _b2;
+  return (_b2 = (_a2 = chain == null ? void 0 : chain.blockExplorers) == null ? void 0 : _a2.default) == null ? void 0 : _b2.url;
 };
 
 // src/rainbowkit/src/components/Icons/ExternalLink.tsx
@@ -8720,7 +8721,7 @@ MenuButton.displayName = "MenuButton";
 
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
 function ChainModal({ onClose, open, fn }) {
-  var _a;
+  var _a2;
   const isW768 = useIsW768();
   const { chain: activeChain } = useNetwork6();
   const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
@@ -8732,7 +8733,7 @@ function ChainModal({ onClose, open, fn }) {
   const { disconnect } = useDisconnect5();
   const titleId = "rk_chain_modal_title";
   const mobile = isMobile();
-  const unsupportedChain = (_a = activeChain == null ? void 0 : activeChain.unsupported) != null ? _a : false;
+  const unsupportedChain = (_a2 = activeChain == null ? void 0 : activeChain.unsupported) != null ? _a2 : false;
   const chainIconSize = "24";
   const { appName } = useContext10(AppContext);
   const rainbowkitChains = useRainbowKitChains();
@@ -8801,7 +8802,7 @@ function ChainModal({ onClose, open, fn }) {
     padding: "2",
     style: { maxHeight: mobile ? "80vh" : "70vh", overflowY: "scroll" }
   }, switchNetwork ? rainbowkitChains.map(({ iconBackground, id, name }, idx) => {
-    var _a2;
+    var _a3;
     const chain = chains.find((c) => c.id === id);
     const isCurrentChain = chain ? chain.id === (activeChain == null ? void 0 : activeChain.id) : false;
     const switching = chain ? !isCurrentChain && chain.id === pendingChainId : false;
@@ -8842,7 +8843,7 @@ function ChainModal({ onClose, open, fn }) {
       height: chainIconSize,
       src: ChainImage[chain.id],
       width: chainIconSize
-    })), /* @__PURE__ */ React70.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
+    })), /* @__PURE__ */ React70.createElement("div", null, (_a3 = chain.name) != null ? _a3 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
@@ -9263,10 +9264,10 @@ function makeElementCool(element2, imageUrl) {
   const tapEnd = isTouchInteraction ? "touchend" : "mouseup";
   const move = isTouchInteraction ? "touchmove" : "mousemove";
   const updateMousePosition = (e) => {
-    var _a, _b;
+    var _a2, _b2;
     if ("touches" in e) {
-      mouseX = (_a = e.touches) == null ? void 0 : _a[0].clientX;
-      mouseY = (_b = e.touches) == null ? void 0 : _b[0].clientY;
+      mouseX = (_a2 = e.touches) == null ? void 0 : _a2[0].clientX;
+      mouseY = (_b2 = e.touches) == null ? void 0 : _b2[0].clientY;
     } else {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -9607,8 +9608,8 @@ function GetDetail({
     width: "full"
   }, shownWallets == null ? void 0 : shownWallets.filter(
     (wallet) => {
-      var _a;
-      return wallet.extensionDownloadUrl || wallet.qrCode && ((_a = wallet.downloadUrls) == null ? void 0 : _a.qrCode);
+      var _a2;
+      return wallet.extensionDownloadUrl || wallet.qrCode && ((_a2 = wallet.downloadUrls) == null ? void 0 : _a2.qrCode);
     }
   ).map((wallet) => {
     const { downloadUrls, iconBackground, iconUrl, id, name, qrCode } = wallet;
@@ -9685,7 +9686,7 @@ function ConnectDetail({
   reconnect,
   wallet
 }) {
-  var _a;
+  var _a2;
   const {
     downloadUrls,
     iconBackground,
@@ -9695,7 +9696,7 @@ function ConnectDetail({
     ready,
     showWalletConnectModal
   } = wallet;
-  const getDesktopDeepLink = (_a = wallet.desktop) == null ? void 0 : _a.getUri;
+  const getDesktopDeepLink = (_a2 = wallet.desktop) == null ? void 0 : _a2.getUri;
   const safari = isSafari();
   const hasExtension = !!wallet.extensionDownloadUrl;
   const hasQrCodeAndExtension = (downloadUrls == null ? void 0 : downloadUrls.qrCode) && hasExtension;
@@ -10088,7 +10089,7 @@ function InstructionMobileDetail({
   connectWallet,
   wallet
 }) {
-  var _a, _b, _c, _d;
+  var _a2, _b2, _c, _d;
   return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
@@ -10103,8 +10104,8 @@ function InstructionMobileDetail({
     justifyContent: "center",
     paddingY: "32",
     style: { maxWidth: 320 }
-  }, (_b = (_a = wallet == null ? void 0 : wallet.qrCode) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
-    var _a2;
+  }, (_b2 = (_a2 = wallet == null ? void 0 : wallet.qrCode) == null ? void 0 : _a2.instructions) == null ? void 0 : _b2.steps.map((d, idx) => {
+    var _a3;
     return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
@@ -10118,7 +10119,7 @@ function InstructionMobileDetail({
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
+    }, (_a3 = stepIcons[d.step]) == null ? void 0 : _a3.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
@@ -10161,7 +10162,7 @@ function InstructionMobileDetail({
 function InstructionExtensionDetail({
   wallet
 }) {
-  var _a, _b, _c, _d;
+  var _a2, _b2, _c, _d;
   return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
@@ -10176,8 +10177,8 @@ function InstructionExtensionDetail({
     justifyContent: "center",
     paddingY: "32",
     style: { maxWidth: 320 }
-  }, (_b = (_a = wallet == null ? void 0 : wallet.extension) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
-    var _a2;
+  }, (_b2 = (_a2 = wallet == null ? void 0 : wallet.extension) == null ? void 0 : _a2.instructions) == null ? void 0 : _b2.steps.map((d, idx) => {
+    var _a3;
     return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
@@ -10191,7 +10192,7 @@ function InstructionExtensionDetail({
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
+    }, (_a3 = stepIcons[d.step]) == null ? void 0 : _a3.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
@@ -10247,10 +10248,10 @@ function DesktopOptions({ onClose }) {
   const wallets = useWalletConnectors().filter((wallet) => wallet.ready || !!wallet.extensionDownloadUrl).sort((a, b) => a.groupIndex - b.groupIndex);
   const groupedWallets = groupBy(wallets, (wallet) => wallet.groupName);
   const connectToWallet = (wallet) => {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     setConnectionError(false);
     if (wallet.ready) {
-      (_b = (_a = wallet == null ? void 0 : wallet.connect) == null ? void 0 : _a.call(wallet)) == null ? void 0 : _b.catch(() => {
+      (_b2 = (_a2 = wallet == null ? void 0 : wallet.connect) == null ? void 0 : _a2.call(wallet)) == null ? void 0 : _b2.catch(() => {
         setConnectionError(true);
       });
       const getDesktopDeepLink = (_c = wallet.desktop) == null ? void 0 : _c.getUri;
@@ -10263,18 +10264,18 @@ function DesktopOptions({ onClose }) {
     }
   };
   const selectWallet = (wallet) => {
-    var _a;
+    var _a2;
     connectToWallet(wallet);
     setSelectedOptionId(wallet.id);
     if (wallet.ready) {
       let callbackFired = false;
-      (_a = wallet == null ? void 0 : wallet.onConnecting) == null ? void 0 : _a.call(wallet, async () => {
-        var _a2, _b;
+      (_a2 = wallet == null ? void 0 : wallet.onConnecting) == null ? void 0 : _a2.call(wallet, async () => {
+        var _a3, _b2;
         if (callbackFired)
           return;
         callbackFired = true;
         const sWallet = wallets.find((w) => wallet.id === w.id);
-        const uri = await ((_a2 = sWallet == null ? void 0 : sWallet.qrCode) == null ? void 0 : _a2.getUri());
+        const uri = await ((_a3 = sWallet == null ? void 0 : sWallet.qrCode) == null ? void 0 : _a3.getUri());
         setQrCodeUri(uri);
         setTimeout(
           () => {
@@ -10284,7 +10285,7 @@ function DesktopOptions({ onClose }) {
           uri ? 0 : 50
         );
         const provider = await (sWallet == null ? void 0 : sWallet.connector.getProvider());
-        const connection = (_b = provider == null ? void 0 : provider.signer) == null ? void 0 : _b.connection;
+        const connection = (_b2 = provider == null ? void 0 : provider.signer) == null ? void 0 : _b2.connection;
         if ((connection == null ? void 0 : connection.on) && (connection == null ? void 0 : connection.off)) {
           const handleConnectionClose = () => {
             removeHandlers();
@@ -10306,10 +10307,10 @@ function DesktopOptions({ onClose }) {
     }
   };
   const getWalletDownload = (id) => {
-    var _a;
+    var _a2;
     setSelectedOptionId(id);
     const sWallet = wallets.find((w) => id === w.id);
-    const isMobile2 = (_a = sWallet == null ? void 0 : sWallet.downloadUrls) == null ? void 0 : _a.qrCode;
+    const isMobile2 = (_a2 = sWallet == null ? void 0 : sWallet.downloadUrls) == null ? void 0 : _a2.qrCode;
     const isExtension = !!(sWallet == null ? void 0 : sWallet.extensionDownloadUrl);
     setSelectedWallet(sWallet);
     if (isMobile2 && isExtension) {
@@ -10685,7 +10686,7 @@ function WalletButton({
   }, "Recent"))));
 }
 function MobileOptions({ onClose }) {
-  var _a;
+  var _a2;
   const titleId = "rk_connect_title";
   const wallets = useWalletConnectors();
   const { disclaimer: Disclaimer, learnMoreUrl } = useContext15(AppContext);
@@ -10774,12 +10775,12 @@ function MobileOptions({ onClose }) {
     case "GET" /* Get */: {
       headerLabel = "Get a Wallet";
       headerBackButtonLink = "CONNECT" /* Connect */;
-      const mobileWallets = (_a = wallets == null ? void 0 : wallets.filter(
+      const mobileWallets = (_a2 = wallets == null ? void 0 : wallets.filter(
         (wallet) => {
-          var _a2, _b, _c;
-          return ((_a2 = wallet.downloadUrls) == null ? void 0 : _a2.ios) || ((_b = wallet.downloadUrls) == null ? void 0 : _b.android) || ((_c = wallet.downloadUrls) == null ? void 0 : _c.mobile);
+          var _a3, _b2, _c;
+          return ((_a3 = wallet.downloadUrls) == null ? void 0 : _a3.ios) || ((_b2 = wallet.downloadUrls) == null ? void 0 : _b2.android) || ((_c = wallet.downloadUrls) == null ? void 0 : _c.mobile);
         }
-      )) == null ? void 0 : _a.splice(0, 3);
+      )) == null ? void 0 : _a2.splice(0, 3);
       walletContent = /* @__PURE__ */ React84.createElement(Box, null, /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
@@ -11133,7 +11134,7 @@ var noop = () => {
 function ConnectButtonRenderer({
   children
 }) {
-  var _a, _b, _c, _d;
+  var _a2, _b2, _c, _d;
   const mounted = useIsMounted();
   const { address } = useAccount12();
   const ensName = useMainnetEnsName(address);
@@ -11141,9 +11142,9 @@ function ConnectButtonRenderer({
   const { data: balanceData } = useBalance2({ address });
   const { chain: activeChain } = useNetwork8();
   const rainbowkitChainsById = useRainbowKitChainsById();
-  const authenticationStatus = (_a = useAuthenticationStatus()) != null ? _a : void 0;
+  const authenticationStatus = (_a2 = useAuthenticationStatus()) != null ? _a2 : void 0;
   const rainbowKitChain = activeChain ? rainbowkitChainsById[activeChain.id] : void 0;
-  const chainName = (_b = rainbowKitChain == null ? void 0 : rainbowKitChain.name) != null ? _b : void 0;
+  const chainName = (_b2 = rainbowKitChain == null ? void 0 : rainbowKitChain.name) != null ? _b2 : void 0;
   const chainIconUrl = (_c = rainbowKitChain == null ? void 0 : rainbowKitChain.iconUrl) != null ? _c : void 0;
   const chainIconBackground = (_d = rainbowKitChain == null ? void 0 : rainbowKitChain.iconBackground) != null ? _d : void 0;
   const resolvedChainIconUrl = useAsyncImage(chainIconUrl);
@@ -11202,9 +11203,9 @@ function ConnectButton({
   const chains = useRainbowKitChains();
   const connectionStatus = useConnectionStatus();
   return /* @__PURE__ */ React91.createElement(ConnectButtonRenderer, null, ({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
-    var _a, _b, _c;
+    var _a2, _b2, _c;
     const ready = mounted && connectionStatus !== "loading";
-    const unsupportedChain = (_a = chain == null ? void 0 : chain.unsupported) != null ? _a : false;
+    const unsupportedChain = (_a2 = chain == null ? void 0 : chain.unsupported) != null ? _a2 : false;
     return /* @__PURE__ */ React91.createElement(Box, {
       display: "flex",
       gap: "12",
@@ -11253,7 +11254,7 @@ function ConnectButton({
       height: "24",
       width: "24"
     }, /* @__PURE__ */ React91.createElement(AsyncImage, {
-      alt: (_b = chain.name) != null ? _b : "Chain icon",
+      alt: (_b2 = chain.name) != null ? _b2 : "Chain icon",
       background: chain.iconBackground,
       borderRadius: "full",
       height: "24",
@@ -11747,15 +11748,15 @@ var useRecentGamesFromGraph = ({
   const [list, setList] = useState25();
   const [hasError, setHasError] = useState25(false);
   const fetchGameInfos = useCallback32(async () => {
-    var _a, _b;
+    var _a2, _b2;
     try {
       const value_pre = await batchRequestFromGraph({ env });
       const value = value_pre.filter((v) => !!v);
       if (value.length) {
         const gameList = /* @__PURE__ */ new Map();
         for (let i = 0; i < value.length; i++) {
-          if (value[i] && ((_a = value[i]) == null ? void 0 : _a[0].chainId)) {
-            const chainId = (_b = value[i]) == null ? void 0 : _b[0].chainId;
+          if (value[i] && ((_a2 = value[i]) == null ? void 0 : _a2[0].chainId)) {
+            const chainId = (_b2 = value[i]) == null ? void 0 : _b2[0].chainId;
             const mapValue = value[i];
             gameList.set(chainId, mapValue);
           }
@@ -11905,7 +11906,7 @@ async function batchRequestFromGraph({
   try {
     const requests = supportedChainIds(env).map(
       async (chainIdLocal) => {
-        var _a;
+        var _a2;
         const api = graphqlApiUrl[chainIdLocal];
         if (!api) {
           return void 0;
@@ -11952,13 +11953,13 @@ async function batchRequestFromGraph({
             }));
             const winCardIdList = endFilter.map((v) => v.winCardId);
             const cardAddrList = endFilter.map((v) => v.cardAddr);
-            const recentGames = (_a = await getRecentGameById({
+            const recentGames = (_a2 = await getRecentGameById({
               chainId: chainIdLocal,
               lobbyAddrList,
               gameIdList,
               cardAddrList,
               winCardIdList
-            })) != null ? _a : /* @__PURE__ */ new Map();
+            })) != null ? _a2 : /* @__PURE__ */ new Map();
             const rres = formatDataFromGraph({
               chainId: chainIdLocal,
               data: result.data.data.gameInfos,
@@ -12260,13 +12261,13 @@ var braveWallet = ({
   chains,
   ...options
 }) => {
-  var _a;
+  var _a2;
   return {
     id: "brave",
     name: "Brave Wallet",
     iconUrl: async () => (await import("./braveWallet-PC2UIXX3.js")).default,
     iconBackground: "#fff",
-    installed: typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isBraveWallet) === true,
+    installed: typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.isBraveWallet) === true,
     downloadUrls: {},
     createConnector: () => ({
       connector: new InjectedConnector4({
@@ -12284,8 +12285,8 @@ var coinbaseWallet = ({
   chains,
   ...options
 }) => {
-  var _a;
-  const isCoinbaseWalletInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isCoinbaseWallet) === true;
+  var _a2;
+  const isCoinbaseWalletInjected = typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.isCoinbaseWallet) === true;
   return {
     id: "coinbase",
     name: "Coinbase Wallet",
@@ -12766,11 +12767,11 @@ var bitKeepWallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/bitskiWallet/bitskiWallet.ts
 import { InjectedConnector as InjectedConnector9 } from "wagmi/connectors/injected";
 var bitskiWallet = ({ chains, ...options }) => {
-  var _a;
+  var _a2;
   return {
     id: "bitski",
     name: "Bitski",
-    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isBitski === true || !!((_a = window.ethereum.providers) == null ? void 0 : _a.find((p) => p.isBitski === true))),
+    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isBitski === true || !!((_a2 = window.ethereum.providers) == null ? void 0 : _a2.find((p) => p.isBitski === true))),
     iconUrl: async () => (await import("./bitskiWallet-V5U5XYOV.js")).default,
     iconBackground: "#fff",
     downloadUrls: {
@@ -12811,7 +12812,7 @@ var bitskiWallet = ({ chains, ...options }) => {
 // src/rainbowkit/src/wallets/walletConnectors/coin98Wallet/coin98Wallet.ts
 import { InjectedConnector as InjectedConnector10 } from "wagmi/connectors/injected";
 function getCoin98WalletInjectedProvider() {
-  var _a;
+  var _a2;
   const isCoin98Wallet = (ethereum) => {
     const coin98Wallet2 = !!ethereum.isCoin98;
     return coin98Wallet2;
@@ -12826,7 +12827,7 @@ function getCoin98WalletInjectedProvider() {
   if (isCoin98Wallet(window.ethereum)) {
     return window.ethereum;
   }
-  if ((_a = window.ethereum) == null ? void 0 : _a.providers) {
+  if ((_a2 = window.ethereum) == null ? void 0 : _a2.providers) {
     return window.ethereum.providers.find(isCoin98Wallet);
   }
 }
@@ -12928,13 +12929,13 @@ var coin98Wallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/coreWallet/coreWallet.ts
 import { InjectedConnector as InjectedConnector11 } from "wagmi/connectors/injected";
 function getCoreWalletInjectedProvider() {
-  var _a, _b;
+  var _a2, _b2;
   const injectedProviderExist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
   if (!injectedProviderExist) {
     return;
   }
-  if ((_a = window["evmproviders"]) == null ? void 0 : _a["core"]) {
-    return (_b = window["evmproviders"]) == null ? void 0 : _b["core"];
+  if ((_a2 = window["evmproviders"]) == null ? void 0 : _a2["core"]) {
+    return (_b2 = window["evmproviders"]) == null ? void 0 : _b2["core"];
   }
   if (window.avalanche) {
     return window.avalanche;
@@ -13066,8 +13067,8 @@ var enkryptWallet = ({
   chains,
   ...options
 }) => {
-  var _a, _b;
-  const isEnkryptInjected = typeof window !== "undefined" && typeof window.enkrypt !== "undefined" && ((_b = (_a = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a.providers) == null ? void 0 : _b.ethereum);
+  var _a2, _b2;
+  const isEnkryptInjected = typeof window !== "undefined" && typeof window.enkrypt !== "undefined" && ((_b2 = (_a2 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a2.providers) == null ? void 0 : _b2.ethereum);
   return {
     id: "enkrypt",
     name: "Enkrypt Wallet",
@@ -13089,8 +13090,8 @@ var enkryptWallet = ({
           chains,
           options: {
             getProvider: () => {
-              var _a2, _b2;
-              return isEnkryptInjected ? (_b2 = (_a2 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a2.providers) == null ? void 0 : _b2.ethereum : void 0;
+              var _a3, _b3;
+              return isEnkryptInjected ? (_b3 = (_a3 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a3.providers) == null ? void 0 : _b3.ethereum : void 0;
             },
             ...options
           }
@@ -13201,11 +13202,11 @@ var frameWallet = ({
   chains,
   ...options
 }) => {
-  var _a;
+  var _a2;
   return {
     id: "frame",
     name: "Frame",
-    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isFrame === true || !!((_a = window.ethereum.providers) == null ? void 0 : _a.find((p) => p.isFrame === true))),
+    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isFrame === true || !!((_a2 = window.ethereum.providers) == null ? void 0 : _a2.find((p) => p.isFrame === true))),
     iconUrl: async () => (await import("./frameWallet-VAVAPJWD.js")).default,
     iconBackground: "#121C20",
     downloadUrls: {
@@ -13251,8 +13252,8 @@ var frontierWallet = ({
   walletConnectVersion = "2",
   ...options
 }) => {
-  var _a, _b, _c, _d;
-  const isFrontierInjected = typeof window !== "undefined" && typeof window.frontier !== "undefined" && ((_b = (_a = window == null ? void 0 : window.frontier) == null ? void 0 : _a.ethereum) == null ? void 0 : _b.isFrontier);
+  var _a2, _b2, _c, _d;
+  const isFrontierInjected = typeof window !== "undefined" && typeof window.frontier !== "undefined" && ((_b2 = (_a2 = window == null ? void 0 : window.frontier) == null ? void 0 : _a2.ethereum) == null ? void 0 : _b2.isFrontier);
   return {
     id: "frontier",
     name: "Frontier Wallet",
@@ -13460,9 +13461,9 @@ var mewWallet = ({
   chains,
   ...options
 }) => {
-  var _a;
+  var _a2;
   const isMewWalletInjected = typeof window !== "undefined" && Boolean(
-    (_a = window.ethereum) == null ? void 0 : _a.isMEWwallet
+    (_a2 = window.ethereum) == null ? void 0 : _a2.isMEWwallet
   );
   return {
     id: "mew",
@@ -13552,8 +13553,8 @@ var omniWallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/oneKeyWallet/oneKeyWallet.ts
 import { InjectedConnector as InjectedConnector18 } from "wagmi/connectors/injected";
 var oneKeyWallet = ({ chains }) => {
-  var _a;
-  const provider = typeof window !== "undefined" && ((_a = window["$onekey"]) == null ? void 0 : _a.ethereum);
+  var _a2;
+  const provider = typeof window !== "undefined" && ((_a2 = window["$onekey"]) == null ? void 0 : _a2.ethereum);
   const isOnekeyInjected = Boolean(provider);
   return {
     createConnector: () => {
@@ -13613,13 +13614,13 @@ var phantomWallet = ({
   chains,
   ...options
 }) => {
-  var _a;
+  var _a2;
   return {
     id: "phantom",
     name: "Phantom",
     iconUrl: async () => (await import("./phantomWallet-WL7QJSIK.js")).default,
     iconBackground: "#9A8AEE",
-    installed: typeof window !== "undefined" && !!((_a = window.phantom) == null ? void 0 : _a.ethereum) || void 0,
+    installed: typeof window !== "undefined" && !!((_a2 = window.phantom) == null ? void 0 : _a2.ethereum) || void 0,
     downloadUrls: {
       android: "https://play.google.com/store/apps/details?id=app.phantom",
       ios: "https://apps.apple.com/app/phantom-solana-wallet/1598432977",
@@ -13631,8 +13632,8 @@ var phantomWallet = ({
     },
     createConnector: () => {
       const getProvider2 = () => {
-        var _a2;
-        return typeof window !== "undefined" ? (_a2 = window.phantom) == null ? void 0 : _a2.ethereum : void 0;
+        var _a3;
+        return typeof window !== "undefined" ? (_a3 = window.phantom) == null ? void 0 : _a3.ethereum : void 0;
       };
       const connector = new InjectedConnector19({
         chains,
@@ -13871,7 +13872,7 @@ var talismanWallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/trustWallet/trustWallet.ts
 import { InjectedConnector as InjectedConnector24 } from "wagmi/connectors/injected";
 function getTrustWalletInjectedProvider() {
-  var _a;
+  var _a2;
   const isTrustWallet = (ethereum) => {
     const trustWallet2 = !!ethereum.isTrust;
     return trustWallet2;
@@ -13886,7 +13887,7 @@ function getTrustWalletInjectedProvider() {
   if (isTrustWallet(window.ethereum)) {
     return window.ethereum;
   }
-  if ((_a = window.ethereum) == null ? void 0 : _a.providers) {
+  if ((_a2 = window.ethereum) == null ? void 0 : _a2.providers) {
     return window.ethereum.providers.find(isTrustWallet);
   }
 }
@@ -14079,8 +14080,8 @@ var xdefiWallet = ({
         chains,
         options: {
           getProvider: () => {
-            var _a;
-            return isInstalled ? (_a = window.xfi) == null ? void 0 : _a.ethereum : void 0;
+            var _a2;
+            return isInstalled ? (_a2 = window.xfi) == null ? void 0 : _a2.ethereum : void 0;
           },
           ...options
         }

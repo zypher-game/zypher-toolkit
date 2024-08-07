@@ -100,7 +100,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           walletClient
         );
         const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance });
+        console.log({ balance, account, pointsAddress });
 
         setPointsBalance(
           new BigNumberJs(balance.toString())
