@@ -450,7 +450,7 @@ var CurrencyContract = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   },
   ["19546" /* ZytronLineaSepoliaTestnet */]: {
-    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
+    multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"]
   },
   ["50097" /* ZytronB2Testnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
@@ -2167,7 +2167,7 @@ function useActiveWeb3React(env, chainList) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
+      account: "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
       provider
     };
   }, [chainId, address, provider]);
@@ -5536,23 +5536,12 @@ var Balance = memo25((props) => {
   const setPointsBalance = useSetRecoilState7(pointsBalanceState);
   const refreshBalance = useRecoilValue5(refreshBalanceState);
   const { data: walletClient } = useWalletClient2();
-  const fetchBalanceOf = useCallback14(async () => {
-    if (!chainId || !account) {
-      return;
-    }
-    setLoading(true);
-    const balance = await provider.getBalance({ address: account });
-    setNativeBalance(
-      new BigNumberJs_default(balance.toString()).dividedBy(divisorBigNumber).toNumber()
-    );
-    await fetchErc20Balance();
-    setLoading(false);
-  }, [chainId, account, provider]);
   const fetchErc20Balance = useCallback14(async () => {
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
+      console.log({ walletClient });
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
       console.log({ pointsAddress });
       if (!pointsAddress) {
@@ -5575,6 +5564,18 @@ var Balance = memo25((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
+  const fetchBalanceOf = useCallback14(async () => {
+    if (!chainId || !account || !walletClient) {
+      return;
+    }
+    setLoading(true);
+    const balance = await provider.getBalance({ address: account });
+    setNativeBalance(
+      new BigNumberJs_default(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+    );
+    await fetchErc20Balance();
+    setLoading(false);
+  }, [chainId, account, provider, walletClient, fetchErc20Balance]);
   useEffect13(() => {
     if (account && chainId && walletClient) {
       fetchBalanceOf();

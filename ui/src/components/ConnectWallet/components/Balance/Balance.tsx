@@ -54,23 +54,12 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const setPointsBalance = useSetRecoilState(pointsBalanceState);
   const refreshBalance = useRecoilValue(refreshBalanceState);
   const { data: walletClient } = useWalletClient();
-  const fetchBalanceOf = useCallback(async (): Promise<void> => {
-    if (!chainId || !account) {
-      return;
-    }
-    setLoading(true);
-    const balance = await provider.getBalance({ address: account });
-    setNativeBalance(
-      new BigNumberJs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
-    );
-    await fetchErc20Balance();
-    setLoading(false);
-  }, [chainId, account, provider]);
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
+      console.log({ walletClient });
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
       console.log({ pointsAddress });
       if (!pointsAddress) {
@@ -124,6 +113,18 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
+  const fetchBalanceOf = useCallback(async (): Promise<void> => {
+    if (!chainId || !account || !walletClient) {
+      return;
+    }
+    setLoading(true);
+    const balance = await provider.getBalance({ address: account });
+    setNativeBalance(
+      new BigNumberJs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+    );
+    await fetchErc20Balance();
+    setLoading(false);
+  }, [chainId, account, provider, walletClient, fetchErc20Balance]);
   useEffect(() => {
     if (account && chainId && walletClient) {
       fetchBalanceOf();
