@@ -64,34 +64,34 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId11) => {
-  ChainId11["Bsc"] = "56";
-  ChainId11["BscTestnet"] = "97";
-  ChainId11["Arbitrum"] = "42161";
-  ChainId11["ArbitrumRinkeby"] = "421611";
-  ChainId11["ArbitrumGoerli"] = "421613";
-  ChainId11["LineaSepolia"] = "59141";
-  ChainId11["LineaMainnet"] = "59144";
-  ChainId11["POLYGON_MUMBAI"] = "80001";
-  ChainId11["POLYGON_ZKEVM"] = "1442";
-  ChainId11["ScrollAlphaTestnet"] = "534353";
-  ChainId11["OPBNBTEST"] = "5611";
-  ChainId11["OPBNB"] = "204";
-  ChainId11["ScrollSepoliaTestnet"] = "534351";
-  ChainId11["MantaPacificMainnet"] = "169";
-  ChainId11["MantaPacificTestnet"] = "3441005";
-  ChainId11["Combo"] = "9980";
-  ChainId11["ComboTestnet"] = "91715";
-  ChainId11["Mantle"] = "5000";
-  ChainId11["MantleTestnet"] = "5001";
-  ChainId11["Sepolia"] = "11155111";
-  ChainId11["B2"] = "223";
-  ChainId11["B2Testnet"] = "1123";
-  ChainId11["ZytronLineaSepoliaTestnet"] = "19546";
-  ChainId11["ZytronB2Testnet"] = "50097";
-  ChainId11["Taiko"] = "167000";
-  ChainId11["SagaMainnet"] = "2717465680371000";
-  return ChainId11;
+var ChainId = /* @__PURE__ */ ((ChainId10) => {
+  ChainId10["Bsc"] = "56";
+  ChainId10["BscTestnet"] = "97";
+  ChainId10["Arbitrum"] = "42161";
+  ChainId10["ArbitrumRinkeby"] = "421611";
+  ChainId10["ArbitrumGoerli"] = "421613";
+  ChainId10["LineaSepolia"] = "59141";
+  ChainId10["LineaMainnet"] = "59144";
+  ChainId10["POLYGON_MUMBAI"] = "80001";
+  ChainId10["POLYGON_ZKEVM"] = "1442";
+  ChainId10["ScrollAlphaTestnet"] = "534353";
+  ChainId10["OPBNBTEST"] = "5611";
+  ChainId10["OPBNB"] = "204";
+  ChainId10["ScrollSepoliaTestnet"] = "534351";
+  ChainId10["MantaPacificMainnet"] = "169";
+  ChainId10["MantaPacificTestnet"] = "3441005";
+  ChainId10["Combo"] = "9980";
+  ChainId10["ComboTestnet"] = "91715";
+  ChainId10["Mantle"] = "5000";
+  ChainId10["MantleTestnet"] = "5001";
+  ChainId10["Sepolia"] = "11155111";
+  ChainId10["B2"] = "223";
+  ChainId10["B2Testnet"] = "1123";
+  ChainId10["ZytronLineaSepoliaTestnet"] = "19546";
+  ChainId10["ZytronB2Testnet"] = "50097";
+  ChainId10["Taiko"] = "167000";
+  ChainId10["SagaMainnet"] = "2717465680371000";
+  return ChainId10;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
 var DPSupportChainId = !isPro() ? [
@@ -6754,7 +6754,7 @@ function useConnectionStatus() {
 
 // src/rainbowkit/src/components/AccountModal/AccountModal.tsx
 import React67 from "react";
-import { useAccount as useAccount10, useBalance as useBalance2, useDisconnect as useDisconnect4 } from "wagmi";
+import { useAccount as useAccount10, useBalance, useDisconnect as useDisconnect4 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
 import { useEnsAvatar } from "wagmi";
@@ -8620,7 +8620,7 @@ function ProfileDetails({
 // src/rainbowkit/src/components/AccountModal/AccountModal.tsx
 function AccountModal({ onClose, open }) {
   const { address } = useAccount10();
-  const { data: balanceData } = useBalance2({ address });
+  const { data: balanceData } = useBalance({ address });
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
   const { disconnect } = useDisconnect4();
@@ -11116,7 +11116,7 @@ var DropdownIcon = () => /* @__PURE__ */ React89.createElement("svg", {
 
 // src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
 import React90, { useContext as useContext17 } from "react";
-import { useAccount as useAccount12, useBalance as useBalance3, useNetwork as useNetwork8 } from "wagmi";
+import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork8 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
 import { useEffect as useEffect30, useReducer as useReducer3 } from "react";
@@ -11137,7 +11137,7 @@ function ConnectButtonRenderer({
   const { address } = useAccount12();
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
-  const { data: balanceData } = useBalance3({ address });
+  const { data: balanceData } = useBalance2({ address });
   const { chain: activeChain } = useNetwork8();
   const rainbowkitChainsById = useRainbowKitChainsById();
   const authenticationStatus = (_a = useAuthenticationStatus()) != null ? _a : void 0;

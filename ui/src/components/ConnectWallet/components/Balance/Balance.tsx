@@ -11,7 +11,6 @@ import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
 import {
-  ChainId,
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
   DPSupportChainId,
@@ -32,9 +31,7 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
-import { fetchErc20 } from "../../../../utils/getBalanceOfByMulticall";
-import { erc20ABI, useBalance, useWalletClient } from "wagmi";
-import { Contract } from "ethers";
+import { useWalletClient } from "wagmi";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
