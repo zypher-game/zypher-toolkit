@@ -1,3 +1,4 @@
+import { SetterOrUpdater } from "recoil";
 export interface TelegramUserInfoDto {
     id: string;
     name: string;
@@ -17,3 +18,4 @@ export interface TelegramUserInfoDto {
 export declare const TelegramUserInfoState: import("recoil").RecoilState<TelegramUserInfoDto | null>;
 export declare const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
 export declare const useTelegramUser: () => void;
+export declare const useTelegramAccountInit: (userInfo: TelegramUserInfoDto | null, _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>) => TelegramUserInfoDto | null;

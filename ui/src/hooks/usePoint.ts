@@ -21,7 +21,6 @@ import { ethers } from "ethers";
 import { pointsAnimNumState } from "../components/ConnectWallet/state/connectWalletState";
 const ChainPointPrice = {
   [ChainId.LineaMainnet]: 1 / 2_000_000,
-  [ChainId.LineaTestnet]: 1 / 2_000_000,
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000,
   [ChainId.ZytronLineaSepoliaTestnet]: 1 / 2_000_000,
@@ -114,7 +113,7 @@ export const useSwapPoint = ({
               if (!chainId || !pointsContract) {
                 setPointsDialogOpen(false);
                 if (!pointsContract) {
-                  setErrorToast(dispatch, "PointsContract is not ready");
+                  setErrorToast("PointsContract is not ready");
                 }
                 return;
               }
@@ -133,7 +132,7 @@ export const useSwapPoint = ({
                 await waitForTransaction({ confirmations: 1, hash });
               if (nativeSwapTx && nativeSwapTx.status === txStatus) {
                 setPointsAnimNumState(1);
-                setSuccessToast(dispatch, {
+                setErrorToast({
                   title: "",
                   message: "Recharge successful",
                 });
@@ -154,7 +153,7 @@ export const useSwapPoint = ({
               });
             }
           } catch (e) {
-            setErrorToast(dispatch, e);
+            setErrorToast(e);
             console.error("swapPointHandle: ", e);
           } finally {
             setIsLoading(false);

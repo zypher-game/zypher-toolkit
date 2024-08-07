@@ -33,7 +33,6 @@ export enum ChainId {
   ArbitrumRinkeby = "421611",
   ArbitrumGoerli = "421613",
   LineaSepolia = "59141",
-  LineaTestnet = "59140",
   LineaMainnet = "59144",
   POLYGON_MUMBAI = "80001",
 
@@ -64,7 +63,6 @@ export enum ChainId {
 const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
 export const DPSupportChainId = !isPro()
   ? [
-      ChainId.LineaTestnet,
       ChainId.LineaMainnet,
       ChainId.LineaSepolia,
       ChainId.OPBNBTEST,
@@ -78,7 +76,6 @@ export const DPSupportChainId = !isPro()
 export const bingoV1SupportedChainId = !isPro()
   ? [
       ChainId.LineaMainnet,
-      ChainId.LineaTestnet,
       ChainId.LineaSepolia,
       ChainId.OPBNB,
       ChainId.OPBNBTEST,
@@ -121,7 +118,6 @@ export const supportedChainIds = (
     : !isPro() || env === "develop"
     ? [
         ChainId.LineaMainnet,
-        ChainId.LineaTestnet,
         ChainId.LineaSepolia,
         ChainId.B2,
         ChainId.B2Testnet,
@@ -153,7 +149,6 @@ export const supportedChainIds = (
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {
-  [ChainId.LineaTestnet]: ["https://rpc.goerli.linea.build"],
   [ChainId.LineaSepolia]: ["https://rpc.sepolia.linea.build"],
   [ChainId.LineaMainnet]: ["https://rpc.linea.build"],
   [ChainId.Arbitrum]: ["https://arb1.arbitrum.io/rpc"],
@@ -226,7 +221,6 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.ArbitrumRinkeby]: ["https://testnet.arbiscan.io"],
   [ChainId.POLYGON_MUMBAI]: ["https://mumbai.polygonscan.com"],
   [ChainId.LineaMainnet]: ["https://lineascan.build"],
-  [ChainId.LineaTestnet]: ["https://explorer.goerli.linea.build"],
   [ChainId.LineaSepolia]: ["https://sepolia.lineascan.build"],
   [ChainId.ArbitrumGoerli]: ["https://goerli.arbiscan.io/"],
   [ChainId.POLYGON_ZKEVM]: ["https://testnet-zkevm.polygonscan.com"],
@@ -259,7 +253,6 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.Arbitrum]: "Arbitrum One",
   [ChainId.ArbitrumGoerli]: "Arbitrum Goerli Testnet",
   [ChainId.ArbitrumRinkeby]: "Arbitrum Rinkeby",
-  [ChainId.LineaTestnet]: "Linea Testnet",
   [ChainId.LineaSepolia]: "Linea Sepolia",
   [ChainId.LineaMainnet]: "Linea Mainnet",
   [ChainId.POLYGON_MUMBAI]: "Polygon Mumbai",
@@ -287,7 +280,6 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.BscTestnet]: "bsc-testnet",
   [ChainId.Arbitrum]: "arbitrum",
   [ChainId.ArbitrumRinkeby]: "arbitrum-rinkeby",
-  [ChainId.LineaTestnet]: "linea-testnet",
   [ChainId.LineaSepolia]: "Linea Sepolia",
   [ChainId.LineaMainnet]: "linea",
   [ChainId.POLYGON_MUMBAI]: "maticmum",
@@ -317,7 +309,6 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.BscTestnet]: true,
   [ChainId.Arbitrum]: false,
   [ChainId.ArbitrumRinkeby]: true,
-  [ChainId.LineaTestnet]: true,
   [ChainId.LineaSepolia]: true,
   [ChainId.LineaMainnet]: false,
   [ChainId.POLYGON_MUMBAI]: true,
@@ -347,7 +338,6 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.BscTestnet]: "BNB",
   [ChainId.Arbitrum]: "ETH",
   [ChainId.ArbitrumRinkeby]: "ETH",
-  [ChainId.LineaTestnet]: "ETH",
   [ChainId.LineaSepolia]: "ETH",
   [ChainId.LineaMainnet]: "ETH",
   [ChainId.POLYGON_MUMBAI]: "ETH",
@@ -405,14 +395,6 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   },
   [ChainId.ArbitrumRinkeby]: {
     multicall: [MulticallV3],
-  },
-  [ChainId.LineaTestnet]: {
-    multicall: [
-      "0xd71fB4a432083fE1e78a73e5b8FC014244e8E266",
-      "0xBA736a65D287D63012caF07558CA33abC925ea64",
-      "0xae2F2660EdEf3197648cC89432a197a000b97EC3",
-      // "0xe5D05FDa85139a52396705A9AcE2Fb0d049fdC2a",
-    ],
   },
   [ChainId.LineaSepolia]: {
     multicall: [MulticallV3],
@@ -563,7 +545,11 @@ export const zkBingo = (
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
 export const TG_BOT_URL = "http://localhost:4000";
 // "https://bingo-api.zypher.game";
-
+export const TaskTelegramBot = "https://t.me/zBingoBot";
+export const TaskJoinTelegramGroup = "https://t.me/zyphernetwork"; // location.protocol === 'http:' ? 'https://t.me/tt3434' :
+export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
+export const TaskReweet1 =
+  "https://twitter.com/Zypher_Network/status/1819215629041254588";
 type IGlobalVar = {
   dispatch: (arg: any) => any;
   getContainer?: HTMLElement;

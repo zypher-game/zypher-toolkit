@@ -15,7 +15,6 @@ export declare enum ChainId {
     ArbitrumRinkeby = "421611",
     ArbitrumGoerli = "421613",
     LineaSepolia = "59141",
-    LineaTestnet = "59140",
     LineaMainnet = "59144",
     POLYGON_MUMBAI = "80001",
     POLYGON_ZKEVM = "1442",
@@ -71,6 +70,10 @@ export declare const zkBingoV0: (chainId: ChainId | undefined, name: IContractNa
 export declare const zkBingo: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const defaultRankChainId = ChainId.ArbitrumGoerli;
 export declare const TG_BOT_URL = "http://localhost:4000";
+export declare const TaskTelegramBot = "https://t.me/zBingoBot";
+export declare const TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
+export declare const TaskFollowZypher = "https://twitter.com/Zypher_Network";
+export declare const TaskReweet1 = "https://twitter.com/Zypher_Network/status/1819215629041254588";
 type IGlobalVar = {
     dispatch: (arg: any) => any;
     getContainer?: HTMLElement;

@@ -12,7 +12,6 @@ export declare enum TVLChainId {
     B2 = "223",
     B2Testnet = "1123",
     LineaMainnet = "59144",
-    LineaTestnet = "59140",
     LineaSepolia = "59141"
 }
 export declare const TVLStakingSupportedChainId: ChainId[];
