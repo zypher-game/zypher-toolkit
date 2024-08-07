@@ -64,34 +64,34 @@ var isPro = () => {
   return false;
 };
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId10) => {
-  ChainId10["Bsc"] = "56";
-  ChainId10["BscTestnet"] = "97";
-  ChainId10["Arbitrum"] = "42161";
-  ChainId10["ArbitrumRinkeby"] = "421611";
-  ChainId10["ArbitrumGoerli"] = "421613";
-  ChainId10["LineaSepolia"] = "59141";
-  ChainId10["LineaMainnet"] = "59144";
-  ChainId10["POLYGON_MUMBAI"] = "80001";
-  ChainId10["POLYGON_ZKEVM"] = "1442";
-  ChainId10["ScrollAlphaTestnet"] = "534353";
-  ChainId10["OPBNBTEST"] = "5611";
-  ChainId10["OPBNB"] = "204";
-  ChainId10["ScrollSepoliaTestnet"] = "534351";
-  ChainId10["MantaPacificMainnet"] = "169";
-  ChainId10["MantaPacificTestnet"] = "3441005";
-  ChainId10["Combo"] = "9980";
-  ChainId10["ComboTestnet"] = "91715";
-  ChainId10["Mantle"] = "5000";
-  ChainId10["MantleTestnet"] = "5001";
-  ChainId10["Sepolia"] = "11155111";
-  ChainId10["B2"] = "223";
-  ChainId10["B2Testnet"] = "1123";
-  ChainId10["ZytronLineaSepoliaTestnet"] = "19546";
-  ChainId10["ZytronB2Testnet"] = "50097";
-  ChainId10["Taiko"] = "167000";
-  ChainId10["SagaMainnet"] = "2717465680371000";
-  return ChainId10;
+var ChainId = /* @__PURE__ */ ((ChainId11) => {
+  ChainId11["Bsc"] = "56";
+  ChainId11["BscTestnet"] = "97";
+  ChainId11["Arbitrum"] = "42161";
+  ChainId11["ArbitrumRinkeby"] = "421611";
+  ChainId11["ArbitrumGoerli"] = "421613";
+  ChainId11["LineaSepolia"] = "59141";
+  ChainId11["LineaMainnet"] = "59144";
+  ChainId11["POLYGON_MUMBAI"] = "80001";
+  ChainId11["POLYGON_ZKEVM"] = "1442";
+  ChainId11["ScrollAlphaTestnet"] = "534353";
+  ChainId11["OPBNBTEST"] = "5611";
+  ChainId11["OPBNB"] = "204";
+  ChainId11["ScrollSepoliaTestnet"] = "534351";
+  ChainId11["MantaPacificMainnet"] = "169";
+  ChainId11["MantaPacificTestnet"] = "3441005";
+  ChainId11["Combo"] = "9980";
+  ChainId11["ComboTestnet"] = "91715";
+  ChainId11["Mantle"] = "5000";
+  ChainId11["MantleTestnet"] = "5001";
+  ChainId11["Sepolia"] = "11155111";
+  ChainId11["B2"] = "223";
+  ChainId11["B2Testnet"] = "1123";
+  ChainId11["ZytronLineaSepoliaTestnet"] = "19546";
+  ChainId11["ZytronB2Testnet"] = "50097";
+  ChainId11["Taiko"] = "167000";
+  ChainId11["SagaMainnet"] = "2717465680371000";
+  return ChainId11;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
 var DPSupportChainId = !isPro() ? [
@@ -505,7 +505,7 @@ var zkBingoV0 = (chainId, name) => {
   }
 };
 var zkBingo = (chainId, name) => {
-  var _a, _b, _c;
+  var _a, _b;
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
@@ -520,7 +520,7 @@ var zkBingo = (chainId, name) => {
     } else if (name === "points" /* Points */) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === "ZypherGameToken" /* ZypherGameToken */) {
-      returnAddress = (_c = address.ZypherGameToken) != null ? _c : address.ZkBingoToken;
+      returnAddress = chainId === "19546" /* ZytronLineaSepoliaTestnet */ ? "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D" : address.ZypherGameToken ? address.ZypherGameToken : address.ZkBingoToken;
     } else if (name === "reward" /* Reward */) {
       returnAddress = address.Reward;
     } else if (name === "ZkBingoFee" /* Fee */) {
@@ -608,7 +608,7 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 
 // src/index.ts
 import {
-  useWalletClient as useWalletClient2,
+  useWalletClient as useWalletClient3,
   useSwitchNetwork as useSwitchNetwork2,
   useDisconnect as useDisconnect6,
   useAccount as useAccount14,
@@ -5522,6 +5522,7 @@ var BalanceCountUpItem = memo24(
 var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
+import { useWalletClient as useWalletClient2 } from "wagmi";
 var AddIcon = styled4(icons_default)`
   margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
   margin-left: 0 !important;
@@ -5534,6 +5535,7 @@ var Balance = memo25((props) => {
   const setNativeBalance = useSetRecoilState7(nativeBalanceState);
   const setPointsBalance = useSetRecoilState7(pointsBalanceState);
   const refreshBalance = useRecoilValue5(refreshBalanceState);
+  const { data: walletClient } = useWalletClient2();
   const fetchBalanceOf = useCallback14(async () => {
     if (!chainId || !account) {
       return;
@@ -5547,29 +5549,37 @@ var Balance = memo25((props) => {
     setLoading(false);
   }, [chainId, account, provider]);
   const fetchErc20Balance = useCallback14(async () => {
-    if (!chainId || !account || !provider) {
+    if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
+      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
-        const pointsContract = erc20_default(chainId, env, pointsAddress);
+        const pointsContract = erc20_default(
+          chainId,
+          env,
+          pointsAddress,
+          walletClient
+        );
         const balance = await pointsContract.read.balanceOf([account]);
+        console.log({ balance });
         setPointsBalance(
           new BigNumberJs_default(balance.toString()).dividedBy(divisorBigNumber).toNumber()
         );
       }
     } catch (e) {
+      console.log({ e });
       setPointsBalance(0);
     }
-  }, [chainId, account, provider]);
+  }, [chainId, account, provider, walletClient]);
   useEffect13(() => {
-    if (account && chainId) {
+    if (account && chainId && walletClient) {
       fetchBalanceOf();
     }
-  }, [account, chainId, refreshBalance]);
+  }, [account, chainId, refreshBalance, walletClient]);
   const pointsBalance = useRecoilValue5(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
@@ -6744,7 +6754,7 @@ function useConnectionStatus() {
 
 // src/rainbowkit/src/components/AccountModal/AccountModal.tsx
 import React67 from "react";
-import { useAccount as useAccount10, useBalance, useDisconnect as useDisconnect4 } from "wagmi";
+import { useAccount as useAccount10, useBalance as useBalance2, useDisconnect as useDisconnect4 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useMainnetEnsAvatar.ts
 import { useEnsAvatar } from "wagmi";
@@ -8610,7 +8620,7 @@ function ProfileDetails({
 // src/rainbowkit/src/components/AccountModal/AccountModal.tsx
 function AccountModal({ onClose, open }) {
   const { address } = useAccount10();
-  const { data: balanceData } = useBalance({ address });
+  const { data: balanceData } = useBalance2({ address });
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
   const { disconnect } = useDisconnect4();
@@ -11106,7 +11116,7 @@ var DropdownIcon = () => /* @__PURE__ */ React89.createElement("svg", {
 
 // src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
 import React90, { useContext as useContext17 } from "react";
-import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork8 } from "wagmi";
+import { useAccount as useAccount12, useBalance as useBalance3, useNetwork as useNetwork8 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
 import { useEffect as useEffect30, useReducer as useReducer3 } from "react";
@@ -11127,7 +11137,7 @@ function ConnectButtonRenderer({
   const { address } = useAccount12();
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
-  const { data: balanceData } = useBalance2({ address });
+  const { data: balanceData } = useBalance3({ address });
   const { chain: activeChain } = useNetwork8();
   const rainbowkitChainsById = useRainbowKitChainsById();
   const authenticationStatus = (_a = useAuthenticationStatus()) != null ? _a : void 0;
@@ -14444,7 +14454,7 @@ export {
   useTonConnectUI2 as useTonConnectUI,
   useTonWalletProofMounted,
   useTransform,
-  useWalletClient2 as useWalletClient,
+  useWalletClient3 as useWalletClient,
   useWalletConnectors,
   useWindowSize,
   walletConnectWallet,

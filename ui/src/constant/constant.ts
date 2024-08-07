@@ -526,7 +526,12 @@ export const zkBingo = (
     } else if (name === IContractName.Points) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === IContractName.ZypherGameToken) {
-      returnAddress = address.ZypherGameToken ?? address.ZkBingoToken;
+      returnAddress =
+        chainId === ChainId.ZytronLineaSepoliaTestnet
+          ? "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D"
+          : address.ZypherGameToken
+          ? address.ZypherGameToken
+          : address.ZkBingoToken;
     } else if (name === IContractName.Reward) {
       returnAddress = address.Reward;
     } else if (name === IContractName.Fee) {
