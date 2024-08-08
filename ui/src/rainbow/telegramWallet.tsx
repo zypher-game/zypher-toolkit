@@ -38,9 +38,7 @@ export class TelegramWallet extends Signer {
     transaction: Deferrable<TransactionRequest>
   ): Promise<string> {
     try {
-      console.log("signTransaction", `${this.api}/wallet/use`);
       return resolveProperties(transaction).then(async (tx) => {
-        console.log({ tx });
         const res = await httpPost<string>(`${this.api}/wallet/use`, {
           WebAppData,
           method: "signTransaction",

@@ -101,7 +101,6 @@ export const httpPost = async <T = any>(
           data: null as any,
         });
       }
-      console.log(String(err), params);
       return Promise.resolve({
         code: 500,
         msg: String(err).replace(/AxiosError:/, ""),

@@ -535,7 +535,7 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = "http://localhost:4000";
+var TG_BOT_URL = "http://192.168.0.20:4000";
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
@@ -765,7 +765,6 @@ var httpPost = async (...params) => {
         data: null
       });
     }
-    console.log(String(err), params);
     return Promise.resolve({
       code: 500,
       msg: String(err).replace(/AxiosError:/, ""),
@@ -849,7 +848,8 @@ var useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      if (!window.IS_TELEGRAM) {
+      var _a2, _b2;
+      if (!window.IS_TELEGRAM || !((_b2 = (_a2 = window.Telegram) == null ? void 0 : _a2.WebApp) == null ? void 0 : _b2.initData)) {
         return null;
       }
       const res = httpPost(`${TG_BOT_URL}/user/get`, {
@@ -2168,7 +2168,7 @@ function useActiveWeb3React(env, chainList) {
   return useMemo(() => {
     return {
       chainId: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
+      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -3687,9 +3687,7 @@ var TelegramWallet = class extends Signer {
   }
   signTransaction(transaction) {
     try {
-      console.log("signTransaction", `${this.api}/wallet/use`);
       return resolveProperties(transaction).then(async (tx) => {
-        console.log({ tx });
         const res = await httpPost(`${this.api}/wallet/use`, {
           WebAppData,
           method: "signTransaction",
@@ -3755,7 +3753,6 @@ var getConnectors = (env, publicClient, chainIdList) => {
       TG_BOT_URL
     );
     const account = acc.address;
-    console.log("acc.", account);
     const pub = publicClient({ chainId: "2717465680371000" /* SagaMainnet */ });
     const walletClient = createWalletClient({
       account,
@@ -3767,15 +3764,12 @@ var getConnectors = (env, publicClient, chainIdList) => {
           );
           if (!useLocal) {
             const res = await pub.request({ method, params });
-            console.log("res", res);
             return res;
           }
-          console.log({ method, params });
           if (method === "eth_sendTransaction") {
             const fmt = { ...params[0] };
             fmt.gasLimit = fmt.gas;
             delete fmt.gas;
-            console.log({ fmt });
             const txr = await acc.sendTransaction(fmt);
             return txr.hash;
           }
@@ -4099,7 +4093,7 @@ var useSwapPoint = ({
               const nativeSwapTx = await waitForTransaction2({ confirmations: 1, hash });
               if (nativeSwapTx && nativeSwapTx.status === txStatus) {
                 setPointsAnimNumState(1);
-                setErrorToast({
+                setSuccessToast({
                   title: "",
                   message: "Recharge successful"
                 });
@@ -5542,9 +5536,7 @@ var Balance = memo25((props) => {
       return;
     }
     try {
-      console.log({ walletClient });
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
-      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
@@ -5555,7 +5547,6 @@ var Balance = memo25((props) => {
           walletClient
         );
         const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance, account, pointsAddress });
         setPointsBalance(
           new BigNumberJs_default(balance.toString()).dividedBy(divisorBigNumber).toNumber()
         );
@@ -5860,7 +5851,6 @@ var useAvatar = (account, hideAvatars) => {
   const getData = useCallback17(() => {
     const img = new Image();
     let src6 = "";
-    console.log(window.IS_TELEGRAM, userInfo);
     if (window.IS_TELEGRAM && userInfo) {
       src6 = `https://zypher-static.s3.amazonaws.com/telegram/${userInfo.id}`;
     } else {

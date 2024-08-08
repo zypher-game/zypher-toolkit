@@ -22,12 +22,12 @@ export function useActiveWeb3React(
       !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
         ? undefined
         : `${chainId}`) as ChainId,
-      // account:
-      //   chainId &&
-      //   !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
-      //     ? undefined
-      //     : address,
-      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
+      account:
+        chainId &&
+        !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
+          ? undefined
+          : address,
+      // account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider: provider,
     };
   }, [chainId, address, provider]);

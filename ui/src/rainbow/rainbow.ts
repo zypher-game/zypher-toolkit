@@ -85,7 +85,6 @@ const getConnectors = (
       TG_BOT_URL
     );
     const account = acc.address as Address;
-    console.log("acc.", account);
     const pub = publicClient({ chainId: ChainId.SagaMainnet });
     const walletClient = createWalletClient({
       account,
@@ -97,16 +96,13 @@ const getConnectors = (
           );
           if (!useLocal) {
             const res = await pub.request({ method, params });
-            console.log("res", res);
             return res;
           }
 
-          console.log({ method, params });
           if (method === "eth_sendTransaction") {
             const fmt = { ...params[0] };
             fmt.gasLimit = fmt.gas;
             delete fmt.gas;
-            console.log({ fmt });
             const txr = await acc.sendTransaction(fmt);
             return txr.hash;
           }

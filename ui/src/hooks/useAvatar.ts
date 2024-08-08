@@ -26,7 +26,6 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
   const getData = useCallback(() => {
     const img = new Image();
     let src = "";
-    console.log(window.IS_TELEGRAM, userInfo);
     if (window.IS_TELEGRAM && userInfo) {
       src = `https://zypher-static.s3.amazonaws.com/telegram/${userInfo.id}`;
     } else {

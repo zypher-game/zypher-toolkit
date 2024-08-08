@@ -69,7 +69,7 @@ export declare enum IContractName {
 export declare const zkBingoV0: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const zkBingo: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const defaultRankChainId = ChainId.ArbitrumGoerli;
-export declare const TG_BOT_URL = "http://localhost:4000";
+export declare const TG_BOT_URL = "http://192.168.0.20:4000";
 export declare const TaskTelegramBot = "https://t.me/zBingoBot";
 export declare const TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 export declare const TaskFollowZypher = "https://twitter.com/Zypher_Network";

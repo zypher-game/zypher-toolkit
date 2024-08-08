@@ -59,9 +59,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       return;
     }
     try {
-      console.log({ walletClient });
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
-      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
@@ -100,7 +98,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           walletClient
         );
         const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance, account, pointsAddress });
 
         setPointsBalance(
           new BigNumberJs(balance.toString())
