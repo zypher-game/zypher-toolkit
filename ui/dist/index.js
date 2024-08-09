@@ -535,7 +535,7 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = "https://bingo-api.zypher.game";
+var TG_BOT_URL = "http://localhost:4000";
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
