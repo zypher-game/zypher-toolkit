@@ -63,6 +63,12 @@ var isPro = () => {
   }
   return false;
 };
+var isLocalhost = () => {
+  if (window.location.host.startsWith("192.168")) {
+    return true;
+  }
+  return false;
+};
 var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
 var ChainId = /* @__PURE__ */ ((ChainId10) => {
   ChainId10["Bsc"] = "56";
@@ -535,7 +541,7 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = "http://localhost:4000";
+var TG_BOT_URL = isLocalhost() ? "http://localhost:4000" : "https://bingo-api.zypher.game";
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";

@@ -7,6 +7,7 @@ export declare const divisor6xBigNumber: BigNumberjs;
 export declare const divisorBigNumber: BigNumberjs;
 export declare const txStatus = "success";
 export declare const isPro: () => boolean;
+export declare const isLocalhost: () => boolean;
 export declare const preStaticUrl: string;
 export declare enum ChainId {
     Bsc = "56",
@@ -69,7 +70,7 @@ export declare enum IContractName {
 export declare const zkBingoV0: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const zkBingo: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const defaultRankChainId = ChainId.ArbitrumGoerli;
-export declare const TG_BOT_URL = "http://localhost:4000";
+export declare const TG_BOT_URL: string;
 export declare const TaskTelegramBot = "https://t.me/zBingoBot";
 export declare const TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 export declare const TaskFollowZypher = "https://twitter.com/Zypher_Network";
