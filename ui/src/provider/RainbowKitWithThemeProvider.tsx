@@ -8,7 +8,7 @@ import { WagmiConfig } from "wagmi";
 import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
 import { darkTheme } from "../rainbowkit/src/themes/darkTheme";
 import { RainbowKitProvider } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
-import { useWebAppData } from "../hooks/useTelegramUser";
+import { useTelegramUser, useWebAppData } from "../hooks/useTelegramUser";
 
 type IProps = {
   env: string;
@@ -20,9 +20,9 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
   env,
   chainIdList,
 }: IProps) => {
-  const WebAppData = useWebAppData();
+  const WebAppData = useTelegramUser();
   const { wagmiConfig, chains, computedTheme } = useMemo(() => {
-    if (env && WebAppData) {
+    if (env) {
       const wagmiConfig = getWagmiConfig(env, chainIdList, WebAppData);
       const { chains } = getConfigureChains(env);
       return {

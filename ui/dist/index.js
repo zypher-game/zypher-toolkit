@@ -854,7 +854,7 @@ var getFaucet = async (WebAppData) => {
   }
 };
 var useTelegramUser = () => {
-  const WebAppData = useRecoilValue(WebAppDataState);
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
@@ -885,13 +885,10 @@ var useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
-};
-var useWebAppData = () => {
-  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   useEffect2(() => {
     var _a, _b, _c, _d, _e, _f;
     console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
-    if (GlobalVar.IS_TELEGRAM && !(WebAppData == null ? void 0 : WebAppData.user)) {
+    if (GlobalVar.IS_TELEGRAM) {
       try {
         let _WebAppData = {
           auth_date: "",
@@ -913,6 +910,9 @@ var useWebAppData = () => {
     }
   }, [GlobalVar.IS_TELEGRAM]);
   return WebAppData;
+};
+var useWebAppData = () => {
+  return useRecoilValue(WebAppDataState);
 };
 var useTelegramAccountInit = (userInfo, _userInfo) => {
   const WebAppData = useWebAppData();
@@ -11584,9 +11584,9 @@ var RainbowKitWithThemeProvider = ({
   env,
   chainIdList
 }) => {
-  const WebAppData = useWebAppData();
+  const WebAppData = useTelegramUser();
   const { wagmiConfig, chains, computedTheme } = useMemo17(() => {
-    if (env && WebAppData) {
+    if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList, WebAppData);
       const { chains: chains2 } = getConfigureChains(env);
       return {

@@ -25,6 +25,6 @@ export interface TelegramUserInfoDto {
 export declare const TelegramUserInfoState: import("recoil").RecoilState<TelegramUserInfoDto | null>;
 export declare const WebAppDataState: import("recoil").RecoilState<IWebAppData | undefined>;
 export declare const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
-export declare const useTelegramUser: () => void;
+export declare const useTelegramUser: () => IWebAppData | undefined;
 export declare const useWebAppData: () => IWebAppData | undefined;
 export declare const useTelegramAccountInit: (userInfo: TelegramUserInfoDto | null, _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>) => TelegramUserInfoDto | null;

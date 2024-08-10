@@ -45,7 +45,7 @@ export const WebAppDataState = atom<IWebAppData | undefined>({
   effects_UNSTABLE: [localStorageEffect("WebAppDataState")],
 });
 export const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
-const getFaucet = async (WebAppData: any) => {
+const getFaucet = async (WebAppData: IWebAppData) => {
   try {
     const resaaa = httpPost<string>(`${TG_BOT_URL}/wallet/get`, {
       WebAppData,
@@ -64,7 +64,7 @@ const getFaucet = async (WebAppData: any) => {
   }
 };
 export const useTelegramUser = () => {
-  const WebAppData = useRecoilValue(WebAppDataState);
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
@@ -95,12 +95,9 @@ export const useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
-};
-export const useWebAppData = () => {
-  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   useEffect(() => {
     console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
-    if (GlobalVar.IS_TELEGRAM && !WebAppData?.user) {
+    if (GlobalVar.IS_TELEGRAM) {
       try {
         let _WebAppData: IWebAppData = {
           auth_date: "",
@@ -116,23 +113,15 @@ export const useWebAppData = () => {
         console.log({ _WebAppData });
         setWebAppData(_WebAppData);
         window.WebAppData = _WebAppData;
-        // @ts-ignore
-        // console.log({ search: search.entries() });
-        // @ts-ignore
-        // for (const [key, value] of search) {
-        //   console.log({ key, value });
-        //   // _WebAppData[key] = value;
-        // }
-        // if (!isPro() && !_WebAppData.user) {
-        //   _WebAppData.user = JSON.stringify({ id: 1390500840 });
-        //   _WebAppData.dev = true;
-        // }
       } catch (err) {
         console.error("WebAppData", err);
       }
     }
   }, [GlobalVar.IS_TELEGRAM]);
   return WebAppData;
+};
+export const useWebAppData = () => {
+  return useRecoilValue(WebAppDataState);
 };
 export const useTelegramAccountInit = (
   userInfo: TelegramUserInfoDto | null,
