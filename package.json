@@ -1,6 +1,6 @@
 {
   "name": "@zypher-game/toolkit",
-  "version": "0.1.147",
+  "version": "0.1.148",
   "peerDependencies": {
     "@vanilla-extract/css": "1.9.1",
     "@vanilla-extract/dynamic": "2.0.2",

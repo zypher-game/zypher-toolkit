@@ -64,7 +64,7 @@ const getFaucet = async (WebAppData: any) => {
   }
 };
 export const useTelegramUser = () => {
-  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
+  const WebAppData = useRecoilValue(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
@@ -95,9 +95,12 @@ export const useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
+};
+export const useWebAppData = () => {
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   useEffect(() => {
     console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
-    if (GlobalVar.IS_TELEGRAM) {
+    if (GlobalVar.IS_TELEGRAM && !WebAppData?.user) {
       try {
         let _WebAppData: IWebAppData = {
           auth_date: "",
@@ -129,9 +132,7 @@ export const useTelegramUser = () => {
       }
     }
   }, [GlobalVar.IS_TELEGRAM]);
-};
-export const useWebAppData = () => {
-  return useRecoilValue(WebAppDataState);
+  return WebAppData;
 };
 export const useTelegramAccountInit = (
   userInfo: TelegramUserInfoDto | null,

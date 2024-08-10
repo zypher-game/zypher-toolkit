@@ -854,7 +854,7 @@ var getFaucet = async (WebAppData) => {
   }
 };
 var useTelegramUser = () => {
-  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
+  const WebAppData = useRecoilValue(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
@@ -885,10 +885,13 @@ var useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
+};
+var useWebAppData = () => {
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   useEffect2(() => {
     var _a, _b, _c, _d, _e, _f;
     console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
-    if (GlobalVar.IS_TELEGRAM) {
+    if (GlobalVar.IS_TELEGRAM && !(WebAppData == null ? void 0 : WebAppData.user)) {
       try {
         let _WebAppData = {
           auth_date: "",
@@ -909,9 +912,7 @@ var useTelegramUser = () => {
       }
     }
   }, [GlobalVar.IS_TELEGRAM]);
-};
-var useWebAppData = () => {
-  return useRecoilValue(WebAppDataState);
+  return WebAppData;
 };
 var useTelegramAccountInit = (userInfo, _userInfo) => {
   const WebAppData = useWebAppData();
