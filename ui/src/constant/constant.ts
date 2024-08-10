@@ -93,15 +93,15 @@ export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
   : !isPro()
   ? [
-      ChainId.Arbitrum,
-      ChainId.ArbitrumGoerli,
-      ChainId.ScrollSepoliaTestnet,
-      ChainId.MantleTestnet,
-      ChainId.Mantle,
-      ChainId.Combo,
-      ChainId.ComboTestnet,
-      ChainId.MantaPacificTestnet,
-      ChainId.MantaPacificMainnet,
+      // ChainId.Arbitrum,
+      // ChainId.ArbitrumGoerli,
+      // ChainId.ScrollSepoliaTestnet,
+      // ChainId.MantleTestnet,
+      // ChainId.Mantle,
+      // ChainId.Combo,
+      // ChainId.ComboTestnet,
+      // ChainId.MantaPacificTestnet,
+      // ChainId.MantaPacificMainnet,
       ChainId.SagaMainnet,
     ]
   : [
@@ -556,7 +556,7 @@ export const zkBingo = (
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
 export const TG_BOT_URL = isLocalhost()
-  ? "http://localhost:4000"
+  ? "http://192.168.3.144:4000"
   : "https://bingo-api.zypher.game";
 // "https://bingo-api.zypher.game";
 export const TaskTelegramBot = "https://t.me/zBingoBot";
@@ -564,12 +564,16 @@ export const TaskJoinTelegramGroup = "https://t.me/zyphernetwork"; // location.p
 export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export const TaskReweet1 =
   "https://twitter.com/Zypher_Network/status/1819215629041254588";
+
 type IGlobalVar = {
+  IS_TELEGRAM: boolean;
   dispatch: (arg: any) => any;
   getContainer?: HTMLElement;
   mockAcc?: any;
 };
+
 export const GlobalVar: IGlobalVar = {
+  IS_TELEGRAM: !!window.IS_TELEGRAM,
   dispatch: (arg: any) => null as any,
   getContainer: undefined,
   mockAcc: (address: Address, proof?: TonProofItemReplySuccess) => null as any,

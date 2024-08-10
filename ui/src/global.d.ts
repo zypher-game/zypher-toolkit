@@ -22,6 +22,7 @@ declare global {
     Telegram: Telegram;
     isArrayify: boolean;
     dataToSign: any;
+    WebAppData: any;
   }
 }
 import "react";

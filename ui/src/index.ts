@@ -119,11 +119,12 @@ export {
   ITvlHero,
   L3ChainId,
 } from "./constant/tvlConstant";
-export { TelegramUserInfoState } from "./hooks/useTelegramUser";
+export { TelegramUserInfoState, useWebAppData } from "./hooks/useTelegramUser";
 export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
+export { default as cn } from "./utils/cn";
 export { default as sleep } from "./utils/sleep";
 export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 
@@ -193,7 +194,6 @@ export {
 export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
 export { default as TonConnectUIProvider } from "./provider/TonConnectUIProvider";
 
-export { WebAppData } from "./rainbow/Ton";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useAvatar } from "./hooks/useAvatar";
 
@@ -250,7 +250,7 @@ export {
   convertToLargeNumberRepresentation,
   splitArrByLen,
 } from "./utils/tool";
-export { request, httpPost } from "./utils/request";
+export { request, httpPost, httpGet } from "./utils/request";
 export {
   getUTCSeconds,
   timestampToDateStr,

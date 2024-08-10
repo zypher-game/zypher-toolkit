@@ -5,4 +5,3 @@ export declare const TonChainInfo: {
 };
 export declare const tonProvider: any;
 export declare const tonWeb: any;
-export declare const WebAppData: any;

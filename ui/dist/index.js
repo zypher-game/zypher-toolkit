@@ -10,8 +10,8 @@ import {
   atom as atom6,
   selector,
   RecoilRoot,
-  useRecoilState as useRecoilState13,
-  useRecoilValue as useRecoilValue9,
+  useRecoilState as useRecoilState14,
+  useRecoilValue as useRecoilValue10,
   useResetRecoilState
 } from "recoil";
 import {
@@ -115,15 +115,6 @@ var bingoV1SupportedChainId = !isPro() ? [
   "19546" /* ZytronLineaSepoliaTestnet */
 ] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
-  "42161" /* Arbitrum */,
-  "421613" /* ArbitrumGoerli */,
-  "534351" /* ScrollSepoliaTestnet */,
-  "5001" /* MantleTestnet */,
-  "5000" /* Mantle */,
-  "9980" /* Combo */,
-  "91715" /* ComboTestnet */,
-  "3441005" /* MantaPacificTestnet */,
-  "169" /* MantaPacificMainnet */,
   "2717465680371000" /* SagaMainnet */
 ] : [
   "42161" /* Arbitrum */,
@@ -482,13 +473,13 @@ var IContractName = /* @__PURE__ */ ((IContractName2) => {
   return IContractName2;
 })(IContractName || {});
 var zkBingoV0 = (chainId, name) => {
-  var _a2, _b2, _c;
+  var _a, _b, _c;
   if (!chainId) {
     throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = (_b2 = (_a2 = zkBingoContracts) == null ? void 0 : _a2[chainId]) == null ? void 0 : _b2[_repo];
+    const address = (_b = (_a = zkBingoContracts) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -511,13 +502,13 @@ var zkBingoV0 = (chainId, name) => {
   }
 };
 var zkBingo = (chainId, name) => {
-  var _a2, _b2;
+  var _a, _b;
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
-    const address = (_b2 = (_a2 = zkBingoContractsV1) == null ? void 0 : _a2[chainId]) == null ? void 0 : _b2[_repo];
+    const address = (_b = (_a = zkBingoContractsV1) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
       returnAddress = address.ZkBingoLobby;
@@ -541,12 +532,13 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = isLocalhost() ? "http://localhost:4000" : "https://bingo-api.zypher.game";
+var TG_BOT_URL = isLocalhost() ? "http://192.168.3.144:4000" : "https://bingo-api.zypher.game";
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
 var TaskReweet1 = "https://twitter.com/Zypher_Network/status/1819215629041254588";
 var GlobalVar = {
+  IS_TELEGRAM: !!window.IS_TELEGRAM,
   dispatch: (arg) => null,
   getContainer: void 0,
   mockAcc: (address, proof) => null
@@ -717,7 +709,12 @@ var CODELENGTH = 6;
 
 // src/hooks/useTelegramUser.ts
 import { useEffect as useEffect2 } from "react";
-import { atom, useSetRecoilState } from "recoil";
+import {
+  atom,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState
+} from "recoil";
 
 // src/hooks/useEffectValue.tsx
 import { useEffect, useRef, useState } from "react";
@@ -753,6 +750,34 @@ async function request(reqUrl, options = { method: "GET" }) {
   return response;
 }
 var httpClient = axios.create({});
+var httpGet = async (...params) => {
+  return httpClient.get(...params).then((res) => {
+    if (res.status !== 200)
+      return {
+        code: res.status,
+        msg: typeof res.data === "string" ? res.data : res.statusText,
+        data: null
+      };
+    return {
+      code: 0,
+      data: res.data,
+      msg: "success"
+    };
+  }).catch((err) => {
+    if (err && err.response && err.response.data && typeof err.response.data === "string") {
+      return Promise.resolve({
+        code: err.response.status,
+        msg: err.response.data,
+        data: null
+      });
+    }
+    return Promise.resolve({
+      code: 500,
+      msg: String(err).replace(/AxiosError:/, ""),
+      data: null
+    });
+  });
+};
 var httpPost = async (...params) => {
   return httpClient.post(...params).then((res) => {
     if (res.status !== 200) {
@@ -778,32 +803,6 @@ var httpPost = async (...params) => {
     });
   });
 };
-
-// src/rainbow/Ton.ts
-import TonWeb from "tonweb";
-var TonChainInfo = {
-  endpoint: "https://testnet.toncenter.com/api/v2/jsonRPC",
-  key: "13fb4d7601245519085ff095211618bf4ec1485e729f5e957e066d49822cca7a",
-  jettonAddress: "EQAELqZG_9DFmMUkL6Hk4LTz5vEqzahOJFhhbh9YEQjvk_19"
-};
-var tonProvider = new TonWeb.HttpProvider(TonChainInfo.endpoint, {
-  apiKey: TonChainInfo.key
-});
-var tonWeb = new TonWeb(tonProvider);
-var WebAppData = {};
-var _a, _b;
-try {
-  const search = new URLSearchParams((_b = (_a = window.Telegram) == null ? void 0 : _a.WebApp) == null ? void 0 : _b.initData);
-  for (const [key, value] of search.entries()) {
-    WebAppData[key] = value;
-  }
-  if (!isPro() && !WebAppData.user) {
-    WebAppData.user = JSON.stringify({ id: 566752830 });
-    WebAppData.dev = true;
-  }
-} catch (err) {
-  console.error("WebAppData", err);
-}
 
 // src/utils/localStorageEffect.ts
 import { DefaultValue } from "recoil";
@@ -831,7 +830,12 @@ var TelegramUserInfoState = atom({
   default: null,
   effects_UNSTABLE: [localStorageEffect("TelegramUserInfoState")]
 });
-var getFaucet = async () => {
+var WebAppDataState = atom({
+  key: "WebAppDataState",
+  default: void 0,
+  effects_UNSTABLE: [localStorageEffect("WebAppDataState")]
+});
+var getFaucet = async (WebAppData) => {
   try {
     const resaaa = httpPost(`${TG_BOT_URL}/wallet/get`, {
       WebAppData
@@ -850,24 +854,27 @@ var getFaucet = async () => {
   }
 };
 var useTelegramUser = () => {
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
     async () => {
-      var _a2, _b2;
-      if (!window.IS_TELEGRAM || !((_b2 = (_a2 = window.Telegram) == null ? void 0 : _a2.WebApp) == null ? void 0 : _b2.initData)) {
+      console.log({ WebApp: WebAppData });
+      if (!window.IS_TELEGRAM || !(WebAppData == null ? void 0 : WebAppData.user)) {
         return null;
       }
-      const res = httpPost(`${TG_BOT_URL}/user/get`, {
-        WebAppData
-      });
-      getFaucet();
-      console.log({ res: await res });
-      if ((await res).code)
-        return null;
-      return (await res).data;
+      if (WebAppData && WebAppData.user) {
+        const res = httpPost(`${TG_BOT_URL}/user/get`, {
+          WebAppData
+        });
+        getFaucet(WebAppData);
+        console.log({ res: await res });
+        if ((await res).code)
+          return null;
+        return (await res).data;
+      }
     },
-    []
+    [WebAppData == null ? void 0 : WebAppData.user]
   );
   useEffect2(() => {
     if (user) {
@@ -878,8 +885,36 @@ var useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
+  useEffect2(() => {
+    var _a, _b, _c, _d, _e, _f;
+    console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
+    if (GlobalVar.IS_TELEGRAM) {
+      try {
+        let _WebAppData = {
+          auth_date: "",
+          hash: "",
+          query_id: "",
+          user: ""
+        };
+        const params = new URLSearchParams((_b = (_a = window.Telegram) == null ? void 0 : _a.WebApp) == null ? void 0 : _b.initData);
+        _WebAppData.query_id = (_c = params.get("query_id")) != null ? _c : "";
+        _WebAppData.user = (_d = params.get("user")) != null ? _d : "";
+        _WebAppData.hash = (_e = params.get("hash")) != null ? _e : "";
+        _WebAppData.auth_date = (_f = params.get("auth_date")) != null ? _f : "";
+        console.log({ _WebAppData });
+        setWebAppData(_WebAppData);
+        window.WebAppData = _WebAppData;
+      } catch (err) {
+        console.error("WebAppData", err);
+      }
+    }
+  }, [GlobalVar.IS_TELEGRAM]);
+};
+var useWebAppData = () => {
+  return useRecoilValue(WebAppDataState);
 };
 var useTelegramAccountInit = (userInfo, _userInfo) => {
+  const WebAppData = useWebAppData();
   return useEffectValue(
     null,
     async () => {
@@ -911,15 +946,15 @@ var useTonWalletProofMounted = () => {
   const [proof, _proof] = useState2(null);
   const wallet = useTonWallet();
   useEffect3(() => {
-    var _a2, _b2;
-    if (((_b2 = (_a2 = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a2.tonProof) == null ? void 0 : _b2.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
+    var _a, _b;
+    if (((_b = (_a = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a.tonProof) == null ? void 0 : _b.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
       _proof(wallet.connectItems.tonProof);
     } else {
       _proof(null);
     }
     ui.onStatusChange((wallet2) => {
-      var _a3;
-      if (((_a3 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a3.tonProof) && "proof" in wallet2.connectItems.tonProof) {
+      var _a2;
+      if (((_a2 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a2.tonProof) && "proof" in wallet2.connectItems.tonProof) {
         _proof(wallet2.connectItems.tonProof);
       }
     });
@@ -1846,7 +1881,7 @@ import { useCallback as useCallback2, useContext, useEffect as useEffect7, useSt
 
 // src/provider/IsMobileProvider.tsx
 import React4, { createContext, memo as memo4, useEffect as useEffect6 } from "react";
-import { atom as atom2, useRecoilState } from "recoil";
+import { atom as atom2, useRecoilState as useRecoilState2 } from "recoil";
 var isW768State = atom2({
   key: "isW768State",
   default: false,
@@ -1872,7 +1907,7 @@ var IsW950Context = createContext(void 0);
 var IsW1100Context = createContext(void 0);
 var IsW1220Context = createContext(void 0);
 var IsW768Provider = memo4(({ children }) => {
-  const [isMobile2, setIsMobile] = useRecoilState(isW768State);
+  const [isMobile2, setIsMobile] = useRecoilState2(isW768State);
   const size = useWindowSize();
   useEffect6(() => {
     const nowIsMobile = size.width < 830;
@@ -1885,7 +1920,7 @@ var IsW768Provider = memo4(({ children }) => {
   }, children);
 });
 var IsMdProvider = ({ children }) => {
-  const [isWMd, setIsWMd] = useRecoilState(isWMdState);
+  const [isWMd, setIsWMd] = useRecoilState2(isWMdState);
   const size = useWindowSize();
   useEffect6(() => {
     const nowIsMdMobile = size.width < 950;
@@ -1898,7 +1933,7 @@ var IsMdProvider = ({ children }) => {
   }, children);
 };
 var IsW1100Provider = ({ children }) => {
-  const [isW1100, setIsW1100] = useRecoilState(isW1100State);
+  const [isW1100, setIsW1100] = useRecoilState2(isW1100State);
   const size = useWindowSize();
   useEffect6(() => {
     const nowIsW1100Mobile = size.width < 1100;
@@ -1911,7 +1946,7 @@ var IsW1100Provider = ({ children }) => {
   }, children);
 };
 var IsW1220Provider = ({ children }) => {
-  const [isW1220, setIsW1220] = useRecoilState(isW1220State);
+  const [isW1220, setIsW1220] = useRecoilState2(isW1220State);
   const size = useWindowSize();
   useEffect6(() => {
     const nowIsW1220Mobile = size.width < 1220;
@@ -1925,7 +1960,7 @@ var IsW1220Provider = ({ children }) => {
 };
 
 // src/hooks/useWindowSize.ts
-import { useRecoilState as useRecoilState2 } from "recoil";
+import { useRecoilState as useRecoilState3 } from "recoil";
 function useWindowSize() {
   const [size, setSize] = useState6({
     width: document.documentElement.clientWidth,
@@ -1946,7 +1981,7 @@ function useWindowSize() {
   return size;
 }
 var useIsW768 = () => {
-  const [isW768] = useRecoilState2(isW768State);
+  const [isW768] = useRecoilState3(isW768State);
   if (isW768 === void 0) {
     return false;
   }
@@ -2161,9 +2196,9 @@ import { useAccount, usePublicClient } from "wagmi";
 // src/rainbowkit/src/hooks/useChainId.ts
 import { useNetwork } from "wagmi";
 function useChainId() {
-  var _a2;
+  var _a;
   const { chain: activeChain } = useNetwork();
-  return (_a2 = activeChain == null ? void 0 : activeChain.id) != null ? _a2 : null;
+  return (_a = activeChain == null ? void 0 : activeChain.id) != null ? _a : null;
 }
 
 // src/hooks/useActiveWeb3React.ts
@@ -2501,6 +2536,10 @@ var FORMAT = {
 };
 var BigNumberJs_default = BigNumberJs;
 
+// src/utils/cn.ts
+import cn from "classnames";
+var cn_default = cn;
+
 // src/utils/sleep.ts
 function sleep(seconds) {
   const now = +new Date();
@@ -2738,7 +2777,7 @@ var pointsBalanceState = atom3({
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames4 from "classnames";
 import React17, { memo as memo13, useCallback as useCallback8, useEffect as useEffect9, useState as useState10 } from "react";
-import { useRecoilState as useRecoilState5, useRecoilValue as useRecoilValue4 } from "recoil";
+import { useRecoilState as useRecoilState6, useRecoilValue as useRecoilValue5 } from "recoil";
 
 // src/components/CurrencyLogo/index.tsx
 import React10, { useState as useState8 } from "react";
@@ -2826,6 +2865,9 @@ function getShortenAddress(address, preLen = 6, endLen = 4) {
   if (!address) {
     return "";
   }
+  if (address.length < 42) {
+    return address;
+  }
   const firstCharacters = address.substring(0, preLen);
   const lastCharacters = address.substring(
     address.length - endLen,
@@ -2878,10 +2920,10 @@ var Units = [
   ["K", 1e3]
 ];
 function formatCurrency(amount, precision = 2) {
-  var _a2;
-  const [unit, base3] = (_a2 = Units.find(
+  var _a;
+  const [unit, base3] = (_a = Units.find(
     ([, min]) => Number(amount) >= Number(min)
-  )) != null ? _a2 : ["", 1];
+  )) != null ? _a : ["", 1];
   return `${utils.commify(
     (amount / base3).toFixed(precision)
   )}${unit}`;
@@ -2894,7 +2936,7 @@ function formatSymbol(symbol) {
 import BigNumberjs2 from "bignumber.js";
 
 // src/hooks/useAccountInvitation.ts
-import { atom as atom4, useRecoilValue, useSetRecoilState as useSetRecoilState2 } from "recoil";
+import { atom as atom4, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState2 } from "recoil";
 import { useCallback as useCallback5 } from "react";
 var invitationAddressState = atom4({
   key: "invitationAddressState",
@@ -2903,7 +2945,7 @@ var invitationAddressState = atom4({
 });
 var useAccountInvitation = (env) => {
   const { chainId, account } = useActiveWeb3React();
-  const invitationAddres = useRecoilValue(
+  const invitationAddres = useRecoilValue2(
     invitationAddressState
   );
   const setInvitationAddressState = useSetRecoilState2(invitationAddressState);
@@ -2919,7 +2961,7 @@ var useAccountInvitation = (env) => {
 
 // src/hooks/usePoint.ts
 import { useCallback as useCallback7, useState as useState9 } from "react";
-import { useRecoilState as useRecoilState3, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState3 } from "recoil";
+import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState3 } from "recoil";
 
 // src/hooks/usePublicNodeWaitForTransaction.ts
 import { useCallback as useCallback6 } from "react";
@@ -3240,9 +3282,9 @@ var metaMaskWallet = ({
   walletConnectVersion = "2",
   ...options
 }) => {
-  var _a2, _b2;
-  const providers2 = typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.providers);
-  const isMetaMaskInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (((_b2 = window.ethereum.providers) == null ? void 0 : _b2.some(isMetaMask)) || window.ethereum.isMetaMask);
+  var _a, _b;
+  const providers2 = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.providers);
+  const isMetaMaskInjected = typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (((_b = window.ethereum.providers) == null ? void 0 : _b.some(isMetaMask)) || window.ethereum.isMetaMask);
   const shouldUseWalletConnect = !isMetaMaskInjected;
   return {
     id: "metaMask",
@@ -3581,8 +3623,8 @@ var tokenPocketWallet = ({
   walletConnectOptions,
   walletConnectVersion = "2"
 }) => {
-  var _a2;
-  const isTokenPocketInjected = typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.isTokenPocket) === true;
+  var _a;
+  const isTokenPocketInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isTokenPocket) === true;
   const shouldUseWalletConnect = !isTokenPocketInjected;
   return {
     id: "tokenPocket",
@@ -3671,18 +3713,19 @@ import { ethers } from "ethers";
 import { Signer, utils as utils2 } from "ethers";
 var { resolveProperties } = utils2;
 var TelegramWallet = class extends Signer {
-  constructor(address, provider, api) {
+  constructor(address, provider, api, WebAppData) {
     super();
     this.provider = provider;
     this.address = address;
     this.api = api;
+    this.WebAppData = WebAppData;
   }
   getAddress() {
     return Promise.resolve(this.address);
   }
   async signMessage(message) {
     const res = await httpPost(`${this.api}/wallet/use`, {
-      WebAppData,
+      WebAppData: this.WebAppData,
       method: "signMessage",
       params: window.dataToSign,
       isArrayify: window.isArrayify
@@ -3695,7 +3738,7 @@ var TelegramWallet = class extends Signer {
     try {
       return resolveProperties(transaction).then(async (tx) => {
         const res = await httpPost(`${this.api}/wallet/use`, {
-          WebAppData,
+          WebAppData: this.WebAppData,
           method: "signTransaction",
           params: tx
         });
@@ -3747,7 +3790,7 @@ var getConfigureChains = (env, chainIdList) => {
   return { chains, publicClient, webSocketPublicClient };
 };
 var projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
-var getConnectors = (env, publicClient, chainIdList) => {
+var getConnectors = (env, publicClient, chainIdList, WebAppData) => {
   const { chains } = getConfigureChains(env, chainIdList);
   if (window.IS_TELEGRAM) {
     const provider = new ethers.providers.JsonRpcProvider(
@@ -3756,7 +3799,8 @@ var getConnectors = (env, publicClient, chainIdList) => {
     const acc = new TelegramWallet(
       localStorage.getItem("TelegramUserIdEvmAddressKey") || zeroAddress,
       provider,
-      TG_BOT_URL
+      TG_BOT_URL,
+      WebAppData
     );
     const account = acc.address;
     const pub = publicClient({ chainId: "2717465680371000" /* SagaMainnet */ });
@@ -3820,12 +3864,12 @@ var getConnectors = (env, publicClient, chainIdList) => {
     }
   ]);
 };
-var getWagmiConfig = (env, chainIdList) => {
+var getWagmiConfig = (env, chainIdList, WebAppData) => {
   const { publicClient, webSocketPublicClient } = getConfigureChains(
     env,
     chainIdList
   );
-  const connectors = getConnectors(env, publicClient, chainIdList);
+  const connectors = getConnectors(env, publicClient, chainIdList, WebAppData);
   console.log({ connectors });
   return createConfig({
     autoConnect: true,
@@ -3870,9 +3914,9 @@ var getViemClients = ({
 // src/hooks/useActiveChainId.ts
 import { useNetwork as useNetwork2 } from "wagmi";
 var useActiveChainId = (env) => {
-  var _a2;
+  var _a;
   const { chain } = useNetwork2();
-  const chainId = (_a2 = chain == null ? void 0 : chain.id) != null ? _a2 : void 0;
+  const chainId = (_a = chain == null ? void 0 : chain.id) != null ? _a : void 0;
   const isError = !Object.values(supportedChainIds(env)).includes(
     Number(chainId)
   );
@@ -4025,8 +4069,8 @@ var pointsListDefault = (chainId) => {
       ["300000", "5"],
       ["500000", "10"]
     ].map((v, index) => {
-      var _a2;
-      const chainPrice = (_a2 = ChainPointPrice[chainId]) != null ? _a2 : "0";
+      var _a;
+      const chainPrice = (_a = ChainPointPrice[chainId]) != null ? _a : "0";
       const price = v[1] ? new BigNumberjs2(chainPrice).times(v[0]).times((100 - Number(v[1])) * 0.01).toFixed(8) : new BigNumberjs2(chainPrice).times(v[0]).toFixed(8);
       const priceStr = formatMoney(Number(price), 8);
       const pointAmountStr = formatMoney(Number(v[0]));
@@ -4055,10 +4099,10 @@ var useSwapPoint = ({
   const [isLoading, setIsLoading] = useState9(false);
   const setPointsDialogOpen = useSetRecoilState3(pointsDialogState);
   const setPointsAnimNumState = useSetRecoilState3(pointsAnimNumState);
-  const [refreshBalance, setRefreshBalanceState] = useRecoilState3(refreshBalanceState);
+  const [refreshBalance, setRefreshBalanceState] = useRecoilState4(refreshBalanceState);
   const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
-  const hidePointsWarn = useRecoilValue2(hidePointsWarnState);
-  const [pointsWarn, setPointsWarn] = useRecoilState3(pointsWarnState);
+  const hidePointsWarn = useRecoilValue3(hidePointsWarnState);
+  const [pointsWarn, setPointsWarn] = useRecoilState4(pointsWarnState);
   const [choseIndex, setChoseIndex] = useState9();
   const { data: walletClient } = useWalletClient();
   const swapPointHandle = useCallback7(
@@ -4148,15 +4192,15 @@ var useSwapPoint = ({
 
 // src/components/ConnectWallet/hooks/connectWalletHooks.ts
 import { useMemo as useMemo4 } from "react";
-import { useRecoilValue as useRecoilValue3 } from "recoil";
+import { useRecoilValue as useRecoilValue4 } from "recoil";
 var useNativeBalanceStr = () => {
-  const nativeBalance = useRecoilValue3(nativeBalanceState);
+  const nativeBalance = useRecoilValue4(nativeBalanceState);
   return useMemo4(() => {
     return formatMoney(nativeBalance, 2);
   }, [nativeBalance]);
 };
 var usePointsBalanceStr = () => {
-  const pointsBalance = useRecoilValue3(pointsBalanceState);
+  const pointsBalance = useRecoilValue4(pointsBalanceState);
   return useMemo4(() => {
     return formatMoney(pointsBalance, 0);
   }, [pointsBalance]);
@@ -4164,10 +4208,10 @@ var usePointsBalanceStr = () => {
 
 // src/components/ConnectWallet/components/PointsDialog/PointsWarn.tsx
 import React11, { memo as memo8 } from "react";
-import { useRecoilState as useRecoilState4 } from "recoil";
+import { useRecoilState as useRecoilState5 } from "recoil";
 var PoinsWarn = memo8(({ handleNext }) => {
   const { t } = useCustomTranslation([LngNs.points]);
-  const [hidePointsWarn, setHidePointsWarn] = useRecoilState4(hidePointsWarnState);
+  const [hidePointsWarn, setHidePointsWarn] = useRecoilState5(hidePointsWarnState);
   return /* @__PURE__ */ React11.createElement("div", {
     className: "points_dialog_dialogContainer"
   }, /* @__PURE__ */ React11.createElement("p", null, t("poinsWarnText01")), /* @__PURE__ */ React11.createElement("p", null, /* @__PURE__ */ React11.createElement("em", null), /* @__PURE__ */ React11.createElement("i", null, t("poinsWarnText02")), /* @__PURE__ */ React11.createElement("br", null), /* @__PURE__ */ React11.createElement("em", null), /* @__PURE__ */ React11.createElement("i", null, t("poinsWarnText03"))), /* @__PURE__ */ React11.createElement("p", null, t("poinsWarnText04")), /* @__PURE__ */ React11.createElement("p", {
@@ -4348,8 +4392,8 @@ var DialogClose_default = DialogClose;
 var PointsDialog = memo13(
   ({ env, dispatch, setSuccessToast, setErrorToast }) => {
     const { t } = useCustomTranslation([LngNs.points]);
-    const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState5(pointsDialogState);
-    const pointsWarn = useRecoilValue4(pointsWarnState);
+    const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState6(pointsDialogState);
+    const pointsWarn = useRecoilValue5(pointsWarnState);
     const { chainId } = useActiveWeb3React();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
@@ -4887,14 +4931,14 @@ var SideBar = (props) => {
   } = useMemo6(() => {
     return {
       sideBarGamesLinkList: Games(chainId).map((v) => v.dapps.map((vv) => vv)).flat().map((v) => {
-        var _a2;
+        var _a;
         return {
           label: v.label,
           keyValue: v.label,
           icon: v.icon,
           disabled: false,
           type: "Games" /* Games */,
-          link: (_a2 = v.link) != null ? _a2 : v.twitter
+          link: (_a = v.link) != null ? _a : v.twitter
         };
       })
     };
@@ -4910,11 +4954,11 @@ var SideBar = (props) => {
     className: "sidebar"
   }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
     (v) => {
-      var _a2;
+      var _a;
       return /* @__PURE__ */ React23.createElement(SideBarTitleLink, {
         key: v.label,
         logo_title: v.label,
-        className: `sideBarTitle sideBarTitleLink ${((_a2 = v.linkList) != null ? _a2 : []).includes(pathname) ? "on" : ""}`,
+        className: `sideBarTitle sideBarTitleLink ${((_a = v.linkList) != null ? _a : []).includes(pathname) ? "on" : ""}`,
         link: v.link,
         logo_url_name: v.icon
       });
@@ -4965,7 +5009,7 @@ var DivWrap_default = DivWrap;
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
 import React26, { memo as memo22, useCallback as useCallback12, useEffect as useEffect11, useMemo as useMemo7 } from "react";
-import { useRecoilState as useRecoilState6 } from "recoil";
+import { useRecoilState as useRecoilState7 } from "recoil";
 import styled3 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
@@ -5029,10 +5073,10 @@ var Text = styled3.div`
 `;
 var LinkToBetaDialog = memo22(() => {
   const { t } = useCustomTranslation([LngNs.common]);
-  const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState6(
+  const [linkToBetaDialogOpen, setLinkToBetaDialogOpen] = useRecoilState7(
     linkToBetaDialogState
   );
-  const [linkToBetaDialogChainId, setLinkToBetaDialogChainId] = useRecoilState6(
+  const [linkToBetaDialogChainId, setLinkToBetaDialogChainId] = useRecoilState7(
     linkToBetaDialogChainIdState
   );
   const isMobile2 = useIsW768();
@@ -5093,7 +5137,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
 import React93, { useEffect as useEffect31, useMemo as useMemo16 } from "react";
-import { useRecoilState as useRecoilState12, useRecoilValue as useRecoilValue8, useSetRecoilState as useSetRecoilState13 } from "recoil";
+import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue9, useSetRecoilState as useSetRecoilState13 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import React92, { memo as memo33 } from "react";
@@ -5105,7 +5149,7 @@ import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
 import React29, { memo as memo25, useCallback as useCallback14, useEffect as useEffect13, useState as useState12 } from "react";
-import { useRecoilValue as useRecoilValue5, useSetRecoilState as useSetRecoilState7 } from "recoil";
+import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState7 } from "recoil";
 import styled4 from "styled-components";
 
 // src/contract/abi/erc20Abi.json
@@ -5414,9 +5458,9 @@ import React28, { memo as memo24, useCallback as useCallback13, useEffect as use
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React27, { memo as memo23 } from "react";
-import { useRecoilState as useRecoilState7 } from "recoil";
+import { useRecoilState as useRecoilState8 } from "recoil";
 var GetPointsSuccess = memo23(() => {
-  const [show] = useRecoilState7(pointsAnimState);
+  const [show] = useRecoilState8(pointsAnimState);
   if (show) {
     return /* @__PURE__ */ React27.createElement("div", {
       className: "getpointpoints"
@@ -5450,7 +5494,7 @@ var PointsItem = () => {
 var GetPointsSuccess_default = GetPointsSuccess;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
-import { useRecoilState as useRecoilState8, useSetRecoilState as useSetRecoilState6 } from "recoil";
+import { useRecoilState as useRecoilState9, useSetRecoilState as useSetRecoilState6 } from "recoil";
 var BalanceItem = memo24(
   ({
     className,
@@ -5492,7 +5536,7 @@ var BalanceCountUpItem = memo24(
     balanceStr
   }) => {
     const setPointsAnimState = useSetRecoilState6(pointsAnimState);
-    const [mount, setMount] = useRecoilState8(pointsAnimNumState);
+    const [mount, setMount] = useRecoilState9(pointsAnimNumState);
     const onClickHandle = useCallback13(() => {
       if (onClick) {
         onClick();
@@ -5535,7 +5579,7 @@ var Balance = memo25((props) => {
   const [loading, setLoading] = useState12(false);
   const setNativeBalance = useSetRecoilState7(nativeBalanceState);
   const setPointsBalance = useSetRecoilState7(pointsBalanceState);
-  const refreshBalance = useRecoilValue5(refreshBalanceState);
+  const refreshBalance = useRecoilValue6(refreshBalanceState);
   const { data: walletClient } = useWalletClient2();
   const fetchErc20Balance = useCallback14(async () => {
     if (!chainId || !account || !provider || !walletClient) {
@@ -5579,7 +5623,7 @@ var Balance = memo25((props) => {
       fetchBalanceOf();
     }
   }, [account, chainId, refreshBalance, walletClient]);
-  const pointsBalance = useRecoilValue5(pointsBalanceState);
+  const pointsBalance = useRecoilValue6(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
   return /* @__PURE__ */ React29.createElement(React29.Fragment, null, isMiddleWidth ? null : /* @__PURE__ */ React29.createElement(IsPixelWidget_default, {
@@ -5614,7 +5658,7 @@ var Balance_default = Balance;
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
 import React30, { memo as memo26, useCallback as useCallback15 } from "react";
 import styled5 from "styled-components";
-import { useRecoilState as useRecoilState9 } from "recoil";
+import { useRecoilState as useRecoilState10 } from "recoil";
 var StatusI = styled5.i`
   box-sizing: content-box;
   display: inline-block;
@@ -5639,11 +5683,11 @@ var StatusI = styled5.i`
 var ChainSelectorWidget = memo26(({ className, direction_type }) => {
   const { chainId } = useActiveWeb3React();
   const isMobile2 = useIsW768();
-  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState9(
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState10(
     accountInfoDialogState
   );
-  const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState9(pointsDialogState);
-  const [sideCollapse, setSideCollapse] = useRecoilState9(sideCollapseState);
+  const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState10(pointsDialogState);
+  const [sideCollapse, setSideCollapse] = useRecoilState10(sideCollapseState);
   const { openChainModal } = useChainModal();
   const openChainModalHandle = useCallback15(() => {
     if (accountInfoDialogOpen) {
@@ -5685,11 +5729,11 @@ var ChainSelectorWidget_default = ChainSelectorWidget;
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
 import React31, { useCallback as useCallback16 } from "react";
-import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState8 } from "recoil";
+import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState8 } from "recoil";
 import { Trans } from "react-i18next";
 var PointsRuleDialog = () => {
   const { t } = useCustomTranslation([LngNs.points]);
-  const isModalOpen = useRecoilValue6(pointsRuleDialogState);
+  const isModalOpen = useRecoilValue7(pointsRuleDialogState);
   const setIsModalOpen = useSetRecoilState8(pointsRuleDialogState);
   const handleCancel = useCallback16(() => {
     setIsModalOpen(false);
@@ -5789,7 +5833,7 @@ var Avatar_default = Avatar;
 
 // src/hooks/useAvatar.ts
 import { useCallback as useCallback17, useEffect as useEffect14, useState as useState13 } from "react";
-import { useRecoilValue as useRecoilValue7 } from "recoil";
+import { useRecoilValue as useRecoilValue8 } from "recoil";
 
 // src/utils/generateAvatar.ts
 function hashToSeed(ethereumAddress) {
@@ -5844,8 +5888,7 @@ var useAvatar = (account, hideAvatars) => {
     selectedAvatar: "",
     selectedBackground: ""
   });
-  const refreshAvatar = useRecoilValue7(refreshAvatarState);
-  const userInfo = useRecoilValue7(TelegramUserInfoState);
+  const refreshAvatar = useRecoilValue8(refreshAvatarState);
   useEffect14(() => {
     if (account && !hideAvatars) {
       getData();
@@ -5857,8 +5900,8 @@ var useAvatar = (account, hideAvatars) => {
   const getData = useCallback17(() => {
     const img = new Image();
     let src6 = "";
-    if (window.IS_TELEGRAM && userInfo) {
-      src6 = `https://zypher-static.s3.amazonaws.com/telegram/${userInfo.id}`;
+    if (window.IS_TELEGRAM) {
+      src6 = `https://zypher-static.s3.amazonaws.com/telegram/${account == null ? void 0 : account.toLowerCase()}`;
     } else {
       src6 = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account == null ? void 0 : account.toLowerCase()}.png`;
     }
@@ -5873,7 +5916,7 @@ var useAvatar = (account, hideAvatars) => {
       const { selectedAvatar, selectedBackground } = generateAvatar_default(account);
       setAvatars({ selectedAvatar, selectedBackground });
     };
-  }, [account, refreshAvatar, JSON.stringify(userInfo)]);
+  }, [account, refreshAvatar]);
   return avatars2 || {};
 };
 
@@ -6021,7 +6064,7 @@ var PlayerAvatarList = ({
     isGrey,
     winner
   }, /* @__PURE__ */ React33.createElement("div", {
-    className: "center-circle "
+    className: "center-circle"
   }, /* @__PURE__ */ React33.createElement("div", {
     className: "inner-circle"
   }, account ? /* @__PURE__ */ React33.createElement("img", {
@@ -6042,7 +6085,7 @@ var PlayerAvatar_default = PlayerAvatar;
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
 import React36, { memo as memo29, useCallback as useCallback19, useEffect as useEffect15, useState as useState14 } from "react";
-import { useRecoilState as useRecoilState11 } from "recoil";
+import { useRecoilState as useRecoilState12 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
 import { useMemo as useMemo9 } from "react";
@@ -6120,11 +6163,11 @@ function isArc() {
   return typeof document !== "undefined" && getComputedStyle(document.body).getPropertyValue("--arc-palette-focus") !== "";
 }
 function getBrowser() {
-  var _a2;
+  var _a;
   if (typeof navigator === "undefined")
     return "Browser" /* Browser */;
   const ua = navigator.userAgent.toLowerCase();
-  if ((_a2 = navigator.brave) == null ? void 0 : _a2.isBrave)
+  if ((_a = navigator.brave) == null ? void 0 : _a.isBrave)
     return "Brave" /* Brave */;
   else if (ua.indexOf("edg/") > -1)
     return "Edge" /* Edge */;
@@ -6143,11 +6186,11 @@ function getBrowser() {
 
 // src/rainbowkit/src/wallets/downloadUrls.ts
 var getExtensionDownloadUrl = (wallet) => {
-  var _a2, _b2, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
+  var _a, _b, _c, _d, _e, _f, _g, _h, _i, _j, _k, _l;
   const browser = getBrowser();
   return (_l = {
-    ["Arc" /* Arc */]: (_a2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a2.chrome,
-    ["Brave" /* Brave */]: (_b2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b2.chrome,
+    ["Arc" /* Arc */]: (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.chrome,
+    ["Brave" /* Brave */]: (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.chrome,
     ["Chrome" /* Chrome */]: (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.chrome,
     ["Edge" /* Edge */]: ((_d = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _d.edge) || ((_e = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _e.chrome),
     ["Firefox" /* Firefox */]: (_f = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _f.firefox,
@@ -6157,9 +6200,9 @@ var getExtensionDownloadUrl = (wallet) => {
   }[browser]) != null ? _l : (_k = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _k.browserExtension;
 };
 var getMobileDownloadUrl = (wallet) => {
-  var _a2, _b2, _c, _d;
+  var _a, _b, _c, _d;
   const ios = isIOS();
-  return (_d = ios ? (_a2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a2.ios : (_b2 = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b2.android) != null ? _d : (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.mobile;
+  return (_d = ios ? (_a = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _a.ios : (_b = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _b.android) != null ? _d : (_c = wallet == null ? void 0 : wallet.downloadUrls) == null ? void 0 : _c.mobile;
 };
 
 // src/rainbowkit/src/wallets/recentWalletIds.ts
@@ -6190,10 +6233,10 @@ function useWalletConnectors() {
   const { connectAsync, connectors: defaultConnectors_untyped } = useConnect();
   const defaultConnectors = defaultConnectors_untyped;
   async function connectWallet(walletId, connector) {
-    var _a2, _b2, _c;
+    var _a, _b, _c;
     const walletChainId = await connector.getChainId();
     const result = await connectAsync({
-      chainId: (_c = intialChainId != null ? intialChainId : (_a2 = rainbowKitChains.find(({ id }) => id === walletChainId)) == null ? void 0 : _a2.id) != null ? _c : (_b2 = rainbowKitChains[0]) == null ? void 0 : _b2.id,
+      chainId: (_c = intialChainId != null ? intialChainId : (_a = rainbowKitChains.find(({ id }) => id === walletChainId)) == null ? void 0 : _a.id) != null ? _c : (_b = rainbowKitChains[0]) == null ? void 0 : _b.id,
       connector
     });
     if (result) {
@@ -6213,8 +6256,8 @@ function useWalletConnectors() {
   }
   const walletInstances = flatten(
     defaultConnectors.map((connector) => {
-      var _a2;
-      return (_a2 = connector._wallets) != null ? _a2 : [];
+      var _a;
+      return (_a = connector._wallets) != null ? _a : [];
     })
   ).sort((a, b) => a.index - b.index);
   const walletInstanceById = indexBy(
@@ -6231,7 +6274,7 @@ function useWalletConnectors() {
   ];
   const walletConnectors = [];
   groupedWallets.forEach((wallet) => {
-    var _a2;
+    var _a;
     if (!wallet) {
       return;
     }
@@ -6246,7 +6289,7 @@ function useWalletConnectors() {
         "message",
         ({ type }) => type === "connecting" ? fn() : void 0
       ),
-      ready: ((_a2 = wallet.installed) != null ? _a2 : true) && wallet.connector.ready,
+      ready: ((_a = wallet.installed) != null ? _a : true) && wallet.connector.ready,
       recent,
       showWalletConnectModal: wallet.walletConnectModalConnector ? () => connectToWalletConnectModal(
         wallet.id,
@@ -6273,11 +6316,11 @@ var useActiveWallet = () => {
 import classnames9 from "classnames";
 import React35, { memo as memo28, useCallback as useCallback18, useMemo as useMemo10 } from "react";
 import { useDisconnect } from "wagmi";
-import { useRecoilState as useRecoilState10 } from "recoil";
+import { useRecoilState as useRecoilState11 } from "recoil";
 var MUserInfo = memo28(
   ({ account, chainId, copy, cancel, type }) => {
     const { disconnect } = useDisconnect();
-    const [, setAccountInfoDialogOpen] = useRecoilState10(accountInfoDialogState);
+    const [, setAccountInfoDialogOpen] = useRecoilState11(accountInfoDialogState);
     const { t } = useCustomTranslation([LngNs.common]);
     const nativeBalanceStr = useNativeBalanceStr();
     const pointsBalanceStr = usePointsBalanceStr();
@@ -6302,9 +6345,9 @@ var MUserInfo = memo28(
       ];
     }, []);
     const openHandle = useCallback18(() => {
-      var _a2;
+      var _a;
       window.open(
-        `${(_a2 = BlockExplorerUrls[chainId]) != null ? _a2 : [0]}/address/${account}`,
+        `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
         "_blank"
       );
     }, [account, chainId]);
@@ -6382,7 +6425,7 @@ var MUserInfo_default = MUserInfo;
 import { useDisconnect as useDisconnect2 } from "wagmi";
 var AccountInfoDialog = memo29(({ copy }) => {
   const { t } = useCustomTranslation([LngNs.common]);
-  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState11(
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState12(
     accountInfoDialogState
   );
   const { account, chainId } = useActiveWeb3React();
@@ -6429,7 +6472,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState14();
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
-  const [, setAccountInfoDialogOpen] = useRecoilState11(accountInfoDialogState);
+  const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
   useEffect15(() => {
     if (index || index === 0) {
       setTimeout(() => {
@@ -6442,9 +6485,9 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     setIndex(0);
   }, [account]);
   const openHandle = useCallback19(() => {
-    var _a2;
+    var _a;
     window.open(
-      `${(_a2 = BlockExplorerUrls[chainId]) != null ? _a2 : [0]}/address/${account}`,
+      `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
       "_blank"
     );
     setIndex(1);
@@ -6483,7 +6526,7 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
   const { account, chainId } = useActiveWeb3React();
   const nativeBalanceStr = useNativeBalanceStr();
   const { disconnect } = useDisconnect2();
-  const [, setAccountInfoDialogOpen] = useRecoilState11(accountInfoDialogState);
+  const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
   useEffect15(() => {
     if (index || index === 0) {
       setTimeout(() => {
@@ -6496,9 +6539,9 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
     setIndex(0);
   }, [account]);
   const openHandle = useCallback19(() => {
-    var _a2;
+    var _a;
     window.open(
-      `${(_a2 = BlockExplorerUrls[chainId]) != null ? _a2 : [0]}/address/${account}`,
+      `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
       "_blank"
     );
     setIndex(1);
@@ -6721,17 +6764,17 @@ function RainbowKitAuthenticationProvider({
   }, children);
 }
 function useAuthenticationAdapter() {
-  var _a2;
-  const { adapter } = (_a2 = useContext3(AuthenticationContext)) != null ? _a2 : {};
+  var _a;
+  const { adapter } = (_a = useContext3(AuthenticationContext)) != null ? _a : {};
   if (!adapter) {
     throw new Error("No authentication adapter found");
   }
   return adapter;
 }
 function useAuthenticationStatus() {
-  var _a2;
+  var _a;
   const contextValue = useContext3(AuthenticationContext);
-  return (_a2 = contextValue == null ? void 0 : contextValue.status) != null ? _a2 : null;
+  return (_a = contextValue == null ? void 0 : contextValue.status) != null ? _a : null;
 }
 
 // src/rainbowkit/src/hooks/useConnectionStatus.ts
@@ -7073,8 +7116,8 @@ function createTransactionStore({
     provider = newProvider;
   }
   function getTransactions(account, chainId) {
-    var _a2, _b2;
-    return (_b2 = (_a2 = data[account]) == null ? void 0 : _a2[chainId]) != null ? _b2 : [];
+    var _a, _b;
+    return (_b = (_a = data[account]) == null ? void 0 : _a[chainId]) != null ? _b : [];
   }
   function addTransaction(account, chainId, transaction) {
     const errors = validateTransaction(transaction);
@@ -7128,12 +7171,12 @@ function createTransactionStore({
     );
   }
   function updateTransactions(account, chainId, updateFn) {
-    var _a2, _b2;
+    var _a, _b;
     data = loadData();
-    data[account] = (_a2 = data[account]) != null ? _a2 : {};
+    data[account] = (_a = data[account]) != null ? _a : {};
     let completedTransactionCount = 0;
     const MAX_COMPLETED_TRANSACTIONS = 10;
-    const transactions = updateFn((_b2 = data[account][chainId]) != null ? _b2 : []).filter(({ status }) => {
+    const transactions = updateFn((_b = data[account][chainId]) != null ? _b : []).filter(({ status }) => {
       return status === "pending" ? true : completedTransactionCount++ <= MAX_COMPLETED_TRANSACTIONS;
     });
     data[account][chainId] = transactions.length > 0 ? transactions : void 0;
@@ -7959,8 +8002,8 @@ function FocusTrap(props) {
   useEffect23(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
-      var _a2;
-      (_a2 = previouslyActiveElement.focus) == null ? void 0 : _a2.call(previouslyActiveElement);
+      var _a;
+      (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
     };
   }, []);
   useEffect23(() => {
@@ -8249,8 +8292,8 @@ function useRecentTransactions() {
 
 // src/rainbowkit/src/utils/chainToExplorerUrl.ts
 var chainToExplorerUrl = (chain) => {
-  var _a2, _b2;
-  return (_b2 = (_a2 = chain == null ? void 0 : chain.blockExplorers) == null ? void 0 : _a2.default) == null ? void 0 : _b2.url;
+  var _a, _b;
+  return (_b = (_a = chain == null ? void 0 : chain.blockExplorers) == null ? void 0 : _a.default) == null ? void 0 : _b.url;
 };
 
 // src/rainbowkit/src/components/Icons/ExternalLink.tsx
@@ -8717,7 +8760,7 @@ MenuButton.displayName = "MenuButton";
 
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
 function ChainModal({ onClose, open, fn }) {
-  var _a2;
+  var _a;
   const isW768 = useIsW768();
   const { chain: activeChain } = useNetwork6();
   const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
@@ -8729,7 +8772,7 @@ function ChainModal({ onClose, open, fn }) {
   const { disconnect } = useDisconnect5();
   const titleId = "rk_chain_modal_title";
   const mobile = isMobile();
-  const unsupportedChain = (_a2 = activeChain == null ? void 0 : activeChain.unsupported) != null ? _a2 : false;
+  const unsupportedChain = (_a = activeChain == null ? void 0 : activeChain.unsupported) != null ? _a : false;
   const chainIconSize = "24";
   const { appName } = useContext10(AppContext);
   const rainbowkitChains = useRainbowKitChains();
@@ -8798,7 +8841,7 @@ function ChainModal({ onClose, open, fn }) {
     padding: "2",
     style: { maxHeight: mobile ? "80vh" : "70vh", overflowY: "scroll" }
   }, switchNetwork ? rainbowkitChains.map(({ iconBackground, id, name }, idx) => {
-    var _a3;
+    var _a2;
     const chain = chains.find((c) => c.id === id);
     const isCurrentChain = chain ? chain.id === (activeChain == null ? void 0 : activeChain.id) : false;
     const switching = chain ? !isCurrentChain && chain.id === pendingChainId : false;
@@ -8839,7 +8882,7 @@ function ChainModal({ onClose, open, fn }) {
       height: chainIconSize,
       src: ChainImage[chain.id],
       width: chainIconSize
-    })), /* @__PURE__ */ React70.createElement("div", null, (_a3 = chain.name) != null ? _a3 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
+    })), /* @__PURE__ */ React70.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React70.createElement(Box, {
       alignItems: "center",
       display: "flex",
       flexDirection: "row",
@@ -9260,10 +9303,10 @@ function makeElementCool(element2, imageUrl) {
   const tapEnd = isTouchInteraction ? "touchend" : "mouseup";
   const move = isTouchInteraction ? "touchmove" : "mousemove";
   const updateMousePosition = (e) => {
-    var _a2, _b2;
+    var _a, _b;
     if ("touches" in e) {
-      mouseX = (_a2 = e.touches) == null ? void 0 : _a2[0].clientX;
-      mouseY = (_b2 = e.touches) == null ? void 0 : _b2[0].clientY;
+      mouseX = (_a = e.touches) == null ? void 0 : _a[0].clientX;
+      mouseY = (_b = e.touches) == null ? void 0 : _b[0].clientY;
     } else {
       mouseX = e.clientX;
       mouseY = e.clientY;
@@ -9604,8 +9647,8 @@ function GetDetail({
     width: "full"
   }, shownWallets == null ? void 0 : shownWallets.filter(
     (wallet) => {
-      var _a2;
-      return wallet.extensionDownloadUrl || wallet.qrCode && ((_a2 = wallet.downloadUrls) == null ? void 0 : _a2.qrCode);
+      var _a;
+      return wallet.extensionDownloadUrl || wallet.qrCode && ((_a = wallet.downloadUrls) == null ? void 0 : _a.qrCode);
     }
   ).map((wallet) => {
     const { downloadUrls, iconBackground, iconUrl, id, name, qrCode } = wallet;
@@ -9682,7 +9725,7 @@ function ConnectDetail({
   reconnect,
   wallet
 }) {
-  var _a2;
+  var _a;
   const {
     downloadUrls,
     iconBackground,
@@ -9692,7 +9735,7 @@ function ConnectDetail({
     ready,
     showWalletConnectModal
   } = wallet;
-  const getDesktopDeepLink = (_a2 = wallet.desktop) == null ? void 0 : _a2.getUri;
+  const getDesktopDeepLink = (_a = wallet.desktop) == null ? void 0 : _a.getUri;
   const safari = isSafari();
   const hasExtension = !!wallet.extensionDownloadUrl;
   const hasQrCodeAndExtension = (downloadUrls == null ? void 0 : downloadUrls.qrCode) && hasExtension;
@@ -10085,7 +10128,7 @@ function InstructionMobileDetail({
   connectWallet,
   wallet
 }) {
-  var _a2, _b2, _c, _d;
+  var _a, _b, _c, _d;
   return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
@@ -10100,8 +10143,8 @@ function InstructionMobileDetail({
     justifyContent: "center",
     paddingY: "32",
     style: { maxWidth: 320 }
-  }, (_b2 = (_a2 = wallet == null ? void 0 : wallet.qrCode) == null ? void 0 : _a2.instructions) == null ? void 0 : _b2.steps.map((d, idx) => {
-    var _a3;
+  }, (_b = (_a = wallet == null ? void 0 : wallet.qrCode) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
+    var _a2;
     return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
@@ -10115,7 +10158,7 @@ function InstructionMobileDetail({
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a3 = stepIcons[d.step]) == null ? void 0 : _a3.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
+    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
@@ -10158,7 +10201,7 @@ function InstructionMobileDetail({
 function InstructionExtensionDetail({
   wallet
 }) {
-  var _a2, _b2, _c, _d;
+  var _a, _b, _c, _d;
   return /* @__PURE__ */ React82.createElement(Box, {
     alignItems: "center",
     display: "flex",
@@ -10173,8 +10216,8 @@ function InstructionExtensionDetail({
     justifyContent: "center",
     paddingY: "32",
     style: { maxWidth: 320 }
-  }, (_b2 = (_a2 = wallet == null ? void 0 : wallet.extension) == null ? void 0 : _a2.instructions) == null ? void 0 : _b2.steps.map((d, idx) => {
-    var _a3;
+  }, (_b = (_a = wallet == null ? void 0 : wallet.extension) == null ? void 0 : _a.instructions) == null ? void 0 : _b.steps.map((d, idx) => {
+    var _a2;
     return /* @__PURE__ */ React82.createElement(Box, {
       alignItems: "center",
       display: "flex",
@@ -10188,7 +10231,7 @@ function InstructionExtensionDetail({
       overflow: "hidden",
       position: "relative",
       width: "48"
-    }, (_a3 = stepIcons[d.step]) == null ? void 0 : _a3.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
+    }, (_a2 = stepIcons[d.step]) == null ? void 0 : _a2.call(stepIcons, wallet)), /* @__PURE__ */ React82.createElement(Box, {
       display: "flex",
       flexDirection: "column",
       gap: "4"
@@ -10244,10 +10287,10 @@ function DesktopOptions({ onClose }) {
   const wallets = useWalletConnectors().filter((wallet) => wallet.ready || !!wallet.extensionDownloadUrl).sort((a, b) => a.groupIndex - b.groupIndex);
   const groupedWallets = groupBy(wallets, (wallet) => wallet.groupName);
   const connectToWallet = (wallet) => {
-    var _a2, _b2, _c;
+    var _a, _b, _c;
     setConnectionError(false);
     if (wallet.ready) {
-      (_b2 = (_a2 = wallet == null ? void 0 : wallet.connect) == null ? void 0 : _a2.call(wallet)) == null ? void 0 : _b2.catch(() => {
+      (_b = (_a = wallet == null ? void 0 : wallet.connect) == null ? void 0 : _a.call(wallet)) == null ? void 0 : _b.catch(() => {
         setConnectionError(true);
       });
       const getDesktopDeepLink = (_c = wallet.desktop) == null ? void 0 : _c.getUri;
@@ -10260,18 +10303,18 @@ function DesktopOptions({ onClose }) {
     }
   };
   const selectWallet = (wallet) => {
-    var _a2;
+    var _a;
     connectToWallet(wallet);
     setSelectedOptionId(wallet.id);
     if (wallet.ready) {
       let callbackFired = false;
-      (_a2 = wallet == null ? void 0 : wallet.onConnecting) == null ? void 0 : _a2.call(wallet, async () => {
-        var _a3, _b2;
+      (_a = wallet == null ? void 0 : wallet.onConnecting) == null ? void 0 : _a.call(wallet, async () => {
+        var _a2, _b;
         if (callbackFired)
           return;
         callbackFired = true;
         const sWallet = wallets.find((w) => wallet.id === w.id);
-        const uri = await ((_a3 = sWallet == null ? void 0 : sWallet.qrCode) == null ? void 0 : _a3.getUri());
+        const uri = await ((_a2 = sWallet == null ? void 0 : sWallet.qrCode) == null ? void 0 : _a2.getUri());
         setQrCodeUri(uri);
         setTimeout(
           () => {
@@ -10281,7 +10324,7 @@ function DesktopOptions({ onClose }) {
           uri ? 0 : 50
         );
         const provider = await (sWallet == null ? void 0 : sWallet.connector.getProvider());
-        const connection = (_b2 = provider == null ? void 0 : provider.signer) == null ? void 0 : _b2.connection;
+        const connection = (_b = provider == null ? void 0 : provider.signer) == null ? void 0 : _b.connection;
         if ((connection == null ? void 0 : connection.on) && (connection == null ? void 0 : connection.off)) {
           const handleConnectionClose = () => {
             removeHandlers();
@@ -10303,10 +10346,10 @@ function DesktopOptions({ onClose }) {
     }
   };
   const getWalletDownload = (id) => {
-    var _a2;
+    var _a;
     setSelectedOptionId(id);
     const sWallet = wallets.find((w) => id === w.id);
-    const isMobile2 = (_a2 = sWallet == null ? void 0 : sWallet.downloadUrls) == null ? void 0 : _a2.qrCode;
+    const isMobile2 = (_a = sWallet == null ? void 0 : sWallet.downloadUrls) == null ? void 0 : _a.qrCode;
     const isExtension = !!(sWallet == null ? void 0 : sWallet.extensionDownloadUrl);
     setSelectedWallet(sWallet);
     if (isMobile2 && isExtension) {
@@ -10682,7 +10725,7 @@ function WalletButton({
   }, "Recent"))));
 }
 function MobileOptions({ onClose }) {
-  var _a2;
+  var _a;
   const titleId = "rk_connect_title";
   const wallets = useWalletConnectors();
   const { disclaimer: Disclaimer, learnMoreUrl } = useContext15(AppContext);
@@ -10771,12 +10814,12 @@ function MobileOptions({ onClose }) {
     case "GET" /* Get */: {
       headerLabel = "Get a Wallet";
       headerBackButtonLink = "CONNECT" /* Connect */;
-      const mobileWallets = (_a2 = wallets == null ? void 0 : wallets.filter(
+      const mobileWallets = (_a = wallets == null ? void 0 : wallets.filter(
         (wallet) => {
-          var _a3, _b2, _c;
-          return ((_a3 = wallet.downloadUrls) == null ? void 0 : _a3.ios) || ((_b2 = wallet.downloadUrls) == null ? void 0 : _b2.android) || ((_c = wallet.downloadUrls) == null ? void 0 : _c.mobile);
+          var _a2, _b, _c;
+          return ((_a2 = wallet.downloadUrls) == null ? void 0 : _a2.ios) || ((_b = wallet.downloadUrls) == null ? void 0 : _b.android) || ((_c = wallet.downloadUrls) == null ? void 0 : _c.mobile);
         }
-      )) == null ? void 0 : _a2.splice(0, 3);
+      )) == null ? void 0 : _a.splice(0, 3);
       walletContent = /* @__PURE__ */ React84.createElement(Box, null, /* @__PURE__ */ React84.createElement(Box, {
         alignItems: "center",
         display: "flex",
@@ -11130,7 +11173,7 @@ var noop = () => {
 function ConnectButtonRenderer({
   children
 }) {
-  var _a2, _b2, _c, _d;
+  var _a, _b, _c, _d;
   const mounted = useIsMounted();
   const { address } = useAccount12();
   const ensName = useMainnetEnsName(address);
@@ -11138,9 +11181,9 @@ function ConnectButtonRenderer({
   const { data: balanceData } = useBalance2({ address });
   const { chain: activeChain } = useNetwork8();
   const rainbowkitChainsById = useRainbowKitChainsById();
-  const authenticationStatus = (_a2 = useAuthenticationStatus()) != null ? _a2 : void 0;
+  const authenticationStatus = (_a = useAuthenticationStatus()) != null ? _a : void 0;
   const rainbowKitChain = activeChain ? rainbowkitChainsById[activeChain.id] : void 0;
-  const chainName = (_b2 = rainbowKitChain == null ? void 0 : rainbowKitChain.name) != null ? _b2 : void 0;
+  const chainName = (_b = rainbowKitChain == null ? void 0 : rainbowKitChain.name) != null ? _b : void 0;
   const chainIconUrl = (_c = rainbowKitChain == null ? void 0 : rainbowKitChain.iconUrl) != null ? _c : void 0;
   const chainIconBackground = (_d = rainbowKitChain == null ? void 0 : rainbowKitChain.iconBackground) != null ? _d : void 0;
   const resolvedChainIconUrl = useAsyncImage(chainIconUrl);
@@ -11199,9 +11242,9 @@ function ConnectButton({
   const chains = useRainbowKitChains();
   const connectionStatus = useConnectionStatus();
   return /* @__PURE__ */ React91.createElement(ConnectButtonRenderer, null, ({ account, chain, mounted, openAccountModal, openChainModal, openConnectModal }) => {
-    var _a2, _b2, _c;
+    var _a, _b, _c;
     const ready = mounted && connectionStatus !== "loading";
-    const unsupportedChain = (_a2 = chain == null ? void 0 : chain.unsupported) != null ? _a2 : false;
+    const unsupportedChain = (_a = chain == null ? void 0 : chain.unsupported) != null ? _a : false;
     return /* @__PURE__ */ React91.createElement(Box, {
       display: "flex",
       gap: "12",
@@ -11250,7 +11293,7 @@ function ConnectButton({
       height: "24",
       width: "24"
     }, /* @__PURE__ */ React91.createElement(AsyncImage, {
-      alt: (_b2 = chain.name) != null ? _b2 : "Chain icon",
+      alt: (_b = chain.name) != null ? _b : "Chain icon",
       background: chain.iconBackground,
       borderRadius: "full",
       height: "24",
@@ -11381,7 +11424,7 @@ var rainbow_connectWallet_default = RainbowConnectWallet;
 // src/components/Header/header.tsx
 var Header = (props) => {
   const setSideCollapse = useSetRecoilState13(sideCollapseState);
-  const collapsed = useRecoilValue8(sideCollapseState);
+  const collapsed = useRecoilValue9(sideCollapseState);
   const {
     hideMenu = false,
     env,
@@ -11396,8 +11439,8 @@ var Header = (props) => {
     Link
   } = props;
   const { width } = useWindowSize();
-  const [showBig, setShowBig] = useRecoilState12(showBigState);
-  const [showMiddle, setShowMiddle] = useRecoilState12(showMiddleState);
+  const [showBig, setShowBig] = useRecoilState13(showBigState);
+  const [showMiddle, setShowMiddle] = useRecoilState13(showMiddleState);
   const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo16(() => {
     return {
       isW830: width <= 830,
@@ -11540,9 +11583,10 @@ var RainbowKitWithThemeProvider = ({
   env,
   chainIdList
 }) => {
+  const WebAppData = useWebAppData();
   const { wagmiConfig, chains, computedTheme } = useMemo17(() => {
-    if (env) {
-      const wagmiConfig2 = getWagmiConfig(env, chainIdList);
+    if (env && WebAppData) {
+      const wagmiConfig2 = getWagmiConfig(env, chainIdList, WebAppData);
       const { chains: chains2 } = getConfigureChains(env);
       return {
         wagmiConfig: wagmiConfig2,
@@ -11555,7 +11599,7 @@ var RainbowKitWithThemeProvider = ({
       };
     }
     return {};
-  }, []);
+  }, [WebAppData]);
   if (!wagmiConfig || !chains || !computedTheme) {
     return null;
   }
@@ -11744,15 +11788,15 @@ var useRecentGamesFromGraph = ({
   const [list, setList] = useState25();
   const [hasError, setHasError] = useState25(false);
   const fetchGameInfos = useCallback32(async () => {
-    var _a2, _b2;
+    var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
       const value = value_pre.filter((v) => !!v);
       if (value.length) {
         const gameList = /* @__PURE__ */ new Map();
         for (let i = 0; i < value.length; i++) {
-          if (value[i] && ((_a2 = value[i]) == null ? void 0 : _a2[0].chainId)) {
-            const chainId = (_b2 = value[i]) == null ? void 0 : _b2[0].chainId;
+          if (value[i] && ((_a = value[i]) == null ? void 0 : _a[0].chainId)) {
+            const chainId = (_b = value[i]) == null ? void 0 : _b[0].chainId;
             const mapValue = value[i];
             gameList.set(chainId, mapValue);
           }
@@ -11902,7 +11946,7 @@ async function batchRequestFromGraph({
   try {
     const requests = supportedChainIds(env).map(
       async (chainIdLocal) => {
-        var _a2;
+        var _a;
         const api = graphqlApiUrl[chainIdLocal];
         if (!api) {
           return void 0;
@@ -11949,13 +11993,13 @@ async function batchRequestFromGraph({
             }));
             const winCardIdList = endFilter.map((v) => v.winCardId);
             const cardAddrList = endFilter.map((v) => v.cardAddr);
-            const recentGames = (_a2 = await getRecentGameById({
+            const recentGames = (_a = await getRecentGameById({
               chainId: chainIdLocal,
               lobbyAddrList,
               gameIdList,
               cardAddrList,
               winCardIdList
-            })) != null ? _a2 : /* @__PURE__ */ new Map();
+            })) != null ? _a : /* @__PURE__ */ new Map();
             const rres = formatDataFromGraph({
               chainId: chainIdLocal,
               data: result.data.data.gameInfos,
@@ -12257,13 +12301,13 @@ var braveWallet = ({
   chains,
   ...options
 }) => {
-  var _a2;
+  var _a;
   return {
     id: "brave",
     name: "Brave Wallet",
     iconUrl: async () => (await import("./braveWallet-PC2UIXX3.js")).default,
     iconBackground: "#fff",
-    installed: typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.isBraveWallet) === true,
+    installed: typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isBraveWallet) === true,
     downloadUrls: {},
     createConnector: () => ({
       connector: new InjectedConnector4({
@@ -12281,8 +12325,8 @@ var coinbaseWallet = ({
   chains,
   ...options
 }) => {
-  var _a2;
-  const isCoinbaseWalletInjected = typeof window !== "undefined" && ((_a2 = window.ethereum) == null ? void 0 : _a2.isCoinbaseWallet) === true;
+  var _a;
+  const isCoinbaseWalletInjected = typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isCoinbaseWallet) === true;
   return {
     id: "coinbase",
     name: "Coinbase Wallet",
@@ -12763,11 +12807,11 @@ var bitKeepWallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/bitskiWallet/bitskiWallet.ts
 import { InjectedConnector as InjectedConnector9 } from "wagmi/connectors/injected";
 var bitskiWallet = ({ chains, ...options }) => {
-  var _a2;
+  var _a;
   return {
     id: "bitski",
     name: "Bitski",
-    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isBitski === true || !!((_a2 = window.ethereum.providers) == null ? void 0 : _a2.find((p) => p.isBitski === true))),
+    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isBitski === true || !!((_a = window.ethereum.providers) == null ? void 0 : _a.find((p) => p.isBitski === true))),
     iconUrl: async () => (await import("./bitskiWallet-V5U5XYOV.js")).default,
     iconBackground: "#fff",
     downloadUrls: {
@@ -12808,7 +12852,7 @@ var bitskiWallet = ({ chains, ...options }) => {
 // src/rainbowkit/src/wallets/walletConnectors/coin98Wallet/coin98Wallet.ts
 import { InjectedConnector as InjectedConnector10 } from "wagmi/connectors/injected";
 function getCoin98WalletInjectedProvider() {
-  var _a2;
+  var _a;
   const isCoin98Wallet = (ethereum) => {
     const coin98Wallet2 = !!ethereum.isCoin98;
     return coin98Wallet2;
@@ -12823,7 +12867,7 @@ function getCoin98WalletInjectedProvider() {
   if (isCoin98Wallet(window.ethereum)) {
     return window.ethereum;
   }
-  if ((_a2 = window.ethereum) == null ? void 0 : _a2.providers) {
+  if ((_a = window.ethereum) == null ? void 0 : _a.providers) {
     return window.ethereum.providers.find(isCoin98Wallet);
   }
 }
@@ -12925,13 +12969,13 @@ var coin98Wallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/coreWallet/coreWallet.ts
 import { InjectedConnector as InjectedConnector11 } from "wagmi/connectors/injected";
 function getCoreWalletInjectedProvider() {
-  var _a2, _b2;
+  var _a, _b;
   const injectedProviderExist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
   if (!injectedProviderExist) {
     return;
   }
-  if ((_a2 = window["evmproviders"]) == null ? void 0 : _a2["core"]) {
-    return (_b2 = window["evmproviders"]) == null ? void 0 : _b2["core"];
+  if ((_a = window["evmproviders"]) == null ? void 0 : _a["core"]) {
+    return (_b = window["evmproviders"]) == null ? void 0 : _b["core"];
   }
   if (window.avalanche) {
     return window.avalanche;
@@ -13063,8 +13107,8 @@ var enkryptWallet = ({
   chains,
   ...options
 }) => {
-  var _a2, _b2;
-  const isEnkryptInjected = typeof window !== "undefined" && typeof window.enkrypt !== "undefined" && ((_b2 = (_a2 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a2.providers) == null ? void 0 : _b2.ethereum);
+  var _a, _b;
+  const isEnkryptInjected = typeof window !== "undefined" && typeof window.enkrypt !== "undefined" && ((_b = (_a = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a.providers) == null ? void 0 : _b.ethereum);
   return {
     id: "enkrypt",
     name: "Enkrypt Wallet",
@@ -13086,8 +13130,8 @@ var enkryptWallet = ({
           chains,
           options: {
             getProvider: () => {
-              var _a3, _b3;
-              return isEnkryptInjected ? (_b3 = (_a3 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a3.providers) == null ? void 0 : _b3.ethereum : void 0;
+              var _a2, _b2;
+              return isEnkryptInjected ? (_b2 = (_a2 = window == null ? void 0 : window.enkrypt) == null ? void 0 : _a2.providers) == null ? void 0 : _b2.ethereum : void 0;
             },
             ...options
           }
@@ -13198,11 +13242,11 @@ var frameWallet = ({
   chains,
   ...options
 }) => {
-  var _a2;
+  var _a;
   return {
     id: "frame",
     name: "Frame",
-    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isFrame === true || !!((_a2 = window.ethereum.providers) == null ? void 0 : _a2.find((p) => p.isFrame === true))),
+    installed: typeof window !== "undefined" && typeof window.ethereum !== "undefined" && (window.ethereum.isFrame === true || !!((_a = window.ethereum.providers) == null ? void 0 : _a.find((p) => p.isFrame === true))),
     iconUrl: async () => (await import("./frameWallet-VAVAPJWD.js")).default,
     iconBackground: "#121C20",
     downloadUrls: {
@@ -13248,8 +13292,8 @@ var frontierWallet = ({
   walletConnectVersion = "2",
   ...options
 }) => {
-  var _a2, _b2, _c, _d;
-  const isFrontierInjected = typeof window !== "undefined" && typeof window.frontier !== "undefined" && ((_b2 = (_a2 = window == null ? void 0 : window.frontier) == null ? void 0 : _a2.ethereum) == null ? void 0 : _b2.isFrontier);
+  var _a, _b, _c, _d;
+  const isFrontierInjected = typeof window !== "undefined" && typeof window.frontier !== "undefined" && ((_b = (_a = window == null ? void 0 : window.frontier) == null ? void 0 : _a.ethereum) == null ? void 0 : _b.isFrontier);
   return {
     id: "frontier",
     name: "Frontier Wallet",
@@ -13457,9 +13501,9 @@ var mewWallet = ({
   chains,
   ...options
 }) => {
-  var _a2;
+  var _a;
   const isMewWalletInjected = typeof window !== "undefined" && Boolean(
-    (_a2 = window.ethereum) == null ? void 0 : _a2.isMEWwallet
+    (_a = window.ethereum) == null ? void 0 : _a.isMEWwallet
   );
   return {
     id: "mew",
@@ -13549,8 +13593,8 @@ var omniWallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/oneKeyWallet/oneKeyWallet.ts
 import { InjectedConnector as InjectedConnector18 } from "wagmi/connectors/injected";
 var oneKeyWallet = ({ chains }) => {
-  var _a2;
-  const provider = typeof window !== "undefined" && ((_a2 = window["$onekey"]) == null ? void 0 : _a2.ethereum);
+  var _a;
+  const provider = typeof window !== "undefined" && ((_a = window["$onekey"]) == null ? void 0 : _a.ethereum);
   const isOnekeyInjected = Boolean(provider);
   return {
     createConnector: () => {
@@ -13610,13 +13654,13 @@ var phantomWallet = ({
   chains,
   ...options
 }) => {
-  var _a2;
+  var _a;
   return {
     id: "phantom",
     name: "Phantom",
     iconUrl: async () => (await import("./phantomWallet-WL7QJSIK.js")).default,
     iconBackground: "#9A8AEE",
-    installed: typeof window !== "undefined" && !!((_a2 = window.phantom) == null ? void 0 : _a2.ethereum) || void 0,
+    installed: typeof window !== "undefined" && !!((_a = window.phantom) == null ? void 0 : _a.ethereum) || void 0,
     downloadUrls: {
       android: "https://play.google.com/store/apps/details?id=app.phantom",
       ios: "https://apps.apple.com/app/phantom-solana-wallet/1598432977",
@@ -13628,8 +13672,8 @@ var phantomWallet = ({
     },
     createConnector: () => {
       const getProvider2 = () => {
-        var _a3;
-        return typeof window !== "undefined" ? (_a3 = window.phantom) == null ? void 0 : _a3.ethereum : void 0;
+        var _a2;
+        return typeof window !== "undefined" ? (_a2 = window.phantom) == null ? void 0 : _a2.ethereum : void 0;
       };
       const connector = new InjectedConnector19({
         chains,
@@ -13868,7 +13912,7 @@ var talismanWallet = ({
 // src/rainbowkit/src/wallets/walletConnectors/trustWallet/trustWallet.ts
 import { InjectedConnector as InjectedConnector24 } from "wagmi/connectors/injected";
 function getTrustWalletInjectedProvider() {
-  var _a2;
+  var _a;
   const isTrustWallet = (ethereum) => {
     const trustWallet2 = !!ethereum.isTrust;
     return trustWallet2;
@@ -13883,7 +13927,7 @@ function getTrustWalletInjectedProvider() {
   if (isTrustWallet(window.ethereum)) {
     return window.ethereum;
   }
-  if ((_a2 = window.ethereum) == null ? void 0 : _a2.providers) {
+  if ((_a = window.ethereum) == null ? void 0 : _a.providers) {
     return window.ethereum.providers.find(isTrustWallet);
   }
 }
@@ -14076,8 +14120,8 @@ var xdefiWallet = ({
         chains,
         options: {
           getProvider: () => {
-            var _a2;
-            return isInstalled ? (_a2 = window.xfi) == null ? void 0 : _a2.ethereum : void 0;
+            var _a;
+            return isInstalled ? (_a = window.xfi) == null ? void 0 : _a.ethereum : void 0;
           },
           ...options
         }
@@ -14288,7 +14332,6 @@ export {
   TaskTelegramBot,
   TelegramUserInfoState,
   TonConnectUIProvider_default as TonConnectUIProvider,
-  WebAppData,
   bingoPoints_default as ZkBingoPointsContract,
   __private__,
   accountInfoDialogState,
@@ -14309,6 +14352,7 @@ export {
   braveWallet,
   chainIdPre,
   changeLanguage2 as changeLanguage,
+  cn_default as cn,
   coin98Wallet,
   coinbaseWallet,
   connectorState,
@@ -14355,6 +14399,7 @@ export {
   getWalletConnectConnector,
   graphqlApiUrl,
   hidePointsWarnState,
+  httpGet,
   httpPost,
   imTokenWallet,
   injectedWallet,
@@ -14439,8 +14484,8 @@ export {
   usePublicClient4 as usePublicClient,
   usePublicNodeWaitForTransaction,
   useRecentGamesFromGraph,
-  useRecoilState13 as useRecoilState,
-  useRecoilValue9 as useRecoilValue,
+  useRecoilState14 as useRecoilState,
+  useRecoilValue10 as useRecoilValue,
   useResetRecoilState,
   useSetRecoilState15 as useSetRecoilState,
   useSpring,
@@ -14454,6 +14499,7 @@ export {
   useTransform,
   useWalletClient3 as useWalletClient,
   useWalletConnectors,
+  useWebAppData,
   useWindowSize,
   walletConnectWallet,
   walletModalOpenState,

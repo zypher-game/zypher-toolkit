@@ -1,10 +1,21 @@
 import { useEffect } from "react";
-import { atom, SetterOrUpdater, useSetRecoilState } from "recoil";
+import {
+  atom,
+  SetterOrUpdater,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import { useEffectValue } from "./useEffectValue";
 import { httpPost } from "../utils/request";
 import { GlobalVar, TG_BOT_URL } from "../constant/constant";
-import { WebAppData } from "../rainbow/Ton";
 import { localStorageEffect } from "../utils/localStorageEffect";
+export type IWebAppData = {
+  auth_date: string;
+  hash: string;
+  query_id: string;
+  user: string; // string
+};
 export interface TelegramUserInfoDto {
   id: string;
   name: string;
@@ -20,14 +31,21 @@ export interface TelegramUserInfoDto {
   onceTask: string;
   evmWallet: `0x${string}`;
   tonWallet: string;
+  index?: string; // ranking 排名
 }
 export const TelegramUserInfoState = atom({
   key: "TelegramUserInfoState",
   default: null as null | TelegramUserInfoDto,
   effects_UNSTABLE: [localStorageEffect("TelegramUserInfoState")],
 });
+
+export const WebAppDataState = atom<IWebAppData | undefined>({
+  key: "WebAppDataState",
+  default: undefined,
+  effects_UNSTABLE: [localStorageEffect("WebAppDataState")],
+});
 export const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
-const getFaucet = async () => {
+const getFaucet = async (WebAppData: any) => {
   try {
     const resaaa = httpPost<string>(`${TG_BOT_URL}/wallet/get`, {
       WebAppData,
@@ -46,23 +64,27 @@ const getFaucet = async () => {
   }
 };
 export const useTelegramUser = () => {
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const user = useEffectValue(
     null,
     async () => {
-      // if (!window.IS_TELEGRAM) {
-      if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
+      console.log({ WebApp: WebAppData });
+      if (!window.IS_TELEGRAM || !WebAppData?.user) {
+        // if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
         return null;
       }
-      const res = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/user/get`, {
-        WebAppData,
-      });
-      getFaucet();
-      console.log({ res: await res });
-      if ((await res).code) return null;
-      return (await res).data;
+      if (WebAppData && WebAppData.user) {
+        const res = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/user/get`, {
+          WebAppData: WebAppData,
+        });
+        getFaucet(WebAppData);
+        console.log({ res: await res });
+        if ((await res).code) return null;
+        return (await res).data;
+      }
     },
-    []
+    [WebAppData?.user]
   );
   useEffect(() => {
     if (user) {
@@ -73,12 +95,49 @@ export const useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
+  useEffect(() => {
+    console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
+    if (GlobalVar.IS_TELEGRAM) {
+      try {
+        let _WebAppData: IWebAppData = {
+          auth_date: "",
+          hash: "",
+          query_id: "",
+          user: "",
+        };
+        const params = new URLSearchParams(window.Telegram?.WebApp?.initData);
+        _WebAppData.query_id = params.get("query_id") ?? "";
+        _WebAppData.user = params.get("user") ?? "";
+        _WebAppData.hash = params.get("hash") ?? "";
+        _WebAppData.auth_date = params.get("auth_date") ?? "";
+        console.log({ _WebAppData });
+        setWebAppData(_WebAppData);
+        window.WebAppData = _WebAppData;
+        // @ts-ignore
+        // console.log({ search: search.entries() });
+        // @ts-ignore
+        // for (const [key, value] of search) {
+        //   console.log({ key, value });
+        //   // _WebAppData[key] = value;
+        // }
+        // if (!isPro() && !_WebAppData.user) {
+        //   _WebAppData.user = JSON.stringify({ id: 1390500840 });
+        //   _WebAppData.dev = true;
+        // }
+      } catch (err) {
+        console.error("WebAppData", err);
+      }
+    }
+  }, [GlobalVar.IS_TELEGRAM]);
 };
-
+export const useWebAppData = () => {
+  return useRecoilValue(WebAppDataState);
+};
 export const useTelegramAccountInit = (
   userInfo: TelegramUserInfoDto | null,
   _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>
 ) => {
+  const WebAppData = useWebAppData();
   return useEffectValue(
     null,
     async () => {

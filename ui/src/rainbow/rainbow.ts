@@ -31,6 +31,7 @@ import { AllChainInfo } from "../constant/chains";
 import { ethers } from "ethers";
 import { TelegramWallet } from "./telegramWallet";
 import sleep from "../utils/sleep";
+import { IWebAppData } from "../hooks/useTelegramUser";
 // import mitt from "mitt";
 // export const mockBus = mitt<{ addressChange: string }>();
 const getSupportedChainIdList = (
@@ -71,7 +72,8 @@ const projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 const getConnectors = (
   env: string,
   publicClient: any,
-  chainIdList?: ChainId[]
+  chainIdList?: ChainId[],
+  WebAppData?: IWebAppData
 ): (() => Connector<any, any>[]) => {
   const { chains } = getConfigureChains(env, chainIdList);
   if (window.IS_TELEGRAM) {
@@ -82,7 +84,8 @@ const getConnectors = (
       (localStorage.getItem("TelegramUserIdEvmAddressKey") as Address) ||
         zeroAddress,
       provider,
-      TG_BOT_URL
+      TG_BOT_URL,
+      WebAppData
     );
     const account = acc.address as Address;
     const pub = publicClient({ chainId: ChainId.SagaMainnet });
@@ -149,12 +152,16 @@ const getConnectors = (
     },
   ]);
 };
-export const getWagmiConfig = (env: string, chainIdList?: ChainId[]): any => {
+export const getWagmiConfig = (
+  env: string,
+  chainIdList?: ChainId[],
+  WebAppData?: IWebAppData
+): any => {
   const { publicClient, webSocketPublicClient } = getConfigureChains(
     env,
     chainIdList
   );
-  const connectors = getConnectors(env, publicClient, chainIdList);
+  const connectors = getConnectors(env, publicClient, chainIdList, WebAppData);
   console.log({ connectors });
 
   return createConfig({
