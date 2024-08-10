@@ -18,10 +18,12 @@ export function useActiveWeb3React(
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     return {
-      chainId: (chainId &&
-      !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
-        ? undefined
-        : `${chainId}`) as ChainId,
+      chainId: window.IS_TELEGRAM
+        ? ChainId.SagaMainnet
+        : ((chainId &&
+          !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
+            ? undefined
+            : `${chainId}`) as ChainId),
       account:
         chainId &&
         !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
