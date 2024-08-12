@@ -94,6 +94,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9["B2"] = "223";
   ChainId9["B2Testnet"] = "1123";
   ChainId9["ZytronLineaSepoliaTestnet"] = "19546";
+  ChainId9["ZytronLineaSepoliaMain"] = "9901";
   ChainId9["ZytronB2Testnet"] = "50097";
   ChainId9["Taiko"] = "167000";
   ChainId9["SagaMainnet"] = "2717465680371000";
@@ -105,16 +106,19 @@ var DPSupportChainId = !isPro() ? [
   "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
   "204" /* OPBNB */,
-  "19546" /* ZytronLineaSepoliaTestnet */
+  "9901" /* ZytronLineaSepoliaMain */
 ] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
-var bingoV1SupportedChainId = !isPro() ? [
-  "59144" /* LineaMainnet */,
-  "59141" /* LineaSepolia */,
-  "204" /* OPBNB */,
-  "5611" /* OPBNBTEST */,
-  "19546" /* ZytronLineaSepoliaTestnet */
-] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
+var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
+  "42161" /* Arbitrum */,
+  "421613" /* ArbitrumGoerli */,
+  "534351" /* ScrollSepoliaTestnet */,
+  "5001" /* MantleTestnet */,
+  "5000" /* Mantle */,
+  "9980" /* Combo */,
+  "91715" /* ComboTestnet */,
+  "3441005" /* MantaPacificTestnet */,
+  "169" /* MantaPacificMainnet */,
   "2717465680371000" /* SagaMainnet */
 ] : [
   "42161" /* Arbitrum */,
@@ -144,7 +148,7 @@ var supportedChainIds = (env, chainList) => {
     "91715" /* ComboTestnet */,
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
-    "19546" /* ZytronLineaSepoliaTestnet */,
+    "9901" /* ZytronLineaSepoliaMain */,
     "50097" /* ZytronB2Testnet */,
     "2717465680371000" /* SagaMainnet */
   ] : [
@@ -212,6 +216,9 @@ var ChainRpcUrls = {
   ],
   ["223" /* B2 */]: ["https://rpc.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
+  ["9901" /* ZytronLineaSepoliaMain */]: [
+    "https://linea-mainnet-zytron.zypher.game"
+  ],
   ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron.zypher.game"
   ],
@@ -244,6 +251,9 @@ var BlockExplorerUrls = {
   ["11155111" /* Sepolia */]: ["https://sepolia.etherscan.io"],
   ["223" /* B2 */]: ["https://explorer.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
+  ["9901" /* ZytronLineaSepoliaMain */]: [
+    "https://linea-mainnet-zytron-blockscout.zypher.game"
+  ],
   ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron-blockscout.zypher.game"
   ],
@@ -277,6 +287,7 @@ var ChainName = {
   ["223" /* B2 */]: "B\xB2",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea(Sepolia)",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
@@ -305,6 +316,7 @@ var ChainNetworkName = {
   ["223" /* B2 */]: "B\xB2 Mainnet",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea(Sepolia)",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
@@ -333,6 +345,7 @@ var isTestnet = {
   ["223" /* B2 */]: false,
   ["1123" /* B2Testnet */]: true,
   ["19546" /* ZytronLineaSepoliaTestnet */]: true,
+  ["9901" /* ZytronLineaSepoliaMain */]: false,
   ["50097" /* ZytronB2Testnet */]: true,
   ["167000" /* Taiko */]: false,
   ["2717465680371000" /* SagaMainnet */]: true
@@ -360,6 +373,7 @@ var Currency = {
   ["11155111" /* Sepolia */]: "ETH",
   ["223" /* B2 */]: "BTC",
   ["1123" /* B2Testnet */]: "BTC",
+  ["9901" /* ZytronLineaSepoliaMain */]: "ETH",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "ETH",
   ["50097" /* ZytronB2Testnet */]: "BTC",
   ["167000" /* Taiko */]: "ETH",
@@ -445,6 +459,9 @@ var CurrencyContract = {
   ["223" /* B2 */]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
   ["1123" /* B2Testnet */]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
+  },
+  ["9901" /* ZytronLineaSepoliaMain */]: {
+    multicall: ["0x291f3Ee5c2bd0a749ed8508ecDf2d1754a32bE73"]
   },
   ["19546" /* ZytronLineaSepoliaTestnet */]: {
     multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"]
@@ -11837,7 +11854,9 @@ var graphqlApiUrl = {
   ["59144" /* LineaMainnet */]: "https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/bingo",
   ["59141" /* LineaSepolia */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
   ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo"
+  ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  ["19546" /* ZytronLineaSepoliaTestnet */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
+  ["9901" /* ZytronLineaSepoliaMain */]: " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo"
 };
 var chainIdPre = {
   ["56" /* Bsc */]: "BNB",
@@ -11865,7 +11884,8 @@ var chainIdPre = {
   ["19546" /* ZytronLineaSepoliaTestnet */]: "",
   ["50097" /* ZytronB2Testnet */]: "",
   ["167000" /* Taiko */]: "TK",
-  ["2717465680371000" /* SagaMainnet */]: ""
+  ["2717465680371000" /* SagaMainnet */]: "",
+  ["9901" /* ZytronLineaSepoliaMain */]: ""
 };
 function getStatus(status) {
   if (status === 0) {
