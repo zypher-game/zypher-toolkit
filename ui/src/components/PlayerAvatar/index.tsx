@@ -1,5 +1,5 @@
 import cx from "classnames";
-import React, { memo } from "react";
+import React, { memo, useMemo } from "react";
 import styled from "styled-components";
 
 import { getShortenAddress } from "../../utils/tool";
@@ -15,6 +15,7 @@ export interface IPlayerAvatar {
   hidePixel?: boolean;
   className?: string;
   account?: string;
+  name?: string;
   highLight?: boolean;
   hideAvatars?: boolean;
   showAccount?: boolean;
@@ -46,10 +47,19 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
     onClick,
     onMouseOver,
     hidePixel,
+    name,
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
-    const avatars = useAvatar(account, hideAvatars);
-
+    const avatars = useAvatar(account, hideAvatars, name);
+    const avatarText = useMemo(() => {
+      const nameText = name ?? account;
+      if (nameText) {
+        return `${getShortenAddress(nameText, preLen, endLen)}${
+          otherStr ? ` ${otherStr}` : ""
+        }`;
+      }
+      return t("waiting");
+    }, [account, otherStr, name]);
     return (
       <div
         className={cx(className, "player_playerAvatar")}
@@ -90,11 +100,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
               className?.includes("account") ? "player_avatar_account" : ""
             }
           >
-            {account
-              ? `${getShortenAddress(account, preLen, endLen)}${
-                  otherStr ? ` ${otherStr}` : ""
-                }`
-              : t("waiting")}
+            {avatarText}
             <AccountTextFrComp />
           </p>
         )}

@@ -31,6 +31,9 @@ export default function useWindowSize(): { height: number; width: number } {
 }
 export const useIsW768 = (): boolean => {
   const [isW768] = useRecoilState(isW768State);
+  if (window.IS_TELEGRAM) {
+    return true;
+  }
   if (isW768 === undefined) {
     return false;
   }

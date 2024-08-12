@@ -4,6 +4,7 @@ export interface IPlayerAvatar {
     hidePixel?: boolean;
     className?: string;
     account?: string;
+    name?: string;
     highLight?: boolean;
     hideAvatars?: boolean;
     showAccount?: boolean;

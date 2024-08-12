@@ -13,7 +13,7 @@ export interface TelegramUserInfoDto {
     ref2: string;
     lastLoginAt: string;
     lastShareAt: string;
-    last256At: string;
+    lastBingoAt: string;
     createdAt: string;
     updatedAt: string;
     star: string;
@@ -27,4 +27,4 @@ export declare const WebAppDataState: import("recoil").RecoilState<IWebAppData |
 export declare const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";
 export declare const useTelegramUser: () => IWebAppData | undefined;
 export declare const useWebAppData: () => IWebAppData | undefined;
-export declare const useTelegramAccountInit: (userInfo: TelegramUserInfoDto | null, _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>) => TelegramUserInfoDto | null;
+export declare const useTelegramAccountInit: (userInfo: TelegramUserInfoDto | null, _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>, setIsModalOpen: SetterOrUpdater<boolean>) => TelegramUserInfoDto | null;
