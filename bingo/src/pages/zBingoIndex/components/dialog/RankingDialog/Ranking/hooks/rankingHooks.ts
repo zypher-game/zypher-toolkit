@@ -46,21 +46,21 @@ export const useRanking = (): {
         'Content-Type': 'application/json'
       }
     })
-    if (result.data && result.data.data && result.data.data.playerDatas) {
-      if (result.data.data.playerDatas.length) {
-        const res = result.data.data.playerDatas.map((v: any, index: number) => {
-          const joinAmount = formatMoney(Number(ethers.utils.formatEther(v['joinAmount'])))
-          const winAmount = formatMoney(Number(ethers.utils.formatEther(v['winAmount'])))
-          return {
-            index: index + 1,
-            address: v['player'],
-            amount: tab === 0 ? joinAmount : winAmount,
-            joinAmount: joinAmount,
-            winAmount: winAmount
-          }
-        })
-        setRanking(res)
-      }
+    if (result.data && result.data.data && result.data.data.playerDatas && result.data.data.playerDatas.length) {
+      const res = result.data.data.playerDatas.map((v: any, index: number) => {
+        const joinAmount = formatMoney(Number(ethers.utils.formatEther(v['joinAmount'])))
+        const winAmount = formatMoney(Number(ethers.utils.formatEther(v['winAmount'])))
+        return {
+          index: index + 1,
+          address: v['player'],
+          amount: tab === 0 ? joinAmount : winAmount,
+          joinAmount: joinAmount,
+          winAmount: winAmount
+        }
+      })
+      setRanking(res)
+    } else {
+      setRanking([])
     }
     setLoading(false)
   }, [chainId, account, tab])

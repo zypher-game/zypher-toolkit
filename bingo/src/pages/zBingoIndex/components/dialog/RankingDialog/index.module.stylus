@@ -7,6 +7,7 @@
   top: 82px
   right -16px
   cursor pointer
+  z-index 9
   @media screen and (max-width: 830px)
     width: 34px;
     height: 34px;
@@ -22,6 +23,7 @@ body [data-reach-dialog-content].rankingInner
   background-color: transparent
   @media screen and (max-width: 830px)
     width: 90%
+    min-height: 80vh
   .title
     width: 340px;
     margin: 0 auto;
@@ -30,3 +32,4 @@ body [data-reach-dialog-content].rankingInner
     @media screen and (max-width: 830px)
       width: 60%;
       margin-top: -106px;
+      margin-bottom: 20px;

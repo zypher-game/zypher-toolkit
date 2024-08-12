@@ -75,4 +75,4 @@ echo "Updated dependencies in yarn.lock"
 
 # 最后运行命令
 yarn
-npm start
+# npm start

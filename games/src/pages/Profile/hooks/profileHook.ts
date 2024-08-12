@@ -1,4 +1,4 @@
-import { ChainId, IContractName, useActiveWeb3React, zkBingo } from '@ui/src'
+import { ChainId, IContractName, useActiveWeb3React, useWalletClient, zkBingo } from '@ui/src'
 import { IGameList, MulticallContract } from '@ui/src'
 import RewardAbi from '@zypher-game/bingo-periphery/abi/Reward.json'
 import BigNumber from 'bignumber.js'
@@ -17,12 +17,13 @@ export const useGetBox = (
   const [listLoading, setListLoading] = useState<boolean>(false)
   const [list, setList] = useState<string[]>([])
   const { chainId, account } = useActiveWeb3React()
+  const { data: walletClient } = useWalletClient()
 
   const getBox = useCallback(async () => {
-    if (chainId && account) {
+    if (chainId && account && walletClient) {
       setListLoading(true)
       const rewardAddress = zkBingo(chainId, IContractName.Reward)
-      const rewardContract = await bingoReward(chainId, env)
+      const rewardContract = await bingoReward(chainId, env, zkBingo(chainId, IContractName.Reward), walletClient)
       const balance = await rewardContract.read.balanceOf([account])
       const indexs = new BigNumber(balance).toNumber()
       if (indexs > 0) {

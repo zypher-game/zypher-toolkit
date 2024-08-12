@@ -16,6 +16,11 @@
     height: 500px
     background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m.png') no-repeat
     background-size: 100% 100%
+    &.tgInner
+      top: 60%
+      width: 70%
+      height: 450px
+
   .title 
     font-weight: 600
     position absolute

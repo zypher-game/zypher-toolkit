@@ -1,7 +1,6 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import {
   getShortenAddress,
-  GlobalVar,
   httpPost,
   preStaticUrl,
   sleep,
@@ -13,30 +12,26 @@ import {
   TelegramUserInfoState,
   TG_BOT_URL,
   toUserFriendlyAddress,
-  useContractReads,
-  useIsW768,
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
   useTelegramAccountInit,
-  useTonAddress,
   useTonConnectUI,
   useTonWalletProofMounted,
-  WebAppData
+  useWebAppData
 } from '@ui/src'
-import { Button } from 'antd'
 import classNames from 'classnames'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useMemo, useRef, useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 
 import { NumberRun } from '@/components/NumberRun'
-import { useToastMessage } from '@/hooks/useToastMessage'
+import { ButtonPrimary } from '@/pages/components/Button'
 import { DialogTaskListState } from '@/pages/state/state'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import css from './index.module.stylus'
 
-const shareText = `Dive into the addictive world of 2048! Slide those numbered tiles and merge them to reach the elusive 2048 tile. It’s simple to play but hard to master. Can you beat my high score? Click the link and let’s find out! 🎮✨
+const shareText = `Dive into the addictive world of Bingo! Slide those numbered tiles and merge them to reach the elusive Bingo tile. It’s simple to play but hard to master. Can you beat my high score? Click the link and let’s find out! 🎮✨
 
 Feel free to tweak it as you like! 😊`
 export const OnceTask = {
@@ -50,6 +45,7 @@ export const OnceTask = {
 }
 
 const TaskTgDialog = memo(() => {
+  const WebAppData = useWebAppData()
   const isModalOpen = useRecoilValue(DialogTaskListState)
   const [ui] = useTonConnectUI()
   const setIsModalOpen = useSetRecoilState(DialogTaskListState)
@@ -105,7 +101,6 @@ const TaskTgDialog = memo(() => {
         setErrorToast(res.msg)
         return
       }
-      console.log(userInfo, res.data)
       _userInfo(res.data)
     } finally {
       _loading(false)
@@ -155,10 +150,10 @@ const TaskTgDialog = memo(() => {
         }
       } else if (name === 'FollowZypherTwitter') {
         window.Telegram.WebApp.openLink(TaskFollowZypher, { try_instant_view: true })
-        await sleep(5000)
+        await sleep(5)
       } else if (name === 'Retweet1') {
         window.Telegram.WebApp.openLink(TaskReweet1, { try_instant_view: true })
-        await sleep(5000)
+        await sleep(5)
       }
       const res = await httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/task/claim`, reqDto)
       if (res.code) {
@@ -169,7 +164,6 @@ const TaskTgDialog = memo(() => {
         setErrorToast(res.msg)
         return
       }
-      console.log(userInfo, res.data)
       _userInfo(res.data)
     } finally {
       _loading(false)
@@ -184,12 +178,14 @@ const TaskTgDialog = memo(() => {
           <div className={css.taskInnerBg}>
             <div className={css.taskInner}>
               <div className={css.total}>
-                <div>My Points:</div>
-                <img src={preStaticUrl + '/img/bingo/tg_point.png'} width={40} />
-                <NumberRun from={0} to={pointAll} fixed={0} duration={3000} />
+                <p>My Points:</p>
+                <div className={css.flex}>
+                  <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
+                  <NumberRun from={0} to={pointAll} fixed={0} duration={3000} />
+                </div>
               </div>
               <div className={css.tasks}>
-                <div className={css.name}>Daily Tasks</div>
+                <h2 className={css.name}>Daily Tasks</h2>
                 <TaskItemCpt name="Daily check-in" des="+10" checked={DailyStatus?.lastLoginAt} action={() => DailyTaskSubmit('lastLoginAt')} />
                 <TaskItemCpt
                   name="Daily share"
@@ -205,12 +201,12 @@ const TaskTgDialog = memo(() => {
                     if (DailyStatus?.lastShareAt) {
                       return
                     }
-                    await sleep(5000)
+                    await sleep(5)
                     return DailyTaskSubmit('lastShareAt')
                   }}
                 />
                 <TaskItemCpt
-                  name="Reach 256 at a time"
+                  name="Win a game"
                   des="+30"
                   checked={DailyStatus?.last256At}
                   action={async () => {
@@ -220,7 +216,7 @@ const TaskTgDialog = memo(() => {
                     setErrorToast('Not meeting the conditions')
                   }}
                 />
-                <div className={css.name}>Basic Tasks</div>
+                <h2 className={css.name}>Basic Tasks</h2>
                 <TaskItemCpt
                   name={`Connect Wallet${userInfo?.tonWallet ? `(${getShortenAddress(toUserFriendlyAddress(userInfo?.tonWallet), 4, 4)})` : ''}`}
                   des="+100"
@@ -247,7 +243,7 @@ const TaskTgDialog = memo(() => {
                   action={() => OnceTaskSubmit('TelegramPremium')}
                 />
                 <TaskItemCpt
-                  name="Follow x of @Zypher_Network"
+                  name="Follow X of @Zypher_Network"
                   des="+50"
                   checked={OnceTaskChecked?.FollowZypherTwitter}
                   action={() => OnceTaskSubmit('FollowZypherTwitter')}
@@ -273,16 +269,17 @@ const TaskItemCpt: React.FC<{
   return (
     <div className={classNames(css.list, { [css.checked]: props.checked, [css.all]: props.all })}>
       <div className={css.left}>
-        <div className={css.name}>{props.name}</div>
+        <h3 className={css.name}>{props.name}</h3>
         <div className={css.des}>
-          <img src={preStaticUrl + '/img/bingo/tg_point.png'} width={40} />
           {props.des}
+          <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
         </div>
       </div>
       <div className={css.action}>
-        <Button className={css.btn} onClick={props.action}>
+        <img src={preStaticUrl + '/img/bingo/check.png'} width={24} />
+        <ButtonPrimary className={css.btn} onClick={props.action}>
           {props.btn ?? 'Go'}
-        </Button>
+        </ButtonPrimary>
       </div>
     </div>
   )

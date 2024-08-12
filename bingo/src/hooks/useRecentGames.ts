@@ -64,7 +64,9 @@ export const useRecentGames = () => {
     }
   }, [])
   useEffect(() => {
-    fetchGameInfos()
+    if (!window.IS_TELEGRAM) {
+      fetchGameInfos()
+    }
   }, [bingoVersion])
   useInterval(fetchGameInfos, 50000)
   return {

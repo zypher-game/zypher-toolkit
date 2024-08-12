@@ -132,7 +132,7 @@ export const useSwapPoint = ({
                 await waitForTransaction({ confirmations: 1, hash });
               if (nativeSwapTx && nativeSwapTx.status === txStatus) {
                 setPointsAnimNumState(1);
-                setErrorToast({
+                setSuccessToast({
                   title: "",
                   message: "Recharge successful",
                 });

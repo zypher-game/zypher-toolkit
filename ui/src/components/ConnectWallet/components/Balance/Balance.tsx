@@ -11,7 +11,6 @@ import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
 import {
-  ChainId,
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
   DPSupportChainId,
@@ -32,9 +31,7 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
-import { fetchErc20 } from "../../../../utils/getBalanceOfByMulticall";
-import { erc20ABI, useBalance } from "wagmi";
-import { Contract } from "ethers";
+import { useWalletClient } from "wagmi";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -56,25 +53,13 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
   const setPointsBalance = useSetRecoilState(pointsBalanceState);
   const refreshBalance = useRecoilValue(refreshBalanceState);
-  const fetchBalanceOf = useCallback(async (): Promise<void> => {
-    if (!chainId || !account) {
-      return;
-    }
-    setLoading(true);
-    const balance = await provider.getBalance({ address: account });
-    setNativeBalance(
-      new BigNumberJs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
-    );
-    await fetchErc20Balance();
-    setLoading(false);
-  }, [chainId, account, provider]);
+  const { data: walletClient } = useWalletClient();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
-    if (!chainId || !account || !provider) {
+    if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
-      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
@@ -106,9 +91,13 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
         // const balance = await token.l1Token();
         // console.log(balance1);
 
-        const pointsContract = erc20Contract(chainId, env, pointsAddress);
+        const pointsContract = erc20Contract(
+          chainId,
+          env,
+          pointsAddress,
+          walletClient
+        );
         const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance });
 
         setPointsBalance(
           new BigNumberJs(balance.toString())
@@ -120,12 +109,24 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       console.log({ e });
       setPointsBalance(0);
     }
-  }, [chainId, account, provider]);
+  }, [chainId, account, provider, walletClient]);
+  const fetchBalanceOf = useCallback(async (): Promise<void> => {
+    if (!chainId || !account || !walletClient) {
+      return;
+    }
+    setLoading(true);
+    const balance = await provider.getBalance({ address: account });
+    setNativeBalance(
+      new BigNumberJs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+    );
+    await fetchErc20Balance();
+    setLoading(false);
+  }, [chainId, account, provider, walletClient, fetchErc20Balance]);
   useEffect(() => {
-    if (account && chainId) {
+    if (account && chainId && walletClient) {
       fetchBalanceOf();
     }
-  }, [account, chainId, refreshBalance]);
+  }, [account, chainId, refreshBalance, walletClient]);
 
   const pointsBalance = useRecoilValue(pointsBalanceState);
 

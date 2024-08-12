@@ -31,7 +31,6 @@ import useIntervalAsync from '@/hooks/useIntervalAsync'
 import useRestoreGame from '@/hooks/useRestoreGame'
 import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, IBingoVersion, joinGameState } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { toBingoPlayHref } from '@/utils/toBingoHref'
@@ -68,7 +67,7 @@ const LineupUsersWrapper = styled.div<{ isMobile: boolean }>`
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: ${({ isMobile }) => (isMobile ? '17px' : '30px')};
+  gap: ${({ isMobile }) => (isMobile ? '5px' : '30px')};
   flex-wrap: wrap;
   .lineup-users-item {
     width: ${({ isMobile }) => (isMobile ? '79px' : '100px')};
@@ -103,7 +102,6 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const { postAccountUpdate } = useAccountInvitation(env)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const dispatch = useAppDispatch()
   const [isCard, setIsCard] = useState(false)
   const { data: walletClient } = useWalletClient()
   const { isPlaying, gameId } = useRestoreGame()
@@ -239,7 +237,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
                 className="lineup-users-item"
                 key={`player_${idx}`}
                 account={player}
-                showAccount={true}
+                showAccount={window.IS_TELEGRAM ? false : true}
                 border={true}
               />
             ))}

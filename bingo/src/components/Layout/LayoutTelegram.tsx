@@ -13,7 +13,7 @@ const LayoutTelegram = memo(({ children }: { children: ReactNode }) => {
     setPathname(arr)
   }, [location])
   return (
-    <LayoutAntd className={classnames(`lt-layout ${IBingoVersion.beta}`, pathnameArr[1] === '' ? 'zBingo' : pathnameArr[1])}>
+    <LayoutAntd className="lt-layout zBingo beta tg">
       <Content className="lt-content">{children}</Content>
     </LayoutAntd>
   )

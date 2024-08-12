@@ -18,16 +18,18 @@ export function useActiveWeb3React(
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     return {
-      chainId: (chainId &&
-      !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
-        ? undefined
-        : `${chainId}`) as ChainId,
-      // account:
-      //   chainId &&
-      //   !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
-      //     ? undefined
-      //     : address,
-      account: "0x2d15D52Cc138FFB322b732239CD3630735AbaC88",
+      chainId: window.IS_TELEGRAM
+        ? ChainId.SagaMainnet
+        : ((chainId &&
+          !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
+            ? undefined
+            : `${chainId}`) as ChainId),
+      account:
+        chainId &&
+        !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
+          ? undefined
+          : address,
+      // account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider: provider,
     };
   }, [chainId, address, provider]);

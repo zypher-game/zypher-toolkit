@@ -7,9 +7,13 @@ import {
   ChainRpcUrls,
   getProvider,
   getShortenAddress,
+  GlobalVar,
+  httpPost,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
   preStaticUrl,
+  request,
+  TG_BOT_URL,
   txStatus,
   useAccountInvitation,
   useCurrentLanguage,
@@ -195,9 +199,9 @@ const PlayerTurn = styled.div<{ lang: string }>`
     font-size: 14px;
   }
 `
-const ControllerWrapper = styled.div<{ isMobile: boolean }>`
+const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }>`
   position: absolute;
-  top: ${({ isMobile }) => (isMobile ? '44px' : ' 0px')};
+  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '44px' : ' 0px')};
   left: ${({ isMobile }) => (isMobile ? '0px' : ' 40px')};
   z-index: 9998;
   width: ${({ isMobile }) => (isMobile ? '100%' : ' 500px')};
@@ -233,8 +237,11 @@ const GameRoom: React.FC = () => {
   const round = useMemo<number>(() => (roomInfo?.players ? Math.ceil(roomInfo.round / roomInfo.players.length) || 0 : 0), [JSON.stringify(roomInfo)])
   const selectedNumbers = useMemo(() => roomInfo.selectedNumbers, [JSON.stringify(roomInfo)])
   const isOvertime = useMemo(() => roomInfo.status, [JSON.stringify(roomInfo)])
-  const isControllerEnabled = useMemo<boolean>(() => roomInfo.player === account, [JSON.stringify(roomInfo), account])
-
+  const isControllerEnabled = useMemo<boolean>(
+    () => roomInfo.player.toLowerCase() === (account ?? '').toLowerCase(),
+    [JSON.stringify(roomInfo), account]
+  )
+  console.log({ roomInfo })
   const Garde = useMemo(() => {
     if (gamesWon < gradeData[1].minWinCounts) {
       return 1
@@ -254,6 +261,7 @@ const GameRoom: React.FC = () => {
       } else {
         playLoseSound()
       }
+      httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
     }
   }, [account, winner])
 
@@ -298,7 +306,7 @@ const GameRoom: React.FC = () => {
       percentTimerRef.current && clearInterval(percentTimerRef.current)
     }
   }, [percent])
-
+  console.log({ percent, ispercent })
   const matchLines = useMemo(() => {
     return getBingoLines(selectedNumbers, cardNumbers)
   }, [roomInfo])
@@ -306,7 +314,8 @@ const GameRoom: React.FC = () => {
   const currentStatus = useMemo(() => {
     let playerIdx = (roomInfo.round - 1) % roomInfo.players.length
     let tip
-    if (roomInfo.round > 0) {
+    console.log({ roomInfo: roomInfo.round })
+    if (roomInfo.status === 'live') {
       tip = isControllerEnabled ? (
         <div>
           <Trans
@@ -335,6 +344,7 @@ const GameRoom: React.FC = () => {
       )
     }
     const isSynchronizing = roomInfo.players.find(item => {
+      console.log({ item })
       if (item.user.toLowerCase() == roomInfo.player.toLowerCase()) {
         return true
       } else {
@@ -360,8 +370,6 @@ const GameRoom: React.FC = () => {
       [[], [], [], [], []] as number[][]
     )
   }, [cardNumbers])
-
-  const dispatch = useAppDispatch()
 
   const handleMarkNumber = useCallback(
     async (markedNum: number) => {
@@ -415,7 +423,6 @@ const GameRoom: React.FC = () => {
       walletClient
     })
     try {
-      console.log([gameId, markedNum, cardNums, joinGame.signedLabel])
       const txnReceipt = await lobbyContract.write.selectAndBingo([gameId, markedNum, cardNums, joinGame.signedLabel], {
         account: account,
         gas: gasPrice[chainId],
@@ -454,13 +461,11 @@ const GameRoom: React.FC = () => {
         setWinner(lastInfo.winner)
         return
       }
-      console.log('aaaa------1111', [gameId, cardNums, joinGame.signedLabel])
       const txnReceipt = await lobbyContract.write.bingo([gameId, cardNums, joinGame.signedLabel], {
         account: account,
         maxFeePerGas: gasPrice[chainId],
         maxPriorityFeePerGas: gasPrice[chainId]
       })
-      console.log('aaaa------2222')
       const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
       const bingoTx: TransactionReceipt | undefined = await waitForTransaction({
         confirmations: 1,
@@ -472,7 +477,6 @@ const GameRoom: React.FC = () => {
         throw Object.assign(new Error('Bingo Failed'), { name: 'Bingo' })
       }
     } catch (error) {
-      console.log('aaaa------3333')
       setErrorToast(error, lobbyContract)
     } finally {
       setPending(false)
@@ -561,7 +565,7 @@ const GameRoom: React.FC = () => {
       }, 1500)
     }
   }, [isControllerEnabled, ispercent])
-
+  console.log({ isControllerEnabled, ispercent, showTurn })
   if (percent < 100) {
     return (
       <>
@@ -586,7 +590,7 @@ const GameRoom: React.FC = () => {
 
   return (
     <>
-      <ControllerWrapper isMobile={isMobile}>
+      <ControllerWrapper isMobile={isMobile} IS_TELEGRAM={GlobalVar.IS_TELEGRAM}>
         <ControllerMenu />
       </ControllerWrapper>
 

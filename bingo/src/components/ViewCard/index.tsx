@@ -141,7 +141,7 @@ export const ViewCard: React.FC<Props> = memo(({ showDialog, onClose, cardNumber
 }, isEqual)
 
 const HistoryDialogContent = styled(DialogContent)`
-  background: #131313;
+  background: #10253e;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   padding-top: 0px;
@@ -206,9 +206,9 @@ const HistoryCardNumber = styled.div<{
   &.item_profileBingoItem {
     font-size: 22px;
     border-radius: 8px;
-    border: 1px solid ${({ selected }) => (selected ? '#6673ff' : '#131313')};
+    border: 1px solid ${({ selected }) => (selected ? '#6673ff' : '#10253e')};
     grid-gap: 4px;
-    background: ${({ selected }) => !selected && '#131313'};
+    background: ${({ selected }) => !selected && '#10253e'};
     color: ${({ selected }) => (selected ? '#6673ff' : 'rgba(255, 255, 255, 0.30)')};
   }
 

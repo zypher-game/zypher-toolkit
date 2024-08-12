@@ -5,7 +5,6 @@ export async function getWeb3Sign(dataToSign: string, account: string, isArrayif
   if (!account) {
     return false
   }
-  console.log({ dataToSign })
   if (window.IS_TELEGRAM) {
     window.isArrayify = isArrayify
     window.dataToSign = dataToSign

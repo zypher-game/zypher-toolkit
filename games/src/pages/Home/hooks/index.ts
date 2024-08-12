@@ -254,13 +254,14 @@ const useBoxBalance = ({
   blindBoxAddress?: Address
   setBoxBalance: React.Dispatch<React.SetStateAction<string | undefined>>
 }): void => {
+  const { data: walletClient } = useWalletClient()
   const { account, chainId } = useActiveWeb3React()
   const get = useCallback(async () => {
     try {
-      if (!blindBoxAddress || !chainId) {
+      if (!blindBoxAddress || !chainId || !walletClient) {
         return
       }
-      const erc20 = erc20Contract(chainId, env, blindBoxAddress)
+      const erc20 = erc20Contract(chainId, env, blindBoxAddress, walletClient)
       // const blindBoxAddressContract = await erc20Contract(blindBoxAddress)
       const balance = await erc20?.read.balanceOf([account])
       const balanceStr = new BigNumberJs(balance).toFixed()
@@ -268,12 +269,12 @@ const useBoxBalance = ({
     } catch (error) {
       console.error('useBoxBalance: ', error)
     }
-  }, [blindBoxAddress])
+  }, [blindBoxAddress, walletClient])
   useEffect(() => {
-    if (account) {
+    if (account && walletClient) {
       get()
     }
-  }, [blindBoxAddress])
+  }, [blindBoxAddress, walletClient])
 }
 const useShowPoint = ({
   boxBalance,

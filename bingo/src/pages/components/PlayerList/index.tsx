@@ -1,6 +1,7 @@
 import {
   ChainId,
   getShortenAddress,
+  GlobalVar,
   graphqlApiUrl,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
@@ -131,6 +132,7 @@ export const Win: React.FC<WinProps> = ({ chainId, account }) => {
       if (!chainId) {
         return
       }
+      // @ts-ignore
       const api = graphqlApiUrl[chainId]
       if (!api || !account) {
         return
@@ -216,9 +218,21 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]
                 </Col>
                 <Col span={6}>
                   {winner === item ? (
+                    GlobalVar.IS_TELEGRAM ? (
+                      <BoxImgWrap isMobile={isMobile}>
+                        <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
+                        <p>+30</p>
+                      </BoxImgWrap>
+                    ) : (
+                      <BoxImgWrap isMobile={isMobile}>
+                        <GetGameListBoxImg />
+                        <p>X1</p>
+                      </BoxImgWrap>
+                    )
+                  ) : GlobalVar.IS_TELEGRAM ? (
                     <BoxImgWrap isMobile={isMobile}>
-                      <GetGameListBoxImg />
-                      <p>X1</p>
+                      <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
+                      <p>+10</p>
                     </BoxImgWrap>
                   ) : (
                     <Text>--</Text>

@@ -14,13 +14,13 @@
     width: 355px
     height: 621px
     &.en_US
-      background:url($preStaticUrl + '/img/bingo/pannel_m_en_US.png')  no-repeat;
+      background-image: url($preStaticUrl + '/img/bingo/pannel_m_en_US.png')
     &.ko_KR
-      background:url($preStaticUrl + '/img/bingo/pannel_m_ko_KR.png')  no-repeat;
+      background-image: url($preStaticUrl + '/img/bingo/pannel_m_ko_KR.png')
     &.zh_TW
-      background:url($preStaticUrl + '/img/bingo/pannel_m_zh_TW.png')  no-repeat;
+      background-image: url($preStaticUrl + '/img/bingo/pannel_m_zh_TW.png')
 .startGameHead
-  LemonFont()
+  lemonFont()
   padding-left: 40px;
   padding-right: 40px;
   display: flex;
@@ -48,6 +48,15 @@
   justify-content: center
   height: 100%
   padding-bottom: 70px
+  &.startTgGame
+    .wrap
+      @media screen and (max-width: 830px)
+        margin-top: 50px
+    .startGameWrapper
+      @media screen and (max-width: 830px)
+        width: 320px
+        height: 600px
+
 .wrap 
   padding: 10px
   @media screen and (max-width: 830px)

@@ -23,6 +23,13 @@ export const isPro = (): boolean => {
   return false;
 };
 
+export const isLocalhost = (): boolean => {
+  if (window.location.host.startsWith("192.168")) {
+    return true;
+  }
+  return false;
+};
+
 export const preStaticUrl = isPro()
   ? "https://static.zypher.game"
   : "https://static-dev.zypher.game";
@@ -86,15 +93,15 @@ export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
   : !isPro()
   ? [
-      ChainId.Arbitrum,
-      ChainId.ArbitrumGoerli,
-      ChainId.ScrollSepoliaTestnet,
-      ChainId.MantleTestnet,
-      ChainId.Mantle,
-      ChainId.Combo,
-      ChainId.ComboTestnet,
-      ChainId.MantaPacificTestnet,
-      ChainId.MantaPacificMainnet,
+      // ChainId.Arbitrum,
+      // ChainId.ArbitrumGoerli,
+      // ChainId.ScrollSepoliaTestnet,
+      // ChainId.MantleTestnet,
+      // ChainId.Mantle,
+      // ChainId.Combo,
+      // ChainId.ComboTestnet,
+      // ChainId.MantaPacificTestnet,
+      // ChainId.MantaPacificMainnet,
       ChainId.SagaMainnet,
     ]
   : [
@@ -450,7 +457,7 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
   },
   [ChainId.ZytronLineaSepoliaTestnet]: {
-    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
+    multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"],
   },
   [ChainId.ZytronB2Testnet]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
@@ -548,19 +555,25 @@ export const zkBingo = (
 };
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
-export const TG_BOT_URL = "http://localhost:4000";
+export const TG_BOT_URL = isLocalhost()
+  ? "http://192.168.3.144:4000"
+  : "https://bingo-api.zypher.game";
 // "https://bingo-api.zypher.game";
 export const TaskTelegramBot = "https://t.me/zBingoBot";
 export const TaskJoinTelegramGroup = "https://t.me/zyphernetwork"; // location.protocol === 'http:' ? 'https://t.me/tt3434' :
 export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export const TaskReweet1 =
   "https://twitter.com/Zypher_Network/status/1819215629041254588";
+
 type IGlobalVar = {
+  IS_TELEGRAM: boolean;
   dispatch: (arg: any) => any;
   getContainer?: HTMLElement;
   mockAcc?: any;
 };
+
 export const GlobalVar: IGlobalVar = {
+  IS_TELEGRAM: !!window.IS_TELEGRAM,
   dispatch: (arg: any) => null as any,
   getContainer: undefined,
   mockAcc: (address: Address, proof?: TonProofItemReplySuccess) => null as any,

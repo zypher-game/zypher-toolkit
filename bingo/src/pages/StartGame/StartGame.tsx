@@ -2,6 +2,7 @@ import '../index.stylus'
 
 import {
   ChainRpcUrls,
+  GlobalVar,
   LngNs,
   preStaticUrl,
   txStatus,
@@ -240,7 +241,7 @@ const StartGame: React.FC = () => {
   }, [account, chainId])
   return (
     <>
-      <div className={css.startGame}>
+      <div className={`${css.startGame} ${GlobalVar.IS_TELEGRAM ? css.startTgGame : ''}`}>
         <div className={css.wrap}>
           <div className={`${css.startGameWrapper} ${css[lang]}`}>
             <img className={css.close} src={preStaticUrl + `/img/bingo/close.png`} alt="" onClick={() => setShowCloseModal(true)} />

@@ -24,7 +24,6 @@ export default (): JSX.Element => {
   useConnectWallet()
   usePollPrice()
   useAudio()
-  useTelegramUser()
   return (
     <Suspense fallback={null}>
       <Layout>

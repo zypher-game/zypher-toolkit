@@ -1,35 +1,25 @@
-import { useCustomTranslation } from '@ui/src'
+import { TelegramUserInfoDto } from '@ui/src'
 import { useIsW768 } from '@ui/src'
-import { LngNs } from '@ui/src'
 import { Spin } from 'antd'
 import classnames from 'classnames'
 import React, { useMemo } from 'react'
 
 import NoDataPage from '@/pages/components/NoData'
 
-import RankingMy from './components/rankingMy'
-import RankingTable from './components/rankingTable'
-import css from './RankingTg.module.stylus'
-export type IPlayerRankingItem = {
-  index?: number
-  address: string
-  amount?: string
-
-  joinAmount?: string
-  winAmount?: string
-}
+import css from '../../RankingDialog/Ranking/Ranking.module.stylus'
+import RankingTgMy from './components/rankingTgMy'
+import RankingTgTable from './components/rankingTgTable'
 interface IProps {
-  rankingList: IPlayerRankingItem[] | undefined
+  rankingList: TelegramUserInfoDto[] | undefined
   tab: number
   setTab: React.Dispatch<React.SetStateAction<number>>
   loading: boolean
-  myItem: IPlayerRankingItem | undefined
+  myItem: TelegramUserInfoDto | undefined
   className?: boolean
 }
 
 const Ranking = (props: IProps): React.ReactElement | null => {
-  const { rankingList, tab, setTab, loading, myItem } = props
-  const { t } = useCustomTranslation([LngNs.zBingo])
+  const { rankingList, tab, loading, myItem } = props
   const isMobile = useIsW768()
   const Inner = useMemo(() => {
     if (loading || !rankingList || !rankingList) {
@@ -44,8 +34,8 @@ const Ranking = (props: IProps): React.ReactElement | null => {
     }
     return (
       <>
-        {rankingList && rankingList.length > 0 && <RankingTable players={rankingList} isMobile={isMobile} tab={tab} myItem={myItem} />}
-        {myItem && <RankingMy player={myItem} tab={tab} isMobile={isMobile} />}
+        {rankingList && rankingList.length > 0 && <RankingTgTable players={rankingList} isMobile={isMobile} tab={tab} myItem={myItem} />}
+        {myItem && <RankingTgMy player={myItem} tab={tab} isMobile={isMobile} />}
       </>
     )
   }, [loading, rankingList])

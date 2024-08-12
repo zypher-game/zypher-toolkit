@@ -5,7 +5,7 @@ import React, { memo, useCallback, useRef } from 'react'
 
 import { rankingTgDialog } from '@/pages/state/state'
 
-import css from './index.module.stylus'
+import css from '../RankingDialog/index.module.stylus'
 import RankingTg from './RankingTg'
 import { useTgRanking } from './RankingTg/hooks/RankingTgHooks'
 
@@ -17,6 +17,7 @@ const RankingTgDialog = memo(() => {
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
   }, [])
+  console.log({ isModalOpen })
   return (
     <>
       <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel} className={css.bg}>

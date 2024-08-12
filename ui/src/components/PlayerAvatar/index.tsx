@@ -213,7 +213,7 @@ export const PlayerAvatarList: React.FC<IAvatar> = ({
   const { selectedAvatar, selectedBackground } = useAvatar(account, false);
   return (
     <OuterCircle size={size} isGreen={isGreen} isGrey={isGrey} winner={winner}>
-      <div className="center-circle ">
+      <div className="center-circle">
         <div className="inner-circle">
           {account ? (
             <img

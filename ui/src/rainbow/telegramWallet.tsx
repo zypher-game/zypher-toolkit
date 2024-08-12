@@ -7,7 +7,7 @@ import { Bytes, Signer, utils } from "ethers";
 
 import { Address } from "wagmi";
 import { httpPost } from "../utils/request";
-import { WebAppData } from "./Ton";
+import { IWebAppData } from "../hooks/useTelegramUser";
 
 type Deferrable<T> = utils.Deferrable<T>;
 const { resolveProperties } = utils;
@@ -15,18 +15,25 @@ export class TelegramWallet extends Signer {
   address: Address;
   provider: Provider;
   api: string;
-  constructor(address: Address, provider: Provider, api: string) {
+  WebAppData?: IWebAppData;
+  constructor(
+    address: Address,
+    provider: Provider,
+    api: string,
+    WebAppData?: IWebAppData
+  ) {
     super();
     this.provider = provider;
     this.address = address;
     this.api = api;
+    this.WebAppData = WebAppData;
   }
   getAddress(): Promise<string> {
     return Promise.resolve(this.address);
   }
   async signMessage(message: Bytes | string): Promise<string> {
     const res = await httpPost<string>(`${this.api}/wallet/use`, {
-      WebAppData,
+      WebAppData: this.WebAppData,
       method: "signMessage",
       params: window.dataToSign,
       isArrayify: window.isArrayify,
@@ -38,11 +45,9 @@ export class TelegramWallet extends Signer {
     transaction: Deferrable<TransactionRequest>
   ): Promise<string> {
     try {
-      console.log("signTransaction", `${this.api}/wallet/use`);
       return resolveProperties(transaction).then(async (tx) => {
-        console.log({ tx });
         const res = await httpPost<string>(`${this.api}/wallet/use`, {
-          WebAppData,
+          WebAppData: this.WebAppData,
           method: "signTransaction",
           params: tx,
         });

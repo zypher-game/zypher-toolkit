@@ -1,7 +1,17 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { LngNs, preStaticUrl, SvgComponent, useCustomTranslation, useIsW768, useRecoilState, useSetRecoilState, useWalletClient } from '@ui/src'
+import {
+  GlobalVar,
+  LngNs,
+  preStaticUrl,
+  SvgComponent,
+  useCustomTranslation,
+  useIsW768,
+  useRecoilState,
+  useSetRecoilState,
+  useWalletClient
+} from '@ui/src'
 import { Col, Row, Space } from 'antd'
-import cx from 'classnames'
+import cn from 'classnames'
 import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import styled from 'styled-components'
@@ -10,7 +20,6 @@ import BingoBoardView from '@/components/BingoBoardView'
 import bingoCard from '@/contract/bingoCard'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import generateCardNumbers, { CardNumbersType } from '@/utils/generateCardNumbers'
@@ -36,25 +45,6 @@ const BoxRight = styled.div<{ isMobile: boolean }>`
   justify-content: ${({ isMobile }) => (isMobile ? 'center' : 'flex-end ')};
   width: 100%;
 `
-
-const ScrollableDiv = styled.div<{ isMobile: boolean }>`
-  ${({ isMobile }) => isMobile && 'height: 352px;'}
-  overflow-y: scroll;
-  padding-left: 20px;
-  padding-right: 20px;
-  margin-top: 13px;
-  margin-bottom: 10px;
-  /* 自定义滚动条样式（仅在Webkit浏览器中有效） */
-  &::-webkit-scrollbar {
-    width: 4px;
-    display: block;
-  }
-
-  &::-webkit-scrollbar-thumb {
-    background-color: rgba(143, 72, 0, 0.5); /* 滚动条拖动块的颜色 */
-    border-radius: 8px; /* 滚动条拖动块的圆角 */
-  }
-`
 const FlexCenter = styled.div`
   display: flex;
   align-items: center;
@@ -75,7 +65,6 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
-  const dispatch = useAppDispatch()
 
   const handleReset = useCallback(() => {
     setCardNumbers(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
@@ -111,7 +100,6 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
         encodedNumbers
       ])
       const signedCard = await getWeb3Sign(hashedCardBytes, account, true, walletClient)
-      console.log({ signedCard })
       if (typeof signedCard === 'string') {
         setJoinGameState(state => ({
           ...state,
@@ -131,8 +119,8 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   }
 
   return (
-    <div className={cx(css.encryptCard, { [css.disabled]: disabled })}>
-      <ScrollableDiv isMobile={isMobile}>
+    <div className={cn(css.encryptCard, { [css.disabled]: disabled })}>
+      <div className={cn(css.ScrollableDiv, { [css.tgScrollableDiv]: GlobalVar.IS_TELEGRAM })}>
         <Row justify={'center'} align={'middle'}>
           <Col>
             <BoxRight isMobile={isMobile}>
@@ -145,7 +133,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
             <div className={css.control}>
               {isMobile && (
                 <>
-                  <div className={css.tip}>
+                  <div className={`${css.tip} ${GlobalVar.IS_TELEGRAM ? css.tgTip : ''}`}>
                     <CustomIcon src={preStaticUrl + '/img/icon/note.svg'} />
                     {t('EncryptCardText1')}
                   </div>
@@ -184,7 +172,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
             </div>
           </Col>
         </Row>
-      </ScrollableDiv>
+      </div>
       {isMobile && (
         <>
           <FlexCenter>

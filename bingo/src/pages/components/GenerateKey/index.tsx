@@ -16,7 +16,6 @@ import React, { useState } from 'react'
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { gameRoomState, joinGameState, JoinGameStateType, startGameStep } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { getWeb3Sign } from '@/utils/getSign'
@@ -38,7 +37,6 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
-  const dispatch = useAppDispatch()
   const { data: walletClient } = useWalletClient()
   const handleGenerateKey = async () => {
     if (!chainId || !account) {

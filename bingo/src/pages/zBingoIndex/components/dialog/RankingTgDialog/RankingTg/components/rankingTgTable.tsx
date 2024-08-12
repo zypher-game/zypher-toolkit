@@ -1,18 +1,17 @@
-import { PointsIcon, preStaticUrl } from '@ui/src'
+import { preStaticUrl, TelegramUserInfoDto } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { FC, memo } from 'react'
 
-import { IPlayerRankingItem } from '../RankingTg'
-import RankCol from './RankCol'
-import css from './rankingTable.module.stylus'
+import RankCol from '../../../RankingDialog/Ranking/components/RankCol'
+import css from '../../../RankingDialog/Ranking/components/rankingTable.module.stylus'
 type IProps = {
   isMobile: boolean
-  players: IPlayerRankingItem[]
+  players: TelegramUserInfoDto[]
   tab: number
-  myItem: IPlayerRankingItem | undefined
+  myItem: TelegramUserInfoDto | undefined
 }
-const RankingTable: FC<IProps> = memo(({ isMobile, players, tab, myItem }: IProps) => {
+const RankingTgTable: FC<IProps> = memo(({ isMobile, players, tab, myItem }: IProps) => {
   return (
     <div className={css.ranking_table}>
       {players.map(v => (
@@ -21,14 +20,14 @@ const RankingTable: FC<IProps> = memo(({ isMobile, players, tab, myItem }: IProp
           player={v}
           isMobile={isMobile}
           tab={tab}
-          className={(v?.index ?? 0) % 2 !== 0 ? css['even-row'] : css['odd-row']}
+          className={Number(v?.index ?? 0) % 2 !== 0 ? css['even-row'] : css['odd-row']}
         />
       ))}
     </div>
   )
 }, isEqual)
 export type IRankingItemProps = {
-  player: IPlayerRankingItem
+  player: TelegramUserInfoDto
   isMobile: boolean
   className?: string
   tab: number
@@ -37,12 +36,12 @@ export type IRankingItemProps = {
 export const RankingItem: FC<IRankingItemProps> = memo(({ player, tab, isMobile, className, otherStr }: IRankingItemProps) => {
   return (
     <div className={classnames(css.item, className)}>
-      <RankCol rank={`${player.index}`} account={player.address} isMobile={isMobile} showLine={true} otherStr={otherStr} />
+      <RankCol rank={`${player.index}`} account={player.name} isMobile={isMobile} showLine={true} otherStr={otherStr} />
       <div className={css.number}>
         <img src={preStaticUrl + '/img/home/data_points 02.svg'} alt="point" />
-        <p className="textbg"> {tab === 0 ? player.joinAmount : player.winAmount}</p>
+        <p className="textbg"> {player.star}</p>
       </div>
     </div>
   )
 }, isEqual)
-export default RankingTable
+export default RankingTgTable

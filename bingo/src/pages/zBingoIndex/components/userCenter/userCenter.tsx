@@ -18,7 +18,7 @@ const UserCenter = memo(() => {
     return <></>
   }
   return (
-    <div className={css.userCenter}>
+    <div className={`${css.userCenter} ${window.IS_TELEGRAM ? css.userTgCenter : ''}`}>
       <BingoPlayerAvatar account={account} showAccount={false} size={isMobile ? 40 : 62} />
       <div className={css.userAddress}>
         <p className={css.addressLabel}>{userInfo ? userInfo.name : getShortenAddress(account)}</p>

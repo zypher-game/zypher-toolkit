@@ -35,7 +35,7 @@ body [data-reach-dialog-content].gameList
   line-height: 30px
   text-align: center
   padding: 50px 0 40px
-  LemonFont()
+  lemonFont()
   @media screen and (max-width: 830px)
     font-size: 18px;
     line-height: 24px;

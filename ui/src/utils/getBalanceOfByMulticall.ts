@@ -13,11 +13,6 @@ export const fetchErc20 = async ({
   account: Address;
 }): Promise<boolean | undefined> => {
   try {
-    console.log({
-      address,
-      chainId,
-      account,
-    });
     const staticStr = [
       {
         name: "balance",
@@ -25,7 +20,6 @@ export const fetchErc20 = async ({
         params: [account],
       },
     ];
-    console.log({ staticStr });
     const params = staticStr.map((v) => ({
       reference: v.name,
       contractAddress: address,
@@ -41,7 +35,6 @@ export const fetchErc20 = async ({
     const multicall = await MulticallContract(chainId);
     if (multicall) {
       const { results } = await multicall.call(params);
-      console.log({ results });
       if (results) {
         const item = new BigNumberJs(
           results["balance"]["callsReturnContext"][0]["returnValues"][0].hex
@@ -53,7 +46,6 @@ export const fetchErc20 = async ({
     }
     return undefined;
   } catch (e: any) {
-    console.log("fetchErc20: ", e);
     return undefined;
   }
 };

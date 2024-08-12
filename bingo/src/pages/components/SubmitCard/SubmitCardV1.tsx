@@ -158,7 +158,7 @@ const SubmitCardV1 = () => {
         })
         const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
         await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
-        setErrorToast({
+        setSuccessToast({
           title: '',
           message: t('Approve successful')
         })

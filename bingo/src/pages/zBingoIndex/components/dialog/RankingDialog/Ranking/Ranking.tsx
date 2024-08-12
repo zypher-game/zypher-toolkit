@@ -33,14 +33,14 @@ const Ranking = (props: IProps): React.ReactElement | null => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const isMobile = useIsW768()
   const Inner = useMemo(() => {
-    if (loading || !rankingList || !rankingList) {
+    if (loading || rankingList === undefined) {
       return (
         <div className={classnames('lt-spin', css.loadMore)}>
           <Spin size="large" tip="Loading..." />
         </div>
       )
     }
-    if (rankingList.length === 0) {
+    if (rankingList && rankingList.length === 0) {
       return <NoDataPage />
     }
     return (

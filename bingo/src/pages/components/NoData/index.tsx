@@ -9,9 +9,8 @@ const Warp = styled.div`
   padding-top: 172px;
   padding-bottom: 273px;
 `
-const Text = styled.div`
+const Text = styled.p`
   color: #613c17;
-
   font-size: 14px;
   font-style: normal;
   font-weight: 400;

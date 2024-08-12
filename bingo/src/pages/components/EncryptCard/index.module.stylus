@@ -1,3 +1,21 @@
+
+
+.ScrollableDiv
+  overflow-y: scroll;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: 13px;
+  margin-bottom: 10px;
+  @media screen and (max-width: 830px)
+    height: 310px;
+  &.tgScrollableDiv
+    height: 300px;
+  &::-webkit-scrollbar
+    width: 4px;
+    display: block;
+  &::-webkit-scrollbar-thumb 
+    background-color: rgba(143, 72, 0, 0.5); /* 滚动条拖动块的颜色 */
+    border-radius: 8px; /* 滚动条拖动块的圆角 */
 .encryptCard
   min-width: 930px
   @media screen and (max-width: 830px)
@@ -16,7 +34,9 @@
       text-align: center;
       font-size: 16px;
       padding-bottom: 10px;
-      LemonFont()
+      lemonFont()
+      @media screen and (max-width: 830px)
+        font-size: 12px;
     .btnWrap
       display: flex
       padding-top: 50px
@@ -54,8 +74,8 @@
       height: 53px
       padding: 5px
       border: 0 none
-.Tip 
-  LemonFont()
+.tip 
+  lemonFont()
   opacity: 0.6;
   font-size: 12px;
   display: flex;

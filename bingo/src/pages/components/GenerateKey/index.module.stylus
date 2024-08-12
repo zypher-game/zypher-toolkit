@@ -10,7 +10,7 @@
     font-size: 14px
     line-height: 24px
     text-align: center
-    LemonFont()
+    lemonFont()
   img
     margin: 0 auto 
     padding: 16px
@@ -42,11 +42,11 @@
     opacity: 0.6
     margin: 8px 0 0
     text-align: center
-    LemonFont()
+    lemonFont()
 .mTitle
   text-align: center;
   font-size: 16px;
-  LemonFont()
+  lemonFont()
 .btnWrap
   display: flex
   justify-content: center

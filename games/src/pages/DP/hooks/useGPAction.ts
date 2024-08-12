@@ -20,12 +20,12 @@ import {
   zkBingo
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { useWalletClient } from 'wagmi'
 
-import { GlobalVar } from '@ui/src'
 import DPABI from '@/contract/dpStaking/abis/contracts/DP.sol/DP.json'
 import STAKINGABI from '@/contract/dpStaking/abis/contracts/Staking.sol/Staking.json'
 import { DPContract, DPStakingContract, getDpStakingAddress, IDPContract } from '@/contract/dpStaking/dpStaking'
@@ -160,8 +160,8 @@ export const useGPAction = () => {
   }, [dpStakingAddress, isApprovedForAll])
   const getApprove = useCallback(async () => {
     try {
-      if (chainId && account) {
-        const pointsContract = erc20Contract(chainId, env, pointsAddress)
+      if (chainId && account && walletClient) {
+        const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
         const allowance = await pointsContract.read.allowance([account, dpAddress])
         const balance = await pointsContract.read.balanceOf([account])
         const tokenAmount = ethers.utils.parseUnits(DP_PRICE.num, 'ether').mul(buyValue).toString()
@@ -179,7 +179,7 @@ export const useGPAction = () => {
     } catch (e) {
       console.error('getApprove error: ', e)
     }
-  }, [chainId, buyValue, account, dpAddress])
+  }, [chainId, buyValue, account, dpAddress, walletClient])
 
   useEffect(() => {
     if (chainId && account && dpAddress && pointsAddress) {

@@ -78,6 +78,9 @@ export function getShortenAddress(
   if (!address) {
     return "";
   }
+  if (address.length < 42) {
+    return address;
+  }
   const firstCharacters = address.substring(0, preLen);
   const lastCharacters = address.substring(
     address.length - endLen,
