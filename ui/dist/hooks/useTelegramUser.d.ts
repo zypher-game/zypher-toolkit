@@ -14,6 +14,7 @@ export interface TelegramUserInfoDto {
     lastLoginAt: string;
     lastShareAt: string;
     lastBingoAt: string;
+    bingoAt: string;
     createdAt: string;
     updatedAt: string;
     star: string;
