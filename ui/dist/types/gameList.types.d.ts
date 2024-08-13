@@ -18,6 +18,7 @@ export type IPlayer = {
     user: Address;
     cardId: string;
     isAbandoned: boolean;
+    tgName?: string;
 };
 export type IRecentGame = {
     gameId: number;

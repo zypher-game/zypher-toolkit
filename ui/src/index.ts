@@ -225,6 +225,7 @@ export {
 import { changeLanguage } from "i18next";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
+export { addressIsEqual } from "./utils/addressIsEqual";
 
 export {
   getContract,

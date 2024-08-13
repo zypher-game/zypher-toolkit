@@ -61,6 +61,7 @@ export { default as useWindowSize, useIsW768, useIsMd, useIsW1100, useIsW1220, }
 import { changeLanguage } from "i18next";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
+export { addressIsEqual } from "./utils/addressIsEqual";
 export { getContract, getContractFromRpc, getProvider, } from "./connectors/contractV2";
 export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";

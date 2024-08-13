@@ -287,7 +287,7 @@ var ChainName = {
   ["223" /* B2 */]: "B\xB2",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea(Sepolia)",
+  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
@@ -316,7 +316,7 @@ var ChainNetworkName = {
   ["223" /* B2 */]: "B\xB2 Mainnet",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea(Sepolia)",
+  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
@@ -2003,9 +2003,6 @@ function useWindowSize() {
 }
 var useIsW768 = () => {
   const [isW768] = useRecoilState3(isW768State);
-  if (window.IS_TELEGRAM) {
-    return true;
-  }
   if (isW768 === void 0) {
     return false;
   }
@@ -12131,6 +12128,11 @@ function useInterval(callback, delay, leading = true) {
 // src/index.ts
 import { changeLanguage as changeLanguage2 } from "i18next";
 
+// src/utils/addressIsEqual.ts
+var addressIsEqual = (pre, next) => {
+  return `${pre}`.toLowerCase() === `${next}`.toLowerCase();
+};
+
 // src/components/PixelTab/PixelTab.tsx
 import React96, { memo as memo35 } from "react";
 var PixelTab = memo35(
@@ -14371,6 +14373,7 @@ export {
   __private__,
   accountInfoDialogState,
   activeTokenList,
+  addressIsEqual,
   animate,
   appInfo,
   argentWallet,
