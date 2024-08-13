@@ -96,7 +96,7 @@ const CarouselList = memo(
               <CarouselContent isMobile={isMobile} key={index}>
                 {item.status === 'end' && (
                   <CarouselText isMobile={isMobile}>
-                    <img src={preStaticUrl + `/img/bingo/crown.svg`} alt="" />
+                    <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/crown.svg`} alt="" />
                     {t('game broadcast1', {
                       account: getShortenAddress(item.winner)
                     })}
@@ -104,7 +104,7 @@ const CarouselList = memo(
                 )}
                 {item.status === 'live' && (
                   <CarouselText isMobile={isMobile}>
-                    <img src={preStaticUrl + `/img/bingo/star.svg`} alt="" />
+                    <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/star.svg`} alt="" />
                     {t('game broadcast2', {
                       chainId: item.roomIDStr
                     })}

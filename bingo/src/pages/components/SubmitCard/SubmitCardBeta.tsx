@@ -166,7 +166,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
       ) : (
         <SubmitCardEle>
           <BoxWrap>
-            <img src={`${preStaticUrl}/img/bingo/lock.png`} className={css.lockimg} />
+            <img decoding="async" loading="lazy" src={`${preStaticUrl}/img/bingo/lock.png`} className={css.lockimg} />
           </BoxWrap>
           {isMobile ? (
             <Title>Submit the encrypted grid card and enter the matchmaking process.</Title>

@@ -236,7 +236,7 @@ const SubmitCardV1 = () => {
                         <AmountValue checked={level == idx} isMobile={isMobile}>
                           {new BigNumber(levelInfo.betSize.toString(10)).div(10 ** 18).toFormat(0, 1)}
                         </AmountValue>
-                        <img src={preStaticUrl + `/img/home/data_points.svg`} width={isMobile ? 20 : 32} />
+                        <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/data_points.svg`} width={isMobile ? 20 : 32} />
                       </Space>
                     </CheckableTag>
                   )}

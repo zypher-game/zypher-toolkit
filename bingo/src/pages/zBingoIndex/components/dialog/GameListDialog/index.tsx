@@ -32,7 +32,14 @@ const GameListDialog = memo(
       <>
         <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel} className={css.bg}>
           <DialogContent className={css.gameList}>
-            <img src={preStaticUrl + `/img/bingo/close.png`} alt="close" className={css.close} onClick={handleCancel} />
+            <img
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + `/img/bingo/close.png`}
+              alt="close"
+              className={css.close}
+              onClick={handleCancel}
+            />
             <p className={css.title}>Games List</p>
             <div className={css.inner}>
               {bingoVersion === IBingoVersion.v1 ? <GameList bingoHasError={bingoHasError} bingoMapList={bingoMapList} /> : null}

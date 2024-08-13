@@ -1,7 +1,5 @@
-import { useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
-import ShareLink from '@/pages/Active/components/ShareLink/ShareLink'
 import { useToPath } from '@/pages/Active/hooks/useToPath'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
@@ -9,13 +7,13 @@ import GetAirdropWrap from '../components/GetAirdropWrap/GetAirdropWrap'
 import css from './MoreActive.module.styl'
 const MoreActive = memo(() => {
   const { keepGoingHandle } = useToPath()
-  const isW768 = useIsW768()
+  // const isW768 = useIsW768()
 
   return (
     <ActiveComp>
       <GetAirdropWrap>
         <div>
-          <ShareLink
+          {/* <ShareLink
             css={css}
             pixel_styled={{
               pixel_height: 5,
@@ -23,7 +21,7 @@ const MoreActive = memo(() => {
               themeType: 'brightBlue'
             }}
             preWidth={isW768 ? '79%' : '360px'}
-          />
+          /> */}
           <div className={css.linkA} onClick={keepGoingHandle}>
             <p>Keep Going</p>
           </div>

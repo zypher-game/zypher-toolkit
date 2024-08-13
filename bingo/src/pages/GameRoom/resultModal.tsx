@@ -85,9 +85,9 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
         <Wrapper isMobile={isMobile}>
           <ResultM isMobile={isMobile}>
             {winner.toLowerCase() === `${account}`.toLowerCase() ? (
-              <img className="winnerImg" src={preStaticUrl + `/img/bingo/winerBingo.png`} />
+              <img decoding="async" loading="lazy" className="winnerImg" src={preStaticUrl + `/img/bingo/winerBingo.png`} />
             ) : (
-              <img className="loseImg" src={preStaticUrl + `/img/bingo/your-lose_${lang}.png`} />
+              <img decoding="async" loading="lazy" className="loseImg" src={preStaticUrl + `/img/bingo/your-lose_${lang}.png`} />
             )}
           </ResultM>
           <PlayerList data={players} winner={winner} isWinner={winner === account} winAmount={winAmount} loseAmount={loseAmount} />

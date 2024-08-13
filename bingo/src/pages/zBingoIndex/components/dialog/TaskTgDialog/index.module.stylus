@@ -34,26 +34,28 @@ body [data-reach-dialog-content].taskBg
     background-color: rgba(143, 72, 0, 0.5); 
     border-radius: 8px; 
 .total
-  height: 44px;
+  height: 40px;
   display: flex;
+  gap: 6px
   align-items: center;
-  justify-content: space-between;
-  border: 1px solid #613C17;
-  padding: 10px 20px;
-  border-radius: 8px;
-  font-size: 16px;
-  color: #613C17;
-  font-weight: 600;
+  justify-content: center;
+  background: url($preStaticUrl + '/img/bingo/title.png') no-repeat
+  background-size: 100% 100%
+  // border: 1px solid #613C17;
+  // padding: 10px 20px;
+  // border-radius: 8px;
   .flex
     display: flex;
     align-items: center;
     justify-content:flex-end
-    gap: 6px
-  p
+    gap: 4px
+  .text
+    font-size: 14px;
+    color: #613C17;
+  .num
     font-size: 16px;
     color: #613C17;
     font-weight: 600;
-
 .title
   lemonFont()
   text-align: center

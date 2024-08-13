@@ -71,7 +71,7 @@
         @media screen and (max-width: 830px)
           width: 35px
       .label
-        text-shadow: -1px -1px 0 #BC6D00, 1px -1px 0 #BC6D00, -1px 1px 0 #BC6D00, 1px 1px 0 #BC6D00;
+        text-shadow: -1px -1px 0 #432222, 1px -1px 0 #432222, -1px 1px 0 #432222, 1px 1px 0 #432222;
         
     .sidebarItemBg
       position absolute

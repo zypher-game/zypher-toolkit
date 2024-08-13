@@ -101,11 +101,11 @@ const InnerItem = memo(({ v }: { v: ILevels }) => {
         {v.isActive ? (
           <>
             <p className={css.bold}>{v.amount}</p>
-            <img src={preStaticUrl + `/img/home/data_points.svg`} className={css.pointimg} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/home/data_points.svg`} className={css.pointimg} />
           </>
         ) : (
           <>
-            <img src={preStaticUrl + `/img/bingo/lock.svg`} className={css.lockimg} />
+            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/lock.svg`} className={css.lockimg} />
             <p className={css.normal}>Not unlocked</p>
           </>
         )}
@@ -130,7 +130,7 @@ const InnerItem = memo(({ v }: { v: ILevels }) => {
     }
     return (
       <>
-        <img src={preStaticUrl + '/img/bingo/level_banner' + v.index + '.png'} className={css.level_banner} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/level_banner' + v.index + '.png'} className={css.level_banner} />
         {NumberItem}
       </>
     )
@@ -144,10 +144,10 @@ const InnerItem = memo(({ v }: { v: ILevels }) => {
       })}
       onClick={handleOnClick}
     >
-      <img src={preStaticUrl + '/img/bingo/point_bg0' + v.index + '.png'} className={css.point_bg} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/point_bg0' + v.index + '.png'} className={css.point_bg} />
       <div className={css.innerItemBg}>
         <div className={css.level}>
-          <img src={preStaticUrl + '/img/profile/level' + v.index + '.svg'} className={css.levelImg} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/profile/level' + v.index + '.svg'} className={css.levelImg} />
         </div>
         {TitleBanner}
       </div>

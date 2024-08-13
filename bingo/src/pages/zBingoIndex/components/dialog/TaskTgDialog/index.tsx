@@ -26,6 +26,7 @@ import React, { memo, useCallback, useMemo, useState } from 'react'
 
 import { NumberRun } from '@/components/NumberRun'
 import { ButtonPrimary } from '@/pages/components/Button'
+import TgPointImg from '@/pages/components/TgPointImg/TgPointImg'
 import { DialogTaskListState } from '@/pages/state/state'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
@@ -52,7 +53,7 @@ const TaskTgDialog = memo(() => {
 
   const proof = useTonWalletProofMounted()
   const [userInfo, _userInfo] = useRecoilState(TelegramUserInfoState)
-  useTelegramAccountInit(userInfo, _userInfo)
+  useTelegramAccountInit(userInfo, _userInfo, setIsModalOpen)
   const [loading, _loading] = useState(false)
 
   const handleCancel = useCallback(() => {
@@ -87,7 +88,7 @@ const TaskTgDialog = memo(() => {
       }
       return true
     }
-    return { lastLoginAt: isToday(userInfo.lastLoginAt), last256At: isToday(userInfo.last256At), lastShareAt: isToday(userInfo.lastShareAt) }
+    return { lastLoginAt: isToday(userInfo.lastLoginAt), lastBingoAt: isToday(userInfo.lastBingoAt), lastShareAt: isToday(userInfo.lastShareAt) }
   }, [userInfo])
 
   const DailyTaskSubmit = async (name: string) => {
@@ -96,7 +97,9 @@ const TaskTgDialog = memo(() => {
     }
     _loading(true)
     try {
+      console.log('dddd0000')
       const res = await httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/task/daily/claim`, { WebAppData, name })
+      console.log('dddd0000', res)
       if (res.code) {
         setErrorToast(res.msg)
         return
@@ -173,15 +176,17 @@ const TaskTgDialog = memo(() => {
     <>
       <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel} className={css.bg}>
         <DialogContent className={css.taskBg}>
-          <img src={preStaticUrl + `/img/bingo/close.png`} alt="close" className={css.close} onClick={handleCancel} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/close.png`} alt="close" className={css.close} onClick={handleCancel} />
           <div className={css.title}>Task List</div>
           <div className={css.taskInnerBg}>
             <div className={css.taskInner}>
               <div className={css.total}>
-                <p>My Points:</p>
+                <p className={css.text}>Total points:</p>
                 <div className={css.flex}>
-                  <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
-                  <NumberRun from={0} to={pointAll} fixed={0} duration={3000} />
+                  <TgPointImg className={css.pointImg} />
+                  <p className={css.num}>
+                    <NumberRun from={0} to={pointAll} fixed={0} duration={3000} />
+                  </p>
                 </div>
               </div>
               <div className={css.tasks}>
@@ -208,10 +213,11 @@ const TaskTgDialog = memo(() => {
                 <TaskItemCpt
                   name="Win a game"
                   des="+30"
-                  checked={DailyStatus?.last256At}
+                  checked={DailyStatus?.lastBingoAt}
                   action={async () => {
-                    if (!userInfo?.evmWallet) {
-                      return DailyTaskSubmit('last256At')
+                    console.log({ userInfo: userInfo?.evmWallet })
+                    if (userInfo?.evmWallet) {
+                      return DailyTaskSubmit('lastBingoAt')
                     }
                     setErrorToast('Not meeting the conditions')
                   }}
@@ -272,11 +278,11 @@ const TaskItemCpt: React.FC<{
         <h3 className={css.name}>{props.name}</h3>
         <div className={css.des}>
           {props.des}
-          <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
+          <TgPointImg className={css.pointImg} />
         </div>
       </div>
       <div className={css.action}>
-        <img src={preStaticUrl + '/img/bingo/check.png'} width={24} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/check.png'} width={24} />
         <ButtonPrimary className={css.btn} onClick={props.action}>
           {props.btn ?? 'Go'}
         </ButtonPrimary>

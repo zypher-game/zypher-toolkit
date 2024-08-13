@@ -1,10 +1,12 @@
-import { preStaticUrl, TelegramUserInfoDto } from '@ui/src'
+import { TelegramUserInfoDto } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { FC, memo } from 'react'
 
-import RankCol from '../../../RankingDialog/Ranking/components/RankCol'
+import TgPointImg from '@/pages/components/TgPointImg/TgPointImg'
+
 import css from '../../../RankingDialog/Ranking/components/rankingTable.module.stylus'
+import RankTgCol from './RankTgCol'
 type IProps = {
   isMobile: boolean
   players: TelegramUserInfoDto[]
@@ -36,9 +38,9 @@ export type IRankingItemProps = {
 export const RankingItem: FC<IRankingItemProps> = memo(({ player, tab, isMobile, className, otherStr }: IRankingItemProps) => {
   return (
     <div className={classnames(css.item, className)}>
-      <RankCol rank={`${player.index}`} account={player.name} isMobile={isMobile} showLine={true} otherStr={otherStr} />
+      <RankTgCol rank={`${player.index}`} account={player.evmWallet} name={player.name} isMobile={isMobile} showLine={true} otherStr={otherStr} />
       <div className={css.number}>
-        <img src={preStaticUrl + '/img/home/data_points 02.svg'} alt="point" />
+        <TgPointImg />
         <p className="textbg"> {player.star}</p>
       </div>
     </div>

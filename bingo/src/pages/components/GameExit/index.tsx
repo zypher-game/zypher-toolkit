@@ -97,7 +97,7 @@ const GameExit: React.FC = () => {
   return (
     <>
       <a onClick={openModal}>
-        <img src={preStaticUrl + `/img/bingo/exit.svg`} alt="" />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/exit.svg`} alt="" />
       </a>
       <Modal />
       <GameModal

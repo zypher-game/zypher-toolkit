@@ -1,4 +1,4 @@
-import { LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
+import { GlobalVar, LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
@@ -16,8 +16,14 @@ const RoundTitle = memo(({ round, roomInfo }: IProps) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const isMobile = useIsW768()
   return (
-    <div className={css.roundNumber}>
-      <img src={preStaticUrl + `/img/bingo/game-title${isMobile ? '-m' : ''}.png`} className={css.game_title_img} alt="game" />
+    <div className={`${css.roundNumber} ${GlobalVar.IS_TELEGRAM ? css.roundTgNumber : ''}`}>
+      <img
+        decoding="async"
+        loading="lazy"
+        src={preStaticUrl + `/img/bingo/game-title${isMobile ? '-m' : ''}.png`}
+        className={css.game_title_img}
+        alt="game"
+      />
       <div className={css.roundInfo}>
         {isMobile ? null : <div className={css.roundTitle}>{t('time left')}</div>}
         <div className={css.roundBox}>

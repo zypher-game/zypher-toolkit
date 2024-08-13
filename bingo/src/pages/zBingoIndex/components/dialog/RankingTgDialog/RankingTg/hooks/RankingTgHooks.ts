@@ -25,23 +25,35 @@ export const useTgRanking = (): {
       setRankingTg(result.data.map((v, index) => ({ ...v, index: `${index + 1}` })))
     }
     setLoading(false)
-  }, [JSON.stringify(userInfo)])
+  }, [])
 
   const getMyApi = useCallback(async () => {
-    if (!ranking || !userInfo) {
+    console.log({ ranking, userInfo })
+    if (!userInfo) {
       return
     }
     setMyItem(undefined)
     setLoading(true)
-    const result = await httpGet<TelegramUserInfoDto>(`${TG_BOT_URL}/ranking/get/me?id=${userInfo.id}`)
-    if (result.data) {
-      setMyItem(result.data)
+    if (ranking && ranking.length) {
+      const filter = ranking.filter(v => v.evmWallet === userInfo.evmWallet)
+      if (filter && filter.length) {
+        setMyItem(filter[0])
+      } else {
+        const result = await httpGet<TelegramUserInfoDto>(`${TG_BOT_URL}/ranking/get/me?id=${userInfo.id}`)
+        console.log('dddd', result)
+        if (result.data) {
+          setMyItem(result.data)
+        }
+      }
     }
     setLoading(false)
   }, [JSON.stringify(userInfo)])
 
   useEffect(() => {
     getApi()
+  }, [])
+
+  useEffect(() => {
     getMyApi()
   }, [JSON.stringify(userInfo)])
 

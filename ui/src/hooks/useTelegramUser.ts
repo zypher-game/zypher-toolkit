@@ -24,7 +24,7 @@ export interface TelegramUserInfoDto {
   ref2: string;
   lastLoginAt: string;
   lastShareAt: string;
-  last256At: string;
+  lastBingoAt: string;
   createdAt: string;
   updatedAt: string;
   star: string;
@@ -86,11 +86,13 @@ export const useTelegramUser = () => {
     },
     [WebAppData?.user]
   );
+  console.log({ user });
   useEffect(() => {
     if (user) {
       localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);
       GlobalVar.mockAcc(user.evmWallet);
       _user(user);
+      // 如果没start 则
     } else {
       _user(null);
     }
@@ -125,12 +127,14 @@ export const useWebAppData = () => {
 };
 export const useTelegramAccountInit = (
   userInfo: TelegramUserInfoDto | null,
-  _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>
+  _userInfo: SetterOrUpdater<TelegramUserInfoDto | null>,
+  setIsModalOpen: SetterOrUpdater<boolean>
 ) => {
   const WebAppData = useWebAppData();
   return useEffectValue(
     null,
     async () => {
+      console.log(1111111);
       if (!userInfo?.star) return null;
       if (userInfo.star !== "0") return null;
       const res = await httpPost<TelegramUserInfoDto>(
@@ -139,6 +143,7 @@ export const useTelegramAccountInit = (
       );
       if (res.code) return null;
       _userInfo(res.data);
+      setIsModalOpen(true);
       return res.data;
     },
     [userInfo?.star]

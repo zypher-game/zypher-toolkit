@@ -7,6 +7,18 @@ body [data-reach-dialog-content].levelRule
   @media screen and (max-width: 830px)
     width: 100%
     padding: 47px 50px 80px 50px
+    max-height 500px
+    overflow: hidden
+  .inner
+    @media screen and (max-width: 830px)
+      height: 367px
+      overflow-y: scroll
+      &::-webkit-scrollbar 
+        display: none;
+
+      &::-webkit-scrollbar-thumb 
+        background-color: rgba(143, 72, 0, 0.5); 
+        border-radius: 8px; 
   .close
     position absolute
     top 40px
@@ -16,23 +28,20 @@ body [data-reach-dialog-content].levelRule
       height 34px
       right 20px
   .title
-    color: #864802;
-    font-weight: 600
+    lemonFont()
     font-size: 28px;
     padding: 30px 0
     text-align: center
     margin: 0
     @media screen and (max-width: 830px)
-      font-size: 14px;
+      font-size: 15px;
       padding: 30px 0 24px
 .rulestitle
-  color: #613C17;
-  
+  lemonFont()
   font-size: 16px;
-  font-weight: 700;
   line-height: 24px;
   @media screen and (max-width: 830px)
-    font-size: 14px;
+    font-size: 12px;
     line-height: 20px;
   span 
     color: #DB5F16;

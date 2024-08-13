@@ -27,8 +27,8 @@ const RankingDialog = memo(() => {
             backgroundImage: `url(${preStaticUrl}/img/bingo/${myItem ? 'ranking_bg' : 'ranking_bg_01'}${isMobile ? '_m' : ''}.png)`
           }}
         >
-          <img src={preStaticUrl + `/img/bingo/close.svg`} alt="close" className={css.close} onClick={handleCancel} />
-          <img src={preStaticUrl + '/img/bingo/ranking_title.png'} alt="ranking" className={css.title} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/close.svg`} alt="close" className={css.close} onClick={handleCancel} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/ranking_title.png'} alt="ranking" className={css.title} />
           <Ranking rankingList={rankingList} tab={tab} setTab={setTab} loading={loading} myItem={myItem} />
         </DialogContent>
       </DialogOverlay>

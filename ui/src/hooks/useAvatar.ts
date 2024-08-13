@@ -3,7 +3,11 @@ import { useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../components/ConnectWallet/state/connectWalletState";
 import generateAvatar from "../utils/generateAvatar";
 
-export const useAvatar = (account?: string, hideAvatars?: boolean) => {
+export const useAvatar = (
+  account?: string,
+  hideAvatars?: boolean,
+  name?: string
+) => {
   const [avatars, setAvatars] = useState<{
     selectedAvatar: string;
     selectedBackground: string;

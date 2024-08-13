@@ -74,7 +74,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   return (
     <div className={cx(css.generateKey, { [css.disabled]: disabled })}>
       {isMobile && <h3 className={css.mTitle}>{t('Encryption Key Generation')}</h3>}
-      <img src={preStaticUrl + '/img/bingo/key.svg'} alt="" />
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/key.svg'} alt="" />
       <SetUpSubText>{t('GenerateKeyText1')}</SetUpSubText>
       <div className={css.btnWrap}>
         {account ? (

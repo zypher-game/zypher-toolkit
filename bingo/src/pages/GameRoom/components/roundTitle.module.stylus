@@ -7,6 +7,9 @@
     width: 355px
     height: 131px
     margin-top: 26px
+  &.roundTgNumber
+    @media screen and (max-width: 830px)
+      margin-top: 13px
   .roundInfo
     display: flex
     flex-direction: column
@@ -24,7 +27,6 @@
     left: 0
   .roundTitle
     color:#62380C
-    
     font-size: 14px;
     line-height: 30px
   .roundBox
@@ -38,7 +40,6 @@
       margin-top: 0;
       width: 38%
   .round
-    
     color: #dc0097
     font-size: 16px
     width: 35px;

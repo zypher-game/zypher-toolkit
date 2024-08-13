@@ -25,10 +25,14 @@ import { GetGameListBoxImg } from '@/hooks/useMText'
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
+import TgPointImg from '../TgPointImg/TgPointImg'
 import css from './index.module.stylus'
 
 const Text = styled.div`
   font-size: 20px;
+  @media screen and (max-width: 830px) {
+    font-size: 12px;
+  }
 `
 const BoxImgWrap = styled.div<{ isMobile: boolean }>`
   display: flex;
@@ -40,7 +44,6 @@ const BoxImgWrap = styled.div<{ isMobile: boolean }>`
   }
   p {
     color: rgb(255, 240, 207);
-
     font-size: 14px;
   }
 `
@@ -132,7 +135,6 @@ export const Win: React.FC<WinProps> = ({ chainId, account }) => {
       if (!chainId) {
         return
       }
-      // @ts-ignore
       const api = graphqlApiUrl[chainId]
       if (!api || !account) {
         return
@@ -200,55 +202,60 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]
         header={Header}
         dataSource={list}
         split={false}
-        renderItem={item => (
-          <List.Item className={css.listBox}>
-            <div className={css.content}>
-              <Row align="middle">
-                <Col span={12}>
-                  <List.Item.Meta
-                    style={{ alignItems: 'center' }}
-                    avatar={<PlayerAvatar size={40} account={item} winner={winner === item} />}
-                    title={
-                      <div className={css.name}>
-                        Player {data.findIndex(i => i.user.toLowerCase() === item.toLowerCase()) + 1} {item === account && '(you)'}
+        renderItem={_item => {
+          const item = _item.toLowerCase()
+          const _winner = winner.toLowerCase()
+          return (
+            <List.Item className={css.listBox}>
+              <div className={css.content}>
+                <Row align="middle">
+                  <Col span={12}>
+                    <List.Item.Meta
+                      style={{ alignItems: 'center' }}
+                      avatar={<PlayerAvatar size={40} account={item} winner={_winner === item} />}
+                      title={
+                        <div className={css.name}>
+                          Player {data.findIndex(i => i.user.toLowerCase() === item.toLowerCase()) + 1} {item === account && '(you)'}
+                        </div>
+                      }
+                      description={<div className={css.address}>{getShortenAddress(item)}</div>}
+                    />
+                  </Col>
+                  <Col span={6}>
+                    {_winner === item ? (
+                      GlobalVar.IS_TELEGRAM ? (
+                        <div className={css.pointCol}>
+                          <TgPointImg className={css.pointImg} />
+                          <p>+30</p>
+                        </div>
+                      ) : (
+                        <BoxImgWrap isMobile={isMobile}>
+                          <GetGameListBoxImg />
+                          <p>X1</p>
+                        </BoxImgWrap>
+                      )
+                    ) : GlobalVar.IS_TELEGRAM ? (
+                      <div className={css.pointCol}>
+                        <TgPointImg className={css.pointImg} />
+                        <p>+10</p>
                       </div>
-                    }
-                    description={<div className={css.address}>{getShortenAddress(item)}</div>}
-                  />
-                </Col>
-                <Col span={6}>
-                  {winner === item ? (
-                    GlobalVar.IS_TELEGRAM ? (
-                      <BoxImgWrap isMobile={isMobile}>
-                        <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
-                        <p>+30</p>
-                      </BoxImgWrap>
                     ) : (
-                      <BoxImgWrap isMobile={isMobile}>
-                        <GetGameListBoxImg />
-                        <p>X1</p>
-                      </BoxImgWrap>
-                    )
-                  ) : GlobalVar.IS_TELEGRAM ? (
-                    <BoxImgWrap isMobile={isMobile}>
-                      <img src={preStaticUrl + '/img/bingo/tg_point.png'} className={css.pointImg} />
-                      <p>+10</p>
-                    </BoxImgWrap>
-                  ) : (
-                    <Text>--</Text>
-                  )}
-                </Col>
-                <Col span={6} style={{ textAlign: 'right' }}>
-                  <Text style={item === account ? { color: '#E8421E' } : {}}>
-                    <Space align="center" size={1}>
-                      <WinBeta chainId={chainId} account={item} /> {item === account && <img src="/img/arrow-down.svg" alt="" />}
-                    </Space>
-                  </Text>
-                </Col>
-              </Row>
-            </div>
-          </List.Item>
-        )}
+                      <Text>--</Text>
+                    )}
+                  </Col>
+                  <Col span={6} style={{ textAlign: 'right' }}>
+                    <Text style={item === account ? { color: '#E8421E' } : {}}>
+                      <Space align="center" size={1}>
+                        <WinBeta chainId={chainId} account={item} /> {/* {item === account && */}
+                        <img decoding="async" loading="lazy" src="/img/arrow-down.svg" alt="" />
+                      </Space>
+                    </Text>
+                  </Col>
+                </Row>
+              </div>
+            </List.Item>
+          )
+        }}
       />
     </Content>
   )
@@ -327,9 +334,9 @@ const PlayerListV1 = memo(
                         <Win chainId={chainId} account={item} />
                         {item === account &&
                           (isWinner ? (
-                            <img src={preStaticUrl + `/img/arrow-up.svg`} className={css.arrowDown} alt="" />
+                            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/arrow-up.svg`} className={css.arrowDown} alt="" />
                           ) : (
-                            <img src={preStaticUrl + `/img/arrow-down.svg`} className={css.arrowDown} alt="" />
+                            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/arrow-down.svg`} className={css.arrowDown} alt="" />
                           ))}
                       </Space>
                     </Text>

@@ -62,6 +62,7 @@
       font-size: 28px;
       border-radius: 11px;
       .span_num
+        font-size: 20px;
         height: 50px
         font-weight: 600
 

@@ -21,7 +21,7 @@ export default function NoDataPage() {
   return (
     <>
       <Warp>
-        <img src={preStaticUrl + `/img/bingo/NoDataIcon.svg`} alt="" />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/NoDataIcon.svg`} alt="" />
         <Text>{t('NO Data')}</Text>
       </Warp>
     </>

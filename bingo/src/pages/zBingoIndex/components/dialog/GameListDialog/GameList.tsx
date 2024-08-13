@@ -291,7 +291,7 @@ const GameList: React.FC<IProps> = memo(({ bingoMapList, bingoHasError }: IProps
                   <div className="card-value">
                     <Space>
                       {item.win}
-                      <img src={preStaticUrl + `/img/bingo/radish.svg`} width={20} />
+                      <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/radish.svg`} width={20} />
                     </Space>
                   </div>
                 </div>

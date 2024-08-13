@@ -126,7 +126,7 @@ const ControllerMenu: React.FC = memo(() => {
               <SoundEffectSwitch />
             </Box>
             <Box>
-              <img src={preStaticUrl + `/img/bingo/question.svg`} alt="" onClick={() => setRulesModalOpen(true)} />
+              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/question.svg`} alt="" onClick={() => setRulesModalOpen(true)} />
             </Box>
           </Space>
           <Space>

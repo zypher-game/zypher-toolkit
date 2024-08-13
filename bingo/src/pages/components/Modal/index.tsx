@@ -320,7 +320,7 @@ export function GradeModal(props: CustomDialogProps) {
         <GradeBorder>
           <ConfirmTip style={{ fontSize: '14px' }}>{content}</ConfirmTip>
           <div className="grade-img">
-            <img src={preStaticUrl + '/img/bingo/' + `${garde === 2 ? 'boss.png' : 'baron.png'}`} alt="" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/' + `${garde === 2 ? 'boss.png' : 'baron.png'}`} alt="" />
           </div>
         </GradeBorder>
         <ConfirmButton>
@@ -398,7 +398,7 @@ export const CountdownModal: React.FC<ICountdownProps> = ({ children }) => {
   return (
     <ConfirmConfirm isMobile={isMobile}>
       <Logo isMobile={isMobile}>
-        <img src={preStaticUrl + '/img/bingo/countdown-logo.png'} alt="" width={isMobile ? '217px' : '373px'} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/countdown-logo.png'} alt="" width={isMobile ? '217px' : '373px'} />
       </Logo>
       <ConfirmTip>{children}</ConfirmTip>
     </ConfirmConfirm>

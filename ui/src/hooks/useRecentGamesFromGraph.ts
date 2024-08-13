@@ -65,6 +65,10 @@ export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
     "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   [ChainId.OPBNBTEST]:
     "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
+  [ChainId.ZytronLineaSepoliaTestnet]:
+    "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
+  [ChainId.ZytronLineaSepoliaMain]:
+    " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo",
 };
 
 export const chainIdPre: Record<ChainId, string> = {
@@ -94,6 +98,7 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.ZytronB2Testnet]: "",
   [ChainId.Taiko]: "TK",
   [ChainId.SagaMainnet]: "",
+  [ChainId.ZytronLineaSepoliaMain]: "",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {

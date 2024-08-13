@@ -40,7 +40,7 @@ const Banner = memo(() => {
           <p>{getNicknameStr(nickname)}</p>
           <img decoding="async" loading="lazy" src={preStaticUrl + '/img/icon/pixel_edit.svg'} className={css.edit} onClick={editNicknameHandle} />
         </div>
-        {showTwitter ? (
+        {/* {showTwitter ? (
           <ShareLink
             css={ShareLinkcss}
             pixel_styled={{
@@ -50,7 +50,7 @@ const Banner = memo(() => {
             }}
             preWidth={isW768 ? '79%' : '280px'}
           />
-        ) : null}
+        ) : null} */}
       </div>
       <div className={css.bottom}>
         <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/box.png'} className={css.box} />

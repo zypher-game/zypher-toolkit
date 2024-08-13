@@ -137,7 +137,7 @@ const InputValueBeta: React.FC<InputValueProps> = ({ color, playersNumber, room,
         </div>
         <Space align="center">
           <AmountValue isMobile={isMobile}>{playersNumber && betSize ? formatMoney(betSize, 0) : '5,000～20,000'}</AmountValue>
-          <img src={preStaticUrl + `/img/bingo/radish.svg`} alt="radish" width={isMobile ? 16 : ''} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/radish.svg`} alt="radish" width={isMobile ? 16 : ''} />
         </Space>
       </AmountValueItem>
       <AmountValueItem isMobile={isMobile} style={!room && !isMobile ? { paddingBottom: '5px' } : {}}>
@@ -187,7 +187,7 @@ const InputValueBeta: React.FC<InputValueProps> = ({ color, playersNumber, room,
           <AmountValue isMobile={isMobile}>
             {playersNumber && betSize ? formatMoney(Number(betSize) * playersNumber, 0) : <>{'10,000～100,000'}</>}
           </AmountValue>
-          <img src={preStaticUrl + `/img/bingo/radish.svg`} width={isMobile ? 16 : ''} alt="radish" />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/radish.svg`} width={isMobile ? 16 : ''} alt="radish" />
         </Space>
       </AmountValueItem>
     </>

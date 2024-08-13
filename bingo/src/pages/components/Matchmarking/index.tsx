@@ -129,12 +129,15 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       ...game,
       lineupUsers
     }))
+    console.log({ rres })
     const curBlock = await provider.getBlockNumber()
     const filter = bingoLobbyContract.filters.GameStarted()
     const events = await bingoLobbyContract.queryFilter(filter, curBlock - 10)
+    console.log({ events })
     const myEvents = events.filter(event => {
       const [list] = (event.args || []).slice(-1)
-      return list.includes(account) as Event
+      console.log({ list, account })
+      return list.map((v: any) => (v ?? '').toLowerCase()).includes(account) as Event
     })
     const [event] = myEvents
     if (event) {

@@ -5,16 +5,17 @@ import React, { FC, memo, useMemo } from 'react'
 
 import BingoPlayerAvatar from '@/components/BingoPlayerAvatar/BingoPlayerAvatar'
 
-import css from './RankCol.module.stylus'
+import css from '../../../RankingDialog/Ranking/components/RankCol.module.stylus'
 
 type IProp = {
   rank: string
   account: string
   isMobile: boolean
+  name: string
   showLine?: boolean
   otherStr?: string
 }
-const RankCol: FC<IProp> = memo(({ rank, account, isMobile, showLine = false, otherStr }: IProp) => {
+const RankTgCol: FC<IProp> = memo(({ rank, account, isMobile, name, otherStr }: IProp) => {
   const rankId = useMemo(() => {
     if (rank && rank !== 'undefined') {
       if (new BigNumber(rank).isLessThan(4)) {
@@ -44,6 +45,7 @@ const RankCol: FC<IProp> = memo(({ rank, account, isMobile, showLine = false, ot
       <BingoPlayerAvatar
         className={css.account}
         account={account}
+        name={name}
         size={accountData.size}
         showAccount={true}
         border={false}
@@ -58,4 +60,4 @@ const RankCol: FC<IProp> = memo(({ rank, account, isMobile, showLine = false, ot
 const ShowAvatarBorderWidget = memo(({ children }: { children: React.ReactNode }) => {
   return <div className={css.avatarBorder}>{children}</div>
 })
-export default RankCol
+export default RankTgCol

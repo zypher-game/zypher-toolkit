@@ -244,13 +244,20 @@ const StartGame: React.FC = () => {
       <div className={`${css.startGame} ${GlobalVar.IS_TELEGRAM ? css.startTgGame : ''}`}>
         <div className={css.wrap}>
           <div className={`${css.startGameWrapper} ${css[lang]}`}>
-            <img className={css.close} src={preStaticUrl + `/img/bingo/close.png`} alt="" onClick={() => setShowCloseModal(true)} />
+            <img
+              decoding="async"
+              loading="lazy"
+              className={css.close}
+              src={preStaticUrl + `/img/bingo/close.png`}
+              alt=""
+              onClick={() => setShowCloseModal(true)}
+            />
             <div className={css.startGameHead}>
               {!isMobile && (
                 <div>
                   <div className={css.title}>{t('Setup')}</div>
                   <div className={css.subtitle}>
-                    <img src={preStaticUrl + `/img/bingo/note.png`} alt="" />
+                    <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/note.png`} alt="" />
                     {t('setup tip')}
                   </div>
                 </div>

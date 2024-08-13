@@ -43,7 +43,7 @@ export const SideBarItem = memo(
             <div className={css.sidebarItemBgInner} />
           </div>
         </div>
-        <img src={preStaticUrl + '/img/bingo/' + img} alt={label} className={classnames(css.labelImg, 'labelImg')} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/' + img} alt={label} className={classnames(css.labelImg, 'labelImg')} />
         <p className={css.label}>{label}</p>
       </div>
     )

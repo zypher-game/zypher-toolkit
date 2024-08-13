@@ -56,11 +56,13 @@ const BingoBoard = styled.div<{ isMobile: boolean }>`
     color: #fff;
   }
   .input {
+    font-family: Lemon;
     width: 80%;
     text-align: center;
     font-size: ${({ isMobile }) => (isMobile ? '12px' : '28px')};
   }
   .space {
+    font-family: Lemon;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -70,19 +72,19 @@ const BingoBoard = styled.div<{ isMobile: boolean }>`
     font-style: normal;
     font-weight: 400;
     &:nth-child(1) {
-      border-top-left-radius: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
+      border-top-left-radius: ${({ isMobile }) => (isMobile ? '11px' : '16px')};
     }
 
     &:nth-child(5) {
-      border-top-right-radius: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
+      border-top-right-radius: ${({ isMobile }) => (isMobile ? '11px' : '16px')};
     }
 
     &:nth-child(21) {
-      border-bottom-left-radius: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
+      border-bottom-left-radius: ${({ isMobile }) => (isMobile ? '11px' : '16px')};
     }
 
     &:nth-child(25) {
-      border-bottom-right-radius: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
+      border-bottom-right-radius: ${({ isMobile }) => (isMobile ? '11px' : '16px')};
     }
   }
 `

@@ -24,7 +24,7 @@ const LevelRuleDialog: React.FC<Props> = () => {
     <>
       <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel} className={css.zindex}>
         <DialogContent className={css.levelRule}>
-          <img src={preStaticUrl + `/img/bingo/close.svg`} alt="close" className={css.close} onClick={handleCancel} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/close.svg`} alt="close" className={css.close} onClick={handleCancel} />
           <h3 className={css.title}>{t('Levels & Rules')}</h3>
           <div className={css.dialogContainer}>
             {[
@@ -45,7 +45,7 @@ const LevelRuleDialog: React.FC<Props> = () => {
               }
             ].map(v => (
               <div className={css.level} key={v.img}>
-                <img src={preStaticUrl + `/img/profile/${v.img}`} alt={v.title} />
+                <img decoding="async" loading="lazy" src={preStaticUrl + `/img/profile/${v.img}`} alt={v.title} />
                 <div>
                   <h4>{v.title}</h4>
                   <p>{v.content}</p>

@@ -7,6 +7,16 @@
   @media screen and (max-width: 830px)
 		font-size: 12px;
 
+.pointCol
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	gap: 2px
+	img
+		width: 26px
+	p
+		font-size: 12px
+		color: rgb(255, 240, 207)
 .listBox
 	:global(.ant-list-item)
 		@media screen and (max-width: 830px)

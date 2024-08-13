@@ -63,7 +63,6 @@ const RoundTip = styled.div<{ isMobile: boolean }>`
     text-align: center;
     font-size: ${({ isMobile }) => (isMobile ? '12px' : '14px ')};
     color: #804700;
-
     width: ${({ isMobile }) => isMobile && '199px'};
     margin: 0 auto;
     font-weight: 600;
@@ -570,7 +569,7 @@ const GameRoom: React.FC = () => {
     return (
       <>
         <div className={css.gameHome}>
-          <img className={css.loadTitle} src={preStaticUrl + `/img/bingo/loading-title.png`} />
+          <img decoding="async" loading="lazy" className={css.loadTitle} src={preStaticUrl + `/img/bingo/loading-title.png`} />
           <div className={css.progressBox}>
             <div className={css.progress}>
               <Progress
@@ -608,7 +607,7 @@ const GameRoom: React.FC = () => {
             <RoundTitle round={round} roomInfo={roomInfo} />
           </div>
         </div>
-        <Row gutter={[20, 20]} style={{ paddingTop: '20px' }}>
+        <Row gutter={isMobile ? [10, 10] : [20, 20]} style={{ paddingTop: isMobile ? '10px' : '20px' }}>
           <Col span={isMobile ? 0 : 7}>
             <GameCheckerBoard isMobile={isMobile}>
               <GamePadding isMobile={isMobile}>

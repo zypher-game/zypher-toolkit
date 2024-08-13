@@ -61,6 +61,7 @@ export enum ChainId {
   B2Testnet = "1123",
 
   ZytronLineaSepoliaTestnet = "19546",
+  ZytronLineaSepoliaMain = "9901",
   ZytronB2Testnet = "50097",
 
   Taiko = "167000",
@@ -74,34 +75,26 @@ export const DPSupportChainId = !isPro()
       ChainId.LineaSepolia,
       ChainId.OPBNBTEST,
       ChainId.OPBNB,
-      ChainId.ZytronLineaSepoliaTestnet,
+      ChainId.ZytronLineaSepoliaMain,
     ]
   : [ChainId.LineaMainnet, ChainId.OPBNB];
 
 // export const defaultChainId = ChainId.OPBNB;
 
-export const bingoV1SupportedChainId = !isPro()
-  ? [
-      ChainId.LineaMainnet,
-      ChainId.LineaSepolia,
-      ChainId.OPBNB,
-      ChainId.OPBNBTEST,
-      ChainId.ZytronLineaSepoliaTestnet,
-    ]
-  : [ChainId.LineaMainnet, ChainId.OPBNB];
+export const bingoV1SupportedChainId = DPSupportChainId;
 export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
   : !isPro()
   ? [
-      // ChainId.Arbitrum,
-      // ChainId.ArbitrumGoerli,
-      // ChainId.ScrollSepoliaTestnet,
-      // ChainId.MantleTestnet,
-      // ChainId.Mantle,
-      // ChainId.Combo,
-      // ChainId.ComboTestnet,
-      // ChainId.MantaPacificTestnet,
-      // ChainId.MantaPacificMainnet,
+      ChainId.Arbitrum,
+      ChainId.ArbitrumGoerli,
+      ChainId.ScrollSepoliaTestnet,
+      ChainId.MantleTestnet,
+      ChainId.Mantle,
+      ChainId.Combo,
+      ChainId.ComboTestnet,
+      ChainId.MantaPacificTestnet,
+      ChainId.MantaPacificMainnet,
       ChainId.SagaMainnet,
     ]
   : [
@@ -140,7 +133,7 @@ export const supportedChainIds = (
         ChainId.ComboTestnet,
         ChainId.Combo,
         ChainId.Sepolia,
-        ChainId.ZytronLineaSepoliaTestnet,
+        ChainId.ZytronLineaSepoliaMain,
         ChainId.ZytronB2Testnet,
         ChainId.SagaMainnet,
       ]
@@ -211,6 +204,9 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.B2]: ["https://rpc.bsquared.network"],
   [ChainId.B2Testnet]: ["https://b2-testnet.alt.technology"],
+  [ChainId.ZytronLineaSepoliaMain]: [
+    "https://linea-mainnet-zytron.zypher.game",
+  ],
   [ChainId.ZytronLineaSepoliaTestnet]: [
     "https://linea-testnet-zytron.zypher.game",
   ],
@@ -244,6 +240,9 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Sepolia]: ["https://sepolia.etherscan.io"],
   [ChainId.B2]: ["https://explorer.bsquared.network"],
   [ChainId.B2Testnet]: ["https://testnet-explorer.bsquared.network"],
+  [ChainId.ZytronLineaSepoliaMain]: [
+    "https://linea-mainnet-zytron-blockscout.zypher.game",
+  ],
   [ChainId.ZytronLineaSepoliaTestnet]: [
     "https://linea-testnet-zytron-blockscout.zypher.game",
   ],
@@ -278,6 +277,7 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.B2]: "B²",
   [ChainId.B2Testnet]: "B² Testnet",
   [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
+  [ChainId.ZytronLineaSepoliaMain]: "Zytron Linea(Sepolia)",
   [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
   [ChainId.Taiko]: "Taiko Mainnet",
   [ChainId.SagaMainnet]: "Saga Zypher",
@@ -306,6 +306,7 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.B2]: "B² Mainnet",
   [ChainId.B2Testnet]: "B² Testnet",
   [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
+  [ChainId.ZytronLineaSepoliaMain]: "Zytron Linea(Sepolia)",
   [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
   [ChainId.Taiko]: "Taiko Mainnet",
   [ChainId.SagaMainnet]: "Saga Zypher",
@@ -335,6 +336,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.B2]: false,
   [ChainId.B2Testnet]: true,
   [ChainId.ZytronLineaSepoliaTestnet]: true,
+  [ChainId.ZytronLineaSepoliaMain]: false,
   [ChainId.ZytronB2Testnet]: true,
   [ChainId.Taiko]: false,
   [ChainId.SagaMainnet]: true,
@@ -363,6 +365,7 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.Sepolia]: "ETH",
   [ChainId.B2]: "BTC",
   [ChainId.B2Testnet]: "BTC",
+  [ChainId.ZytronLineaSepoliaMain]: "ETH",
   [ChainId.ZytronLineaSepoliaTestnet]: "ETH",
   [ChainId.ZytronB2Testnet]: "BTC",
   [ChainId.Taiko]: "ETH",
@@ -455,6 +458,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   [ChainId.B2]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
   [ChainId.B2Testnet]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
+  },
+  [ChainId.ZytronLineaSepoliaMain]: {
+    multicall: ["0x291f3Ee5c2bd0a749ed8508ecDf2d1754a32bE73"],
   },
   [ChainId.ZytronLineaSepoliaTestnet]: {
     multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"],
@@ -556,7 +562,7 @@ export const zkBingo = (
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
 export const TG_BOT_URL = isLocalhost()
-  ? "http://192.168.3.144:4000"
+  ? "http://192.168.0.20:4000"
   : "https://bingo-api.zypher.game";
 // "https://bingo-api.zypher.game";
 export const TaskTelegramBot = "https://t.me/zBingoBot";
