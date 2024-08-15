@@ -23,6 +23,7 @@ export interface TelegramUserInfoDto {
     tonWallet: string;
     index?: string;
 }
+export declare const RefreshState: import("recoil").RecoilState<number>;
 export declare const TelegramUserInfoState: import("recoil").RecoilState<TelegramUserInfoDto | null>;
 export declare const WebAppDataState: import("recoil").RecoilState<IWebAppData | undefined>;
 export declare const TelegramUserIdEvmAddressKey = "TgUserIdEvmAddressKey";

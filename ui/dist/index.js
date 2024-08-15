@@ -547,7 +547,7 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = isLocalhost() ? "http://192.168.0.20:4000" : "https://bingo-api.zypher.game";
+var TG_BOT_URL = isLocalhost() ? "http://localhost:4000" : "https://bingo-api.zypher.game";
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
@@ -840,6 +840,10 @@ var localStorageEffect = (key) => ({ setSelf, onSet }) => {
 };
 
 // src/hooks/useTelegramUser.ts
+var RefreshState = atom({
+  key: "RefreshState",
+  default: 0
+});
 var TelegramUserInfoState = atom({
   key: "TelegramUserInfoState",
   default: null,
@@ -871,6 +875,7 @@ var getFaucet = async (WebAppData) => {
 var useTelegramUser = () => {
   const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
+  const refresh = useRecoilValue(RefreshState);
   const user = useEffectValue(
     null,
     async () => {
@@ -889,7 +894,7 @@ var useTelegramUser = () => {
         return (await res).data;
       }
     },
-    [WebAppData == null ? void 0 : WebAppData.user]
+    [WebAppData == null ? void 0 : WebAppData.user, refresh]
   );
   console.log({ user });
   useEffect2(() => {
@@ -14359,6 +14364,7 @@ export {
   RainbowKitProvider,
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
+  RefreshState,
   SideBar_default as SideBar,
   SvgComponent_default as SvgComponent,
   TG_BOT_URL,

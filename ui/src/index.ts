@@ -119,7 +119,11 @@ export {
   ITvlHero,
   L3ChainId,
 } from "./constant/tvlConstant";
-export { TelegramUserInfoState, useWebAppData } from "./hooks/useTelegramUser";
+export {
+  TelegramUserInfoState,
+  useTelegramUser,
+  useWebAppData,
+} from "./hooks/useTelegramUser";
 export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
@@ -137,9 +141,9 @@ export {
 } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
 export {
-  useTelegramUser,
   useTelegramAccountInit,
   TelegramUserInfoDto,
+  RefreshState,
 } from "./hooks/useTelegramUser";
 export {
   connectorState,
