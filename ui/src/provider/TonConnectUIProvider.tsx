@@ -1,10 +1,13 @@
-import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
+import {
+  THEME,
+  TonConnectUIProvider as TonConnectUIProviderWidget,
+} from "@tonconnect/ui-react";
 import React from "react";
 import { memo, ReactNode } from "react";
 
-const TelegramConnect = memo(({ children }: { children: ReactNode }) => {
+const TonConnectUIProvider = memo(({ children }: { children: ReactNode }) => {
   return (
-    <TonConnectUIProvider
+    <TonConnectUIProviderWidget
       uiPreferences={{
         theme: THEME.DARK,
         colorsSet: { [THEME.DARK]: { background: { primary: "#070823" } } },
@@ -39,7 +42,7 @@ const TelegramConnect = memo(({ children }: { children: ReactNode }) => {
       manifestUrl={`${location.origin}/bingo/tonconnect-manifest.json`}
     >
       {children}
-    </TonConnectUIProvider>
+    </TonConnectUIProviderWidget>
   );
 });
-export default TelegramConnect;
+export default TonConnectUIProvider;

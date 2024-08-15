@@ -24,6 +24,7 @@ const ChainPointPrice = {
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000,
   [ChainId.ZytronLineaSepoliaTestnet]: 1 / 2_000_000,
+  [ChainId.ZytronLineaMain]: 1 / 2_000_000,
 };
 export const pointsListDefault = (
   chainId: ChainId

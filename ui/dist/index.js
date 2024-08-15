@@ -94,7 +94,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9["B2"] = "223";
   ChainId9["B2Testnet"] = "1123";
   ChainId9["ZytronLineaSepoliaTestnet"] = "19546";
-  ChainId9["ZytronLineaSepoliaMain"] = "9901";
+  ChainId9["ZytronLineaMain"] = "9901";
   ChainId9["ZytronB2Testnet"] = "50097";
   ChainId9["Taiko"] = "167000";
   ChainId9["SagaMainnet"] = "2717465680371000";
@@ -106,7 +106,7 @@ var DPSupportChainId = !isPro() ? [
   "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
   "204" /* OPBNB */,
-  "9901" /* ZytronLineaSepoliaMain */
+  "9901" /* ZytronLineaMain */
 ] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
@@ -148,7 +148,7 @@ var supportedChainIds = (env, chainList) => {
     "91715" /* ComboTestnet */,
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
-    "9901" /* ZytronLineaSepoliaMain */,
+    "9901" /* ZytronLineaMain */,
     "50097" /* ZytronB2Testnet */,
     "2717465680371000" /* SagaMainnet */
   ] : [
@@ -216,9 +216,7 @@ var ChainRpcUrls = {
   ],
   ["223" /* B2 */]: ["https://rpc.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
-  ["9901" /* ZytronLineaSepoliaMain */]: [
-    "https://linea-mainnet-zytron.zypher.game"
-  ],
+  ["9901" /* ZytronLineaMain */]: ["https://linea-mainnet-zytron.zypher.game"],
   ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron.zypher.game"
   ],
@@ -251,7 +249,7 @@ var BlockExplorerUrls = {
   ["11155111" /* Sepolia */]: ["https://sepolia.etherscan.io"],
   ["223" /* B2 */]: ["https://explorer.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
-  ["9901" /* ZytronLineaSepoliaMain */]: [
+  ["9901" /* ZytronLineaMain */]: [
     "https://linea-mainnet-zytron-blockscout.zypher.game"
   ],
   ["19546" /* ZytronLineaSepoliaTestnet */]: [
@@ -287,7 +285,7 @@ var ChainName = {
   ["223" /* B2 */]: "B\xB2",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea",
+  ["9901" /* ZytronLineaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
@@ -316,7 +314,7 @@ var ChainNetworkName = {
   ["223" /* B2 */]: "B\xB2 Mainnet",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
-  ["9901" /* ZytronLineaSepoliaMain */]: "Zytron Linea",
+  ["9901" /* ZytronLineaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
@@ -345,7 +343,7 @@ var isTestnet = {
   ["223" /* B2 */]: false,
   ["1123" /* B2Testnet */]: true,
   ["19546" /* ZytronLineaSepoliaTestnet */]: true,
-  ["9901" /* ZytronLineaSepoliaMain */]: false,
+  ["9901" /* ZytronLineaMain */]: false,
   ["50097" /* ZytronB2Testnet */]: true,
   ["167000" /* Taiko */]: false,
   ["2717465680371000" /* SagaMainnet */]: true
@@ -373,7 +371,7 @@ var Currency = {
   ["11155111" /* Sepolia */]: "ETH",
   ["223" /* B2 */]: "BTC",
   ["1123" /* B2Testnet */]: "BTC",
-  ["9901" /* ZytronLineaSepoliaMain */]: "ETH",
+  ["9901" /* ZytronLineaMain */]: "ETH",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "ETH",
   ["50097" /* ZytronB2Testnet */]: "BTC",
   ["167000" /* Taiko */]: "ETH",
@@ -460,7 +458,7 @@ var CurrencyContract = {
   ["1123" /* B2Testnet */]: {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   },
-  ["9901" /* ZytronLineaSepoliaMain */]: {
+  ["9901" /* ZytronLineaMain */]: {
     multicall: ["0x291f3Ee5c2bd0a749ed8508ecDf2d1754a32bE73"]
   },
   ["19546" /* ZytronLineaSepoliaTestnet */]: {
@@ -4076,7 +4074,8 @@ var ChainPointPrice = {
   ["59144" /* LineaMainnet */]: 1 / 2e6,
   ["204" /* OPBNB */]: 1 / 25e4,
   ["5611" /* OPBNBTEST */]: 1 / 25e4,
-  ["19546" /* ZytronLineaSepoliaTestnet */]: 1 / 2e6
+  ["19546" /* ZytronLineaSepoliaTestnet */]: 1 / 2e6,
+  ["9901" /* ZytronLineaMain */]: 1 / 2e6
 };
 var pointsListDefault = (chainId) => {
   try {
@@ -11643,11 +11642,14 @@ var RainbowKitWithThemeProvider = ({
 var RainbowKitWithThemeProvider_default = RainbowKitWithThemeProvider;
 
 // src/provider/TonConnectUIProvider.tsx
-import { THEME, TonConnectUIProvider } from "@tonconnect/ui-react";
+import {
+  THEME,
+  TonConnectUIProvider as TonConnectUIProviderWidget
+} from "@tonconnect/ui-react";
 import React95 from "react";
 import { memo as memo34 } from "react";
-var TelegramConnect = memo34(({ children }) => {
-  return /* @__PURE__ */ React95.createElement(TonConnectUIProvider, {
+var TonConnectUIProvider = memo34(({ children }) => {
+  return /* @__PURE__ */ React95.createElement(TonConnectUIProviderWidget, {
     uiPreferences: {
       theme: THEME.DARK,
       colorsSet: { [THEME.DARK]: { background: { primary: "#070823" } } }
@@ -11680,7 +11682,7 @@ var TelegramConnect = memo34(({ children }) => {
     manifestUrl: `${location.origin}/bingo/tonconnect-manifest.json`
   }, children);
 });
-var TonConnectUIProvider_default = TelegramConnect;
+var TonConnectUIProvider_default = TonConnectUIProvider;
 
 // src/hooks/useInitRainbowFn.ts
 import { useEffect as useEffect32 } from "react";
@@ -11853,7 +11855,7 @@ var graphqlApiUrl = {
   ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
-  ["9901" /* ZytronLineaSepoliaMain */]: " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo"
+  ["9901" /* ZytronLineaMain */]: " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo"
 };
 var chainIdPre = {
   ["56" /* Bsc */]: "BNB",
@@ -11879,10 +11881,10 @@ var chainIdPre = {
   ["223" /* B2 */]: "B2",
   ["1123" /* B2Testnet */]: "B2T",
   ["19546" /* ZytronLineaSepoliaTestnet */]: "",
+  ["9901" /* ZytronLineaMain */]: "",
   ["50097" /* ZytronB2Testnet */]: "",
   ["167000" /* Taiko */]: "TK",
-  ["2717465680371000" /* SagaMainnet */]: "",
-  ["9901" /* ZytronLineaSepoliaMain */]: ""
+  ["2717465680371000" /* SagaMainnet */]: ""
 };
 function getStatus(status) {
   if (status === 0) {
