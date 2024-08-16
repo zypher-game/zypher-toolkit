@@ -1370,6 +1370,11 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   width: 24px;
   height: 24px;
 }
+.ChainSelectorWidgetWrapper img.ChainImage_19546,
+.ChainSelectorWidgetWrapper img.ChainImage_9901 {
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 4px;
+}
 .ChainSelectorWidgetWrapper .img {
   display: flex;
   justify-content: center;

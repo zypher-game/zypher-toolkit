@@ -75,6 +75,7 @@ export const DPSupportChainId = !isPro()
       ChainId.LineaSepolia,
       ChainId.OPBNBTEST,
       ChainId.OPBNB,
+      ChainId.ZytronLineaSepoliaTestnet,
       ChainId.ZytronLineaMain,
     ]
   : [ChainId.LineaMainnet, ChainId.OPBNB];
@@ -133,6 +134,7 @@ export const supportedChainIds = (
         ChainId.ComboTestnet,
         ChainId.Combo,
         ChainId.Sepolia,
+        ChainId.ZytronLineaSepoliaTestnet,
         ChainId.ZytronLineaMain,
         ChainId.ZytronB2Testnet,
         ChainId.SagaMainnet,

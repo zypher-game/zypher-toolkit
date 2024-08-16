@@ -106,6 +106,7 @@ var DPSupportChainId = !isPro() ? [
   "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
   "204" /* OPBNB */,
+  "19546" /* ZytronLineaSepoliaTestnet */,
   "9901" /* ZytronLineaMain */
 ] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
 var bingoV1SupportedChainId = DPSupportChainId;
@@ -148,6 +149,7 @@ var supportedChainIds = (env, chainList) => {
     "91715" /* ComboTestnet */,
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
+    "19546" /* ZytronLineaSepoliaTestnet */,
     "9901" /* ZytronLineaMain */,
     "50097" /* ZytronB2Testnet */,
     "2717465680371000" /* SagaMainnet */
@@ -5743,6 +5745,7 @@ var ChainSelectorWidget = memo26(({ className, direction_type }) => {
   }, /* @__PURE__ */ React30.createElement("img", {
     decoding: "async",
     loading: "lazy",
+    className: `ChainImage_${chainId}`,
     src: ChainImage[chainId],
     alt: ChainName[chainId]
   }), /* @__PURE__ */ React30.createElement("p", null, ChainName[chainId])), /* @__PURE__ */ React30.createElement(StatusI, {
