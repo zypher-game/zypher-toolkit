@@ -152,6 +152,11 @@ export const ButtonContent = styled.div<{
 `
 const ButtonWrapPrimary = styled(ButtonWrap)`
   background: linear-gradient(180deg, #daff71 0%, #66c80f 36.98%, #1b7b00 100%);
+  .btn-text {
+    div {
+      font-family: Lemon;
+    }
+  }
   &:hover {
     background: linear-gradient(180deg, #ffc978 0%, #ff7e3c 45.83%, #c53213 100%);
     .btn-content {

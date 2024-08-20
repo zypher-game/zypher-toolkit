@@ -1,8 +1,10 @@
 import {
+  addressIsEqual,
   ChainId,
   getShortenAddress,
   GlobalVar,
   graphqlApiUrl,
+  IPlayer,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
   PointsIcon,
@@ -20,7 +22,6 @@ import styled from 'styled-components'
 
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { IPlayersProps } from '@/hooks/useGetGameInfo'
 import { GetGameListBoxImg } from '@/hooks/useMText'
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { env } from '@/utils/config'
@@ -91,20 +92,20 @@ const Content = styled.div<{ isMobile: boolean; isWinner: boolean }>`
   }
 `
 
-function customShort(arr: IPlayersProps[], condition: string): string[] {
-  const newArr: string[] = []
+function customShort(arr: IPlayer[], condition: string): string[][] {
+  const newArr: string[][] = []
   arr.forEach(item => {
     if (item.user === condition) {
-      newArr.unshift(item.user)
+      newArr.unshift([item.user, item?.tgName ?? ''])
     } else {
-      newArr.push(item.user)
+      newArr.push([item.user, item?.tgName ?? ''])
     }
   })
   return newArr
 }
 
 interface WinProps {
-  chainId: string | undefined
+  chainId: ChainId | undefined
   account: string
 }
 
@@ -135,7 +136,7 @@ export const Win: React.FC<WinProps> = ({ chainId, account }) => {
       if (!chainId) {
         return
       }
-      const api = graphqlApiUrl[chainId]
+      const api = graphqlApiUrl[chainId as ChainId]
       if (!api || !account) {
         return
       }
@@ -177,13 +178,11 @@ export const Win: React.FC<WinProps> = ({ chainId, account }) => {
 
   return <p className={css.count}>{count} %</p>
 }
-const PlayerList = memo(
-  (props: { data: IPlayersProps[]; winner: string; isWinner: boolean; winAmount: number | string; loseAmount: number | string }) => {
-    const bingoVersion = useRecoilValue(bingoVersionState)
-    return bingoVersion === IBingoVersion.beta ? <PlayerListBeta {...props} /> : <PlayerListV1 {...props} />
-  }
-)
-const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]; winner: string; isWinner: boolean }) => {
+const PlayerList = memo((props: { data: IPlayer[]; winner: string; isWinner: boolean; winAmount: number | string; loseAmount: number | string }) => {
+  const bingoVersion = useRecoilValue(bingoVersionState)
+  return bingoVersion === IBingoVersion.beta ? <PlayerListBeta {...props} /> : <PlayerListV1 {...props} />
+})
+const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winner: string; isWinner: boolean }) => {
   const { account, chainId } = useActiveWeb3ReactForBingo()
   const isMobile = useIsW768()
   const list = account ? customShort(data, account) : []
@@ -202,9 +201,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]
         header={Header}
         dataSource={list}
         split={false}
-        renderItem={_item => {
-          const item = _item.toLowerCase()
-          const _winner = winner.toLowerCase()
+        renderItem={([item, tgName]) => {
           return (
             <List.Item className={css.listBox}>
               <div className={css.content}>
@@ -212,21 +209,21 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]
                   <Col span={12}>
                     <List.Item.Meta
                       style={{ alignItems: 'center' }}
-                      avatar={<PlayerAvatar size={40} account={item} winner={_winner === item} />}
+                      avatar={<PlayerAvatar size={40} account={item} winner={addressIsEqual(winner, item)} />}
                       title={
                         <div className={css.name}>
-                          Player {data.findIndex(i => i.user.toLowerCase() === item.toLowerCase()) + 1} {item === account && '(you)'}
+                          Player {data.findIndex(i => addressIsEqual(i.user, item)) + 1} {addressIsEqual(item, account) && '(you)'}
                         </div>
                       }
-                      description={<div className={css.address}>{getShortenAddress(item)}</div>}
+                      description={<div className={css.address}>{tgName && tgName !== '' ? tgName : getShortenAddress(item)}</div>}
                     />
                   </Col>
                   <Col span={6}>
-                    {_winner === item ? (
+                    {addressIsEqual(winner, item) ? (
                       GlobalVar.IS_TELEGRAM ? (
                         <div className={css.pointCol}>
                           <TgPointImg className={css.pointImg} />
-                          <p>+30</p>
+                          <p>+20</p>
                         </div>
                       ) : (
                         <BoxImgWrap isMobile={isMobile}>
@@ -244,10 +241,13 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayersProps[]
                     )}
                   </Col>
                   <Col span={6} style={{ textAlign: 'right' }}>
-                    <Text style={item === account ? { color: '#E8421E' } : {}}>
+                    <Text style={addressIsEqual(item, account) ? { color: '#E8421E' } : {}}>
                       <Space align="center" size={1}>
-                        <WinBeta chainId={chainId} account={item} /> {/* {item === account && */}
-                        <img decoding="async" loading="lazy" src="/img/arrow-down.svg" alt="" />
+                        <WinBeta chainId={chainId} account={item} />
+                        <img
+                          src={preStaticUrl + `${addressIsEqual(winner, item) ? '/img/bingo/arrow-up.svg' : '/img/bingo/arrow-down.svg'}`}
+                          alt=""
+                        />
                       </Space>
                     </Text>
                   </Col>
@@ -268,7 +268,7 @@ const PlayerListV1 = memo(
     winAmount,
     loseAmount
   }: {
-    data: IPlayersProps[]
+    data: IPlayer[]
     winner: string
     isWinner: boolean
     winAmount: number | string
@@ -302,7 +302,7 @@ const PlayerListV1 = memo(
           header={Header}
           dataSource={list}
           split={false}
-          renderItem={item => (
+          renderItem={([item]) => (
             <List.Item className={css.listBox}>
               <div className={css.content}>
                 <Row align="middle">

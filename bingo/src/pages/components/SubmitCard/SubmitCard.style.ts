@@ -9,14 +9,15 @@ export const SubmitCardEle = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  font-family: Lemon;
 `
 
 export const ViewCard = styled.div`
   color: #59b407;
-
   font-size: 12px;
   padding: 20px;
   cursor: pointer;
+  font-family: Lemon;
 `
 
 export const Tip = styled.div`
@@ -36,12 +37,13 @@ export const BoxWrap = styled.div`
 
 export const CardBack = styled.div<{ isMobile: boolean }>`
   cursor: pointer;
-  width: 350px;
+  width: ${({ isMobile }) => (isMobile ? '300px' : '350px')};
   padding: 34px 84px;
   padding-left: ${({ isMobile }) => isMobile && '25px'};
   padding-bottom: ${({ isMobile }) => isMobile && '0px'};
   font-size: 16px;
   color: #613c17;
+  font-family: Lemon;
 `
 export const BingoCardView = styled.div<{ isMobile: boolean }>`
   width: ${({ isMobile }) => (isMobile ? '294px' : '356px')};
@@ -52,7 +54,7 @@ export const BingoCardView = styled.div<{ isMobile: boolean }>`
 
 export const AmountValue = styled.div<{ isMobile: boolean; checked: boolean }>`
   color: ${({ checked }) => (checked ? '#FFF0CF' : '#db5f16')};
-
+  font-family: Lemon;
   line-height: ${({ isMobile }) => (isMobile ? '20px' : '28px')};
   font-size: ${({ isMobile }) => (isMobile ? '16px' : '30px')};
 `

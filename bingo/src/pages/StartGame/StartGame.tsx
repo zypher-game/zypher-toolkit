@@ -15,7 +15,7 @@ import {
   useResetRecoilState
 } from '@ui/src'
 import { getProvider } from '@ui/src'
-import { useWalletClient } from '@ui/src'
+import { useWalletHandler } from '@ui/src'
 import { sample } from 'lodash'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -81,8 +81,7 @@ const StartGame: React.FC = () => {
   const cardsRef = useRef(null)
   const lineupUserRef = useRef<NodeJS.Timer>()
   const gameStartRef = useRef<NodeJS.Timer>()
-  const dispatch = useAppDispatch()
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const chainIdParams = useChainIdParams()

@@ -3,10 +3,10 @@ import { TransactionReceipt } from "viem";
 import { waitForTransaction, WaitForTransactionArgs } from "wagmi/actions";
 
 import { viemClients as GETviemClients } from "../rainbow/rainbow";
-import { useActiveChainId } from "./useActiveChainId";
+import { useActiveWeb3React } from "./useActiveWeb3React";
 
 export function usePublicNodeWaitForTransaction(env: string) {
-  const { chainId } = useActiveChainId(env);
+  const { chainId } = useActiveWeb3React(env);
 
   const waitForTransaction_ = useCallback(
     async (
@@ -17,10 +17,10 @@ export function usePublicNodeWaitForTransaction(env: string) {
       }
       const viemClients = GETviemClients(env);
       // our custom node might be late to sync up
-      if (viemClients[chainId]) {
-        return viemClients[chainId].waitForTransactionReceipt(opts);
+      if (viemClients[`${chainId}`]) {
+        return viemClients[`${chainId}`].waitForTransactionReceipt(opts);
       }
-      return waitForTransaction({ ...opts, chainId });
+      return waitForTransaction({ ...opts, chainId: Number(chainId) });
     },
     [chainId]
   );

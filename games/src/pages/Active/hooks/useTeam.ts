@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 
 import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@/utils/getSign'
+import { getWeb3Sign } from '@ui/src'
 
 import { getPointAmount, pointSuccessDialogState, tvlPointDialogState, tvlStakingDialogState } from '../state/activeState'
 import { useActiveData } from './useActiveData'

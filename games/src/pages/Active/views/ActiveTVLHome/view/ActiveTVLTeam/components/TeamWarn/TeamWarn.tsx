@@ -56,7 +56,7 @@ const TeamWarn = memo(
         return {
           title: 'Invitation reward rules',
           content: [
-            "You'll earn points when your invites earn points, and when their invites earn points. You'll earn +20% bonus points, and when their invitations earn points, you'll earn +10% bonus points.",
+            "You will earn more points, and when their invites earn points. You'll earn +20% bonus points, and when their invitations earn points, you'll earn +10% bonus points.",
             '',
             'Invite big players -> Earn more points and move up the leaderboard.'
           ],
@@ -73,9 +73,9 @@ const TeamWarn = memo(
       return {
         title: 'Team goal reward rules',
         content: [
-          'Your direct invitation will form your group. When your group deposits a total of 1 Ethereum, you will receive an additional point card reward and an additional invitation.',
-          'The more you deposit, the higher the points rewards you may receive.',
-          'There are 5 set goals: 1ETH, 2ETH, 3ETH, 4ETH, 5ETH (including stETH, etc.)'
+          "Your direct invitees will form your Team. Once your squad's total deposits hit 1 ETH, you'll unlock an additional point reward and an extra invite.",
+          'The more your Team deposits, the greater the point rewards you can earn.',
+          'There are five milestone targets: 1 ETH, 2 ETH, 3 ETH, 4 ETH, and 5 ETH (including ezETH, etc.)'
         ],
         img: preStaticUrl + '/img/tvl/my_team_warn_02.png',
         imgClassName: 'tvl_team_bg_02',
@@ -91,7 +91,7 @@ const TeamWarn = memo(
         <div className={css.team_hero}>
           <PixelCube5 className={css.team_hero_middle} pixel_height={2} borderColor="#fff" backgroundColor="#000" onClick={stakingHandle}>
             <ActivePixelButtonColor themeType="yellow" pixel_height={4} className={css.team_hero_middle_in}>
-              <p>Staking more to update your hunter!</p>
+              <p>Stake more to update your hunter!</p>
             </ActivePixelButtonColor>
           </PixelCube5>
           <div className={css.show_team_hero}>

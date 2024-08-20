@@ -19,9 +19,9 @@ const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; f
     <div className={css.inner}>
       <div className={css.fl}>
         <div className={css.title}>{title}</div>
-        <p className={css.text}>If you have a more active wallet, check that wallet.</p>
+        <p className={css.text}>If you have a more active wallet, check that.</p>
         <p className={css.text}>
-          Alternatively, you can still use this wallet to <strong>stake assets</strong> and <strong>invite friends</strong> to earn more points.
+          Otherwise, you can still use this wallet to <strong>stake assets</strong> and <strong>invite friends</strong> to earn rewards.
         </p>
         <ActivePixelButtonColor
           themeType="brightBlue"

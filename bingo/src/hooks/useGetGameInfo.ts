@@ -8,42 +8,9 @@ import { IBingoVersion } from '@/pages/state/state'
 import bingoLobby from '../contract/bingoLobby'
 import { env } from '../utils/config'
 import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'
+import { IGameIdInfoV1, IGameRound, IGameSettings, IRoomInfo } from './useGetGameInfoV1.types'
 import useIntervalAsync from './useIntervalAsync'
 
-export type IPlayersProps = {
-  user: string
-  isAbandoned: boolean
-}
-
-export type IRoomInfo = {
-  players: IPlayersProps[]
-  selectNumber: Map<number, number>
-  selectedNumbers: number[]
-  winAmount: number | string
-  betSize: string | number
-}
-type IGameRound = {
-  round: number // uint32 round;
-  number: number // uint8 number;
-  timestamp: number // uint32 timestamp;
-  player: string // address player;
-}
-type IGameSettings = {
-  betSize: bigint
-  expectedLines: number
-  minNumber: number // number smaller than this will not be selected
-  maxNumber: number // number larger than this will not be selected
-}
-type IGameIdInfoV1 = [
-  number, // startedAt,
-  number, // endedAt,
-  string, // address winner,
-  number, // winAmount,
-  IPlayer[], //  Participant[] memory players,
-  IGameRound[], // GameRound[] memory rounds,
-  IGameSettings, // GameSettings memory settings,
-  IGameStatus // string memory status
-]
 type IGameIdInfoBeta = [
   number, // startedAt, 0
   number, // endedAt, 1
@@ -53,21 +20,9 @@ type IGameIdInfoBeta = [
   IGameStatus // string memory status
 ]
 
-const useGetGameInfo = (gameId: number | undefined): IRoomInfo => {
+const useGetGameInfo = (gameId: number | undefined): IRoomInfo | undefined => {
   const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const [roomInfo, setRoomInfo] = useState<{
-    players: IPlayer[]
-    selectNumber: Map<number, number>
-    selectedNumbers: number[]
-    winAmount: number | string
-    betSize: string | number
-  }>({
-    players: [],
-    selectNumber: new Map(),
-    selectedNumbers: [],
-    winAmount: 0,
-    betSize: 0
-  })
+  const [roomInfo, setRoomInfo] = useState<IRoomInfo>()
   const get = useCallback(async () => {
     if (!chainId) {
       return
@@ -78,16 +33,27 @@ const useGetGameInfo = (gameId: number | undefined): IRoomInfo => {
     try {
       const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
       const txnReceipt = await lobbyContract.read.getGameInfo([gameId])
-      let winAmount = 0
-      let players: IPlayer[] = []
-      let rounds: IGameRound[] = []
-      let settings = {
-        betSize: 0n
-      }
+      let startedAt: number,
+        endedAt: number,
+        winner: string,
+        winAmount: number,
+        players: IPlayer[],
+        rounds: IGameRound[],
+        settings: IGameSettings,
+        status: IGameStatus
       if (bingoVersion === IBingoVersion.v1) {
-        ;[, , , winAmount, players, rounds, settings] = txnReceipt as unknown as IGameIdInfoV1
+        ;[startedAt, endedAt, winner, winAmount, players, rounds, settings, status] = txnReceipt as unknown as IGameIdInfoV1
+        // ;[, , , winAmount, players, rounds, settings] = txnReceipt as unknown as IGameIdInfoV1
       } else {
-        ;[, , , players, rounds] = txnReceipt as unknown as IGameIdInfoBeta
+        ;[startedAt, endedAt, winner, players, rounds, status] = txnReceipt as unknown as IGameIdInfoBeta
+        // ;[, , , players, rounds] = txnReceipt as unknown as IGameIdInfoBeta
+        winAmount = 0 // Set a default value for winAmount
+        settings = {
+          betSize: 0n,
+          expectedLines: 0,
+          minNumber: 0, // number smaller than this will not be selected
+          maxNumber: 0 // number larger than this will not be selected
+        }
       }
       const map: Map<number, number> = new Map()
       rounds.forEach((player: any) => {
@@ -97,6 +63,14 @@ const useGetGameInfo = (gameId: number | undefined): IRoomInfo => {
       const win = new BigNumberJs(winAmount).dividedBy(divisorBigNumber).toString()
       setRoomInfo(prev => ({
         ...prev,
+        gameInfoStatus: prev?.gameInfoStatus ?? '',
+        startedAt: startedAt,
+        endedAt: endedAt,
+        player: prev?.player ?? '',
+        round: prev?.round ?? 0,
+        remain: prev?.remain ?? 0,
+        status: prev?.status ?? '',
+        winner,
         players: players,
         selectNumber: map,
         winAmount: win,

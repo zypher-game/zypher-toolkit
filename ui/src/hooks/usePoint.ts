@@ -21,9 +21,11 @@ import { ethers } from "ethers";
 import { pointsAnimNumState } from "../components/ConnectWallet/state/connectWalletState";
 const ChainPointPrice = {
   [ChainId.LineaMainnet]: 1 / 2_000_000,
+  [ChainId.LineaSepolia]: 1 / 2_000_000,
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000,
   [ChainId.ZytronLineaSepoliaTestnet]: 1 / 2_000_000,
+  [ChainId.ZytronLineaMain]: 1 / 2_000_000,
 };
 export const pointsListDefault = (
   chainId: ChainId

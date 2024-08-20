@@ -8,7 +8,7 @@ import { Address } from 'wagmi'
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@/utils/getSign'
+import { getWeb3Sign } from '@ui/src'
 
 import { useActiveData } from './useActiveData'
 export const preAirdropPathname = 'airdrop'

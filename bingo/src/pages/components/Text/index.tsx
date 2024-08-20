@@ -11,7 +11,6 @@ export const SetUpSubText = styled.div`
   @media screen and (max-width: 830px) {
     font-size: 12px;
     width: 100%;
-
     line-height: normal;
   }
 `

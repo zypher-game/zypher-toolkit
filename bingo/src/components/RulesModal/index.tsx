@@ -41,9 +41,10 @@ const StyledDialogContent = styled(DialogContent)<{ isMobile: boolean }>`
   }
 `
 const Title = styled.div`
-  color: #613c17;
-  font-weight: 600;
   font-size: 14px;
+  color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
 `
 const Card = styled.div`
   border-radius: 20px;
@@ -58,11 +59,11 @@ const Label = styled.div`
   padding-bottom: 10px;
 `
 const Text = styled.div`
-  color: #613c17;
-
   font-size: 14px;
   padding-bottom: 10px;
-  font-weight: 600;
+  color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
 `
 const ConfirmButton = styled.div`
   position: absolute;

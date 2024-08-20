@@ -37,6 +37,7 @@ const bingoLobby = ({
     chainId
   })
   const abi = bingoVersion === IBingoVersion.v1 ? abiV1 : abiV0
+  console.log({ walletClient })
   return getContract({
     env,
     abi: abi,

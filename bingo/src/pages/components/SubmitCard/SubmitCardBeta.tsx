@@ -2,6 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
   getProvider,
+  GlobalVar,
   LngNs,
   preStaticUrl,
   refreshBalanceState,
@@ -12,7 +13,7 @@ import {
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
-  useWalletClient
+  useWalletHandler
 } from '@ui/src'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
@@ -26,7 +27,6 @@ import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
@@ -47,9 +47,8 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
   const [gameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const dispatch = useAppDispatch()
   const [isCard, setIsCard] = useState(false)
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
 
@@ -151,7 +150,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
           <Row>
             <Col flex={'200px'}>
               <CardBack isMobile={isMobile} onClick={() => setIsCard(false)}>
-                {t('Back')}
+                {'<'} {t('Back')}
               </CardBack>
             </Col>
             <Col flex={'auto'}>
@@ -187,7 +186,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>
-          <Tip>{t('SubmitCardText4')}</Tip>
+          {GlobalVar.IS_TELEGRAM ? <></> : <Tip>{t('SubmitCardText4')}</Tip>}
         </SubmitCardEle>
       )}
     </div>

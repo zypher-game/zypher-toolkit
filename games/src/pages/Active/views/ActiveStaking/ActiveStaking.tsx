@@ -23,10 +23,10 @@ const ActiveStaking = memo(() => {
             </strong>{' '}
             to activate your account.
           </p>
-          <p className={classnames(css.text, css.mt)}>The earlier and the greater the amount of pledge, the more airdrop points!</p>
-          <p className={css.greyText}>
-            Notice: Please complete account activation as soon as possible to ensure that your invitation code is not registered by others.
+          <p className={classnames(css.text, css.mt)}>
+            {"The earlier you stake your assets and the greater the amount you stake, the more airdrop points you'll earn."}
           </p>
+          <p className={css.greyText}>Note: Please activate your account promptly to secure your invitation code.</p>
           {!isW768 ? <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
         </div>
         <Staking />

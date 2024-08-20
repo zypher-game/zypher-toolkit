@@ -8,6 +8,7 @@
   top: 8%
   left: 40px
   z-index: 99
+  font-family: Lemon;
   @media screen and (max-width: 830px)
     top: 7%
     left: 16px
@@ -15,7 +16,22 @@
     height: 100px
   &.userTgCenter
     top: 2%
-
+    width: 300px
+    @media screen and (max-width: 830px)
+      width: 260px;
+      height: 120px;
+      padding: 7px 10px
+    .userInfo
+      @media screen and (max-width: 830px)
+        padding: 8px
+        bottom: 8px
+    .userAddress
+      @media screen and (max-width: 830px)
+        left: 80px
+        top: 26px
+      .addressLabel
+        @media screen and (max-width: 830px)
+          font-size: 15px
   .userAddress
     position absolute
     top: 32px
@@ -28,7 +44,6 @@
       left: 60px
       top: 20px
   .addressLabel
-    
     font-size: 16px
     color: #FFC273;
     min-height: 30px

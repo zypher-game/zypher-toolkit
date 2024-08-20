@@ -10,11 +10,12 @@ const Warp = styled.div`
   padding-bottom: 273px;
 `
 const Text = styled.p`
-  color: #613c17;
   font-size: 14px;
   font-style: normal;
-  font-weight: 400;
   line-height: 30px;
+  color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
 `
 export default function NoDataPage() {
   const { t } = useCustomTranslation([LngNs.common])

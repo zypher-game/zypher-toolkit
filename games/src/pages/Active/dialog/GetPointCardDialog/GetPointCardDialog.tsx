@@ -24,7 +24,7 @@ const GetPointCardDialog = memo(() => {
             bg={preStaticUrl + '/img/tvl/airdrop_point/owner_bg.png'}
             icon={preStaticUrl + '/img/icon/owner_icon.svg'}
             label={`@${owner}'s team`}
-            text={'Congratulations on the team you led completing the group goal and receiving the airdrop points card reward!'}
+            text={'Congratulations on successfully leading your team to achieve the group goal and earning the airdrop points card reward.'}
           />
         ) : (
           <></>
@@ -35,7 +35,9 @@ const GetPointCardDialog = memo(() => {
             bg={preStaticUrl + '/img/tvl/airdrop_point/parent_bg.png'}
             icon={preStaticUrl + '/img/icon/parent_icon.svg'}
             label={`@${parent}'s team`}
-            text={'Congratulations! The team that invited your captain has completed the group goal and received the airdrop score card reward!'}
+            text={
+              "Congratulations! Your captain's team has triumphed by completing the group goal, and they've just snagged the exciting airdrop scorecard reward! Keep up the great teamwork!"
+            }
           />
         ) : (
           <></>

@@ -40,6 +40,7 @@ const CloseBtn = styled.img`
   top: -10px;
   right: -16px;
   cursor: pointer;
+  z-index: 9;
 `
 const CustomDialogContent = styled(DialogContent)`
   position: relative;

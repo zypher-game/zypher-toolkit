@@ -1,8 +1,9 @@
-import { AllChainInfo, ChainRpcUrls, divisorBigNumber } from '@ui/src'
+import { AllChainInfo, ChainRpcUrls, divisorBigNumber, GlobalVar, httpGet, TG_BOT_URL } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { formatEther } from 'ethers/lib/utils'
 import { sample } from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { compose } from 'redux'
 import { createPublicClient, http } from 'viem'
 
 import { IBingoVersion } from '@/pages/state/state'
@@ -13,7 +14,7 @@ import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'
 import { useChainIdParamsAsChainId } from './useChainIdParams'
 import { IGameIdInfoBeta, IGameIdInfoV1, IRoomInfo } from './useGetGameInfoV1.types'
 
-const getGameInfo = (gameInfo: any[], bingoVersion: IBingoVersion) => {
+const getGameInfo = (gameInfo: any, bingoVersion: IBingoVersion) => {
   try {
     if (bingoVersion === IBingoVersion.v1) {
       const [startedAt, endedAt, winner, winAmount, players, rounds, settings, status] = gameInfo as IGameIdInfoV1
@@ -33,7 +34,11 @@ const getGameInfo = (gameInfo: any[], bingoVersion: IBingoVersion) => {
         betSize: formatEther(settings.betSize)
       }
     }
+
     const [startedAt, endedAt, winner, players, rounds, status] = gameInfo as IGameIdInfoBeta
+    console.log(11111, { gameInfo: players })
+    const addressList = players.map((v: any) => v.user)
+    console.log(2222, addressList)
     return {
       startedAt,
       endedAt,
@@ -70,7 +75,8 @@ const getGameInfo = (gameInfo: any[], bingoVersion: IBingoVersion) => {
 const useGetGameInfoV1 = (gameId: string | number | undefined) => {
   const { bingoVersion, chainId } = useActiveWeb3ReactForBingo()
   const _chainId = useChainIdParamsAsChainId()
-
+  // const [tgNameList, setTgNameList] = useState<any>()
+  const [tgNameList, setTgNameList] = useState<Record<string, string>>({})
   const [roomInfo, setRoomInfo] = useState<IRoomInfo>(() => ({
     player: '',
     round: 0,
@@ -109,6 +115,7 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
       allowFailure: true
     })
     const [currentRound, gameInfo, selectedNums] = res as any
+    console.log({ currentRound, gameInfo, selectedNums })
     const [round, player, remain, status] = currentRound.result || ['', [], 28, '']
     if (!gameInfo.result) {
       return
@@ -136,13 +143,39 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
     }
     setRoomInfo(newRoomInfo)
     return newRoomInfo
-  }, [gameId, chainId, _chainId])
-
+  }, [gameId, chainId, roomInfo.status, _chainId])
+  const getTgName = useCallback(async () => {
+    const list = roomInfo.players.filter(v => !v.tgName).map(v => v.user.toLowerCase())
+    if (list && list.length) {
+      const { data } = await httpGet<[string, string][]>(TG_BOT_URL + `/user/ger_user_name?list=${JSON.stringify(list)}`)
+      console.log({ data })
+      if (Array.isArray(data) && data.length && data.every(item => Array.isArray(item) && item.length === 2)) {
+        // 将结果转换为一个对象
+        const ltgNameList = Object.fromEntries(data)
+        setTgNameList(ltgNameList)
+      }
+    }
+  }, [JSON.stringify(roomInfo.players)])
+  console.log({ tgNameList })
   useEffect(() => {
-    return setIntervalAwait(fetchGameInfo, 1000)
+    getTgName()
+  }, [JSON.stringify(roomInfo.players)])
+  useEffect(() => {
+    setIntervalAwait(fetchGameInfo, 1000)
   }, [fetchGameInfo])
 
-  return { roomInfo, fetchGameInfo }
+  return useMemo(() => {
+    return {
+      roomInfo: {
+        ...roomInfo,
+        players: roomInfo.players.map(v => ({
+          ...v,
+          tgName: GlobalVar.IS_TELEGRAM ? tgNameList[v.user.toLowerCase()] ?? 'Bingo' + Math.floor(Math.random() * 10) : undefined
+        }))
+      },
+      fetchGameInfo
+    }
+  }, [roomInfo, fetchGameInfo])
 }
 
 export default useGetGameInfoV1

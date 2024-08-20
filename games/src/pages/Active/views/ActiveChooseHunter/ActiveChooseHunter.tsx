@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@/utils/getSign'
+import { getWeb3Sign } from '@ui/src'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
 import HeroImageLoader from '../../components/ImageLoader/HeroImageLoader'

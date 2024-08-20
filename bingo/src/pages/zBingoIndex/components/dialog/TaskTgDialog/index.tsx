@@ -23,12 +23,15 @@ import {
 import classNames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 import { NumberRun } from '@/components/NumberRun'
+import { useChainIdParams } from '@/hooks/useChainIdParams'
 import { ButtonPrimary } from '@/pages/components/Button'
 import TgPointImg from '@/pages/components/TgPointImg/TgPointImg'
 import { DialogTaskListState } from '@/pages/state/state'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
+import { toBingoPlayHref } from '@/utils/toBingoHref'
 
 import css from './index.module.stylus'
 
@@ -46,6 +49,8 @@ export const OnceTask = {
 }
 
 const TaskTgDialog = memo(() => {
+  const navigate = useNavigate()
+  const chainIdParams = useChainIdParams()
   const WebAppData = useWebAppData()
   const isModalOpen = useRecoilValue(DialogTaskListState)
   const [ui] = useTonConnectUI()
@@ -88,7 +93,12 @@ const TaskTgDialog = memo(() => {
       }
       return true
     }
-    return { lastLoginAt: isToday(userInfo.lastLoginAt), lastBingoAt: isToday(userInfo.lastBingoAt), lastShareAt: isToday(userInfo.lastShareAt) }
+    return {
+      lastLoginAt: isToday(userInfo.lastLoginAt),
+      lastBingoAt: isToday(userInfo.lastBingoAt),
+      bingoAt: isToday(userInfo.bingoAt),
+      lastShareAt: isToday(userInfo.lastShareAt)
+    }
   }, [userInfo])
 
   const DailyTaskSubmit = async (name: string) => {
@@ -114,14 +124,14 @@ const TaskTgDialog = memo(() => {
     if (!userInfo) {
       return undefined
     }
-    const total = BigInt(userInfo.onceTask)
     const isChecked = (key: keyof typeof OnceTask) => {
       const val = OnceTask[key]
       if (!val) {
         return false
       }
+      const list = userInfo.onceTask.split(',')
       // eslint-disable-next-line no-bitwise
-      return (total & val.key) > 0n
+      return list.includes(`${val.key}`)
     }
     return Object.keys(OnceTask).reduce((sum, current: any) => {
       sum[current as keyof typeof OnceTask] = isChecked(current)
@@ -153,10 +163,10 @@ const TaskTgDialog = memo(() => {
         }
       } else if (name === 'FollowZypherTwitter') {
         window.Telegram.WebApp.openLink(TaskFollowZypher, { try_instant_view: true })
-        await sleep(5)
+        await sleep(2)
       } else if (name === 'Retweet1') {
         window.Telegram.WebApp.openLink(TaskReweet1, { try_instant_view: true })
-        await sleep(5)
+        await sleep(2)
       }
       const res = await httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/task/claim`, reqDto)
       if (res.code) {
@@ -198,6 +208,7 @@ const TaskTgDialog = memo(() => {
                   checked={DailyStatus?.lastShareAt}
                   all
                   action={async () => {
+                    // https://t.me/zyphernetwork
                     window.Telegram?.WebApp?.openTelegramLink(
                       `https://t.me/share/url?url=${encodeURIComponent(
                         `${TaskTelegramBot}?start=${Number(userInfo?.id).toString(16)}`
@@ -206,7 +217,7 @@ const TaskTgDialog = memo(() => {
                     if (DailyStatus?.lastShareAt) {
                       return
                     }
-                    await sleep(5)
+                    await sleep(2)
                     return DailyTaskSubmit('lastShareAt')
                   }}
                 />
@@ -214,12 +225,21 @@ const TaskTgDialog = memo(() => {
                   name="Win a game"
                   des="+30"
                   checked={DailyStatus?.lastBingoAt}
+                  btn={DailyStatus?.bingoAt ? 'Get' : 'Go'}
                   action={async () => {
-                    console.log({ userInfo: userInfo?.evmWallet })
                     if (userInfo?.evmWallet) {
-                      return DailyTaskSubmit('lastBingoAt')
+                      console.log({ userInfo: userInfo?.evmWallet })
+                      if (!DailyStatus?.bingoAt) {
+                        setIsModalOpen(false)
+                        toBingoPlayHref({
+                          chainIdParams,
+                          navigate
+                        })
+                      } else {
+                        return DailyTaskSubmit('lastBingoAt')
+                      }
                     }
-                    setErrorToast('Not meeting the conditions')
+                    // setErrorToast('Not meeting the conditions')
                   }}
                 />
                 <h2 className={css.name}>Basic Tasks</h2>
@@ -282,10 +302,13 @@ const TaskItemCpt: React.FC<{
         </div>
       </div>
       <div className={css.action}>
-        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/check.png'} width={24} />
-        <ButtonPrimary className={css.btn} onClick={props.action}>
-          {props.btn ?? 'Go'}
-        </ButtonPrimary>
+        {props.checked ? (
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/check.png'} width={24} />
+        ) : (
+          <ButtonPrimary className={css.btn} onClick={props.action}>
+            {props.btn ?? 'Go'}
+          </ButtonPrimary>
+        )}
       </div>
     </div>
   )

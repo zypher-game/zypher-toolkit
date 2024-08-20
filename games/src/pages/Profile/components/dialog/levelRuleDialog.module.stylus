@@ -21,10 +21,10 @@
     font-size: 14px;
     line-height: 22px
     h4
-      color: #FFF
+      color: #864802
       font-weight: 600;
     p
-      color: rgba(255, 255, 255, 0.70);
+      color: #62380C;
 .btnWrap
   margin: 20px 20px 30px;
 .btn

@@ -67,7 +67,7 @@ const Bind = memo(
           fl={
             <div className={css.tooltip}>
               <p>1. Enter the invitation code</p>
-              <PixelTooltip title={['Create your team through invitation codes and unlock more airdrop point cards!']} />
+              <PixelTooltip title={['Build Your Team with Invite Codes and Unlock More Airdrop Points!']} />
             </div>
           }
           fr={<FrStatus label={`${invitationCode[0]}-${invitationCode.substring(1)}`} isLoading={false} />}

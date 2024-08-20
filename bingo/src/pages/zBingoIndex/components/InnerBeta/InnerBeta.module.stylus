@@ -20,7 +20,10 @@
       top: 60%
       width: 70%
       height: 450px
-
+    h3
+      font-size: 18px
+      @media screen and (max-width: 830px)
+        font-size: 13px
   .title 
     font-weight: 600
     position absolute
@@ -32,12 +35,11 @@
       width 50%
       top: -42px
   h3
-    
     font-size: 20px
     color: #FFE7CC
     margin: 160px 0 40px
     @media screen and (max-width: 830px)
-      font-size: 16px
+      font-size: 14px
       margin: 20px 0 20px
   .border
     width: 180px;

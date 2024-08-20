@@ -1,0 +1,48 @@
+export const WalletAbi = [
+  { type: 'constructor', inputs: [{ name: '_owner', type: 'address', internalType: 'address' }], stateMutability: 'nonpayable' },
+  { type: 'receive', stateMutability: 'payable' },
+  { type: 'function', name: 'controllers', inputs: [{ name: '', type: 'address', internalType: 'address' }], outputs: [{ name: '', type: 'bool', internalType: 'bool' }], stateMutability: 'view' },
+  {
+    type: 'function',
+    name: 'functionCall',
+    inputs: [
+      { name: 'from', type: 'address', internalType: 'address' },
+      { name: 'to', type: 'address', internalType: 'address payable' },
+      { name: 'value', type: 'uint256', internalType: 'uint256' },
+      { name: 'data', type: 'bytes', internalType: 'bytes' },
+      { name: 'v', type: 'uint8', internalType: 'uint8' },
+      { name: 'r', type: 'bytes32', internalType: 'bytes32' },
+      { name: 's', type: 'bytes32', internalType: 'bytes32' },
+    ],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  { type: 'function', name: 'nonce', inputs: [], outputs: [{ name: '', type: 'uint256', internalType: 'uint256' }], stateMutability: 'view' },
+  { type: 'function', name: 'owner', inputs: [], outputs: [{ name: '', type: 'address', internalType: 'address' }], stateMutability: 'view' },
+  {
+    type: 'function',
+    name: 'setController',
+    inputs: [
+      { name: 'controller', type: 'address', internalType: 'address' },
+      { name: 'isAllow', type: 'bool', internalType: 'bool' },
+      { name: 'v', type: 'uint8', internalType: 'uint8' },
+      { name: 'r', type: 'bytes32', internalType: 'bytes32' },
+      { name: 's', type: 'bytes32', internalType: 'bytes32' },
+    ],
+    outputs: [],
+    stateMutability: 'nonpayable',
+  },
+  { type: 'error', name: 'AddressEmptyCode', inputs: [{ name: 'target', type: 'address', internalType: 'address' }] },
+  { type: 'error', name: 'ECDSAInvalidSignature', inputs: [] },
+  { type: 'error', name: 'ECDSAInvalidSignatureLength', inputs: [{ name: 'length', type: 'uint256', internalType: 'uint256' }] },
+  { type: 'error', name: 'ECDSAInvalidSignatureS', inputs: [{ name: 's', type: 'bytes32', internalType: 'bytes32' }] },
+  { type: 'error', name: 'FailedCall', inputs: [] },
+  {
+    type: 'error',
+    name: 'InsufficientBalance',
+    inputs: [
+      { name: 'balance', type: 'uint256', internalType: 'uint256' },
+      { name: 'needed', type: 'uint256', internalType: 'uint256' },
+    ],
+  },
+] as const;

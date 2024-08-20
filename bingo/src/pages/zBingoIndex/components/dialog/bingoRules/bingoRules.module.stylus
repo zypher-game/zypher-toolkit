@@ -50,10 +50,9 @@ body [data-reach-dialog-content].levelRule
 .rulestext
   margin-bottom: 16px
   color: #613C17;
-  
   font-size: 16px;
-  font-weight: 600;
   line-height: 24px
+  font-family: Lemon
   @media screen and (max-width: 830px)
     font-size: 14px;
     line-height: 20px
@@ -63,5 +62,6 @@ body [data-reach-dialog-content].levelRule
   bottom: 10px
   left: 50%
   transform: translateX(-50%)
+  font-family: Lemon
   @media screen and (max-width: 830px)
     width: 140px

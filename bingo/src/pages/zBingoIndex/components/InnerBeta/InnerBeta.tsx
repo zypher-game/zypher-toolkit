@@ -22,11 +22,11 @@ import CarouselList from '../carouselList/carouselList'
 import css from './InnerBeta.module.stylus'
 const InnerBeta = memo(
   ({ listBetaMapList, bingoHasError }: { listBetaMapList: Map<ChainId, IGameListBeta[]> | undefined; bingoHasError: boolean }) => {
+    const navigate = useNavigate()
     const chainIdParams = useChainIdParams()
     const { account, chainId } = useActiveWeb3React()
     const setDialogOpen = useSetRecoilState(walletModalOpenState)
     const { openChainModal } = useChainModal()
-    const navigate = useNavigate()
     const handleOnClick = useCallback(async () => {
       if (!account) {
         setDialogOpen(false)
@@ -50,7 +50,7 @@ const InnerBeta = memo(
         <CarouselList bingoMapList={listBetaMapList} bingoHasError={bingoHasError} />
         <div className={css.innerItemWrap}>
           <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/bingo_title.png'} alt="bingo" className={css.title} />
-          <h3>{window.IS_TELEGRAM ? 'Play To Earn Airdrop' : `Prize: ${getChainNameText(chainId)} zBox`}</h3>
+          <h3 className={css.textMM}>{window.IS_TELEGRAM ? 'Play to earn airdrop points!' : `Prize: ${getChainNameText(chainId)} zBox`}</h3>
           <div className={css.border}>
             <GetGameListBoxImg />
           </div>

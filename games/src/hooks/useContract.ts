@@ -1,5 +1,5 @@
 import { Contract } from '@ethersproject/contracts'
-import { ChainId, getContract, useActiveChainId, useWalletClient } from '@ui/src'
+import { ChainId, getContract, useActiveWeb3React, useWalletClient } from '@ui/src'
 import { useMemo } from 'react'
 import { Address } from 'viem'
 
@@ -8,7 +8,7 @@ import { defaultLocalChainId } from '@/constants/constants'
 import { env } from '../utils/config'
 
 export function useContract(addressOrAddressMap?: Address | { [chainId: number]: Address }, abi?: any, defaultChainId?: ChainId): Contract | null {
-  const { chainId } = useActiveChainId(env)
+  const { chainId } = useActiveWeb3React(env)
   const { data: walletClient } = useWalletClient()
 
   return useMemo(() => {

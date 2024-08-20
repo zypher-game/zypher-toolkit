@@ -31,10 +31,11 @@ body [data-reach-dialog-content].levelRule
   div
     font-size: 14px;
     line-height: 22px
-    
-    color: #613C17;
     h4
       font-weight: 700;
+      color: #613C17;
+    p
+      color: #62380C;
 .btn
   width: 180px
   position absolute

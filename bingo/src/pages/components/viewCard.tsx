@@ -26,13 +26,14 @@ const ViewButton = styled(Button)`
   }
 `
 const BingoCard = styled.div`
-  color: #613c17;
   text-align: right;
-
   font-size: 12px;
   border-radius: 12px;
   border: 1px solid #613c17;
   padding: 2px 10px;
+  color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
 `
 
 export default function ViewCardPage({ bingoInfo, isMobile }: { bingoInfo: IBingoInfo; isMobile?: boolean }) {

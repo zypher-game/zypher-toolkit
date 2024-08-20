@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { preStaticUrl, useCurrentLanguage } from '@ui/src'
+import { addressIsEqual, preStaticUrl, useCurrentLanguage } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
@@ -9,7 +9,7 @@ import React, { memo } from 'react'
 import styled, { css } from 'styled-components'
 
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { IPlayersProps } from '@/hooks/useGetGameInfo'
+import { IPlayer } from '@/hooks/useGetGameInfoV1.types'
 
 import { ButtonHover, ButtonPrimary } from '../components/Button'
 import PlayerList from '../components/PlayerList'
@@ -58,7 +58,7 @@ const Footer = styled.div`
 `
 
 interface IResultModalProps {
-  players: IPlayersProps[]
+  players: IPlayer[]
   winner: string
   open: boolean
   onCancel: () => void
@@ -84,7 +84,7 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
       >
         <Wrapper isMobile={isMobile}>
           <ResultM isMobile={isMobile}>
-            {winner.toLowerCase() === `${account}`.toLowerCase() ? (
+            {addressIsEqual(winner, account) ? (
               <img decoding="async" loading="lazy" className="winnerImg" src={preStaticUrl + `/img/bingo/winerBingo.png`} />
             ) : (
               <img decoding="async" loading="lazy" className="loseImg" src={preStaticUrl + `/img/bingo/your-lose_${lang}.png`} />
@@ -95,16 +95,16 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
             <Space size={30}>
               <ButtonHover
                 width={isMobile ? '140px' : '186px'}
-                height={isMobile ? '48px' : '58px'}
-                size={isMobile ? '16px' : '22px'}
+                height={isMobile ? '40px' : '58px'}
+                size={isMobile ? '14px' : '22px'}
                 onClick={onCancel}
               >
                 {t('Back')}
               </ButtonHover>
               <ButtonPrimary
                 width={isMobile ? '140px' : '186px'}
-                height={isMobile ? '48px' : '58px'}
-                size={isMobile ? '16px' : '22px'}
+                height={isMobile ? '40px' : '58px'}
+                size={isMobile ? '14px' : '22px'}
                 onClick={onSubmit}
               >
                 {t('Play again')}

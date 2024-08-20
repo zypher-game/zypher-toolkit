@@ -59,7 +59,7 @@ const BingoBoard = styled.div<{ isMobile: boolean }>`
     font-family: Lemon;
     width: 80%;
     text-align: center;
-    font-size: ${({ isMobile }) => (isMobile ? '12px' : '28px')};
+    font-size: ${({ isMobile }) => (isMobile ? '16px' : '28px')};
   }
   .space {
     font-family: Lemon;
@@ -71,6 +71,7 @@ const BingoBoard = styled.div<{ isMobile: boolean }>`
     cursor: grab;
     font-style: normal;
     font-weight: 400;
+    font-size: ${({ isMobile }) => (isMobile ? '16px' : '28px')};
     &:nth-child(1) {
       border-top-left-radius: ${({ isMobile }) => (isMobile ? '11px' : '16px')};
     }

@@ -3,6 +3,7 @@ import {
   ChainRpcUrls,
   erc20Contract,
   getProvider,
+  GlobalVar,
   IContractName,
   LngNs,
   pointsBalanceState,
@@ -17,7 +18,7 @@ import {
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
-  useWalletClient,
+  useWalletHandler,
   zkBingo
 } from '@ui/src'
 import { Col, message, Row, Space } from 'antd'
@@ -33,7 +34,6 @@ import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
@@ -53,9 +53,8 @@ const SubmitCardV1 = () => {
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const setCurrentStep = useSetRecoilState(startGameStep)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const dispatch = useAppDispatch()
   const [isCard, setIsCard] = useState(false)
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const pointsBalance = useRecoilValue(pointsBalanceState)
   const disable = useMemo(() => {
@@ -79,7 +78,8 @@ const SubmitCardV1 = () => {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken)
       const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
       const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
-      const allowance = await pointsContract.read.allowance([account, ZkBingoFee])
+      const allowance = await pointsContract.read.allowance(['0x11C705BCEBc0a380602A7047B3058a51Ab586689', ZkBingoFee])
+      console.log({ allowance })
       const { betSize: tokenAmount } = activeLevels[level] as any
       if (new BigNumber(allowance.toString()).lt(tokenAmount.toString())) {
         setIsApprove(false)
@@ -188,6 +188,7 @@ const SubmitCardV1 = () => {
         })
       }
     } catch (e) {
+      console.log('lobbyContract error', e)
       setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)
@@ -204,7 +205,16 @@ const SubmitCardV1 = () => {
       }
     })
   }, [t])
-
+  const levelChange = useCallback(
+    (idx: number) => {
+      if (disable) {
+        showPointsModal()
+      } else {
+        setLevel(idx)
+      }
+    },
+    [disable]
+  )
   return (
     <div id="submit-card" style={{ width: '100%' }}>
       {isCard ? (
@@ -212,7 +222,7 @@ const SubmitCardV1 = () => {
           <Row>
             <Col flex={'200px'}>
               <CardBack isMobile={isMobile} onClick={() => setIsCard(false)}>
-                {t('Back')}
+                {'<'} {t('Back')}
               </CardBack>
             </Col>
             <Col flex={'auto'}>
@@ -231,7 +241,7 @@ const SubmitCardV1 = () => {
               {activeLevels.map((levelInfo: any, idx) => (
                 <div key={levelInfo.level}>
                   {winRate >= levelInfo.minWinCounts && (
-                    <CheckableTag isMobile={isMobile} checked={level == idx} onClick={e => setLevel(idx)}>
+                    <CheckableTag isMobile={isMobile} checked={level == idx} onClick={() => levelChange(idx)}>
                       <Space size={isMobile ? 2 : 10} align="center">
                         <AmountValue checked={level == idx} isMobile={isMobile}>
                           {new BigNumber(levelInfo.betSize.toString(10)).div(10 ** 18).toFormat(0, 1)}
@@ -268,7 +278,7 @@ const SubmitCardV1 = () => {
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>
-          <Tip>{t('SubmitCardText4')}</Tip>
+          {GlobalVar.IS_TELEGRAM ? <></> : <Tip>{t('SubmitCardText4')}</Tip>}
         </SubmitCardEle>
       )}
     </div>

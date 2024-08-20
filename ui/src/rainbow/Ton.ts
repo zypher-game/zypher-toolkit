@@ -1,5 +1,4 @@
 import TonWeb from "tonweb";
-import { GlobalVar } from "../constant/constant";
 export const TonChainInfo = {
   endpoint: "https://testnet.toncenter.com/api/v2/jsonRPC",
   key: "13fb4d7601245519085ff095211618bf4ec1485e729f5e957e066d49822cca7a",

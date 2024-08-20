@@ -28,8 +28,8 @@ export const MoreActiveSuccessCard = memo(({ isModal, amount }: { isModal: boole
   return (
     <>
       <ActivePixelCard className={css.moreActiveSuccess} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
-        <h3>{"You've earned bonus points!"}</h3>
         <h3>Congratulations!</h3>
+        <h3>{"You've earned bonus points."}</h3>
         <AirdropPointCard amount={amount} />
         {!isW768 ? <Btn isModal={isModal} /> : null}
       </ActivePixelCard>

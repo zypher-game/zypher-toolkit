@@ -4,6 +4,7 @@ import '../index.stylus'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import { LoadingOutlined } from '@ant-design/icons'
 import {
+  addressIsEqual,
   ChainRpcUrls,
   getProvider,
   getShortenAddress,
@@ -12,7 +13,7 @@ import {
   LngNs,
   PlayerAvatarList as PlayerAvatar,
   preStaticUrl,
-  request,
+  RefreshState,
   TG_BOT_URL,
   txStatus,
   useAccountInvitation,
@@ -24,12 +25,11 @@ import {
   useRecoilValue,
   useResetRecoilState,
   useSetRecoilState,
-  useWalletClient
+  useWalletHandler
 } from '@ui/src'
 import { Col, Progress, Row, Space, Tooltip } from 'antd'
 import { sample } from 'lodash'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Trans } from 'react-i18next'
+import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { TransactionReceipt } from 'viem'
@@ -42,8 +42,8 @@ import useAudioManager from '@/hooks/useAudioManager'
 import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
 import useGetGameInfoV1 from '@/hooks/useGetGameInfoV1'
+import { IRoomInfo } from '@/hooks/useGetGameInfoV1.types'
 import { gameRoomState, IBingoVersion, joinGameState, startGameStep } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import getBingoLines from '@/utils/getBingoLines'
@@ -63,7 +63,7 @@ const RoundTip = styled.div<{ isMobile: boolean }>`
     text-align: center;
     font-size: ${({ isMobile }) => (isMobile ? '12px' : '14px ')};
     color: #804700;
-    width: ${({ isMobile }) => isMobile && '199px'};
+    width: ${({ isMobile }) => isMobile && '320px'};
     margin: 0 auto;
     font-weight: 600;
     line-height: ${({ isMobile }) => (isMobile ? '14px' : '27px')};
@@ -150,18 +150,17 @@ const PlayersWrapper = styled.div<{ highLight: boolean; leave: boolean }>`
   }
   opacity: ${({ leave }) => leave && 0.7};
 `
-const BingoControllerButtonWrapper = styled.div`
+const BingoControllerButtonWrapper = styled.div<{ isMobile: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 20px;
+  padding-top: ${({ isMobile }) => (isMobile ? '10px' : ' 20px')};
   gap: 10px;
 `
 const MatchLinesWrapper = styled.div<{ isMobile: boolean }>`
   border-color: #ffd690;
   border-width: 3px;
   border-style: solid;
-
   font-size: ${({ isMobile }) => (isMobile ? '24px' : ' 34px')};
   color: #fff5e1;
   text-shadow: -1px -1.5px 0px #381f05;
@@ -228,11 +227,11 @@ const GameRoom: React.FC = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [pending, setPending] = useState(false)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const [gamesWon, setWinRate] = useState(0)
   const { t } = useCustomTranslation([LngNs.zBingo])
   const chainIdParams = useChainIdParams()
-
+  const setRefreshState = useSetRecoilState(RefreshState)
   const round = useMemo<number>(() => (roomInfo?.players ? Math.ceil(roomInfo.round / roomInfo.players.length) || 0 : 0), [JSON.stringify(roomInfo)])
   const selectedNumbers = useMemo(() => roomInfo.selectedNumbers, [JSON.stringify(roomInfo)])
   const isOvertime = useMemo(() => roomInfo.status, [JSON.stringify(roomInfo)])
@@ -251,17 +250,20 @@ const GameRoom: React.FC = () => {
     }
   }, [gamesWon, gamesWon])
   const [gradeModalOpen, setGradeModalOpen] = useState(false)
-
-  useEffect(() => {
+  const Win = useCallback(async () => {
     if (!!winner) {
+      const res = await httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
+      setRefreshState(pre => pre + 1)
       colseBackgroundMusic()
       if (account === winner) {
         playWinSound()
       } else {
         playLoseSound()
       }
-      httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
     }
+  }, [account, winner])
+  useEffect(() => {
+    Win()
   }, [account, winner])
 
   useEffect(() => {
@@ -309,56 +311,6 @@ const GameRoom: React.FC = () => {
   const matchLines = useMemo(() => {
     return getBingoLines(selectedNumbers, cardNumbers)
   }, [roomInfo])
-
-  const currentStatus = useMemo(() => {
-    let playerIdx = (roomInfo.round - 1) % roomInfo.players.length
-    let tip
-    console.log({ roomInfo: roomInfo.round })
-    if (roomInfo.status === 'live') {
-      tip = isControllerEnabled ? (
-        <div>
-          <Trans
-            i18nKey="round tip1"
-            defaults={t('round tip1')}
-            values={{
-              number: round
-            }}
-            components={{ bold: <span /> }}
-          />
-        </div>
-      ) : (
-        <div>
-          {/* Round<span> {round} </span>! Player<span> {roomInfo.players.findIndex(address => address.user == roundInfo.player) + 1} </span>,choose your
-          number to submit! */}
-          <Trans
-            i18nKey="round tip2"
-            defaults={t('round tip2')}
-            values={{
-              number: round,
-              player: roomInfo.players.findIndex(address => address.user.toLowerCase() == roomInfo.player.toLowerCase()) + 1
-            }}
-            components={{ bold: <span /> }}
-          />
-        </div>
-      )
-    }
-    const isSynchronizing = roomInfo.players.find(item => {
-      console.log({ item })
-      if (item.user.toLowerCase() == roomInfo.player.toLowerCase()) {
-        return true
-      } else {
-        return false
-      }
-    })
-    if (!isSynchronizing) {
-      playerIdx = (roomInfo.round - 2) % roomInfo.players.length
-      tip = <div>{t('Synchronizing')}</div>
-    }
-    return {
-      tip,
-      playerIdx
-    }
-  }, [JSON.stringify(roomInfo), t])
 
   const cardNums: number[][] = useMemo(() => {
     return cardNumbers.reduce(
@@ -607,7 +559,7 @@ const GameRoom: React.FC = () => {
             <RoundTitle round={round} roomInfo={roomInfo} />
           </div>
         </div>
-        <Row gutter={isMobile ? [10, 10] : [20, 20]} style={{ paddingTop: isMobile ? '10px' : '20px' }}>
+        <Row gutter={isMobile ? [10, 10] : [20, 20]} style={{ paddingTop: isMobile ? '10px' : '20px', width: isMobile ? '370px' : 'auto' }}>
           <Col span={isMobile ? 0 : 7}>
             <GameCheckerBoard isMobile={isMobile}>
               <GamePadding isMobile={isMobile}>
@@ -618,7 +570,9 @@ const GameRoom: React.FC = () => {
           <Col span={isMobile ? 24 : 10}>
             <GameCheckerBoard isMobile={isMobile}>
               <GamePadding isMobile={isMobile} style={{ paddingTop: 0 }}>
-                <RoundTip isMobile={isMobile}>{currentStatus.tip}</RoundTip>
+                <RoundTip isMobile={isMobile}>
+                  <Tip round={round} isControllerEnabled={isControllerEnabled} roomInfo={roomInfo} />
+                </RoundTip>
                 <GameBackground>
                   <div style={{ flex: 1 }}>
                     <BingoController
@@ -629,7 +583,7 @@ const GameRoom: React.FC = () => {
                       onClick={handleMarkNumber}
                       matchLines={matchLines}
                     />
-                    <BingoControllerButtonWrapper>
+                    <BingoControllerButtonWrapper isMobile={isMobile}>
                       {isMobile ? (
                         <>
                           <AvatarGroup players={roomInfo.players} targetUser={roomInfo.player} border />
@@ -766,5 +720,30 @@ const GameRoom: React.FC = () => {
     </>
   )
 }
-
+const Tip = memo(({ round, roomInfo, isControllerEnabled }: { round: number; isControllerEnabled: boolean; roomInfo: IRoomInfo }) => {
+  const { t } = useCustomTranslation([LngNs.zBingo])
+  const Run = useMemo(() => {
+    const Index = roomInfo.players.findIndex(address => addressIsEqual(address.user, roomInfo.player))
+    if (Index !== -1) {
+      return Index + 1
+    }
+    return 0
+  }, [roomInfo.players])
+  return roomInfo.status === 'live' ? (
+    isControllerEnabled ? (
+      <div>
+        Round <span>{round}</span>
+        {"! It's your turn to choose the number"}
+      </div>
+    ) : Run ? (
+      <div>
+        Round <span>{round}</span>! Player <span>{Run}</span>, choose your number to submit!
+      </div>
+    ) : (
+      <div>{t('Synchronizing')}</div>
+    )
+  ) : (
+    <div>{t('Synchronizing')}</div>
+  )
+})
 export default GameRoom

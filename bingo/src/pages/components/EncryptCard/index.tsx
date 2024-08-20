@@ -8,8 +8,9 @@ import {
   useIsW768,
   useRecoilState,
   useSetRecoilState,
-  useWalletClient
+  useWalletHandler
 } from '@ui/src'
+import { getWeb3Sign } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cn from 'classnames'
 import { ethers } from 'ethers'
@@ -23,7 +24,6 @@ import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import generateCardNumbers, { CardNumbersType } from '@/utils/generateCardNumbers'
-import { getWeb3Sign } from '@/utils/getSign'
 
 import { ButtonPrimary } from '../Button'
 import { SetUpSubText } from '../Text'
@@ -61,7 +61,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const isMobile = useIsW768()
   const [cardNumbers, setCardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
@@ -164,7 +164,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
                           </Space>
                         </ButtonPrimary>
                       </div>
-                      <div className={css.tip}>{t('EncryptCardText5')}</div>
+                      {GlobalVar.IS_TELEGRAM ? <></> : <div className={css.tip}>{t('EncryptCardText5')}</div>}
                     </Space>
                   </div>
                 </div>

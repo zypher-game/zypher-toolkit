@@ -34,12 +34,14 @@
     font-size:12px
   .title 
     padding-bottom: 10px;
+    font-family: Lemon;
     font-size: 25px
     font-weight: 600;
     @media screen and (max-width: 830px)
       font-size: 18px
   .subtitle 
     font-size: 12px;
+    font-family: Lemon;
     img 
       padding-right: 8px;
 .startGame

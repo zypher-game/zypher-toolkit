@@ -11,6 +11,8 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
   padding: ${({ isMobile }) => (isMobile ? '15px' : '24px')};
 
   color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
   font-size: ${({ isMobile }) => (isMobile ? '12px' : '16px')};
   line-height: 24px;
   height: 100%;
@@ -31,9 +33,9 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
     }
   }
   .rules-title {
-    font-weight: 700;
     color: #613c17;
-
+    font-family: Lemon;
+    font-weight: 400;
     font-size: 16px;
     line-height: 24px;
     margin: 0;
@@ -64,7 +66,8 @@ const RulseWrapper = styled(Wrapper)`
 
 const BingoRules = styled.div`
   color: #613c17;
-
+  font-family: Lemon;
+  font-weight: 400;
   font-size: 20px;
   @media (max-width: 768px) {
     font-size: 14px;

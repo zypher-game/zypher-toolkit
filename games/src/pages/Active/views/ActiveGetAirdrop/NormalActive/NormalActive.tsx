@@ -15,9 +15,9 @@ const NormalActive = memo(() => {
         title={
           <>
             <h3>
-              Your media account is active, you can get <strong>{airdropPoints}</strong> airdrop points.
+              Hey! your media account is active and you are eligible to receive <strong>{airdropPoints}</strong> airdrop points.
             </h3>
-            <h3>But the wallet is unactive.</h3>
+            <h3>However, your wallet is currently inactive.</h3>
           </>
         }
         frImgPath={preStaticUrl + '/img/tvl/airdrop_data2.png'}

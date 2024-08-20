@@ -1,7 +1,7 @@
 import { useChainModal } from "../../../../index";
 import { isEqual } from "../../../../utils/lodash";
 import React, { memo, useCallback } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 
@@ -84,6 +84,7 @@ const ChainSelectorWidget = memo(({ className, direction_type }: IProps) => {
           <img
             decoding="async"
             loading="lazy"
+            className={`ChainImage_${chainId}`}
             src={config.ChainImage[chainId]}
             alt={config.ChainName[chainId]}
           />

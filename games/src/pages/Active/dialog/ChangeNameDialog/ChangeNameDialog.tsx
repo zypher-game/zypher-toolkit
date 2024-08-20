@@ -20,7 +20,7 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@/utils/getSign'
+import { getWeb3Sign } from '@ui/src'
 
 import { canNext } from '../../hooks/activeHooks'
 import { useChainIndex } from '../../hooks/useChainIndex'

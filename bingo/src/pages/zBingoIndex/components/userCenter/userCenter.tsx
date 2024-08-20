@@ -1,4 +1,4 @@
-import { getShortenAddress, TelegramUserInfoState, useIsW768, useRecoilValue } from '@ui/src'
+import { getShortenAddress, GlobalVar, TelegramUserInfoState, useIsW768, useRecoilValue } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -19,9 +19,9 @@ const UserCenter = memo(() => {
   }
   return (
     <div className={`${css.userCenter} ${window.IS_TELEGRAM ? css.userTgCenter : ''}`}>
-      <BingoPlayerAvatar account={account} showAccount={false} size={isMobile ? 40 : 62} />
+      <BingoPlayerAvatar account={account} showAccount={false} size={isMobile ? (window.IS_TELEGRAM ? 50 : 40) : 62} />
       <div className={css.userAddress}>
-        <p className={css.addressLabel}>{userInfo ? userInfo.name : getShortenAddress(account)}</p>
+        <p className={css.addressLabel}>{GlobalVar.IS_TELEGRAM ? userInfo?.name ?? 'BingoPlayer' : getShortenAddress(account)}</p>
         {bingoVersion === IBingoVersion.v1 ? <LevelIcon gamesWonNumber={gamesWonNumber} /> : null}
         {/* <MonsterIcon hasMonsterNft={hasMonsterNft} /> */}
       </div>
@@ -29,6 +29,7 @@ const UserCenter = memo(() => {
         <Item amount={gamesLen} label="Games" />
         <Item amount={gamesWon} label="Games Win" />
         <Item amount={winningPercent + '%'} label="Winning" />
+        {GlobalVar.IS_TELEGRAM ? <Item amount={userInfo?.star ?? '0'} label="Points" /> : null}
       </ul>
     </div>
   )

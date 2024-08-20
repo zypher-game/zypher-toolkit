@@ -103,10 +103,11 @@ const StateButton = styled.div<{ status: boolean }>`
 const Card = styled.div`
   border-radius: 8px;
   background: #ffd6a2;
-
   margin-bottom: 10px;
   font-size: 12px;
   color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
   .card-info {
     border-radius: 8px;
     background: #ffe4bb;

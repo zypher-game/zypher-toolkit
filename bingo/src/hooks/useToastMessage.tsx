@@ -1,4 +1,4 @@
-import { preStaticUrl, SvgComponent, useActiveChainId } from '@ui/src'
+import { preStaticUrl, SvgComponent, useActiveWeb3React } from '@ui/src'
 import { notification } from 'antd'
 import React, { useEffect } from 'react'
 
@@ -7,7 +7,7 @@ import { changeUserStateValue } from '../store/user/reducer'
 import { env } from '../utils/config'
 
 export const useToastMessage = () => {
-  const { chainId } = useActiveChainId(env)
+  const { chainId } = useActiveWeb3React(env)
   const error: any = useAppSelector(state => state.user.error)
   const success: any = useAppSelector(state => state.user.success)
   const dispatch = useAppDispatch()

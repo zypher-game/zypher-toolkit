@@ -2,6 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
   getProvider,
+  GlobalVar,
   LngNs,
   preStaticUrl,
   SvgComponent,
@@ -12,7 +13,7 @@ import {
   useRecoilState
 } from '@ui/src'
 import { usePublicNodeWaitForTransaction } from '@ui/src'
-import { useWalletClient } from '@ui/src'
+import { useWalletHandler } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cx from 'classnames'
 import { sample } from 'lodash'
@@ -53,6 +54,8 @@ const CardBack = styled.div<{ isMobile: boolean }>`
   padding-bottom: ${({ isMobile }) => isMobile && '0px'};
   font-size: 16px;
   color: #613c17;
+  font-family: Lemon;
+  font-weight: 400;
 `
 const FlexCenter = styled.div<{ isMobile: boolean }>`
   width: 100%;
@@ -83,8 +86,8 @@ const LineupUsersWrapper = styled.div<{ isMobile: boolean }>`
   }
 `
 const BingoCardView = styled.div<{ isMobile: boolean }>`
-  width: ${({ isMobile }) => (isMobile ? '294px' : '356px')};
-  height: ${({ isMobile }) => (isMobile ? '329px' : '399px')};
+  width: ${({ isMobile }) => (isMobile ? '200px' : '356px')};
+  height: ${({ isMobile }) => (isMobile ? '250px' : '399px')};
   padding: ${({ isMobile }) => (isMobile ? '15px' : '20px')};
   margin-top: 15px;
 `
@@ -103,7 +106,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [isCard, setIsCard] = useState(false)
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const { isPlaying, gameId } = useRestoreGame()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const chainIdParams = useChainIdParams()
@@ -208,7 +211,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
           <Row>
             <Col flex={'200px'}>
               <CardBack isMobile={isMobile} onClick={() => setIsCard(false)}>
-                {t('Back')}
+                {'<'} {t('Back')}
               </CardBack>
             </Col>
             <Col flex={'auto'}>
@@ -261,7 +264,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
               </Space>
             </ButtonPrimary>
           </Space>
-          <div className={css.tip}>{t('SubmitCardText4')}</div>
+          {GlobalVar.IS_TELEGRAM ? <></> : <div className={css.tip}>{t('SubmitCardText4')}</div>}
         </div>
       )}
     </>

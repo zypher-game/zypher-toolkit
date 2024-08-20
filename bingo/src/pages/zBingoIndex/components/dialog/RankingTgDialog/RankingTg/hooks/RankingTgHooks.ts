@@ -1,9 +1,5 @@
-import { graphqlApiUrl, httpGet, TelegramUserInfoDto, TelegramUserInfoState, TG_BOT_URL, useRecoilValue } from '@ui/src'
+import { httpGet, TelegramUserInfoDto, TelegramUserInfoState, TG_BOT_URL, useRecoilValue } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
-
-import { defaultRankChainId } from '@/constants/constants'
-import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { IBingoVersion } from '@/pages/state/state'
 
 export const useTgRanking = (): {
   ranking: TelegramUserInfoDto[] | undefined
@@ -21,7 +17,7 @@ export const useTgRanking = (): {
     setRankingTg(undefined)
     setLoading(true)
     const result = await httpGet<TelegramUserInfoDto[]>(`${TG_BOT_URL}/ranking/get`)
-    if (result.data.length) {
+    if (result.data && result.data.length) {
       setRankingTg(result.data.map((v, index) => ({ ...v, index: `${index + 1}` })))
     }
     setLoading(false)
@@ -34,16 +30,19 @@ export const useTgRanking = (): {
     }
     setMyItem(undefined)
     setLoading(true)
+    let isLocal = false
     if (ranking && ranking.length) {
       const filter = ranking.filter(v => v.evmWallet === userInfo.evmWallet)
       if (filter && filter.length) {
+        isLocal = true
         setMyItem(filter[0])
-      } else {
-        const result = await httpGet<TelegramUserInfoDto>(`${TG_BOT_URL}/ranking/get/me?id=${userInfo.id}`)
-        console.log('dddd', result)
-        if (result.data) {
-          setMyItem(result.data)
-        }
+      }
+    }
+    if (!isLocal) {
+      const result = await httpGet<TelegramUserInfoDto>(`${TG_BOT_URL}/ranking/get/me?id=${userInfo.id}`)
+      console.log('dddd', result)
+      if (result.data) {
+        setMyItem(result.data)
       }
     }
     setLoading(false)

@@ -96,7 +96,7 @@ const ActiveTVLTeam = memo(() => {
             <div className={`${css.show_team} ${css.mt20}`}>
               <TeamWarn showTeamWarn={showTeamWarn} setShowTeamWarn={setShowTeamWarn} teamMembers={teamMembers.slice(0, 5)} />
             </div>
-            <h2 className={`${css.title} ${isW768 ? '' : css.mt30} ${css.mb20}`}>Team member</h2>
+            <h2 className={`${css.title} ${isW768 ? '' : css.mt30} ${css.mb20}`}>Team members</h2>
             <div className={css.team}>
               {loading ? <NoDataListLoading /> : null}
               {!loading ? (

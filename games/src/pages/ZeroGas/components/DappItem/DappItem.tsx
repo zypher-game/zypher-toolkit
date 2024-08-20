@@ -1,5 +1,5 @@
 import { ActivePixelButtonColor, PixelBorderCard, useIsW768 } from '@ui/src'
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 
 import css from './DappItem.module.styl'
 
@@ -9,9 +9,15 @@ export type IDappItem = {
   content: string
   Rewards?: string[]
   btnText: string
+  link?: string
 }
 const DappItem = memo(({ item }: { item: IDappItem }) => {
   const isW768 = useIsW768()
+  const toPath = useCallback(() => {
+    if (item.link) {
+      window.open(item.link)
+    }
+  }, [item.link])
   return (
     <PixelBorderCard className={css.dappCard} pixel_height={4} backgroundColor="#0c1220" borderColor="#3A4254">
       <div className={css.top}>
@@ -26,7 +32,7 @@ const DappItem = memo(({ item }: { item: IDappItem }) => {
             {item.Rewards ? item.Rewards.map(v => <p key={v} className={css.text} dangerouslySetInnerHTML={{ __html: v }} />) : <p>Coming Soon</p>}
           </div>
         </PixelBorderCard>
-        <ActivePixelButtonColor themeType="brightBlue" pixel_height={3} height={isW768 ? '28px' : '36px'} className={css.dappBtn}>
+        <ActivePixelButtonColor themeType="brightBlue" pixel_height={3} height={isW768 ? '28px' : '36px'} className={css.dappBtn} onClick={toPath}>
           <p>{item.btnText}</p>
         </ActivePixelButtonColor>
       </div>

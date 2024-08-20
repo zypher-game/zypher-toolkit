@@ -47,13 +47,15 @@
     border: 1px solid #59b407
     font-weight: 600
 .label
-  font-size: 14px;
+  font-size: 12px;
   position: absolute;
   left: 0;
   top: 38px;
   max-width: 218px;
+  font-family: Lemon;
   color: #b46f26
   @media screen and (max-width: 830px)
+    font-size: 14px;
     font-weight: 600
   &.on
     color: #59b407

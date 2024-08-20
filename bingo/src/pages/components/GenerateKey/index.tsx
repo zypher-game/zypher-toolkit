@@ -1,14 +1,16 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import {
+  GlobalVar,
   LngNs,
   preStaticUrl,
   useCustomTranslation,
   useIsW768,
   useResetRecoilState,
   useSetRecoilState,
-  useWalletClient,
+  useWalletHandler,
   walletModalOpenState
 } from '@ui/src'
+import { getWeb3Sign } from '@ui/src'
 import { Space } from 'antd'
 import cx from 'classnames'
 import React, { useState } from 'react'
@@ -18,7 +20,6 @@ import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { gameRoomState, joinGameState, JoinGameStateType, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@/utils/getSign'
 
 import { ButtonPrimary } from '../Button'
 import { SetUpSubText } from '../Text'
@@ -37,7 +38,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const handleGenerateKey = async () => {
     if (!chainId || !account) {
       return
@@ -48,7 +49,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
     try {
       const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('Operation timed out')), 20000)
+        setTimeout(() => reject(new Error('Operation timed out')), 10000)
       })
       await Promise.race([
         (async () => {
@@ -96,7 +97,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
           </ButtonPrimary>
         )}
       </div>
-      <div className={css.tip}>{t('EncryptCardText5')}</div>
+      {GlobalVar.IS_TELEGRAM ? <></> : <div className={css.tip}>{t('EncryptCardText5')}</div>}
     </div>
   )
 }

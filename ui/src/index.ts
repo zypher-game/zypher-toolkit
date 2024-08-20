@@ -30,6 +30,7 @@ export {
   useSpring,
 };
 export { dialogVariants } from "./constant/motionConstant";
+
 export { AllChainInfo } from "./constant/chains";
 
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
@@ -102,6 +103,7 @@ export {
   TaskFollowZypher,
   TaskReweet1,
 } from "./constant/constant";
+export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export {
   TVL_API,
   TVLChainId,
@@ -119,7 +121,11 @@ export {
   ITvlHero,
   L3ChainId,
 } from "./constant/tvlConstant";
-export { TelegramUserInfoState, useWebAppData } from "./hooks/useTelegramUser";
+export {
+  TelegramUserInfoState,
+  useTelegramUser,
+  useWebAppData,
+} from "./hooks/useTelegramUser";
 export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
@@ -137,9 +143,9 @@ export {
 } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
 export {
-  useTelegramUser,
   useTelegramAccountInit,
   TelegramUserInfoDto,
+  RefreshState,
 } from "./hooks/useTelegramUser";
 export {
   connectorState,
@@ -197,7 +203,6 @@ export { default as TonConnectUIProvider } from "./provider/TonConnectUIProvider
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useAvatar } from "./hooks/useAvatar";
 
-export { useActiveChainId } from "./hooks/useActiveChainId";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
@@ -225,7 +230,8 @@ export {
 import { changeLanguage } from "i18next";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
-
+export { addressIsEqual } from "./utils/addressIsEqual";
+export { getWeb3Sign } from "./utils/getSign";
 export {
   getContract,
   getContractFromRpc,

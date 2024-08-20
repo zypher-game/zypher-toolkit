@@ -107,11 +107,12 @@ const theme: ITheme = {
       },
       {
         logo: `${preStaticUrl}/img/layout/Candy.png`,
-        title: 'Zypher Dex',
+        title: 'ZytronDEX',
         content:
-          'Zypher Dex is the first Dex deployed by Zypher on Zytron L3, which not only meets the basic transaction needs of Layer 3 users, but also obtains farm benefits.',
+          'ZytronDEX is the first DEX deployed by on Zytron Linea Layer3. It not only fulfills the essential transaction requirements of Layer 3 users, but also offers unique farming benefits, enhancing your experience in the ecosystem.',
         Rewards: ['<i>2000 ZDX</i> rewards per day'],
-        btnText: 'Enjoy And Play'
+        btnText: 'Enjoy And Play',
+        link: 'https://zytron-dex.zypher.game/swap'
       }
     ]
   }
@@ -220,7 +221,7 @@ const ZeroGas = memo(() => {
                 </div>
 
                 <div className={css.flBanner}>
-                  <h3 className={css.title}>Staking for Zero Gas on {text} Zytron L3</h3>
+                  <h3 className={css.title}>Staking for Zero Gas on Zytron {text} Layer3</h3>
                   <PixelBorderCard className={css.stakingCard} pixel_height={4} backgroundColor="#0d1425" borderColor="#3A4254">
                     <div className={css.stakingTop}>
                       <div className={css.stakingTopFl}>

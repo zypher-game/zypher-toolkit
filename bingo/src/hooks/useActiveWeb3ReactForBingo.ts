@@ -6,7 +6,7 @@ import {
   useChainId,
   usePublicClient,
   useRecoilValue,
-  useWalletClient
+  useWalletHandler
 } from '@ui/src'
 import { useMemo } from 'react'
 import { PublicClient } from 'wagmi'
@@ -23,7 +23,7 @@ export function useActiveWeb3ReactForBingo(): {
   const _chainId = useChainId()
   const { address } = useAccount()
   const provider = usePublicClient() as PublicClient
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     const chainId = `${_chainId}` as ChainId

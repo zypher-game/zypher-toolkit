@@ -5,7 +5,7 @@ import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { useAccountInvitation } from '@ui/src'
 import { usePublicNodeWaitForTransaction } from '@ui/src'
-import { useWalletClient } from '@ui/src'
+import { useWalletHandler } from '@ui/src'
 import { Modal, Space } from 'antd'
 import React, { useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -34,8 +34,7 @@ const GameExit: React.FC = () => {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const { id: gameId } = useParams()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const dispatch = useAppDispatch()
-  const { data: walletClient } = useWalletClient()
+  const walletClient = useWalletHandler()
   const { postAccountUpdate } = useAccountInvitation(env)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const handleClick = async () => {

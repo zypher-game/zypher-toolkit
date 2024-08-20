@@ -31,10 +31,10 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@Zypher_Games" />
   <meta name="twitter:image:alt" content="zBingo" />
-  <link rel="stylesheet" href="https://static-dev.zypher.game/css/bingo/init-v2.css" />
+  <link rel="stylesheet" href="https://static-dev.zypher.game/css/bingo/init.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0QHB6VSZV"></script>
 
-  <script src="https://fastly.jsdelivr.net/npm/eruda"></script><script>eruda.init()</script>
+  <!-- <script src="https://fastly.jsdelivr.net/npm/eruda"></script><script>eruda.init()</script> -->
 
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -58,7 +58,6 @@
     window.IS_Localhost = window.location.host.startsWith("192.168")
     // window.IS_TELEGRAM = IS_Localhost ? true:isTelegram()
     window.IS_TELEGRAM = isTelegram()
-    // window.IS_TELEGRAM = isTelegram()
     if (location.href.match(/tgtest=1/)) {
       window.IS_TELEGRAM = true
     }

@@ -25,6 +25,7 @@ export interface TelegramUserInfoDto {
   lastLoginAt: string;
   lastShareAt: string;
   lastBingoAt: string;
+  bingoAt: string;
   createdAt: string;
   updatedAt: string;
   star: string;
@@ -33,6 +34,11 @@ export interface TelegramUserInfoDto {
   tonWallet: string;
   index?: string; // ranking 排名
 }
+export const RefreshState = atom({
+  key: "RefreshState",
+  default: 0,
+});
+
 export const TelegramUserInfoState = atom({
   key: "TelegramUserInfoState",
   default: null as null | TelegramUserInfoDto,
@@ -66,6 +72,8 @@ const getFaucet = async (WebAppData: IWebAppData) => {
 export const useTelegramUser = () => {
   const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
+  const refresh = useRecoilValue(RefreshState);
+
   const user = useEffectValue(
     null,
     async () => {
@@ -84,7 +92,7 @@ export const useTelegramUser = () => {
         return (await res).data;
       }
     },
-    [WebAppData?.user]
+    [WebAppData?.user, refresh]
   );
   console.log({ user });
   useEffect(() => {

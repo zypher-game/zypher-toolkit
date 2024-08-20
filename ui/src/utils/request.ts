@@ -72,7 +72,15 @@ export const httpGet = async <T = any>(
       });
     });
 };
-
+const httpGetOnceCache: Record<string, Promise<any>> = {};
+export const httpGetOnce = async (url: string) => {
+  if (url in httpGetOnceCache) return httpGetOnceCache[url];
+  httpGetOnceCache[url] = httpGet(url).catch((err) => {
+    delete httpGetOnceCache[url];
+    return err;
+  });
+  return httpGetOnceCache[url];
+};
 export const httpPost = async <T = any>(
   ...params: Parameters<typeof httpClient.post>
 ): Promise<HTTP_Response_Data<T>> => {

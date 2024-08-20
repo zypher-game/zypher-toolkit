@@ -21,8 +21,7 @@ module.exports = {
   },
   externals: {
     react: 'React',
-    'react-dom': 'ReactDOM',
-    ethers: 'ethers'
+    'react-dom': 'ReactDOM'
   },
   plugins: [
     new webpack.DefinePlugin({
@@ -68,14 +67,6 @@ module.exports = {
             type: 'js'
           },
           global: 'crypto'
-        },
-        {
-          module: 'ethers',
-          entry: {
-            path: 'https://static.zypher.game/lib/ethers/5.7.2/ethers.umd.min.js',
-            type: 'js'
-          },
-          global: 'ethers'
         }
       ]
     }),
