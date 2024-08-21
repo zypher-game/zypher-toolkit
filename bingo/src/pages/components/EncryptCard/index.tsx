@@ -21,6 +21,7 @@ import BingoBoardView from '@/components/BingoBoardView'
 import bingoCard from '@/contract/bingoCard'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
+import { useGetSignedCard } from '@/pages/zBingoIndex/hooks/usePlay'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import generateCardNumbers, { CardNumbersType } from '@/utils/generateCardNumbers'
@@ -65,7 +66,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
-
+  const { getSignedCard } = useGetSignedCard()
   const handleReset = useCallback(() => {
     setCardNumbers(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   }, [])
@@ -79,40 +80,11 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
       return
     }
     setPending(true)
-    const cardContract = bingoCard({
-      chainId,
-      env,
-      bingoVersion,
-      walletClient
-    })
     try {
-      const cardNums = cardNumbers.reduce(
-        (prev, curr) => {
-          prev[curr.row - 1].push(curr.num)
-          return prev
-        },
-        [[], [], [], [], []] as number[][]
-      )
-      const encodedNumbers = await cardContract.read.encodeCardNumbers([cardNums])
-      const hashedCardBytes = ethers.utils.hexConcat([
-        '0x456e7472797074656420436172643a20', // 'Encrypted Card: '
-        joinGame.signedLabel,
-        encodedNumbers
-      ])
-      const signedCard = await getWeb3Sign(hashedCardBytes, account, true, walletClient)
-      if (typeof signedCard === 'string') {
-        setJoinGameState(state => ({
-          ...state,
-          signedCard: signedCard
-        }))
-      }
-      setGameRoom(room => ({
-        ...room,
-        cardNumbers
-      }))
+      await getSignedCard(cardNumbers)
       setCurrentStep(2)
     } catch (e) {
-      setErrorToast(e, cardContract)
+      setErrorToast(e)
     } finally {
       setPending(false)
     }

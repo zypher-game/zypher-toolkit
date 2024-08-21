@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "esnext",
-    "target": "ES2020",
+    "target": "ES2019",
     "lib": ["esnext", "dom"],
     "sourceMap": true,
     "baseUrl": ".",

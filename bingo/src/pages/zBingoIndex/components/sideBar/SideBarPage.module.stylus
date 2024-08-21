@@ -103,7 +103,6 @@
       left: 50%
       transform: translate(-50%, 0)
       bottom: 6px
-      font-weight: 600
       font-size: 15px;
       color: #fff
       font-family: Lemon

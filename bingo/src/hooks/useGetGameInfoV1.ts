@@ -1,8 +1,9 @@
-import { AllChainInfo, ChainRpcUrls, divisorBigNumber, GlobalVar, httpGet, TG_BOT_URL } from '@ui/src'
+import { AllChainInfo, ChainRpcUrls, divisorBigNumber, GlobalVar, httpGet, pathnameState, TG_BOT_URL, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { formatEther } from 'ethers/lib/utils'
 import { sample } from 'lodash'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useLocation } from 'react-router-dom'
 import { compose } from 'redux'
 import { createPublicClient, http } from 'viem'
 
@@ -73,6 +74,9 @@ const getGameInfo = (gameInfo: any, bingoVersion: IBingoVersion) => {
   }
 }
 const useGetGameInfoV1 = (gameId: string | number | undefined) => {
+  const shouldContinueRef = useRef(true) // 控制循环是否应该继续
+  const pathname = useRecoilValue<string[]>(pathnameState)
+  const location = useLocation() // 获取当前路由位置
   const { bingoVersion, chainId } = useActiveWeb3ReactForBingo()
   const _chainId = useChainIdParamsAsChainId()
   // const [tgNameList, setTgNameList] = useState<any>()
@@ -161,16 +165,28 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
     getTgName()
   }, [JSON.stringify(roomInfo.players)])
   useEffect(() => {
-    setIntervalAwait(fetchGameInfo, 1000)
-  }, [fetchGameInfo])
+    const stopInterval = setIntervalAwait(fetchGameInfo, 1000, () => shouldContinueRef.current)
+    console.log({ pathname1: location.pathname })
+    console.log({ pathname2: pathname })
+    // if (location.pathname.indexOf('room') === -1) {
+    //   console.log('Pathname changed, stopping the interval.')
+    //   shouldContinueRef.current = false // 设置为 false 来停止循环
+    // } else {
+    //   shouldContinueRef.current = true // 设置为 false 来停止循环
+    // }
+    // 清理函数
+    return () => {
+      stopInterval() // 停止循环
+    }
+  }, [fetchGameInfo, pathname])
 
   return useMemo(() => {
     return {
       roomInfo: {
         ...roomInfo,
-        players: roomInfo.players.map(v => ({
+        players: roomInfo.players.map((v, index) => ({
           ...v,
-          tgName: GlobalVar.IS_TELEGRAM ? tgNameList[v.user.toLowerCase()] ?? 'Bingo' + Math.floor(Math.random() * 10) : undefined
+          tgName: GlobalVar.IS_TELEGRAM ? (tgNameList[v.user.toLowerCase()] ?? v.tgName ? v.tgName : `Bingo${index}`) : undefined
         }))
       },
       fetchGameInfo

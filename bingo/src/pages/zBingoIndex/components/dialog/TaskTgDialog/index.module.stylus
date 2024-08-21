@@ -55,7 +55,6 @@ body [data-reach-dialog-content].taskBg
   .num
     font-size: 16px;
     color: #613C17;
-    font-weight: 600;
 .title
   lemonFont()
   text-align: center
@@ -70,18 +69,19 @@ body [data-reach-dialog-content].taskBg
   border-radius: 8px
   margin: 8px 0 
   padding: 10px
+  font-family: Lemon
   .left
     font-size: 14px;
     color: #613C17;
     .name
       color: #613C17;
+      font-family: "Poppins";
       font-weight: 400;
     .des
       display: flex;
       align-items: center;
       justify-content: flex-start;
       gap: 8px;
-      font-weight: bold;
   > .action
     > img
       display: none;
@@ -117,4 +117,13 @@ h2.name
     height 32px
     :global(.btn-text)
       font-size: 16px
-    
+.loading
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-color: rgba(0, 0, 0, 0.3);

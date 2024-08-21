@@ -31,17 +31,18 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@Zypher_Games" />
   <meta name="twitter:image:alt" content="zBingo" />
-  <link rel="stylesheet" href="https://static-dev.zypher.game/css/bingo/init.css" />
+  <link rel="stylesheet" href="/init.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0QHB6VSZV"></script>
-
-  <!-- <script src="https://fastly.jsdelivr.net/npm/eruda"></script><script>eruda.init()</script> -->
-
+  <% if (htmlWebpackPlugin.options.isTg === "true" && htmlWebpackPlugin.options.env === "development") { %>
+  <script src="https://fastly.jsdelivr.net/npm/eruda"></script><script>eruda.init()</script>
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <% } %>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-L0QHB6VSZV');
-
+    <% if (htmlWebpackPlugin.options.isTg === "true") { %>
     const tgKey = "TelegramWebviewProxy"
     function isRecord(value) {
       return typeof value === 'object' && value !== null && !Array.isArray(value)
@@ -61,15 +62,47 @@
     if (location.href.match(/tgtest=1/)) {
       window.IS_TELEGRAM = true
     }
-    if (window.IS_TELEGRAM) {
-      document.write('<script src="https://telegram.org/js/telegram-web-app.js">\<\/script>');
-    }
+    <% } %>
   </script>
 </head>
 
 <body>
   <div id="rootLoading">
-    <svg width="320" height="92" viewBox="0 0 160 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <% if (htmlWebpackPlugin.options.isTg === "true") { %>
+      <div class="loadingBg">
+        <svg xmlns="https://www.w3.org/2000/svg" width="58" height="58" viewBox="0 0 58 58">
+          <g fill="none" fill-rule="evenodd">
+          <g transform="translate(2 1)" stroke="#FFF" stroke-width="1.5">
+          <circle cx="42.601" cy="11.462" r="5" fill-opacity="1" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="1;0;0;0;0;0;0;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="49.063" cy="27.063" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;1;0;0;0;0;0;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="42.601" cy="42.663" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;0;1;0;0;0;0;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="27" cy="49.125" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;0;0;1;0;0;0;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="11.399" cy="42.663" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;0;0;0;1;0;0;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="4.938" cy="27.063" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;0;0;0;0;1;0;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="11.399" cy="11.462" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;0;0;0;0;0;1;0" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          <circle cx="27" cy="5" r="5" fill-opacity="0" fill="#fff">
+          <animate attributeName="fill-opacity" begin="0s" dur="1.3s" values="0;0;0;0;0;0;0;1" calcMode="linear" repeatCount="indefinite"/>
+          </circle>
+          </g>
+          </g>
+          </svg>
+      </div>
+    <% } else { %>
+       <svg width="320" height="92" viewBox="0 0 160 46" fill="none" xmlns="http://www.w3.org/2000/svg">
       <mask id="mask0_3437_7219" style="mask-type: alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="156"
         height="46">
         <rect width="156" height="46" fill="#D9D9D9" />
@@ -119,7 +152,8 @@
           </path>
         </svg>
       </g>
-    </svg>
+      </svg>
+    <% } %>
   </div>
   <div id="wrap">
     <div id="root"></div>
@@ -145,8 +179,7 @@
         }
       }
     })();
-
-
+    <% if (htmlWebpackPlugin.options.isTg === "true") { %>
     document.addEventListener('DOMContentLoaded', () => {
       if (window.IS_TELEGRAM) {
         try {
@@ -174,9 +207,8 @@
           // alert(String(err))
         }
       }
-});
-
- 
+    });
+    <% } %>
   </script>
 </body>
 

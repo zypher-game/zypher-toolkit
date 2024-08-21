@@ -39,7 +39,9 @@ const TonConnectUIProvider = memo(({ children }: { children: ReactNode }) => {
           },
         ],
       }}
-      manifestUrl={`${location.origin}/bingo/tonconnect-manifest.json`}
+      manifestUrl={
+        "https://static-dev.zypher.game/json/bingo/tonconnect-manifest.json"
+      }
     >
       {children}
     </TonConnectUIProviderWidget>

@@ -75,15 +75,19 @@ export function getShortenAddress(
   preLen = 6,
   endLen = 4
 ): string {
+  let _preLen = preLen;
+  let _endLen = endLen;
   if (!address) {
     return "";
   }
-  if (address.length < 42) {
-    return address;
+  if (address.length !== 42) {
+    const len = Math.floor(`${address}`.length / 2) - 2;
+    _preLen = len < 0 ? 2 : len > preLen ? preLen : preLen;
+    _endLen = _preLen;
   }
-  const firstCharacters = address.substring(0, preLen);
+  const firstCharacters = address.substring(0, _preLen);
   const lastCharacters = address.substring(
-    address.length - endLen,
+    address.length - _endLen,
     address.length
   );
   return `${firstCharacters}...${lastCharacters}`;

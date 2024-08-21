@@ -29,7 +29,8 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './public/index.html',
       preLink: preLink,
-      env: process.env.NODE_ENV || 'development'
+      env: process.env.NODE_ENV ?? 'development',
+      isTg: process.env.IS_TG ?? 'false'
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash:8].bundle.css',

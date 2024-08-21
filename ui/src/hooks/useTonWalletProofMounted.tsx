@@ -10,6 +10,13 @@ export const useTonWalletProofMounted = () => {
   const [proof, _proof] = useState<TonProofItemReplySuccess | null>(null);
   const wallet = useTonWallet();
   useEffect(() => {
+    console.log("ui", ui);
+    ui.setConnectRequestParameters({
+      state: "ready",
+      value: { tonProof: "ZypherGame2048" },
+    });
+  }, []);
+  useEffect(() => {
     if (
       wallet?.connectItems?.tonProof?.name === "ton_proof" &&
       "proof" in wallet.connectItems.tonProof

@@ -17,6 +17,9 @@ export const setErrorToast = function (rawError: any, options?: TransactionError
     obj.name = res.reason ?? 'Error'
     obj.message = res.message ?? ''
   }
+  if (obj.message.indexOf('Execution') > -1 && GlobalVar.IS_TELEGRAM) {
+    return
+  }
   GlobalVar.dispatch(
     changeUserStateValue({
       key: 'error',

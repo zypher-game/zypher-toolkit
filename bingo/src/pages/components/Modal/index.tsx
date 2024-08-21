@@ -127,7 +127,8 @@ const ConfirmConfirmDialog = styled(Dialog)<{ isMobile?: boolean }>`
     margin: 0 15px;
   }
   &[data-reach-dialog-content] {
-    width: ${({ isMobile }) => (isMobile ? '90vw' : '50vw')};
+    width: ${({ isMobile }) => (isMobile ? '80vw' : '50vw')};
+    font-family: 'Lemon';
   }
   &::before {
     content: '';
@@ -162,6 +163,9 @@ const ConfirmTip = styled.div`
   font-size: 16px;
   padding-bottom: 16px;
   text-align: center;
+  @media screen and (max-width: 830px) {
+    padding-bottom: 14px;
+  }
 `
 const Logo = styled.div<{ isMobile: boolean }>`
   position: absolute;
@@ -199,6 +203,9 @@ const ConfirmTitile = styled.div`
   font-weight: 600;
   padding-bottom: 24px;
   text-align: center;
+  @media screen and (max-width: 830px) {
+    font-size: 18px;
+  }
 `
 export function ConfirmCloseModal(props: CustomDialogProps) {
   const { t } = useCustomTranslation([LngNs.zBingo])

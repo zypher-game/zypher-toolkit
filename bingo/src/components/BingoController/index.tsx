@@ -36,6 +36,9 @@ const FlexTable = styled.div`
   grid-template-columns: repeat(5, 1fr);
   grid-template-rows: repeat(5, 1fr);
   grid-gap: 5px;
+  @media screen and (max-width: 830px) {
+    width: 286px;
+  }
 `
 const SpaceActive = css`
   color: #ffc183;
@@ -63,14 +66,12 @@ const FlexCall = styled.div<{
 }>`
   border-radius: ${({ isMobile }) => (isMobile ? '18px' : '24px')};
   background: linear-gradient(180deg, #fff5e8 0%, #fbe7ce 100%);
-  // box-shadow: 0px 0px 3px 0px #5f3204, 0px 1px 2px 0px #fff inset, 0px -1px 1px 0px #c69452 inset;
-
   box-shadow: 0px 0px 3px 0px #5f3204, 0px 1px 1px 0px #ffc183 inset, 0px -1px 1px 0px #c69452 inset;
   text-align: center;
   cursor: pointer;
   overflow: hidden;
   color: #804700;
-  font-size: ${({ isMobile }) => (isMobile ? '22px' : '40px')};
+  font-size: ${({ isMobile }) => (isMobile ? '20px' : '40px')};
   ${({ disabled }) => disabled && SpaceDisabled};
   ${({ active }) => active && SpaceActive};
   ${({ turn }) => turn && SpaceSelect};
@@ -90,19 +91,9 @@ function BingoItem({ num, onClick, loading }: { num: number; loading: number; on
   const antIcon = <LatticeIcon src={preStaticUrl + '/img/bingo/loading.svg'} />
   const isMobile = useIsW768()
 
-  // const handleClickSpace = async () => {
-  //   setLoading(true)
-  //   try {
-  //     await onClick()
-  //   } catch (error) {
-  //   } finally {
-  //     setLoading(false)
-  //   }
-  // }
-
   return (
     <Lattice spinning={loading === num} indicator={antIcon} size="large" isMobile={isMobile}>
-      <div onClick={onClick} style={{ padding: '10px' }}>
+      <div onClick={onClick} style={{ padding: '10px 14px' }}>
         {num}
       </div>
     </Lattice>

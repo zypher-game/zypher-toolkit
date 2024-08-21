@@ -10,8 +10,7 @@
     text-align: center
     max-width: 570px
     margin: 8px auto 32px
-    lemonFont()
-
+    color: #62380C
   .pending
     flexCenter()
     font-style: normal
@@ -60,6 +59,7 @@
     text-align: center
     color: #59B407
     cursor: pointer
+    font-family: Lemon
 		@media screen and (max-width: 830px)
       margin: 14px 0 6px
   .players

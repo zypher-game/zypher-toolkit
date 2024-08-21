@@ -13,6 +13,8 @@
     border-radius: 12px
     width: 355px
     height: 621px
+    &.tg
+      background-image: url($preStaticUrl + '/img/bingo/pannel_m_tg.png')
     &.en_US
       background-image: url($preStaticUrl + '/img/bingo/pannel_m_en_US.png')
     &.ko_KR

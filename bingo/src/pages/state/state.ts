@@ -90,6 +90,10 @@ export const gameRoomState = atom<GameRoomStateType>({
   effects_UNSTABLE: [localStorageEffect('gameRoomState')]
 })
 
+export const showCloseModalState = atom({
+  key: 'showCloseModalState',
+  default: false
+})
 export const startGameStep = atom({
   key: 'startGameStep',
   default: 0

@@ -41,6 +41,10 @@ const FlexBetween = styled.div`
   align-items: center;
   justify-content: space-between;
   padding: 10px;
+  .bingo_question {
+    width: 32px;
+    height: 32px;
+  }
 `
 const Box = styled.div``
 
@@ -126,7 +130,14 @@ const ControllerMenu: React.FC = memo(() => {
               <SoundEffectSwitch />
             </Box>
             <Box>
-              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/question.svg`} alt="" onClick={() => setRulesModalOpen(true)} />
+              <img
+                decoding="async"
+                className="bingo_question"
+                loading="lazy"
+                src={preStaticUrl + `/img/bingo/question.png`}
+                alt=""
+                onClick={() => setRulesModalOpen(true)}
+              />
             </Box>
           </Space>
           <Space>

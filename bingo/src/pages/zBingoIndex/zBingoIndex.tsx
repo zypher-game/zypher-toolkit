@@ -5,6 +5,7 @@ import React, { memo } from 'react'
 import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useRecentGames } from '@/hooks/useRecentGames'
 
+import StartGameDialog from '../components/StartGameDialog/StartGameDialog'
 import { bingoVersionState, IBingoVersion } from '../state/state'
 import Inner from './components/Inner/Inner'
 import InnerBeta from './components/InnerBeta/InnerBeta'
@@ -25,6 +26,7 @@ const zBingoIndex = memo(() => {
       <RightBar />
       {bingoVersion === IBingoVersion.beta ? <InnerBeta listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} /> : null}
       {bingoVersion === IBingoVersion.v1 ? <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} /> : null}
+      <StartGameDialog />
     </>
   )
 }, isEqual)

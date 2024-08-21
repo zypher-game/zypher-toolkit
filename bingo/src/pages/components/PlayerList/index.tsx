@@ -215,7 +215,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
                           Player {data.findIndex(i => addressIsEqual(i.user, item)) + 1} {addressIsEqual(item, account) && '(you)'}
                         </div>
                       }
-                      description={<div className={css.address}>{tgName && tgName !== '' ? tgName : getShortenAddress(item)}</div>}
+                      description={<div className={css.address}>{getShortenAddress(tgName && tgName !== '' ? tgName : item)}</div>}
                     />
                   </Col>
                   <Col span={6}>

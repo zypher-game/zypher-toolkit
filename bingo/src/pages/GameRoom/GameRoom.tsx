@@ -75,16 +75,25 @@ const RoundTip = styled.div<{ isMobile: boolean }>`
 `
 
 const GameCheckerBoard = styled.div<{ isMobile: boolean }>`
-  border-radius: ${({ isMobile }) => (isMobile ? '50px' : '72px ')};
-  padding-top: ${({ isMobile }) => (isMobile ? '10px' : '20px ')};
+  border-radius: 72px;
+  padding-top: 20px;
   background: radial-gradient(60.29% 8.91% at 49.84% -4.99%, #f8a844 0%, #ca7c16 100%);
+  @media (max-width: 768px) {
+    border-radius: 50px;
+    padding-top: 10px;
+    width: 340px;
+  }
 `
 const GamePadding = styled.div<{ isMobile: boolean }>`
-  border-radius: ${({ isMobile }) => (isMobile ? '42px' : '60px ')};
-
+  border-radius: 60px;
   background: #eabf6e;
-  padding: ${({ isMobile }) => (isMobile ? '15px' : '27px 21px')};
+  padding: 0 21px 27px;
   box-shadow: 0px -0.10000000149011612px 1px 0px #d09528 inset;
+  @media (max-width: 768px) {
+    border-radius: 42px;
+    padding: 0 10px 15px;
+    width: 330px;
+  }
 `
 const GameBackground = styled.div`
   border-radius: 40px;
@@ -97,6 +106,7 @@ const GameBackground = styled.div`
   flex-wrap: wrap;
   box-shadow: 0px 7px 0px 0px rgba(0, 0, 0, 0.25) inset, 0px 1px 0px 0px #f5cb89 inset, 0px -7px 0px 0px #ffe0a6 inset;
   @media (max-width: 768px) {
+    padding: 15px 12px;
     height: auto;
   }
 `
@@ -156,22 +166,6 @@ const BingoControllerButtonWrapper = styled.div<{ isMobile: boolean }>`
   justify-content: space-between;
   padding-top: ${({ isMobile }) => (isMobile ? '10px' : ' 20px')};
   gap: 10px;
-`
-const MatchLinesWrapper = styled.div<{ isMobile: boolean }>`
-  border-color: #ffd690;
-  border-width: 3px;
-  border-style: solid;
-  font-size: ${({ isMobile }) => (isMobile ? '24px' : ' 34px')};
-  color: #fff5e1;
-  text-shadow: -1px -1.5px 0px #381f05;
-  width: ${({ isMobile }) => (isMobile ? '128px' : ' 147px')};
-  height: ${({ isMobile }) => (isMobile ? '54px' : ' 80px')};
-  line-height: ${({ isMobile }) => (isMobile ? '48px' : ' 74px')};
-  text-align: center;
-  /* padding: ${({ isMobile }) => (isMobile ? '11px 34px' : ' 13px 29px')}; */
-  border-radius: 40px;
-  background: #613c17;
-  box-shadow: 0px 2px 0px 0px rgba(0, 0, 0, 0.25) inset, 0px 1px 0px 0px #f5cb89 inset, 0px -2px 0px 0px #f9daa6 inset;
 `
 const PlayerTurn = styled.div<{ lang: string }>`
   position: absolute;
@@ -344,6 +338,7 @@ const GameRoom: React.FC = () => {
             maxFeePerGas: gasPrice[chainId],
             maxPriorityFeePerGas: gasPrice[chainId]
           })
+          console.log({ txnReceipt })
           const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
           const selectNumberTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
           if (selectNumberTx && selectNumberTx.status === txStatus) {
@@ -374,12 +369,20 @@ const GameRoom: React.FC = () => {
       walletClient
     })
     try {
+      console.log('adfsdfadfds==', {
+        gameId,
+        markedNum,
+        cardNums,
+        joinGame: joinGame.signedLabel
+      })
       const txnReceipt = await lobbyContract.write.selectAndBingo([gameId, markedNum, cardNums, joinGame.signedLabel], {
         account: account,
         gas: gasPrice[chainId],
         maxFeePerGas: gasPrice[chainId],
         maxPriorityFeePerGas: gasPrice[chainId]
       })
+      console.log('adfsdf', { txnReceipt })
+
       const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
       const selectAndBingoTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
       if (selectAndBingoTx && selectAndBingoTx.status === txStatus) {
@@ -516,7 +519,6 @@ const GameRoom: React.FC = () => {
       }, 1500)
     }
   }, [isControllerEnabled, ispercent])
-  console.log({ isControllerEnabled, ispercent, showTurn })
   if (percent < 100) {
     return (
       <>
@@ -527,7 +529,7 @@ const GameRoom: React.FC = () => {
               <Progress
                 percent={percent}
                 showInfo={false}
-                strokeWidth={isMobile ? 10 : 30}
+                strokeWidth={isMobile ? 14 : 30}
                 trailColor={'#8E571E'}
                 strokeColor={'linear-gradient(180deg, #F0FF44 3.33%, #50A821 54.69%, #268D05 70.3%, #329A10 87.41%, #4CCE22 100%)'}
               />
@@ -545,14 +547,7 @@ const GameRoom: React.FC = () => {
         <ControllerMenu />
       </ControllerWrapper>
 
-      <div
-        style={{
-          maxWidth: '1200px',
-          margin: '0 auto',
-          padding: '10px',
-          position: 'relative'
-        }}
-      >
+      <div className={css.gameRoomCard}>
         {showTurn && <PlayerTurn lang={lang}>{t('Round number', { number: round })}</PlayerTurn>}
         <div id="game-room" className={css.gameRoom}>
           <div className={css.board}>
@@ -569,7 +564,7 @@ const GameRoom: React.FC = () => {
           </Col>
           <Col span={isMobile ? 24 : 10}>
             <GameCheckerBoard isMobile={isMobile}>
-              <GamePadding isMobile={isMobile} style={{ paddingTop: 0 }}>
+              <GamePadding isMobile={isMobile}>
                 <RoundTip isMobile={isMobile}>
                   <Tip round={round} isControllerEnabled={isControllerEnabled} roomInfo={roomInfo} />
                 </RoundTip>
@@ -588,7 +583,7 @@ const GameRoom: React.FC = () => {
                         <>
                           <AvatarGroup players={roomInfo.players} targetUser={roomInfo.player} border />
                           {matchLines.length < 2 ? (
-                            <MatchLinesWrapper isMobile={isMobile}>{matchLines.length} / 2</MatchLinesWrapper>
+                            <div className={css.matchLinesWrapper}>{matchLines.length} / 2</div>
                           ) : (
                             <ButtonPrimary
                               style={{ height: '53px' }}
@@ -615,7 +610,7 @@ const GameRoom: React.FC = () => {
                         </>
                       ) : (
                         <>
-                          <MatchLinesWrapper isMobile={isMobile}>{matchLines.length} / 2</MatchLinesWrapper>
+                          <div className={css.matchLinesWrapper}>{matchLines.length} / 2</div>
                           <ButtonPrimary
                             style={{ height: '80px', flex: 1 }}
                             borderWidth={'5px'}

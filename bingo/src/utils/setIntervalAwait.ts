@@ -1,16 +1,15 @@
-export const setIntervalAwait = (fun: () => Promise<any>, time: number) => {
+export const setIntervalAwait = (fun: () => Promise<any>, time: number, shouldContinue: () => boolean) => {
   let timer: NodeJS.Timeout
   let closed = false
-  const run = () => {
-    if (closed) {
+  const run = async () => {
+    if (closed || !shouldContinue()) {
       return
     }
-    fun().then(() => {
-      if (closed) {
-        return
-      }
-      timer = setTimeout(run, time)
-    })
+    await fun()
+    if (closed || !shouldContinue()) {
+      return
+    }
+    timer = setTimeout(run, time)
   }
   run()
 

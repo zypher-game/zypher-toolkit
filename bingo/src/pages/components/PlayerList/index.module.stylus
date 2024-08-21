@@ -35,11 +35,12 @@
 			color: #FFD64E
 		.amount
 			color: #FFD64E
+			color: #FFD64E
 	h4
 		@media screen and (max-width: 830px)
 			margin: 0
-	.name 
-		
+	.name
+		font-family: Lemon
 		color:#fff
 		@media screen and (max-width: 830px)
 			font-size: 12px;

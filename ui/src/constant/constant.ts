@@ -562,7 +562,7 @@ export const zkBingo = (
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
 export const TG_BOT_URL = isLocalhost()
-  ? "http://localhost:4000"
+  ? "http://192.168.0.11:4000"
   : "https://bingo-api.zypher.game";
 // "https://bingo-api.zypher.game";
 export const TaskTelegramBot = "https://t.me/zBingoBot";

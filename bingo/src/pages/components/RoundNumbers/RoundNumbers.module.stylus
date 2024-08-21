@@ -12,14 +12,14 @@
   display: flex;
   // gap: 13px;
   overflow: hidden;
-  
   border-radius: 21px;
   background-color: #8E571E;
+  font-family: "Lemon";
   box-shadow: 0px 3px 8px 0px rgba(0, 0, 0, 0.25) inset;
   padding: 1% 1% 1% 2%;
   width: 664px;
   @media screen and (max-width: 830px)
-    width: 328px;
+    width: 300px;
     padding: 6px 4px;
 
   &>div
@@ -55,16 +55,15 @@
       @media screen and (max-width: 830px)
         width 22px
     @media screen and (max-width: 830px)
-      width: 50px
-      height: 50px
-      line-height: 50px
+      width: 40px
+      height: 40px
+      line-height: 40px
       margin-right: 4px;
       font-size: 28px;
       border-radius: 11px;
       .span_num
         font-size: 20px;
-        height: 50px
-        font-weight: 600
+        height: 40px
 
 
     &::before 
@@ -83,11 +82,9 @@
         bottom: 3px;
         left: 3px;
         right: 3px;
-        font-weight: 600
     .span_box
       height: 100%
     .span_pass
       font-size: 20px
-      font-weight: 600
       @media screen and (max-width: 830px)
         font-size: 12px;

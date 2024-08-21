@@ -22,6 +22,7 @@
       height: 450px
     h3
       font-size: 18px
+      font-family: Lemon
       @media screen and (max-width: 830px)
         font-size: 13px
   .title 
@@ -61,7 +62,6 @@
       width: 100%
   .button
     font-style: normal
-    font-weight: 600
     font-size: 34px
     background: url($preStaticUrl + '/img/bingo/bingo_btn.png') no-repeat
     background-size: 100% 100%
@@ -70,12 +70,29 @@
     line-height: 80px
     flexCenter()
     margin: 40px auto 0
+    font-family: Lemon
     cursor pointer
+    gap: 6px
+    &.buttonAnim
+      animation: scale 0.5s infinite;
     @media screen and (max-width: 830px)
       font-size: 20px
       width: 60%
       height: 50px
       line-height: 50px
-    &:disabled
+    &.disabled
+      opacity: 0.95
       pointer-events: none
       cursor: not-allowed
+
+@keyframes scale {
+  0% {
+    transform: scale(0.95);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}

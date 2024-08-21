@@ -235,7 +235,11 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
             {t('Matching')}
             {/* <Counter start={!disabled} /> */}
           </div>
-          <div className={css.title}>{t('MatchmarkingText1')}</div>
+          <div className={css.title}>
+            {GlobalVar.IS_TELEGRAM
+              ? 'Games can start with as few as two players. You are free to start as soon as you have a single other player matched. Please do not quit during the matchmaking process.'
+              : t('MatchmarkingText1')}
+          </div>
           <LineupUsersWrapper isMobile={isMobile}>
             {joinGame.lineupUsers.concat(new Array(5 - joinGame.lineupUsers.length).fill('')).map((player, idx) => (
               <BingoPlayerAvatar

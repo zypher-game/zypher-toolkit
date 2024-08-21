@@ -4,6 +4,7 @@ import {
   httpPost,
   preStaticUrl,
   sleep,
+  SvgComponent,
   TaskFollowZypher,
   TaskJoinTelegramGroup,
   TaskReweet1,
@@ -39,13 +40,13 @@ const shareText = `Dive into the addictive world of Bingo! Slide those numbered 
 
 Feel free to tweak it as you like! 😊`
 export const OnceTask = {
-  ConnectWallet: { key: 1n, value: 100n },
-  JoinTelegram: { key: 2n, value: 100n },
-  FollowZypherTwitter: { key: 4n, value: 50n },
-  Retweet1: { key: 8n, value: 50n },
-  TelegramPremium: { key: 16n, value: 100n },
+  ConnectWallet: { key: 1, value: 100 },
+  JoinTelegram: { key: 2, value: 100 },
+  FollowZypherTwitter: { key: 4, value: 50 },
+  Retweet1: { key: 8, value: 50 },
+  TelegramPremium: { key: 16, value: 100 },
   // 初始化账号， 计算账号的初始积分
-  Init: { key: 16n, value: 0n }
+  Init: { key: 16, value: 0 }
 }
 
 const TaskTgDialog = memo(() => {
@@ -72,8 +73,7 @@ const TaskTgDialog = memo(() => {
     return Number(value)
   }, [userInfo])
   const pointAll = useMemo(() => {
-    const web2 = BigInt(star)
-    return Number(web2)
+    return Number(star)
   }, [star])
   const DailyStatus = useMemo(() => {
     if (!userInfo) {
@@ -138,7 +138,6 @@ const TaskTgDialog = memo(() => {
       return sum
     }, {} as Record<keyof typeof OnceTask, boolean>)
   }, [userInfo])
-
   const OnceTaskSubmit = async (name: string) => {
     if (loading) {
       return
@@ -276,6 +275,11 @@ const TaskTgDialog = memo(() => {
                 />
                 <TaskItemCpt name="Retweet" des="+50" checked={OnceTaskChecked?.Retweet1} action={() => OnceTaskSubmit('Retweet1')} />
               </div>
+              {loading && (
+                <div className={css.loading}>
+                  <SvgComponent src={preStaticUrl + '/img/bingo/loading-1.svg'} />
+                </div>
+              )}
             </div>
           </div>
         </DialogContent>

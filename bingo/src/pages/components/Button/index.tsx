@@ -17,7 +17,6 @@ export const BaseButton = styled.button<BaseButtonProps>`
   font-weight: 400;
   height: auto;
   font-size: ${({ size }) => size ?? '22px'};
-
   text-align: center;
   border-radius: ${({ $borderRadius }) => $borderRadius ?? '47px'};
   outline: none;
@@ -117,6 +116,7 @@ export const ButtonWrap = styled.button<{
   border-radius: ${({ $borderRadius }) => $borderRadius ?? '47px'};
   width: ${({ width }) => width ?? '100%'};
   cursor: pointer;
+  font-family: Lemon;
   &::before {
     content: ' ';
     background: url(${preStaticUrl + '/img/bingo/ellipse-big.svg'}) no-repeat;
@@ -211,11 +211,11 @@ const ButtonTextPrimary = styled.div<{
   justify-content: center;
   transition: all 0.3s ease;
   ${props => props.disabled && disabledTextStyle};
+  @media screen and (max-width: 830px) {
+    font-size: ${({ size }) => size ?? '19px'};
+  }
   &:hover {
     text-shadow: -1px -1.5px 0px #892702;
-  }
-  &.btn-text {
-    font-weight: 600;
   }
 `
 

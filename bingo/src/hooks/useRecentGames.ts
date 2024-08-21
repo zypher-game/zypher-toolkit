@@ -46,7 +46,7 @@ export const useRecentGames = () => {
     try {
       const value_pre = await batchRequestFromGraph({ env })
       const value = value_pre.filter(v => !!v)
-      if (value.length) {
+      if (value && value.length) {
         const gameList: Map<ChainId, IGameList[]> = new Map()
         for (let i = 0; i < value.length; i++) {
           if (value[i] && value[i]?.[0].chainId) {

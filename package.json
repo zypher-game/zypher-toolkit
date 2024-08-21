@@ -2,7 +2,7 @@
   "name": "@zypher-game/toolkit",
   "version": "0.2.0",
   "scripts": {
-    "bingo_start": "cd bingo && npm start"
+    "bingo_start": "cd bingo && npm run startTg"
   },
   "peerDependencies": {
     "@vanilla-extract/css": "1.9.1",

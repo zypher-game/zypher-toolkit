@@ -23,7 +23,9 @@ export default function useRestoreGame<T>() {
     }
     try {
       setLoading(true)
+      console.log('useRestoreGame ', 1)
       const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
+      console.log('useRestoreGame ', 2)
       const cardNums = resetGameRoom.cardNumbers.reduce(
         (prev, curr) => {
           prev[curr.row - 1].push(curr.num)
@@ -31,14 +33,21 @@ export default function useRestoreGame<T>() {
         },
         [[], [], [], [], []] as number[][]
       )
+      console.log('useRestoreGame ', 3, account, cardNums, joinGame.signedLabel)
       const txn = await lobbyContract.read.restoreGame([account, cardNums, joinGame.signedLabel])
-      // console.log({ txn }) // [bingnumber playingGameId  number autoEndTime  bool isCardContentMatched]
+      // console.log("useRestoreGame ",{ txn }) // [bingnumber playingGameId  number autoEndTime  bool isCardContentMatched]
       const [playingGameId, autoEndTime, isCardContentMatched] = txn
+      console.log('useRestoreGame ', 4)
       const Playing = new BigNumberJs(playingGameId).toNumber() > 0
+      console.log('useRestoreGame ', 5)
       const currentTimestamp = Math.floor(Date.now() / 1000)
+      console.log('useRestoreGame ', 6)
       const time = autoEndTime > 0 ? autoEndTime - currentTimestamp : 0
+      console.log('useRestoreGame ', 7)
       setGameId(new BigNumberJs(playingGameId).toNumber())
+      console.log('useRestoreGame ', 8)
       setGameTime(time)
+      console.log('useRestoreGame ', 9)
       setisPlaying(Playing)
       setLoading(false)
     } catch (error) {

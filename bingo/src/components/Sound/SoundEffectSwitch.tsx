@@ -8,6 +8,10 @@ import { SoundOn } from '@/pages/state/state'
 
 const Switch = styled.div`
   cursor: pointer;
+  img {
+    width: 32px;
+    height: 32px;
+  }
 `
 
 const SoundEffectSwitch = memo(() => {
@@ -22,9 +26,9 @@ const SoundEffectSwitch = memo(() => {
   return (
     <Switch onClick={toggleMusic}>
       {isSoundOn ? (
-        <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/close.svg`} alt="" />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/close.png`} alt="" />
       ) : (
-        <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/open.svg`} alt="" />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/open.png`} alt="" />
       )}
     </Switch>
   )

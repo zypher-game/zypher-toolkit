@@ -136,7 +136,7 @@ export class WagmiWalletHandler {
             value: bigint;
           };
           console.log({ arg });
-          const value = arg.value || 0n;
+          const value = arg.value || BigInt(0);
           const { domain, types } = ZytronSignTypedData(this.chainId);
           const data = {
             from: aa.address,
@@ -202,7 +202,7 @@ export class WagmiWalletHandler {
   async aaNonce() {
     try {
       const nonce = await this.aa?.contract.read.nonce();
-      return nonce || 0n;
+      return nonce || BigInt(0);
     } catch (err: any) {
       if (
         err &&
@@ -211,7 +211,7 @@ export class WagmiWalletHandler {
           /^The contract function "nonce" returned no data \("0x"\)/
         )
       )
-        return 0n;
+        return BigInt(0);
       console.log(String(err));
       throw err;
     }
