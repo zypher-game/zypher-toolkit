@@ -2461,7 +2461,7 @@ var minStakingValue = {
 var CODELENGTH = 6;
 
 // src/hooks/useTelegramUser.ts
-import { useEffect as useEffect4 } from "react";
+import { useEffect as useEffect4, useMemo as useMemo3 } from "react";
 import {
   atom,
   useRecoilState,
@@ -2543,22 +2543,38 @@ var useTelegramUser = () => {
   const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const refresh = useRecoilValue(RefreshState);
+  const account = useMemo3(() => {
+    return localStorage.getItem("TelegramUserIdEvmAddressKey");
+  }, []);
   const user = useEffectValue(
     null,
     async () => {
       console.log({ WebApp: WebAppData });
-      if (!window.IS_TELEGRAM || !(WebAppData == null ? void 0 : WebAppData.user)) {
+      if (!window.IS_TELEGRAM) {
         return null;
       }
-      if (WebAppData && WebAppData.user) {
-        const res = httpPost(`${TG_BOT_URL}/user/get`, {
-          WebAppData
-        });
+      console.log(1111, { account });
+      if (WebAppData && WebAppData.user && WebAppData.user !== "") {
+        console.log(22222, { WebAppData: WebAppData.user });
+        const { data } = await httpPost(
+          `${TG_BOT_URL}/user/get`,
+          {
+            WebAppData
+          }
+        );
         getFaucet(WebAppData);
-        console.log({ res: await res });
-        if ((await res).code)
-          return null;
-        return (await res).data;
+        console.log("user: ", { data });
+        return data;
+      } else if (account) {
+        console.log(33333, { account });
+        const { data } = await httpPost(
+          `${TG_BOT_URL}/user/get/by/evm`,
+          {
+            evm: account
+          }
+        );
+        console.log("userevm evm: ", { data });
+        return data;
       }
     },
     [WebAppData == null ? void 0 : WebAppData.user, refresh]
@@ -2590,8 +2606,10 @@ var useTelegramUser = () => {
         _WebAppData.hash = (_e = params.get("hash")) != null ? _e : "";
         _WebAppData.auth_date = (_f = params.get("auth_date")) != null ? _f : "";
         console.log({ _WebAppData });
-        setWebAppData(_WebAppData);
-        window.WebAppData = _WebAppData;
+        if (_WebAppData.user !== "") {
+          setWebAppData(_WebAppData);
+          window.WebAppData = _WebAppData;
+        }
       } catch (err) {
         console.error("WebAppData", err);
       }
@@ -2661,7 +2679,7 @@ var useTonWalletProofMounted = () => {
 };
 
 // src/hooks/useNavItem.tsx
-import React8, { useMemo as useMemo3 } from "react";
+import React8, { useMemo as useMemo4 } from "react";
 
 // src/utils/i18n.ts
 import i18n2 from "i18next";
@@ -3921,7 +3939,7 @@ var gameStatus = {
 var useNavItem = () => {
   const { t } = useCustomTranslation([LngNs.sideBar]);
   const { chainId } = useActiveWeb3React();
-  return useMemo3(() => {
+  return useMemo4(() => {
     return [
       {
         label: t("Home"),
@@ -4784,17 +4802,17 @@ var useSwapPoint = ({
 };
 
 // src/components/ConnectWallet/hooks/connectWalletHooks.ts
-import { useMemo as useMemo5 } from "react";
+import { useMemo as useMemo6 } from "react";
 import { useRecoilValue as useRecoilValue4 } from "recoil";
 var useNativeBalanceStr = () => {
   const nativeBalance = useRecoilValue4(nativeBalanceState);
-  return useMemo5(() => {
+  return useMemo6(() => {
     return formatMoney(nativeBalance, 2);
   }, [nativeBalance]);
 };
 var usePointsBalanceStr = () => {
   const pointsBalance = useRecoilValue4(pointsBalanceState);
-  return useMemo5(() => {
+  return useMemo6(() => {
     return formatMoney(pointsBalance, 0);
   }, [pointsBalance]);
 };
@@ -5098,7 +5116,7 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/SideBar/SideBar.tsx
 import classnames6 from "classnames";
-import React23, { memo as memo19, useMemo as useMemo7 } from "react";
+import React23, { memo as memo19, useMemo as useMemo8 } from "react";
 
 // src/components/SideBar/component/CommunityLink.tsx
 import React18, { memo as memo14 } from "react";
@@ -5296,7 +5314,7 @@ import React22, {
   memo as memo18,
   useCallback as useCallback11,
   useEffect as useEffect12,
-  useMemo as useMemo6,
+  useMemo as useMemo7,
   useRef as useRef5,
   useState as useState13
 } from "react";
@@ -5354,7 +5372,7 @@ var Navigation = memo18(
     );
     const linksRefs = useRef5([]);
     const { width } = useWindowSize();
-    const { isW768, isW1670, isWBig } = useMemo6(() => {
+    const { isW768, isW1670, isWBig } = useMemo7(() => {
       return {
         isW768: width <= 768,
         isW1540: width <= 1540 && width > 768,
@@ -5521,7 +5539,7 @@ var SideBar = (props) => {
   const setSideCollapse = useSetRecoilState5(sideCollapseState);
   const {
     sideBarGamesLinkList
-  } = useMemo7(() => {
+  } = useMemo8(() => {
     return {
       sideBarGamesLinkList: Games(chainId).map((v) => v.dapps.map((vv) => vv)).flat().map((v) => {
         var _a;
@@ -5601,7 +5619,7 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React26, { memo as memo22, useCallback as useCallback13, useEffect as useEffect13, useMemo as useMemo8 } from "react";
+import React26, { memo as memo22, useCallback as useCallback13, useEffect as useEffect13, useMemo as useMemo9 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
 import styled3 from "styled-components";
 
@@ -5673,7 +5691,7 @@ var LinkToBetaDialog = memo22(() => {
     linkToBetaDialogChainIdState
   );
   const isMobile2 = useIsW768();
-  const ToUrlName = useMemo8(() => {
+  const ToUrlName = useMemo9(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === "9980" /* Combo */) {
         return ["https://app.zypher.game/2048/"];
@@ -5729,7 +5747,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React93, { useEffect as useEffect33, useMemo as useMemo18 } from "react";
+import React93, { useEffect as useEffect33, useMemo as useMemo19 } from "react";
 import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue9, useSetRecoilState as useSetRecoilState13 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -6379,7 +6397,7 @@ import React37, { memo as memo30, useCallback as useCallback21 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
-import React33, { memo as memo27, useMemo as useMemo9 } from "react";
+import React33, { memo as memo27, useMemo as useMemo10 } from "react";
 import styled7 from "styled-components";
 
 // src/components/Avatar/Avatar.tsx
@@ -6535,7 +6553,7 @@ var PlayerAvatar = memo27(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const avatars2 = useAvatar(account, hideAvatars, name);
-    const avatarText = useMemo9(() => {
+    const avatarText = useMemo10(() => {
       const nameText = name != null ? name : account;
       if (nameText) {
         return `${getShortenAddress(nameText, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}`;
@@ -6690,7 +6708,7 @@ import React36, { memo as memo29, useCallback as useCallback20, useEffect as use
 import { useRecoilState as useRecoilState12 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
-import { useMemo as useMemo11 } from "react";
+import { useMemo as useMemo12 } from "react";
 
 // src/rainbowkit/src/wallets/useWalletConnectors.ts
 import { useConnect } from "wagmi";
@@ -6723,7 +6741,7 @@ function isNotNullish(value) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
-import React34, { createContext as createContext2, useContext as useContext2, useMemo as useMemo10 } from "react";
+import React34, { createContext as createContext2, useContext as useContext2, useMemo as useMemo11 } from "react";
 var RainbowKitChainContext = createContext2({
   chains: []
 });
@@ -6733,7 +6751,7 @@ function RainbowKitChainProvider({
   initialChain
 }) {
   return /* @__PURE__ */ React34.createElement(RainbowKitChainContext.Provider, {
-    value: useMemo10(
+    value: useMemo11(
       () => ({
         chains,
         initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
@@ -6748,7 +6766,7 @@ var useRainbowKitChains = () => {
 var useInitialChainId = () => useContext2(RainbowKitChainContext).initialChainId;
 var useRainbowKitChainsById = () => {
   const rainbowkitChains = useRainbowKitChains();
-  return useMemo10(() => {
+  return useMemo11(() => {
     const rainbowkitChainsById = {};
     rainbowkitChains.forEach((rkChain) => {
       rainbowkitChainsById[rkChain.id] = rkChain;
@@ -6905,7 +6923,7 @@ function useWalletConnectors() {
 // src/hooks/useActiveWallet.ts
 var useActiveWallet = () => {
   const wallets = useWalletConnectors();
-  return useMemo11(() => {
+  return useMemo12(() => {
     if (wallets) {
       const wall = wallets.filter((v) => v.ready && v.recent);
       return wall == null ? void 0 : wall[0];
@@ -6916,7 +6934,7 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React35, { memo as memo28, useCallback as useCallback19, useMemo as useMemo12 } from "react";
+import React35, { memo as memo28, useCallback as useCallback19, useMemo as useMemo13 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState11 } from "recoil";
 var MUserInfo = memo28(
@@ -6927,7 +6945,7 @@ var MUserInfo = memo28(
     const nativeBalanceStr = useNativeBalanceStr();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
-    const list = useMemo12(() => {
+    const list = useMemo13(() => {
       return [
         {
           balanceStr: pointsBalanceStr,
@@ -7313,7 +7331,7 @@ import React87, {
   createContext as createContext11,
   useCallback as useCallback32,
   useContext as useContext16,
-  useMemo as useMemo17,
+  useMemo as useMemo18,
   useRef as useRef11,
   useState as useState26
 } from "react";
@@ -7327,7 +7345,7 @@ import React39, {
   createContext as createContext3,
   useContext as useContext3,
   useEffect as useEffect18,
-  useMemo as useMemo13,
+  useMemo as useMemo14,
   useRef as useRef7
 } from "react";
 import { useAccount as useAccount2 } from "wagmi";
@@ -7359,7 +7377,7 @@ function RainbowKitAuthenticationProvider({
     }
   }, [status, adapter, isDisconnected]);
   return /* @__PURE__ */ React39.createElement(AuthenticationContext.Provider, {
-    value: useMemo13(
+    value: useMemo14(
       () => enabled ? { adapter, status } : null,
       [enabled, adapter, status]
     )
@@ -7849,17 +7867,17 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React44, { useEffect as useEffect21, useMemo as useMemo15, useState as useState19 } from "react";
+import React44, { useEffect as useEffect21, useMemo as useMemo16, useState as useState19 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-import React43, { useMemo as useMemo14 } from "react";
+import React43, { useMemo as useMemo15 } from "react";
 
 // src/rainbowkit/src/components/Icons/Icons.css.ts
 var SpinnerIconClassName = "Icons_SpinnerIconClassName__j63hpy2";
 var SpinnerIconPathClassName = "Icons_SpinnerIconPathClassName__j63hpy3";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-var useRandomId = (prefix) => useMemo14(
+var useRandomId = (prefix) => useMemo15(
   () => `${prefix}_${Math.round(Math.random() * 1e9)}`,
   [prefix]
 );
@@ -7982,7 +8000,7 @@ var EmojiAvatar = ({ address, ensImage, size }) => {
       img.onload = () => setLoaded(true);
     }
   }, [ensImage]);
-  const { color: backgroundColor, emoji } = useMemo15(
+  const { color: backgroundColor, emoji } = useMemo16(
     () => emojiAvatarForAddress(address),
     [address]
   );
@@ -10068,7 +10086,7 @@ var ScanIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
 
 // src/rainbowkit/src/components/QRCode/QRCode.tsx
 import QRCodeUtil from "qrcode";
-import React81, { useMemo as useMemo16 } from "react";
+import React81, { useMemo as useMemo17 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.css.ts
 var QRCodeBackgroundClassName = "DesktopOptions_QRCodeBackgroundClassName__vrwex40";
@@ -10099,7 +10117,7 @@ function QRCode({
 }) {
   const padding = "20";
   const size = sizeProp - parseInt(padding, 10) * 2;
-  const dots = useMemo16(() => {
+  const dots = useMemo17(() => {
     const dots2 = [];
     const matrix = generateMatrix(uri, ecl);
     const cellSize = size / matrix.length;
@@ -11664,7 +11682,7 @@ function ModalProvider({ children }) {
     onDisconnect: () => closeModals()
   });
   return /* @__PURE__ */ React87.createElement(ModalContext.Provider, {
-    value: useMemo17(
+    value: useMemo18(
       () => ({
         accountModalOpen,
         chainModalOpen,
@@ -12043,7 +12061,7 @@ var Header = (props) => {
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState13(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState13(showMiddleState);
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo18(() => {
+  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo19(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
@@ -12066,7 +12084,7 @@ var Header = (props) => {
       setSideCollapse(true);
     }
   }, [isW830]);
-  const isBingo = useMemo18(() => {
+  const isBingo = useMemo19(() => {
     return pathname === "bingo";
   }, [pathname]);
   return /* @__PURE__ */ React93.createElement("header", {
@@ -12114,7 +12132,7 @@ var Header = (props) => {
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React94, { useMemo as useMemo19 } from "react";
+import React94, { useMemo as useMemo20 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -12186,7 +12204,7 @@ var RainbowKitWithThemeProvider = ({
   chainIdList
 }) => {
   const WebAppData = useTelegramUser();
-  const { wagmiConfig, chains, computedTheme } = useMemo19(() => {
+  const { wagmiConfig, chains, computedTheme } = useMemo20(() => {
     if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList, WebAppData);
       const { chains: chains2 } = getConfigureChains(env);

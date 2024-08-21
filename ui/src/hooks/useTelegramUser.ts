@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import {
   atom,
   SetterOrUpdater,
@@ -10,6 +10,7 @@ import { useEffectValue } from "./useEffectValue";
 import { httpPost } from "../utils/request";
 import { GlobalVar, TG_BOT_URL } from "../constant/constant";
 import { localStorageEffect } from "../utils/localStorageEffect";
+import { useActiveWeb3React } from "./useActiveWeb3React";
 export type IWebAppData = {
   auth_date: string;
   hash: string;
@@ -73,23 +74,39 @@ export const useTelegramUser = () => {
   const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const refresh = useRecoilValue(RefreshState);
-
+  const account = useMemo(() => {
+    return localStorage.getItem("TelegramUserIdEvmAddressKey");
+  }, []);
   const user = useEffectValue(
     null,
     async () => {
       console.log({ WebApp: WebAppData });
-      if (!window.IS_TELEGRAM || !WebAppData?.user) {
+      if (!window.IS_TELEGRAM) {
         // if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
         return null;
       }
-      if (WebAppData && WebAppData.user) {
-        const res = httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/user/get`, {
-          WebAppData: WebAppData,
-        });
+      console.log(1111, { account });
+      if (WebAppData && WebAppData.user && WebAppData.user !== "") {
+        console.log(22222, { WebAppData: WebAppData.user });
+        const { data } = await httpPost<TelegramUserInfoDto>(
+          `${TG_BOT_URL}/user/get`,
+          {
+            WebAppData: WebAppData,
+          }
+        );
         getFaucet(WebAppData);
-        console.log({ res: await res });
-        if ((await res).code) return null;
-        return (await res).data;
+        console.log("user: ", { data });
+        return data;
+      } else if (account) {
+        console.log(33333, { account });
+        const { data } = await httpPost<TelegramUserInfoDto>(
+          `${TG_BOT_URL}/user/get/by/evm`,
+          {
+            evm: account,
+          }
+        );
+        console.log("userevm evm: ", { data });
+        return data;
       }
     },
     [WebAppData?.user, refresh]
@@ -121,8 +138,10 @@ export const useTelegramUser = () => {
         _WebAppData.hash = params.get("hash") ?? "";
         _WebAppData.auth_date = params.get("auth_date") ?? "";
         console.log({ _WebAppData });
-        setWebAppData(_WebAppData);
-        window.WebAppData = _WebAppData;
+        if (_WebAppData.user !== "") {
+          setWebAppData(_WebAppData);
+          window.WebAppData = _WebAppData;
+        }
       } catch (err) {
         console.error("WebAppData", err);
       }
