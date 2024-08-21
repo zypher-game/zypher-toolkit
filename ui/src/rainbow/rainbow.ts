@@ -32,6 +32,7 @@ import { ethers } from "ethers";
 import { TelegramWallet } from "./telegramWallet";
 import sleep from "../utils/sleep";
 import { IWebAppData } from "../hooks/useTelegramUser";
+import { tgChain } from "./utils/tgChain";
 // import mitt from "mitt";
 // export const mockBus = mitt<{ addressChange: string }>();
 const getSupportedChainIdList = (
@@ -77,57 +78,12 @@ const getConnectors = (
 ): (() => Connector<any, any>[]) => {
   const { chains } = getConfigureChains(env, chainIdList);
   if (window.IS_TELEGRAM) {
-    const provider = new ethers.providers.JsonRpcProvider(
-      ChainRpcUrls[ChainId.SagaMainnet][0]
-    );
-    const acc = new TelegramWallet(
-      (localStorage.getItem("TelegramUserIdEvmAddressKey") as Address) ||
-        zeroAddress,
-      provider,
-      TG_BOT_URL,
-      WebAppData
-    );
-    const account = acc.address as Address;
-    const pub = publicClient({ chainId: ChainId.SagaMainnet });
-    const walletClient = createWalletClient({
-      account,
-      chain: AllChainInfo[ChainId.SagaMainnet],
-      transport: custom({
-        async request({ method, params }) {
-          const useLocal = ["eth_sendTransaction", "personal_sign"].includes(
-            method
-          );
-          if (!useLocal) {
-            const res = await pub.request({ method, params });
-            return res;
-          }
-
-          if (method === "eth_sendTransaction") {
-            const fmt = { ...params[0] };
-            fmt.gasLimit = fmt.gas;
-            delete fmt.gas;
-            const txr = await acc.sendTransaction(fmt);
-            return txr.hash;
-          }
-          if (method === "personal_sign") {
-            const txr = await acc.signMessage(params[0]);
-            console.log({ txr });
-            return txr;
-          }
-        },
-      }),
-    }).extend(publicActions);
-    const mock = new MockConnector({ chains, options: { walletClient } });
-    GlobalVar.mockAcc = async (address: Address, proof: any) => {
-      acc.setAddress(address);
-      walletClient.account.address = address;
-      mock.emit("change", { account: address });
-      await sleep(0.2);
-      // mockBus.emit("addressChange", address);
-    };
-    return [mock] as any;
+    return tgChain({
+      WebAppData,
+      publicClient,
+      chains,
+    });
   }
-
   return connectorsForWallets([
     {
       groupName: "Recommended",

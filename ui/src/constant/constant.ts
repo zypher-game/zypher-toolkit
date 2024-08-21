@@ -4,7 +4,7 @@ import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
 import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
 import contract from "@zypher-game/events/contracts.json";
 import BigNumberjs from "bignumber.js";
-import { Address } from "wagmi";
+import { Address, WalletClient } from "wagmi";
 
 export const appInfo = {
   appName: "Zypher Game",
@@ -562,7 +562,7 @@ export const zkBingo = (
 
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
 export const TG_BOT_URL = isLocalhost()
-  ? "http://localhost:4000"
+  ? "http://192.168.0.11:4000"
   : "https://bingo-api.zypher.game";
 // "https://bingo-api.zypher.game";
 export const TaskTelegramBot = "https://t.me/zBingoBot";
@@ -575,6 +575,7 @@ type IGlobalVar = {
   IS_TELEGRAM: boolean;
   dispatch: (arg: any) => any;
   getContainer?: HTMLElement;
+  walletClient?: WalletClient;
   mockAcc?: any;
 };
 
@@ -582,5 +583,6 @@ export const GlobalVar: IGlobalVar = {
   IS_TELEGRAM: !!window.IS_TELEGRAM,
   dispatch: (arg: any) => null as any,
   getContainer: undefined,
+  walletClient: undefined,
   mockAcc: (address: Address, proof?: TonProofItemReplySuccess) => null as any,
 };

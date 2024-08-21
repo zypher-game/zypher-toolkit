@@ -8,5 +8,6 @@ interface HTTP_Response_Data<T = any> {
 }
 export declare const httpClient: import("axios").AxiosInstance;
 export declare const httpGet: <T = any>(url: string, config?: AxiosRequestConfig | undefined) => Promise<HTTP_Response_Data<T>>;
+export declare const httpGetOnce: (url: string) => Promise<any>;
 export declare const httpPost: <T = any>(url: string, data?: any, config?: AxiosRequestConfig | undefined) => Promise<HTTP_Response_Data<T>>;
 export {};

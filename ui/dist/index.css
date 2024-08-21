@@ -580,6 +580,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   width: 100%;
   font-weight: 600;
   text-align: center;
+  color: #fff;
 }
 @media screen and (max-width: 830px) {
   .modalTitleInnerTitle {
@@ -1573,6 +1574,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  color: #fff;
 }
 .middle_balance {
   width: 100%;
@@ -1581,9 +1583,9 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   border-bottom: 1px solid #484f60;
 }
 .middle_balance_item {
+  color: #fff;
   display: flex;
   justify-content: space-between;
-  font-weight: 600;
   font-weight: 600;
   align-items: center;
 }

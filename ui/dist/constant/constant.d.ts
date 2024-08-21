@@ -1,5 +1,5 @@
 import BigNumberjs from "bignumber.js";
-import { Address } from "wagmi";
+import { Address, WalletClient } from "wagmi";
 export declare const appInfo: {
     appName: string;
 };
@@ -80,6 +80,7 @@ type IGlobalVar = {
     IS_TELEGRAM: boolean;
     dispatch: (arg: any) => any;
     getContainer?: HTMLElement;
+    walletClient?: WalletClient;
     mockAcc?: any;
 };
 export declare const GlobalVar: IGlobalVar;

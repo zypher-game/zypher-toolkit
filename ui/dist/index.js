@@ -549,7 +549,7 @@ var zkBingo = (chainId, name) => {
     );
   }
 };
-var TG_BOT_URL = isLocalhost() ? "http://localhost:4000" : "https://bingo-api.zypher.game";
+var TG_BOT_URL = isLocalhost() ? "http://192.168.0.11:4000" : "https://bingo-api.zypher.game";
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
@@ -558,6 +558,7 @@ var GlobalVar = {
   IS_TELEGRAM: !!window.IS_TELEGRAM,
   dispatch: (arg) => null,
   getContainer: void 0,
+  walletClient: void 0,
   mockAcc: (address, proof) => null
 };
 
@@ -623,7 +624,7 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 
 // src/index.ts
 import {
-  useWalletClient as useWalletClient3,
+  useWalletClient as useWalletClient4,
   useSwitchNetwork as useSwitchNetwork2,
   useDisconnect as useDisconnect6,
   useAccount as useAccount14,
@@ -631,124 +632,52 @@ import {
   useContractReads
 } from "wagmi";
 
-// src/constant/tvlConstant.ts
-var TVL_API = "https://tvl-backend-api.zypher.game";
-var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
-  ITvlHero2["Agil"] = "Agil";
-  ITvlHero2["Yueling"] = "Yueling";
-  ITvlHero2["Celus"] = "Celus";
-  ITvlHero2["Ivan"] = "Ivan";
-  ITvlHero2["Liana"] = "Liana";
-  return ITvlHero2;
-})(ITvlHero || {});
-var TVLChainId = ((TVLChainId2) => {
-  TVLChainId2[TVLChainId2["B2"] = "223" /* B2 */] = "B2";
-  TVLChainId2[TVLChainId2["B2Testnet"] = "1123" /* B2Testnet */] = "B2Testnet";
-  TVLChainId2[TVLChainId2["LineaMainnet"] = "59144" /* LineaMainnet */] = "LineaMainnet";
-  TVLChainId2[TVLChainId2["LineaSepolia"] = "59141" /* LineaSepolia */] = "LineaSepolia";
-  return TVLChainId2;
-})(TVLChainId || {});
-var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaSepolia] : [];
-var defaultActiveChainId = TVLStakingSupportedChainId[0];
-var L3ChainId = {
-  [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
-  [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
-  [TVLChainId.LineaMainnet]: "19546" /* ZytronLineaSepoliaTestnet */,
-  [TVLChainId.LineaSepolia]: "19546" /* ZytronLineaSepoliaTestnet */
-};
-var activeTokenList = {
-  [TVLChainId.LineaSepolia]: {
-    Staking: "0x1818BC25102B0b0919c84eE0A765E110A211a774",
-    ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
-    CRHero: "0xb7aA019d86aa3aE5568DFf21DA6209fe68B9c45b",
-    Soulbound: "0x7b00c14c7D0087C3a0d37cAbbc6924566B4481E9"
-  },
-  [TVLChainId.B2Testnet]: {
-    Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
-    ZypherGameToken: "0x48C459e81aAD8B98e27002D25f191682C9a9fFBb",
-    CRHero: "0x5f441d16bA9A5e3a824f4c287eDA8019F97418f6",
-    Soulbound: "0x77DB62EAB363e6DEF480e4C63210f162438eeD77"
-  }
-};
-var tvlTokenAddress = {
-  [TVLChainId.LineaSepolia]: {
-    WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
-    wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
-    ezETH: "0x79A67D40f3e7396FC122268DC0136896cC7D7271"
-  },
-  [TVLChainId.B2Testnet]: {
-    WBTC: "0x9Cae525AdE710904FE81daF47fD26789608fe057",
-    stBTC: "0x4AC1Ba5885929aFDdbf035bA03013836db27012C"
-  }
-};
-var tvlTokens = Object.fromEntries(
-  TVLStakingSupportedChainId.map((chainId) => [
-    chainId,
-    Object.fromEntries(
-      Object.keys(tvlTokenAddress[chainId]).map((currency) => [
-        currency,
-        {
-          address: tvlTokenAddress[chainId][currency],
-          symbol: currency,
-          logoPath: getCryptoImg(
-            "token",
-            currency,
-            currency === "BTC" || currency === "WBTC" ? ".svg" : ".png"
-          ),
-          index: 2
-        }
-      ])
-    )
-  ])
-);
-var LinkPre = {
-  L: {
-    key: 1,
-    label: "L",
-    chainId: isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia
-  },
-  B: {
-    key: 2,
-    label: "B",
-    chainId: isPro() ? TVLChainId.B2 : TVLChainId.B2Testnet
-  }
-};
-var getLinkPre = (chainId) => {
-  return Object.values(LinkPre).filter((v) => v.chainId === chainId)[0];
-};
-var minStakingValue = {
-  [TVLChainId.B2]: "0.0005",
-  [TVLChainId.B2Testnet]: "0.0005",
-  [TVLChainId.LineaMainnet]: "0.01",
-  [TVLChainId.LineaSepolia]: "0.01"
-};
-var CODELENGTH = 6;
+// src/gas0/hooks/useWalletHandler.ts
+import { useWalletClient } from "wagmi";
 
-// src/hooks/useTelegramUser.ts
-import { useEffect as useEffect2 } from "react";
-import {
-  atom,
-  useRecoilState,
-  useRecoilValue,
-  useSetRecoilState
-} from "recoil";
-
-// src/hooks/useEffectValue.tsx
+// src/gas0/hooks/useGas0Balance.ts
 import { useEffect, useRef, useState } from "react";
-function useEffectValue(init, handler, deps) {
-  const [state, _state] = useState(init);
-  const ref = useRef(1);
-  useEffect(() => {
-    ref.current++;
-    const id = ref.current;
-    handler().then((res) => {
-      if (ref.current !== id)
-        return;
-      _state(res);
-    });
-  }, deps);
-  return state;
+
+// src/hooks/useActiveWeb3React.ts
+import { useMemo } from "react";
+import { useAccount, usePublicClient } from "wagmi";
+
+// src/rainbowkit/src/hooks/useChainId.ts
+import { useNetwork } from "wagmi";
+function useChainId() {
+  var _a;
+  const { chain: activeChain } = useNetwork();
+  return (_a = activeChain == null ? void 0 : activeChain.id) != null ? _a : null;
 }
+
+// src/hooks/useActiveWeb3React.ts
+function useActiveWeb3React(env, chainList) {
+  const chainId = useChainId();
+  const { address } = useAccount();
+  const provider = usePublicClient();
+  return useMemo(() => {
+    return {
+      chainId: window.IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
+      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
+      provider
+    };
+  }, [chainId, address, provider]);
+}
+
+// src/gas0/constants/Gas0Constant.ts
+var walletBytecode = "0x60c060405260066080908152652d3cba3937b760d11b60a0526000906200002790826200018e565b503480156200003557600080fd5b5060405162000cf838038062000cf883398101604081905262000058916200025a565b600280546001600160a01b0319166001600160a01b0383161790556040517fcc85e4a69ca54da41cc4383bb845cbd1e15ef8a13557a6bed09b8bea2a0d92ff90620000a6906000906200028c565b60408051918290038220602083019390935281019190915246606082015260800160408051601f198184030181529190528051602090910120600155506200030a565b634e487b7160e01b600052604160045260246000fd5b600181811c908216806200011457607f821691505b6020821081036200013557634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156200018957600081815260208120601f850160051c81016020861015620001645750805b601f850160051c820191505b81811015620001855782815560010162000170565b5050505b505050565b81516001600160401b03811115620001aa57620001aa620000e9565b620001c281620001bb8454620000ff565b846200013b565b602080601f831160018114620001fa5760008415620001e15750858301515b600019600386901b1c1916600185901b17855562000185565b600085815260208120601f198616915b828110156200022b578886015182559484019460019091019084016200020a565b50858210156200024a5787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b6000602082840312156200026d57600080fd5b81516001600160a01b03811681146200028557600080fd5b9392505050565b60008083546200029c81620000ff565b60018281168015620002b75760018114620002cd57620002fe565b60ff1984168752821515830287019450620002fe565b8760005260208060002060005b85811015620002f55781548a820152908401908201620002da565b50505082870194505b50929695505050505050565b6109de806200031a6000396000f3fe60806040526004361061004e5760003560e01c8063201ca1a31461005a5780635f5e685e1461007c5780638da5cb5b1461009c578063affed0e0146100d9578063da8c229e146100fd57600080fd5b3661005557005b600080fd5b34801561006657600080fd5b5061007a6100753660046107ec565b61013d565b005b34801561008857600080fd5b5061007a61009736600461084a565b610293565b3480156100a857600080fd5b506002546100bc906001600160a01b031681565b6040516001600160a01b0390911681526020015b60405180910390f35b3480156100e557600080fd5b506100ef60035481565b6040519081526020016100d0565b34801561010957600080fd5b5061012d61011836600461090f565b60046020526000908152604090205460ff1681565b60405190151581526020016100d0565b600154600354604080517f519a1c62344acd7d1f738f159a98ad7a2e0a3ff4e7dbe7da9dc314153d48ffc760208201526001600160a01b03891691810191909152861515606082015260808101919091526000919060a001604051602081830303815290604052805190602001206040516020016101d292919061190160f01b81526002810192909252602282015260420190565b60405160208183030381529060405280519060200120905060006101f8828686866104d9565b6002549091506001600160a01b0380831691161461024a5760405162461bcd60e51b815260206004820152600a60248201526927b7363c9037bbb732b960b11b60448201526064015b60405180910390fd5b60016003600082825461025d919061092c565b909155505050506001600160a01b03949094166000908152600460205260409020805460ff191693151593909317909255505050565b6001600160a01b03881630146102da5760405162461bcd60e51b815260206004820152600c60248201526b496e76616c69642066726f6d60a01b6044820152606401610241565b478611156103215760405162461bcd60e51b8152602060048201526014602482015273496e73756666696369656e742062616c616e636560601b6044820152606401610241565b60006001547f09e1965ed513b27294ab3f9c684e9f3a43d56683a3ba8db5f64624058face1566003548b8b8b8b8b60405161035d929190610953565b6040805191829003822060208301979097528101949094526001600160a01b0392831660608501529116608083015260a082015260c081019190915260e001604051602081830303815290604052805190602001206040516020016103d992919061190160f01b81526002810192909252602282015260420190565b60405160208183030381529060405280519060200120905060006103ff828686866104d9565b6002549091506001600160a01b038083169116148061043657506001600160a01b03811660009081526004602052604090205460ff165b6104705760405162461bcd60e51b815260206004820152600b60248201526a27b7363c9039b4b3b732b960a91b6044820152606401610241565b600160036000828254610483919061092c565b925050819055506104cc8988888080601f0160208091040260200160405190810160405280939291908181526020018383808284376000920191909152508d9250610507915050565b5050505050505050505050565b6000806000806104eb888888886105ad565b9250925092506104fb828261067c565b50909695505050505050565b6060814710156105335760405163cf47918160e01b815247600482015260248101839052604401610241565b600080856001600160a01b0316848660405161054f9190610963565b60006040518083038185875af1925050503d806000811461058c576040519150601f19603f3d011682016040523d82523d6000602084013e610591565b606091505b50915091506105a1868383610739565b925050505b9392505050565b600080807f7fffffffffffffffffffffffffffffff5d576e7357a4501ddfe92f46681b20a08411156105e85750600091506003905082610672565b604080516000808252602082018084528a905260ff891692820192909252606081018790526080810186905260019060a0016020604051602081039080840390855afa15801561063c573d6000803e3d6000fd5b5050604051601f1901519150506001600160a01b03811661066857506000925060019150829050610672565b9250600091508190505b9450945094915050565b600082600381111561069057610690610992565b03610699575050565b60018260038111156106ad576106ad610992565b036106cb5760405163f645eedf60e01b815260040160405180910390fd5b60028260038111156106df576106df610992565b036107005760405163fce698f760e01b815260048101829052602401610241565b600382600381111561071457610714610992565b03610735576040516335e2f38360e21b815260048101829052602401610241565b5050565b60608261074e5761074982610795565b6105a6565b815115801561076557506001600160a01b0384163b155b1561078e57604051639996b31560e01b81526001600160a01b0385166004820152602401610241565b50806105a6565b8051156107a55780518082602001fd5b60405163d6bda27560e01b815260040160405180910390fd5b50565b6001600160a01b03811681146107be57600080fd5b803560ff811681146107e757600080fd5b919050565b600080600080600060a0868803121561080457600080fd5b853561080f816107c1565b94506020860135801515811461082457600080fd5b9350610832604087016107d6565b94979396509394606081013594506080013592915050565b60008060008060008060008060e0898b03121561086657600080fd5b8835610871816107c1565b97506020890135610881816107c1565b965060408901359550606089013567ffffffffffffffff808211156108a557600080fd5b818b0191508b601f8301126108b957600080fd5b8135818111156108c857600080fd5b8c60208285010111156108da57600080fd5b6020830197508096505050506108f260808a016107d6565b925060a0890135915060c089013590509295985092959890939650565b60006020828403121561092157600080fd5b81356105a6816107c1565b8082018082111561094d57634e487b7160e01b600052601160045260246000fd5b92915050565b8183823760009101908152919050565b6000825160005b81811015610984576020818601810151858301520161096a565b506000920191825250919050565b634e487b7160e01b600052602160045260246000fdfea2646970667358221220bf0b1b683a8e6cd0bf6ca74147b2290f0b4d994b12787af3df7d8e0d6406ce2964736f6c63430008150033";
+var Gas0Constants = {
+  ["19546" /* ZytronLineaSepoliaTestnet */]: {
+    Deployer: "0x2F0aAD09969DCC8f950d50B4F8c400d698b281a4",
+    api: "https://rpc-zytron-testnet-linea.zypher.game/api",
+    walletBytecode
+  },
+  ["9901" /* ZytronLineaMain */]: {
+    Deployer: "0x84a86ee605b1abd68e713cd86362892b8be8673c",
+    api: "https://zytron-linea-mainnet-0gas.zypher.game/api",
+    walletBytecode
+  }
+};
 
 // src/utils/request.ts
 import axios from "axios";
@@ -795,6 +724,16 @@ var httpGet = async (...params) => {
     });
   });
 };
+var httpGetOnceCache = {};
+var httpGetOnce = async (url) => {
+  if (url in httpGetOnceCache)
+    return httpGetOnceCache[url];
+  httpGetOnceCache[url] = httpGet(url).catch((err) => {
+    delete httpGetOnceCache[url];
+    return err;
+  });
+  return httpGetOnceCache[url];
+};
 var httpPost = async (...params) => {
   return httpClient.post(...params).then((res) => {
     if (res.status !== 200) {
@@ -821,1722 +760,111 @@ var httpPost = async (...params) => {
   });
 };
 
-// src/utils/localStorageEffect.ts
-import { DefaultValue } from "recoil";
-var localStorageEffect = (key) => ({ setSelf, onSet }) => {
-  const savedValue = localStorage.getItem(key);
-  if (savedValue != null) {
-    try {
-      setSelf(JSON.parse(savedValue));
-    } catch (error) {
-      console.error("localStorageEffect:---", error);
+// src/gas0/hooks/useGas0Balance.ts
+var useGas0Balance = () => {
+  const { account, chainId } = useActiveWeb3React();
+  const [balance, _balance] = useState("0");
+  const key = useRef("");
+  useEffect(() => {
+    if (!account) {
+      key.current = "";
+      _balance("0");
+      return;
     }
-  }
-  onSet((newValue) => {
-    if (newValue instanceof DefaultValue || !newValue) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(newValue));
+    const chainConf = Gas0Constants[chainId];
+    if (!chainConf) {
+      key.current = "";
+      _balance("0");
+      return;
     }
-  });
+    const keyString = [account, chainId].join("-");
+    if (key.current === keyString)
+      return;
+    key.current = keyString;
+    httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
+      ({ data: res }) => {
+        if (res.code !== 0) {
+          _balance("0");
+          key.current = "";
+          return;
+        }
+        console.log({ res });
+        _balance(`${res.data.amount}`);
+      }
+    );
+  }, [account, chainId]);
+  return balance;
 };
 
-// src/hooks/useTelegramUser.ts
-var RefreshState = atom({
-  key: "RefreshState",
-  default: 0
-});
-var TelegramUserInfoState = atom({
-  key: "TelegramUserInfoState",
-  default: null,
-  effects_UNSTABLE: [localStorageEffect("TelegramUserInfoState")]
-});
-var WebAppDataState = atom({
-  key: "WebAppDataState",
-  default: void 0,
-  effects_UNSTABLE: [localStorageEffect("WebAppDataState")]
-});
-var getFaucet = async (WebAppData) => {
-  try {
-    const resaaa = httpPost(`${TG_BOT_URL}/wallet/get`, {
-      WebAppData
-    });
-    const address = (await resaaa).data;
-    if (address && address.startsWith("0x")) {
-      const faucetURL = "https://mainnet-simple-faucet.zypher.game";
-      await fetch(faucetURL, {
-        headers: { "Content-Type": "application/json" },
-        method: "POST",
-        body: JSON.stringify({ address })
-      });
-    }
-  } catch (e) {
-    console.log("getFaucet Error", e);
-  }
-};
-var useTelegramUser = () => {
-  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
-  const _user = useSetRecoilState(TelegramUserInfoState);
-  const refresh = useRecoilValue(RefreshState);
-  const user = useEffectValue(
-    null,
-    async () => {
-      console.log({ WebApp: WebAppData });
-      if (!window.IS_TELEGRAM || !(WebAppData == null ? void 0 : WebAppData.user)) {
-        return null;
-      }
-      if (WebAppData && WebAppData.user) {
-        const res = httpPost(`${TG_BOT_URL}/user/get`, {
-          WebAppData
-        });
-        getFaucet(WebAppData);
-        console.log({ res: await res });
-        if ((await res).code)
-          return null;
-        return (await res).data;
-      }
-    },
-    [WebAppData == null ? void 0 : WebAppData.user, refresh]
-  );
-  console.log({ user });
-  useEffect2(() => {
-    if (user) {
-      localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);
-      GlobalVar.mockAcc(user.evmWallet);
-      _user(user);
-    } else {
-      _user(null);
-    }
-  }, [JSON.stringify(user)]);
-  useEffect2(() => {
-    var _a, _b, _c, _d, _e, _f;
-    console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
-    if (GlobalVar.IS_TELEGRAM) {
-      try {
-        let _WebAppData = {
-          auth_date: "",
-          hash: "",
-          query_id: "",
-          user: ""
-        };
-        const params = new URLSearchParams((_b = (_a = window.Telegram) == null ? void 0 : _a.WebApp) == null ? void 0 : _b.initData);
-        _WebAppData.query_id = (_c = params.get("query_id")) != null ? _c : "";
-        _WebAppData.user = (_d = params.get("user")) != null ? _d : "";
-        _WebAppData.hash = (_e = params.get("hash")) != null ? _e : "";
-        _WebAppData.auth_date = (_f = params.get("auth_date")) != null ? _f : "";
-        console.log({ _WebAppData });
-        setWebAppData(_WebAppData);
-        window.WebAppData = _WebAppData;
-      } catch (err) {
-        console.error("WebAppData", err);
-      }
-    }
-  }, [GlobalVar.IS_TELEGRAM]);
-  return WebAppData;
-};
-var useWebAppData = () => {
-  return useRecoilValue(WebAppDataState);
-};
-var useTelegramAccountInit = (userInfo, _userInfo, setIsModalOpen) => {
-  const WebAppData = useWebAppData();
-  return useEffectValue(
-    null,
-    async () => {
-      console.log(1111111);
-      if (!(userInfo == null ? void 0 : userInfo.star))
-        return null;
-      if (userInfo.star !== "0")
-        return null;
-      const res = await httpPost(
-        `${TG_BOT_URL}/user/init-star`,
-        { WebAppData }
-      );
-      if (res.code)
-        return null;
-      _userInfo(res.data);
-      setIsModalOpen(true);
-      return res.data;
-    },
-    [userInfo == null ? void 0 : userInfo.star]
-  );
-};
+// src/gas0/hooks/useWalletHandler.ts
+import { useCallback, useEffect as useEffect2, useMemo as useMemo2, useRef as useRef2, useState as useState2 } from "react";
 
-// src/hooks/useTonWalletProofMounted.tsx
+// src/gas0/utils/wagmiWalletHandler.ts
 import {
-  useTonConnectUI,
-  useTonWallet
-} from "@tonconnect/ui-react";
-import { useEffect as useEffect3, useState as useState2 } from "react";
-var useTonWalletProofMounted = () => {
-  const [ui] = useTonConnectUI();
-  const [proof, _proof] = useState2(null);
-  const wallet = useTonWallet();
-  useEffect3(() => {
-    var _a, _b;
-    if (((_b = (_a = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a.tonProof) == null ? void 0 : _b.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
-      _proof(wallet.connectItems.tonProof);
-    } else {
-      _proof(null);
-    }
-    ui.onStatusChange((wallet2) => {
-      var _a2;
-      if (((_a2 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a2.tonProof) && "proof" in wallet2.connectItems.tonProof) {
-        _proof(wallet2.connectItems.tonProof);
-      }
-    });
-  }, [wallet == null ? void 0 : wallet.account.address]);
-  return proof;
-};
+  getContract as getContract2,
+  getPublicClient
+} from "wagmi/actions";
+import {
+  createWalletClient as createWalletClient3,
+  custom as custom3,
+  hexToSignature,
+  publicActions as publicActions3,
+  toHex,
+  hashTypedData,
+  encodeDeployData as encodeDeployData2,
+  hexToBytes as hexToBytes2,
+  bytesToHex as bytesToHex2
+} from "viem";
 
-// src/hooks/useNavItem.tsx
-import React8, { useMemo as useMemo2 } from "react";
-
-// src/utils/i18n.ts
-import i18n2 from "i18next";
-import LanguageDetector from "i18next-browser-languagedetector";
-import Backend from "i18next-http-backend";
-import { initReactI18next } from "react-i18next";
-
-// src/utils/language.ts
-import { getQueryStringByName } from "mobile-browser";
-
-// src/utils/storage.js
-function Storage(prefix, expire) {
-  this.prefix = prefix || "";
-  if (typeof window === "undefined") {
-    return console.warn("no find window");
-  }
-  if (expire === -1) {
-    this.driver = window.sessionStorage;
-  } else {
-    this.driver = window.localStorage;
-    this.expire = expire || 0;
-  }
-}
-Storage.prototype = {
-  constructor: Storage,
-  _key(key) {
-    return this.prefix + key;
-  },
-  keys() {
-    const keys = Object.keys(this.driver);
-    if (this.prefix) {
-      const index = this.prefix.length;
-      return keys.map(function(key) {
-        return key.substring(index);
-      });
-    }
-    return keys;
-  },
-  remove(key) {
-    this.driver.removeItem(this._key(key));
-  },
-  clear() {
-    this.driver.clear();
-  },
-  set(key, value, expire) {
-    const data = {
-      value
-    };
-    if (typeof expire === "undefined") {
-      expire = this.expire;
-    }
-    if (expire) {
-      data.expire = Date.now() + expire * 1e3;
-    }
-    this.driver.setItem(this._key(key), JSON.stringify(data));
-  },
-  get(key) {
-    let data = this.driver.getItem(this._key(key));
-    if (data) {
-      data = JSON.parse(data);
-      if (data.expire) {
-        if (data.expire < Date.now()) {
-          this.remove(key);
-          data = null;
-        }
-      }
-    }
-    return data && data.value;
-  }
-};
-var storage_default = new Storage(null, 10 * 365 * 24 * 60 * 60);
-
-// src/utils/language.ts
-var query = getQueryStringByName("lng");
-var language = storage_default.get("language");
-if (query) {
-  language = query;
-  storage_default.set("language", query);
-  storage_default.set("lng", query);
-}
-if (!language) {
-  if (navigator.appName === "Netscape") {
-    language = navigator.language;
-  } else {
-    language = navigator.userLanguage;
-  }
-  const sec = language.split("-");
-  if (sec[1]) {
-    sec[1] = sec[1].toUpperCase();
-    storage_default.set("language", `${sec[0]}_${sec[1]}`);
-  }
-}
-var language_default = language;
-
-// src/components/SideBar/component/Language.tsx
-import { changeLanguage } from "i18next";
-
-// src/utils/lodash.ts
-function sample(array) {
-  if (array.length === 0) {
-    return void 0;
-  }
-  const randomIndex = Math.floor(Math.random() * array.length);
-  return array[randomIndex];
-}
-function isEqual(value1, value2) {
-  try {
-    if (typeof value1 !== typeof value2) {
-      return false;
-    }
-    if (typeof value1 !== "object" || value1 === null || value2 === null) {
-      return value1 === value2;
-    }
-    const keys1 = Object.keys(value1);
-    const keys2 = Object.keys(value2);
-    if (keys1.length !== keys2.length) {
-      return false;
-    }
-    for (const key of keys1) {
-      if (!isEqual(value1[key], value2[key])) {
-        return false;
-      }
-    }
-    return true;
-  } catch {
-    return false;
-  }
-}
-
-// src/components/SideBar/component/Language.tsx
-import React7, { memo as memo6, useCallback as useCallback3 } from "react";
-
-// src/hooks/useCustomTranslation.ts
-import { useTranslation as useBaseTranslation } from "react-i18next";
-var useCustomTranslation = (namespaces) => {
-  const { t, i18n: i18n3 } = useBaseTranslation(namespaces);
-  return { t, i18n: i18n3 };
-};
-
-// src/hooks/useCurrentLanguage.ts
-import i18n from "i18next";
-import { useEffect as useEffect4, useState as useState3 } from "react";
-var useCurrentLanguage = () => {
-  const [currentLanguage, setCurrentLanguage] = useState3(i18n.language);
-  const { t } = useCustomTranslation([LngNs.common]);
-  useEffect4(() => {
-    setCurrentLanguage(i18n.language);
-  }, [t("language")]);
-  return currentLanguage;
-};
-
-// src/components/SideBar/component/Language.tsx
-import classnames2 from "classnames";
-
-// src/components/PixelBtn/ActivePixelButton.tsx
-import React2, { memo as memo2, useCallback, useRef as useRef2, useState as useState4 } from "react";
-import styled from "styled-components";
-
-// src/components/PixelBtn/PixelFlatBtn.tsx
-import React, { memo } from "react";
-import { motion } from "framer-motion";
-var PixelFlatBtn = memo((props) => {
-  const { onClick, children, className, style, hidePixel, ..._props } = props;
-  if (hidePixel) {
-    return /* @__PURE__ */ React.createElement("div", {
-      className,
-      onClick
-    }, children);
-  }
-  if (onClick) {
-    return /* @__PURE__ */ React.createElement(motion.div, {
-      ..._props,
-      className: `pixel_flat_btn ${className != null ? className : ""}`,
-      onClick,
-      style
-    }, /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_btn_bg"
-    }, /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_btn_top_1"
-    }), /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_btn_top_2"
-    }), /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_btn_inner"
-    }), /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_btn_bottom_1"
-    }), /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_btn_bottom_2"
-    })), /* @__PURE__ */ React.createElement("div", {
-      className: "pixel_flat_inner"
-    }, children));
-  }
-  return /* @__PURE__ */ React.createElement("div", {
-    className: `pixel_flat_btn ${className != null ? className : ""}`,
-    onClick,
-    style
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_btn_bg"
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_btn_top_1"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_btn_top_2"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_btn_inner"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_btn_bottom_1"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_btn_bottom_2"
-  })), /* @__PURE__ */ React.createElement("div", {
-    className: "pixel_flat_inner"
-  }, children));
-});
-var PixelFlatBtn_default = PixelFlatBtn;
-
-// src/components/PixelBtn/ActivePixelButton.tsx
-var PixelStyled = styled(PixelFlatBtn_default)`
-  height: ${({ height }) => height};
-  min-height: ${({ height }) => height};
-  max-width: ${({ width }) => width};
-  width: ${({ width }) => width};
-  opacity: ${({ disable }) => disable ? 0.8 : 1};
-  &.pixel_loading {
-    opacity: 0.8;
-  }
-  > .pixel_flat_btn_bg {
-    color: #fff;
-    > div {
-      transition: all 0.3s ease;
-      background-color: ${({ backgroundColor }) => backgroundColor};
-    }
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      height: ${({ pixel_height }) => pixel_height}px;
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      top: calc(${({ pixel_height }) => pixel_height}px * 2);
-      left: 0;
-    }
-
-    > .pixel_flat_btn_top_1 {
-      top: 0;
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      left: calc(${({ pixel_height }) => pixel_height}px * 2);
-    }
-    > .pixel_flat_btn_top_2 {
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
-      top: ${({ pixel_height }) => pixel_height}px;
-      left: ${({ pixel_height }) => pixel_height}px;
-    }
-
-    > .pixel_flat_btn_bottom_2 {
-      bottom: 0;
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
-      left: calc(${({ pixel_height }) => pixel_height}px * 2);
-    }
-    > .pixel_flat_btn_bottom_1 {
-      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
-      bottom: ${({ pixel_height }) => pixel_height}px;
-      left: ${({ pixel_height }) => pixel_height}px;
-    }
-  }
-  > .pixel_flat_inner {
-    width: 100%;
-    height: 100%;
-  }
-`;
-var ActivePixelCard = memo2((props) => {
-  const { onClick, hidePixel } = props;
-  const lastClickTimeRef = useRef2(Date.now());
-  const clickHandle = useCallback(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return hidePixel ? /* @__PURE__ */ React2.createElement(PixelFlatBtn_default, {
-    ...props,
-    onClick: clickHandle
-  }) : /* @__PURE__ */ React2.createElement(PixelStyled, {
-    ...props,
-    onClick: clickHandle
-  });
-});
-var ActivePixelCardStyled = styled(ActivePixelCard)`
-  cursor: pointer;
-`;
-var ActivePixelButton = memo2((props) => {
-  return /* @__PURE__ */ React2.createElement(ActivePixelCardStyled, {
-    ...props
-  });
-});
-var PixelColorStyled = styled(PixelStyled)`
-  > .pixel_flat_btn_bg {
-    > div {
-      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1649ff"};
-    }
-    > .pixel_flat_btn_inner {
-      &:before,
-      &:after {
-        content: "";
-        position: absolute;
-        width: ${({ pixel_height }) => pixel_height}px;
-        height: ${({ pixel_height }) => pixel_height}px;
-        transition: all 0.3s ease;
-      }
-      &:before {
-        top: 0;
-        left: 0;
-        background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-      }
-      &:after {
-        bottom: 0;
-        right: 0;
-        background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-      }
-    }
-    > .pixel_flat_btn_top_1 {
-      background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-    }
-    > .pixel_flat_btn_top_2 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
-    }
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
-    }
-  }
-`;
-var ActivePixelColorCard = memo2((props) => {
-  const {
-    className,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    height
-  } = props;
-  return /* @__PURE__ */ React2.createElement(PixelColorStyled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    borderColor
-  });
-});
-var cardTheme = {
-  yellow: {
-    normal: {
-      borderBottomColor: "#E1820C",
-      borderTopColor: "#FFE299",
-      backgroundColor: "#FEBE1E"
-    },
-    hover: {
-      borderBottomColor: "#DEA534",
-      borderTopColor: "#FFEFB8",
-      backgroundColor: "#FFDA58"
-    },
-    click: {
-      borderBottomColor: "#A4720E",
-      borderTopColor: "#FDD64C",
-      backgroundColor: "#F0BE0C"
-    }
-  },
-  brown: {
-    normal: {
-      backgroundColor: "#61341F",
-      borderBottomColor: "#30170B",
-      borderTopColor: "#7F5441"
-    },
-    hover: {
-      backgroundColor: "#805440",
-      borderBottomColor: "#61341F",
-      borderTopColor: "#A17560"
-    },
-    click: {
-      borderBottomColor: "#2C180F",
-      borderTopColor: "#533628",
-      backgroundColor: "#412315"
-    }
-  },
-  brightBlue: {
-    normal: {
-      backgroundColor: "#1649FF",
-      borderBottomColor: "#0F33B2",
-      borderTopColor: "#3360FF"
-    },
-    hover: {
-      backgroundColor: "#406AFF",
-      borderBottomColor: "#183BB7",
-      borderTopColor: "#5C80FF"
-    },
-    click: {
-      borderBottomColor: "#0E267D",
-      borderTopColor: "#0E43FF",
-      backgroundColor: "#022FD0"
-    }
-  },
-  pureBrightBlue: {
-    normal: {
-      borderBottomColor: "#0E43FF",
-      borderTopColor: "#0E43FF",
-      backgroundColor: "#0E43FF"
-    },
-    hover: {
-      borderBottomColor: "#0E43FF",
-      borderTopColor: "#0E43FF",
-      backgroundColor: "#0E43FF"
-    },
-    click: {
-      borderBottomColor: "#0E43FF",
-      borderTopColor: "#0E43FF",
-      backgroundColor: "#0E43FF"
-    }
-  }
-};
-var ActivePixelButtonColorStyled = styled(PixelStyled)`
-  cursor: pointer;
-  > .pixel_flat_btn_bg {
-    > div {
-      background-color: ${({ themeType }) => cardTheme[themeType].normal.backgroundColor};
-    }
-    > .pixel_flat_btn_inner {
-      &:before,
-      &:after {
-        content: "";
-        position: absolute;
-        width: ${({ pixel_height }) => pixel_height}px;
-        height: ${({ pixel_height }) => pixel_height}px;
-        transition: all 0.3s ease;
-      }
-      &:before {
-        top: 0;
-        left: 0;
-        background-color: ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
-      }
-      &:after {
-        bottom: 0;
-        right: 0;
-        background-color: ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
-      }
-    }
-    > .pixel_flat_btn_top_1 {
-      background-color: ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
-    }
-    > .pixel_flat_btn_top_2 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
-    }
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
-    }
-  }
-  &.disable {
-    opacity: 0.8;
-    cursor: not-allowed;
-  }
-  &.normal {
-    &:hover {
-      > .pixel_flat_btn_bg {
-        > div {
-          background-color: ${({ themeType }) => cardTheme[themeType].hover.backgroundColor};
-        }
-        > .pixel_flat_btn_inner {
-          &:before,
-          &:after {
-            content: "";
-          }
-          &:before {
-            background-color: ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
-          }
-          &:after {
-            background-color: ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
-          }
-        }
-        > .pixel_flat_btn_top_1 {
-          background-color: ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
-        }
-        > .pixel_flat_btn_top_2 {
-          border-left: ${({ pixel_height }) => pixel_height}px solid
-            ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
-        }
-        > .pixel_flat_btn_bottom_2 {
-          background-color: ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
-        }
-        > .pixel_flat_btn_bottom_1 {
-          border-right: ${({ pixel_height }) => pixel_height}px solid
-            ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
-        }
-      }
-    }
-    &.click {
-      > .pixel_flat_btn_bg {
-        > div {
-          background-color: ${({ themeType }) => cardTheme[themeType].click.backgroundColor};
-        }
-        > .pixel_flat_btn_inner {
-          &:before,
-          &:after {
-            content: "";
-          }
-          &:before {
-            background-color: ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
-          }
-          &:after {
-            background-color: ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
-          }
-        }
-        > .pixel_flat_btn_top_1 {
-          background-color: ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
-        }
-        > .pixel_flat_btn_top_2 {
-          border-left: ${({ pixel_height }) => pixel_height}px solid
-            ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
-        }
-        > .pixel_flat_btn_bottom_2 {
-          background-color: ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
-        }
-        > .pixel_flat_btn_bottom_1 {
-          border-right: ${({ pixel_height }) => pixel_height}px solid
-            ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
-        }
-      }
-    }
-  }
-`;
-var ActivePixelButtonColor = memo2((props) => {
-  const { onClick, className, disable } = props;
-  const [isActive, setIsActive] = useState4(false);
-  const clickHandle = useCallback(() => {
-    if (onClick) {
-      setIsActive(true);
-      setTimeout(() => {
-        setIsActive(false);
-      }, 1e3);
-      onClick();
-    }
-  }, [onClick]);
-  return /* @__PURE__ */ React2.createElement(ActivePixelButtonColorStyled, {
-    className: `${className != null ? className : ""} ${disable ? "disable" : "normal"} ${isActive ? "click" : ""}`,
-    onClick: clickHandle,
-    ...props
-  });
-});
-var PixelBorderStyled = styled(PixelFlatBtn_default)`
-  height: ${({ height }) => height};
-  width: ${({ width }) => width};
-  & > .pixel_flat_btn_bg {
-    & > div {
-      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1d263b"};
-    }
-    .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      height: calc(
-        ${({ pixel_height }) => pixel_height + "px"} +
-          ${({ borderSize }) => borderSize != null ? borderSize : 1}px
-      );
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      left: 0;
-      @media screen and (max-width: 830px) {
-        height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_inner,
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_2,
-    > .pixel_flat_btn_bottom_1 {
-      border: ${({ borderSize }) => borderSize != null ? borderSize : 1}px solid
-        ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
-      transition: all 0.3s ease;
-    }
-    > .pixel_flat_btn_top_1 {
-      border-bottom: none !important;
-      z-index: 3;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 830px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      border-bottom: none !important;
-      z-index: 2;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-      top: ${({ pixel_height }) => pixel_height + "px"};
-      left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 830px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-        top: ${({ pixel_height }) => pixel_height + "px"};
-        left: ${({ pixel_height }) => pixel_height + "px"};
-      }
-    }
-    > .pixel_flat_btn_bottom_2 {
-      border-top: none !important;
-      z-index: 4;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      @media screen and (max-width: 830px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
-        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      border-top: none !important;
-      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-      bottom: ${({ pixel_height }) => pixel_height + "px"};
-      left: ${({ pixel_height }) => pixel_height + "px"};
-      @media screen and (max-width: 830px) {
-        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
-        bottom: ${({ pixel_height }) => pixel_height + "px"};
-        left: ${({ pixel_height }) => pixel_height + "px"};
-      }
-    }
-  }
-  > .pixel_flat_inner {
-    width: 100%;
-    height: 100%;
-  }
-`;
-var PixelBorderCard = memo2((props) => {
-  const { className, onClick, hidePixel } = props;
-  const lastClickTimeRef = useRef2(Date.now());
-  const clickHandle = useCallback(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return hidePixel ? /* @__PURE__ */ React2.createElement(PixelFlatBtn_default, {
-    ...props,
-    onClick: clickHandle
-  }) : /* @__PURE__ */ React2.createElement(PixelBorderStyled, {
-    ...props,
-    className: `${className} pixelBorderCard`
-  });
-});
-var PixelCube2Styled = styled(PixelStyled)`
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_bottom_2 {
-        background-color: ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-      > .pixel_flat_btn_inner,
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_1 {
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-    }
-  }
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_bottom_2 {
-      background-color: ${({ borderColor }) => borderColor};
-    }
-    > .pixel_flat_btn_inner,
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-    }
-  }
-`;
-var PixelCube2 = memo2((props) => {
-  const {
-    className,
-    borderColor,
-    backgroundColor,
-    pixel_height,
-    width,
-    height,
-    borderTopColor,
-    borderBottomColor
-  } = props;
-  return /* @__PURE__ */ React2.createElement(PixelCube2Styled, {
-    ...props,
-    className,
-    pixel_height,
-    backgroundColor,
-    width,
-    height,
-    borderColor,
-    borderTopColor,
-    borderBottomColor
-  });
-});
-var PixelCube3Styled = styled(PixelCube2)`
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_1 {
-        &:before {
-          border-left: ${({ pixel_height }) => pixel_height}px solid
-            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-          border-right: ${({ pixel_height }) => pixel_height}px solid
-            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-        }
-      }
-    }
-  }
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_top_1,
-    > .pixel_flat_btn_bottom_2 {
-      width: calc(
-        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
-      );
-      left: calc(${({ pixel_height, size }) => `${pixel_height}px * ${size}`});
-    }
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      width: calc(
-        100% -
-          ${({ pixel_height, size }) => `${pixel_height}px * ${2 * (size - 1)}`}
-      );
-      left: calc(
-        ${({ pixel_height, size }) => `${pixel_height}px * ${size - 1}`}
-      );
-    }
-    > .pixel_flat_btn_inner {
-      height: calc(
-        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
-      );
-      top: calc(${({ pixel_height, size }) => `${size} * ${pixel_height}px`});
-    }
-
-    > .pixel_flat_btn_top_2,
-    > .pixel_flat_btn_bottom_1 {
-      &:before {
-        content: "";
-        transition: all 0.3s ease;
-        position: absolute;
-        height: ${({ pixel_height }) => pixel_height}px;
-        width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
-        left: calc(-${({ pixel_height }) => pixel_height}px * 2);
-        background-color: ${({ backgroundColor }) => backgroundColor};
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-      }
-    }
-    > .pixel_flat_btn_top_2 {
-      &:before {
-        top: ${({ pixel_height }) => pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_bottom_1 {
-      &:before {
-        top: -${({ pixel_height }) => pixel_height}px;
-      }
-    }
-  }
-`;
-var PixelCube3 = memo2((props) => {
-  const { size } = props;
-  return /* @__PURE__ */ React2.createElement(PixelCube3Styled, {
-    ...props,
-    size: size != null ? size : 3
-  });
-});
-var PixelCube5Styled = styled(PixelCube3Styled)`
-  > .pixel_flat_btn_bg {
-    > .pixel_flat_btn_inner {
-      &:after,
-      &:before {
-        content: "";
-        position: absolute;
-        height: ${({ pixel_height }) => pixel_height}px;
-        width: 100%;
-        left: 0;
-        background-color: ${({ backgroundColor }) => backgroundColor};
-        border-left: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-        border-right: ${({ pixel_height }) => pixel_height}px solid
-          ${({ borderColor }) => borderColor};
-      }
-      &:before {
-        top: -${({ pixel_height }) => pixel_height}px;
-      }
-      &:after {
-        bottom: -${({ pixel_height }) => pixel_height}px;
-      }
-    }
-    > .pixel_flat_btn_top_1:before,
-    > .pixel_flat_btn_bottom_2:after {
-      content: "";
-      position: absolute;
-      height: ${({ pixel_height }) => pixel_height}px;
-      width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
-      left: calc(-${({ pixel_height }) => pixel_height}px * 3);
-      background-color: ${({ backgroundColor }) => backgroundColor};
-      border-left: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-      border-right: ${({ pixel_height }) => pixel_height}px solid
-        ${({ borderColor }) => borderColor};
-    }
-    > .pixel_flat_btn_top_1:before {
-      top: calc(${({ pixel_height }) => pixel_height}px * 3);
-    }
-    > .pixel_flat_btn_bottom_2:after {
-      bottom: calc(${({ pixel_height }) => pixel_height}px * 3);
-    }
-  }
-`;
-var PixelCube5 = memo2((props) => {
-  const { size } = props;
-  return /* @__PURE__ */ React2.createElement(PixelCube5Styled, {
-    ...props,
-    size: size != null ? size : 5
-  });
-});
-var PixelBorderCardStyled = styled(PixelBorderCard)`
-  cursor: pointer;
-  &:hover {
-    > .pixel_flat_btn_bg {
-      > .pixel_flat_btn_inner,
-      > .pixel_flat_btn_top_1,
-      > .pixel_flat_btn_top_2,
-      > .pixel_flat_btn_bottom_2,
-      > .pixel_flat_btn_bottom_1 {
-        border: ${({ borderSize }) => borderSize != null ? borderSize : 1}px solid
-          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
-      }
-    }
-  }
-`;
-var PixelBorderCardButton = memo2((props) => {
-  return /* @__PURE__ */ React2.createElement(PixelBorderCardStyled, {
-    ...props
-  });
-});
-
-// src/components/SvgComponent/SvgComponent.tsx
-import React3, { memo as memo3, useEffect as useEffect5, useState as useState5 } from "react";
-var SvgComponent = memo3(({ src: src6, className, ...rest }) => {
-  return src6.endsWith(".svg") ? /* @__PURE__ */ React3.createElement(Svg, {
-    src: src6,
-    className,
-    ...rest
-  }) : /* @__PURE__ */ React3.createElement("img", {
-    decoding: "async",
-    loading: "lazy",
-    src: src6,
-    className
-  });
-});
-var Svg = memo3(({ src: src6, className, ...rest }) => {
-  const [svgContent, setSvgContent] = useState5(null);
-  useEffect5(() => {
-    (async () => {
-      try {
-        const response = await fetch(src6);
-        if (!response.ok)
-          throw new Error("Failed to load SVG");
-        const text = await response.text();
-        const wrapper = document.createElement("div");
-        wrapper.innerHTML = text;
-        const svgElement = wrapper.querySelector("svg");
-        if (svgElement) {
-          const Component = () => /* @__PURE__ */ React3.createElement("span", {
-            className: `svg_component ${className != null ? className : ""}`,
-            ...rest,
-            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
-          });
-          setSvgContent(Component);
-        }
-      } catch (error) {
-        console.error(error);
-      }
-    })();
-  }, [src6]);
-  return svgContent || /* @__PURE__ */ React3.createElement(React3.Fragment, null);
-});
-var SvgComponent_default = SvgComponent;
-
-// src/components/Header/rainbow_account/IsPixelWidget.tsx
-import React5, { memo as memo5 } from "react";
-
-// src/hooks/useWindowSize.ts
-import { useCallback as useCallback2, useContext, useEffect as useEffect7, useState as useState6 } from "react";
-
-// src/provider/IsMobileProvider.tsx
-import React4, { createContext, memo as memo4, useEffect as useEffect6 } from "react";
-import { atom as atom2, useRecoilState as useRecoilState2 } from "recoil";
-var isW768State = atom2({
-  key: "isW768State",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isW768State")]
-});
-var isWMdState = atom2({
-  key: "isWMdState",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isWMdState")]
-});
-var isW1100State = atom2({
-  key: "isW1100State",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isW1100State")]
-});
-var isW1220State = atom2({
-  key: "isW1220State",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("isW1220State")]
-});
-var IsW768Context = createContext(void 0);
-var IsW950Context = createContext(void 0);
-var IsW1100Context = createContext(void 0);
-var IsW1220Context = createContext(void 0);
-var IsW768Provider = memo4(({ children }) => {
-  const [isMobile2, setIsMobile] = useRecoilState2(isW768State);
-  const size = useWindowSize();
-  useEffect6(() => {
-    const nowIsMobile = size.width < 830;
-    if (isMobile2 !== nowIsMobile) {
-      setIsMobile(nowIsMobile);
-    }
-  }, [size.width, isMobile2]);
-  return /* @__PURE__ */ React4.createElement(IsW768Context.Provider, {
-    value: isMobile2
-  }, children);
-});
-var IsMdProvider = ({ children }) => {
-  const [isWMd, setIsWMd] = useRecoilState2(isWMdState);
-  const size = useWindowSize();
-  useEffect6(() => {
-    const nowIsMdMobile = size.width < 950;
-    if (isWMd !== nowIsMdMobile) {
-      setIsWMd(nowIsMdMobile);
-    }
-  }, [size.width, isWMd]);
-  return /* @__PURE__ */ React4.createElement(IsW950Context.Provider, {
-    value: isWMd
-  }, children);
-};
-var IsW1100Provider = ({ children }) => {
-  const [isW1100, setIsW1100] = useRecoilState2(isW1100State);
-  const size = useWindowSize();
-  useEffect6(() => {
-    const nowIsW1100Mobile = size.width < 1100;
-    if (isW1100 !== nowIsW1100Mobile) {
-      setIsW1100(nowIsW1100Mobile);
-    }
-  }, [size.width, isW1100]);
-  return /* @__PURE__ */ React4.createElement(IsW1100Context.Provider, {
-    value: isW1100
-  }, children);
-};
-var IsW1220Provider = ({ children }) => {
-  const [isW1220, setIsW1220] = useRecoilState2(isW1220State);
-  const size = useWindowSize();
-  useEffect6(() => {
-    const nowIsW1220Mobile = size.width < 1220;
-    if (isW1220 !== nowIsW1220Mobile) {
-      setIsW1220(nowIsW1220Mobile);
-    }
-  }, [size.width, isW1220]);
-  return /* @__PURE__ */ React4.createElement(IsW1220Context.Provider, {
-    value: isW1220
-  }, children);
-};
-
-// src/hooks/useWindowSize.ts
-import { useRecoilState as useRecoilState3 } from "recoil";
-function useWindowSize() {
-  const [size, setSize] = useState6({
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight
-  });
-  const onResize = useCallback2(() => {
-    setSize({
-      width: document.documentElement.clientWidth,
-      height: document.documentElement.clientHeight
-    });
-  }, []);
-  useEffect7(() => {
-    window.addEventListener("resize", onResize);
-    return () => {
-      window.removeEventListener("resize", onResize);
-    };
-  }, []);
-  return size;
-}
-var useIsW768 = () => {
-  const [isW768] = useRecoilState3(isW768State);
-  if (isW768 === void 0) {
-    return false;
-  }
-  return isW768;
-};
-var useIsW1100 = () => {
-  try {
-    const IsW1100 = useContext(IsW1100Context);
-    if (IsW1100 === void 0) {
-      return false;
-    }
-    return IsW1100;
-  } catch (e) {
-    return false;
-  }
-};
-var useIsW1220 = () => {
-  try {
-    const isW1220 = useContext(IsW1220Context);
-    if (isW1220 === void 0) {
-      return false;
-    }
-    return isW1220;
-  } catch (e) {
-    return false;
-  }
-};
-var useIsMd = () => {
-  try {
-    const isMd = useContext(IsW950Context);
-    if (isMd === void 0) {
-      return false;
-    }
-    return isMd;
-  } catch (e) {
-    return false;
-  }
-};
-
-// src/components/Header/rainbow_account/IsPixelWidget.tsx
-var IsPixelWidget = memo5(
-  ({
-    className,
-    children,
-    onClick,
-    backgroundColor,
-    borderColor,
-    pixel_height,
-    ...props
-  }) => {
-    const isW768 = useIsW768();
-    return /* @__PURE__ */ React5.createElement(PixelBorderCardButton, {
-      className: `pixel_border ${className != null ? className : ""}`,
-      pixel_height: pixel_height != null ? pixel_height : isW768 ? 3 : 5,
-      backgroundColor: backgroundColor != null ? backgroundColor : "#1d263b",
-      borderColor: borderColor != null ? borderColor : "#3a4254",
-      onClick,
-      ...props
-    }, children);
-  }
-);
-var IsPixelWidget_default = IsPixelWidget;
-
-// src/components/icons/index.tsx
-import React6 from "react";
-import classnames from "classnames";
-var Icon = (props) => {
-  return /* @__PURE__ */ React6.createElement(SvgComponent_default, {
-    className: classnames("icon", props.className),
-    src: preStaticUrl + `/img/icon/${props.name}.svg`,
-    alt: ""
-  });
-};
-var icons_default = Icon;
-
-// src/components/SideBar/component/Language.tsx
-var languageList = [
+// src/gas0/abis/Wallet.ts
+var WalletAbi = [
+  { type: "constructor", inputs: [{ name: "_owner", type: "address", internalType: "address" }], stateMutability: "nonpayable" },
+  { type: "receive", stateMutability: "payable" },
+  { type: "function", name: "controllers", inputs: [{ name: "", type: "address", internalType: "address" }], outputs: [{ name: "", type: "bool", internalType: "bool" }], stateMutability: "view" },
   {
-    label: "English",
-    keyValue: "en_US",
-    img: preStaticUrl + "/img/layout/en_US.png"
+    type: "function",
+    name: "functionCall",
+    inputs: [
+      { name: "from", type: "address", internalType: "address" },
+      { name: "to", type: "address", internalType: "address payable" },
+      { name: "value", type: "uint256", internalType: "uint256" },
+      { name: "data", type: "bytes", internalType: "bytes" },
+      { name: "v", type: "uint8", internalType: "uint8" },
+      { name: "r", type: "bytes32", internalType: "bytes32" },
+      { name: "s", type: "bytes32", internalType: "bytes32" }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
   },
+  { type: "function", name: "nonce", inputs: [], outputs: [{ name: "", type: "uint256", internalType: "uint256" }], stateMutability: "view" },
+  { type: "function", name: "owner", inputs: [], outputs: [{ name: "", type: "address", internalType: "address" }], stateMutability: "view" },
   {
-    label: "\uD55C\uAD6D\uC5B4",
-    keyValue: "ko_KR",
-    img: preStaticUrl + "/img/layout/ko_KR.png"
+    type: "function",
+    name: "setController",
+    inputs: [
+      { name: "controller", type: "address", internalType: "address" },
+      { name: "isAllow", type: "bool", internalType: "bool" },
+      { name: "v", type: "uint8", internalType: "uint8" },
+      { name: "r", type: "bytes32", internalType: "bytes32" },
+      { name: "s", type: "bytes32", internalType: "bytes32" }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
   },
+  { type: "error", name: "AddressEmptyCode", inputs: [{ name: "target", type: "address", internalType: "address" }] },
+  { type: "error", name: "ECDSAInvalidSignature", inputs: [] },
+  { type: "error", name: "ECDSAInvalidSignatureLength", inputs: [{ name: "length", type: "uint256", internalType: "uint256" }] },
+  { type: "error", name: "ECDSAInvalidSignatureS", inputs: [{ name: "s", type: "bytes32", internalType: "bytes32" }] },
+  { type: "error", name: "FailedCall", inputs: [] },
   {
-    label: "\u4E2D\u6587\u7E41\u9AD4",
-    keyValue: "zh_TW",
-    img: preStaticUrl + "/img/layout/zh_TW.png"
+    type: "error",
+    name: "InsufficientBalance",
+    inputs: [
+      { name: "balance", type: "uint256", internalType: "uint256" },
+      { name: "needed", type: "uint256", internalType: "uint256" }
+    ]
   }
 ];
-var Language = memo6(({ type }) => {
-  const isW768 = useIsW768();
-  const lang = useCurrentLanguage();
-  const { t } = useCustomTranslation([LngNs.common]);
-  const changeLanguageHandle = useCallback3((item) => {
-    changeLanguage(item.keyValue);
-    storage_default.set("language", item.keyValue);
-  }, []);
-  return /* @__PURE__ */ React7.createElement("div", {
-    className: classnames2(
-      type === "pixel" ? "language_pixel" : type === "top" ? "language_top" : type === "list" ? "language_list" : "",
-      "language"
-    )
-  }, /* @__PURE__ */ React7.createElement("div", {
-    className: type === "list" ? "" : classnames2(
-      "horListItem",
-      "languageItem",
-      type === "pixel" ? "languagePixelTop" : ""
-    )
-  }, type === "pixel" ? /* @__PURE__ */ React7.createElement("div", {
-    className: "pixel_logo_wrap"
-  }, /* @__PURE__ */ React7.createElement(IsPixelWidget_default, {
-    className: "pixel_logo"
-  }, /* @__PURE__ */ React7.createElement("img", {
-    decoding: "async",
-    loading: "lazy",
-    src: preStaticUrl + `/img/layout/${lang}.png`,
-    className: "pixel_img_lang"
-  })), /* @__PURE__ */ React7.createElement("div", {
-    className: "address_wrap_pop_lang_wrap"
-  }, /* @__PURE__ */ React7.createElement(PixelBorderCard, {
-    className: "address_wrap_pop_lang",
-    pixel_height: 4,
-    backgroundColor: "#1D263B",
-    borderColor: "#3A4254"
-  }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
-    color: "#1D263B",
-    classNames: "address_wrap_pop_item",
-    key: v.label,
-    onClick: () => changeLanguageHandle(v),
-    iconName: v.img,
-    label: v.label,
-    on: v.keyValue === lang
-  }))))) : /* @__PURE__ */ React7.createElement("div", {
-    className: "lang"
-  }, /* @__PURE__ */ React7.createElement("p", {
-    className: "lang_title"
-  }, /* @__PURE__ */ React7.createElement(icons_default, {
-    name: "language"
-  }), isW768 ? "Language" : t("language")), /* @__PURE__ */ React7.createElement("div", {
-    className: "lang_list"
-  }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
-    color: "transparent",
-    onColor: "#3A4254",
-    classNames: "address_list_item",
-    key: v.label,
-    onClick: () => changeLanguageHandle(v),
-    iconName: v.img,
-    label: v.label,
-    on: v.keyValue === lang
-  }))))));
-}, isEqual);
-var PopItem = memo6(
-  ({
-    iconName,
-    label,
-    onClick,
-    on,
-    classNames,
-    color,
-    onColor
-  }) => {
-    return /* @__PURE__ */ React7.createElement(PixelCube2, {
-      className: `${classNames} ${on ? "on" : ""}`,
-      onClick,
-      pixel_height: 3,
-      backgroundColor: on && onColor ? onColor : color,
-      borderColor: on && onColor ? onColor : color,
-      width: "100%",
-      height: "36px"
-    }, /* @__PURE__ */ React7.createElement(SvgComponent_default, {
-      src: iconName
-    }), /* @__PURE__ */ React7.createElement("p", null, label));
-  }
-);
-var Language_default = Language;
-
-// src/utils/i18n.ts
-var _lng = language_default.split("-").join("_");
-var lng = languageList.map((v) => v.keyValue).filter((v) => v === _lng).length ? _lng : "en_US";
-var LngNs = {
-  common: "common",
-  defense: "defense",
-  points: "points",
-  sideBar: "siderBar",
-  home: "home",
-  zBingo: "zBingo",
-  invitation: "invitation",
-  profile: "profile",
-  dp: "dp"
-};
-i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
-  fallbackLng: "en_US",
-  backend: {
-    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
-  },
-  lng,
-  ns: Object.values(LngNs),
-  keySeparator: false,
-  interpolation: {
-    escapeValue: false
-  }
-});
-
-// src/hooks/useActiveWeb3React.ts
-import { useMemo } from "react";
-import { useAccount, usePublicClient } from "wagmi";
-
-// src/rainbowkit/src/hooks/useChainId.ts
-import { useNetwork } from "wagmi";
-function useChainId() {
-  var _a;
-  const { chain: activeChain } = useNetwork();
-  return (_a = activeChain == null ? void 0 : activeChain.id) != null ? _a : null;
-}
-
-// src/hooks/useActiveWeb3React.ts
-function useActiveWeb3React(env, chainList) {
-  const chainId = useChainId();
-  const { address } = useAccount();
-  const provider = usePublicClient();
-  return useMemo(() => {
-    return {
-      chainId: window.IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
-      provider
-    };
-  }, [chainId, address, provider]);
-}
-
-// src/hooks/useNavItem.tsx
-var zAceLink = isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
-var crLink = "https://testnet.cryptorumble.io";
-var LinkList = [
-  window.location.origin + "/bingo/",
-  window.location.origin + "/2048/",
-  zAceLink,
-  crLink,
-  "",
-  "",
-  ""
-];
-var blankLinkList = [
-  false,
-  true,
-  true,
-  true,
-  false,
-  false,
-  false
-];
-var gameStatus = {
-  Live: {
-    btn_label: "Live",
-    btn_background_color: "#C5631D"
-  },
-  Testing: {
-    btn_label: "Testing",
-    btn_background_color: "#AF2D6A"
-  }
-};
-var useNavItem = () => {
-  const { t } = useCustomTranslation([LngNs.sideBar]);
-  const { chainId } = useActiveWeb3React();
-  return useMemo2(() => {
-    return [
-      {
-        label: t("Home"),
-        keyValue: "1",
-        icon: "home.svg",
-        link: "/",
-        disabled: false,
-        type: "Activities" /* Activities */
-      },
-      {
-        label: t("zBingo"),
-        keyValue: "2",
-        icon: "zBingo.png",
-        link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
-        disabled: false,
-        type: "Games" /* Games */,
-        ...gameStatus.Live
-      },
-      {
-        label: t("z2048"),
-        keyValue: "10",
-        icon: "z2048.png",
-        link: LinkList[1],
-        disabled: false,
-        type: "Games" /* Games */,
-        ...gameStatus.Live
-      },
-      {
-        label: t("zAce"),
-        keyValue: "6",
-        icon: "zACE.png",
-        link: LinkList[2],
-        disabled: false,
-        type: "Games" /* Games */,
-        content: (className) => /* @__PURE__ */ React8.createElement("div", {
-          className
-        }, /* @__PURE__ */ React8.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React8.createElement("img", {
-          decoding: "async",
-          loading: "lazy",
-          src: preStaticUrl + "/img/games/star.svg"
-        })),
-        ...gameStatus.Live
-      },
-      {
-        label: t("CryptoRumble"),
-        keyValue: "12",
-        icon: "Candy.png",
-        link: LinkList[3],
-        disabled: false,
-        type: "Games" /* Games */,
-        ...gameStatus.Testing
-      },
-      {
-        label: t("TCG"),
-        keyValue: "14",
-        icon: "TCG.png",
-        link: "/tcg",
-        disabled: true,
-        type: "Games" /* Games */
-      },
-      {
-        label: t("zMahjong"),
-        keyValue: "11",
-        icon: "zMahjong.png",
-        link: "/zMahjong",
-        disabled: true,
-        type: "Games" /* Games */
-      },
-      {
-        label: t("Murder Mystery"),
-        keyValue: "13",
-        icon: "Murder.png",
-        link: "/murdermystery",
-        disabled: true,
-        type: "Games" /* Games */
-      },
-      {
-        label: t("Profile"),
-        keyValue: "3",
-        icon: "profile.svg",
-        link: "/profile",
-        disabled: false,
-        type: "Activities" /* Activities */
-      }
-    ];
-  }, [t, chainId]);
-};
-
-// src/constant/gamesList.ts
-var Games = (chainId) => {
-  return [
-    {
-      keyValue: "21",
-      dapps: [
-        {
-          label: "CryptoRumble",
-          icon: "Candy.png",
-          link: LinkList[3]
-        },
-        {
-          label: "zBingo",
-          icon: "zBingo.png",
-          link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`
-        }
-      ]
-    },
-    {
-      keyValue: "22",
-      dapps: [
-        {
-          label: "zAce",
-          icon: "zAce.png",
-          link: LinkList[2]
-        },
-        {
-          label: "z2048",
-          icon: "z2048.png",
-          link: LinkList[1]
-        }
-      ]
-    },
-    {
-      keyValue: "23",
-      dapps: [
-        {
-          label: "TCG",
-          icon: "TCG.png"
-        },
-        {
-          label: "zMahjong",
-          icon: "zMahjong.png"
-        },
-        {
-          label: "Murder Mystery",
-          icon: "Murder.png"
-        }
-      ]
-    },
-    {
-      keyValue: "24",
-      dapps: [
-        {
-          label: "Anome",
-          icon: "Anome.png",
-          twitter: "https://twitter.com/Anome_Official",
-          link: "https://b2.anome.xyz/"
-        },
-        {
-          label: "Gabby World",
-          icon: "Gabby World.png",
-          twitter: "https://twitter.com/gabby_world_",
-          link: "https://tabi.gabby.world/"
-        }
-      ]
-    },
-    {
-      keyValue: "25",
-      dapps: [
-        {
-          label: "PawX",
-          icon: "PawX.png",
-          twitter: "https://twitter.com/PawXcats",
-          link: "https://www.pawx.me/"
-        },
-        {
-          label: "Castle Of Blackwater",
-          icon: "Blackwater.png",
-          link: "https://castleofblackwater.com/"
-        }
-      ]
-    },
-    {
-      keyValue: "26",
-      dapps: [
-        {
-          label: "Cross The Ages",
-          icon: "CrossAges.png",
-          twitter: "https://twitter.com/CrossTheAges ",
-          link: "https://linktr.ee/crosstheages "
-        },
-        {
-          label: "Wildcard",
-          icon: "Wildcard.png",
-          twitter: "https://twitter.com/PlayWildcard"
-        },
-        {
-          label: "BitcoinLoot",
-          icon: "BitcoinLoot.png",
-          twitter: "https://twitter.com/btc_loot",
-          link: "https://www.bitcoinloot.co/home/"
-        }
-      ]
-    },
-    {
-      keyValue: "27",
-      dapps: [
-        {
-          label: "Degen Verse",
-          icon: "Degen Verse.png",
-          twitter: "https://twitter.com/degen_game",
-          link: "https://degengame.cc/#/home"
-        },
-        {
-          label: "Yuliverse",
-          icon: "Yuliverse.png",
-          twitter: "https://twitter.com/TheYuliverse",
-          link: "https://www.yuliverse.com/"
-        },
-        {
-          label: "Forge Heros",
-          icon: "Forge Heros.png",
-          twitter: "https://twitter.com/ForgeHeroesGame",
-          link: "https://x.com/ForgeHeroesGame"
-        }
-      ]
-    },
-    {
-      keyValue: "28",
-      dapps: [
-        {
-          label: "Splinterlands",
-          icon: "Splinterlands.png",
-          twitter: "https://twitter.com/Splinterlands"
-        },
-        {
-          label: "Core Engine",
-          icon: "Core Engine.png",
-          link: "https://www.creoengine.com/"
-        },
-        {
-          label: "Crystal Fun",
-          icon: "Crystal Fun.png",
-          twitter: "https://x.com/playCrystalFun",
-          link: "https://outer.gg/"
-        }
-      ]
-    },
-    {
-      keyValue: "29",
-      dapps: [
-        {
-          label: "Cellula",
-          icon: "Cellula.png",
-          link: "https://factory.cellula.life/welcome"
-        },
-        {
-          label: "Metaline X",
-          icon: "Metaline X.png",
-          twitter: "https://twitter.com/Metaline001",
-          link: "https://app.metaline.games/"
-        },
-        {
-          label: "Trumen World",
-          icon: "Trumen World.png",
-          twitter: "https://twitter.com/trumen_worl",
-          link: "https://www.trumen.world/"
-        }
-      ]
-    }
-  ];
-};
 
 // src/utils/BigNumberJs.ts
 import BigNumberJs from "bignumber.js";
@@ -2562,452 +890,85 @@ var FORMAT = {
 };
 var BigNumberJs_default = BigNumberJs;
 
-// src/utils/cn.ts
-import cn from "classnames";
-var cn_default = cn;
-
-// src/utils/sleep.ts
-function sleep(seconds) {
-  const now = +new Date();
-  let t;
-  return new Promise((resolve, reject) => {
-    t = setInterval(() => {
-      if (now + seconds * 1e3 < +new Date()) {
-        clearInterval(t);
-        resolve(true);
-      }
-    }, 10);
+// src/gas0/utils/getAddressAA.ts
+import {
+  hexToBytes,
+  bytesToHex,
+  encodeDeployData,
+  getCreate2Address
+} from "viem";
+var address2salt = (addr) => {
+  const arr = hexToBytes(addr);
+  const bytes = new Uint8Array(32);
+  const len = arr.length;
+  arr.forEach((v, i) => {
+    bytes[32 - len + i] = v;
   });
-}
+  return bytesToHex(bytes);
+};
+var getAddressAA = (owner, walletBytecode2, deployer) => {
+  const salt = address2salt(owner);
+  const bytecode = encodeDeployData({
+    abi: WalletAbi,
+    args: [owner],
+    bytecode: walletBytecode2
+  });
+  return getCreate2Address({ bytecode, from: deployer, salt });
+};
 
-// src/components/List/ListWithMotion/ListWithMotion.tsx
-import { AnimatePresence, motion as motion2 } from "framer-motion";
-import React9, { memo as memo7 } from "react";
-var containerVariants = {
-  hidden: { opacity: 1, scale: 0 },
-  visible: {
-    opacity: 1,
-    scale: 1,
-    transition: {
-      delayChildren: 0.1,
-      staggerChildren: 0.1
-    }
-  }
-};
-var itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
-    y: 0,
-    opacity: 1
-  }
-};
-var ListWithMotion = (props) => {
-  const { parentClassName, itemClassName, data, renderItem } = props;
-  return /* @__PURE__ */ React9.createElement(AnimatePresence, null, /* @__PURE__ */ React9.createElement(motion2.ul, {
-    className: parentClassName,
-    variants: containerVariants,
-    initial: "hidden",
-    animate: "visible"
-  }, data.map((item, index) => /* @__PURE__ */ React9.createElement(motion2.li, {
-    key: `${index}`,
-    className: itemClassName,
-    variants: itemVariants
-  }, renderItem(item)))));
-};
-var ListWithMotion_default = memo7(ListWithMotion);
-
-// src/hooks/useGetActiveCall.ts
-import { useCallback as useCallback4 } from "react";
-var useGetHero = () => {
-  const getHero = useCallback4(
-    async ({ address, linkType }) => {
-      try {
-        const res = await request(
-          `${TVL_API}/api/user-role/${address.toLowerCase()}`,
-          {
-            method: "GET",
-            params: {
-              linkType
-            },
-            headers: {
-              "Content-Type": "application/json"
-            }
-          }
-        );
-        if (res.data && res.data["message"]) {
-          return res.data["message"];
-        } else {
-          return void 0;
-        }
-      } catch (e) {
-        return void 0;
-      }
-    },
-    []
-  );
-  return { getHero };
-};
-var useGetUserInfo = () => {
-  const getUserInfo = useCallback4(
-    async ({ account, chainId }) => {
-      try {
-        const linkType = getLinkPre(chainId);
-        const info_res = await request(`${TVL_API}/api/info/${account}`, {
-          method: "GET",
-          params: {
-            linkType: linkType.key
-          },
-          headers: {
-            "Content-Type": "application/json"
-          }
-        });
-        if (info_res.data) {
-          const infoObj = form_info(info_res.data, chainId);
-          return infoObj;
-        }
-      } catch (e) {
-        console.log("useGetInfo", { e });
-        return form_info_init();
-      }
-    },
-    []
-  );
-  return { getUserInfo };
-};
-var form_info = (data, chainId) => {
-  const linkType = getLinkPre(chainId);
+// src/gas0/constants/typedData.ts
+var ZytronSignTypedData = (chainId) => {
   return {
-    invitationCode: `${linkType.label}${data.curInviteCode}`,
-    signedStr: "0000",
-    avatar: data.headImg,
-    id: `${data.id}`,
-    nickname: data.nickname,
-    isTwitterPost: data.isTwitterPost,
-    twitter: {
-      avatar: data.twitterImg,
-      nickname: data.twitterName,
-      followerCount: `${data.twitterFollower}`,
-      isLoading: false
+    domain: {
+      name: "Zytron",
+      chainId
     },
-    discord: {
-      avatar: data.discordImg,
-      nickname: data.discordName,
-      followerCount: "",
-      isLoading: false
-    }
+    types: {
+      Message: [
+        { name: "nonce", type: "uint256" },
+        { name: "from", type: "address" },
+        { name: "to", type: "address" },
+        { name: "value", type: "uint256" },
+        { name: "data", type: "bytes" }
+      ]
+    },
+    primaryType: "Message"
   };
 };
-var form_info_init = () => {
+var ZytronSetAdminTypedData = (chainId) => {
   return {
-    invitationCode: "",
-    signedStr: "",
-    avatar: "",
-    id: "",
-    nickname: "",
-    twitter: {
-      avatar: "",
-      nickname: "",
-      followerCount: "",
-      isLoading: false
+    domain: { name: "Zytron", chainId },
+    types: {
+      Message: [
+        { name: "controller", type: "address" },
+        { name: "isAllow", type: "bool" },
+        { name: "nonce", type: "uint256" }
+      ]
     },
-    discord: {
-      avatar: "",
-      nickname: "",
-      followerCount: "",
-      isLoading: false
-    }
+    primaryType: "Message"
   };
 };
 
-// src/components/ConnectWallet/state/connectWalletState.ts
-import { atom as atom3 } from "recoil";
-var connectorState = atom3({
-  key: "connectorState",
-  default: {
-    chainId: null,
-    networkError: null
-  }
-});
-var walletModalOpenState = atom3({
-  key: "walletModalOpenState",
-  default: false
-});
-var ChainSelector = atom3({
-  key: "ChainSelector",
-  default: false
-});
-var refreshBalanceState = atom3({
-  key: "refreshBalance",
-  default: "0"
-});
-var refreshAvatarState = atom3({
-  key: "refreshAvatar",
-  default: "0"
-});
-var pointsDialogState = atom3({
-  key: "pointsDialog",
-  default: false
-});
-var pointsAnimState = atom3({
-  key: "pointsAnim",
-  default: false
-});
-var pointsAnimNumState = atom3({
-  key: "pointsAnimNum",
-  default: 0
-});
-var pointsWarnState = atom3({
-  key: "pointsWarn",
-  default: 0
-});
-var hidePointsWarnState = atom3({
-  key: "hidePointsWarn",
-  default: false,
-  effects_UNSTABLE: [localStorageEffect("hidePointsWarn")]
-});
-var pointsRuleDialogState = atom3({
-  key: "pointsRuleDialog",
-  default: false
-});
-var accountInfoDialogState = atom3({
-  key: "accountInfoDialog",
-  default: false
-});
-var showBigState = atom3({
-  key: "showBigState",
-  default: false
-});
-var showMiddleState = atom3({
-  key: "showMiddleState",
-  default: false
-});
-var linkToBetaDialogState = atom3({
-  key: "linkToBetaDialog",
-  default: false
-});
-var linkToBetaDialogChainIdState = atom3({
-  key: "linkToBetaDialogChainIdState",
-  default: void 0
-});
-var nativeBalanceState = atom3({
-  key: "nativeBalance",
-  default: 0,
-  effects_UNSTABLE: [localStorageEffect("nativeBalance")]
-});
-var pointsBalanceState = atom3({
-  key: "pointsBalance",
-  default: 0,
-  effects_UNSTABLE: [localStorageEffect("pointsBalance")]
-});
+// src/utils/getSign.ts
+import * as ethers3 from "ethers";
 
-// src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
-import classnames4 from "classnames";
-import React17, { memo as memo13, useCallback as useCallback8, useEffect as useEffect9, useState as useState10 } from "react";
-import { useRecoilState as useRecoilState6, useRecoilValue as useRecoilValue5 } from "recoil";
-
-// src/components/CurrencyLogo/index.tsx
-import React10, { useState as useState8 } from "react";
-var Logo = ({ src: src6, alt, ...rest }) => {
-  const [bad, setBad] = useState8(false);
-  if (src6 && !bad) {
-    return /* @__PURE__ */ React10.createElement("img", {
-      decoding: "async",
-      loading: "lazy",
-      ...rest,
-      alt,
-      src: src6,
-      onError: () => {
-        setBad(true);
-      }
-    });
-  }
-  return /* @__PURE__ */ React10.createElement("div", {
-    ...rest
-  }, /* @__PURE__ */ React10.createElement(icons_default, {
-    name: "help"
-  }));
-};
-var CurrencyLogo_default = Logo;
-
-// src/utils/tool.tsx
-import BigNumber from "bignumber.js";
-import { utils } from "ethers";
-BigNumber.config({ EXPONENTIAL_AT: 1e9 });
-var eX = (value, x) => {
-  return new BigNumber(`${value}e${x}`);
-};
-function pow10(num, decimals = 18) {
-  if (!num) {
-    return new BigNumber(0);
-  }
-  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
-}
-function bnPow10(num, decimals = 18) {
-  if (!num) {
-    return new BigNumber(0);
-  }
-  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
-}
-var formatDecimal = (number, decimal = 2) => {
-  if (number === void 0) {
-    return "";
-  }
-  let num = number.toString();
-  const index = num.indexOf(".");
-  if (index !== -1) {
-    num = num.substring(0, decimal + index + 1);
-  } else {
-    num = num.substring(0);
-  }
-  return parseFloat(num).toFixed(decimal);
-};
-var formatMoney = (value, n = 2) => {
-  try {
-    if (isNaN(Number(value))) {
-      return Number(0).toFixed(n > 0 ? n : 0);
-    }
-    if (value === 0 || value === "0") {
-      return Number(0).toFixed(n);
-    }
-    const isNegative = Number(value) < 0;
-    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
-    const l = v.split(".")[0].split("").reverse();
-    const r = v.split(".")[1];
-    let t = "";
-    for (let i = 0; i < l.length; i++) {
-      t += l[i] + ((i + 1) % 3 === 0 && i + 1 !== l.length ? "," : "");
-    }
-    let res = t.split("").reverse().join("");
-    if (r && r !== "00") {
-      res += `.${r.replace(/0+$/, "")}`;
-    }
-    return `${isNegative ? "-" : ""}${res}`;
-  } catch (e) {
-    console.error("formatMoney:", e);
-    return "";
-  }
-};
-function getShortenAddress(address, preLen = 6, endLen = 4) {
-  if (!address) {
-    return "";
-  }
-  if (address.length < 42) {
-    return address;
-  }
-  const firstCharacters = address.substring(0, preLen);
-  const lastCharacters = address.substring(
-    address.length - endLen,
-    address.length
-  );
-  return `${firstCharacters}...${lastCharacters}`;
-}
-function getShortenAddress2(address) {
-  const firstCharacters = address.substring(0, 10);
-  const lastCharacters = address.substring(address.length - 10, address.length);
-  return `${firstCharacters}****${lastCharacters}`;
-}
-function filterInput(val) {
-  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
-  return Number(v) >= 0 ? v : "";
-}
-var convertToLargeNumberRepresentation = (value) => {
-  if (!value) {
-    return "0";
-  } else if (+value >= 1e5) {
-    return `${eX(value.toString(), -6)}M`;
-  } else if (+value >= 100) {
-    return `${eX(value.toString(), -3)}K`;
-  } else {
-    return value.toString();
-  }
-};
-var tCanvas;
-function measureText(text, font) {
-  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
-  const context = canvas.getContext("2d");
-  if (context) {
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-  return 0;
-}
-var splitArrByLen = (arr, len) => {
-  const t = [];
-  let index = 0;
-  while (index < arr.length) {
-    t.push(arr.slice(index, index += len));
-  }
-  return t;
-};
-var Units = [
-  ["B", 1e9],
-  ["M", 1e6],
-  ["K", 1e3]
-];
-function formatCurrency(amount, precision = 2) {
-  var _a;
-  const [unit, base3] = (_a = Units.find(
-    ([, min]) => Number(amount) >= Number(min)
-  )) != null ? _a : ["", 1];
-  return `${utils.commify(
-    (amount / base3).toFixed(precision)
-  )}${unit}`;
-}
-function formatSymbol(symbol) {
-  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
-}
-
-// src/hooks/usePoint.ts
-import BigNumberjs2 from "bignumber.js";
-
-// src/hooks/useAccountInvitation.ts
-import { atom as atom4, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState2 } from "recoil";
-import { useCallback as useCallback5 } from "react";
-var invitationAddressState = atom4({
-  key: "invitationAddressState",
-  default: void 0,
-  effects_UNSTABLE: [localStorageEffect("invitationAddressState")]
-});
-var useAccountInvitation = (env) => {
-  const { chainId, account } = useActiveWeb3React();
-  const invitationAddres = useRecoilValue2(
-    invitationAddressState
-  );
-  const setInvitationAddressState = useSetRecoilState2(invitationAddressState);
-  const postAccountUpdate = useCallback5(
-    async ({ tx }) => {
-    },
-    [chainId, account, invitationAddres]
-  );
-  return {
-    postAccountUpdate
-  };
-};
-
-// src/hooks/usePoint.ts
-import { useCallback as useCallback7, useState as useState9 } from "react";
-import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState3 } from "recoil";
-
-// src/hooks/usePublicNodeWaitForTransaction.ts
-import { useCallback as useCallback6 } from "react";
-import { waitForTransaction } from "wagmi/actions";
+// src/connectors/contractV2.ts
+import { AddressZero as AddressZero2 } from "@ethersproject/constants";
+import { ethers as ethers2, providers, utils as utils2 } from "ethers";
+import {
+  getContract as viemGetContract
+} from "viem";
 
 // src/rainbow/rainbow.ts
 import {
   createPublicClient,
   fallback,
-  http,
-  zeroAddress,
-  createWalletClient,
-  custom,
-  publicActions
+  http
 } from "viem";
 import { configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { particleWallet } from "@particle-network/rainbowkit-ext";
 import { ParticleNetwork } from "@particle-network/auth";
-import { MockConnector } from "wagmi/connectors/mock";
 
 // src/rainbowkit/src/wallets/connectorsForWallets.ts
 import { WalletConnectConnector } from "wagmi/connectors/walletConnect";
@@ -3732,12 +1693,14 @@ var tokenPocketWallet = ({
   };
 };
 
-// src/rainbow/rainbow.ts
+// src/rainbow/utils/tgChain.ts
+import { zeroAddress, createWalletClient, custom, publicActions } from "viem";
+import { MockConnector } from "wagmi/connectors/mock";
 import { ethers } from "ethers";
 
 // src/rainbow/telegramWallet.tsx
-import { Signer, utils as utils2 } from "ethers";
-var { resolveProperties } = utils2;
+import { Signer, utils } from "ethers";
+var { resolveProperties } = utils;
 var TelegramWallet = class extends Signer {
   constructor(address, provider, api, WebAppData) {
     super();
@@ -3796,6 +1759,74 @@ var TelegramWallet = class extends Signer {
   }
 };
 
+// src/utils/sleep.ts
+function sleep(seconds) {
+  const now = +new Date();
+  let t;
+  return new Promise((resolve, reject) => {
+    t = setInterval(() => {
+      if (now + seconds * 1e3 < +new Date()) {
+        clearInterval(t);
+        resolve(true);
+      }
+    }, 10);
+  });
+}
+
+// src/rainbow/utils/tgChain.ts
+var tgChain = ({
+  WebAppData,
+  publicClient,
+  chains
+}) => {
+  const provider = new ethers.providers.JsonRpcProvider(
+    ChainRpcUrls["2717465680371000" /* SagaMainnet */][0]
+  );
+  const acc = new TelegramWallet(
+    localStorage.getItem("TelegramUserIdEvmAddressKey") || zeroAddress,
+    provider,
+    TG_BOT_URL,
+    WebAppData
+  );
+  const account = acc.address;
+  const pub = publicClient({ chainId: "2717465680371000" /* SagaMainnet */ });
+  const walletClient = createWalletClient({
+    account,
+    chain: AllChainInfo["2717465680371000" /* SagaMainnet */],
+    transport: custom({
+      async request({ method, params }) {
+        const useLocal = ["eth_sendTransaction", "personal_sign"].includes(
+          method
+        );
+        if (!useLocal) {
+          const res = await pub.request({ method, params });
+          return res;
+        }
+        if (method === "eth_sendTransaction") {
+          const fmt = { ...params[0] };
+          fmt.gasLimit = fmt.gas;
+          delete fmt.gas;
+          const txr = await acc.sendTransaction(fmt);
+          return txr.hash;
+        }
+        if (method === "personal_sign") {
+          const txr = await acc.signMessage(params[0]);
+          console.log({ txr });
+          return txr;
+        }
+      }
+    })
+  }).extend(publicActions);
+  const mock = new MockConnector({ chains, options: { walletClient } });
+  GlobalVar.mockAcc = async (address, proof) => {
+    acc.setAddress(address);
+    walletClient.account.address = address;
+    mock.emit("change", { account: address });
+    await sleep(0.2);
+  };
+  return [mock];
+};
+
 // src/rainbow/rainbow.ts
 var getSupportedChainIdList = (env, chainIdList) => {
   const list = (chainIdList != null ? chainIdList : supportedChainIds(env)).map(
@@ -3819,52 +1850,11 @@ var projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 var getConnectors = (env, publicClient, chainIdList, WebAppData) => {
   const { chains } = getConfigureChains(env, chainIdList);
   if (window.IS_TELEGRAM) {
-    const provider = new ethers.providers.JsonRpcProvider(
-      ChainRpcUrls["2717465680371000" /* SagaMainnet */][0]
-    );
-    const acc = new TelegramWallet(
-      localStorage.getItem("TelegramUserIdEvmAddressKey") || zeroAddress,
-      provider,
-      TG_BOT_URL,
-      WebAppData
-    );
-    const account = acc.address;
-    const pub = publicClient({ chainId: "2717465680371000" /* SagaMainnet */ });
-    const walletClient = createWalletClient({
-      account,
-      chain: AllChainInfo["2717465680371000" /* SagaMainnet */],
-      transport: custom({
-        async request({ method, params }) {
-          const useLocal = ["eth_sendTransaction", "personal_sign"].includes(
-            method
-          );
-          if (!useLocal) {
-            const res = await pub.request({ method, params });
-            return res;
-          }
-          if (method === "eth_sendTransaction") {
-            const fmt = { ...params[0] };
-            fmt.gasLimit = fmt.gas;
-            delete fmt.gas;
-            const txr = await acc.sendTransaction(fmt);
-            return txr.hash;
-          }
-          if (method === "personal_sign") {
-            const txr = await acc.signMessage(params[0]);
-            console.log({ txr });
-            return txr;
-          }
-        }
-      })
-    }).extend(publicActions);
-    const mock = new MockConnector({ chains, options: { walletClient } });
-    GlobalVar.mockAcc = async (address, proof) => {
-      acc.setAddress(address);
-      walletClient.account.address = address;
-      mock.emit("change", { account: address });
-      await sleep(0.2);
-    };
-    return [mock];
+    return tgChain({
+      WebAppData,
+      publicClient,
+      chains
+    });
   }
   return connectorsForWallets([
     {
@@ -3937,56 +1927,9 @@ var getViemClients = ({
   return viemClients(env)[chainId];
 };
 
-// src/hooks/useActiveChainId.ts
-import { useNetwork as useNetwork2 } from "wagmi";
-var useActiveChainId = (env) => {
-  var _a;
-  const { chain } = useNetwork2();
-  const chainId = (_a = chain == null ? void 0 : chain.id) != null ? _a : void 0;
-  const isError = !Object.values(supportedChainIds(env)).includes(
-    Number(chainId)
-  );
-  return {
-    chainId,
-    isWrongNetwork: isError
-  };
-};
-
-// src/hooks/usePublicNodeWaitForTransaction.ts
-function usePublicNodeWaitForTransaction(env) {
-  const { chainId } = useActiveChainId(env);
-  const waitForTransaction_ = useCallback6(
-    async (opts) => {
-      if (!chainId) {
-        return void 0;
-      }
-      const viemClients2 = viemClients(env);
-      if (viemClients2[chainId]) {
-        return viemClients2[chainId].waitForTransactionReceipt(opts);
-      }
-      return waitForTransaction({ ...opts, chainId });
-    },
-    [chainId]
-  );
-  return {
-    waitForTransaction: waitForTransaction_
-  };
-}
-
-// src/hooks/usePoint.ts
-import { useWalletClient } from "wagmi";
-
-// src/contract/bingoPoints.ts
-import abi from "@zypher-game/bingo-periphery-v1/abi/ZkBingoPoints.json";
-
 // src/connectors/contractV2.ts
-import { AddressZero as AddressZero2 } from "@ethersproject/constants";
-import { ethers as ethers2, providers, utils as utils3 } from "ethers";
-import {
-  getContract as viemGetContract
-} from "viem";
 var Contract = ethers2.Contract;
-var getAddress = utils3.getAddress;
+var getAddress = utils2.getAddress;
 var getContract = ({
   abi: abi2,
   address,
@@ -4063,7 +2006,2629 @@ var getProvider = (url) => {
   });
 };
 
+// src/utils/getSign.ts
+async function getWeb3Sign(dataToSign, account, isArrayify = true, walletClient) {
+  if (!account) {
+    return false;
+  }
+  if (window.IS_TELEGRAM) {
+    window.isArrayify = isArrayify;
+    window.dataToSign = dataToSign;
+    return await (walletClient == null ? void 0 : walletClient.signMessage({
+      message: dataToSign,
+      account
+    }));
+  } else {
+    const provider = await getProvider();
+    const signer = provider.getSigner(account);
+    const data = isArrayify ? ethers3.utils.arrayify(dataToSign) : dataToSign;
+    return await signer.signMessage(data);
+  }
+}
+async function getEIP712Sign({
+  domain,
+  types,
+  data,
+  account
+}) {
+  try {
+    if (!account) {
+      return false;
+    }
+    const provider = await getProvider();
+    const signer = provider.getSigner(account);
+    const signature = await signer._signTypedData(domain, types, data);
+    return signature;
+  } catch (e) {
+    throw e;
+  }
+}
+
+// src/gas0/abis/Deployer.ts
+var DeployerAbi = [
+  { type: "receive", stateMutability: "payable" },
+  {
+    type: "function",
+    name: "deployContract",
+    inputs: [
+      { name: "salt", type: "bytes32", internalType: "bytes32" },
+      { name: "bytecode", type: "bytes", internalType: "bytes" },
+      { name: "controller", type: "address", internalType: "address" },
+      { name: "v", type: "uint8", internalType: "uint8" },
+      { name: "r", type: "bytes32", internalType: "bytes32" },
+      { name: "s", type: "bytes32", internalType: "bytes32" }
+    ],
+    outputs: [],
+    stateMutability: "nonpayable"
+  },
+  { type: "event", name: "WalletDeployed", inputs: [{ name: "walletAddress", type: "address", indexed: true, internalType: "address" }], anonymous: false },
+  { type: "error", name: "Create2EmptyBytecode", inputs: [] },
+  { type: "error", name: "FailedDeployment", inputs: [] },
+  {
+    type: "error",
+    name: "InsufficientBalance",
+    inputs: [
+      { name: "balance", type: "uint256", internalType: "uint256" },
+      { name: "needed", type: "uint256", internalType: "uint256" }
+    ]
+  }
+];
+
+// src/gas0/utils/wagmiWalletHandler.ts
+var WagmiWalletHandler = class {
+  constructor(walletClient, gas0Balance) {
+    console.log({ gas0Balance });
+    this.chainId = walletClient.chain.id;
+    this.chain = walletClient.chain;
+    this.walletClient = walletClient;
+    this.publicClient = getPublicClient({ chainId: this.chainId });
+    this.account = this.walletClient.account;
+    const conf = Gas0Constants[this.chainId];
+    if (conf) {
+      const deployer = conf.Deployer;
+      const wallet = getAddressAA(
+        this.account.address,
+        conf.walletBytecode,
+        deployer
+      );
+      console.log({ gas0Balance, s: new BigNumberJs_default(gas0Balance).gt(0) });
+      this.aa = {
+        isFree: new BigNumberJs_default(gas0Balance).gt(0),
+        address: wallet,
+        contract: getContract2({
+          abi: WalletAbi,
+          address: wallet,
+          walletClient
+        }),
+        config: conf
+      };
+      const aa = this.aa;
+      console.log({ aa });
+      const transport = custom3({
+        request: async ({ method, params }) => {
+          var _a;
+          console.log("custom request", method, params);
+          if (method !== "eth_sendTransaction") {
+            const res = await this.publicClient.request({ method, params });
+            console.log("res", res);
+            return res;
+          }
+          const owner = this.walletClient.account.address;
+          const isCreate = await getIsCreate(this.publicClient, wallet);
+          if (!isCreate) {
+            const hash = await gas0WalletCreateAndApprove(
+              this,
+              owner,
+              true,
+              aa.isFree
+            );
+            if (!hash)
+              return;
+            await this.publicClient.waitForTransactionReceipt({
+              hash,
+              confirmations: 1
+            });
+          }
+          const isController = await ((_a = this.aa) == null ? void 0 : _a.contract.read.controllers([
+            owner
+          ]));
+          if (!isController) {
+            const hash = await gas0WalletSetController(
+              this,
+              owner,
+              true,
+              aa.isFree
+            );
+            await this.publicClient.waitForTransactionReceipt({
+              hash,
+              confirmations: 1
+            });
+          }
+          const nonce = await this.aaNonce();
+          const arg = params[0];
+          console.log({ arg });
+          const value = arg.value || BigInt(0);
+          const { domain, types } = ZytronSignTypedData(this.chainId);
+          const data = {
+            from: aa.address,
+            to: arg.to,
+            value,
+            data: arg.data,
+            nonce
+          };
+          const sign = await getEIP712Sign({
+            domain,
+            types,
+            data,
+            account: owner
+          });
+          if (typeof sign === "string") {
+            const { v, r, s } = hexToSignature(sign);
+            console.log({ v, r, s, aa: aa.isFree });
+            if (aa.isFree) {
+              const { data: res } = await httpPost(
+                `${aa.config.api}/functioncall`,
+                {
+                  wallet: aa.address,
+                  to: arg.to,
+                  data: arg.data,
+                  value: toHex(BigInt(value)),
+                  v: Number(v),
+                  r,
+                  s,
+                  owner
+                }
+              );
+              if (res.code !== 0)
+                throw new Error(`functioncall error: ${res.msg}`);
+              console.log("res", res);
+              return res.data.tx_hash;
+            } else {
+              const aaContract = getContract2({
+                abi: WalletAbi,
+                address: aa.address,
+                walletClient
+              });
+              return aaContract.write.functionCall([
+                aa.address,
+                arg.to,
+                value,
+                arg.data,
+                Number(v),
+                r,
+                s
+              ]);
+            }
+          }
+        }
+      });
+      this.walletClient = createWalletClient3({
+        account: this.account,
+        chain: this.chain,
+        transport
+      }).extend(publicActions3);
+    }
+  }
+  async aaNonce() {
+    var _a;
+    try {
+      const nonce = await ((_a = this.aa) == null ? void 0 : _a.contract.read.nonce());
+      return nonce || BigInt(0);
+    } catch (err) {
+      if (err && err.message && err.message.match(
+        /^The contract function "nonce" returned no data \("0x"\)/
+      ))
+        return BigInt(0);
+      console.log(String(err));
+      throw err;
+    }
+  }
+  getWalletClient() {
+    return this.walletClient;
+  }
+};
+var getIsCreate = async (publicClient, address) => {
+  if (address) {
+    const code = await publicClient.getBytecode({
+      address
+    });
+    if (code) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+};
+var gas0WalletCreateAndApprove = async (wallet, controller, isAllow, isFree) => {
+  if (!wallet.aa) {
+    return;
+  }
+  const nonce = await wallet.aaNonce();
+  const typeData = {
+    ...ZytronSetAdminTypedData(wallet.chainId),
+    message: { controller, isAllow, nonce }
+  };
+  const sign = await wallet.walletClient.signTypedData(typeData);
+  console.log("typeData", typeData, hashTypedData(typeData));
+  const owner = wallet.walletClient.account.address;
+  const { v, r, s } = hexToSignature(sign);
+  if (isFree) {
+    const res = await httpPost(`${wallet.aa.config.api}/create`, {
+      controller,
+      owner,
+      v: Number(v),
+      r,
+      s
+    });
+    if (res.code !== 0)
+      throw new Error(`setController error: ${res.msg}`);
+    return res.data.tx_hash;
+  }
+  const Deployer = getContract2({
+    abi: DeployerAbi,
+    address: wallet.aa.config.Deployer,
+    walletClient: wallet.walletClient
+  });
+  const bytecode = encodeDeployData2({
+    abi: WalletAbi,
+    args: [wallet.walletClient.account.address],
+    bytecode: wallet.aa.config.walletBytecode
+  });
+  const salt = address2salt2(owner);
+  return Deployer.write.deployContract([
+    salt,
+    bytecode,
+    controller,
+    Number(v),
+    r,
+    s
+  ]);
+};
+var gas0WalletSetController = async (wallet, controller, isAllow, isFree) => {
+  if (!wallet.aa)
+    return;
+  const nonce = await wallet.aaNonce();
+  const sign = await wallet.walletClient.signTypedData({
+    ...ZytronSetAdminTypedData(wallet.chainId),
+    message: { controller, isAllow, nonce }
+  });
+  const owner = wallet.walletClient.account.address;
+  const { v, r, s } = hexToSignature(sign);
+  if (isFree) {
+    const res = await httpPost(`${wallet.aa.config.api}/set_controller`, {
+      wallet: wallet.aa.address,
+      controller,
+      owner,
+      is_allow: isAllow,
+      v: Number(v),
+      r,
+      s
+    });
+    if (res.code !== 0)
+      throw new Error(`setController error: ${res.msg}`);
+    return res.data.tx_hash;
+  }
+  return wallet.aa.contract.write.setController([
+    controller,
+    isAllow,
+    Number(v),
+    r,
+    s
+  ]);
+};
+var address2salt2 = (addr) => {
+  const arr = hexToBytes2(addr);
+  const bytes = new Uint8Array(32);
+  const len = arr.length;
+  arr.forEach((v, i) => {
+    bytes[32 - len + i] = v;
+  });
+  return bytesToHex2(bytes);
+};
+
+// src/gas0/hooks/useWalletHandler.ts
+var useWalletHandler = () => {
+  const { data: walletClient } = useWalletClient();
+  const gas0Balance = useGas0Balance();
+  const { account, chainId } = useActiveWeb3React();
+  const [isSet, setIsSet] = useState2(false);
+  const key = useRef2("");
+  const getWalletClient = useCallback(() => {
+    if (isSet) {
+      return;
+    }
+    const keyString = [account, chainId, gas0Balance].join("-");
+    if (key.current === keyString && GlobalVar.walletClient) {
+      return;
+    }
+    key.current = keyString;
+    if (!walletClient || !chainId || !account) {
+      console.log(1);
+      return;
+    }
+    setIsSet(true);
+    if (Gas0Constants[chainId]) {
+      GlobalVar.walletClient = new WagmiWalletHandler(
+        walletClient,
+        gas0Balance
+      ).getWalletClient();
+      setIsSet(false);
+      return;
+    }
+    GlobalVar.walletClient = walletClient;
+    setIsSet(false);
+    return;
+  }, [key.current, account, chainId, Boolean(walletClient), gas0Balance]);
+  useEffect2(() => {
+    getWalletClient();
+  }, [getWalletClient]);
+  return useMemo2(() => {
+    return GlobalVar.walletClient;
+  }, [GlobalVar.walletClient]);
+};
+
+// src/constant/tvlConstant.ts
+var TVL_API = "https://tvl-backend-api.zypher.game";
+var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
+  ITvlHero2["Agil"] = "Agil";
+  ITvlHero2["Yueling"] = "Yueling";
+  ITvlHero2["Celus"] = "Celus";
+  ITvlHero2["Ivan"] = "Ivan";
+  ITvlHero2["Liana"] = "Liana";
+  return ITvlHero2;
+})(ITvlHero || {});
+var TVLChainId = ((TVLChainId2) => {
+  TVLChainId2[TVLChainId2["B2"] = "223" /* B2 */] = "B2";
+  TVLChainId2[TVLChainId2["B2Testnet"] = "1123" /* B2Testnet */] = "B2Testnet";
+  TVLChainId2[TVLChainId2["LineaMainnet"] = "59144" /* LineaMainnet */] = "LineaMainnet";
+  TVLChainId2[TVLChainId2["LineaSepolia"] = "59141" /* LineaSepolia */] = "LineaSepolia";
+  return TVLChainId2;
+})(TVLChainId || {});
+var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaSepolia] : [];
+var defaultActiveChainId = TVLStakingSupportedChainId[0];
+var L3ChainId = {
+  [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
+  [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
+  [TVLChainId.LineaMainnet]: "19546" /* ZytronLineaSepoliaTestnet */,
+  [TVLChainId.LineaSepolia]: "19546" /* ZytronLineaSepoliaTestnet */
+};
+var activeTokenList = {
+  [TVLChainId.LineaSepolia]: {
+    Staking: "0x1818BC25102B0b0919c84eE0A765E110A211a774",
+    ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
+    CRHero: "0xb7aA019d86aa3aE5568DFf21DA6209fe68B9c45b",
+    Soulbound: "0x7b00c14c7D0087C3a0d37cAbbc6924566B4481E9"
+  },
+  [TVLChainId.B2Testnet]: {
+    Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
+    ZypherGameToken: "0x48C459e81aAD8B98e27002D25f191682C9a9fFBb",
+    CRHero: "0x5f441d16bA9A5e3a824f4c287eDA8019F97418f6",
+    Soulbound: "0x77DB62EAB363e6DEF480e4C63210f162438eeD77"
+  }
+};
+var tvlTokenAddress = {
+  [TVLChainId.LineaSepolia]: {
+    WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
+    wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
+    ezETH: "0x79A67D40f3e7396FC122268DC0136896cC7D7271"
+  },
+  [TVLChainId.B2Testnet]: {
+    WBTC: "0x9Cae525AdE710904FE81daF47fD26789608fe057",
+    stBTC: "0x4AC1Ba5885929aFDdbf035bA03013836db27012C"
+  }
+};
+var tvlTokens = Object.fromEntries(
+  TVLStakingSupportedChainId.map((chainId) => [
+    chainId,
+    Object.fromEntries(
+      Object.keys(tvlTokenAddress[chainId]).map((currency) => [
+        currency,
+        {
+          address: tvlTokenAddress[chainId][currency],
+          symbol: currency,
+          logoPath: getCryptoImg(
+            "token",
+            currency,
+            currency === "BTC" || currency === "WBTC" ? ".svg" : ".png"
+          ),
+          index: 2
+        }
+      ])
+    )
+  ])
+);
+var LinkPre = {
+  L: {
+    key: 1,
+    label: "L",
+    chainId: isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia
+  },
+  B: {
+    key: 2,
+    label: "B",
+    chainId: isPro() ? TVLChainId.B2 : TVLChainId.B2Testnet
+  }
+};
+var getLinkPre = (chainId) => {
+  return Object.values(LinkPre).filter((v) => v.chainId === chainId)[0];
+};
+var minStakingValue = {
+  [TVLChainId.B2]: "0.0005",
+  [TVLChainId.B2Testnet]: "0.0005",
+  [TVLChainId.LineaMainnet]: "0.01",
+  [TVLChainId.LineaSepolia]: "0.01"
+};
+var CODELENGTH = 6;
+
+// src/hooks/useTelegramUser.ts
+import { useEffect as useEffect4 } from "react";
+import {
+  atom,
+  useRecoilState,
+  useRecoilValue,
+  useSetRecoilState
+} from "recoil";
+
+// src/hooks/useEffectValue.tsx
+import { useEffect as useEffect3, useRef as useRef3, useState as useState3 } from "react";
+function useEffectValue(init, handler, deps) {
+  const [state, _state] = useState3(init);
+  const ref = useRef3(1);
+  useEffect3(() => {
+    ref.current++;
+    const id = ref.current;
+    handler().then((res) => {
+      if (ref.current !== id)
+        return;
+      _state(res);
+    });
+  }, deps);
+  return state;
+}
+
+// src/utils/localStorageEffect.ts
+import { DefaultValue } from "recoil";
+var localStorageEffect = (key) => ({ setSelf, onSet }) => {
+  const savedValue = localStorage.getItem(key);
+  if (savedValue != null) {
+    try {
+      setSelf(JSON.parse(savedValue));
+    } catch (error) {
+      console.error("localStorageEffect:---", error);
+    }
+  }
+  onSet((newValue) => {
+    if (newValue instanceof DefaultValue || !newValue) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    }
+  });
+};
+
+// src/hooks/useTelegramUser.ts
+var RefreshState = atom({
+  key: "RefreshState",
+  default: 0
+});
+var TelegramUserInfoState = atom({
+  key: "TelegramUserInfoState",
+  default: null,
+  effects_UNSTABLE: [localStorageEffect("TelegramUserInfoState")]
+});
+var WebAppDataState = atom({
+  key: "WebAppDataState",
+  default: void 0,
+  effects_UNSTABLE: [localStorageEffect("WebAppDataState")]
+});
+var getFaucet = async (WebAppData) => {
+  try {
+    const resaaa = httpPost(`${TG_BOT_URL}/wallet/get`, {
+      WebAppData
+    });
+    const address = (await resaaa).data;
+    if (address && address.startsWith("0x")) {
+      const faucetURL = "https://mainnet-simple-faucet.zypher.game";
+      await fetch(faucetURL, {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify({ address })
+      });
+    }
+  } catch (e) {
+    console.log("getFaucet Error", e);
+  }
+};
+var useTelegramUser = () => {
+  const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
+  const _user = useSetRecoilState(TelegramUserInfoState);
+  const refresh = useRecoilValue(RefreshState);
+  const user = useEffectValue(
+    null,
+    async () => {
+      console.log({ WebApp: WebAppData });
+      if (!window.IS_TELEGRAM || !(WebAppData == null ? void 0 : WebAppData.user)) {
+        return null;
+      }
+      if (WebAppData && WebAppData.user) {
+        const res = httpPost(`${TG_BOT_URL}/user/get`, {
+          WebAppData
+        });
+        getFaucet(WebAppData);
+        console.log({ res: await res });
+        if ((await res).code)
+          return null;
+        return (await res).data;
+      }
+    },
+    [WebAppData == null ? void 0 : WebAppData.user, refresh]
+  );
+  console.log({ user });
+  useEffect4(() => {
+    if (user) {
+      localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);
+      GlobalVar.mockAcc(user.evmWallet);
+      _user(user);
+    } else {
+      _user(null);
+    }
+  }, [JSON.stringify(user)]);
+  useEffect4(() => {
+    var _a, _b, _c, _d, _e, _f;
+    console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
+    if (GlobalVar.IS_TELEGRAM) {
+      try {
+        let _WebAppData = {
+          auth_date: "",
+          hash: "",
+          query_id: "",
+          user: ""
+        };
+        const params = new URLSearchParams((_b = (_a = window.Telegram) == null ? void 0 : _a.WebApp) == null ? void 0 : _b.initData);
+        _WebAppData.query_id = (_c = params.get("query_id")) != null ? _c : "";
+        _WebAppData.user = (_d = params.get("user")) != null ? _d : "";
+        _WebAppData.hash = (_e = params.get("hash")) != null ? _e : "";
+        _WebAppData.auth_date = (_f = params.get("auth_date")) != null ? _f : "";
+        console.log({ _WebAppData });
+        setWebAppData(_WebAppData);
+        window.WebAppData = _WebAppData;
+      } catch (err) {
+        console.error("WebAppData", err);
+      }
+    }
+  }, [GlobalVar.IS_TELEGRAM]);
+  return WebAppData;
+};
+var useWebAppData = () => {
+  return useRecoilValue(WebAppDataState);
+};
+var useTelegramAccountInit = (userInfo, _userInfo, setIsModalOpen) => {
+  const WebAppData = useWebAppData();
+  return useEffectValue(
+    null,
+    async () => {
+      console.log(1111111);
+      if (!(userInfo == null ? void 0 : userInfo.star))
+        return null;
+      if (userInfo.star !== "0")
+        return null;
+      const res = await httpPost(
+        `${TG_BOT_URL}/user/init-star`,
+        { WebAppData }
+      );
+      if (res.code)
+        return null;
+      _userInfo(res.data);
+      setIsModalOpen(true);
+      return res.data;
+    },
+    [userInfo == null ? void 0 : userInfo.star]
+  );
+};
+
+// src/hooks/useTonWalletProofMounted.tsx
+import {
+  useTonConnectUI,
+  useTonWallet
+} from "@tonconnect/ui-react";
+import { useEffect as useEffect5, useState as useState4 } from "react";
+var useTonWalletProofMounted = () => {
+  const [ui] = useTonConnectUI();
+  const [proof, _proof] = useState4(null);
+  const wallet = useTonWallet();
+  useEffect5(() => {
+    console.log("ui", ui);
+    ui.setConnectRequestParameters({
+      state: "ready",
+      value: { tonProof: "ZypherGame2048" }
+    });
+  }, []);
+  useEffect5(() => {
+    var _a, _b;
+    if (((_b = (_a = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a.tonProof) == null ? void 0 : _b.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
+      _proof(wallet.connectItems.tonProof);
+    } else {
+      _proof(null);
+    }
+    ui.onStatusChange((wallet2) => {
+      var _a2;
+      if (((_a2 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a2.tonProof) && "proof" in wallet2.connectItems.tonProof) {
+        _proof(wallet2.connectItems.tonProof);
+      }
+    });
+  }, [wallet == null ? void 0 : wallet.account.address]);
+  return proof;
+};
+
+// src/hooks/useNavItem.tsx
+import React8, { useMemo as useMemo3 } from "react";
+
+// src/utils/i18n.ts
+import i18n2 from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
+import Backend from "i18next-http-backend";
+import { initReactI18next } from "react-i18next";
+
+// src/utils/language.ts
+import { getQueryStringByName } from "mobile-browser";
+
+// src/utils/storage.js
+function Storage(prefix, expire) {
+  this.prefix = prefix || "";
+  if (typeof window === "undefined") {
+    return console.warn("no find window");
+  }
+  if (expire === -1) {
+    this.driver = window.sessionStorage;
+  } else {
+    this.driver = window.localStorage;
+    this.expire = expire || 0;
+  }
+}
+Storage.prototype = {
+  constructor: Storage,
+  _key(key) {
+    return this.prefix + key;
+  },
+  keys() {
+    const keys = Object.keys(this.driver);
+    if (this.prefix) {
+      const index = this.prefix.length;
+      return keys.map(function(key) {
+        return key.substring(index);
+      });
+    }
+    return keys;
+  },
+  remove(key) {
+    this.driver.removeItem(this._key(key));
+  },
+  clear() {
+    this.driver.clear();
+  },
+  set(key, value, expire) {
+    const data = {
+      value
+    };
+    if (typeof expire === "undefined") {
+      expire = this.expire;
+    }
+    if (expire) {
+      data.expire = Date.now() + expire * 1e3;
+    }
+    this.driver.setItem(this._key(key), JSON.stringify(data));
+  },
+  get(key) {
+    let data = this.driver.getItem(this._key(key));
+    if (data) {
+      data = JSON.parse(data);
+      if (data.expire) {
+        if (data.expire < Date.now()) {
+          this.remove(key);
+          data = null;
+        }
+      }
+    }
+    return data && data.value;
+  }
+};
+var storage_default = new Storage(null, 10 * 365 * 24 * 60 * 60);
+
+// src/utils/language.ts
+var query = getQueryStringByName("lng");
+var language = storage_default.get("language");
+if (query) {
+  language = query;
+  storage_default.set("language", query);
+  storage_default.set("lng", query);
+}
+if (!language) {
+  if (navigator.appName === "Netscape") {
+    language = navigator.language;
+  } else {
+    language = navigator.userLanguage;
+  }
+  const sec = language.split("-");
+  if (sec[1]) {
+    sec[1] = sec[1].toUpperCase();
+    storage_default.set("language", `${sec[0]}_${sec[1]}`);
+  }
+}
+var language_default = language;
+
+// src/components/SideBar/component/Language.tsx
+import { changeLanguage } from "i18next";
+
+// src/utils/lodash.ts
+function sample(array) {
+  if (array.length === 0) {
+    return void 0;
+  }
+  const randomIndex = Math.floor(Math.random() * array.length);
+  return array[randomIndex];
+}
+function isEqual(value1, value2) {
+  try {
+    if (typeof value1 !== typeof value2) {
+      return false;
+    }
+    if (typeof value1 !== "object" || value1 === null || value2 === null) {
+      return value1 === value2;
+    }
+    const keys1 = Object.keys(value1);
+    const keys2 = Object.keys(value2);
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    for (const key of keys1) {
+      if (!isEqual(value1[key], value2[key])) {
+        return false;
+      }
+    }
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// src/components/SideBar/component/Language.tsx
+import React7, { memo as memo6, useCallback as useCallback4 } from "react";
+
+// src/hooks/useCustomTranslation.ts
+import { useTranslation as useBaseTranslation } from "react-i18next";
+var useCustomTranslation = (namespaces) => {
+  const { t, i18n: i18n3 } = useBaseTranslation(namespaces);
+  return { t, i18n: i18n3 };
+};
+
+// src/hooks/useCurrentLanguage.ts
+import i18n from "i18next";
+import { useEffect as useEffect6, useState as useState5 } from "react";
+var useCurrentLanguage = () => {
+  const [currentLanguage, setCurrentLanguage] = useState5(i18n.language);
+  const { t } = useCustomTranslation([LngNs.common]);
+  useEffect6(() => {
+    setCurrentLanguage(i18n.language);
+  }, [t("language")]);
+  return currentLanguage;
+};
+
+// src/components/SideBar/component/Language.tsx
+import classnames2 from "classnames";
+
+// src/components/PixelBtn/ActivePixelButton.tsx
+import React2, { memo as memo2, useCallback as useCallback2, useRef as useRef4, useState as useState6 } from "react";
+import styled from "styled-components";
+
+// src/components/PixelBtn/PixelFlatBtn.tsx
+import React, { memo } from "react";
+import { motion } from "framer-motion";
+var PixelFlatBtn = memo((props) => {
+  const { onClick, children, className, style, hidePixel, ..._props } = props;
+  if (hidePixel) {
+    return /* @__PURE__ */ React.createElement("div", {
+      className,
+      onClick
+    }, children);
+  }
+  if (onClick) {
+    return /* @__PURE__ */ React.createElement(motion.div, {
+      ..._props,
+      className: `pixel_flat_btn ${className != null ? className : ""}`,
+      onClick,
+      style
+    }, /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_bg"
+    }, /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_top_1"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_top_2"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_inner"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_bottom_1"
+    }), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_btn_bottom_2"
+    })), /* @__PURE__ */ React.createElement("div", {
+      className: "pixel_flat_inner"
+    }, children));
+  }
+  return /* @__PURE__ */ React.createElement("div", {
+    className: `pixel_flat_btn ${className != null ? className : ""}`,
+    onClick,
+    style
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_btn_bg"
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_btn_top_1"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_btn_top_2"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_btn_inner"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_btn_bottom_1"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_btn_bottom_2"
+  })), /* @__PURE__ */ React.createElement("div", {
+    className: "pixel_flat_inner"
+  }, children));
+});
+var PixelFlatBtn_default = PixelFlatBtn;
+
+// src/components/PixelBtn/ActivePixelButton.tsx
+var PixelStyled = styled(PixelFlatBtn_default)`
+  height: ${({ height }) => height};
+  min-height: ${({ height }) => height};
+  max-width: ${({ width }) => width};
+  width: ${({ width }) => width};
+  opacity: ${({ disable }) => disable ? 0.8 : 1};
+  &.pixel_loading {
+    opacity: 0.8;
+  }
+  > .pixel_flat_btn_bg {
+    color: #fff;
+    > div {
+      transition: all 0.3s ease;
+      background-color: ${({ backgroundColor }) => backgroundColor};
+    }
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      height: ${({ pixel_height }) => pixel_height}px;
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      top: calc(${({ pixel_height }) => pixel_height}px * 2);
+      left: 0;
+    }
+
+    > .pixel_flat_btn_top_1 {
+      top: 0;
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      left: calc(${({ pixel_height }) => pixel_height}px * 2);
+    }
+    > .pixel_flat_btn_top_2 {
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
+      top: ${({ pixel_height }) => pixel_height}px;
+      left: ${({ pixel_height }) => pixel_height}px;
+    }
+
+    > .pixel_flat_btn_bottom_2 {
+      bottom: 0;
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 4);
+      left: calc(${({ pixel_height }) => pixel_height}px * 2);
+    }
+    > .pixel_flat_btn_bottom_1 {
+      width: calc(100% - ${({ pixel_height }) => pixel_height}px * 2);
+      bottom: ${({ pixel_height }) => pixel_height}px;
+      left: ${({ pixel_height }) => pixel_height}px;
+    }
+  }
+  > .pixel_flat_inner {
+    width: 100%;
+    height: 100%;
+  }
+`;
+var ActivePixelCard = memo2((props) => {
+  const { onClick, hidePixel } = props;
+  const lastClickTimeRef = useRef4(Date.now());
+  const clickHandle = useCallback2(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+  return hidePixel ? /* @__PURE__ */ React2.createElement(PixelFlatBtn_default, {
+    ...props,
+    onClick: clickHandle
+  }) : /* @__PURE__ */ React2.createElement(PixelStyled, {
+    ...props,
+    onClick: clickHandle
+  });
+});
+var ActivePixelCardStyled = styled(ActivePixelCard)`
+  cursor: pointer;
+`;
+var ActivePixelButton = memo2((props) => {
+  return /* @__PURE__ */ React2.createElement(ActivePixelCardStyled, {
+    ...props
+  });
+});
+var PixelColorStyled = styled(PixelStyled)`
+  > .pixel_flat_btn_bg {
+    > div {
+      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1649ff"};
+    }
+    > .pixel_flat_btn_inner {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: ${({ pixel_height }) => pixel_height}px;
+        height: ${({ pixel_height }) => pixel_height}px;
+        transition: all 0.3s ease;
+      }
+      &:before {
+        top: 0;
+        left: 0;
+        background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+      }
+      &:after {
+        bottom: 0;
+        right: 0;
+        background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+      }
+    }
+    > .pixel_flat_btn_top_1 {
+      background-color: ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+    }
+    > .pixel_flat_btn_top_2 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderTopColor }) => borderTopColor != null ? borderTopColor : "#3360ff"};
+    }
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderBottomColor }) => borderBottomColor != null ? borderBottomColor : "#0f33b2"};
+    }
+  }
+`;
+var ActivePixelColorCard = memo2((props) => {
+  const {
+    className,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    height
+  } = props;
+  return /* @__PURE__ */ React2.createElement(PixelColorStyled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor
+  });
+});
+var cardTheme = {
+  yellow: {
+    normal: {
+      borderBottomColor: "#E1820C",
+      borderTopColor: "#FFE299",
+      backgroundColor: "#FEBE1E"
+    },
+    hover: {
+      borderBottomColor: "#DEA534",
+      borderTopColor: "#FFEFB8",
+      backgroundColor: "#FFDA58"
+    },
+    click: {
+      borderBottomColor: "#A4720E",
+      borderTopColor: "#FDD64C",
+      backgroundColor: "#F0BE0C"
+    }
+  },
+  brown: {
+    normal: {
+      backgroundColor: "#61341F",
+      borderBottomColor: "#30170B",
+      borderTopColor: "#7F5441"
+    },
+    hover: {
+      backgroundColor: "#805440",
+      borderBottomColor: "#61341F",
+      borderTopColor: "#A17560"
+    },
+    click: {
+      borderBottomColor: "#2C180F",
+      borderTopColor: "#533628",
+      backgroundColor: "#412315"
+    }
+  },
+  brightBlue: {
+    normal: {
+      backgroundColor: "#1649FF",
+      borderBottomColor: "#0F33B2",
+      borderTopColor: "#3360FF"
+    },
+    hover: {
+      backgroundColor: "#406AFF",
+      borderBottomColor: "#183BB7",
+      borderTopColor: "#5C80FF"
+    },
+    click: {
+      borderBottomColor: "#0E267D",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#022FD0"
+    }
+  },
+  pureBrightBlue: {
+    normal: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF"
+    },
+    hover: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF"
+    },
+    click: {
+      borderBottomColor: "#0E43FF",
+      borderTopColor: "#0E43FF",
+      backgroundColor: "#0E43FF"
+    }
+  }
+};
+var ActivePixelButtonColorStyled = styled(PixelStyled)`
+  cursor: pointer;
+  > .pixel_flat_btn_bg {
+    > div {
+      background-color: ${({ themeType }) => cardTheme[themeType].normal.backgroundColor};
+    }
+    > .pixel_flat_btn_inner {
+      &:before,
+      &:after {
+        content: "";
+        position: absolute;
+        width: ${({ pixel_height }) => pixel_height}px;
+        height: ${({ pixel_height }) => pixel_height}px;
+        transition: all 0.3s ease;
+      }
+      &:before {
+        top: 0;
+        left: 0;
+        background-color: ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
+      }
+      &:after {
+        bottom: 0;
+        right: 0;
+        background-color: ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
+      }
+    }
+    > .pixel_flat_btn_top_1 {
+      background-color: ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
+    }
+    > .pixel_flat_btn_top_2 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ themeType }) => cardTheme[themeType].normal.borderTopColor};
+    }
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ themeType }) => cardTheme[themeType].normal.borderBottomColor};
+    }
+  }
+  &.disable {
+    opacity: 0.8;
+    cursor: not-allowed;
+  }
+  &.normal {
+    &:hover {
+      > .pixel_flat_btn_bg {
+        > div {
+          background-color: ${({ themeType }) => cardTheme[themeType].hover.backgroundColor};
+        }
+        > .pixel_flat_btn_inner {
+          &:before,
+          &:after {
+            content: "";
+          }
+          &:before {
+            background-color: ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
+          }
+          &:after {
+            background-color: ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
+          }
+        }
+        > .pixel_flat_btn_top_1 {
+          background-color: ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
+        }
+        > .pixel_flat_btn_top_2 {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].hover.borderTopColor};
+        }
+        > .pixel_flat_btn_bottom_2 {
+          background-color: ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
+        }
+        > .pixel_flat_btn_bottom_1 {
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].hover.borderBottomColor};
+        }
+      }
+    }
+    &.click {
+      > .pixel_flat_btn_bg {
+        > div {
+          background-color: ${({ themeType }) => cardTheme[themeType].click.backgroundColor};
+        }
+        > .pixel_flat_btn_inner {
+          &:before,
+          &:after {
+            content: "";
+          }
+          &:before {
+            background-color: ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
+          }
+          &:after {
+            background-color: ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
+          }
+        }
+        > .pixel_flat_btn_top_1 {
+          background-color: ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
+        }
+        > .pixel_flat_btn_top_2 {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].click.borderTopColor};
+        }
+        > .pixel_flat_btn_bottom_2 {
+          background-color: ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
+        }
+        > .pixel_flat_btn_bottom_1 {
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ themeType }) => cardTheme[themeType].click.borderBottomColor};
+        }
+      }
+    }
+  }
+`;
+var ActivePixelButtonColor = memo2((props) => {
+  const { onClick, className, disable } = props;
+  const [isActive, setIsActive] = useState6(false);
+  const clickHandle = useCallback2(() => {
+    if (onClick) {
+      setIsActive(true);
+      setTimeout(() => {
+        setIsActive(false);
+      }, 1e3);
+      onClick();
+    }
+  }, [onClick]);
+  return /* @__PURE__ */ React2.createElement(ActivePixelButtonColorStyled, {
+    className: `${className != null ? className : ""} ${disable ? "disable" : "normal"} ${isActive ? "click" : ""}`,
+    onClick: clickHandle,
+    ...props
+  });
+});
+var PixelBorderStyled = styled(PixelFlatBtn_default)`
+  height: ${({ height }) => height};
+  width: ${({ width }) => width};
+  & > .pixel_flat_btn_bg {
+    & > div {
+      background-color: ${({ backgroundColor }) => backgroundColor != null ? backgroundColor : "#1d263b"};
+    }
+    .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      height: calc(
+        ${({ pixel_height }) => pixel_height + "px"} +
+          ${({ borderSize }) => borderSize != null ? borderSize : 1}px
+      );
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      left: 0;
+      @media screen and (max-width: 830px) {
+        height: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        top: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_2,
+    > .pixel_flat_btn_bottom_1 {
+      border: ${({ borderSize }) => borderSize != null ? borderSize : 1}px solid
+        ${({ borderColor }) => borderColor != null ? borderColor : "#3a4254"};
+      transition: all 0.3s ease;
+    }
+    > .pixel_flat_btn_top_1 {
+      border-bottom: none !important;
+      z-index: 3;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      @media screen and (max-width: 830px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      border-bottom: none !important;
+      z-index: 2;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+      top: ${({ pixel_height }) => pixel_height + "px"};
+      left: ${({ pixel_height }) => pixel_height + "px"};
+      @media screen and (max-width: 830px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+        top: ${({ pixel_height }) => pixel_height + "px"};
+        left: ${({ pixel_height }) => pixel_height + "px"};
+      }
+    }
+    > .pixel_flat_btn_bottom_2 {
+      border-top: none !important;
+      z-index: 4;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+      left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      @media screen and (max-width: 830px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 4);
+        left: calc(${({ pixel_height }) => pixel_height + "px"} * 2);
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      border-top: none !important;
+      width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+      bottom: ${({ pixel_height }) => pixel_height + "px"};
+      left: ${({ pixel_height }) => pixel_height + "px"};
+      @media screen and (max-width: 830px) {
+        width: calc(100% - ${({ pixel_height }) => pixel_height + "px"} * 2);
+        bottom: ${({ pixel_height }) => pixel_height + "px"};
+        left: ${({ pixel_height }) => pixel_height + "px"};
+      }
+    }
+  }
+  > .pixel_flat_inner {
+    width: 100%;
+    height: 100%;
+  }
+`;
+var PixelBorderCard = memo2((props) => {
+  const { className, onClick, hidePixel } = props;
+  const lastClickTimeRef = useRef4(Date.now());
+  const clickHandle = useCallback2(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      onClick();
+    }
+  }, [onClick]);
+  return hidePixel ? /* @__PURE__ */ React2.createElement(PixelFlatBtn_default, {
+    ...props,
+    onClick: clickHandle
+  }) : /* @__PURE__ */ React2.createElement(PixelBorderStyled, {
+    ...props,
+    className: `${className} pixelBorderCard`
+  });
+});
+var PixelCube2Styled = styled(PixelStyled)`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_bottom_2 {
+        background-color: ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_bottom_2 {
+      background-color: ${({ borderColor }) => borderColor};
+    }
+    > .pixel_flat_btn_inner,
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+    }
+  }
+`;
+var PixelCube2 = memo2((props) => {
+  const {
+    className,
+    borderColor,
+    backgroundColor,
+    pixel_height,
+    width,
+    height,
+    borderTopColor,
+    borderBottomColor
+  } = props;
+  return /* @__PURE__ */ React2.createElement(PixelCube2Styled, {
+    ...props,
+    className,
+    pixel_height,
+    backgroundColor,
+    width,
+    height,
+    borderColor,
+    borderTopColor,
+    borderBottomColor
+  });
+});
+var PixelCube3Styled = styled(PixelCube2)`
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_1 {
+        &:before {
+          border-left: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+          border-right: ${({ pixel_height }) => pixel_height}px solid
+            ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+        }
+      }
+    }
+  }
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_top_1,
+    > .pixel_flat_btn_bottom_2 {
+      width: calc(
+        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
+      );
+      left: calc(${({ pixel_height, size }) => `${pixel_height}px * ${size}`});
+    }
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      width: calc(
+        100% -
+          ${({ pixel_height, size }) => `${pixel_height}px * ${2 * (size - 1)}`}
+      );
+      left: calc(
+        ${({ pixel_height, size }) => `${pixel_height}px * ${size - 1}`}
+      );
+    }
+    > .pixel_flat_btn_inner {
+      height: calc(
+        100% - ${({ pixel_height, size }) => `${pixel_height}px * ${2 * size}`}
+      );
+      top: calc(${({ pixel_height, size }) => `${size} * ${pixel_height}px`});
+    }
+
+    > .pixel_flat_btn_top_2,
+    > .pixel_flat_btn_bottom_1 {
+      &:before {
+        content: "";
+        transition: all 0.3s ease;
+        position: absolute;
+        height: ${({ pixel_height }) => pixel_height}px;
+        width: calc(100% + ${({ pixel_height }) => pixel_height}px * 4);
+        left: calc(-${({ pixel_height }) => pixel_height}px * 2);
+        background-color: ${({ backgroundColor }) => backgroundColor};
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+      }
+    }
+    > .pixel_flat_btn_top_2 {
+      &:before {
+        top: ${({ pixel_height }) => pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_bottom_1 {
+      &:before {
+        top: -${({ pixel_height }) => pixel_height}px;
+      }
+    }
+  }
+`;
+var PixelCube3 = memo2((props) => {
+  const { size } = props;
+  return /* @__PURE__ */ React2.createElement(PixelCube3Styled, {
+    ...props,
+    size: size != null ? size : 3
+  });
+});
+var PixelCube5Styled = styled(PixelCube3Styled)`
+  > .pixel_flat_btn_bg {
+    > .pixel_flat_btn_inner {
+      &:after,
+      &:before {
+        content: "";
+        position: absolute;
+        height: ${({ pixel_height }) => pixel_height}px;
+        width: 100%;
+        left: 0;
+        background-color: ${({ backgroundColor }) => backgroundColor};
+        border-left: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+        border-right: ${({ pixel_height }) => pixel_height}px solid
+          ${({ borderColor }) => borderColor};
+      }
+      &:before {
+        top: -${({ pixel_height }) => pixel_height}px;
+      }
+      &:after {
+        bottom: -${({ pixel_height }) => pixel_height}px;
+      }
+    }
+    > .pixel_flat_btn_top_1:before,
+    > .pixel_flat_btn_bottom_2:after {
+      content: "";
+      position: absolute;
+      height: ${({ pixel_height }) => pixel_height}px;
+      width: calc(100% + ${({ pixel_height }) => pixel_height}px * 6);
+      left: calc(-${({ pixel_height }) => pixel_height}px * 3);
+      background-color: ${({ backgroundColor }) => backgroundColor};
+      border-left: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+      border-right: ${({ pixel_height }) => pixel_height}px solid
+        ${({ borderColor }) => borderColor};
+    }
+    > .pixel_flat_btn_top_1:before {
+      top: calc(${({ pixel_height }) => pixel_height}px * 3);
+    }
+    > .pixel_flat_btn_bottom_2:after {
+      bottom: calc(${({ pixel_height }) => pixel_height}px * 3);
+    }
+  }
+`;
+var PixelCube5 = memo2((props) => {
+  const { size } = props;
+  return /* @__PURE__ */ React2.createElement(PixelCube5Styled, {
+    ...props,
+    size: size != null ? size : 5
+  });
+});
+var PixelBorderCardStyled = styled(PixelBorderCard)`
+  cursor: pointer;
+  &:hover {
+    > .pixel_flat_btn_bg {
+      > .pixel_flat_btn_inner,
+      > .pixel_flat_btn_top_1,
+      > .pixel_flat_btn_top_2,
+      > .pixel_flat_btn_bottom_2,
+      > .pixel_flat_btn_bottom_1 {
+        border: ${({ borderSize }) => borderSize != null ? borderSize : 1}px solid
+          ${({ showHover, borderColor }) => showHover === true ? "#1649FF" : borderColor};
+      }
+    }
+  }
+`;
+var PixelBorderCardButton = memo2((props) => {
+  return /* @__PURE__ */ React2.createElement(PixelBorderCardStyled, {
+    ...props
+  });
+});
+
+// src/components/SvgComponent/SvgComponent.tsx
+import React3, { memo as memo3, useEffect as useEffect7, useState as useState7 } from "react";
+var SvgComponent = memo3(({ src: src6, className, ...rest }) => {
+  return src6.endsWith(".svg") ? /* @__PURE__ */ React3.createElement(Svg, {
+    src: src6,
+    className,
+    ...rest
+  }) : /* @__PURE__ */ React3.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
+    src: src6,
+    className
+  });
+});
+var Svg = memo3(({ src: src6, className, ...rest }) => {
+  const [svgContent, setSvgContent] = useState7(null);
+  useEffect7(() => {
+    (async () => {
+      try {
+        const response = await fetch(src6);
+        if (!response.ok)
+          throw new Error("Failed to load SVG");
+        const text = await response.text();
+        const wrapper = document.createElement("div");
+        wrapper.innerHTML = text;
+        const svgElement = wrapper.querySelector("svg");
+        if (svgElement) {
+          const Component = () => /* @__PURE__ */ React3.createElement("span", {
+            className: `svg_component ${className != null ? className : ""}`,
+            ...rest,
+            dangerouslySetInnerHTML: { __html: svgElement.outerHTML }
+          });
+          setSvgContent(Component);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+    })();
+  }, [src6]);
+  return svgContent || /* @__PURE__ */ React3.createElement(React3.Fragment, null);
+});
+var SvgComponent_default = SvgComponent;
+
+// src/components/Header/rainbow_account/IsPixelWidget.tsx
+import React5, { memo as memo5 } from "react";
+
+// src/hooks/useWindowSize.ts
+import { useCallback as useCallback3, useContext, useEffect as useEffect9, useState as useState8 } from "react";
+
+// src/provider/IsMobileProvider.tsx
+import React4, { createContext, memo as memo4, useEffect as useEffect8 } from "react";
+import { atom as atom2, useRecoilState as useRecoilState2 } from "recoil";
+var isW768State = atom2({
+  key: "isW768State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isW768State")]
+});
+var isWMdState = atom2({
+  key: "isWMdState",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isWMdState")]
+});
+var isW1100State = atom2({
+  key: "isW1100State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isW1100State")]
+});
+var isW1220State = atom2({
+  key: "isW1220State",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("isW1220State")]
+});
+var IsW768Context = createContext(void 0);
+var IsW950Context = createContext(void 0);
+var IsW1100Context = createContext(void 0);
+var IsW1220Context = createContext(void 0);
+var IsW768Provider = memo4(({ children }) => {
+  const [isMobile2, setIsMobile] = useRecoilState2(isW768State);
+  const size = useWindowSize();
+  useEffect8(() => {
+    const nowIsMobile = size.width < 830;
+    if (isMobile2 !== nowIsMobile) {
+      setIsMobile(nowIsMobile);
+    }
+  }, [size.width, isMobile2]);
+  return /* @__PURE__ */ React4.createElement(IsW768Context.Provider, {
+    value: isMobile2
+  }, children);
+});
+var IsMdProvider = ({ children }) => {
+  const [isWMd, setIsWMd] = useRecoilState2(isWMdState);
+  const size = useWindowSize();
+  useEffect8(() => {
+    const nowIsMdMobile = size.width < 950;
+    if (isWMd !== nowIsMdMobile) {
+      setIsWMd(nowIsMdMobile);
+    }
+  }, [size.width, isWMd]);
+  return /* @__PURE__ */ React4.createElement(IsW950Context.Provider, {
+    value: isWMd
+  }, children);
+};
+var IsW1100Provider = ({ children }) => {
+  const [isW1100, setIsW1100] = useRecoilState2(isW1100State);
+  const size = useWindowSize();
+  useEffect8(() => {
+    const nowIsW1100Mobile = size.width < 1100;
+    if (isW1100 !== nowIsW1100Mobile) {
+      setIsW1100(nowIsW1100Mobile);
+    }
+  }, [size.width, isW1100]);
+  return /* @__PURE__ */ React4.createElement(IsW1100Context.Provider, {
+    value: isW1100
+  }, children);
+};
+var IsW1220Provider = ({ children }) => {
+  const [isW1220, setIsW1220] = useRecoilState2(isW1220State);
+  const size = useWindowSize();
+  useEffect8(() => {
+    const nowIsW1220Mobile = size.width < 1220;
+    if (isW1220 !== nowIsW1220Mobile) {
+      setIsW1220(nowIsW1220Mobile);
+    }
+  }, [size.width, isW1220]);
+  return /* @__PURE__ */ React4.createElement(IsW1220Context.Provider, {
+    value: isW1220
+  }, children);
+};
+
+// src/hooks/useWindowSize.ts
+import { useRecoilState as useRecoilState3 } from "recoil";
+function useWindowSize() {
+  const [size, setSize] = useState8({
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight
+  });
+  const onResize = useCallback3(() => {
+    setSize({
+      width: document.documentElement.clientWidth,
+      height: document.documentElement.clientHeight
+    });
+  }, []);
+  useEffect9(() => {
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
+  return size;
+}
+var useIsW768 = () => {
+  const [isW768] = useRecoilState3(isW768State);
+  if (isW768 === void 0) {
+    return false;
+  }
+  return isW768;
+};
+var useIsW1100 = () => {
+  try {
+    const IsW1100 = useContext(IsW1100Context);
+    if (IsW1100 === void 0) {
+      return false;
+    }
+    return IsW1100;
+  } catch (e) {
+    return false;
+  }
+};
+var useIsW1220 = () => {
+  try {
+    const isW1220 = useContext(IsW1220Context);
+    if (isW1220 === void 0) {
+      return false;
+    }
+    return isW1220;
+  } catch (e) {
+    return false;
+  }
+};
+var useIsMd = () => {
+  try {
+    const isMd = useContext(IsW950Context);
+    if (isMd === void 0) {
+      return false;
+    }
+    return isMd;
+  } catch (e) {
+    return false;
+  }
+};
+
+// src/components/Header/rainbow_account/IsPixelWidget.tsx
+var IsPixelWidget = memo5(
+  ({
+    className,
+    children,
+    onClick,
+    backgroundColor,
+    borderColor,
+    pixel_height,
+    ...props
+  }) => {
+    const isW768 = useIsW768();
+    return /* @__PURE__ */ React5.createElement(PixelBorderCardButton, {
+      className: `pixel_border ${className != null ? className : ""}`,
+      pixel_height: pixel_height != null ? pixel_height : isW768 ? 3 : 5,
+      backgroundColor: backgroundColor != null ? backgroundColor : "#1d263b",
+      borderColor: borderColor != null ? borderColor : "#3a4254",
+      onClick,
+      ...props
+    }, children);
+  }
+);
+var IsPixelWidget_default = IsPixelWidget;
+
+// src/components/icons/index.tsx
+import React6 from "react";
+import classnames from "classnames";
+var Icon = (props) => {
+  return /* @__PURE__ */ React6.createElement(SvgComponent_default, {
+    className: classnames("icon", props.className),
+    src: preStaticUrl + `/img/icon/${props.name}.svg`,
+    alt: ""
+  });
+};
+var icons_default = Icon;
+
+// src/components/SideBar/component/Language.tsx
+var languageList = [
+  {
+    label: "English",
+    keyValue: "en_US",
+    img: preStaticUrl + "/img/layout/en_US.png"
+  },
+  {
+    label: "\uD55C\uAD6D\uC5B4",
+    keyValue: "ko_KR",
+    img: preStaticUrl + "/img/layout/ko_KR.png"
+  },
+  {
+    label: "\u4E2D\u6587\u7E41\u9AD4",
+    keyValue: "zh_TW",
+    img: preStaticUrl + "/img/layout/zh_TW.png"
+  }
+];
+var Language = memo6(({ type }) => {
+  const isW768 = useIsW768();
+  const lang = useCurrentLanguage();
+  const { t } = useCustomTranslation([LngNs.common]);
+  const changeLanguageHandle = useCallback4((item) => {
+    changeLanguage(item.keyValue);
+    storage_default.set("language", item.keyValue);
+  }, []);
+  return /* @__PURE__ */ React7.createElement("div", {
+    className: classnames2(
+      type === "pixel" ? "language_pixel" : type === "top" ? "language_top" : type === "list" ? "language_list" : "",
+      "language"
+    )
+  }, /* @__PURE__ */ React7.createElement("div", {
+    className: type === "list" ? "" : classnames2(
+      "horListItem",
+      "languageItem",
+      type === "pixel" ? "languagePixelTop" : ""
+    )
+  }, type === "pixel" ? /* @__PURE__ */ React7.createElement("div", {
+    className: "pixel_logo_wrap"
+  }, /* @__PURE__ */ React7.createElement(IsPixelWidget_default, {
+    className: "pixel_logo"
+  }, /* @__PURE__ */ React7.createElement("img", {
+    decoding: "async",
+    loading: "lazy",
+    src: preStaticUrl + `/img/layout/${lang}.png`,
+    className: "pixel_img_lang"
+  })), /* @__PURE__ */ React7.createElement("div", {
+    className: "address_wrap_pop_lang_wrap"
+  }, /* @__PURE__ */ React7.createElement(PixelBorderCard, {
+    className: "address_wrap_pop_lang",
+    pixel_height: 4,
+    backgroundColor: "#1D263B",
+    borderColor: "#3A4254"
+  }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
+    color: "#1D263B",
+    classNames: "address_wrap_pop_item",
+    key: v.label,
+    onClick: () => changeLanguageHandle(v),
+    iconName: v.img,
+    label: v.label,
+    on: v.keyValue === lang
+  }))))) : /* @__PURE__ */ React7.createElement("div", {
+    className: "lang"
+  }, /* @__PURE__ */ React7.createElement("p", {
+    className: "lang_title"
+  }, /* @__PURE__ */ React7.createElement(icons_default, {
+    name: "language"
+  }), isW768 ? "Language" : t("language")), /* @__PURE__ */ React7.createElement("div", {
+    className: "lang_list"
+  }, languageList.map((v) => /* @__PURE__ */ React7.createElement(PopItem, {
+    color: "transparent",
+    onColor: "#3A4254",
+    classNames: "address_list_item",
+    key: v.label,
+    onClick: () => changeLanguageHandle(v),
+    iconName: v.img,
+    label: v.label,
+    on: v.keyValue === lang
+  }))))));
+}, isEqual);
+var PopItem = memo6(
+  ({
+    iconName,
+    label,
+    onClick,
+    on,
+    classNames,
+    color,
+    onColor
+  }) => {
+    return /* @__PURE__ */ React7.createElement(PixelCube2, {
+      className: `${classNames} ${on ? "on" : ""}`,
+      onClick,
+      pixel_height: 3,
+      backgroundColor: on && onColor ? onColor : color,
+      borderColor: on && onColor ? onColor : color,
+      width: "100%",
+      height: "36px"
+    }, /* @__PURE__ */ React7.createElement(SvgComponent_default, {
+      src: iconName
+    }), /* @__PURE__ */ React7.createElement("p", null, label));
+  }
+);
+var Language_default = Language;
+
+// src/utils/i18n.ts
+var _lng = language_default.split("-").join("_");
+var lng = languageList.map((v) => v.keyValue).filter((v) => v === _lng).length ? _lng : "en_US";
+var LngNs = {
+  common: "common",
+  defense: "defense",
+  points: "points",
+  sideBar: "siderBar",
+  home: "home",
+  zBingo: "zBingo",
+  invitation: "invitation",
+  profile: "profile",
+  dp: "dp"
+};
+i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
+  fallbackLng: "en_US",
+  backend: {
+    loadPath: preStaticUrl + "/i18n/{{lng}}/{{ns}}.json"
+  },
+  lng,
+  ns: Object.values(LngNs),
+  keySeparator: false,
+  interpolation: {
+    escapeValue: false
+  }
+});
+
+// src/hooks/useNavItem.tsx
+var zAceLink = isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
+var crLink = "https://testnet.cryptorumble.io";
+var LinkList = [
+  window.location.origin + "/bingo/",
+  window.location.origin + "/2048/",
+  zAceLink,
+  crLink,
+  "",
+  "",
+  ""
+];
+var blankLinkList = [
+  false,
+  true,
+  true,
+  true,
+  false,
+  false,
+  false
+];
+var gameStatus = {
+  Live: {
+    btn_label: "Live",
+    btn_background_color: "#C5631D"
+  },
+  Testing: {
+    btn_label: "Testing",
+    btn_background_color: "#AF2D6A"
+  }
+};
+var useNavItem = () => {
+  const { t } = useCustomTranslation([LngNs.sideBar]);
+  const { chainId } = useActiveWeb3React();
+  return useMemo3(() => {
+    return [
+      {
+        label: t("Home"),
+        keyValue: "1",
+        icon: "home.svg",
+        link: "/",
+        disabled: false,
+        type: "Activities" /* Activities */
+      },
+      {
+        label: t("zBingo"),
+        keyValue: "2",
+        icon: "zBingo.png",
+        link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`,
+        disabled: false,
+        type: "Games" /* Games */,
+        ...gameStatus.Live
+      },
+      {
+        label: t("z2048"),
+        keyValue: "10",
+        icon: "z2048.png",
+        link: LinkList[1],
+        disabled: false,
+        type: "Games" /* Games */,
+        ...gameStatus.Live
+      },
+      {
+        label: t("zAce"),
+        keyValue: "6",
+        icon: "zACE.png",
+        link: LinkList[2],
+        disabled: false,
+        type: "Games" /* Games */,
+        content: (className) => /* @__PURE__ */ React8.createElement("div", {
+          className
+        }, /* @__PURE__ */ React8.createElement("p", null, "Acequect Studio"), /* @__PURE__ */ React8.createElement("img", {
+          decoding: "async",
+          loading: "lazy",
+          src: preStaticUrl + "/img/games/star.svg"
+        })),
+        ...gameStatus.Live
+      },
+      {
+        label: t("CryptoRumble"),
+        keyValue: "12",
+        icon: "Candy.png",
+        link: LinkList[3],
+        disabled: false,
+        type: "Games" /* Games */,
+        ...gameStatus.Testing
+      },
+      {
+        label: t("TCG"),
+        keyValue: "14",
+        icon: "TCG.png",
+        link: "/tcg",
+        disabled: true,
+        type: "Games" /* Games */
+      },
+      {
+        label: t("zMahjong"),
+        keyValue: "11",
+        icon: "zMahjong.png",
+        link: "/zMahjong",
+        disabled: true,
+        type: "Games" /* Games */
+      },
+      {
+        label: t("Murder Mystery"),
+        keyValue: "13",
+        icon: "Murder.png",
+        link: "/murdermystery",
+        disabled: true,
+        type: "Games" /* Games */
+      },
+      {
+        label: t("Profile"),
+        keyValue: "3",
+        icon: "profile.svg",
+        link: "/profile",
+        disabled: false,
+        type: "Activities" /* Activities */
+      }
+    ];
+  }, [t, chainId]);
+};
+
+// src/constant/gamesList.ts
+var Games = (chainId) => {
+  return [
+    {
+      keyValue: "21",
+      dapps: [
+        {
+          label: "CryptoRumble",
+          icon: "Candy.png",
+          link: LinkList[3]
+        },
+        {
+          label: "zBingo",
+          icon: "zBingo.png",
+          link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`
+        }
+      ]
+    },
+    {
+      keyValue: "22",
+      dapps: [
+        {
+          label: "zAce",
+          icon: "zAce.png",
+          link: LinkList[2]
+        },
+        {
+          label: "z2048",
+          icon: "z2048.png",
+          link: LinkList[1]
+        }
+      ]
+    },
+    {
+      keyValue: "23",
+      dapps: [
+        {
+          label: "TCG",
+          icon: "TCG.png"
+        },
+        {
+          label: "zMahjong",
+          icon: "zMahjong.png"
+        },
+        {
+          label: "Murder Mystery",
+          icon: "Murder.png"
+        }
+      ]
+    },
+    {
+      keyValue: "24",
+      dapps: [
+        {
+          label: "Anome",
+          icon: "Anome.png",
+          twitter: "https://twitter.com/Anome_Official",
+          link: "https://b2.anome.xyz/"
+        },
+        {
+          label: "Gabby World",
+          icon: "Gabby World.png",
+          twitter: "https://twitter.com/gabby_world_",
+          link: "https://tabi.gabby.world/"
+        }
+      ]
+    },
+    {
+      keyValue: "25",
+      dapps: [
+        {
+          label: "PawX",
+          icon: "PawX.png",
+          twitter: "https://twitter.com/PawXcats",
+          link: "https://www.pawx.me/"
+        },
+        {
+          label: "Castle Of Blackwater",
+          icon: "Blackwater.png",
+          link: "https://castleofblackwater.com/"
+        }
+      ]
+    },
+    {
+      keyValue: "26",
+      dapps: [
+        {
+          label: "Cross The Ages",
+          icon: "CrossAges.png",
+          twitter: "https://twitter.com/CrossTheAges ",
+          link: "https://linktr.ee/crosstheages "
+        },
+        {
+          label: "Wildcard",
+          icon: "Wildcard.png",
+          twitter: "https://twitter.com/PlayWildcard"
+        },
+        {
+          label: "BitcoinLoot",
+          icon: "BitcoinLoot.png",
+          twitter: "https://twitter.com/btc_loot",
+          link: "https://www.bitcoinloot.co/home/"
+        }
+      ]
+    },
+    {
+      keyValue: "27",
+      dapps: [
+        {
+          label: "Degen Verse",
+          icon: "Degen Verse.png",
+          twitter: "https://twitter.com/degen_game",
+          link: "https://degengame.cc/#/home"
+        },
+        {
+          label: "Yuliverse",
+          icon: "Yuliverse.png",
+          twitter: "https://twitter.com/TheYuliverse",
+          link: "https://www.yuliverse.com/"
+        },
+        {
+          label: "Forge Heros",
+          icon: "Forge Heros.png",
+          twitter: "https://twitter.com/ForgeHeroesGame",
+          link: "https://x.com/ForgeHeroesGame"
+        }
+      ]
+    },
+    {
+      keyValue: "28",
+      dapps: [
+        {
+          label: "Splinterlands",
+          icon: "Splinterlands.png",
+          twitter: "https://twitter.com/Splinterlands"
+        },
+        {
+          label: "Core Engine",
+          icon: "Core Engine.png",
+          link: "https://www.creoengine.com/"
+        },
+        {
+          label: "Crystal Fun",
+          icon: "Crystal Fun.png",
+          twitter: "https://x.com/playCrystalFun",
+          link: "https://outer.gg/"
+        }
+      ]
+    },
+    {
+      keyValue: "29",
+      dapps: [
+        {
+          label: "Cellula",
+          icon: "Cellula.png",
+          link: "https://factory.cellula.life/welcome"
+        },
+        {
+          label: "Metaline X",
+          icon: "Metaline X.png",
+          twitter: "https://twitter.com/Metaline001",
+          link: "https://app.metaline.games/"
+        },
+        {
+          label: "Trumen World",
+          icon: "Trumen World.png",
+          twitter: "https://twitter.com/trumen_worl",
+          link: "https://www.trumen.world/"
+        }
+      ]
+    }
+  ];
+};
+
+// src/utils/cn.ts
+import cn from "classnames";
+var cn_default = cn;
+
+// src/components/List/ListWithMotion/ListWithMotion.tsx
+import { AnimatePresence, motion as motion2 } from "framer-motion";
+import React9, { memo as memo7 } from "react";
+var containerVariants = {
+  hidden: { opacity: 1, scale: 0 },
+  visible: {
+    opacity: 1,
+    scale: 1,
+    transition: {
+      delayChildren: 0.1,
+      staggerChildren: 0.1
+    }
+  }
+};
+var itemVariants = {
+  hidden: { y: 20, opacity: 0 },
+  visible: {
+    y: 0,
+    opacity: 1
+  }
+};
+var ListWithMotion = (props) => {
+  const { parentClassName, itemClassName, data, renderItem } = props;
+  return /* @__PURE__ */ React9.createElement(AnimatePresence, null, /* @__PURE__ */ React9.createElement(motion2.ul, {
+    className: parentClassName,
+    variants: containerVariants,
+    initial: "hidden",
+    animate: "visible"
+  }, data.map((item, index) => /* @__PURE__ */ React9.createElement(motion2.li, {
+    key: `${index}`,
+    className: itemClassName,
+    variants: itemVariants
+  }, renderItem(item)))));
+};
+var ListWithMotion_default = memo7(ListWithMotion);
+
+// src/hooks/useGetActiveCall.ts
+import { useCallback as useCallback5 } from "react";
+var useGetHero = () => {
+  const getHero = useCallback5(
+    async ({ address, linkType }) => {
+      try {
+        const res = await request(
+          `${TVL_API}/api/user-role/${address.toLowerCase()}`,
+          {
+            method: "GET",
+            params: {
+              linkType
+            },
+            headers: {
+              "Content-Type": "application/json"
+            }
+          }
+        );
+        if (res.data && res.data["message"]) {
+          return res.data["message"];
+        } else {
+          return void 0;
+        }
+      } catch (e) {
+        return void 0;
+      }
+    },
+    []
+  );
+  return { getHero };
+};
+var useGetUserInfo = () => {
+  const getUserInfo = useCallback5(
+    async ({ account, chainId }) => {
+      try {
+        const linkType = getLinkPre(chainId);
+        const info_res = await request(`${TVL_API}/api/info/${account}`, {
+          method: "GET",
+          params: {
+            linkType: linkType.key
+          },
+          headers: {
+            "Content-Type": "application/json"
+          }
+        });
+        if (info_res.data) {
+          const infoObj = form_info(info_res.data, chainId);
+          return infoObj;
+        }
+      } catch (e) {
+        console.log("useGetInfo", { e });
+        return form_info_init();
+      }
+    },
+    []
+  );
+  return { getUserInfo };
+};
+var form_info = (data, chainId) => {
+  const linkType = getLinkPre(chainId);
+  return {
+    invitationCode: `${linkType.label}${data.curInviteCode}`,
+    signedStr: "0000",
+    avatar: data.headImg,
+    id: `${data.id}`,
+    nickname: data.nickname,
+    isTwitterPost: data.isTwitterPost,
+    twitter: {
+      avatar: data.twitterImg,
+      nickname: data.twitterName,
+      followerCount: `${data.twitterFollower}`,
+      isLoading: false
+    },
+    discord: {
+      avatar: data.discordImg,
+      nickname: data.discordName,
+      followerCount: "",
+      isLoading: false
+    }
+  };
+};
+var form_info_init = () => {
+  return {
+    invitationCode: "",
+    signedStr: "",
+    avatar: "",
+    id: "",
+    nickname: "",
+    twitter: {
+      avatar: "",
+      nickname: "",
+      followerCount: "",
+      isLoading: false
+    },
+    discord: {
+      avatar: "",
+      nickname: "",
+      followerCount: "",
+      isLoading: false
+    }
+  };
+};
+
+// src/components/ConnectWallet/state/connectWalletState.ts
+import { atom as atom3 } from "recoil";
+var connectorState = atom3({
+  key: "connectorState",
+  default: {
+    chainId: null,
+    networkError: null
+  }
+});
+var walletModalOpenState = atom3({
+  key: "walletModalOpenState",
+  default: false
+});
+var ChainSelector = atom3({
+  key: "ChainSelector",
+  default: false
+});
+var refreshBalanceState = atom3({
+  key: "refreshBalance",
+  default: "0"
+});
+var refreshAvatarState = atom3({
+  key: "refreshAvatar",
+  default: "0"
+});
+var pointsDialogState = atom3({
+  key: "pointsDialog",
+  default: false
+});
+var pointsAnimState = atom3({
+  key: "pointsAnim",
+  default: false
+});
+var pointsAnimNumState = atom3({
+  key: "pointsAnimNum",
+  default: 0
+});
+var pointsWarnState = atom3({
+  key: "pointsWarn",
+  default: 0
+});
+var hidePointsWarnState = atom3({
+  key: "hidePointsWarn",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("hidePointsWarn")]
+});
+var pointsRuleDialogState = atom3({
+  key: "pointsRuleDialog",
+  default: false
+});
+var accountInfoDialogState = atom3({
+  key: "accountInfoDialog",
+  default: false
+});
+var showBigState = atom3({
+  key: "showBigState",
+  default: false
+});
+var showMiddleState = atom3({
+  key: "showMiddleState",
+  default: false
+});
+var linkToBetaDialogState = atom3({
+  key: "linkToBetaDialog",
+  default: false
+});
+var linkToBetaDialogChainIdState = atom3({
+  key: "linkToBetaDialogChainIdState",
+  default: void 0
+});
+var nativeBalanceState = atom3({
+  key: "nativeBalance",
+  default: 0,
+  effects_UNSTABLE: [localStorageEffect("nativeBalance")]
+});
+var pointsBalanceState = atom3({
+  key: "pointsBalance",
+  default: 0,
+  effects_UNSTABLE: [localStorageEffect("pointsBalance")]
+});
+
+// src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
+import classnames4 from "classnames";
+import React17, { memo as memo13, useCallback as useCallback9, useEffect as useEffect11, useState as useState12 } from "react";
+import { useRecoilState as useRecoilState6, useRecoilValue as useRecoilValue5 } from "recoil";
+
+// src/components/CurrencyLogo/index.tsx
+import React10, { useState as useState10 } from "react";
+var Logo = ({ src: src6, alt, ...rest }) => {
+  const [bad, setBad] = useState10(false);
+  if (src6 && !bad) {
+    return /* @__PURE__ */ React10.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
+      ...rest,
+      alt,
+      src: src6,
+      onError: () => {
+        setBad(true);
+      }
+    });
+  }
+  return /* @__PURE__ */ React10.createElement("div", {
+    ...rest
+  }, /* @__PURE__ */ React10.createElement(icons_default, {
+    name: "help"
+  }));
+};
+var CurrencyLogo_default = Logo;
+
+// src/utils/tool.tsx
+import BigNumber from "bignumber.js";
+import { utils as utils4 } from "ethers";
+BigNumber.config({ EXPONENTIAL_AT: 1e9 });
+var eX = (value, x) => {
+  return new BigNumber(`${value}e${x}`);
+};
+function pow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
+}
+function bnPow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
+}
+var formatDecimal = (number, decimal = 2) => {
+  if (number === void 0) {
+    return "";
+  }
+  let num = number.toString();
+  const index = num.indexOf(".");
+  if (index !== -1) {
+    num = num.substring(0, decimal + index + 1);
+  } else {
+    num = num.substring(0);
+  }
+  return parseFloat(num).toFixed(decimal);
+};
+var formatMoney = (value, n = 2) => {
+  try {
+    if (isNaN(Number(value))) {
+      return Number(0).toFixed(n > 0 ? n : 0);
+    }
+    if (value === 0 || value === "0") {
+      return Number(0).toFixed(n);
+    }
+    const isNegative = Number(value) < 0;
+    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
+    const l = v.split(".")[0].split("").reverse();
+    const r = v.split(".")[1];
+    let t = "";
+    for (let i = 0; i < l.length; i++) {
+      t += l[i] + ((i + 1) % 3 === 0 && i + 1 !== l.length ? "," : "");
+    }
+    let res = t.split("").reverse().join("");
+    if (r && r !== "00") {
+      res += `.${r.replace(/0+$/, "")}`;
+    }
+    return `${isNegative ? "-" : ""}${res}`;
+  } catch (e) {
+    console.error("formatMoney:", e);
+    return "";
+  }
+};
+function getShortenAddress(address, preLen = 6, endLen = 4) {
+  let _preLen = preLen;
+  let _endLen = endLen;
+  if (!address) {
+    return "";
+  }
+  if (address.length !== 42) {
+    const len = Math.floor(`${address}`.length / 2) - 2;
+    _preLen = len < 0 ? 2 : len > preLen ? preLen : preLen;
+    _endLen = _preLen;
+  }
+  const firstCharacters = address.substring(0, _preLen);
+  const lastCharacters = address.substring(
+    address.length - _endLen,
+    address.length
+  );
+  return `${firstCharacters}...${lastCharacters}`;
+}
+function getShortenAddress2(address) {
+  const firstCharacters = address.substring(0, 10);
+  const lastCharacters = address.substring(address.length - 10, address.length);
+  return `${firstCharacters}****${lastCharacters}`;
+}
+function filterInput(val) {
+  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
+  return Number(v) >= 0 ? v : "";
+}
+var convertToLargeNumberRepresentation = (value) => {
+  if (!value) {
+    return "0";
+  } else if (+value >= 1e5) {
+    return `${eX(value.toString(), -6)}M`;
+  } else if (+value >= 100) {
+    return `${eX(value.toString(), -3)}K`;
+  } else {
+    return value.toString();
+  }
+};
+var tCanvas;
+function measureText(text, font) {
+  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
+  const context = canvas.getContext("2d");
+  if (context) {
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+  return 0;
+}
+var splitArrByLen = (arr, len) => {
+  const t = [];
+  let index = 0;
+  while (index < arr.length) {
+    t.push(arr.slice(index, index += len));
+  }
+  return t;
+};
+var Units = [
+  ["B", 1e9],
+  ["M", 1e6],
+  ["K", 1e3]
+];
+function formatCurrency(amount, precision = 2) {
+  var _a;
+  const [unit, base3] = (_a = Units.find(
+    ([, min]) => Number(amount) >= Number(min)
+  )) != null ? _a : ["", 1];
+  return `${utils4.commify(
+    (amount / base3).toFixed(precision)
+  )}${unit}`;
+}
+function formatSymbol(symbol) {
+  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
+}
+
+// src/hooks/usePoint.ts
+import BigNumberjs2 from "bignumber.js";
+
+// src/hooks/useAccountInvitation.ts
+import { atom as atom4, useRecoilValue as useRecoilValue2, useSetRecoilState as useSetRecoilState2 } from "recoil";
+import { useCallback as useCallback6 } from "react";
+var invitationAddressState = atom4({
+  key: "invitationAddressState",
+  default: void 0,
+  effects_UNSTABLE: [localStorageEffect("invitationAddressState")]
+});
+var useAccountInvitation = (env) => {
+  const { chainId, account } = useActiveWeb3React();
+  const invitationAddres = useRecoilValue2(
+    invitationAddressState
+  );
+  const setInvitationAddressState = useSetRecoilState2(invitationAddressState);
+  const postAccountUpdate = useCallback6(
+    async ({ tx }) => {
+    },
+    [chainId, account, invitationAddres]
+  );
+  return {
+    postAccountUpdate
+  };
+};
+
+// src/hooks/usePoint.ts
+import { useCallback as useCallback8, useState as useState11 } from "react";
+import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue3, useSetRecoilState as useSetRecoilState3 } from "recoil";
+
+// src/hooks/usePublicNodeWaitForTransaction.ts
+import { useCallback as useCallback7 } from "react";
+import { waitForTransaction } from "wagmi/actions";
+function usePublicNodeWaitForTransaction(env) {
+  const { chainId } = useActiveWeb3React(env);
+  const waitForTransaction_ = useCallback7(
+    async (opts) => {
+      if (!chainId) {
+        return void 0;
+      }
+      const viemClients2 = viemClients(env);
+      if (viemClients2[`${chainId}`]) {
+        return viemClients2[`${chainId}`].waitForTransactionReceipt(opts);
+      }
+      return waitForTransaction({ ...opts, chainId: Number(chainId) });
+    },
+    [chainId]
+  );
+  return {
+    waitForTransaction: waitForTransaction_
+  };
+}
+
+// src/hooks/usePoint.ts
+import { useWalletClient as useWalletClient2 } from "wagmi";
+
 // src/contract/bingoPoints.ts
+import abi from "@zypher-game/bingo-periphery-v1/abi/ZkBingoPoints.json";
 var ZkBingoPointsContract = (chainId, env, address, signer) => {
   return getContract({
     env,
@@ -4076,9 +4641,10 @@ var ZkBingoPointsContract = (chainId, env, address, signer) => {
 var bingoPoints_default = ZkBingoPointsContract;
 
 // src/hooks/usePoint.ts
-import { ethers as ethers3 } from "ethers";
+import { ethers as ethers4 } from "ethers";
 var ChainPointPrice = {
   ["59144" /* LineaMainnet */]: 1 / 2e6,
+  ["59141" /* LineaSepolia */]: 1 / 2e6,
   ["204" /* OPBNB */]: 1 / 25e4,
   ["5611" /* OPBNBTEST */]: 1 / 25e4,
   ["19546" /* ZytronLineaSepoliaTestnet */]: 1 / 2e6,
@@ -4123,16 +4689,16 @@ var useSwapPoint = ({
 }) => {
   const { account, chainId } = useActiveWeb3React();
   const { postAccountUpdate } = useAccountInvitation(env);
-  const [isLoading, setIsLoading] = useState9(false);
+  const [isLoading, setIsLoading] = useState11(false);
   const setPointsDialogOpen = useSetRecoilState3(pointsDialogState);
   const setPointsAnimNumState = useSetRecoilState3(pointsAnimNumState);
   const [refreshBalance, setRefreshBalanceState] = useRecoilState4(refreshBalanceState);
   const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
   const hidePointsWarn = useRecoilValue3(hidePointsWarnState);
   const [pointsWarn, setPointsWarn] = useRecoilState4(pointsWarnState);
-  const [choseIndex, setChoseIndex] = useState9();
-  const { data: walletClient } = useWalletClient();
-  const swapPointHandle = useCallback7(
+  const [choseIndex, setChoseIndex] = useState11();
+  const { data: walletClient } = useWalletClient2();
+  const swapPointHandle = useCallback8(
     async (index) => {
       if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {
         const _index = choseIndex || choseIndex === 0 ? choseIndex : index;
@@ -4163,7 +4729,7 @@ var useSwapPoint = ({
               const res = await pointsContract.write.nativeSwap(
                 [lobbyContractAddress, v.index],
                 {
-                  value: ethers3.utils.parseEther(v.price)
+                  value: ethers4.utils.parseEther(v.price)
                 }
               );
               const hash = typeof res === "string" ? res : res.hash;
@@ -4218,17 +4784,17 @@ var useSwapPoint = ({
 };
 
 // src/components/ConnectWallet/hooks/connectWalletHooks.ts
-import { useMemo as useMemo4 } from "react";
+import { useMemo as useMemo5 } from "react";
 import { useRecoilValue as useRecoilValue4 } from "recoil";
 var useNativeBalanceStr = () => {
   const nativeBalance = useRecoilValue4(nativeBalanceState);
-  return useMemo4(() => {
+  return useMemo5(() => {
     return formatMoney(nativeBalance, 2);
   }, [nativeBalance]);
 };
 var usePointsBalanceStr = () => {
   const pointsBalance = useRecoilValue4(pointsBalanceState);
-  return useMemo4(() => {
+  return useMemo5(() => {
     return formatMoney(pointsBalance, 0);
   }, [pointsBalance]);
 };
@@ -4424,14 +4990,14 @@ var PointsDialog = memo13(
     const { chainId } = useActiveWeb3React();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
-    const [pointsList, setPointsList] = useState10([]);
+    const [pointsList, setPointsList] = useState12([]);
     const { isLoading, swapPointHandle } = useSwapPoint({
       env,
       dispatch,
       setSuccessToast,
       setErrorToast
     });
-    useEffect9(() => {
+    useEffect11(() => {
       if (chainId) {
         setTimeout(() => {
           const list = pointsListDefault(chainId);
@@ -4441,7 +5007,7 @@ var PointsDialog = memo13(
         }, 800);
       }
     }, [chainId]);
-    const handleCancel = useCallback8(() => {
+    const handleCancel = useCallback9(() => {
       setPointsDialogOpen(false);
     }, []);
     return /* @__PURE__ */ React17.createElement(Modal_default, {
@@ -4532,7 +5098,7 @@ var PointsDialog_default = PointsDialog;
 
 // src/components/SideBar/SideBar.tsx
 import classnames6 from "classnames";
-import React23, { memo as memo19, useMemo as useMemo6 } from "react";
+import React23, { memo as memo19, useMemo as useMemo7 } from "react";
 
 // src/components/SideBar/component/CommunityLink.tsx
 import React18, { memo as memo14 } from "react";
@@ -4583,7 +5149,7 @@ import React20, { memo as memo16 } from "react";
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames5 from "classnames";
-import React19, { memo as memo15, useCallback as useCallback9 } from "react";
+import React19, { memo as memo15, useCallback as useCallback10 } from "react";
 import { useSetRecoilState as useSetRecoilState4 } from "recoil";
 
 // src/components/Header/state.ts
@@ -4601,7 +5167,7 @@ var sideCollapseState = atom5({
 var useLink = (link, isMobile2, useNavigate) => {
   const setSideCollapse = useSetRecoilState4(sideCollapseState);
   const navigate = useNavigate();
-  const linkClickHandle = useCallback9(
+  const linkClickHandle = useCallback10(
     (event) => {
       if (link.disabled) {
         return;
@@ -4728,11 +5294,11 @@ import { useSetRecoilState as useSetRecoilState5 } from "recoil";
 // src/components/Header/Navigation/Navigation.tsx
 import React22, {
   memo as memo18,
-  useCallback as useCallback10,
-  useEffect as useEffect10,
-  useMemo as useMemo5,
-  useRef as useRef3,
-  useState as useState11
+  useCallback as useCallback11,
+  useEffect as useEffect12,
+  useMemo as useMemo6,
+  useRef as useRef5,
+  useState as useState13
 } from "react";
 var NavKey = [
   ["", "airdrop", "airdropLoading"],
@@ -4780,15 +5346,15 @@ var NavList = [
 ];
 var Navigation = memo18(
   ({ pathname, Link }) => {
-    const [chooseIndex, setChooseIndex] = useState11(
+    const [chooseIndex, setChooseIndex] = useState13(
       null
     );
-    const [activeIndex, setActiveIndex] = useState11(
+    const [activeIndex, setActiveIndex] = useState13(
       null
     );
-    const linksRefs = useRef3([]);
+    const linksRefs = useRef5([]);
     const { width } = useWindowSize();
-    const { isW768, isW1670, isWBig } = useMemo5(() => {
+    const { isW768, isW1670, isWBig } = useMemo6(() => {
       return {
         isW768: width <= 768,
         isW1540: width <= 1540 && width > 768,
@@ -4796,7 +5362,7 @@ var Navigation = memo18(
         isWBig: width >= 1670
       };
     }, [width]);
-    const init = useCallback10(async () => {
+    const init = useCallback11(async () => {
       if (!isW768 && linksRefs.current.length) {
         const index = NavKey.findIndex((key) => key.includes(pathname));
         if (index > -1) {
@@ -4805,10 +5371,10 @@ var Navigation = memo18(
         }
       }
     }, [pathname, isW768, linksRefs.current]);
-    useEffect10(() => {
+    useEffect12(() => {
       init();
     }, [init]);
-    const init2 = useCallback10(async () => {
+    const init2 = useCallback11(async () => {
       if (!isW768 && linksRefs.current.length) {
         linksRefs.current.forEach(async (linkRef, index) => {
           if ((linkRef == null ? void 0 : linkRef.className) === "nav_on") {
@@ -4839,10 +5405,10 @@ var Navigation = memo18(
         });
       }
     }, [chooseIndex, pathname]);
-    useEffect10(() => {
+    useEffect12(() => {
       init2();
     }, [chooseIndex, pathname, linksRefs.current]);
-    const updateLinePosition = useCallback10(async () => {
+    const updateLinePosition = useCallback11(async () => {
       if (activeIndex !== null && activeIndex !== void 0 && linksRefs.current[activeIndex]) {
         const line = document.querySelector(".pixel_line");
         const link = linksRefs.current[activeIndex];
@@ -4862,10 +5428,10 @@ var Navigation = memo18(
         }
       }
     }, [chooseIndex, activeIndex, pathname, linksRefs]);
-    useEffect10(() => {
+    useEffect12(() => {
       updateLinePosition();
     }, [chooseIndex, activeIndex, pathname]);
-    useEffect10(() => {
+    useEffect12(() => {
       (async () => {
         await sleep(0.3);
         updateLinePosition();
@@ -4896,8 +5462,8 @@ var Navigation = memo18(
 );
 var LinkComp = memo18(
   ({ item, children, setLinksRefs, className, Link }) => {
-    const ref = useRef3(null);
-    useEffect10(() => {
+    const ref = useRef5(null);
+    useEffect12(() => {
       if (ref.current) {
         setLinksRefs(ref.current);
       }
@@ -4955,7 +5521,7 @@ var SideBar = (props) => {
   const setSideCollapse = useSetRecoilState5(sideCollapseState);
   const {
     sideBarGamesLinkList
-  } = useMemo6(() => {
+  } = useMemo7(() => {
     return {
       sideBarGamesLinkList: Games(chainId).map((v) => v.dapps.map((vv) => vv)).flat().map((v) => {
         var _a;
@@ -5035,16 +5601,16 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React26, { memo as memo22, useCallback as useCallback12, useEffect as useEffect11, useMemo as useMemo7 } from "react";
+import React26, { memo as memo22, useCallback as useCallback13, useEffect as useEffect13, useMemo as useMemo8 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
 import styled3 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames7 from "classnames";
-import React25, { memo as memo21, useCallback as useCallback11 } from "react";
+import React25, { memo as memo21, useCallback as useCallback12 } from "react";
 var DialogTitle = memo21(
   ({ label, setDialogOpen, children, classNames }) => {
-    const closeHandle = useCallback11(() => {
+    const closeHandle = useCallback12(() => {
       setDialogOpen(false);
     }, [setDialogOpen]);
     return /* @__PURE__ */ React25.createElement("div", {
@@ -5107,7 +5673,7 @@ var LinkToBetaDialog = memo22(() => {
     linkToBetaDialogChainIdState
   );
   const isMobile2 = useIsW768();
-  const ToUrlName = useMemo7(() => {
+  const ToUrlName = useMemo8(() => {
     if (linkToBetaDialogChainId) {
       if (linkToBetaDialogChainId === "9980" /* Combo */) {
         return ["https://app.zypher.game/2048/"];
@@ -5116,7 +5682,7 @@ var LinkToBetaDialog = memo22(() => {
     }
     return "";
   }, [linkToBetaDialogChainId]);
-  const handleButtonClick = useCallback12(() => {
+  const handleButtonClick = useCallback13(() => {
     setLinkToBetaDialogOpen(false);
     if (ToUrlName[0].startsWith("https")) {
       return window.open(ToUrlName[0], "_blank");
@@ -5128,7 +5694,7 @@ var LinkToBetaDialog = memo22(() => {
       );
     }
   }, [ToUrlName]);
-  useEffect11(() => {
+  useEffect13(() => {
     if (!linkToBetaDialogOpen) {
       setLinkToBetaDialogChainId(void 0);
     }
@@ -5163,19 +5729,19 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React93, { useEffect as useEffect31, useMemo as useMemo17 } from "react";
+import React93, { useEffect as useEffect33, useMemo as useMemo18 } from "react";
 import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue9, useSetRecoilState as useSetRecoilState13 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import React92, { memo as memo33 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React38, { memo as memo31, useCallback as useCallback21 } from "react";
+import React38, { memo as memo31, useCallback as useCallback22 } from "react";
 import { useSetRecoilState as useSetRecoilState10 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
-import React29, { memo as memo25, useCallback as useCallback14, useEffect as useEffect13, useState as useState12 } from "react";
+import React29, { memo as memo25, useCallback as useCallback15, useEffect as useEffect15, useState as useState14 } from "react";
 import { useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState7 } from "recoil";
 import styled4 from "styled-components";
 
@@ -5481,7 +6047,7 @@ var erc20_default = erc20Contract;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
-import React28, { memo as memo24, useCallback as useCallback13, useEffect as useEffect12 } from "react";
+import React28, { memo as memo24, useCallback as useCallback14, useEffect as useEffect14 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React27, { memo as memo23 } from "react";
@@ -5533,7 +6099,7 @@ var BalanceItem = memo24(
     CountUpNumber,
     balance
   }) => {
-    const onClickHandle = useCallback13(() => {
+    const onClickHandle = useCallback14(() => {
       if (onClick) {
         onClick();
       }
@@ -5564,12 +6130,12 @@ var BalanceCountUpItem = memo24(
   }) => {
     const setPointsAnimState = useSetRecoilState6(pointsAnimState);
     const [mount, setMount] = useRecoilState9(pointsAnimNumState);
-    const onClickHandle = useCallback13(() => {
+    const onClickHandle = useCallback14(() => {
       if (onClick) {
         onClick();
       }
     }, [onClick]);
-    useEffect12(() => {
+    useEffect14(() => {
       if (mount === 1) {
         setPointsAnimState(true);
         setTimeout(() => {
@@ -5594,7 +6160,7 @@ var BalanceCountUpItem = memo24(
 var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
-import { useWalletClient as useWalletClient2 } from "wagmi";
+import { useWalletClient as useWalletClient3 } from "wagmi";
 var AddIcon = styled4(icons_default)`
   margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
   margin-left: 0 !important;
@@ -5603,12 +6169,12 @@ var AddIcon = styled4(icons_default)`
 var Balance = memo25((props) => {
   const { showPointsModal, env, CountUpNumber, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
-  const [loading, setLoading] = useState12(false);
+  const [loading, setLoading] = useState14(false);
   const setNativeBalance = useSetRecoilState7(nativeBalanceState);
   const setPointsBalance = useSetRecoilState7(pointsBalanceState);
   const refreshBalance = useRecoilValue6(refreshBalanceState);
-  const { data: walletClient } = useWalletClient2();
-  const fetchErc20Balance = useCallback14(async () => {
+  const { data: walletClient } = useWalletClient3();
+  const fetchErc20Balance = useCallback15(async () => {
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
@@ -5633,7 +6199,7 @@ var Balance = memo25((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
-  const fetchBalanceOf = useCallback14(async () => {
+  const fetchBalanceOf = useCallback15(async () => {
     if (!chainId || !account || !walletClient) {
       return;
     }
@@ -5645,7 +6211,7 @@ var Balance = memo25((props) => {
     await fetchErc20Balance();
     setLoading(false);
   }, [chainId, account, provider, walletClient, fetchErc20Balance]);
-  useEffect13(() => {
+  useEffect15(() => {
     if (account && chainId && walletClient) {
       fetchBalanceOf();
     }
@@ -5683,7 +6249,7 @@ var Balance = memo25((props) => {
 var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import React30, { memo as memo26, useCallback as useCallback15 } from "react";
+import React30, { memo as memo26, useCallback as useCallback16 } from "react";
 import styled5 from "styled-components";
 import { useRecoilState as useRecoilState10 } from "recoil";
 var StatusI = styled5.i`
@@ -5716,7 +6282,7 @@ var ChainSelectorWidget = memo26(({ className, direction_type }) => {
   const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState10(pointsDialogState);
   const [sideCollapse, setSideCollapse] = useRecoilState10(sideCollapseState);
   const { openChainModal } = useChainModal();
-  const openChainModalHandle = useCallback15(() => {
+  const openChainModalHandle = useCallback16(() => {
     if (accountInfoDialogOpen) {
       setAccountInfoDialogOpen(false);
     }
@@ -5756,14 +6322,14 @@ var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
-import React31, { useCallback as useCallback16 } from "react";
+import React31, { useCallback as useCallback17 } from "react";
 import { useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState8 } from "recoil";
 import { Trans } from "react-i18next";
 var PointsRuleDialog = () => {
   const { t } = useCustomTranslation([LngNs.points]);
   const isModalOpen = useRecoilValue7(pointsRuleDialogState);
   const setIsModalOpen = useSetRecoilState8(pointsRuleDialogState);
-  const handleCancel = useCallback16(() => {
+  const handleCancel = useCallback17(() => {
     setIsModalOpen(false);
   }, []);
   return /* @__PURE__ */ React31.createElement(React31.Fragment, null, /* @__PURE__ */ React31.createElement(DialogOverlay2, {
@@ -5809,11 +6375,11 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import React37, { memo as memo30, useCallback as useCallback20 } from "react";
+import React37, { memo as memo30, useCallback as useCallback21 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
-import React33, { memo as memo27, useMemo as useMemo8 } from "react";
+import React33, { memo as memo27, useMemo as useMemo9 } from "react";
 import styled7 from "styled-components";
 
 // src/components/Avatar/Avatar.tsx
@@ -5860,7 +6426,7 @@ var Avatar = ({
 var Avatar_default = Avatar;
 
 // src/hooks/useAvatar.ts
-import { useCallback as useCallback17, useEffect as useEffect14, useState as useState13 } from "react";
+import { useCallback as useCallback18, useEffect as useEffect16, useState as useState15 } from "react";
 import { useRecoilValue as useRecoilValue8 } from "recoil";
 
 // src/utils/generateAvatar.ts
@@ -5912,12 +6478,12 @@ var generateAvatar_default = (account) => {
 
 // src/hooks/useAvatar.ts
 var useAvatar = (account, hideAvatars, name) => {
-  const [avatars2, setAvatars] = useState13({
+  const [avatars2, setAvatars] = useState15({
     selectedAvatar: "",
     selectedBackground: ""
   });
   const refreshAvatar = useRecoilValue8(refreshAvatarState);
-  useEffect14(() => {
+  useEffect16(() => {
     if (account && !hideAvatars) {
       getData();
     } else {
@@ -5925,7 +6491,7 @@ var useAvatar = (account, hideAvatars, name) => {
       setAvatars({ selectedAvatar, selectedBackground });
     }
   }, [account, refreshAvatar]);
-  const getData = useCallback17(() => {
+  const getData = useCallback18(() => {
     const img = new Image();
     let src6 = "";
     if (window.IS_TELEGRAM) {
@@ -5969,7 +6535,7 @@ var PlayerAvatar = memo27(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const avatars2 = useAvatar(account, hideAvatars, name);
-    const avatarText = useMemo8(() => {
+    const avatarText = useMemo9(() => {
       const nameText = name != null ? name : account;
       if (nameText) {
         return `${getShortenAddress(nameText, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}`;
@@ -6120,11 +6686,11 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React36, { memo as memo29, useCallback as useCallback19, useEffect as useEffect15, useState as useState14 } from "react";
+import React36, { memo as memo29, useCallback as useCallback20, useEffect as useEffect17, useState as useState16 } from "react";
 import { useRecoilState as useRecoilState12 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
-import { useMemo as useMemo10 } from "react";
+import { useMemo as useMemo11 } from "react";
 
 // src/rainbowkit/src/wallets/useWalletConnectors.ts
 import { useConnect } from "wagmi";
@@ -6157,7 +6723,7 @@ function isNotNullish(value) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
-import React34, { createContext as createContext2, useContext as useContext2, useMemo as useMemo9 } from "react";
+import React34, { createContext as createContext2, useContext as useContext2, useMemo as useMemo10 } from "react";
 var RainbowKitChainContext = createContext2({
   chains: []
 });
@@ -6167,7 +6733,7 @@ function RainbowKitChainProvider({
   initialChain
 }) {
   return /* @__PURE__ */ React34.createElement(RainbowKitChainContext.Provider, {
-    value: useMemo9(
+    value: useMemo10(
       () => ({
         chains,
         initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
@@ -6182,7 +6748,7 @@ var useRainbowKitChains = () => {
 var useInitialChainId = () => useContext2(RainbowKitChainContext).initialChainId;
 var useRainbowKitChainsById = () => {
   const rainbowkitChains = useRainbowKitChains();
-  return useMemo9(() => {
+  return useMemo10(() => {
     const rainbowkitChainsById = {};
     rainbowkitChains.forEach((rkChain) => {
       rainbowkitChainsById[rkChain.id] = rkChain;
@@ -6339,7 +6905,7 @@ function useWalletConnectors() {
 // src/hooks/useActiveWallet.ts
 var useActiveWallet = () => {
   const wallets = useWalletConnectors();
-  return useMemo10(() => {
+  return useMemo11(() => {
     if (wallets) {
       const wall = wallets.filter((v) => v.ready && v.recent);
       return wall == null ? void 0 : wall[0];
@@ -6350,7 +6916,7 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React35, { memo as memo28, useCallback as useCallback18, useMemo as useMemo11 } from "react";
+import React35, { memo as memo28, useCallback as useCallback19, useMemo as useMemo12 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState11 } from "recoil";
 var MUserInfo = memo28(
@@ -6361,7 +6927,7 @@ var MUserInfo = memo28(
     const nativeBalanceStr = useNativeBalanceStr();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
-    const list = useMemo11(() => {
+    const list = useMemo12(() => {
       return [
         {
           balanceStr: pointsBalanceStr,
@@ -6380,14 +6946,14 @@ var MUserInfo = memo28(
         }
       ];
     }, []);
-    const openHandle = useCallback18(() => {
+    const openHandle = useCallback19(() => {
       var _a;
       window.open(
         `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
         "_blank"
       );
     }, [account, chainId]);
-    const cancelHandle = useCallback18(() => {
+    const cancelHandle = useCallback19(() => {
       setAccountInfoDialogOpen(false);
       disconnect();
     }, [disconnect]);
@@ -6468,11 +7034,11 @@ var AccountInfoDialog = memo29(({ copy }) => {
   const isMobile2 = useIsW1100();
   const { disconnect } = useDisconnect2();
   const wallet = useActiveWallet();
-  const cancel = useCallback19(() => {
+  const cancel = useCallback20(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
   }, [disconnect]);
-  useEffect15(() => {
+  useEffect17(() => {
     if (accountInfoDialogOpen && isMobile2) {
       setAccountInfoDialogOpen(false);
     }
@@ -6505,22 +7071,22 @@ var AccountInfoDialog = memo29(({ copy }) => {
   })))) : null;
 });
 var AddressBigWrapPop = memo29(({ copy }) => {
-  const [index, setIndex] = useState14();
+  const [index, setIndex] = useState16();
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
-  useEffect15(() => {
+  useEffect17(() => {
     if (index || index === 0) {
       setTimeout(() => {
         setIndex(void 0);
       }, 2e3);
     }
   }, [index]);
-  const copyAddressHandle = useCallback19(() => {
+  const copyAddressHandle = useCallback20(() => {
     copy(account);
     setIndex(0);
   }, [account]);
-  const openHandle = useCallback19(() => {
+  const openHandle = useCallback20(() => {
     var _a;
     window.open(
       `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
@@ -6528,7 +7094,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     );
     setIndex(1);
   }, [account, chainId]);
-  const cancelHandle = useCallback19(() => {
+  const cancelHandle = useCallback20(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
     setIndex(2);
@@ -6558,23 +7124,23 @@ var AddressBigWrapPop = memo29(({ copy }) => {
   })));
 });
 var AddressMiddleWrapPop = memo29(({ copy }) => {
-  const [index, setIndex] = useState14();
+  const [index, setIndex] = useState16();
   const { account, chainId } = useActiveWeb3React();
   const nativeBalanceStr = useNativeBalanceStr();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
-  useEffect15(() => {
+  useEffect17(() => {
     if (index || index === 0) {
       setTimeout(() => {
         setIndex(void 0);
       }, 2e3);
     }
   }, [index]);
-  const copyAddressHandle = useCallback19(() => {
+  const copyAddressHandle = useCallback20(() => {
     copy(account);
     setIndex(0);
   }, [account]);
-  const openHandle = useCallback19(() => {
+  const openHandle = useCallback20(() => {
     var _a;
     window.open(
       `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
@@ -6582,7 +7148,7 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
     );
     setIndex(1);
   }, [account, chainId]);
-  const cancelHandle = useCallback19(() => {
+  const cancelHandle = useCallback20(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
     setIndex(2);
@@ -6676,7 +7242,7 @@ var AccountInfo = memo30(
   ({ isW768, isMiddleWidth, copy, env, supportedChainList }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
     const setAccountInfoDialogState = useSetRecoilState9(accountInfoDialogState);
-    const accountClick = useCallback20(() => {
+    const accountClick = useCallback21(() => {
       if (isW768) {
         setAccountInfoDialogState(true);
       }
@@ -6701,7 +7267,7 @@ var AccountInfo = memo30(
 var AccountInfo_default = AccountInfo;
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-var Account = memo31(
+var Account2 = memo31(
   ({
     isMiddleWidth,
     env,
@@ -6714,7 +7280,7 @@ var Account = memo31(
   }) => {
     const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState10(pointsDialogState);
-    const showPointsModal = useCallback21(() => {
+    const showPointsModal = useCallback22(() => {
       setPointsDialogState(true);
     }, [setPointsDialogState]);
     return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
@@ -6736,7 +7302,7 @@ var Account = memo31(
   },
   isEqual
 );
-var rainbow_account_default = Account;
+var rainbow_account_default = Account2;
 
 // src/components/Header/rainbow_account/WrongNetwork.tsx
 import React88, { memo as memo32 } from "react";
@@ -6745,13 +7311,13 @@ import { useSetRecoilState as useSetRecoilState12 } from "recoil";
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
 import React87, {
   createContext as createContext11,
-  useCallback as useCallback31,
+  useCallback as useCallback32,
   useContext as useContext16,
-  useMemo as useMemo16,
-  useRef as useRef9,
-  useState as useState24
+  useMemo as useMemo17,
+  useRef as useRef11,
+  useState as useState26
 } from "react";
-import { useAccount as useAccount11, useNetwork as useNetwork7 } from "wagmi";
+import { useAccount as useAccount11, useNetwork as useNetwork6 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useConnectionStatus.ts
 import { useAccount as useAccount3 } from "wagmi";
@@ -6760,9 +7326,9 @@ import { useAccount as useAccount3 } from "wagmi";
 import React39, {
   createContext as createContext3,
   useContext as useContext3,
-  useEffect as useEffect16,
-  useMemo as useMemo12,
-  useRef as useRef5
+  useEffect as useEffect18,
+  useMemo as useMemo13,
+  useRef as useRef7
 } from "react";
 import { useAccount as useAccount2 } from "wagmi";
 function createAuthenticationAdapter(adapter) {
@@ -6783,8 +7349,8 @@ function RainbowKitAuthenticationProvider({
     }
   });
   const { isDisconnected } = useAccount2();
-  const onceRef = useRef5(false);
-  useEffect16(() => {
+  const onceRef = useRef7(false);
+  useEffect18(() => {
     if (onceRef.current)
       return;
     onceRef.current = true;
@@ -6793,7 +7359,7 @@ function RainbowKitAuthenticationProvider({
     }
   }, [status, adapter, isDisconnected]);
   return /* @__PURE__ */ React39.createElement(AuthenticationContext.Provider, {
-    value: useMemo12(
+    value: useMemo13(
       () => enabled ? { adapter, status } : null,
       [enabled, adapter, status]
     )
@@ -6871,7 +7437,7 @@ function useMainnetEnsName(address) {
 }
 
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React54, { useCallback as useCallback26, useEffect as useEffect24, useState as useState18 } from "react";
+import React54, { useCallback as useCallback27, useEffect as useEffect26, useState as useState20 } from "react";
 import { createPortal } from "react-dom";
 import { RemoveScroll } from "react-remove-scroll";
 
@@ -6963,13 +7529,13 @@ function cssStringFromTheme(theme, options = {}) {
 }
 
 // src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect17, useState as useState15 } from "react";
+import { useEffect as useEffect19, useState as useState17 } from "react";
 var useWindowSize2 = () => {
-  const [windowSize, setWindowSize] = useState15({
+  const [windowSize, setWindowSize] = useState17({
     height: void 0,
     width: void 0
   });
-  useEffect17(() => {
+  useEffect19(() => {
     function handleResize() {
       setWindowSize({
         height: window.innerHeight,
@@ -7109,7 +7675,7 @@ var lightTheme = ({
 lightTheme.accentColors = accentColors;
 
 // src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect18, useState as useState16 } from "react";
+import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect20, useState as useState18 } from "react";
 import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
 
 // src/rainbowkit/src/transactions/transactionStore.ts
@@ -7249,11 +7815,11 @@ function TransactionStoreProvider({ children }) {
   const provider = usePublicClient3();
   const { address } = useAccount4();
   const chainId = useChainId();
-  const [store] = useState16(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
-  useEffect18(() => {
+  const [store] = useState18(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
+  useEffect20(() => {
     store.setProvider(provider);
   }, [store, provider]);
-  useEffect18(() => {
+  useEffect20(() => {
     if (address && chainId) {
       store.waitForPendingTransactions(address, chainId);
     }
@@ -7283,17 +7849,17 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React44, { useEffect as useEffect19, useMemo as useMemo14, useState as useState17 } from "react";
+import React44, { useEffect as useEffect21, useMemo as useMemo15, useState as useState19 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-import React43, { useMemo as useMemo13 } from "react";
+import React43, { useMemo as useMemo14 } from "react";
 
 // src/rainbowkit/src/components/Icons/Icons.css.ts
 var SpinnerIconClassName = "Icons_SpinnerIconClassName__j63hpy2";
 var SpinnerIconPathClassName = "Icons_SpinnerIconPathClassName__j63hpy3";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-var useRandomId = (prefix) => useMemo13(
+var useRandomId = (prefix) => useMemo14(
   () => `${prefix}_${Math.round(Math.random() * 1e9)}`,
   [prefix]
 );
@@ -7408,15 +7974,15 @@ function emojiAvatarForAddress(address) {
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
 var EmojiAvatar = ({ address, ensImage, size }) => {
-  const [loaded, setLoaded] = useState17(false);
-  useEffect19(() => {
+  const [loaded, setLoaded] = useState19(false);
+  useEffect21(() => {
     if (ensImage) {
       const img = new Image();
       img.src = ensImage;
       img.onload = () => setLoaded(true);
     }
   }, [ensImage]);
-  const { color: backgroundColor, emoji } = useMemo14(
+  const { color: backgroundColor, emoji } = useMemo15(
     () => emojiAvatarForAddress(address),
     [address]
   );
@@ -7478,25 +8044,25 @@ import { createContext as createContext9 } from "react";
 var ShowRecentTransactionsContext = createContext9(false);
 
 // src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback22, useEffect as useEffect20 } from "react";
+import { useCallback as useCallback23, useEffect as useEffect22 } from "react";
 var storageKey3 = "rk-version";
 function setRainbowKitVersion({ version }) {
   localStorage.setItem(storageKey3, version);
 }
 function useFingerprint() {
-  const fingerprint = useCallback22(() => {
+  const fingerprint = useCallback23(() => {
     setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
-  useEffect20(() => {
+  useEffect22(() => {
     fingerprint();
   }, [fingerprint]);
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback24, useEffect as useEffect22 } from "react";
+import { useCallback as useCallback25, useEffect as useEffect24 } from "react";
 
 // src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
-import { useEffect as useEffect21, useReducer } from "react";
+import { useEffect as useEffect23, useReducer } from "react";
 var cachedUrls = /* @__PURE__ */ new Map();
 var cachedRequestPromises = /* @__PURE__ */ new Map();
 async function loadAsyncImage(asyncImage) {
@@ -7528,7 +8094,7 @@ function useForceUpdate() {
 function useAsyncImage(url) {
   const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
   const forceUpdate = useForceUpdate();
-  useEffect21(() => {
+  useEffect23(() => {
     if (typeof url === "function" && !cachedUrl) {
       loadAsyncImage(url).then(forceUpdate);
     }
@@ -7629,9 +8195,9 @@ var LoginIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/SignIn/SignIn.tsx
-import React51, { useCallback as useCallback23, useRef as useRef6 } from "react";
+import React51, { useCallback as useCallback24, useRef as useRef8 } from "react";
 import { UserRejectedRequestError } from "viem";
-import { useAccount as useAccount5, useDisconnect as useDisconnect3, useNetwork as useNetwork3, useSignMessage } from "wagmi";
+import { useAccount as useAccount5, useDisconnect as useDisconnect3, useNetwork as useNetwork2, useSignMessage } from "wagmi";
 
 // src/rainbowkit/src/css/touchableStyles.css.ts
 var active = { shrink: "touchableStyles_active_shrink__wsvdkn6", shrinkSm: "touchableStyles_active_shrinkSm__wsvdkn7" };
@@ -7743,7 +8309,7 @@ var signInIcon = async () => (await import("./sign-IOXJRZQV.js")).default;
 function SignIn({ onClose }) {
   const [{ status, ...state }, setState] = React51.useState({ status: "idle" });
   const authAdapter = useAuthenticationAdapter();
-  const getNonce = useCallback23(async () => {
+  const getNonce = useCallback24(async () => {
     try {
       const nonce = await authAdapter.getNonce();
       setState((x) => ({ ...x, nonce }));
@@ -7755,7 +8321,7 @@ function SignIn({ onClose }) {
       }));
     }
   }, [authAdapter]);
-  const onceRef = useRef6(false);
+  const onceRef = useRef8(false);
   React51.useEffect(() => {
     if (onceRef.current)
       return;
@@ -7764,7 +8330,7 @@ function SignIn({ onClose }) {
   }, [getNonce]);
   const mobile = isMobile();
   const { address } = useAccount5();
-  const { chain: activeChain } = useNetwork3();
+  const { chain: activeChain } = useNetwork2();
   const { signMessageAsync } = useSignMessage();
   const { disconnect } = useDisconnect3();
   const cancel = () => disconnect();
@@ -7914,7 +8480,7 @@ function usePreloadImages() {
   const rainbowKitChains = useRainbowKitChains();
   const walletConnectors = useWalletConnectors();
   const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
-  const preloadImages = useCallback24(() => {
+  const preloadImages = useCallback25(() => {
     loadImages(...walletConnectors.map((wallet) => wallet.iconUrl), ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish));
     if (!isMobile()) {
       preloadAssetsIcon();
@@ -7924,7 +8490,7 @@ function usePreloadImages() {
       loadImages(signInIcon);
     }
   }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
-  useEffect22(() => {
+  useEffect24(() => {
     preloadImages();
   }, [preloadImages]);
 }
@@ -8024,7 +8590,7 @@ var content = "Dialog_content__1dq44ga5 sprinkles_display_flex_smallScreen__dmay
 var overlay = "Dialog_overlay__1dq44ga3 sprinkles_backdropFilter_modalOverlay__dmay209g sprinkles_background_modalBackdrop_base__dmay20b5 sprinkles_display_flex_smallScreen__dmay20a sprinkles_justifyContent_center__dmay202n sprinkles_position_fixed__dmay208p";
 
 // src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React53, { useCallback as useCallback25, useEffect as useEffect23, useRef as useRef7 } from "react";
+import React53, { useCallback as useCallback26, useEffect as useEffect25, useRef as useRef9 } from "react";
 var moveFocusWithin = (element2, position) => {
   const focusableElements = element2.querySelectorAll(
     "button:not(:disabled), a[href]"
@@ -8034,15 +8600,15 @@ var moveFocusWithin = (element2, position) => {
   focusableElements[position === "end" ? focusableElements.length - 1 : 0].focus();
 };
 function FocusTrap(props) {
-  const contentRef = useRef7(null);
-  useEffect23(() => {
+  const contentRef = useRef9(null);
+  useEffect25(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
       var _a;
       (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
     };
   }, []);
-  useEffect23(() => {
+  useEffect25(() => {
     if (contentRef.current) {
       const elementToFocus = contentRef.current.querySelector("[data-auto-focus]");
       if (elementToFocus) {
@@ -8053,7 +8619,7 @@ function FocusTrap(props) {
     }
   }, [contentRef]);
   return /* @__PURE__ */ React53.createElement(React53.Fragment, null, /* @__PURE__ */ React53.createElement("div", {
-    onFocus: useCallback25(
+    onFocus: useCallback26(
       () => contentRef.current && moveFocusWithin(contentRef.current, "end"),
       []
     ),
@@ -8064,7 +8630,7 @@ function FocusTrap(props) {
     tabIndex: -1,
     ...props
   }), /* @__PURE__ */ React53.createElement("div", {
-    onFocus: useCallback25(
+    onFocus: useCallback26(
       () => contentRef.current && moveFocusWithin(contentRef.current, "start"),
       []
     ),
@@ -8075,16 +8641,16 @@ function FocusTrap(props) {
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
 var stopPropagation = (event) => event.stopPropagation();
 function Dialog({ children, onClose, open, titleId }) {
-  useEffect24(() => {
+  useEffect26(() => {
     const handleEscape = (event) => open && event.key === "Escape" && onClose();
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [open, onClose]);
-  const [bodyScrollable, setBodyScrollable] = useState18(true);
-  useEffect24(() => {
+  const [bodyScrollable, setBodyScrollable] = useState20(true);
+  useEffect26(() => {
     setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
   }, []);
-  const handleBackdropClick = useCallback26(() => onClose(), [onClose]);
+  const handleBackdropClick = useCallback27(() => onClose(), [onClose]);
   const themeRootProps = useThemeRootProps();
   const mobile = isMobile();
   return /* @__PURE__ */ React54.createElement(React54.Fragment, null, open ? createPortal(
@@ -8149,7 +8715,7 @@ function DialogContent3({
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React66, { useCallback as useCallback28, useContext as useContext9, useEffect as useEffect26, useState as useState20 } from "react";
+import React66, { useCallback as useCallback29, useContext as useContext9, useEffect as useEffect28, useState as useState22 } from "react";
 
 // src/rainbowkit/src/components/Avatar/Avatar.tsx
 import React56, { useContext as useContext7 } from "react";
@@ -8288,16 +8854,16 @@ var DisconnectIcon = () => /* @__PURE__ */ React59.createElement("svg", {
 
 // src/rainbowkit/src/components/Txs/TxList.tsx
 import React64, { useContext as useContext8 } from "react";
-import { useNetwork as useNetwork5 } from "wagmi";
+import { useNetwork as useNetwork4 } from "wagmi";
 
 // src/rainbowkit/src/transactions/useClearRecentTransactions.ts
-import { useCallback as useCallback27 } from "react";
+import { useCallback as useCallback28 } from "react";
 import { useAccount as useAccount7 } from "wagmi";
 function useClearRecentTransactions() {
   const store = useTransactionStore();
   const { address } = useAccount7();
   const chainId = useChainId();
-  return useCallback27(() => {
+  return useCallback28(() => {
     if (!address || !chainId) {
       throw new Error("No address or chain ID found");
     }
@@ -8306,16 +8872,16 @@ function useClearRecentTransactions() {
 }
 
 // src/rainbowkit/src/transactions/useRecentTransactions.ts
-import { useEffect as useEffect25, useState as useState19 } from "react";
+import { useEffect as useEffect27, useState as useState21 } from "react";
 import { useAccount as useAccount8 } from "wagmi";
 function useRecentTransactions() {
   const store = useTransactionStore();
   const { address } = useAccount8();
   const chainId = useChainId();
-  const [transactions, setTransactions] = useState19(
+  const [transactions, setTransactions] = useState21(
     () => store && address && chainId ? store.getTransactions(address, chainId) : []
   );
-  useEffect25(() => {
+  useEffect27(() => {
     if (store && address && chainId) {
       setTransactions(store.getTransactions(address, chainId));
       return store.onChange(() => {
@@ -8347,7 +8913,7 @@ var ExternalLinkIcon = () => /* @__PURE__ */ React60.createElement("svg", {
 
 // src/rainbowkit/src/components/Txs/TxItem.tsx
 import React63 from "react";
-import { useNetwork as useNetwork4 } from "wagmi";
+import { useNetwork as useNetwork3 } from "wagmi";
 
 // src/rainbowkit/src/components/Icons/Cancel.tsx
 import React61 from "react";
@@ -8392,7 +8958,7 @@ function TxItem({ tx }) {
   const mobile = isMobile();
   const Icon2 = getTxStatusIcon(tx.status);
   const color = tx.status === "failed" ? "error" : "accentColor";
-  const { chain: activeChain } = useNetwork4();
+  const { chain: activeChain } = useNetwork3();
   const confirmationStatus = tx.status === "confirmed" ? "Confirmed" : tx.status === "failed" ? "Failed" : "Pending";
   const explorerLink = chainToExplorerUrl(activeChain);
   return /* @__PURE__ */ React63.createElement(React63.Fragment, null, /* @__PURE__ */ React63.createElement(Box, {
@@ -8445,7 +9011,7 @@ var NUMBER_OF_VISIBLE_TXS = 3;
 function TxList({ address }) {
   const recentTransactions = useRecentTransactions();
   const clearRecentTransactions = useClearRecentTransactions();
-  const { chain: activeChain } = useNetwork5();
+  const { chain: activeChain } = useNetwork4();
   const explorerLink = chainToExplorerUrl(activeChain);
   const visibleTxs = recentTransactions.slice(0, NUMBER_OF_VISIBLE_TXS);
   const hasTransactions = visibleTxs.length > 0;
@@ -8597,14 +9163,14 @@ function ProfileDetails({
   onDisconnect
 }) {
   const showRecentTransactions = useContext9(ShowRecentTransactionsContext);
-  const [copiedAddress, setCopiedAddress] = useState20(false);
-  const copyAddressAction = useCallback28(() => {
+  const [copiedAddress, setCopiedAddress] = useState22(false);
+  const copyAddressAction = useCallback29(() => {
     if (address) {
       navigator.clipboard.writeText(address);
       setCopiedAddress(true);
     }
   }, [address]);
-  useEffect26(() => {
+  useEffect28(() => {
     if (copiedAddress) {
       const timer = setTimeout(() => {
         setCopiedAddress(false);
@@ -8723,8 +9289,8 @@ function AccountModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
-import React70, { Fragment, useCallback as useCallback29, useContext as useContext10 } from "react";
-import { useDisconnect as useDisconnect5, useNetwork as useNetwork6, useSwitchNetwork } from "wagmi";
+import React70, { Fragment, useCallback as useCallback30, useContext as useContext10 } from "react";
+import { useDisconnect as useDisconnect5, useNetwork as useNetwork5, useSwitchNetwork } from "wagmi";
 
 // src/rainbowkit/src/components/Icons/DisconnectSq.tsx
 import React68 from "react";
@@ -8798,7 +9364,7 @@ MenuButton.displayName = "MenuButton";
 function ChainModal({ onClose, open, fn }) {
   var _a;
   const isW768 = useIsW768();
-  const { chain: activeChain } = useNetwork6();
+  const { chain: activeChain } = useNetwork5();
   const { chains, pendingChainId, reset, switchNetwork } = useSwitchNetwork({
     onSettled: () => {
       reset();
@@ -8812,7 +9378,7 @@ function ChainModal({ onClose, open, fn }) {
   const chainIconSize = "24";
   const { appName } = useContext10(AppContext);
   const rainbowkitChains = useRainbowKitChains();
-  const chainClickHandle = useCallback29(
+  const chainClickHandle = useCallback30(
     ({ isCurrentChain, chain }) => {
       if (isCurrentChain) {
         return;
@@ -9010,7 +9576,7 @@ import React86 from "react";
 import React85 from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect29, useState as useState22 } from "react";
+import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect31, useState as useState24 } from "react";
 
 // src/rainbowkit/src/utils/groupBy.ts
 function groupBy(items, getKey) {
@@ -9219,15 +9785,15 @@ var InfoButton = ({
 };
 
 // src/rainbowkit/src/components/ModalSelection/ModalSelection.tsx
-import React77, { useState as useState21 } from "react";
+import React77, { useState as useState23 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
-import { useContext as useContext12, useEffect as useEffect27, useRef as useRef8 } from "react";
+import { useContext as useContext12, useEffect as useEffect29, useRef as useRef10 } from "react";
 var useCoolMode = (imageUrl) => {
-  const ref = useRef8(null);
+  const ref = useRef10(null);
   const coolModeEnabled = useContext12(CoolModeContext);
   const resolvedImageUrl = useAsyncImage(imageUrl);
-  useEffect27(() => {
+  useEffect29(() => {
     if (coolModeEnabled && ref.current && resolvedImageUrl) {
       return makeElementCool(ref.current, resolvedImageUrl);
     }
@@ -9393,7 +9959,7 @@ var ModalSelection = ({
   ...urlProps
 }) => {
   const coolModeRef = useCoolMode(iconUrl);
-  const [isMouseOver, setIsMouseOver] = useState21(false);
+  const [isMouseOver, setIsMouseOver] = useState23(false);
   return /* @__PURE__ */ React77.createElement(Box, {
     display: "flex",
     flexDirection: "column",
@@ -9459,7 +10025,7 @@ var ModalSelection = ({
 ModalSelection.displayName = "ModalSelection";
 
 // src/rainbowkit/src/components/ConnectOptions/ConnectDetails.tsx
-import React82, { useContext as useContext13, useEffect as useEffect28 } from "react";
+import React82, { useContext as useContext13, useEffect as useEffect30 } from "react";
 
 // src/rainbowkit/src/components/Icons/Create.tsx
 import React78 from "react";
@@ -9502,7 +10068,7 @@ var ScanIcon = () => /* @__PURE__ */ React80.createElement(AsyncImage, {
 
 // src/rainbowkit/src/components/QRCode/QRCode.tsx
 import QRCodeUtil from "qrcode";
-import React81, { useMemo as useMemo15 } from "react";
+import React81, { useMemo as useMemo16 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.css.ts
 var QRCodeBackgroundClassName = "DesktopOptions_QRCodeBackgroundClassName__vrwex40";
@@ -9533,7 +10099,7 @@ function QRCode({
 }) {
   const padding = "20";
   const size = sizeProp - parseInt(padding, 10) * 2;
-  const dots = useMemo15(() => {
+  const dots = useMemo16(() => {
     const dots2 = [];
     const matrix = generateMatrix(uri, ecl);
     const cellSize = size / matrix.length;
@@ -9792,7 +10358,7 @@ function ConnectDetail({
   } : null;
   const { width: windowWidth } = useWindowSize2();
   const smallWindow = windowWidth && windowWidth < 768;
-  useEffect28(() => {
+  useEffect30(() => {
     preloadBrowserIcon();
   }, []);
   return /* @__PURE__ */ React82.createElement(Box, {
@@ -10055,7 +10621,7 @@ function DownloadOptionsDetail({
   const modalSize = useContext13(ModalSizeContext);
   const isCompact = modalSize === "compact";
   const { extension, extensionDownloadUrl, mobileDownloadUrl } = wallet;
-  useEffect28(() => {
+  useEffect30(() => {
     preloadCreateIcon();
     preloadScanIcon();
     preloadRefreshIcon();
@@ -10107,7 +10673,7 @@ function DownloadDetail({
   wallet
 }) {
   const { downloadUrls, qrCode } = wallet;
-  useEffect28(() => {
+  useEffect30(() => {
     preloadCreateIcon();
     preloadScanIcon();
   }, []);
@@ -10312,11 +10878,11 @@ function InstructionExtensionDetail({
 function DesktopOptions({ onClose }) {
   const titleId = "rk_connect_title";
   const safari = isSafari();
-  const [selectedOptionId, setSelectedOptionId] = useState22();
-  const [selectedWallet, setSelectedWallet] = useState22();
-  const [qrCodeUri, setQrCodeUri] = useState22();
+  const [selectedOptionId, setSelectedOptionId] = useState24();
+  const [selectedWallet, setSelectedWallet] = useState24();
+  const [qrCodeUri, setQrCodeUri] = useState24();
   const hasQrCode = !!(selectedWallet == null ? void 0 : selectedWallet.qrCode) && qrCodeUri;
-  const [connectionError, setConnectionError] = useState22(false);
+  const [connectionError, setConnectionError] = useState24(false);
   const modalSize = useContext14(ModalSizeContext);
   const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
   const { disclaimer: Disclaimer } = useContext14(AppContext);
@@ -10411,15 +10977,15 @@ function DesktopOptions({ onClose }) {
     }
     setWalletStep(newWalletStep);
   };
-  const [initialWalletStep, setInitialWalletStep] = useState22(
+  const [initialWalletStep, setInitialWalletStep] = useState24(
     "NONE" /* None */
   );
-  const [walletStep, setWalletStep] = useState22("NONE" /* None */);
+  const [walletStep, setWalletStep] = useState24("NONE" /* None */);
   let walletContent = null;
   let headerLabel = null;
   let headerBackButtonLink = null;
   let headerBackButtonCallback;
-  useEffect29(() => {
+  useEffect31(() => {
     setConnectionError(false);
   }, [walletStep, selectedWallet]);
   const hasExtension = !!(selectedWallet == null ? void 0 : selectedWallet.extensionDownloadUrl);
@@ -10666,7 +11232,7 @@ function DesktopOptions({ onClose }) {
 }
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.tsx
-import React84, { useCallback as useCallback30, useContext as useContext15, useState as useState23 } from "react";
+import React84, { useCallback as useCallback31, useContext as useContext15, useState as useState25 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.css.ts
 var scroll = "MobileOptions_scroll__1656yi90";
@@ -10696,7 +11262,7 @@ function WalletButton({
     disabled: !ready,
     fontFamily: "body",
     key: id,
-    onClick: useCallback30(async () => {
+    onClick: useCallback31(async () => {
       if (id === "walletConnect")
         onClose == null ? void 0 : onClose();
       connect == null ? void 0 : connect();
@@ -10769,7 +11335,7 @@ function MobileOptions({ onClose }) {
   let walletContent = null;
   let headerBackgroundContrast = false;
   let headerBackButtonLink = null;
-  const [walletStep, setWalletStep] = useState23(
+  const [walletStep, setWalletStep] = useState25(
     "CONNECT" /* Connect */
   );
   const ios = isIOS();
@@ -11047,15 +11613,15 @@ function ConnectModal({ onClose, open }) {
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
 import { useSetRecoilState as useSetRecoilState11 } from "recoil";
 function useModalStateValue() {
-  const [isModalOpen, setModalOpen] = useState24(false);
+  const [isModalOpen, setModalOpen] = useState26(false);
   const setWalletDialogOpen = useSetRecoilState11(walletModalOpenState);
   return {
-    closeModal: useCallback31(() => {
+    closeModal: useCallback32(() => {
       setWalletDialogOpen(false);
       setModalOpen(false);
     }, []),
     isModalOpen,
-    openModal: useCallback31(() => setModalOpen(true), [])
+    openModal: useCallback32(() => setModalOpen(true), [])
   };
 }
 var ModalContext = createContext11({
@@ -11080,9 +11646,9 @@ function ModalProvider({ children }) {
     openModal: openChainModal
   } = useModalStateValue();
   const connectionStatus = useConnectionStatus();
-  const { chain } = useNetwork7();
+  const { chain } = useNetwork6();
   const chainSupported = !(chain == null ? void 0 : chain.unsupported);
-  const fn = useRef9();
+  const fn = useRef11();
   function closeModals({
     keepConnectModalOpen = false
   } = {}) {
@@ -11098,7 +11664,7 @@ function ModalProvider({ children }) {
     onDisconnect: () => closeModals()
   });
   return /* @__PURE__ */ React87.createElement(ModalContext.Provider, {
-    value: useMemo16(
+    value: useMemo17(
       () => ({
         accountModalOpen,
         chainModalOpen,
@@ -11193,13 +11759,13 @@ var DropdownIcon = () => /* @__PURE__ */ React89.createElement("svg", {
 
 // src/rainbowkit/src/components/ConnectButton/ConnectButtonRenderer.tsx
 import React90, { useContext as useContext17 } from "react";
-import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork8 } from "wagmi";
+import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork7 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
-import { useEffect as useEffect30, useReducer as useReducer3 } from "react";
+import { useEffect as useEffect32, useReducer as useReducer3 } from "react";
 var useIsMounted = () => {
   const [mounted, setMounted] = useReducer3(() => true, false);
-  useEffect30(setMounted, [setMounted]);
+  useEffect32(setMounted, [setMounted]);
   return mounted;
 };
 
@@ -11215,7 +11781,7 @@ function ConnectButtonRenderer({
   const ensName = useMainnetEnsName(address);
   const ensAvatar = useMainnetEnsAvatar(ensName);
   const { data: balanceData } = useBalance2({ address });
-  const { chain: activeChain } = useNetwork8();
+  const { chain: activeChain } = useNetwork7();
   const rainbowkitChainsById = useRainbowKitChainsById();
   const authenticationStatus = (_a = useAuthenticationStatus()) != null ? _a : void 0;
   const rainbowKitChain = activeChain ? rainbowkitChainsById[activeChain.id] : void 0;
@@ -11477,7 +12043,7 @@ var Header = (props) => {
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState13(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState13(showMiddleState);
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo17(() => {
+  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo18(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
@@ -11487,7 +12053,7 @@ var Header = (props) => {
       isWBig: width >= 1340
     };
   }, [width]);
-  useEffect31(() => {
+  useEffect33(() => {
     if (showBig) {
       setShowBig(false);
     }
@@ -11495,12 +12061,12 @@ var Header = (props) => {
       setShowMiddle(false);
     }
   }, [width]);
-  useEffect31(() => {
+  useEffect33(() => {
     if (isW830 && collapsed === void 0) {
       setSideCollapse(true);
     }
   }, [isW830]);
-  const isBingo = useMemo17(() => {
+  const isBingo = useMemo18(() => {
     return pathname === "bingo";
   }, [pathname]);
   return /* @__PURE__ */ React93.createElement("header", {
@@ -11548,7 +12114,7 @@ var Header = (props) => {
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React94, { useMemo as useMemo18 } from "react";
+import React94, { useMemo as useMemo19 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -11620,7 +12186,7 @@ var RainbowKitWithThemeProvider = ({
   chainIdList
 }) => {
   const WebAppData = useTelegramUser();
-  const { wagmiConfig, chains, computedTheme } = useMemo18(() => {
+  const { wagmiConfig, chains, computedTheme } = useMemo19(() => {
     if (env) {
       const wagmiConfig2 = getWagmiConfig(env, chainIdList, WebAppData);
       const { chains: chains2 } = getConfigureChains(env);
@@ -11687,16 +12253,16 @@ var TonConnectUIProvider = memo34(({ children }) => {
         }
       ]
     },
-    manifestUrl: `${location.origin}/bingo/tonconnect-manifest.json`
+    manifestUrl: "https://static-dev.zypher.game/json/bingo/tonconnect-manifest.json"
   }, children);
 });
 var TonConnectUIProvider_default = TonConnectUIProvider;
 
 // src/hooks/useInitRainbowFn.ts
-import { useEffect as useEffect32 } from "react";
+import { useEffect as useEffect34 } from "react";
 var useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();
-  useEffect32(() => {
+  useEffect34(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
         return true;
@@ -11710,16 +12276,16 @@ var useInitRainbowFn = () => {
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState14 } from "recoil";
-import { useEffect as useEffect33 } from "react";
-import { ethers as ethers4 } from "ethers";
+import { useEffect as useEffect35 } from "react";
+import { ethers as ethers5 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState14(invitationAddressState);
-  useEffect33(() => {
+  useEffect35(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
     if (shareParam == null ? void 0 : shareParam.startsWith("0x")) {
-      const isValidAddress = ethers4.utils.isAddress(shareParam);
+      const isValidAddress = ethers5.utils.isAddress(shareParam);
       if (isValidAddress) {
         setInvitationAddressState({
           address: shareParam,
@@ -11733,9 +12299,9 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback32, useEffect as useEffect34, useState as useState25 } from "react";
+import { useCallback as useCallback33, useEffect as useEffect36, useState as useState27 } from "react";
 import BigNumberjs3 from "bignumber.js";
-import { ethers as ethers5 } from "ethers";
+import { ethers as ethers6 } from "ethers";
 
 // src/utils/data.ts
 var getUTCSeconds = () => {
@@ -11824,9 +12390,9 @@ var multicall_default = MulticallContract;
 var useRecentGamesFromGraph = ({
   env
 }) => {
-  const [list, setList] = useState25();
-  const [hasError, setHasError] = useState25(false);
-  const fetchGameInfos = useCallback32(async () => {
+  const [list, setList] = useState27();
+  const [hasError, setHasError] = useState27(false);
+  const fetchGameInfos = useCallback33(async () => {
     var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
@@ -11849,7 +12415,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect34(() => {
+  useEffect36(() => {
     fetchGameInfos();
   }, []);
   return {
@@ -11930,14 +12496,14 @@ function formatDataFromGraph({
     let status = getStatus(statusNumber);
     const id = parseInt(idHex, 16).toFixed();
     let winnerOrPlayers = `${pCount} players`;
-    let inputPerPlayer = joinAmount ? new BigNumberjs3(ethers5.utils.formatEther(joinAmount)).dividedBy(new BigNumberjs3(pCount)).toNumber() : "-";
+    let inputPerPlayer = joinAmount ? new BigNumberjs3(ethers6.utils.formatEther(joinAmount)).dividedBy(new BigNumberjs3(pCount)).toNumber() : "-";
     let win = "-";
     let multiplier = "-";
     let cardNumbers;
     let selectedNumbers;
     if (status === "end" /* End */ && recentGames.size) {
       winnerOrPlayers = winner;
-      const poolWin = new BigNumberjs3(ethers5.utils.formatEther(winAmount));
+      const poolWin = new BigNumberjs3(ethers6.utils.formatEther(winAmount));
       win = formatMoney(poolWin.toNumber());
       multiplier = formatMoney(
         poolWin.dividedBy(new BigNumberjs3(inputPerPlayer)).toNumber()
@@ -12114,13 +12680,13 @@ var getRecentGameById = async ({
 };
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect35, useRef as useRef10 } from "react";
+import { useEffect as useEffect37, useRef as useRef12 } from "react";
 function useInterval(callback, delay, leading = true) {
-  const savedCallback = useRef10();
-  useEffect35(() => {
+  const savedCallback = useRef12();
+  useEffect37(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect35(() => {
+  useEffect37(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();
@@ -12325,13 +12891,13 @@ var midnightTheme = ({
 midnightTheme.accentColors = accentColors3;
 
 // src/rainbowkit/src/transactions/useAddRecentTransaction.ts
-import { useCallback as useCallback33 } from "react";
+import { useCallback as useCallback34 } from "react";
 import { useAccount as useAccount13 } from "wagmi";
 function useAddRecentTransaction() {
   const store = useTransactionStore();
   const { address } = useAccount13();
   const chainId = useChainId();
-  return useCallback33(
+  return useCallback34(
     (transaction) => {
       if (!address || !chainId) {
         throw new Error("No address or chain ID found");
@@ -14446,6 +15012,7 @@ export {
   getStatus,
   getUTCSeconds,
   getWalletConnectConnector,
+  getWeb3Sign,
   graphqlApiUrl,
   hidePointsWarnState,
   httpGet,
@@ -14504,7 +15071,6 @@ export {
   useAccount14 as useAccount,
   useAccountInvitation,
   useAccountModal,
-  useActiveChainId,
   useActiveWeb3React,
   useAddRecentTransaction,
   useAsyncImage,
@@ -14546,8 +15112,9 @@ export {
   useTonConnectUI2 as useTonConnectUI,
   useTonWalletProofMounted,
   useTransform,
-  useWalletClient3 as useWalletClient,
+  useWalletClient4 as useWalletClient,
   useWalletConnectors,
+  useWalletHandler,
   useWebAppData,
   useWindowSize,
   walletConnectWallet,

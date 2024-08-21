@@ -161,6 +161,7 @@
     width: 100%
     font-weight: 600
     text-align: center
+    color: #fff
     @media screen and (max-width: 830px)
         font-size: 16px
 

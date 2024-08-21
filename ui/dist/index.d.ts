@@ -13,6 +13,7 @@ import { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublic
 export { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, useContractReads, };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
 export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, GlobalVar, TG_BOT_URL, TaskJoinTelegramGroup, TaskTelegramBot, TaskFollowZypher, TaskReweet1, } from "./constant/constant";
+export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
 export { TelegramUserInfoState, useTelegramUser, useWebAppData, } from "./hooks/useTelegramUser";
 export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
@@ -47,7 +48,6 @@ export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWit
 export { default as TonConnectUIProvider } from "./provider/TonConnectUIProvider";
 export { useAccountInvitation } from "./hooks/useAccountInvitation";
 export { useAvatar } from "./hooks/useAvatar";
-export { useActiveChainId } from "./hooks/useActiveChainId";
 export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
 export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
 export { useCustomTranslation } from "./hooks/useCustomTranslation";
@@ -62,6 +62,7 @@ import { changeLanguage } from "i18next";
 export { changeLanguage };
 export { LngNs } from "./utils/i18n";
 export { addressIsEqual } from "./utils/addressIsEqual";
+export { getWeb3Sign } from "./utils/getSign";
 export { getContract, getContractFromRpc, getProvider, } from "./connectors/contractV2";
 export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";

@@ -61,16 +61,17 @@ body .middle_selector
     align-items: center
     gap: 10px
     cursor pointer
+    color: #fff
 .middle_balance
     width 100%
     padding: 9px 0
     border-top: 1px solid #484F60
     border-bottom: 1px solid #484F60
 .middle_balance_item
+    color: #fff
     display: flex
     justify-content: space-between
     font-weight: 600
-    font-weight: 600;
     align-items: center;
     .fl
         display: flex
