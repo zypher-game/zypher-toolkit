@@ -12,6 +12,7 @@ import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
+  SetterOrUpdater,
 } from "recoil";
 import {
   motion,
@@ -69,6 +70,7 @@ export {
   useRecoilValue,
   useRecoilState,
   useResetRecoilState,
+  SetterOrUpdater,
 };
 export {
   appInfo,

@@ -1,6 +1,6 @@
 import { toUserFriendlyAddress, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
 export { toUserFriendlyAddress, useTonAddress, useTonConnectUI };
-import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoilValue, useResetRecoilState, SetterOrUpdater } from "recoil";
 import { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring } from "framer-motion";
 export { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring, };
 export { dialogVariants } from "./constant/motionConstant";
@@ -11,7 +11,7 @@ export { IConnectorState } from "./components/ConnectWallet/state/connectWalletS
 export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameList, } from "./types/gameList.types";
 import { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, useContractReads } from "wagmi";
 export { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, useContractReads, };
-export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
+export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, SetterOrUpdater, };
 export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, GlobalVar, TG_BOT_URL, TaskJoinTelegramGroup, TaskTelegramBot, TaskFollowZypher, TaskReweet1, } from "./constant/constant";
 export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";

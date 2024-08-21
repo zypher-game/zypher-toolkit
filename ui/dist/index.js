@@ -12,7 +12,8 @@ import {
   RecoilRoot,
   useRecoilState as useRecoilState14,
   useRecoilValue as useRecoilValue10,
-  useResetRecoilState
+  useResetRecoilState,
+  SetterOrUpdater as SetterOrUpdater2
 } from "recoil";
 import {
   motion as motion4,
@@ -14952,6 +14953,7 @@ export {
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   RefreshState,
+  SetterOrUpdater2 as SetterOrUpdater,
   SideBar_default as SideBar,
   SvgComponent_default as SvgComponent,
   TG_BOT_URL,
