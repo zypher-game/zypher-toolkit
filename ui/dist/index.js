@@ -2338,16 +2338,16 @@ var useWalletHandler = () => {
       return;
     }
     const keyString = [account, chainId, gas0Balance].join("-");
-    if (key.current === keyString && GlobalVar.walletClient) {
-      return;
-    }
-    key.current = keyString;
     if (!walletClient || !chainId || !account) {
       console.log(1);
       return;
     }
     setIsSet(true);
     if (Gas0Constants[chainId]) {
+      if (key.current === keyString && GlobalVar.walletClient) {
+        return;
+      }
+      key.current = keyString;
       GlobalVar.walletClient = new WagmiWalletHandler(
         walletClient,
         gas0Balance
@@ -2358,7 +2358,7 @@ var useWalletHandler = () => {
     GlobalVar.walletClient = walletClient;
     setIsSet(false);
     return;
-  }, [key.current, account, chainId, Boolean(walletClient), gas0Balance]);
+  }, [key.current, account, chainId, walletClient, gas0Balance]);
   useEffect2(() => {
     getWalletClient();
   }, [getWalletClient]);
@@ -12415,7 +12415,7 @@ var useRecentGamesFromGraph = ({
     try {
       const value_pre = await batchRequestFromGraph({ env });
       const value = value_pre.filter((v) => !!v);
-      if (value.length) {
+      if (value && value.length) {
         const gameList = /* @__PURE__ */ new Map();
         for (let i = 0; i < value.length; i++) {
           if (value[i] && ((_a = value[i]) == null ? void 0 : _a[0].chainId)) {
