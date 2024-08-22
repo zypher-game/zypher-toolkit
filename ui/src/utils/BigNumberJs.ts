@@ -7,7 +7,7 @@ export const FORMAT = {
   secondaryGroupSize: 0,
   fractionGroupSeparator: " ",
   fractionGroupSize: 0,
-  suffix: "M",
+  suffix: "",
   prefixes: {
     "-": "",
     "+": "",

@@ -1,25 +1,9 @@
-import {
-  createPublicClient,
-  fallback,
-  http,
-  PublicClient,
-  zeroAddress,
-  createWalletClient,
-  custom,
-  publicActions,
-} from "viem";
-import { Address, configureChains, Connector, createConfig } from "wagmi";
+import { createPublicClient, fallback, http, PublicClient } from "viem";
+import { configureChains, Connector, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { particleWallet } from "@particle-network/rainbowkit-ext";
 import { ParticleNetwork } from "@particle-network/auth";
-import { MockConnector } from "wagmi/connectors/mock";
-import {
-  ChainId,
-  ChainRpcUrls,
-  GlobalVar,
-  supportedChainIds,
-  TG_BOT_URL,
-} from "../constant/constant";
+import { ChainId, ChainRpcUrls, supportedChainIds } from "../constant/constant";
 import { Chain } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
 import { connectorsForWallets } from "../rainbowkit/src/wallets/connectorsForWallets";
 import { metaMaskWallet } from "../rainbowkit/src/wallets/walletConnectors/metaMaskWallet/metaMaskWallet";
@@ -28,9 +12,6 @@ import { bitgetWallet } from "../rainbowkit/src/wallets/walletConnectors/bitgetW
 import { okxWallet } from "../rainbowkit/src/wallets/walletConnectors/okxWallet/okxWallet";
 import { tokenPocketWallet } from "../rainbowkit/src/wallets/walletConnectors/tokenPocketWallet/tokenPocketWallet";
 import { AllChainInfo } from "../constant/chains";
-import { ethers } from "ethers";
-import { TelegramWallet } from "./telegramWallet";
-import sleep from "../utils/sleep";
 import { IWebAppData } from "../hooks/useTelegramUser";
 import { tgChain } from "./utils/tgChain";
 // import mitt from "mitt";

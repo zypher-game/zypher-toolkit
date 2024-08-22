@@ -1,5 +1,5 @@
-import { toUserFriendlyAddress, useTonAddress, useTonConnectUI } from "@tonconnect/ui-react";
-export { toUserFriendlyAddress, useTonAddress, useTonConnectUI };
+import { toUserFriendlyAddress, useTonAddress, TonProofItemReplySuccess, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+export { toUserFriendlyAddress, useTonAddress, TonProofItemReplySuccess, useTonConnectUI, useTonWallet, };
 import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring } from "framer-motion";
 export { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring, };
@@ -7,6 +7,7 @@ export { dialogVariants } from "./constant/motionConstant";
 export { AllChainInfo } from "./constant/chains";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
+export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 export { IGameStatus, IGameName, IBingoInfo, IPlayer, IRecentGame, IGameList, } from "./types/gameList.types";
 import { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, useContractReads } from "wagmi";
@@ -16,7 +17,6 @@ export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, 
 export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
 export { TelegramUserInfoState, useTelegramUser, useWebAppData, } from "./hooks/useTelegramUser";
-export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";

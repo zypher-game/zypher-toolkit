@@ -1,9 +1,17 @@
 import {
   toUserFriendlyAddress,
   useTonAddress,
+  TonProofItemReplySuccess,
   useTonConnectUI,
+  useTonWallet,
 } from "@tonconnect/ui-react";
-export { toUserFriendlyAddress, useTonAddress, useTonConnectUI };
+export {
+  toUserFriendlyAddress,
+  useTonAddress,
+  TonProofItemReplySuccess,
+  useTonConnectUI,
+  useTonWallet,
+};
 import {
   useSetRecoilState,
   atom,
@@ -35,6 +43,7 @@ export { AllChainInfo } from "./constant/chains";
 
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
+export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 
 export {
@@ -127,7 +136,6 @@ export {
   useTelegramUser,
   useWebAppData,
 } from "./hooks/useTelegramUser";
-export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";

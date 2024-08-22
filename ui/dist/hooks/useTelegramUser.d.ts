@@ -18,6 +18,7 @@ export interface TelegramUserInfoDto {
     createdAt: string;
     updatedAt: string;
     star: string;
+    starStr: string;
     onceTask: string;
     evmWallet: `0x${string}`;
     tonWallet: string;

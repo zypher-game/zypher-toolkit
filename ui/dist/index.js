@@ -3,7 +3,9 @@
 import {
   toUserFriendlyAddress,
   useTonAddress,
-  useTonConnectUI as useTonConnectUI2
+  TonProofItemReplySuccess as TonProofItemReplySuccess2,
+  useTonConnectUI as useTonConnectUI2,
+  useTonWallet as useTonWallet2
 } from "@tonconnect/ui-react";
 import {
   useSetRecoilState as useSetRecoilState15,
@@ -609,6 +611,40 @@ var INavLinkType = /* @__PURE__ */ ((INavLinkType2) => {
   return INavLinkType2;
 })(INavLinkType || {});
 
+// src/hooks/useTonWalletProofMounted.tsx
+import {
+  useTonConnectUI,
+  useTonWallet
+} from "@tonconnect/ui-react";
+import { useEffect, useState } from "react";
+var useTonWalletProofMounted = () => {
+  const [ui] = useTonConnectUI();
+  const [proof, _proof] = useState(null);
+  const wallet = useTonWallet();
+  useEffect(() => {
+    console.log("ui", ui);
+    ui.setConnectRequestParameters({
+      state: "ready",
+      value: { tonProof: "ZypherGameBingo" }
+    });
+  }, []);
+  useEffect(() => {
+    var _a, _b;
+    if (((_b = (_a = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a.tonProof) == null ? void 0 : _b.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
+      _proof(wallet.connectItems.tonProof);
+    } else {
+      _proof(null);
+    }
+    ui.onStatusChange((wallet2) => {
+      var _a2;
+      if (((_a2 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a2.tonProof) && "proof" in wallet2.connectItems.tonProof) {
+        _proof(wallet2.connectItems.tonProof);
+      }
+    });
+  }, [wallet == null ? void 0 : wallet.account.address]);
+  return proof;
+};
+
 // src/types/gameList.types.ts
 var IGameStatus = /* @__PURE__ */ ((IGameStatus2) => {
   IGameStatus2["Live"] = "live";
@@ -637,7 +673,7 @@ import {
 import { useWalletClient } from "wagmi";
 
 // src/gas0/hooks/useGas0Balance.ts
-import { useEffect, useRef, useState } from "react";
+import { useEffect as useEffect2, useRef, useState as useState2 } from "react";
 
 // src/hooks/useActiveWeb3React.ts
 import { useMemo } from "react";
@@ -764,9 +800,9 @@ var httpPost = async (...params) => {
 // src/gas0/hooks/useGas0Balance.ts
 var useGas0Balance = () => {
   const { account, chainId } = useActiveWeb3React();
-  const [balance, _balance] = useState("0");
+  const [balance, _balance] = useState2("0");
   const key = useRef("");
-  useEffect(() => {
+  useEffect2(() => {
     if (!account) {
       key.current = "";
       _balance("0");
@@ -798,7 +834,7 @@ var useGas0Balance = () => {
 };
 
 // src/gas0/hooks/useWalletHandler.ts
-import { useCallback, useEffect as useEffect2, useMemo as useMemo2, useRef as useRef2, useState as useState2 } from "react";
+import { useCallback, useEffect as useEffect3, useMemo as useMemo2, useRef as useRef2, useState as useState3 } from "react";
 
 // src/gas0/utils/wagmiWalletHandler.ts
 import {
@@ -806,10 +842,10 @@ import {
   getPublicClient
 } from "wagmi/actions";
 import {
-  createWalletClient as createWalletClient3,
-  custom as custom3,
+  createWalletClient as createWalletClient2,
+  custom as custom2,
   hexToSignature,
-  publicActions as publicActions3,
+  publicActions as publicActions2,
   toHex,
   hashTypedData,
   encodeDeployData as encodeDeployData2,
@@ -877,7 +913,7 @@ var FORMAT = {
   secondaryGroupSize: 0,
   fractionGroupSeparator: " ",
   fractionGroupSize: 0,
-  suffix: "M",
+  suffix: "",
   prefixes: {
     "-": "",
     "+": ""
@@ -961,11 +997,7 @@ import {
 } from "viem";
 
 // src/rainbow/rainbow.ts
-import {
-  createPublicClient,
-  fallback,
-  http
-} from "viem";
+import { createPublicClient, fallback, http } from "viem";
 import { configureChains, createConfig } from "wagmi";
 import { publicProvider } from "wagmi/providers/public";
 import { particleWallet } from "@particle-network/rainbowkit-ext";
@@ -2105,7 +2137,7 @@ var WagmiWalletHandler = class {
       };
       const aa = this.aa;
       console.log({ aa });
-      const transport = custom3({
+      const transport = custom2({
         request: async ({ method, params }) => {
           var _a;
           console.log("custom request", method, params);
@@ -2203,11 +2235,11 @@ var WagmiWalletHandler = class {
           }
         }
       });
-      this.walletClient = createWalletClient3({
+      this.walletClient = createWalletClient2({
         account: this.account,
         chain: this.chain,
         transport
-      }).extend(publicActions3);
+      }).extend(publicActions2);
     }
   }
   async aaNonce() {
@@ -2332,7 +2364,7 @@ var useWalletHandler = () => {
   const { data: walletClient } = useWalletClient();
   const gas0Balance = useGas0Balance();
   const { account, chainId } = useActiveWeb3React();
-  const [isSet, setIsSet] = useState2(false);
+  const [isSet, setIsSet] = useState3(false);
   const key = useRef2("");
   const getWalletClient = useCallback(() => {
     if (isSet) {
@@ -2360,7 +2392,7 @@ var useWalletHandler = () => {
     setIsSet(false);
     return;
   }, [key.current, account, chainId, walletClient, gas0Balance]);
-  useEffect2(() => {
+  useEffect3(() => {
     getWalletClient();
   }, [getWalletClient]);
   return useMemo2(() => {
@@ -2462,7 +2494,7 @@ var minStakingValue = {
 var CODELENGTH = 6;
 
 // src/hooks/useTelegramUser.ts
-import { useEffect as useEffect4, useMemo as useMemo3 } from "react";
+import { useEffect as useEffect5, useMemo as useMemo3 } from "react";
 import {
   atom,
   useRecoilState,
@@ -2471,11 +2503,11 @@ import {
 } from "recoil";
 
 // src/hooks/useEffectValue.tsx
-import { useEffect as useEffect3, useRef as useRef3, useState as useState3 } from "react";
+import { useEffect as useEffect4, useRef as useRef3, useState as useState4 } from "react";
 function useEffectValue(init, handler, deps) {
-  const [state, _state] = useState3(init);
+  const [state, _state] = useState4(init);
   const ref = useRef3(1);
-  useEffect3(() => {
+  useEffect4(() => {
     ref.current++;
     const id = ref.current;
     handler().then((res) => {
@@ -2550,11 +2582,11 @@ var useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      console.log({ WebApp: WebAppData });
+      console.log({ refresh, WebApp: WebAppData });
       if (!window.IS_TELEGRAM) {
         return null;
       }
-      console.log(1111, { account });
+      let _user2 = void 0;
       if (WebAppData && WebAppData.user && WebAppData.user !== "") {
         console.log(22222, { WebAppData: WebAppData.user });
         const { data } = await httpPost(
@@ -2564,9 +2596,9 @@ var useTelegramUser = () => {
           }
         );
         getFaucet(WebAppData);
-        console.log("user: ", { data });
-        return data;
-      } else if (account) {
+        _user2 = data;
+      }
+      if (account && !_user2) {
         console.log(33333, { account });
         const { data } = await httpPost(
           `${TG_BOT_URL}/user/get/by/evm`,
@@ -2575,13 +2607,22 @@ var useTelegramUser = () => {
           }
         );
         console.log("userevm evm: ", { data });
-        return data;
+        _user2 = data;
       }
+      console.log("user: ", { _user: _user2 });
+      return _user2 ? {
+        ..._user2,
+        starStr: new BigNumberJs_default(_user2.star).toFormat(
+          0,
+          BigNumberJs_default.ROUND_HALF_UP,
+          FORMAT
+        )
+      } : void 0;
     },
     [WebAppData == null ? void 0 : WebAppData.user, refresh]
   );
   console.log({ user });
-  useEffect4(() => {
+  useEffect5(() => {
     if (user) {
       localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);
       GlobalVar.mockAcc(user.evmWallet);
@@ -2590,7 +2631,7 @@ var useTelegramUser = () => {
       _user(null);
     }
   }, [JSON.stringify(user)]);
-  useEffect4(() => {
+  useEffect5(() => {
     var _a, _b, _c, _d, _e, _f;
     console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
     if (GlobalVar.IS_TELEGRAM) {
@@ -2637,46 +2678,19 @@ var useTelegramAccountInit = (userInfo, _userInfo, setIsModalOpen) => {
       );
       if (res.code)
         return null;
-      _userInfo(res.data);
+      _userInfo({
+        ...res.data,
+        starStr: new BigNumberJs_default(res.data.star).toFormat(
+          0,
+          BigNumberJs_default.ROUND_HALF_UP,
+          FORMAT
+        )
+      });
       setIsModalOpen(true);
       return res.data;
     },
     [userInfo == null ? void 0 : userInfo.star]
   );
-};
-
-// src/hooks/useTonWalletProofMounted.tsx
-import {
-  useTonConnectUI,
-  useTonWallet
-} from "@tonconnect/ui-react";
-import { useEffect as useEffect5, useState as useState4 } from "react";
-var useTonWalletProofMounted = () => {
-  const [ui] = useTonConnectUI();
-  const [proof, _proof] = useState4(null);
-  const wallet = useTonWallet();
-  useEffect5(() => {
-    console.log("ui", ui);
-    ui.setConnectRequestParameters({
-      state: "ready",
-      value: { tonProof: "ZypherGameBingo" }
-    });
-  }, []);
-  useEffect5(() => {
-    var _a, _b;
-    if (((_b = (_a = wallet == null ? void 0 : wallet.connectItems) == null ? void 0 : _a.tonProof) == null ? void 0 : _b.name) === "ton_proof" && "proof" in wallet.connectItems.tonProof) {
-      _proof(wallet.connectItems.tonProof);
-    } else {
-      _proof(null);
-    }
-    ui.onStatusChange((wallet2) => {
-      var _a2;
-      if (((_a2 = wallet2 == null ? void 0 : wallet2.connectItems) == null ? void 0 : _a2.tonProof) && "proof" in wallet2.connectItems.tonProof) {
-        _proof(wallet2.connectItems.tonProof);
-      }
-    });
-  }, [wallet == null ? void 0 : wallet.account.address]);
-  return proof;
 };
 
 // src/hooks/useNavItem.tsx
@@ -4521,9 +4535,8 @@ function getShortenAddress(address, preLen = 6, endLen = 4) {
     return "";
   }
   if (address.length !== 42) {
-    const len = Math.floor(`${address}`.length / 2) - 2;
-    _preLen = len < 0 ? 2 : len > preLen ? preLen : preLen;
-    _endLen = _preLen;
+    _preLen = 3;
+    _endLen = 3;
   }
   const firstCharacters = address.substring(0, _preLen);
   const lastCharacters = address.substring(
@@ -14965,6 +14978,7 @@ export {
   TaskTelegramBot,
   TelegramUserInfoState,
   TonConnectUIProvider_default as TonConnectUIProvider,
+  TonProofItemReplySuccess2 as TonProofItemReplySuccess,
   bingoPoints_default as ZkBingoPointsContract,
   __private__,
   accountInfoDialogState,
@@ -15130,6 +15144,7 @@ export {
   useTelegramUser,
   useTonAddress,
   useTonConnectUI2 as useTonConnectUI,
+  useTonWallet2 as useTonWallet,
   useTonWalletProofMounted,
   useTransform,
   useWalletClient4 as useWalletClient,
