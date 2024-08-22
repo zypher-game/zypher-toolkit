@@ -72,6 +72,7 @@ export declare const zkBingoV0: (chainId: ChainId | undefined, name: IContractNa
 export declare const zkBingo: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const defaultRankChainId = ChainId.ArbitrumGoerli;
 export declare const TG_BOT_URL: string;
+export declare const targetDate: Date;
 export declare const TaskTelegramBot = "https://t.me/zBingoBot";
 export declare const TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 export declare const TaskFollowZypher = "https://twitter.com/Zypher_Network";

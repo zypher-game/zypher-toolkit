@@ -12,8 +12,7 @@ import {
   RecoilRoot,
   useRecoilState as useRecoilState14,
   useRecoilValue as useRecoilValue10,
-  useResetRecoilState,
-  SetterOrUpdater as SetterOrUpdater2
+  useResetRecoilState
 } from "recoil";
 import {
   motion as motion4,
@@ -551,6 +550,7 @@ var zkBingo = (chainId, name) => {
   }
 };
 var TG_BOT_URL = isLocalhost() ? "http://192.168.0.11:4000" : "https://bingo-api.zypher.game";
+var targetDate = new Date(2024, 9, 1);
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
@@ -14953,7 +14953,6 @@ export {
   RainbowKitWithThemeProvider_default as RainbowKitWithThemeProvider,
   RecoilRoot,
   RefreshState,
-  SetterOrUpdater2 as SetterOrUpdater,
   SideBar_default as SideBar,
   SvgComponent_default as SvgComponent,
   TG_BOT_URL,
@@ -15080,6 +15079,7 @@ export {
   supportedChainIds,
   tahoWallet,
   talismanWallet,
+  targetDate,
   timestampToDateStr,
   toUserFriendlyAddress,
   tokenPocketWallet,

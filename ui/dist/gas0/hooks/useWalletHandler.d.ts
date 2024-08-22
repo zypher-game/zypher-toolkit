@@ -44,12 +44,12 @@ export declare const useWalletHandler: () => {
         [x: `bytes2[${string}]`]: undefined;
         [x: `bytes6[${string}]`]: undefined;
         [x: `bytes18[${string}]`]: undefined;
+        [x: `bytes9[${string}]`]: undefined;
         [x: `bytes16[${string}]`]: undefined;
         [x: `bytes4[${string}]`]: undefined;
         [x: `bytes5[${string}]`]: undefined;
         [x: `bytes7[${string}]`]: undefined;
         [x: `bytes8[${string}]`]: undefined;
-        [x: `bytes9[${string}]`]: undefined;
         [x: `bytes10[${string}]`]: undefined;
         [x: `bytes11[${string}]`]: undefined;
         [x: `bytes13[${string}]`]: undefined;
@@ -146,12 +146,12 @@ export declare const useWalletHandler: () => {
         bytes2?: undefined;
         bytes6?: undefined;
         bytes18?: undefined;
+        bytes9?: undefined;
         bytes16?: undefined;
         bytes4?: undefined;
         bytes5?: undefined;
         bytes7?: undefined;
         bytes8?: undefined;
-        bytes9?: undefined;
         bytes10?: undefined;
         bytes11?: undefined;
         bytes13?: undefined;

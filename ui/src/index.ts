@@ -12,7 +12,6 @@ import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
-  SetterOrUpdater,
 } from "recoil";
 import {
   motion,
@@ -70,7 +69,6 @@ export {
   useRecoilValue,
   useRecoilState,
   useResetRecoilState,
-  SetterOrUpdater,
 };
 export {
   appInfo,
@@ -104,6 +102,7 @@ export {
   TaskTelegramBot,
   TaskFollowZypher,
   TaskReweet1,
+  targetDate,
 } from "./constant/constant";
 export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export {
