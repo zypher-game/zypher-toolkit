@@ -2659,7 +2659,7 @@ var useTonWalletProofMounted = () => {
     console.log("ui", ui);
     ui.setConnectRequestParameters({
       state: "ready",
-      value: { tonProof: "ZypherGame2048" }
+      value: { tonProof: "ZypherGameBingo" }
     });
   }, []);
   useEffect5(() => {
