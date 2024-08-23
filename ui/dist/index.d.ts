@@ -1,5 +1,5 @@
-import { toUserFriendlyAddress, useTonAddress, TonProofItemReplySuccess, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
-export { toUserFriendlyAddress, useTonAddress, TonProofItemReplySuccess, useTonConnectUI, useTonWallet, };
+import { toUserFriendlyAddress, useTonAddress, useTonConnectUI, useTonWallet } from "@tonconnect/ui-react";
+export { toUserFriendlyAddress, useTonAddress, useTonConnectUI, useTonWallet, };
 import { useSetRecoilState, atom, selector, RecoilRoot, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring } from "framer-motion";
 export { motion, AnimatePresence, useMotionValue, animate, useTransform, useSpring, };

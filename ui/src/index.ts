@@ -1,14 +1,12 @@
 import {
   toUserFriendlyAddress,
   useTonAddress,
-  TonProofItemReplySuccess,
   useTonConnectUI,
   useTonWallet,
 } from "@tonconnect/ui-react";
 export {
   toUserFriendlyAddress,
   useTonAddress,
-  TonProofItemReplySuccess,
   useTonConnectUI,
   useTonWallet,
 };

@@ -3,7 +3,6 @@
 import {
   toUserFriendlyAddress,
   useTonAddress,
-  TonProofItemReplySuccess as TonProofItemReplySuccess2,
   useTonConnectUI as useTonConnectUI2,
   useTonWallet as useTonWallet2
 } from "@tonconnect/ui-react";
@@ -14978,7 +14977,6 @@ export {
   TaskTelegramBot,
   TelegramUserInfoState,
   TonConnectUIProvider_default as TonConnectUIProvider,
-  TonProofItemReplySuccess2 as TonProofItemReplySuccess,
   bingoPoints_default as ZkBingoPointsContract,
   __private__,
   accountInfoDialogState,
