@@ -28,15 +28,15 @@ export const useAvatar = (
     const img = new Image();
     let src = "";
     if (window.IS_TELEGRAM) {
-      src = `https://zypher-static.s3.amazonaws.com/telegram/${account}`;
+      src = `https://zypher-static.s3.amazonaws.com/telegram/${account?.toLowerCase()}`;
     } else {
       src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;
     }
     img.src = src;
     img.onload = () => {
       setAvatars({
-        selectedAvatar: `${src}?${refreshAvatar}`,
-        selectedBackground: "#1d263b",
+        selectedAvatar: `${src}?9999999${refreshAvatar}`,
+        selectedBackground: "#fff",
       });
     };
     img.onerror = () => {
