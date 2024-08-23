@@ -6526,7 +6526,7 @@ var useAvatar = (account, hideAvatars, name) => {
     const img = new Image();
     let src6 = "";
     if (window.IS_TELEGRAM) {
-      src6 = `https://zypher-static.s3.amazonaws.com/telegram/${account == null ? void 0 : account.toLowerCase()}`;
+      src6 = `https://zypher-static.s3.amazonaws.com/telegram/${account}`;
     } else {
       src6 = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account == null ? void 0 : account.toLowerCase()}.png`;
     }

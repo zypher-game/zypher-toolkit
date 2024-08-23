@@ -28,7 +28,7 @@ export const useAvatar = (
     const img = new Image();
     let src = "";
     if (window.IS_TELEGRAM) {
-      src = `https://zypher-static.s3.amazonaws.com/telegram/${account?.toLowerCase()}`;
+      src = `https://zypher-static.s3.amazonaws.com/telegram/${account}`;
     } else {
       src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;
     }
