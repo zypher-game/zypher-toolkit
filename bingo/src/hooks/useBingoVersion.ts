@@ -1,4 +1,4 @@
-import { bingoBetaSupportedChainId, bingoSupportedChainId, ChainId, useActiveWeb3React, useSetRecoilState } from '@ui/src'
+import { bingoBetaSupportedChainId, bingoSupportedChainId, ChainId, useActiveWeb3React, useIsTelegram, useSetRecoilState } from '@ui/src'
 import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -9,6 +9,7 @@ import { useChainIdParams } from './useChainIdParams'
 
 export const useBingoVersion = () => {
   // page init
+  const IS_TELEGRAM = useIsTelegram()
   const navigate = useNavigate()
   const { chainId } = useActiveWeb3React()
   const setBingoVersion = useSetRecoilState(bingoVersionState)
@@ -26,7 +27,7 @@ export const useBingoVersion = () => {
     }
   }, [chainId, chainIdParams])
   useEffect(() => {
-    if (window.IS_TELEGRAM) {
+    if (IS_TELEGRAM) {
       setBingoVersion(IBingoVersion.beta)
     } else {
       if (chainIdParams && bingoBetaSupportedChainId.includes(chainIdParams as ChainId)) {

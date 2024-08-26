@@ -1,8 +1,7 @@
-import { preStaticUrl, SvgComponent } from '@ui/src'
+import { preStaticUrl, SvgComponent, useSetGlobalVar } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { notification } from 'antd'
 import React, { useEffect, useRef } from 'react'
-
-import { GlobalVar } from '@ui/src'
 
 import { useAppDispatch, useAppSelector } from '../store/hooks'
 import { changeUserStateValue } from '../store/user/reducer'
@@ -12,9 +11,13 @@ export const useToastMessage = () => {
   const error: any = useAppSelector(state => state.user.error)
   const success: any = useAppSelector(state => state.user.success)
   const dispatch = useAppDispatch()
+  const setGlobalVar = useSetGlobalVar()
   useEffect(() => {
     if (toastContainerRef.current) {
-      GlobalVar.getContainer = toastContainerRef.current
+      setGlobalVar(pre => ({
+        ...pre,
+        getContainer: toastContainerRef.current
+      }))
     }
   }, [toastContainerRef])
   useEffect(() => {

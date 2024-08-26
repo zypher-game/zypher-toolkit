@@ -2,6 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../components/ConnectWallet/state/connectWalletState";
 import generateAvatar from "../utils/generateAvatar";
+import { useIsTelegram } from "./GlabalVar/useIsTelegram";
 
 export const useAvatar = (
   account?: string,
@@ -16,6 +17,7 @@ export const useAvatar = (
     selectedBackground: "",
   });
   const refreshAvatar = useRecoilValue(refreshAvatarState);
+  const IS_TELEGRAM = useIsTelegram();
   useEffect(() => {
     if (account && !hideAvatars) {
       getData();
@@ -28,7 +30,7 @@ export const useAvatar = (
     const img = new Image();
     let src = "";
     let selectedBackground = "#fff";
-    if (window.IS_TELEGRAM) {
+    if (IS_TELEGRAM) {
       src = `https://zypher-static.s3.amazonaws.com/telegram/${account?.toLowerCase()}`;
     } else {
       selectedBackground = "#1A1B1F";

@@ -6,6 +6,7 @@ import {
   pointsDialogState,
   pointsWarnState,
   refreshBalanceState,
+  useGlobalVar,
 } from "..";
 import { TransactionReceipt } from "viem";
 import BigNumberjs from "bignumber.js";
@@ -94,7 +95,7 @@ export const useSwapPoint = ({
   const hidePointsWarn = useRecoilValue(hidePointsWarnState);
   const [pointsWarn, setPointsWarn] = useRecoilState(pointsWarnState);
   const [choseIndex, setChoseIndex] = useState<number>();
-  const { data: walletClient } = useWalletClient();
+  const { walletClient } = useGlobalVar();
   const swapPointHandle = useCallback(
     async (index?: number) => {
       if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {

@@ -11,6 +11,7 @@ import {
   useActiveWeb3React,
   useChainModal,
   useCustomTranslation,
+  useGlobalVar,
   usePointsBalanceStr,
   usePublicNodeWaitForTransaction,
   useRecoilState,
@@ -60,7 +61,7 @@ export const useMonsterAction = ({
   const { account, chainId } = useActiveWeb3React()
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
   const { openChainModal } = useChainModal()
-  const { data: walletClient } = useWalletClient()
+  const { walletClient } = useGlobalVar()
   const dispatch = useAppDispatch()
   const [isGetNftLoading, setIsGetNftLoading] = useState(false)
   const [isBuyNftLoading, setIsBuyNftLoading] = useState(false)

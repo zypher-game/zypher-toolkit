@@ -31,17 +31,9 @@ import {
   ZytronSignTypedData,
 } from "../constants/typedData";
 import { httpPost } from "../../utils/request";
-import {
-  SendRawTransactionParameters,
-  SendRawTransactionReturnType,
-} from "viem/dist/types/actions/wallet/sendRawTransaction";
-import {
-  SignTransactionParameters,
-  SignTransactionReturnType,
-} from "viem/dist/types/actions/wallet/signTransaction";
-import { Prettify } from "viem/dist/types/types/utils";
 import { getEIP712Sign } from "../../utils/getSign";
 import { DeployerAbi } from "../abis/Deployer";
+import { IContractName, zkBingo } from "ui/src/constant/constant";
 
 export class WagmiWalletHandler {
   chain: Chain;
@@ -49,6 +41,9 @@ export class WagmiWalletHandler {
   walletClient: NonNullable<GetWalletClientResult>;
   publicClient: GetPublicClientResult<PublicClient>;
   chainId: number;
+  address: {
+    GP: Address;
+  };
   aa?: {
     isFree: boolean;
     address: Address;
@@ -68,7 +63,9 @@ export class WagmiWalletHandler {
     this.walletClient = walletClient;
     this.publicClient = getPublicClient({ chainId: this.chainId });
     this.account = this.walletClient.account;
-
+    this.address = {
+      GP: zkBingo(this.chainId, IContractName.ZypherGameToken),
+    };
     const conf = Gas0Constants[this.chainId];
     if (conf) {
       const deployer = conf.Deployer;
@@ -98,8 +95,11 @@ export class WagmiWalletHandler {
             console.log("res", res);
             return res;
           }
+          console.log(1);
           const owner = this.walletClient.account.address;
+          console.log(1);
           const isCreate = await getIsCreate(this.publicClient, wallet);
+          console.log(1);
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
               this,
@@ -107,37 +107,48 @@ export class WagmiWalletHandler {
               true,
               aa.isFree
             );
+            console.log(1);
             if (!hash) return;
+            console.log(1);
             await this.publicClient.waitForTransactionReceipt({
               hash,
               confirmations: 1,
             });
           }
+          console.log(1);
           const isController = await this.aa?.contract.read.controllers([
             owner,
           ]);
+          console.log(1);
           if (!isController) {
+            console.log(1);
             const hash = await gas0WalletSetController(
               this,
               owner,
               true,
               aa.isFree
             );
+            console.log(1);
             await this.publicClient.waitForTransactionReceipt({
               hash,
               confirmations: 1,
             });
           }
+          console.log(1);
           const nonce = await this.aaNonce();
+          console.log(1);
           const arg = params[0] as {
             data: `0x${string}`;
             from: `0x${string}`;
             to: `0x${string}`;
             value: bigint;
           };
+          console.log(1);
           console.log({ arg });
+          console.log(1);
           const value = arg.value || BigInt(0);
           const { domain, types } = ZytronSignTypedData(this.chainId);
+          console.log(1);
           const data = {
             from: aa.address,
             to: arg.to,
@@ -145,16 +156,19 @@ export class WagmiWalletHandler {
             data: arg.data,
             nonce,
           };
+          console.log(1);
           const sign = await getEIP712Sign({
             domain,
             types,
             data,
             account: owner,
           });
+          console.log(1);
           if (typeof sign === "string") {
             const { v, r, s } = hexToSignature(sign as `0x${string}`);
             console.log({ v, r, s, aa: aa.isFree });
             if (aa.isFree) {
+              console.log(1);
               const { data: res } = await httpPost(
                 `${aa.config.api}/functioncall`,
                 {
@@ -168,16 +182,20 @@ export class WagmiWalletHandler {
                   owner,
                 }
               );
-              if (res.code !== 0)
+              if (res.code !== 0) {
+                console.log("res", res);
                 throw new Error(`functioncall error: ${res.msg}`);
-              console.log("res", res);
+              }
+              console.log(1);
               return res.data.tx_hash;
             } else {
+              console.log(1);
               const aaContract = getContract({
                 abi: WalletAbi,
                 address: aa.address,
                 walletClient,
               });
+              console.log(1);
               return aaContract.write.functionCall([
                 aa.address,
                 arg.to,

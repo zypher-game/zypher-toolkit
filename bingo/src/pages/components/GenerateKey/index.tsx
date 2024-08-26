@@ -1,9 +1,10 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import {
-  GlobalVar,
   LngNs,
   preStaticUrl,
   useCustomTranslation,
+  useGlobalVar,
+  useIsTelegram,
   useIsW768,
   useResetRecoilState,
   useSetRecoilState,
@@ -38,7 +39,8 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
-  const walletClient = useWalletHandler()
+  const { walletClient } = useGlobalVar()
+  const IS_TELEGRAM = useIsTelegram()
   const handleGenerateKey = async () => {
     if (!chainId || !account) {
       return
@@ -97,7 +99,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
           </ButtonPrimary>
         )}
       </div>
-      {GlobalVar.IS_TELEGRAM ? <></> : <div className={css.tip}>{t('EncryptCardText5')}</div>}
+      {IS_TELEGRAM ? <></> : <div className={css.tip}>{t('EncryptCardText5')}</div>}
     </div>
   )
 }

@@ -3,6 +3,7 @@ import { PublicClient, useAccount, usePublicClient } from "wagmi";
 
 import { ChainId, supportedChainIds } from "../constant/constant";
 import { useChainId } from "../rainbowkit/src/hooks/useChainId";
+import { useIsTelegram } from "./GlabalVar/useIsTelegram";
 
 export function useActiveWeb3React(
   env?: string,
@@ -15,10 +16,11 @@ export function useActiveWeb3React(
   const chainId = useChainId();
   const { address } = useAccount();
   const provider = usePublicClient() as PublicClient;
+  const IS_TELEGRAM = useIsTelegram();
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     return {
-      chainId: window.IS_TELEGRAM
+      chainId: IS_TELEGRAM
         ? ChainId.SagaMainnet
         : ((chainId &&
           !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)

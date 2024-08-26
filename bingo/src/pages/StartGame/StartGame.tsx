@@ -1,6 +1,6 @@
 import '../index.stylus'
 
-import { GlobalVar, LngNs, preStaticUrl, useCurrentLanguage, useCustomTranslation, useIsW768, useRecoilState } from '@ui/src'
+import { LngNs, preStaticUrl, useCurrentLanguage, useCustomTranslation, useIsTelegram, useIsW768, useRecoilState } from '@ui/src'
 import React, { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -40,6 +40,7 @@ const CardsWrap = styled.div<{ isMobile?: boolean }>`
 `
 
 const StartGame: React.FC = () => {
+  const IS_TELEGRAM = useIsTelegram()
   const [, setShowCloseModal] = useRecoilState(showCloseModalState)
   useBingoVersion()
   const isMobile = useIsW768()
@@ -62,7 +63,7 @@ const StartGame: React.FC = () => {
     }
   }, [])
   useEffect(() => {
-    if (GlobalVar.IS_TELEGRAM) {
+    if (IS_TELEGRAM) {
       if (currentStep === 0) {
         toBingoHref({ chainIdParams, navigate, pathname: location.pathname })
       }
@@ -74,9 +75,9 @@ const StartGame: React.FC = () => {
   }, [account, chainId])
   return (
     <>
-      <div className={`${css.startGame} ${GlobalVar.IS_TELEGRAM ? css.startTgGame : ''}`}>
+      <div className={`${css.startGame} ${IS_TELEGRAM ? css.startTgGame : ''}`}>
         <div className={css.wrap}>
-          <div className={`${css.startGameWrapper} ${GlobalVar.IS_TELEGRAM ? css.tg : css[lang]}`}>
+          <div className={`${css.startGameWrapper} ${IS_TELEGRAM ? css.tg : css[lang]}`}>
             <img
               decoding="async"
               loading="lazy"
@@ -98,7 +99,7 @@ const StartGame: React.FC = () => {
             </div>
 
             <Content isMobile={isMobile}>
-              {GlobalVar.IS_TELEGRAM ? (
+              {IS_TELEGRAM ? (
                 <></>
               ) : (
                 <StepsWrapper isMobile={isMobile}>

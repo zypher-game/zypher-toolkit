@@ -32,6 +32,7 @@ import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
 import { useWalletClient } from "wagmi";
+import { useGlobalVar } from "ui/src";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -53,7 +54,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
   const setPointsBalance = useSetRecoilState(pointsBalanceState);
   const refreshBalance = useRecoilValue(refreshBalanceState);
-  const { data: walletClient } = useWalletClient();
+  const { walletClient } = useGlobalVar();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
     if (!chainId || !account || !provider || !walletClient) {
       return;

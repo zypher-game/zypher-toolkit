@@ -2,13 +2,12 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   bingoBetaSupportedChainId,
   ChainId,
-  GlobalVar,
   preStaticUrl,
   RefreshState,
   TelegramUserInfoState,
   useActiveWeb3React,
   useChainModal,
-  useRecoilState,
+  useIsTelegram,
   useRecoilValue,
   useSetRecoilState,
   walletModalOpenState
@@ -30,6 +29,7 @@ import CarouselList from '../carouselList/carouselList'
 import css from './InnerBeta.module.stylus'
 const InnerBeta = memo(
   ({ listBetaMapList, bingoHasError }: { listBetaMapList: Map<ChainId, IGameListBeta[]> | undefined; bingoHasError: boolean }) => {
+    const IS_TELEGRAM = useIsTelegram()
     const setShowModalState = useSetRecoilState(showModalState)
     const navigate = useNavigate()
     const { playInTg } = usePlay()
@@ -46,7 +46,7 @@ const InnerBeta = memo(
       setRefreshState(pre => pre + 1)
     }, [])
     const handleOnClick = useCallback(async () => {
-      if (GlobalVar.IS_TELEGRAM) {
+      if (IS_TELEGRAM) {
         try {
           setLoading(true)
           if (showTipModal || showTipsOkModal) {
@@ -80,11 +80,11 @@ const InnerBeta = memo(
       })
     }, [chainIdParams, account, chainId, openChainModal, showTipModal, showTipsOkModal, userInfo])
     return (
-      <div className={`${css.inner} ${GlobalVar.IS_TELEGRAM ? css.tgInner : ''}`}>
+      <div className={`${css.inner} ${IS_TELEGRAM ? css.tgInner : ''}`}>
         <CarouselList bingoMapList={listBetaMapList} bingoHasError={bingoHasError} />
         <div className={css.innerItemWrap}>
           <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/bingo_title.png'} alt="bingo" className={css.title} />
-          <h3 className={css.textMM}>{window.IS_TELEGRAM ? 'Play to earn airdrop points!' : `Prize: ${getChainNameText(chainId)} zBox`}</h3>
+          <h3 className={css.textMM}>{IS_TELEGRAM ? 'Play to earn airdrop points!' : `Prize: ${getChainNameText(chainId)} zBox`}</h3>
           <div className={css.border}>
             <GetGameListBoxImg />
           </div>

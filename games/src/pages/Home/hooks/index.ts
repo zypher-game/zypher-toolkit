@@ -12,6 +12,7 @@ import {
   useAccountInvitation,
   useActiveWeb3React,
   useChainModal,
+  useGlobalVar,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
@@ -154,9 +155,8 @@ export const useBingoPoint = (): IBingoPointApi => {
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const { postAccountUpdate } = useAccountInvitation(env)
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
-  const dispatch = useAppDispatch()
   // const pointsContract = useBingoPointsContract()
-  const { data: walletClient } = useWalletClient()
+  const { walletClient } = useGlobalVar()
   const [bingoLobbyContractStatic, setBingoLobbyContractStatic] = useState<IBingoLobbyContractStatic>({})
   useBingoLobbyContractStatic(setBingoLobbyContractStatic)
   useClaimType({ setClaimType, bingoLobbyContractStatic })
@@ -254,7 +254,7 @@ const useBoxBalance = ({
   blindBoxAddress?: Address
   setBoxBalance: React.Dispatch<React.SetStateAction<string | undefined>>
 }): void => {
-  const { data: walletClient } = useWalletClient()
+  const { walletClient } = useGlobalVar()
   const { account, chainId } = useActiveWeb3React()
   const get = useCallback(async () => {
     try {

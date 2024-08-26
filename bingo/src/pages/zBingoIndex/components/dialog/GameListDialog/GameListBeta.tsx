@@ -1,5 +1,5 @@
 import { CaretDownOutlined } from '@ant-design/icons'
-import { bingoBetaSupportedChainId, ChainId, ChainName, supportedChainIds, useActiveWeb3React } from '@ui/src'
+import { bingoBetaSupportedChainId, ChainId, ChainName, supportedChainIds, useActiveWeb3React, useIsTelegram } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { getShortenAddress, LngNs } from '@ui/src'
@@ -134,6 +134,7 @@ type IProps = {
   listBetaMapList: Map<ChainId, IGameListBeta[]> | undefined
 }
 const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }: IProps) => {
+  const IS_TELEGRAM = useIsTelegram()
   const isMobile = useIsW768()
   const { chainId } = useActiveWeb3ReactForBingo()
   const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')
@@ -353,7 +354,7 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
   }, [bingoHasError, bingoDataSourceLoading, showData])
   return (
     <>
-      {window.IS_TELEGRAM ? null : (
+      {IS_TELEGRAM ? null : (
         <BorderSelect isMobile={isMobile}>
           <MySlelect
             isMobile={isMobile}

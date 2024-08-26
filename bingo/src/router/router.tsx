@@ -1,4 +1,4 @@
-import { useGetInvitationAddress } from '@ui/src'
+import { useGetInvitationAddress, useWalletHandler } from '@ui/src'
 import React, { Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -24,6 +24,8 @@ export default (): JSX.Element => {
   useConnectWallet()
   usePollPrice()
   useAudio()
+  useWalletHandler()
+
   return (
     <Suspense fallback={null}>
       <Layout>

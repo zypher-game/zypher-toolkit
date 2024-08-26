@@ -4,12 +4,7 @@ import {
   useTonConnectUI,
   useTonWallet,
 } from "@tonconnect/ui-react";
-export {
-  toUserFriendlyAddress,
-  useTonAddress,
-  useTonConnectUI,
-  useTonWallet,
-};
+export { toUserFriendlyAddress, useTonAddress, useTonConnectUI, useTonWallet };
 import {
   useSetRecoilState,
   atom,
@@ -42,6 +37,9 @@ export { AllChainInfo } from "./constant/chains";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
+export { useGlobalVar, useSetGlobalVar } from "./hooks/GlabalVar/hooks";
+export { useIsTelegram } from "./hooks/GlabalVar/useIsTelegram";
+
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 
 export {
@@ -103,13 +101,13 @@ export {
   bingoSupportedChainId,
   isPro,
   getCryptoImg,
-  GlobalVar,
   TG_BOT_URL,
   TaskJoinTelegramGroup,
   TaskTelegramBot,
   TaskFollowZypher,
   TaskReweet1,
   targetDate,
+  GlobalVar,
 } from "./constant/constant";
 export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export {

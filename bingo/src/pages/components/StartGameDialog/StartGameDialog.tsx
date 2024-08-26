@@ -3,6 +3,7 @@ import {
   getProvider,
   txStatus,
   useAccountInvitation,
+  useGlobalVar,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useResetRecoilState,
@@ -44,7 +45,7 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
   const [playingState, setPlayingState] = useState(isPlaying)
   const [{ cardNumbers }] = useRecoilState(gameRoomState)
   const [modalLoading, setModalLoading] = useState(false)
-  const walletClient = useWalletHandler()
+  const { walletClient } = useGlobalVar()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const chainIdParams = useChainIdParams()

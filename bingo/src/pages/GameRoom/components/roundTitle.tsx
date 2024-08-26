@@ -1,4 +1,4 @@
-import { GlobalVar, LngNs, preStaticUrl, useCustomTranslation } from '@ui/src'
+import { LngNs, preStaticUrl, useCustomTranslation, useIsTelegram } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
@@ -14,9 +14,10 @@ type IProps = {
 }
 const RoundTitle = memo(({ round, roomInfo }: IProps) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
+  const IS_TELEGRAM = useIsTelegram()
   const isMobile = useIsW768()
   return (
-    <div className={`${css.roundNumber} ${GlobalVar.IS_TELEGRAM ? css.roundTgNumber : ''}`}>
+    <div className={`${css.roundNumber} ${IS_TELEGRAM ? css.roundTgNumber : ''}`}>
       <img
         decoding="async"
         loading="lazy"

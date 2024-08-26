@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { ChainId, formatMoney, GlobalVar, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, formatMoney, LngNs, preStaticUrl, useCustomTranslation, useGlobalVar, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { Space, Tooltip } from 'antd'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -74,6 +74,7 @@ const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, bet
   const bingoVersion = useRecoilValue(bingoVersionState)
   const isMobile = useIsW768()
   const { winAmount, lossAmount } = usePrice()
+  const IS_TELEGRAM = useIsTelegram()
   return (
     <>
       {bingoVersion === IBingoVersion.beta ? (
@@ -82,7 +83,7 @@ const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, bet
             <Label color={color}>Prize</Label>
           </div>
           <BoxImgWrap isMobile={isMobile}>
-            {GlobalVar.IS_TELEGRAM ? (
+            {IS_TELEGRAM ? (
               <>
                 <TgPointImg />
                 <p>Win: {winAmount}</p>

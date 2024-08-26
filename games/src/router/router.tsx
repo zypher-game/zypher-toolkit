@@ -1,4 +1,4 @@
-import { IsMdProvider, IsW1100Provider, IsW1220Provider, NavKey } from '@ui/src'
+import { IsMdProvider, IsW1100Provider, IsW1220Provider, NavKey, useWalletHandler } from '@ui/src'
 import React, { lazy, Suspense } from 'react'
 import { Route, Routes } from 'react-router-dom'
 
@@ -34,6 +34,7 @@ export default (): JSX.Element => {
   const { toastContainerRef } = useToastMessage()
   useConnectWallet()
   usePollPrice()
+  useWalletHandler()
   return (
     <Suspense fallback={null}>
       <IsW1220Provider>

@@ -3,7 +3,6 @@ import {
   ChainRpcUrls,
   erc20Contract,
   getProvider,
-  GlobalVar,
   IContractName,
   LngNs,
   pointsBalanceState,
@@ -13,6 +12,8 @@ import {
   txStatus,
   useAccountInvitation,
   useCustomTranslation,
+  useGlobalVar,
+  useIsTelegram,
   useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
@@ -41,6 +42,7 @@ import { SetUpSubText } from '../Text'
 import { AmountValue, BingoCardView, BoxWrap, CardBack, CheckableTag, FlexCenter, SubmitCardEle, Tip, Title, ViewCard } from './SubmitCard.style'
 
 const SubmitCardV1 = () => {
+  const IS_TELEGRAM = useIsTelegram()
   const { t } = useCustomTranslation([LngNs.zBingo])
   const [pending, setPending] = useState(false)
   const isMobile = useIsW768()
@@ -54,7 +56,7 @@ const SubmitCardV1 = () => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const { postAccountUpdate } = useAccountInvitation(env)
   const [isCard, setIsCard] = useState(false)
-  const walletClient = useWalletHandler()
+  const { walletClient } = useGlobalVar()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const pointsBalance = useRecoilValue(pointsBalanceState)
   const disable = useMemo(() => {
@@ -278,7 +280,7 @@ const SubmitCardV1 = () => {
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>
-          {GlobalVar.IS_TELEGRAM ? <></> : <Tip>{t('SubmitCardText4')}</Tip>}
+          {IS_TELEGRAM ? <></> : <Tip>{t('SubmitCardText4')}</Tip>}
         </SubmitCardEle>
       )}
     </div>

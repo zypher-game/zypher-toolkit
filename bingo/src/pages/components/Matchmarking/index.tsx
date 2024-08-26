@@ -2,13 +2,14 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
   getProvider,
-  GlobalVar,
   LngNs,
   preStaticUrl,
   SvgComponent,
   txStatus,
   useAccountInvitation,
   useCustomTranslation,
+  useGlobalVar,
+  useIsTelegram,
   useIsW768,
   useRecoilState
 } from '@ui/src'
@@ -100,13 +101,14 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const navigate = useNavigate()
   const isMobile = useIsW768()
+  const IS_TELEGRAM = useIsTelegram()
   const [gameRoom, setGameRoom] = useRecoilState(gameRoomState)
   const [pending, setPending] = useState(false)
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const { postAccountUpdate } = useAccountInvitation(env)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [isCard, setIsCard] = useState(false)
-  const walletClient = useWalletHandler()
+  const { walletClient } = useGlobalVar()
   const { isPlaying, gameId } = useRestoreGame()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const chainIdParams = useChainIdParams()
@@ -236,7 +238,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
             {/* <Counter start={!disabled} /> */}
           </div>
           <div className={css.title}>
-            {GlobalVar.IS_TELEGRAM
+            {IS_TELEGRAM
               ? 'Games can start with as few as two players. You are free to start as soon as you have a single other player matched. Please do not quit during the matchmaking process.'
               : t('MatchmarkingText1')}
           </div>
@@ -268,7 +270,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
               </Space>
             </ButtonPrimary>
           </Space>
-          {GlobalVar.IS_TELEGRAM ? <></> : <div className={css.tip}>{t('SubmitCardText4')}</div>}
+          {IS_TELEGRAM ? <></> : <div className={css.tip}>{t('SubmitCardText4')}</div>}
         </div>
       )}
     </>

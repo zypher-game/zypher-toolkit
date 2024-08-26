@@ -1,4 +1,4 @@
-import { ChainId, preStaticUrl } from '@ui/src'
+import { ChainId, preStaticUrl, useIsTelegram } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useEffect, useState } from 'react'
 import styled from 'styled-components'
@@ -31,13 +31,14 @@ export const getChainNameText = (chainId: ChainId, params?: { isLowcase: boolean
 export const GetGameListBoxImg = memo(() => {
   const [localpath, setLocalpath] = useState(ILocalPathUrl.BATE)
   const chainId = useChainIdParamsAsChainId()
+  const IS_TELEGRAM = useIsTelegram()
   useEffect(() => {
     if (chainId) {
       setLocalpath(localPathUrl(chainId))
     }
   }, [chainId])
   if (
-    window.IS_TELEGRAM ||
+    IS_TELEGRAM ||
     (chainId &&
       (localpath === ILocalPathUrl.MANTA ||
         localpath === ILocalPathUrl.COMBO ||

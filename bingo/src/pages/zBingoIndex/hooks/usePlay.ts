@@ -1,35 +1,31 @@
 import {
   BigNumberJs,
-  ChainId,
   ChainRpcUrls,
   getProvider,
   getWeb3Sign,
-  GlobalVar,
   refreshBalanceState,
   TelegramUserInfoState,
   txStatus,
   useAccountInvitation,
+  useGlobalVar,
   usePublicNodeWaitForTransaction,
   useRecoilState,
-  useRecoilValue,
-  useSetRecoilState,
-  useWalletHandler
+  useRecoilValue
 } from '@ui/src'
 import { ethers } from 'ethers'
 import { sample } from 'lodash'
-import { useCallback, useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
-import { Address } from 'wagmi'
 
 import { gasPrice } from '@/constants/constants'
 import bingoCard from '@/contract/bingoCard'
 import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
-import { gameRoomState, GameRoomStateType, IBingoVersion, joinGameState, JoinGameStateType, startGameStep } from '@/pages/state/state'
+import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
-import generateCardNumbers, { CardNumbersType } from '@/utils/generateCardNumbers'
+import generateCardNumbers from '@/utils/generateCardNumbers'
 import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
 import { toBingoPlayHref } from '@/utils/toBingoHref'
 
@@ -37,22 +33,22 @@ export const usePlay = () => {
   const [, setCurrentStep] = useRecoilState(startGameStep)
   const chainIdParams = useChainIdParams()
   const navigate = useNavigate()
-  useWalletHandler()
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [_joinGame, _setJoinGameState] = useRecoilState(joinGameState)
-  const [cardNumbers, setCardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
-  const [gameRoom, setGameRoom] = useRecoilState(gameRoomState)
+  const [cardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
+  const [, setGameRoom] = useRecoilState(gameRoomState)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const { postAccountUpdate } = useAccountInvitation(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const userInfo = useRecoilValue(TelegramUserInfoState)
+  const { walletClient } = useGlobalVar()
   const playInTg = async () => {
     if (!userInfo || !userInfo.id) {
       throw Error('No user, Please /start again, And try late')
     }
     let joinGame = _joinGame
     try {
-      if (!chainId || !account || !GlobalVar.walletClient) {
+      if (!chainId || !account || !walletClient) {
         console.log(1)
         return
       }
@@ -60,10 +56,10 @@ export const usePlay = () => {
         chainId,
         env,
         bingoVersion,
-        walletClient: GlobalVar.walletClient
+        walletClient: walletClient
       })
       const label = await lobbyContract.read.getNextKeyLabel([account])
-      const signedLabel = await getWeb3Sign(label, account, false, GlobalVar.walletClient)
+      const signedLabel = await getWeb3Sign(label, account, false, walletClient)
       if (typeof signedLabel === 'string') {
         joinGame = {
           ...joinGame,
@@ -75,7 +71,7 @@ export const usePlay = () => {
         chainId,
         env,
         bingoVersion,
-        walletClient: GlobalVar.walletClient
+        walletClient: walletClient
       })
       const cardNums = cardNumbers.reduce(
         (prev, curr) => {
@@ -93,7 +89,7 @@ export const usePlay = () => {
         encodedNumbers
       ])
       console.log(5)
-      const signedCard = await getWeb3Sign(hashedCardBytes, account, true, GlobalVar.walletClient)
+      const signedCard = await getWeb3Sign(hashedCardBytes, account, true, walletClient)
       console.log(6)
       if (typeof signedCard === 'string') {
         joinGame = {
@@ -107,8 +103,8 @@ export const usePlay = () => {
         cardNumbers
       }))
       _setJoinGameState(joinGame)
-      if (!chainId || !account || !GlobalVar.walletClient) {
-        console.log(`submitCardBeta1`, !chainId, !account, !GlobalVar.walletClient)
+      if (!chainId || !account || !walletClient) {
+        console.log(`submitCardBeta1`, !chainId, !account, !walletClient)
         throw Object.assign(new Error('Not Ready'))
       }
       console.log(`submitCardBeta2`)
@@ -212,7 +208,7 @@ export const usePlay = () => {
 //   cardNumbers: CardNumbersType
 // }) => {
 //   console.log(1)
-//   if (!chainId || !account || !GlobalVar.walletClient) {
+//   if (!chainId || !account || !walletClient) {
 //     return
 //   }
 //   console.log(2)
@@ -220,7 +216,7 @@ export const usePlay = () => {
 //     chainId,
 //     env,
 //     bingoVersion,
-//     walletClient: GlobalVar.walletClient
+//     walletClient: walletClient
 //   })
 //   console.log(3)
 //   const cardNums = cardNumbers.reduce(
@@ -239,7 +235,7 @@ export const usePlay = () => {
 //     encodedNumbers
 //   ])
 //   console.log(5)
-//   const signedCard = await getWeb3Sign(hashedCardBytes, account, true, GlobalVar.walletClient)
+//   const signedCard = await getWeb3Sign(hashedCardBytes, account, true, walletClient)
 //   console.log(6)
 //   if (typeof signedCard === 'string') {
 //     setJoinGameState(state => ({
@@ -269,7 +265,7 @@ export const usePlay = () => {
 //   }
 //   const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
 //   const label = await lobbyContract.read.getNextKeyLabel([account])
-//   const signedLabel = await getWeb3Sign(label, account, false, GlobalVar.walletClient)
+//   const signedLabel = await getWeb3Sign(label, account, false, walletClient)
 //   if (typeof signedLabel === 'string') {
 //     setJoinGameState((state: JoinGameStateType) => ({
 //       ...state,
@@ -296,8 +292,8 @@ export const usePlay = () => {
 //   setRefreshBalanceState: any
 //   refreshBalance: any
 // }): Promise<string | undefined> => {
-//   if (!chainId || !account || !GlobalVar.walletClient) {
-//     console.log(`submitCardBeta1`, !chainId, !account, !GlobalVar.walletClient)
+//   if (!chainId || !account || !walletClient) {
+//     console.log(`submitCardBeta1`, !chainId, !account, !walletClient)
 //     throw Object.assign(new Error('Not Ready'))
 //   }
 //   console.log(`submitCardBeta2`)
@@ -305,7 +301,7 @@ export const usePlay = () => {
 //     chainId,
 //     env,
 //     bingoVersion,
-//     walletClient: GlobalVar.walletClient
+//     walletClient: walletClient
 //   })
 //   console.log(`submitCardBeta3`)
 //   const provider = await getProvider(sample(ChainRpcUrls[chainId]))

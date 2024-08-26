@@ -3,7 +3,6 @@ import {
   BigNumberJs,
   ChainId,
   getShortenAddress,
-  GlobalVar,
   graphqlApiUrl,
   IPlayer,
   LngNs,
@@ -13,6 +12,7 @@ import {
   request,
   targetDate,
   useCustomTranslation,
+  useIsTelegram,
   useIsW768,
   useRecoilValue
 } from '@ui/src'
@@ -187,6 +187,7 @@ const PlayerList = memo((props: { data: IPlayer[]; winner: string; isWinner: boo
   return bingoVersion === IBingoVersion.beta ? <PlayerListBeta {...props} /> : <PlayerListV1 {...props} />
 })
 const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winner: string; isWinner: boolean }) => {
+  const IS_TELEGRAM = useIsTelegram()
   const { account, chainId } = useActiveWeb3ReactForBingo()
   const isMobile = useIsW768()
   const list = account ? customShort(data, account) : []
@@ -225,7 +226,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
                   </Col>
                   <Col span={6}>
                     {addressIsEqual(winner, item) ? (
-                      GlobalVar.IS_TELEGRAM ? (
+                      IS_TELEGRAM ? (
                         <div className={css.pointCol}>
                           <TgPointImg className={css.pointImg} />
                           <p>+{winAmount}</p>
@@ -236,7 +237,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
                           <p>X1</p>
                         </BoxImgWrap>
                       )
-                    ) : GlobalVar.IS_TELEGRAM ? (
+                    ) : IS_TELEGRAM ? (
                       <div className={css.pointCol}>
                         <TgPointImg className={css.pointImg} />
                         <p>+{lossAmount}</p>

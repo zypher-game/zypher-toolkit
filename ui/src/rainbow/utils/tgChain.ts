@@ -1,25 +1,24 @@
 import { zeroAddress, createWalletClient, custom, publicActions } from "viem";
 import { Address, Chain } from "wagmi";
 import { MockConnector } from "wagmi/connectors/mock";
-import {
-  ChainId,
-  ChainRpcUrls,
-  GlobalVar,
-  TG_BOT_URL,
-} from "../../constant/constant";
+import { ChainId, ChainRpcUrls, TG_BOT_URL } from "../../constant/constant";
 import { ethers } from "ethers";
 import { TelegramWallet } from "../telegramWallet";
 import sleep from "../../utils/sleep";
 import { IWebAppData } from "../../hooks/useTelegramUser";
 import { AllChainInfo } from "../../constant/chains";
+import { SetterOrUpdater } from "recoil";
+import { IGlobalVar } from "ui/src/hooks/GlabalVar/globalAtoms";
 export const tgChain = ({
   WebAppData,
   publicClient,
   chains,
+  setGlobalVar,
 }: {
   WebAppData?: IWebAppData;
   publicClient: any;
   chains: Chain[];
+  setGlobalVar: SetterOrUpdater<IGlobalVar>;
 }) => {
   const provider = new ethers.providers.JsonRpcProvider(
     ChainRpcUrls[ChainId.SagaMainnet][0]
@@ -62,12 +61,15 @@ export const tgChain = ({
     }),
   }).extend(publicActions);
   const mock = new MockConnector({ chains, options: { walletClient } });
-  GlobalVar.mockAcc = async (address: Address, proof: any) => {
-    acc.setAddress(address);
-    walletClient.account.address = address;
-    mock.emit("change", { account: address });
-    await sleep(0.2);
-    // mockBus.emit("addressChange", address);
-  };
+  setGlobalVar((pre) => ({
+    ...pre,
+    mockAcc: async (address: Address, proof: any) => {
+      acc.setAddress(address);
+      walletClient.account.address = address;
+      mock.emit("change", { account: address });
+      await sleep(0.2);
+      // mockBus.emit("addressChange", address);
+    },
+  }));
   return [mock] as any;
 };

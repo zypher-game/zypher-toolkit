@@ -14,6 +14,7 @@ import {
   txStatus,
   useAccountInvitation,
   useActiveWeb3React,
+  useGlobalVar,
   useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
@@ -23,11 +24,11 @@ import {
   useWalletClient
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
 
-import { GlobalVar } from '@ui/src'
 import { TVLStakingContract } from '@/contract/tvlStaking'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
@@ -71,7 +72,7 @@ export const useStakeHandle = (): {
   const { getStakingData } = useStakeData()
   const isDataLoading = useRecoilValue(isTvlDataLoadingState)
   const tvlStakingData = useRecoilValue(tvlStakingDataState)
-  const { data: walletClient } = useWalletClient()
+  const { walletClient } = useGlobalVar()
   const { postAccountUpdate } = useAccountInvitation(env)
   const isW768 = useIsW768()
   // const { isRegistered } = tvlStakingData
@@ -298,7 +299,7 @@ export const useReStakingHandle = () => {
   const [claimSBTLoading, setClaimSBTLoading] = useState(false)
   const [claimCrLoading, setClaimCrLoading] = useState(false)
   const [claimGpLoading, setClaimGpLoading] = useState(false)
-  const { data: walletClient } = useWalletClient()
+  const { walletClient } = useGlobalVar()
 
   const { getData } = useGetData()
   const { account, chainId: nativeChainId } = useActiveWeb3React()

@@ -10,6 +10,7 @@ import {
   IPlayer,
   MulticallContract,
   useInterval,
+  useIsTelegram,
   useRecoilValue,
   zkBingoV0
 } from '@ui/src'
@@ -23,6 +24,7 @@ import { env } from '@/utils/config'
 import { batchRequestFromGraph } from './useRecentGamesFromGraph'
 
 export const useRecentGames = () => {
+  const IS_TELEGRAM = useIsTelegram()
   const [list, setList] = useState<Map<ChainId, IGameList[]>>()
   const [listBeta, setListBeta] = useState<Map<ChainId, IGameListBeta[]>>()
   const [hasError, setHasError] = useState(false)
@@ -64,7 +66,7 @@ export const useRecentGames = () => {
     }
   }, [])
   useEffect(() => {
-    if (!window.IS_TELEGRAM) {
+    if (!IS_TELEGRAM) {
       fetchGameInfos()
     }
   }, [bingoVersion])

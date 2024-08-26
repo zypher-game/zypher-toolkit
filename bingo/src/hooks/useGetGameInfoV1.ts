@@ -1,10 +1,19 @@
-import { AllChainInfo, ChainRpcUrls, divisorBigNumber, GlobalVar, httpGet, pathnameState, TG_BOT_URL, useRecoilValue } from '@ui/src'
+import {
+  AllChainInfo,
+  ChainRpcUrls,
+  divisorBigNumber,
+  httpGet,
+  pathnameState,
+  TG_BOT_URL,
+  useGlobalVar,
+  useIsTelegram,
+  useRecoilValue
+} from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { formatEther } from 'ethers/lib/utils'
 import { sample } from 'lodash'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocation } from 'react-router-dom'
-import { compose } from 'redux'
 import { createPublicClient, http } from 'viem'
 
 import { IBingoVersion } from '@/pages/state/state'
@@ -79,6 +88,7 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
   const location = useLocation() // 获取当前路由位置
   const { bingoVersion, chainId } = useActiveWeb3ReactForBingo()
   const _chainId = useChainIdParamsAsChainId()
+  const IS_TELEGRAM = useIsTelegram()
   // const [tgNameList, setTgNameList] = useState<any>()
   const [tgNameList, setTgNameList] = useState<Record<string, string>>({})
   const [roomInfo, setRoomInfo] = useState<IRoomInfo>(() => ({
@@ -189,7 +199,7 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
           console.log({ v, user: v.user })
           return {
             ...v,
-            tgName: GlobalVar.IS_TELEGRAM
+            tgName: IS_TELEGRAM
               ? tgNameList[v.user.toLowerCase()]
                 ? tgNameList[v.user.toLowerCase()]
                 : v.tgName

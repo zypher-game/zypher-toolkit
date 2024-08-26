@@ -8,7 +8,6 @@ import {
   ChainRpcUrls,
   getProvider,
   getShortenAddress,
-  GlobalVar,
   httpPost,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
@@ -19,6 +18,8 @@ import {
   useAccountInvitation,
   useCurrentLanguage,
   useCustomTranslation,
+  useGlobalVar,
+  useIsTelegram,
   useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
@@ -201,6 +202,7 @@ const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }
 `
 
 const GameRoom: React.FC = () => {
+  const IS_TELEGRAM = useIsTelegram()
   useBingoVersion()
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const navigate = useNavigate()
@@ -222,7 +224,7 @@ const GameRoom: React.FC = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [pending, setPending] = useState(false)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const walletClient = useWalletHandler()
+  const { walletClient } = useGlobalVar()
   const [gamesWon, setWinRate] = useState(0)
   const { t } = useCustomTranslation([LngNs.zBingo])
   const chainIdParams = useChainIdParams()
@@ -530,7 +532,7 @@ const GameRoom: React.FC = () => {
 
   return (
     <>
-      <ControllerWrapper isMobile={isMobile} IS_TELEGRAM={GlobalVar.IS_TELEGRAM}>
+      <ControllerWrapper isMobile={isMobile} IS_TELEGRAM={IS_TELEGRAM}>
         <ControllerMenu />
       </ControllerWrapper>
 

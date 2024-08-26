@@ -1,4 +1,4 @@
-import { GlobalVar, useRecoilValue } from '@ui/src'
+import { useIsTelegram, useRecoilValue } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -16,6 +16,7 @@ import { useAnim } from './hooks/useAnim'
 
 const zBingoIndex = memo(() => {
   useBingoVersion()
+  const IS_TELEGRAM = useIsTelegram()
   const bingoVersion = useRecoilValue(bingoVersionState)
   useAnim()
   const { list: bingoMapList, listBeta: listBetaMapList, hasError: bingoHasError } = useRecentGames()
@@ -26,7 +27,7 @@ const zBingoIndex = memo(() => {
       <RightBar />
       {bingoVersion === IBingoVersion.beta ? <InnerBeta listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} /> : null}
       {bingoVersion === IBingoVersion.v1 ? <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} /> : null}
-      {GlobalVar.IS_TELEGRAM ? <StartGameDialog isFromIndex={true} /> : null}
+      {IS_TELEGRAM ? <StartGameDialog isFromIndex={true} /> : null}
     </>
   )
 }, isEqual)

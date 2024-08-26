@@ -6,19 +6,20 @@ import {
   useAccountInvitation,
   useActiveWeb3React,
   useCustomTranslation,
+  useGlobalVar,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
   walletModalOpenState
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import { GlobalVar } from '@ui/src'
 import CONTRACTS from '@zypher-games/checkin/contracts.json'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt } from 'viem'
 import { useSwitchNetwork, useWalletClient } from 'wagmi'
 
-import { GlobalVar } from '@ui/src'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
@@ -41,7 +42,7 @@ export const useCombo = () => {
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const { data: walletClient } = useWalletClient()
+  const { walletClient } = useGlobalVar()
   const [checkInLoading, setCheckInLoading] = useState(false)
   const { t } = useCustomTranslation([LngNs.home])
   const getData = useCallback(async () => {

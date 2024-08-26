@@ -2,13 +2,13 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
   getProvider,
-  GlobalVar,
   LngNs,
   preStaticUrl,
   refreshBalanceState,
   txStatus,
   useAccountInvitation,
   useCustomTranslation,
+  useIsTelegram,
   useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
@@ -48,9 +48,10 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const { postAccountUpdate } = useAccountInvitation(env)
   const [isCard, setIsCard] = useState(false)
-  const walletClient = useWalletHandler()
+  const { walletClient } = useGlobalVar()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
+  const IS_TELEGRAM = useIsTelegram()
 
   // Cannot destructure property 'betSize' of 'activeLevels[level]' as it is undefined.
   const handleSubmitCard = useCallback(async () => {
@@ -186,7 +187,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
               {pending && <LoadingOutlined />}
             </Space>
           </ButtonPrimary>
-          {GlobalVar.IS_TELEGRAM ? <></> : <Tip>{t('SubmitCardText4')}</Tip>}
+          {IS_TELEGRAM ? <></> : <Tip>{t('SubmitCardText4')}</Tip>}
         </SubmitCardEle>
       )}
     </div>

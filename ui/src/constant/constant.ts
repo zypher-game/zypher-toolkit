@@ -521,11 +521,14 @@ export const zkBingoV0 = (
   }
 };
 export const zkBingo = (
-  chainId: ChainId | undefined,
+  chainId: ChainId | number | undefined,
   name: IContractName
 ): Address => {
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
+  }
+  if (typeof chainId === "number") {
+    chainId = `${chainId}` as ChainId;
   }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
@@ -573,17 +576,9 @@ export const TaskReweet1 =
   "https://twitter.com/Zypher_Network/status/1819215629041254588";
 
 type IGlobalVar = {
-  IS_TELEGRAM: boolean;
   dispatch: (arg: any) => any;
-  getContainer?: HTMLElement;
-  walletClient?: WalletClient;
-  mockAcc?: any;
 };
 
 export const GlobalVar: IGlobalVar = {
-  IS_TELEGRAM: !!window.IS_TELEGRAM,
   dispatch: (arg: any) => null as any,
-  getContainer: undefined,
-  walletClient: undefined,
-  mockAcc: (address: Address, proof?: TonProofItemReplySuccess) => null as any,
 };
