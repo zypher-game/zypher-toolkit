@@ -90,6 +90,21 @@ export const gameRoomState = atom<GameRoomStateType>({
   effects_UNSTABLE: [localStorageEffect('gameRoomState')]
 })
 
+export const showModalState = atom({
+  key: 'showModalState',
+  default: false
+})
+
+export const showTipModalState = atom({
+  key: 'showTipModalState',
+  default: false
+})
+
+export const showTipOkModalState = atom({
+  key: 'showTipOkModalState',
+  default: false
+})
+
 export const showCloseModalState = atom({
   key: 'showCloseModalState',
   default: false

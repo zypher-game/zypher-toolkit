@@ -18,16 +18,26 @@ import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
 import useRestoreGame from '@/hooks/useRestoreGame'
-import { gameRoomState, IBingoVersion, showCloseModalState, startGameStep } from '@/pages/state/state'
+import {
+  gameRoomState,
+  IBingoVersion,
+  showCloseModalState,
+  showModalState,
+  showTipModalState,
+  showTipOkModalState,
+  startGameStep
+} from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { toBingoHref, toBingoPlayHref } from '@/utils/toBingoHref'
 
 import { ConfirmCloseModal, TipsModal, TipsOkModal } from '../Modal'
 
-const StartGameDialog = memo(() => {
+const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
+  const [showModal, setShowModal] = useRecoilState(showModalState)
+  const [showTipModal, setShowTipModal] = useRecoilState(showTipModalState)
+  const [showTipsOkModal, setShowTipsOkModal] = useRecoilState(showTipOkModalState)
   const [showCloseModal, setShowCloseModal] = useRecoilState(showCloseModalState)
-  const [gameTimeState, setGameTimeState] = useState(false)
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [, setCurrentStep] = useRecoilState(startGameStep)
   const { gameTime, isPlaying, gameId } = useRestoreGame()
@@ -41,13 +51,24 @@ const StartGameDialog = memo(() => {
   const navigate = useNavigate()
 
   const { postAccountUpdate } = useAccountInvitation(env)
-
+  useEffect(() => {
+    const bool = playingState && (cardNumbers.length > 1 || bingoVersion === IBingoVersion.beta)
+    setShowTipModal(bool)
+    setShowModal(bool)
+  }, [playingState, JSON.stringify(cardNumbers)])
+  useEffect(() => {
+    const bool = gameTime > 0 && cardNumbers.length < 1
+    setShowTipsOkModal(bool)
+    setShowModal(bool)
+  }, [cardNumbers, gameTime, bingoVersion])
+  useEffect(() => {
+    const bool = playingState && (cardNumbers.length > 1 || bingoVersion === IBingoVersion.beta)
+    setShowTipModal(bool)
+    setShowModal(bool)
+  }, [playingState, JSON.stringify(cardNumbers)])
   useEffect(() => {
     setPlayingState(isPlaying && cardNumbers.length >= 1)
   }, [isPlaying, gameTime, cardNumbers])
-  useEffect(() => {
-    setGameTimeState(gameTime > 0 && cardNumbers.length < 1)
-  }, [cardNumbers, gameTime, bingoVersion])
 
   const onCloseModal = useCallback(async () => {
     setModalLoading(true)
@@ -177,9 +198,13 @@ const StartGameDialog = memo(() => {
   }
 
   const toBingoPage = useCallback(() => {
-    setCurrentStep(0)
-    toBingoHref({ chainIdParams, navigate, pathname: location.pathname })
-  }, [navigate, location, chainIdParams])
+    if (!isFromIndex) {
+      setCurrentStep(0)
+      toBingoHref({ chainIdParams, navigate, pathname: location.pathname })
+    } else {
+      setShowModal(false)
+    }
+  }, [navigate, location, isFromIndex, chainIdParams])
   const toBingoPlayHrefHandle = useCallback(() => {
     setCurrentStep(0)
     toBingoPlayHref({ chainIdParams, navigate, pathname: location.pathname })
@@ -187,22 +212,22 @@ const StartGameDialog = memo(() => {
   return (
     <>
       <TipsModal
-        open={playingState && (cardNumbers.length > 1 || bingoVersion === IBingoVersion.beta)}
+        open={showModal && showTipModal}
         closeLoading={modalLoading}
         onClose={onCloseModal}
-        onCancel={() =>
+        onCancel={() => {
           toBingoPlayHref({
             chainIdParams,
             navigate: navigate,
             path: `/${gameId}/gameRoom`
           })
-        }
-        onBlack={() => toBingoPage()}
+        }}
+        onBlack={toBingoPage}
       />
       <TipsOkModal
         closeLoading={modalLoading}
-        open={gameTimeState}
-        onBlack={() => toBingoPage()}
+        open={showModal && showTipsOkModal}
+        onBlack={toBingoPage}
         onClose={() => toBingoPlayHrefHandle()}
         onCancel={onCloseModal}
       />

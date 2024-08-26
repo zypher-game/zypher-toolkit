@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { ChainId, formatMoney, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, formatMoney, GlobalVar, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { Space, Tooltip } from 'antd'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -9,8 +9,11 @@ import bingoLobbyFee from '@/contract/bingoLobbyFee'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import useIntervalAsync from '@/hooks/useIntervalAsync'
 import { GetGameListBoxImg } from '@/hooks/useMText'
+import { usePrice } from '@/hooks/usePrice'
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { env } from '@/utils/config'
+
+import TgPointImg from '../TgPointImg/TgPointImg'
 const BoxImgWrap = styled.div<{ isMobile: boolean }>`
   display: flex;
   justify-content: flex-start;
@@ -20,9 +23,12 @@ const BoxImgWrap = styled.div<{ isMobile: boolean }>`
     width: ${({ isMobile }) => (isMobile ? '38px' : '78px')};
   }
   p {
+    font-family: Lemon;
     color: ${({ isMobile }) => (isMobile ? '#613c17' : 'rgb(255, 240, 207)')};
-
     font-size: 24px;
+    @media (max-width: 768px) {
+      font-size: 14px;
+    }
   }
 `
 const AmountValueItem = styled.div<{ isMobile: boolean }>`
@@ -67,6 +73,7 @@ type InputValueProps = {
 const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, betSize }) => {
   const bingoVersion = useRecoilValue(bingoVersionState)
   const isMobile = useIsW768()
+  const { winAmount, lossAmount } = usePrice()
   return (
     <>
       {bingoVersion === IBingoVersion.beta ? (
@@ -75,8 +82,18 @@ const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, bet
             <Label color={color}>Prize</Label>
           </div>
           <BoxImgWrap isMobile={isMobile}>
-            <GetGameListBoxImg />
-            <p>X1</p>
+            {GlobalVar.IS_TELEGRAM ? (
+              <>
+                <TgPointImg />
+                <p>Win: {winAmount}</p>
+                <p>Loss: {lossAmount}</p>
+              </>
+            ) : (
+              <>
+                <GetGameListBoxImg />
+                <p> X1</p>
+              </>
+            )}
           </BoxImgWrap>
         </AmountValueItem>
       ) : (

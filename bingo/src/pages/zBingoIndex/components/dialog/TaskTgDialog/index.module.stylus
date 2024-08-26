@@ -54,6 +54,7 @@ body [data-reach-dialog-content].taskBg
     color: #613C17;
   .num
     font-size: 16px;
+    font-family: Lemon;
     color: #613C17;
 .title
   lemonFont()

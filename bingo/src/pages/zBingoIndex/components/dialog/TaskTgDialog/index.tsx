@@ -1,5 +1,7 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
 import {
+  BigNumberJs,
+  FORMAT,
   getShortenAddress,
   httpPost,
   preStaticUrl,
@@ -36,9 +38,9 @@ import { toBingoPlayHref } from '@/utils/toBingoHref'
 
 import css from './index.module.stylus'
 
-const shareText = `Dive into the addictive world of Bingo! Slide those numbered tiles and merge them to reach the elusive Bingo tile. It’s simple to play but hard to master. Can you beat my high score? Click the link and let’s find out! 🎮✨
-
-Feel free to tweak it as you like! 😊`
+const shareText = `Play bingo with me! 
+🔥 This is a fun and simple bingo game that connects players together. 
+🎁 Play, Earn - Where Every Game Leads to an Airdrop Rewards!`
 export const OnceTask = {
   ConnectWallet: { key: 1, value: 100 },
   JoinTelegram: { key: 2, value: 100 },
@@ -114,7 +116,10 @@ const TaskTgDialog = memo(() => {
         setErrorToast(res.msg)
         return
       }
-      _userInfo(res.data)
+      _userInfo({
+        ...res.data,
+        starStr: new BigNumberJs(res.data.star).toFormat(0, BigNumberJs.ROUND_HALF_UP, FORMAT)
+      })
     } finally {
       _loading(false)
     }
@@ -176,7 +181,10 @@ const TaskTgDialog = memo(() => {
         setErrorToast(res.msg)
         return
       }
-      _userInfo(res.data)
+      _userInfo({
+        ...res.data,
+        starStr: new BigNumberJs(res.data.star).toFormat(0, BigNumberJs.ROUND_HALF_UP, FORMAT)
+      })
     } finally {
       _loading(false)
     }
@@ -247,7 +255,7 @@ const TaskTgDialog = memo(() => {
                   des="+100"
                   checked={OnceTaskChecked?.ConnectWallet}
                   all
-                  btn={OnceTaskChecked?.ConnectWallet ? 'Change' : 'Go'}
+                  btn={ui?.account ? 'Get' : 'Go'}
                   action={async () => {
                     if (OnceTaskChecked?.ConnectWallet && ui.connected) {
                       await ui.disconnect()

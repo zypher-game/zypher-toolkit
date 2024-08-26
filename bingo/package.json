@@ -6,8 +6,9 @@
   "scripts": {
     "build": "cross-env IS_TG=false NODE_ENV=production BASE_URL=bingo node script/init.js && yarn rmdist && cross-env cross-env IS_TG=false NODE_ENV=production BASE_URL=bingo webpack --config ./config/webpack.prod.js",
     "build:dev": "cross-env IS_TG=false NODE_ENV=development BASE_URL=bingo node script/init.js && cross-env IS_TG=false NODE_ENV=development BASE_URL=bingo webpack --config ./config/webpack.prod.js",
-    "build:tg_dev": "cross-env IS_TG=false NODE_ENV=development BASE_URL=bingo node script/init.js && cross-env IS_TG=false NODE_ENV=development BASE_URL=bingo webpack --config ./config/webpack.prod.js",
+    "build:tg_dev": "cross-env IS_TG=true NODE_ENV=development BASE_URL=bingo node script/init.js && cross-env IS_TG=true NODE_ENV=development BASE_URL=bingo webpack --config ./config/webpack.prod.js",
     "start": "cross-env IS_TG=false NODE_ENV=development node script/init.js && cross-env IS_TG=false NODE_ENV=development webpack serve --config ./config/webpack.dev.js",
+    "start:tg_pro": "cross-env  IS_TG=true  NODE_ENV=production node script/init.js && cross-env IS_TG=true NODE_ENV=production webpack serve --config ./config/webpack.dev.js",
     "startTg": "cross-env IS_TG=true NODE_ENV=development node script/init.js && cross-env IS_TG=true NODE_ENV=development webpack serve --config ./config/webpack.dev.js",
     "start:prod": "cross-env IS_TG=false NODE_ENV=production node script/init.js && cross-env IS_TG=false NODE_ENV=production webpack serve --config ./config/webpack.dev.js",
     "analyze": "rimraf dist && cross-env IS_TG=false NODE_ENV=production node script/init.js && cross-env IS_TG=false NODE_ENV=production webpack --analyze --config config/webpack.analyze.js",

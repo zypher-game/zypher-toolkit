@@ -103,7 +103,7 @@ const Card = memo(
         <div className={css.cardTwo}>
           <PixelCardTwo
             title="SBT"
-            content={hasSbt ? 'Playing games on Layer3 with zero gas!' : `Still need more ${Currency[chainIdLocal]} to unlock`}
+            content={hasSbt ? 'Playing games on L3 with zero gas!' : `Still need more ${Currency[chainIdLocal]} to unlock`}
             warning={SBTTooltip}
             btnLabel={hasSbt ? 'Go' : 'Stake'}
             onClick={() => onClaimSBTHandle(chainIdLocal, hasSbt)}

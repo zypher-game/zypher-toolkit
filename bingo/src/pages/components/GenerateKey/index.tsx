@@ -18,7 +18,6 @@ import React, { useState } from 'react'
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { gameRoomState, joinGameState, JoinGameStateType, startGameStep } from '@/pages/state/state'
-import { useGetSignedLabel } from '@/pages/zBingoIndex/hooks/usePlay'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
@@ -40,7 +39,6 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
   const walletClient = useWalletHandler()
-  const { getSignedLabel } = useGetSignedLabel()
   const handleGenerateKey = async () => {
     if (!chainId || !account) {
       return
@@ -53,7 +51,20 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
       const timeoutPromise = new Promise((_, reject) => {
         setTimeout(() => reject(new Error('Operation timed out')), 10000)
       })
-      await Promise.race([getSignedLabel(), timeoutPromise])
+      await Promise.race([
+        (async () => {
+          const label = await lobbyContract.read.getNextKeyLabel([account])
+          const signedLabel = await getWeb3Sign(label, account, false, walletClient)
+          if (typeof signedLabel === 'string') {
+            setJoinGameState((state: JoinGameStateType) => ({
+              ...state,
+              signedLabel
+            }))
+          }
+          setCurrentStep(1)
+        })(),
+        timeoutPromise
+      ])
     } catch (e) {
       setErrorToast(e, lobbyContract)
     } finally {

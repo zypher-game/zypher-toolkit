@@ -207,13 +207,13 @@ const ZeroGas = memo(() => {
                               ) : (
                                 <>
                                   <SvgComponent src={`${preStaticUrl}/img/icon/pixel_switch.svg`} />
-                                  <p>Switch Chain</p>
+                                  <p>Switch to Layer3</p>
                                 </>
                               )}
                             </PixelCube3>
                           ) : null}
                         </div>
-                        <p className={css.banner_text}>Zytron is deployed on Layer3 of {text}</p>
+                        <p className={css.banner_text}>Zytron Linea is a Layer3 blockchain deployed on Linea Layer2.</p>
                       </div>
                     </ActivePixelCard>
                   </ActivePixelCard>

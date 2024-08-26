@@ -1,4 +1,4 @@
-import { formatMoney, graphqlApiUrl, request } from '@ui/src'
+import { addressIsEqual, formatMoney, graphqlApiUrl, request } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -105,7 +105,7 @@ export const useRanking = (): {
           winAmount: formatMoney(Number(ethers.utils.formatEther(result.data.data.playerDatas[0]['winAmount']))),
           joinAmount: formatMoney(Number(ethers.utils.formatEther(result.data.data.playerDatas[0]['joinAmount'])))
         }
-        const rankingFilter = ranking?.filter(v => v.address.toLowerCase() === account.toLowerCase())
+        const rankingFilter = ranking?.filter(v => addressIsEqual(v.address, account))
         if (rankingFilter && rankingFilter.length) {
           obj.index = rankingFilter[0].index
         } else {

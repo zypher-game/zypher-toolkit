@@ -1,9 +1,8 @@
 import { preStaticUrl } from '@ui/src'
+import { useIsW768 } from '@ui/src'
 import React, { useEffect, useMemo, useState } from 'react'
 import { animated, useSpring } from 'react-spring'
 import styled, { keyframes } from 'styled-components'
-
-import { useIsW768 } from '@ui/src'
 
 import css from './RoundNumbers.module.stylus'
 
@@ -33,9 +32,9 @@ const RoundNumbers: React.FC<IRoundNumbers> = ({ round, selectNumber }) => {
       return 'translateX(0px)'
     }
     if (isMobile) {
-      return 'translateX(-54px)'
+      return 'translateX(-42px)' // 38px + 6px
     }
-    return 'translateX(-93px)'
+    return 'translateX(-93px)' // 80px
   }, [isMobile, isMovingRight])
   // Animation config for moving the box to the right
   const moveRightAnimation = useSpring({

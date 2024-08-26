@@ -1,5 +1,3 @@
-import './index.css'
-
 import { LoadingOutlined } from '@ant-design/icons'
 import { Dialog, DialogContent, DialogOverlay } from '@reach/dialog'
 import { preStaticUrl, useRecoilValue } from '@ui/src'
@@ -114,6 +112,10 @@ function Modal(props: CustomDialogProps) {
 }
 
 const ConfirmConfirmDialog = styled(Dialog)<{ isMobile?: boolean }>`
+  z-index: 9 !important;
+  [data-reach-dialog-overlay] {
+    z-index: 9 !important;
+  }
   &[data-reach-dialog-content] {
     background: #f8e9c8;
     border-radius: 60px;
@@ -244,6 +246,7 @@ export function TipsModal(props: CustomDialogProps) {
       <ConfirmConfirmDialog isMobile={isMobile} isOpen={open}>
         <CloseBtn src={preStaticUrl + '/img/bingo/close.svg'} alt="close" onClick={onBlack} />
         <ConfirmTitile>{t('TIPS')}</ConfirmTitile>
+        {/* Your game is still in progr */}
         <ConfirmTip>{t('TipsModalText1')}</ConfirmTip>
         <ConfirmButton>
           <Space>

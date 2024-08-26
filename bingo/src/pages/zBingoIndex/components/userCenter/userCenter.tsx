@@ -29,7 +29,7 @@ const UserCenter = memo(() => {
         <Item amount={gamesLen} label="Games" />
         <Item amount={gamesWon} label="Games Win" />
         <Item amount={winningPercent + '%'} label="Winning" />
-        {GlobalVar.IS_TELEGRAM ? <Item amount={userInfo?.star ?? '0'} label="Points" /> : null}
+        {GlobalVar.IS_TELEGRAM ? <Item amount={userInfo?.starStr ?? '0'} label="Points" /> : null}
       </ul>
     </div>
   )

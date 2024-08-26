@@ -41,7 +41,7 @@ export const RankingItem: FC<IRankingItemProps> = memo(({ player, tab, isMobile,
       <RankTgCol rank={`${player.index}`} account={player.evmWallet} name={player.name} isMobile={isMobile} showLine={true} otherStr={otherStr} />
       <div className={css.number}>
         <TgPointImg />
-        <p className="textbg"> {player.star}</p>
+        <p className="textbg"> {player.starStr}</p>
       </div>
     </div>
   )

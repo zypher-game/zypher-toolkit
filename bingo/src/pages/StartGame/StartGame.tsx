@@ -1,46 +1,23 @@
 import '../index.stylus'
 
-import {
-  ChainRpcUrls,
-  GlobalVar,
-  LngNs,
-  preStaticUrl,
-  txStatus,
-  useAccountInvitation,
-  useCurrentLanguage,
-  useCustomTranslation,
-  useIsW768,
-  usePublicNodeWaitForTransaction,
-  useRecoilState,
-  useResetRecoilState
-} from '@ui/src'
-import { getProvider } from '@ui/src'
-import { useWalletHandler } from '@ui/src'
-import { sample } from 'lodash'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { GlobalVar, LngNs, preStaticUrl, useCurrentLanguage, useCustomTranslation, useIsW768, useRecoilState } from '@ui/src'
+import React, { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
-import { TransactionReceipt } from 'viem'
 
-import { gasPrice } from '@/constants/constants'
-import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
-import useRestoreGame from '@/hooks/useRestoreGame'
-import { env } from '@/utils/config'
-import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { toBingoHref, toBingoPlayHref } from '@/utils/toBingoHref'
+import { toBingoHref } from '@/utils/toBingoHref'
 
 import EncryptCard from '../components/EncryptCard'
 import GenerateKey from '../components/GenerateKey'
 import Matchmarking from '../components/Matchmarking'
-import { ConfirmCloseModal, TipsModal, TipsOkModal } from '../components/Modal'
 import StartGameDialog from '../components/StartGameDialog/StartGameDialog'
 import Steps from '../components/Steps'
 import SubmitCardBeta from '../components/SubmitCard/SubmitCardBeta'
 import SubmitCardV1 from '../components/SubmitCard/SubmitCardV1'
-import { gameRoomState, IBingoVersion, showCloseModalState, startGameStep } from '../state/state'
+import { IBingoVersion, showCloseModalState, startGameStep } from '../state/state'
 import css from './StartGame.module.stylus'
 
 const StepsWrapper = styled.div<{ isMobile: boolean }>`
@@ -139,7 +116,7 @@ const StartGame: React.FC = () => {
           </div>
         </div>
       </div>
-      <StartGameDialog />
+      <StartGameDialog isFromIndex={false} />
     </>
   )
 }

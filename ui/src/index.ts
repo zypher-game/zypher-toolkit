@@ -2,8 +2,14 @@ import {
   toUserFriendlyAddress,
   useTonAddress,
   useTonConnectUI,
+  useTonWallet,
 } from "@tonconnect/ui-react";
-export { toUserFriendlyAddress, useTonAddress, useTonConnectUI };
+export {
+  toUserFriendlyAddress,
+  useTonAddress,
+  useTonConnectUI,
+  useTonWallet,
+};
 import {
   useSetRecoilState,
   atom,
@@ -12,7 +18,6 @@ import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
-  SetterOrUpdater,
 } from "recoil";
 import {
   motion,
@@ -36,6 +41,7 @@ export { AllChainInfo } from "./constant/chains";
 
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
+export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 
 export {
@@ -70,7 +76,6 @@ export {
   useRecoilValue,
   useRecoilState,
   useResetRecoilState,
-  SetterOrUpdater,
 };
 export {
   appInfo,
@@ -104,6 +109,7 @@ export {
   TaskTelegramBot,
   TaskFollowZypher,
   TaskReweet1,
+  targetDate,
 } from "./constant/constant";
 export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
 export {
@@ -128,7 +134,6 @@ export {
   useTelegramUser,
   useWebAppData,
 } from "./hooks/useTelegramUser";
-export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";

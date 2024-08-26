@@ -27,6 +27,7 @@ import {
   useSetRecoilState,
   useWalletHandler
 } from '@ui/src'
+import { isEqual } from '@ui/src/utils/lodash'
 import { Col, Progress, Row, Space, Tooltip } from 'antd'
 import { sample } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
@@ -229,11 +230,7 @@ const GameRoom: React.FC = () => {
   const round = useMemo<number>(() => (roomInfo?.players ? Math.ceil(roomInfo.round / roomInfo.players.length) || 0 : 0), [JSON.stringify(roomInfo)])
   const selectedNumbers = useMemo(() => roomInfo.selectedNumbers, [JSON.stringify(roomInfo)])
   const isOvertime = useMemo(() => roomInfo.status, [JSON.stringify(roomInfo)])
-  const isControllerEnabled = useMemo<boolean>(
-    () => roomInfo.player.toLowerCase() === (account ?? '').toLowerCase(),
-    [JSON.stringify(roomInfo), account]
-  )
-  console.log({ roomInfo })
+  const isControllerEnabled = useMemo<boolean>(() => addressIsEqual(roomInfo.player, account ?? ''), [JSON.stringify(roomInfo), account])
   const Garde = useMemo(() => {
     if (gamesWon < gradeData[1].minWinCounts) {
       return 1
@@ -246,10 +243,10 @@ const GameRoom: React.FC = () => {
   const [gradeModalOpen, setGradeModalOpen] = useState(false)
   const Win = useCallback(async () => {
     if (!!winner) {
-      const res = await httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
+      await httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
       setRefreshState(pre => pre + 1)
       colseBackgroundMusic()
-      if (account === winner) {
+      if (addressIsEqual(account, winner)) {
         playWinSound()
       } else {
         playLoseSound()
@@ -301,7 +298,6 @@ const GameRoom: React.FC = () => {
       percentTimerRef.current && clearInterval(percentTimerRef.current)
     }
   }, [percent])
-  console.log({ percent, ispercent })
   const matchLines = useMemo(() => {
     return getBingoLines(selectedNumbers, cardNumbers)
   }, [roomInfo])
@@ -338,7 +334,6 @@ const GameRoom: React.FC = () => {
             maxFeePerGas: gasPrice[chainId],
             maxPriorityFeePerGas: gasPrice[chainId]
           })
-          console.log({ txnReceipt })
           const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
           const selectNumberTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
           if (selectNumberTx && selectNumberTx.status === txStatus) {
@@ -369,20 +364,12 @@ const GameRoom: React.FC = () => {
       walletClient
     })
     try {
-      console.log('adfsdfadfds==', {
-        gameId,
-        markedNum,
-        cardNums,
-        joinGame: joinGame.signedLabel
-      })
       const txnReceipt = await lobbyContract.write.selectAndBingo([gameId, markedNum, cardNums, joinGame.signedLabel], {
         account: account,
         gas: gasPrice[chainId],
         maxFeePerGas: gasPrice[chainId],
         maxPriorityFeePerGas: gasPrice[chainId]
       })
-      console.log('adfsdf', { txnReceipt })
-
       const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
       const selectAndBingoTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
       if (selectAndBingoTx && selectAndBingoTx.status === txStatus) {
@@ -453,7 +440,7 @@ const GameRoom: React.FC = () => {
   const renderPlayersAvatar = () => {
     return roomInfo.players.map((player, playerIndex) => (
       // 产品要求头像绿色的框 不管是不是在上链轮到谁就显示谁的边框
-      <PlayersWrapper key={player.user} highLight={roomInfo.player.toLowerCase() === player.user.toLowerCase()} leave={player.isAbandoned}>
+      <PlayersWrapper key={player.user} highLight={addressIsEqual(roomInfo.player, player.user)} leave={player.isAbandoned}>
         <Space>
           <PlayerAvatar isGreen={roomInfo.player === player.user} account={player.isAbandoned ? '' : player.user} size={'large'} />
           <div>
@@ -487,7 +474,7 @@ const GameRoom: React.FC = () => {
           const [wRate] = await lobbyContract.functions.activeLevels()
           const activeLevels = wRate.toNumber()
           setWinRate(activeLevels)
-          if (gameInfo.winner.toLowerCase() === account.toLowerCase()) {
+          if (addressIsEqual(gameInfo.winner, account)) {
             if (activeLevels === gradeData[1].minWinCounts || activeLevels === gradeData[2].minWinCounts) {
               setGradeModalOpen(true)
             }

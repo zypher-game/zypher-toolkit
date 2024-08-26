@@ -15,6 +15,7 @@
 	img
 		width: 26px
 	p
+		font-family: Lemon
 		font-size: 12px
 		color: rgb(255, 240, 207)
 .listBox
@@ -25,22 +26,25 @@
 		@media screen and (max-width: 830px)
 			margin-right: 6px
 
-	&:first-child
+	&.listWin
 		.name 
 			color: #FFD64E
 			@media screen and (max-width: 830px)
-				font-size: 12px;
+				font-size: 14px;
 				font-weight: 400;
+		.pointCol
+			p
+				font-size: 14px
+				color: #FFD64E
 		.address
 			color: #FFD64E
 		.amount
-			color: #FFD64E
 			color: #FFD64E
 	h4
 		@media screen and (max-width: 830px)
 			margin: 0
 	.name
-		font-family: Lemon
+		font-family: Lemon	
 		color:#fff
 		@media screen and (max-width: 830px)
 			font-size: 12px;
@@ -52,10 +56,12 @@
 			font-size: 12px;
 			font-weight: 400;
 	.amount
+		font-family: Lemon
 		@media screen and (max-width: 830px)
 			font-size: 12px;
 			font-weight: 400;
 	.count
+		font-family: Lemon
 		@media screen and (max-width: 830px)
 			font-size: 12px;
 			font-weight: 400;

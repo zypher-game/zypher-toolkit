@@ -10,7 +10,7 @@ import { useEffectValue } from "./useEffectValue";
 import { httpPost } from "../utils/request";
 import { GlobalVar, TG_BOT_URL } from "../constant/constant";
 import { localStorageEffect } from "../utils/localStorageEffect";
-import { useActiveWeb3React } from "./useActiveWeb3React";
+import BigNumberJs, { FORMAT } from "../utils/BigNumberJs";
 export type IWebAppData = {
   auth_date: string;
   hash: string;
@@ -30,6 +30,7 @@ export interface TelegramUserInfoDto {
   createdAt: string;
   updatedAt: string;
   star: string;
+  starStr: string;
   onceTask: string;
   evmWallet: `0x${string}`;
   tonWallet: string;
@@ -80,12 +81,11 @@ export const useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      console.log({ WebApp: WebAppData });
+      console.log({ refresh, WebApp: WebAppData });
       if (!window.IS_TELEGRAM) {
-        // if (!window.IS_TELEGRAM || !window.Telegram?.WebApp?.initData) {
         return null;
       }
-      console.log(1111, { account });
+      let _user = undefined;
       if (WebAppData && WebAppData.user && WebAppData.user !== "") {
         console.log(22222, { WebAppData: WebAppData.user });
         const { data } = await httpPost<TelegramUserInfoDto>(
@@ -95,9 +95,9 @@ export const useTelegramUser = () => {
           }
         );
         getFaucet(WebAppData);
-        console.log("user: ", { data });
-        return data;
-      } else if (account) {
+        _user = data;
+      }
+      if (account && !_user) {
         console.log(33333, { account });
         const { data } = await httpPost<TelegramUserInfoDto>(
           `${TG_BOT_URL}/user/get/by/evm`,
@@ -106,8 +106,19 @@ export const useTelegramUser = () => {
           }
         );
         console.log("userevm evm: ", { data });
-        return data;
+        _user = data;
       }
+      console.log("user: ", { _user });
+      return _user
+        ? {
+            ..._user,
+            starStr: new BigNumberJs(_user.star).toFormat(
+              0,
+              BigNumberJs.ROUND_HALF_UP,
+              FORMAT
+            ),
+          }
+        : undefined;
     },
     [WebAppData?.user, refresh]
   );
@@ -169,7 +180,14 @@ export const useTelegramAccountInit = (
         { WebAppData }
       );
       if (res.code) return null;
-      _userInfo(res.data);
+      _userInfo({
+        ...res.data,
+        starStr: new BigNumberJs(res.data.star).toFormat(
+          0,
+          BigNumberJs.ROUND_HALF_UP,
+          FORMAT
+        ),
+      });
       setIsModalOpen(true);
       return res.data;
     },

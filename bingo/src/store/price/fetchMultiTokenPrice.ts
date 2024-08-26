@@ -1,4 +1,4 @@
-import { Currency, request } from '@ui/src'
+import { addressIsEqual, Currency, request } from '@ui/src'
 
 import { IPriceType } from './reducer'
 
@@ -15,7 +15,7 @@ export const fetchMultiTokenPrice = async () => {
     })
     const obj: IPriceType = {}
     for (let i = 0; i < currency.length; i++) {
-      const now = r.data.tokens[1].filter((v: any) => v.symbol.toLowerCase() === currency[i].toLowerCase())[0]
+      const now = r.data.tokens[1].filter((v: any) => addressIsEqual(v.symbol, currency[i]))[0]
       if (!now) {
       } else {
         obj[currency[i]] = now['priceUSD']

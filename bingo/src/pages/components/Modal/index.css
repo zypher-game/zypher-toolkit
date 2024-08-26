@@ -1,7 +1,0 @@
-[data-reach-dialog-overlay] {
-    z-index: 9999;
-    background: hsla(0, 0%, 0%, 0.7);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}

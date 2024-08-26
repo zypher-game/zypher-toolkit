@@ -4,20 +4,23 @@ import {
   ChainId,
   GlobalVar,
   preStaticUrl,
+  RefreshState,
+  TelegramUserInfoState,
   useActiveWeb3React,
   useChainModal,
   useRecoilState,
+  useRecoilValue,
   useSetRecoilState,
   walletModalOpenState
 } from '@ui/src'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useChainIdParams } from '@/hooks/useChainIdParams'
 import { getChainNameText, GetGameListBoxImg } from '@/hooks/useMText'
 import { IGameListBeta } from '@/hooks/useRecentGames'
-import { startGameStep } from '@/pages/state/state'
+import { showModalState, showTipModalState, showTipOkModalState } from '@/pages/state/state'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import sleep from '@/utils/sleep'
 import { toBingoPlayHref } from '@/utils/toBingoHref'
@@ -27,6 +30,7 @@ import CarouselList from '../carouselList/carouselList'
 import css from './InnerBeta.module.stylus'
 const InnerBeta = memo(
   ({ listBetaMapList, bingoHasError }: { listBetaMapList: Map<ChainId, IGameListBeta[]> | undefined; bingoHasError: boolean }) => {
+    const setShowModalState = useSetRecoilState(showModalState)
     const navigate = useNavigate()
     const { playInTg } = usePlay()
     const chainIdParams = useChainIdParams()
@@ -34,11 +38,22 @@ const InnerBeta = memo(
     const setDialogOpen = useSetRecoilState(walletModalOpenState)
     const { openChainModal } = useChainModal()
     const [loading, setLoading] = useState(false)
+    const showTipModal = useRecoilValue(showTipModalState)
+    const showTipsOkModal = useRecoilValue(showTipOkModalState)
+    const userInfo = useRecoilValue(TelegramUserInfoState)
+    const setRefreshState = useSetRecoilState(RefreshState)
+    useEffect(() => {
+      setRefreshState(pre => pre + 1)
+    }, [])
     const handleOnClick = useCallback(async () => {
       if (GlobalVar.IS_TELEGRAM) {
         try {
           setLoading(true)
-          await playInTg()
+          if (showTipModal || showTipsOkModal) {
+            setShowModalState(true)
+          } else {
+            await playInTg()
+          }
         } catch (e) {
           setErrorToast(e)
         } finally {
@@ -63,7 +78,7 @@ const InnerBeta = memo(
         chainIdParams,
         navigate
       })
-    }, [chainIdParams, account, chainId, openChainModal])
+    }, [chainIdParams, account, chainId, openChainModal, showTipModal, showTipsOkModal, userInfo])
     return (
       <div className={`${css.inner} ${GlobalVar.IS_TELEGRAM ? css.tgInner : ''}`}>
         <CarouselList bingoMapList={listBetaMapList} bingoHasError={bingoHasError} />

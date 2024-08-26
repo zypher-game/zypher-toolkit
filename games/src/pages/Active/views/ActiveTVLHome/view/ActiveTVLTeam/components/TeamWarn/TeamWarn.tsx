@@ -56,7 +56,7 @@ const TeamWarn = memo(
         return {
           title: 'Invitation reward rules',
           content: [
-            "You will earn more points, and when their invites earn points. You'll earn +20% bonus points, and when their invitations earn points, you'll earn +10% bonus points.",
+            "You will earn more points when your invites earn points, You'll earn +20% bonus points, and when their invitations earn points, you'll earn +10% bonus points.",
             '',
             'Invite big players -> Earn more points and move up the leaderboard.'
           ],

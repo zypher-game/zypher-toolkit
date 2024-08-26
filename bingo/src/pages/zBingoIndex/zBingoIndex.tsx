@@ -1,4 +1,4 @@
-import { useRecoilValue } from '@ui/src'
+import { GlobalVar, useRecoilValue } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -26,7 +26,7 @@ const zBingoIndex = memo(() => {
       <RightBar />
       {bingoVersion === IBingoVersion.beta ? <InnerBeta listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} /> : null}
       {bingoVersion === IBingoVersion.v1 ? <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} /> : null}
-      <StartGameDialog />
+      {GlobalVar.IS_TELEGRAM ? <StartGameDialog isFromIndex={true} /> : null}
     </>
   )
 }, isEqual)

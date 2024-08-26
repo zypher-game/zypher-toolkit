@@ -27,7 +27,6 @@ import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
-import { useGeSubmitCard } from '@/pages/zBingoIndex/hooks/usePlay'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
@@ -52,17 +51,83 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
   const walletClient = useWalletHandler()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
-  const { submitCardBeta } = useGeSubmitCard()
+
   // Cannot destructure property 'betSize' of 'activeLevels[level]' as it is undefined.
   const handleSubmitCard = useCallback(async () => {
     if (!chainId || !account || !walletClient || pending) {
       return
     }
     setPending(true)
+    const lobbyContract = bingoLobby({
+      chainId,
+      env,
+      bingoVersion,
+      walletClient
+    })
     try {
-      await submitCardBeta()
+      const provider = await getProvider(sample(ChainRpcUrls[chainId]))
+      const bingoLobbyContract = await bingoLobbyFromRpc({
+        chainId,
+        bingoVersion,
+        library: provider,
+        account
+      })
+      const [lineupUsers] = await bingoLobbyContract.functions.lineupUsers()
+      if (lineupUsers && lineupUsers.length && lineupUsers.map((v: string) => v.toLowerCase()).includes(account.toLowerCase())) {
+        const txn = await lobbyContract.write.leave({
+          account: account,
+          maxFeePerGas: gasPrice[chainId],
+          maxPriorityFeePerGas: gasPrice[chainId]
+        })
+        const hash = typeof txn === 'string' ? txn : txn.hash
+        const leaveTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+        if (leaveTx && leaveTx.status === txStatus) {
+          postAccountUpdate({ tx: leaveTx })
+        } else {
+          throw Object.assign(new Error('Leave Transaction Failed'), {
+            name: 'Leave'
+          })
+        }
+      }
+      const localpath = localPathUrl(chainId)
+      let res
+      if (
+        localpath === ILocalPathUrl.COMBO ||
+        localpath === ILocalPathUrl.MANTA ||
+        localpath === ILocalPathUrl.MANTLE ||
+        localpath === ILocalPathUrl.TaikoHeklaTestnet9 ||
+        localpath === ILocalPathUrl.Hypr
+      ) {
+        const donationFee = await bingoLobbyContract.functions.joinFee()
+        res = await lobbyContract.write.join([joinGame.signedCard], {
+          value: new BigNumber(donationFee).toString(),
+          account: account,
+          maxFeePerGas: gasPrice[chainId],
+          maxPriorityFeePerGas: gasPrice[chainId]
+        })
+      } else {
+        res = await lobbyContract.write.join([joinGame.signedCard], {
+          account: account,
+          maxFeePerGas: gasPrice[chainId],
+          maxPriorityFeePerGas: gasPrice[chainId]
+        })
+      }
+      const hash = typeof res === 'string' ? res : res.hash
+      const joinTx: TransactionReceipt | undefined = await waitForTransaction({
+        confirmations: 1,
+        hash
+      })
+      if (joinTx && joinTx.status === txStatus) {
+        postAccountUpdate({ tx: joinTx })
+        setRefreshBalanceState(refreshBalance + 1)
+        setCurrentStep(3)
+      } else {
+        throw Object.assign(new Error('Join Transaction Failed'), {
+          name: 'Join'
+        })
+      }
     } catch (e) {
-      setErrorToast(e)
+      setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)
     }

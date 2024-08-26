@@ -8,16 +8,32 @@ export type IGas0Config = {
   Deployer: Address;
   api: string;
   walletBytecode: Hash;
+  function_call_tip: string;
+  function_multicall_tip: string;
+  PermitProxy: Address;
+  isGameFree: boolean;
 };
 export const Gas0Constants: Record<string, IGas0Config> = {
   [ChainId.ZytronLineaSepoliaTestnet]: {
-    Deployer: "0x2F0aAD09969DCC8f950d50B4F8c400d698b281a4",
+    Deployer: "0x6EbF072578325C2caBDc9A2f7Eb3A3E167c23311",
+    function_call_tip:
+      "You are agreeing to this single transaction to be executed on the chain.",
+    function_multicall_tip:
+      "You are agreeing to the following transactions to be executed on the chain.",
+    PermitProxy: "0x0CD069621F9257d2E1Aa72FBeF5Cc89d2f85c9a9" as `0x${string}`,
     api: "https://rpc-zytron-testnet-linea.zypher.game/api",
     walletBytecode,
+    isGameFree: true,
   },
   [ChainId.ZytronLineaMain]: {
-    Deployer: "0x84a86ee605b1abd68e713cd86362892b8be8673c",
+    Deployer: "0x63774b6e7029a81a29f5598c9c4aeb70b25fad2e",
     api: "https://zytron-linea-mainnet-0gas.zypher.game/api",
+    function_call_tip:
+      "You are agreeing to this single transaction to be executed on the chain.",
+    function_multicall_tip:
+      "You are agreeing to the following transactions to be executed on the chain.",
+    PermitProxy: "0x6e0839df4fb45d76fe355d69fd430adef95e119a" as `0x${string}`,
     walletBytecode,
+    isGameFree: true,
   },
 };

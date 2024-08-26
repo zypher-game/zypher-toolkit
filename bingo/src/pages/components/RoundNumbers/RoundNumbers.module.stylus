@@ -19,8 +19,9 @@
   padding: 1% 1% 1% 2%;
   width: 664px;
   @media screen and (max-width: 830px)
+    border-radius: 18px;
     width: 300px;
-    padding: 6px 4px;
+    padding: 6px 0 6px 4px;
 
   &>div
     &:last-child
@@ -55,15 +56,15 @@
       @media screen and (max-width: 830px)
         width 22px
     @media screen and (max-width: 830px)
-      width: 40px
-      height: 40px
-      line-height: 40px
+      width: 38px
+      height: 38px
+      line-height: 38px
       margin-right: 4px;
       font-size: 28px;
       border-radius: 11px;
       .span_num
         font-size: 20px;
-        height: 40px
+        height: 38px
 
 
     &::before 

@@ -1,5 +1,6 @@
 import {
   addressIsEqual,
+  BigNumberJs,
   ChainId,
   getShortenAddress,
   GlobalVar,
@@ -10,6 +11,7 @@ import {
   PointsIcon,
   preStaticUrl,
   request,
+  targetDate,
   useCustomTranslation,
   useIsW768,
   useRecoilValue
@@ -17,12 +19,13 @@ import {
 import { Col, List, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import styled from 'styled-components'
 
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { GetGameListBoxImg } from '@/hooks/useMText'
+import { usePrice } from '@/hooks/usePrice'
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
@@ -30,6 +33,7 @@ import TgPointImg from '../TgPointImg/TgPointImg'
 import css from './index.module.stylus'
 
 const Text = styled.div`
+  font-family: Lemon;
   font-size: 20px;
   @media screen and (max-width: 830px) {
     font-size: 12px;
@@ -195,6 +199,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
       </Col>
     </Row>
   )
+  const { winAmount, lossAmount } = usePrice()
   return (
     <Content isWinner={isWinner} isMobile={isMobile}>
       <List
@@ -203,7 +208,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
         split={false}
         renderItem={([item, tgName]) => {
           return (
-            <List.Item className={css.listBox}>
+            <List.Item className={`${css.listBox} ${addressIsEqual(item, winner) ? css.listWin : ''}`}>
               <div className={css.content}>
                 <Row align="middle">
                   <Col span={12}>
@@ -223,7 +228,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
                       GlobalVar.IS_TELEGRAM ? (
                         <div className={css.pointCol}>
                           <TgPointImg className={css.pointImg} />
-                          <p>+20</p>
+                          <p>+{winAmount}</p>
                         </div>
                       ) : (
                         <BoxImgWrap isMobile={isMobile}>
@@ -234,14 +239,14 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
                     ) : GlobalVar.IS_TELEGRAM ? (
                       <div className={css.pointCol}>
                         <TgPointImg className={css.pointImg} />
-                        <p>+10</p>
+                        <p>+{lossAmount}</p>
                       </div>
                     ) : (
                       <Text>--</Text>
                     )}
                   </Col>
                   <Col span={6} style={{ textAlign: 'right' }}>
-                    <Text style={addressIsEqual(item, account) ? { color: '#E8421E' } : {}}>
+                    <Text style={{ color: addressIsEqual(winner, item) ? '#54E127' : '#E8421E' }}>
                       <Space align="center" size={1}>
                         <WinBeta chainId={chainId} account={item} />
                         <img
@@ -329,7 +334,7 @@ const PlayerListV1 = memo(
                     </Space>
                   </Col>
                   <Col span={6} style={{ textAlign: 'right' }}>
-                    <Text style={item === account ? (isWinner ? { color: '#54E127' } : { color: '#E8421E' }) : {}}>
+                    <Text style={addressIsEqual(item, account) ? (isWinner ? { color: '#54E127' } : { color: '#E8421E' }) : {}}>
                       <Space align="center" size={1}>
                         <Win chainId={chainId} account={item} />
                         {item === account &&

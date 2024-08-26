@@ -1,4 +1,4 @@
-import { ChainId, defaultActiveChainId, NavKey, pathnameState, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import { addressIsEqual, ChainId, defaultActiveChainId, NavKey, pathnameState, useActiveWeb3React, useRecoilValue } from '@ui/src'
 import { useCallback, useEffect, useMemo } from 'react'
 
 import { useIsGetActiveData } from '@/hooks/useInit'
@@ -73,7 +73,7 @@ export const useActiveInit = () => {
   useEffect(() => {
     if (isActiveInit) {
       setActiveData(pre => {
-        return (pre.accountAddress ?? '').toString().toLowerCase() === (account ?? '').toLowerCase() ? { ...pre } : { ...initActiveData }
+        return addressIsEqual(pre.accountAddress, account) ? { ...pre } : { ...initActiveData }
       })
       getData()
     }

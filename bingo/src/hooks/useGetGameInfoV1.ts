@@ -181,17 +181,27 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
   }, [fetchGameInfo, pathname])
 
   return useMemo(() => {
+    console.log({ tgNameList })
     return {
       roomInfo: {
         ...roomInfo,
-        players: roomInfo.players.map((v, index) => ({
-          ...v,
-          tgName: GlobalVar.IS_TELEGRAM ? (tgNameList[v.user.toLowerCase()] ?? v.tgName ? v.tgName : `Bingo${index}`) : undefined
-        }))
+        players: roomInfo.players.map((v, index) => {
+          console.log({ v, user: v.user })
+          return {
+            ...v,
+            tgName: GlobalVar.IS_TELEGRAM
+              ? tgNameList[v.user.toLowerCase()]
+                ? tgNameList[v.user.toLowerCase()]
+                : v.tgName
+                ? v.tgName
+                : `BingoPlay${index}`
+              : undefined
+          }
+        })
       },
       fetchGameInfo
     }
-  }, [roomInfo, fetchGameInfo])
+  }, [roomInfo, tgNameList, fetchGameInfo])
 }
 
 export default useGetGameInfoV1

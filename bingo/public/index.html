@@ -31,7 +31,15 @@
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:creator" content="@Zypher_Games" />
   <meta name="twitter:image:alt" content="zBingo" />
-  <link rel="stylesheet" href="/init.css" />
+
+  <link
+      rel="preload"
+      href="<%= htmlWebpackPlugin.options.preLink %>/fonts/Lemon-Regular.ttf"
+      as="font"
+      type="font/tff"
+    />
+
+  <link rel="stylesheet" href="https://static-dev.zypher.game/css/bingo/init-v2.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0QHB6VSZV"></script>
   <% if (htmlWebpackPlugin.options.isTg === "true" && htmlWebpackPlugin.options.env === "development") { %>
   <script src="https://fastly.jsdelivr.net/npm/eruda"></script><script>eruda.init()</script>
@@ -57,8 +65,8 @@
     }
     // tg
     window.IS_Localhost = window.location.host.startsWith("192.168")
-    // window.IS_TELEGRAM = IS_Localhost ? true:isTelegram()
-    window.IS_TELEGRAM = isTelegram()
+    window.IS_TELEGRAM = IS_Localhost ? true:isTelegram()
+    // window.IS_TELEGRAM = isTelegram()
     if (location.href.match(/tgtest=1/)) {
       window.IS_TELEGRAM = true
     }
@@ -66,7 +74,11 @@
   </script>
 </head>
 
-<body>
+<% if (htmlWebpackPlugin.options.isTg === "true") { %>
+  <body class="tg_body">
+<% } else { %>
+  <body>
+<% } %>
   <div id="rootLoading">
     <% if (htmlWebpackPlugin.options.isTg === "true") { %>
       <div class="loadingBg">
