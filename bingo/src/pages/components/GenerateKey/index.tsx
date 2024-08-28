@@ -2,19 +2,19 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   LngNs,
   preStaticUrl,
+  timeoutPromise,
+  useAaWallet,
   useCustomTranslation,
-  useGlobalVar,
   useIsTelegram,
   useIsW768,
   useResetRecoilState,
   useSetRecoilState,
-  useWalletHandler,
   walletModalOpenState
 } from '@ui/src'
 import { getWeb3Sign } from '@ui/src'
 import { Space } from 'antd'
 import cx from 'classnames'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
@@ -39,9 +39,9 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const IS_TELEGRAM = useIsTelegram()
-  const handleGenerateKey = async () => {
+  const handleGenerateKey = useCallback(async () => {
     if (!chainId || !account) {
       return
     }
@@ -50,9 +50,6 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     resetGameRoom()
     const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
     try {
-      const timeoutPromise = new Promise((_, reject) => {
-        setTimeout(() => reject(new Error('Operation timed out')), 10000)
-      })
       await Promise.race([
         (async () => {
           const label = await lobbyContract.read.getNextKeyLabel([account])
@@ -65,14 +62,14 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
           }
           setCurrentStep(1)
         })(),
-        timeoutPromise
+        timeoutPromise()
       ])
     } catch (e) {
       setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)
     }
-  }
+  }, [chainId, account, walletClient])
   const { t } = useCustomTranslation([LngNs.zBingo])
   return (
     <div className={cx(css.generateKey, { [css.disabled]: disabled })}>

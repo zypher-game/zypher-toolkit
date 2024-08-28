@@ -15,7 +15,7 @@ import { AllChainInfo } from "../constant/chains";
 import { IWebAppData } from "../hooks/useTelegramUser";
 import { tgChain } from "./utils/tgChain";
 import { SetterOrUpdater } from "recoil";
-import { IGlobalVar } from "../hooks/GlabalVar/globalAtoms";
+import { IAAWallet } from "../hooks/aaWallet/aaWalletAtoms";
 // import mitt from "mitt";
 // export const mockBus = mitt<{ addressChange: string }>();
 const getSupportedChainIdList = (
@@ -64,11 +64,11 @@ const getConnectors = ({
   publicClient,
   chainIdList,
   WebAppData,
-  setGlobalVar,
+  setAaWallet,
 }: {
   env: string;
   publicClient: any;
-  setGlobalVar: SetterOrUpdater<IGlobalVar>;
+  setAaWallet: SetterOrUpdater<IAAWallet>;
   chainIdList?: ChainId[];
   WebAppData?: IWebAppData;
 }): (() => Connector<any, any>[]) => {
@@ -78,7 +78,7 @@ const getConnectors = ({
       WebAppData,
       publicClient,
       chains,
-      setGlobalVar,
+      setAaWallet,
     });
   }
   return connectorsForWallets([
@@ -107,12 +107,12 @@ const getConnectors = ({
 };
 export const getWagmiConfig = ({
   env,
-  setGlobalVar,
+  setAaWallet,
   chainIdList,
   WebAppData,
 }: {
   env: string;
-  setGlobalVar: SetterOrUpdater<IGlobalVar>;
+  setAaWallet: SetterOrUpdater<IAAWallet>;
   chainIdList?: ChainId[];
   WebAppData?: IWebAppData;
 }): any => {
@@ -125,7 +125,7 @@ export const getWagmiConfig = ({
     publicClient,
     chainIdList,
     WebAppData,
-    setGlobalVar,
+    setAaWallet,
   });
   console.log({ connectors });
 

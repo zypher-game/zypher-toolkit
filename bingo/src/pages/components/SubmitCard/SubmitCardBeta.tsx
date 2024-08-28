@@ -48,7 +48,7 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const { postAccountUpdate } = useAccountInvitation(env)
   const [isCard, setIsCard] = useState(false)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const IS_TELEGRAM = useIsTelegram()

@@ -1,18 +1,21 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import {
+  aaApproveAndFcErc20,
+  BigNumberJs,
   ChainRpcUrls,
   erc20Contract,
   getProvider,
   IContractName,
   LngNs,
+  MulticallMessageItem,
   pointsBalanceState,
   pointsDialogState,
   preStaticUrl,
   refreshBalanceState,
   txStatus,
+  useAaWallet,
   useAccountInvitation,
   useCustomTranslation,
-  useGlobalVar,
   useIsTelegram,
   useIsW768,
   usePublicNodeWaitForTransaction,
@@ -22,16 +25,17 @@ import {
   useWalletHandler,
   zkBingo
 } from '@ui/src'
+import { ZytronPermitTypedData } from '@ui/src/gas0/constants/typedData'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
 import { sample } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { formatEther } from 'viem'
+import { encodeFunctionData, formatEther, Hash, hexToSignature } from 'viem'
 import { TransactionReceipt } from 'viem'
 
 import BingoBoardView from '@/components/BingoBoardView'
 import { gasPrice } from '@/constants/constants'
-import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
+import bingoLobby, { bingoLobbyFromRpc, getBingoLobbyAbi } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
@@ -56,9 +60,11 @@ const SubmitCardV1 = () => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const { postAccountUpdate } = useAccountInvitation(env)
   const [isCard, setIsCard] = useState(false)
-  const { walletClient } = useGlobalVar()
+  const { wallet, aaWalletClient: walletClient, aa, aa_mm_address } = useAaWallet()
+
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const pointsBalance = useRecoilValue(pointsBalanceState)
+  console.log({ aa_mm_address, pointsBalance })
   const disable = useMemo(() => {
     if (activeLevels[level]) {
       return Number(formatEther((activeLevels[level] as any).betSize)) > pointsBalance
@@ -76,12 +82,11 @@ const SubmitCardV1 = () => {
     }
   }, [chainId, account, walletClient, activeLevels, level])
   const getApprove = useCallback(async () => {
-    if (chainId && account && walletClient && activeLevels) {
-      const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken)
-      const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
-      const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
-      const allowance = await pointsContract.read.allowance(['0x11C705BCEBc0a380602A7047B3058a51Ab586689', ZkBingoFee])
-      console.log({ allowance })
+    if (chainId && aa_mm_address && walletClient && activeLevels) {
+      const GPAddress = zkBingo(chainId, IContractName.ZypherGameToken)
+      const FeeAddress = zkBingo(chainId, IContractName.Fee)
+      const GpContract = erc20Contract(chainId, env, GPAddress, walletClient)
+      const allowance = await GpContract.read.allowance([aa_mm_address, FeeAddress])
       const { betSize: tokenAmount } = activeLevels[level] as any
       if (new BigNumber(allowance.toString()).lt(tokenAmount.toString())) {
         setIsApprove(false)
@@ -89,26 +94,27 @@ const SubmitCardV1 = () => {
         setIsApprove(true)
       }
     }
-  }, [chainId, account, activeLevels, walletClient, level])
+  }, [chainId, activeLevels, walletClient, level, aa_mm_address])
   const getActiveLevels = useCallback(async () => {
     const provider = await getProvider(sample(ChainRpcUrls[chainId]))
     const bingoLobbyContract = await bingoLobbyFromRpc({
       chainId,
       bingoVersion,
       library: provider,
-      account
+      account: aa_mm_address
     })
     const { list, wins } = await bingoLobbyContract.functions.activeLevels()
     setActiveLevels(list)
     setWinRate(wins.toNumber())
-  }, [chainId, account, walletClient, bingoVersion])
+  }, [chainId, aa_mm_address, walletClient, bingoVersion])
   useEffect(() => {
     getActiveLevels()
   }, [chainId, account, walletClient, bingoVersion])
   // Cannot destructure property 'betSize' of 'activeLevels[level]' as it is undefined.
   const handleSubmitCard = async () => {
-    if (!chainId || !account || !walletClient || !activeLevels.length) {
-      if (chainId && account && !activeLevels.length) {
+    console.log({ chainId, aa_mm_address, walletClient, wallet, activeLevels })
+    if (!chainId || !aa_mm_address || !walletClient || !activeLevels.length) {
+      if (chainId && aa_mm_address && !activeLevels.length) {
         getActiveLevels()
       }
       return
@@ -121,7 +127,7 @@ const SubmitCardV1 = () => {
       walletClient
     })
     try {
-      const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken)
+      const GPAddress = zkBingo(chainId, IContractName.ZypherGameToken)
       const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
       // const lineupUsers = await lobbyContract.read.lineupUsers()
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
@@ -129,10 +135,11 @@ const SubmitCardV1 = () => {
         chainId,
         bingoVersion,
         library: provider,
-        account
+        account: aa_mm_address
       })
       const [lvId, lineupUsers] = await bingoLobbyContract.functions.lineupUsers()
-      if (lineupUsers.map((v: string) => v.toLowerCase()).includes(account.toLowerCase())) {
+      console.log({ lineupUsers })
+      if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
           account: account,
           maxFeePerGas: gasPrice[chainId],
@@ -148,34 +155,83 @@ const SubmitCardV1 = () => {
           })
         }
       }
-      const pointsContract = erc20Contract(chainId, env, pointsAddress, walletClient)
+      const GpContract = erc20Contract(chainId, env, GPAddress, walletClient)
       const { betSize: tokenAmount, level: realLevel } = activeLevels[level] as any
       const donationFee = await bingoLobbyContract.functions.donationFee()
-      const allowance = await pointsContract.read.allowance([account, ZkBingoFee])
-      if (new BigNumber(allowance.toString()).lt(tokenAmount.toString())) {
-        const approveTxn = await pointsContract.write.approve([ZkBingoFee, tokenAmount], {
+      let hash = '' as Hash
+      console.log({ donationFee: new BigNumberJs(donationFee).toFixed() })
+      if (account && aa && wallet) {
+        const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
+        const joinData = await (async () => {
+          const lobbyAbi = getBingoLobbyAbi({ bingoVersion })
+          return encodeFunctionData({ abi: lobbyAbi, args: [realLevel, joinGame.signedCard], functionName: 'join' })
+        })()
+        console.log('aaApproveAndFcErc20: ', {
+          erc20Address: GPAddress,
+          wallet: wallet,
+          tokenAmount,
+          permitForAddress: ZkBingoFee,
+          realLevel,
+          signedCard: joinGame.signedCard,
+          donationFee: new BigNumberJs(donationFee).toFixed(),
+          otherFc: [
+            {
+              from: aa_mm_address,
+              to: lobbyAddress,
+              data: joinData,
+              value: BigInt(donationFee)
+            }
+          ]
+        })
+        const donationFeeBig = new BigNumberJs(donationFee)
+        const otherFc: MulticallMessageItem[] = []
+        if (!donationFeeBig.eq(0)) {
+          const transactionResponse = await walletClient.sendTransaction({
+            to: aa_mm_address,
+            value: BigInt(donationFee)
+          })
+        }
+        otherFc.push({
+          from: aa_mm_address,
+          to: lobbyAddress,
+          data: joinData,
+          value: BigInt(donationFee)
+        })
+        hash = await aaApproveAndFcErc20({
+          erc20Address: GPAddress,
+          wallet: wallet,
+          tokenAmount,
+          permitForAddress: ZkBingoFee,
+          otherFc: otherFc
+        })
+      } else {
+        const allowance = await GpContract.read.allowance([aa_mm_address, ZkBingoFee])
+        if (new BigNumber(allowance.toString()).lt(tokenAmount.toString())) {
+          const approveTxn = await GpContract.write.approve([ZkBingoFee, tokenAmount], {
+            account: account,
+            maxFeePerGas: gasPrice[chainId],
+            maxPriorityFeePerGas: gasPrice[chainId]
+          })
+          const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
+          await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
+          setSuccessToast({
+            title: '',
+            message: t('Approve successful')
+          })
+          setIsApprove(true)
+          setPending(false)
+          getApprove()
+          return
+        }
+        const res = await lobbyContract.write.join([realLevel, joinGame.signedCard], {
+          value: new BigNumber(donationFee).toString(),
           account: account,
           maxFeePerGas: gasPrice[chainId],
           maxPriorityFeePerGas: gasPrice[chainId]
         })
-        const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
-        await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
-        setSuccessToast({
-          title: '',
-          message: t('Approve successful')
-        })
-        setIsApprove(true)
-        setPending(false)
-        getApprove()
-        return
+        hash = typeof res === 'string' ? res : res.hash
       }
-      const res = await lobbyContract.write.join([realLevel, joinGame.signedCard], {
-        value: new BigNumber(donationFee).toString(),
-        account: account,
-        maxFeePerGas: gasPrice[chainId],
-        maxPriorityFeePerGas: gasPrice[chainId]
-      })
-      const hash = typeof res === 'string' ? res : res.hash
+
       const joinTx: TransactionReceipt | undefined = await waitForTransaction({
         confirmations: 1,
         hash

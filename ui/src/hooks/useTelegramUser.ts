@@ -11,7 +11,8 @@ import { httpPost } from "../utils/request";
 import { TG_BOT_URL } from "../constant/constant";
 import { localStorageEffect } from "../utils/localStorageEffect";
 import BigNumberJs, { FORMAT } from "../utils/BigNumberJs";
-import { useGlobalVar } from "./GlabalVar/hooks";
+import { useAaWallet } from "./aaWallet/hooks";
+import { useIsTelegram } from "./aaWallet/useIsTelegram";
 export type IWebAppData = {
   auth_date: string;
   hash: string;
@@ -73,7 +74,8 @@ const getFaucet = async (WebAppData: IWebAppData) => {
   }
 };
 export const useTelegramUser = () => {
-  const { mockAcc, IS_TELEGRAM } = useGlobalVar();
+  const { mockAcc } = useAaWallet();
+  const IS_TELEGRAM = useIsTelegram();
   const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const refresh = useRecoilValue(RefreshState);
@@ -124,7 +126,6 @@ export const useTelegramUser = () => {
     },
     [WebAppData?.user, refresh]
   );
-  console.log({ user });
   useEffect(() => {
     if (user) {
       localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);

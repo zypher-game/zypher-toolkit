@@ -6,7 +6,7 @@ import {
   useAccountInvitation,
   useActiveWeb3React,
   useCustomTranslation,
-  useGlobalVar,
+  useAaWallet,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
@@ -42,7 +42,7 @@ export const useCombo = () => {
   const setDialogOpen = useSetRecoilState(walletModalOpenState)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const [checkInLoading, setCheckInLoading] = useState(false)
   const { t } = useCustomTranslation([LngNs.home])
   const getData = useCallback(async () => {

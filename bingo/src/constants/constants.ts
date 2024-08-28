@@ -1,4 +1,4 @@
-import { ChainId } from '@ui/src'
+import { BigNumberJs, ChainId } from '@ui/src'
 
 import { env } from '@/utils/config'
 
@@ -6,19 +6,19 @@ export const defaultChainId = ChainId.LineaMainnet
 
 export const gradeData = [
   {
-    betSize: 5000000000000000000000n,
+    betSize: new BigNumberJs('5000000000000000000000').toFixed(),
     laber: '5,000',
     minWinCounts: 0,
     level: 1
   },
   {
-    betSize: 10000000000000000000000n,
+    betSize: new BigNumberJs('10000000000000000000000').toFixed(),
     laber: '10,000',
     minWinCounts: 10,
     level: 2
   },
   {
-    betSize: 20000000000000000000000n,
+    betSize: new BigNumberJs('20000000000000000000000').toFixed(),
     laber: '20,000',
     minWinCounts: 25,
     level: 3

@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { ChainId, formatMoney, LngNs, preStaticUrl, useCustomTranslation, useGlobalVar, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, formatMoney, LngNs, preStaticUrl, useCustomTranslation, useAaWallet, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { Space, Tooltip } from 'antd'
 import React, { useCallback, useMemo, useState } from 'react'

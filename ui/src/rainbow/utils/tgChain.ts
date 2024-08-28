@@ -8,17 +8,17 @@ import sleep from "../../utils/sleep";
 import { IWebAppData } from "../../hooks/useTelegramUser";
 import { AllChainInfo } from "../../constant/chains";
 import { SetterOrUpdater } from "recoil";
-import { IGlobalVar } from "ui/src/hooks/GlabalVar/globalAtoms";
+import { IAAWallet } from "../../hooks/aaWallet/aaWalletAtoms";
 export const tgChain = ({
   WebAppData,
   publicClient,
   chains,
-  setGlobalVar,
+  setAaWallet,
 }: {
   WebAppData?: IWebAppData;
   publicClient: any;
   chains: Chain[];
-  setGlobalVar: SetterOrUpdater<IGlobalVar>;
+  setAaWallet: SetterOrUpdater<IAAWallet>;
 }) => {
   const provider = new ethers.providers.JsonRpcProvider(
     ChainRpcUrls[ChainId.SagaMainnet][0]
@@ -61,7 +61,7 @@ export const tgChain = ({
     }),
   }).extend(publicActions);
   const mock = new MockConnector({ chains, options: { walletClient } });
-  setGlobalVar((pre) => ({
+  setAaWallet((pre) => ({
     ...pre,
     mockAcc: async (address: Address, proof: any) => {
       acc.setAddress(address);

@@ -3,8 +3,8 @@ import {
   LngNs,
   preStaticUrl,
   SvgComponent,
+  useAaWallet,
   useCustomTranslation,
-  useGlobalVar,
   useIsTelegram,
   useIsW768,
   useRecoilState,
@@ -63,7 +63,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const isMobile = useIsW768()
   const [cardNumbers, setCardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
@@ -78,6 +78,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
 
   const handleEncryptCard = async () => {
     if (!chainId || !account || !walletClient) {
+      console.log({ chainId, account, walletClient })
       return
     }
     setPending(true)

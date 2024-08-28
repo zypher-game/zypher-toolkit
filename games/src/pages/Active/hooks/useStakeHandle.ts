@@ -9,12 +9,13 @@ import {
   NavKey,
   refreshBalanceState,
   sleep,
+  timeoutPromise,
   TVLChainId,
   tvlTokenAddress,
   txStatus,
+  useAaWallet,
   useAccountInvitation,
   useActiveWeb3React,
-  useGlobalVar,
   useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
@@ -72,7 +73,7 @@ export const useStakeHandle = (): {
   const { getStakingData } = useStakeData()
   const isDataLoading = useRecoilValue(isTvlDataLoadingState)
   const tvlStakingData = useRecoilValue(tvlStakingDataState)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const { postAccountUpdate } = useAccountInvitation(env)
   const isW768 = useIsW768()
   // const { isRegistered } = tvlStakingData
@@ -158,14 +159,7 @@ export const useStakeHandle = (): {
             // setIsApproveLoading(false)
             // setSuccessToast({ title: '', message: 'Approve successful' })
             // 添加超时处理
-            const timeoutPromise = new Promise((resolve, reject) =>
-              setTimeout(async () => {
-                const allow = await _erc20Contract.read.allowance([account, activeTokenList[_nativeChainId].Staking])
-                resolve(new BigNumberJs(allow.toString()))
-              }, 4000)
-            )
-
-            Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise])
+            Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise()])
               .then(result => {
                 setIsApproveLoading(false)
                 if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
@@ -299,7 +293,7 @@ export const useReStakingHandle = () => {
   const [claimSBTLoading, setClaimSBTLoading] = useState(false)
   const [claimCrLoading, setClaimCrLoading] = useState(false)
   const [claimGpLoading, setClaimGpLoading] = useState(false)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
 
   const { getData } = useGetData()
   const { account, chainId: nativeChainId } = useActiveWeb3React()

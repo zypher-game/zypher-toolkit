@@ -1,4 +1,4 @@
-import { useActiveWeb3React, useGlobalVar } from '@ui/src'
+import { useActiveWeb3React, useAaWallet } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
 import bingoLobby from '../contract/bingoLobby'
@@ -7,7 +7,7 @@ export type IRoundInfo = { player: string; round: number; remain: number; status
 const useGetCurrentRound = (gameId: number | string | undefined): IRoundInfo => {
   const [roundInfo, setRoundInfo] = useState({ player: '', round: 0, remain: 28, status: '' })
   const { chainId } = useActiveWeb3React()
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
 
   const fetchCurrentRound = useCallback(async () => {
     try {

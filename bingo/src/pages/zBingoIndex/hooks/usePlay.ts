@@ -7,7 +7,7 @@ import {
   TelegramUserInfoState,
   txStatus,
   useAccountInvitation,
-  useGlobalVar,
+  useAaWallet,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useRecoilValue
@@ -41,7 +41,7 @@ export const usePlay = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const userInfo = useRecoilValue(TelegramUserInfoState)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const playInTg = async () => {
     if (!userInfo || !userInfo.id) {
       throw Error('No user, Please /start again, And try late')

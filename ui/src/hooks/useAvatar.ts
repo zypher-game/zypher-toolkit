@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../components/ConnectWallet/state/connectWalletState";
 import generateAvatar from "../utils/generateAvatar";
-import { useIsTelegram } from "./GlabalVar/useIsTelegram";
+import { useIsTelegram } from "./aaWallet/useIsTelegram";
 
 export const useAvatar = (
   account?: string,

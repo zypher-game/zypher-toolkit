@@ -1,4 +1,4 @@
-import { IContractName, useRecoilState, zkBingo } from '@ui/src'
+import { IContractName, useAaWallet, useRecoilState, zkBingo } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 
@@ -15,8 +15,8 @@ export default function useRestoreGame<T>() {
   const [loading, setLoading] = useState(false)
   const [isPlaying, setisPlaying] = useState(false)
   const [gameId, setGameId] = useState<number>()
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { aa_mm_address: account } = useAaWallet()
   const handle = useCallback(async () => {
     if (!chainId || !account) {
       return

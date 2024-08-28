@@ -1,16 +1,18 @@
 import { useRecoilState } from '@ui/src'
 import { preStaticUrl } from '@ui/src'
 import { isEqual } from 'lodash'
-import React, { memo, useCallback, useEffect, useState } from 'react'
+import React, { memo, useCallback } from 'react'
 import styled from 'styled-components'
 
 import { SoundOn } from '@/pages/state/state'
 
 const Switch = styled.div`
   cursor: pointer;
-  img {
-    width: 32px;
-    height: 32px;
+  @media screen and (max-width: 830px) {
+    img {
+      width: 32px;
+      height: 32px;
+    }
   }
 `
 

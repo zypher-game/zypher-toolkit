@@ -13,7 +13,7 @@ import {
   useAccountInvitation,
   useActiveWeb3React,
   useChainModal,
-  useGlobalVar,
+  useAaWallet,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
@@ -113,7 +113,7 @@ export const useGPAction = () => {
   const [isWithdrawLoading, setIsWithdrawLoading] = useState(false)
   const [isApprovedForAll, setIsApprovedForAll] = useState<string[]>([])
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const { postAccountUpdate } = useAccountInvitation(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const { openChainModal } = useChainModal()

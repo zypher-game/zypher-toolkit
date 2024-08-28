@@ -1,14 +1,4 @@
-import {
-  AllChainInfo,
-  ChainRpcUrls,
-  divisorBigNumber,
-  httpGet,
-  pathnameState,
-  TG_BOT_URL,
-  useGlobalVar,
-  useIsTelegram,
-  useRecoilValue
-} from '@ui/src'
+import { AllChainInfo, ChainRpcUrls, divisorBigNumber, httpGet, pathnameState, TG_BOT_URL, useAaWallet, useIsTelegram, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { formatEther } from 'ethers/lib/utils'
 import { sample } from 'lodash'
@@ -108,7 +98,7 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
   }))
 
   const fetchGameInfo = useCallback(async () => {
-    if (!_chainId || roomInfo.status === 'end' || roomInfo.status === 'overtime') {
+    if (!_chainId || AllChainInfo[_chainId] || roomInfo.status === 'end' || roomInfo.status === 'overtime') {
       return
     }
     const publicClient = createPublicClient({
@@ -119,7 +109,7 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
       bingoVersion,
       chainId: _chainId
     })
-    const abi = getBingoLobbyAbi({ chainId: _chainId, bingoVersion })
+    const abi = getBingoLobbyAbi({ bingoVersion })
     const res = await publicClient.multicall({
       contracts: [
         { address, abi, functionName: 'getCurrentRound', args: [gameId] },

@@ -1,5 +1,5 @@
 import { LoadingOutlined } from '@ant-design/icons'
-import { preStaticUrl, txStatus, useGlobalVar, useResetRecoilState, useSetRecoilState } from '@ui/src'
+import { preStaticUrl, txStatus, useAaWallet, useResetRecoilState, useSetRecoilState } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
@@ -34,7 +34,7 @@ const GameExit: React.FC = () => {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const { id: gameId } = useParams()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const { postAccountUpdate } = useAccountInvitation(env)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const handleClick = async () => {

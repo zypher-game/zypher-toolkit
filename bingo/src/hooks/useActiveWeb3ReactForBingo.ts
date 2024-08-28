@@ -4,7 +4,7 @@ import {
   ChainId,
   useAccount,
   useChainId,
-  useGlobalVar,
+  useAaWallet,
   usePublicClient,
   useRecoilValue,
   useWalletHandler
@@ -24,7 +24,7 @@ export function useActiveWeb3ReactForBingo(): {
   const _chainId = useChainId()
   const { address } = useAccount()
   const provider = usePublicClient() as PublicClient
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     const chainId = `${_chainId}` as ChainId

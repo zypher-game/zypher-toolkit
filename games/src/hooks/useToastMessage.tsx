@@ -1,5 +1,4 @@
-import { preStaticUrl, SvgComponent, useSetGlobalVar } from '@ui/src'
-import { GlobalVar } from '@ui/src'
+import { preStaticUrl, SvgComponent, useSetAaWallet } from '@ui/src'
 import { notification } from 'antd'
 import React, { useEffect, useRef } from 'react'
 
@@ -11,10 +10,10 @@ export const useToastMessage = () => {
   const error: any = useAppSelector(state => state.user.error)
   const success: any = useAppSelector(state => state.user.success)
   const dispatch = useAppDispatch()
-  const setGlobalVar = useSetGlobalVar()
+  const setAaWallet = useSetAaWallet()
   useEffect(() => {
     if (toastContainerRef.current) {
-      setGlobalVar(pre => ({
+      setAaWallet(pre => ({
         ...pre,
         getContainer: toastContainerRef.current
       }))

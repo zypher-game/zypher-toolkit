@@ -7,14 +7,12 @@ import * as ethers from 'ethers'
 import { Address, WalletClient } from 'wagmi'
 
 import { IBingoVersion } from '@/pages/state/state'
-import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
 
-export const getBingoLobbyAbi = ({ chainId, bingoVersion }: { chainId: ChainId; bingoVersion: IBingoVersion }): any => {
+export const getBingoLobbyAbi = ({ bingoVersion }: { bingoVersion: IBingoVersion }): any => {
   if (bingoVersion === IBingoVersion.v1) {
     return abiV1
   }
-  const localpath = localPathUrl(chainId)
-  return localpath === ILocalPathUrl.BATE ? abiV0 : abiV0
+  return abiV0
 }
 export const getBingoLobbyAddress = ({ bingoVersion, chainId }: { bingoVersion: IBingoVersion; chainId: ChainId }) => {
   return bingoVersion === IBingoVersion.v1 ? zkBingo(chainId, IContractName.Lobby) : zkBingoV0(chainId, IContractName.Lobby)
@@ -36,8 +34,7 @@ const bingoLobby = ({
     bingoVersion,
     chainId
   })
-  const abi = bingoVersion === IBingoVersion.v1 ? abiV1 : abiV0
-  console.log({ walletClient })
+  const abi = getBingoLobbyAbi({ bingoVersion })
   return getContract({
     env,
     abi: abi,
@@ -61,7 +58,7 @@ export const bingoLobbyFromRpc = ({
     bingoVersion,
     chainId
   })
-  const abi = bingoVersion === IBingoVersion.v1 ? abiV1 : abiV0
+  const abi = getBingoLobbyAbi({ bingoVersion })
   return getContractFromRpc({
     address,
     abi,

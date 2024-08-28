@@ -6,9 +6,9 @@ import {
   preStaticUrl,
   SvgComponent,
   txStatus,
+  useAaWallet,
   useAccountInvitation,
   useCustomTranslation,
-  useGlobalVar,
   useIsTelegram,
   useIsW768,
   useRecoilState
@@ -106,9 +106,10 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const [pending, setPending] = useState(false)
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { aa_mm_address: account } = useAaWallet()
   const [isCard, setIsCard] = useState(false)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const { isPlaying, gameId } = useRestoreGame()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const chainIdParams = useChainIdParams()

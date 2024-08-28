@@ -1,4 +1,3 @@
-import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
 import { AddressZero } from "@ethersproject/constants";
 import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
 import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
@@ -479,10 +478,10 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
 export enum IContractName {
   Lobby = "lobby",
   Card = "card",
-  Points = "points",
-  ZypherGameToken = "ZypherGameToken",
+  Points = "points", // 卖代币的逻辑
+  ZypherGameToken = "ZypherGameToken", // 代币
   Reward = "reward",
-  Fee = "ZkBingoFee",
+  Fee = "ZkBingoFee", // 收费逻辑
   Monster = "Monster",
   Z2048SBT = "Z2048SBT",
   ZkGame2048 = "ZkGame2048",
@@ -533,7 +532,19 @@ export const zkBingo = (
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
     // @ts-ignore
-    const address = zkBingoContractsV1?.[chainId]?.[_repo];
+    let address = zkBingoContractsV1?.[chainId]?.[_repo];
+    if (chainId === ChainId.ZytronLineaSepoliaTestnet) {
+      address = {
+        date: "2024-08-01T07:49:19.451Z",
+        chainId: 19546,
+        deployer: "0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE",
+        ZypherGameToken: "0x71a56BD2E4391bc6f6012F843DE6d7e82E3bc64f",
+        ZkBingoCard: "0x247e72B5553dF9E7df2fE32D1A8a35b275Eff086",
+        ZkBingoLobby: "0x0C9A5E2b95Ce0546AeFb6d921280DBe964acf3c9",
+        ZkBingoFee: "0x2EEF6B573dBAB1BB727E07081Aeb177c9787DB37",
+        ZkBingoPoints: "0x3A5FD28897C10D802Fa516659Fd5d2705E69da93",
+      };
+    }
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {
       returnAddress = address.ZkBingoLobby;
@@ -542,9 +553,10 @@ export const zkBingo = (
     } else if (name === IContractName.Points) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === IContractName.ZypherGameToken) {
+      // GP
       returnAddress =
-        chainId === ChainId.ZytronLineaSepoliaTestnet
-          ? "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D"
+        chainId === ChainId.ZytronLineaMain
+          ? "0xeC928B58691493Bc28Ed8D5866c145918A8aAce2"
           : address.ZypherGameToken
           ? address.ZypherGameToken
           : address.ZkBingoToken;
@@ -575,10 +587,10 @@ export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export const TaskReweet1 =
   "https://twitter.com/Zypher_Network/status/1819215629041254588";
 
-type IGlobalVar = {
+type IAAWallet = {
   dispatch: (arg: any) => any;
 };
 
-export const GlobalVar: IGlobalVar = {
+export const GlobalVar: IAAWallet = {
   dispatch: (arg: any) => null as any,
 };

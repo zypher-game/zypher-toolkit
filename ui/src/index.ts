@@ -37,8 +37,8 @@ export { AllChainInfo } from "./constant/chains";
 export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
 export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
 export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
-export { useGlobalVar, useSetGlobalVar } from "./hooks/GlabalVar/hooks";
-export { useIsTelegram } from "./hooks/GlabalVar/useIsTelegram";
+export { useAaWallet, useSetAaWallet } from "./hooks/aaWallet/hooks";
+export { useIsTelegram } from "./hooks/aaWallet/useIsTelegram";
 
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
 
@@ -110,6 +110,9 @@ export {
   GlobalVar,
 } from "./constant/constant";
 export { useWalletHandler } from "./gas0/hooks/useWalletHandler";
+export { aaApproveAndFcErc20 } from "./gas0/utils/aaApproveAndFcErc20";
+export { MulticallMessageItem } from "./gas0/utils/encodeFunctionMulticall";
+
 export {
   TVL_API,
   TVLChainId,
@@ -136,7 +139,7 @@ export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";
 export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
 export { default as cn } from "./utils/cn";
-export { default as sleep } from "./utils/sleep";
+export { default as sleep, timeoutPromise } from "./utils/sleep";
 export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 
 export {

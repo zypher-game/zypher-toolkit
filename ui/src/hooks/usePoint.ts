@@ -6,13 +6,15 @@ import {
   pointsDialogState,
   pointsWarnState,
   refreshBalanceState,
-  useGlobalVar,
+  sleep,
+  useAaWallet,
+  timeoutPromise,
 } from "..";
 import { TransactionReceipt } from "viem";
 import BigNumberjs from "bignumber.js";
 import { useActiveWeb3React } from "./useActiveWeb3React";
 import { useAccountInvitation } from "./useAccountInvitation";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { usePublicNodeWaitForTransaction } from "./usePublicNodeWaitForTransaction";
 import { useWalletClient } from "wagmi";
@@ -86,6 +88,7 @@ export const useSwapPoint = ({
   const { account, chainId } = useActiveWeb3React();
   const { postAccountUpdate } = useAccountInvitation(env);
   const [isLoading, setIsLoading] = useState(false);
+  const pointsDialogOpen = useRecoilValue(pointsDialogState);
   const setPointsDialogOpen = useSetRecoilState(pointsDialogState);
   const setPointsAnimNumState = useSetRecoilState(pointsAnimNumState);
   const [refreshBalance, setRefreshBalanceState] =
@@ -95,7 +98,10 @@ export const useSwapPoint = ({
   const hidePointsWarn = useRecoilValue(hidePointsWarnState);
   const [pointsWarn, setPointsWarn] = useRecoilState(pointsWarnState);
   const [choseIndex, setChoseIndex] = useState<number>();
-  const { walletClient } = useGlobalVar();
+  const { walletClient } = useAaWallet();
+  useEffect(() => {
+    setIsLoading(false);
+  }, [pointsDialogOpen]);
   const swapPointHandle = useCallback(
     async (index?: number) => {
       if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {

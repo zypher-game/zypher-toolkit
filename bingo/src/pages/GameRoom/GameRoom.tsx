@@ -15,10 +15,10 @@ import {
   RefreshState,
   TG_BOT_URL,
   txStatus,
+  useAaWallet,
   useAccountInvitation,
   useCurrentLanguage,
   useCustomTranslation,
-  useGlobalVar,
   useIsTelegram,
   useIsW768,
   usePublicNodeWaitForTransaction,
@@ -224,7 +224,7 @@ const GameRoom: React.FC = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [pending, setPending] = useState(false)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const { walletClient } = useGlobalVar()
+  const { walletClient } = useAaWallet()
   const [gamesWon, setWinRate] = useState(0)
   const { t } = useCustomTranslation([LngNs.zBingo])
   const chainIdParams = useChainIdParams()

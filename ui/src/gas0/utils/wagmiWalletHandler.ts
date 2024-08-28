@@ -15,8 +15,6 @@ import {
   Transport,
   toHex,
   Account,
-  hashTypedData,
-  encodeDeployData,
   hexToBytes,
   bytesToHex,
 } from "viem";
@@ -26,38 +24,39 @@ import { WalletAbi } from "../abis/Wallet";
 import { Gas0Constants, IGas0Config } from "../constants/Gas0Constant";
 import BigNumberJs from "../../utils/BigNumberJs";
 import { getAddressAA } from "./getAddressAA";
-import {
-  ZytronSetAdminTypedData,
-  ZytronSignTypedData,
-} from "../constants/typedData";
+import { ZytronSignTypedData } from "../constants/typedData";
 import { httpPost } from "../../utils/request";
 import { getEIP712Sign } from "../../utils/getSign";
-import { DeployerAbi } from "../abis/Deployer";
-import { IContractName, zkBingo } from "ui/src/constant/constant";
-
+import { IContractName, zkBingo } from "../../constant/constant";
+import { IGas0ApiConfig } from "../hooks/useGas0Balance";
+import { Hash } from "@wagmi/core";
+export type Iaa = {
+  isFree: boolean;
+  address: Address;
+  contract: GetContractResult<
+    typeof WalletAbi,
+    NonNullable<GetWalletClientResult>
+  >;
+  config: IGas0Config;
+  configFromApi: IGas0ApiConfig;
+};
 export class WagmiWalletHandler {
   chain: Chain;
   account: Account; // owner
   walletClient: NonNullable<GetWalletClientResult>;
+  aaWalletClient?: NonNullable<GetWalletClientResult>;
   publicClient: GetPublicClientResult<PublicClient>;
   chainId: number;
   address: {
     GP: Address;
   };
-  aa?: {
-    isFree: boolean;
-    address: Address;
-    contract: GetContractResult<
-      typeof WalletAbi,
-      NonNullable<GetWalletClientResult>
-    >;
-    config: IGas0Config;
-  };
+  aa?: Iaa;
   constructor(
     walletClient: NonNullable<GetWalletClientResult>,
-    gas0Balance: string
+    gas0Balance: string,
+    configApi: IGas0ApiConfig
   ) {
-    console.log({ gas0Balance });
+    console.log({ gas0Balance, configApi });
     this.chainId = walletClient.chain.id;
     this.chain = walletClient.chain;
     this.walletClient = walletClient;
@@ -68,22 +67,24 @@ export class WagmiWalletHandler {
     };
     const conf = Gas0Constants[this.chainId];
     if (conf) {
-      const deployer = conf.Deployer;
-      const wallet = getAddressAA(
+      const deployer = configApi.deployer_address;
+      const aaWallet = getAddressAA(
         this.account.address,
-        conf.walletBytecode,
-        deployer
+        configApi.wallet_bytecode as Hash,
+        deployer as Address
       );
+      console.log({ aaWallet: aaWallet });
       console.log({ gas0Balance, s: new BigNumberJs(gas0Balance).gt(0) });
       this.aa = {
         isFree: new BigNumberJs(gas0Balance).gt(0),
-        address: wallet,
+        address: aaWallet,
         contract: getContract({
           abi: WalletAbi,
-          address: wallet,
+          address: aaWallet,
           walletClient,
         }),
         config: conf,
+        configFromApi: configApi,
       };
       const aa = this.aa;
       console.log({ aa });
@@ -97,38 +98,18 @@ export class WagmiWalletHandler {
           }
           console.log(1);
           const owner = this.walletClient.account.address;
-          console.log(1);
-          const isCreate = await getIsCreate(this.publicClient, wallet);
-          console.log(1);
+          console.log(1, { owner });
+          const isCreate = await getIsCreate(this.publicClient, aaWallet); // eoa =>
+          console.log(1, { isCreate });
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
-              this,
               owner,
-              true,
+              aa.config.api,
               aa.isFree
             );
             console.log(1);
             if (!hash) return;
-            console.log(1);
-            await this.publicClient.waitForTransactionReceipt({
-              hash,
-              confirmations: 1,
-            });
-          }
-          console.log(1);
-          const isController = await this.aa?.contract.read.controllers([
-            owner,
-          ]);
-          console.log(1);
-          if (!isController) {
-            console.log(1);
-            const hash = await gas0WalletSetController(
-              this,
-              owner,
-              true,
-              aa.isFree
-            );
-            console.log(1);
+            console.log(1, hash);
             await this.publicClient.waitForTransactionReceipt({
               hash,
               confirmations: 1,
@@ -155,8 +136,10 @@ export class WagmiWalletHandler {
             value,
             data: arg.data,
             nonce,
+            tip: aa.configFromApi.function_call_tip,
           };
-          console.log(1);
+          console.log({ data });
+          console.log(1, data);
           const sign = await getEIP712Sign({
             domain,
             types,
@@ -209,8 +192,7 @@ export class WagmiWalletHandler {
           }
         },
       });
-
-      this.walletClient = createWalletClient({
+      this.aaWalletClient = createWalletClient({
         account: this.account,
         chain: this.chain,
         transport,
@@ -220,6 +202,7 @@ export class WagmiWalletHandler {
   async aaNonce() {
     try {
       const nonce = await this.aa?.contract.read.nonce();
+      console.log("asfsdf:", { nonce });
       return nonce || BigInt(0);
     } catch (err: any) {
       if (
@@ -234,7 +217,11 @@ export class WagmiWalletHandler {
       throw err;
     }
   }
+  getAAWalletClient() {
+    return this.aaWalletClient ?? this.walletClient;
+  }
   getWalletClient() {
+    console.log("sddd", { walletClient: this.walletClient });
     return this.walletClient;
   }
 }
@@ -244,6 +231,7 @@ const getIsCreate = async (publicClient: PublicClient, address: Address) => {
     const code = await publicClient.getBytecode({
       address: address,
     });
+    console.log({ address, code });
     if (code) {
       return true;
     } else {
@@ -253,90 +241,18 @@ const getIsCreate = async (publicClient: PublicClient, address: Address) => {
 };
 
 export const gas0WalletCreateAndApprove = async (
-  wallet: WagmiWalletHandler,
-  controller: Address,
-  isAllow: boolean,
+  owner: Address,
+  api: string,
   isFree: boolean
 ) => {
-  if (!wallet.aa) {
+  if (!isFree) {
     return;
   }
-  const nonce = await wallet.aaNonce();
-  const typeData = {
-    ...ZytronSetAdminTypedData(wallet.chainId),
-    message: { controller, isAllow, nonce },
-  } as const;
-  const sign = await wallet.walletClient.signTypedData(typeData);
-  console.log("typeData", typeData, hashTypedData(typeData));
-
-  const owner = wallet.walletClient.account.address;
-  const { v, r, s } = hexToSignature(sign);
-  if (isFree) {
-    const res = await httpPost(`${wallet.aa.config.api}/create`, {
-      controller,
-      owner,
-      v: Number(v),
-      r,
-      s,
-    });
-    if (res.code !== 0) throw new Error(`setController error: ${res.msg}`);
-    return res.data.tx_hash;
-  }
-  const Deployer = getContract({
-    abi: DeployerAbi,
-    address: wallet.aa.config.Deployer,
-    walletClient: wallet.walletClient,
+  const { data } = await httpPost(`${api}/create`, {
+    owner,
   });
-  const bytecode = encodeDeployData({
-    abi: WalletAbi,
-    args: [wallet.walletClient.account.address],
-    bytecode: wallet.aa.config.walletBytecode,
-  });
-  const salt = address2salt(owner);
-  return Deployer.write.deployContract([
-    salt,
-    bytecode,
-    controller,
-    Number(v),
-    r,
-    s,
-  ]);
-};
-
-export const gas0WalletSetController = async (
-  wallet: WagmiWalletHandler,
-  controller: Address,
-  isAllow: boolean,
-  isFree: boolean
-) => {
-  if (!wallet.aa) return;
-  const nonce = await wallet.aaNonce();
-  const sign = await wallet.walletClient.signTypedData({
-    ...ZytronSetAdminTypedData(wallet.chainId),
-    message: { controller, isAllow, nonce },
-  });
-  const owner = wallet.walletClient.account.address;
-  const { v, r, s } = hexToSignature(sign);
-  if (isFree) {
-    const res = await httpPost(`${wallet.aa.config.api}/set_controller`, {
-      wallet: wallet.aa.address,
-      controller,
-      owner,
-      is_allow: isAllow,
-      v: Number(v),
-      r,
-      s,
-    });
-    if (res.code !== 0) throw new Error(`setController error: ${res.msg}`);
-    return res.data.tx_hash;
-  }
-  return wallet.aa.contract.write.setController([
-    controller,
-    isAllow,
-    Number(v),
-    r,
-    s,
-  ]);
+  if (data.code !== 0) throw new Error(`setController error: ${data.msg}`);
+  return data.data.tx_hash;
 };
 
 export const address2salt = (addr: Address) => {

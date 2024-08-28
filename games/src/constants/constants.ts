@@ -94,11 +94,11 @@ export const gradeData = [
 ]
 export const defaultRankChainId = ChainId.ArbitrumGoerli
 export const defaultLocalChainId = env === 'develop' ? ChainId.OPBNBTEST : ChainId.OPBNB
-type IGlobalVar = {
+type IAAWallet = {
   dispatch: (arg: any) => any
   getContainer?: HTMLElement
 }
-export const GlobalVar: IGlobalVar = {
+export const GlobalVar: IAAWallet = {
   dispatch: (arg: any) => null as any,
   getContainer: undefined
 }
