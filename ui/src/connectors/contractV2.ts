@@ -77,7 +77,7 @@ export const getContractFromRpc = async ({
 }: {
   address: Address;
   abi: any;
-  library: JsonRpcProvider;
+  library: any;
   account?: string | null | undefined;
 }): Promise<ethers.Contract> => {
   if (!isAddress(address) || address === AddressZero) {

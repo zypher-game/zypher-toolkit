@@ -1,5 +1,5 @@
 import BigNumberjs from "bignumber.js";
-import { Address, WalletClient } from "wagmi";
+import { Address } from "wagmi";
 export declare const appInfo: {
     appName: string;
 };
@@ -69,7 +69,7 @@ export declare enum IContractName {
     ZkGame2048API = "ZkGame2048API"
 }
 export declare const zkBingoV0: (chainId: ChainId | undefined, name: IContractName) => Address;
-export declare const zkBingo: (chainId: ChainId | undefined, name: IContractName) => Address;
+export declare const zkBingo: (chainId: ChainId | number | undefined, name: IContractName) => Address;
 export declare const defaultRankChainId = ChainId.ArbitrumGoerli;
 export declare const TG_BOT_URL: string;
 export declare const targetDate: Date;
@@ -77,12 +77,8 @@ export declare const TaskTelegramBot = "https://t.me/zBingoBot";
 export declare const TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 export declare const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export declare const TaskReweet1 = "https://twitter.com/Zypher_Network/status/1819215629041254588";
-type IGlobalVar = {
-    IS_TELEGRAM: boolean;
+type IAAWallet = {
     dispatch: (arg: any) => any;
-    getContainer?: HTMLElement;
-    walletClient?: WalletClient;
-    mockAcc?: any;
 };
-export declare const GlobalVar: IGlobalVar;
+export declare const GlobalVar: IAAWallet;
 export {};

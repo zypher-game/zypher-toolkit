@@ -1,4 +1,3 @@
-import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
 import { AddressZero } from "@ethersproject/constants";
 import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
 import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
@@ -479,10 +478,10 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
 export enum IContractName {
   Lobby = "lobby",
   Card = "card",
-  Points = "points",
-  ZypherGameToken = "ZypherGameToken",
+  Points = "points", // 卖代币的逻辑
+  ZypherGameToken = "ZypherGameToken", // 代币
   Reward = "reward",
-  Fee = "ZkBingoFee",
+  Fee = "ZkBingoFee", // 收费逻辑
   Monster = "Monster",
   Z2048SBT = "Z2048SBT",
   ZkGame2048 = "ZkGame2048",
@@ -521,16 +520,31 @@ export const zkBingoV0 = (
   }
 };
 export const zkBingo = (
-  chainId: ChainId | undefined,
+  chainId: ChainId | number | undefined,
   name: IContractName
 ): Address => {
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
+  if (typeof chainId === "number") {
+    chainId = `${chainId}` as ChainId;
+  }
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
     // @ts-ignore
-    const address = zkBingoContractsV1?.[chainId]?.[_repo];
+    let address = zkBingoContractsV1?.[chainId]?.[_repo];
+    if (chainId === ChainId.ZytronLineaSepoliaTestnet) {
+      address = {
+        date: "2024-08-01T07:49:19.451Z",
+        chainId: 19546,
+        deployer: "0x44Cb6dA95D121F812AD047747129C34C1F9a37f6",
+        ZypherGameToken: "0x71a56BD2E4391bc6f6012F843DE6d7e82E3bc64f",
+        ZkBingoCard: "0xb648B48c448c715E0aa7491420C019F4F02FA2B0",
+        ZkBingoLobby: "0xBab64955524178610d44cCf9ef1A94a5597d8F98",
+        ZkBingoFee: "0x3e409DF35a8D54a420ec9592dDA288735153b81a",
+        ZkBingoPoints: "0x3BccC2cC57083f6A14a0dDbB43262741EC820741",
+      };
+    }
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {
       returnAddress = address.ZkBingoLobby;
@@ -539,9 +553,10 @@ export const zkBingo = (
     } else if (name === IContractName.Points) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === IContractName.ZypherGameToken) {
+      // GP
       returnAddress =
-        chainId === ChainId.ZytronLineaSepoliaTestnet
-          ? "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D"
+        chainId === ChainId.ZytronLineaMain
+          ? "0xeC928B58691493Bc28Ed8D5866c145918A8aAce2"
           : address.ZypherGameToken
           ? address.ZypherGameToken
           : address.ZkBingoToken;
@@ -572,18 +587,10 @@ export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export const TaskReweet1 =
   "https://twitter.com/Zypher_Network/status/1819215629041254588";
 
-type IGlobalVar = {
-  IS_TELEGRAM: boolean;
+type IAAWallet = {
   dispatch: (arg: any) => any;
-  getContainer?: HTMLElement;
-  walletClient?: WalletClient;
-  mockAcc?: any;
 };
 
-export const GlobalVar: IGlobalVar = {
-  IS_TELEGRAM: !!window.IS_TELEGRAM,
+export const GlobalVar: IAAWallet = {
   dispatch: (arg: any) => null as any,
-  getContainer: undefined,
-  walletClient: undefined,
-  mockAcc: (address: Address, proof?: TonProofItemReplySuccess) => null as any,
 };

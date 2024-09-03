@@ -9,6 +9,7 @@ import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
 import { darkTheme } from "../rainbowkit/src/themes/darkTheme";
 import { RainbowKitProvider } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
 import { useTelegramUser, useWebAppData } from "../hooks/useTelegramUser";
+import { useSetAaWallet } from "../gas0/hooks/useWalletHandler";
 
 type IProps = {
   env: string;
@@ -21,10 +22,16 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
   chainIdList,
 }: IProps) => {
   const WebAppData = useTelegramUser();
+  const setAaWallet = useSetAaWallet();
   const { wagmiConfig, chains, computedTheme } = useMemo(() => {
     if (env) {
-      const wagmiConfig = getWagmiConfig(env, chainIdList, WebAppData);
-      const { chains } = getConfigureChains(env);
+      const wagmiConfig = getWagmiConfig({
+        env,
+        chainIdList,
+        WebAppData,
+        setAaWallet,
+      });
+      const { chains } = getConfigureChains({ env });
       return {
         wagmiConfig: wagmiConfig,
         chains: chains,

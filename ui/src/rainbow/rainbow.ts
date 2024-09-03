@@ -14,6 +14,8 @@ import { tokenPocketWallet } from "../rainbowkit/src/wallets/walletConnectors/to
 import { AllChainInfo } from "../constant/chains";
 import { IWebAppData } from "../hooks/useTelegramUser";
 import { tgChain } from "./utils/tgChain";
+import { SetterOrUpdater } from "recoil";
+import { IAAWallet } from "../hooks/aaWallet/aaWalletAtoms";
 // import mitt from "mitt";
 // export const mockBus = mitt<{ addressChange: string }>();
 const getSupportedChainIdList = (
@@ -36,7 +38,13 @@ new ParticleNetwork({
   projectId: "763e083a-deb5-4fe9-8b7a-2a9c56659199",
 });
 
-export const getConfigureChains = (env: string, chainIdList?: ChainId[]) => {
+export const getConfigureChains = ({
+  env,
+  chainIdList,
+}: {
+  env: string;
+  chainIdList?: ChainId[];
+}) => {
   const { chains, publicClient, webSocketPublicClient } = configureChains(
     getSupportedChainIdList(env, chainIdList),
     [publicProvider()]
@@ -51,18 +59,26 @@ const projectId = "bc467c124a7a7a8ce06a41ef40b1b842";
 //   chains
 // })
 
-const getConnectors = (
-  env: string,
-  publicClient: any,
-  chainIdList?: ChainId[],
-  WebAppData?: IWebAppData
-): (() => Connector<any, any>[]) => {
-  const { chains } = getConfigureChains(env, chainIdList);
+const getConnectors = ({
+  env,
+  publicClient,
+  chainIdList,
+  WebAppData,
+  setAaWallet,
+}: {
+  env: string;
+  publicClient: any;
+  setAaWallet: SetterOrUpdater<IAAWallet>;
+  chainIdList?: ChainId[];
+  WebAppData?: IWebAppData;
+}): (() => Connector<any, any>[]) => {
+  const { chains } = getConfigureChains({ env, chainIdList });
   if (window.IS_TELEGRAM) {
     return tgChain({
       WebAppData,
       publicClient,
       chains,
+      setAaWallet,
     });
   }
   return connectorsForWallets([
@@ -89,16 +105,28 @@ const getConnectors = (
     },
   ]);
 };
-export const getWagmiConfig = (
-  env: string,
-  chainIdList?: ChainId[],
-  WebAppData?: IWebAppData
-): any => {
-  const { publicClient, webSocketPublicClient } = getConfigureChains(
+export const getWagmiConfig = ({
+  env,
+  setAaWallet,
+  chainIdList,
+  WebAppData,
+}: {
+  env: string;
+  setAaWallet: SetterOrUpdater<IAAWallet>;
+  chainIdList?: ChainId[];
+  WebAppData?: IWebAppData;
+}): any => {
+  const { publicClient, webSocketPublicClient } = getConfigureChains({
     env,
-    chainIdList
-  );
-  const connectors = getConnectors(env, publicClient, chainIdList, WebAppData);
+    chainIdList,
+  });
+  const connectors = getConnectors({
+    env,
+    publicClient,
+    chainIdList,
+    WebAppData,
+    setAaWallet,
+  });
   console.log({ connectors });
 
   return createConfig({
@@ -117,7 +145,7 @@ export const getWagmiConfig = (
 // })
 
 export const viemClients = (env: string): Record<ChainId, PublicClient> => {
-  const { chains } = getConfigureChains(env);
+  const { chains } = getConfigureChains({ env });
   return chains.reduce((prev, cur) => {
     return {
       ...prev,

@@ -8,9 +8,12 @@ import {
 } from "recoil";
 import { useEffectValue } from "./useEffectValue";
 import { httpPost } from "../utils/request";
-import { GlobalVar, TG_BOT_URL } from "../constant/constant";
+import { TG_BOT_URL } from "../constant/constant";
 import { localStorageEffect } from "../utils/localStorageEffect";
 import BigNumberJs, { FORMAT } from "../utils/BigNumberJs";
+
+import { useIsTelegram } from "./useIsTelegram";
+import { useAaWallet } from "../gas0/hooks/useWalletHandler";
 export type IWebAppData = {
   auth_date: string;
   hash: string;
@@ -72,6 +75,8 @@ const getFaucet = async (WebAppData: IWebAppData) => {
   }
 };
 export const useTelegramUser = () => {
+  const { mockAcc } = useAaWallet();
+  const IS_TELEGRAM = useIsTelegram();
   const [WebAppData, setWebAppData] = useRecoilState(WebAppDataState);
   const _user = useSetRecoilState(TelegramUserInfoState);
   const refresh = useRecoilValue(RefreshState);
@@ -82,7 +87,7 @@ export const useTelegramUser = () => {
     null,
     async () => {
       console.log({ refresh, WebApp: WebAppData });
-      if (!window.IS_TELEGRAM) {
+      if (!IS_TELEGRAM) {
         return null;
       }
       let _user = undefined;
@@ -122,11 +127,10 @@ export const useTelegramUser = () => {
     },
     [WebAppData?.user, refresh]
   );
-  console.log({ user });
   useEffect(() => {
     if (user) {
       localStorage.setItem("TelegramUserIdEvmAddressKey", user.evmWallet);
-      GlobalVar.mockAcc(user.evmWallet);
+      mockAcc(user.evmWallet);
       _user(user);
       // 如果没start 则
     } else {
@@ -134,8 +138,8 @@ export const useTelegramUser = () => {
     }
   }, [JSON.stringify(user)]);
   useEffect(() => {
-    console.log({ IS_TELEGRAM: GlobalVar.IS_TELEGRAM });
-    if (GlobalVar.IS_TELEGRAM) {
+    console.log({ IS_TELEGRAM: IS_TELEGRAM });
+    if (IS_TELEGRAM) {
       try {
         let _WebAppData: IWebAppData = {
           auth_date: "",
@@ -157,7 +161,7 @@ export const useTelegramUser = () => {
         console.error("WebAppData", err);
       }
     }
-  }, [GlobalVar.IS_TELEGRAM]);
+  }, [IS_TELEGRAM]);
   return WebAppData;
 };
 export const useWebAppData = () => {

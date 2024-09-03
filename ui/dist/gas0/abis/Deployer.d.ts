@@ -12,22 +12,6 @@ export declare const DeployerAbi: readonly [{
         readonly name: "bytecode";
         readonly type: "bytes";
         readonly internalType: "bytes";
-    }, {
-        readonly name: "controller";
-        readonly type: "address";
-        readonly internalType: "address";
-    }, {
-        readonly name: "v";
-        readonly type: "uint8";
-        readonly internalType: "uint8";
-    }, {
-        readonly name: "r";
-        readonly type: "bytes32";
-        readonly internalType: "bytes32";
-    }, {
-        readonly name: "s";
-        readonly type: "bytes32";
-        readonly internalType: "bytes32";
     }];
     readonly outputs: readonly [];
     readonly stateMutability: "nonpayable";

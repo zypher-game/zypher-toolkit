@@ -246,7 +246,7 @@ export declare const mapResponsiveValue: <OutputValue extends string | number | 
             };
         };
     };
-}, string | number | boolean>>(value: Value, fn: (inputValue: Value extends import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 2, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 4, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 4 | 5, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 6 | 4 | 5, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 6 | 4 | 5 | 7, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 6 | 4 | 5 | 7 | 8, string | number | boolean | null> ? NonNullable<Value[number]> : Value extends Partial<Record<string, string | number | boolean>> ? NonNullable<Value[keyof Value]> : Value, key: "smallScreen" | "largeScreen") => OutputValue) => Value extends string | number | boolean ? OutputValue : Partial<Record<"smallScreen" | "largeScreen", OutputValue>>;
+}, string | number | boolean>>(value: Value, fn: (inputValue: Value extends import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 2, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 4, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 5 | 4, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 6 | 5 | 4, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 6 | 7 | 5 | 4, string | number | boolean | null> | import("@vanilla-extract/sprinkles/dist/declarations/src/types").ResponsiveArray<1 | 3 | 2 | 6 | 8 | 7 | 5 | 4, string | number | boolean | null> ? NonNullable<Value[number]> : Value extends Partial<Record<string, string | number | boolean>> ? NonNullable<Value[keyof Value]> : Value, key: "smallScreen" | "largeScreen") => OutputValue) => Value extends string | number | boolean ? OutputValue : Partial<Record<"smallScreen" | "largeScreen", OutputValue>>;
 export declare const normalizeResponsiveValue: <Value extends string | number | boolean>(value: import("@vanilla-extract/sprinkles").ConditionalValue<{
     conditions: {
         defaultCondition: "smallScreen";
@@ -1342,10 +1342,10 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
+                23: {
                     defaultClass: string;
                 };
-                23: {
+                20: {
                     defaultClass: string;
                 };
             };
@@ -1410,22 +1410,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -1459,28 +1459,28 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 30: {
                     defaultClass: string;
                 };
-                20: {
+                36: {
                     defaultClass: string;
                 };
-                24: {
+                34: {
+                    defaultClass: string;
+                };
+                32: {
                     defaultClass: string;
                 };
                 28: {
                     defaultClass: string;
                 };
-                32: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
                     defaultClass: string;
                 };
                 40: {
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                36: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {
@@ -1576,22 +1576,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -1643,22 +1643,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -1710,22 +1710,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -1777,22 +1777,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -1826,28 +1826,28 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 30: {
                     defaultClass: string;
                 };
-                20: {
+                36: {
                     defaultClass: string;
                 };
-                24: {
+                34: {
+                    defaultClass: string;
+                };
+                32: {
                     defaultClass: string;
                 };
                 28: {
                     defaultClass: string;
                 };
-                32: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
                     defaultClass: string;
                 };
                 40: {
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                36: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {
@@ -1893,28 +1893,28 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 30: {
                     defaultClass: string;
                 };
-                20: {
+                36: {
                     defaultClass: string;
                 };
-                24: {
+                34: {
+                    defaultClass: string;
+                };
+                32: {
                     defaultClass: string;
                 };
                 28: {
                     defaultClass: string;
                 };
-                32: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
                     defaultClass: string;
                 };
                 40: {
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                36: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {
@@ -1985,22 +1985,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -2052,22 +2052,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -2119,22 +2119,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -2186,22 +2186,22 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 18: {
                     defaultClass: string;
                 };
-                20: {
-                    defaultClass: string;
-                };
-                24: {
-                    defaultClass: string;
-                };
-                28: {
+                36: {
                     defaultClass: string;
                 };
                 32: {
                     defaultClass: string;
                 };
-                64: {
+                28: {
                     defaultClass: string;
                 };
-                36: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
+                    defaultClass: string;
+                };
+                64: {
                     defaultClass: string;
                 };
                 44: {
@@ -2272,28 +2272,28 @@ export declare const sprinkles: import("@vanilla-extract/sprinkles/dist/declarat
                 30: {
                     defaultClass: string;
                 };
-                20: {
+                36: {
                     defaultClass: string;
                 };
-                24: {
+                34: {
+                    defaultClass: string;
+                };
+                32: {
                     defaultClass: string;
                 };
                 28: {
                     defaultClass: string;
                 };
-                32: {
+                24: {
+                    defaultClass: string;
+                };
+                20: {
                     defaultClass: string;
                 };
                 40: {
                     defaultClass: string;
                 };
                 48: {
-                    defaultClass: string;
-                };
-                36: {
-                    defaultClass: string;
-                };
-                34: {
                     defaultClass: string;
                 };
                 44: {

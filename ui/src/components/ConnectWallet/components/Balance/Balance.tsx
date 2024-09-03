@@ -31,7 +31,7 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
-import { useWalletClient } from "wagmi";
+import { useAaWallet } from "../../../../gas0/hooks/useWalletHandler";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -53,14 +53,17 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
   const setPointsBalance = useSetRecoilState(pointsBalanceState);
   const refreshBalance = useRecoilValue(refreshBalanceState);
-  const { data: walletClient } = useWalletClient();
+  const { walletClient } = useAaWallet();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
+    console.log(1);
     if (!chainId || !account || !provider || !walletClient) {
+      console.log("xxxxx", { chainId, account, provider, walletClient });
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
       if (!pointsAddress) {
+        console.log("1adf");
         setPointsBalance(0);
       } else {
         // const lineaL3Gp = useBalance({
@@ -98,7 +101,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           walletClient
         );
         const balance = await pointsContract.read.balanceOf([account]);
-
+        console.log({ balance, pointsAddress, account });
         setPointsBalance(
           new BigNumberJs(balance.toString())
             .dividedBy(divisorBigNumber)

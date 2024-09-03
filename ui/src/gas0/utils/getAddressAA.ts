@@ -22,6 +22,7 @@ export const getAddressAA = (
   walletBytecode: Hash,
   deployer: Address
 ) => {
+  console.log({ owner, walletBytecode, deployer });
   const salt = address2salt(owner);
   const bytecode = encodeDeployData({
     abi: WalletAbi,

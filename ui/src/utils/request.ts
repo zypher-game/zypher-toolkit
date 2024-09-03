@@ -31,6 +31,7 @@ interface HTTP_Response_Data<T = any> {
 }
 
 export const httpClient = axios.create({
+  timeout: 100000,
   // baseURL: AppConstants.BASE_URL_API,
 });
 

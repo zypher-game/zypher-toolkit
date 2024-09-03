@@ -20,6 +20,7 @@ export type IPlayer = {
   cardId: string;
   isAbandoned: boolean;
   tgName?: string;
+  owner?: Address;
 };
 export type IRecentGame = {
   gameId: number; // uint256 gameId;
