@@ -585,7 +585,7 @@ export const TaskTelegramBot = "https://t.me/zBingoBot";
 export const TaskJoinTelegramGroup = "https://t.me/zyphernetwork"; // location.protocol === 'http:' ? 'https://t.me/tt3434' :
 export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export const TaskReweet1 =
-  "https://twitter.com/Zypher_Network/status/1819215629041254588";
+  "https://x.com/Zypher_Network/status/1830911872473932208";
 
 type IAAWallet = {
   dispatch: (arg: any) => any;

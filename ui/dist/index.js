@@ -570,7 +570,7 @@ var targetDate = new Date(2024, 9, 1);
 var TaskTelegramBot = "https://t.me/zBingoBot";
 var TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 var TaskFollowZypher = "https://twitter.com/Zypher_Network";
-var TaskReweet1 = "https://twitter.com/Zypher_Network/status/1819215629041254588";
+var TaskReweet1 = "https://x.com/Zypher_Network/status/1830911872473932208";
 var GlobalVar = {
   dispatch: (arg) => null
 };

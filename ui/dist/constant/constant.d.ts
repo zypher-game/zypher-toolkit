@@ -76,7 +76,7 @@ export declare const targetDate: Date;
 export declare const TaskTelegramBot = "https://t.me/zBingoBot";
 export declare const TaskJoinTelegramGroup = "https://t.me/zyphernetwork";
 export declare const TaskFollowZypher = "https://twitter.com/Zypher_Network";
-export declare const TaskReweet1 = "https://twitter.com/Zypher_Network/status/1819215629041254588";
+export declare const TaskReweet1 = "https://x.com/Zypher_Network/status/1830911872473932208";
 type IAAWallet = {
     dispatch: (arg: any) => any;
 };
