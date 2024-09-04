@@ -779,7 +779,7 @@ function useActiveWeb3React(env, chainList) {
   return useMemo(() => {
     return {
       chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
+      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
