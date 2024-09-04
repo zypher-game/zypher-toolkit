@@ -14,6 +14,7 @@ import BigNumberJs, { FORMAT } from "../utils/BigNumberJs";
 
 import { useIsTelegram } from "./useIsTelegram";
 import { useAaWallet } from "../gas0/hooks/useWalletHandler";
+import { formatMoney } from "../utils/tool";
 export type IWebAppData = {
   auth_date: string;
   hash: string;
@@ -117,11 +118,7 @@ export const useTelegramUser = () => {
       return _user
         ? {
             ..._user,
-            starStr: new BigNumberJs(_user.star).toFormat(
-              0,
-              BigNumberJs.ROUND_HALF_UP,
-              FORMAT
-            ),
+            starStr: formatMoney(new BigNumberJs(_user.star).toFormat(), 8),
           }
         : undefined;
     },
@@ -186,11 +183,7 @@ export const useTelegramAccountInit = (
       if (res.code) return null;
       _userInfo({
         ...res.data,
-        starStr: new BigNumberJs(res.data.star).toFormat(
-          0,
-          BigNumberJs.ROUND_HALF_UP,
-          FORMAT
-        ),
+        starStr: formatMoney(new BigNumberJs(res.data.star).toFixed(), 8),
       });
       setIsModalOpen(true);
       return res.data;

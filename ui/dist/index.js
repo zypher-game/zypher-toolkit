@@ -779,7 +779,7 @@ function useActiveWeb3React(env, chainList) {
   return useMemo(() => {
     return {
       chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);
@@ -3412,6 +3412,138 @@ var localStorageEffect = (key) => ({ setSelf, onSet }) => {
   });
 };
 
+// src/utils/tool.tsx
+import BigNumber from "bignumber.js";
+import { utils as utils3 } from "ethers";
+BigNumber.config({ EXPONENTIAL_AT: 1e9 });
+var eX = (value, x) => {
+  return new BigNumber(`${value}e${x}`);
+};
+function pow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
+}
+function bnPow10(num, decimals = 18) {
+  if (!num) {
+    return new BigNumber(0);
+  }
+  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
+}
+var formatDecimal = (number, decimal = 2) => {
+  if (number === void 0) {
+    return "";
+  }
+  let num = number.toString();
+  const index = num.indexOf(".");
+  if (index !== -1) {
+    num = num.substring(0, decimal + index + 1);
+  } else {
+    num = num.substring(0);
+  }
+  return parseFloat(num).toFixed(decimal);
+};
+var formatMoney = (value, n = 2) => {
+  try {
+    if (isNaN(Number(value))) {
+      return Number(0).toFixed();
+    }
+    if (value === 0 || value === "0") {
+      return Number(0).toFixed();
+    }
+    const isNegative = Number(value) < 0;
+    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
+    const l = v.split(".")[0].split("").reverse();
+    const r = v.split(".")[1];
+    let t = "";
+    for (let i = 0; i < l.length; i++) {
+      t += l[i] + ((i + 1) % 3 === 0 && i + 1 !== l.length ? "," : "");
+    }
+    let res = t.split("").reverse().join("");
+    if (r && r !== "00") {
+      res += `.${r.replace(/0+$/, "")}`;
+    }
+    return `${isNegative ? "-" : ""}${res}`;
+  } catch (e) {
+    console.error("formatMoney:", e);
+    return "";
+  }
+};
+function getShortenAddress(address, preLen = 6, endLen = 4) {
+  let _preLen = preLen;
+  let _endLen = endLen;
+  if (!address) {
+    return "";
+  }
+  if (address.length !== 42) {
+    _preLen = 3;
+    _endLen = 3;
+  }
+  const firstCharacters = address.substring(0, _preLen);
+  const lastCharacters = address.substring(
+    address.length - _endLen,
+    address.length
+  );
+  return `${firstCharacters}...${lastCharacters}`;
+}
+function getShortenAddress2(address) {
+  const firstCharacters = address.substring(0, 10);
+  const lastCharacters = address.substring(address.length - 10, address.length);
+  return `${firstCharacters}****${lastCharacters}`;
+}
+function filterInput(val) {
+  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
+  return Number(v) >= 0 ? v : "";
+}
+var convertToLargeNumberRepresentation = (value) => {
+  if (!value) {
+    return "0";
+  } else if (+value >= 1e5) {
+    return `${eX(value.toString(), -6)}M`;
+  } else if (+value >= 100) {
+    return `${eX(value.toString(), -3)}K`;
+  } else {
+    return value.toString();
+  }
+};
+var tCanvas;
+function measureText(text, font) {
+  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
+  const context = canvas.getContext("2d");
+  if (context) {
+    context.font = font;
+    const metrics = context.measureText(text);
+    return metrics.width;
+  }
+  return 0;
+}
+var splitArrByLen = (arr, len) => {
+  const t = [];
+  let index = 0;
+  while (index < arr.length) {
+    t.push(arr.slice(index, index += len));
+  }
+  return t;
+};
+var Units = [
+  ["B", 1e9],
+  ["M", 1e6],
+  ["K", 1e3]
+];
+function formatCurrency(amount, precision = 2) {
+  var _a;
+  const [unit, base3] = (_a = Units.find(
+    ([, min]) => Number(amount) >= Number(min)
+  )) != null ? _a : ["", 1];
+  return `${utils3.commify(
+    (amount / base3).toFixed(precision)
+  )}${unit}`;
+}
+function formatSymbol(symbol) {
+  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
+}
+
 // src/hooks/useTelegramUser.ts
 var RefreshState = atom5({
   key: "RefreshState",
@@ -3487,11 +3619,7 @@ var useTelegramUser = () => {
       console.log("user: ", { _user: _user2 });
       return _user2 ? {
         ..._user2,
-        starStr: new BigNumberJs_default(_user2.star).toFormat(
-          0,
-          BigNumberJs_default.ROUND_HALF_UP,
-          FORMAT
-        )
+        starStr: formatMoney(new BigNumberJs_default(_user2.star).toFormat(), 8)
       } : void 0;
     },
     [WebAppData == null ? void 0 : WebAppData.user, refresh]
@@ -3554,11 +3682,7 @@ var useTelegramAccountInit = (userInfo, _userInfo, setIsModalOpen) => {
         return null;
       _userInfo({
         ...res.data,
-        starStr: new BigNumberJs_default(res.data.star).toFormat(
-          0,
-          BigNumberJs_default.ROUND_HALF_UP,
-          FORMAT
-        )
+        starStr: formatMoney(new BigNumberJs_default(res.data.star).toFixed(), 8)
       });
       setIsModalOpen(true);
       return res.data;
@@ -5311,138 +5435,6 @@ var Logo = ({ src: src6, alt, ...rest }) => {
 };
 var CurrencyLogo_default = Logo;
 
-// src/utils/tool.tsx
-import BigNumber from "bignumber.js";
-import { utils as utils3 } from "ethers";
-BigNumber.config({ EXPONENTIAL_AT: 1e9 });
-var eX = (value, x) => {
-  return new BigNumber(`${value}e${x}`);
-};
-function pow10(num, decimals = 18) {
-  if (!num) {
-    return new BigNumber(0);
-  }
-  return new BigNumber(num).dividedBy(new BigNumber(10).pow(decimals));
-}
-function bnPow10(num, decimals = 18) {
-  if (!num) {
-    return new BigNumber(0);
-  }
-  return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
-}
-var formatDecimal = (number, decimal = 2) => {
-  if (number === void 0) {
-    return "";
-  }
-  let num = number.toString();
-  const index = num.indexOf(".");
-  if (index !== -1) {
-    num = num.substring(0, decimal + index + 1);
-  } else {
-    num = num.substring(0);
-  }
-  return parseFloat(num).toFixed(decimal);
-};
-var formatMoney = (value, n = 2) => {
-  try {
-    if (isNaN(Number(value))) {
-      return Number(0).toFixed(n > 0 ? n : 0);
-    }
-    if (value === 0 || value === "0") {
-      return Number(0).toFixed(n);
-    }
-    const isNegative = Number(value) < 0;
-    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
-    const l = v.split(".")[0].split("").reverse();
-    const r = v.split(".")[1];
-    let t = "";
-    for (let i = 0; i < l.length; i++) {
-      t += l[i] + ((i + 1) % 3 === 0 && i + 1 !== l.length ? "," : "");
-    }
-    let res = t.split("").reverse().join("");
-    if (r && r !== "00") {
-      res += `.${r.replace(/0+$/, "")}`;
-    }
-    return `${isNegative ? "-" : ""}${res}`;
-  } catch (e) {
-    console.error("formatMoney:", e);
-    return "";
-  }
-};
-function getShortenAddress(address, preLen = 6, endLen = 4) {
-  let _preLen = preLen;
-  let _endLen = endLen;
-  if (!address) {
-    return "";
-  }
-  if (address.length !== 42) {
-    _preLen = 3;
-    _endLen = 3;
-  }
-  const firstCharacters = address.substring(0, _preLen);
-  const lastCharacters = address.substring(
-    address.length - _endLen,
-    address.length
-  );
-  return `${firstCharacters}...${lastCharacters}`;
-}
-function getShortenAddress2(address) {
-  const firstCharacters = address.substring(0, 10);
-  const lastCharacters = address.substring(address.length - 10, address.length);
-  return `${firstCharacters}****${lastCharacters}`;
-}
-function filterInput(val) {
-  const v = val.replace("-", "").replace(/^\.+|[^\d.]/g, "").replace(/^0\d+\./g, "0.").replace(/\.{6,}/, "").replace(/^0(\d)/, "$1").replace(/^(\-)*(\d+)\.(\d{0,6}).*$/, "$1$2.$3");
-  return Number(v) >= 0 ? v : "";
-}
-var convertToLargeNumberRepresentation = (value) => {
-  if (!value) {
-    return "0";
-  } else if (+value >= 1e5) {
-    return `${eX(value.toString(), -6)}M`;
-  } else if (+value >= 100) {
-    return `${eX(value.toString(), -3)}K`;
-  } else {
-    return value.toString();
-  }
-};
-var tCanvas;
-function measureText(text, font) {
-  const canvas = tCanvas || (tCanvas = document.createElement("canvas"));
-  const context = canvas.getContext("2d");
-  if (context) {
-    context.font = font;
-    const metrics = context.measureText(text);
-    return metrics.width;
-  }
-  return 0;
-}
-var splitArrByLen = (arr, len) => {
-  const t = [];
-  let index = 0;
-  while (index < arr.length) {
-    t.push(arr.slice(index, index += len));
-  }
-  return t;
-};
-var Units = [
-  ["B", 1e9],
-  ["M", 1e6],
-  ["K", 1e3]
-];
-function formatCurrency(amount, precision = 2) {
-  var _a;
-  const [unit, base3] = (_a = Units.find(
-    ([, min]) => Number(amount) >= Number(min)
-  )) != null ? _a : ["", 1];
-  return `${utils3.commify(
-    (amount / base3).toFixed(precision)
-  )}${unit}`;
-}
-function formatSymbol(symbol) {
-  return symbol ? symbol === "WTT" ? symbol.replace(/W/, "") : symbol.replace(/TT-/, "") : "";
-}
-
 // src/hooks/usePoint.ts
 import BigNumberjs2 from "bignumber.js";
 
@@ -5663,7 +5655,7 @@ import { useRecoilValue as useRecoilValue8 } from "recoil";
 var useNativeBalanceStr = () => {
   const nativeBalance = useRecoilValue8(nativeBalanceState);
   return useMemo5(() => {
-    return formatMoney(nativeBalance, 2);
+    return formatMoney(nativeBalance, 4);
   }, [nativeBalance]);
 };
 var usePointsBalanceStr = () => {

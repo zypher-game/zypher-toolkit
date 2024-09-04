@@ -45,10 +45,10 @@ export const formatMoney = (value: number | string, n = 2): string => {
   try {
     // eslint-disable-next-line no-restricted-globals
     if (isNaN(Number(value))) {
-      return Number(0).toFixed(n > 0 ? n : 0);
+      return Number(0).toFixed();
     }
     if (value === 0 || value === "0") {
-      return Number(0).toFixed(n);
+      return Number(0).toFixed();
     }
     const isNegative = Number(value) < 0;
     const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);

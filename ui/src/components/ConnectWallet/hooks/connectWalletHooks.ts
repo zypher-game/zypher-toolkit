@@ -11,7 +11,7 @@ import {
 export const useNativeBalanceStr = (): string => {
   const nativeBalance = useRecoilValue(nativeBalanceState);
   return useMemo(() => {
-    return formatMoney(nativeBalance, 2);
+    return formatMoney(nativeBalance, 4);
   }, [nativeBalance]);
 };
 
