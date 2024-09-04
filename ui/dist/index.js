@@ -779,7 +779,7 @@ function useActiveWeb3React(env, chainList) {
   return useMemo(() => {
     return {
       chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
+      account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
       provider
     };
   }, [chainId, address, provider]);
@@ -3453,7 +3453,12 @@ var formatMoney = (value, n = 2) => {
       return Number(0).toFixed();
     }
     const isNegative = Number(value) < 0;
-    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
+    const absValue = Math.abs(Number(value));
+    const isInteger = Number.isInteger(absValue);
+    const v = formatDecimal(
+      Math.abs(Number(value)),
+      isInteger ? 0 : n > 0 ? n : 0
+    );
     const l = v.split(".")[0].split("").reverse();
     const r = v.split(".")[1];
     let t = "";
@@ -15876,7 +15881,6 @@ export {
   filterInput,
   formatCurrency,
   formatDataFromGraph,
-  formatDecimal,
   formatMoney,
   formatSymbol,
   foxWallet,

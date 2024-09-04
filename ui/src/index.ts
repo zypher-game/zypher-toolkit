@@ -267,7 +267,6 @@ export {
   formatCurrency,
   formatSymbol,
   eX,
-  formatDecimal,
   formatMoney,
   convertToLargeNumberRepresentation,
   splitArrByLen,

@@ -27,7 +27,7 @@ export function bnPow10(
   return new BigNumber(num).multipliedBy(new BigNumber(10).pow(decimals));
 }
 
-export const formatDecimal = (number: number, decimal = 2): string => {
+const formatDecimal = (number: number, decimal = 2): string => {
   if (number === undefined) {
     return "";
   }
@@ -51,7 +51,13 @@ export const formatMoney = (value: number | string, n = 2): string => {
       return Number(0).toFixed();
     }
     const isNegative = Number(value) < 0;
-    const v = formatDecimal(Math.abs(Number(value)), n > 0 ? n : 0);
+    const absValue = Math.abs(Number(value));
+    const isInteger = Number.isInteger(absValue);
+
+    const v = formatDecimal(
+      Math.abs(Number(value)),
+      isInteger ? 0 : n > 0 ? n : 0
+    );
     const l = v.split(".")[0].split("").reverse();
     const r = v.split(".")[1];
     let t = "";

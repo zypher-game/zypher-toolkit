@@ -74,7 +74,7 @@ export { getContract, getContractFromRpc, getProvider, } from "./connectors/cont
 export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";
-export { pow10, bnPow10, getShortenAddress, getShortenAddress2, filterInput, measureText, formatCurrency, formatSymbol, eX, formatDecimal, formatMoney, convertToLargeNumberRepresentation, splitArrByLen, } from "./utils/tool";
+export { pow10, bnPow10, getShortenAddress, getShortenAddress2, filterInput, measureText, formatCurrency, formatSymbol, eX, formatMoney, convertToLargeNumberRepresentation, splitArrByLen, } from "./utils/tool";
 export { request, httpPost, httpGet } from "./utils/request";
 export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getFormattedTimeMobile, } from "./utils/data";
 export { getChainId } from "./utils/getChainId";
