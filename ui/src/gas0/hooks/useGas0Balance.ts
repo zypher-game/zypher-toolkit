@@ -69,6 +69,8 @@ export const useGas0Balance = () => {
               wallet_bytecode: configRes.data.wallet_bytecode,
             });
           });
+        } else {
+          setLoading(false);
         }
       }
     );

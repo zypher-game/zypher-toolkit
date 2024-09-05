@@ -31,7 +31,7 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
-import { useAaWallet } from "../../../../hooks/aaWallet/hooks";
+import { useAaWallet } from "../../../../gas0/hooks/useWalletHandler";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -55,6 +55,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const refreshBalance = useRecoilValue(refreshBalanceState);
   const { walletClient } = useAaWallet();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
+    console.log(1);
     if (!chainId || !account || !provider || !walletClient) {
       console.log("xxxxx", { chainId, account, provider, walletClient });
       return;

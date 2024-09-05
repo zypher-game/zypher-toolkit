@@ -63,7 +63,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const isMobile = useIsW768()
   const [cardNumbers, setCardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const { walletClient } = useAaWallet()
+  const { aaWalletClient: walletClient } = useAaWallet()
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)

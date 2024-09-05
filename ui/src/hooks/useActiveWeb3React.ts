@@ -3,7 +3,7 @@ import { PublicClient, useAccount, usePublicClient } from "wagmi";
 
 import { ChainId, supportedChainIds } from "../constant/constant";
 import { useChainId } from "../rainbowkit/src/hooks/useChainId";
-import { useIsTelegram } from "./aaWallet/useIsTelegram";
+import { useIsTelegram } from "./useIsTelegram";
 
 export function useActiveWeb3React(
   env?: string,

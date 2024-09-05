@@ -26,7 +26,6 @@ export const useGetActiveRouterFn = () => {
     tvlHero
   }: IActiveData = activeData
   const { isActiveRouter } = useIsGetActiveData()
-  console.log({ id })
   const getActiveRouterFn = useCallback((): string | undefined => {
     if (isActiveRouter) {
       const pathnameArr = location.pathname.split('/')
@@ -35,7 +34,6 @@ export const useGetActiveRouterFn = () => {
         return
       }
       const _code = getHrefCode()
-      console.log({ id, twitterNickname, airdropPoints })
       if (airdropPoints === '' && _code?.startsWith('L' || 'B')) {
         console.log(1)
         return
@@ -43,8 +41,6 @@ export const useGetActiveRouterFn = () => {
       // 需要跳转路由
       if (!id && isInitLoading) {
         return `/${NavKey[0][1]}/${NavKey[0][2]}`
-        console.log(1)
-        return
       }
 
       if (!id || id === '' || !twitterNickname || twitterNickname === '' || !canNext(account, chainId)) {

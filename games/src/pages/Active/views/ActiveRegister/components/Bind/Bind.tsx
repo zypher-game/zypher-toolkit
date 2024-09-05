@@ -1,5 +1,6 @@
 import { LoadingButton, preStaticUrl, SvgComponent, useActiveWeb3React, useIsW768, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { ActivePixelButton, ActivePixelCard } from '@ui/src'
+import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
@@ -83,7 +84,8 @@ const Bind = memo(
         <LiItem fl={'3. Check your airdrop points'} fr={<FrStatus label="" isLoading={false} btnLabel="Check" onClick={CheckPointHandle} />} />
       </ul>
     )
-  }
+  },
+  isEqual
 )
 const FrStatus = memo(({ label, btnLabel, onClick, isLoading }: { label?: string; btnLabel?: string; onClick?: any; isLoading?: boolean }) => {
   if (label) {
@@ -108,7 +110,7 @@ const FrStatus = memo(({ label, btnLabel, onClick, isLoading }: { label?: string
       <LoadingButton isLoading={isLoading} />
     </ActivePixelButton>
   )
-})
+}, isEqual)
 const LiItem = memo(({ fl, fr }: { fl: any; fr: any }) => {
   return (
     <li className={css.liItem}>
@@ -118,5 +120,5 @@ const LiItem = memo(({ fl, fr }: { fl: any; fr: any }) => {
       </ActivePixelCard>
     </li>
   )
-})
+}, isEqual)
 export default Bind

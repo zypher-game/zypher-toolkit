@@ -132,5 +132,5 @@ const GameListTableWidget: React.FC<IProps> = memo(({ loading, className, dataSo
 export const IsPixelWidgetTable = memo(({ children }: { children: React.ReactNode }) => {
   const isW768 = useIsW768()
   return isW768 ? <div className={css.inner}>{children}</div> : <PixelGameListTable className={css.gameList}>{children}</PixelGameListTable>
-})
+}, isEqual)
 export default GameListTableWidget

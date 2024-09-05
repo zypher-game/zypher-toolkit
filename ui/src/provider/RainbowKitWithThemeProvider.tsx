@@ -9,7 +9,7 @@ import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
 import { darkTheme } from "../rainbowkit/src/themes/darkTheme";
 import { RainbowKitProvider } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
 import { useTelegramUser, useWebAppData } from "../hooks/useTelegramUser";
-import { useSetAaWallet } from "../hooks/aaWallet/hooks";
+import { useSetAaWallet } from "../gas0/hooks/useWalletHandler";
 
 type IProps = {
   env: string;

@@ -64,7 +64,6 @@ const SubmitCardV1 = () => {
 
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const pointsBalance = useRecoilValue(pointsBalanceState)
-  console.log({ aa_mm_address, pointsBalance })
   const disable = useMemo(() => {
     if (activeLevels[level]) {
       return Number(formatEther((activeLevels[level] as any).betSize)) > pointsBalance
@@ -112,7 +111,6 @@ const SubmitCardV1 = () => {
   }, [chainId, account, walletClient, bingoVersion])
   // Cannot destructure property 'betSize' of 'activeLevels[level]' as it is undefined.
   const handleSubmitCard = async () => {
-    console.log({ chainId, aa_mm_address, walletClient, wallet, activeLevels })
     if (!chainId || !aa_mm_address || !walletClient || !activeLevels.length) {
       if (chainId && aa_mm_address && !activeLevels.length) {
         getActiveLevels()
@@ -138,7 +136,6 @@ const SubmitCardV1 = () => {
         account: aa_mm_address
       })
       const [lvId, lineupUsers] = await bingoLobbyContract.functions.lineupUsers()
-      console.log({ lineupUsers })
       if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
           account: account,
@@ -159,7 +156,6 @@ const SubmitCardV1 = () => {
       const { betSize: tokenAmount, level: realLevel } = activeLevels[level] as any
       const donationFee = await bingoLobbyContract.functions.donationFee()
       let hash = '' as Hash
-      console.log({ donationFee: new BigNumberJs(donationFee).toFixed() })
       if (account && aa && wallet) {
         const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
         const joinData = await (async () => {

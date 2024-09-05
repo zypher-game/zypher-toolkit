@@ -92,7 +92,10 @@ type IAvatarGroupList = {
 }
 
 export const AvatarGroupList: React.FC<IAvatarGroupList> = ({ address, size, style, border }) => {
-  const { selectedAvatar, selectedBackground } = useAvatar(address, false)
+  const {
+    avatars: { selectedAvatar, selectedBackground },
+    aa_mm_address
+  } = useAvatar(address, false)
 
   return (
     <Avatar
@@ -100,7 +103,7 @@ export const AvatarGroupList: React.FC<IAvatarGroupList> = ({ address, size, sty
       className="custom-avatar"
       src={selectedAvatar}
       style={{ background: selectedBackground, ...style, border: !border ? '1px solid #613C17' : '' }}
-      alt={`${address}`}
+      alt={`${aa_mm_address}`}
     />
   )
 }

@@ -9,16 +9,16 @@ import {
   useAaWallet,
   useAccountInvitation,
   useCustomTranslation,
+  useGetOwnAddress,
   useIsTelegram,
   useIsW768,
   useRecoilState
 } from '@ui/src'
 import { usePublicNodeWaitForTransaction } from '@ui/src'
-import { useWalletHandler } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cx from 'classnames'
 import { sample } from 'lodash'
-import React, { useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import styled, { keyframes } from 'styled-components'
 import { TransactionReceipt } from 'viem'
@@ -106,15 +106,16 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const [pending, setPending] = useState(false)
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
-  const { aa_mm_address: account } = useAaWallet()
+  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [isCard, setIsCard] = useState(false)
-  const { walletClient } = useAaWallet()
+  const { aaWalletClient: walletClient, aa_mm_address } = useAaWallet()
   const { isPlaying, gameId } = useRestoreGame()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const chainIdParams = useChainIdParams()
+  const [lineupUsers, _lineupUsers] = useState<string[]>([])
+  const { setOwnerAddress } = useGetOwnAddress()
   useIntervalAsync(async () => {
-    if (!chainId || !account || !walletClient) {
+    if (!chainId || !aa_mm_address || !walletClient) {
       return
     }
     const provider = await getProvider(sample(ChainRpcUrls[chainId]))
@@ -122,32 +123,30 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       chainId,
       bingoVersion,
       library: provider,
-      account
+      account: aa_mm_address
     })
     const rres = await bingoLobbyContract.functions.lineupUsers()
-    let lineupUsers: string[] = []
+    let __lineupUsers: string[] = []
     if (bingoVersion === IBingoVersion.v1) {
-      lineupUsers = rres[1] // []
+      __lineupUsers = rres[1] // []
     } else {
-      lineupUsers = rres[0]
+      __lineupUsers = rres[0]
     }
     setJoinGameState(game => ({
       ...game,
-      lineupUsers
+      lineupUsers: __lineupUsers
     }))
-    console.log({ rres })
+    _lineupUsers(__lineupUsers)
     const curBlock = await provider.getBlockNumber()
     const filter = bingoLobbyContract.filters.GameStarted()
     const events = await bingoLobbyContract.queryFilter(filter, curBlock - 10)
-    console.log({ events })
     const myEvents = events.filter(event => {
       const [list] = (event.args || []).slice(-1)
-      console.log({ list, account })
-      return list.map((v: any) => (v ?? '').toLowerCase()).includes(account) as Event
+      return list.map((v: any) => (v ?? '').toLowerCase()).includes(aa_mm_address.toLowerCase()) as Event
     })
     const [event] = myEvents
     if (event) {
-      const [id, cardContract, lineupUser] = event.args || []
+      const [id, cardContract, __lineupUser] = event.args || []
       setGameRoom(room => ({
         ...room,
         gameId: id.toNumber(),
@@ -155,9 +154,9 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       }))
       setJoinGameState(game => ({
         ...game,
-        lineupUsers: lineupUser
+        lineupUsers: __lineupUser
       }))
-
+      _lineupUsers(__lineupUser)
       toBingoPlayHref({
         chainIdParams: chainIdParams,
         navigate: navigate,
@@ -166,7 +165,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
     }
   }, 1000)
   const handleStartGame = async () => {
-    if (!chainId || !walletClient) {
+    if (!chainId || !aa_mm_address || !account || !walletClient) {
       return
     }
     setPending(true)
@@ -207,6 +206,9 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       setPending(false)
     }
   }
+  useEffect(() => {
+    setOwnerAddress(lineupUsers)
+  }, [lineupUsers.length])
   return (
     <>
       {isCard ? (
@@ -220,12 +222,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
             <Col flex={'auto'}>
               <FlexCenter isMobile={isMobile}>
                 <BingoCardView isMobile={isMobile}>
-                  <BingoBoardView
-                    cardNumbers={gameRoom.cardNumbers}
-                    onChange={() => {
-                      // console.log('不能编辑')
-                    }}
-                  />
+                  <BingoBoardView cardNumbers={gameRoom.cardNumbers} onChange={() => {}} />
                 </BingoCardView>
               </FlexCenter>
             </Col>
@@ -244,7 +241,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
               : t('MatchmarkingText1')}
           </div>
           <LineupUsersWrapper isMobile={isMobile}>
-            {joinGame.lineupUsers.concat(new Array(5 - joinGame.lineupUsers.length).fill('')).map((player, idx) => (
+            {lineupUsers.concat(new Array(5 - lineupUsers.length).fill('')).map((player, idx) => (
               <BingoPlayerAvatar
                 size={isMobile ? 30 : 56}
                 className="lineup-users-item"
@@ -264,7 +261,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
             {t('View Card')}
           </div>
           <Space>
-            <ButtonPrimary width="250px" onClick={handleStartGame} disabled={[0, 1, 6].includes(joinGame.lineupUsers.length) || pending}>
+            <ButtonPrimary width="250px" onClick={handleStartGame} disabled={[0, 1, 6].includes(lineupUsers.length) || pending}>
               <Space size={10}>
                 <span>{t('Start')}</span>
                 {pending && <LoadingOutlined />}

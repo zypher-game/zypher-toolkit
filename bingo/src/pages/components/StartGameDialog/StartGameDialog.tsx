@@ -6,10 +6,9 @@ import {
   useAccountInvitation,
   usePublicNodeWaitForTransaction,
   useRecoilState,
-  useResetRecoilState,
-  useWalletHandler
+  useResetRecoilState
 } from '@ui/src'
-import { sample } from 'lodash'
+import { isEqual, sample } from 'lodash'
 import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
@@ -35,7 +34,6 @@ import { toBingoHref, toBingoPlayHref } from '@/utils/toBingoHref'
 import { ConfirmCloseModal, TipsModal, TipsOkModal } from '../Modal'
 
 const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
-  const { aa_mm_address } = useAaWallet()
   const [showModal, setShowModal] = useRecoilState(showModalState)
   const [showTipModal, setShowTipModal] = useRecoilState(showTipModalState)
   const [showTipsOkModal, setShowTipsOkModal] = useRecoilState(showTipOkModalState)
@@ -46,7 +44,7 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
   const [playingState, setPlayingState] = useState(isPlaying)
   const [{ cardNumbers }] = useRecoilState(gameRoomState)
   const [modalLoading, setModalLoading] = useState(false)
-  const { walletClient } = useAaWallet()
+  const { aaWalletClient: walletClient, aa_mm_address } = useAaWallet()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const chainIdParams = useChainIdParams()
@@ -235,5 +233,5 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       <ConfirmCloseModal open={showCloseModal} closeLoading={modalLoading} onClose={onExitQueue} onCancel={() => setShowCloseModal(false)} />
     </>
   )
-})
+}, isEqual)
 export default StartGameDialog

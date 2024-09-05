@@ -2,12 +2,11 @@ import {
   bingoBetaSupportedChainId,
   bingoV1SupportedChainId,
   ChainId,
+  useAaWallet,
   useAccount,
   useChainId,
-  useAaWallet,
   usePublicClient,
-  useRecoilValue,
-  useWalletHandler
+  useRecoilValue
 } from '@ui/src'
 import { useMemo } from 'react'
 import { PublicClient } from 'wagmi'

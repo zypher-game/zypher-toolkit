@@ -5,7 +5,6 @@ import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { useAccountInvitation } from '@ui/src'
 import { usePublicNodeWaitForTransaction } from '@ui/src'
-import { useWalletHandler } from '@ui/src'
 import { Modal, Space } from 'antd'
 import React, { useCallback, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -16,7 +15,6 @@ import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
 import { gameRoomState, IBingoVersion, startGameStep } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { toBingoHref } from '@/utils/toBingoHref'
@@ -34,7 +32,7 @@ const GameExit: React.FC = () => {
   const [confirmLoading, setConfirmLoading] = useState(false)
   const { id: gameId } = useParams()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const { walletClient } = useAaWallet()
+  const { aaWalletClient: walletClient } = useAaWallet()
   const { postAccountUpdate } = useAccountInvitation(env)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const handleClick = async () => {

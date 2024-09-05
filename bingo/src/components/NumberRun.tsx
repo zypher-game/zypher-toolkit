@@ -1,3 +1,4 @@
+import { isEqual } from 'lodash'
 import React, { HTMLProps, memo, useContext, useEffect, useState } from 'react'
 import * as shifty from 'shifty'
 
@@ -52,4 +53,4 @@ export const NumberRun = memo((props: CptTypes) => {
   }
   // const show = formatNumber(value.toFixed(props.fixed ?? 2));
   return <>{value.toFixed(props.fixed ?? 2)}</>
-})
+}, isEqual)

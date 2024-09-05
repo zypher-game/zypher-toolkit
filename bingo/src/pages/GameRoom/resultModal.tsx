@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { addressIsEqual, preStaticUrl, useCurrentLanguage } from '@ui/src'
+import { addressIsEqual, preStaticUrl, useAaWallet, useCurrentLanguage } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
@@ -70,6 +70,7 @@ interface IResultModalProps {
 const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCancel, onSubmit, open, winAmount, loseAmount }: IResultModalProps) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const { account } = useActiveWeb3ReactForBingo()
+  const { aa_mm_address } = useAaWallet()
   const lang = useCurrentLanguage()
   const isMobile = useIsW768()
   return (
@@ -84,7 +85,7 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
       >
         <Wrapper isMobile={isMobile}>
           <ResultM isMobile={isMobile}>
-            {addressIsEqual(winner, account) ? (
+            {addressIsEqual(winner, account) || addressIsEqual(winner, aa_mm_address) ? (
               <img decoding="async" loading="lazy" className="winnerImg" src={preStaticUrl + `/img/bingo/winerBingo.png`} />
             ) : (
               <img decoding="async" loading="lazy" className="loseImg" src={preStaticUrl + `/img/bingo/your-lose_${lang}.png`} />

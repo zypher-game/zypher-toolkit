@@ -1,6 +1,7 @@
 import { AddressZero } from '@ethersproject/constants'
-import { ChainId, CODELENGTH, getLinkPre, preStaticUrl, request, TVL_API, TVLStakingSupportedChainId, useActiveWeb3React } from '@ui/src'
+import { ChainId, CODELENGTH, getLinkPre, preStaticUrl, request, TVL_API, TVLStakingSupportedChainId, useAaWallet, useActiveWeb3React } from '@ui/src'
 import { GlobalVar } from '@ui/src'
+import { getWeb3Sign } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect } from 'react'
 import { Address } from 'wagmi'
@@ -8,7 +9,6 @@ import { Address } from 'wagmi'
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@ui/src'
 
 import { useActiveData } from './useActiveData'
 export const preAirdropPathname = 'airdrop'
@@ -67,12 +67,13 @@ export const usePreHandleAction = () => {
 
 export const useSignCall = () => {
   const { activeData, setActiveData } = useActiveData()
+  const { walletClient } = useAaWallet()
   const { accountAddress, invitationCode, id, isInitLoading } = activeData
   const getSignCall = useCallback(async () => {
     if (accountAddress !== AddressZero && invitationCode && !id && !isInitLoading) {
       try {
         const hashedCardBytes = ethers.utils.hexConcat([accountAddress])
-        const _signedStr = await getWeb3Sign(hashedCardBytes, accountAddress, false)
+        const _signedStr = await getWeb3Sign(hashedCardBytes, accountAddress, false, walletClient)
         if (typeof _signedStr === 'string') {
           setActiveData(pre => ({ ...pre, signedStr: _signedStr }))
         } else {

@@ -71,7 +71,7 @@ const FlexCall = styled.div<{
   cursor: pointer;
   overflow: hidden;
   color: #804700;
-  font-size: ${({ isMobile }) => (isMobile ? '20px' : '40px')};
+  font-size: ${({ isMobile }) => (isMobile ? '20px' : '35px')};
   ${({ disabled }) => disabled && SpaceDisabled};
   ${({ active }) => active && SpaceActive};
   ${({ turn }) => turn && SpaceSelect};

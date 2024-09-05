@@ -537,12 +537,12 @@ export const zkBingo = (
       address = {
         date: "2024-08-01T07:49:19.451Z",
         chainId: 19546,
-        deployer: "0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE",
+        deployer: "0x44Cb6dA95D121F812AD047747129C34C1F9a37f6",
         ZypherGameToken: "0x71a56BD2E4391bc6f6012F843DE6d7e82E3bc64f",
-        ZkBingoCard: "0x247e72B5553dF9E7df2fE32D1A8a35b275Eff086",
-        ZkBingoLobby: "0x0C9A5E2b95Ce0546AeFb6d921280DBe964acf3c9",
-        ZkBingoFee: "0x2EEF6B573dBAB1BB727E07081Aeb177c9787DB37",
-        ZkBingoPoints: "0x3A5FD28897C10D802Fa516659Fd5d2705E69da93",
+        ZkBingoCard: "0xb648B48c448c715E0aa7491420C019F4F02FA2B0",
+        ZkBingoLobby: "0xBab64955524178610d44cCf9ef1A94a5597d8F98",
+        ZkBingoFee: "0x3e409DF35a8D54a420ec9592dDA288735153b81a",
+        ZkBingoPoints: "0x3BccC2cC57083f6A14a0dDbB43262741EC820741",
       };
     }
     let returnAddress = AddressZero;
@@ -585,7 +585,7 @@ export const TaskTelegramBot = "https://t.me/zBingoBot";
 export const TaskJoinTelegramGroup = "https://t.me/zyphernetwork"; // location.protocol === 'http:' ? 'https://t.me/tt3434' :
 export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
 export const TaskReweet1 =
-  "https://twitter.com/Zypher_Network/status/1819215629041254588";
+  "https://x.com/Zypher_Network/status/1830911872473932208";
 
 type IAAWallet = {
   dispatch: (arg: any) => any;

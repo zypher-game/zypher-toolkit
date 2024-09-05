@@ -8,16 +8,16 @@ export const form_primary_score = (pre: any, data: any) => {
   return {
     ...pre,
     airdropPoints: airdropPoints.toFixed(),
-    airdropPointsStr: airdropPoints.toFormat(2),
+    airdropPointsStr: formatMoney(airdropPoints.toFixed(), 8),
     airdropPointsDetail: {
       init: '0',
       byTwitter: `${data?.twitterFollowerScore}`,
       gas: data?.gasFee,
-      gasStr: data.gasFee ? formatMoney(new BigNumberJs(data.gasFee).dividedBy(divisorBigNumber).toFixed(), 4) : '0',
+      gasStr: data.gasFee ? formatMoney(new BigNumberJs(data.gasFee).dividedBy(divisorBigNumber).toFixed(), 8) : '0',
       byGas: `${data?.gasScore}`,
       byBalance: `${data?.balanceScore}`,
       balance: data?.balance,
-      balanceStr: data.balance ? formatMoney(new BigNumberJs(data.balance).dividedBy(divisorBigNumber).toFixed(), 4) : '0'
+      balanceStr: data.balance ? formatMoney(new BigNumberJs(data.balance).dividedBy(divisorBigNumber).toFixed(), 8) : '0'
     }
   }
 }

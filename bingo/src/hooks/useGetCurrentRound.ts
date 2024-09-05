@@ -19,7 +19,7 @@ const useGetCurrentRound = (gameId: number | string | undefined): IRoundInfo => 
     status: ''
   })
   const { bingoVersion } = useActiveWeb3ReactForBingo()
-  const { walletClient } = useAaWallet()
+  const { aaWalletClient: walletClient } = useAaWallet()
   const chainId = useChainIdParamsAsChainId()
   const fetchCurrentRound = useCallback(async () => {
     try {

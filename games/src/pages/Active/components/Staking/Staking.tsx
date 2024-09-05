@@ -8,6 +8,7 @@ import {
   ChainName,
   Currency,
   defaultActiveChainId,
+  formatMoney,
   LoadingButton,
   PixelBorderCard,
   PixelBorderCardButton,
@@ -20,6 +21,7 @@ import {
   useSetRecoilState
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { calculateSumByNumber } from '@/utils/calculateSum'
@@ -49,7 +51,7 @@ const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string
     erc20: '5'
   }
 }
-const Staking = memo(() => {
+const Staking = memo(({ isModal }: { isModal: boolean }) => {
   const isW768 = useIsW768()
   const chooseChain = useRecoilValue(chooseChainState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
@@ -68,7 +70,7 @@ const Staking = memo(() => {
     isDepositLoading,
     isApproveLoading,
     isDataLoading
-  } = useStakeHandle()
+  } = useStakeHandle(isModal)
   const { native, erc20 } = useTable()
   useEffect(() => {
     if (chooseChain) {
@@ -141,8 +143,9 @@ const Staking = memo(() => {
     // }
     setIsSelectChainModalOpen(true)
   }, [])
-  const { totalStaked, earnPoints, finalPoints } = useMemo(() => {
+  const { totalStaked, earnPoints, finalPoints, totalStakedNumber } = useMemo(() => {
     const obj = {
+      totalStakedNumber: '0',
       totalStaked: '',
       earnPoints: '',
       finalPoints: ''
@@ -205,9 +208,10 @@ const Staking = memo(() => {
             //   growthCoefficient
             // })
             return {
-              totalStaked: _totalStaked.toFormat(2),
-              earnPoints: _earnPoints.toFormat(2),
-              finalPoints: _finalPoints.toFormat(2)
+              totalStakedNumber: _totalStaked.toString(),
+              totalStaked: formatMoney(_totalStaked.toFixed(), 8),
+              earnPoints: formatMoney(_earnPoints.toFixed(), 8),
+              finalPoints: formatMoney(_finalPoints.toFixed(), 8)
             }
           }
         }
@@ -293,7 +297,7 @@ const Staking = memo(() => {
         width="100%"
         height={isW768 ? '48px' : '54px'}
         pixel_height={5}
-        onClick={deposit}
+        onClick={() => deposit(totalStakedNumber)}
         disable={isDepositLoading || isApproveLoading || isDataLoading}
         themeType="brightBlue"
       >
@@ -304,5 +308,5 @@ const Staking = memo(() => {
       <SelectChainDialog />
     </PixelBorderCard>
   )
-})
+}, isEqual)
 export default Staking

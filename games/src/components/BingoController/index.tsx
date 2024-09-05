@@ -60,7 +60,7 @@ const FlexCall = styled.div<{ active?: boolean; disabled?: boolean; turn?: boole
   text-align: center;
   cursor: pointer;
   overflow: hidden;
-  font-size: ${({ isMobile }) => (isMobile ? '26px' : '40px')};
+  font-size: ${({ isMobile }) => (isMobile ? '26px' : '34px')};
   color: #804700;
   ${({ disabled }) => disabled && SpaceDisabled};
   ${({ active }) => active && SpaceActive};

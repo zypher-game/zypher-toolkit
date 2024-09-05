@@ -9,6 +9,7 @@ import {
   getProvider,
   getShortenAddress,
   httpPost,
+  IPlayer,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
   preStaticUrl,
@@ -56,11 +57,16 @@ import InputValue from '../components/GameRules/inputValue'
 import { GradeModal, OvertimeModal } from '../components/Modal'
 import ControllerMenu from './components/ControllerMenu'
 import AvatarGroup from './components/MAvatarGroup'
+import PlayersAvatar from './components/PlayersAvatar'
 import RoundTitle from './components/roundTitle'
 import css from './index.module.stylus'
 import ResultModal from './resultModal'
 
 const RoundTip = styled.div<{ isMobile: boolean }>`
+  position: absolute;
+  width: 100%;
+  top: 2px;
+  left: 0;
   div {
     text-align: center;
     font-size: ${({ isMobile }) => (isMobile ? '12px' : '14px ')};
@@ -87,13 +93,14 @@ const GameCheckerBoard = styled.div<{ isMobile: boolean }>`
   }
 `
 const GamePadding = styled.div<{ isMobile: boolean }>`
+  position: relative;
   border-radius: 60px;
   background: #eabf6e;
-  padding: 0 21px 27px;
+  padding: 30px 21px 27px;
   box-shadow: 0px -0.10000000149011612px 1px 0px #d09528 inset;
   @media (max-width: 768px) {
     border-radius: 42px;
-    padding: 0 10px 15px;
+    padding: 40px 10px 15px;
     width: 330px;
   }
 `
@@ -101,7 +108,7 @@ const GameBackground = styled.div`
   border-radius: 40px;
   background: #99622a;
   padding: 20px 15px;
-  height: 581px;
+  height: 540px;
   display: flex-start;
   align-items: ;
   justify-content: center;
@@ -139,28 +146,6 @@ const RulesCard = styled.div`
     font-size: 24px;
     padding-bottom: 23px;
   }
-`
-const PlayersWrapper = styled.div<{ highLight: boolean; leave: boolean }>`
-  margin-bottom: 15px;
-  padding: 15px;
-  border-radius: 30px;
-  border-color: ${({ highLight }) => (highLight ? '#58d31e' : '#ffd893')};
-  border-width: 3px;
-  border-style: solid;
-  color: #814700;
-  width: 100%;
-  /* box-shadow: ${({ highLight }) =>
-    highLight
-      ? '0px -0.10000000149011612px 2px 0px #1a8400 inset'
-      : '0px 0px 3px 0px #5f3204, 0px 1px 2px 0px #fffbef inset, 0px -1px 1px 0px #c7852e inset'};*/
-  background: linear-gradient(180deg, #fff2d1 0%, #ffd893 100%);
-  .players-name {
-    font-size: 16px;
-  }
-  .players-address {
-    font-size: 14px;
-  }
-  opacity: ${({ leave }) => leave && 0.7};
 `
 const BingoControllerButtonWrapper = styled.div<{ isMobile: boolean }>`
   display: flex;
@@ -204,7 +189,7 @@ const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }
 const GameRoom: React.FC = () => {
   const IS_TELEGRAM = useIsTelegram()
   useBingoVersion()
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { account: owner, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const navigate = useNavigate()
   const lang = useCurrentLanguage()
   const [{ cardNumbers }] = useRecoilState(gameRoomState)
@@ -213,6 +198,7 @@ const GameRoom: React.FC = () => {
   const isMobile = useIsW768()
   const joinGame = useRecoilValue(joinGameState)
   const { roomInfo, fetchGameInfo } = useGetGameInfoV1(gameId)
+  console.log({ gameId, roomInfo })
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
   const resetGameStep = useResetRecoilState(startGameStep)
@@ -224,7 +210,7 @@ const GameRoom: React.FC = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [pending, setPending] = useState(false)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  const { walletClient } = useAaWallet()
+  const { aa_mm_address: account, aaWalletClient: walletClient } = useAaWallet()
   const [gamesWon, setWinRate] = useState(0)
   const { t } = useCustomTranslation([LngNs.zBingo])
   const chainIdParams = useChainIdParams()
@@ -232,7 +218,9 @@ const GameRoom: React.FC = () => {
   const round = useMemo<number>(() => (roomInfo?.players ? Math.ceil(roomInfo.round / roomInfo.players.length) || 0 : 0), [JSON.stringify(roomInfo)])
   const selectedNumbers = useMemo(() => roomInfo.selectedNumbers, [JSON.stringify(roomInfo)])
   const isOvertime = useMemo(() => roomInfo.status, [JSON.stringify(roomInfo)])
-  const isControllerEnabled = useMemo<boolean>(() => addressIsEqual(roomInfo.player, account ?? ''), [JSON.stringify(roomInfo), account])
+  console.log({ isOvertime })
+  const isControllerEnabled = useMemo<boolean>(() => addressIsEqual(roomInfo.player, account ?? ''), [roomInfo.player, account])
+  console.log({ isControllerEnabled, player: roomInfo.player, account })
   const Garde = useMemo(() => {
     if (gamesWon < gradeData[1].minWinCounts) {
       return 1
@@ -331,11 +319,13 @@ const GameRoom: React.FC = () => {
         if (nextLines.length >= 2) {
           await handleSelectAndBingo(markedNum)
         } else {
+          console.log('xxxxxx1111')
           const txnReceipt = await lobbyContract.write.selectNumber([gameId, markedNum], {
             account: account,
             maxFeePerGas: gasPrice[chainId],
             maxPriorityFeePerGas: gasPrice[chainId]
           })
+          console.log('xxxxxx1111sssssss')
           const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
           const selectNumberTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
           if (selectNumberTx && selectNumberTx.status === txStatus) {
@@ -439,23 +429,7 @@ const GameRoom: React.FC = () => {
       navigate
     })
   }, [navigate, chainIdParams])
-  const renderPlayersAvatar = () => {
-    return roomInfo.players.map((player, playerIndex) => (
-      // 产品要求头像绿色的框 不管是不是在上链轮到谁就显示谁的边框
-      <PlayersWrapper key={player.user} highLight={addressIsEqual(roomInfo.player, player.user)} leave={player.isAbandoned}>
-        <Space>
-          <PlayerAvatar isGreen={roomInfo.player === player.user} account={player.isAbandoned ? '' : player.user} size={'large'} />
-          <div>
-            <div className="players-name">
-              Player {playerIndex + 1} {player.user === account && '(you)'}
-              {player.isAbandoned && '(left)'}
-            </div>
-            <div className="players-address">{player ? getShortenAddress(player.user) : t('waiting')}</div>
-          </div>
-        </Space>
-      </PlayersWrapper>
-    ))
-  }
+
   const bingoRef = useRef<NodeJS.Timer>()
   const handleGameEnd = useCallback(async () => {
     if (!chainId || !account) {
@@ -543,11 +517,16 @@ const GameRoom: React.FC = () => {
             <RoundTitle round={round} roomInfo={roomInfo} />
           </div>
         </div>
-        <Row gutter={isMobile ? [10, 10] : [20, 20]} style={{ paddingTop: isMobile ? '10px' : '20px', width: isMobile ? '370px' : 'auto' }}>
+        <Row
+          gutter={isMobile ? [10, 10] : [20, 20]}
+          style={{ paddingTop: isMobile ? '10px' : '20px', margin: '0 auto', width: isMobile ? '370px' : 'auto' }}
+        >
           <Col span={isMobile ? 0 : 7}>
             <GameCheckerBoard isMobile={isMobile}>
               <GamePadding isMobile={isMobile}>
-                <GameBackground style={{ display: 'block' }}>{renderPlayersAvatar()}</GameBackground>
+                <GameBackground style={{ display: 'block' }}>
+                  <PlayersAvatar player={roomInfo.player} players={roomInfo.players} account={account} />
+                </GameBackground>
               </GamePadding>
             </GameCheckerBoard>
           </Col>
@@ -601,7 +580,7 @@ const GameRoom: React.FC = () => {
                         <>
                           <div className={css.matchLinesWrapper}>{matchLines.length} / 2</div>
                           <ButtonPrimary
-                            style={{ height: '80px', flex: 1 }}
+                            style={{ height: '70px', flex: 1 }}
                             borderWidth={'5px'}
                             borderColor="#FFD58F"
                             disabled={matchLines.length < 2 || pending}
@@ -729,5 +708,6 @@ const Tip = memo(({ round, roomInfo, isControllerEnabled }: { round: number; isC
   ) : (
     <div>{t('Synchronizing')}</div>
   )
-})
+}, isEqual)
+
 export default GameRoom

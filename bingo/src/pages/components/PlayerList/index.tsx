@@ -11,6 +11,7 @@ import {
   preStaticUrl,
   request,
   targetDate,
+  useAaWallet,
   useCustomTranslation,
   useIsTelegram,
   useIsW768,
@@ -96,10 +97,10 @@ const Content = styled.div<{ isMobile: boolean; isWinner: boolean }>`
   }
 `
 
-function customShort(arr: IPlayer[], condition: string): string[][] {
+function customShort(arr: IPlayer[], condition: string, aa_mm_address?: string): string[][] {
   const newArr: string[][] = []
   arr.forEach(item => {
-    if (item.user === condition) {
+    if (addressIsEqual(item.user, condition) || addressIsEqual(item.user, aa_mm_address)) {
       newArr.unshift([item.user, item?.tgName ?? ''])
     } else {
       newArr.push([item.user, item?.tgName ?? ''])
@@ -185,12 +186,13 @@ export const Win: React.FC<WinProps> = ({ chainId, account }) => {
 const PlayerList = memo((props: { data: IPlayer[]; winner: string; isWinner: boolean; winAmount: number | string; loseAmount: number | string }) => {
   const bingoVersion = useRecoilValue(bingoVersionState)
   return bingoVersion === IBingoVersion.beta ? <PlayerListBeta {...props} /> : <PlayerListV1 {...props} />
-})
+}, isEqual)
 const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winner: string; isWinner: boolean }) => {
   const IS_TELEGRAM = useIsTelegram()
   const { account, chainId } = useActiveWeb3ReactForBingo()
+  const { aa_mm_address } = useAaWallet()
   const isMobile = useIsW768()
-  const list = account ? customShort(data, account) : []
+  const list = account ? customShort(data, account, aa_mm_address) : []
   const Header = (
     <Row className={css.header}>
       <Col span={12} />
@@ -265,7 +267,7 @@ const PlayerListBeta = memo(({ data, winner, isWinner }: { data: IPlayer[]; winn
       />
     </Content>
   )
-})
+}, isEqual)
 const PlayerListV1 = memo(
   ({
     data,
@@ -282,7 +284,8 @@ const PlayerListV1 = memo(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo])
     const { account, chainId } = useActiveWeb3ReactForBingo()
-    const list = account ? customShort(data, account) : []
+    const { aa_mm_address } = useAaWallet()
+    const list = account ? customShort(data, account, aa_mm_address) : []
     const isMobile = useIsW768()
     const Header = (
       <Row className={css.header}>

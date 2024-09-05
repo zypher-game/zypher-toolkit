@@ -1,4 +1,5 @@
 import { preStaticUrl } from '@ui/src'
+import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
@@ -24,5 +25,5 @@ const NormalActive = memo(() => {
       />
     </ActiveComp>
   )
-})
+}, isEqual)
 export default NormalActive

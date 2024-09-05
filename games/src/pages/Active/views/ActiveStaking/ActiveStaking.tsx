@@ -1,4 +1,5 @@
 import { Currency, minStakingValue, preStaticUrl, TVLChainId, useActiveWeb3React, useIsW768 } from '@ui/src'
+import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import classnames from '@/utils/classnames'
@@ -29,9 +30,9 @@ const ActiveStaking = memo(() => {
           <p className={css.greyText}>Note: Please activate your account promptly to secure your invitation code.</p>
           {!isW768 ? <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
         </div>
-        <Staking />
+        <Staking isModal={false} />
       </div>
     </ActiveComp>
   )
-})
+}, isEqual)
 export default ActiveStaking

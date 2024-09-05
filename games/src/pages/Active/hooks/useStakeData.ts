@@ -72,7 +72,7 @@ export const useStakeData = () => {
     })
     return value.map(v => {
       if (v.response) {
-        return [v.response.toString(), formatMoney(new BigNumberJs(v.response.toString()).dividedBy(divisorBigNumber).toFixed(), 2)] as string[]
+        return [v.response.toString(), formatMoney(new BigNumberJs(v.response.toString()).dividedBy(divisorBigNumber).toFixed(), 8)] as string[]
       }
       return ['0', '0']
     })
@@ -352,11 +352,11 @@ export const useStakeData = () => {
                   balance: balanceBig.toFixed(),
                   balanceStr: formatMoney(balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed(), 2),
                   earnGP: earnGPBig.toFixed(),
-                  earnGPStr: earnGPBig.dividedBy(divisorBigNumber).toFormat(2),
+                  earnGPStr: formatMoney(earnGPBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   userStakedAmount: userStakeBig.toFixed(),
-                  userStakedAmountStr: userStakeBig.dividedBy(divisorBigNumber).toFormat(2),
+                  userStakedAmountStr: formatMoney(userStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   totalStakedAmount: totalStakeBig.toFixed(),
-                  totalStakedAmountStr: totalStakeBig.dividedBy(divisorBigNumber).toFormat(2),
+                  totalStakedAmountStr: formatMoney(totalStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
                   END_TIME: userValue[_chainId]['END_TIME'],
                   getMinStake: userValue[_chainId]['getMinStake']
@@ -418,12 +418,12 @@ export const useStakeData = () => {
             pre => ({
               ...pre,
               userStakedAmount: reduceValue[chain]['userStakedAmount'],
-              userStakedAmountStr: new BigNumberJs(reduceValue[chain]['userStakedAmount']).toFormat(2),
+              userStakedAmountStr: formatMoney(new BigNumberJs(reduceValue[chain]['userStakedAmount']).toFixed(), 8),
               crHeroBoxAmount: reduceValue[chain]['crHeroBoxAmount'],
               dollarGpRewords: reduceValue[chain]['gpAmount'],
-              dollarGpRewordsStr: new BigNumberJs(reduceValue[chain]['gpAmount']).toFormat(2),
+              dollarGpRewordsStr: formatMoney(new BigNumberJs(reduceValue[chain]['gpAmount']).toFixed(), 8),
               mintMinimum: userValue[chain]['mintMinimum'],
-              mintMinimumStr: new BigNumberJs(userValue[chain]['mintMinimum']).dividedBy(divisorBigNumber).toFormat(2),
+              mintMinimumStr: formatMoney(new BigNumberJs(userValue[chain]['mintMinimum']).dividedBy(divisorBigNumber).toFixed(), 8),
               sbtAmount: userValue[chain]['sbtBalanceOf'],
               hasSBT: userValue[chain]['hasSBT']
             }),

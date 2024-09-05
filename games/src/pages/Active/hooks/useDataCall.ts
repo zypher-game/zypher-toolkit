@@ -1,4 +1,4 @@
-import { BM, ChainId, FORMAT, getLinkPre, request, TVL_API, useActiveWeb3React, useGetHero, useGetUserInfo } from '@ui/src'
+import { BM, ChainId, FORMAT, formatMoney, getLinkPre, request, TVL_API, useActiveWeb3React, useGetHero, useGetUserInfo } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
 
@@ -298,10 +298,10 @@ export const useStakingCall = () => {
       const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
       const statistics = {
         stakingAirdrop: stakingAirdrop,
-        stakingAirdropStr: new BigNumberJs(stakingAirdrop).toFormat(2),
+        stakingAirdropStr: formatMoney(new BigNumberJs(stakingAirdrop).toFixed(), 8),
         stakingGrowthCoefficient: stakingGrowthCoefficient,
         restakingAirdrop: restakingAirdrop,
-        restakingAirdropStr: new BigNumberJs(restakingAirdrop).toFormat(2),
+        restakingAirdropStr: formatMoney(new BigNumberJs(restakingAirdrop).toFixed(), 8),
         restakingGrowthCoefficient: restakingGrowthCoefficient
       }
       return {
@@ -361,9 +361,10 @@ export const useLeaderBoardCall = () => {
             headImg: `${v.headImg}`,
             fromNickname: `${v.fromNickname}`,
             score: `${v.score}`,
-            scoreStr: new BigNumberJs(v.score).gte(BM)
-              ? new BigNumberJs(v.score).dividedBy(BM).toFormat(3, BigNumberJs.ROUND_HALF_UP, FORMAT)
-              : new BigNumberJs(v.score).toFormat(2),
+            scoreStr: formatMoney(
+              new BigNumberJs(v.score).gte(BM) ? new BigNumberJs(v.score).dividedBy(BM).toFixed() : new BigNumberJs(v.score).toFixed(),
+              8
+            ),
             rank: Number(v.rank)
           } as IRankBoard)
       )
@@ -391,9 +392,7 @@ export const useLeaderBoardCall = () => {
         headImg: `${headImg}`,
         fromNickname: `${fromNickname}`,
         score: `${score}`,
-        scoreStr: new BigNumberJs(score).gte(BM)
-          ? new BigNumberJs(score).dividedBy(BM).toFormat(3, BigNumberJs.ROUND_HALF_UP, FORMAT)
-          : new BigNumberJs(score).toFormat(2),
+        scoreStr: formatMoney(new BigNumberJs(score).gte(BM) ? new BigNumberJs(score).dividedBy(BM).toFixed() : new BigNumberJs(score).toFixed(), 8),
         rank: Number(rank)
       } as IRankBoard
     } catch (e: any) {

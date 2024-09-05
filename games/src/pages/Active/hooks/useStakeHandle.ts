@@ -6,6 +6,7 @@ import {
   Currency,
   divisorBigNumber,
   erc20Contract,
+  minStakingValue,
   NavKey,
   refreshBalanceState,
   sleep,
@@ -21,11 +22,9 @@ import {
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
-  useSwitchNetwork,
-  useWalletClient
+  useSwitchNetwork
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
-import { GlobalVar } from '@ui/src'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
@@ -49,13 +48,15 @@ import { useChainIndex } from './useChainIndex'
 import { useStake, useStakeData } from './useStakeData'
 import { useTvlStakingDialogState } from './useTvlStakingDialogState'
 
-export const useStakeHandle = (): {
+export const useStakeHandle = (
+  isModal: boolean
+): {
   isDepositLoading: boolean
   account: `0x${string}` | undefined
   maxHandle: () => void
   chainId: ChainId
   isDataLoading: boolean
-  deposit: () => Promise<void>
+  deposit: (totalStakedNumber: string) => Promise<void>
   depositValue: string
   depositCurrency: string | undefined
   depositInputHandle: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -65,7 +66,7 @@ export const useStakeHandle = (): {
 } => {
   const [isApproveLoading, setIsApproveLoading] = useState(false)
   const [isDepositLoading, setIsDepositLoading] = useState(false)
-  const [depositValue, setDepositValue] = useState('')
+  const [depositValue, setDepositValue] = useState(isModal ? '' : '0.01')
   const setIsSelectTokenDialogModalOpen = useSetRecoilState(selectTokenDialogState)
   const [depositCurrency, setDepositCurrency] = useRecoilState(depositCurrencyState)
   const [max, setMax] = useState('0')
@@ -108,128 +109,125 @@ export const useStakeHandle = (): {
     },
     [nativeChainId, tvlStakingDialog, account]
   )
-  const deposit = useCallback(async () => {
-    const currency = depositCurrency
-    const amount = depositValue
-    try {
-      if (isDataLoading) {
-        return
-      }
-      const isOk = preHandleAction()
-      if (!isOk) {
-        setIsDepositLoading(false)
-        return
-      }
-      if (!amount || !currency) {
-        throw new Error('Amount or Currency not Ready')
-      }
-      if (new BigNumberJs(amount).toFixed() === '0') {
-        throw new Error('Amount is not enough')
-      }
+  const deposit = useCallback(
+    async (totalStakedNumber: string) => {
+      const currency = depositCurrency
+      const amount = depositValue
+      try {
+        if (isDataLoading) {
+          return
+        }
+        const isOk = preHandleAction()
+        if (!isOk) {
+          setIsDepositLoading(false)
+          return
+        }
+        if (!amount || !currency) {
+          throw new Error('Amount or Currency not Ready')
+        }
+        if (new BigNumberJs(amount).toFixed() === '0') {
+          throw new Error('Amount is not enough')
+        }
 
-      if (!walletClient) {
-        throw new Error('walletClient not Ready')
-      }
-      if (isDepositLoading || isApproveLoading) {
-        return
-      }
-      const _nativeChainId = nativeChainId
-      const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
+        if (!walletClient) {
+          throw new Error('walletClient not Ready')
+        }
+        if (isDepositLoading || isApproveLoading) {
+          return
+        }
+        const _nativeChainId = nativeChainId
+        const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
 
-      if (!contract) {
-        setErrorToast('dpContract is not ready')
-        return
-      }
+        if (!contract) {
+          setErrorToast('dpContract is not ready')
+          return
+        }
 
-      const erc20Address = tvlStakingData[_nativeChainId][currency].address
-      const decimal = tvlStakingData[_nativeChainId][currency].decimal
-      const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
-      if (erc20Address !== AddressZero) {
-        const _erc20Contract = erc20Contract(nativeChainId, env, erc20Address, walletClient)
-        const allowance = await _erc20Contract.read.allowance([account, activeTokenList[_nativeChainId].Staking])
-        const balance = await _erc20Contract.read.balanceOf([account])
-        if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
-          if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
-            setIsApproveLoading(true)
-            const approveTxn = await _erc20Contract.write.approve([activeTokenList[_nativeChainId].Staking, tokenAmount], {
-              account: account
-            })
-            const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
-            // await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
-            // setIsApproveLoading(false)
-            // setSuccessToast({ title: '', message: 'Approve successful' })
-            // 添加超时处理
-            Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise()])
-              .then(result => {
-                setIsApproveLoading(false)
-                if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
-                  setSuccessToast({ title: '', message: 'Approve successful' })
-                } else {
+        const erc20Address = tvlStakingData[_nativeChainId][currency].address
+        const decimal = tvlStakingData[_nativeChainId][currency].decimal
+        if (new BigNumberJs(totalStakedNumber).lt(minStakingValue[_nativeChainId as unknown as TVLChainId])) {
+          setErrorToast(`Please pledge at least ${minStakingValue[_nativeChainId as unknown as TVLChainId]} ${currency} to activate your account.`)
+          return
+        }
+        const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
+
+        if (erc20Address !== AddressZero) {
+          const _erc20Contract = erc20Contract(nativeChainId, env, erc20Address, walletClient)
+          const allowance = await _erc20Contract.read.allowance([account, activeTokenList[_nativeChainId].Staking])
+          const balance = await _erc20Contract.read.balanceOf([account])
+          if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
+            if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
+              setIsApproveLoading(true)
+              const approveTxn = await _erc20Contract.write.approve([activeTokenList[_nativeChainId].Staking, tokenAmount], {
+                account: account
+              })
+              const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
+              // await waitForTransaction({ confirmations: 2, hash: approveTxnHash })
+              // setIsApproveLoading(false)
+              // setSuccessToast({ title: '', message: 'Approve successful' })
+              // 添加超时处理
+              Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise()])
+                .then(result => {
+                  setIsApproveLoading(false)
+                  if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
+                    setSuccessToast({ title: '', message: 'Approve successful' })
+                  } else {
+                    setErrorToast({ title: '', message: 'Approve Error!' })
+                  }
+                })
+                .catch(e => {
+                  setIsApproveLoading(false)
                   setErrorToast({ title: '', message: 'Approve Error!' })
-                }
-              })
-              .catch(e => {
-                setIsApproveLoading(false)
-                setErrorToast({ title: '', message: 'Approve Error!' })
-              })
-            if (isW768) {
-              getStakingData()
-              return
+                })
+              if (isW768) {
+                getStakingData()
+                return
+              }
             }
           }
         }
-      }
-      setIsDepositLoading(true)
-      let funName = ''
-      let nativeAmount = '0'
-      let params
-      let fn
-      if (currency === Currency[_nativeChainId]) {
-        funName = 'depositETH'
-        nativeAmount = tokenAmount
-        fn = contract.write[funName]({
-          value: nativeAmount,
-          account: account
-        })
-      } else {
-        funName = 'deposit'
-        params = [erc20Address, tokenAmount]
-        fn = contract.write[funName](params, {
-          value: nativeAmount,
-          account: account
-        })
-      }
-      const res = await fn
-      const hash = typeof res === 'string' ? res : res.hash
-      const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-      if (depositTx && depositTx.status === txStatus) {
+        setIsDepositLoading(true)
+        let funName = ''
+        let nativeAmount = '0'
+        let params
+        let fn
+        if (currency === Currency[_nativeChainId]) {
+          funName = 'depositETH'
+          nativeAmount = tokenAmount
+          fn = contract.write[funName]({
+            value: nativeAmount,
+            account: account
+          })
+        } else {
+          funName = 'deposit'
+          params = [erc20Address, tokenAmount]
+          fn = contract.write[funName](params, {
+            value: nativeAmount,
+            account: account
+          })
+        }
+        const res = await fn
+        const hash = typeof res === 'string' ? res : res.hash
+        const depositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+        if (depositTx && depositTx.status === txStatus) {
+          setIsDepositLoading(false)
+          await _successGet({
+            tx: depositTx,
+            blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber()
+          })
+          setSuccessToast({ title: '', message: 'Staked successful' })
+        } else {
+          throw Object.assign(new Error('Staked Transaction Failed'), { name: 'Staked' })
+        }
+      } catch (e) {
+        setIsApproveLoading(false)
         setIsDepositLoading(false)
-        await _successGet({
-          tx: depositTx,
-          blockNumber: new BigNumberJs(depositTx.blockNumber.toString()).toNumber()
-        })
-        setSuccessToast({ title: '', message: 'Staked successful' })
-      } else {
-        throw Object.assign(new Error('Staked Transaction Failed'), { name: 'Staked' })
+        setErrorToast(e)
+        console.error('StakedHandle: ', e)
       }
-    } catch (e) {
-      setIsApproveLoading(false)
-      setIsDepositLoading(false)
-      setErrorToast(e)
-      console.error('StakedHandle: ', e)
-    }
-  }, [
-    isW768,
-    isDataLoading,
-    isApproveLoading,
-    isDepositLoading,
-    depositCurrency,
-    depositValue,
-    walletClient,
-    account,
-    nativeChainId,
-    preHandleAction
-  ])
+    },
+    [isW768, isDataLoading, isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction]
+  )
   useEffect(() => {
     if (
       canNext(account, nativeChainId) &&

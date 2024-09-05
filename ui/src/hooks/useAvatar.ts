@@ -2,13 +2,10 @@ import { useCallback, useEffect, useState } from "react";
 import { useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../components/ConnectWallet/state/connectWalletState";
 import generateAvatar from "../utils/generateAvatar";
-import { useIsTelegram } from "./aaWallet/useIsTelegram";
+import { useIsTelegram } from "./useIsTelegram";
+import { ownerListState } from "./useGetOwnAddress";
 
-export const useAvatar = (
-  account?: string,
-  hideAvatars?: boolean,
-  name?: string
-) => {
+export const useAvatar = (account?: string, hideAvatars?: boolean) => {
   const [avatars, setAvatars] = useState<{
     selectedAvatar: string;
     selectedBackground: string;
@@ -18,23 +15,35 @@ export const useAvatar = (
   });
   const refreshAvatar = useRecoilValue(refreshAvatarState);
   const IS_TELEGRAM = useIsTelegram();
+  const [_account, _setAccount] = useState(account);
+  const ownerList = useRecoilValue(ownerListState);
+  const getAccount = useCallback(async () => {
+    try {
+      if (account) {
+        _setAccount(ownerList[account.toLowerCase()] ?? account);
+      }
+    } catch {}
+  }, [JSON.stringify(ownerList), account]);
   useEffect(() => {
-    if (account && !hideAvatars) {
+    getAccount();
+  }, [account]);
+  useEffect(() => {
+    if (_account && !hideAvatars) {
       getData();
     } else {
-      const { selectedAvatar, selectedBackground } = generateAvatar(account);
+      const { selectedAvatar, selectedBackground } = generateAvatar(_account);
       setAvatars({ selectedAvatar, selectedBackground });
     }
-  }, [account, refreshAvatar]);
+  }, [_account, refreshAvatar]);
   const getData = useCallback(() => {
     const img = new Image();
     let src = "";
     let selectedBackground = "#fff";
     if (IS_TELEGRAM) {
-      src = `https://zypher-static.s3.amazonaws.com/telegram/${account?.toLowerCase()}`;
+      src = `https://zypher-static.s3.amazonaws.com/telegram/${_account?.toLowerCase()}`;
     } else {
       selectedBackground = "#1A1B1F";
-      src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${account?.toLowerCase()}.png`;
+      src = `https://tvl-avatar.s3.us-west-2.amazonaws.com/${_account?.toLowerCase()}.png`;
     }
     img.src = src;
     img.onload = () => {
@@ -44,9 +53,12 @@ export const useAvatar = (
       });
     };
     img.onerror = () => {
-      const { selectedAvatar, selectedBackground } = generateAvatar(account);
+      const { selectedAvatar, selectedBackground } = generateAvatar(_account);
       setAvatars({ selectedAvatar, selectedBackground });
     };
-  }, [account, refreshAvatar]);
-  return avatars || {};
+  }, [_account, refreshAvatar]);
+  return {
+    avatars: avatars || {},
+    aa_mm_address: _account,
+  };
 };

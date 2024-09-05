@@ -4,16 +4,7 @@ import { Address, WalletClient } from 'wagmi'
 
 import TVLStakingABI from './abi/tvlStaking.json'
 
-export const TVLStakingContract = ({
-  chainId,
-  env,
-  signer
-}: {
-  chainId: ChainId
-  env: string
-  address?: Address
-  signer?: WalletClient
-}): ethers.Contract => {
+export const TVLStakingContract = ({ chainId, env, signer }: { chainId: ChainId; env: string; address?: Address; signer?: any }): ethers.Contract => {
   return getContract({
     env: env,
     abi: TVLStakingABI,

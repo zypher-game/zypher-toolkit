@@ -3,7 +3,8 @@
   "version": "0.2.0",
   "scripts": {
     "bingo_start": "cd bingo && npm run start",
-    "bingo_start:tg_pro": "cd bingo && npm run start:tg_pro"
+    "bingo_start:tg_pro": "cd bingo && npm run start:tg_pro",
+    "games_start": "cd games && npm run start"
   },
   "peerDependencies": {
     "@vanilla-extract/css": "1.9.1",

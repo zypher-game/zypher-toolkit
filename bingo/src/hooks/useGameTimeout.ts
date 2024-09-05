@@ -1,3 +1,4 @@
+import { useAaWallet } from '@ui/src'
 import { useEffect, useState } from 'react'
 
 import { IBingoVersion } from '@/pages/state/state'
@@ -22,19 +23,19 @@ import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'
 //         uint32 maxDuration;
 
 const useGameTimeout = () => {
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [gameTime, setGameTime] = useState<number[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<Error | unknown | null>(null)
-
   useEffect(() => {
     const fetchData = async () => {
-      if (!chainId || !account) {
+      if (!chainId) {
         return
       }
       try {
         const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
         const time = await lobbyContract.read.timer()
+        console.log({ time })
         const { startTimeout, boostRounds, roundGap, roundTimeout, maxDuration } = time
         setGameTime([startTimeout, boostRounds, roundGap, roundTimeout, maxDuration])
         setLoading(false)
@@ -44,7 +45,7 @@ const useGameTimeout = () => {
       }
     }
     fetchData()
-  }, [account, chainId, bingoVersion])
+  }, [chainId, bingoVersion])
   return { gameTime, error, loading }
 }
 

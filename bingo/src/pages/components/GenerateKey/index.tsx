@@ -4,6 +4,7 @@ import {
   preStaticUrl,
   timeoutPromise,
   useAaWallet,
+  useCreate,
   useCustomTranslation,
   useIsTelegram,
   useIsW768,
@@ -39,20 +40,22 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
   const setCurrentStep = useSetRecoilState(startGameStep)
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
-  const { walletClient } = useAaWallet()
+  const { aaWalletClient: walletClient, aa_mm_address } = useAaWallet()
   const IS_TELEGRAM = useIsTelegram()
+  const create = useCreate()
   const handleGenerateKey = useCallback(async () => {
-    if (!chainId || !account) {
+    if (!chainId || !account || pending) {
       return
     }
     setPending(true)
     resetJoinGame()
     resetGameRoom()
     const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
+    await create()
     try {
       await Promise.race([
         (async () => {
-          const label = await lobbyContract.read.getNextKeyLabel([account])
+          const label = await lobbyContract.read.getNextKeyLabel([aa_mm_address])
           const signedLabel = await getWeb3Sign(label, account, false, walletClient)
           if (typeof signedLabel === 'string') {
             setJoinGameState((state: JoinGameStateType) => ({
@@ -69,7 +72,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     } finally {
       setPending(false)
     }
-  }, [chainId, account, walletClient])
+  }, [chainId, account, walletClient, create])
   const { t } = useCustomTranslation([LngNs.zBingo])
   return (
     <div className={cx(css.generateKey, { [css.disabled]: disabled })}>

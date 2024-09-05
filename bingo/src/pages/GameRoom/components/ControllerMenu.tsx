@@ -1,6 +1,7 @@
-import { LngNs, preStaticUrl, useCustomTranslation, useRecoilState } from '@ui/src'
+import { LngNs, preStaticUrl, useAaWallet, useCustomTranslation, useRecoilState } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { Space } from 'antd'
+import { isEqual } from 'lodash'
 import React, { memo, useEffect, useState } from 'react'
 import styled from 'styled-components'
 
@@ -53,13 +54,13 @@ const ControllerMenu: React.FC = memo(() => {
   const isMobile = useIsW768()
   const [resetGameRoom] = useRecoilState(gameRoomState)
   const [joinGame] = useRecoilState(joinGameState)
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [rulesModalOpen, setRulesModalOpen] = useState(false)
   const [minutes, setMinutes] = useState<number>(0)
   const [seconds, setSeconds] = useState<number>(0)
   const [isRunning, setIsRunning] = useState<boolean>(true)
   let intervalId: NodeJS.Timeout | null = null
-
+  const { aa_mm_address: account } = useAaWallet()
   useEffect(() => {
     ;(async () => {
       if (!chainId) {
@@ -73,20 +74,24 @@ const ControllerMenu: React.FC = memo(() => {
         },
         [[], [], [], [], []] as number[][]
       )
-      const txn = await lobbyContract.read.restoreGame([account, cardNums, joinGame.signedLabel])
-      const [playingGameId, autoEndTime, isCardContentMatched] = txn
-      const currentTimestamp = Math.floor(Date.now() / 1000)
-      const difference = autoEndTime - currentTimestamp > 0 ? autoEndTime - currentTimestamp : 0
-      const m = Math.floor((difference % (60 * 60)) / 60)
-      setMinutes(m)
-      const s = difference % 60
-      setSeconds(s)
-      if (m !== 0 || s !== 0) {
-        setIsRunning(true)
-      }
-      if (intervalId) {
-        clearInterval(intervalId)
-      }
+      try {
+        const txn = await lobbyContract.read.restoreGame([account, cardNums, joinGame.signedLabel])
+
+        const [playingGameId, autoEndTime, isCardContentMatched] = txn
+        const currentTimestamp = Math.floor(Date.now() / 1000)
+        console.log({ txn, autoEndTime, currentTimestamp })
+        const difference = autoEndTime - currentTimestamp > 0 ? autoEndTime - currentTimestamp : 0
+        const m = Math.floor((difference % (60 * 60)) / 60)
+        setMinutes(m)
+        const s = difference % 60
+        setSeconds(s)
+        if (m !== 0 || s !== 0) {
+          setIsRunning(true)
+        }
+        if (intervalId) {
+          clearInterval(intervalId)
+        }
+      } catch (err) {}
     })()
   }, [account, chainId])
 
@@ -167,6 +172,6 @@ const ControllerMenu: React.FC = memo(() => {
       )}
     </>
   )
-})
+}, isEqual)
 
 export default ControllerMenu

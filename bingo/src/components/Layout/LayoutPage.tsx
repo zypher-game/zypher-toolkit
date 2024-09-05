@@ -26,6 +26,7 @@ import { env } from '@/utils/config'
 import copy from '@/utils/copy'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
+import Butterfly from '../Butterfly/Butterfly'
 import CountUpNumber from '../CountUpNumber/CountUpNumber'
 
 const { Sider, Content } = LayoutAntd
@@ -102,6 +103,7 @@ const LayoutPage = memo((props: IProps) => {
       ) : null}
       {isW768 && !sideCollapse && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />}
       {/* <div id="snow" /> */}
+      <Butterfly />
     </LayoutAntd>
   )
 }, isEqual)

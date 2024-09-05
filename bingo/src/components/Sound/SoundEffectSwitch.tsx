@@ -8,11 +8,9 @@ import { SoundOn } from '@/pages/state/state'
 
 const Switch = styled.div`
   cursor: pointer;
-  @media screen and (max-width: 830px) {
-    img {
-      width: 32px;
-      height: 32px;
-    }
+  img {
+    width: 32px;
+    height: 32px;
   }
 `
 

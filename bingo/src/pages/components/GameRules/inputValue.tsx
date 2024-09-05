@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { ChainId, formatMoney, LngNs, preStaticUrl, useCustomTranslation, useAaWallet, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, formatMoney, LngNs, preStaticUrl, useAaWallet, useCustomTranslation, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { Space, Tooltip } from 'antd'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -55,8 +55,8 @@ const Label = styled.div<{ color?: string }>`
 const AmountValue = styled.div<{ isMobile: boolean }>`
   color: #db5f16;
   font-weight: 600;
-  font-size: ${({ isMobile }) => (isMobile ? '13px' : '24px')};
-  line-height: ${({ isMobile }) => (isMobile ? '18px' : '42px')};
+  font-size: ${({ isMobile }) => (isMobile ? '13px' : '16px')};
+  line-height: ${({ isMobile }) => (isMobile ? '18px' : '30px')};
   text-align: right;
 `
 

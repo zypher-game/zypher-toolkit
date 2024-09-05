@@ -32,7 +32,6 @@ export default function useRestoreGame<T>() {
         [[], [], [], [], []] as number[][]
       )
       const txn = await lobbyContract.read.restoreGame([account, cardNums, joinGame.signedLabel])
-      // console.log("useRestoreGame ",{ txn }) // [bingnumber playingGameId  number autoEndTime  bool isCardContentMatched]
       const [playingGameId, autoEndTime, isCardContentMatched] = txn
       const Playing = new BigNumberJs(playingGameId).toNumber() > 0
       const currentTimestamp = Math.floor(Date.now() / 1000)

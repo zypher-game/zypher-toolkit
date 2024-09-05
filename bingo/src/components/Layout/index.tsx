@@ -1,4 +1,5 @@
 import { useIsTelegram } from '@ui/src'
+import { isEqual } from 'lodash'
 import React, { memo, ReactNode } from 'react'
 
 import LayoutPage from './LayoutPage'
@@ -9,5 +10,5 @@ const Layout = memo((props: { children: ReactNode }) => {
     return <LayoutTelegram {...props} />
   }
   return <LayoutPage {...props} />
-})
+}, isEqual)
 export default Layout

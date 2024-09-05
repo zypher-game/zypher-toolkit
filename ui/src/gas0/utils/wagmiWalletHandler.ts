@@ -26,10 +26,10 @@ import BigNumberJs from "../../utils/BigNumberJs";
 import { getAddressAA } from "./getAddressAA";
 import { ZytronSignTypedData } from "../constants/typedData";
 import { httpPost } from "../../utils/request";
-import { getEIP712Sign } from "../../utils/getSign";
 import { IContractName, zkBingo } from "../../constant/constant";
 import { IGas0ApiConfig } from "../hooks/useGas0Balance";
 import { Hash } from "@wagmi/core";
+import { getIsCode } from "./getIsCode";
 export type Iaa = {
   isFree: boolean;
   address: Address;
@@ -98,8 +98,8 @@ export class WagmiWalletHandler {
           }
           console.log(1);
           const owner = this.walletClient.account.address;
-          console.log(1, { owner });
-          const isCreate = await getIsCreate(this.publicClient, aaWallet); // eoa =>
+          console.log(1, method, { owner });
+          const isCreate = await getIsCode(this.publicClient, aaWallet); // eoa =>
           console.log(1, { isCreate });
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
@@ -115,38 +115,27 @@ export class WagmiWalletHandler {
               confirmations: 1,
             });
           }
+
           console.log(1);
           const nonce = await this.aaNonce();
-          console.log(1);
           const arg = params[0] as {
             data: `0x${string}`;
             from: `0x${string}`;
             to: `0x${string}`;
             value: bigint;
           };
-          console.log(1);
-          console.log({ arg });
-          console.log(1);
-          const value = arg.value || BigInt(0);
-          const { domain, types } = ZytronSignTypedData(this.chainId);
-          console.log(1);
-          const data = {
-            from: aa.address,
-            to: arg.to,
-            value,
-            data: arg.data,
-            nonce,
-            tip: aa.configFromApi.function_call_tip,
-          };
-          console.log({ data });
-          console.log(1, data);
-          const sign = await getEIP712Sign({
-            domain,
-            types,
-            data,
-            account: owner,
+          const value = arg.value || 0;
+          const sign = await this.walletClient.signTypedData({
+            ...ZytronSignTypedData(this.chainId),
+            message: {
+              from: aa.address,
+              to: arg.to,
+              value: BigInt(value),
+              data: arg.data,
+              nonce,
+              tip: aa.configFromApi.function_call_tip,
+            },
           });
-          console.log(1);
           if (typeof sign === "string") {
             const { v, r, s } = hexToSignature(sign as `0x${string}`);
             console.log({ v, r, s, aa: aa.isFree });
@@ -182,7 +171,7 @@ export class WagmiWalletHandler {
               return aaContract.write.functionCall([
                 aa.address,
                 arg.to,
-                value,
+                BigInt(value),
                 arg.data,
                 Number(v),
                 r,
@@ -221,24 +210,9 @@ export class WagmiWalletHandler {
     return this.aaWalletClient ?? this.walletClient;
   }
   getWalletClient() {
-    console.log("sddd", { walletClient: this.walletClient });
     return this.walletClient;
   }
 }
-
-const getIsCreate = async (publicClient: PublicClient, address: Address) => {
-  if (address) {
-    const code = await publicClient.getBytecode({
-      address: address,
-    });
-    console.log({ address, code });
-    if (code) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-};
 
 export const gas0WalletCreateAndApprove = async (
   owner: Address,

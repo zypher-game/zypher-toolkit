@@ -32,11 +32,12 @@
   .roundNumbersV2Box
     width: 80px
     height: 83px
+    line-height: 83px
     border-radius: 19px;
     font-weight: 400;
     color: #804700;
     margin-right: 13px;
-    font-size: 48px;
+    font-size: 37px;
     background: linear-gradient(180deg, #fff5e8 0%, #fbe7ce 100%);
     box-shadow: 0px 0px 3px 0px #5f3204, 0px 1px 2px 0px #fff inset, 0px -1px 1px 0px #c69452 inset;
     display: flex;

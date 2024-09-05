@@ -2,11 +2,48 @@ import { useWalletClient } from "wagmi";
 import { useGas0Balance } from "./useGas0Balance";
 import { useActiveWeb3React } from "../../hooks/useActiveWeb3React";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { WagmiWalletHandler } from "../utils/wagmiWalletHandler";
+import {
+  gas0WalletCreateAndApprove,
+  Iaa,
+  WagmiWalletHandler,
+} from "../utils/wagmiWalletHandler";
 import { Gas0Constants } from "../constants/Gas0Constant";
-import { useAaWallet, useSetAaWallet } from "../../hooks/aaWallet/hooks";
+
 import BigNumberJs from "../../utils/BigNumberJs";
-import { zeroAddress } from "viem";
+import { Address, WalletClient, zeroAddress } from "viem";
+import { getIsCode } from "../utils/getIsCode";
+import { atom, useRecoilValue, useSetRecoilState } from "recoil";
+import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
+
+export type IAAWallet = {
+  getContainer?: HTMLElement | null;
+  wallet?: WagmiWalletHandler;
+  walletClient?: WalletClient;
+  aaWalletClient?: WalletClient;
+  mockAcc?: any;
+  aa_mm_address?: Address;
+  aa?: Iaa;
+  account?: Address;
+};
+export const aaWalletState = atom<IAAWallet>({
+  key: "aaWalletState",
+  default: {
+    getContainer: undefined,
+    walletClient: undefined,
+    aa: undefined,
+    aa_mm_address: undefined,
+    account: undefined,
+    mockAcc: (address: Address, proof?: TonProofItemReplySuccess) =>
+      null as any,
+  },
+});
+
+export const useAaWallet = () => {
+  return useRecoilValue(aaWalletState);
+};
+export const useSetAaWallet = () => {
+  return useSetRecoilState(aaWalletState);
+};
 
 export const useWalletHandler = () => {
   const { data: walletClient } = useWalletClient();
@@ -15,58 +52,95 @@ export const useWalletHandler = () => {
   const [isSet, setIsSet] = useState(false);
   const key = useRef("");
   const setAaWallet = useSetAaWallet();
-  const { walletClient: _walletClient } = useAaWallet();
+  const { walletClient: _walletClient, aaWalletClient } = useAaWallet();
   const getWalletClient = useCallback(() => {
-    if (isSet) {
-      return;
-    }
-    if (loading || !walletClient || !chainId || !account) {
-      console.log({ loading, walletClient, chainId, account });
-      return;
-    }
-    const keyString = [account, chainId, gas0Balance, !!_walletClient].join(
-      "-"
-    );
-    console.log({ _walletClient });
-    if (key.current === keyString && _walletClient) {
-      return;
-    }
-    key.current = keyString;
-    setIsSet(true);
-    console.log({ gas0Balance, config });
-    if (Gas0Constants[chainId]) {
-      if (
-        new BigNumberJs(gas0Balance).gt(0) &&
-        config.deployer_address !== zeroAddress
-      ) {
-        console.log(1111);
-        const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
-        console.log(33333);
-        setAaWallet((pre) => ({
-          ...pre,
-          wallet: WH,
-          aa: WH.aa,
-          aa_mm_address: WH.aa ? WH.aa.address : WH.account.address,
-          walletClient: WH.getWalletClient(),
-          aaWalletClient: WH.getAAWalletClient(),
-        }));
-        setIsSet(false);
+    try {
+      if (isSet) {
         return;
       }
+      console.log({ loading, chainId, account });
+      if (loading || !chainId || !account || !walletClient) {
+        console.log({ loading, chainId, account });
+        return;
+      }
+      const keyString = [
+        account,
+        chainId,
+        gas0Balance,
+        !!_walletClient,
+        !!aaWalletClient,
+      ].join("-");
+      console.log({ gas0Balance, config });
+      if (Gas0Constants[chainId]) {
+        if (key.current === keyString && _walletClient && aaWalletClient) {
+          return;
+        }
+        setIsSet(true);
+        key.current = keyString;
+        if (
+          new BigNumberJs(gas0Balance).gt(0) &&
+          config.deployer_address !== zeroAddress
+        ) {
+          console.log(1111);
+          console.log(33333);
+          const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
+          setAaWallet((pre) => ({
+            ...pre,
+            wallet: WH,
+            aa: WH.aa,
+            account: WH.account.address,
+            aa_mm_address: WH.aa ? WH.aa.address : WH.account.address,
+            walletClient: WH.getWalletClient(),
+            aaWalletClient: WH.getAAWalletClient(),
+          }));
+          setIsSet(false);
+          return;
+        }
+      }
+      setIsSet(true);
+      console.log(4444);
+      console.log({ account });
+      setAaWallet((pre) => ({
+        ...pre,
+        wallet: undefined,
+        aa: undefined,
+        account: account,
+        aa_mm_address: account,
+        walletClient: walletClient,
+        aaWalletClient: walletClient,
+      }));
+      setIsSet(false);
+      return;
+    } catch (err) {
+      console.log("err", err);
     }
-    console.log(4444);
-    setAaWallet((pre) => ({
-      ...pre,
-      wallet: undefined,
-      aa: undefined,
-      aa_mm_address: account,
-      walletClient: walletClient,
-      aaWalletClient: undefined,
-    }));
-    setIsSet(false);
-    return;
   }, [key.current, account, chainId, walletClient, gas0Balance]);
   useEffect(() => {
     getWalletClient();
-  }, [getWalletClient]);
+  }, [getWalletClient, !!walletClient]);
+};
+
+export const useCreate = () => {
+  const { account: owner, wallet, aa_mm_address } = useAaWallet();
+  const create = useCallback(async () => {
+    if (wallet && aa_mm_address && wallet.aa && owner) {
+      const isCreate = await getIsCode(wallet.publicClient, aa_mm_address); // eoa =>
+      console.log(1, { isCreate });
+      if (!isCreate) {
+        const hash = await gas0WalletCreateAndApprove(
+          owner,
+          wallet.aa.config.api,
+          wallet.aa.isFree
+        );
+        console.log(1);
+        if (!hash) return;
+        console.log(1, hash);
+        await wallet.publicClient.waitForTransactionReceipt({
+          hash,
+          confirmations: 1,
+        });
+      }
+    }
+  }, [owner, aa_mm_address]);
+  return create;
 };

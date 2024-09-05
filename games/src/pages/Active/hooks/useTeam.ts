@@ -1,11 +1,11 @@
-import { divisorBigNumber, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { divisorBigNumber, formatMoney, useAaWallet, useActiveWeb3React, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
+import { GlobalVar } from '@ui/src'
+import { getWeb3Sign } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
-import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@ui/src'
 
 import { getPointAmount, pointSuccessDialogState, tvlPointDialogState, tvlStakingDialogState } from '../state/activeState'
 import { useActiveData } from './useActiveData'
@@ -40,7 +40,7 @@ export const useTeam = () => {
   const [isLoadingSingle, setIsLoadingSingle] = useState<boolean>(false)
   const [isLoadingAll, setIsLoadingAll] = useState<boolean>(false)
   const [loading, setLoading] = useState(false)
-
+  const { walletClient } = useAaWallet()
   const [groupGoal, setGroupGoal] = useState<IGroupGoal>({
     percent: '0',
     total: '0',
@@ -85,7 +85,7 @@ export const useTeam = () => {
             nickname: vd.nickname,
             role: vd.role,
             staking: vd.staking,
-            stakingStr: new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFormat(2),
+            stakingStr: formatMoney(new BigNumberJs(`${vd.staking}`).dividedBy(divisorBigNumber).toFixed(), 8),
             userId: `${vd.userId}`
           }))
         )
@@ -110,9 +110,9 @@ export const useTeam = () => {
         const needBig = targetBig.minus(totalBig)
 
         const need = needBig.gte(0) ? needBig : new BigNumberJs('0')
-        const totalStr = totalBig.dividedBy(divisorBigNumber).toFixed(2)
-        const targetStr = targetBig.dividedBy(divisorBigNumber).toFixed(2)
-        const percent = target === '0' ? '0' : totalBig.div(target).times(100).toFixed(0)
+        const totalStr = formatMoney(totalBig.dividedBy(divisorBigNumber).toFixed(), 8)
+        const targetStr = formatMoney(targetBig.dividedBy(divisorBigNumber).toFixed(), 8)
+        const percent = target === '0' ? '0' : totalBig.div(target).times(100).toFixed()
         setGroupGoal({
           percent: Number(percent) > 100 ? '100' : `${percent}`,
           total: total,
@@ -120,7 +120,7 @@ export const useTeam = () => {
           target: target,
           targetStr: targetStr,
           need: need.toFixed(3),
-          needStr: new BigNumberJs(need).dividedBy(divisorBigNumber).toFormat(2)
+          needStr: formatMoney(new BigNumberJs(need).dividedBy(divisorBigNumber).toFixed(), 8)
         })
       }
     }
@@ -154,7 +154,7 @@ export const useTeam = () => {
           const hashedCardBytes = ethers.utils.hexConcat([account])
           let _signedStr
           try {
-            _signedStr = await getWeb3Sign(hashedCardBytes, account, false)
+            _signedStr = await getWeb3Sign(hashedCardBytes, account, false, walletClient)
           } catch (err) {
             setErrorToast(err)
             if (isSingle) {

@@ -14,7 +14,7 @@ const TVLStakingDialog = memo(() => {
   }, [])
   return (
     <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.stakingDialog}>
-      <Staking />
+      <Staking isModal={true} />
       <DialogClose onClick={handleCancel} />
     </ModalWithMotion>
   )
