@@ -72,6 +72,7 @@ export { addressIsEqual } from "./utils/addressIsEqual";
 export { getWeb3Sign } from "./utils/getSign";
 export { getContract, getContractFromRpc, getProvider, } from "./connectors/contractV2";
 export { default as erc20Contract, erc20Abi } from "./contract/erc20";
+export { default as erc721Contract, erc721Abi } from "./contract/erc721";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";
 export { pow10, bnPow10, getShortenAddress, getShortenAddress2, filterInput, measureText, formatCurrency, formatSymbol, eX, formatMoney, convertToLargeNumberRepresentation, splitArrByLen, } from "./utils/tool";

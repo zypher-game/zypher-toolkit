@@ -10,7 +10,7 @@ const ZkBingoPointsContract = (
   chainId: ChainId,
   env: string,
   address?: Address,
-  signer?: WalletClient
+  signer?: any
 ): ethers.ethers.Contract => {
   return getContract({
     env,

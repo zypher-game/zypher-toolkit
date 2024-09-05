@@ -1,5 +1,5 @@
 import * as ethers from "ethers";
-import { Address, WalletClient } from "wagmi";
+import { Address } from "wagmi";
 import { ChainId } from "../constant/constant";
-declare const ZkBingoPointsContract: (chainId: ChainId, env: string, address?: Address, signer?: WalletClient) => ethers.ethers.Contract;
+declare const ZkBingoPointsContract: (chainId: ChainId, env: string, address?: Address, signer?: any) => ethers.ethers.Contract;
 export default ZkBingoPointsContract;
