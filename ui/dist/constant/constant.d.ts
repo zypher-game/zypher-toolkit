@@ -36,7 +36,8 @@ export declare enum ChainId {
     ZytronLineaMain = "9901",
     ZytronB2Testnet = "50097",
     Taiko = "167000",
-    SagaMainnet = "2717465680371000"
+    SagaMainnet = "2717465680371000",
+    B3Mainnet = "8333"
 }
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];

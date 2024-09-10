@@ -99,6 +99,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9["ZytronB2Testnet"] = "50097";
   ChainId9["Taiko"] = "167000";
   ChainId9["SagaMainnet"] = "2717465680371000";
+  ChainId9["B3Mainnet"] = "8333";
   return ChainId9;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
@@ -121,12 +122,13 @@ var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
   "91715" /* ComboTestnet */,
   "3441005" /* MantaPacificTestnet */,
   "169" /* MantaPacificMainnet */,
-  "2717465680371000" /* SagaMainnet */
+  "8333" /* B3Mainnet */
 ] : [
   "42161" /* Arbitrum */,
   "5000" /* Mantle */,
   "169" /* MantaPacificMainnet */,
-  "9980" /* Combo */
+  "9980" /* Combo */,
+  "8333" /* B3Mainnet */
 ];
 var bingoSupportedChainId = TGChainId || [
   ...bingoV1SupportedChainId,
@@ -153,7 +155,7 @@ var supportedChainIds = (env, chainList) => {
     "19546" /* ZytronLineaSepoliaTestnet */,
     "9901" /* ZytronLineaMain */,
     "50097" /* ZytronB2Testnet */,
-    "2717465680371000" /* SagaMainnet */
+    "8333" /* B3Mainnet */
   ] : [
     "59144" /* LineaMainnet */,
     "204" /* OPBNB */,
@@ -162,7 +164,8 @@ var supportedChainIds = (env, chainList) => {
     "5000" /* Mantle */,
     "9980" /* Combo */,
     "169" /* MantaPacificMainnet */,
-    "223" /* B2 */
+    "223" /* B2 */,
+    "8333" /* B3Mainnet */
   ];
 };
 var ChainRpcUrls = {
@@ -227,7 +230,8 @@ var ChainRpcUrls = {
   ["167000" /* Taiko */]: ["https://rpc.hekla.taiko.xyz"],
   ["2717465680371000" /* SagaMainnet */]: [
     "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io"
-  ]
+  ],
+  ["8333" /* B3Mainnet */]: ["https://mainnet-rpc.b3.fun"]
 };
 var BlockExplorerUrls = {
   ["56" /* Bsc */]: ["https://bscscan.com"],
@@ -262,7 +266,8 @@ var BlockExplorerUrls = {
     "https://b2-testnet-zytron-blockscout.zypher.game"
   ],
   ["167000" /* Taiko */]: ["https://hekla.taikoscan.network"],
-  ["2717465680371000" /* SagaMainnet */]: ["https://zypher-2717465680371000-1.sagaexplorer.io"]
+  ["2717465680371000" /* SagaMainnet */]: ["https://zypher-2717465680371000-1.sagaexplorer.io"],
+  ["8333" /* B3Mainnet */]: ["https://explorer.b3.fun"]
 };
 var ChainName = {
   ["56" /* Bsc */]: "BSC Mainnet",
@@ -291,7 +296,8 @@ var ChainName = {
   ["9901" /* ZytronLineaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
-  ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
+  ["2717465680371000" /* SagaMainnet */]: "Saga Zypher",
+  ["8333" /* B3Mainnet */]: "B3"
 };
 var ChainNetworkName = {
   ["56" /* Bsc */]: "bsc",
@@ -320,7 +326,8 @@ var ChainNetworkName = {
   ["9901" /* ZytronLineaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
-  ["2717465680371000" /* SagaMainnet */]: "Saga Zypher"
+  ["2717465680371000" /* SagaMainnet */]: "Saga Zypher",
+  ["8333" /* B3Mainnet */]: "B3"
 };
 var isTestnet = {
   ["56" /* Bsc */]: false,
@@ -349,7 +356,8 @@ var isTestnet = {
   ["9901" /* ZytronLineaMain */]: false,
   ["50097" /* ZytronB2Testnet */]: true,
   ["167000" /* Taiko */]: false,
-  ["2717465680371000" /* SagaMainnet */]: true
+  ["2717465680371000" /* SagaMainnet */]: true,
+  ["8333" /* B3Mainnet */]: false
 };
 var Currency = {
   ["56" /* Bsc */]: "BNB",
@@ -378,7 +386,8 @@ var Currency = {
   ["19546" /* ZytronLineaSepoliaTestnet */]: "ETH",
   ["50097" /* ZytronB2Testnet */]: "BTC",
   ["167000" /* Taiko */]: "ETH",
-  ["2717465680371000" /* SagaMainnet */]: "zyp"
+  ["2717465680371000" /* SagaMainnet */]: "zyp",
+  ["8333" /* B3Mainnet */]: "ETH"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -475,6 +484,9 @@ var CurrencyContract = {
   },
   ["2717465680371000" /* SagaMainnet */]: {
     multicall: ["0xA8712E98aeDF7d4D7AA140c50D4E33F3a4712B68"]
+  },
+  ["8333" /* B3Mainnet */]: {
+    multicall: [MulticallV3]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {
@@ -7070,7 +7082,6 @@ var Balance = memo25((props) => {
         );
       }
     } catch (e) {
-      console.log({ e });
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);

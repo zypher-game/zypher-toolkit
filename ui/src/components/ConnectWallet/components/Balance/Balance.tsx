@@ -109,7 +109,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
         );
       }
     } catch (e) {
-      console.log({ e });
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
