@@ -23,7 +23,7 @@ const StyledDialogOverlay = styled(DialogOverlay)<{ $scrollOverlay?: boolean }>`
     overflow-y: ${({ $scrollOverlay }) => $scrollOverlay && 'scroll'};
     justify-content: center;
 
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
   }
 `

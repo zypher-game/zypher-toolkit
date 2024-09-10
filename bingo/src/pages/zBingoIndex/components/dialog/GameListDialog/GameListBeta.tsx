@@ -77,7 +77,7 @@ const MySlelect = styled(Select)<{ isMobile: boolean }>`
   display: flex !important;
   align-items: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     font-size: 12px;
     /* width: 98px; */
     height: 28px;
@@ -250,12 +250,12 @@ const GameListBeta: React.FC<IProps> = memo(({ listBetaMapList, bingoHasError }:
         title: 'Rewards',
         dataIndex: 'rewards',
         key: 'rewards',
-        render: (_, { status }: IGameListBeta) => (
+        render: (_, { status, chainId: chainIdParams }: IGameListBeta) => (
           <div>
             {status === IGameStatus.End ? (
               <Space size={10}>
                 <div style={{ width: '32px' }}>
-                  <GetGameListBoxImg />
+                  <GetGameListBoxImg chainIdParams={chainIdParams} />
                 </div>
                 <span style={{ fontSize: '16px' }}>{`x1`}</span>
               </Space>

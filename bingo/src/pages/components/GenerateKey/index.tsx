@@ -50,11 +50,12 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     setPending(true)
     resetJoinGame()
     resetGameRoom()
-    const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
+    const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
     await create()
     try {
       await Promise.race([
         (async () => {
+          console.log({ lobbyContract, aa_mm_address })
           const label = await lobbyContract.read.getNextKeyLabel([aa_mm_address])
           const signedLabel = await getWeb3Sign(label, account, false, walletClient)
           if (typeof signedLabel === 'string') {
@@ -72,7 +73,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     } finally {
       setPending(false)
     }
-  }, [chainId, account, walletClient, create])
+  }, [chainId, account, aa_mm_address, walletClient, create])
   const { t } = useCustomTranslation([LngNs.zBingo])
   return (
     <div className={cx(css.generateKey, { [css.disabled]: disabled })}>

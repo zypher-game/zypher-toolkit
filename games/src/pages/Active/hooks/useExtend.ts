@@ -1,18 +1,8 @@
-import { AddressZero } from '@ethersproject/constants'
 import {
-  activeTokenList,
   ChainId,
-  crLink,
   Currency,
   divisorBigNumber,
-  erc20Contract,
-  minStakingValue,
-  NavKey,
   refreshBalanceState,
-  sleep,
-  timeoutPromise,
-  TVLChainId,
-  tvlTokenAddress,
   txStatus,
   useAaWallet,
   useAccountInvitation,
@@ -21,12 +11,10 @@ import {
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useRecoilValue,
-  useSetRecoilState,
-  useSwitchNetwork
+  useSetRecoilState
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
 
 import { TVLStakingContract } from '@/contract/tvlStaking'
@@ -34,43 +22,35 @@ import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import {
+  extendCurrencyState,
   isTvlDataLoadingState,
   ITVLStakingData,
-  redepositCurrencyState,
   selectTokenDialogState,
   tvlExtendDialogState,
-  tvlRedepositDialogState,
-  tvlStakingDataState,
-  tvlStakingDialogState
+  tvlStakingDataState
 } from '../state/activeState'
 import { canNext, usePreHandleAction } from './activeHooks'
-import { useActiveData } from './useActiveData'
-import { useGetData } from './useActiveInit'
-import { useChainIndex } from './useChainIndex'
 import { useStake, useStakeData } from './useStakeData'
-import { useTvlStakingDialogState } from './useTvlStakingDialogState'
-export const useRedeposit = (): {
+export const useExtend = (): {
   week: number
   handleWeekChange: any
   selectLen: number[]
-  isRedepositLoading: boolean
+  isExtendLoading: boolean
   account: `0x${string}` | undefined
   maxHandle: () => void
   chainId: ChainId
   isDataLoading: boolean
-  redeposit: () => Promise<void>
-  // redepositValue: string
-  redepositCurrency: string | undefined
-  // redepositInputHandle: (e: React.ChangeEvent<HTMLInputElement>) => void
+  extend: () => Promise<void>
+  extendCurrency: string | undefined
   isApproveLoading: boolean
-  changeRedepositCurrencyHandle: () => void
+  changeExtendCurrencyHandle: () => void
   tvlStakingData: Record<ChainId, Record<string, ITVLStakingData>>
 } => {
   const [isApproveLoading, setIsApproveLoading] = useState(false)
-  const [isRedepositLoading, setIsRedepositLoading] = useState(false)
-  const [redepositValue, setRedepositValue] = useState('')
+  const [isExtendLoading, setIsExtendLoading] = useState(false)
+  const [extendValue, setExtendValue] = useState('')
   const setIsSelectTokenDialogModalOpen = useSetRecoilState(selectTokenDialogState)
-  const [redepositCurrency, setRedepositCurrency] = useRecoilState(redepositCurrencyState)
+  const [extendCurrency, setExtendCurrency] = useRecoilState(extendCurrencyState)
   const [week, setWeek] = useState(1)
   const [max, setMax] = useState('0')
   const { account, chainId: nativeChainId } = useActiveWeb3React()
@@ -82,7 +62,7 @@ export const useRedeposit = (): {
   const isW768 = useIsW768()
   // const { isRegistered } = tvlStakingData
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
-  const setRedepositDialog = useSetRecoilState(tvlRedepositDialogState)
+  const setExtendDialog = useSetRecoilState(tvlExtendDialogState)
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
 
@@ -93,14 +73,14 @@ export const useRedeposit = (): {
   }, [])
   useEffect(() => {
     setIsApproveLoading(false)
-    setIsRedepositLoading(false)
-    setRedepositValue('')
-    if (!redepositCurrency) {
-      setRedepositCurrency('W' + Currency[nativeChainId])
+    setIsExtendLoading(false)
+    setExtendValue('')
+    if (!extendCurrency) {
+      setExtendCurrency('W' + Currency[nativeChainId])
     }
   }, [account, nativeChainId])
   const selectLen = useMemo(() => {
-    const MAX_LOCK_WEEKS = 52
+    const MAX_LOCK_WEEKS = 24
     return Array.from({ length: Number(MAX_LOCK_WEEKS) }, (_value, index) => index + 1)
   }, [])
   const _successGet = useCallback(
@@ -108,30 +88,30 @@ export const useRedeposit = (): {
       if (nativeChainId && account) {
         getStakingData()
         setIsApproveLoading(false)
-        setIsRedepositLoading(false)
+        setIsExtendLoading(false)
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
-        setRedepositDialog(false)
+        setExtendDialog(false)
       }
     },
     [nativeChainId, account]
   )
-  const redeposit = useCallback(async () => {
-    const currency = redepositCurrency
+  const extend = useCallback(async () => {
+    const currency = extendCurrency
     try {
       if (isDataLoading) {
         return
       }
       const isOk = preHandleAction()
       if (!isOk) {
-        setIsRedepositLoading(false)
+        setIsExtendLoading(false)
         return
       }
 
       if (!walletClient) {
         throw new Error('walletClient not Ready')
       }
-      if (isRedepositLoading || isApproveLoading) {
+      if (isExtendLoading || isApproveLoading) {
         return
       }
       const _nativeChainId = nativeChainId
@@ -150,7 +130,7 @@ export const useRedeposit = (): {
         throw new Error('Amount is not enough')
       }
       const erc20Address = token.address
-      setIsRedepositLoading(true)
+      setIsExtendLoading(true)
       const endTime = token.END_TIME
       if (!endTime) {
         throw new Error('endTime wrong')
@@ -162,30 +142,30 @@ export const useRedeposit = (): {
         account: account
       })
       const hash = typeof res === 'string' ? res : res.hash
-      const redepositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-      if (redepositTx && redepositTx.status === txStatus) {
-        setIsRedepositLoading(false)
+      const extendTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+      if (extendTx && extendTx.status === txStatus) {
+        setIsExtendLoading(false)
         await _successGet({
-          tx: redepositTx,
-          blockNumber: new BigNumberJs(redepositTx.blockNumber.toString()).toNumber()
+          tx: extendTx,
+          blockNumber: new BigNumberJs(extendTx.blockNumber.toString()).toNumber()
         })
-        setSuccessToast({ title: '', message: 'Redeposit successful' })
+        setSuccessToast({ title: '', message: 'Extend successful' })
       } else {
-        throw Object.assign(new Error('Redeposit Transaction Failed'), { name: 'Redeposit' })
+        throw Object.assign(new Error('Extend Transaction Failed'), { name: 'Extend' })
       }
     } catch (e) {
       setIsApproveLoading(false)
-      setIsRedepositLoading(false)
+      setIsExtendLoading(false)
       setErrorToast(e)
-      console.error('RedepositHandle: ', e)
+      console.error('ExtendHandle: ', e)
     }
   }, [
     isW768,
     isDataLoading,
     isApproveLoading,
-    isRedepositLoading,
-    redepositCurrency,
-    redepositValue,
+    isExtendLoading,
+    extendCurrency,
+    extendValue,
     walletClient,
     account,
     nativeChainId,
@@ -195,56 +175,40 @@ export const useRedeposit = (): {
   useEffect(() => {
     if (
       canNext(account, nativeChainId) &&
-      redepositCurrency &&
-      redepositCurrency !== '' &&
+      extendCurrency &&
+      extendCurrency !== '' &&
       tvlStakingData[nativeChainId] &&
-      tvlStakingData[nativeChainId][redepositCurrency] &&
-      tvlStakingData[nativeChainId][redepositCurrency].balance !== ''
+      tvlStakingData[nativeChainId][extendCurrency] &&
+      tvlStakingData[nativeChainId][extendCurrency].balance !== ''
     ) {
-      setMax(new BigNumberJs(tvlStakingData[nativeChainId][redepositCurrency].balance).dividedBy(divisorBigNumber).toFixed())
+      setMax(new BigNumberJs(tvlStakingData[nativeChainId][extendCurrency].balance).dividedBy(divisorBigNumber).toFixed())
       return
     }
     setMax('0')
     return
-  }, [redepositCurrency, nativeChainId, JSON.stringify(tvlStakingData)])
-  // const redepositInputHandle = useCallback(
-  //   (e: React.ChangeEvent<HTMLInputElement>) => {
-  //     const inputValue = e.target.value
-  //     const regex = /^\d*\.?\d{0,8}$/
-  //     if (regex.test(inputValue)) {
-  //       // if (new BigNumberJs(inputValue).lte(max)) {
-  //       setRedepositValue(inputValue)
-  //       // } else {
-  //       //   setRedepositValue(max)
-  //       // }
-  //     }
-  //   },
-  //   [max]
-  // )
+  }, [extendCurrency, nativeChainId, JSON.stringify(tvlStakingData)])
   const maxHandle = useCallback(() => {
     const isOk = preHandleAction()
     if (isOk) {
-      setRedepositValue(max)
+      setExtendValue(max)
     }
   }, [max, preHandleAction])
-  const changeRedepositCurrencyHandle = useCallback(() => {
+  const changeExtendCurrencyHandle = useCallback(() => {
     setIsSelectTokenDialogModalOpen(true)
   }, [])
 
   return {
     selectLen,
     isDataLoading,
-    redeposit,
-    // redepositValue,
-    redepositCurrency,
-    // redepositInputHandle,
-    changeRedepositCurrencyHandle,
+    extend,
+    extendCurrency,
+    changeExtendCurrencyHandle,
     tvlStakingData,
     chainId: nativeChainId,
     account: account,
     maxHandle: maxHandle,
-    isRedepositLoading: isRedepositLoading,
-    isApproveLoading: isApproveLoading,
+    isExtendLoading,
+    isApproveLoading,
     week: week,
     handleWeekChange: handleWeekChange
   }

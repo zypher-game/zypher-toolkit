@@ -272,6 +272,7 @@ export {
   convertToLargeNumberRepresentation,
   splitArrByLen,
 } from "./utils/tool";
+export { getLocalTime } from "./utils/time";
 export { request, httpPost, httpGet } from "./utils/request";
 export {
   getUTCSeconds,

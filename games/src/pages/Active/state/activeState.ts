@@ -68,6 +68,8 @@ export interface IActiveData {
   nickname: string // 昵称
   ranking: string // 当前用户的排名
   rankingStr: string // 当前用户的排名
+  END_TIMEStr?: string
+  startTimeStr?: string
 }
 export const initActiveData: IActiveData = {
   accountAddress: AddressZero,
@@ -270,11 +272,15 @@ export const tvlWithdrawDialogState = atom({
   default: false
 })
 
-export const tvlRedepositDialogState = atom({
-  key: 'tvlRedepositDialogState',
+export const tvlExtendDialogState = atom({
+  key: 'tvlExtendDialogState',
   default: false
 })
 
+export const tvlRedepositDialogState = atom({
+  key: 'tvlRedepositDialogState',
+  default: true
+})
 export const tvlStakingForbidDialogState = atom({
   key: 'tvlStakingForbidDialogState',
   default: false
@@ -328,6 +334,10 @@ export const depositCurrencyState = atom<string | undefined>({
 })
 export const redepositCurrencyState = atom<string | undefined>({
   key: 'redepositCurrencyState',
+  default: undefined
+})
+export const extendCurrencyState = atom<string | undefined>({
+  key: 'extendCurrencyState',
   default: undefined
 })
 

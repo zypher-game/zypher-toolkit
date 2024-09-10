@@ -23,30 +23,30 @@ import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
-import { useRedeposit } from '../../hooks/useRedeposit'
+import { useExtend } from '../../hooks/useExtend'
 import { chooseChainState, selectChainDialogState } from '../../state/activeState'
 import css from '../Staking/Staking.module.styl'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 
-const Redeposit = memo(() => {
+const Extend = memo(() => {
   const isW768 = useIsW768()
   const chooseChain = useRecoilValue(chooseChainState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
   const {
     selectLen,
-    redeposit,
+    extend,
     account,
     chainId: chainIdFromStake,
     tvlStakingData,
-    redepositCurrency,
-    changeRedepositCurrencyHandle,
-    isRedepositLoading,
+    extendCurrency,
+    changeExtendCurrencyHandle,
+    isExtendLoading,
     isApproveLoading,
     isDataLoading,
     week,
     handleWeekChange
-  } = useRedeposit()
+  } = useExtend()
   useEffect(() => {
     if (chooseChain) {
       setChainIdLocal(chooseChain)
@@ -59,8 +59,8 @@ const Redeposit = memo(() => {
       let res = tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
       const can = canNext(account, chainIdLocal)
       if (can) {
-        if (redepositCurrency) {
-          res = tvlStakingData[chainIdLocal!][redepositCurrency]
+        if (extendCurrency) {
+          res = tvlStakingData[chainIdLocal!][extendCurrency]
         } else {
           res = tvlStakingData[chainIdLocal!][Currency[chainIdLocal!]]
         }
@@ -69,9 +69,8 @@ const Redeposit = memo(() => {
     } catch {
       return undefined
     }
-  }, [JSON.stringify(tvlStakingData), chainIdLocal, redepositCurrency])
+  }, [JSON.stringify(tvlStakingData), chainIdLocal, extendCurrency])
   const { btnLabel } = useMemo(() => {
-    const decimal = chooseValue?.decimal ?? 18
     const obj = {
       isApprove: false,
       isBalanceEnough: true,
@@ -99,14 +98,18 @@ const Redeposit = memo(() => {
       obj.btnLabel = 'Connect Wallet'
     }
     return obj
-  }, [JSON.stringify(chooseValue), isRedepositLoading, isDataLoading, chainIdFromStake, chooseChain])
+  }, [JSON.stringify(chooseValue), isExtendLoading, isDataLoading, chainIdFromStake, chooseChain])
 
   const changeChainHandle = useCallback(() => {
+    // if (openChainModal) {
+    //   openChainModal()
+    //   setAccountInfoDialogOpen(false)
+    // }
     setIsSelectChainModalOpen(true)
   }, [])
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
-      <h3 className={css.title}>Deposit</h3>
+      <h3 className={css.title}>Extend</h3>
       {TVLStakingSupportedChainId.length < 2 ? null : (
         <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
           <p>Current network: {ChainName[chainIdFromStake]}</p>
@@ -114,16 +117,13 @@ const Redeposit = memo(() => {
         </PixelBorderCardButton>
       )}
       <div className={css.staking_token_detail}>
-        <p className={css.staking_token_detail_fl}>You can Deposit</p>
+        <p className={css.staking_token_detail_fl}>You can Extend</p>
         <div className={css.staking_token_detail_fr}>
           <p className={css.balance}>
             Balance: {chooseValue?.withdrawAmountStr}
             {chooseValue?.withdrawAmountStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
-          {/* <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
-            <p>MAX</p>
-          </ActivePixelButton> */}
         </div>
       </div>
       <PixelBorderCard
@@ -139,7 +139,7 @@ const Redeposit = memo(() => {
           className={`staking_input_btn ${css.staking_input_btn}`}
           backgroundColor="#1649FF"
           pixel_height={6}
-          onClick={changeRedepositCurrencyHandle}
+          onClick={changeExtendCurrencyHandle}
         >
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} width={22} /> : null}
           <p>{chooseValue?.symbol}</p>
@@ -167,16 +167,16 @@ const Redeposit = memo(() => {
         width="100%"
         height={isW768 ? '48px' : '54px'}
         pixel_height={5}
-        onClick={redeposit}
-        disable={isRedepositLoading || isApproveLoading || isDataLoading}
+        onClick={extend}
+        disable={isExtendLoading || isApproveLoading || isDataLoading || btnLabel === 'No Balance'}
         themeType="brightBlue"
       >
         <p>{btnLabel}</p>
-        <LoadingButton isLoading={isRedepositLoading || isApproveLoading} />
+        <LoadingButton isLoading={isExtendLoading || isApproveLoading} />
       </ActivePixelButtonColor>
       <SelectTokenDialog />
       <SelectChainDialog />
     </PixelBorderCard>
   )
 }, isEqual)
-export default Redeposit
+export default Extend

@@ -2,6 +2,7 @@ import { motion } from '@ui/src'
 import React, { memo } from 'react'
 
 import ChangeNameDialog from '@/pages/Active/dialog/ChangeNameDialog/ChangeNameDialog'
+import TVLExtendDialog from '@/pages/Active/dialog/ExtendDialog/ExtendDialog'
 import GetPointDialog from '@/pages/Active/dialog/GetPointDialog/GetPointDialog'
 import TVLRedepositDialog from '@/pages/Active/dialog/RedepositDialog/RedepositDialog'
 import TVLStakingDialog from '@/pages/Active/dialog/StakingDialog/StakingDialog'
@@ -42,6 +43,7 @@ const TVLWrap = memo(
         <TVLStakingDialog />
         <TVLWithdrawDialog />
         <TVLRedepositDialog />
+        <TVLExtendDialog />
         <ChangeNameDialog />
         <GetPointDialog />
       </ActiveComp>

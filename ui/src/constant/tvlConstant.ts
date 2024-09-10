@@ -40,17 +40,13 @@ export type TVLToken = {
 };
 export const activeTokenList: Record<
   ChainId,
-  Record<
-    "SBT" | "Staking" | "ZypherGameToken" | "CRHero" | "Soulbound",
-    Address
-  >
+  Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>
 > = {
   [TVLChainId.LineaSepolia]: {
-    SBT: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
-    Staking: "0xfd02aa4e1DB022D74c6894417f9F47C5B3DeBEd7",
+    Staking: "0x9F175b446F194c9A6aca09e998EF3327158d6eb7",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
-    CRHero: "0xC619C9f27cf970EC4480559819300bfAB57462a8",
-    Soulbound: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
+    CRHero: "0x90a5B2a7Eb91562b1e3189dcf14f62B2529bEC7e",
+    Soulbound: "0xf3ca479d43885C714537a58063604D314ecabe0E",
   },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
@@ -64,6 +60,7 @@ export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
     WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
     wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
     ezETH: "0x79A67D40f3e7396FC122268DC0136896cC7D7271",
+    STONE: "0xf8b7E9A37857B01Cb9AD74e6fCaD149f44490601",
   },
   [TVLChainId.B2Testnet]: {
     WBTC: "0x9Cae525AdE710904FE81daF47fD26789608fe057",
@@ -82,7 +79,9 @@ export const tvlTokens = Object.fromEntries(
           logoPath: getCryptoImg(
             "token",
             currency,
-            currency === "BTC" || currency === "WBTC" ? ".svg" : ".png"
+            currency === "BTC" || currency === "WBTC" || currency === "STONE"
+              ? ".svg"
+              : ".png"
           ),
           index: 2,
         },

@@ -84,10 +84,11 @@ const GameCheckerBoard = styled.div<{ isMobile: boolean }>`
   border-radius: 72px;
   padding-top: 20px;
   background: radial-gradient(60.29% 8.91% at 49.84% -4.99%, #f8a844 0%, #ca7c16 100%);
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     border-radius: 50px;
     padding-top: 10px;
     width: 340px;
+    margin: 0 auto;
   }
 `
 const GamePadding = styled.div<{ isMobile: boolean }>`
@@ -96,7 +97,7 @@ const GamePadding = styled.div<{ isMobile: boolean }>`
   background: #eabf6e;
   padding: 30px 21px 27px;
   box-shadow: 0px -0.10000000149011612px 1px 0px #d09528 inset;
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     border-radius: 42px;
     padding: 40px 10px 15px;
     width: 330px;
@@ -112,7 +113,7 @@ const GameBackground = styled.div`
   justify-content: center;
   flex-wrap: wrap;
   box-shadow: 0px 7px 0px 0px rgba(0, 0, 0, 0.25) inset, 0px 1px 0px 0px #f5cb89 inset, 0px -7px 0px 0px #ffe0a6 inset;
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     padding: 15px 12px;
     height: auto;
   }
@@ -171,14 +172,14 @@ const PlayerTurn = styled.div<{ lang: string }>`
   z-index: 1;
   background: url(${preStaticUrl + `/img/bingo/player-turn`}_${({ lang }) => lang}.png) no-repeat center;
   background-size: 100% auto;
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     padding: 40px;
     font-size: 14px;
   }
 `
 const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }>`
   position: absolute;
-  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '44px' : ' -73px')};
+  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '4px' : ' -73px')};
   left: ${({ isMobile }) => (isMobile ? '0px' : ' 40px')};
   z-index: 9998;
   width: ${({ isMobile }) => (isMobile ? '100%' : ' 500px')};

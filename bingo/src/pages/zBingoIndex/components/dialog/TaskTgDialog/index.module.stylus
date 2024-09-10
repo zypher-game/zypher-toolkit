@@ -7,7 +7,7 @@ body [data-reach-dialog-content].taskBg
   width: 90%;
   padding: 0 3px 10px;
   background-size: 100% 100%
-  max-width: 768px
+  max-width: 830px
     // bingoindexbg01_m.png
   .close
     position absolute

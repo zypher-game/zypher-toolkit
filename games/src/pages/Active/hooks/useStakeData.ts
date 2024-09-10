@@ -7,6 +7,7 @@ import {
   erc20Abi,
   erc721Abi,
   formatMoney,
+  getLocalTime,
   TVLStakingSupportedChainId,
   tvlTokens,
   useActiveWeb3React,
@@ -111,7 +112,7 @@ export const useStakeData = () => {
                   }),
                 {
                   reference: 'isApprovedForAll' + chainId,
-                  contractAddress: activeTokenList[chainId].SBT,
+                  contractAddress: activeTokenList[chainId].Soulbound,
                   abi: erc721Abi,
                   calls: [
                     {
@@ -183,6 +184,17 @@ export const useStakeData = () => {
                     {
                       methodName: 'burnMaximum',
                       reference: 'burnMaximum' + chainId
+                    }
+                  ]
+                },
+                {
+                  reference: 'startTime' + chainId, // 得到当前是第几周
+                  contractAddress: activeTokenList[chainId].Staking,
+                  abi: TVLStakingABI,
+                  calls: [
+                    {
+                      methodName: 'startTime',
+                      reference: 'startTime' + chainId
                     }
                   ]
                 },
@@ -313,6 +325,9 @@ export const useStakeData = () => {
             chain,
             {
               END_TIME: '0',
+              END_TIMEStr: '',
+              startTime: '0',
+              startTimeStr: '',
               mintMinimum: '0',
               burnMaximum: '0',
               sbtBalanceOf: '0',
@@ -342,7 +357,13 @@ export const useStakeData = () => {
             const claimableIndex = methodArr.indexOf(`claimable${_chainId}`)
 
             const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
-            userValue[_chainId]['END_TIME'] = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
+            const END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
+            userValue[_chainId]['END_TIME'] = END_TIME
+            userValue[_chainId]['END_TIMEStr'] = getLocalTime(END_TIME)
+            const startTimeIndex = methodArr.indexOf(`startTime${_chainId}`)
+            const startTime = new BigNumberJs(v.response[startTimeIndex][0].hex).toFixed()
+            userValue[_chainId]['startTime'] = startTime
+            userValue[_chainId]['startTimeStr'] = getLocalTime(startTime)
 
             const sbtBalanceOfIndex = methodArr.indexOf(`sbtBalanceOf${_chainId}`)
 
@@ -375,6 +396,7 @@ export const useStakeData = () => {
 
               const userInfo = v.response[userInfoIndex] // [unlockTime, amount]
               console.log({ userInfo })
+              // const unlockTime = new BigNumberJs(userInfo ? userInfo[0].hex : '0')
               const withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
 
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
@@ -413,6 +435,7 @@ export const useStakeData = () => {
                   totalStakedAmountStr: formatMoney(totalStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
                   END_TIME: userValue[_chainId]['END_TIME'],
+                  startTime: userValue[_chainId]['startTime'],
                   getMinStake: userValue[_chainId]['getMinStake']
                 } as ITVLStakingData
               ]
@@ -435,6 +458,7 @@ export const useStakeData = () => {
                     balanceStr: nativeValue[chainIndex][1],
                     index: 0,
                     END_TIME: userValue[_chainId]['END_TIME'],
+                    startTime: userValue[_chainId]['startTime'],
                     getMinStake: userValue[_chainId]['getMinStake']
                   }
                 ],
@@ -481,7 +505,9 @@ export const useStakeData = () => {
               burnMaximum: userValue[chain]['burnMaximum'],
               burnMaximumStr: formatMoney(new BigNumberJs(userValue[chain]['burnMaximum']).dividedBy(divisorBigNumber).toFixed(), 8),
               sbtAmount: userValue[chain]['sbtBalanceOf'],
-              hasSBT: userValue[chain]['hasSBT']
+              hasSBT: userValue[chain]['hasSBT'],
+              END_TIMEStr: userValue[chain]['END_TIMEStr'],
+              startTimeStr: userValue[chain]['startTimeStr']
             }),
             chain
           )

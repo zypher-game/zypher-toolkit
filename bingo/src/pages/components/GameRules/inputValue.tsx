@@ -26,7 +26,7 @@ const BoxImgWrap = styled.div<{ isMobile: boolean }>`
     font-family: Lemon;
     color: ${({ isMobile }) => (isMobile ? '#613c17' : 'rgb(255, 240, 207)')};
     font-size: 24px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       font-size: 14px;
     }
   }
@@ -48,7 +48,7 @@ const Label = styled.div<{ color?: string }>`
   line-height: 30px;
   font-weight: 600;
 
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     line-height: 18px;
   }
 `

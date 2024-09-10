@@ -5,6 +5,7 @@ import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import {
   depositCurrencyState,
+  tvlExtendDialogState,
   tvlRedepositDialogState,
   tvlStakingDataState,
   tvlStakingDialogState,
@@ -18,6 +19,7 @@ export const useTvlStakingDialogState = () => {
   const { switchNetwork } = useSwitchNetwork()
   const setIsStakingOpen = useSetRecoilState(tvlStakingDialogState)
   const setIsWithdrawOpen = useSetRecoilState(tvlWithdrawDialogState)
+  const setIsExtendOpen = useSetRecoilState(tvlExtendDialogState)
   const setIsRedepositOpen = useSetRecoilState(tvlRedepositDialogState)
   const setIsForbidModalOpen = useSetRecoilState(tvlStakingForbidDialogState)
   const { activeData } = useActiveData()
@@ -41,7 +43,7 @@ export const useTvlStakingDialogState = () => {
     }: {
       chainId: ChainId
       isOpen: boolean
-      key: 'tvlStakingDialogState' | 'tvlWithdrawDialogState' | 'tvlRedepositDialogState'
+      key: 'tvlStakingDialogState' | 'tvlWithdrawDialogState' | 'tvlExtendDialogState' | 'tvlRedepositDialogState'
       currency?: string
     }) => {
       if (isOpen && switchNetwork && chainId !== chainIdLocal) {
@@ -70,10 +72,12 @@ export const useTvlStakingDialogState = () => {
 
       if (key === 'tvlStakingDialogState') {
         setIsStakingOpen(isOpen)
-      } else if (key === 'tvlRedepositDialogState') {
-        setIsRedepositOpen(isOpen)
+      } else if (key === 'tvlExtendDialogState') {
+        setIsExtendOpen(isOpen)
       } else if (key === 'tvlWithdrawDialogState') {
         setIsWithdrawOpen(isOpen)
+      } else if (key === 'tvlRedepositDialogState') {
+        setIsRedepositOpen(isOpen)
       }
     },
     [chainIdLocal, isEnd, isRegistered, depositCurrency]

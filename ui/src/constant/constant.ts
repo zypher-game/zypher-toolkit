@@ -88,13 +88,13 @@ export const bingoBetaSupportedChainId = TGChainId
   : !isPro()
   ? [
       ChainId.Arbitrum,
-      ChainId.ArbitrumGoerli,
-      ChainId.ScrollSepoliaTestnet,
-      ChainId.MantleTestnet,
+      // ChainId.ArbitrumGoerli,
+      // ChainId.ScrollSepoliaTestnet,
+      // ChainId.MantleTestnet,
       ChainId.Mantle,
       ChainId.Combo,
-      ChainId.ComboTestnet,
-      ChainId.MantaPacificTestnet,
+      // ChainId.ComboTestnet,
+      // ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
       ChainId.B3Mainnet,
     ]

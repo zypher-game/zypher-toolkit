@@ -26,7 +26,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
     font-weight: 600;
     font-size: 16px;
     line-height: 24px;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       font-weight: 400;
       font-size: 12px;
       line-height: 18px;
@@ -39,7 +39,7 @@ const Wrapper = styled.div<{ isMobile: boolean }>`
     font-size: 16px;
     line-height: 24px;
     margin: 0;
-    @media (max-width: 768px) {
+    @media (max-width: 830px) {
       font-size: 12px;
       font-weight: 600;
       line-height: 24px;
@@ -69,7 +69,7 @@ const BingoRules = styled.div`
   font-family: Lemon;
   font-weight: 400;
   font-size: 20px;
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     font-size: 14px;
   }
 `

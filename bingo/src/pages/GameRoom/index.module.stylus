@@ -7,6 +7,7 @@
     max-width: 80vw
     margin: 60px auto 0
     padding: 0
+    min-width: 370px;
 
 .matchLinesWrapper 
   border-color: #ffd690;

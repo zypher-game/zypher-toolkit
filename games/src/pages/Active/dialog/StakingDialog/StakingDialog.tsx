@@ -13,7 +13,7 @@ const TVLStakingDialog = memo(() => {
     setIsModalOpen(false)
   }, [])
   return (
-    <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.stakingDialog}>
+    <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} overlayClassName={css.bg} contentClassName={css.stakingDialog}>
       <Staking isModal={true} />
       <DialogClose onClick={handleCancel} />
     </ModalWithMotion>

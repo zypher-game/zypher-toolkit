@@ -131,7 +131,7 @@ export const useWithdrawHandle = (): {
       const _nativeChainId = nativeChainId
 
       const token = tvlStakingData[_nativeChainId][currency]
-      const erc721Address = activeTokenList[_nativeChainId].SBT
+      const erc721Address = activeTokenList[_nativeChainId].Soulbound
       const decimal = token.decimal
 
       const tokenAmount = new BigNumberJs(amount).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()

@@ -123,7 +123,9 @@ export const useWalletHandler = () => {
 export const useCreate = () => {
   const { account: owner, wallet, aa_mm_address } = useAaWallet();
   const create = useCallback(async () => {
+    console.log(222222);
     if (wallet && aa_mm_address && wallet.aa && owner) {
+      console.log(11111);
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address); // eoa =>
       console.log(1, { isCreate });
       if (!isCreate) {

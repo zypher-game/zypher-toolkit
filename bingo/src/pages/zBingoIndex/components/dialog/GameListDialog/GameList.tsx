@@ -75,7 +75,7 @@ const MySlelect = styled(Select)<{ isMobile: boolean }>`
   display: flex !important;
   align-items: center;
 
-  @media (max-width: 768px) {
+  @media (max-width: 830px) {
     font-size: 12px;
     /* width: 98px; */
     height: 28px;
