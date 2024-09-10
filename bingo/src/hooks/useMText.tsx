@@ -25,6 +25,8 @@ export const getChainNameText = (chainId: ChainId, params?: { isLowcase: boolean
     text = 'TaikoHeklaTestnet'
   } else if (localpath === ILocalPathUrl.Saga) {
     text = 'Diamond Points'
+  } else if (localpath === ILocalPathUrl.B3) {
+    text = 'B3'
   }
   return isLowcase ? text.toLowerCase() : text
 }
@@ -39,11 +41,7 @@ export const GetGameListBoxImg = memo(() => {
   }, [chainId])
   if (
     IS_TELEGRAM ||
-    (chainId &&
-      (localpath === ILocalPathUrl.MANTA ||
-        localpath === ILocalPathUrl.COMBO ||
-        localpath === ILocalPathUrl.MANTLE ||
-        localpath === ILocalPathUrl.Hypr))
+    (chainId && [ILocalPathUrl.MANTA, ILocalPathUrl.COMBO, ILocalPathUrl.MANTLE, ILocalPathUrl.Hypr, ILocalPathUrl.B3].includes(localpath))
   ) {
     return (
       <ImgStyled

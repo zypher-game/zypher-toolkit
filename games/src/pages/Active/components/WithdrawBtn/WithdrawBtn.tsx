@@ -2,12 +2,12 @@ import { ActivePixelButtonColor, ChainId, preStaticUrl, useIsW768 } from '@ui/sr
 import React, { memo, useCallback } from 'react'
 
 import { useTvlStakingDialogState } from '../../hooks/useTvlStakingDialogState'
-import css from './StakingBtn.module.styl'
-const StakingBtn = memo(({ chainId }: { chainId: ChainId }) => {
+import css from '../StakingBtn/StakingBtn.module.styl'
+const WithdrawBtn = memo(({ chainId }: { chainId: ChainId }) => {
   const setIsStakingOpenHandle = useTvlStakingDialogState()
   const showStakingHandle = useCallback(() => {
     setIsStakingOpenHandle({
-      key: 'tvlStakingDialogState',
+      key: 'tvlWithdrawDialogState',
       chainId,
       isOpen: true
     })
@@ -15,8 +15,8 @@ const StakingBtn = memo(({ chainId }: { chainId: ChainId }) => {
   const isW768 = useIsW768()
   return (
     <ActivePixelButtonColor
-      themeType="yellow"
-      className={`${css.btn} ${css.staking}`}
+      themeType="brown"
+      className={`${css.btn} ${css.withdraw}`}
       width={isW768 ? '70px' : '110px'}
       height={isW768 ? '62px' : '32px'}
       pixel_height={2}
@@ -25,8 +25,8 @@ const StakingBtn = memo(({ chainId }: { chainId: ChainId }) => {
       {isW768 ? (
         <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/staking_icon.svg'} alt="staking" className={css.stakingImg} />
       ) : null}
-      <p>Stake</p>
+      <p>Withdraw</p>
     </ActivePixelButtonColor>
   )
 })
-export default StakingBtn
+export default WithdrawBtn

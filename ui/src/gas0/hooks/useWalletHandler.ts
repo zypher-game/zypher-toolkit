@@ -18,8 +18,8 @@ import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
 export type IAAWallet = {
   getContainer?: HTMLElement | null;
   wallet?: WagmiWalletHandler;
-  walletClient?: WalletClient;
-  aaWalletClient?: WalletClient;
+  walletClient?: any;
+  aaWalletClient?: any;
   mockAcc?: any;
   aa_mm_address?: Address;
   aa?: Iaa;

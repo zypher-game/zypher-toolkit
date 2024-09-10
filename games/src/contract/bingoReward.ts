@@ -3,7 +3,7 @@ import abi from '@zypher-game/bingo-periphery/abi/Reward.json'
 import * as ethers from 'ethers'
 import { Address, WalletClient } from 'wagmi'
 
-const bingoReward = (chainId: ChainId, env: string, address?: Address, signer?: WalletClient): Promise<ethers.ethers.Contract> => {
+const bingoReward = (chainId: ChainId, env: string, address?: Address, signer?: any): Promise<ethers.ethers.Contract> => {
   return getContract({
     env,
     abi,

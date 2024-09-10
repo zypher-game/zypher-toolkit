@@ -35,7 +35,7 @@ const TeamWarn = memo(
     const isW768 = useIsW768()
     const { activeData } = useActiveData()
     const { id } = activeData
-    const setTvlStakingDialog = useTvlStakingDialogState()
+    const setIsStakingOpenHandle = useTvlStakingDialogState()
 
     const { chainId } = useActiveWeb3React()
     const showTeamWarnHandle = useCallback(() => {
@@ -49,7 +49,11 @@ const TeamWarn = memo(
       setShowTeamWarn(0)
     }, [])
     const stakingHandle = useCallback(() => {
-      setTvlStakingDialog(chainId, true)
+      setIsStakingOpenHandle({
+        key: 'tvlStakingDialogState',
+        chainId: chainId,
+        isOpen: true
+      })
     }, [chainId])
     const { title, content, img, btn, imgClassName } = useMemo(() => {
       if (showTeamWarn === 1) {

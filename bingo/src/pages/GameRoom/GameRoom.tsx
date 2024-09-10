@@ -26,12 +26,10 @@ import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
-  useSetRecoilState,
-  useWalletHandler
+  useSetRecoilState
 } from '@ui/src'
-import { isEqual } from '@ui/src/utils/lodash'
 import { Col, Progress, Row, Space, Tooltip } from 'antd'
-import { sample } from 'lodash'
+import { isEqual, sample } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import styled from 'styled-components'
@@ -180,7 +178,7 @@ const PlayerTurn = styled.div<{ lang: string }>`
 `
 const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }>`
   position: absolute;
-  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '44px' : ' 0px')};
+  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '44px' : ' -73px')};
   left: ${({ isMobile }) => (isMobile ? '0px' : ' 40px')};
   z-index: 9998;
   width: ${({ isMobile }) => (isMobile ? '100%' : ' 500px')};

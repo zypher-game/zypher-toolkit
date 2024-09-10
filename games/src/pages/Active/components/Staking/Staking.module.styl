@@ -50,3 +50,32 @@
     justify-content: flex-end
     align-items: center
     
+.label
+  padding-top: 20px 
+  .sbt
+    padding-bottom: 10px
+  .warn
+    color: #bdb229;
+
+
+.select 
+  width: 100%;
+  border: none;
+  border-radius: none;
+  color: #fff;
+  background: url($preStaticUrl + '/img/icon/pixel_arrow_down.svg') no-repeat
+  background-position: 94% center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:focus 
+    border-color: #1649FF;
+
+
+  &:focus-visible 
+    outline: #1649FF;
+
+  option 
+    color: #fff;
+    background-color: #ddd;

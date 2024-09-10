@@ -17,16 +17,7 @@ export const getDpStakingAddress = (chainId: ChainId, keyValue: IDPContract): st
     throw e
   }
 }
-export const DPContract = ({
-  chainId,
-  env,
-  signer
-}: {
-  chainId: ChainId
-  env: string
-  address?: Address
-  signer?: WalletClient
-}): ethers.ethers.Contract => {
+export const DPContract = ({ chainId, env, signer }: { chainId: ChainId; env: string; address?: Address; signer?: any }): ethers.ethers.Contract => {
   return getContract({
     env: env,
     abi: DPABI,
@@ -44,7 +35,7 @@ export const DPStakingContract = ({
   chainId: ChainId
   env: string
   address?: Address
-  signer?: WalletClient
+  signer?: any
 }): ethers.ethers.Contract => {
   return getContract({
     env: env,

@@ -12,14 +12,13 @@
   animation: fly var(--animation-duration) ease-in-out infinite var(--animation-delay);
 
 .butterfly-0 
-  animation-name: fly-right;
+  animation-name: fly-up;
 
 .butterfly-1 
   animation-name: fly-left;
 
 .butterfly-2 
-  animation-name: fly-down;
-  // animation-name: fly-up;
+  animation-name: fly-right;
 
 .butterfly-3 
   animation-name: fly-right;
@@ -38,11 +37,11 @@
 
 @keyframes fly-left 
   0% 
-    transform: translate(100vw, 0) scale(1);
+    transform: translate(100vw, 0) scaleX(-1) rotateZ(70deg);
   50% 
-    transform: translate(-50px, calc(100vh - 50px)) scale(0.6);
+    transform: translate(-50px, calc(100vh - 50px)) scaleX(-0.6)  rotateZ(70deg);
   100% 
-    transform: translate(0, calc(100vh - 50px)) scale(1);
+    transform: translate(0, calc(100vh - 50px)) scaleX(-1) rotateZ(70deg);
   0%, 100% 
     transition-timing-function: cubic-bezier(0.4, 0.0, 0.2, 1);
   50% 

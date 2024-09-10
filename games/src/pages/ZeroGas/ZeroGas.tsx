@@ -193,7 +193,7 @@ const ZeroGas = memo(() => {
                       />
                       <div className={css.bannerText}>
                         <div className={css.bannerTitle}>
-                          <h2>{text} Zytron L3</h2>
+                          <h2>Zytron Pioneer (on Linea)</h2>
                           {!account || showSwitch ? (
                             <PixelCube3
                               className={css.switchChain}
@@ -213,7 +213,7 @@ const ZeroGas = memo(() => {
                             </PixelCube3>
                           ) : null}
                         </div>
-                        <p className={css.banner_text}>Zytron Linea is a Layer3 blockchain deployed on Linea Layer2.</p>
+                        <p className={css.banner_text}>Zytron Pioneer (on Linea) is a Layer3 blockchain deployed on Linea Layer2.</p>
                       </div>
                     </ActivePixelCard>
                   </ActivePixelCard>
@@ -221,7 +221,7 @@ const ZeroGas = memo(() => {
                 </div>
 
                 <div className={css.flBanner}>
-                  <h3 className={css.title}>Staking for Zero Gas on Zytron {text} Layer3</h3>
+                  <h3 className={css.title}>Staking for Zero Gas on Zytron Pioneer (on Linea)</h3>
                   <PixelBorderCard className={css.stakingCard} pixel_height={4} backgroundColor="#0d1425" borderColor="#3A4254">
                     <div className={css.stakingTop}>
                       <div className={css.stakingTopFl}>
@@ -260,7 +260,7 @@ const ZeroGas = memo(() => {
               </div>
               {isW768 ? null : <SBTCard className={css.fr} themeKey={_themeKey} />}
             </div>
-            <h3 className={css.title}>Dapp on Linea Zytron L3</h3>
+            <h3 className={css.title}>Dapp on Zytron Pioneer (on Linea)</h3>
             <ListWithMotion<IDappItem> parentClassName={css.dappList} data={dapp} renderItem={item => <DappItem item={item} />} />
             {/* <div className={css.dappList}>
               {dapp.map((v, index) => (

@@ -5,7 +5,7 @@ import * as ethers from 'ethers'
 import { Address, WalletClient } from 'wagmi'
 
 // monster  tokenOfOwnerByIndex
-const MonsterContract = (chainId: ChainId, env: string, address?: Address, signer?: WalletClient): ethers.ethers.Contract => {
+const MonsterContract = (chainId: ChainId, env: string, address?: Address, signer?: any): ethers.ethers.Contract => {
   return getContract({
     env,
     abi,

@@ -31,7 +31,7 @@ const FrSomeWidget = memo(
     availableCode: IAvailableCode[]
     loading: boolean
   }) => {
-    const setTvlStakingDialog = useTvlStakingDialogState()
+    const setIsStakingOpenHandle = useTvlStakingDialogState()
     const setIsTvlPointModalOpen = useSetRecoilState(tvlPointDialogState)
     const isDataLoading = useRecoilValue(isTvlDataLoadingState)
     const { chainId } = useActiveWeb3React()
@@ -39,7 +39,11 @@ const FrSomeWidget = memo(
       return Object.keys(tvlTokenAddress[chainId]).join(', ')
     }, [chainId])
     const stakingHandle = useCallback(() => {
-      setTvlStakingDialog(chainId, true)
+      setIsStakingOpenHandle({
+        key: 'tvlStakingDialogState',
+        chainId: chainId,
+        isOpen: true
+      })
     }, [chainId])
     const tvlPointHandle = useCallback(() => {
       if (activeData.airdropPointsCardNumber === '' || activeData.airdropPointsCardNumber === '0') {

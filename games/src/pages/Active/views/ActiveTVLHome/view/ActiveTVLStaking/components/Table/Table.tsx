@@ -1,6 +1,7 @@
 import { ChainId, LoadingButton, motion, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
+import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
 import { useTable } from '@/pages/Active/hooks/useStakeHandle'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
@@ -22,10 +23,15 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
 const TableWrap = memo(
   ({ list, type, chainId, isDataLoading }: { list: ITVLStakingData[]; type: 'native' | 'erc20'; chainId: ChainId; isDataLoading: boolean }) => {
     const isW768 = useIsW768()
-    const setTvlStakingDialog = useTvlStakingDialogState()
+    const setIsStakingOpenHandle = useTvlStakingDialogState()
     const onClick = useCallback(
       (currency: string) => {
-        setTvlStakingDialog(chainId, true, currency)
+        setIsStakingOpenHandle({
+          key: 'tvlStakingDialogState',
+          chainId: chainId,
+          isOpen: true,
+          currency
+        })
       },
       [chainId]
     )
@@ -46,7 +52,14 @@ const TableWrap = memo(
           <Row
             className={css.fl_tab_header}
             isHead={true}
-            data={['Token', type === 'native' ? 'Staked' : 'Restaked', 'Ratio', 'GP', 'APR', 'TVL']}
+            data={[
+              'Token',
+              type === 'native' ? 'Staked' : 'Restaked',
+              'Ratio',
+              'GP',
+              ['APR', 'Covers a variety of benefits: LXP, Airdrop Points, SBT, CR Hero Mystery Box and GP.'],
+              'TVL'
+            ]}
             isDataLoading={isDataLoading}
           />
         }
@@ -98,7 +111,7 @@ const Row = memo(
     isHead
   }: {
     className: string
-    data: (string | React.ReactNode)[]
+    data: (string | string[] | React.ReactNode)[]
     onClick?: any
     isDataLoading: boolean
     isHead: boolean
@@ -113,6 +126,13 @@ const Row = memo(
                 <p>{v}</p>
                 {!isHead && (index === 1 || index === 2 || index === 3 || index === 5) ? <LoadingButton isLoading={isDataLoading} /> : null}
               </div>
+            ) : Array.isArray(v) ? (
+              <>
+                <div className={css.text} key={JSON.stringify(v)}>
+                  <p>{v[0]}</p>
+                  <PixelTooltip title={[v[1]]} />
+                </div>
+              </>
             ) : (
               v
             )
@@ -151,11 +171,14 @@ const RowM = memo(({ v, onClick, type }: { v: ITVLStakingData; onClick?: any; ty
             [type === 'native' ? 'Staked' : 'Restaked', v.userStakedAmountStr],
             ['Ratio', v.ratio + '%'],
             ['GP', v.earnGPStr],
-            ['APR', v.apr + '%'],
+            ['APR', v.apr + '%', 'Covers a variety of benefits: LXP, Airdrop Points, SBT, CR Hero Mystery Box and GP.'],
             ['TVL', v.totalStakedAmountStr]
           ].map(vv => (
             <div className={css.m_col} key={vv[0]}>
-              <p className={css.grey}>{vv[0]}</p>
+              <p className={css.grey}>
+                {vv[0]}
+                {vv[2] ? <PixelTooltip title={[vv[2]]} /> : null}
+              </p>
               <p>{vv[1]} </p>
             </div>
           ))}

@@ -1,9 +1,7 @@
-.staking
+.btn
   @media screen and (max-width: 830px)
     position fixed
     z-index 99
-    bottom: 65px
-    right 12px
   .stakingImg
     width 28px
   :global(>.pixel_flat_inner)
@@ -11,8 +9,22 @@
       flex-direction: column
     p
       font-size: 14px
-      text-shadow: -1px -1px 0 #934417, 1px 0 0 #934417, 1px 0 0 #934417, 0 2px 0 #934417
       @media screen and (max-width: 830px)
         font-size: 11px
         text-shadow: none
+.staking
+  @media screen and (max-width: 830px)
+    bottom: 65px
+    right 12px
+    p
+      text-shadow: -1px -1px 0 #934417, 1px 0 0 #934417, 1px 0 0 #934417, 0 2px 0 #934417
+      @media screen and (max-width: 830px)
         color: #934417
+.redeposit
+  @media screen and (max-width: 830px)
+    bottom: 65px
+    right 12px
+.withdraw
+  @media screen and (max-width: 830px)
+    bottom: 140px
+    right 12px

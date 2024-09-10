@@ -8,19 +8,20 @@ import {
   PixelTable,
   refreshAvatarState,
   sleep,
+  useAaWallet,
   useActiveWeb3React,
   useIsW768,
   useRecoilState,
   useRecoilValue,
   useSetRecoilState
 } from '@ui/src'
+import { GlobalVar } from '@ui/src'
+import { getWeb3Sign } from '@ui/src'
 import { ethers } from 'ethers'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 
-import { GlobalVar } from '@ui/src'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@ui/src'
 
 import { canNext } from '../../hooks/activeHooks'
 import { useChainIndex } from '../../hooks/useChainIndex'
@@ -43,6 +44,7 @@ const ChangeNameDialog = memo(() => {
   const { chainIdLocal: chainId } = useChainIndex()
   const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
   const [, setRefreshAvatar] = useRecoilState(refreshAvatarState)
+  const { walletClient } = useAaWallet()
   const { avatar, nickname } = useMemo(() => {
     if (canNext(account, chainId)) {
       return activeDataSource[chainId] ?? initActiveData
@@ -86,7 +88,7 @@ const ChangeNameDialog = memo(() => {
       const hashedCardBytes = ethers.utils.hexConcat([account!])
       let _signedStr
       try {
-        _signedStr = await getWeb3Sign(hashedCardBytes, account!, false)
+        _signedStr = await getWeb3Sign(hashedCardBytes, account!, false, walletClient)
       } catch (err) {
         setLoading(false)
         setErrorToast(err)

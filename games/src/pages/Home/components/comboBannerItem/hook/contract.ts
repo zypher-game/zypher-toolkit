@@ -8,7 +8,7 @@ import { WalletClient } from 'wagmi'
 
 import { env } from '@/utils/config'
 
-export const RewardContract = ({ chainId, signer }: { chainId: ChainId; signer?: WalletClient }): ethers.Contract | undefined => {
+export const RewardContract = ({ chainId, signer }: { chainId: ChainId; signer?: any }): ethers.Contract | undefined => {
   try {
     const ADDRESS = CONTRACTS[chainId].Reward.address
     return getContract({
@@ -22,7 +22,7 @@ export const RewardContract = ({ chainId, signer }: { chainId: ChainId; signer?:
     return undefined
   }
 }
-export const CheckInContract = ({ chainId, signer }: { chainId: ChainId; signer?: WalletClient }): ethers.Contract | undefined => {
+export const CheckInContract = ({ chainId, signer }: { chainId: ChainId; signer?: any }): ethers.Contract | undefined => {
   try {
     const ADDRESS = CONTRACTS[chainId].ZgDailyCheckin.address
     return getContract({

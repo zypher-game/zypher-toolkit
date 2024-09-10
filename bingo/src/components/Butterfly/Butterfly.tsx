@@ -20,15 +20,27 @@ const Butterflies = memo(() => {
   const [butterflies, setButterflies] = useState<ButterflyProps[]>([])
 
   const initializeButterflies = useCallback(() => {
-    const initialButterflies = Array.from({ length: 3 }, (_, i) => ({
-      id: i,
-      x: Math.random() * window.innerWidth,
-      y: Math.random() * window.innerHeight,
-      direction: Math.floor(Math.random() * 4),
-      animationDuration: (Math.random() * 10 + 5) * 2000,
-      animationDelay: Math.random() * 5000,
-      size: `${Math.random() * 20 + 30}px`
-    }))
+    const directions = new Set<number>()
+    const initialButterflies = Array.from({ length: 3 }, (_, i) => {
+      let direction: number
+
+      // 确保方向唯一
+      do {
+        direction = Math.floor(Math.random() * 3)
+      } while (directions.has(direction))
+
+      directions.add(direction)
+
+      return {
+        id: i,
+        x: Math.random() * window.innerWidth,
+        y: Math.random() * window.innerHeight,
+        direction,
+        animationDuration: (Math.random() * 10 + 5) * 2000,
+        animationDelay: Math.random() * 5000,
+        size: `${Math.random() * 20 + 30}px`
+      }
+    })
     setButterflies(initialButterflies)
   }, [])
 
@@ -55,7 +67,7 @@ const Butterflies = memo(() => {
               ...butterfly,
               x: Math.random() * window.innerWidth,
               y: Math.random() * window.innerHeight,
-              direction: Math.floor(Math.random() * 4),
+              direction: (Math.random() * 3) | 0, // 随机方向
               animationDelay: Math.random() * 5000
             }
           }
@@ -75,6 +87,7 @@ const Butterflies = memo(() => {
     </div>
   )
 }, isEqual)
+
 const Butterfly = ({ x, y, path, direction, size, animationDuration, animationDelay }: ButterflyProps & { path: string }) => {
   const butterflyRef = useRef<HTMLDivElement>(null)
 

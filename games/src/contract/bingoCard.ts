@@ -5,7 +5,7 @@ import { Address, WalletClient } from 'wagmi'
 
 import { env } from '../utils/config'
 
-const bingoCard = (chainId: ChainId, address?: Address, signer?: WalletClient): ethers.ethers.Contract => {
+const bingoCard = (chainId: ChainId, address?: Address, signer?: any): ethers.ethers.Contract => {
   return getContract({
     env: env,
     abi,

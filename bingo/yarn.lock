@@ -4946,8 +4946,8 @@
   resolved "https://codeload.github.com/zypher-game/bingo-periphery-v1/tar.gz/854d2a3877da19b9885d20f52e9454fc3007c190"
 
 "@zypher-game/bingo-periphery@zypher-game/bingo-periphery":
-  version "1.1.26"
-  resolved "https://codeload.github.com/zypher-game/bingo-periphery/tar.gz/a2362f3fc1a1487e312b9ec760ddad21fc9a8898"
+  version "1.1.27"
+  resolved "https://codeload.github.com/zypher-game/bingo-periphery/tar.gz/fc44d1024ba1b5304ad7b04a2af4421e92ba4a0f"
 
 "@zypher-game/events@0.231025.34125":
   version "0.231025.34125"

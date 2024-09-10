@@ -1,4 +1,3 @@
-import { motion } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import { useChainIndex } from '@/pages/Active/hooks/useChainIndex'
@@ -29,6 +28,7 @@ const ActiveTVLStaking = memo(() => {
   return (
     <TVLWrap type="inner">
       <Banner />
+
       <StakingTab chainIdLocal={chainIdLocal} chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
       <Card
         claimGpLoading={claimGpLoading}

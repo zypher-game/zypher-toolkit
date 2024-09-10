@@ -4,7 +4,7 @@ import { Address, WalletClient } from 'wagmi'
 
 import abi from './abi/zkGame2048.json'
 
-const zkGame2048 = (chainId: ChainId, env: string, address?: Address, signer?: WalletClient): ethers.ethers.Contract => {
+const zkGame2048 = (chainId: ChainId, env: string, address?: Address, signer?: any): ethers.ethers.Contract => {
   return getContract({
     env,
     abi,

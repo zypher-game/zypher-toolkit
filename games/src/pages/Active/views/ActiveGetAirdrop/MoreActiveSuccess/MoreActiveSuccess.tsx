@@ -40,13 +40,17 @@ export const MoreActiveSuccessCard = memo(({ isModal, amount }: { isModal: boole
 const Btn = memo(({ isModal }: { isModal: boolean }) => {
   const isW768 = useIsW768()
   const navigate = useNavigate()
-  const setTvlStakingDialog = useTvlStakingDialogState()
+  const setIsStakingOpenHandle = useTvlStakingDialogState()
 
   const setIsPointSuccessDialogOpen = useSetRecoilState(pointSuccessDialogState)
   const { chainId } = useActiveWeb3React()
   const toPath = useCallback(() => {
     if (isModal) {
-      setTvlStakingDialog(chainId, true)
+      setIsStakingOpenHandle({
+        key: 'tvlStakingDialogState',
+        chainId: chainId,
+        isOpen: true
+      })
       setIsPointSuccessDialogOpen(false)
     } else {
       navigate(`/${preAirdropPathname}/${airdropPathname.staking}`)

@@ -80,7 +80,7 @@ export const useStakeHandle = (
   // const { isRegistered } = tvlStakingData
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const tvlStakingDialog = useRecoilValue(tvlStakingDialogState)
-  const setTvlStakingDialog = useTvlStakingDialogState()
+  const setIsStakingOpenHandle = useTvlStakingDialogState()
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
 
@@ -103,7 +103,11 @@ export const useStakeHandle = (
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
         if (tvlStakingDialog) {
-          setTvlStakingDialog(nativeChainId, false)
+          setIsStakingOpenHandle({
+            key: 'tvlStakingDialogState',
+            chainId: nativeChainId,
+            isOpen: false
+          })
         }
       }
     },
@@ -179,10 +183,8 @@ export const useStakeHandle = (
                   setIsApproveLoading(false)
                   setErrorToast({ title: '', message: 'Approve Error!' })
                 })
-              if (isW768) {
-                getStakingData()
-                return
-              }
+              getStakingData()
+              return
             }
           }
         }
@@ -286,7 +288,7 @@ export const useStakeHandle = (
 export const useReStakingHandle = () => {
   const { switchNetwork } = useSwitchNetwork()
   const preHandleAction = usePreHandleAction()
-  const setTvlStakingDialog = useTvlStakingDialogState()
+  const setIsStakingOpenHandle = useTvlStakingDialogState()
 
   const [claimSBTLoading, setClaimSBTLoading] = useState(false)
   const [claimCrLoading, setClaimCrLoading] = useState(false)
@@ -390,7 +392,11 @@ export const useReStakingHandle = () => {
       if (hasSbt) {
         navigate(`/${NavKey[2][0]}`)
       } else {
-        setTvlStakingDialog(chainId, true)
+        setIsStakingOpenHandle({
+          key: 'tvlStakingDialogState',
+          chainId: chainId,
+          isOpen: true
+        })
       }
     },
     [crHeroBoxAmount, _pre]

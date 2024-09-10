@@ -61,6 +61,8 @@ export interface IActiveData {
   hasSBT: string // CR Hero Mystery Box
   mintMinimum: string // // 最少质押多少给 SBT
   mintMinimumStr: string
+  burnMaximum: string
+  burnMaximumStr: string
   dollarGpRewords: string // 可claim的 $GP 量
   avatar: string // 头像
   nickname: string // 昵称
@@ -111,10 +113,12 @@ export const initActiveData: IActiveData = {
   ranking: '',
   isCheckedAirdropPoints: false,
   mintMinimum: '', // 最少质押多少给 SBT
+  mintMinimumStr: '',
+  burnMaximum: '',
+  burnMaximumStr: '',
   sbtAmount: '',
   airdropPointsStr: '',
   rankingStr: '',
-  mintMinimumStr: '',
   hasSBT: '',
   isTwitterPost: false
 }
@@ -128,6 +132,7 @@ export const activeDataState = atom<IActiveDataState>({
 export interface ITVLStakingData extends IToken {
   crHeroAmount: string
   allowance: string
+  allowanceNFT: boolean
   balance: string
   balanceStr: string
   points: string // 获取多少积分
@@ -136,6 +141,8 @@ export interface ITVLStakingData extends IToken {
   apr: string // 写死
   userStakedAmount: string // 用户stake量
   userStakedAmountStr: string // 用户stake量
+  withdrawAmount: string
+  withdrawAmountStr: string
   totalStakedAmount: string // stake总量
   totalStakedAmountStr: string // stake总量
   ratio: string
@@ -145,6 +152,7 @@ export interface ITVLStakingData extends IToken {
   name: string
   chainId?: ChainId
   END_TIME?: string
+  sbtId?: string
   getMinStake?: string
 }
 export const initData: ITVLStakingData = {
@@ -154,9 +162,11 @@ export const initData: ITVLStakingData = {
   points: '', // 获取多少积分
   earnGP: '', // 获取多少GP
   earnGPStr: '',
-  apr: '20', // 写死
+  apr: '≥ 4', // 写死
   userStakedAmount: '', // 用户stake量
   userStakedAmountStr: '', // 用户stake量
+  withdrawAmount: '',
+  withdrawAmountStr: '',
   totalStakedAmount: '', // stake总量
   totalStakedAmountStr: '', // stake总量
   address: AddressZero,
@@ -166,7 +176,8 @@ export const initData: ITVLStakingData = {
   logoPath: '',
   index: 0,
   crHeroAmount: '',
-  ratio: ''
+  ratio: '',
+  allowanceNFT: false
 }
 export type IStakingItem = {
   tokenAddress: string
@@ -254,6 +265,16 @@ export const tvlStakingDialogState = atom({
   default: false
 })
 
+export const tvlWithdrawDialogState = atom({
+  key: 'tvlWithdrawDialogState',
+  default: false
+})
+
+export const tvlRedepositDialogState = atom({
+  key: 'tvlRedepositDialogState',
+  default: false
+})
+
 export const tvlStakingForbidDialogState = atom({
   key: 'tvlStakingForbidDialogState',
   default: false
@@ -303,6 +324,15 @@ export const getPointCardData = atom<IGetPointCardData | undefined>({
 
 export const depositCurrencyState = atom<string | undefined>({
   key: 'depositCurrencyState',
+  default: undefined
+})
+export const redepositCurrencyState = atom<string | undefined>({
+  key: 'redepositCurrencyState',
+  default: undefined
+})
+
+export const withdrawCurrencyState = atom<string | undefined>({
+  key: 'withdrawCurrencyState',
   default: undefined
 })
 export const chooseChainState = atom<ChainId | undefined>({

@@ -3,7 +3,9 @@ import React, { memo } from 'react'
 
 import ChangeNameDialog from '@/pages/Active/dialog/ChangeNameDialog/ChangeNameDialog'
 import GetPointDialog from '@/pages/Active/dialog/GetPointDialog/GetPointDialog'
+import TVLRedepositDialog from '@/pages/Active/dialog/RedepositDialog/RedepositDialog'
 import TVLStakingDialog from '@/pages/Active/dialog/StakingDialog/StakingDialog'
+import TVLWithdrawDialog from '@/pages/Active/dialog/WithdrawDialog/WithdrawDialog'
 import { useStake } from '@/pages/Active/hooks/useStakeData'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
@@ -38,6 +40,8 @@ const TVLWrap = memo(
           )}
         </motion.div>
         <TVLStakingDialog />
+        <TVLWithdrawDialog />
+        <TVLRedepositDialog />
         <ChangeNameDialog />
         <GetPointDialog />
       </ActiveComp>

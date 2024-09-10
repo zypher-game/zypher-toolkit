@@ -28,7 +28,7 @@ const bingoLobby = ({
   env: string
   bingoVersion: IBingoVersion
   address?: Address
-  walletClient?: WalletClient
+  walletClient?: any
 }): ethers.ethers.Contract => {
   const address = getBingoLobbyAddress({
     bingoVersion,

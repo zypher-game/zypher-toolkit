@@ -4,16 +4,7 @@ import { Address, WalletClient } from 'wagmi'
 
 import crHeroAbi from './abi/crHeroAbi.json'
 
-export const crHeroContract = ({
-  chainId,
-  env,
-  signer
-}: {
-  chainId: ChainId
-  env: string
-  address?: Address
-  signer?: WalletClient
-}): ethers.Contract => {
+export const crHeroContract = ({ chainId, env, signer }: { chainId: ChainId; env: string; address?: Address; signer?: any }): ethers.Contract => {
   return getContract({
     env: env,
     abi: crHeroAbi,

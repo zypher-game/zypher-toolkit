@@ -7,7 +7,7 @@ import { Address, WalletClient } from 'wagmi'
 
 import { useContract } from '../hooks/useContract'
 
-const bingoLobby = (chainId: ChainId, env: string, address?: Address, signer?: WalletClient): ethers.ethers.Contract => {
+const bingoLobby = (chainId: ChainId, env: string, address?: Address, signer?: any): ethers.ethers.Contract => {
   return getContract({
     env,
     abi,

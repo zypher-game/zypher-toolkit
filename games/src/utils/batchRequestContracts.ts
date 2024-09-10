@@ -100,7 +100,7 @@ export async function batchRequestContracts({
   chainIdList,
   addressList
 }: {
-  contractFun: (chainId: ChainId, env: string, address?: Address, signer?: WalletClient) => ethers.Contract
+  contractFun: (chainId: ChainId, env: string, address?: Address, signer?: any) => ethers.Contract
   contracts: IContractRequest
   defaultValue: any
   chainIdList: ChainId[]

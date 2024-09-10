@@ -16,7 +16,7 @@ const bingoCard = ({
   env: string
   bingoVersion: IBingoVersion
   address?: Address
-  walletClient?: WalletClient
+  walletClient?: any
 }): ethers.ethers.Contract => {
   const address = bingoVersion === IBingoVersion.v1 ? zkBingo(chainId, IContractName.Card) : zkBingoV0(chainId, IContractName.Card)
   const abi = bingoVersion === IBingoVersion.v1 ? abiV1 : abiV0

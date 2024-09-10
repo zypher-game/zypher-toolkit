@@ -31,6 +31,13 @@
   >p, >div
     display: inline-flex
     align-items: center;
+  .text
+    display: inline-flex
+    justify-content: flex-start
+    align-items: center
+    gap: 4px
+    p
+      line-height: 19px
   >p:nth-child(1),>div:nth-child(1)
     width: 20%
   >p:nth-child(2),>div:nth-child(2)
@@ -50,6 +57,7 @@
   justify-content: space-between
   align-items: center
   width: 100%;
+
 .m_col
   display: flex
   justify-content: space-between
@@ -58,8 +66,13 @@
   width: 100%;
   padding: 10px 16px
   .grey
+    display: inline-flex
+    justify-content: flex-start
+    align-items: center
+    gap: 4px
     color: #D3D4D7
     font-size: 12px
+    line-height: 19px
 .row_m_body
   padding: 10px 0
   width: 100%;

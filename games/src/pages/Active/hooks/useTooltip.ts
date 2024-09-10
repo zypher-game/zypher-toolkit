@@ -65,14 +65,17 @@ export const useAirdropPointsTooltip = () => {
           `2. Every time the Staking amount of each address reaches ${CrHero}, a hero blind box will be obtained.`,
           '3. There is no upper limit on the quantity available for each address, while supplies last.'
         ],
+        //         $GP rewards are settled weekly. Based on last week’s pledge status.
+
+        //  Note: The profit is $GP and the value is a constant $ETH ( 1 $ETH = 2,000,000 $GP). $GP can only be circulated in games within the platform and cannot be transferred. We will lift the restrictions on converting $GP into ETH and transferring $GP between accounts in the future.
         gpTooltip: [
-          `$GP rewards are settled weekly. Based on last week’s pledge status. Note: The profit is $GP and the value is constant $${
-            Currency[chainId]
-          } ( 1 $${Currency[chainId]} = ${
+          "$GP rewards are settled weekly. Based on last week's pledge status.",
+          '',
+          `Note: The profit is $GP and the value is a constant $${Currency[chainId]} ( 1 $${Currency[chainId]} = ${
             GPNumber[chainId as unknown as TVLChainId]
-          } $GP). $GP can only be circulated in games within the platform and cannot be transferred. You can later sell DP to earn $${
+          } $GP). $GP can only be circulated in games within the platform and cannot be transferred. We will lift the restrictions on converting $GP into $${
             Currency[chainId]
-          } through the [$GP to DP] function.`
+          }  and transferring $GP between accounts in the future.`
         ]
       }
     },

@@ -5,6 +5,7 @@ import {
   Currency,
   divisorBigNumber,
   erc20Abi,
+  erc721Abi,
   formatMoney,
   TVLStakingSupportedChainId,
   tvlTokens,
@@ -108,6 +109,19 @@ export const useStakeData = () => {
                       ]
                     }
                   }),
+                {
+                  reference: 'isApprovedForAll' + chainId,
+                  contractAddress: activeTokenList[chainId].SBT,
+                  abi: erc721Abi,
+                  calls: [
+                    {
+                      methodName: 'isApprovedForAll',
+                      reference: 'isApprovedForAll' + chainId,
+                      methodParameters: [account, activeTokenList[chainId].Staking]
+                    }
+                  ]
+                },
+
                 ...Object.values(tvlTokens[chainId])
                   .filter((v: any) => v.address !== AddressZero)
                   .map((v: any) => {
@@ -160,6 +174,18 @@ export const useStakeData = () => {
                     }
                   ]
                 },
+                // 用户的余额低于这个值，就需要把 sbt 授权给合约
+                {
+                  reference: 'burnMaximum' + chainId, // 最少质押多少给 SBT
+                  contractAddress: activeTokenList[chainId].Staking,
+                  abi: TVLStakingABI,
+                  calls: [
+                    {
+                      methodName: 'burnMaximum',
+                      reference: 'burnMaximum' + chainId
+                    }
+                  ]
+                },
                 {
                   reference: 'END_TIME' + chainId, // 得到当前是第几周
                   contractAddress: activeTokenList[chainId].Staking,
@@ -194,9 +220,19 @@ export const useStakeData = () => {
                   .map((v: any) => {
                     return {
                       reference: 'hasSBT' + v.symbol,
-                      contractAddress: activeTokenList[chainId].Staking, // 拥有cr Hero的量
+                      contractAddress: activeTokenList[chainId].Staking, // 是否有 sbt 的判断
                       abi: TVLStakingABI,
                       calls: [{ methodName: 'hasSBT', reference: 'hasSBT' + v.symbol, methodParameters: [account, v.address] }]
+                    }
+                  }),
+                ...Object.values(tvlTokens[chainId])
+                  .filter((v: any) => v.address !== AddressZero)
+                  .map((v: any) => {
+                    return {
+                      reference: 'userInfo' + v.symbol,
+                      contractAddress: activeTokenList[chainId].Staking, // 用户的质押量是
+                      abi: TVLStakingABI,
+                      calls: [{ methodName: 'userInfo', reference: 'userInfo' + v.symbol, methodParameters: [account, v.address] }]
                     }
                   }),
                 {
@@ -278,6 +314,7 @@ export const useStakeData = () => {
             {
               END_TIME: '0',
               mintMinimum: '0',
+              burnMaximum: '0',
               sbtBalanceOf: '0',
               getMinStake: '0',
               hasSBT: ''
@@ -295,6 +332,9 @@ export const useStakeData = () => {
             const mintMinimumIndex = methodArr.indexOf(`mintMinimum${_chainId}`)
             userValue[_chainId]['mintMinimum'] = new BigNumberJs(v.response[mintMinimumIndex][0].hex).toFixed()
 
+            const burnMaximumIndex = methodArr.indexOf(`burnMaximum${_chainId}`)
+            userValue[_chainId]['burnMaximum'] = new BigNumberJs(v.response[burnMaximumIndex][0].hex).toFixed()
+
             const getMinStakeIndex = methodArr.indexOf(`getMinStake${_chainId}`)
             userValue[_chainId]['getMinStake'] =
               getMinStakeIndex === -1 ? '0' : new BigNumberJs(v.response[getMinStakeIndex][0].hex).dividedBy(divisorBigNumber).toFixed()
@@ -309,14 +349,18 @@ export const useStakeData = () => {
             userValue[_chainId]['sbtBalanceOf'] = new BigNumberJs(v.response[sbtBalanceOfIndex][0].hex).toFixed()
             const tvlObj: [string, ITVLStakingData][] = Object.values(tvlTokens[_chainId]).map((vv: any, index: number) => {
               const allowanceIndex = methodArr.indexOf(`allowance${vv.symbol}`)
+              const allowanceNFTIndex = methodArr.indexOf(`isApprovedForAll${_chainId}`)
               const symbolIndex = methodArr.indexOf(`symbol${vv.symbol}`)
               const nameIndex = methodArr.indexOf(`name${vv.symbol}`)
               const decimalIndex = methodArr.indexOf(`decimal${vv.symbol}`)
               const balanceOfIndex = methodArr.indexOf(`balanceOf${vv.symbol}`)
               const crHeroIndex = methodArr.indexOf(`getMintAmount${vv.symbol}`)
               const hasSBTIndex = methodArr.indexOf(`hasSBT${vv.symbol}`)
+              const userInfoIndex = methodArr.indexOf(`userInfo${vv.symbol}`)
 
               const allowanceBig = v.response[allowanceIndex] ? new BigNumberJs(v.response[allowanceIndex][0].hex) : '0'
+
+              const allowanceNFT = v.response[allowanceNFTIndex][0]
               const symbol = v.response[symbolIndex][0]
               const name = v.response[nameIndex][0]
               const decimal = v.response[decimalIndex][0]
@@ -328,11 +372,16 @@ export const useStakeData = () => {
               if (hasSBT !== '0') {
                 userValue[_chainId]['hasSBT'] = userValue[_chainId]['hasSBT'] + hasSBT
               }
-              const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
 
+              const userInfo = v.response[userInfoIndex] // [unlockTime, amount]
+              console.log({ userInfo })
+              const withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
+
+              const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
               const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
               const userStakeBig = new BigNumberJs(stake ? stake[0].hex : '0')
               const totalStakeBig = new BigNumberJs(stake ? stake[1].hex : '0')
+
               // let stakeDataFromApiItemI = '0'
               // if (stakeDataFromApiItem) {
               //   stakeDataFromApiItemI = stakeDataFromApiItem.records[vv.address.toLowerCase()].total
@@ -346,6 +395,7 @@ export const useStakeData = () => {
                   crHeroAmount: crHero,
                   chainId: _chainId,
                   allowance: allowanceBig.toString(),
+                  allowanceNFT: allowanceNFT,
                   symbol: symbol,
                   name: name,
                   decimal: decimal,
@@ -355,6 +405,10 @@ export const useStakeData = () => {
                   earnGPStr: formatMoney(earnGPBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   userStakedAmount: userStakeBig.toFixed(),
                   userStakedAmountStr: formatMoney(userStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
+                  sbtId: hasSBT,
+                  withdrawAmount: withdrawAmountBig.toFixed(),
+                  withdrawAmountStr: formatMoney(withdrawAmountBig.dividedBy(divisorBigNumber).toFixed(), 8),
+
                   totalStakedAmount: totalStakeBig.toFixed(),
                   totalStakedAmountStr: formatMoney(totalStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
@@ -424,6 +478,8 @@ export const useStakeData = () => {
               dollarGpRewordsStr: formatMoney(new BigNumberJs(reduceValue[chain]['gpAmount']).toFixed(), 8),
               mintMinimum: userValue[chain]['mintMinimum'],
               mintMinimumStr: formatMoney(new BigNumberJs(userValue[chain]['mintMinimum']).dividedBy(divisorBigNumber).toFixed(), 8),
+              burnMaximum: userValue[chain]['burnMaximum'],
+              burnMaximumStr: formatMoney(new BigNumberJs(userValue[chain]['burnMaximum']).dividedBy(divisorBigNumber).toFixed(), 8),
               sbtAmount: userValue[chain]['sbtBalanceOf'],
               hasSBT: userValue[chain]['hasSBT']
             }),

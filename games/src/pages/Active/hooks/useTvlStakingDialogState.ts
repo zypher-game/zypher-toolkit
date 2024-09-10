@@ -1,25 +1,52 @@
-import { ChainId, useActiveWeb3React, useRecoilState, useSetRecoilState, useSwitchNetwork } from '@ui/src'
-import { useCallback } from 'react'
+import { BigNumberJs, ChainId, Currency, useActiveWeb3React, useRecoilState, useRecoilValue, useSetRecoilState, useSwitchNetwork } from '@ui/src'
+import { useCallback, useMemo } from 'react'
 
-import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
-import { depositCurrencyState, tvlStakingDialogState, tvlStakingForbidDialogState } from '../state/activeState'
+import {
+  depositCurrencyState,
+  tvlRedepositDialogState,
+  tvlStakingDataState,
+  tvlStakingDialogState,
+  tvlStakingForbidDialogState,
+  tvlWithdrawDialogState
+} from '../state/activeState'
 import { useActiveData } from './useActiveData'
 
 export const useTvlStakingDialogState = () => {
-  const { chainId } = useActiveWeb3React()
+  const { chainId: chainIdLocal } = useActiveWeb3React()
   const { switchNetwork } = useSwitchNetwork()
-  const setIsModalOpen = useSetRecoilState(tvlStakingDialogState)
+  const setIsStakingOpen = useSetRecoilState(tvlStakingDialogState)
+  const setIsWithdrawOpen = useSetRecoilState(tvlWithdrawDialogState)
+  const setIsRedepositOpen = useSetRecoilState(tvlRedepositDialogState)
   const setIsForbidModalOpen = useSetRecoilState(tvlStakingForbidDialogState)
   const { activeData } = useActiveData()
   const { isRegistered } = activeData
   const [depositCurrency, setDepositCurrency] = useRecoilState(depositCurrencyState)
-  const setIsModalOpenHandle = useCallback(
-    (params: ChainId, value: boolean, currency?: string) => {
-      if (value && switchNetwork && params !== chainId) {
+  const tvlStakingData = useRecoilValue(tvlStakingDataState)
+  const isEnd = useMemo(() => {
+    const now = parseInt(`${new Date().valueOf() / 1000}`)
+    const END_TIME = tvlStakingData[chainIdLocal][Currency[chainIdLocal]].END_TIME
+    if (END_TIME && new BigNumberJs(END_TIME).lt(now)) {
+      return true
+    }
+    return false
+  }, [JSON.stringify(tvlStakingData)])
+  const setIsStakingOpenHandle = useCallback(
+    ({
+      chainId,
+      isOpen,
+      key,
+      currency
+    }: {
+      chainId: ChainId
+      isOpen: boolean
+      key: 'tvlStakingDialogState' | 'tvlWithdrawDialogState' | 'tvlRedepositDialogState'
+      currency?: string
+    }) => {
+      if (isOpen && switchNetwork && chainId !== chainIdLocal) {
         try {
-          switchNetwork(parseInt(params, 10))
+          switchNetwork(parseInt(chainId, 10))
         } catch (err) {
           setErrorToast(err)
         }
@@ -33,9 +60,23 @@ export const useTvlStakingDialogState = () => {
       if (currency && currency !== depositCurrency) {
         setDepositCurrency(currency)
       }
-      setIsModalOpen(value)
+      if (isOpen) {
+        if (key === 'tvlStakingDialogState') {
+          if (isEnd) {
+            return
+          }
+        }
+      }
+
+      if (key === 'tvlStakingDialogState') {
+        setIsStakingOpen(isOpen)
+      } else if (key === 'tvlRedepositDialogState') {
+        setIsRedepositOpen(isOpen)
+      } else if (key === 'tvlWithdrawDialogState') {
+        setIsWithdrawOpen(isOpen)
+      }
     },
-    [chainId, isRegistered, depositCurrency]
+    [chainIdLocal, isEnd, isRegistered, depositCurrency]
   )
-  return setIsModalOpenHandle
+  return setIsStakingOpenHandle
 }

@@ -16,6 +16,7 @@
       top: 7%
 
   img 
-    width: 56px;
+    width: 56px!important;
+    height: 56px!important;
     @media screen and (max-width: 830px) 
       width: 32px;
