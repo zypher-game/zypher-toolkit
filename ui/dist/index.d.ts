@@ -76,6 +76,7 @@ export { default as erc721Contract, erc721Abi } from "./contract/erc721";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
 export { default as MulticallContract } from "./contract/multicall";
 export { pow10, bnPow10, getShortenAddress, getShortenAddress2, filterInput, measureText, formatCurrency, formatSymbol, eX, formatMoney, convertToLargeNumberRepresentation, splitArrByLen, } from "./utils/tool";
+export { getLocalTime } from "./utils/time";
 export { request, httpPost, httpGet } from "./utils/request";
 export { getUTCSeconds, timestampToDateStr, getFormattedTime, isTimeout, getFormattedTimeMobile, } from "./utils/data";
 export { getChainId } from "./utils/getChainId";

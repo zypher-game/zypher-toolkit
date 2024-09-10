@@ -114,13 +114,8 @@ var DPSupportChainId = !isPro() ? [
 var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
   "42161" /* Arbitrum */,
-  "421613" /* ArbitrumGoerli */,
-  "534351" /* ScrollSepoliaTestnet */,
-  "5001" /* MantleTestnet */,
   "5000" /* Mantle */,
   "9980" /* Combo */,
-  "91715" /* ComboTestnet */,
-  "3441005" /* MantaPacificTestnet */,
   "169" /* MantaPacificMainnet */,
   "8333" /* B3Mainnet */
 ] : [
@@ -13948,6 +13943,18 @@ var erc721Contract = (chainId, env, address, signer) => {
 var erc721Abi = erc721_default;
 var erc721_default2 = erc721Contract;
 
+// src/utils/time.ts
+var getLocalTime = (timestamp) => {
+  const date = new Date(Number(`${timestamp}`) * 1e3);
+  const options = {
+    year: "numeric",
+    month: "long",
+    day: "numeric"
+  };
+  const formattedDate = date.toLocaleDateString("en-US", options);
+  return formattedDate;
+};
+
 // src/components/PixelTab/PixelTab.tsx
 import React96, { memo as memo35 } from "react";
 var PixelTab = memo35(
@@ -16248,6 +16255,7 @@ export {
   getFormattedTimeMobile,
   getIsCode,
   getLinkPre,
+  getLocalTime,
   getProvider,
   getRecentGameById,
   getShortenAddress,
