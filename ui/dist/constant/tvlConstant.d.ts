@@ -27,7 +27,7 @@ export type TVLToken = {
     USDT: IToken;
     WETH: IToken;
 };
-export declare const activeTokenList: Record<ChainId, Record<"SBT" | "Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>>;
+export declare const activeTokenList: Record<ChainId, Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>>;
 export declare const tvlTokenAddress: Record<ChainId, Record<string, Address>>;
 export declare const tvlTokens: {
     [k: string]: {
