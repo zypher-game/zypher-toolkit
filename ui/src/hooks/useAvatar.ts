@@ -17,16 +17,19 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
   const IS_TELEGRAM = useIsTelegram();
   const [_account, _setAccount] = useState(account);
   const ownerList = useRecoilValue(ownerListState);
+  console.log({ ownerList, account, _account });
   const getAccount = useCallback(async () => {
     try {
       if (account) {
         _setAccount(ownerList[account.toLowerCase()] ?? account);
       }
-    } catch {}
+    } catch (err) {
+      console.log("error _account", err);
+    }
   }, [JSON.stringify(ownerList), account]);
   useEffect(() => {
     getAccount();
-  }, [account]);
+  }, [getAccount]);
   useEffect(() => {
     if (_account && !hideAvatars) {
       getData();

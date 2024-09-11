@@ -13,5 +13,10 @@ export type IAAWallet = {
 export declare const aaWalletState: import("recoil").RecoilState<IAAWallet>;
 export declare const useAaWallet: () => IAAWallet;
 export declare const useSetAaWallet: () => import("recoil").SetterOrUpdater<IAAWallet>;
-export declare const useWalletHandler: () => void;
+export declare const useWalletHandler: () => {
+    getWalletClient: () => void;
+};
+export declare const useGetWalletClient: () => {
+    getWalletClient: () => void;
+};
 export declare const useCreate: () => () => Promise<void>;

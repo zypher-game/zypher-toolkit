@@ -17,7 +17,7 @@ import { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublic
 export { useWalletClient, useSwitchNetwork, useDisconnect, useAccount, usePublicClient, useContractReads, };
 export { useSetRecoilState, atom, selector, RecoilRoot, useRecoilValue, useRecoilState, useResetRecoilState, };
 export { appInfo, divisor6xBigNumber, divisorBigNumber, txStatus, preStaticUrl, ChainId, supportedChainIds, DPSupportChainId, ChainRpcUrls, BlockExplorerUrls, ChainName, ChainNetworkName, isTestnet, ChainImage, Currency, CurrencyLogo, CurrencyContract, IContractName, zkBingoV0, zkBingo, bingoV1SupportedChainId, bingoBetaSupportedChainId, bingoSupportedChainId, isPro, getCryptoImg, TG_BOT_URL, TaskJoinTelegramGroup, TaskTelegramBot, TaskFollowZypher, TaskReweet1, targetDate, GlobalVar, } from "./constant/constant";
-export { useAaWallet, useSetAaWallet, useWalletHandler, useCreate, } from "./gas0/hooks/useWalletHandler";
+export { useAaWallet, useSetAaWallet, useWalletHandler, useCreate, useGetWalletClient, } from "./gas0/hooks/useWalletHandler";
 export { aaApproveAndFcErc20 } from "./gas0/utils/aaApproveAndFcErc20";
 export { MulticallMessageItem } from "./gas0/utils/encodeFunctionMulticall";
 export { Gas0Constants } from "./gas0/constants/Gas0Constant";

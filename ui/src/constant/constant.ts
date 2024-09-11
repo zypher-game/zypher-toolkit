@@ -551,10 +551,10 @@ export const zkBingo = (
         chainId: 19546,
         deployer: "0x44Cb6dA95D121F812AD047747129C34C1F9a37f6",
         ZypherGameToken: "0x71a56BD2E4391bc6f6012F843DE6d7e82E3bc64f",
-        ZkBingoCard: "0xb648B48c448c715E0aa7491420C019F4F02FA2B0",
-        ZkBingoLobby: "0xBab64955524178610d44cCf9ef1A94a5597d8F98",
-        ZkBingoFee: "0x3e409DF35a8D54a420ec9592dDA288735153b81a",
-        ZkBingoPoints: "0x3BccC2cC57083f6A14a0dDbB43262741EC820741",
+        ZkBingoCard: "0x3e409DF35a8D54a420ec9592dDA288735153b81a",
+        ZkBingoLobby: "0x4C3A8897f5755c1EE4B67d36F1961E3C516C5b8a",
+        ZkBingoFee: "0xD0AFCaDAebFB4FFbaDC0CeE761689B7bC8d681cb",
+        ZkBingoPoints: "0x98454527B93eEd4F5252774Ea2166b126eD2C847",
       };
     }
     let returnAddress = AddressZero;
