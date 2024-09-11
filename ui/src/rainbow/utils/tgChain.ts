@@ -8,7 +8,7 @@ import sleep from "../../utils/sleep";
 import { IWebAppData } from "../../hooks/useTelegramUser";
 import { AllChainInfo } from "../../constant/chains";
 import { SetterOrUpdater } from "recoil";
-import { IAAWallet } from "../../hooks/aaWallet/aaWalletAtoms";
+import { IAAWallet } from "../../gas0/hooks/useWalletHandler";
 export const tgChain = ({
   WebAppData,
   publicClient,
