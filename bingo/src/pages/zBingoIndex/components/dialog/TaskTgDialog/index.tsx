@@ -109,9 +109,7 @@ const TaskTgDialog = memo(() => {
     }
     _loading(true)
     try {
-      console.log('dddd0000')
       const res = await httpPost<TelegramUserInfoDto>(`${TG_BOT_URL}/task/daily/claim`, { WebAppData, name })
-      console.log('dddd0000', res)
       if (res.code) {
         setErrorToast(res.msg)
         return
@@ -235,7 +233,6 @@ const TaskTgDialog = memo(() => {
                   btn={DailyStatus?.bingoAt ? 'Get' : 'Go'}
                   action={async () => {
                     if (userInfo?.evmWallet) {
-                      console.log({ userInfo: userInfo?.evmWallet })
                       if (!DailyStatus?.bingoAt) {
                         setIsModalOpen(false)
                         toBingoPlayHref({

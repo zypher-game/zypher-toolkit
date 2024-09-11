@@ -17,7 +17,6 @@ const RankingTgDialog = memo(() => {
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
   }, [])
-  console.log({ isModalOpen })
   return (
     <>
       <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel} className={css.bg}>

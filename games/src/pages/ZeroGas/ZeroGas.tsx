@@ -168,7 +168,6 @@ const ZeroGas = memo(() => {
             } as IStakeItem)
         )
         const { SBTTooltip } = getTooltip({ chainId: chainIdLocal, mintMinimum: mintMinimumStr })
-        console.log({ stakingData, _chainIdParams, dataMap, accountAddress, activeDataSource })
         return [
           chainIdParams,
           <>

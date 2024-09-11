@@ -8,7 +8,7 @@ export type IGas0Config = {
 };
 export const Gas0Constants: Record<string, IGas0Config> = {
   [ChainId.ZytronLineaSepoliaTestnet]: {
-    PermitProxy: "0x68Aeb21EE3D5EAe6123A064fbE4Ab23d8274f739" as `0x${string}`,
+    PermitProxy: "0x416e71A44d3A0cFD91DCbbE5B6CcB90752572B87" as `0x${string}`,
     api: "https://rpc-zytron-testnet-linea.zypher.game/api",
     isGameFree: true,
   },

@@ -127,8 +127,6 @@ export const getWagmiConfig = ({
     WebAppData,
     setAaWallet,
   });
-  console.log({ connectors });
-
   return createConfig({
     autoConnect: true,
     connectors,

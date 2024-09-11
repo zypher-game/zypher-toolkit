@@ -10,7 +10,6 @@ export const useTonWalletProofMounted = () => {
   const [proof, _proof] = useState<TonProofItemReplySuccess | null>(null);
   const wallet = useTonWallet();
   useEffect(() => {
-    console.log("ui", ui);
     ui.setConnectRequestParameters({
       state: "ready",
       value: { tonProof: "ZypherGameBingo" },

@@ -162,23 +162,6 @@ const SubmitCardV1 = () => {
           const lobbyAbi = getBingoLobbyAbi({ bingoVersion })
           return encodeFunctionData({ abi: lobbyAbi, args: [realLevel, joinGame.signedCard], functionName: 'join' })
         })()
-        console.log('aaApproveAndFcErc20: ', {
-          erc20Address: GPAddress,
-          wallet: wallet,
-          tokenAmount,
-          permitForAddress: ZkBingoFee,
-          realLevel,
-          signedCard: joinGame.signedCard,
-          donationFee: new BigNumberJs(donationFee).toFixed(),
-          otherFc: [
-            {
-              from: aa_mm_address,
-              to: lobbyAddress,
-              data: joinData,
-              value: BigInt(donationFee)
-            }
-          ]
-        })
         const donationFeeBig = new BigNumberJs(donationFee)
         const otherFc: MulticallMessageItem[] = []
         if (!donationFeeBig.eq(0)) {

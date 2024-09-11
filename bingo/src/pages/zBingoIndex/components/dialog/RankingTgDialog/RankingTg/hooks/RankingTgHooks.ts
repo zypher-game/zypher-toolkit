@@ -34,7 +34,6 @@ export const useTgRanking = (): {
   }, [])
 
   const getMyApi = useCallback(async () => {
-    console.log({ ranking, userInfo })
     if (!userInfo) {
       return
     }
@@ -50,7 +49,6 @@ export const useTgRanking = (): {
     }
     if (!isLocal) {
       const result = await httpGet<TelegramUserInfoDto>(`${TG_BOT_URL}/ranking/get/me?id=${userInfo.id}`)
-      console.log('dddd', result)
       if (result.data) {
         setMyItem({
           ...result.data,

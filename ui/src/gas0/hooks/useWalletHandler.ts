@@ -47,6 +47,16 @@ export const useSetAaWallet = () => {
 
 export const useWalletHandler = () => {
   const { data: walletClient } = useWalletClient();
+  const { walletClient: _walletClient } = useAaWallet();
+  const { getWalletClient } = useGetWalletClient();
+  useEffect(() => {
+    getWalletClient();
+  }, [getWalletClient, !!walletClient]);
+  return { getWalletClient };
+};
+
+export const useGetWalletClient = () => {
+  const { data: walletClient } = useWalletClient();
   const { loading, balance: gas0Balance, config } = useGas0Balance();
   const { account, chainId } = useActiveWeb3React();
   const [isSet, setIsSet] = useState(false);
@@ -112,12 +122,10 @@ export const useWalletHandler = () => {
       setIsSet(false);
       return;
     } catch (err) {
-      console.log("err", err);
+      console.log("getWalletClient err", err);
     }
   }, [key.current, account, chainId, walletClient, gas0Balance]);
-  useEffect(() => {
-    getWalletClient();
-  }, [getWalletClient, !!walletClient]);
+  return { getWalletClient };
 };
 
 export const useCreate = () => {

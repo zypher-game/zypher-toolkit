@@ -35,7 +35,6 @@ const useGameTimeout = () => {
       try {
         const lobbyContract = bingoLobby({ chainId, env, bingoVersion })
         const time = await lobbyContract.read.timer()
-        console.log({ time })
         const { startTimeout, boostRounds, roundGap, roundTimeout, maxDuration } = time
         setGameTime([startTimeout, boostRounds, roundGap, roundTimeout, maxDuration])
         setLoading(false)

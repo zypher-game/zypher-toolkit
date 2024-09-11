@@ -136,7 +136,6 @@ export const useExtend = (): {
         throw new Error('endTime wrong')
       }
       const times = new BigNumberJs(endTime).plus(60 * 60 * 24 * 7).toFixed()
-      console.log({ erc20Address, week, endTime, times })
 
       const res = await contract.write.redeposit([erc20Address, times], {
         account: account

@@ -115,6 +115,7 @@ export {
   useSetAaWallet,
   useWalletHandler,
   useCreate,
+  useGetWalletClient,
 } from "./gas0/hooks/useWalletHandler";
 export { aaApproveAndFcErc20 } from "./gas0/utils/aaApproveAndFcErc20";
 export { MulticallMessageItem } from "./gas0/utils/encodeFunctionMulticall";

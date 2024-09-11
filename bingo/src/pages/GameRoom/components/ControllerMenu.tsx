@@ -79,7 +79,6 @@ const ControllerMenu: React.FC = memo(() => {
 
         const [playingGameId, autoEndTime, isCardContentMatched] = txn
         const currentTimestamp = Math.floor(Date.now() / 1000)
-        console.log({ txn, autoEndTime, currentTimestamp })
         const difference = autoEndTime - currentTimestamp > 0 ? autoEndTime - currentTimestamp : 0
         const m = Math.floor((difference % (60 * 60)) / 60)
         setMinutes(m)

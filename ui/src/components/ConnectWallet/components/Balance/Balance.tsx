@@ -55,15 +55,12 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const refreshBalance = useRecoilValue(refreshBalanceState);
   const { walletClient } = useAaWallet();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
-    console.log(1);
     if (!chainId || !account || !provider || !walletClient) {
-      console.log("xxxxx", { chainId, account, provider, walletClient });
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
       if (!pointsAddress) {
-        console.log("1adf");
         setPointsBalance(0);
       } else {
         // const lineaL3Gp = useBalance({

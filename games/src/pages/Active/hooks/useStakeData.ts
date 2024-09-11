@@ -395,7 +395,6 @@ export const useStakeData = () => {
               }
 
               const userInfo = v.response[userInfoIndex] // [unlockTime, amount]
-              console.log({ userInfo })
               // const unlockTime = new BigNumberJs(userInfo ? userInfo[0].hex : '0')
               const withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
 
@@ -468,7 +467,6 @@ export const useStakeData = () => {
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
         setTvlStakingData(resMap)
-        console.log({ resMap })
         const reduceValue = Object.fromEntries(
           Object.keys(resMap).map(chainId => {
             const _chainId = chainId as unknown as ChainId

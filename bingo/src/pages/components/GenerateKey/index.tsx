@@ -55,8 +55,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     try {
       await Promise.race([
         (async () => {
-          console.log({ lobbyContract, aa_mm_address })
-          const label = await lobbyContract.read.getNextKeyLabel([aa_mm_address])
+          const label = await lobbyContract.read.getNextKeyLabel([aa_mm_address ?? account])
           const signedLabel = await getWeb3Sign(label, account, false, walletClient)
           if (typeof signedLabel === 'string') {
             setJoinGameState((state: JoinGameStateType) => ({

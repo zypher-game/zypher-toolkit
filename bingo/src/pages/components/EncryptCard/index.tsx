@@ -12,6 +12,7 @@ import {
   useWalletHandler
 } from '@ui/src'
 import { getWeb3Sign } from '@ui/src'
+import { useGetWalletClient } from '@ui/src'
 import { Col, Row, Space } from 'antd'
 import cn from 'classnames'
 import { ethers } from 'ethers'
@@ -67,6 +68,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
   const [joinGame, setJoinGameState] = useRecoilState(joinGameState)
   const [, setGameRoom] = useRecoilState(gameRoomState)
   const setCurrentStep = useSetRecoilState(startGameStep)
+  const { getWalletClient } = useGetWalletClient()
 
   const handleReset = useCallback(() => {
     setCardNumbers(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
@@ -78,7 +80,7 @@ const EncryptCard: React.FC<IEncryptCard> = memo(({ disabled }: IEncryptCard) =>
 
   const handleEncryptCard = async () => {
     if (!chainId || !account || !walletClient) {
-      console.log({ chainId, account, walletClient })
+      getWalletClient()
       return
     }
     setPending(true)

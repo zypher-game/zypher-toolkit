@@ -49,7 +49,6 @@ export const usePlay = () => {
     let joinGame = _joinGame
     try {
       if (!chainId || !account || !walletClient) {
-        console.log(1)
         return
       }
       const lobbyContract = bingoLobby({
@@ -80,35 +79,27 @@ export const usePlay = () => {
         },
         [[], [], [], [], []] as number[][]
       )
-      console.log(4, cardNums)
       const encodedNumbers = await cardContract.read.encodeCardNumbers([cardNums])
-      console.log(5, { encodedNumbers, joinGame: joinGame.signedLabel })
       const hashedCardBytes = ethers.utils.hexConcat([
         '0x456e7472797074656420436172643a20', // 'Encrypted Card: '
         joinGame.signedLabel,
         encodedNumbers
       ])
-      console.log(5)
       const signedCard = await getWeb3Sign(hashedCardBytes, account, true, walletClient)
-      console.log(6)
       if (typeof signedCard === 'string') {
         joinGame = {
           ...joinGame,
           signedCard: signedCard
         }
       }
-      console.log(5)
       setGameRoom(room => ({
         ...room,
         cardNumbers
       }))
       _setJoinGameState(joinGame)
       if (!chainId || !account || !walletClient) {
-        console.log(`submitCardBeta1`, !chainId, !account, !walletClient)
         throw Object.assign(new Error('Not Ready'))
       }
-      console.log(`submitCardBeta2`)
-      console.log(`submitCardBeta3`)
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
       const bingoLobbyContract = await bingoLobbyFromRpc({
         chainId,
@@ -116,7 +107,6 @@ export const usePlay = () => {
         library: provider,
         account
       })
-      console.log(`submitCardBeta4`)
       const [lineupUsers] = await bingoLobbyContract.functions.lineupUsers()
       if (lineupUsers && lineupUsers.length && lineupUsers.map((v: string) => v.toLowerCase()).includes(account.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
@@ -124,7 +114,6 @@ export const usePlay = () => {
           maxFeePerGas: gasPrice[chainId],
           maxPriorityFeePerGas: gasPrice[chainId]
         })
-        console.log(`submitCardBeta5`)
         const hash = typeof txn === 'string' ? txn : txn.hash
         const leaveTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
         if (leaveTx && leaveTx.status === txStatus) {
@@ -139,7 +128,6 @@ export const usePlay = () => {
       let res
       if ([ILocalPathUrl.MANTA, ILocalPathUrl.COMBO, ILocalPathUrl.MANTLE, ILocalPathUrl.Hypr, ILocalPathUrl.B3].includes(localpath)) {
         const donationFee = await bingoLobbyContract.functions.joinFee()
-        console.log({ donationFee: new BigNumberJs(donationFee).toString() })
         res = await lobbyContract.write.join([joinGame.signedCard], {
           value: new BigNumberJs(donationFee).toString(),
           account: account,
@@ -148,7 +136,6 @@ export const usePlay = () => {
         })
       } else {
         // 0x519ea991d62f74be98529a3c6bf8b021c978b6d97f8a06587290f6042e944adc2378ce88073ff1a9761a7f921d5207da66b61e0194484b43b3f0083f8d3e671c1c
-        console.log(`submitCardBeta6`, joinGame.signedCard)
         try {
           res = await lobbyContract.write.join([joinGame.signedCard], {
             account: account,
@@ -156,12 +143,9 @@ export const usePlay = () => {
             maxPriorityFeePerGas: gasPrice[chainId]
           })
         } catch (e) {
-          console.log('111111')
           throw e
         }
-        console.log(`submitCardBeta7`, res)
       }
-      console.log({ res })
       const hash = typeof res === 'string' ? res : res.hash
       const joinTx: TransactionReceipt | undefined = await waitForTransaction({
         confirmations: 1,

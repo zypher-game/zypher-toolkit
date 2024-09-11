@@ -197,7 +197,6 @@ const GameRoom: React.FC = () => {
   const isMobile = useIsW768()
   const joinGame = useRecoilValue(joinGameState)
   const { roomInfo, fetchGameInfo } = useGetGameInfoV1(gameId)
-  console.log({ gameId, roomInfo })
   const resetGameRoom = useResetRecoilState(gameRoomState)
   const resetJoinGame = useResetRecoilState(joinGameState)
   const resetGameStep = useResetRecoilState(startGameStep)
@@ -217,9 +216,7 @@ const GameRoom: React.FC = () => {
   const round = useMemo<number>(() => (roomInfo?.players ? Math.ceil(roomInfo.round / roomInfo.players.length) || 0 : 0), [JSON.stringify(roomInfo)])
   const selectedNumbers = useMemo(() => roomInfo.selectedNumbers, [JSON.stringify(roomInfo)])
   const isOvertime = useMemo(() => roomInfo.status, [JSON.stringify(roomInfo)])
-  console.log({ isOvertime })
   const isControllerEnabled = useMemo<boolean>(() => addressIsEqual(roomInfo.player, account ?? ''), [roomInfo.player, account])
-  console.log({ isControllerEnabled, player: roomInfo.player, account })
   const Garde = useMemo(() => {
     if (gamesWon < gradeData[1].minWinCounts) {
       return 1
@@ -318,13 +315,11 @@ const GameRoom: React.FC = () => {
         if (nextLines.length >= 2) {
           await handleSelectAndBingo(markedNum)
         } else {
-          console.log('xxxxxx1111')
           const txnReceipt = await lobbyContract.write.selectNumber([gameId, markedNum], {
             account: account,
             maxFeePerGas: gasPrice[chainId],
             maxPriorityFeePerGas: gasPrice[chainId]
           })
-          console.log('xxxxxx1111sssssss')
           const hash = typeof txnReceipt === 'string' ? txnReceipt : txnReceipt.hash
           const selectNumberTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
           if (selectNumberTx && selectNumberTx.status === txStatus) {

@@ -15,7 +15,6 @@ function CountdownTimer({ roomInfo }: { roomInfo: IRoomInfo }) {
   const [totalTime, setTotaltime] = useState(roundTimeout)
   useEffect(() => {
     setSeconds(roomInfo.remain)
-    console.log({ remain: roomInfo.remain })
     setTotaltime(roomInfo.remain)
     setRound(roomInfo.round)
   }, [roomInfo.round, roomInfo.player])
@@ -37,7 +36,6 @@ function CountdownTimer({ roomInfo }: { roomInfo: IRoomInfo }) {
 
     return () => clearInterval(intervalId)
   }, [round, seconds])
-  console.log({ seconds, totalTime })
   return (
     <div className={css.ProgressBorder}>
       <div className={css.ProgressBorderShadow}>

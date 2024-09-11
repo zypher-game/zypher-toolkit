@@ -56,7 +56,6 @@ export class WagmiWalletHandler {
     gas0Balance: string,
     configApi: IGas0ApiConfig
   ) {
-    console.log({ gas0Balance, configApi });
     this.chainId = walletClient.chain.id;
     this.chain = walletClient.chain;
     this.walletClient = walletClient;
@@ -73,8 +72,6 @@ export class WagmiWalletHandler {
         configApi.wallet_bytecode as Hash,
         deployer as Address
       );
-      console.log({ aaWallet: aaWallet });
-      console.log({ gas0Balance, s: new BigNumberJs(gas0Balance).gt(0) });
       this.aa = {
         isFree: new BigNumberJs(gas0Balance).gt(0),
         address: aaWallet,
@@ -87,36 +84,27 @@ export class WagmiWalletHandler {
         configFromApi: configApi,
       };
       const aa = this.aa;
-      console.log({ aa });
       const transport: Transport = custom({
         request: async ({ method, params }) => {
-          console.log("custom request", method, params);
           if (method !== "eth_sendTransaction") {
             const res = await this.publicClient.request({ method, params });
-            console.log("res", res);
             return res;
           }
-          console.log(1);
           const owner = this.walletClient.account.address;
-          console.log(1, method, { owner });
           const isCreate = await getIsCode(this.publicClient, aaWallet); // eoa =>
-          console.log(1, { isCreate });
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
               owner,
               aa.config.api,
               aa.isFree
             );
-            console.log(1);
             if (!hash) return;
-            console.log(1, hash);
             await this.publicClient.waitForTransactionReceipt({
               hash,
               confirmations: 1,
             });
           }
 
-          console.log(1);
           const nonce = await this.aaNonce();
           const arg = params[0] as {
             data: `0x${string}`;
@@ -138,9 +126,7 @@ export class WagmiWalletHandler {
           });
           if (typeof sign === "string") {
             const { v, r, s } = hexToSignature(sign as `0x${string}`);
-            console.log({ v, r, s, aa: aa.isFree });
             if (aa.isFree) {
-              console.log(1);
               const { data: res } = await httpPost(
                 `${aa.config.api}/functioncall`,
                 {
@@ -155,19 +141,15 @@ export class WagmiWalletHandler {
                 }
               );
               if (res.code !== 0) {
-                console.log("res", res);
                 throw new Error(`functioncall error: ${res.msg}`);
               }
-              console.log(1);
               return res.data.tx_hash;
             } else {
-              console.log(1);
               const aaContract = getContract({
                 abi: WalletAbi,
                 address: aa.address,
                 walletClient,
               });
-              console.log(1);
               return aaContract.write.functionCall([
                 aa.address,
                 arg.to,
@@ -191,7 +173,6 @@ export class WagmiWalletHandler {
   async aaNonce() {
     try {
       const nonce = await this.aa?.contract.read.nonce();
-      console.log("asfsdf:", { nonce });
       return nonce || BigInt(0);
     } catch (err: any) {
       if (
@@ -202,7 +183,6 @@ export class WagmiWalletHandler {
         )
       )
         return BigInt(0);
-      console.log(String(err));
       throw err;
     }
   }

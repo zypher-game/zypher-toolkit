@@ -93,7 +93,6 @@ export const useTelegramUser = () => {
       }
       let _user = undefined;
       if (WebAppData && WebAppData.user && WebAppData.user !== "") {
-        console.log(22222, { WebAppData: WebAppData.user });
         const { data } = await httpPost<TelegramUserInfoDto>(
           `${TG_BOT_URL}/user/get`,
           {
@@ -104,17 +103,14 @@ export const useTelegramUser = () => {
         _user = data;
       }
       if (account && !_user) {
-        console.log(33333, { account });
         const { data } = await httpPost<TelegramUserInfoDto>(
           `${TG_BOT_URL}/user/get/by/evm`,
           {
             evm: account,
           }
         );
-        console.log("userevm evm: ", { data });
         _user = data;
       }
-      console.log("user: ", { _user });
       return _user
         ? {
             ..._user,

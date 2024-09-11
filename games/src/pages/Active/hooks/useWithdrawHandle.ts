@@ -75,7 +75,6 @@ export const useWithdrawHandle = (): {
   const setIsStakingOpenHandle = useTvlStakingDialogState()
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
-  console.log({ activeData })
   useStake()
   useEffect(() => {
     setIsApproveLoading(false)
@@ -139,7 +138,6 @@ export const useWithdrawHandle = (): {
         const _erc721Contract = erc721Contract(_nativeChainId, env, erc721Address, walletClient)
         // owner operator
         const allowance = await _erc721Contract.read.isApprovedForAll([account, activeTokenList[_nativeChainId].Staking])
-        console.log({ allowance })
         // 用户的余额低于这个值，就需要把 sbt 授权给合约
         const hasSbt = !!(token.sbtId && token.sbtId !== '0')
         if (hasSbt) {
@@ -175,7 +173,6 @@ export const useWithdrawHandle = (): {
       setIsWithdrawLoading(true)
 
       const params = [token.address, tokenAmount]
-      console.log({ params })
       const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
 
       if (!contract) {

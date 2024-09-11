@@ -3,6 +3,7 @@ import {
   ChainRpcUrls,
   getProvider,
   LngNs,
+  ownerListState,
   preStaticUrl,
   SvgComponent,
   txStatus,
@@ -12,7 +13,8 @@ import {
   useGetOwnAddress,
   useIsTelegram,
   useIsW768,
-  useRecoilState
+  useRecoilState,
+  useRecoilValue
 } from '@ui/src'
 import { usePublicNodeWaitForTransaction } from '@ui/src'
 import { Col, Row, Space } from 'antd'
@@ -114,6 +116,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
   const chainIdParams = useChainIdParams()
   const [lineupUsers, _lineupUsers] = useState<string[]>([])
   const { setOwnerAddress } = useGetOwnAddress()
+  const ownerList = useRecoilValue(ownerListState)
   useIntervalAsync(async () => {
     if (!chainId || !aa_mm_address || !walletClient) {
       return
@@ -136,6 +139,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       ...game,
       lineupUsers: __lineupUsers
     }))
+    await setOwnerAddress(__lineupUsers)
     _lineupUsers(__lineupUsers)
     const curBlock = await provider.getBlockNumber()
     const filter = bingoLobbyContract.filters.GameStarted()
@@ -206,9 +210,9 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
       setPending(false)
     }
   }
-  useEffect(() => {
-    setOwnerAddress(lineupUsers)
-  }, [lineupUsers.length])
+  // useEffect(() => {
+  //   setOwnerAddress(lineupUsers)
+  // }, [lineupUsers.length])
   return (
     <>
       {isCard ? (
@@ -245,7 +249,7 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
               <BingoPlayerAvatar
                 size={isMobile ? 30 : 56}
                 className="lineup-users-item"
-                key={`player_${idx}`}
+                key={`player_${idx}_${ownerList[player]}`}
                 account={player}
                 showAccount={window.IS_TELEGRAM ? false : true}
                 border={true}

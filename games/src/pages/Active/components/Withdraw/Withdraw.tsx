@@ -66,7 +66,6 @@ const Withdraw = memo(() => {
   const chooseValue = useMemo(() => {
     try {
       let res = tvlStakingData[defaultActiveChainId][Currency[defaultActiveChainId]]
-      console.log({ tvlStakingData })
       const can = canNext(account, chainIdLocal)
       if (can) {
         if (withdrawCurrency) {
@@ -88,7 +87,6 @@ const Withdraw = memo(() => {
     // }
     setIsSelectChainModalOpen(true)
   }, [])
-  console.log({ withdrawValue })
   const { btnLabel, isBalanceEnough } = useMemo(() => {
     const decimal = chooseValue?.decimal ?? 18
     const obj = {
@@ -96,13 +94,11 @@ const Withdraw = memo(() => {
       isBalanceEnough: true,
       btnLabel: '1Confirm'
     }
-    console.log({ chainIdFromStake })
     if (chainIdFromStake) {
       if (canNext(account, chainIdFromStake)) {
         if (chainIdFromStake !== chooseChain) {
           obj.btnLabel = 'Switch Networks'
         } else {
-          console.log({ isDataLoading })
           if (!isDataLoading) {
             const tokenAmount = new BigNumberJs(withdrawValue).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
             if (chooseValue?.withdrawAmount !== '0' && new BigNumberJs(chooseValue?.withdrawAmount ?? '0').gte(tokenAmount)) {
@@ -203,7 +199,6 @@ const HasSbt = memo(({ chainIdLocal }: { chainIdLocal?: ChainId }) => {
   const label = useMemo(() => {
     if (chainIdLocal) {
       const hasList = Object.values(tvlStakingData[chainIdLocal]).filter(v => v.address !== zeroAddress && v.sbtId && v.sbtId !== '0')
-      console.log({ hasList })
       if (hasList && hasList.length) {
         const mintMinimumStr = activeDataSource[chainIdLocal]?.mintMinimumStr
         return `SBT - ${hasList.map(v => `${mintMinimumStr}${v.symbol}`).join(' / ')}`
