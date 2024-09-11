@@ -72,7 +72,6 @@ export const aaApproveAndFcErc20 = async ({
     args: [permitForAddress, BigInt(tokenAmount)],
     functionName: "approve",
   });
-  console.log({ otherFc });
   const tx = await encodeFunctionMulticall(wallet, [
     // 2. transfer GP => PermitProxy => aa
     { from, to: aa.config.PermitProxy, data: Transfer2aa, value: BigInt(0) },

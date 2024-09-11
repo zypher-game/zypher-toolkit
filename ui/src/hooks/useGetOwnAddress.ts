@@ -43,7 +43,6 @@ export const useGetOwnAddress = () => {
               const hasCodeAddress = hasCode.map((v) => v[0]) as Address[];
               // multicall owner
               const multicall = await MulticallContract(chainId);
-              console.log({ multicall });
               if (multicall) {
                 const params = hasCodeAddress.map((__address, index) => ({
                   reference: "owner" + __address.toLowerCase() + chainId,
@@ -56,9 +55,7 @@ export const useGetOwnAddress = () => {
                     },
                   ],
                 }));
-                console.log({ params });
                 const { results } = await multicall.call(params);
-                console.log({ results });
                 if (results) {
                   const map: Record<string, string> = Object.fromEntries(
                     Object.values(results).map((v: any) => [
@@ -68,7 +65,6 @@ export const useGetOwnAddress = () => {
                       v["callsReturnContext"][0]["returnValues"][0], // owner
                     ])
                   );
-                  console.log({ results, map });
                   setAddressOwnerList((pre) => ({
                     ...pre,
                     ...map,
@@ -84,7 +80,6 @@ export const useGetOwnAddress = () => {
     },
     [JSON.stringify(ownerList), chainId]
   );
-  console.log({ ownerList });
   return {
     setOwnerAddress,
     ownerList,

@@ -8,7 +8,6 @@ export const getIsCode = async (
     const code = await publicClient.getBytecode({
       address: address,
     });
-    console.log({ address, code });
     if (code) {
       return true;
     }

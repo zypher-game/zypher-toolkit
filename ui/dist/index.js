@@ -639,7 +639,6 @@ var useTonWalletProofMounted = () => {
   const [proof, _proof] = useState(null);
   const wallet = useTonWallet();
   useEffect(() => {
-    console.log("ui", ui);
     ui.setConnectRequestParameters({
       state: "ready",
       value: { tonProof: "ZypherGameBingo" }
@@ -1071,7 +1070,6 @@ var address2salt = (addr) => {
   return bytesToHex(bytes);
 };
 var getAddressAA = (owner, walletBytecode, deployer) => {
-  console.log({ owner, walletBytecode, deployer });
   const salt = address2salt(owner);
   const bytecode = encodeDeployData({
     abi: WalletAbi,
@@ -1145,7 +1143,6 @@ var getIsCode = async (publicClient, address) => {
     const code = await publicClient.getBytecode({
       address
     });
-    console.log({ address, code });
     if (code) {
       return true;
     }
@@ -1156,7 +1153,6 @@ var getIsCode = async (publicClient, address) => {
 // src/gas0/utils/wagmiWalletHandler.ts
 var WagmiWalletHandler = class {
   constructor(walletClient, gas0Balance, configApi) {
-    console.log({ gas0Balance, configApi });
     this.chainId = walletClient.chain.id;
     this.chain = walletClient.chain;
     this.walletClient = walletClient;
@@ -1173,8 +1169,6 @@ var WagmiWalletHandler = class {
         configApi.wallet_bytecode,
         deployer
       );
-      console.log({ aaWallet });
-      console.log({ gas0Balance, s: new BigNumberJs_default(gas0Balance).gt(0) });
       this.aa = {
         isFree: new BigNumberJs_default(gas0Balance).gt(0),
         address: aaWallet,
@@ -1187,36 +1181,27 @@ var WagmiWalletHandler = class {
         configFromApi: configApi
       };
       const aa = this.aa;
-      console.log({ aa });
       const transport = custom({
         request: async ({ method, params }) => {
-          console.log("custom request", method, params);
           if (method !== "eth_sendTransaction") {
             const res = await this.publicClient.request({ method, params });
-            console.log("res", res);
             return res;
           }
-          console.log(1);
           const owner = this.walletClient.account.address;
-          console.log(1, method, { owner });
           const isCreate = await getIsCode(this.publicClient, aaWallet);
-          console.log(1, { isCreate });
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
               owner,
               aa.config.api,
               aa.isFree
             );
-            console.log(1);
             if (!hash)
               return;
-            console.log(1, hash);
             await this.publicClient.waitForTransactionReceipt({
               hash,
               confirmations: 1
             });
           }
-          console.log(1);
           const nonce = await this.aaNonce();
           const arg = params[0];
           const value = arg.value || 0;
@@ -1233,9 +1218,7 @@ var WagmiWalletHandler = class {
           });
           if (typeof sign === "string") {
             const { v, r, s } = hexToSignature(sign);
-            console.log({ v, r, s, aa: aa.isFree });
             if (aa.isFree) {
-              console.log(1);
               const { data: res } = await httpPost(
                 `${aa.config.api}/functioncall`,
                 {
@@ -1250,19 +1233,15 @@ var WagmiWalletHandler = class {
                 }
               );
               if (res.code !== 0) {
-                console.log("res", res);
                 throw new Error(`functioncall error: ${res.msg}`);
               }
-              console.log(1);
               return res.data.tx_hash;
             } else {
-              console.log(1);
               const aaContract = getContract({
                 abi: WalletAbi,
                 address: aa.address,
                 walletClient
               });
-              console.log(1);
               return aaContract.write.functionCall([
                 aa.address,
                 arg.to,
@@ -1287,14 +1266,12 @@ var WagmiWalletHandler = class {
     var _a;
     try {
       const nonce = await ((_a = this.aa) == null ? void 0 : _a.contract.read.nonce());
-      console.log("asfsdf:", { nonce });
       return nonce || BigInt(0);
     } catch (err) {
       if (err && err.message && err.message.match(
         /^The contract function "nonce" returned no data \("0x"\)/
       ))
         return BigInt(0);
-      console.log(String(err));
       throw err;
     }
   }
@@ -2274,13 +2251,9 @@ var TelegramWallet = class extends Signer {
     this.address = address;
   }
   async sendTransaction(transaction) {
-    console.log("addd---------1");
     this._checkProvider("sendTransaction");
-    console.log("addd---------3", transaction);
     const tx = await this.populateTransaction(transaction);
-    console.log("addd--------5");
     const signedTx = await this.signTransaction(tx);
-    console.log("addd--------91");
     return this.provider.sendTransaction(signedTx);
   }
 };
@@ -2343,7 +2316,6 @@ var tgChain = ({
         }
         if (method === "personal_sign") {
           const txr = await acc.signMessage(params[0]);
-          console.log({ txr });
           return txr;
         }
       }
@@ -2442,7 +2414,6 @@ var getWagmiConfig = ({
     WebAppData,
     setAaWallet
   });
-  console.log({ connectors });
   return createConfig({
     autoConnect: true,
     connectors,
@@ -2657,7 +2628,6 @@ var useGetOwnAddress = () => {
             if (hasCode && hasCode.length) {
               const hasCodeAddress = hasCode.map((v) => v[0]);
               const multicall = await multicall_default(chainId);
-              console.log({ multicall });
               if (multicall) {
                 const params = hasCodeAddress.map((__address, index) => ({
                   reference: "owner" + __address.toLowerCase() + chainId,
@@ -2670,9 +2640,7 @@ var useGetOwnAddress = () => {
                     }
                   ]
                 }));
-                console.log({ params });
                 const { results } = await multicall.call(params);
-                console.log({ results });
                 if (results) {
                   const map = Object.fromEntries(
                     Object.values(results).map((v) => [
@@ -2680,7 +2648,6 @@ var useGetOwnAddress = () => {
                       v["callsReturnContext"][0]["returnValues"][0]
                     ])
                   );
-                  console.log({ results, map });
                   setAddressOwnerList((pre) => ({
                     ...pre,
                     ...map
@@ -2696,7 +2663,6 @@ var useGetOwnAddress = () => {
     },
     [JSON.stringify(ownerList), chainId]
   );
-  console.log({ ownerList });
   return {
     setOwnerAddress,
     ownerList
@@ -3280,7 +3246,6 @@ var aaApproveAndFcErc20 = async ({
     args: [permitForAddress, BigInt(tokenAmount)],
     functionName: "approve"
   });
-  console.log({ otherFc });
   const tx = await encodeFunctionMulticall(wallet, [
     { from, to: aa.config.PermitProxy, data: Transfer2aa, value: BigInt(0) },
     { from, to: wallet.address.GP, data: Approve2game, value: BigInt(0) },
@@ -3617,7 +3582,6 @@ var useTelegramUser = () => {
       }
       let _user2 = void 0;
       if (WebAppData && WebAppData.user && WebAppData.user !== "") {
-        console.log(22222, { WebAppData: WebAppData.user });
         const { data } = await httpPost(
           `${TG_BOT_URL}/user/get`,
           {
@@ -3628,17 +3592,14 @@ var useTelegramUser = () => {
         _user2 = data;
       }
       if (account && !_user2) {
-        console.log(33333, { account });
         const { data } = await httpPost(
           `${TG_BOT_URL}/user/get/by/evm`,
           {
             evm: account
           }
         );
-        console.log("userevm evm: ", { data });
         _user2 = data;
       }
-      console.log("user: ", { _user: _user2 });
       return _user2 ? {
         ..._user2,
         starStr: formatMoney(new BigNumberJs_default(_user2.star).toFormat(), 8)
@@ -7062,15 +7023,12 @@ var Balance = memo25((props) => {
   const refreshBalance = useRecoilValue10(refreshBalanceState);
   const { walletClient } = useAaWallet();
   const fetchErc20Balance = useCallback17(async () => {
-    console.log(1);
     if (!chainId || !account || !provider || !walletClient) {
-      console.log("xxxxx", { chainId, account, provider, walletClient });
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
       if (!pointsAddress) {
-        console.log("1adf");
         setPointsBalance(0);
       } else {
         const pointsContract = erc20_default(
@@ -7376,7 +7334,6 @@ var useAvatar = (account, hideAvatars) => {
   const IS_TELEGRAM = useIsTelegram();
   const [_account, _setAccount] = useState15(account);
   const ownerList = useRecoilValue12(ownerListState);
-  console.log({ ownerList, account, _account });
   const getAccount = useCallback20(async () => {
     var _a;
     try {

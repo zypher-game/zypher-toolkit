@@ -54,7 +54,6 @@ export const tgChain = ({
         }
         if (method === "personal_sign") {
           const txr = await acc.signMessage(params[0]);
-          console.log({ txr });
           return txr;
         }
       },
