@@ -8,10 +8,10 @@ import {
 } from "@tonconnect/ui-react";
 import {
   useSetRecoilState as useSetRecoilState18,
-  atom as atom10,
+  atom as atom11,
   selector,
   RecoilRoot,
-  useRecoilState as useRecoilState14,
+  useRecoilState as useRecoilState15,
   useRecoilValue as useRecoilValue14,
   useResetRecoilState
 } from "recoil";
@@ -2590,10 +2590,31 @@ var MulticallContract = async (chainIdParams) => {
 };
 var multicall_default = MulticallContract;
 
+// src/utils/localStorageEffect.ts
+import { DefaultValue } from "recoil";
+var localStorageEffect = (key) => ({ setSelf, onSet }) => {
+  const savedValue = localStorage.getItem(key);
+  if (savedValue != null) {
+    try {
+      setSelf(JSON.parse(savedValue));
+    } catch (error) {
+      console.error("localStorageEffect:---", error);
+    }
+  }
+  onSet((newValue) => {
+    if (newValue instanceof DefaultValue || !newValue) {
+      localStorage.removeItem(key);
+    } else {
+      localStorage.setItem(key, JSON.stringify(newValue));
+    }
+  });
+};
+
 // src/hooks/useGetOwnAddress.ts
 var ownerListState = atom4({
   key: "ownerListState",
-  default: {}
+  default: {},
+  effects_UNSTABLE: [localStorageEffect("ownerListState")]
 });
 var useGetOwnAddress = () => {
   const { chainId } = useActiveWeb3React();
@@ -3366,26 +3387,6 @@ function useEffectValue(init, handler, deps) {
   }, deps);
   return state;
 }
-
-// src/utils/localStorageEffect.ts
-import { DefaultValue } from "recoil";
-var localStorageEffect = (key) => ({ setSelf, onSet }) => {
-  const savedValue = localStorage.getItem(key);
-  if (savedValue != null) {
-    try {
-      setSelf(JSON.parse(savedValue));
-    } catch (error) {
-      console.error("localStorageEffect:---", error);
-    }
-  }
-  onSet((newValue) => {
-    if (newValue instanceof DefaultValue || !newValue) {
-      localStorage.removeItem(key);
-    } else {
-      localStorage.setItem(key, JSON.stringify(newValue));
-    }
-  });
-};
 
 // src/utils/tool.tsx
 import BigNumber from "bignumber.js";
@@ -6572,7 +6573,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
 import React93, { useEffect as useEffect34, useMemo as useMemo18 } from "react";
-import { useRecoilState as useRecoilState13, useRecoilValue as useRecoilValue13, useSetRecoilState as useSetRecoilState16 } from "recoil";
+import { useRecoilState as useRecoilState14, useRecoilValue as useRecoilValue13, useSetRecoilState as useSetRecoilState16 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
 import React92, { memo as memo33 } from "react";
@@ -7268,7 +7269,7 @@ var Avatar_default = Avatar;
 
 // src/hooks/useAvatar.ts
 import { useCallback as useCallback20, useEffect as useEffect17, useState as useState15 } from "react";
-import { useRecoilValue as useRecoilValue12 } from "recoil";
+import { atom as atom10, useRecoilState as useRecoilState11, useRecoilValue as useRecoilValue12 } from "recoil";
 
 // src/utils/generateAvatar.ts
 function hashToSeed(ethereumAddress) {
@@ -7318,8 +7319,14 @@ var generateAvatar_default = (account) => {
 };
 
 // src/hooks/useAvatar.ts
+var avatarState = atom10({
+  key: "avatarState",
+  default: {},
+  effects_UNSTABLE: [localStorageEffect("avatarState")]
+});
 var useAvatar = (account, hideAvatars) => {
-  const [avatars2, setAvatars] = useState15({
+  const [avatars2, setAvatars] = useRecoilState11(avatarState);
+  const [avatarsNoAccount, setAvatarsNoAccount] = useState15({
     selectedAvatar: "",
     selectedBackground: ""
   });
@@ -7342,10 +7349,15 @@ var useAvatar = (account, hideAvatars) => {
   }, [getAccount]);
   useEffect17(() => {
     if (_account && !hideAvatars) {
-      getData();
+      if (_account && !avatars2[`${_account == null ? void 0 : _account.toLowerCase()}`]) {
+        getData();
+      }
     } else {
       const { selectedAvatar, selectedBackground } = generateAvatar_default(_account);
-      setAvatars({ selectedAvatar, selectedBackground });
+      setAvatarsNoAccount({
+        selectedAvatar,
+        selectedBackground
+      });
     }
   }, [_account, refreshAvatar]);
   const getData = useCallback20(() => {
@@ -7360,19 +7372,29 @@ var useAvatar = (account, hideAvatars) => {
     }
     img.src = src6;
     img.onload = () => {
-      setAvatars({
-        selectedAvatar: `${src6}?9999999${refreshAvatar}`,
-        selectedBackground
-      });
+      setAvatars((pre) => ({
+        ...pre,
+        [(_account != null ? _account : "").toLowerCase()]: {
+          selectedAvatar: `${src6}?9999999${refreshAvatar}`,
+          selectedBackground
+        }
+      }));
     };
     img.onerror = () => {
       const { selectedAvatar, selectedBackground: selectedBackground2 } = generateAvatar_default(_account);
-      setAvatars({ selectedAvatar, selectedBackground: selectedBackground2 });
+      setAvatars((pre) => ({
+        ...pre,
+        [(_account != null ? _account : "").toLowerCase()]: {
+          selectedAvatar,
+          selectedBackground: selectedBackground2
+        }
+      }));
     };
   }, [_account, refreshAvatar]);
   return {
-    avatars: avatars2 || {},
-    aa_mm_address: _account
+    avatars: _account ? avatars2[_account.toLowerCase()] : avatarsNoAccount,
+    aa_mm_address: _account,
+    account: _account
   };
 };
 
@@ -7397,6 +7419,7 @@ var PlayerAvatar = memo27(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const { avatars: avatars2, aa_mm_address } = useAvatar(account, hideAvatars);
+    console.log({ aa_mm_address });
     const avatarText = useMemo9(() => {
       const nameText = name != null ? name : aa_mm_address;
       if (nameText) {
@@ -7408,7 +7431,7 @@ var PlayerAvatar = memo27(
       className: cx(className, "player_playerAvatar"),
       onClick,
       onMouseOver
-    }, hideAvatars ? null : aa_mm_address ? avatars2 ? /* @__PURE__ */ React33.createElement(AvatarBorder, null, /* @__PURE__ */ React33.createElement(Avatar_default, {
+    }, hideAvatars ? null : aa_mm_address ? aa_mm_address ? /* @__PURE__ */ React33.createElement(AvatarBorder, null, /* @__PURE__ */ React33.createElement(Avatar_default, {
       hidePixel,
       size,
       src: avatars2.selectedAvatar,
@@ -7522,7 +7545,8 @@ var PlayerAvatarList = ({
   winner
 }) => {
   const {
-    avatars: { selectedAvatar, selectedBackground }
+    avatars: { selectedAvatar, selectedBackground },
+    aa_mm_address
   } = useAvatar(account, false);
   return /* @__PURE__ */ React33.createElement(OuterCircle, {
     size,
@@ -7533,7 +7557,7 @@ var PlayerAvatarList = ({
     className: "center-circle"
   }, /* @__PURE__ */ React33.createElement("div", {
     className: "inner-circle"
-  }, account ? /* @__PURE__ */ React33.createElement("img", {
+  }, aa_mm_address ? /* @__PURE__ */ React33.createElement("img", {
     decoding: "async",
     loading: "lazy",
     width: "100%",
@@ -7551,7 +7575,7 @@ var PlayerAvatar_default = PlayerAvatar;
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
 import React36, { memo as memo29, useCallback as useCallback22, useEffect as useEffect18, useState as useState16 } from "react";
-import { useRecoilState as useRecoilState12 } from "recoil";
+import { useRecoilState as useRecoilState13 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
 import { useMemo as useMemo11 } from "react";
@@ -7782,11 +7806,11 @@ var useActiveWallet = () => {
 import classnames9 from "classnames";
 import React35, { memo as memo28, useCallback as useCallback21, useMemo as useMemo12 } from "react";
 import { useDisconnect } from "wagmi";
-import { useRecoilState as useRecoilState11 } from "recoil";
+import { useRecoilState as useRecoilState12 } from "recoil";
 var MUserInfo = memo28(
   ({ account, chainId, copy, cancel, type }) => {
     const { disconnect } = useDisconnect();
-    const [, setAccountInfoDialogOpen] = useRecoilState11(accountInfoDialogState);
+    const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
     const { t } = useCustomTranslation([LngNs.common]);
     const nativeBalanceStr = useNativeBalanceStr();
     const pointsBalanceStr = usePointsBalanceStr();
@@ -7891,7 +7915,7 @@ var MUserInfo_default = MUserInfo;
 import { useDisconnect as useDisconnect2 } from "wagmi";
 var AccountInfoDialog = memo29(({ copy }) => {
   const { t } = useCustomTranslation([LngNs.common]);
-  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState12(
+  const [accountInfoDialogOpen, setAccountInfoDialogOpen] = useRecoilState13(
     accountInfoDialogState
   );
   const { account, chainId } = useActiveWeb3React();
@@ -7938,7 +7962,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
   const [index, setIndex] = useState16();
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
-  const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
+  const [, setAccountInfoDialogOpen] = useRecoilState13(accountInfoDialogState);
   useEffect18(() => {
     if (index || index === 0) {
       setTimeout(() => {
@@ -7992,7 +8016,7 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
   const { account, chainId } = useActiveWeb3React();
   const nativeBalanceStr = useNativeBalanceStr();
   const { disconnect } = useDisconnect2();
-  const [, setAccountInfoDialogOpen] = useRecoilState12(accountInfoDialogState);
+  const [, setAccountInfoDialogOpen] = useRecoilState13(accountInfoDialogState);
   useEffect18(() => {
     if (index || index === 0) {
       setTimeout(() => {
@@ -12905,8 +12929,8 @@ var Header = (props) => {
     Link
   } = props;
   const { width } = useWindowSize();
-  const [showBig, setShowBig] = useRecoilState13(showBigState);
-  const [showMiddle, setShowMiddle] = useRecoilState13(showMiddleState);
+  const [showBig, setShowBig] = useRecoilState14(showBigState);
+  const [showMiddle, setShowMiddle] = useRecoilState14(showMiddleState);
   const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo18(() => {
     return {
       isW830: width <= 830,
@@ -16161,7 +16185,7 @@ export {
   animate,
   appInfo,
   argentWallet,
-  atom10 as atom,
+  atom11 as atom,
   bifrostWallet,
   bingoBetaSupportedChainId,
   bingoSupportedChainId,
@@ -16319,7 +16343,7 @@ export {
   usePublicClient4 as usePublicClient,
   usePublicNodeWaitForTransaction,
   useRecentGamesFromGraph,
-  useRecoilState14 as useRecoilState,
+  useRecoilState15 as useRecoilState,
   useRecoilValue14 as useRecoilValue,
   useResetRecoilState,
   useSetAaWallet,

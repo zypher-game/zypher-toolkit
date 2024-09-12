@@ -1,15 +1,27 @@
 import { useCallback, useEffect, useState } from "react";
-import { useRecoilValue } from "recoil";
+import { atom, useRecoilState, useRecoilValue } from "recoil";
 import { refreshAvatarState } from "../components/ConnectWallet/state/connectWalletState";
 import generateAvatar from "../utils/generateAvatar";
 import { useIsTelegram } from "./useIsTelegram";
 import { ownerListState } from "./useGetOwnAddress";
+import { localStorageEffect } from "../utils/localStorageEffect";
 
+export const avatarState = atom<
+  Record<
+    string,
+    {
+      selectedAvatar: string;
+      selectedBackground: string;
+    }
+  >
+>({
+  key: "avatarState",
+  default: {},
+  effects_UNSTABLE: [localStorageEffect("avatarState")],
+});
 export const useAvatar = (account?: string, hideAvatars?: boolean) => {
-  const [avatars, setAvatars] = useState<{
-    selectedAvatar: string;
-    selectedBackground: string;
-  }>({
+  const [avatars, setAvatars] = useRecoilState(avatarState);
+  const [avatarsNoAccount, setAvatarsNoAccount] = useState({
     selectedAvatar: "",
     selectedBackground: "",
   });
@@ -31,10 +43,15 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
   }, [getAccount]);
   useEffect(() => {
     if (_account && !hideAvatars) {
-      getData();
+      if (_account && !avatars[`${_account?.toLowerCase()}`]) {
+        getData();
+      }
     } else {
       const { selectedAvatar, selectedBackground } = generateAvatar(_account);
-      setAvatars({ selectedAvatar, selectedBackground });
+      setAvatarsNoAccount({
+        selectedAvatar,
+        selectedBackground,
+      });
     }
   }, [_account, refreshAvatar]);
   const getData = useCallback(() => {
@@ -49,18 +66,28 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
     }
     img.src = src;
     img.onload = () => {
-      setAvatars({
-        selectedAvatar: `${src}?9999999${refreshAvatar}`,
-        selectedBackground: selectedBackground,
-      });
+      setAvatars((pre) => ({
+        ...pre,
+        [(_account ?? "").toLowerCase()]: {
+          selectedAvatar: `${src}?9999999${refreshAvatar}`,
+          selectedBackground: selectedBackground,
+        },
+      }));
     };
     img.onerror = () => {
       const { selectedAvatar, selectedBackground } = generateAvatar(_account);
-      setAvatars({ selectedAvatar, selectedBackground });
+      setAvatars((pre) => ({
+        ...pre,
+        [(_account ?? "").toLowerCase()!]: {
+          selectedAvatar,
+          selectedBackground,
+        },
+      }));
     };
   }, [_account, refreshAvatar]);
   return {
-    avatars: avatars || {},
+    avatars: _account ? avatars[_account.toLowerCase()] : avatarsNoAccount,
     aa_mm_address: _account,
+    account: _account,
   };
 };
