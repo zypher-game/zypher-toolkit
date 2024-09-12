@@ -7325,6 +7325,7 @@ var avatarState = atom10({
   effects_UNSTABLE: [localStorageEffect("avatarState")]
 });
 var useAvatar = (account, hideAvatars) => {
+  var _a;
   const [avatars2, setAvatars] = useRecoilState11(avatarState);
   const [avatarsNoAccount, setAvatarsNoAccount] = useState15({
     selectedAvatar: "",
@@ -7335,10 +7336,10 @@ var useAvatar = (account, hideAvatars) => {
   const [_account, _setAccount] = useState15(account);
   const ownerList = useRecoilValue12(ownerListState);
   const getAccount = useCallback20(async () => {
-    var _a;
+    var _a2;
     try {
       if (account) {
-        _setAccount((_a = ownerList[account.toLowerCase()]) != null ? _a : account);
+        _setAccount((_a2 = ownerList[account.toLowerCase()]) != null ? _a2 : account);
       }
     } catch (err) {
       console.log("error _account", err);
@@ -7392,7 +7393,7 @@ var useAvatar = (account, hideAvatars) => {
     };
   }, [_account, refreshAvatar]);
   return {
-    avatars: _account ? avatars2[_account.toLowerCase()] : avatarsNoAccount,
+    avatars: _account ? (_a = avatars2[_account.toLowerCase()]) != null ? _a : {} : avatarsNoAccount,
     aa_mm_address: _account,
     account: _account
   };

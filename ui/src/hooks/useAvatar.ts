@@ -86,7 +86,9 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
     };
   }, [_account, refreshAvatar]);
   return {
-    avatars: _account ? avatars[_account.toLowerCase()] : avatarsNoAccount,
+    avatars: _account
+      ? avatars[_account.toLowerCase()] ?? {}
+      : avatarsNoAccount,
     aa_mm_address: _account,
     account: _account,
   };
