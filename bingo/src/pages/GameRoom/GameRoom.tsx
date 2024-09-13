@@ -466,7 +466,7 @@ const GameRoom: React.FC = () => {
     return () => {
       bingoRef.current && clearInterval(bingoRef.current)
     }
-  }, [chainId])
+  }, [handleGameEnd])
   useEffect(() => {
     if (isControllerEnabled && ispercent) {
       setShowTurn(true)

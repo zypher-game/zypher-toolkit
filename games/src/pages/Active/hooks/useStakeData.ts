@@ -395,9 +395,10 @@ export const useStakeData = () => {
               }
 
               const userInfo = v.response[userInfoIndex] // [unlockTime, amount]
-              // const unlockTime = new BigNumberJs(userInfo ? userInfo[0].hex : '0')
+              const unlockTime = new BigNumberJs(userInfo ? userInfo[0].hex : '0').toFixed()
+              // 判断时间
               const withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
-
+              const unlockTimeStr = getLocalTime(unlockTime)
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
               const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
               const userStakeBig = new BigNumberJs(stake ? stake[0].hex : '0')
@@ -429,7 +430,8 @@ export const useStakeData = () => {
                   sbtId: hasSBT,
                   withdrawAmount: withdrawAmountBig.toFixed(),
                   withdrawAmountStr: formatMoney(withdrawAmountBig.dividedBy(divisorBigNumber).toFixed(), 8),
-
+                  unlockTime: unlockTime,
+                  unlockTimeStr: unlockTimeStr,
                   totalStakedAmount: totalStakeBig.toFixed(),
                   totalStakedAmountStr: formatMoney(totalStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
@@ -466,6 +468,7 @@ export const useStakeData = () => {
             ]
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
+        console.log({ resMap })
         setTvlStakingData(resMap)
         const reduceValue = Object.fromEntries(
           Object.keys(resMap).map(chainId => {

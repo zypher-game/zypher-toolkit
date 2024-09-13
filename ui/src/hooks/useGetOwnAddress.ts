@@ -5,14 +5,15 @@ import { useActiveWeb3React } from "./useActiveWeb3React";
 import { getIsCode } from "../gas0/utils/getIsCode";
 import MulticallContract from "../contract/multicall";
 import { WalletAbi } from "../gas0/abis/Wallet";
-import { getPublicClient } from "@wagmi/core";
 import { AllChainInfo } from "../constant/chains";
 import { sample } from "../utils/lodash";
 import { ChainRpcUrls } from "../constant/constant";
+import { localStorageEffect } from "../utils/localStorageEffect";
 
 export const ownerListState = atom<Record<string, string>>({
   key: "ownerListState",
   default: {},
+  effects_UNSTABLE: [localStorageEffect("ownerListState")],
 });
 export const useGetOwnAddress = () => {
   const { chainId } = useActiveWeb3React();

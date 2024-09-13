@@ -145,6 +145,8 @@ export interface ITVLStakingData extends IToken {
   userStakedAmountStr: string // 用户stake量
   withdrawAmount: string
   withdrawAmountStr: string
+  unlockTime: string
+  unlockTimeStr: string
   totalStakedAmount: string // stake总量
   totalStakedAmountStr: string // stake总量
   ratio: string
@@ -169,6 +171,8 @@ export const initData: ITVLStakingData = {
   userStakedAmountStr: '', // 用户stake量
   withdrawAmount: '',
   withdrawAmountStr: '',
+  unlockTime: '0',
+  unlockTimeStr: '',
   totalStakedAmount: '', // stake总量
   totalStakedAmountStr: '', // stake总量
   address: AddressZero,
@@ -279,7 +283,7 @@ export const tvlExtendDialogState = atom({
 
 export const tvlRedepositDialogState = atom({
   key: 'tvlRedepositDialogState',
-  default: true
+  default: false
 })
 export const tvlStakingForbidDialogState = atom({
   key: 'tvlStakingForbidDialogState',

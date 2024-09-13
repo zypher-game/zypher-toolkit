@@ -6,6 +6,7 @@ import {
   graphqlApiUrl,
   IPlayer,
   LngNs,
+  ownerListState,
   PlayerAvatarList as PlayerAvatar,
   PointsIcon,
   preStaticUrl,
@@ -286,6 +287,7 @@ const PlayerListV1 = memo(
     const { account, chainId } = useActiveWeb3ReactForBingo()
     const { aa_mm_address } = useAaWallet()
     const list = account ? customShort(data, account, aa_mm_address) : []
+    const ownerList = useRecoilValue(ownerListState)
     const isMobile = useIsW768()
     const Header = (
       <Row className={css.header}>
@@ -328,7 +330,7 @@ const PlayerListV1 = memo(
                           })}
                         </p>
                       }
-                      description={<p className={css.address}>{getShortenAddress(item)}</p>}
+                      description={<p className={css.address}>{getShortenAddress(ownerList[item.toLowerCase()] ?? item)}</p>}
                     />
                   </Col>
                   <Col span={6}>

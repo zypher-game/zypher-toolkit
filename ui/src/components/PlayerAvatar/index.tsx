@@ -51,6 +51,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const { avatars, aa_mm_address } = useAvatar(account, hideAvatars);
+    console.log({ aa_mm_address });
     const avatarText = useMemo(() => {
       const nameText = name ?? aa_mm_address;
       if (nameText) {
@@ -67,7 +68,7 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
         onMouseOver={onMouseOver}
       >
         {hideAvatars ? null : aa_mm_address ? (
-          avatars ? (
+          aa_mm_address ? (
             <AvatarBorder>
               <Avatar
                 hidePixel={hidePixel}
@@ -218,12 +219,13 @@ export const PlayerAvatarList: React.FC<IAvatar> = ({
 }) => {
   const {
     avatars: { selectedAvatar, selectedBackground },
+    aa_mm_address,
   } = useAvatar(account, false);
   return (
     <OuterCircle size={size} isGreen={isGreen} isGrey={isGrey} winner={winner}>
       <div className="center-circle">
         <div className="inner-circle">
-          {account ? (
+          {aa_mm_address ? (
             <img
               decoding="async"
               loading="lazy"

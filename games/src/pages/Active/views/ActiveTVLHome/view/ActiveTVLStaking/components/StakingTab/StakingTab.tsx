@@ -34,14 +34,14 @@ const StakingTab = memo(
         <div className={css.tab_col}>
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
           <div className={css.tab_func_col}>
-            {/* {isEnd ? null : <StakingBtn chainId={chainIdLocal} />}
-            {isEnd ? ( */}
-            <>
-              <WithdrawBtn chainId={chainIdLocal} />
-              <ExtendBtn chainId={chainIdLocal} />
-              <RedepositBtn chainId={chainIdLocal} />
-            </>
-            {/* ) : null} */}
+            {isEnd ? null : <StakingBtn chainId={chainIdLocal} />}
+            {isEnd ? (
+              <>
+                <WithdrawBtn chainId={chainIdLocal} />
+                <ExtendBtn chainId={chainIdLocal} />
+                <RedepositBtn chainId={chainIdLocal} />
+              </>
+            ) : null}
           </div>
         </div>
         {TVLStakingSupportedChainId[chainIndex] === ChainId.LineaSepolia || TVLStakingSupportedChainId[chainIndex] === ChainId.LineaMainnet ? (

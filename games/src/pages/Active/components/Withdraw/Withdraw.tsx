@@ -99,11 +99,13 @@ const Withdraw = memo(() => {
         if (chainIdFromStake !== chooseChain) {
           obj.btnLabel = 'Switch Networks'
         } else {
+          // unlocktime
+          // 0
           if (!isDataLoading) {
             const tokenAmount = new BigNumberJs(withdrawValue).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
             if (chooseValue?.withdrawAmount !== '0' && new BigNumberJs(chooseValue?.withdrawAmount ?? '0').gte(tokenAmount)) {
               obj.isBalanceEnough = true
-              obj.btnLabel = '2Confirm'
+              obj.btnLabel = 'Confirm'
               if (chooseValue?.sbtId && chooseValue?.sbtId !== '0') {
                 if (!isWithdrawLoading && chooseValue?.address !== AddressZero && !chooseValue?.allowance) {
                   obj.isApprove = false

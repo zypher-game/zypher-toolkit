@@ -147,8 +147,9 @@ export const useStakeHandle = (
           return
         }
 
-        const erc20Address = tvlStakingData[_nativeChainId][currency].address
-        const decimal = tvlStakingData[_nativeChainId][currency].decimal
+        const token = tvlStakingData[_nativeChainId][currency]
+        const erc20Address = token.address
+        const decimal = token.decimal
         if (new BigNumberJs(totalStakedNumber).lt(minStakingValue[_nativeChainId as unknown as TVLChainId])) {
           setErrorToast(`Please pledge at least ${minStakingValue[_nativeChainId as unknown as TVLChainId]} ${currency} to activate your account.`)
           return
