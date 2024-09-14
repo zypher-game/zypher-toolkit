@@ -104,13 +104,11 @@ export const useExtend = (): {
       const startTime = token.startTime
       const getWeek = token.getWeek
       console.log({ startTime, getWeek })
-      if (!startTime || !getWeek) {
-        throw new Error('startTime|getWeek wrong')
+      if (startTime && getWeek) {
+        // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
+        const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7)
+        return [timestampToDateStr(times.toNumber()), times.toString()]
       }
-
-      // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
-      const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7)
-      return [timestampToDateStr(times.toNumber()), times.toString()]
     }
     return ['', '']
   }, [extendCurrency, nativeChainId, week, JSON.stringify(tvlStakingData)])

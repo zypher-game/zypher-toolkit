@@ -401,7 +401,7 @@ export const useStakeData = () => {
               const userInfo = v.response[userInfoIndex] // [unlockTime, amount]
               const unlockTime = new BigNumberJs(userInfo ? userInfo[0].hex : '0').toFixed()
               const now = parseInt(`${new Date().valueOf() / 1000}`)
-              console.log({ unlockTime, now })
+              console.log({ symbol: vv.symbol, unlockTime, now, withdrawAmount: new BigNumberJs(userInfo ? userInfo[1].hex : '0').toFixed() })
               // 判断时间
               let withdrawAmountBig = new BigNumberJs(0)
               let extendAmountBig = new BigNumberJs(0)

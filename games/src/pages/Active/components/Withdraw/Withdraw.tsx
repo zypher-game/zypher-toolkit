@@ -142,7 +142,7 @@ const Withdraw = memo(() => {
     }
     return obj
   }, [JSON.stringify(chooseValue), isWithdrawLoading, isDataLoading, withdrawValue, chainIdFromStake, chooseChain])
-
+  console.log({ chooseValue })
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Withdraw</h3>
