@@ -45,7 +45,8 @@ const Extend = memo(() => {
     isApproveLoading,
     isDataLoading,
     week,
-    handleWeekChange
+    handleWeekChange,
+    revisedUnLockTimeStr
   } = useExtend()
   useEffect(() => {
     if (chooseChain) {
@@ -107,6 +108,7 @@ const Extend = memo(() => {
     // }
     setIsSelectChainModalOpen(true)
   }, [])
+
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Extend</h3>
@@ -162,6 +164,22 @@ const Extend = memo(() => {
           ))}
         </select>
       </PixelBorderCard>
+      <ul className={`${css.text_li} ${css.text_li_margin20}`}>
+        <li>
+          <p>Current Unlock Time</p>
+          <div className={css.fr}>
+            <p>{chooseValue?.unlockTimeStr}</p>
+            <LoadingButton isLoading={isDataLoading} />
+          </div>
+        </li>
+        <li>
+          <p>Revised Unlock Time</p>
+          <div className={css.fr}>
+            <p>{revisedUnLockTimeStr}</p>
+            <LoadingButton isLoading={isDataLoading} />
+          </div>
+        </li>
+      </ul>
       <ActivePixelButtonColor
         className="staking_confirm staking_confirm_top"
         width="100%"

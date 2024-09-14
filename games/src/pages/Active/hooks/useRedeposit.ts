@@ -5,7 +5,9 @@ import {
   divisorBigNumber,
   erc20Contract,
   refreshBalanceState,
+  sleep,
   timeoutPromise,
+  timestampToDateStr,
   txStatus,
   useAaWallet,
   useAccountInvitation,
@@ -35,6 +37,7 @@ import {
 import { canNext, usePreHandleAction } from './activeHooks'
 import { useStake, useStakeData } from './useStakeData'
 export const useRedeposit = (): {
+  revisedUnLockTimeStr: string
   week: number
   handleWeekChange: any
   selectLen: number[]
@@ -48,12 +51,12 @@ export const useRedeposit = (): {
   redepositCurrency: string | undefined
   redepositInputHandle: (e: React.ChangeEvent<HTMLInputElement>) => void
   isApproveLoading: boolean
-  isExtendLoading: boolean
+  isIncrementLoading: boolean
   changeRedepositCurrencyHandle: () => void
   tvlStakingData: Record<ChainId, Record<string, ITVLStakingData>>
 } => {
   const [isApproveLoading, setIsApproveLoading] = useState(false)
-  const [isExtendLoading, setIsExtendLoading] = useState(false)
+  const [isIncrementLoading, setIsIncrementLoading] = useState(false)
   const [isRedepositLoading, setIsRedepositLoading] = useState(false)
   const [redepositValue, setRedepositValue] = useState('')
   const setIsSelectTokenDialogModalOpen = useSetRecoilState(selectTokenDialogState)
@@ -81,7 +84,7 @@ export const useRedeposit = (): {
   useEffect(() => {
     setIsApproveLoading(false)
     setIsRedepositLoading(false)
-    setIsExtendLoading(false)
+    setIsIncrementLoading(false)
     setRedepositValue('')
     if (!redepositCurrency) {
       setRedepositCurrency(Currency[nativeChainId])
@@ -91,13 +94,29 @@ export const useRedeposit = (): {
     const MAX_LOCK_WEEKS = 52
     return Array.from({ length: Number(MAX_LOCK_WEEKS) }, (_value, index) => index + 1)
   }, [])
+  const [revisedUnLockTimeStr, revisedUnLockTime] = useMemo(() => {
+    if (redepositCurrency) {
+      const token = tvlStakingData[nativeChainId][redepositCurrency]
+      const startTime = token.startTime
+      const getWeek = token.getWeek
+      console.log({ startTime, getWeek })
+      if (!startTime || !getWeek) {
+        throw new Error('startTime|getWeek wrong')
+      }
+
+      // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
+      const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7)
+      return [timestampToDateStr(times.toNumber()), times.toString()]
+    }
+    return ['', '']
+  }, [redepositCurrency, nativeChainId, week, JSON.stringify(tvlStakingData)])
   const _successGet = useCallback(
     async ({ tx }: { tx: TransactionReceipt; blockNumber: number }) => {
       if (nativeChainId && account) {
         getStakingData()
         setIsApproveLoading(false)
         setIsRedepositLoading(false)
-        setIsExtendLoading(false)
+        setIsIncrementLoading(false)
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
         setRedepositDialog(false)
@@ -115,7 +134,7 @@ export const useRedeposit = (): {
         const isOk = preHandleAction()
         if (!isOk) {
           setIsRedepositLoading(false)
-          setIsExtendLoading(false)
+          setIsIncrementLoading(false)
           setIsApproveLoading(false)
           return
         }
@@ -123,7 +142,7 @@ export const useRedeposit = (): {
         if (!walletClient) {
           throw new Error('walletClient not Ready')
         }
-        if (isRedepositLoading || isExtendLoading || isApproveLoading) {
+        if (isRedepositLoading || isIncrementLoading || isApproveLoading) {
           return
         }
         const _nativeChainId = nativeChainId
@@ -154,46 +173,25 @@ export const useRedeposit = (): {
               })
               const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
               // 添加超时处理
-              Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise()])
+              Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise(30000)])
                 .then(result => {
                   setIsApproveLoading(false)
                   if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
                     setSuccessToast({ title: '', message: 'Approve successful' })
                   } else {
-                    setErrorToast({ title: '', message: 'Approve Error!' })
+                    setSuccessToast({ title: '', message: 'Approve Error!' })
                   }
                 })
                 .catch(e => {
                   setIsApproveLoading(false)
-                  setErrorToast({ title: '', message: 'Approve Error!' })
+                  setSuccessToast({ title: '', message: 'Approve Wait!' })
                 })
               getStakingData()
+              return
             }
           }
         }
-
-        if (!hasLock) {
-          const endTime = token.END_TIME
-          if (!endTime) {
-            throw new Error('endTime wrong')
-          }
-          setIsExtendLoading(true)
-          const times = new BigNumberJs(endTime).plus(60 * 60 * 24 * 7).toFixed()
-          await contract.write.redeposit([erc20Address, times], {
-            account: account
-          })
-          setIsExtendLoading(false)
-          getStakingData()
-        }
-        setIsRedepositLoading(true)
-        // let nativeAmount = '0'
-        // if (currency === Currency[_nativeChainId]) {
-        //   nativeAmount = tokenAmount
-        // }
-        // const res = await contract.write.increment([erc20Address, tokenAmount], {
-        //   account: account,
-        //   value: nativeAmount
-        // })
+        setIsIncrementLoading(true)
         let funName = ''
         let nativeAmount = '0'
         let params
@@ -214,18 +212,50 @@ export const useRedeposit = (): {
           })
         }
         const res = await fn
-
         const hash = typeof res === 'string' ? res : res.hash
-        const redepositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
-        if (redepositTx && redepositTx.status === txStatus) {
-          setIsRedepositLoading(false)
-          await _successGet({
-            tx: redepositTx,
-            blockNumber: new BigNumberJs(redepositTx.blockNumber.toString()).toNumber()
-          })
-          setSuccessToast({ title: '', message: 'Redeposit successful' })
+        const incrementTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+        if (incrementTx && incrementTx.status === txStatus) {
+          if (hasLock) {
+            setIsIncrementLoading(false)
+            await _successGet({
+              tx: incrementTx,
+              blockNumber: new BigNumberJs(incrementTx.blockNumber.toString()).toNumber()
+            })
+          }
+          setSuccessToast({ title: '', message: 'Increment successful' })
         } else {
-          throw Object.assign(new Error('Redeposit Transaction Failed'), { name: 'Redeposit' })
+          throw Object.assign(new Error('Increment Transaction Failed'), { name: 'increment' })
+        }
+        await sleep(2)
+        if (!hasLock) {
+          const startTime = token.startTime
+          const getWeek = token.getWeek
+          console.log({ startTime, getWeek })
+          if (!startTime || !getWeek) {
+            throw new Error('startTime|getWeek wrong')
+          }
+
+          setIsIncrementLoading(true)
+          // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
+          // const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7).toFixed()
+          // console.log({ erc20Address, times })
+          const redepositRes = await contract.write.redeposit([erc20Address, revisedUnLockTime], {
+            account: account
+          })
+          const redepositHash = typeof redepositRes === 'string' ? res : res.hash
+          const redepositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash: redepositHash })
+          if (redepositTx && redepositTx.status === txStatus) {
+            setIsRedepositLoading(false)
+            await _successGet({
+              tx: redepositTx,
+              blockNumber: new BigNumberJs(redepositTx.blockNumber.toString()).toNumber()
+            })
+            setSuccessToast({ title: '', message: 'redeposit successful' })
+          } else {
+            throw Object.assign(new Error('redeposit Transaction Failed'), { name: 'redeposit' })
+          }
+          setIsRedepositLoading(false)
+          getStakingData()
         }
       } catch (e) {
         setIsApproveLoading(false)
@@ -235,11 +265,12 @@ export const useRedeposit = (): {
       }
     },
     [
+      revisedUnLockTime,
       isW768,
       isDataLoading,
       isApproveLoading,
       isRedepositLoading,
-      isExtendLoading,
+      isIncrementLoading,
       redepositCurrency,
       redepositValue,
       walletClient,
@@ -302,8 +333,9 @@ export const useRedeposit = (): {
     maxHandle: maxHandle,
     isRedepositLoading: isRedepositLoading,
     isApproveLoading: isApproveLoading,
-    isExtendLoading: isExtendLoading,
+    isIncrementLoading: isIncrementLoading,
     week: week,
-    handleWeekChange: handleWeekChange
+    handleWeekChange: handleWeekChange,
+    revisedUnLockTimeStr
   }
 }

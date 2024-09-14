@@ -171,7 +171,7 @@ export const useStakeHandle = (
               // setIsApproveLoading(false)
               // setSuccessToast({ title: '', message: 'Approve successful' })
               // 添加超时处理
-              Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise()])
+              Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise(30000)])
                 .then(result => {
                   setIsApproveLoading(false)
                   if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {

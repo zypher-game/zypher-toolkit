@@ -55,7 +55,8 @@ const Redeposit = memo(() => {
     redepositValue,
     maxHandle,
     redepositInputHandle,
-    isExtendLoading
+    isIncrementLoading,
+    revisedUnLockTimeStr
   } = useRedeposit()
   const { native, erc20 } = useTable()
   useEffect(() => {
@@ -81,10 +82,13 @@ const Redeposit = memo(() => {
       return undefined
     }
   }, [JSON.stringify(tvlStakingData), chainIdLocal, redepositCurrency])
+  console.log({ chooseValue })
   const hasLock = useMemo(() => {
     try {
       if (chooseValue) {
-        return chooseValue.unlockTime !== '0' || chooseValue.withdrawAmount !== '0'
+        if (chooseValue.extendAmount !== '0') {
+          return true
+        }
       }
       return false
     } catch (e) {
@@ -175,7 +179,7 @@ const Redeposit = memo(() => {
       return obj
     }
   }, [JSON.stringify(chooseValue), isDataLoading, redepositValue, JSON.stringify(native), JSON.stringify(erc20)])
-
+  console.log({ isRedepositLoading })
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Deposit</h3>
@@ -236,34 +240,59 @@ const Redeposit = memo(() => {
           </li>
         </ul>
       ) : (
-        <PixelBorderCard
-          className="staking_input staking_week"
-          width="100%"
-          height={isW768 ? '44px' : '58px'}
-          pixel_height={6}
-          backgroundColor="#343C4F"
-          borderColor="#484F60"
-        >
-          <select className={css.select} value={week} onChange={handleWeekChange}>
-            {selectLen.map(v => (
-              <option key={v} value={v}>
-                {v} week
-              </option>
-            ))}
-          </select>
-        </PixelBorderCard>
+        <>
+          <ul className={`${css.text_li} ${css.text_li_margin20}`}>
+            <li>
+              <p>Unwithdraw</p>
+              <div className={css.fr}>
+                <p>{chooseValue?.withdrawAmountStr}</p>
+                <LoadingButton isLoading={isDataLoading} />
+              </div>
+            </li>
+            <li>
+              <p>Total Deposit</p>
+              <div className={css.fr}>
+                <p>{totalDeposit}</p>
+                <LoadingButton isLoading={isDataLoading} />
+              </div>
+            </li>
+            <li>
+              <p>Revised Unlock Time</p>
+              <div className={css.fr}>
+                <p>{revisedUnLockTimeStr}</p>
+                <LoadingButton isLoading={isDataLoading} />
+              </div>
+            </li>
+          </ul>
+          <PixelBorderCard
+            className="staking_input staking_week"
+            width="100%"
+            height={isW768 ? '44px' : '58px'}
+            pixel_height={6}
+            backgroundColor="#343C4F"
+            borderColor="#484F60"
+          >
+            <select className={css.select} value={week} onChange={handleWeekChange}>
+              {selectLen.map(v => (
+                <option key={v} value={v}>
+                  {v} week
+                </option>
+              ))}
+            </select>
+          </PixelBorderCard>
+        </>
       )}
       <ActivePixelButtonColor
-        className="staking_confirm"
+        className={`staking_confirm ${hasLock ? '' : 'staking_confirm_top'}`}
         width="100%"
         height={isW768 ? '48px' : '54px'}
         pixel_height={5}
         onClick={() => redeposit(hasLock)}
-        disable={isRedepositLoading || isApproveLoading || isDataLoading}
+        disable={isRedepositLoading || isIncrementLoading || isApproveLoading || isDataLoading}
         themeType="brightBlue"
       >
         <p>{btnLabel}</p>
-        <LoadingButton isLoading={isRedepositLoading || isApproveLoading} />
+        <LoadingButton isLoading={isRedepositLoading || isIncrementLoading || isApproveLoading} />
       </ActivePixelButtonColor>
       <SelectTokenDialog />
       <SelectChainDialog />

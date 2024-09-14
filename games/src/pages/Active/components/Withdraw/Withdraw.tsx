@@ -33,7 +33,15 @@ import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
 import { useWithdrawHandle } from '../../hooks/useWithdrawHandle'
-import { activeDataState, chooseChainState, IActiveDataState, selectChainDialogState, tvlStakingDataState } from '../../state/activeState'
+import {
+  activeDataState,
+  chooseChainState,
+  IActiveDataState,
+  isTvlDataLoadingState,
+  ITVLStakingData,
+  selectChainDialogState,
+  tvlStakingDataState
+} from '../../state/activeState'
 import css from '../Staking/Staking.module.styl'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 
@@ -92,7 +100,7 @@ const Withdraw = memo(() => {
     const obj = {
       isApprove: false,
       isBalanceEnough: true,
-      btnLabel: '1Confirm'
+      btnLabel: 'Confirm'
     }
     if (chainIdFromStake) {
       if (canNext(account, chainIdFromStake)) {
@@ -120,7 +128,7 @@ const Withdraw = memo(() => {
                 obj.isBalanceEnough = false
                 obj.btnLabel = 'No Enough'
               } else {
-                obj.btnLabel = '3Confirm'
+                obj.btnLabel = 'Confirm'
                 obj.isBalanceEnough = false
               }
             }
@@ -177,7 +185,7 @@ const Withdraw = memo(() => {
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
         </ActivePixelButton>
       </PixelBorderCard>
-      <HasSbt chainIdLocal={chainIdLocal} />
+      <HasSbt chainIdLocal={chainIdLocal} chooseValue={chooseValue} />
       <ActivePixelButtonColor
         className="staking_confirm staking_confirm_top"
         width="100%"
@@ -195,12 +203,14 @@ const Withdraw = memo(() => {
     </PixelBorderCard>
   )
 }, isEqual)
-const HasSbt = memo(({ chainIdLocal }: { chainIdLocal?: ChainId }) => {
+const HasSbt = memo(({ chainIdLocal, chooseValue }: { chainIdLocal?: ChainId; chooseValue?: ITVLStakingData }) => {
   const tvlStakingData = useRecoilValue(tvlStakingDataState)
   const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
   const label = useMemo(() => {
     if (chainIdLocal) {
-      const hasList = Object.values(tvlStakingData[chainIdLocal]).filter(v => v.address !== zeroAddress && v.sbtId && v.sbtId !== '0')
+      const hasList = Object.values(tvlStakingData[chainIdLocal]).filter(
+        v => v.address !== zeroAddress && v.address === chooseValue?.address && v.sbtId && v.sbtId !== '0'
+      )
       if (hasList && hasList.length) {
         const mintMinimumStr = activeDataSource[chainIdLocal]?.mintMinimumStr
         return `SBT - ${hasList.map(v => `${mintMinimumStr}${v.symbol}`).join(' / ')}`

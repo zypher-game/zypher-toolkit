@@ -88,6 +88,7 @@ const Card = memo(
             growthCoefficient={stakingGrowthCoefficient}
             airdropPointsTooltip={airdropPointsTooltip}
             growthCoefficientTooltip={growthCoefficientNativeTooltip}
+            dataLoading={isTvlDataLoading}
           />
           <PixelCardOne
             title={'Obtained by restaking tokens'}
@@ -98,6 +99,7 @@ const Card = memo(
             // :
             airdropPointsTooltip={airdropPointsTooltip}
             growthCoefficientTooltip={growthCoefficientTooltip}
+            dataLoading={isTvlDataLoading}
           />
         </div>
         <div className={css.cardTwo}>
@@ -109,7 +111,7 @@ const Card = memo(
             onClick={() => onClaimSBTHandle(chainIdLocal, hasSbt)}
             btnLoading={claimSBTLoading}
             disable={false}
-            dataLoading={false}
+            dataLoading={isTvlDataLoading}
           />
           <PixelCardTwo
             title={crHeroBoxAmount}
@@ -142,27 +144,36 @@ const PixelCardOne = memo(
     growthCoefficient,
     title,
     airdropPointsTooltip,
-    growthCoefficientTooltip
+    growthCoefficientTooltip,
+    dataLoading
   }: {
     airdropPoints: string
     growthCoefficient: string
     title: string
     airdropPointsTooltip: string[]
     growthCoefficientTooltip: string[]
+    dataLoading: boolean
   }) => {
     return (
       <PixelCard>
         <h4 className={css.cardOneTitle}>{title}</h4>
         <div className={css.space}>
           <div className={css.fl}>
-            <p className={css.title_amount}>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
+            <div className={css.title_amount}>
+              <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
+              <LoadingButton isLoading={dataLoading} hideMl={true} />
+              {/* {dataLoading ? <Skeleton className={css.munSke} /> : null} */}
+            </div>
             <div className={css.grey_title}>
               <p>Airdrop Points</p>
               <PixelTooltip title={airdropPointsTooltip} />
             </div>
           </div>
           <div className={css.fr}>
-            <p className={css.title_amount}>{growthCoefficient}</p>
+            <div className={css.title_amount}>
+              <p>{growthCoefficient}</p>
+              <LoadingButton isLoading={dataLoading} hideMl={true} />
+            </div>
             <div className={css.grey_title}>
               <p>Growth coefficient</p>
               <PixelTooltip title={growthCoefficientTooltip} />

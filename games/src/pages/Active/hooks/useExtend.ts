@@ -3,6 +3,7 @@ import {
   Currency,
   divisorBigNumber,
   refreshBalanceState,
+  timestampToDateStr,
   txStatus,
   useAaWallet,
   useAccountInvitation,
@@ -45,6 +46,7 @@ export const useExtend = (): {
   isApproveLoading: boolean
   changeExtendCurrencyHandle: () => void
   tvlStakingData: Record<ChainId, Record<string, ITVLStakingData>>
+  revisedUnLockTimeStr: string
 } => {
   const [isApproveLoading, setIsApproveLoading] = useState(false)
   const [isExtendLoading, setIsExtendLoading] = useState(false)
@@ -96,6 +98,22 @@ export const useExtend = (): {
     },
     [nativeChainId, account]
   )
+  const [revisedUnLockTimeStr, revisedUnLockTime] = useMemo(() => {
+    if (extendCurrency) {
+      const token = tvlStakingData[nativeChainId][extendCurrency]
+      const startTime = token.startTime
+      const getWeek = token.getWeek
+      console.log({ startTime, getWeek })
+      if (!startTime || !getWeek) {
+        throw new Error('startTime|getWeek wrong')
+      }
+
+      // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
+      const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7)
+      return [timestampToDateStr(times.toNumber()), times.toString()]
+    }
+    return ['', '']
+  }, [extendCurrency, nativeChainId, week, JSON.stringify(tvlStakingData)])
   const extend = useCallback(async () => {
     const currency = extendCurrency
     try {
@@ -131,13 +149,15 @@ export const useExtend = (): {
       }
       const erc20Address = token.address
       setIsExtendLoading(true)
-      const endTime = token.END_TIME
-      if (!endTime) {
-        throw new Error('endTime wrong')
+      const startTime = token.startTime
+      const getWeek = token.getWeek
+      console.log({ startTime, getWeek })
+      if (!startTime || !getWeek) {
+        throw new Error('startTime|getWeek wrong')
       }
-      const times = new BigNumberJs(endTime).plus(60 * 60 * 24 * 7).toFixed()
-
-      const res = await contract.write.redeposit([erc20Address, times], {
+      console.log({ erc20Address, revisedUnLockTime })
+      setIsExtendLoading(true)
+      const res = await contract.write.redeposit([erc20Address, revisedUnLockTime], {
         account: account
       })
       const hash = typeof res === 'string' ? res : res.hash
@@ -169,7 +189,8 @@ export const useExtend = (): {
     account,
     nativeChainId,
     preHandleAction,
-    week
+    week,
+    revisedUnLockTime
   ])
   useEffect(() => {
     if (
@@ -197,6 +218,7 @@ export const useExtend = (): {
   }, [])
 
   return {
+    revisedUnLockTimeStr,
     selectLen,
     isDataLoading,
     extend,

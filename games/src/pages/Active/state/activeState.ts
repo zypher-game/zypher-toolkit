@@ -145,6 +145,8 @@ export interface ITVLStakingData extends IToken {
   userStakedAmountStr: string // 用户stake量
   withdrawAmount: string
   withdrawAmountStr: string
+  extendAmount: string
+  extendAmountStr: string
   unlockTime: string
   unlockTimeStr: string
   totalStakedAmount: string // stake总量
@@ -156,8 +158,11 @@ export interface ITVLStakingData extends IToken {
   name: string
   chainId?: ChainId
   END_TIME?: string
+  startTime?: string
   sbtId?: string
+  hasSBT?: boolean
   getMinStake?: string
+  getWeek?: string
 }
 export const initData: ITVLStakingData = {
   allowance: '',
@@ -171,6 +176,8 @@ export const initData: ITVLStakingData = {
   userStakedAmountStr: '', // 用户stake量
   withdrawAmount: '',
   withdrawAmountStr: '',
+  extendAmount: '',
+  extendAmountStr: '',
   unlockTime: '0',
   unlockTimeStr: '',
   totalStakedAmount: '', // stake总量
@@ -334,24 +341,29 @@ export const getPointCardData = atom<IGetPointCardData | undefined>({
 
 export const depositCurrencyState = atom<string | undefined>({
   key: 'depositCurrencyState',
-  default: undefined
+  default: undefined,
+  effects_UNSTABLE: [localStorageEffect('depositCurrencyState')]
 })
 export const redepositCurrencyState = atom<string | undefined>({
   key: 'redepositCurrencyState',
-  default: undefined
+  default: undefined,
+  effects_UNSTABLE: [localStorageEffect('redepositCurrencyState')]
 })
 export const extendCurrencyState = atom<string | undefined>({
   key: 'extendCurrencyState',
-  default: undefined
+  default: undefined,
+  effects_UNSTABLE: [localStorageEffect('extendCurrencyState')]
 })
 
 export const withdrawCurrencyState = atom<string | undefined>({
   key: 'withdrawCurrencyState',
-  default: undefined
+  default: undefined,
+  effects_UNSTABLE: [localStorageEffect('withdrawCurrencyState')]
 })
 export const chooseChainState = atom<ChainId | undefined>({
   key: 'chooseChainState',
-  default: undefined
+  default: undefined,
+  effects_UNSTABLE: [localStorageEffect('chooseChainState')]
 })
 export const tvlPathState = atom<number>({
   key: 'tvlPathState',

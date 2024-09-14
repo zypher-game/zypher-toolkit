@@ -8,6 +8,7 @@ import {
   erc721Abi,
   formatMoney,
   getLocalTime,
+  timestampToDateStr,
   TVLStakingSupportedChainId,
   tvlTokens,
   useActiveWeb3React,
@@ -362,6 +363,10 @@ export const useStakeData = () => {
             userValue[_chainId]['END_TIMEStr'] = getLocalTime(END_TIME)
             const startTimeIndex = methodArr.indexOf(`startTime${_chainId}`)
             const startTime = new BigNumberJs(v.response[startTimeIndex][0].hex).toFixed()
+
+            const getWeekIndex = methodArr.indexOf(`getWeek${_chainId}`)
+            const getWeek = new BigNumberJs(v.response[getWeekIndex][0].hex).toFixed()
+
             userValue[_chainId]['startTime'] = startTime
             userValue[_chainId]['startTimeStr'] = getLocalTime(startTime)
 
@@ -393,12 +398,20 @@ export const useStakeData = () => {
               if (hasSBT !== '0') {
                 userValue[_chainId]['hasSBT'] = userValue[_chainId]['hasSBT'] + hasSBT
               }
-
               const userInfo = v.response[userInfoIndex] // [unlockTime, amount]
               const unlockTime = new BigNumberJs(userInfo ? userInfo[0].hex : '0').toFixed()
+              const now = parseInt(`${new Date().valueOf() / 1000}`)
+              console.log({ unlockTime, now })
               // 判断时间
-              const withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
-              const unlockTimeStr = getLocalTime(unlockTime)
+              let withdrawAmountBig = new BigNumberJs(0)
+              let extendAmountBig = new BigNumberJs(0)
+              // unlockTime <= now
+              if (new BigNumberJs(unlockTime).lt(now)) {
+                withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
+              } else {
+                extendAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
+              }
+              const unlockTimeStr = timestampToDateStr(Number(unlockTime))
               const getWeeklyWeightIndex = nextMethodArr.indexOf(`getWeeklyWeight${vv.symbol}`)
               const stake = nextRes[chainIndex].response[getWeeklyWeightIndex]
               const userStakeBig = new BigNumberJs(stake ? stake[0].hex : '0')
@@ -428,8 +441,11 @@ export const useStakeData = () => {
                   userStakedAmount: userStakeBig.toFixed(),
                   userStakedAmountStr: formatMoney(userStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   sbtId: hasSBT,
+                  hasSBT: hasSBT !== '0',
                   withdrawAmount: withdrawAmountBig.toFixed(),
                   withdrawAmountStr: formatMoney(withdrawAmountBig.dividedBy(divisorBigNumber).toFixed(), 8),
+                  extendAmount: extendAmountBig.toFixed(),
+                  extendAmountStr: formatMoney(extendAmountBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   unlockTime: unlockTime,
                   unlockTimeStr: unlockTimeStr,
                   totalStakedAmount: totalStakeBig.toFixed(),
@@ -437,7 +453,8 @@ export const useStakeData = () => {
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
                   END_TIME: userValue[_chainId]['END_TIME'],
                   startTime: userValue[_chainId]['startTime'],
-                  getMinStake: userValue[_chainId]['getMinStake']
+                  getMinStake: userValue[_chainId]['getMinStake'],
+                  getWeek: getWeek
                 } as ITVLStakingData
               ]
             })
@@ -460,6 +477,7 @@ export const useStakeData = () => {
                     index: 0,
                     END_TIME: userValue[_chainId]['END_TIME'],
                     startTime: userValue[_chainId]['startTime'],
+                    getWeek: getWeek,
                     getMinStake: userValue[_chainId]['getMinStake']
                   }
                 ],
