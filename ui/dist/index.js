@@ -13218,9 +13218,7 @@ function timestampToDateStr(timestamp, split) {
   L = Math.floor(month / 11);
   month = month + 2 - 12 * L;
   year = 100 * (N - 49) + year + L;
-  return `${year.toFixed(0)}${split}${month.toFixed(0)}${split}${day.toFixed(
-    0
-  )}`;
+  return `${year.toFixed(0)}${split != null ? split : "-"}${month.toFixed(0)}${split != null ? split : "-"}${day.toFixed(0)}`;
 }
 var getFormattedTime = (timestamp) => {
   const date = new Date(timestamp * 1e3);

@@ -19,9 +19,9 @@ export function timestampToDateStr(timestamp: number, split?: string): string {
   month = month + 2 - 12 * L;
   year = 100 * (N - 49) + year + L;
 
-  return `${year.toFixed(0)}${split}${month.toFixed(0)}${split}${day.toFixed(
-    0
-  )}`;
+  return `${year.toFixed(0)}${split ?? "-"}${month.toFixed(0)}${
+    split ?? "-"
+  }${day.toFixed(0)}`;
 }
 
 export const getFormattedTime = (timestamp: number): string => {
