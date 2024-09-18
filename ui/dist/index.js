@@ -459,7 +459,7 @@ var CurrencyContract = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   },
   ["9901" /* ZytronLineaMain */]: {
-    multicall: ["0x291f3Ee5c2bd0a749ed8508ecDf2d1754a32bE73"]
+    multicall: ["0x532293bF9ee1A064549dB9d040d5f00A85C49BbB"]
   },
   ["19546" /* ZytronLineaSepoliaTestnet */]: {
     multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"]
@@ -804,7 +804,7 @@ var Gas0Constants = {
   },
   ["9901" /* ZytronLineaMain */]: {
     api: "https://zytron-linea-mainnet-0gas.zypher.game/api",
-    PermitProxy: "0x6e0839df4fb45d76fe355d69fd430adef95e119a",
+    PermitProxy: "0x60c25c4ee50232b6388d05f727f4f8019b133f8b",
     isGameFree: true
   }
 };
@@ -865,33 +865,36 @@ var useGas0Balance = () => {
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
-        console.log({ res });
-        if (res.code !== 0) {
-          _balance("0");
-          key.current = "";
-          return;
-        }
-        console.log({ res });
-        const gas0Balance = res.data.amount;
-        console.log({ gas0Balance });
-        if (new BigNumberJs_default(gas0Balance).gt(0)) {
-          httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
-            console.log({ configRes });
-            setLoading(false);
-            if (configRes.code !== 0) {
-              _balance("0");
-              key.current = "";
-              return;
-            }
-            _balance(gas0Balance);
-            console.log({ configRes });
-            _config({
-              deployer_address: configRes.data.deployer_address,
-              function_call_tip: configRes.data.function_call_tip,
-              function_multicall_tip: configRes.data.function_multicall_tip,
-              wallet_bytecode: configRes.data.wallet_bytecode
-            });
-          });
+        if (res) {
+          if (res.code !== 0) {
+            _balance("0");
+            key.current = "";
+            return;
+          }
+          console.log({ res });
+          const gas0Balance = res.data.amount;
+          console.log({ gas0Balance });
+          if (new BigNumberJs_default(gas0Balance).gt(0)) {
+            httpGetOnce(`${chainConf.api}/config`).then(
+              ({ data: configRes }) => {
+                console.log({ configRes });
+                setLoading(false);
+                if (configRes.code !== 0) {
+                  _balance("0");
+                  key.current = "";
+                  return;
+                }
+                _balance(gas0Balance);
+                console.log({ configRes });
+                _config({
+                  deployer_address: configRes.data.deployer_address,
+                  function_call_tip: configRes.data.function_call_tip,
+                  function_multicall_tip: configRes.data.function_multicall_tip,
+                  wallet_bytecode: configRes.data.wallet_bytecode
+                });
+              }
+            );
+          }
         } else {
           setLoading(false);
         }
@@ -2710,7 +2713,7 @@ var IGameName = /* @__PURE__ */ ((IGameName2) => {
 
 // src/index.ts
 import {
-  useWalletClient as useWalletClient2,
+  useWalletClient as useWalletClient3,
   useSwitchNetwork as useSwitchNetwork2,
   useDisconnect as useDisconnect6,
   useAccount as useAccount14,
@@ -6599,306 +6602,6 @@ import React29, { memo as memo25, useCallback as useCallback17, useEffect as use
 import { useRecoilValue as useRecoilValue10, useSetRecoilState as useSetRecoilState10 } from "recoil";
 import styled4 from "styled-components";
 
-// src/contract/abi/erc20Abi.json
-var erc20Abi_default = [
-  {
-    inputs: [
-      {
-        internalType: "string",
-        name: "name",
-        type: "string"
-      },
-      {
-        internalType: "string",
-        name: "symbol",
-        type: "string"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "constructor"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Approval",
-    type: "event"
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: true,
-        internalType: "address",
-        name: "from",
-        type: "address"
-      },
-      {
-        indexed: true,
-        internalType: "address",
-        name: "to",
-        type: "address"
-      },
-      {
-        indexed: false,
-        internalType: "uint256",
-        name: "value",
-        type: "uint256"
-      }
-    ],
-    name: "Transfer",
-    type: "event"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "owner",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      }
-    ],
-    name: "allowance",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "approve",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "account",
-        type: "address"
-      }
-    ],
-    name: "balanceOf",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "decimals",
-    outputs: [
-      {
-        internalType: "uint8",
-        name: "",
-        type: "uint8"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "subtractedValue",
-        type: "uint256"
-      }
-    ],
-    name: "decreaseAllowance",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "spender",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "addedValue",
-        type: "uint256"
-      }
-    ],
-    name: "increaseAllowance",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "name",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "symbol",
-    outputs: [
-      {
-        internalType: "string",
-        name: "",
-        type: "string"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [],
-    name: "totalSupply",
-    outputs: [
-      {
-        internalType: "uint256",
-        name: "",
-        type: "uint256"
-      }
-    ],
-    stateMutability: "view",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "transfer",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  },
-  {
-    inputs: [
-      {
-        internalType: "address",
-        name: "sender",
-        type: "address"
-      },
-      {
-        internalType: "address",
-        name: "recipient",
-        type: "address"
-      },
-      {
-        internalType: "uint256",
-        name: "amount",
-        type: "uint256"
-      }
-    ],
-    name: "transferFrom",
-    outputs: [
-      {
-        internalType: "bool",
-        name: "",
-        type: "bool"
-      }
-    ],
-    stateMutability: "nonpayable",
-    type: "function"
-  }
-];
-
-// src/contract/erc20.ts
-var erc20Contract = (chainId, env, address, signer) => {
-  if (!address) {
-    throw new Error("No addrerss");
-  }
-  return getContract2({ env, abi: erc20Abi_default, address, signer, chainId });
-};
-var erc20Abi = erc20Abi_default;
-var erc20_default = erc20Contract;
-
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
 import React28, { memo as memo24, useCallback as useCallback16, useEffect as useEffect15 } from "react";
@@ -7014,6 +6717,7 @@ var BalanceCountUpItem = memo24(
 var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
+import { erc20ABI, useWalletClient as useWalletClient2 } from "wagmi";
 var AddIcon = styled4(icons_default)`
   margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
   margin-left: 0 !important;
@@ -7026,33 +6730,65 @@ var Balance = memo25((props) => {
   const setNativeBalance = useSetRecoilState10(nativeBalanceState);
   const setPointsBalance = useSetRecoilState10(pointsBalanceState);
   const refreshBalance = useRecoilValue10(refreshBalanceState);
-  const { walletClient } = useAaWallet();
+  const { data: walletClient } = useWalletClient2();
   const fetchErc20Balance = useCallback17(async () => {
+    console.log({ chainId, account, provider, walletClient });
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
+      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
-        const pointsContract = erc20_default(
-          chainId,
-          env,
-          pointsAddress,
-          walletClient
-        );
-        const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance, pointsAddress, account });
-        setPointsBalance(
-          new BigNumberJs_default(balance.toString()).dividedBy(divisorBigNumber).toNumber()
-        );
+        try {
+          const staticStr = [
+            {
+              name: "balance",
+              methodName: "balanceOf",
+              params: [account]
+            }
+          ];
+          const params = staticStr.map((v) => {
+            var _a, _b;
+            return {
+              reference: v.name,
+              contractAddress: pointsAddress,
+              abi: erc20ABI,
+              calls: [
+                {
+                  methodName: (_a = v == null ? void 0 : v.methodName) != null ? _a : v.name,
+                  reference: v.name,
+                  methodParameters: (_b = v.params) != null ? _b : []
+                }
+              ]
+            };
+          });
+          const multicall = await multicall_default(chainId);
+          console.log({ multicall });
+          if (multicall) {
+            const { results } = await multicall.call(params);
+            setPointsBalance(
+              new BigNumberJs_default(
+                results["balance"]["callsReturnContext"][0]["returnValues"][0].hex
+              ).dividedBy(divisorBigNumber).toNumber()
+            );
+          } else {
+            throw new Error("No multicall address");
+          }
+          return void 0;
+        } catch (e) {
+          console.error("fetchAccountMonsterNft: ", e);
+          return void 0;
+        }
       }
     } catch (e) {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
   const fetchBalanceOf = useCallback17(async () => {
+    console.log({ chainId, account, walletClient });
     if (!chainId || !account || !walletClient) {
       return;
     }
@@ -13598,6 +13334,306 @@ async function getWeb3Sign(dataToSign, account, isArrayify = true, walletClient)
   }
 }
 
+// src/contract/abi/erc20Abi.json
+var erc20Abi_default = [
+  {
+    inputs: [
+      {
+        internalType: "string",
+        name: "name",
+        type: "string"
+      },
+      {
+        internalType: "string",
+        name: "symbol",
+        type: "string"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "constructor"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "owner",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256"
+      }
+    ],
+    name: "Approval",
+    type: "event"
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: "address",
+        name: "from",
+        type: "address"
+      },
+      {
+        indexed: true,
+        internalType: "address",
+        name: "to",
+        type: "address"
+      },
+      {
+        indexed: false,
+        internalType: "uint256",
+        name: "value",
+        type: "uint256"
+      }
+    ],
+    name: "Transfer",
+    type: "event"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "owner",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      }
+    ],
+    name: "allowance",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "approve",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "account",
+        type: "address"
+      }
+    ],
+    name: "balanceOf",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "decimals",
+    outputs: [
+      {
+        internalType: "uint8",
+        name: "",
+        type: "uint8"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "subtractedValue",
+        type: "uint256"
+      }
+    ],
+    name: "decreaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "spender",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "addedValue",
+        type: "uint256"
+      }
+    ],
+    name: "increaseAllowance",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "name",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "symbol",
+    outputs: [
+      {
+        internalType: "string",
+        name: "",
+        type: "string"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [],
+    name: "totalSupply",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256"
+      }
+    ],
+    stateMutability: "view",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "transfer",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  },
+  {
+    inputs: [
+      {
+        internalType: "address",
+        name: "sender",
+        type: "address"
+      },
+      {
+        internalType: "address",
+        name: "recipient",
+        type: "address"
+      },
+      {
+        internalType: "uint256",
+        name: "amount",
+        type: "uint256"
+      }
+    ],
+    name: "transferFrom",
+    outputs: [
+      {
+        internalType: "bool",
+        name: "",
+        type: "bool"
+      }
+    ],
+    stateMutability: "nonpayable",
+    type: "function"
+  }
+];
+
+// src/contract/erc20.ts
+var erc20Contract = (chainId, env, address, signer) => {
+  if (!address) {
+    throw new Error("No addrerss");
+  }
+  return getContract2({ env, abi: erc20Abi_default, address, signer, chainId });
+};
+var erc20Abi = erc20Abi_default;
+var erc20_default = erc20Contract;
+
 // src/contract/abi/erc721.json
 var erc721_default = [
   {
@@ -16367,7 +16403,7 @@ export {
   useTonWallet2 as useTonWallet,
   useTonWalletProofMounted,
   useTransform,
-  useWalletClient2 as useWalletClient,
+  useWalletClient3 as useWalletClient,
   useWalletConnectors,
   useWalletHandler,
   useWebAppData,

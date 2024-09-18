@@ -31,7 +31,8 @@ import "./balance.stylus";
 import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
 import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
-import { useAaWallet } from "../../../../gas0/hooks/useWalletHandler";
+import { erc20ABI, useWalletClient } from "wagmi";
+import MulticallContract from "../../../../contract/multicall";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -53,63 +54,83 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const setNativeBalance = useSetRecoilState(nativeBalanceState);
   const setPointsBalance = useSetRecoilState(pointsBalanceState);
   const refreshBalance = useRecoilValue(refreshBalanceState);
-  const { walletClient } = useAaWallet();
+  const { data: walletClient } = useWalletClient();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
+    console.log({ chainId, account, provider, walletClient });
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
+      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
-        // const lineaL3Gp = useBalance({
-        //   address: "0x2d15D52Cc138FFB322b732239CD3630735AbaC88",
-        //   token: "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
-        //   chainId: Number(ChainId.ZytronLineaSepoliaTestnet),
-        // });
-        // console.log({ lineaL3Gp });
-        // const res = await fetchErc20({
-        //   address: "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
-        //   chainId,
-        //   account,
-        // });
-        // console.log({ res });
-        // const l2Provider = new ethers.providers.JsonRpcProvider(
-        //   "https://linea-testnet-zytron.zypher.game",
-        //   "any"
-        // );
-        // const token = new Contract(
-        //   "0xE84aE76d852b9f522EE0871F0B16317CDc3F122D",
-        //   // optimismMintableERC20.abi,
-        //   erc20ABI,
-        //   l2Provider
-        // );
-        // const balance1 = await token.balanceOf(
-        //   "0x2d15D52Cc138FFB322b732239CD3630735AbaC88"
-        // );
-        // const balance = await token.l1Token();
-        // console.log(balance1);
+        try {
+          const staticStr = [
+            {
+              name: "balance",
+              methodName: "balanceOf",
+              params: [account],
+            },
+          ];
+          const params = staticStr.map((v) => ({
+            reference: v.name,
+            contractAddress: pointsAddress,
+            abi: erc20ABI,
+            calls: [
+              {
+                methodName: v?.methodName ?? v.name,
+                reference: v.name,
+                methodParameters: v.params ?? [],
+              },
+            ],
+          }));
+          const multicall = await MulticallContract(chainId);
+          console.log({ multicall });
+          if (multicall) {
+            const { results } = await multicall.call(params);
+            setPointsBalance(
+              new BigNumberJs(
+                results["balance"]["callsReturnContext"][0][
+                  "returnValues"
+                ][0].hex
+              )
+                .dividedBy(divisorBigNumber)
+                .toNumber()
+            );
+          } else {
+            throw new Error("No multicall address");
+          }
+          return undefined;
+        } catch (e: any) {
+          console.error("fetchAccountMonsterNft: ", e);
+          return undefined;
+        }
 
-        const pointsContract = erc20Contract(
-          chainId,
-          env,
-          pointsAddress,
-          walletClient
-        );
-        const balance = await pointsContract.read.balanceOf([account]);
-        console.log({ balance, pointsAddress, account });
-        setPointsBalance(
-          new BigNumberJs(balance.toString())
-            .dividedBy(divisorBigNumber)
-            .toNumber()
-        );
+        // console.log(1111);
+        // const pointsContract = erc20Contract(
+        //   chainId,
+        //   env,
+        //   pointsAddress,
+        //   walletClient
+        // );
+        // console.log(3333);
+        // const balance = await pointsContract.read.balanceOf([account]);
+        // console.log(4444);
+        // console.log({ balance, pointsAddress, account });
+        // setPointsBalance(
+        //   new BigNumberJs(balance.toString())
+        //     .dividedBy(divisorBigNumber)
+        //     .toNumber()
+        // );
       }
     } catch (e) {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
   const fetchBalanceOf = useCallback(async (): Promise<void> => {
+    console.log({ chainId, account, walletClient });
     if (!chainId || !account || !walletClient) {
       return;
     }

@@ -468,7 +468,7 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
   },
   [ChainId.ZytronLineaMain]: {
-    multicall: ["0x291f3Ee5c2bd0a749ed8508ecDf2d1754a32bE73"],
+    multicall: ["0x532293bF9ee1A064549dB9d040d5f00A85C49BbB"],
   },
   [ChainId.ZytronLineaSepoliaTestnet]: {
     multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"],

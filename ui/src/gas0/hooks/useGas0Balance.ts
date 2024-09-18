@@ -41,34 +41,37 @@ export const useGas0Balance = () => {
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
-        console.log({ res });
         // console.log(`${chainConf.Gas0.api}/balanceof/${acc.address}`, res);
-        if (res.code !== 0) {
-          _balance("0");
-          key.current = "";
-          return;
-        }
-        console.log({ res });
-        const gas0Balance = res.data.amount;
-        console.log({ gas0Balance });
-        if (new BigNumberJs(gas0Balance).gt(0)) {
-          httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
-            console.log({ configRes });
-            setLoading(false);
-            if (configRes.code !== 0) {
-              _balance("0");
-              key.current = "";
-              return;
-            }
-            _balance(gas0Balance);
-            console.log({ configRes });
-            _config({
-              deployer_address: configRes.data.deployer_address,
-              function_call_tip: configRes.data.function_call_tip,
-              function_multicall_tip: configRes.data.function_multicall_tip,
-              wallet_bytecode: configRes.data.wallet_bytecode,
-            });
-          });
+        if (res) {
+          if (res.code !== 0) {
+            _balance("0");
+            key.current = "";
+            return;
+          }
+          console.log({ res });
+          const gas0Balance = res.data.amount;
+          console.log({ gas0Balance });
+          if (new BigNumberJs(gas0Balance).gt(0)) {
+            httpGetOnce(`${chainConf.api}/config`).then(
+              ({ data: configRes }) => {
+                console.log({ configRes });
+                setLoading(false);
+                if (configRes.code !== 0) {
+                  _balance("0");
+                  key.current = "";
+                  return;
+                }
+                _balance(gas0Balance);
+                console.log({ configRes });
+                _config({
+                  deployer_address: configRes.data.deployer_address,
+                  function_call_tip: configRes.data.function_call_tip,
+                  function_multicall_tip: configRes.data.function_multicall_tip,
+                  wallet_bytecode: configRes.data.wallet_bytecode,
+                });
+              }
+            );
+          }
         } else {
           setLoading(false);
         }
