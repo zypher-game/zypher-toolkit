@@ -541,6 +541,17 @@ var zkBingo = (chainId, name) => {
         ZkBingoFee: "0xD0AFCaDAebFB4FFbaDC0CeE761689B7bC8d681cb",
         ZkBingoPoints: "0x98454527B93eEd4F5252774Ea2166b126eD2C847"
       };
+    } else if (chainId === "9901" /* ZytronLineaMain */) {
+      address = {
+        date: "2024-09-18T07:29:26.176Z",
+        chainId: 9901,
+        deployer: "0x777309A93086d59d913b86D1D6F3dA652C473f4D",
+        ZypherGameToken: "0xF730dd9CD6557FC3F0CB2Ed588F9143d4D8fb01f",
+        ZkBingoPoints: "0xf68964E6f6Edee07425fCd40FC851963A82beA25",
+        ZkBingoCard: "0x993ee6324721525e893874cc29B3509512827F59",
+        ZkBingoLobby: "0x356D07c74A4737b0E07816364aD3E127A8698993",
+        ZkBingoFee: "0x759B0b65cD7eec869c5fB03cb613909A31859244"
+      };
     }
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
@@ -550,7 +561,7 @@ var zkBingo = (chainId, name) => {
     } else if (name === "points" /* Points */) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === "ZypherGameToken" /* ZypherGameToken */) {
-      returnAddress = chainId === "9901" /* ZytronLineaMain */ ? "0xeC928B58691493Bc28Ed8D5866c145918A8aAce2" : address.ZypherGameToken ? address.ZypherGameToken : address.ZkBingoToken;
+      returnAddress = address.ZypherGameToken ? address.ZypherGameToken : address.ZkBingoToken;
     } else if (name === "reward" /* Reward */) {
       returnAddress = address.Reward;
     } else if (name === "ZkBingoFee" /* Fee */) {
@@ -7338,7 +7349,7 @@ var useAvatar = (account, hideAvatars) => {
   const getAccount = useCallback20(async () => {
     var _a2;
     try {
-      if (account) {
+      if (account && account !== "-") {
         _setAccount((_a2 = ownerList[account.toLowerCase()]) != null ? _a2 : account);
       }
     } catch (err) {
@@ -7394,7 +7405,7 @@ var useAvatar = (account, hideAvatars) => {
   }, [_account, refreshAvatar]);
   return {
     avatars: _account ? (_a = avatars2[_account.toLowerCase()]) != null ? _a : {} : avatarsNoAccount,
-    aa_mm_address: _account,
+    aa_mm_address: _account === "-" ? void 0 : _account,
     account: _account
   };
 };
@@ -7420,13 +7431,12 @@ var PlayerAvatar = memo27(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const { avatars: avatars2, aa_mm_address } = useAvatar(account, hideAvatars);
-    console.log({ aa_mm_address });
     const avatarText = useMemo9(() => {
       const nameText = name != null ? name : aa_mm_address;
-      if (nameText) {
+      if (nameText && nameText !== "-") {
         return `${getShortenAddress(nameText, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}`;
       }
-      return t("waiting");
+      return nameText != null ? nameText : t("waiting");
     }, [aa_mm_address, otherStr, name]);
     return /* @__PURE__ */ React33.createElement("div", {
       className: cx(className, "player_playerAvatar"),
@@ -7437,7 +7447,7 @@ var PlayerAvatar = memo27(
       size,
       src: avatars2.selectedAvatar,
       backgroundColor: avatars2.selectedBackground
-    })) : null : /* @__PURE__ */ React33.createElement("div", {
+    })) : null : /* @__PURE__ */ React33.createElement(AvatarBorder, null, /* @__PURE__ */ React33.createElement("div", {
       className: "player_avatar",
       style: {
         width: `${size}px`,
@@ -7449,7 +7459,7 @@ var PlayerAvatar = memo27(
       hidePixel,
       size,
       src: preStaticUrl + `/img/pixel_default_avatar.png`
-    })), showAccount && /* @__PURE__ */ React33.createElement("p", {
+    }))), showAccount && /* @__PURE__ */ React33.createElement("p", {
       className: (className == null ? void 0 : className.includes("account")) ? "player_avatar_account" : ""
     }, avatarText, /* @__PURE__ */ React33.createElement(AccountTextFrComp, null)));
   }
