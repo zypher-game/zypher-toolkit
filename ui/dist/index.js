@@ -3309,10 +3309,10 @@ var L3ChainId = {
 };
 var activeTokenList = {
   [TVLChainId.LineaSepolia]: {
-    Staking: "0x9F175b446F194c9A6aca09e998EF3327158d6eb7",
+    Staking: "0x425Cb2EFA5a16E97BC73d38FCd978C6D4f15286d",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
-    CRHero: "0x90a5B2a7Eb91562b1e3189dcf14f62B2529bEC7e",
-    Soulbound: "0xf3ca479d43885C714537a58063604D314ecabe0E"
+    CRHero: "0xcfB7f673aC1FDC3c4CC944f00fb74CA6c8c13Ac7",
+    Soulbound: "0xB285Bbebe24D427D2D97C47913b2e291CE2156a9"
   },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
