@@ -13062,7 +13062,8 @@ var chainIdPre = {
   ["9901" /* ZytronLineaMain */]: "",
   ["50097" /* ZytronB2Testnet */]: "",
   ["167000" /* Taiko */]: "TK",
-  ["2717465680371000" /* SagaMainnet */]: ""
+  ["2717465680371000" /* SagaMainnet */]: "",
+  ["8333" /* B3Mainnet */]: ""
 };
 function getStatus(status) {
   if (status === 0) {
