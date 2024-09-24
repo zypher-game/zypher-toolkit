@@ -22,12 +22,16 @@ const StakingTab = memo(
   }) => {
     const tvlStakingData = useRecoilValue(tvlStakingDataState)
     const isEnd = useMemo(() => {
-      const now = parseInt(`${new Date().valueOf() / 1000}`)
-      const END_TIME = tvlStakingData[chainIdLocal][Currency[chainIdLocal]].END_TIME
-      if (END_TIME && new BigNumberJs(END_TIME).lt(now)) {
-        return true
+      try {
+        const now = parseInt(`${new Date().valueOf() / 1000}`)
+        const END_TIME = tvlStakingData[chainIdLocal][Currency[chainIdLocal]].END_TIME
+        if (END_TIME && new BigNumberJs(END_TIME).lt(now)) {
+          return true
+        }
+        return false
+      } catch (e) {
+        return false
       }
-      return false
     }, [JSON.stringify(tvlStakingData)])
     return (
       <>

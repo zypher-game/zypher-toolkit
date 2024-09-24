@@ -468,7 +468,7 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
   },
   [ChainId.ZytronLineaMain]: {
-    multicall: ["0x291f3Ee5c2bd0a749ed8508ecDf2d1754a32bE73"],
+    multicall: ["0x532293bF9ee1A064549dB9d040d5f00A85C49BbB"],
   },
   [ChainId.ZytronLineaSepoliaTestnet]: {
     multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"],
@@ -556,6 +556,17 @@ export const zkBingo = (
         ZkBingoFee: "0xD0AFCaDAebFB4FFbaDC0CeE761689B7bC8d681cb",
         ZkBingoPoints: "0x98454527B93eEd4F5252774Ea2166b126eD2C847",
       };
+    } else if (chainId === ChainId.ZytronLineaMain) {
+      address = {
+        date: "2024-09-18T07:29:26.176Z",
+        chainId: 9901,
+        deployer: "0x777309A93086d59d913b86D1D6F3dA652C473f4D",
+        ZypherGameToken: "0xF730dd9CD6557FC3F0CB2Ed588F9143d4D8fb01f",
+        ZkBingoPoints: "0xf68964E6f6Edee07425fCd40FC851963A82beA25",
+        ZkBingoCard: "0x993ee6324721525e893874cc29B3509512827F59",
+        ZkBingoLobby: "0x356D07c74A4737b0E07816364aD3E127A8698993",
+        ZkBingoFee: "0x759B0b65cD7eec869c5fB03cb613909A31859244",
+      };
     }
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {
@@ -566,12 +577,9 @@ export const zkBingo = (
       returnAddress = address.ZkBingoPoints;
     } else if (name === IContractName.ZypherGameToken) {
       // GP
-      returnAddress =
-        chainId === ChainId.ZytronLineaMain
-          ? "0xeC928B58691493Bc28Ed8D5866c145918A8aAce2"
-          : address.ZypherGameToken
-          ? address.ZypherGameToken
-          : address.ZkBingoToken;
+      returnAddress = address.ZypherGameToken
+        ? address.ZypherGameToken
+        : address.ZkBingoToken;
     } else if (name === IContractName.Reward) {
       returnAddress = address.Reward;
     } else if (name === IContractName.Fee) {

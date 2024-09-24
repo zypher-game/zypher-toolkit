@@ -12,6 +12,10 @@ export const bingoVersionState = atom({
   default: IBingoVersion.v1
 })
 
+export const rankingB3DialogState = atom({
+  key: 'rankingB3DialogState',
+  default: false
+})
 export const rankingDialogState = atom({
   key: 'rankingDialog',
   default: false

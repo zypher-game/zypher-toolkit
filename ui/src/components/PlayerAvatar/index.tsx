@@ -51,15 +51,14 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
   }: IPlayerAvatar) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const { avatars, aa_mm_address } = useAvatar(account, hideAvatars);
-    console.log({ aa_mm_address });
     const avatarText = useMemo(() => {
       const nameText = name ?? aa_mm_address;
-      if (nameText) {
+      if (nameText && nameText !== "-") {
         return `${getShortenAddress(nameText, preLen, endLen)}${
           otherStr ? ` ${otherStr}` : ""
         }`;
       }
-      return t("waiting");
+      return nameText ?? t("waiting");
     }, [aa_mm_address, otherStr, name]);
     return (
       <div
@@ -79,21 +78,23 @@ const PlayerAvatar: React.FC<IPlayerAvatar> = memo(
             </AvatarBorder>
           ) : null
         ) : (
-          <div
-            className={"player_avatar"}
-            style={{
-              width: `${size}px`,
-              height: `${size}px`,
-              overflow: "hidden",
-              background: "rgba(138, 138, 138, 1)",
-            }}
-          >
-            <Avatar
-              hidePixel={hidePixel}
-              size={size}
-              src={preStaticUrl + `/img/pixel_default_avatar.png`}
-            />
-          </div>
+          <AvatarBorder>
+            <div
+              className={"player_avatar"}
+              style={{
+                width: `${size}px`,
+                height: `${size}px`,
+                overflow: "hidden",
+                background: "rgba(138, 138, 138, 1)",
+              }}
+            >
+              <Avatar
+                hidePixel={hidePixel}
+                size={size}
+                src={preStaticUrl + `/img/pixel_default_avatar.png`}
+              />
+            </div>
+          </AvatarBorder>
         )}
         {showAccount && (
           <p

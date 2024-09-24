@@ -5,14 +5,17 @@ import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { Space } from 'antd'
 import { isEqual } from 'lodash'
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
+import { useParams } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
+import { useChainIdParams } from '@/hooks/useChainIdParams'
 import { IPlayer } from '@/hooks/useGetGameInfoV1.types'
 
 import { ButtonHover, ButtonPrimary } from '../components/Button'
 import PlayerList from '../components/PlayerList'
+import { usePostResult } from '../zBingoIndex/components/dialog/RankingB3Dialog/RankingB3/hooks/RankingB3Hooks'
 
 const Wrapper = styled.div<{ isMobile: boolean }>`
   position: relative;
@@ -69,10 +72,22 @@ interface IResultModalProps {
 
 const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCancel, onSubmit, open, winAmount, loseAmount }: IResultModalProps) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
-  const { account } = useActiveWeb3ReactForBingo()
+  const { account, chainId } = useActiveWeb3ReactForBingo()
+  const { id: gameId } = useParams()
   const { aa_mm_address } = useAaWallet()
   const lang = useCurrentLanguage()
   const isMobile = useIsW768()
+  const updateResult = usePostResult()
+  useEffect(() => {
+    if (chainId && gameId && winner && account && updateResult) {
+      updateResult({
+        chainId,
+        gameId,
+        isWin: addressIsEqual(winner, account),
+        address: account
+      })
+    }
+  }, [updateResult, chainId, gameId, winner, account])
   return (
     <DialogOverlay isOpen={open}>
       <DialogContent

@@ -13,12 +13,14 @@ import RightBar from './components/rightBar/rightBar'
 import SideBar from './components/sideBar'
 import UserCenter from './components/userCenter/userCenter'
 import { useAnim } from './hooks/useAnim'
+import { useRead } from './hooks/useRead'
 
 const zBingoIndex = memo(() => {
   useBingoVersion()
   const IS_TELEGRAM = useIsTelegram()
   const bingoVersion = useRecoilValue(bingoVersionState)
   useAnim()
+  useRead()
   const { list: bingoMapList, listBeta: listBetaMapList, hasError: bingoHasError } = useRecentGames()
   return (
     <>

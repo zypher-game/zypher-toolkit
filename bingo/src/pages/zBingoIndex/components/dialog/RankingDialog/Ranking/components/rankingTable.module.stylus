@@ -23,6 +23,17 @@
     margin-bottom: 8px
   .number
     position relative
+    &.numberList
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      gap: 16px;
+      p
+        margin-left: 0
+        padding: 0 12px
+        min-width: 80px
+        text-align: center;
+        border-radius: 14px;
     img
       position absolute
       top: -6px

@@ -14,7 +14,7 @@ export const Gas0Constants: Record<string, IGas0Config> = {
   },
   [ChainId.ZytronLineaMain]: {
     api: "https://zytron-linea-mainnet-0gas.zypher.game/api",
-    PermitProxy: "0x6e0839df4fb45d76fe355d69fd430adef95e119a" as `0x${string}`,
+    PermitProxy: "0x9a97D3E13ec90A29243eda43aff67C723fcfD1C6" as `0x${string}`,
     isGameFree: true,
   },
 };

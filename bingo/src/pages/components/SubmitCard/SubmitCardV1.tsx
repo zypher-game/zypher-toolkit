@@ -22,15 +22,13 @@ import {
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
-  useWalletHandler,
   zkBingo
 } from '@ui/src'
-import { ZytronPermitTypedData } from '@ui/src/gas0/constants/typedData'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
 import { sample } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { encodeFunctionData, formatEther, Hash, hexToSignature } from 'viem'
+import { encodeFunctionData, formatEther, Hash } from 'viem'
 import { TransactionReceipt } from 'viem'
 
 import BingoBoardView from '@/components/BingoBoardView'
@@ -125,6 +123,7 @@ const SubmitCardV1 = () => {
       walletClient
     })
     try {
+      console.log({ aa_mm_address })
       const GPAddress = zkBingo(chainId, IContractName.ZypherGameToken)
       const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
       // const lineupUsers = await lobbyContract.read.lineupUsers()
@@ -155,6 +154,7 @@ const SubmitCardV1 = () => {
       const GpContract = erc20Contract(chainId, env, GPAddress, walletClient)
       const { betSize: tokenAmount, level: realLevel } = activeLevels[level] as any
       const donationFee = await bingoLobbyContract.functions.donationFee()
+      console.log({ donationFee: new BigNumberJs(donationFee).toString() })
       let hash = '' as Hash
       if (account && aa && wallet) {
         const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
@@ -167,7 +167,7 @@ const SubmitCardV1 = () => {
         if (!donationFeeBig.eq(0)) {
           const transactionResponse = await walletClient.sendTransaction({
             to: aa_mm_address,
-            value: BigInt(donationFee)
+            value: donationFeeBig.toString()
           })
         }
         otherFc.push({

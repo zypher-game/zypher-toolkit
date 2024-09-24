@@ -103,7 +103,6 @@ export const useExtend = (): {
       const token = tvlStakingData[nativeChainId][extendCurrency]
       const startTime = token.startTime
       const getWeek = token.getWeek
-      console.log({ startTime, getWeek })
       if (startTime && getWeek) {
         // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
         const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7)
@@ -149,11 +148,9 @@ export const useExtend = (): {
       setIsExtendLoading(true)
       const startTime = token.startTime
       const getWeek = token.getWeek
-      console.log({ startTime, getWeek })
       if (!startTime || !getWeek) {
         throw new Error('startTime|getWeek wrong')
       }
-      console.log({ erc20Address, revisedUnLockTime })
       setIsExtendLoading(true)
       const res = await contract.write.redeposit([erc20Address, revisedUnLockTime], {
         account: account

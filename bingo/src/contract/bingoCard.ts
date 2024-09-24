@@ -2,7 +2,7 @@ import { ChainId, getContract, IContractName, zkBingo, zkBingoV0 } from '@ui/src
 import abiV0 from '@zypher-game/bingo-periphery/abi/ZkBingoCard.json'
 import abiV1 from '@zypher-game/bingo-periphery-v1/abi/ZkBingoCard.json'
 import * as ethers from 'ethers'
-import { Address, WalletClient } from 'wagmi'
+import { Address } from 'wagmi'
 
 import { IBingoVersion } from '@/pages/state/state'
 

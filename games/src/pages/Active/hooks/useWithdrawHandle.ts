@@ -5,10 +5,8 @@ import {
   Currency,
   divisorBigNumber,
   erc721Contract,
-  minStakingValue,
   refreshBalanceState,
   timeoutPromise,
-  TVLChainId,
   txStatus,
   useAaWallet,
   useAccountInvitation,
@@ -27,16 +25,7 @@ import { TVLStakingContract } from '@/contract/tvlStaking'
 import { env } from '@/utils/config'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
-import {
-  activeDataState,
-  IActiveDataState,
-  isTvlDataLoadingState,
-  ITVLStakingData,
-  selectTokenDialogState,
-  tvlStakingDataState,
-  tvlStakingDialogState,
-  withdrawCurrencyState
-} from '../state/activeState'
+import { isTvlDataLoadingState, ITVLStakingData, selectTokenDialogState, tvlStakingDataState, withdrawCurrencyState } from '../state/activeState'
 import { canNext, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { useStake, useStakeData } from './useStakeData'
@@ -142,6 +131,7 @@ export const useWithdrawHandle = (): {
         const hasSbt = !!(token.sbtId && token.sbtId !== '0')
         if (hasSbt) {
           const burnMaximum = activeData.burnMaximum
+          console.log({ tokenAmount, burnMaximum })
           if (!allowance && new BigNumberJs(token.withdrawAmount).minus(tokenAmount).lt(burnMaximum)) {
             setIsApproveLoading(true)
             const approveTxn = await _erc721Contract.write.setApprovalForAll([activeTokenList[_nativeChainId].Staking, true], {

@@ -19,4 +19,5 @@
     width: 56px!important;
     height: 56px!important;
     @media screen and (max-width: 830px) 
-      width: 32px;
+      width: 32px!important;
+      height: 32px!important;

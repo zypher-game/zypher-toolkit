@@ -23,8 +23,6 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { zeroAddress } from 'viem'
 
-import { calculateSumByNumber } from '@/utils/calculateSum'
-
 import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
@@ -41,7 +39,8 @@ const Redeposit = memo(() => {
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
   const {
     selectLen,
-    redeposit,
+    Increment,
+    Lock,
     account,
     chainId: chainIdFromStake,
     tvlStakingData,
@@ -82,7 +81,6 @@ const Redeposit = memo(() => {
       return undefined
     }
   }, [JSON.stringify(tvlStakingData), chainIdLocal, redepositCurrency])
-  console.log({ chooseValue })
   const hasLock = useMemo(() => {
     try {
       if (chooseValue) {
@@ -119,7 +117,7 @@ const Redeposit = memo(() => {
                 if (hasLock) {
                   obj.btnLabel = 'Submit'
                 } else {
-                  obj.btnLabel = 'Confirm'
+                  obj.btnLabel = 'Increment'
                 }
               }
             } else {
@@ -146,24 +144,18 @@ const Redeposit = memo(() => {
     setIsSelectChainModalOpen(true)
   }, [])
 
-  console.log({ hasLock })
   const { totalDeposit } = useMemo(() => {
     const obj = {
       totalDeposit: ''
     }
     try {
       if (chooseValue?.chainId) {
-        const isNative = chooseValue?.symbol === Currency[chooseValue.chainId] || chooseValue?.symbol === 'W' + Currency[chooseValue.chainId]
         if (!isDataLoading) {
           if (redepositValue) {
             const decimal = chooseValue?.decimal ?? 18
-            let preStakingBig = new BigNumberJs(0)
-            if (isNative) {
-              preStakingBig = new BigNumberJs(native[0] && native[0].withdrawAmount === '' ? '0' : native[0]?.withdrawAmount ?? '')
-            } else {
-              preStakingBig = new BigNumberJs(calculateSumByNumber(erc20.map(({ withdrawAmount: user }) => (user === '' ? '0' : user))))
-            }
-
+            const preStakingBig = hasLock
+              ? new BigNumberJs(chooseValue && chooseValue.extendAmount === '' ? '0' : chooseValue?.extendAmount ?? '')
+              : new BigNumberJs(chooseValue && chooseValue.withdrawAmount === '' ? '0' : chooseValue?.withdrawAmount ?? '')
             const _totalStaked = new BigNumberJs(redepositValue).plus(
               new BigNumberJs(preStakingBig).dividedBy(new BigNumberJs('10').exponentiatedBy(decimal))
             )
@@ -178,8 +170,7 @@ const Redeposit = memo(() => {
     } catch {
       return obj
     }
-  }, [JSON.stringify(chooseValue), isDataLoading, redepositValue, JSON.stringify(native), JSON.stringify(erc20)])
-  console.log({ isRedepositLoading })
+  }, [JSON.stringify(chooseValue), hasLock, isDataLoading, redepositValue, JSON.stringify(native), JSON.stringify(erc20)])
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Deposit</h3>
@@ -282,18 +273,49 @@ const Redeposit = memo(() => {
           </PixelBorderCard>
         </>
       )}
-      <ActivePixelButtonColor
-        className={`staking_confirm ${hasLock ? '' : 'staking_confirm_top'}`}
-        width="100%"
-        height={isW768 ? '48px' : '54px'}
-        pixel_height={5}
-        onClick={() => redeposit(hasLock)}
-        disable={isRedepositLoading || isIncrementLoading || isApproveLoading || isDataLoading}
-        themeType="brightBlue"
-      >
-        <p>{btnLabel}</p>
-        <LoadingButton isLoading={isRedepositLoading || isIncrementLoading || isApproveLoading} />
-      </ActivePixelButtonColor>
+      {hasLock ? (
+        <ActivePixelButtonColor
+          className={`staking_confirm ${hasLock ? '' : 'staking_confirm_top'}`}
+          width="100%"
+          height={isW768 ? '48px' : '54px'}
+          pixel_height={5}
+          onClick={() => Increment(hasLock)}
+          disable={isRedepositLoading || isIncrementLoading || isApproveLoading || isDataLoading}
+          themeType="brightBlue"
+        >
+          <p>{btnLabel}</p>
+          <LoadingButton isLoading={isRedepositLoading || isIncrementLoading || isApproveLoading} />
+        </ActivePixelButtonColor>
+      ) : (
+        <>
+          <div className={css.btn}>
+            <ActivePixelButtonColor
+              className="staking_confirm"
+              width="100%"
+              height={isW768 ? '48px' : '54px'}
+              pixel_height={5}
+              onClick={() => Increment(hasLock)}
+              disable={isIncrementLoading || isApproveLoading || isDataLoading}
+              themeType="brightBlue"
+            >
+              <p>{btnLabel}</p>
+              <LoadingButton isLoading={isIncrementLoading || isApproveLoading} />
+            </ActivePixelButtonColor>
+            <ActivePixelButtonColor
+              className="staking_confirm"
+              width="100%"
+              height={isW768 ? '48px' : '54px'}
+              pixel_height={5}
+              onClick={() => Lock(hasLock)}
+              disable={isRedepositLoading || hasLock || isDataLoading || !chooseValue?.withdrawAmount || chooseValue?.withdrawAmount === '0'}
+              themeType="brightBlue"
+            >
+              <p>Lock</p>
+              <LoadingButton isLoading={isRedepositLoading} />
+            </ActivePixelButtonColor>
+          </div>
+        </>
+      )}
       <SelectTokenDialog />
       <SelectChainDialog />
     </PixelBorderCard>

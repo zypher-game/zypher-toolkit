@@ -12,10 +12,11 @@
   @media screen and (max-width: 830px)
     padding-top: 50px;
     max-width: 360px
-    width: 80%
-    height: 500px
+    width: 70%
+    height: 400px
     background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m.png') no-repeat
     background-size: 100% 100%
+    top: 58%
     &.tgInner
       top: 60%
       width: 70%

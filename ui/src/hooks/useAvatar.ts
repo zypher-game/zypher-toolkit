@@ -31,7 +31,7 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
   const ownerList = useRecoilValue(ownerListState);
   const getAccount = useCallback(async () => {
     try {
-      if (account) {
+      if (account && account !== "-") {
         _setAccount(ownerList[account.toLowerCase()] ?? account);
       }
     } catch (err) {
@@ -89,7 +89,7 @@ export const useAvatar = (account?: string, hideAvatars?: boolean) => {
     avatars: _account
       ? avatars[_account.toLowerCase()] ?? {}
       : avatarsNoAccount,
-    aa_mm_address: _account,
+    aa_mm_address: _account === "-" ? undefined : _account,
     account: _account,
   };
 };

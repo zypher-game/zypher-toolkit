@@ -46,7 +46,9 @@ export const useRedeposit = (): {
   maxHandle: () => void
   chainId: ChainId
   isDataLoading: boolean
-  redeposit: (hasLock: boolean) => Promise<void>
+  Lock: (hasLock: boolean) => Promise<void>
+  Increment: (hasLock: boolean) => Promise<void>
+  // redeposit: (hasLock: boolean) => Promise<void>
   redepositValue: string
   redepositCurrency: string | undefined
   redepositInputHandle: (e: React.ChangeEvent<HTMLInputElement>) => void
@@ -99,7 +101,6 @@ export const useRedeposit = (): {
       const token = tvlStakingData[nativeChainId][redepositCurrency]
       const startTime = token.startTime
       const getWeek = token.getWeek
-      console.log({ startTime, getWeek })
       if (startTime && getWeek) {
         // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
         const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7)
@@ -117,12 +118,166 @@ export const useRedeposit = (): {
         setIsIncrementLoading(false)
         postAccountUpdate({ tx: tx })
         setRefreshBalanceState(refreshBalance + 1)
-        setRedepositDialog(false)
       }
     },
     [nativeChainId, account]
   )
-  const redeposit = useCallback(
+  // const redeposit = useCallback(
+  //   async (hasLock: boolean) => {
+  //     const currency = redepositCurrency
+  //     try {
+  //       if (isDataLoading) {
+  //         return
+  //       }
+  //       const isOk = preHandleAction()
+  //       if (!isOk) {
+  //         setIsRedepositLoading(false)
+  //         setIsIncrementLoading(false)
+  //         setIsApproveLoading(false)
+  //         return
+  //       }
+
+  //       if (!walletClient) {
+  //         throw new Error('walletClient not Ready')
+  //       }
+  //       if (isRedepositLoading || isIncrementLoading || isApproveLoading) {
+  //         return
+  //       }
+  //       const _nativeChainId = nativeChainId
+  //       const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
+
+  //       if (!contract) {
+  //         setErrorToast('dpContract is not ready')
+  //         return
+  //       }
+  //       if (!currency) {
+  //         throw new Error('Currency not Ready')
+  //       }
+  //       const token = tvlStakingData[_nativeChainId][currency]
+  //       const erc20Address = token.address
+  //       const decimal = token.decimal
+
+  //       const tokenAmount = new BigNumberJs(redepositValue).times(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed()
+
+  //       if (erc20Address !== zeroAddress) {
+  //         const _erc20Contract = erc20Contract(nativeChainId, env, erc20Address, walletClient)
+  //         const allowance = await _erc20Contract.read.allowance([account, activeTokenList[_nativeChainId].Staking])
+  //         const balance = await _erc20Contract.read.balanceOf([account])
+  //         if (new BigNumberJs(balance.toString()).gte(tokenAmount)) {
+  //           if (new BigNumberJs(allowance.toString()).lt(tokenAmount)) {
+  //             setIsApproveLoading(true)
+  //             const approveTxn = await _erc20Contract.write.approve([activeTokenList[_nativeChainId].Staking, tokenAmount], {
+  //               account: account
+  //             })
+  //             const approveTxnHash = typeof approveTxn === 'string' ? approveTxn : approveTxn.hash
+  //             // 添加超时处理
+  //             Promise.race([waitForTransaction({ confirmations: 3, hash: approveTxnHash }), timeoutPromise(30000)])
+  //               .then(result => {
+  //                 setIsApproveLoading(false)
+  //                 if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
+  //                   setSuccessToast({ title: '', message: 'Approve successful' })
+  //                 } else {
+  //                   setSuccessToast({ title: '', message: 'Approve Error!' })
+  //                 }
+  //               })
+  //               .catch(e => {
+  //                 setIsApproveLoading(false)
+  //                 setSuccessToast({ title: '', message: 'Approve Wait!' })
+  //               })
+  //             getStakingData()
+  //             return
+  //           }
+  //         }
+  //       }
+  //       setIsIncrementLoading(true)
+  //       let funName = ''
+  //       let nativeAmount = '0'
+  //       let params
+  //       let fn
+  //       if (currency === Currency[_nativeChainId]) {
+  //         funName = 'incrementETH'
+  //         nativeAmount = tokenAmount
+  //         fn = contract.write[funName]({
+  //           value: nativeAmount,
+  //           account: account
+  //         })
+  //       } else {
+  //         funName = 'increment'
+  //         params = [erc20Address, tokenAmount]
+  //         fn = contract.write[funName](params, {
+  //           value: nativeAmount,
+  //           account: account
+  //         })
+  //       }
+  //       const res = await fn
+  //       const hash = typeof res === 'string' ? res : res.hash
+  //       const incrementTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
+  //       if (incrementTx && incrementTx.status === txStatus) {
+  //         if (hasLock) {
+  //           setIsIncrementLoading(false)
+  //           await _successGet({
+  //             tx: incrementTx,
+  //             blockNumber: new BigNumberJs(incrementTx.blockNumber.toString()).toNumber()
+  //           })
+  //         }
+  //         setSuccessToast({ title: '', message: 'Increment successful' })
+  //       } else {
+  //         throw Object.assign(new Error('Increment Transaction Failed'), { name: 'increment' })
+  //       }
+  //       await sleep(2)
+  //       if (!hasLock) {
+  //         const startTime = token.startTime
+  //         const getWeek = token.getWeek
+  //         if (!startTime || !getWeek) {
+  //           throw new Error('startTime|getWeek wrong')
+  //         }
+
+  //         setIsIncrementLoading(true)
+  //         // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
+  //         // const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7).toFixed()
+  //         // console.log({ erc20Address, times })
+  //         const redepositRes = await contract.write.redeposit([erc20Address, revisedUnLockTime], {
+  //           account: account
+  //         })
+  //         const redepositHash = typeof redepositRes === 'string' ? res : res.hash
+  //         const redepositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash: redepositHash })
+  //         if (redepositTx && redepositTx.status === txStatus) {
+  //           setIsRedepositLoading(false)
+  //           await _successGet({
+  //             tx: redepositTx,
+  //             blockNumber: new BigNumberJs(redepositTx.blockNumber.toString()).toNumber()
+  //           })
+  //           setSuccessToast({ title: '', message: 'redeposit successful' })
+  //         } else {
+  //           throw Object.assign(new Error('redeposit Transaction Failed'), { name: 'redeposit' })
+  //         }
+  //         setIsRedepositLoading(false)
+  //         getStakingData()
+  //       }
+  //     } catch (e) {
+  //       setIsApproveLoading(false)
+  //       setIsRedepositLoading(false)
+  //       setErrorToast(e)
+  //       console.error('RedepositHandle: ', e)
+  //     }
+  //   },
+  //   [
+  //     revisedUnLockTime,
+  //     isW768,
+  //     isDataLoading,
+  //     isApproveLoading,
+  //     isRedepositLoading,
+  //     isIncrementLoading,
+  //     redepositCurrency,
+  //     redepositValue,
+  //     walletClient,
+  //     account,
+  //     nativeChainId,
+  //     preHandleAction,
+  //     week
+  //   ]
+  // )
+  const Increment = useCallback(
     async (hasLock: boolean) => {
       const currency = redepositCurrency
       try {
@@ -131,7 +286,6 @@ export const useRedeposit = (): {
         }
         const isOk = preHandleAction()
         if (!isOk) {
-          setIsRedepositLoading(false)
           setIsIncrementLoading(false)
           setIsApproveLoading(false)
           return
@@ -140,7 +294,7 @@ export const useRedeposit = (): {
         if (!walletClient) {
           throw new Error('walletClient not Ready')
         }
-        if (isRedepositLoading || isIncrementLoading || isApproveLoading) {
+        if (isIncrementLoading || isApproveLoading) {
           return
         }
         const _nativeChainId = nativeChainId
@@ -176,15 +330,17 @@ export const useRedeposit = (): {
                   setIsApproveLoading(false)
                   if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
                     setSuccessToast({ title: '', message: 'Approve successful' })
+                    getStakingData()
                   } else {
                     setSuccessToast({ title: '', message: 'Approve Error!' })
                   }
                 })
-                .catch(e => {
+                .catch(async e => {
                   setIsApproveLoading(false)
                   setSuccessToast({ title: '', message: 'Approve Wait!' })
+                  await sleep(1)
+                  getStakingData()
                 })
-              getStakingData()
               return
             }
           }
@@ -213,50 +369,108 @@ export const useRedeposit = (): {
         const hash = typeof res === 'string' ? res : res.hash
         const incrementTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
         if (incrementTx && incrementTx.status === txStatus) {
-          if (hasLock) {
-            setIsIncrementLoading(false)
-            await _successGet({
-              tx: incrementTx,
-              blockNumber: new BigNumberJs(incrementTx.blockNumber.toString()).toNumber()
-            })
-          }
+          setRedepositCurrency('')
+          setIsIncrementLoading(false)
           setSuccessToast({ title: '', message: 'Increment successful' })
+          await _successGet({
+            tx: incrementTx,
+            blockNumber: new BigNumberJs(incrementTx.blockNumber.toString()).toNumber()
+          })
+          if (hasLock) {
+            setRedepositDialog(false)
+          }
         } else {
           throw Object.assign(new Error('Increment Transaction Failed'), { name: 'increment' })
         }
-        await sleep(2)
+      } catch (e) {
+        setIsApproveLoading(false)
+        setIsIncrementLoading(false)
+        setErrorToast(e)
+        console.error('RedepositHandle: ', e)
+      }
+    },
+    [
+      revisedUnLockTime,
+      isW768,
+      isDataLoading,
+      isApproveLoading,
+      isRedepositLoading,
+      isIncrementLoading,
+      redepositCurrency,
+      redepositValue,
+      walletClient,
+      account,
+      nativeChainId,
+      preHandleAction,
+      week
+    ]
+  )
+  const Lock = useCallback(
+    async (hasLock: boolean) => {
+      const currency = redepositCurrency
+      try {
+        if (isDataLoading) {
+          return
+        }
+        const isOk = preHandleAction()
+        if (!isOk) {
+          setIsRedepositLoading(false)
+          return
+        }
+
+        if (!walletClient) {
+          throw new Error('walletClient not Ready')
+        }
+        if (isRedepositLoading) {
+          return
+        }
+        const _nativeChainId = nativeChainId
+        const contract = TVLStakingContract({ chainId: _nativeChainId, env, signer: walletClient })
+
+        if (!contract) {
+          setErrorToast('dpContract is not ready')
+          return
+        }
+        if (!currency) {
+          throw new Error('Currency not Ready')
+        }
+        const token = tvlStakingData[_nativeChainId][currency]
+        const erc20Address = token.address
+        if (!token.withdrawAmount || token.withdrawAmount === '0') {
+          setErrorToast('Please Increment First')
+          return
+        }
         if (!hasLock) {
           const startTime = token.startTime
           const getWeek = token.getWeek
-          console.log({ startTime, getWeek })
           if (!startTime || !getWeek) {
             throw new Error('startTime|getWeek wrong')
           }
 
-          setIsIncrementLoading(true)
+          setIsRedepositLoading(true)
           // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
           // const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7).toFixed()
           // console.log({ erc20Address, times })
           const redepositRes = await contract.write.redeposit([erc20Address, revisedUnLockTime], {
             account: account
           })
-          const redepositHash = typeof redepositRes === 'string' ? res : res.hash
+          const redepositHash = typeof redepositRes === 'string' ? redepositRes : redepositRes.hash
           const redepositTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash: redepositHash })
           if (redepositTx && redepositTx.status === txStatus) {
             setIsRedepositLoading(false)
+            setSuccessToast({ title: '', message: 'Redeposit successful' })
             await _successGet({
               tx: redepositTx,
               blockNumber: new BigNumberJs(redepositTx.blockNumber.toString()).toNumber()
             })
-            setSuccessToast({ title: '', message: 'redeposit successful' })
+            setRedepositDialog(false)
           } else {
-            throw Object.assign(new Error('redeposit Transaction Failed'), { name: 'redeposit' })
+            throw Object.assign(new Error('Redeposit Transaction Failed'), { name: 'redeposit' })
           }
           setIsRedepositLoading(false)
           getStakingData()
         }
       } catch (e) {
-        setIsApproveLoading(false)
         setIsRedepositLoading(false)
         setErrorToast(e)
         console.error('RedepositHandle: ', e)
@@ -320,7 +534,8 @@ export const useRedeposit = (): {
   return {
     selectLen,
     isDataLoading,
-    redeposit,
+    Lock,
+    Increment,
     redepositValue,
     redepositCurrency,
     redepositInputHandle,

@@ -27,7 +27,9 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.ZytronLineaSepoliaTestnet]: '',
   [ChainId.ZytronB2Testnet]: '',
   [ChainId.Taiko]: '',
-  [ChainId.SagaMainnet]: ''
+  [ChainId.SagaMainnet]: '',
+  [ChainId.ZytronLineaMain]: '',
+  [ChainId.B3Mainnet]: ''
 }
 export const gameFormatGamesWithIRecentGame = ({
   chainId,

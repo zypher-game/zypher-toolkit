@@ -37,7 +37,6 @@ import {
   activeDataState,
   chooseChainState,
   IActiveDataState,
-  isTvlDataLoadingState,
   ITVLStakingData,
   selectChainDialogState,
   tvlStakingDataState
@@ -142,7 +141,6 @@ const Withdraw = memo(() => {
     }
     return obj
   }, [JSON.stringify(chooseValue), isWithdrawLoading, isDataLoading, withdrawValue, chainIdFromStake, chooseChain])
-  console.log({ chooseValue })
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Withdraw</h3>
@@ -216,7 +214,7 @@ const HasSbt = memo(({ chainIdLocal, chooseValue }: { chainIdLocal?: ChainId; ch
         return `SBT - ${hasList.map(v => `${mintMinimumStr}${v.symbol}`).join(' / ')}`
       }
     }
-  }, [chainIdLocal, JSON.stringify(activeDataSource), JSON.stringify(tvlStakingData)])
+  }, [chainIdLocal, JSON.stringify(activeDataSource), JSON.stringify(chooseValue), JSON.stringify(tvlStakingData)])
   if (label && label !== '0') {
     return (
       <div className={css.label}>
