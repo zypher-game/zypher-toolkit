@@ -1,6 +1,16 @@
 import { Address } from "wagmi";
-import { ChainId, getCryptoImg, isPro } from "./constant";
-export const TVL_API = "https://tvl-backend-api.zypher.game";
+import { ChainId, getCryptoImg, isPro, isTestnet } from "./constant";
+const mainApi = "https://tvl-backend-api-mainnet.zypher.game";
+const testApi = "https://tvl-backend-api.zypher.game";
+const getApi = (v: ChainId) => {
+  if (isTestnet[v]) {
+    return testApi;
+  }
+  return mainApi;
+};
+export const TVL_API = Object.fromEntries(
+  (Object.values(ChainId) as ChainId[]).map((v) => [v, getApi(v)])
+) as Record<ChainId, string>;
 export enum ITvlHero {
   Agil = "Agil",
   Yueling = "Yueling",
@@ -22,7 +32,7 @@ export const defaultActiveChainId = TVLStakingSupportedChainId[0];
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
-  [TVLChainId.LineaMainnet]: ChainId.ZytronLineaSepoliaTestnet,
+  [TVLChainId.LineaMainnet]: ChainId.ZytronLineaMain,
   [TVLChainId.LineaSepolia]: ChainId.ZytronLineaSepoliaTestnet,
 };
 export type IToken = {
@@ -42,6 +52,12 @@ export const activeTokenList: Record<
   ChainId,
   Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>
 > = {
+  [TVLChainId.LineaMainnet]: {
+    Staking: "0x69d58b936f6D2Ae7dADbEbc244CB83A8C61b3fb3",
+    ZypherGameToken: "0x6ba3593101E32cEdBDE5AC9439e9187736B26A15",
+    CRHero: "0x04117234880577EFABd98BF9A167e2ee7E402D1b",
+    Soulbound: "0xc5254aBF57CeDeF2e8F112BBDf28317f8111a4F8",
+  },
   [TVLChainId.LineaSepolia]: {
     Staking: "0xae3C1FE6ceB606fc810D244f478aA4a94dD70634",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
@@ -56,6 +72,12 @@ export const activeTokenList: Record<
   },
 } as unknown as Record<ChainId, Record<string, Address>>;
 export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
+  [TVLChainId.LineaMainnet]: {
+    WETH: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+    wstETH: "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F",
+    ezETH: "0x2416092f143378750bb29b79eD961ab195CcEea5",
+    STONE: "0x93F4d0ab6a8B4271f4a28Db399b5E30612D21116",
+  },
   [TVLChainId.LineaSepolia]: {
     WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
     wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",

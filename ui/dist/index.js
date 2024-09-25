@@ -3387,7 +3387,17 @@ var aaApproveAndFcErc20 = async ({
 };
 
 // src/constant/tvlConstant.ts
-var TVL_API = "https://tvl-backend-api.zypher.game";
+var mainApi = "https://tvl-backend-api-mainnet.zypher.game";
+var testApi = "https://tvl-backend-api.zypher.game";
+var getApi = (v) => {
+  if (isTestnet[v]) {
+    return testApi;
+  }
+  return mainApi;
+};
+var TVL_API = Object.fromEntries(
+  Object.values(ChainId).map((v) => [v, getApi(v)])
+);
 var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
   ITvlHero2["Agil"] = "Agil";
   ITvlHero2["Yueling"] = "Yueling";
@@ -3408,10 +3418,16 @@ var defaultActiveChainId = TVLStakingSupportedChainId[0];
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
-  [TVLChainId.LineaMainnet]: "19546" /* ZytronLineaSepoliaTestnet */,
+  [TVLChainId.LineaMainnet]: "9901" /* ZytronLineaMain */,
   [TVLChainId.LineaSepolia]: "19546" /* ZytronLineaSepoliaTestnet */
 };
 var activeTokenList = {
+  [TVLChainId.LineaMainnet]: {
+    Staking: "0x69d58b936f6D2Ae7dADbEbc244CB83A8C61b3fb3",
+    ZypherGameToken: "0x6ba3593101E32cEdBDE5AC9439e9187736B26A15",
+    CRHero: "0x04117234880577EFABd98BF9A167e2ee7E402D1b",
+    Soulbound: "0xc5254aBF57CeDeF2e8F112BBDf28317f8111a4F8"
+  },
   [TVLChainId.LineaSepolia]: {
     Staking: "0xae3C1FE6ceB606fc810D244f478aA4a94dD70634",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
@@ -3426,6 +3442,12 @@ var activeTokenList = {
   }
 };
 var tvlTokenAddress = {
+  [TVLChainId.LineaMainnet]: {
+    WETH: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
+    wstETH: "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F",
+    ezETH: "0x2416092f143378750bb29b79eD961ab195CcEea5",
+    STONE: "0x93F4d0ab6a8B4271f4a28Db399b5E30612D21116"
+  },
   [TVLChainId.LineaSepolia]: {
     WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
     wstETH: "0xd9c4d0Bf3881510d9d7a883c94Bd856c4d314370",
@@ -3973,7 +3995,7 @@ var PixelStyled = styled(PixelFlatBtn_default)`
   min-height: ${({ height }) => height};
   max-width: ${({ width }) => width};
   width: ${({ width }) => width};
-  opacity: ${({ disable }) => disable ? 0.8 : 1};
+  opacity: ${({ disable }) => disable ? 0.7 : 1};
   &.pixel_loading {
     opacity: 0.8;
   }
@@ -4224,7 +4246,7 @@ var ActivePixelButtonColorStyled = styled(PixelStyled)`
     }
   }
   &.disable {
-    opacity: 0.8;
+    opacity: 0.7;
     cursor: not-allowed;
   }
   &.normal {
@@ -5319,11 +5341,12 @@ var ListWithMotion_default = memo7(ListWithMotion);
 // src/hooks/useGetActiveCall.ts
 import { useCallback as useCallback7 } from "react";
 var useGetHero = () => {
+  const { chainId } = useActiveWeb3React();
   const getHero = useCallback7(
     async ({ address, linkType }) => {
       try {
         const res = await request(
-          `${TVL_API}/api/user-role/${address.toLowerCase()}`,
+          `${TVL_API[chainId]}/api/user-role/${address.toLowerCase()}`,
           {
             method: "GET",
             params: {
@@ -5352,15 +5375,18 @@ var useGetUserInfo = () => {
     async ({ account, chainId }) => {
       try {
         const linkType = getLinkPre(chainId);
-        const info_res = await request(`${TVL_API}/api/info/${account}`, {
-          method: "GET",
-          params: {
-            linkType: linkType.key
-          },
-          headers: {
-            "Content-Type": "application/json"
+        const info_res = await request(
+          `${TVL_API[chainId]}/api/info/${account}`,
+          {
+            method: "GET",
+            params: {
+              linkType: linkType.key
+            },
+            headers: {
+              "Content-Type": "application/json"
+            }
           }
-        });
+        );
         if (info_res.data) {
           const infoObj = form_info(info_res.data, chainId);
           return infoObj;

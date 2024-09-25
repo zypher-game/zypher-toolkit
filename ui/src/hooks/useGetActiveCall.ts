@@ -2,13 +2,15 @@ import { useCallback } from "react";
 import { request } from "../utils/request";
 import { TVL_API, getLinkPre } from "../constant/tvlConstant";
 import { ChainId } from "../constant/constant";
+import { useActiveWeb3React } from "./useActiveWeb3React";
 
 export const useGetHero = () => {
+  const { chainId } = useActiveWeb3React();
   const getHero = useCallback(
     async ({ address, linkType }: { address: string; linkType: number }) => {
       try {
         const res = await request(
-          `${TVL_API}/api/user-role/${address.toLowerCase()}`,
+          `${TVL_API[chainId]}/api/user-role/${address.toLowerCase()}`,
           {
             method: "GET",
             params: {
@@ -37,15 +39,18 @@ export const useGetUserInfo = () => {
     async ({ account, chainId }: { account: string; chainId: ChainId }) => {
       try {
         const linkType = getLinkPre(chainId);
-        const info_res = await request(`${TVL_API}/api/info/${account}`, {
-          method: "GET",
-          params: {
-            linkType: linkType.key,
-          },
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
+        const info_res = await request(
+          `${TVL_API[chainId]}/api/info/${account}`,
+          {
+            method: "GET",
+            params: {
+              linkType: linkType.key,
+            },
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        );
         if (info_res.data) {
           const infoObj = form_info(info_res.data, chainId);
           return infoObj;
