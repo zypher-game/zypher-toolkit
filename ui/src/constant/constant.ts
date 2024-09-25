@@ -13,13 +13,13 @@ export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 export const txStatus = "success"; // '1'
 
 export const isPro = (): boolean => {
-  if (
-    window.location.host.startsWith("app") ||
-    window.location.host.startsWith("zypher")
-  ) {
-    return true;
-  }
-  return false;
+  // if (
+  //   window.location.host.startsWith("app") ||
+  //   window.location.host.startsWith("zypher")
+  // ) {
+  return true;
+  // }
+  // return false;
 };
 
 export const isLocalhost = (): boolean => {
@@ -139,6 +139,7 @@ export const supportedChainIds = (
         ChainId.ZytronLineaMain,
         // ChainId.ZytronB2Testnet,
         ChainId.B3Mainnet,
+        ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
@@ -150,6 +151,7 @@ export const supportedChainIds = (
         ChainId.MantaPacificMainnet,
         ChainId.B2,
         ChainId.B3Mainnet,
+        ChainId.SagaMainnet,
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {

@@ -59,10 +59,7 @@ var divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
 var isPro = () => {
-  if (window.location.host.startsWith("app") || window.location.host.startsWith("zypher")) {
-    return true;
-  }
-  return false;
+  return true;
 };
 var isLocalhost = () => {
   if (window.location.host.startsWith("192.168")) {
@@ -143,7 +140,8 @@ var supportedChainIds = (env, chainList) => {
     "11155111" /* Sepolia */,
     "19546" /* ZytronLineaSepoliaTestnet */,
     "9901" /* ZytronLineaMain */,
-    "8333" /* B3Mainnet */
+    "8333" /* B3Mainnet */,
+    "2717465680371000" /* SagaMainnet */
   ] : [
     "59144" /* LineaMainnet */,
     "204" /* OPBNB */,
@@ -153,7 +151,8 @@ var supportedChainIds = (env, chainList) => {
     "9980" /* Combo */,
     "169" /* MantaPacificMainnet */,
     "223" /* B2 */,
-    "8333" /* B3Mainnet */
+    "8333" /* B3Mainnet */,
+    "2717465680371000" /* SagaMainnet */
   ];
 };
 var ChainRpcUrls = {

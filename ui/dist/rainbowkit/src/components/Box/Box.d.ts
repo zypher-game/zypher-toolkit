@@ -40,7 +40,7 @@ export declare const Box: React.ForwardRefExoticComponent<{
     readonly cursor?: "pointer" | undefined;
     readonly flexDirection?: "row" | "column" | undefined;
     readonly fontFamily?: "body" | undefined;
-    readonly fontSize?: "12" | "18" | "23" | "20" | "16" | "14" | "13" | undefined;
+    readonly fontSize?: "12" | "13" | "18" | "23" | "20" | "16" | "14" | undefined;
     readonly fontWeight?: "bold" | "medium" | "regular" | "semibold" | "heavy" | undefined;
     readonly gap?: "10" | "0" | "1" | "2" | "3" | "4" | "5" | "6" | "8" | "12" | "18" | "36" | "32" | "28" | "24" | "20" | "16" | "14" | "64" | "44" | "-1" | undefined;
     readonly height?: "1" | "2" | "4" | "8" | "9" | "12" | "30" | "36" | "34" | "32" | "28" | "24" | "20" | "40" | "48" | "44" | "54" | "60" | "200" | "max" | "full" | undefined;
