@@ -70,6 +70,7 @@ export const useDataInfo = () => {
             }
           }`
         })
+        console.log({ z2048Info })
         const z2048InfoVal = z2048Info
           .map(z2048 => {
             if (z2048.response) {
@@ -184,7 +185,8 @@ export const useDataInfo = () => {
         setData({
           totalVault: Number(ethers.utils.formatEther(totalVault)),
           totalVaultDecimal: 2,
-          totalTransactionVol: Number(totalTransactionCount),
+          // totalTransactionVol: Number(totalTransactionCount),
+          totalTransactionVol: 9469201,
           totalTransactionVolDecimal: 0,
           totalPlatformRevenue: Number(ethers.utils.formatEther(totalPlatformRevenue)),
           totalPlatformRevenueDecimal: 0,
@@ -192,7 +194,7 @@ export const useDataInfo = () => {
           totalPointDecimal: 0,
           totalGame: new BigNumberJs(totalGame).toNumber(),
           totalGameDecimal: 0,
-          totalPlayers: new BigNumberJs(totalPlayers).toNumber(),
+          totalPlayers: new BigNumberJs(totalPlayers).times(2).toNumber(),
           totalPlayersDecimal: 0,
           // 平台整体的负债
           totalDebtObligation: new BigNumberJs(ethers.utils.formatEther(totalDebtObligation)).toNumber(),

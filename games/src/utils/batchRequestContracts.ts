@@ -3,7 +3,7 @@ import { ChainId, ChainRpcUrls, getProvider, IContractName, MulticallContract, r
 import { BigNumberJs } from '@ui/src'
 import { ethers } from 'ethers'
 import sample from 'lodash/sample'
-import { Address, WalletClient } from 'wagmi'
+import { Address } from 'wagmi'
 
 import { TransactionsCount } from '@/constants/constants'
 
@@ -100,7 +100,7 @@ export async function batchRequestContracts({
   chainIdList,
   addressList
 }: {
-  contractFun: (chainId: ChainId, env: string, address?: Address, signer?: any) => ethers.Contract
+  contractFun: (chainId: ChainId, env: string, address?: Address, signer?: any) => ethers.Contract | undefined
   contracts: IContractRequest
   defaultValue: any
   chainIdList: ChainId[]
@@ -120,15 +120,23 @@ export async function batchRequestContracts({
       } else if (Array.isArray(contracts.params)) {
         params = contracts.params
       }
-      let response = await contract.read[contracts.method](params)
-      if (contracts.method === 'feeInfo') {
-        response = response[0]
-      }
+      if (contract) {
+        let response = await contract.read[contracts.method](params)
+        if (contracts.method === 'feeInfo') {
+          response = response[0]
+        }
 
-      return {
-        method: contracts.method,
-        chainId: chainId,
-        response
+        return {
+          method: contracts.method,
+          chainId: chainId,
+          response
+        }
+      } else {
+        return {
+          method: contracts.method,
+          chainId: chainId,
+          response: defaultValue
+        }
       }
     } catch (err) {
       // if (contracts.method === 'getResidue') {
@@ -155,11 +163,11 @@ export async function batchRequestMulticall({
 }): Promise<IContractResponse[]> {
   const requests = chainIdList.map(async (chainId: ChainId) => {
     await sleep(0.1)
-    // console.log({ params })
+    console.log({ params })
     try {
       const multicall = await MulticallContract(chainId)
       if (multicall) {
-        if (params[chainId].length) {
+        if (params[chainId] && params[chainId].length > 0) {
           const res = await multicall.call(params[chainId])
           const { results } = res
           if (results) {

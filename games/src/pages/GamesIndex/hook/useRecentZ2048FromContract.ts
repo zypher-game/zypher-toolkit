@@ -65,6 +65,33 @@ const MarketLinkPre: Record<ChainId, string> = {
   [ChainId.B3Mainnet]: ''
 }
 export const z2048Constant: any = {
+  [ChainId.B3Mainnet]: {
+    marketLinkyPre: MarketLinkPre[ChainId.B3Mainnet],
+    BASE_GF_URL: 'https://b3-mainnet-graph.zypher.game/subgraphs/name/b3/game2048',
+    Contracts: {
+      ZkGame2048: '0x4efD38c1ebC814b8Bf207d238e8b590EDE745D59',
+      Z2048SBT: '0x688053ec82F6b1E8BeC233Dc35767caa0Cd6dAE7',
+      TILE_REWARD_HELPER_ADDRESS: '0x7FfcE262c85978eA4EaCd2f63c904fBB218dD7d3'
+    }
+  },
+  [ChainId.SagaMainnet]: {
+    marketLinkyPre: MarketLinkPre[ChainId.SagaMainnet],
+    BASE_GF_URL: 'https://cosmos-mainnet-graph.zypher.game/subgraphs/name/ct/game2048',
+    Contracts: {
+      ZkGame2048: '0x107e6cfFF264edA17D210F7C7fd3E9723F0F4867',
+      Z2048SBT: '0x5aB1a6B3d536f29971aC92621FDdA575f8eDC44E',
+      TILE_REWARD_HELPER_ADDRESS: '0x1f010260a6DE74dBD5b5A01b963bD92b99996F44'
+    }
+  },
+  // [ChainId.B2]: {
+  //   marketLinkyPre: MarketLinkPre[ChainId.B2],
+  //   BASE_GF_URL: 'https://b2-mainnet-graph.zypher.game/subgraphs/name/b2/game2048',
+  //   Contracts: {
+  //     ZkGame2048: '0x362079Ad853e015D3DBD0bAF440711B10878A7cE',
+  //     Z2048SBT: '0x68502CBE1C5D6FCD81DAda7ea1Db590FeA8f26c2',
+  //     TILE_REWARD_HELPER_ADDRESS: '0xfafed659a1b3c2030BFF6372Bd88B2A2B4d78AB0'
+  //   }
+  // },
   [ChainId.LineaMainnet]: {
     marketLinkPre: MarketLinkPre[ChainId.LineaMainnet],
     graphql: 'https://linea-mainnet-graph.zypher.game/subgraphs/name/linea/game2048',
@@ -82,89 +109,37 @@ export const z2048Constant: any = {
       Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce',
       TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
     }
-  },
-  // [ChainId.OPBNBTEST]: {
-  //   marketLinkPre: MarketLinkPre[ChainId.OPBNBTEST],
-  //   graphql: 'https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/game2048',
-  //   Contracts: {
-  //     ZkGame2048: '0x1577507d2D3c82851ee17dA0d24feEBbdF1e4f32',
-  //     Z2048SBT: '0x43d2aAAE4110a4887557c73C1BD74690AbaacF5B',
-  //     TILE_REWARD_HELPER_ADDRESS: '0x4bfb9bf1F8ff5c79dc82c38711f8eb021a2c6C3e'
-  //   }
-  // },
-  // [ChainId.ScrollSepoliaTestnet]: {
-  //   marketLinkPre: MarketLinkPre[ChainId.ScrollSepoliaTestnet],
-  //   graphql: 'https://scroll-sepolia-graph.zypher.game/subgraphs/name/scroll/game2048',
-  //   Contracts: {
-  //     ZkGame2048: '0x159879B72B1bE7007aC56c4DcbbC31545F8D57bb',
-  //     Z2048SBT: '0xC3915d66C197d15b51C3ED26012eC5836915b3a6',
-  //     TILE_REWARD_HELPER_ADDRESS: '0xc55A0c445A80C8598b4757A07d3784e6F7d2b661'
-  //   }
-  // },
-  // [ChainId.MantleTestnet]: {
-  //   marketLinkPre: MarketLinkPre[ChainId.MantleTestnet],
-  //   graphql: 'https://mantle-testnet-graph.zypher.game/subgraphs/name/mantle/game2048',
-  //   Contracts: {
-  //     ZkGame2048: '0x8647178e0F1A130E1628D114e89988d558fbC734',
-  //     Z2048SBT: '0xD5052D8a2C2ff9160d132fcc1af17f8b7e96F230',
-  //     TILE_REWARD_HELPER_ADDRESS: '0x0a0BD82C5eB8213A24E37cC7297d4F0cD231e417'
-  //   }
-  // },
-  [ChainId.Mantle]: {
-    marketLinkPre: MarketLinkPre[ChainId.Mantle],
-    graphql: 'https://mantle-mainnet-graph.zypher.game/subgraphs/name/mantle/game2048',
-    Contracts: {
-      ZkGame2048: '0x490d76B1e9418a78B5403740BD70dfD4F6007E0f',
-      Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce',
-      TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
-      // GPToken: '0x9CCC1463f90782c5Cb3F39E2Cb92c670e894c1EB' ,
-    }
-  },
-  // [ChainId.ComboTestnet]: {
-  //   marketLinkPre: MarketLinkPre[ChainId.ComboTestnet],
-  //   graphql: 'https://combo-testnet-graph.zypher.game/subgraphs/name/combo/game2048',
-  //   Contracts: {
-  //     ZkGame2048: '0x8A8B889B8120c339f23E835d2E440772ad79A6fd',
-  //     Z2048SBT: '0x67DF9bD39c62F92b51a35b8c5df55846ddCb66B7',
-  //     TILE_REWARD_HELPER_ADDRESS: '0xd69a32155A909298Dcec3A5AE05B2a610c300481'
-  //   }
-  // },
-  // [ChainId.MantaPacificTestnet]: {
-  //   marketLinkPre: MarketLinkPre[ChainId.MantaPacificTestnet],
-  //   graphql: 'https://manta-testnet-graph.zypher.game/subgraphs/name/manta/game2048',
-  //   Contracts: {
-  //     ZkGame2048: '0x7b00c14c7D0087C3a0d37cAbbc6924566B4481E9',
-  //     Z2048SBT: '0xD5052D8a2C2ff9160d132fcc1af17f8b7e96F230',
-  //     TILE_REWARD_HELPER_ADDRESS: '0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6'
-  //   }
-  // },
-  [ChainId.MantaPacificMainnet]: {
-    marketLinkPre: MarketLinkPre[ChainId.MantaPacificMainnet],
-    graphql: 'https://manta-mainnet-graph.zypher.game/subgraphs/name/combo/game2048',
-    Contracts: {
-      ZkGame2048: '0x490d76B1e9418a78B5403740BD70dfD4F6007E0f',
-      Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce',
-      TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
-    }
-  },
-  [ChainId.Combo]: {
-    marketLinkPre: MarketLinkPre[ChainId.Combo],
-    graphql: 'https://combo-mainnet-graph.zypher.game/subgraphs/name/combo/game2048',
-    Contracts: {
-      // Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce' ,
-      Z2048SBT: '0x5Ce213F4021b95e6268f8ce058502E755eb00B57',
-      ZkGame2048: '0x490d76B1e9418a78B5403740BD70dfD4F6007E0f',
-      TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
-    }
   }
-  // [taikoKatla.id]: {
-  //   BASE_GF_URL: 'https://taiko-testnet-graph.zypher.game/subgraphs/name/taiko/game2048',
+  // [ChainId.Mantle]: {
+  //   marketLinkPre: MarketLinkPre[ChainId.Mantle],
+  //   graphql: 'https://mantle-mainnet-graph.zypher.game/subgraphs/name/mantle/game2048',
   //   Contracts: {
-  //     Z2048SBT: '0x79aDd9Be54429A034B2F89E8C5C46CEC5F9a2359' ,
-  //     ZkGame2048: '0x1a3Dc9af66997FA5142c18BB7A1dE89ae9E75a4c' ,
-  //     ZkGame2048API: '0x218bFE1Ae8A6cE773d88127964f8b99Cb958E70A' ,
-  //   },
+  //     ZkGame2048: '0x490d76B1e9418a78B5403740BD70dfD4F6007E0f',
+  //     Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce',
+  //     TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
+  //     // GPToken: '0x9CCC1463f90782c5Cb3F39E2Cb92c670e894c1EB' ,
+  //   }
   // },
+  // [ChainId.Combo]: {
+  //   marketLinkPre: MarketLinkPre[ChainId.Combo],
+  //   graphql: 'https://combo-mainnet-graph.zypher.game/subgraphs/name/combo/game2048',
+  //   Contracts: {
+  //     // Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce' ,
+  //     Z2048SBT: '0x5Ce213F4021b95e6268f8ce058502E755eb00B57',
+  //     ZkGame2048: '0x490d76B1e9418a78B5403740BD70dfD4F6007E0f',
+  //     TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
+  //   }
+  // },
+  // [ChainId.MantaPacificMainnet]: {
+  //   marketLinkPre: MarketLinkPre[ChainId.MantaPacificMainnet],
+  //   graphql: 'https://manta-mainnet-graph.zypher.game/subgraphs/name/manta/game2048',
+  //   Contracts: {
+  //     // Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce' ,
+  //     Z2048SBT: '0xA3ebaeF88Ef44b2B3D70FFd77E91cF002e5E72Ce',
+  //     ZkGame2048: '0x490d76B1e9418a78B5403740BD70dfD4F6007E0f',
+  //     TILE_REWARD_HELPER_ADDRESS: '0x743281dB4c21f138a62BE1B8e9D3aa0aD167C7eE'
+  //   }
+  // }
 }
 
 // export const z2048Constant = {
@@ -304,6 +279,7 @@ export const useRecentZ2048FromContract = ({
         chainIdList,
         addressList: Object.fromEntries(chainIdList.map(chainId => [chainId, z2048Constant[chainId].Contracts.Z2048SBT])) as Record<ChainId, Address>
       })
+      console.log({ lastTokenIdListRes })
       const tokenIdList = Object.fromEntries(
         lastTokenIdListRes.map(v => {
           let arr = new Array(20).fill(0)

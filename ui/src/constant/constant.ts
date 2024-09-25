@@ -139,6 +139,7 @@ export const supportedChainIds = (
         ChainId.ZytronLineaMain,
         // ChainId.ZytronB2Testnet,
         ChainId.B3Mainnet,
+        ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
@@ -150,6 +151,7 @@ export const supportedChainIds = (
         ChainId.MantaPacificMainnet,
         ChainId.B2,
         ChainId.B3Mainnet,
+        ChainId.SagaMainnet,
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {

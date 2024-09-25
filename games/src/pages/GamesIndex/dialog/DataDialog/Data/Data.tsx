@@ -21,7 +21,22 @@ interface IProps {
   data: IData | any
 }
 const TooltipNode = memo(
-  ({ total, className, dataKey, children }: { total: IDataTotal; className?: string; dataKey: IDataKey; children: React.ReactNode }) => {
+  ({
+    total,
+    className,
+    dataKey,
+    children,
+    showTooltip = true
+  }: {
+    total: IDataTotal
+    className?: string
+    dataKey: IDataKey
+    children: React.ReactNode
+    showTooltip?: boolean
+  }) => {
+    if (!showTooltip) {
+      return <>{children}</>
+    }
     try {
       return (
         <Tooltip
@@ -99,7 +114,12 @@ const Data = memo(({ data }: IProps) => {
           { title: t('Transaction Vol.'), img: 'data_transaction.svg', value: 'totalTransactionVol', dataKey: IDataKey.totalTransactionVol }
         ].map(v => (
           <PixelBorderCard className={css.item} pixel_height={4} key={v.title} backgroundColor="#343C4F" borderColor="#484F60">
-            <TooltipNode dataKey={v.dataKey} total={data.total} className={css.tooltip}>
+            <TooltipNode
+              dataKey={v.dataKey}
+              total={data.total}
+              className={css.tooltip}
+              showTooltip={v.value !== 'totalTransactionVol' && v.value !== 'totalPlayers'}
+            >
               <img decoding="async" loading="lazy" src={preStaticUrl + `/img/games/data/${v.img}`} alt={v.title} className={css.dataImg} />
               <div className={css.itemDetail}>
                 <div className={css.tit}>{v.title}</div>
