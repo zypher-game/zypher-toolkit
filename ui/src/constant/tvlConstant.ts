@@ -26,7 +26,7 @@ export enum TVLChainId {
 }
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
-    [TVLChainId.LineaSepolia] // ,
+    [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
   : []) as unknown as ChainId[];
 export const defaultActiveChainId = TVLStakingSupportedChainId[0];
 export const L3ChainId: Record<any, ChainId> = {

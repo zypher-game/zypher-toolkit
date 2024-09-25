@@ -3413,7 +3413,7 @@ var TVLChainId = ((TVLChainId2) => {
   TVLChainId2[TVLChainId2["LineaSepolia"] = "59141" /* LineaSepolia */] = "LineaSepolia";
   return TVLChainId2;
 })(TVLChainId || {});
-var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaSepolia] : [];
+var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [];
 var defaultActiveChainId = TVLStakingSupportedChainId[0];
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
