@@ -804,7 +804,7 @@ var Gas0Constants = {
   },
   ["9901" /* ZytronLineaMain */]: {
     api: "https://zytron-linea-mainnet-0gas.zypher.game/api",
-    PermitProxy: "0x60c25c4ee50232b6388d05f727f4f8019b133f8b",
+    PermitProxy: "0x9a97D3E13ec90A29243eda43aff67C723fcfD1C6",
     isGameFree: true
   }
 };
@@ -865,36 +865,33 @@ var useGas0Balance = () => {
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
-        if (res) {
-          if (res.code !== 0) {
-            _balance("0");
-            key.current = "";
-            return;
-          }
-          console.log({ res });
-          const gas0Balance = res.data.amount;
-          console.log({ gas0Balance });
-          if (new BigNumberJs_default(gas0Balance).gt(0)) {
-            httpGetOnce(`${chainConf.api}/config`).then(
-              ({ data: configRes }) => {
-                console.log({ configRes });
-                setLoading(false);
-                if (configRes.code !== 0) {
-                  _balance("0");
-                  key.current = "";
-                  return;
-                }
-                _balance(gas0Balance);
-                console.log({ configRes });
-                _config({
-                  deployer_address: configRes.data.deployer_address,
-                  function_call_tip: configRes.data.function_call_tip,
-                  function_multicall_tip: configRes.data.function_multicall_tip,
-                  wallet_bytecode: configRes.data.wallet_bytecode
-                });
-              }
-            );
-          }
+        console.log({ res });
+        if (res.code !== 0) {
+          _balance("0");
+          key.current = "";
+          return;
+        }
+        console.log({ res });
+        const gas0Balance = res.data.amount;
+        console.log({ gas0Balance });
+        if (new BigNumberJs_default(gas0Balance).gt(0)) {
+          httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
+            console.log({ configRes });
+            setLoading(false);
+            if (configRes.code !== 0) {
+              _balance("0");
+              key.current = "";
+              return;
+            }
+            _balance(gas0Balance);
+            console.log({ configRes });
+            _config({
+              deployer_address: configRes.data.deployer_address,
+              function_call_tip: configRes.data.function_call_tip,
+              function_multicall_tip: configRes.data.function_multicall_tip,
+              wallet_bytecode: configRes.data.wallet_bytecode
+            });
+          });
         } else {
           setLoading(false);
         }
@@ -1176,6 +1173,12 @@ var WagmiWalletHandler = class {
         configApi.wallet_bytecode,
         deployer
       );
+      console.log({
+        address: this.account.address,
+        wallet_bytecode: configApi.wallet_bytecode,
+        deployer,
+        aaWallet
+      });
       this.aa = {
         isFree: new BigNumberJs_default(gas0Balance).gt(0),
         address: aaWallet,
@@ -1212,12 +1215,13 @@ var WagmiWalletHandler = class {
           const nonce = await this.aaNonce();
           const arg = params[0];
           const value = arg.value || 0;
+          console.log({ value });
           const sign = await this.walletClient.signTypedData({
             ...ZytronSignTypedData(this.chainId),
             message: {
               from: aa.address,
               to: arg.to,
-              value: BigInt(value),
+              value,
               data: arg.data,
               nonce,
               tip: aa.configFromApi.function_call_tip

@@ -67,11 +67,18 @@ export class WagmiWalletHandler {
     const conf = Gas0Constants[this.chainId];
     if (conf) {
       const deployer = configApi.deployer_address;
+
       const aaWallet = getAddressAA(
         this.account.address,
         configApi.wallet_bytecode as Hash,
         deployer as Address
       );
+      console.log({
+        address: this.account.address,
+        wallet_bytecode: configApi.wallet_bytecode as Hash,
+        deployer: deployer as Address,
+        aaWallet,
+      });
       this.aa = {
         isFree: new BigNumberJs(gas0Balance).gt(0),
         address: aaWallet,
@@ -106,19 +113,21 @@ export class WagmiWalletHandler {
           }
 
           const nonce = await this.aaNonce();
-          const arg = params[0] as {
-            data: `0x${string}`;
-            from: `0x${string}`;
-            to: `0x${string}`;
-            value: bigint;
-          };
+          const arg = params[0];
+          // as {
+          // data: `0x${string}`;
+          // from: `0x${string}`;
+          // to: `0x${string}`;
+          // value: bigint;
+          // };
           const value = arg.value || 0;
+          console.log({ value });
           const sign = await this.walletClient.signTypedData({
             ...ZytronSignTypedData(this.chainId),
             message: {
               from: aa.address,
               to: arg.to,
-              value: BigInt(value),
+              value: value,
               data: arg.data,
               nonce,
               tip: aa.configFromApi.function_call_tip,
