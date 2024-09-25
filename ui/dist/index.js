@@ -1347,9 +1347,7 @@ var useGetWalletClient = () => {
       if (isSet) {
         return;
       }
-      console.log({ loading, chainId, account });
       if (loading || !chainId || !account || !walletClient) {
-        console.log({ loading, chainId, account });
         return;
       }
       const keyString = [
