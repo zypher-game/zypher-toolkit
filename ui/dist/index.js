@@ -59,7 +59,10 @@ var divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
 var isPro = () => {
-  return true;
+  if (window.location.host.startsWith("app") || window.location.host.startsWith("zypher")) {
+    return true;
+  }
+  return false;
 };
 var isLocalhost = () => {
   if (window.location.host.startsWith("192.168")) {
@@ -2342,6 +2345,105 @@ var tgChain = ({
   return [mock];
 };
 
+// src/rainbowkit/src/wallets/walletConnectors/gateWallet/gateWallet.ts
+import { InjectedConnector as InjectedConnector4 } from "wagmi/connectors/injected";
+var gateWallet = ({
+  chains,
+  projectId: projectId2,
+  walletConnectOptions,
+  walletConnectVersion = "2",
+  ...options
+}) => {
+  const isGateInjected = typeof window !== "undefined" && typeof window.gatewallet !== "undefined";
+  const shouldUseWalletConnect = !isGateInjected;
+  return {
+    id: "gate",
+    name: "Gate Wallet",
+    iconUrl: async () => (await import("./gateWallet-K36WQA27.js")).default,
+    iconAccent: "#fff",
+    iconBackground: "#fff",
+    downloadUrls: {
+      android: "https://play.google.com/store/apps/details?id=com.gateio.gateio",
+      ios: "https://apps.apple.com/us/app/gate-io-buy-bitcoin-crypto/id1294998195",
+      mobile: "https://www.gate.io/mobileapp",
+      qrCode: "https://www.gate.io/web3",
+      chrome: "https://chromewebstore.google.com/detail/gate-wallet/cpmkedoipcpimgecpmgpldfpohjplkpp",
+      browserExtension: "https://www.gate.io/web3"
+    },
+    createConnector: () => {
+      const connector = shouldUseWalletConnect ? getWalletConnectConnector({
+        projectId: projectId2,
+        chains,
+        version: walletConnectVersion,
+        options: walletConnectOptions
+      }) : new InjectedConnector4({
+        chains,
+        options: {
+          getProvider: () => window.gatewallet,
+          ...options
+        }
+      });
+      return {
+        connector,
+        extension: {
+          instructions: {
+            learnMoreUrl: "https://www.gate.io/learn",
+            steps: [
+              {
+                description: "Click at the top right of your browser and pin Gate Wallet for easy access.",
+                step: "install",
+                title: "Install the Gate Wallet extension"
+              },
+              {
+                description: "Create a new wallet or import an existing one.",
+                step: "create",
+                title: "Create or Import a wallet"
+              },
+              {
+                description: "Once you set up Gate Wallet, click below to refresh the browser and load up the extension.",
+                step: "refresh",
+                title: "Refresh your browser"
+              }
+            ]
+          }
+        },
+        mobile: {
+          getUri: shouldUseWalletConnect ? async () => {
+            const uri = await getWalletConnectUri(
+              connector,
+              walletConnectVersion
+            );
+            return isAndroid() ? uri : `gtweb3wallet://wc?uri=${encodeURIComponent(uri)}`;
+          } : void 0
+        },
+        qrCode: shouldUseWalletConnect ? {
+          getUri: async () => getWalletConnectUri(connector, walletConnectVersion),
+          instructions: {
+            learnMoreUrl: "https://www.gate.io/learn",
+            steps: [
+              {
+                description: "wallet_connectors.gate.qr_code.step1.description",
+                step: "install",
+                title: "wallet_connectors.gate.qr_code.step1.title"
+              },
+              {
+                description: "wallet_connectors.gate.qr_code.step2.description",
+                step: "create",
+                title: "wallet_connectors.gate.qr_code.step2.title"
+              },
+              {
+                description: "wallet_connectors.gate.qr_code.step3.description",
+                step: "scan",
+                title: "wallet_connectors.gate.qr_code.step3.title"
+              }
+            ]
+          }
+        } : void 0
+      };
+    }
+  };
+};
+
 // src/rainbow/rainbow.ts
 var getSupportedChainIdList = (env, chainIdList) => {
   const list = (chainIdList != null ? chainIdList : supportedChainIds(env)).map(
@@ -2387,6 +2489,7 @@ var getConnectors = ({
       wallets: [
         metaMaskWallet({ projectId, chains }),
         particleWallet({ chains }),
+        gateWallet({ projectId, chains }),
         walletConnectWallet({ projectId, chains })
       ]
     },
@@ -14185,7 +14288,7 @@ function useAddRecentTransaction() {
 }
 
 // src/rainbowkit/src/wallets/walletConnectors/braveWallet/braveWallet.ts
-import { InjectedConnector as InjectedConnector4 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector5 } from "wagmi/connectors/injected";
 var braveWallet = ({
   chains,
   ...options
@@ -14199,7 +14302,7 @@ var braveWallet = ({
     installed: typeof window !== "undefined" && ((_a = window.ethereum) == null ? void 0 : _a.isBraveWallet) === true,
     downloadUrls: {},
     createConnector: () => ({
-      connector: new InjectedConnector4({
+      connector: new InjectedConnector5({
         chains,
         options
       })
@@ -14298,7 +14401,7 @@ var coinbaseWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/injectedWallet/injectedWallet.ts
-import { InjectedConnector as InjectedConnector5 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector6 } from "wagmi/connectors/injected";
 var injectedWallet = ({
   chains,
   ...options
@@ -14308,10 +14411,10 @@ var injectedWallet = ({
   iconUrl: async () => (await import("./injectedWallet-NXTS4V5P.js")).default,
   iconBackground: "#fff",
   hidden: ({ wallets }) => wallets.some(
-    (wallet) => wallet.installed && wallet.name === wallet.connector.name && (wallet.connector instanceof InjectedConnector5 || wallet.id === "coinbase")
+    (wallet) => wallet.installed && wallet.name === wallet.connector.name && (wallet.connector instanceof InjectedConnector6 || wallet.id === "coinbase")
   ),
   createConnector: () => ({
-    connector: new InjectedConnector5({
+    connector: new InjectedConnector6({
       chains,
       options
     })
@@ -14319,7 +14422,7 @@ var injectedWallet = ({
 });
 
 // src/rainbowkit/src/wallets/getInjectedConnector.ts
-import { InjectedConnector as InjectedConnector6 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector7 } from "wagmi/connectors/injected";
 function getExplicitInjectedProvider(flag) {
   if (typeof window === "undefined" || typeof window.ethereum === "undefined")
     return;
@@ -14346,7 +14449,7 @@ function getInjectedConnector({
   flag,
   options
 }) {
-  return new InjectedConnector6({
+  return new InjectedConnector7({
     chains,
     options: {
       getProvider: () => getInjectedProvider(flag),
@@ -14527,7 +14630,7 @@ var argentWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/bifrostWallet/bifrostWallet.ts
-import { InjectedConnector as InjectedConnector7 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector8 } from "wagmi/connectors/injected";
 var bifrostWallet = ({
   chains,
   projectId: projectId2,
@@ -14554,7 +14657,7 @@ var bifrostWallet = ({
         projectId: projectId2,
         options: walletConnectOptions,
         version: walletConnectVersion
-      }) : new InjectedConnector7({
+      }) : new InjectedConnector8({
         chains,
         options
       });
@@ -14596,7 +14699,7 @@ var bifrostWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/bitKeepWallet/bitKeepWallet.ts
-import { InjectedConnector as InjectedConnector8 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector9 } from "wagmi/connectors/injected";
 var bitKeepWallet = ({
   chains,
   projectId: projectId2,
@@ -14627,7 +14730,7 @@ var bitKeepWallet = ({
         options: walletConnectOptions,
         projectId: projectId2,
         version: walletConnectVersion
-      }) : new InjectedConnector8({
+      }) : new InjectedConnector9({
         chains,
         options: {
           getProvider: () => window.bitkeep.ethereum,
@@ -14694,7 +14797,7 @@ var bitKeepWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/bitskiWallet/bitskiWallet.ts
-import { InjectedConnector as InjectedConnector9 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector10 } from "wagmi/connectors/injected";
 var bitskiWallet = ({ chains, ...options }) => {
   var _a;
   return {
@@ -14708,7 +14811,7 @@ var bitskiWallet = ({ chains, ...options }) => {
       browserExtension: "https://bitski.com"
     },
     createConnector: () => ({
-      connector: new InjectedConnector9({
+      connector: new InjectedConnector10({
         chains,
         options
       }),
@@ -14739,7 +14842,7 @@ var bitskiWallet = ({ chains, ...options }) => {
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/coin98Wallet/coin98Wallet.ts
-import { InjectedConnector as InjectedConnector10 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector11 } from "wagmi/connectors/injected";
 function getCoin98WalletInjectedProvider() {
   var _a;
   const isCoin98Wallet = (ethereum) => {
@@ -14790,7 +14893,7 @@ var coin98Wallet = ({
         chains,
         options: walletConnectOptions,
         version: walletConnectVersion
-      }) : new InjectedConnector10({
+      }) : new InjectedConnector11({
         chains,
         options: {
           name: "Coin98 Wallet",
@@ -14856,7 +14959,7 @@ var coin98Wallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/coreWallet/coreWallet.ts
-import { InjectedConnector as InjectedConnector11 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector12 } from "wagmi/connectors/injected";
 function getCoreWalletInjectedProvider() {
   var _a, _b;
   const injectedProviderExist = typeof window !== "undefined" && typeof window.ethereum !== "undefined";
@@ -14902,7 +15005,7 @@ var coreWallet = ({
         chains,
         options: walletConnectOptions,
         version: walletConnectVersion
-      }) : new InjectedConnector11({
+      }) : new InjectedConnector12({
         chains,
         options: {
           getProvider: getCoreWalletInjectedProvider,
@@ -14967,7 +15070,7 @@ var coreWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/dawnWallet/dawnWallet.ts
-import { InjectedConnector as InjectedConnector12 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector13 } from "wagmi/connectors/injected";
 var dawnWallet = ({
   chains,
   ...options
@@ -14983,7 +15086,7 @@ var dawnWallet = ({
     mobile: "https://dawnwallet.xyz"
   },
   createConnector: () => ({
-    connector: new InjectedConnector12({
+    connector: new InjectedConnector13({
       chains,
       options
     })
@@ -14991,7 +15094,7 @@ var dawnWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/enkryptWallet/enkryptWallet.ts
-import { InjectedConnector as InjectedConnector13 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector14 } from "wagmi/connectors/injected";
 var enkryptWallet = ({
   chains,
   ...options
@@ -15015,7 +15118,7 @@ var enkryptWallet = ({
     },
     createConnector: () => {
       return {
-        connector: new InjectedConnector13({
+        connector: new InjectedConnector14({
           chains,
           options: {
             getProvider: () => {
@@ -15053,7 +15156,7 @@ var enkryptWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/foxWallet/foxWallet.ts
-import { InjectedConnector as InjectedConnector14 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector15 } from "wagmi/connectors/injected";
 var foxWallet = ({
   chains,
   projectId: projectId2,
@@ -15079,7 +15182,7 @@ var foxWallet = ({
         chains,
         version: walletConnectVersion,
         options: walletConnectOptions
-      }) : new InjectedConnector14({
+      }) : new InjectedConnector15({
         chains,
         options: {
           getProvider: () => window.foxwallet.ethereum,
@@ -15126,7 +15229,7 @@ var foxWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/frameWallet/frameWallet.ts
-import { InjectedConnector as InjectedConnector15 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector16 } from "wagmi/connectors/injected";
 var frameWallet = ({
   chains,
   ...options
@@ -15142,7 +15245,7 @@ var frameWallet = ({
       browserExtension: "https://frame.sh/"
     },
     createConnector: () => ({
-      connector: new InjectedConnector15({
+      connector: new InjectedConnector16({
         chains,
         options
       }),
@@ -15173,7 +15276,7 @@ var frameWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/frontierWallet/frontierWallet.ts
-import { InjectedConnector as InjectedConnector16 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector17 } from "wagmi/connectors/injected";
 var frontierWallet = ({
   chains,
   projectId: projectId2,
@@ -15203,13 +15306,13 @@ var frontierWallet = ({
         projectId: projectId2,
         options: walletConnectOptions,
         version: walletConnectVersion
-      }) : new InjectedConnector16({ chains });
+      }) : new InjectedConnector17({ chains });
       const getUri = async () => {
         const uri = await getWalletConnectUri(connector, walletConnectVersion);
         return isAndroid() ? `frontier://wc?uri=${encodeURIComponent(uri)}` : uri;
       };
       return {
-        connector: new InjectedConnector16({
+        connector: new InjectedConnector17({
           chains,
           options: {
             getProvider: () => {
@@ -15385,7 +15488,7 @@ var ledgerWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/mewWallet/mewWallet.ts
-import { InjectedConnector as InjectedConnector17 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector18 } from "wagmi/connectors/injected";
 var mewWallet = ({
   chains,
   ...options
@@ -15408,7 +15511,7 @@ var mewWallet = ({
     },
     createConnector: () => {
       return {
-        connector: new InjectedConnector17({
+        connector: new InjectedConnector18({
           chains,
           options
         })
@@ -15480,14 +15583,14 @@ var omniWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/oneKeyWallet/oneKeyWallet.ts
-import { InjectedConnector as InjectedConnector18 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector19 } from "wagmi/connectors/injected";
 var oneKeyWallet = ({ chains }) => {
   var _a;
   const provider = typeof window !== "undefined" && ((_a = window["$onekey"]) == null ? void 0 : _a.ethereum);
   const isOnekeyInjected = Boolean(provider);
   return {
     createConnector: () => {
-      const connector = new InjectedConnector18({
+      const connector = new InjectedConnector19({
         chains,
         options: {
           getProvider: () => provider
@@ -15538,7 +15641,7 @@ var oneKeyWallet = ({ chains }) => {
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/phantomWallet/phantomWallet.ts
-import { InjectedConnector as InjectedConnector19 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector20 } from "wagmi/connectors/injected";
 var phantomWallet = ({
   chains,
   ...options
@@ -15564,7 +15667,7 @@ var phantomWallet = ({
         var _a2;
         return typeof window !== "undefined" ? (_a2 = window.phantom) == null ? void 0 : _a2.ethereum : void 0;
       };
-      const connector = new InjectedConnector19({
+      const connector = new InjectedConnector20({
         chains,
         options: { getProvider: getProvider2, ...options }
       });
@@ -15598,7 +15701,7 @@ var phantomWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/rabbyWallet/rabbyWallet.ts
-import { InjectedConnector as InjectedConnector20 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector21 } from "wagmi/connectors/injected";
 var rabbyWallet = ({
   chains,
   ...options
@@ -15613,7 +15716,7 @@ var rabbyWallet = ({
     browserExtension: "https://rabby.io"
   },
   createConnector: () => ({
-    connector: new InjectedConnector20({
+    connector: new InjectedConnector21({
       chains,
       options
     }),
@@ -15643,7 +15746,7 @@ var rabbyWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/safeheronWallet/safeheronWallet.ts
-import { InjectedConnector as InjectedConnector21 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector22 } from "wagmi/connectors/injected";
 var safeheronWallet = ({
   chains,
   ...options
@@ -15658,7 +15761,7 @@ var safeheronWallet = ({
     browserExtension: "https://www.safeheron.com/"
   },
   createConnector: () => ({
-    connector: new InjectedConnector21({
+    connector: new InjectedConnector22({
       chains,
       options: {
         getProvider: () => typeof window !== "undefined" ? window.safeheron : void 0,
@@ -15691,7 +15794,7 @@ var safeheronWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/tahoWallet/tahoWallet.ts
-import { InjectedConnector as InjectedConnector22 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector23 } from "wagmi/connectors/injected";
 var tahoWallet = ({
   chains,
   ...options
@@ -15707,7 +15810,7 @@ var tahoWallet = ({
   installed: typeof window !== "undefined" && typeof window.tally !== "undefined" && window["tally"] ? true : void 0,
   createConnector: () => {
     return {
-      connector: new InjectedConnector22({
+      connector: new InjectedConnector23({
         chains,
         options: {
           getProvider: () => {
@@ -15746,7 +15849,7 @@ var tahoWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/talismanWallet/talismanWallet.ts
-import { InjectedConnector as InjectedConnector23 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector24 } from "wagmi/connectors/injected";
 var talismanWallet = ({
   chains,
   ...options
@@ -15762,7 +15865,7 @@ var talismanWallet = ({
     browserExtension: "https://talisman.xyz/download"
   },
   createConnector: () => ({
-    connector: new InjectedConnector23({
+    connector: new InjectedConnector24({
       chains,
       options: {
         getProvider: () => {
@@ -15799,7 +15902,7 @@ var talismanWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/trustWallet/trustWallet.ts
-import { InjectedConnector as InjectedConnector24 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector25 } from "wagmi/connectors/injected";
 function getTrustWalletInjectedProvider() {
   var _a;
   const isTrustWallet = (ethereum) => {
@@ -15858,7 +15961,7 @@ var trustWallet = ({
         chains,
         version: walletConnectVersion,
         options: walletConnectOptions
-      }) : new InjectedConnector24({
+      }) : new InjectedConnector25({
         chains,
         options: {
           getProvider: getTrustWalletInjectedProvider,
@@ -15988,7 +16091,7 @@ var uniswapWallet = ({
 });
 
 // src/rainbowkit/src/wallets/walletConnectors/xdefiWallet/xdefiWallet.ts
-import { InjectedConnector as InjectedConnector25 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector26 } from "wagmi/connectors/injected";
 var xdefiWallet = ({
   chains,
   ...options
@@ -16005,7 +16108,7 @@ var xdefiWallet = ({
       browserExtension: "https://xdefi.io"
     },
     createConnector: () => ({
-      connector: new InjectedConnector25({
+      connector: new InjectedConnector26({
         chains,
         options: {
           getProvider: () => {
@@ -16042,7 +16145,7 @@ var xdefiWallet = ({
 };
 
 // src/rainbowkit/src/wallets/walletConnectors/zerionWallet/zerionWallet.ts
-import { InjectedConnector as InjectedConnector26 } from "wagmi/connectors/injected";
+import { InjectedConnector as InjectedConnector27 } from "wagmi/connectors/injected";
 var zerionWallet = ({
   chains,
   projectId: projectId2,
@@ -16073,7 +16176,7 @@ var zerionWallet = ({
         chains,
         version: walletConnectVersion,
         options: walletConnectOptions
-      }) : new InjectedConnector26({
+      }) : new InjectedConnector27({
         chains,
         options: {
           getProvider: () => typeof window !== "undefined" ? window.zerionWallet || window.ethereum : void 0,

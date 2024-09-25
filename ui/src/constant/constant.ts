@@ -13,13 +13,13 @@ export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 export const txStatus = "success"; // '1'
 
 export const isPro = (): boolean => {
-  // if (
-  //   window.location.host.startsWith("app") ||
-  //   window.location.host.startsWith("zypher")
-  // ) {
-  return true;
-  // }
-  // return false;
+  if (
+    window.location.host.startsWith("app") ||
+    window.location.host.startsWith("zypher")
+  ) {
+    return true;
+  }
+  return false;
 };
 
 export const isLocalhost = (): boolean => {

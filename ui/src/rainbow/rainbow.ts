@@ -15,7 +15,8 @@ import { AllChainInfo } from "../constant/chains";
 import { IWebAppData } from "../hooks/useTelegramUser";
 import { tgChain } from "./utils/tgChain";
 import { SetterOrUpdater } from "recoil";
-import { IAAWallet } from "../hooks/aaWallet/aaWalletAtoms";
+import { IAAWallet } from "../gas0/hooks/useWalletHandler";
+import { gateWallet } from "../rainbowkit/src/wallets/walletConnectors/gateWallet/gateWallet";
 // import mitt from "mitt";
 // export const mockBus = mitt<{ addressChange: string }>();
 const getSupportedChainIdList = (
@@ -87,6 +88,7 @@ const getConnectors = ({
       wallets: [
         metaMaskWallet({ projectId, chains }),
         particleWallet({ chains }),
+        gateWallet({ projectId, chains }),
         walletConnectWallet({ projectId, chains }),
       ],
     },
