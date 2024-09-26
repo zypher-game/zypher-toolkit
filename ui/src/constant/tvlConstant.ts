@@ -24,7 +24,7 @@ export enum TVLChainId {
   LineaMainnet = ChainId.LineaMainnet,
   LineaSepolia = ChainId.LineaSepolia,
 }
-export const hideTVLStakingSupportedChainId = false;
+export const hideTVLStakingSupportedChainId = true;
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
     [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,

@@ -14,7 +14,7 @@ export declare enum TVLChainId {
     LineaMainnet = "59144",
     LineaSepolia = "59141"
 }
-export declare const hideTVLStakingSupportedChainId = false;
+export declare const hideTVLStakingSupportedChainId = true;
 export declare const TVLStakingSupportedChainId: ChainId[];
 export declare const defaultActiveChainId: ChainId;
 export declare const L3ChainId: Record<any, ChainId>;
