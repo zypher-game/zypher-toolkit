@@ -3413,6 +3413,7 @@ var TVLChainId = ((TVLChainId2) => {
   TVLChainId2[TVLChainId2["LineaSepolia"] = "59141" /* LineaSepolia */] = "LineaSepolia";
   return TVLChainId2;
 })(TVLChainId || {});
+var hideTVLStakingSupportedChainId = false;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [];
 var defaultActiveChainId = TVLStakingSupportedChainId[0];
 var L3ChainId = {
@@ -3483,16 +3484,19 @@ var LinkPre = {
   L: {
     key: 1,
     label: "L",
-    chainId: isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia
+    chainId: [
+      TVLChainId.LineaSepolia,
+      TVLChainId.LineaMainnet
+    ]
   },
   B: {
     key: 2,
     label: "B",
-    chainId: isPro() ? TVLChainId.B2 : TVLChainId.B2Testnet
+    chainId: [TVLChainId.B2, TVLChainId.B2Testnet]
   }
 };
 var getLinkPre = (chainId) => {
-  return Object.values(LinkPre).filter((v) => v.chainId === chainId)[0];
+  return Object.values(LinkPre).filter((v) => v.chainId.includes(chainId))[0];
 };
 var minStakingValue = {
   [TVLChainId.B2]: "0.0005",
@@ -16425,6 +16429,7 @@ export {
   getWeb3Sign,
   graphqlApiUrl,
   hidePointsWarnState,
+  hideTVLStakingSupportedChainId,
   httpGet,
   httpPost,
   imTokenWallet,

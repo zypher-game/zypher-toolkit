@@ -14,6 +14,7 @@ export declare enum TVLChainId {
     LineaMainnet = "59144",
     LineaSepolia = "59141"
 }
+export declare const hideTVLStakingSupportedChainId = false;
 export declare const TVLStakingSupportedChainId: ChainId[];
 export declare const defaultActiveChainId: ChainId;
 export declare const L3ChainId: Record<any, ChainId>;
@@ -42,7 +43,7 @@ export declare const tvlTokens: {
 type ILinkPre = {
     key: number;
     label: string;
-    chainId: ChainId;
+    chainId: ChainId[];
 };
 export declare const LinkPre: Record<string, ILinkPre>;
 export declare const getLinkPre: (chainId: ChainId) => ILinkPre;

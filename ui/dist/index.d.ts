@@ -22,7 +22,7 @@ export { aaApproveAndFcErc20 } from "./gas0/utils/aaApproveAndFcErc20";
 export { MulticallMessageItem } from "./gas0/utils/encodeFunctionMulticall";
 export { Gas0Constants } from "./gas0/constants/Gas0Constant";
 export { getIsCode } from "./gas0/utils/getIsCode";
-export { TVL_API, TVLChainId, defaultActiveChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
+export { TVL_API, TVLChainId, defaultActiveChainId, hideTVLStakingSupportedChainId, TVLStakingSupportedChainId, IToken, TVLToken, activeTokenList, tvlTokenAddress, tvlTokens, LinkPre, getLinkPre, minStakingValue, CODELENGTH, ITvlHero, L3ChainId, } from "./constant/tvlConstant";
 export { TelegramUserInfoState, useTelegramUser, useWebAppData, } from "./hooks/useTelegramUser";
 export { IGamesItem, IGames, Games } from "./constant/gamesList";
 export { localStorageEffect } from "./utils/localStorageEffect";

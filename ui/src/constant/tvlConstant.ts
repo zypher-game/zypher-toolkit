@@ -24,6 +24,7 @@ export enum TVLChainId {
   LineaMainnet = ChainId.LineaMainnet,
   LineaSepolia = ChainId.LineaSepolia,
 }
+export const hideTVLStakingSupportedChainId = false;
 export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
     [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
@@ -114,7 +115,7 @@ export const tvlTokens = Object.fromEntries(
 type ILinkPre = {
   key: number;
   label: string;
-  chainId: ChainId;
+  chainId: ChainId[];
 };
 export const LinkPre: Record<string, ILinkPre> = {
   // "E": {
@@ -125,20 +126,19 @@ export const LinkPre: Record<string, ILinkPre> = {
   L: {
     key: 1,
     label: "L",
-    chainId: (isPro()
-      ? TVLChainId.LineaMainnet
-      : TVLChainId.LineaSepolia) as unknown as ChainId,
+    chainId: [
+      TVLChainId.LineaSepolia,
+      TVLChainId.LineaMainnet,
+    ] as unknown as ChainId[],
   },
   B: {
     key: 2,
     label: "B",
-    chainId: (isPro()
-      ? TVLChainId.B2
-      : TVLChainId.B2Testnet) as unknown as ChainId,
+    chainId: [TVLChainId.B2, TVLChainId.B2Testnet] as unknown as ChainId[],
   },
 };
 export const getLinkPre = (chainId: ChainId): ILinkPre => {
-  return Object.values(LinkPre).filter((v) => v.chainId === chainId)[0];
+  return Object.values(LinkPre).filter((v) => v.chainId.includes(chainId))[0];
 };
 
 export const minStakingValue: Record<TVLChainId, string> = {
