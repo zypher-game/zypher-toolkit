@@ -1,6 +1,7 @@
 import { BigNumberJs, ChainId, Currency, TVLStakingSupportedChainId, useRecoilValue } from '@ui/src'
 import React, { memo, useMemo } from 'react'
 
+import Audited from '@/pages/Active/components/Audited/Audited'
 import ExtendBtn from '@/pages/Active/components/ExtendBtn/ExtendBtn'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import RedepositBtn from '@/pages/Active/components/RedepositBtn/RedepositBtn'
@@ -8,7 +9,6 @@ import StakingBtn from '@/pages/Active/components/StakingBtn/StakingBtn'
 import WithdrawBtn from '@/pages/Active/components/WithdrawBtn/WithdrawBtn'
 import { tvlStakingDataState } from '@/pages/Active/state/activeState'
 
-import ChainTab from '../../../../components/ChainTab/ChainTab'
 import css from './StakingTab.module.styl'
 const StakingTab = memo(
   ({
@@ -36,8 +36,10 @@ const StakingTab = memo(
     return (
       <>
         <div className={css.tab_col}>
-          <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
+          <Audited />
+          {/* <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} /> */}
           <div className={css.tab_func_col}>
+            {/* <StakingBtn chainId={chainIdLocal} /> */}
             {isEnd ? null : <StakingBtn chainId={chainIdLocal} />}
             {isEnd ? (
               <>

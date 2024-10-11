@@ -1,5 +1,4 @@
-import { ActivePixelButton, ActivePixelButtonColor, LinkPre, LoadingButton, useActiveWeb3React, useIsW768, useRecoilState } from '@ui/src'
-import { GlobalVar } from '@ui/src'
+import { ActivePixelButton, ActivePixelButtonColor, LinkPre, LoadingButton, useActiveWeb3React, useIsW768 } from '@ui/src'
 import React, { memo, useCallback, useState } from 'react'
 
 import { usePreHandleAction } from '@/pages/Active/hooks/activeHooks'

@@ -18,7 +18,7 @@ const ActiveStaking = memo(() => {
           {isW768 ? <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
           <p className={css.text}>Congratulations on completing your registration!</p>
           <p className={css.text}>
-            Please pledge{' '}
+            Please stake{' '}
             <strong>
               at least {minStakingValue[chainId as unknown as TVLChainId]} {Currency[chainId]}
             </strong>{' '}

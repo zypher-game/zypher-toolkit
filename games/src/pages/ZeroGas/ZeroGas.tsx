@@ -56,6 +56,11 @@ type IThemeItem = {
   dapp: IDappItem[]
 }
 type ITheme = Record<ThemeKey, IThemeItem>
+// Divine Cataclysm : Oblivion
+// z2048
+// Bingo
+// CryptoRumble
+// zace
 const theme: ITheme = {
   b2: {
     bannerBorderColor: '#FFB852',
@@ -76,43 +81,52 @@ const theme: ITheme = {
     text: 'Linea',
     dapp: [
       {
-        logo: `${preStaticUrl}/img/layout/Candy.png`,
-        title: 'Zypher Dex',
-        content:
-          'Zypher Dex is the first Dex deployed by Zypher on Zytron L3, which not only meets the basic transaction needs of Layer 3 users, but also obtains farm benefits.',
-        Rewards: ['<i>2000 ZDX</i> rewards per day'],
-        btnText: 'Enjoy And Play'
-      },
-      {
-        logo: `${preStaticUrl}/img/layout/Candy.png`,
-        title: 'Zypher Dex',
-        content: 'Zypher Dex is the first ',
-        Rewards: ['<i>2000 ZDX</i> rewards per day'],
-        btnText: 'Enjoy And Play'
-      },
-      {
-        logo: `${preStaticUrl}/img/layout/Candy.png`,
-        title: 'Zypher Dex',
-        content: 'Zyts the basic transaction needs of Layer 3 users, but also obtains farm benefits.',
-        Rewards: ['<i>2000 ZDX</i> rewards per day'],
-        btnText: 'Enjoy And Play'
-      },
-      {
-        logo: `${preStaticUrl}/img/layout/Candy.png`,
-        title: 'Zypher Dex',
-        content:
-          'Zypher Dex is the first Dex deployed by Zypher on Zytron L3, which not only meets the basic transaction needs of Layer 3 users, but also obtains farm benefits.',
-        Rewards: ['<i>2000 ZDX</i> rewards per day'],
-        btnText: 'Enjoy And Play'
-      },
-      {
-        logo: `${preStaticUrl}/img/layout/Candy.png`,
-        title: 'ZytronDEX',
-        content:
-          'ZytronDEX is the first DEX deployed by on Zytron Linea Layer3. It not only fulfills the essential transaction requirements of Layer 3 users, but also offers unique farming benefits, enhancing your experience in the ecosystem.',
-        Rewards: ['<i>2000 ZDX</i> rewards per day'],
+        logo: `${preStaticUrl}/img/layout/z2048.png`,
+        title: 'z2048',
+        content: 'Use the arrow keys to move the tiles. When two tiles with the same number touch, they merge and add up.',
+        //  '<i>2000 ZDX</i> rewards per day'
+        Rewards: [],
         btnText: 'Enjoy And Play',
-        link: 'https://zytron-dex.zypher.game/swap'
+        link: 'https://zypher.game/2048/'
+      },
+      {
+        logo: `${preStaticUrl}/img/layout/zBingo.png`,
+        title: 'Bingo',
+        content: 'Both players take turns lighting up numbers in a 5x5 grid. The first to connect two straight lines wins.',
+        Rewards: [],
+        btnText: 'Enjoy And Play',
+        link: 'https://zypher.game/bingo/59144/'
+      },
+      {
+        logo: `${preStaticUrl}/img/layout/Candy.png`,
+        title: 'Crypto Rumble',
+        content: 'Swap patterns in the grid to connect three identical ones. Connected patterns are eliminated, and damage is dealt to the enemy.',
+        Rewards: [],
+        btnText: 'Enjoy And Play',
+        link: 'https://test.zypher.game/CryptoRumble/'
+      },
+      {
+        logo: `${preStaticUrl}/img/layout/zACE.png`,
+        title: 'zACE',
+        content: "A fully on-chain version of Texas Hold'em supporting up to 4 players per room, using zk-shuffle technology.",
+        Rewards: [],
+        btnText: 'Coming soon'
+      },
+      {
+        logo: `${preStaticUrl}/img/layout/divinecataclysm.webp`,
+        title: 'Divine Cataclysm: Oblivion',
+        content: 'A TCG fully on-chain game where players mint and edit decks to battle. Winning earns points and ranking.',
+        Rewards: [],
+        btnText: 'Enjoy And Play',
+        link: 'https://www.dc.game/'
+      },
+      {
+        logo: `${preStaticUrl}/img/layout/Galaxia.png`,
+        title: 'Galaxia: Elements Conquest',
+        content:
+          'A TCG game where cards with points on four sides are placed in a 9-grid. Cards battle adjacent ones, and the highest point card wins. The game ends when all grids are filled.',
+        Rewards: [],
+        btnText: 'Coming soon',
       }
     ]
   }

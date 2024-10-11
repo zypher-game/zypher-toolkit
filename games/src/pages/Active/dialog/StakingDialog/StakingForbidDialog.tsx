@@ -22,7 +22,7 @@ const StakingForbidDialog = memo(() => {
     <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.stakingForbidDialog}>
       <PixelCube2 className={css.PixelCube2} pixel_height={isW768 ? 5 : 10} backgroundColor="#1D263B" borderColor="#1D263B">
         <h3 className={css.title}>Staking</h3>
-        <p className={css.text}>Please participate in the TVL event registration first to pledge assets to obtain SBT!</p>
+        <p className={css.text}>Please participate in the TVL event registration first to stake assets to obtain SBT!</p>
         <ActivePixelButtonColor width="100%" height={isW768 ? '48px' : '54px'} pixel_height={5} onClick={go} themeType="brightBlue">
           <p>GO</p>
         </ActivePixelButtonColor>

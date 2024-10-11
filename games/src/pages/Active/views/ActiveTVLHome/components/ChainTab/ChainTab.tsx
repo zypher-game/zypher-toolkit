@@ -1,9 +1,9 @@
-import { ChainName, PixelCube2, TVLStakingSupportedChainId } from '@ui/src'
+import { ChainName, hideTVLStakingSupportedChainId, PixelCube2, TVLStakingSupportedChainId } from '@ui/src'
 import React, { memo } from 'react'
 
 import css from './ChainTab.module.styl'
 const ChainTab = memo(({ chainIndex, changeChainIndexHandle }: { chainIndex: number; changeChainIndexHandle: (index: number) => void }) => {
-  if (TVLStakingSupportedChainId.length < 2) {
+  if (hideTVLStakingSupportedChainId) {
     return <div />
   }
   return (

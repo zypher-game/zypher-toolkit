@@ -6,6 +6,7 @@ import {
   Currency,
   defaultActiveChainId,
   DialogClose,
+  hideTVLStakingSupportedChainId,
   ModalWithMotion,
   TVLStakingSupportedChainId,
   useActiveWeb3React,
@@ -96,13 +97,13 @@ const SelectTokenDialog = memo(() => {
       <ActivePixelCard
         className="select_dialogContentInnerTop select_dialogContentInnerTopToken"
         width="380px"
-        height={TVLStakingSupportedChainId.length < 2 ? '75px' : '142px'}
+        height={hideTVLStakingSupportedChainId ? '75px' : '142px'}
         pixel_height={isW768 ? 5 : 10}
         backgroundColor="#293457"
         hidePixel={isW768 ? true : false}
       >
         <h3>Select Token</h3>
-        {TVLStakingSupportedChainId.length < 2 ? (
+        {hideTVLStakingSupportedChainId ? (
           <></>
         ) : (
           <div className="select_chain_ul">

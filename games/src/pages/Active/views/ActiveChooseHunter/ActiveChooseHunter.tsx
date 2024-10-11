@@ -1,13 +1,13 @@
 import './ActiveChooseHunter.styl'
 
 import { ActivePixelButtonColor, ActivePixelCard, ITvlHero, LoadingButton, preStaticUrl, useIsW768 } from '@ui/src'
+import { GlobalVar } from '@ui/src'
+import { getWeb3Sign } from '@ui/src'
 import { ethers } from 'ethers'
 import React, { memo, useCallback, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { GlobalVar } from '@ui/src'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { getWeb3Sign } from '@ui/src'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
 import HeroImageLoader from '../../components/ImageLoader/HeroImageLoader'
@@ -64,7 +64,7 @@ const ActiveChooseHunter = memo(() => {
   const { activeData } = useActiveData()
   const { id, accountAddress, chainId } = activeData
   const { chooseHero, loading: isHeroLoading } = useUserHeroCall()
-  const heroClickHandle = useCallback(index => {
+  const heroClickHandle = useCallback((index: number) => {
     setHeroKey(index)
   }, [])
   const heroConfirmHandle = useCallback(async () => {

@@ -9,6 +9,7 @@ import {
   Currency,
   defaultActiveChainId,
   formatMoney,
+  hideTVLStakingSupportedChainId,
   LoadingButton,
   PixelBorderCard,
   PixelBorderCardButton,
@@ -174,7 +175,7 @@ const Redeposit = memo(() => {
   return (
     <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
       <h3 className={css.title}>Deposit</h3>
-      {TVLStakingSupportedChainId.length < 2 ? null : (
+      {hideTVLStakingSupportedChainId ? null : (
         <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
           <p>Current network: {ChainName[chainIdFromStake]}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />

@@ -83,7 +83,7 @@ export const usePrimaryScore = () => {
       try {
         // get 检查初始空投积分
         const linkType = getLinkPre(chainId)
-        const primary_score_res = await request(`${TVL_API}/api/primary-score`, {
+        const primary_score_res = await request(`${TVL_API[chainId]}/api/primary-score`, {
           method: 'GET',
           params: {
             addr: account,
@@ -106,10 +106,11 @@ export const usePrimaryScore = () => {
 }
 export const useCodeCheckCall = () => {
   const [loading, setLoading] = useState(false)
+  const { chainId } = useActiveWeb3React()
   const codeCheck = useCallback(async (codeStr: string) => {
     try {
       setLoading(true)
-      const res = await request(`${TVL_API}/api/code/check`, {
+      const res = await request(`${TVL_API[chainId]}/api/code/check`, {
         method: 'POST',
         data: JSON.stringify({ code: codeStr.substring(1) }),
         headers: {
@@ -137,7 +138,7 @@ export const useAvailableCode = () => {
     try {
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
-      const recent_user_res = await request(`${TVL_API}/api/available-code`, {
+      const recent_user_res = await request(`${TVL_API[chainId]}/api/available-code`, {
         method: 'GET',
         params: {
           address: address,
@@ -158,11 +159,12 @@ export const useAvailableCode = () => {
 }
 
 export const useTeamCall = () => {
+  const { chainId: chainIdLocal } = useActiveWeb3React()
   const getTeam = useCallback(async (userId: string, chainId: ChainId) => {
     try {
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
-      const recent_user_res = await request(`${TVL_API}/api/team`, {
+      const recent_user_res = await request(`${TVL_API[chainId]}/api/team`, {
         method: 'GET',
         params: {
           userId: userId,
@@ -178,28 +180,31 @@ export const useTeamCall = () => {
     }
   }, [])
 
-  const getGroupScoreCardNum = useCallback(async (userId: string) => {
-    try {
-      // get 检查初始空投积分
-      const _res = await request(`${TVL_API}/api/groupScoreCardNum/${userId}`, {
-        method: 'GET',
-        params: {
-          userId: userId
-        },
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      })
-      return _res.data
-    } catch (e: any) {
-      throw new Error('getGroupScoreCardNum Error')
-    }
-  }, [])
+  const getGroupScoreCardNum = useCallback(
+    async (userId: string) => {
+      try {
+        // get 检查初始空投积分
+        const _res = await request(`${TVL_API[chainIdLocal]}/api/groupScoreCardNum/${userId}`, {
+          method: 'GET',
+          params: {
+            userId: userId
+          },
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        })
+        return _res.data
+      } catch (e: any) {
+        throw new Error('getGroupScoreCardNum Error')
+      }
+    },
+    [chainIdLocal]
+  )
   const setOpenCard = useCallback(
     async ({ userId, address, signature, isSingle }: { userId: string; address: string; signature: string; isSingle: boolean }) => {
       try {
         // get 检查初始空投积分
-        const _res = await request(`${TVL_API}/api/openCard/${userId}`, {
+        const _res = await request(`${TVL_API[chainIdLocal]}/api/openCard/${userId}`, {
           method: 'POST',
           data: JSON.stringify({
             isSingle,
@@ -215,7 +220,7 @@ export const useTeamCall = () => {
         throw new Error('setOpenCard Error')
       }
     },
-    []
+    [chainIdLocal]
   )
   return {
     getTeam,
@@ -228,7 +233,7 @@ export const useGetPointCard = () => {
     try {
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
-      const groupScore_res = await request(`${TVL_API}/api/groupScoreCardRead/${userId}`, {
+      const groupScore_res = await request(`${TVL_API[chainId]}/api/groupScoreCardRead/${userId}`, {
         method: 'GET',
         params: {
           userId: userId,
@@ -246,7 +251,7 @@ export const useGetPointCard = () => {
   const postGroupScoreCardRead = useCallback(async ({ scoreIds, chainId }: { scoreIds: number[]; chainId: ChainId }) => {
     try {
       const linkType = getLinkPre(chainId)
-      const res = await request(`${TVL_API}/api/groupScoreCardRead`, {
+      const res = await request(`${TVL_API[chainId]}/api/groupScoreCardRead`, {
         method: 'POST',
         data: JSON.stringify({ scoreIds, linkType: linkType.key }),
         headers: {
@@ -268,7 +273,7 @@ export const useStakingCall = () => {
       }
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
-      const restaking_res = await request(`${TVL_API}/api/restaking`, {
+      const restaking_res = await request(`${TVL_API[chainId]}/api/restaking`, {
         method: 'GET',
         params: {
           userId: userId,
@@ -323,7 +328,7 @@ export const useLeaderBoardCall = () => {
     try {
       const linkType = getLinkPre(chainId)
       // get 检查初始空投积分
-      const recent_user_res = await request(`${TVL_API}/api/recent/user`, {
+      const recent_user_res = await request(`${TVL_API[chainId]}/api/recent/user`, {
         method: 'GET',
         params: {
           pageCount: 20,
@@ -343,7 +348,7 @@ export const useLeaderBoardCall = () => {
   const getRankBoard = useCallback(async ({ chainId }: { chainId: ChainId }) => {
     try {
       const linkType = getLinkPre(chainId)
-      const rank_board_res = await request(`${TVL_API}/api/rank-board`, {
+      const rank_board_res = await request(`${TVL_API[chainId]}/api/rank-board`, {
         method: 'GET',
         params: {
           pageCount: 20,
@@ -376,7 +381,7 @@ export const useLeaderBoardCall = () => {
   const getMyRankBoard = useCallback(async ({ userId, chainId }: { userId: string; chainId: ChainId }) => {
     try {
       const linkType = getLinkPre(chainId)
-      const my_rank_board_res = await request(`${TVL_API}/api/self-rank-board`, {
+      const my_rank_board_res = await request(`${TVL_API[chainId]}/api/self-rank-board`, {
         method: 'GET',
         params: {
           userId: userId,
@@ -406,53 +411,60 @@ export const useLeaderBoardCall = () => {
   }
 }
 export const useUpdateInfoCall = () => {
+  const { chainId } = useActiveWeb3React()
   // 更新用户昵称
-  const updateInfo = useCallback(async ({ formData }: { formData: FormData }) => {
-    try {
-      // const res = await request(`${TVL_API}/api/updateInfo`, {
-      //   method: 'POST',
-      //   data: JSON.stringify({ address, nickname, linkType, signature }),
-      //   headers: {
-      //     'Content-Type': 'application/json'
-      //   }
-      // })
-      const res = await request(`${TVL_API}/api/updateInfo`, {
-        method: 'POST',
-        data: formData,
-        headers: {
-          accept: 'application/json; charset=utf-8',
-          'Content-Type': 'multipart/form-data'
+  const updateInfo = useCallback(
+    async ({ formData }: { formData: FormData }) => {
+      try {
+        // const res = await request(`${TVL_API[chainId]}/api/updateInfo`, {
+        //   method: 'POST',
+        //   data: JSON.stringify({ address, nickname, linkType, signature }),
+        //   headers: {
+        //     'Content-Type': 'application/json'
+        //   }
+        // })
+        const res = await request(`${TVL_API[chainId]}/api/updateInfo`, {
+          method: 'POST',
+          data: formData,
+          headers: {
+            accept: 'application/json; charset=utf-8',
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        if (res.data && res.data['message'] == 'ok') {
+          return true
+        } else {
+          return false
         }
-      })
-      if (res.data && res.data['message'] == 'ok') {
-        return true
-      } else {
+      } catch (e: any) {
         return false
       }
-    } catch (e: any) {
-      return false
-    }
-  }, [])
+    },
+    [chainId]
+  )
   // 更新用户头像
-  const updateHeadImg = useCallback(async ({ formData }: { formData: FormData }) => {
-    try {
-      const res = await request(`${TVL_API}/api/updateHeadImg`, {
-        method: 'POST',
-        data: formData,
-        headers: {
-          accept: 'application/json; charset=utf-8',
-          'Content-Type': 'multipart/form-data'
+  const updateHeadImg = useCallback(
+    async ({ formData }: { formData: FormData }) => {
+      try {
+        const res = await request(`${TVL_API[chainId]}/api/updateHeadImg`, {
+          method: 'POST',
+          data: formData,
+          headers: {
+            accept: 'application/json; charset=utf-8',
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        if (res.data && res.data['message'] == 'ok') {
+          return true
+        } else {
+          return false
         }
-      })
-      if (res.data && res.data['message'] == 'ok') {
-        return true
-      } else {
+      } catch (e: any) {
         return false
       }
-    } catch (e: any) {
-      return false
-    }
-  }, [])
+    },
+    [chainId]
+  )
 
   return {
     updateInfo,
@@ -460,9 +472,10 @@ export const useUpdateInfoCall = () => {
   }
 }
 export const useIsRegistered = () => {
+  const { chainId } = useActiveWeb3React()
   const getIsRegistered = useCallback(async (userId: string) => {
     try {
-      const res = await request(`${TVL_API}/api/isActived/${userId}`, {
+      const res = await request(`${TVL_API[chainId]}/api/isActived/${userId}`, {
         method: 'POST',
         data: JSON.stringify({ userId: Number(userId) }),
         headers: {
@@ -504,7 +517,7 @@ export const useUserHeroCall = () => {
       try {
         const linkType = getLinkPre(chainId)
         setLoading(true)
-        const res = await request(`${TVL_API}/api/choose-role`, {
+        const res = await request(`${TVL_API[chainId]}/api/choose-role`, {
           method: 'POST',
           data: JSON.stringify({ userId: Number(userId), role: role, signature, address }),
           headers: {
@@ -538,11 +551,12 @@ export const useUserHeroCall = () => {
 export const useTwitterForward = () => {
   const [loading, setLoading] = useState(false)
   const { getData } = useGetData()
+  const { chainId } = useActiveWeb3React()
   const twitterForward = useCallback(
     async ({ userId }: { userId: string }) => {
       try {
         setLoading(true)
-        const res = await request(`${TVL_API}/api/twitterForward`, {
+        const res = await request(`${TVL_API[chainId]}/api/twitterForward`, {
           method: 'POST',
           data: JSON.stringify({ userId: Number(userId) }),
           headers: {
@@ -559,7 +573,7 @@ export const useTwitterForward = () => {
         throw new Error('twitterForward has Error by Catch')
       }
     },
-    [getData]
+    [getData, chainId]
   )
   return {
     loading,

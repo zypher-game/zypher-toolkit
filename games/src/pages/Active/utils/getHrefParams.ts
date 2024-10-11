@@ -8,7 +8,7 @@ export const getHrefCode = (): string | undefined => {
   }
   if (!code) {
     const pathname = window.location.pathname
-    if (pathname && pathname.startsWith('/L' || '/B')) {
+    if (pathname && (pathname.startsWith('/B') || pathname.startsWith('/L'))) {
       code = pathname.substring(1)
     }
   }

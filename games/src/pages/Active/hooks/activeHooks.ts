@@ -3,6 +3,7 @@ import { ChainId, CODELENGTH, getLinkPre, preStaticUrl, request, TVL_API, TVLSta
 import { GlobalVar } from '@ui/src'
 import { getWeb3Sign } from '@ui/src'
 import { ethers } from 'ethers'
+import { isArray } from 'lodash'
 import { useCallback, useEffect } from 'react'
 import { Address } from 'wagmi'
 
@@ -57,8 +58,8 @@ export const canNext = (account?: Address, chainId?: ChainId): boolean => {
 export const usePreHandleAction = () => {
   const _preHandleAction = usePreHandleGlobal()
   const preHandleAction = useCallback(
-    (chainId?: ChainId) => {
-      return _preHandleAction(env, (chainId ? [chainId] : TVLStakingSupportedChainId) as unknown as ChainId[])
+    (chainId?: ChainId | ChainId[]) => {
+      return _preHandleAction(env, (chainId ? (!isArray(chainId) ? [chainId] : chainId) : TVLStakingSupportedChainId) as unknown as ChainId[])
     },
     [_preHandleAction]
   )
@@ -96,7 +97,7 @@ export const useSign = () => {
     if (signedStr && signedStr !== '0000' && !id && chainId) {
       try {
         const linkType = getLinkPre(chainId)
-        const res = await request(`${TVL_API}/api/loginByCode`, {
+        const res = await request(`${TVL_API[chainId]}/api/loginByCode`, {
           method: 'POST',
           data: JSON.stringify({
             code: invitationCode.substring(1),

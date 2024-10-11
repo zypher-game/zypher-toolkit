@@ -44,19 +44,21 @@ export const useAirdropPointsTooltip = () => {
       const CrHero = stakingData.map(v => `${v.getMinStake} ${v.symbol === `W${Currency[chainId]}` ? Currency[chainId] : v.symbol}`).join(' / ')
       return {
         airdropPointsTooltip: [
-          `The points earned by staking will grow according to the formula: X * Amount of ${Currency[chainId]} * Staking duration, and the X variable depends on your pledge amount.`
+          `The points earned by staking will grow according to the formula: X * Amount of ${Currency[chainId]} * Staking duration, and the X variable depends on your stake amount.`
           // '(Airdrop points also include additional airdrop point rewards obtained by completing the team.)'
         ],
         growthCoefficientNativeTooltip: [
-          'The growth coefficient of airdrop points depends on your pledge amount. The higher the pledge amount, the greater the coefficient.',
-          'Note: The coefficients of Staking and Staking are different.'
+          'The growth coefficient of airdrop points depends on your stake amount. The higher the stake amount, the greater the coefficient.',
+          '',
+          'Note: The coefficients of Staking and Restaking are different.'
         ],
         growthCoefficientTooltip: [
-          'The growth coefficient of airdrop points depends on your pledge amount. The higher the pledge amount, the greater the coefficient.',
-          'Note: The coefficients of Restaking and Staking are different.'
+          'The growth coefficient of airdrop points depends on your stake amount. The higher the stake amount, the greater the coefficient.',
+          '',
+          'Note: The coefficients of Staking and Restaking are different.'
         ],
         SBTTooltip: [
-          'Pledge any token and meet the pledge amount requirements to obtain SBT. Users with SBT can experience gas-free gaming on Zytron L3.',
+          'Pledge any token and meet the stake amount requirements to obtain SBT. Users with SBT can experience gas-free gaming on Zytron L3.',
           ...(mintMinimum && mintMinimum !== '' ? SBTWarn : [])
         ],
         crHeroTooltip: [
@@ -65,11 +67,11 @@ export const useAirdropPointsTooltip = () => {
           `2. Every time the Staking amount of each address reaches ${CrHero}, a hero blind box will be obtained.`,
           '3. There is no upper limit on the quantity available for each address, while supplies last.'
         ],
-        //         $GP rewards are settled weekly. Based on last week’s pledge status.
+        //         $GP rewards are settled weekly. Based on last week’s stake status.
 
         //  Note: The profit is $GP and the value is a constant $ETH ( 1 $ETH = 2,000,000 $GP). $GP can only be circulated in games within the platform and cannot be transferred. We will lift the restrictions on converting $GP into ETH and transferring $GP between accounts in the future.
         gpTooltip: [
-          "$GP rewards are settled weekly. Based on last week's pledge status.",
+          "$GP rewards are settled weekly. Based on last week's stake status.",
           '',
           `Note: The profit is $GP and the value is a constant $${Currency[chainId]} ( 1 $${Currency[chainId]} = ${
             GPNumber[chainId as unknown as TVLChainId]
@@ -97,7 +99,7 @@ export const useTeamTooltip = () => {
         '2. After successfully inviting 2 players, you will get 2 invitation codes.',
         '3. After successfully inviting 2 more players, you will get 3 invitation codes.',
         '4. Complete 1 group goal and activate 1 invitation code.',
-        `5. If the total pledge amount of the group reaches ${stakeAmountListConfig[chainId as unknown as TVLChainId][0]}${
+        `5. If the total stake amount of the group reaches ${stakeAmountListConfig[chainId as unknown as TVLChainId][0]}${
           Currency[chainId]
         }, a permanent invitation code will be obtained.`
       ]

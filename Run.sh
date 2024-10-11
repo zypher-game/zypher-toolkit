@@ -102,7 +102,7 @@ sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
 echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
 echo "Updated dependencies in yarn.lock"
 yarn
-
+# npm start
 git fetch --prune
 git add .
 git commit -m "add with @zypher-game/toolkit $new_version"

@@ -126,6 +126,7 @@ export {
   TVL_API,
   TVLChainId,
   defaultActiveChainId,
+  hideTVLStakingSupportedChainId,
   TVLStakingSupportedChainId,
   IToken,
   TVLToken,

@@ -5,7 +5,7 @@ export async function getWeb3Sign(
   dataToSign: string,
   account: string,
   isArrayify = true,
-  walletClient: any
+  walletClient?: any
 ): Promise<boolean | string> {
   if (!account) {
     return false;

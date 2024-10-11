@@ -27,7 +27,7 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
   min-height: ${({ height }) => height};
   max-width: ${({ width }) => width};
   width: ${({ width }) => width};
-  opacity: ${({ disable }) => (disable ? 0.8 : 1)};
+  opacity: ${({ disable }) => (disable ? 0.7 : 1)};
   &.pixel_loading {
     opacity: 0.8;
   }
@@ -315,7 +315,7 @@ const ActivePixelButtonColorStyled = styled(PixelStyled)<IPixelButtonTheme>`
     }
   }
   &.disable {
-    opacity: 0.8;
+    opacity: 0.7;
     cursor: not-allowed;
   }
   &.normal {

@@ -38,7 +38,7 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
   const [showTipModal, setShowTipModal] = useRecoilState(showTipModalState)
   const [showTipsOkModal, setShowTipsOkModal] = useRecoilState(showTipOkModalState)
   const [showCloseModal, setShowCloseModal] = useRecoilState(showCloseModalState)
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [, setCurrentStep] = useRecoilState(startGameStep)
   const { gameTime, isPlaying, gameId } = useRestoreGame()
   const [playingState, setPlayingState] = useState(isPlaying)
@@ -71,7 +71,8 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
 
   const onCloseModal = useCallback(async () => {
     setModalLoading(true)
-    if (!chainId || !account || !aa_mm_address || !walletClient) {
+    console.log(111)
+    if (!chainId || !aa_mm_address || !walletClient) {
       setModalLoading(false)
       return
     }
@@ -96,9 +97,9 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       } else {
         lineupUsers = rres[0]
       }
-      if (lineupUsers.map((v: string) => v.toLowerCase()).includes(account.toLowerCase())) {
+      if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
-          account: account,
+          account: aa_mm_address,
           maxFeePerGas: gasPrice[chainId],
           maxPriorityFeePerGas: gasPrice[chainId]
         })
@@ -118,7 +119,7 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       }
       if (bingoVersion === IBingoVersion.v1) {
         const txn = await lobbyContract.write.abandon([gameId], {
-          account: account,
+          account: aa_mm_address,
           maxFeePerGas: gasPrice[chainId],
           maxPriorityFeePerGas: gasPrice[chainId]
         })
@@ -137,10 +138,10 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       setModalLoading(false)
       setErrorToast(e, lobbyContract)
     }
-  }, [account, aa_mm_address, chainId, walletClient, bingoVersion])
+  }, [aa_mm_address, chainId, walletClient, bingoVersion])
   const onExitQueue = async () => {
     setModalLoading(true)
-    if (!chainId || !account || !aa_mm_address || !walletClient) {
+    if (!chainId || !aa_mm_address || !walletClient) {
       setModalLoading(false)
       return
     }
@@ -159,15 +160,17 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
         account: aa_mm_address
       })
       const rres = await bingoLobbyContract.functions.lineupUsers()
+      console.log({ rres, aa_mm_address })
       let lineupUsers: string[] = []
       if (bingoVersion === IBingoVersion.v1) {
         lineupUsers = rres[1]
       } else {
         lineupUsers = rres[0]
       }
-      if (lineupUsers.includes(aa_mm_address)) {
+      console.log({ lineupUsers })
+      if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
-          account: account,
+          account: aa_mm_address,
           maxFeePerGas: gasPrice[chainId],
           maxPriorityFeePerGas: gasPrice[chainId]
         })

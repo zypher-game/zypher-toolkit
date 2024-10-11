@@ -435,7 +435,7 @@ export const useStakeData = () => {
                   name: name,
                   decimal: decimal,
                   balance: balanceBig.toFixed(),
-                  balanceStr: formatMoney(balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed(), 2),
+                  balanceStr: formatMoney(balanceBig.dividedBy(new BigNumberJs('10').exponentiatedBy(decimal)).toFixed(), 8),
                   earnGP: earnGPBig.toFixed(),
                   earnGPStr: formatMoney(earnGPBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   userStakedAmount: userStakeBig.toFixed(),

@@ -12,7 +12,7 @@ import {
   tvlTokens
 } from '@ui/src'
 import { Address } from 'wagmi'
-
+const version = 'v1'
 export interface IActiveData {
   chainId?: ChainId
   accountAddress: Address
@@ -126,9 +126,9 @@ export const initActiveData: IActiveData = {
 }
 export type IActiveDataState = Partial<Record<ChainId, IActiveData>>
 export const activeDataState = atom<IActiveDataState>({
-  key: 'activeDataV1',
+  key: 'activeData' + version,
   default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, { ...initActiveData, chainId: chainId }]))
-  // effects_UNSTABLE: [localStorageEffect('activeDataV1')]
+  // effects_UNSTABLE: [localStorageEffect('activeDataV1'+version)]
 })
 
 export interface ITVLStakingData extends IToken {
@@ -222,15 +222,15 @@ export const initStakingDataState: IStakingDataState = {
   }
 }
 export const restakingDataState = atom<Record<ChainId, IStakingDataState>>({
-  key: 'restakingDataState',
+  key: 'restakingDataState' + version,
   default: Object.fromEntries(TVLStakingSupportedChainId.map(chainId => [chainId, initStakingDataState])) as unknown as Record<
     ChainId,
     IStakingDataState
   >,
-  effects_UNSTABLE: [localStorageEffect('restakingDataState')]
+  effects_UNSTABLE: [localStorageEffect('restakingDataState' + version)]
 })
 export const isTvlDataLoadingState = atom<boolean>({
-  key: 'isTvlDataLoadingState',
+  key: 'isTvlDataLoadingState' + version,
   default: false
 })
 export const tvlStakingDataV2Init = Object.fromEntries(
@@ -260,65 +260,65 @@ export const tvlStakingDataV2Init = Object.fromEntries(
   ])
 ) as unknown as Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>
 export const tvlStakingDataState = atom<Record<ChainId, Record<string, ITVLStakingData>>>({
-  key: 'tvlStakingDataV3',
+  key: 'tvlStakingDataV3' + version,
   default: tvlStakingDataV2Init,
-  effects_UNSTABLE: [localStorageEffect('tvlStakingDataV3')]
+  effects_UNSTABLE: [localStorageEffect('tvlStakingDataV3' + version)]
 })
 export const selectChainDialogState = atom({
-  key: 'selectChainDialogState',
+  key: 'selectChainDialogState' + version,
   default: false
 })
 export const selectTokenDialogState = atom({
-  key: 'selectTokenDialogState',
+  key: 'selectTokenDialogState' + version,
   default: false
 })
 
 export const tvlStakingDialogState = atom({
-  key: 'tvlStakingDialogState',
+  key: 'tvlStakingDialogState' + version,
   default: false
 })
 
 export const tvlWithdrawDialogState = atom({
-  key: 'tvlWithdrawDialogState',
+  key: 'tvlWithdrawDialogState' + version,
   default: false
 })
 
 export const tvlExtendDialogState = atom({
-  key: 'tvlExtendDialogState',
+  key: 'tvlExtendDialogState' + version,
   default: false
 })
 
 export const tvlRedepositDialogState = atom({
-  key: 'tvlRedepositDialogState',
+  key: 'tvlRedepositDialogState' + version,
   default: false
 })
 export const tvlStakingForbidDialogState = atom({
-  key: 'tvlStakingForbidDialogState',
+  key: 'tvlStakingForbidDialogState' + version,
   default: false
 })
 
 export const changeNameDialogState = atom({
-  key: 'changeNameDialogState',
+  key: 'changeNameDialogState' + version,
   default: false
 })
 
 export const tvlPointDialogState = atom({
-  key: 'tvlPointDialogState',
+  key: 'tvlPointDialogState' + version,
   default: false
 })
 
 export const getPointAmount = atom({
-  key: 'getPointAmount',
+  key: 'getPointAmount' + version,
   default: ''
 })
 export const pointSuccessDialogState = atom({
-  key: 'pointSuccessDialogState',
+  key: 'pointSuccessDialogState' + version,
   default: false
 })
 type Owner = string | undefined
 type Parent = string | undefined
 export const getPointCardDialogState = atom<[Owner, Parent]>({
-  key: 'getPointCardDialogState',
+  key: 'getPointCardDialogState' + version,
   default: [undefined, undefined]
   // default: [false, false]
 })
@@ -335,44 +335,44 @@ export type IGetPointCardData = {
   }
 }
 export const getPointCardData = atom<IGetPointCardData | undefined>({
-  key: 'getPointCardData',
+  key: 'getPointCardData' + version,
   default: undefined
 })
 
 export const depositCurrencyState = atom<string | undefined>({
-  key: 'depositCurrencyState',
+  key: 'depositCurrencyState' + version,
   default: undefined,
-  effects_UNSTABLE: [localStorageEffect('depositCurrencyState')]
+  effects_UNSTABLE: [localStorageEffect('depositCurrencyState' + version)]
 })
 export const redepositCurrencyState = atom<string | undefined>({
-  key: 'redepositCurrencyState',
+  key: 'redepositCurrencyState' + version,
   default: undefined,
-  effects_UNSTABLE: [localStorageEffect('redepositCurrencyState')]
+  effects_UNSTABLE: [localStorageEffect('redepositCurrencyState' + version)]
 })
 export const extendCurrencyState = atom<string | undefined>({
-  key: 'extendCurrencyState',
+  key: 'extendCurrencyState' + version,
   default: undefined,
-  effects_UNSTABLE: [localStorageEffect('extendCurrencyState')]
+  effects_UNSTABLE: [localStorageEffect('extendCurrencyState' + version)]
 })
 
 export const withdrawCurrencyState = atom<string | undefined>({
-  key: 'withdrawCurrencyState',
+  key: 'withdrawCurrencyState' + version,
   default: undefined,
-  effects_UNSTABLE: [localStorageEffect('withdrawCurrencyState')]
+  effects_UNSTABLE: [localStorageEffect('withdrawCurrencyState' + version)]
 })
 export const chooseChainState = atom<ChainId | undefined>({
-  key: 'chooseChainState',
+  key: 'chooseChainState' + version,
   default: undefined,
-  effects_UNSTABLE: [localStorageEffect('chooseChainState')]
+  effects_UNSTABLE: [localStorageEffect('chooseChainState' + version)]
 })
 export const tvlPathState = atom<number>({
-  key: 'tvlPathState',
+  key: 'tvlPathState' + version,
   default: 0,
-  effects_UNSTABLE: [localStorageEffect('tvlPathState')]
+  effects_UNSTABLE: [localStorageEffect('tvlPathState' + version)]
 })
 
 export const chainIndexState = atom<number>({
-  key: 'chainIndexState',
+  key: 'chainIndexState' + version,
   default: 0
-  // effects_UNSTABLE: [localStorageEffect('activeDataV1')]
+  // effects_UNSTABLE: [localStorageEffect('activeDataV1'+version)]
 })

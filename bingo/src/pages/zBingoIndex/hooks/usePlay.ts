@@ -33,7 +33,7 @@ export const usePlay = () => {
   const [, setCurrentStep] = useRecoilState(startGameStep)
   const chainIdParams = useChainIdParams()
   const navigate = useNavigate()
-  const { account, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const [_joinGame, _setJoinGameState] = useRecoilState(joinGameState)
   const [cardNumbers] = useState(generateCardNumbers({ cols: 5, rows: 5, minNum: 1, maxNum: 35 }))
   const [, setGameRoom] = useRecoilState(gameRoomState)
@@ -41,7 +41,7 @@ export const usePlay = () => {
   const { postAccountUpdate } = useAccountInvitation(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)
   const userInfo = useRecoilValue(TelegramUserInfoState)
-  const { aaWalletClient: walletClient } = useAaWallet()
+  const { aa_mm_address: account, aaWalletClient: walletClient } = useAaWallet()
   const playInTg = async () => {
     if (!userInfo || !userInfo.id) {
       throw Error('No user, Please /start again, And try late')

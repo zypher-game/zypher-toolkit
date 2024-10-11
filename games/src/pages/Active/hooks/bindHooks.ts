@@ -22,10 +22,10 @@ export const useBind = () => {
   } = activeData
   const preHandleAction = usePreHandleAction()
   const CheckPointHandle = useCallback(async () => {
-    const isOk = preHandleAction()
-    if (!isOk) {
-      return
-    }
+    // const isOk = preHandleAction()
+    // if (!isOk) {
+    //   return
+    // }
     if (!twitterNickname) {
       setErrorToast('Please Follow @Zypher_Network on Twitter')
       return
@@ -44,24 +44,24 @@ export const useBind = () => {
     return invitationCode.slice(0, 1) + '-' + invitationCode.slice(1)
   }, [invitationCode])
   const CheckDiscordHandle = useCallback(async () => {
-    const isOk = preHandleAction()
-    if (!isOk) {
-      return
-    }
+    // const isOk = preHandleAction(chainId)
+    // if (!isOk) {
+    //   return
+    // }
     if (!signedStr || signedStr === '') {
       getSignCall()
       return
     }
     setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: true } }))
     const linkType = getLinkPre(chainId)
-    window.open(`${TVL_API}/connect-discord?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
+    window.open(`${TVL_API[chainId]}/connect-discord?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: false } }))
   }, [_invitationCode, signedStr, preHandleAction, chainId])
   const CheckTwitterHandle = useCallback(async () => {
-    const isOk = preHandleAction()
-    if (!isOk) {
-      return
-    }
+    // const isOk = preHandleAction()
+    // if (!isOk) {
+    //   return
+    // }
     if (!signedStr || signedStr === '') {
       getSignCall()
       return
@@ -70,8 +70,7 @@ export const useBind = () => {
 
     const linkType = getLinkPre(chainId)
     // "https://tvl-backend-api.zypher.game/connect-twitter?linkCode=L-5UDW3&addr=0x9B233ABBD17e92FDD9ceebDe02513c78d95C0a5c&linkType=1"
-    // console.log({ asadf: `${TVL_API}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}` })
-    window.open(`${TVL_API}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
+    window.open(`${TVL_API[chainId]}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
   }, [_invitationCode, signedStr, twitterNickname, preHandleAction, chainId])
   useEffect(() => {
