@@ -3447,7 +3447,8 @@ var tvlTokenAddress = {
     WETH: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
     wstETH: "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F",
     ezETH: "0x2416092f143378750bb29b79eD961ab195CcEea5",
-    STONE: "0x93F4d0ab6a8B4271f4a28Db399b5E30612D21116"
+    STONE: "0x93F4d0ab6a8B4271f4a28Db399b5E30612D21116",
+    weETH: "0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6"
   },
   [TVLChainId.LineaSepolia]: {
     WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
@@ -3472,7 +3473,7 @@ var tvlTokens = Object.fromEntries(
           logoPath: getCryptoImg(
             "token",
             currency,
-            currency === "BTC" || currency === "WBTC" || currency === "STONE" ? ".svg" : ".png"
+            currency === "BTC" || currency === "WBTC" || currency === "STONE" || currency === "weETH" ? ".svg" : ".png"
           ),
           index: 2
         }
