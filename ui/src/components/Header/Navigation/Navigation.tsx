@@ -11,11 +11,7 @@ import useWindowSize from "../../../hooks/useWindowSize";
 import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
 
-export const NavKey = [
-  ["", "airdrop", "airdropLoading"],
-  ["games"],
-  ["zeroGas"],
-];
+export const NavKey = [["airdrop", "airdropLoading"], ["games"], ["zeroGas"]];
 type INavList = {
   link: string;
   linkList: string[];

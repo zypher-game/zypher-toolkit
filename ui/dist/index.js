@@ -6292,11 +6292,7 @@ import React22, {
   useRef as useRef5,
   useState as useState13
 } from "react";
-var NavKey = [
-  ["", "airdrop", "airdropLoading"],
-  ["games"],
-  ["zeroGas"]
-];
+var NavKey = [["airdrop", "airdropLoading"], ["games"], ["zeroGas"]];
 var NavList = [
   {
     link: `/${NavKey[0][0]}`,
