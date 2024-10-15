@@ -1,0 +1,90 @@
+
+.faq_inner
+  width 1200px
+  margin: 0 auto 
+  padding: 80px 0 227px
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  .fl
+    width 840px
+    display: flex
+    flex-direction: column
+    gap: 10px
+  .item
+    width 100%
+    min-height: 72px
+    justify-content: space-between
+    :global(>.pixel_flat_inner)
+      padding: 0
+      width 100%
+      min-height: 72px
+      justify-content: space-between
+      align-items: flex-start
+    .col1
+      width 92px
+      display: flex
+      justify-content: center
+      align-items: center
+      min-height: 72px
+      img
+        width 32px
+    .col2
+      width 668px
+      padding: 20px 26px
+      background-color: #2A3756
+      min-height: 72px
+      &.col2_on
+        height: 330px
+      h2
+        font-size: 18px
+        font-weight: bold
+      .item_text
+        margin-top: 20px
+        display: flex
+        flex-direction: column
+        gap: 20px
+        height: 200px
+        overflow-y: scroll
+        p
+          font-size: 16px
+          line-height: 20px
+        a
+          color: #00D0FF
+    .btn
+      width 80px
+      display: flex
+      justify-content: center
+      align-items: center
+      height: 100%
+      min-height: 72px
+      :global(>.pixel_flat_btn_bg)
+        :global(>.pixel_flat_btn_top_1),
+        :global(>.pixel_flat_btn_bottom_2)
+          width: calc(100% - 4px* 2);
+          left: 0
+        :global(>.pixel_flat_btn_top_2),
+        :global(>.pixel_flat_btn_bottom_1)
+          width: calc(100% - 4px);
+          left: 0
+      &:hover
+        :global(.pixel_flat_btn_bg>div)
+          background-color:  #FFD829
+        .pic 
+          background: url($preStaticUrl + '/img/ark_index/faq/arr_block.png') no-repeat center
+
+      .pic
+        width 30px
+        height 30px
+        background: url($preStaticUrl + '/img/ark_index/faq/arr_white.png') no-repeat center
+
+  .fr
+    width 340px
+    position relative
+    .link_btn
+      position absolute
+      left: 50%
+      transform: translateX(-50%)
+      top: 40px
+      p
+        font-weight: bold

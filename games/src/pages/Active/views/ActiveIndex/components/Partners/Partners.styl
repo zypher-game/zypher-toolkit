@@ -1,0 +1,95 @@
+.partner
+  padding-top: 63px
+  padding-bottom: 320px
+  position: relative;
+  z-index: 2;
+.partners_swiper0
+  margin-bottom: 100px;
+  margin-top: 80px;
+.partners_bg1,
+.partners_bg2
+  position: absolute;
+  height: 100%;
+  width: 8vw;
+  top: 0;
+  z-index: 2;
+
+.partners_bg1
+  background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0.00) 100%);
+  left: 0;
+
+.partners_bg2
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.00) 0%, #000 100%);
+  right: 0;
+
+.partners
+  position: relative;
+  padding-bottom: 120px;
+  padding-top: 120px;
+  width: 100vw;
+  overflow: hidden;
+
+  h2
+    padding: 64px 0;
+    font-size: 48px;
+    text-transform: uppercase;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5);
+
+    em
+      color: #fff;
+
+
+
+.partners_swiper
+  width: 100%;
+  overflow: hidden;
+
+.partners_swiper_inner
+  display: flex;
+  animation-fill-mode: both;
+  animation-name: carousel-animation;
+  animation-duration: 20s;
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
+  animation-timing-function: linear;
+
+  &.partners_swiper_inner_revose
+    animation-name: carousel-animation02;
+
+.partners_swiper_item
+  flex: 0 0 100px;
+  height: 100px;
+  margin-right: 80px;
+
+  img
+    display: block;
+    width: 100%;
+
+@keyframes carousel-animation {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-100%);
+  }
+
+  100.1% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes carousel-animation02 {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
+  100.1% {
+    transform: translateX(-100%);
+  }
+}

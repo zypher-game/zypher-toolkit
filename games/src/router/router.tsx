@@ -21,6 +21,7 @@ const MoreActiveNormal = lazy(() => import('@/pages/Active/views/ActiveGetAirdro
 const MoreActiveSuccess = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'))
 const NoActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'))
 const NormalActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'))
+const ActiveIndex = lazy(() => import('@/pages/Active/views/ActiveIndex/ActiveIndex'))
 const ActiveLoading = lazy(() => import('@/pages/Active/views/ActiveLoading/ActiveLoading'))
 // const ActiveComing = lazy(()=>import('@/pages/Active/views/ActiveRegister/ActiveComing'))
 const ActiveStaking = lazy(() => import('@/pages/Active/views/ActiveStaking/ActiveStaking'))
@@ -49,6 +50,7 @@ export default (): JSX.Element => {
                         <Route path="*" element={<GameIndex />} />
                       ) : (
                         <>
+                          <Route path="/" element={<ActiveIndex />} />
                           {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
                           <Route path={`/${NavKey[0][1]}/${NavKey[0][2]}`} element={<ActiveLoading />} />
                           <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />

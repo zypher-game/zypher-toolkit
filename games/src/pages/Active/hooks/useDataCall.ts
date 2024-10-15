@@ -25,7 +25,7 @@ export const useGetDataCall = () => {
             if (infoObj.twitter.nickname !== '') {
               checkRes = true
             } else {
-              checkRes = await codeCheck(infoObj.invitationCode)
+              checkRes = !!(await codeCheck(infoObj.invitationCode))
             }
 
             if (checkRes) {
@@ -107,27 +107,32 @@ export const usePrimaryScore = () => {
 export const useCodeCheckCall = () => {
   const [loading, setLoading] = useState(false)
   const { chainId } = useActiveWeb3React()
-  const codeCheck = useCallback(async (codeStr: string) => {
-    try {
-      setLoading(true)
-      const res = await request(`${TVL_API[chainId]}/api/code/check`, {
-        method: 'POST',
-        data: JSON.stringify({ code: codeStr.substring(1) }),
-        headers: {
-          'Content-Type': 'application/json'
+  const codeCheck = useCallback(
+    async (codeStr: string) => {
+      try {
+        if (chainId) {
+          setLoading(true)
+          const res = await request(`${TVL_API[chainId]}/api/code/check`, {
+            method: 'POST',
+            data: JSON.stringify({ code: codeStr.substring(1) }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          setLoading(false)
+          if (res.data && res.data['message'] == 'ok') {
+            return true
+          } else {
+            throw new Error('Verification code has been registered')
+          }
         }
-      })
-      setLoading(false)
-      if (res.data && res.data['message'] == 'ok') {
-        return true
-      } else {
+      } catch (e: any) {
+        setLoading(false)
         throw new Error('Verification code has been registered')
       }
-    } catch (e: any) {
-      setLoading(false)
-      throw new Error('Verification code has been registered')
-    }
-  }, [])
+    },
+    [chainId]
+  )
   return {
     loading,
     codeCheck
@@ -416,25 +421,27 @@ export const useUpdateInfoCall = () => {
   const updateInfo = useCallback(
     async ({ formData }: { formData: FormData }) => {
       try {
-        // const res = await request(`${TVL_API[chainId]}/api/updateInfo`, {
-        //   method: 'POST',
-        //   data: JSON.stringify({ address, nickname, linkType, signature }),
-        //   headers: {
-        //     'Content-Type': 'application/json'
-        //   }
-        // })
-        const res = await request(`${TVL_API[chainId]}/api/updateInfo`, {
-          method: 'POST',
-          data: formData,
-          headers: {
-            accept: 'application/json; charset=utf-8',
-            'Content-Type': 'multipart/form-data'
+        if (chainId) {
+          // const res = await request(`${TVL_API[chainId]}/api/updateInfo`, {
+          //   method: 'POST',
+          //   data: JSON.stringify({ address, nickname, linkType, signature }),
+          //   headers: {
+          //     'Content-Type': 'application/json'
+          //   }
+          // })
+          const res = await request(`${TVL_API[chainId]}/api/updateInfo`, {
+            method: 'POST',
+            data: formData,
+            headers: {
+              accept: 'application/json; charset=utf-8',
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+          if (res.data && res.data['message'] == 'ok') {
+            return true
+          } else {
+            return false
           }
-        })
-        if (res.data && res.data['message'] == 'ok') {
-          return true
-        } else {
-          return false
         }
       } catch (e: any) {
         return false
@@ -473,24 +480,29 @@ export const useUpdateInfoCall = () => {
 }
 export const useIsRegistered = () => {
   const { chainId } = useActiveWeb3React()
-  const getIsRegistered = useCallback(async (userId: string) => {
-    try {
-      const res = await request(`${TVL_API[chainId]}/api/isActived/${userId}`, {
-        method: 'POST',
-        data: JSON.stringify({ userId: Number(userId) }),
-        headers: {
-          'Content-Type': 'application/json'
+  const getIsRegistered = useCallback(
+    async (userId: string) => {
+      try {
+        if (chainId) {
+          const res = await request(`${TVL_API[chainId]}/api/isActived/${userId}`, {
+            method: 'POST',
+            data: JSON.stringify({ userId: Number(userId) }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          if (res.data && res.data['message']) {
+            return res.data['message']
+          } else {
+            return undefined
+          }
         }
-      })
-      if (res.data && res.data['message']) {
-        return res.data['message']
-      } else {
+      } catch (e: any) {
         return undefined
       }
-    } catch (e: any) {
-      return undefined
-    }
-  }, [])
+    },
+    [chainId]
+  )
   return {
     getIsRegistered
   }

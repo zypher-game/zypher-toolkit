@@ -8,8 +8,12 @@ export const useIsGetActiveData = () => {
   const pathname = useRecoilValue(pathnameState)
   return useMemo(() => {
     return {
-      isActiveRouter: NavKey[0].includes(pathname[1]) || (pathname[1] ?? '').startsWith('L' || 'B'),
-      isActiveInit: NavKey[0].includes(pathname[1]) || NavKey[2].includes(pathname[1]) || (pathname[1] ?? '').startsWith('L' || 'B')
+      isActiveRouter: NavKey[0].includes(pathname[1]) || (pathname[1] ?? '').startsWith('L') || (pathname[1] ?? '').startsWith('B'),
+      isActiveInit:
+        NavKey[0].includes(pathname[1]) ||
+        NavKey[2].includes(pathname[1]) ||
+        (pathname[1] ?? '').startsWith('L') ||
+        (pathname[1] ?? '').startsWith('B')
     }
   }, [JSON.stringify(pathname)])
 }

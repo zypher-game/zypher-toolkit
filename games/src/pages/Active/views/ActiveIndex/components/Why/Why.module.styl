@@ -1,0 +1,104 @@
+.why
+  padding-top: 117px
+  height: 1080px
+  overflow: hidden
+  position relative
+.bg
+  position absolute
+  width: 1920px
+  height: 100%
+  min-width: 1920px
+  bottom: 0
+  left: 50%;
+  transform: translateX(-50%);
+
+.title
+  height 139px
+  position relative
+  display flex
+  justify-content: center
+  align-items: flex-start
+  z-index 2
+  padding-top: 20px
+  .title_label
+    width 100%
+  .title_bg
+    position absolute
+    height 100%
+    width 833px
+    top 0
+    left: 50%
+    transform: translateX(-50%)
+.dashboard
+  width 1110px
+  height: 656px
+  position relative
+  margin: -100px auto
+
+  .book
+    position absolute
+    height 100%
+    width 100%
+    top 0
+    left: 0
+  .dashboard_inner
+    height 100%
+    position relative
+    z-index 2
+    display: flex
+    justify-content: center
+    align-content: center
+    flex-direction: column
+.earth
+  position absolute
+  width: 280px
+  top: -100px
+  right: -100px
+.item
+  width 100%
+  padding: 0 100px
+  display: flex
+  justify-content: flex-start
+  align-content: flex-start
+  margin-bottom: 60px
+  gap: 20px
+  .icon
+    width 34px
+  h3
+    font-size: 24px
+    line-height: 34px
+    font-weight: bold
+    color: #fff
+    text-shadow: -2px -2px 0 #1B131E, 2px 0 0 #1B131E, 2px 0 0 #1B131E, 0 3px 0 #1B131E
+
+  p
+    font-size: 16px
+    color: #E0E0E0
+    text-shadow: -2px -2px 0 #1B131E, 2px 0 0 #1B131E, 2px 0 0 #1B131E, 0 3px 0 #1B131E
+    margin-bottom: 20px
+    
+.hero
+  position absolute
+  z-index 2
+  bottom: 70px
+  width 1240px
+  left: 50%
+  transform: translateX(-50%)
+  display: flex
+  align-items: flex-end
+  justify-content: space-around
+  &>div
+    min-width 24%
+    margin-left: -4%
+    &:nth-child(1),
+    &:nth-child(5)
+      top: -130px
+    &:nth-child(2),
+    &:nth-child(4)
+      top: -60px
+    &:nth-child(4),
+    &:nth-child(5)
+      transform: scaleX(-1);
+  :global(.svg_component)
+    path
+      fill: #000;

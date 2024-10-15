@@ -1,6 +1,5 @@
 import {
   ChainId,
-  sleep,
   supportedChainIds,
   useActiveWeb3React,
   useChainModal,
@@ -47,7 +46,7 @@ export const usePreHandleGlobal = () => {
         console.log('preHandleAction Error', e)
       }
     },
-    [account, switchNetwork, openConnectModal, nativeChainId, chooseChain, openChainModal]
+    [account, switchNetwork, openConnectModal, nativeChainId, openChainModal]
   )
 
   return preHandleAction

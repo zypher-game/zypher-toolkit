@@ -362,8 +362,8 @@ export const withdrawCurrencyState = atom<string | undefined>({
 })
 export const chooseChainState = atom<ChainId | undefined>({
   key: 'chooseChainState' + version,
-  default: undefined,
-  effects_UNSTABLE: [localStorageEffect('chooseChainState' + version)]
+  default: undefined
+  // effects_UNSTABLE: [localStorageEffect('chooseChainState' + version)]
 })
 export const tvlPathState = atom<number>({
   key: 'tvlPathState' + version,

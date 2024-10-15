@@ -1,0 +1,135 @@
+.x6
+  position: relative;
+  height: 1500px
+  padding-top: 40px
+  overflow: hidden;
+.bg
+  position absolute
+  width: 1920px
+  height: 1080px
+  top: 0
+  left: 50%;
+  transform: translateX(-50%);
+.inner_inner
+  position relative
+  z-index 2
+  .banner_bg
+    display: block
+    width 1200px
+    margin: -80px auto 0
+.table_wrap
+  position relative
+.table_bg
+  position: absolute;
+  height: 100%;
+  width: 1200px
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%)
+  .table_bg1,
+  .table_bg2
+    position absolute
+    height 100px
+    width 100%
+    left: 0
+    opacity 0.5
+  .table_bg1
+    top -8px
+  .table_bg2
+    bottom -8px
+.table
+  position relative
+  z-index 2
+  width 1200px
+  margin: -20px auto 0
+.header
+  width 100%
+  display: flex
+  justify-content: space-between
+  align-items: center
+  p
+    font-size: 18px
+    font-weight: bold
+.col1
+  width 330px
+.col2
+  width 100px
+.col3
+  width 100px
+.col4
+  width 280px
+.treasure_ark
+  width 208px
+.ok
+  width 26px
+.ok02
+  width 42px
+.col2,
+.col3,
+.col4
+  p
+    text-align: center
+  img
+    display block
+    margin: 0 auto
+.detail
+  text-align: center
+  img
+    width 154px
+    height 24px 
+    margin: 7px auto 4px
+  p
+    font-size: 14px
+    color: #3ACF37
+.cover
+  display: flex
+  flex-direction: column
+  width calc(100% - 40px)
+  margin-left: 20px
+  margin-top: 10px
+  margin-bottom: 10px;
+  position relative
+  :global(.pixel_flat_btn_bg>div)
+    opacity 0
+  &:hover
+    :global(.pixel_flat_btn_bg>div)
+      opacity 1
+.row
+  display: flex
+  justify-content: space-between
+  align-items: center
+  width 100%
+  height: 100px
+  
+.line
+  position absolute
+  width 1112px
+  height: 1px
+  background-color: rgba(255,255,255,0.1)
+  left: 50%
+  transform: translateX(-50%)
+  bottom: -10px
+.col1_1
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  padding-left: 20px
+  gap: 20px
+  img
+    display: block
+    width 48px
+  h2
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 6px
+    color: #fff
+    font-weight: bold
+    font-size: 20px
+    text-shadow: -1px -1px 0 #000F32, 1px -1px 0 #000F32, -1px 1px 0 #000F32, 1px 1px 0 #000F32;
+    img
+      display: block
+      width 22px
+  p
+    font-size: 14px
+    opacity 0.5

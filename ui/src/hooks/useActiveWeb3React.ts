@@ -22,13 +22,19 @@ export function useActiveWeb3React(
     return {
       chainId: IS_TELEGRAM
         ? ChainId.SagaMainnet
-        : ((chainId &&
-          !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
+        : (((chainId &&
+            !supportedChainIds(env, chainList).includes(
+              `${chainId}` as ChainId
+            )) ||
+          !chainId
             ? undefined
             : `${chainId}`) as ChainId),
       account:
-        chainId &&
-        !supportedChainIds(env, chainList).includes(`${chainId}` as ChainId)
+        (chainId &&
+          !supportedChainIds(env, chainList).includes(
+            `${chainId}` as ChainId
+          )) ||
+        !chainId
           ? undefined
           : address,
       // account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",

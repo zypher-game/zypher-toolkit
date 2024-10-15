@@ -1,0 +1,94 @@
+.start
+  position: relative;
+  height: 1080px
+.bg
+  position absolute
+  width: 100%;
+  height: 100%
+  min-width: 1920px
+  top: 0
+  left: 50%;
+  transform: translateX(-50%);
+.inner
+  position relative
+  z-index 2
+  top: 50%
+  left: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
+.inner_inner
+  width 1162px
+  margin: 0 auto
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-top: 80px
+  .fl
+    width 620px
+  .fr
+    width 552px
+  .top
+    position relative
+    width 498px
+    height 213px
+    margin-bottom: 35px
+    .top_bg
+      position absolute
+      top 0
+      left: 0
+      width: 100%
+      height: 100%
+    .top_inner
+      z-index 2
+      position absolute
+      top: 45%
+      left: 50%
+      transform: translateX(-50%) translateY(-50%)
+    .zytron02
+      display block
+      height: 84px
+      margin: 0 auto
+    .text
+      font-size: 24px
+      font-family: "Pixel Game"
+      text-transform: uppercase
+      color: #000000
+      margin-top: -10px
+.list
+  width 500px
+  margin-bottom: 12px
+  :global(.pixel_flat_inner)
+    flex-direction: column;
+  .list1,.list2,.list3
+    width 100%
+    height 100px
+    display: flex
+    justify-content: space-between
+    align-items: center
+    div
+      flex: 1
+      display: flex
+      justify-content: center
+      align-items: center
+  .list1
+    border-bottom: 1px solid rgba(255,255,255,0.1)
+    img:nth-child(1)
+      height: 32px
+      width 133px
+    img:nth-child(2)
+      width 123px
+      height: 42px
+  .list2
+    img:nth-child(1)
+      height: 32px
+      width 165px
+    img:nth-child(2)
+      width 166px
+      height: 44px
+  .list3
+    height 94px
+    div:nth-child(1)
+      height 50px
+      border-right: 1px solid rgba(255,255,255,0.1)
+.list22
+  margin-bottom: 0

@@ -1,7 +1,7 @@
 import { Address } from "wagmi";
 import { ChainId, getCryptoImg, isPro, isTestnet } from "./constant";
-const mainApi = "https://tvl-backend-api-mainnet.zypher.game";
-const testApi = "https://tvl-backend-api.zypher.game";
+const mainApi = "https://tvl-backend-api-mainnet.zypher.network";
+const testApi = "https://tvl-backend-api.zypher.network";
 const getApi = (v: ChainId) => {
   if (isTestnet[v]) {
     return testApi;
@@ -12,11 +12,11 @@ export const TVL_API = Object.fromEntries(
   (Object.values(ChainId) as ChainId[]).map((v) => [v, getApi(v)])
 ) as Record<ChainId, string>;
 export enum ITvlHero {
-  Agil = "Agil",
   Yueling = "Yueling",
-  Celus = "Celus",
-  Ivan = "Ivan",
   Liana = "Liana",
+  Ivan = "Ivan",
+  Celus = "Celus",
+  Agil = "Agil",
 }
 export enum TVLChainId {
   B2 = ChainId.B2,
@@ -29,7 +29,9 @@ export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
     [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
   : []) as unknown as ChainId[];
-export const defaultActiveChainId = TVLStakingSupportedChainId[0];
+export const defaultActiveChainId = isPro()
+  ? TVLChainId.LineaMainnet
+  : TVLChainId.LineaSepolia;
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
@@ -72,12 +74,14 @@ export const activeTokenList: Record<
     Soulbound: "0x77DB62EAB363e6DEF480e4C63210f162438eeD77",
   },
 } as unknown as Record<ChainId, Record<string, Address>>;
+export const LRTSymbol: string[] = ["wstETH", "ezETH", "STONE", "weETH"];
 export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
   [TVLChainId.LineaMainnet]: {
     WETH: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
     wstETH: "0xB5beDd42000b71FddE22D3eE8a79Bd49A568fC8F",
     ezETH: "0x2416092f143378750bb29b79eD961ab195CcEea5",
     STONE: "0x93F4d0ab6a8B4271f4a28Db399b5E30612D21116",
+    weETH: "0x1Bf74C010E6320bab11e2e5A532b5AC15e0b8aA6",
   },
   [TVLChainId.LineaSepolia]: {
     WETH: "0xAeb65CCDe3b88CA9095D7Cc1d8ACa82ae865AcA6",
@@ -102,9 +106,14 @@ export const tvlTokens = Object.fromEntries(
           logoPath: getCryptoImg(
             "token",
             currency,
-            currency === "BTC" || currency === "WBTC" || currency === "STONE"
-              ? ".svg"
-              : ".png"
+            currency === "WETH"
+              ? ".png"
+              : currency === "BTC" ||
+                currency === "WBTC" ||
+                currency === "STONE" ||
+                currency === "weETH"
+              ? "_pixel.svg"
+              : "_pixel.png"
           ),
           index: 2,
         },
