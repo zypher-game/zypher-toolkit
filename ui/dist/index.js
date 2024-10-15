@@ -3387,8 +3387,8 @@ var aaApproveAndFcErc20 = async ({
 };
 
 // src/constant/tvlConstant.ts
-var mainApi = "https://tvl-backend-api-mainnet.zypher.game";
-var testApi = "https://tvl-backend-api.zypher.game";
+var mainApi = "https://tvl-backend-api-mainnet.zypher.network";
+var testApi = "https://tvl-backend-api.zypher.network";
 var getApi = (v) => {
   if (isTestnet[v]) {
     return testApi;
@@ -3473,7 +3473,7 @@ var tvlTokens = Object.fromEntries(
           logoPath: getCryptoImg(
             "token",
             currency,
-            currency === "BTC" || currency === "WBTC" || currency === "STONE" || currency === "weETH" ? ".svg" : ".png"
+            currency === "BTC" || currency === "WBTC" || currency === "STONE" || currency === "weETH" ? "_pixel.svg" : "_pixel.png"
           ),
           index: 2
         }
@@ -3911,7 +3911,7 @@ var language_default = language;
 
 // src/components/SideBar/component/Language.tsx
 import { changeLanguage } from "i18next";
-import React7, { memo as memo6, useCallback as useCallback6 } from "react";
+import React7, { memo as memo6, useCallback as useCallback7 } from "react";
 
 // src/hooks/useCustomTranslation.ts
 import { useTranslation as useBaseTranslation } from "react-i18next";
@@ -3936,25 +3936,42 @@ var useCurrentLanguage = () => {
 import classnames2 from "classnames";
 
 // src/components/PixelBtn/ActivePixelButton.tsx
-import React2, { memo as memo2, useCallback as useCallback4, useRef as useRef4, useState as useState6 } from "react";
+import React2, { memo as memo2, useCallback as useCallback5, useRef as useRef5 } from "react";
 import styled from "styled-components";
 
 // src/components/PixelBtn/PixelFlatBtn.tsx
-import React, { memo } from "react";
+import React, { memo, useCallback as useCallback4, useRef as useRef4, useState as useState6 } from "react";
 import { motion } from "framer-motion";
 var PixelFlatBtn = memo((props) => {
-  const { onClick, children, className, style, hidePixel, ..._props } = props;
+  const lastClickTimeRef = useRef4(Date.now());
+  const { onClick, children, className, style, hidePixel, disable, ..._props } = props;
+  const [isActive, setIsActive] = useState6(false);
+  const clickHandle = useCallback4(() => {
+    const currentTime = Date.now();
+    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+    if (timeSinceLastClick < 1e3) {
+      return;
+    }
+    lastClickTimeRef.current = currentTime;
+    if (onClick) {
+      setIsActive(true);
+      setTimeout(() => {
+        setIsActive(false);
+      }, 1e3);
+      onClick();
+    }
+  }, [onClick]);
   if (hidePixel) {
     return /* @__PURE__ */ React.createElement("div", {
-      className,
-      onClick
+      className: `${className != null ? className : ""} ${disable ? "disable" : "normal"} ${isActive ? "click" : ""}`,
+      onClick: clickHandle
     }, children);
   }
   if (onClick) {
     return /* @__PURE__ */ React.createElement(motion.div, {
       ..._props,
       className: `pixel_flat_btn ${className != null ? className : ""}`,
-      onClick,
+      onClick: clickHandle,
       style
     }, /* @__PURE__ */ React.createElement("div", {
       className: "pixel_flat_btn_bg"
@@ -4050,25 +4067,11 @@ var PixelStyled = styled(PixelFlatBtn_default)`
   }
 `;
 var ActivePixelCard = memo2((props) => {
-  const { onClick, hidePixel } = props;
-  const lastClickTimeRef = useRef4(Date.now());
-  const clickHandle = useCallback4(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
+  const { hidePixel } = props;
   return hidePixel ? /* @__PURE__ */ React2.createElement(PixelFlatBtn_default, {
-    ...props,
-    onClick: clickHandle
+    ...props
   }) : /* @__PURE__ */ React2.createElement(PixelStyled, {
-    ...props,
-    onClick: clickHandle
+    ...props
   });
 });
 var ActivePixelCardStyled = styled(ActivePixelCard)`
@@ -4324,20 +4327,7 @@ var ActivePixelButtonColorStyled = styled(PixelStyled)`
   }
 `;
 var ActivePixelButtonColor = memo2((props) => {
-  const { onClick, className, disable } = props;
-  const [isActive, setIsActive] = useState6(false);
-  const clickHandle = useCallback4(() => {
-    if (onClick) {
-      setIsActive(true);
-      setTimeout(() => {
-        setIsActive(false);
-      }, 1e3);
-      onClick();
-    }
-  }, [onClick]);
   return /* @__PURE__ */ React2.createElement(ActivePixelButtonColorStyled, {
-    className: `${className != null ? className : ""} ${disable ? "disable" : "normal"} ${isActive ? "click" : ""}`,
-    onClick: clickHandle,
     ...props
   });
 });
@@ -4426,8 +4416,8 @@ var PixelBorderStyled = styled(PixelFlatBtn_default)`
 `;
 var PixelBorderCard = memo2((props) => {
   const { className, onClick, hidePixel } = props;
-  const lastClickTimeRef = useRef4(Date.now());
-  const clickHandle = useCallback4(() => {
+  const lastClickTimeRef = useRef5(Date.now());
+  const clickHandle = useCallback5(() => {
     const currentTime = Date.now();
     const timeSinceLastClick = currentTime - lastClickTimeRef.current;
     if (timeSinceLastClick < 1e3) {
@@ -4648,7 +4638,7 @@ var PixelBorderCardButton = memo2((props) => {
 });
 
 // src/components/SvgComponent/SvgComponent.tsx
-import React3, { memo as memo3, useEffect as useEffect7, useState as useState7 } from "react";
+import React3, { memo as memo3, useEffect as useEffect7, useState as useState8 } from "react";
 var SvgComponent = memo3(({ src: src6, className, ...rest }) => {
   return src6.endsWith(".svg") ? /* @__PURE__ */ React3.createElement(Svg, {
     src: src6,
@@ -4662,7 +4652,7 @@ var SvgComponent = memo3(({ src: src6, className, ...rest }) => {
   });
 });
 var Svg = memo3(({ src: src6, className, ...rest }) => {
-  const [svgContent, setSvgContent] = useState7(null);
+  const [svgContent, setSvgContent] = useState8(null);
   useEffect7(() => {
     (async () => {
       try {
@@ -4694,7 +4684,7 @@ var SvgComponent_default = SvgComponent;
 import React5, { memo as memo5 } from "react";
 
 // src/hooks/useWindowSize.ts
-import { useCallback as useCallback5, useContext, useEffect as useEffect9, useState as useState8 } from "react";
+import { useCallback as useCallback6, useContext, useEffect as useEffect9, useState as useState9 } from "react";
 
 // src/provider/IsMobileProvider.tsx
 import React4, { createContext, memo as memo4, useEffect as useEffect8 } from "react";
@@ -4779,11 +4769,11 @@ var IsW1220Provider = ({ children }) => {
 // src/hooks/useWindowSize.ts
 import { useRecoilState as useRecoilState3 } from "recoil";
 function useWindowSize() {
-  const [size, setSize] = useState8({
+  const [size, setSize] = useState9({
     width: document.documentElement.clientWidth,
     height: document.documentElement.clientHeight
   });
-  const onResize = useCallback5(() => {
+  const onResize = useCallback6(() => {
     setSize({
       width: document.documentElement.clientWidth,
       height: document.documentElement.clientHeight
@@ -4896,7 +4886,7 @@ var Language = memo6(({ type }) => {
   const isW768 = useIsW768();
   const lang = useCurrentLanguage();
   const { t } = useCustomTranslation([LngNs.common]);
-  const changeLanguageHandle = useCallback6((item) => {
+  const changeLanguageHandle = useCallback7((item) => {
     changeLanguage(item.keyValue);
     storage_default.set("language", item.keyValue);
   }, []);
@@ -5344,10 +5334,10 @@ var ListWithMotion = (props) => {
 var ListWithMotion_default = memo7(ListWithMotion);
 
 // src/hooks/useGetActiveCall.ts
-import { useCallback as useCallback7 } from "react";
+import { useCallback as useCallback8 } from "react";
 var useGetHero = () => {
   const { chainId } = useActiveWeb3React();
-  const getHero = useCallback7(
+  const getHero = useCallback8(
     async ({ address, linkType }) => {
       try {
         const res = await request(
@@ -5376,7 +5366,7 @@ var useGetHero = () => {
   return { getHero };
 };
 var useGetUserInfo = () => {
-  const getUserInfo = useCallback7(
+  const getUserInfo = useCallback8(
     async ({ account, chainId }) => {
       try {
         const linkType = getLinkPre(chainId);
@@ -5534,13 +5524,13 @@ var pointsBalanceState = atom7({
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames4 from "classnames";
-import React17, { memo as memo13, useCallback as useCallback11, useEffect as useEffect12, useState as useState12 } from "react";
+import React17, { memo as memo13, useCallback as useCallback12, useEffect as useEffect12, useState as useState13 } from "react";
 import { useRecoilState as useRecoilState6, useRecoilValue as useRecoilValue9 } from "recoil";
 
 // src/components/CurrencyLogo/index.tsx
-import React10, { useState as useState10 } from "react";
+import React10, { useState as useState11 } from "react";
 var Logo = ({ src: src6, alt, ...rest }) => {
-  const [bad, setBad] = useState10(false);
+  const [bad, setBad] = useState11(false);
   if (src6 && !bad) {
     return /* @__PURE__ */ React10.createElement("img", {
       decoding: "async",
@@ -5566,7 +5556,7 @@ import BigNumberjs2 from "bignumber.js";
 
 // src/hooks/useAccountInvitation.ts
 import { atom as atom8, useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState5 } from "recoil";
-import { useCallback as useCallback8 } from "react";
+import { useCallback as useCallback9 } from "react";
 var invitationAddressState = atom8({
   key: "invitationAddressState",
   default: void 0,
@@ -5578,7 +5568,7 @@ var useAccountInvitation = (env) => {
     invitationAddressState
   );
   const setInvitationAddressState = useSetRecoilState5(invitationAddressState);
-  const postAccountUpdate = useCallback8(
+  const postAccountUpdate = useCallback9(
     async ({ tx }) => {
     },
     [chainId, account, invitationAddres]
@@ -5589,15 +5579,15 @@ var useAccountInvitation = (env) => {
 };
 
 // src/hooks/usePoint.ts
-import { useCallback as useCallback10, useEffect as useEffect11, useState as useState11 } from "react";
+import { useCallback as useCallback11, useEffect as useEffect11, useState as useState12 } from "react";
 import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState6 } from "recoil";
 
 // src/hooks/usePublicNodeWaitForTransaction.ts
-import { useCallback as useCallback9 } from "react";
+import { useCallback as useCallback10 } from "react";
 import { waitForTransaction } from "wagmi/actions";
 function usePublicNodeWaitForTransaction(env) {
   const { chainId } = useActiveWeb3React(env);
-  const waitForTransaction_ = useCallback9(
+  const waitForTransaction_ = useCallback10(
     async (opts) => {
       if (!chainId) {
         return void 0;
@@ -5677,7 +5667,7 @@ var useSwapPoint = ({
 }) => {
   const { account, chainId } = useActiveWeb3React();
   const { postAccountUpdate } = useAccountInvitation(env);
-  const [isLoading, setIsLoading] = useState11(false);
+  const [isLoading, setIsLoading] = useState12(false);
   const pointsDialogOpen = useRecoilValue7(pointsDialogState);
   const setPointsDialogOpen = useSetRecoilState6(pointsDialogState);
   const setPointsAnimNumState = useSetRecoilState6(pointsAnimNumState);
@@ -5685,12 +5675,12 @@ var useSwapPoint = ({
   const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
   const hidePointsWarn = useRecoilValue7(hidePointsWarnState);
   const [pointsWarn, setPointsWarn] = useRecoilState4(pointsWarnState);
-  const [choseIndex, setChoseIndex] = useState11();
+  const [choseIndex, setChoseIndex] = useState12();
   const { walletClient } = useAaWallet();
   useEffect11(() => {
     setIsLoading(false);
   }, [pointsDialogOpen]);
-  const swapPointHandle = useCallback10(
+  const swapPointHandle = useCallback11(
     async (index) => {
       if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {
         const _index = choseIndex || choseIndex === 0 ? choseIndex : index;
@@ -5982,7 +5972,7 @@ var PointsDialog = memo13(
     const { chainId } = useActiveWeb3React();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
-    const [pointsList, setPointsList] = useState12([]);
+    const [pointsList, setPointsList] = useState13([]);
     const { isLoading, swapPointHandle } = useSwapPoint({
       env,
       dispatch,
@@ -5999,7 +5989,7 @@ var PointsDialog = memo13(
         }, 800);
       }
     }, [chainId]);
-    const handleCancel = useCallback11(() => {
+    const handleCancel = useCallback12(() => {
       setPointsDialogOpen(false);
     }, []);
     return /* @__PURE__ */ React17.createElement(Modal_default, {
@@ -6141,7 +6131,7 @@ import React20, { memo as memo16 } from "react";
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames5 from "classnames";
-import React19, { memo as memo15, useCallback as useCallback12 } from "react";
+import React19, { memo as memo15, useCallback as useCallback13 } from "react";
 import { useSetRecoilState as useSetRecoilState7 } from "recoil";
 
 // src/components/Header/state.ts
@@ -6159,7 +6149,7 @@ var sideCollapseState = atom9({
 var useLink = (link, isMobile2, useNavigate) => {
   const setSideCollapse = useSetRecoilState7(sideCollapseState);
   const navigate = useNavigate();
-  const linkClickHandle = useCallback12(
+  const linkClickHandle = useCallback13(
     (event) => {
       if (link.disabled) {
         return;
@@ -6286,11 +6276,11 @@ import { useSetRecoilState as useSetRecoilState8 } from "recoil";
 // src/components/Header/Navigation/Navigation.tsx
 import React22, {
   memo as memo18,
-  useCallback as useCallback13,
+  useCallback as useCallback14,
   useEffect as useEffect13,
   useMemo as useMemo6,
-  useRef as useRef5,
-  useState as useState13
+  useRef as useRef6,
+  useState as useState14
 } from "react";
 var NavKey = [["airdrop", "airdropLoading"], ["games"], ["zeroGas"]];
 var NavList = [
@@ -6334,13 +6324,13 @@ var NavList = [
 ];
 var Navigation = memo18(
   ({ pathname, Link }) => {
-    const [chooseIndex, setChooseIndex] = useState13(
+    const [chooseIndex, setChooseIndex] = useState14(
       null
     );
-    const [activeIndex, setActiveIndex] = useState13(
+    const [activeIndex, setActiveIndex] = useState14(
       null
     );
-    const linksRefs = useRef5([]);
+    const linksRefs = useRef6([]);
     const { width } = useWindowSize();
     const { isW768, isW1670, isWBig } = useMemo6(() => {
       return {
@@ -6350,7 +6340,7 @@ var Navigation = memo18(
         isWBig: width >= 1670
       };
     }, [width]);
-    const init = useCallback13(async () => {
+    const init = useCallback14(async () => {
       if (!isW768 && linksRefs.current.length) {
         const index = NavKey.findIndex((key) => key.includes(pathname));
         if (index > -1) {
@@ -6362,7 +6352,7 @@ var Navigation = memo18(
     useEffect13(() => {
       init();
     }, [init]);
-    const init2 = useCallback13(async () => {
+    const init2 = useCallback14(async () => {
       if (!isW768 && linksRefs.current.length) {
         linksRefs.current.forEach(async (linkRef, index) => {
           if ((linkRef == null ? void 0 : linkRef.className) === "nav_on") {
@@ -6396,7 +6386,7 @@ var Navigation = memo18(
     useEffect13(() => {
       init2();
     }, [chooseIndex, pathname, linksRefs.current]);
-    const updateLinePosition = useCallback13(async () => {
+    const updateLinePosition = useCallback14(async () => {
       if (activeIndex !== null && activeIndex !== void 0 && linksRefs.current[activeIndex]) {
         const line = document.querySelector(".pixel_line");
         const link = linksRefs.current[activeIndex];
@@ -6450,7 +6440,7 @@ var Navigation = memo18(
 );
 var LinkComp = memo18(
   ({ item, children, setLinksRefs, className, Link }) => {
-    const ref = useRef5(null);
+    const ref = useRef6(null);
     useEffect13(() => {
       if (ref.current) {
         setLinksRefs(ref.current);
@@ -6589,16 +6579,16 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React26, { memo as memo22, useCallback as useCallback15, useEffect as useEffect14, useMemo as useMemo8 } from "react";
+import React26, { memo as memo22, useCallback as useCallback16, useEffect as useEffect14, useMemo as useMemo8 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
 import styled3 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames7 from "classnames";
-import React25, { memo as memo21, useCallback as useCallback14 } from "react";
+import React25, { memo as memo21, useCallback as useCallback15 } from "react";
 var DialogTitle = memo21(
   ({ label, setDialogOpen, children, classNames }) => {
-    const closeHandle = useCallback14(() => {
+    const closeHandle = useCallback15(() => {
       setDialogOpen(false);
     }, [setDialogOpen]);
     return /* @__PURE__ */ React25.createElement("div", {
@@ -6670,7 +6660,7 @@ var LinkToBetaDialog = memo22(() => {
     }
     return "";
   }, [linkToBetaDialogChainId]);
-  const handleButtonClick = useCallback15(() => {
+  const handleButtonClick = useCallback16(() => {
     setLinkToBetaDialogOpen(false);
     if (ToUrlName[0].startsWith("https")) {
       return window.open(ToUrlName[0], "_blank");
@@ -6724,18 +6714,18 @@ import { useRecoilState as useRecoilState14, useRecoilValue as useRecoilValue13,
 import React92, { memo as memo33 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React38, { memo as memo31, useCallback as useCallback24 } from "react";
+import React38, { memo as memo31, useCallback as useCallback25 } from "react";
 import { useSetRecoilState as useSetRecoilState13 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
-import React29, { memo as memo25, useCallback as useCallback17, useEffect as useEffect16, useState as useState14 } from "react";
+import React29, { memo as memo25, useCallback as useCallback18, useEffect as useEffect16, useState as useState15 } from "react";
 import { useRecoilValue as useRecoilValue10, useSetRecoilState as useSetRecoilState10 } from "recoil";
 import styled4 from "styled-components";
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
-import React28, { memo as memo24, useCallback as useCallback16, useEffect as useEffect15 } from "react";
+import React28, { memo as memo24, useCallback as useCallback17, useEffect as useEffect15 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React27, { memo as memo23 } from "react";
@@ -6787,7 +6777,7 @@ var BalanceItem = memo24(
     CountUpNumber,
     balance
   }) => {
-    const onClickHandle = useCallback16(() => {
+    const onClickHandle = useCallback17(() => {
       if (onClick) {
         onClick();
       }
@@ -6818,7 +6808,7 @@ var BalanceCountUpItem = memo24(
   }) => {
     const setPointsAnimState = useSetRecoilState9(pointsAnimState);
     const [mount, setMount] = useRecoilState9(pointsAnimNumState);
-    const onClickHandle = useCallback16(() => {
+    const onClickHandle = useCallback17(() => {
       if (onClick) {
         onClick();
       }
@@ -6857,12 +6847,12 @@ var AddIcon = styled4(icons_default)`
 var Balance = memo25((props) => {
   const { showPointsModal, env, CountUpNumber, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
-  const [loading, setLoading] = useState14(false);
+  const [loading, setLoading] = useState15(false);
   const setNativeBalance = useSetRecoilState10(nativeBalanceState);
   const setPointsBalance = useSetRecoilState10(pointsBalanceState);
   const refreshBalance = useRecoilValue10(refreshBalanceState);
   const { data: walletClient } = useWalletClient2();
-  const fetchErc20Balance = useCallback17(async () => {
+  const fetchErc20Balance = useCallback18(async () => {
     console.log({ chainId, account, provider, walletClient });
     if (!chainId || !account || !provider || !walletClient) {
       return;
@@ -6918,7 +6908,7 @@ var Balance = memo25((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
-  const fetchBalanceOf = useCallback17(async () => {
+  const fetchBalanceOf = useCallback18(async () => {
     console.log({ chainId, account, walletClient });
     if (!chainId || !account || !walletClient) {
       return;
@@ -6969,7 +6959,7 @@ var Balance = memo25((props) => {
 var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import React30, { memo as memo26, useCallback as useCallback18 } from "react";
+import React30, { memo as memo26, useCallback as useCallback19 } from "react";
 import styled5 from "styled-components";
 import { useRecoilState as useRecoilState10 } from "recoil";
 var StatusI = styled5.i`
@@ -7002,7 +6992,7 @@ var ChainSelectorWidget = memo26(({ className, direction_type }) => {
   const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState10(pointsDialogState);
   const [sideCollapse, setSideCollapse] = useRecoilState10(sideCollapseState);
   const { openChainModal } = useChainModal();
-  const openChainModalHandle = useCallback18(() => {
+  const openChainModalHandle = useCallback19(() => {
     if (accountInfoDialogOpen) {
       setAccountInfoDialogOpen(false);
     }
@@ -7042,14 +7032,14 @@ var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
-import React31, { useCallback as useCallback19 } from "react";
+import React31, { useCallback as useCallback20 } from "react";
 import { useRecoilValue as useRecoilValue11, useSetRecoilState as useSetRecoilState11 } from "recoil";
 import { Trans } from "react-i18next";
 var PointsRuleDialog = () => {
   const { t } = useCustomTranslation([LngNs.points]);
   const isModalOpen = useRecoilValue11(pointsRuleDialogState);
   const setIsModalOpen = useSetRecoilState11(pointsRuleDialogState);
-  const handleCancel = useCallback19(() => {
+  const handleCancel = useCallback20(() => {
     setIsModalOpen(false);
   }, []);
   return /* @__PURE__ */ React31.createElement(React31.Fragment, null, /* @__PURE__ */ React31.createElement(DialogOverlay2, {
@@ -7095,7 +7085,7 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import React37, { memo as memo30, useCallback as useCallback23 } from "react";
+import React37, { memo as memo30, useCallback as useCallback24 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
@@ -7146,7 +7136,7 @@ var Avatar = ({
 var Avatar_default = Avatar;
 
 // src/hooks/useAvatar.ts
-import { useCallback as useCallback20, useEffect as useEffect17, useState as useState15 } from "react";
+import { useCallback as useCallback21, useEffect as useEffect17, useState as useState16 } from "react";
 import { atom as atom10, useRecoilState as useRecoilState11, useRecoilValue as useRecoilValue12 } from "recoil";
 
 // src/utils/generateAvatar.ts
@@ -7205,15 +7195,15 @@ var avatarState = atom10({
 var useAvatar = (account, hideAvatars) => {
   var _a;
   const [avatars2, setAvatars] = useRecoilState11(avatarState);
-  const [avatarsNoAccount, setAvatarsNoAccount] = useState15({
+  const [avatarsNoAccount, setAvatarsNoAccount] = useState16({
     selectedAvatar: "",
     selectedBackground: ""
   });
   const refreshAvatar = useRecoilValue12(refreshAvatarState);
   const IS_TELEGRAM = useIsTelegram();
-  const [_account, _setAccount] = useState15(account);
+  const [_account, _setAccount] = useState16(account);
   const ownerList = useRecoilValue12(ownerListState);
-  const getAccount = useCallback20(async () => {
+  const getAccount = useCallback21(async () => {
     var _a2;
     try {
       if (account && account !== "-") {
@@ -7239,7 +7229,7 @@ var useAvatar = (account, hideAvatars) => {
       });
     }
   }, [_account, refreshAvatar]);
-  const getData = useCallback20(() => {
+  const getData = useCallback21(() => {
     const img = new Image();
     let src6 = "";
     let selectedBackground = "#fff";
@@ -7452,7 +7442,7 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React36, { memo as memo29, useCallback as useCallback22, useEffect as useEffect18, useState as useState16 } from "react";
+import React36, { memo as memo29, useCallback as useCallback23, useEffect as useEffect18, useState as useState17 } from "react";
 import { useRecoilState as useRecoilState13 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
@@ -7682,7 +7672,7 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React35, { memo as memo28, useCallback as useCallback21, useMemo as useMemo12 } from "react";
+import React35, { memo as memo28, useCallback as useCallback22, useMemo as useMemo12 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState12 } from "recoil";
 var MUserInfo = memo28(
@@ -7712,14 +7702,14 @@ var MUserInfo = memo28(
         }
       ];
     }, []);
-    const openHandle = useCallback21(() => {
+    const openHandle = useCallback22(() => {
       var _a;
       window.open(
         `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
         "_blank"
       );
     }, [account, chainId]);
-    const cancelHandle = useCallback21(() => {
+    const cancelHandle = useCallback22(() => {
       setAccountInfoDialogOpen(false);
       disconnect();
     }, [disconnect]);
@@ -7800,7 +7790,7 @@ var AccountInfoDialog = memo29(({ copy }) => {
   const isMobile2 = useIsW1100();
   const { disconnect } = useDisconnect2();
   const wallet = useActiveWallet();
-  const cancel = useCallback22(() => {
+  const cancel = useCallback23(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
   }, [disconnect]);
@@ -7837,7 +7827,7 @@ var AccountInfoDialog = memo29(({ copy }) => {
   })))) : null;
 });
 var AddressBigWrapPop = memo29(({ copy }) => {
-  const [index, setIndex] = useState16();
+  const [index, setIndex] = useState17();
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState13(accountInfoDialogState);
@@ -7848,11 +7838,11 @@ var AddressBigWrapPop = memo29(({ copy }) => {
       }, 2e3);
     }
   }, [index]);
-  const copyAddressHandle = useCallback22(() => {
+  const copyAddressHandle = useCallback23(() => {
     copy(account);
     setIndex(0);
   }, [account]);
-  const openHandle = useCallback22(() => {
+  const openHandle = useCallback23(() => {
     var _a;
     window.open(
       `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
@@ -7860,7 +7850,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
     );
     setIndex(1);
   }, [account, chainId]);
-  const cancelHandle = useCallback22(() => {
+  const cancelHandle = useCallback23(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
     setIndex(2);
@@ -7890,7 +7880,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
   })));
 });
 var AddressMiddleWrapPop = memo29(({ copy }) => {
-  const [index, setIndex] = useState16();
+  const [index, setIndex] = useState17();
   const { account, chainId } = useActiveWeb3React();
   const nativeBalanceStr = useNativeBalanceStr();
   const { disconnect } = useDisconnect2();
@@ -7902,11 +7892,11 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
       }, 2e3);
     }
   }, [index]);
-  const copyAddressHandle = useCallback22(() => {
+  const copyAddressHandle = useCallback23(() => {
     copy(account);
     setIndex(0);
   }, [account]);
-  const openHandle = useCallback22(() => {
+  const openHandle = useCallback23(() => {
     var _a;
     window.open(
       `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
@@ -7914,7 +7904,7 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
     );
     setIndex(1);
   }, [account, chainId]);
-  const cancelHandle = useCallback22(() => {
+  const cancelHandle = useCallback23(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
     setIndex(2);
@@ -8008,7 +7998,7 @@ var AccountInfo = memo30(
   ({ isW768, isMiddleWidth, copy, env, supportedChainList }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
     const setAccountInfoDialogState = useSetRecoilState12(accountInfoDialogState);
-    const accountClick = useCallback23(() => {
+    const accountClick = useCallback24(() => {
       if (isW768) {
         setAccountInfoDialogState(true);
       }
@@ -8046,7 +8036,7 @@ var Account2 = memo31(
   }) => {
     const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState13(pointsDialogState);
-    const showPointsModal = useCallback24(() => {
+    const showPointsModal = useCallback25(() => {
       setPointsDialogState(true);
     }, [setPointsDialogState]);
     return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
@@ -8077,11 +8067,11 @@ import { useSetRecoilState as useSetRecoilState15 } from "recoil";
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
 import React87, {
   createContext as createContext11,
-  useCallback as useCallback34,
+  useCallback as useCallback35,
   useContext as useContext16,
   useMemo as useMemo17,
-  useRef as useRef11,
-  useState as useState26
+  useRef as useRef12,
+  useState as useState27
 } from "react";
 import { useAccount as useAccount11, useNetwork as useNetwork6 } from "wagmi";
 
@@ -8094,7 +8084,7 @@ import React39, {
   useContext as useContext3,
   useEffect as useEffect19,
   useMemo as useMemo13,
-  useRef as useRef7
+  useRef as useRef8
 } from "react";
 import { useAccount as useAccount2 } from "wagmi";
 function createAuthenticationAdapter(adapter) {
@@ -8115,7 +8105,7 @@ function RainbowKitAuthenticationProvider({
     }
   });
   const { isDisconnected } = useAccount2();
-  const onceRef = useRef7(false);
+  const onceRef = useRef8(false);
   useEffect19(() => {
     if (onceRef.current)
       return;
@@ -8203,7 +8193,7 @@ function useMainnetEnsName(address) {
 }
 
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React54, { useCallback as useCallback29, useEffect as useEffect27, useState as useState20 } from "react";
+import React54, { useCallback as useCallback30, useEffect as useEffect27, useState as useState21 } from "react";
 import { createPortal } from "react-dom";
 import { RemoveScroll } from "react-remove-scroll";
 
@@ -8295,9 +8285,9 @@ function cssStringFromTheme(theme, options = {}) {
 }
 
 // src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect20, useState as useState17 } from "react";
+import { useEffect as useEffect20, useState as useState18 } from "react";
 var useWindowSize2 = () => {
-  const [windowSize, setWindowSize] = useState17({
+  const [windowSize, setWindowSize] = useState18({
     height: void 0,
     width: void 0
   });
@@ -8441,7 +8431,7 @@ var lightTheme = ({
 lightTheme.accentColors = accentColors;
 
 // src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect21, useState as useState18 } from "react";
+import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect21, useState as useState19 } from "react";
 import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
 
 // src/rainbowkit/src/transactions/transactionStore.ts
@@ -8581,7 +8571,7 @@ function TransactionStoreProvider({ children }) {
   const provider = usePublicClient3();
   const { address } = useAccount4();
   const chainId = useChainId();
-  const [store] = useState18(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
+  const [store] = useState19(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
   useEffect21(() => {
     store.setProvider(provider);
   }, [store, provider]);
@@ -8615,7 +8605,7 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React44, { useEffect as useEffect22, useMemo as useMemo15, useState as useState19 } from "react";
+import React44, { useEffect as useEffect22, useMemo as useMemo15, useState as useState20 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
 import React43, { useMemo as useMemo14 } from "react";
@@ -8740,7 +8730,7 @@ function emojiAvatarForAddress(address) {
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
 var EmojiAvatar = ({ address, ensImage, size }) => {
-  const [loaded, setLoaded] = useState19(false);
+  const [loaded, setLoaded] = useState20(false);
   useEffect22(() => {
     if (ensImage) {
       const img = new Image();
@@ -8810,13 +8800,13 @@ import { createContext as createContext9 } from "react";
 var ShowRecentTransactionsContext = createContext9(false);
 
 // src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback25, useEffect as useEffect23 } from "react";
+import { useCallback as useCallback26, useEffect as useEffect23 } from "react";
 var storageKey3 = "rk-version";
 function setRainbowKitVersion({ version }) {
   localStorage.setItem(storageKey3, version);
 }
 function useFingerprint() {
-  const fingerprint = useCallback25(() => {
+  const fingerprint = useCallback26(() => {
     setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
   useEffect23(() => {
@@ -8825,7 +8815,7 @@ function useFingerprint() {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback27, useEffect as useEffect25 } from "react";
+import { useCallback as useCallback28, useEffect as useEffect25 } from "react";
 
 // src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
 import { useEffect as useEffect24, useReducer } from "react";
@@ -8961,7 +8951,7 @@ var LoginIcon = () => /* @__PURE__ */ React48.createElement(AsyncImage, {
 });
 
 // src/rainbowkit/src/components/SignIn/SignIn.tsx
-import React51, { useCallback as useCallback26, useRef as useRef8 } from "react";
+import React51, { useCallback as useCallback27, useRef as useRef9 } from "react";
 import { UserRejectedRequestError } from "viem";
 import { useAccount as useAccount5, useDisconnect as useDisconnect3, useNetwork as useNetwork2, useSignMessage } from "wagmi";
 
@@ -9075,7 +9065,7 @@ var signInIcon = async () => (await import("./sign-IOXJRZQV.js")).default;
 function SignIn({ onClose }) {
   const [{ status, ...state }, setState] = React51.useState({ status: "idle" });
   const authAdapter = useAuthenticationAdapter();
-  const getNonce = useCallback26(async () => {
+  const getNonce = useCallback27(async () => {
     try {
       const nonce = await authAdapter.getNonce();
       setState((x) => ({ ...x, nonce }));
@@ -9087,7 +9077,7 @@ function SignIn({ onClose }) {
       }));
     }
   }, [authAdapter]);
-  const onceRef = useRef8(false);
+  const onceRef = useRef9(false);
   React51.useEffect(() => {
     if (onceRef.current)
       return;
@@ -9246,7 +9236,7 @@ function usePreloadImages() {
   const rainbowKitChains = useRainbowKitChains();
   const walletConnectors = useWalletConnectors();
   const isUnauthenticated = useAuthenticationStatus() === "unauthenticated";
-  const preloadImages = useCallback27(() => {
+  const preloadImages = useCallback28(() => {
     loadImages(...walletConnectors.map((wallet) => wallet.iconUrl), ...rainbowKitChains.map((chain) => chain.iconUrl).filter(isNotNullish));
     if (!isMobile()) {
       preloadAssetsIcon();
@@ -9356,7 +9346,7 @@ var content = "Dialog_content__1dq44ga5 sprinkles_display_flex_smallScreen__dmay
 var overlay = "Dialog_overlay__1dq44ga3 sprinkles_backdropFilter_modalOverlay__dmay209g sprinkles_background_modalBackdrop_base__dmay20b5 sprinkles_display_flex_smallScreen__dmay20a sprinkles_justifyContent_center__dmay202n sprinkles_position_fixed__dmay208p";
 
 // src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React53, { useCallback as useCallback28, useEffect as useEffect26, useRef as useRef9 } from "react";
+import React53, { useCallback as useCallback29, useEffect as useEffect26, useRef as useRef10 } from "react";
 var moveFocusWithin = (element2, position) => {
   const focusableElements = element2.querySelectorAll(
     "button:not(:disabled), a[href]"
@@ -9366,7 +9356,7 @@ var moveFocusWithin = (element2, position) => {
   focusableElements[position === "end" ? focusableElements.length - 1 : 0].focus();
 };
 function FocusTrap(props) {
-  const contentRef = useRef9(null);
+  const contentRef = useRef10(null);
   useEffect26(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
@@ -9385,7 +9375,7 @@ function FocusTrap(props) {
     }
   }, [contentRef]);
   return /* @__PURE__ */ React53.createElement(React53.Fragment, null, /* @__PURE__ */ React53.createElement("div", {
-    onFocus: useCallback28(
+    onFocus: useCallback29(
       () => contentRef.current && moveFocusWithin(contentRef.current, "end"),
       []
     ),
@@ -9396,7 +9386,7 @@ function FocusTrap(props) {
     tabIndex: -1,
     ...props
   }), /* @__PURE__ */ React53.createElement("div", {
-    onFocus: useCallback28(
+    onFocus: useCallback29(
       () => contentRef.current && moveFocusWithin(contentRef.current, "start"),
       []
     ),
@@ -9412,11 +9402,11 @@ function Dialog({ children, onClose, open, titleId }) {
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [open, onClose]);
-  const [bodyScrollable, setBodyScrollable] = useState20(true);
+  const [bodyScrollable, setBodyScrollable] = useState21(true);
   useEffect27(() => {
     setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
   }, []);
-  const handleBackdropClick = useCallback29(() => onClose(), [onClose]);
+  const handleBackdropClick = useCallback30(() => onClose(), [onClose]);
   const themeRootProps = useThemeRootProps();
   const mobile = isMobile();
   return /* @__PURE__ */ React54.createElement(React54.Fragment, null, open ? createPortal(
@@ -9481,7 +9471,7 @@ function DialogContent3({
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React66, { useCallback as useCallback31, useContext as useContext9, useEffect as useEffect29, useState as useState22 } from "react";
+import React66, { useCallback as useCallback32, useContext as useContext9, useEffect as useEffect29, useState as useState23 } from "react";
 
 // src/rainbowkit/src/components/Avatar/Avatar.tsx
 import React56, { useContext as useContext7 } from "react";
@@ -9623,13 +9613,13 @@ import React64, { useContext as useContext8 } from "react";
 import { useNetwork as useNetwork4 } from "wagmi";
 
 // src/rainbowkit/src/transactions/useClearRecentTransactions.ts
-import { useCallback as useCallback30 } from "react";
+import { useCallback as useCallback31 } from "react";
 import { useAccount as useAccount7 } from "wagmi";
 function useClearRecentTransactions() {
   const store = useTransactionStore();
   const { address } = useAccount7();
   const chainId = useChainId();
-  return useCallback30(() => {
+  return useCallback31(() => {
     if (!address || !chainId) {
       throw new Error("No address or chain ID found");
     }
@@ -9638,13 +9628,13 @@ function useClearRecentTransactions() {
 }
 
 // src/rainbowkit/src/transactions/useRecentTransactions.ts
-import { useEffect as useEffect28, useState as useState21 } from "react";
+import { useEffect as useEffect28, useState as useState22 } from "react";
 import { useAccount as useAccount8 } from "wagmi";
 function useRecentTransactions() {
   const store = useTransactionStore();
   const { address } = useAccount8();
   const chainId = useChainId();
-  const [transactions, setTransactions] = useState21(
+  const [transactions, setTransactions] = useState22(
     () => store && address && chainId ? store.getTransactions(address, chainId) : []
   );
   useEffect28(() => {
@@ -9929,8 +9919,8 @@ function ProfileDetails({
   onDisconnect
 }) {
   const showRecentTransactions = useContext9(ShowRecentTransactionsContext);
-  const [copiedAddress, setCopiedAddress] = useState22(false);
-  const copyAddressAction = useCallback31(() => {
+  const [copiedAddress, setCopiedAddress] = useState23(false);
+  const copyAddressAction = useCallback32(() => {
     if (address) {
       navigator.clipboard.writeText(address);
       setCopiedAddress(true);
@@ -10055,7 +10045,7 @@ function AccountModal({ onClose, open }) {
 }
 
 // src/rainbowkit/src/components/ChainModal/ChainModal.tsx
-import React70, { Fragment, useCallback as useCallback32, useContext as useContext10 } from "react";
+import React70, { Fragment, useCallback as useCallback33, useContext as useContext10 } from "react";
 import { useDisconnect as useDisconnect5, useNetwork as useNetwork5, useSwitchNetwork } from "wagmi";
 
 // src/rainbowkit/src/components/Icons/DisconnectSq.tsx
@@ -10144,7 +10134,7 @@ function ChainModal({ onClose, open, fn }) {
   const chainIconSize = "24";
   const { appName } = useContext10(AppContext);
   const rainbowkitChains = useRainbowKitChains();
-  const chainClickHandle = useCallback32(
+  const chainClickHandle = useCallback33(
     ({ isCurrentChain, chain }) => {
       if (isCurrentChain) {
         return;
@@ -10342,7 +10332,7 @@ import React86 from "react";
 import React85 from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect32, useState as useState24 } from "react";
+import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect32, useState as useState25 } from "react";
 
 // src/rainbowkit/src/utils/groupBy.ts
 function groupBy(items, getKey) {
@@ -10551,12 +10541,12 @@ var InfoButton = ({
 };
 
 // src/rainbowkit/src/components/ModalSelection/ModalSelection.tsx
-import React77, { useState as useState23 } from "react";
+import React77, { useState as useState24 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
-import { useContext as useContext12, useEffect as useEffect30, useRef as useRef10 } from "react";
+import { useContext as useContext12, useEffect as useEffect30, useRef as useRef11 } from "react";
 var useCoolMode = (imageUrl) => {
-  const ref = useRef10(null);
+  const ref = useRef11(null);
   const coolModeEnabled = useContext12(CoolModeContext);
   const resolvedImageUrl = useAsyncImage(imageUrl);
   useEffect30(() => {
@@ -10725,7 +10715,7 @@ var ModalSelection = ({
   ...urlProps
 }) => {
   const coolModeRef = useCoolMode(iconUrl);
-  const [isMouseOver, setIsMouseOver] = useState23(false);
+  const [isMouseOver, setIsMouseOver] = useState24(false);
   return /* @__PURE__ */ React77.createElement(Box, {
     display: "flex",
     flexDirection: "column",
@@ -11644,11 +11634,11 @@ function InstructionExtensionDetail({
 function DesktopOptions({ onClose }) {
   const titleId = "rk_connect_title";
   const safari = isSafari();
-  const [selectedOptionId, setSelectedOptionId] = useState24();
-  const [selectedWallet, setSelectedWallet] = useState24();
-  const [qrCodeUri, setQrCodeUri] = useState24();
+  const [selectedOptionId, setSelectedOptionId] = useState25();
+  const [selectedWallet, setSelectedWallet] = useState25();
+  const [qrCodeUri, setQrCodeUri] = useState25();
   const hasQrCode = !!(selectedWallet == null ? void 0 : selectedWallet.qrCode) && qrCodeUri;
-  const [connectionError, setConnectionError] = useState24(false);
+  const [connectionError, setConnectionError] = useState25(false);
   const modalSize = useContext14(ModalSizeContext);
   const compactModeEnabled = modalSize === ModalSizeOptions.COMPACT;
   const { disclaimer: Disclaimer } = useContext14(AppContext);
@@ -11743,10 +11733,10 @@ function DesktopOptions({ onClose }) {
     }
     setWalletStep(newWalletStep);
   };
-  const [initialWalletStep, setInitialWalletStep] = useState24(
+  const [initialWalletStep, setInitialWalletStep] = useState25(
     "NONE" /* None */
   );
-  const [walletStep, setWalletStep] = useState24("NONE" /* None */);
+  const [walletStep, setWalletStep] = useState25("NONE" /* None */);
   let walletContent = null;
   let headerLabel = null;
   let headerBackButtonLink = null;
@@ -11998,7 +11988,7 @@ function DesktopOptions({ onClose }) {
 }
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.tsx
-import React84, { useCallback as useCallback33, useContext as useContext15, useState as useState25 } from "react";
+import React84, { useCallback as useCallback34, useContext as useContext15, useState as useState26 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/MobileOptions.css.ts
 var scroll = "MobileOptions_scroll__1656yi90";
@@ -12028,7 +12018,7 @@ function WalletButton({
     disabled: !ready,
     fontFamily: "body",
     key: id,
-    onClick: useCallback33(async () => {
+    onClick: useCallback34(async () => {
       if (id === "walletConnect")
         onClose == null ? void 0 : onClose();
       connect == null ? void 0 : connect();
@@ -12101,7 +12091,7 @@ function MobileOptions({ onClose }) {
   let walletContent = null;
   let headerBackgroundContrast = false;
   let headerBackButtonLink = null;
-  const [walletStep, setWalletStep] = useState25(
+  const [walletStep, setWalletStep] = useState26(
     "CONNECT" /* Connect */
   );
   const ios = isIOS();
@@ -12379,15 +12369,15 @@ function ConnectModal({ onClose, open }) {
 // src/rainbowkit/src/components/RainbowKitProvider/ModalContext.tsx
 import { useSetRecoilState as useSetRecoilState14 } from "recoil";
 function useModalStateValue() {
-  const [isModalOpen, setModalOpen] = useState26(false);
+  const [isModalOpen, setModalOpen] = useState27(false);
   const setWalletDialogOpen = useSetRecoilState14(walletModalOpenState);
   return {
-    closeModal: useCallback34(() => {
+    closeModal: useCallback35(() => {
       setWalletDialogOpen(false);
       setModalOpen(false);
     }, []),
     isModalOpen,
-    openModal: useCallback34(() => setModalOpen(true), [])
+    openModal: useCallback35(() => setModalOpen(true), [])
   };
 }
 var ModalContext = createContext11({
@@ -12414,7 +12404,7 @@ function ModalProvider({ children }) {
   const connectionStatus = useConnectionStatus();
   const { chain } = useNetwork6();
   const chainSupported = !(chain == null ? void 0 : chain.unsupported);
-  const fn = useRef11();
+  const fn = useRef12();
   function closeModals({
     keepConnectModalOpen = false
   } = {}) {
@@ -13071,7 +13061,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback35, useEffect as useEffect37, useState as useState27 } from "react";
+import { useCallback as useCallback36, useEffect as useEffect37, useState as useState28 } from "react";
 import BigNumberjs3 from "bignumber.js";
 import { ethers as ethers5 } from "ethers";
 
@@ -13125,9 +13115,9 @@ var getFormattedTimeMobile = (timestamp) => {
 var useRecentGamesFromGraph = ({
   env
 }) => {
-  const [list, setList] = useState27();
-  const [hasError, setHasError] = useState27(false);
-  const fetchGameInfos = useCallback35(async () => {
+  const [list, setList] = useState28();
+  const [hasError, setHasError] = useState28(false);
+  const fetchGameInfos = useCallback36(async () => {
     var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
@@ -13416,9 +13406,9 @@ var getRecentGameById = async ({
 };
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect38, useRef as useRef12 } from "react";
+import { useEffect as useEffect38, useRef as useRef13 } from "react";
 function useInterval(callback, delay, leading = true) {
-  const savedCallback = useRef12();
+  const savedCallback = useRef13();
   useEffect38(() => {
     savedCallback.current = callback;
   }, [callback]);
@@ -14297,13 +14287,13 @@ var midnightTheme = ({
 midnightTheme.accentColors = accentColors3;
 
 // src/rainbowkit/src/transactions/useAddRecentTransaction.ts
-import { useCallback as useCallback36 } from "react";
+import { useCallback as useCallback37 } from "react";
 import { useAccount as useAccount13 } from "wagmi";
 function useAddRecentTransaction() {
   const store = useTransactionStore();
   const { address } = useAccount13();
   const chainId = useChainId();
-  return useCallback36(
+  return useCallback37(
     (transaction) => {
       if (!address || !chainId) {
         throw new Error("No address or chain ID found");

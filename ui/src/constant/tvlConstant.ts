@@ -1,7 +1,7 @@
 import { Address } from "wagmi";
 import { ChainId, getCryptoImg, isPro, isTestnet } from "./constant";
-const mainApi = "https://tvl-backend-api-mainnet.zypher.game";
-const testApi = "https://tvl-backend-api.zypher.game";
+const mainApi = "https://tvl-backend-api-mainnet.zypher.network";
+const testApi = "https://tvl-backend-api.zypher.network";
 const getApi = (v: ChainId) => {
   if (isTestnet[v]) {
     return testApi;
@@ -107,8 +107,8 @@ export const tvlTokens = Object.fromEntries(
               currency === "WBTC" ||
               currency === "STONE" ||
               currency === "weETH"
-              ? ".svg"
-              : ".png"
+              ? "_pixel.svg"
+              : "_pixel.png"
           ),
           index: 2,
         },

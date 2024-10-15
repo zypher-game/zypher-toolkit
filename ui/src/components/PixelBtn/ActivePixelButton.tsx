@@ -77,28 +77,9 @@ const PixelStyled = styled(PixelFlatBtn)<IPixel>`
   }
 `;
 export const ActivePixelCard = memo((props: IPixel) => {
-  const { onClick, hidePixel } = props;
-  const lastClickTimeRef = useRef(Date.now());
+  const { hidePixel } = props;
 
-  const clickHandle = useCallback(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1000) {
-      // 1000毫秒等于2秒
-      // 如果距离上次点击不到1秒，则忽略此次点击
-      return;
-    }
-
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      onClick();
-    }
-  }, [onClick]);
-  return hidePixel ? (
-    <PixelFlatBtn {...props} onClick={clickHandle} />
-  ) : (
-    <PixelStyled {...props} onClick={clickHandle} />
-  );
+  return hidePixel ? <PixelFlatBtn {...props} /> : <PixelStyled {...props} />;
 });
 
 const ActivePixelCardStyled = styled(ActivePixelCard)`
@@ -399,25 +380,9 @@ const ActivePixelButtonColorStyled = styled(PixelStyled)<IPixelButtonTheme>`
 `;
 // const ActivePixelButtonColorStyledMotion = motion(ActivePixelButtonColorStyled);
 export const ActivePixelButtonColor = memo((props: IPixelButton) => {
-  const { onClick, className, disable } = props;
-  const [isActive, setIsActive] = useState(false);
-  const clickHandle = useCallback(() => {
-    if (onClick) {
-      setIsActive(true);
-      setTimeout(() => {
-        setIsActive(false);
-      }, 1000);
-      onClick();
-    }
-  }, [onClick]);
-
   return (
     <ActivePixelButtonColorStyled
       // whileTap={{ scale: 0.9 }}
-      className={`${className ?? ""} ${disable ? "disable" : "normal"} ${
-        isActive ? "click" : ""
-      }`}
-      onClick={clickHandle}
       {...props}
     />
   );

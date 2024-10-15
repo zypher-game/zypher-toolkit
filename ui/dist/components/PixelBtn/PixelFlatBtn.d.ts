@@ -7,6 +7,7 @@ interface IProps extends HTMLMotionProps<"div"> {
     onClick?: any;
     style?: any;
     hidePixel?: boolean;
+    disable?: boolean;
 }
 declare const PixelFlatBtn: React.MemoExoticComponent<(props: IProps) => React.JSX.Element>;
 export default PixelFlatBtn;
