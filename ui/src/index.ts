@@ -131,6 +131,7 @@ export {
   IToken,
   TVLToken,
   activeTokenList,
+  LRTSymbol,
   tvlTokenAddress,
   tvlTokens,
   LinkPre,
@@ -151,6 +152,7 @@ export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
 export { default as cn } from "./utils/cn";
 export { default as sleep, timeoutPromise } from "./utils/sleep";
 export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
+export { default as Icon } from "./components/icons";
 
 export {
   LinkList,
@@ -319,6 +321,8 @@ export {
   AuthenticationConfig,
   AuthenticationStatus,
 } from "./rainbowkit/src/components/RainbowKitProvider/AuthenticationContext";
+export { CopiedIcon } from "./rainbowkit/src/components/Icons/Copied";
+export { CopyIcon } from "./rainbowkit/src/components/Icons/Copy";
 export {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,

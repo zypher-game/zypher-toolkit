@@ -2,11 +2,11 @@ import { Address } from "wagmi";
 import { ChainId } from "./constant";
 export declare const TVL_API: Record<ChainId, string>;
 export declare enum ITvlHero {
-    Agil = "Agil",
     Yueling = "Yueling",
-    Celus = "Celus",
+    Liana = "Liana",
     Ivan = "Ivan",
-    Liana = "Liana"
+    Celus = "Celus",
+    Agil = "Agil"
 }
 export declare enum TVLChainId {
     B2 = "223",
@@ -16,7 +16,7 @@ export declare enum TVLChainId {
 }
 export declare const hideTVLStakingSupportedChainId = true;
 export declare const TVLStakingSupportedChainId: ChainId[];
-export declare const defaultActiveChainId: ChainId;
+export declare const defaultActiveChainId: TVLChainId;
 export declare const L3ChainId: Record<any, ChainId>;
 export type IToken = {
     address: Address;
@@ -29,6 +29,7 @@ export type TVLToken = {
     WETH: IToken;
 };
 export declare const activeTokenList: Record<ChainId, Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>>;
+export declare const LRTSymbol: string[];
 export declare const tvlTokenAddress: Record<ChainId, Record<string, Address>>;
 export declare const tvlTokens: {
     [k: string]: {

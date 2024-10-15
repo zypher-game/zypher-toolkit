@@ -790,8 +790,12 @@ function useActiveWeb3React(env, chainList) {
   const IS_TELEGRAM = useIsTelegram();
   return useMemo(() => {
     return {
-      chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(`${chainId}`) ? void 0 : address,
+      chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(
+        `${chainId}`
+      ) || !chainId ? void 0 : `${chainId}`,
+      account: chainId && !supportedChainIds(env, chainList).includes(
+        `${chainId}`
+      ) || !chainId ? void 0 : address,
       provider
     };
   }, [chainId, address, provider]);
@@ -3399,11 +3403,11 @@ var TVL_API = Object.fromEntries(
   Object.values(ChainId).map((v) => [v, getApi(v)])
 );
 var ITvlHero = /* @__PURE__ */ ((ITvlHero2) => {
-  ITvlHero2["Agil"] = "Agil";
   ITvlHero2["Yueling"] = "Yueling";
-  ITvlHero2["Celus"] = "Celus";
-  ITvlHero2["Ivan"] = "Ivan";
   ITvlHero2["Liana"] = "Liana";
+  ITvlHero2["Ivan"] = "Ivan";
+  ITvlHero2["Celus"] = "Celus";
+  ITvlHero2["Agil"] = "Agil";
   return ITvlHero2;
 })(ITvlHero || {});
 var TVLChainId = ((TVLChainId2) => {
@@ -3415,7 +3419,7 @@ var TVLChainId = ((TVLChainId2) => {
 })(TVLChainId || {});
 var hideTVLStakingSupportedChainId = true;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [];
-var defaultActiveChainId = TVLStakingSupportedChainId[0];
+var defaultActiveChainId = isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia;
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
@@ -3442,6 +3446,7 @@ var activeTokenList = {
     Soulbound: "0x77DB62EAB363e6DEF480e4C63210f162438eeD77"
   }
 };
+var LRTSymbol = ["wstETH", "ezETH", "STONE", "weETH"];
 var tvlTokenAddress = {
   [TVLChainId.LineaMainnet]: {
     WETH: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
@@ -3473,7 +3478,7 @@ var tvlTokens = Object.fromEntries(
           logoPath: getCryptoImg(
             "token",
             currency,
-            currency === "BTC" || currency === "WBTC" || currency === "STONE" || currency === "weETH" ? "_pixel.svg" : "_pixel.png"
+            currency === "WETH" ? ".png" : currency === "BTC" || currency === "WBTC" || currency === "STONE" || currency === "weETH" ? "_pixel.svg" : "_pixel.png"
           ),
           index: 2
         }
@@ -6282,12 +6287,16 @@ import React22, {
   useRef as useRef6,
   useState as useState14
 } from "react";
-var NavKey = [["airdrop", "airdropLoading"], ["games"], ["zeroGas"]];
+var NavKey = [
+  ["treasureark", "airdropLoading"],
+  ["games"],
+  ["zeroGas"]
+];
 var NavList = [
   {
     link: `/${NavKey[0][0]}`,
     linkList: NavKey[0],
-    label: "Airdrop",
+    label: "Treasure Ark",
     classNames: "airdrop",
     isTarget: false,
     showIfGames: false,
@@ -16279,6 +16288,8 @@ export {
   ChainSelectorWidget_default as ChainSelectorWidget,
   CommunityLink_default as CommunityLink,
   ConnectButton,
+  CopiedIcon,
+  CopyIcon,
   Currency,
   CurrencyContract,
   CurrencyLogo,
@@ -16296,6 +16307,7 @@ export {
   IGameStatus,
   INavLinkType,
   ITvlHero,
+  icons_default as Icon,
   IsMdProvider,
   IsPixelWidget_default as IsPixelWidget,
   IsTablePixelWidget,
@@ -16303,6 +16315,7 @@ export {
   IsW1220Provider,
   IsW768Provider,
   L3ChainId,
+  LRTSymbol,
   LinkList,
   LinkPre,
   LinkToBetaDialog_default as LinkToBetaDialog,

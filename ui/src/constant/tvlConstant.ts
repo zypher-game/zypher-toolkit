@@ -12,11 +12,11 @@ export const TVL_API = Object.fromEntries(
   (Object.values(ChainId) as ChainId[]).map((v) => [v, getApi(v)])
 ) as Record<ChainId, string>;
 export enum ITvlHero {
-  Agil = "Agil",
   Yueling = "Yueling",
-  Celus = "Celus",
-  Ivan = "Ivan",
   Liana = "Liana",
+  Ivan = "Ivan",
+  Celus = "Celus",
+  Agil = "Agil",
 }
 export enum TVLChainId {
   B2 = ChainId.B2,
@@ -29,7 +29,9 @@ export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
     [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
   : []) as unknown as ChainId[];
-export const defaultActiveChainId = TVLStakingSupportedChainId[0];
+export const defaultActiveChainId = isPro()
+  ? TVLChainId.LineaMainnet
+  : TVLChainId.LineaSepolia;
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
@@ -72,6 +74,7 @@ export const activeTokenList: Record<
     Soulbound: "0x77DB62EAB363e6DEF480e4C63210f162438eeD77",
   },
 } as unknown as Record<ChainId, Record<string, Address>>;
+export const LRTSymbol: string[] = ["wstETH", "ezETH", "STONE", "weETH"];
 export const tvlTokenAddress: Record<ChainId, Record<string, Address>> = {
   [TVLChainId.LineaMainnet]: {
     WETH: "0xe5D7C2a44FfDDf6b295A15c148167daaAf5Cf34f",
@@ -103,10 +106,12 @@ export const tvlTokens = Object.fromEntries(
           logoPath: getCryptoImg(
             "token",
             currency,
-            currency === "BTC" ||
-              currency === "WBTC" ||
-              currency === "STONE" ||
-              currency === "weETH"
+            currency === "WETH"
+              ? ".png"
+              : currency === "BTC" ||
+                currency === "WBTC" ||
+                currency === "STONE" ||
+                currency === "weETH"
               ? "_pixel.svg"
               : "_pixel.png"
           ),

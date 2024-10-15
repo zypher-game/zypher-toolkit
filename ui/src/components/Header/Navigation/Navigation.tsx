@@ -11,7 +11,11 @@ import useWindowSize from "../../../hooks/useWindowSize";
 import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
 
-export const NavKey = [["airdrop", "airdropLoading"], ["games"], ["zeroGas"]];
+export const NavKey = [
+  ["treasureark", "airdropLoading"],
+  ["games"],
+  ["zeroGas"],
+];
 type INavList = {
   link: string;
   linkList: string[];
@@ -26,7 +30,7 @@ export const NavList: INavList[] = [
   {
     link: `/${NavKey[0][0]}`,
     linkList: NavKey[0],
-    label: "Airdrop",
+    label: "Treasure Ark",
     classNames: "airdrop",
     isTarget: false,
     showIfGames: false, // 只显示 games 的时候显不显示
