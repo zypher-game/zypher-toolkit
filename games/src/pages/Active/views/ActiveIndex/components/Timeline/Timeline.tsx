@@ -1,7 +1,8 @@
 import { isEqual } from 'lodash'
-import React, { memo } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 
 import { timelinePath } from '../../config/config'
+import Bg from '../comp/Bg'
 import Title from '../comp/Title'
 import css from './Timeline.module.styl'
 interface IItem {
@@ -71,18 +72,34 @@ const list: IItem[] = [
     time: 'Feb.18 2025'
   }
 ]
-const Index = 2
+const innerIndex = 2
 const Timeline = memo(() => {
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+  useEffect(() => {
+    if (itemRefs.current[innerIndex]) {
+      setTimeout(() => {
+        itemRefs.current[innerIndex]?.scrollIntoView({
+          behavior: 'smooth',
+          block: 'nearest',
+          inline: 'center'
+        })
+      }, 0)
+    }
+  }, [])
   return (
     <div className={css.timeline}>
       <Title label="Timeline" />
-      <img src={timelinePath + '/bg.jpg'} className={css.bg} />
+      <div className={css.bg}>
+        <Bg src={timelinePath + '/bg.jpg'} />
+      </div>
       <img src={timelinePath + '/fl.png'} className={css.p_fl} />
       <img src={timelinePath + '/fr.png'} className={css.p_fr} />
       <div className={css.list_wrap}>
         <div className={css.list}>
-          {list.slice(Math.max(0, Index - 2), Math.min(list.length, Index + 3)).map((v, index) => (
-            <Item key={v.time} on={Index === index} item={v} />
+          {list.map((item, index) => (
+            <div ref={el => (itemRefs.current[index] = el)} key={item.time}>
+              <Item on={innerIndex === index} item={item} />
+            </div>
           ))}
         </div>
       </div>

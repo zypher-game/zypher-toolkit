@@ -2,12 +2,15 @@ import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import { getPath } from '../../config/config'
+import Bg from '../comp/Bg'
 import Title from '../comp/Title'
 import css from './Get.module.styl'
 const Get = memo(() => {
   return (
     <div className={css.get}>
-      <img src={getPath + '/bg.jpg'} alt="" className={css.bg} />
+      <div className={css.bg}>
+        <Bg src={getPath + '/bg.jpg'} />
+      </div>
       <div className={css.get_inner}>
         <div className={css.title}>
           <div className={css.title_label}>

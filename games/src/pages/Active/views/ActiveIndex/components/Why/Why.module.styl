@@ -3,14 +3,16 @@
   height: 1080px
   overflow: hidden
   position relative
+  // min-width: 1440px
+  overflow-y hidden
 .bg
   position absolute
-  width: 1920px
+  width: 100%
   height: 100%
-  min-width: 1920px
   bottom: 0
   left: 50%;
   transform: translateX(-50%);
+  overflow: hidden;
 
 .title
   height 139px
@@ -60,11 +62,12 @@
   display: flex
   justify-content: flex-start
   align-content: flex-start
-  margin-bottom: 60px
+  margin-bottom: 40px
   gap: 20px
   .icon
     width 34px
   h3
+    margin-bottom: 14px
     font-size: 24px
     line-height: 34px
     font-weight: bold
@@ -76,6 +79,7 @@
     color: #E0E0E0
     text-shadow: -2px -2px 0 #1B131E, 2px 0 0 #1B131E, 2px 0 0 #1B131E, 0 3px 0 #1B131E
     margin-bottom: 20px
+    line-height: 22px
     
 .hero
   position absolute

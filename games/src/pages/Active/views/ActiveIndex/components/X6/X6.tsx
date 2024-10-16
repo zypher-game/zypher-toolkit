@@ -3,6 +3,7 @@ import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import { x6Path } from '../../config/config'
+import Bg from '../comp/Bg'
 import SubText from '../comp/SubText'
 import Title from '../comp/Title'
 import css from './X6.module.styl'
@@ -82,9 +83,13 @@ const list = [
 const X6 = memo(() => {
   return (
     <div className={css.x6}>
-      <Title label="6x Rewards, 6x Happiness" />
+      <div className={css.title_wrap}>
+        <Title label="6x Rewards, 6x Happiness" />
+      </div>
       <SubText label="Our Reward System" />
-      <img src={x6Path + '/bg.jpg'} className={css.bg} />
+      <div className={css.bg}>
+        <Bg src={x6Path + '/bg.jpg'} />
+      </div>
       <div className={css.inner_inner}>
         <img src={x6Path + '/banner_bg.png'} className={css.banner_bg} />
         <div className={css.table_wrap}>

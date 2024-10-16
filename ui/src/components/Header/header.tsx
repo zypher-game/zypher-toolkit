@@ -95,7 +95,7 @@ const Header = (props: IProps): React.ReactElement | null => {
     >
       {isBingo ? null : (
         <div className={"header_left"}>
-          <ZypherLogo isMobile={isW830} />
+          <ZypherLogo Link={Link} isMobile={isW830} />
         </div>
       )}
       {!isW830 && !isBingo && <Navigation pathname={pathname} Link={Link} />}

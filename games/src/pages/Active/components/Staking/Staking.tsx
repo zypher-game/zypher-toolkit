@@ -44,12 +44,12 @@ const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string
     erc20: '100'
   },
   [TVLChainId.LineaMainnet]: {
-    native: '10',
-    erc20: '5'
+    native: '1000',
+    erc20: '500'
   },
   [TVLChainId.LineaSepolia]: {
-    native: '10',
-    erc20: '5'
+    native: '1000',
+    erc20: '500'
   }
 }
 const Staking = memo(({ isModal }: { isModal: boolean }) => {

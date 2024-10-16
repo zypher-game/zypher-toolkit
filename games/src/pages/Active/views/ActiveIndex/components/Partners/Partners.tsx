@@ -3,6 +3,7 @@ import './Partners.styl'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
+import { timelinePath } from '../../config/config'
 import Title from '../comp/Title'
 import PartnerCarousel from './PartnerCarousel'
 
@@ -53,6 +54,8 @@ const partnerList02 = [
 const Partners = memo(() => {
   return (
     <div className={'partner'}>
+      <img src={timelinePath + '/fl.png'} className={'partner_p_fl'} />
+      <img src={timelinePath + '/fr.png'} className={'partner_p_fr'} />
       <Title label="Our Partners" />
       {[partnerList01, partnerList02].map((list, listIndex) => (
         <PartnerCarousel className={`partners_swiper${listIndex}`} key={listIndex} partners={list} index={listIndex} />

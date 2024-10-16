@@ -1,11 +1,14 @@
 import React, { memo } from 'react'
 
 import { legalPath } from '../../config/config'
+import Bg from '../comp/Bg'
 import css from './Legal.module.styl'
 const Legal = memo(() => {
   return (
     <div className={css.legal}>
-      <img src={legalPath + '/bg.jpg'} className={css.bg} />
+      <div className={css.bg}>
+        <Bg src={legalPath + '/bg.jpg'} />
+      </div>
       <div className={css.inner}>
         <img src={legalPath + '/Title.png'} className={css.title} />
         <img src={legalPath + '/line.png'} className={css.line1} />

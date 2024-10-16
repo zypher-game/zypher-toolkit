@@ -1,26 +1,19 @@
-import { ActivePixelButton, useActiveWeb3React } from '@ui/src'
+import { ActivePixelButton } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { preAirdropPathname } from '@/pages/Active/hooks/activeHooks'
-import { useGetActiveRouterFn } from '@/pages/Active/hooks/useActiveRouter'
 
 import { navPath } from '../../config/config'
 import TextLabel from '../comp/TextLabel'
 import css from './nav.module.styl'
 
 const Nav = memo(() => {
-  const { getActiveRouterFn } = useGetActiveRouterFn()
-  const { chainId } = useActiveWeb3React()
   const navigate = useNavigate()
   const toPathHandle = useCallback(() => {
-    if (chainId) {
-      getActiveRouterFn()
-    } else {
-      navigate(`/${preAirdropPathname}`)
-    }
-  }, [getActiveRouterFn])
+    navigate(`/${preAirdropPathname}`)
+  }, [])
   return (
     <div className={css.nav}>
       <div className={css.fl}>

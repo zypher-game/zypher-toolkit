@@ -1,16 +1,18 @@
 .banner 
   width: 100%;
   position: relative;
-  height: calc(100vh - 70px)
-  min-height: calc(1080px - 70px) 
+  height: 100vh
+  min-height: 1080px 
+  // min-width: 1440px
+  overflow-y hidden
   .bg 
     position: absolute;
     width: 100%;
     height: 1080px
-    min-width: 1920px
-    top: -70px
+    top: 0
     left: 50%;
     transform: translateX(-50%);
+    overflow: hidden;
   .text
     position absolute
     z-index 3

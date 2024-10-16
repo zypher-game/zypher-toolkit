@@ -4,7 +4,7 @@ ssh-add -D && ssh-add -K ~/.ssh/kimikuo2016
 path_work="/Users/admin/Desktop/work"
 # path_app_frontend1="$path_work/bingo/bingo_test_beta"
 path_app_frontend1="$path_work/bingo/bingo_test_beta"
-path_app_frontend2="$path_work/app/app-frontend_test"
+path_app_frontend2="$path_work/app/app-frontend_ark_main"
 path_pixel="$path_work/zypher-toolkit-pixel"
 path_pixel_front="$path_work/zypher-toolkit-pixel_front"
 path_ui="$path_pixel/ui"
@@ -102,8 +102,18 @@ sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
 echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
 echo "Updated dependencies in yarn.lock"
 yarn
-# # npm start
+
+# git checkout test
 # git fetch --prune
+# git pull origin test
 # git add .
-# git commit -m "add with @zypher-game/toolkit $new_version"
+# git commit -m "Update to version $new_version"
 # git push origin test
+
+
+# git checkout ark_main
+# git fetch --prune
+# git pull origin ark_main
+# git add .
+# git commit -m "Update to version $new_version"
+# git push origin ark_main

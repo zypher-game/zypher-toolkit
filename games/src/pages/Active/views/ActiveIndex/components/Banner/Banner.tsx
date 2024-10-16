@@ -2,6 +2,7 @@ import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import { bannerPath } from '../../config/config'
+import Bg from '../comp/Bg'
 import Nav from '../Nav/Nav'
 import css from './banner.module.styl'
 
@@ -9,8 +10,9 @@ const Banner = memo(() => {
   return (
     <div className={css.banner}>
       <Nav />
-      <img src={bannerPath + '/bg.jpg'} className={css.bg} />
-
+      <div className={css.bg}>
+        <Bg src={bannerPath + '/bg.jpg'} />
+      </div>
       <div className={css.text}>
         <img src={bannerPath + '/title.png'} className={css.title} />
         <img src={bannerPath + '/sub.png'} className={css.sub} />

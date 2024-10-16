@@ -4,6 +4,8 @@
   justify-content: center
   align-items: center
   background-color: rgba(0,0,0,0.2)
+  // min-width: 1440px
+  overflow-y hidden
   .inner
     width 1200px
   .in
@@ -34,7 +36,8 @@
     margin-bottom: 12px;
 .fr
   width: 510px
-
+  :global(&>.pixel_flat_inner)
+    padding-bottom: 10px
 .header
   width 100%
   text-align: center
@@ -43,12 +46,20 @@
   color: #fff
   text-shadow: -2px -2px 0 #000F32, 2px -2px 0 #000F32, -2px 2px 0 #000F32, 2px 2px 0 #000F32;
 .item
-  width 100%
+  width calc(100% - 16px)
   display: flex
   justify-content: space-between
   align-items: center
-  padding: 24px 20px
-  
+  margin: 8px
+  cursor pointer
+  &:hover
+    :global(.pixel_flat_btn_bg>div)
+      opacity 1
+  :global(.pixel_flat_btn_bg>div)
+    opacity 0
+  :global(.pixel_flat_inner)
+    padding: 24px 12px
+    height 64px
   .fl,.fr
     display: flex
     align-items: center

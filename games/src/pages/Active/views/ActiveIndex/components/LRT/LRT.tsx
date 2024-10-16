@@ -1,4 +1,17 @@
-import { ChainId, CopiedIcon, CopyIcon, getShortenAddress, Icon, LRTSymbol, PixelTableBorder, TVLChainId, tvlTokenAddress, tvlTokens } from '@ui/src'
+import {
+  ActivePixelButton,
+  ChainId,
+  CopiedIcon,
+  CopyIcon,
+  getShortenAddress,
+  Icon,
+  LRTSymbol,
+  PixelCube2,
+  PixelTableBorder,
+  TVLChainId,
+  tvlTokenAddress,
+  tvlTokens
+} from '@ui/src'
 import { ProfileDetailsAction } from '@ui/src/rainbowkit/src/components/ProfileDetails/ProfileDetailsAction'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback, useMemo, useState } from 'react'
@@ -65,18 +78,18 @@ const Item = memo(({ symbol, chainId }: { symbol: string; chainId: ChainId }) =>
   }, [token.address])
 
   return (
-    <div className={css.item}>
+    <PixelCube2 backgroundColor="#41444c" borderColor="#41444c" pixel_height={6} className={css.item} onClick={copyAddressHandle}>
       <div className={css.fl}>
         <img src={token.logoPath} />
         <p className={css.symbol}>{token.symbol}</p>
       </div>
       <div className={css.fr}>
-        <p> {getShortenAddress(token.address)}</p>
-        <div className={css.icon} onClick={copyAddressHandle}>
+        <p>{getShortenAddress(token.address)}</p>
+        <div className={css.icon}>
           <Icon name="pixel_copy" />
         </div>
       </div>
-    </div>
+    </PixelCube2>
   )
 }, isEqual)
 export default LRT

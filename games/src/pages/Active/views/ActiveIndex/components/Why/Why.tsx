@@ -5,6 +5,7 @@ import React, { memo } from 'react'
 import HeroImageLoader from '@/pages/Active/components/ImageLoader/HeroImageLoader'
 
 import { whyPath } from '../../config/config'
+import Bg from '../comp/Bg'
 import Title from '../comp/Title'
 import css from './Why.module.styl'
 interface IItem {
@@ -32,7 +33,9 @@ const list = [
 const Why = memo(() => {
   return (
     <div className={css.why}>
-      <img src={whyPath + '/bg.jpg'} className={css.bg} />
+      <div className={css.bg}>
+        <Bg src={whyPath + '/bg.jpg'} />
+      </div>
       <div className={css.title}>
         <div className={css.title_label}>
           <Title label="Why Treasure ark?" />

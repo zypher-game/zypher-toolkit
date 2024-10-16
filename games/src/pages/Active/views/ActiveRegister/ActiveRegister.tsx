@@ -49,7 +49,7 @@ const ActiveRegister = memo(() => {
                 borderColor="#3A4254"
               >
                 <p>
-                  Current Competition Schedule<i>April 20, 2024 ~ July 20, 2024</i>
+                  Current Competition Schedule<i>Oct. 17, 2024 ~ Jan. 16, 2025</i>
                 </p>
               </PixelBorderCard>
             </div>

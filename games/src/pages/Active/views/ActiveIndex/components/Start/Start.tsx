@@ -1,15 +1,21 @@
-import { PixelBorderCard } from '@ui/src'
+import { ActivePixelButton, PixelBorderCard } from '@ui/src'
 import { isEqual } from 'lodash'
-import React, { memo } from 'react'
+import React, { memo, useCallback } from 'react'
 
 import { startPath } from '../../config/config'
+import Bg from '../comp/Bg'
 import SubText from '../comp/SubText'
 import Title from '../comp/Title'
 import css from './Start.module.styl'
 const Start = memo(() => {
+  const onClick = useCallback((url: string) => {
+    window.open(url)
+  }, [])
   return (
     <div className={css.start}>
-      <img src={startPath + '/bg.jpg'} alt="" className={css.bg} />
+      <div className={css.bg}>
+        <Bg src={startPath + '/bg.jpg'} />
+      </div>
       <div className={css.inner}>
         <Title label="Start your Treasure Ark" />
         <SubText label="Maximize Your Staking Return on Linea!" />
@@ -22,8 +28,10 @@ const Start = memo(() => {
                 <p className={css.text}>-Zypher Tokens Earned through Staking-</p>
               </div>
             </div>
+            <img src={startPath + '/game.png'} className={css.game} />
             <div className={css.bottom}>
-              <PixelBorderCard className={css.list} pixel_height={8} backgroundColor="#1D263B" borderColor="#3A4254">
+              <div className={css.list}>
+                <img src={startPath + '/border1.png'} className={css.border1} />
                 <div className={css.list1}>
                   <div>
                     <img src={startPath + '/list1.png'} />
@@ -40,23 +48,39 @@ const Start = memo(() => {
                     <img src={startPath + '/list4.png'} />
                   </div>
                 </div>
-              </PixelBorderCard>
-              <PixelBorderCard className={`${css.list} ${css.list22}`} pixel_height={8} backgroundColor="#1D263B" borderColor="#3A4254">
+              </div>
+              <div className={`${css.list} ${css.list22}`}>
+                <img src={startPath + '/border2.png'} className={css.border2} />
                 <div className={css.list3}>
-                  <div>
+                  <ButtonShadow onClick={() => onClick('https://docs.linea.build/users/linea-voyage/lxp')} className={css.position}>
                     <img src={startPath + '/linea.png'} />
-                  </div>
-                  <div>
+                  </ButtonShadow>
+                  <ButtonShadow onClick={() => onClick('https://zytron.zypher.network/layer3')} className={css.position}>
                     <img src={startPath + '/zytron.png'} />
-                  </div>
+                  </ButtonShadow>
                 </div>
-              </PixelBorderCard>
+              </div>
             </div>
           </div>
           <div className={css.fr}>
             <img src={startPath + '/lxp.png'} alt="lxp" className={css.lxp} />
           </div>
         </div>
+      </div>
+    </div>
+  )
+}, isEqual)
+
+const ButtonShadow = memo(({ className, onClick, children }: { className: string; children: React.ReactNode; onClick: any }) => {
+  return (
+    <div className={`${css.positive} }`}>
+      <ActivePixelButton backgroundColor="#3B4150" pixel_height={6} className={`${css.cover} ${className ?? ''}`} onClick={onClick}>
+        {children}
+      </ActivePixelButton>
+      <div className={css.div_shadow}>
+        <ActivePixelButton backgroundColor="#000000" pixel_height={6} className={`${className ?? ''}`}>
+          <></>
+        </ActivePixelButton>
       </div>
     </div>
   )
