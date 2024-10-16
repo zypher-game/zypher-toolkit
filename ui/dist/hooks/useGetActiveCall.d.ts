@@ -1,7 +1,8 @@
 import { ChainId } from "../constant/constant";
 export declare const useGetHero: () => {
-    getHero: ({ address, linkType }: {
+    getHero: ({ address, chainId, linkType, }: {
         address: string;
+        chainId: ChainId;
         linkType: number;
     }) => Promise<any>;
 };

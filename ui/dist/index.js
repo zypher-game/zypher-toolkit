@@ -5341,9 +5341,12 @@ var ListWithMotion_default = memo7(ListWithMotion);
 // src/hooks/useGetActiveCall.ts
 import { useCallback as useCallback8 } from "react";
 var useGetHero = () => {
-  const { chainId } = useActiveWeb3React();
   const getHero = useCallback8(
-    async ({ address, linkType }) => {
+    async ({
+      address,
+      chainId,
+      linkType
+    }) => {
       try {
         const res = await request(
           `${TVL_API[chainId]}/api/user-role/${address.toLowerCase()}`,
@@ -8023,6 +8026,7 @@ import { useSetRecoilState as useSetRecoilState12 } from "recoil";
 var AccountInfo = memo30(
   ({ isW768, isMiddleWidth, copy, env, supportedChainList }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
+    console.log({ chainId });
     const setAccountInfoDialogState = useSetRecoilState12(accountInfoDialogState);
     const accountClick = useCallback24(() => {
       if (isW768) {

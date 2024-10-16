@@ -2,12 +2,18 @@ import { useCallback } from "react";
 import { request } from "../utils/request";
 import { TVL_API, getLinkPre } from "../constant/tvlConstant";
 import { ChainId } from "../constant/constant";
-import { useActiveWeb3React } from "./useActiveWeb3React";
 
 export const useGetHero = () => {
-  const { chainId } = useActiveWeb3React();
   const getHero = useCallback(
-    async ({ address, linkType }: { address: string; linkType: number }) => {
+    async ({
+      address,
+      chainId,
+      linkType,
+    }: {
+      address: string;
+      chainId: ChainId;
+      linkType: number;
+    }) => {
       try {
         const res = await request(
           `${TVL_API[chainId]}/api/user-role/${address.toLowerCase()}`,
