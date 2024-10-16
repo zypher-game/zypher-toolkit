@@ -34,7 +34,7 @@ export const useGetActiveRouterFn = () => {
         return
       }
       const _code = getHrefCode()
-      if (airdropPoints === '' && _code?.startsWith('L' || 'B')) {
+      if (airdropPoints === '' && _code && (_code.startsWith('L') || _code.startsWith('B'))) {
         console.log(1)
         return
       }
@@ -103,6 +103,7 @@ export const useGetActiveRouterFn = () => {
       }
     } else {
       console.log(1)
+      // return `/${preAirdropPathname}`
     }
   }, [
     isActiveRouter,

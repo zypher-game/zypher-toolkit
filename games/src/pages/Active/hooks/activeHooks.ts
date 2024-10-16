@@ -1,6 +1,5 @@
 import { AddressZero } from '@ethersproject/constants'
 import { ChainId, CODELENGTH, getLinkPre, preStaticUrl, request, TVL_API, TVLStakingSupportedChainId, useAaWallet, useActiveWeb3React } from '@ui/src'
-import { GlobalVar } from '@ui/src'
 import { getWeb3Sign } from '@ui/src'
 import { ethers } from 'ethers'
 import { isArray } from 'lodash'
@@ -12,7 +11,7 @@ import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { useActiveData } from './useActiveData'
-export const preAirdropPathname = 'airdrop'
+export const preAirdropPathname = 'treasureark'
 export const airdropPathname = {
   register: 'register',
   getAirdrop: 'getAirdrop',
