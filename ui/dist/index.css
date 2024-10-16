@@ -1068,6 +1068,9 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   gap: 6px;
   display: flex;
 }
+.zypher_logo img:nth-child(1) {
+  width: 166px;
+}
 .header_header {
   position: relative;
   z-index: 1;

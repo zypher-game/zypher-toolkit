@@ -20,33 +20,58 @@ interface IProps {
   useNavigate: any;
   className?: string;
   pathname: string;
+  Link?: any;
 }
-export const ZypherLogo = memo(({ isMobile }: { isMobile: boolean }) => {
-  return (
-    <a href={"/"} className="zypher_logo">
-      {isMobile ? (
-        <img
-          fetchPriority="high"
-          decoding="async"
-          loading="lazy"
-          src={preStaticUrl + "/img/layout/logo-min.svg"}
-        />
-      ) : (
-        <img
-          fetchPriority="high"
-          decoding="async"
-          loading="lazy"
-          src={preStaticUrl + "/img/tvl/logo.svg"}
-        />
-      )}
-      <img
+export const ZypherLogo = memo(
+  ({ Link, isMobile }: { Link?: any; isMobile: boolean }) => {
+    return (
+      <LinkComp Link={Link} href="/" className="zypher_logo">
+        {isMobile ? (
+          <img
+            fetchPriority="high"
+            decoding="async"
+            loading="lazy"
+            src={preStaticUrl + "/img/layout/logo-min.svg"}
+          />
+        ) : (
+          <img
+            fetchPriority="high"
+            decoding="async"
+            loading="lazy"
+            src={preStaticUrl + "/img/zypher/logo.svg"}
+          />
+        )}
+        {/* <img
         decoding="async"
         loading="lazy"
         src={preStaticUrl + "/img/layout/ai.svg"}
-      />
-    </a>
-  );
-});
+      /> */}
+      </LinkComp>
+    );
+  }
+);
+const LinkComp = memo(
+  ({
+    Link,
+    href,
+    children,
+    className,
+  }: {
+    Link?: any;
+    href: string;
+    children: any;
+    className: string;
+  }) => {
+    if (Link) {
+      return (
+        <Link to={href} className={className}>
+          {children}
+        </Link>
+      );
+    }
+    return <a href={href}>{children}</a>;
+  }
+);
 const SideBar: React.FC<IProps> = (props: IProps) => {
   const { useNavigate, pathname } = props;
   // const items = useNavItem();

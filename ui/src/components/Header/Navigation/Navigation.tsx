@@ -12,7 +12,7 @@ import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
 
 export const NavKey = [
-  ["treasureark", "airdropLoading"],
+  ["treasureark", "treasureark", "airdropLoading"],
   ["games"],
   ["zeroGas"],
 ];

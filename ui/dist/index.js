@@ -59,7 +59,7 @@ var divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
 var isPro = () => {
-  if (window.location.host.startsWith("app") || window.location.host.startsWith("zypher")) {
+  if (window.location.host.startsWith("ark") || window.location.host.startsWith("app") || window.location.host.startsWith("zypher")) {
     return true;
   }
   return false;
@@ -3418,8 +3418,8 @@ var TVLChainId = ((TVLChainId2) => {
   return TVLChainId2;
 })(TVLChainId || {});
 var hideTVLStakingSupportedChainId = true;
-var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [];
-var defaultActiveChainId = isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia;
+var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [TVLChainId.LineaMainnet];
+var defaultActiveChainId = isPro() ? TVLChainId.LineaSepolia : TVLChainId.LineaMainnet;
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
@@ -3428,10 +3428,10 @@ var L3ChainId = {
 };
 var activeTokenList = {
   [TVLChainId.LineaMainnet]: {
-    Staking: "0x69d58b936f6D2Ae7dADbEbc244CB83A8C61b3fb3",
+    Staking: "0xb78e82CF9457C3Cf6b275E8387038764baDa6F73",
     ZypherGameToken: "0x6ba3593101E32cEdBDE5AC9439e9187736B26A15",
-    CRHero: "0x04117234880577EFABd98BF9A167e2ee7E402D1b",
-    Soulbound: "0xc5254aBF57CeDeF2e8F112BBDf28317f8111a4F8"
+    CRHero: "0xb0D2D285F9beBFA151CF9e6dCaD44FE3C7052D44",
+    Soulbound: "0xa48A88ffE2d8E60d2ddC29921FC75acC32026800"
   },
   [TVLChainId.LineaSepolia]: {
     Staking: "0x5e35952a6c2e747C7997F307ab5A476B6674058A",
@@ -6288,7 +6288,7 @@ import React22, {
   useState as useState14
 } from "react";
 var NavKey = [
-  ["treasureark", "airdropLoading"],
+  ["treasureark", "treasureark", "airdropLoading"],
   ["games"],
   ["zeroGas"]
 ];
@@ -6482,26 +6482,43 @@ function hasFontWeight600(element2) {
 var Navigation_default = Navigation;
 
 // src/components/SideBar/SideBar.tsx
-var ZypherLogo = memo19(({ isMobile: isMobile2 }) => {
-  return /* @__PURE__ */ React23.createElement("a", {
-    href: "/",
-    className: "zypher_logo"
-  }, isMobile2 ? /* @__PURE__ */ React23.createElement("img", {
-    fetchPriority: "high",
-    decoding: "async",
-    loading: "lazy",
-    src: preStaticUrl + "/img/layout/logo-min.svg"
-  }) : /* @__PURE__ */ React23.createElement("img", {
-    fetchPriority: "high",
-    decoding: "async",
-    loading: "lazy",
-    src: preStaticUrl + "/img/tvl/logo.svg"
-  }), /* @__PURE__ */ React23.createElement("img", {
-    decoding: "async",
-    loading: "lazy",
-    src: preStaticUrl + "/img/layout/ai.svg"
-  }));
-});
+var ZypherLogo = memo19(
+  ({ Link, isMobile: isMobile2 }) => {
+    return /* @__PURE__ */ React23.createElement(LinkComp2, {
+      Link,
+      href: "/",
+      className: "zypher_logo"
+    }, isMobile2 ? /* @__PURE__ */ React23.createElement("img", {
+      fetchPriority: "high",
+      decoding: "async",
+      loading: "lazy",
+      src: preStaticUrl + "/img/layout/logo-min.svg"
+    }) : /* @__PURE__ */ React23.createElement("img", {
+      fetchPriority: "high",
+      decoding: "async",
+      loading: "lazy",
+      src: preStaticUrl + "/img/zypher/logo.svg"
+    }));
+  }
+);
+var LinkComp2 = memo19(
+  ({
+    Link,
+    href,
+    children,
+    className
+  }) => {
+    if (Link) {
+      return /* @__PURE__ */ React23.createElement(Link, {
+        to: href,
+        className
+      }, children);
+    }
+    return /* @__PURE__ */ React23.createElement("a", {
+      href
+    }, children);
+  }
+);
 var SideBar = (props) => {
   const { useNavigate, pathname } = props;
   const { chainId } = useActiveWeb3React();
@@ -12848,6 +12865,7 @@ var Header = (props) => {
   }, isBingo ? null : /* @__PURE__ */ React93.createElement("div", {
     className: "header_left"
   }, /* @__PURE__ */ React93.createElement(ZypherLogo, {
+    Link,
     isMobile: isW830
   })), !isW830 && !isBingo && /* @__PURE__ */ React93.createElement(Navigation_default, {
     pathname,

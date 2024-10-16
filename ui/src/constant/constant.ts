@@ -14,6 +14,7 @@ export const txStatus = "success"; // '1'
 
 export const isPro = (): boolean => {
   if (
+    window.location.host.startsWith("ark") ||
     window.location.host.startsWith("app") ||
     window.location.host.startsWith("zypher")
   ) {
