@@ -7,7 +7,8 @@ type INavList = {
     label: string;
     classNames: string;
     isTarget: boolean;
-    showIfGames: boolean;
+    showIfGames?: boolean;
+    showArk: boolean;
     isLink: boolean;
     icon?: string;
 };

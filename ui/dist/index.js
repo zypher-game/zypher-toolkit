@@ -6303,6 +6303,7 @@ var NavList = [
     classNames: "airdrop",
     isTarget: false,
     showIfGames: false,
+    showArk: true,
     isLink: true
   },
   {
@@ -6312,6 +6313,7 @@ var NavList = [
     classNames: "games",
     isTarget: false,
     showIfGames: true,
+    showArk: true,
     isLink: true
   },
   {
@@ -6321,7 +6323,19 @@ var NavList = [
     classNames: "zero_gas",
     isTarget: false,
     showIfGames: false,
+    showArk: true,
     isLink: true
+  },
+  {
+    link: "https://zytron.zypher.network/layer3",
+    linkList: [],
+    label: "Layer3",
+    icon: preStaticUrl + "/img/icon/pixel_link.svg",
+    classNames: "network",
+    isTarget: true,
+    showIfGames: true,
+    showArk: false,
+    isLink: false
   },
   {
     link: "https://zypher.network/",
@@ -6331,6 +6345,7 @@ var NavList = [
     classNames: "network",
     isTarget: true,
     showIfGames: true,
+    showArk: true,
     isLink: false
   }
 ];
@@ -6429,23 +6444,23 @@ var Navigation = memo18(
     }, [isW768, isW1670, isWBig]);
     return /* @__PURE__ */ React22.createElement("div", {
       className: "nav"
-    }, NavList.filter((v) => window.isGames ? v.showIfGames : true).map(
-      (v, index) => /* @__PURE__ */ React22.createElement(LinkComp, {
-        Link,
-        item: v,
-        key: v.label,
-        className: `nav_${v.classNames} `,
-        setLinksRefs: (ref) => {
-          linksRefs.current[index] = ref;
-        }
-      }, v.label, v.icon ? /* @__PURE__ */ React22.createElement("img", {
-        decoding: "async",
-        loading: "lazy",
-        src: v.icon,
-        alt: "pixel_link",
-        className: "nav_img"
-      }) : null)
-    ), /* @__PURE__ */ React22.createElement("div", {
+    }, NavList.filter(
+      (v) => window.isGames ? v.showIfGames : v.showArk
+    ).map((v, index) => /* @__PURE__ */ React22.createElement(LinkComp, {
+      Link,
+      item: v,
+      key: v.label,
+      className: `nav_${v.classNames} `,
+      setLinksRefs: (ref) => {
+        linksRefs.current[index] = ref;
+      }
+    }, v.label, v.icon ? /* @__PURE__ */ React22.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
+      src: v.icon,
+      alt: "pixel_link",
+      className: "nav_img"
+    }) : null)), /* @__PURE__ */ React22.createElement("div", {
       className: "pixel_line"
     }));
   }
@@ -6496,12 +6511,21 @@ var ZypherLogo = memo19(
       decoding: "async",
       loading: "lazy",
       src: preStaticUrl + "/img/layout/logo-min.svg"
+    }) : window.isGames ? /* @__PURE__ */ React23.createElement("img", {
+      fetchPriority: "high",
+      decoding: "async",
+      loading: "lazy",
+      src: preStaticUrl + "/img/tvl/logo.svg"
     }) : /* @__PURE__ */ React23.createElement("img", {
       fetchPriority: "high",
       decoding: "async",
       loading: "lazy",
       src: preStaticUrl + "/img/zypher/logo.svg"
-    }));
+    }), window.isGames ? /* @__PURE__ */ React23.createElement("img", {
+      decoding: "async",
+      loading: "lazy",
+      src: preStaticUrl + "/img/layout/ai.svg"
+    }) : null);
   }
 );
 var LinkComp2 = memo19(
