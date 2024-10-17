@@ -3419,7 +3419,7 @@ var TVLChainId = ((TVLChainId2) => {
 })(TVLChainId || {});
 var hideTVLStakingSupportedChainId = true;
 var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [TVLChainId.LineaMainnet];
-var defaultActiveChainId = isPro() ? TVLChainId.LineaSepolia : TVLChainId.LineaMainnet;
+var defaultActiveChainId = isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia;
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,

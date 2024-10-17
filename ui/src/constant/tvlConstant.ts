@@ -30,8 +30,8 @@ export const TVLStakingSupportedChainId = (!isPro()
     [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
   : [TVLChainId.LineaMainnet]) as unknown as ChainId[];
 export const defaultActiveChainId = isPro()
-  ? TVLChainId.LineaSepolia
-  : TVLChainId.LineaMainnet;
+  ? TVLChainId.LineaMainnet
+  : TVLChainId.LineaSepolia;
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
