@@ -5005,8 +5005,8 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 var zAceLink = isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
 var crLink = "https://testnet.cryptorumble.io";
 var LinkList = [
-  window.location.origin + "/bingo/",
-  window.location.origin + "/2048/",
+  "https://zypher.game/bingo/",
+  "https://zypher.game/2048/",
   zAceLink,
   crLink,
   "",
