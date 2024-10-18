@@ -37,8 +37,7 @@ export type Iaa = {
     typeof WalletAbi,
     NonNullable<GetWalletClientResult>
   >;
-  config: IGas0Config;
-  configFromApi: IGas0ApiConfig;
+  config: IGas0ApiConfig;
 };
 export class WagmiWalletHandler {
   chain: Chain;
@@ -87,8 +86,10 @@ export class WagmiWalletHandler {
           address: aaWallet,
           walletClient,
         }),
-        config: conf,
-        configFromApi: configApi,
+        config: {
+          ...conf,
+          ...configApi,
+        },
       };
       const aa = this.aa;
       const transport: Transport = custom({
@@ -130,7 +131,7 @@ export class WagmiWalletHandler {
               value: value,
               data: arg.data,
               nonce,
-              tip: aa.configFromApi.function_call_tip,
+              tip: aa.config.function_call_tip,
             },
           });
           if (typeof sign === "string") {
