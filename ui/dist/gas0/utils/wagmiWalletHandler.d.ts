@@ -2,14 +2,12 @@ import { GetContractResult, GetPublicClientResult, GetWalletClientResult } from 
 import { Address, Chain, Transport, Account } from "viem";
 import { PublicClient } from "wagmi";
 import { WalletAbi } from "../abis/Wallet";
-import { IGas0Config } from "../constants/Gas0Constant";
 import { IGas0ApiConfig } from "../hooks/useGas0Balance";
 export type Iaa = {
     isFree: boolean;
     address: Address;
     contract: GetContractResult<typeof WalletAbi, NonNullable<GetWalletClientResult>>;
-    config: IGas0Config;
-    configFromApi: IGas0ApiConfig;
+    config: IGas0ApiConfig;
 };
 export declare class WagmiWalletHandler {
     chain: Chain;

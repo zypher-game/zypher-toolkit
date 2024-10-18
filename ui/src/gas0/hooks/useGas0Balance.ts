@@ -1,26 +1,29 @@
 import { useEffect, useRef, useState } from "react";
 import { useActiveWeb3React } from "../../hooks/useActiveWeb3React";
-import { Gas0Constants } from "../constants/Gas0Constant";
+import { Gas0Constants, IGas0Config } from "../constants/Gas0Constant";
 import { httpGetOnce } from "../../utils/request";
 import BigNumberJs from "../../utils/BigNumberJs";
 import { Address } from "wagmi";
 import { Hash } from "@wagmi/core";
 import { zeroAddress } from "viem";
-export type IGas0ApiConfig = {
+export interface IGas0ApiConfig extends IGas0Config {
   deployer_address: Address;
   function_call_tip: string;
   function_multicall_tip: string;
   wallet_bytecode: Hash;
-};
+  token_proxy: Address;
+}
 export const useGas0Balance = () => {
   const [loading, setLoading] = useState(false);
   const { account, chainId } = useActiveWeb3React();
   const [balance, _balance] = useState("0");
   const [config, _config] = useState<IGas0ApiConfig>({
+    api: "",
     deployer_address: zeroAddress,
     function_call_tip: "",
     function_multicall_tip: "",
     wallet_bytecode: "0x",
+    token_proxy: zeroAddress,
   });
   const key = useRef("");
   useEffect(() => {
@@ -63,9 +66,11 @@ export const useGas0Balance = () => {
             _balance(gas0Balance);
             console.log({ configRes });
             _config({
+              ...Gas0Constants[chainId],
               deployer_address: configRes.data.deployer_address,
               function_call_tip: configRes.data.function_call_tip,
               function_multicall_tip: configRes.data.function_multicall_tip,
+              token_proxy: configRes.data.token_proxy,
               wallet_bytecode: configRes.data.wallet_bytecode,
             });
           });

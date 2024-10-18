@@ -804,14 +804,10 @@ function useActiveWeb3React(env, chainList) {
 // src/gas0/constants/Gas0Constant.ts
 var Gas0Constants = {
   ["19546" /* ZytronLineaSepoliaTestnet */]: {
-    PermitProxy: "0x416e71A44d3A0cFD91DCbbE5B6CcB90752572B87",
-    api: "https://rpc-zytron-testnet-linea.zypher.game/api",
-    isGameFree: true
+    api: "https://rpc-zytron-testnet-linea.zypher.game/api"
   },
   ["9901" /* ZytronLineaMain */]: {
-    api: "https://zytron-linea-mainnet-0gas.zypher.game/api",
-    PermitProxy: "0x9a97D3E13ec90A29243eda43aff67C723fcfD1C6",
-    isGameFree: true
+    api: "https://zytron-linea-mainnet-0gas.zypher.game/api"
   }
 };
 
@@ -846,10 +842,12 @@ var useGas0Balance = () => {
   const { account, chainId } = useActiveWeb3React();
   const [balance, _balance] = useState2("0");
   const [config, _config] = useState2({
+    api: "",
     deployer_address: zeroAddress,
     function_call_tip: "",
     function_multicall_tip: "",
-    wallet_bytecode: "0x"
+    wallet_bytecode: "0x",
+    token_proxy: zeroAddress
   });
   const key = useRef("");
   useEffect2(() => {
@@ -892,9 +890,11 @@ var useGas0Balance = () => {
             _balance(gas0Balance);
             console.log({ configRes });
             _config({
+              ...Gas0Constants[chainId],
               deployer_address: configRes.data.deployer_address,
               function_call_tip: configRes.data.function_call_tip,
               function_multicall_tip: configRes.data.function_multicall_tip,
+              token_proxy: configRes.data.token_proxy,
               wallet_bytecode: configRes.data.wallet_bytecode
             });
           });
@@ -1193,8 +1193,10 @@ var WagmiWalletHandler = class {
           address: aaWallet,
           walletClient
         }),
-        config: conf,
-        configFromApi: configApi
+        config: {
+          ...conf,
+          ...configApi
+        }
       };
       const aa = this.aa;
       const transport = custom({
@@ -1230,7 +1232,7 @@ var WagmiWalletHandler = class {
               value,
               data: arg.data,
               nonce,
-              tip: aa.configFromApi.function_call_tip
+              tip: aa.config.function_call_tip
             }
           });
           if (typeof sign === "string") {
@@ -3299,7 +3301,7 @@ var encodeFunctionMulticall = async (wallet, items) => {
   const calls = await wallet.walletClient.signTypedData({
     ...ZytronMulticallTypedData(wallet.chainId),
     message: {
-      tip: wallet.aa.configFromApi.function_multicall_tip,
+      tip: wallet.aa.config.function_multicall_tip,
       items,
       nonce
     }
@@ -3355,7 +3357,7 @@ var aaApproveAndFcErc20 = async ({
     ...ZytronPermitTypedData(gpName, chainId, erc20Address),
     message: {
       owner,
-      spender: aa.config.PermitProxy,
+      spender: aa.config.token_proxy,
       value: BigInt(tokenAmount),
       nonce,
       deadline
@@ -3383,7 +3385,7 @@ var aaApproveAndFcErc20 = async ({
     functionName: "approve"
   });
   const tx = await encodeFunctionMulticall(wallet, [
-    { from, to: aa.config.PermitProxy, data: Transfer2aa, value: BigInt(0) },
+    { from, to: aa.config.token_proxy, data: Transfer2aa, value: BigInt(0) },
     { from, to: wallet.address.GP, data: Approve2game, value: BigInt(0) },
     ...otherFc
   ]);

@@ -43,7 +43,7 @@ export const aaApproveAndFcErc20 = async ({
     ...ZytronPermitTypedData(gpName, chainId, erc20Address),
     message: {
       owner,
-      spender: aa.config.PermitProxy,
+      spender: aa.config.token_proxy,
       value: BigInt(tokenAmount),
       nonce,
       deadline,
@@ -74,7 +74,7 @@ export const aaApproveAndFcErc20 = async ({
   });
   const tx = await encodeFunctionMulticall(wallet, [
     // 2. transfer GP => PermitProxy => aa
-    { from, to: aa.config.PermitProxy, data: Transfer2aa, value: BigInt(0) },
+    { from, to: aa.config.token_proxy, data: Transfer2aa, value: BigInt(0) },
     // 3. aa approve GP => zAce
     { from, to: wallet.address.GP, data: Approve2game, value: BigInt(0) },
     ...otherFc,
