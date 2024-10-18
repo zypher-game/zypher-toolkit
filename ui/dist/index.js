@@ -3492,7 +3492,9 @@ var LinkPre = {
   L: {
     key: 1,
     label: "L",
-    chainId: [
+    chainId: isPro() ? [
+      TVLChainId.LineaMainnet
+    ] : [
       TVLChainId.LineaSepolia,
       TVLChainId.LineaMainnet
     ]

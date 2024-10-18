@@ -135,10 +135,12 @@ export const LinkPre: Record<string, ILinkPre> = {
   L: {
     key: 1,
     label: "L",
-    chainId: [
+    chainId: (isPro() ?  [
+      TVLChainId.LineaMainnet,
+    ]: [
       TVLChainId.LineaSepolia,
       TVLChainId.LineaMainnet,
-    ] as unknown as ChainId[],
+    ] )as unknown as ChainId[],
   },
   B: {
     key: 2,
