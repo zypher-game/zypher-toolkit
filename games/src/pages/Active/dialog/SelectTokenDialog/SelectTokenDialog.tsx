@@ -51,14 +51,14 @@ const SelectTokenDialog = memo(() => {
   const [withdrawCurrency, setWithdrawCurrency] = useRecoilState(withdrawCurrencyState)
   const [redepositCurrency, setRedepositCurrency] = useRecoilState(redepositCurrencyState)
   const [extendCurrency, setExtendCurrency] = useRecoilState(extendCurrencyState)
-  // useEffect(() => {
-  //   const can = canNext(account, chainId)
-  //   if (can) {
-  //     setChainIdLocal(chainId)
-  //   } else {
-  //     setChainIdLocal(defaultActiveChainId)
-  //   }
-  // }, [chainId])
+  useEffect(() => {
+    const can = canNext(account, chainId)
+    if (can) {
+      setChainIdLocal(chainId)
+    } else {
+      setChainIdLocal(defaultActiveChainId as unknown as ChainId)
+    }
+  }, [chainId])
   useEffect(() => {
     const can = canNext(account, chainIdLocal)
     let arr = Object.values(tvlStakingData[defaultActiveChainId]) as ITVLStakingData[]

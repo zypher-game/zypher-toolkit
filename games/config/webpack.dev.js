@@ -18,14 +18,14 @@ function getLocalIpAddress() {
   }
   return 'localhost' // 如果无法获取 IP 地址，则使用 localhost
 }
-
+console.log('process.env.port: ', process.env.port)
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'source-map',
   plugins: [new webpack.HotModuleReplacementPlugin()],
   devServer: {
     contentBase: 'public',
-    port: 9999,
+    port: process.env.port,
     open: true,
     hot: true,
     historyApiFallback: true,

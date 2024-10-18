@@ -3,6 +3,7 @@ const env = require('dotenv')
 const fs = require('fs')
 const path = require('path')
 const res = env.config({ path: path.join(__dirname, `../.env.${process.env.NODE_ENV}`) })
+
 const str = `
 window.env = '${res.parsed.env}';
 window.isGames = ${res.parsed.isGames};

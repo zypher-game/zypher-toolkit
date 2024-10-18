@@ -19,6 +19,8 @@
     top: 55%;
     left: 50%;
     transform: translate(-50%, -50%);
+    .anim
+      animation: shake-scale 3s ease-in-out infinite
     img
       display: block
       margin: 0 auto
@@ -32,8 +34,10 @@
       margin-top: 40px
       cursor: pointer
       transition: all 0.3s ease
+      scale: 1
       &:hover
         opacity 0.9
+        scale: 0.9
     .eth,.v,.zytron
       position absolute
       z-index 2
@@ -49,3 +53,14 @@
       width 140px
       top: -80px;
       left: 44%;
+@keyframes shake-scale 
+  0% 
+    transform: scale(1) translate3d(0, 0, 0);
+  20% 
+    transform: scale(1.01) translate3d(0, -5px, 0);
+  50% 
+    transform: scale(1.02) translate3d(0, -5px, 0);
+  70% 
+    transform: scale(1.01) translate3d(0, -5px, 0);
+  100% 
+    transform: scale(1) translate3d(0, 0, 0);

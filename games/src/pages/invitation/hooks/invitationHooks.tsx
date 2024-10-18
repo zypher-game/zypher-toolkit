@@ -69,7 +69,7 @@ export const useGetAccountListInfo = (): any => {
       return
     }
     setLoading(true)
-    const { data: newData, totalPage } = await fetchAddressmulti(currentPage, chainId)
+    const { data: newData, totalPage } = await fetchAddressmulti(currentPage)
     // const _nextData = data.concat(newData)
     if (!isEqual(data, newData)) {
       // 过滤重复信息
@@ -117,11 +117,7 @@ export const useGetAccountListInfo = (): any => {
     hasMore
   }
 }
-const fetchAddressmulti = async (
-  currentPage: number,
-  chainId: number | undefined,
-  pageSize = PageSize
-): Promise<{ data: AccountInfo[]; totalPage: number }> => {
+const fetchAddressmulti = async (currentPage: number, pageSize = PageSize): Promise<{ data: AccountInfo[]; totalPage: number }> => {
   const arr: AccountInfo[] = []
   const params = {
     limit: `${pageSize}`,
@@ -188,7 +184,7 @@ export const useGetInvitationAddress = (): void => {
       if (isValidAddress) {
         setInvitationAddressState({
           address: shareParam,
-          chainId: Number(chain_id) as ChainId
+          chainId: chain_id as ChainId
         })
       }
     }

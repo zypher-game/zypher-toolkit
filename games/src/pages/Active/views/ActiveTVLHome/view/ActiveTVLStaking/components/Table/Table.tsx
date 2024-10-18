@@ -1,4 +1,4 @@
-import { ChainId, LoadingButton, motion, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, Currency, LoadingButton, motion, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
@@ -13,9 +13,9 @@ const Table = memo(({ chainIdLocal }: { chainIdLocal: ChainId }) => {
   const { native, erc20 } = useTable()
   return (
     <motion.div key={`${chainIdLocal}`} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
-      <h3 className={css.title}>Stake your Asset Token</h3>
+      <h3 className={css.title}>${Currency[chainIdLocal]} Staking</h3>
       <TableWrap list={native} type="native" chainId={chainIdLocal} isDataLoading={isDataLoading} />
-      <h3 className={css.title}>Restaked Tokens</h3>
+      <h3 className={css.title}>LRT Tokens</h3>
       <TableWrap list={erc20} type="erc20" chainId={chainIdLocal} isDataLoading={isDataLoading} />
     </motion.div>
   )

@@ -33,6 +33,13 @@ export const ZypherLogo = memo(
             loading="lazy"
             src={preStaticUrl + "/img/layout/logo-min.svg"}
           />
+        ) : window.isGames ? (
+          <img
+            fetchPriority="high"
+            decoding="async"
+            loading="lazy"
+            src={preStaticUrl + "/img/tvl/logo.svg"}
+          />
         ) : (
           <img
             fetchPriority="high"
@@ -41,11 +48,13 @@ export const ZypherLogo = memo(
             src={preStaticUrl + "/img/zypher/logo.svg"}
           />
         )}
-        {/* <img
-        decoding="async"
-        loading="lazy"
-        src={preStaticUrl + "/img/layout/ai.svg"}
-      /> */}
+        {window.isGames ? (
+          <img
+            decoding="async"
+            loading="lazy"
+            src={preStaticUrl + "/img/layout/ai.svg"}
+          />
+        ) : null}
       </LinkComp>
     );
   }

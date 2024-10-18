@@ -1,4 +1,4 @@
 
-window.env = 'development';
+window.env = 'prod';
 window.isGames = false;
-export const env = 'development';
+export const env = 'prod';

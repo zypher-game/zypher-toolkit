@@ -25,7 +25,7 @@ const ActiveTVLLeaderboard = memo(() => {
       fl_children={
         <>
           <h2 className={`${css.fl_title} ${css.pt30}`}>Leaderboard</h2>
-          <p className={`${css.fl_grey} ${isW768 ? css.mb20 : css.mb40}`}>Staking & invite friends to improve your ranking!</p>
+          <p className={`${css.fl_grey} ${isW768 ? css.mb20 : css.mb40}`}>Stake and invite friends to boost your ranking!</p>
           {isW768 ? <ActiveTab index={activeTab} setIndex={setActiveTab} /> : null}
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
           {((activeTab === 0 && isW768) || !isW768) && rankBoard.length ? (

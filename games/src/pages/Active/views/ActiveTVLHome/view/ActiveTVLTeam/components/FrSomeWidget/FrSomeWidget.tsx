@@ -63,13 +63,17 @@ const FrSomeWidget = memo(
             <img decoding="async" loading="lazy" src={CurrencyLogo[chainId]} />
           </div>
           <ActivePixelButtonColor themeType="brightBlue" className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={stakingHandle}>
-            <p>Staking more</p>
+            <p>Stake more</p>
           </ActivePixelButtonColor>
         </FrPixelBorder>
         <FrPixelBorder>
           <Title
             label="Airdrop Points Card"
-            tooltip={['Points cards come from:', 'Your inviter has completed the group goal;', 'Your team accomplished the group goal.']}
+            tooltip={[
+              'Airdrop points are earned from the following:',
+              '1. Your inviter completing the group goal',
+              '2. Your team achieving the group goal'
+            ]}
           />
           <p className={css.fr_grey}>
             {Number(groupGoal.need) === 0 ? null : `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card`}

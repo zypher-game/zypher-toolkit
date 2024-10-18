@@ -86,7 +86,7 @@ const X6 = memo(() => {
       <div className={css.title_wrap}>
         <Title label="6x Rewards, 6x Happiness" />
       </div>
-      <SubText label="Our Reward System" />
+      <SubText label="Our Rewards System" />
       <div className={css.bg}>
         <Bg src={x6Path + '/bg.jpg'} />
       </div>

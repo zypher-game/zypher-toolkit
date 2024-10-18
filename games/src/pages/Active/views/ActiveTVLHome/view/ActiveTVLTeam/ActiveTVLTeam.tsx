@@ -66,7 +66,7 @@ const ActiveTVLTeam = memo(() => {
               <></>
             ) : (
               <>
-                <h4 className={css.fl_title}>My Situation</h4>
+                <h4 className={css.fl_title}>Points Overview</h4>
                 <PointText className={css.fl_text} />
               </>
             )}

@@ -16,7 +16,7 @@ interface IItem {
 const list = [
   {
     icon: 'icon1',
-    title: 'Zero Gas, Only Zypher can do.',
+    title: 'Zero Gas',
     details: [
       'Zypher offers a unique zero-gas experience on Zytron L3, making gaming more seamless and affordable. ',
       'Through the use of Gasless SBTs (Soulbound Tokens), players can enjoy uninterrupted gameplay without worrying about gas fees.'
@@ -24,7 +24,7 @@ const list = [
   },
   {
     icon: 'icon2',
-    title: 'Revolutionary High Yield.',
+    title: 'Revolutionary Rewards',
     details: [
       'Treasure Ark participants unlock high-yield rewards through staking and gameplay. Zypher’s zk-powered infrastructure is fully programmable, composable, and verifiable on-chain, enabling DeFi-like composability and enhanced rewards.'
     ]

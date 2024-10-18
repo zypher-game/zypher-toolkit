@@ -44,40 +44,40 @@ export const useAirdropPointsTooltip = () => {
       const CrHero = stakingData.map(v => `${v.getMinStake} ${v.symbol === `W${Currency[chainId]}` ? Currency[chainId] : v.symbol}`).join(' / ')
       return {
         airdropPointsTooltip: [
-          `The points earned by staking will grow according to the formula: X * Amount of ${Currency[chainId]} * Staking duration, and the X variable depends on your stake amount.`
+          `Points earned from staking will grow according to the following formula: X * Amount of ${Currency[chainId]} * Staking Duration, where the X variable is determined by your stake amount.`
+          // `The points earned by staking will grow according to the formula: X * Amount of ${Currency[chainId]} * Staking duration, and the X variable depends on your stake amount.`
           // '(Airdrop points also include additional airdrop point rewards obtained by completing the team.)'
         ],
         growthCoefficientNativeTooltip: [
-          'The growth coefficient of airdrop points depends on your stake amount. The higher the stake amount, the greater the coefficient.',
+          'The growth coefficient of airdrop points is based on the amount staked. The higher your stake, the greater the coefficient. ',
           '',
-          'Note: The coefficients of Staking and Restaking are different.'
+          'Note: The coefficients for staking and restaking are different.'
         ],
         growthCoefficientTooltip: [
-          'The growth coefficient of airdrop points depends on your stake amount. The higher the stake amount, the greater the coefficient.',
+          'The growth coefficient of airdrop points is based on the amount staked. The higher your stake, the greater the coefficient. ',
           '',
-          'Note: The coefficients of Staking and Restaking are different.'
+          'Note: The coefficients for staking and restaking are different.'
         ],
         SBTTooltip: [
-          'Pledge any token and meet the stake amount requirements to obtain SBT. Users with SBT can experience gas-free gaming on Zytron L3.',
+          'Stake any amount of token and meet the minimum amount requirements to obtain Gas-free SBT. Users with SBT can enjoy gas-free gaming on Zytron Layer 3.',
+          'Staking Requirements',
           ...(mintMinimum && mintMinimum !== '' ? SBTWarn : [])
         ],
         crHeroTooltip: [
-          'Hero mystery box rewards for platformer Crypto Rumble.',
-          '1. Total issuance: 10,000 CR  hero mystery boxes.',
-          `2. Every time the Staking amount of each address reaches ${CrHero}, a hero blind box will be obtained.`,
-          '3. There is no upper limit on the quantity available for each address, while supplies last.'
+          'CR Hero Mystery Box Rewards',
+          'Available for the game Crypto Rumble.',
+          '1. Total issuance: 10,000 CR hero mystery boxes.',
+          `2. For every ${CrHero} staked, you will receive a hero mystery box.`,
+          '3. There is no upper limit on the number of boxes an address can earn, while supplies last.'
         ],
         //         $GP rewards are settled weekly. Based on last week’s stake status.
 
         //  Note: The profit is $GP and the value is a constant $ETH ( 1 $ETH = 2,000,000 $GP). $GP can only be circulated in games within the platform and cannot be transferred. We will lift the restrictions on converting $GP into ETH and transferring $GP between accounts in the future.
         gpTooltip: [
-          "$GP rewards are settled weekly. Based on last week's stake status.",
+          'Rewards are settled weekly, based on the previous week’s staking status.',
           '',
-          `Note: The profit is $GP and the value is a constant $${Currency[chainId]} ( 1 $${Currency[chainId]} = ${
-            GPNumber[chainId as unknown as TVLChainId]
-          } $GP). $GP can only be circulated in games within the platform and cannot be transferred. We will lift the restrictions on converting $GP into $${
-            Currency[chainId]
-          }  and transferring $GP between accounts in the future.`
+          `$GP Value: 1 $${Currency[chainId]} = ${GPNumber[chainId as unknown as TVLChainId]} $GP`,
+          `Note: $GP can only be used within platform games and is non-transferable. In the future, restrictions on converting $GP to ${Currency[chainId]} and transferring $GP between accounts will be lifted.`
         ]
       }
     },
@@ -95,13 +95,13 @@ export const useTeamTooltip = () => {
   const { availableInvitationsTooltip } = useMemo(() => {
     return {
       availableInvitationsTooltip: [
-        `1. After staking ${minStakingValue[chainId as unknown as TVLChainId]} ${Currency[chainId]} for the first time, activate 5 invitation codes.`,
-        '2. After successfully inviting 2 players, you will get 2 invitation codes.',
-        '3. After successfully inviting 2 more players, you will get 3 invitation codes.',
-        '4. Complete 1 group goal and activate 1 invitation code.',
-        `5. If the total stake amount of the group reaches ${stakeAmountListConfig[chainId as unknown as TVLChainId][0]}${
+        `1. Stake ${minStakingValue[chainId as unknown as TVLChainId]} ${Currency[chainId]} for the first time to activate 5 invitation codes.`,
+        '2. Successfully invite 2 players to receive 2 additional invitation codes.',
+        '3. Invite 2 more players to unlock 3 more invitation codes.',
+        '4. Complete 1 group goal to activate 1 additional invitation code.',
+        `5. If the total group stake reaches ${stakeAmountListConfig[chainId as unknown as TVLChainId][0]}${
           Currency[chainId]
-        }, a permanent invitation code will be obtained.`
+        }, a permanent invitation code will be awarded.`
       ]
     }
   }, [chainId])

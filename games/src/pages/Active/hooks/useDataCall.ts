@@ -36,7 +36,8 @@ export const useGetDataCall = () => {
                   if (account) {
                     heroKey = await getHero({
                       address: account,
-                      linkType: linkType.key
+                      linkType: linkType.key,
+                      chainId: chainId
                     })
                   }
                 } catch (e) {}
@@ -537,7 +538,7 @@ export const useUserHeroCall = () => {
           }
         })
         if (res.data && res.data['message'] == 'ok') {
-          const rres = await getHero({ address: account, linkType: linkType.key })
+          const rres = await getHero({ address: account, chainId: chainId, linkType: linkType.key })
           setLoading(false)
           if (rres) {
             return rres

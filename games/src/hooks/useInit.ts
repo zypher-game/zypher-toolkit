@@ -3,7 +3,7 @@ import { GlobalVar } from '@ui/src'
 import { useLayoutEffect, useMemo } from 'react'
 
 import { useActiveInit } from '@/pages/Active/hooks/useActiveInit'
-import { useActiveRouter } from '@/pages/Active/hooks/useActiveRouter'
+import { useActiveRouter, useChainIdLocal } from '@/pages/Active/hooks/useActiveRouter'
 
 import { useAppDispatch } from '../store/hooks'
 export const useIsGetActiveData = () => {
@@ -33,5 +33,6 @@ export const useInit = () => {
   if (!window.isGames) {
     useActiveRouter()
     useActiveInit()
+    useChainIdLocal()
   }
 }

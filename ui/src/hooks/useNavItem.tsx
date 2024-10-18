@@ -13,8 +13,8 @@ export const crLink = "https://testnet.cryptorumble.io";
 
 export const LinkList = [
   // "/zBingo",
-  window.location.origin + "/bingo/",
-  window.location.origin + "/2048/",
+  "https://zypher.game/bingo/",
+  "https://zypher.game/2048/",
   zAceLink,
   crLink,
   "", //game_tcg.jpg

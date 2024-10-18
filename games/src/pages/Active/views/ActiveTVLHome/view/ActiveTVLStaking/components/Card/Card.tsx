@@ -165,7 +165,7 @@ const PixelCardOne = memo(
               {/* {dataLoading ? <Skeleton className={css.munSke} /> : null} */}
             </div>
             <div className={css.grey_title}>
-              <p>Airdrop Points</p>
+              <p>Airdrop Points Formula</p>
               <PixelTooltip title={airdropPointsTooltip} />
             </div>
           </div>

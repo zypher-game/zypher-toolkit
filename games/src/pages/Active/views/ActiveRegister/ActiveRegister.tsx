@@ -33,8 +33,8 @@ const ActiveRegister = memo(() => {
             <></>
           ) : (
             <div className={css.textPartInner}>
-              <h2>{"King's League:"}</h2>
-              <h3>Asset Domination Tournament</h3>
+              <h2>{'Treasure Ark:'}</h2>
+              <h3>A Fun & Rewarding Journey</h3>
               <p className={css.textGrey}>
                 In this virtual contest, participants will accumulate wealth through strategic staking, assert their dominance through competitive
                 rankings, and experience the thrill of rivalry and camaraderie in collaborative team efforts. Together, they will compete for the

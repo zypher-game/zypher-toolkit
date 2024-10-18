@@ -1,11 +1,10 @@
 import { isEqual } from 'lodash'
 import React, { memo, useEffect } from 'react'
 
-import useScrollPosition from '@/hooks/useScrollPosition'
-
 import TVLFooter from '../../components/TVLFooter/TVLFooter'
 import css from './ActiveIndex.module.styl'
 import Banner from './components/Banner/Banner'
+import FAQ from './components/FAQ/FAQ'
 import Get from './components/Get/Get'
 import Legal from './components/Legal/Legal'
 import LRT from './components/LRT/LRT'
@@ -18,7 +17,7 @@ const ActiveIndex = memo(() => {
   useEffect(() => {
     setTimeout(() => {
       window.scrollTo(0, 0)
-    }, 0)
+    }, 300)
   }, [])
   return (
     <div className={css.main}>
@@ -27,7 +26,7 @@ const ActiveIndex = memo(() => {
       <X6 />
       <LRT />
       <Get />
-      {/* <FAQ />  */}
+      <FAQ />
       <Partners />
       <Timeline />
       <Why />

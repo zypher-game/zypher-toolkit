@@ -25,7 +25,7 @@ const Start = memo(() => {
               <img src={startPath + '/top_bg.png'} alt="" className={css.top_bg} />
               <div className={css.top_inner}>
                 <img src={startPath + '/zytron02.png'} className={css.zytron02} />
-                <p className={css.text}>-Zypher Tokens Earned through Staking-</p>
+                <p className={css.text}>-Zypher Tokens for Campaign Rewards-</p>
               </div>
             </div>
             <img src={startPath + '/game.png'} className={css.game} />

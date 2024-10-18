@@ -14,7 +14,7 @@ const HeroImageLoader: React.FC<IHeroImageLoader> = memo(({ heroKey, level, clas
     <div className={`${css.hero} ${className ?? ''}`}>
       <ImageLoader
         className={css.hero_big}
-        src={preStaticUrl + '/img/tvl/hero/' + heroKey + '_v' + level + '.png'}
+        src={preStaticUrl + '/img/tvl/hero/' + heroKey + '_v' + level + '.gif'}
         alt={heroKey}
         showMotion={true}
         cb={() => {

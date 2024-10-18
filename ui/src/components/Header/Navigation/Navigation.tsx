@@ -22,7 +22,8 @@ type INavList = {
   label: string;
   classNames: string;
   isTarget: boolean;
-  showIfGames: boolean; // 只显示 games 的时候显不显示
+  showIfGames?: boolean; // 只显示 games 的时候显不显示
+  showArk: boolean; // 只显示 games 的时候显不显示
   isLink: boolean;
   icon?: string;
 };
@@ -34,6 +35,7 @@ export const NavList: INavList[] = [
     classNames: "airdrop",
     isTarget: false,
     showIfGames: false, // 只显示 games 的时候显不显示
+    showArk: true,
     isLink: true,
   },
   {
@@ -43,6 +45,7 @@ export const NavList: INavList[] = [
     classNames: "games",
     isTarget: false,
     showIfGames: true,
+    showArk: true,
     isLink: true,
   },
   {
@@ -52,7 +55,19 @@ export const NavList: INavList[] = [
     classNames: "zero_gas",
     isTarget: false,
     showIfGames: false,
+    showArk: true,
     isLink: true,
+  },
+  {
+    link: "https://zytron.zypher.network/layer3",
+    linkList: [],
+    label: "Layer3",
+    icon: preStaticUrl + "/img/icon/pixel_link.svg",
+    classNames: "network",
+    isTarget: true,
+    showIfGames: true,
+    showArk: false,
+    isLink: false,
   },
   {
     link: "https://zypher.network/",
@@ -62,6 +77,7 @@ export const NavList: INavList[] = [
     classNames: "network",
     isTarget: true,
     showIfGames: true,
+    showArk: true,
     isLink: false,
   },
 ];
@@ -168,30 +184,30 @@ const Navigation = memo(
     }, [isW768, isW1670, isWBig]);
     return (
       <div className="nav">
-        {NavList.filter((v) => (window.isGames ? v.showIfGames : true)).map(
-          (v, index) => (
-            <LinkComp
-              Link={Link}
-              item={v}
-              key={v.label}
-              className={`nav_${v.classNames} `}
-              setLinksRefs={(ref) => {
-                linksRefs.current[index] = ref;
-              }}
-            >
-              {v.label}
-              {v.icon ? (
-                <img
-                  decoding="async"
-                  loading="lazy"
-                  src={v.icon}
-                  alt="pixel_link"
-                  className="nav_img"
-                />
-              ) : null}
-            </LinkComp>
-          )
-        )}
+        {NavList.filter((v) =>
+          window.isGames ? v.showIfGames : v.showArk
+        ).map((v, index) => (
+          <LinkComp
+            Link={Link}
+            item={v}
+            key={v.label}
+            className={`nav_${v.classNames} `}
+            setLinksRefs={(ref) => {
+              linksRefs.current[index] = ref;
+            }}
+          >
+            {v.label}
+            {v.icon ? (
+              <img
+                decoding="async"
+                loading="lazy"
+                src={v.icon}
+                alt="pixel_link"
+                className="nav_img"
+              />
+            ) : null}
+          </LinkComp>
+        ))}
         <div className="pixel_line" />
       </div>
     );

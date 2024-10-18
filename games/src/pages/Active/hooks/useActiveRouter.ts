@@ -1,11 +1,22 @@
-import { ChainId, ITvlHero, minStakingValue, NavKey, pathnameState, TVLChainId, useActiveWeb3React, useRecoilValue } from '@ui/src'
+import {
+  ChainId,
+  defaultActiveChainId,
+  ITvlHero,
+  minStakingValue,
+  NavKey,
+  pathnameState,
+  TVLChainId,
+  useActiveWeb3React,
+  useRecoilState,
+  useRecoilValue
+} from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import { useIsGetActiveData } from '@/hooks/useInit'
 
-import { IActiveData, tvlPathState } from '../state/activeState'
+import { chooseChainState, IActiveData, tvlPathState } from '../state/activeState'
 import { getHrefCode } from '../utils/getHrefParams'
 import { airdropPathname, canNext, getAirdropPathname, preAirdropPathname, tvlPath, TVLTabList } from './activeHooks'
 import { useActiveData } from './useActiveData'
@@ -130,7 +141,18 @@ export const useActiveRouter = () => {
     }
   }, [getActiveRouterFn])
 }
-
+export const useChainIdLocal = () => {
+  const [chainIdLocal, setChainIdLocal] = useRecoilState(chooseChainState)
+  const { account, chainId } = useActiveWeb3React()
+  useEffect(() => {
+    const can = canNext(account, chainId)
+    if (can) {
+      setChainIdLocal(chainId)
+    } else {
+      setChainIdLocal(defaultActiveChainId as unknown as ChainId)
+    }
+  }, [chainId])
+}
 export const useActiveRouterV2 = () => {
   const navigate = useNavigate()
   const { getActiveRouterFn } = useGetActiveRouterFn()

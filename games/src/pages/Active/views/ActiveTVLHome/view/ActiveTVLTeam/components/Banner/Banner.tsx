@@ -60,11 +60,11 @@ const Banner = memo(() => {
             title={activeData.airdropPointsStr}
             label={'Airdrop Points'}
             warnText={[
-              'Here is the total airdrop points, including:',
-              '1. Initial airdrop points;',
-              '2. Airdrop points obtained by staking;',
-              '3. Take a commission from the airdrop points obtained by inviting friends;',
-              '4. Airdrop point rewards for completing group goals'
+              'Here are the components of the total airdrop points:',
+              '1. Initial airdrop points',
+              '2. Airdrop points earned through staking',
+              '3. Commissions from airdrop points obtained by inviting friends',
+              '4. Airdrop point rewards for achieving group goal'
             ]}
             iconPath={preStaticUrl + '/img/icon/pixel_airdrop.svg'}
           />
