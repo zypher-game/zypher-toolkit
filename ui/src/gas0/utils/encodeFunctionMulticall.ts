@@ -21,7 +21,7 @@ export const encodeFunctionMulticall = async (
   const calls = await wallet.walletClient.signTypedData({
     ...ZytronMulticallTypedData(wallet.chainId),
     message: {
-      tip: wallet.aa.configFromApi.function_multicall_tip,
+      tip: wallet.aa.config.function_multicall_tip,
       items,
       nonce,
     },

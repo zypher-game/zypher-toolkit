@@ -62,25 +62,25 @@ echo "Committed hash: $latest_hash"
 
 
 
-# cd "$path_app_frontend1/src"
-# perl -i -pe 's|^// import |import |' index.tsx
-# perl -i -pe 's|^// | |'  global.d.ts
+cd "$path_app_frontend1/src"
+perl -i -pe 's|^// import |import |' index.tsx
+perl -i -pe 's|^// | |'  global.d.ts
 
-# # 更新bingo_test_beta的 yarn.lock
-# cd "$path_app_frontend1"
-# echo $path_app_frontend1
-# sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-# # 添加新的 "@ui@zypher-game/toolkit" 依赖项
-# echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
-# echo "Updated dependencies in yarn.lock"
-# yarn
+# 更新bingo_test_beta的 yarn.lock
+cd "$path_app_frontend1"
+echo $path_app_frontend1
+sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# 添加新的 "@ui@zypher-game/toolkit" 依赖项
+echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+echo "Updated dependencies in yarn.lock"
+yarn
 
-# git checkout test
-# git fetch --prune
-# git pull origin test
-# git add .
-# git commit -m "Update to version $new_version"
-# git push origin test
+git checkout test
+git fetch --prune
+git pull origin test
+git add .
+git commit -m "Update to version $new_version"
+git push origin test
 
 # git checkout test-tg
 # git fetch --prune
@@ -90,18 +90,18 @@ echo "Committed hash: $latest_hash"
 # git push origin test-tg
 
 
-cd "$path_app_frontend2/src"
-perl -i -pe 's|^// import |import |' index.tsx
-perl -i -pe 's|^// | |'  global.d.ts
+# cd "$path_app_frontend2/src"
+# perl -i -pe 's|^// import |import |' index.tsx
+# perl -i -pe 's|^// | |'  global.d.ts
 
-# 更新bingo_test_beta的 yarn.lock
-cd "$path_app_frontend2"
-echo $path_app_frontend2
-sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-# 添加新的 "@ui@zypher-game/toolkit" 依赖项
-echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
-echo "Updated dependencies in yarn.lock"
-yarn
+# # 更新bingo_test_beta的 yarn.lock
+# cd "$path_app_frontend2"
+# echo $path_app_frontend2
+# sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# # 添加新的 "@ui@zypher-game/toolkit" 依赖项
+# echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+# echo "Updated dependencies in yarn.lock"
+# yarn
 
 # git checkout test
 # git fetch --prune
