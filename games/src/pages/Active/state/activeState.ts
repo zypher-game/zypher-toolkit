@@ -205,9 +205,11 @@ export type IStakingDataState = {
     stakingAirdrop: string
     stakingAirdropStr: string
     stakingGrowthCoefficient: string
+    stakingGrowthCoefficientStr: string
     restakingAirdrop: string
     restakingAirdropStr: string
     restakingGrowthCoefficient: string
+    restakingGrowthCoefficientStr: string
   }
 }
 export const initStakingDataState: IStakingDataState = {
@@ -215,8 +217,10 @@ export const initStakingDataState: IStakingDataState = {
   statistics: {
     stakingAirdrop: '',
     stakingGrowthCoefficient: '',
+    stakingGrowthCoefficientStr: '',
     restakingAirdrop: '',
     restakingGrowthCoefficient: '',
+    restakingGrowthCoefficientStr: '',
     stakingAirdropStr: '',
     restakingAirdropStr: ''
   }

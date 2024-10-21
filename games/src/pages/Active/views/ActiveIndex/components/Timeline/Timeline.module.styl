@@ -27,25 +27,20 @@
   margin-top: 80px
   position relative
   overflow: hidden
-  height 438px
+  height: 438px
   // display: flex
   // justify-content: center
   // align-items: center
-.list
-  // position absolute
-  // top: 50%;
-  // left: 50%;
-  // transform: translate(-50%, -50%);
-  display: flex
-  justify-content: flex-start
-  align-items: flex-end
-  flex-direction: row;
-  // overflow-x: auto; 
-  // white-space: nowrap;
-  overflow-y: scroll
-  gap: 70px
-  
+.swiper
+  height: 438px
+
+.swiper_slide
+  position relative
 .item
+  position absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
   width 350px
   max-width: 350px
   min-width: 350px
@@ -54,6 +49,7 @@
     width 410px
     max-width: 410px
     min-width: 410px
+    z-index 9
     .item_inner
       width: 370px
       height: 294px

@@ -311,9 +311,11 @@ export const useStakingCall = () => {
         stakingAirdrop: stakingAirdrop,
         stakingAirdropStr: formatMoney(new BigNumberJs(stakingAirdrop).toFixed(), 8),
         stakingGrowthCoefficient: stakingGrowthCoefficient,
+        stakingGrowthCoefficientStr: formatMoney(new BigNumberJs(stakingGrowthCoefficient).toFixed(), 8),
         restakingAirdrop: restakingAirdrop,
         restakingAirdropStr: formatMoney(new BigNumberJs(restakingAirdrop).toFixed(), 8),
-        restakingGrowthCoefficient: restakingGrowthCoefficient
+        restakingGrowthCoefficient: restakingGrowthCoefficient,
+        restakingGrowthCoefficientStr: formatMoney(new BigNumberJs(restakingGrowthCoefficient).toFixed(), 8)
       }
       return {
         records: records,

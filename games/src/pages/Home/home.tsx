@@ -3,8 +3,8 @@ import React from 'react'
 
 import GameListIndex from '@/components/gameList/gameListIndex'
 
+import Data from '../GamesIndex/dialog/DataDialog/Data/Data'
 import { useDataInfo } from '../GamesIndex/hook/useDataInfo'
-import Data from '../GamesIndex/view/GamesIndex/components/Data/data'
 import BannerV2Widget from './components/banner/bannerV2'
 import GamesWidget from './components/games'
 import HomeGameList from './components/HomeGameList'

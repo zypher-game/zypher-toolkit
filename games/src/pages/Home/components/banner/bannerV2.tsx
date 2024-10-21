@@ -1,4 +1,3 @@
-import 'swiper/css'
 import './swiper.pagination.styl'
 
 import { isPro, LngNs, useCustomTranslation, useIsMd } from '@ui/src'

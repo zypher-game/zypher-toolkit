@@ -1,5 +1,7 @@
 import { isEqual } from 'lodash'
-import React, { memo, useEffect, useRef } from 'react'
+import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
+import { Autoplay, Pagination } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
 
 import { timelinePath } from '../../config/config'
 import Bg from '../comp/Bg'
@@ -72,20 +74,13 @@ const list: IItem[] = [
     time: 'Feb.18 2025'
   }
 ]
-const innerIndex = 2
 const Timeline = memo(() => {
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
-  useEffect(() => {
-    if (itemRefs.current[innerIndex]) {
-      setTimeout(() => {
-        itemRefs.current[innerIndex]?.scrollIntoView({
-          behavior: 'smooth',
-          block: 'nearest',
-          inline: 'center'
-        })
-      }, 0)
-    }
+  const [currentIndex, setCurrentIndex] = useState(2)
+
+  const handleSlideChange = useCallback((swiper: any) => {
+    setCurrentIndex(swiper.activeIndex)
   }, [])
+
   return (
     <div className={css.timeline}>
       <Title label="Timeline" />
@@ -95,13 +90,22 @@ const Timeline = memo(() => {
       <img src={timelinePath + '/fl.png'} className={css.p_fl} />
       <img src={timelinePath + '/fr.png'} className={css.p_fr} />
       <div className={css.list_wrap}>
-        <div className={css.list}>
+        <Swiper
+          slidesPerView={5}
+          spaceBetween={80}
+          centeredSlides={true}
+          navigation={true}
+          initialSlide={currentIndex}
+          onSlideChange={handleSlideChange}
+          className={css.swiper}
+        >
           {list.map((item, index) => (
-            <div ref={el => (itemRefs.current[index] = el)} key={item.time}>
-              <Item on={innerIndex === index} item={item} />
-            </div>
+            <SwiperSlide key={item.time} className={`${css.swiper_slide} ${currentIndex === index ? css.on : ''}`}>
+              <Item on={currentIndex === index} item={item} />
+            </SwiperSlide>
           ))}
-        </div>
+        </Swiper>
+        {/* </div> */}
       </div>
     </div>
   )

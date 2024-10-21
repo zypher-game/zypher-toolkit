@@ -24,6 +24,7 @@ export const usePreHandleGlobal = () => {
     (env?: string, chainList?: ChainId[]) => {
       try {
         if (!supportedChainIds(env, chainList).includes(nativeChainId)) {
+          console.log({ switchNetwork, chainList })
           if (switchNetwork && chainList?.length === 1) {
             switchNetwork(parseInt(chainList[0], 10))
             return

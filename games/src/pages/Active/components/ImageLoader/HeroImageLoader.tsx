@@ -23,7 +23,11 @@ const HeroImageLoader: React.FC<IHeroImageLoader> = memo(({ heroKey, level, clas
           }
         }}
       />
-      <SvgComponent className={css.hero_big_bg} src={preStaticUrl + '/img/tvl/hero/' + heroKey + '_v' + level + '_bg.svg'} alt={heroKey} />
+      <SvgComponent
+        className={`${css.hero_big_bg} ${css[`hero_big_bg_${heroKey}`]}`}
+        src={preStaticUrl + '/img/tvl/hero/' + heroKey + '_v' + level + '_bg.svg'}
+        alt={heroKey}
+      />
     </div>
   )
 })

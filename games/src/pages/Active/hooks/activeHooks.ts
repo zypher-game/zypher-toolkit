@@ -58,7 +58,11 @@ export const usePreHandleAction = () => {
   const _preHandleAction = usePreHandleGlobal()
   const preHandleAction = useCallback(
     (chainId?: ChainId | ChainId[]) => {
-      return _preHandleAction(env, (chainId ? (!isArray(chainId) ? [chainId] : chainId) : TVLStakingSupportedChainId) as unknown as ChainId[])
+      console.log({ chainId, ss: isArray(chainId) })
+      if (chainId && !isArray(chainId)) {
+        return _preHandleAction(env, [chainId])
+      }
+      return _preHandleAction(env, (chainId ? chainId : TVLStakingSupportedChainId) as unknown as ChainId[])
     },
     [_preHandleAction]
   )

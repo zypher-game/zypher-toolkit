@@ -2,9 +2,10 @@ import { divisorBigNumber, formatMoney } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 
 export const form_primary_score = (pre: any, data: any) => {
-  const airdropPoints = data.twitterFollowerScore
-    ? new BigNumberJs(data.twitterFollowerScore).plus(data.gasScore).plus(data.balanceScore)
-    : new BigNumberJs(0)
+  const airdropPoints =
+    data.twitterFollowerScore || data.gasScore || data.balanceScore
+      ? new BigNumberJs(data.twitterFollowerScore).plus(data.gasScore).plus(data.balanceScore)
+      : new BigNumberJs(0)
   return {
     ...pre,
     airdropPoints: airdropPoints.toFixed(),

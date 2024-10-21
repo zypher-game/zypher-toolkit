@@ -55,7 +55,7 @@ const Card = memo(
     }, [JSON.stringify(activeDataSource), chainIdLocal])
     const { getAllStakingData } = useAllStakingData()
     const {
-      statistics: { stakingAirdropStr, stakingGrowthCoefficient, restakingAirdropStr, restakingGrowthCoefficient }
+      statistics: { stakingAirdropStr, stakingGrowthCoefficientStr, restakingAirdropStr, restakingGrowthCoefficientStr }
     } = getAllStakingData(chainIdLocal)
     const hasSbt = useMemo(() => {
       return sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
@@ -85,7 +85,7 @@ const Card = memo(
           <PixelCardOne
             title={`Obtained by staking $${Currency[chainIdLocal]}`}
             airdropPoints={stakingAirdropStr}
-            growthCoefficient={stakingGrowthCoefficient}
+            growthCoefficientStr={stakingGrowthCoefficientStr}
             airdropPointsTooltip={airdropPointsTooltip}
             growthCoefficientTooltip={growthCoefficientNativeTooltip}
             dataLoading={isTvlDataLoading}
@@ -93,7 +93,7 @@ const Card = memo(
           <PixelCardOne
             title={'Obtained by restaking tokens'}
             airdropPoints={restakingAirdropStr}
-            growthCoefficient={restakingGrowthCoefficient}
+            growthCoefficientStr={restakingGrowthCoefficientStr}
             // !restakingGrowthCoefficient || restakingGrowthCoefficient === '0'
             // ? Growth[chainIdLocal as unknown as TVLChainId][1]
             // :
@@ -141,14 +141,14 @@ const Card = memo(
 const PixelCardOne = memo(
   ({
     airdropPoints,
-    growthCoefficient,
+    growthCoefficientStr,
     title,
     airdropPointsTooltip,
     growthCoefficientTooltip,
     dataLoading
   }: {
     airdropPoints: string
-    growthCoefficient: string
+    growthCoefficientStr: string
     title: string
     airdropPointsTooltip: string[]
     growthCoefficientTooltip: string[]
@@ -171,7 +171,7 @@ const PixelCardOne = memo(
           </div>
           <div className={css.fr}>
             <div className={css.title_amount}>
-              <p>{growthCoefficient}</p>
+              <p>{growthCoefficientStr}</p>
               <LoadingButton isLoading={dataLoading} hideMl={true} />
             </div>
             <div className={css.grey_title}>
