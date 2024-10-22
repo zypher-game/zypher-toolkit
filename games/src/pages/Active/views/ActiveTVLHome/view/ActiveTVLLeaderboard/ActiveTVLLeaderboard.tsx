@@ -1,5 +1,5 @@
 import { ListWithMotion, useIsW768 } from '@ui/src'
-import React, { memo, useCallback, useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 
 import { IRankBoard, useLeaderBoard } from '@/pages/Active/hooks/useLeaderboard'
 
@@ -11,11 +11,28 @@ import ActiveTab from './components/ActiveTab/ActiveTab'
 import LeaderBoardRow from './components/LeaderBoardRow/LeaderBoardRow'
 import RecentlyJoined from './components/RecentlyJoined/RecentlyJoined'
 
+const defaultUser: IRankBoard = {
+  nickname: '',
+  headImg: '',
+  fromNickname: '',
+  score: '',
+  scoreStr: '',
+  rank: 0
+}
 const ActiveTVLLeaderboard = memo(() => {
   const isW768 = useIsW768()
   const [activeTab, setActiveTab] = useState(0)
   const { chainIndex, setChainIndex, recentUser, rankBoard, my } = useLeaderBoard()
-
+  const rankBoardList = useMemo(() => {
+    const newList = (rankBoard ?? []).slice()
+    while (newList.length < 100) {
+      newList.push({
+        ...defaultUser,
+        rank: newList.length + 1
+      })
+    }
+    return newList
+  }, [JSON.stringify(rankBoard)])
   const changeChainIndexHandle = useCallback((index: number) => {
     setChainIndex(index)
   }, [])
@@ -30,7 +47,7 @@ const ActiveTVLLeaderboard = memo(() => {
           <ChainTab chainIndex={chainIndex} changeChainIndexHandle={changeChainIndexHandle} />
           {((activeTab === 0 && isW768) || !isW768) && rankBoard.length ? (
             <>
-              <ListWithMotion<IRankBoard> parentClassName={css.fl_list} data={rankBoard} renderItem={item => <LeaderBoardRow {...item} />} />
+              <ListWithMotion<IRankBoard> parentClassName={css.fl_list} data={rankBoardList} renderItem={item => <LeaderBoardRow {...item} />} />
               {my ? <LeaderBoardRow {...my} isMy={true} /> : null}
             </>
           ) : null}

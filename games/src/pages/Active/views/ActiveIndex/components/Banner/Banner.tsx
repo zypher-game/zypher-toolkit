@@ -29,6 +29,9 @@ const Banner = memo(() => {
           <img src={bannerPath + '/zytron.png'} className={css.zytron} />
         </div>
         <img src={bannerPath + '/start.png'} className={css.start} onClick={toPathHandle} />
+        <a href="https://wiki.zypher.network/" target="_blank" rel="noreferrer" className={css.link}>
+          Learn More From Wiki
+        </a>
       </div>
     </div>
   )

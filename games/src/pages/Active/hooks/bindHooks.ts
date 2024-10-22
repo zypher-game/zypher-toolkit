@@ -70,7 +70,9 @@ export const useBind = () => {
 
     const linkType = getLinkPre(chainId)
     // "https://tvl-backend-api.zypher.game/connect-twitter?linkCode=L-5UDW3&addr=0x9B233ABBD17e92FDD9ceebDe02513c78d95C0a5c&linkType=1"
-    window.open(`${TVL_API[chainId]}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
+    window.open(
+      `${TVL_API[chainId]}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}&time=${new Date().toLocaleString()}`
+    )
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
   }, [_invitationCode, signedStr, twitterNickname, preHandleAction, chainId])
   useEffect(() => {

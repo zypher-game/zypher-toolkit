@@ -376,7 +376,7 @@ export const useLeaderBoardCall = () => {
             score: `${v.score}`,
             scoreStr: formatMoney(
               new BigNumberJs(v.score).gte(BM) ? new BigNumberJs(v.score).dividedBy(BM).toFixed() : new BigNumberJs(v.score).toFixed(),
-              8
+              2
             ),
             rank: Number(v.rank)
           } as IRankBoard)
@@ -405,7 +405,7 @@ export const useLeaderBoardCall = () => {
         headImg: `${headImg}`,
         fromNickname: `${fromNickname}`,
         score: `${score}`,
-        scoreStr: formatMoney(new BigNumberJs(score).gte(BM) ? new BigNumberJs(score).dividedBy(BM).toFixed() : new BigNumberJs(score).toFixed(), 8),
+        scoreStr: formatMoney(new BigNumberJs(score).gte(BM) ? new BigNumberJs(score).dividedBy(BM).toFixed() : new BigNumberJs(score).toFixed(), 2),
         rank: Number(rank)
       } as IRankBoard
     } catch (e: any) {

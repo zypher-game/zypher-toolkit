@@ -15,8 +15,8 @@ const NftTokenIdColStyled = styled.div`
   }
   img {
     width: 30px;
-    border: 1px solid #4d4a4a;
-    border-radius: 50%;
+    // border: 1px solid #4d4a4a;
+    // border-radius: 50%;
     margin-left: 8px;
     @media screen and (max-width: 830px) {
       margin-left: 4px;

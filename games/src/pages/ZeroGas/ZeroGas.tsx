@@ -7,6 +7,8 @@ import {
   ChainId,
   ChainName,
   Currency,
+  divisorBigNumber,
+  formatMoney,
   getShortenAddress,
   L3ChainId,
   ListWithMotion,
@@ -126,7 +128,7 @@ const theme: ITheme = {
         content:
           'A TCG game where cards with points on four sides are placed in a 9-grid. Cards battle adjacent ones, and the highest point card wins. The game ends when all grids are filled.',
         Rewards: [],
-        btnText: 'Coming soon',
+        btnText: 'Coming soon'
       }
     ]
   }
@@ -175,7 +177,10 @@ const ZeroGas = memo(() => {
         const dataMap = stakingData.map(
           v =>
             ({
-              stake: accountAddress && accountAddress !== AddressZero ? v.userStakedAmountStr : '',
+              stake:
+                accountAddress && accountAddress !== AddressZero
+                  ? formatMoney(new BigNumberJs(v.userStakedAmount).dividedBy(divisorBigNumber).toFixed(), 2)
+                  : '',
               mintMinimumStr: accountAddress && accountAddress !== AddressZero ? mintMinimumStr : '',
               currency: `${v.symbol === `W${Currency[chainIdParams]}` ? Currency[chainIdParams] : v.symbol}`,
               isOk: new BigNumberJs(v.userStakedAmount).gte(mintMinimum)
@@ -287,7 +292,7 @@ const ZeroGas = memo(() => {
   }, [JSON.stringify(tvlStakingData), JSON.stringify(activeDataSource), isW768, chainIdLocal, chainId])
   return (
     <div className={css.zeroGas}>
-      <Tab chainIdLocal={chainIdLocal} onClick={setChainIndex} />
+      {/* <Tab chainIdLocal={chainIdLocal} onClick={setChainIndex} /> */}
       <motion.div key={`${chainIdLocal}`} initial={{ y: 20, opacity: 0 }} animate={{ y: 0, opacity: 1 }} transition={{ duration: 0.3 }}>
         {Widget[chainIdLocal]}
       </motion.div>
