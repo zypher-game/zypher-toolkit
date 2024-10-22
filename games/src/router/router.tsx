@@ -4,7 +4,7 @@ import { Route, Routes } from 'react-router-dom'
 
 import ScrollToTop from '@/components/ScrollToTop'
 import { useConnectWallet } from '@/hooks/useConnectWallet'
-import { airdropPathname, getAirdropPathname, preAirdropPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
+import { rewardPathname, getRewardPathname, preRewardPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
 import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister'
 import { ThemeProvider } from '@/theme'
 
@@ -16,11 +16,11 @@ import { usePollPrice } from '../store/price/hooks'
 const ZeroGas = lazy(() => import('@/pages/ZeroGas/ZeroGas'))
 
 const ActiveChooseHunter = lazy(() => import('@/pages/Active/views/ActiveChooseHunter/ActiveChooseHunter'))
-const MoreActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActive/MoreActive'))
-const MoreActiveNormal = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActiveNormal/MoreActiveNormal'))
-const MoreActiveSuccess = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'))
-const NoActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/NoActive/NoActive'))
-const NormalActive = lazy(() => import('@/pages/Active/views/ActiveGetAirdrop/NormalActive/NormalActive'))
+const MoreActive = lazy(() => import('@/pages/Active/views/ActiveGetReward/MoreActive/MoreActive'))
+const MoreActiveNormal = lazy(() => import('@/pages/Active/views/ActiveGetReward/MoreActiveNormal/MoreActiveNormal'))
+const MoreActiveSuccess = lazy(() => import('@/pages/Active/views/ActiveGetReward/MoreActiveSuccess/MoreActiveSuccess'))
+const NoActive = lazy(() => import('@/pages/Active/views/ActiveGetReward/NoActive/NoActive'))
+const NormalActive = lazy(() => import('@/pages/Active/views/ActiveGetReward/NormalActive/NormalActive'))
 const ActiveIndex = lazy(() => import('@/pages/Active/views/ActiveIndex/ActiveIndex'))
 const ActiveLoading = lazy(() => import('@/pages/Active/views/ActiveLoading/ActiveLoading'))
 // const ActiveComing = lazy(()=>import('@/pages/Active/views/ActiveRegister/ActiveComing'))
@@ -53,29 +53,26 @@ export default (): JSX.Element => {
                           <Route path="/" element={<ActiveIndex />} />
                           {/* <Route path={`/${NavKey[0][0]}`} element={<ActiveRegister />} /> */}
                           <Route path={`/${NavKey[0][1]}/${NavKey[0][2]}`} element={<ActiveLoading />} />
-                          <Route path={`/${preAirdropPathname}/${airdropPathname.register}`} element={<ActiveRegister />} />
+                          <Route path={`/${preRewardPathname}/${rewardPathname.register}`} element={<ActiveRegister />} />
                           <Route
-                            path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActive}`}
+                            path={`/${preRewardPathname}/${rewardPathname.getReward}/${getRewardPathname.MoreActive}`}
                             element={<MoreActive />}
                           />
                           <Route
-                            path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveNormal}`}
+                            path={`/${preRewardPathname}/${rewardPathname.getReward}/${getRewardPathname.MoreActiveNormal}`}
                             element={<MoreActiveNormal />}
                           />
                           <Route
-                            path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.MoreActiveSuccess}`}
+                            path={`/${preRewardPathname}/${rewardPathname.getReward}/${getRewardPathname.MoreActiveSuccess}`}
                             element={<MoreActiveSuccess />}
                           />
                           <Route
-                            path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NormalActive}`}
+                            path={`/${preRewardPathname}/${rewardPathname.getReward}/${getRewardPathname.NormalActive}`}
                             element={<NormalActive />}
                           />
-                          <Route
-                            path={`/${preAirdropPathname}/${airdropPathname.getAirdrop}/${getAirdropPathname.NoActive}`}
-                            element={<NoActive />}
-                          />
-                          <Route path={`/${preAirdropPathname}/${airdropPathname.staking}`} element={<ActiveStaking />} />
-                          <Route path={`/${preAirdropPathname}/${airdropPathname.chooseHunter}`} element={<ActiveChooseHunter />} />
+                          <Route path={`/${preRewardPathname}/${rewardPathname.getReward}/${getRewardPathname.NoActive}`} element={<NoActive />} />
+                          <Route path={`/${preRewardPathname}/${rewardPathname.staking}`} element={<ActiveStaking />} />
+                          <Route path={`/${preRewardPathname}/${rewardPathname.chooseHunter}`} element={<ActiveChooseHunter />} />
                           <Route path={tvlPath[0]} element={<ActiveTVLTeam />} />
                           <Route path={tvlPath[1]} element={<ActiveTVLStakingV2 />} />
                           <Route path={tvlPath[2]} element={<ActiveTVLLeaderboard />} />

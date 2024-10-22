@@ -4,9 +4,9 @@ import React, { memo, useCallback } from 'react'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { useToPath } from '@/pages/Active/hooks/useToPath'
 
-import css from './GetAirdropWrapV2.module.styl'
+import css from './GetRewardWrapV2.module.styl'
 
-const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; frImgPath: string }) => {
+const GetRewardWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; frImgPath: string }) => {
   const isW768 = useIsW768()
   const { disconnect } = useDisconnect()
   const [, setAccountInfoDialogOpen] = useRecoilState(accountInfoDialogState)
@@ -42,4 +42,4 @@ const GetAirdropWrapV2 = memo(({ title, frImgPath }: { title: React.ReactNode; f
     </div>
   )
 })
-export default GetAirdropWrapV2
+export default GetRewardWrapV2

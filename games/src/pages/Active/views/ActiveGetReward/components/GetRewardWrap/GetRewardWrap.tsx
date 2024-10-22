@@ -5,36 +5,36 @@ import React, { memo } from 'react'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import classnames from '@/utils/classnames'
 
-import css from './GetAirdropWrap.module.styl'
-export const GetAirdropCard = memo(({ children, className }: { children: React.ReactNode; className?: string }) => {
+import css from './GetRewardWrap.module.styl'
+export const GetRewardCard = memo(({ children, className }: { children: React.ReactNode; className?: string }) => {
   const isW768 = useIsW768()
   return (
-    <div className={css.airdropWrap}>
-      <ActivePixelCard className={classnames(css.airdrop, className)} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
+    <div className={css.rewardWrap}>
+      <ActivePixelCard className={classnames(css.reward, className)} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
         {children}
       </ActivePixelCard>
     </div>
   )
 })
-const GetAirdropWrap = memo(({ children }: { children: React.ReactNode }) => {
+const GetRewardWrap = memo(({ children }: { children: React.ReactNode }) => {
   const { chainId } = useActiveWeb3React()
   const isW768 = useIsW768()
   const { activeData } = useActiveData()
   const {
-    airdropPoints,
-    airdropPointsDetail: { gasStr, balanceStr }
+    rewardPoints,
+    rewardPointsDetail: { gasStr, balanceStr }
   } = activeData
   return (
-    <div className={css.GetAirdropWrap}>
-      <GetAirdropCard>
+    <div className={css.GetRewardWrap}>
+      <GetRewardCard>
         <div className={css.inner}>
           <div className={css.fl}>
-            <h3>Your Airdrop Data</h3>
+            <h3>Your Reward Data</h3>
             <ul>
               <li>
-                <p>Airdrop Points</p>
+                <p>Reward Points</p>
                 <div className={css.li_fr}>
-                  <p>{airdropPoints}</p>
+                  <p>{rewardPoints}</p>
                 </div>
               </li>
               <li>
@@ -55,12 +55,12 @@ const GetAirdropWrap = memo(({ children }: { children: React.ReactNode }) => {
               </li>
             </ul>
           </div>
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_data.png'} className={css.img} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/reward_data.png'} className={css.img} />
         </div>
         {!isW768 ? children : null}
-      </GetAirdropCard>
+      </GetRewardCard>
       {isW768 ? children : null}
     </div>
   )
 })
-export default GetAirdropWrap
+export default GetRewardWrap

@@ -14,7 +14,7 @@ import React, { memo, useMemo } from 'react'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { canNext } from '@/pages/Active/hooks/activeHooks'
 import { useAllStakingData } from '@/pages/Active/hooks/useStakeData'
-import { useAirdropPointsTooltip } from '@/pages/Active/hooks/useTooltip'
+import { useRewardPointsTooltip } from '@/pages/Active/hooks/useTooltip'
 import { activeDataState, IActiveDataState, initActiveData, isTvlDataLoadingState } from '@/pages/Active/state/activeState'
 
 import css from './Card.module.styl'
@@ -37,7 +37,7 @@ const Card = memo(
     onOpenCrHeroHandle: any
     chainIdLocal: ChainId
   }) => {
-    const { getTooltip } = useAirdropPointsTooltip()
+    const { getTooltip } = useRewardPointsTooltip()
     const isTvlDataLoading = useRecoilValue(isTvlDataLoadingState)
 
     const { account } = useActiveWeb3React()
@@ -55,17 +55,17 @@ const Card = memo(
     }, [JSON.stringify(activeDataSource), chainIdLocal])
     const { getAllStakingData } = useAllStakingData()
     const {
-      statistics: { stakingAirdropStr, stakingGrowthCoefficientStr, restakingAirdropStr, restakingGrowthCoefficientStr }
+      statistics: { stakingRewardStr, stakingGrowthCoefficientStr, restakingRewardStr, restakingGrowthCoefficientStr }
     } = getAllStakingData(chainIdLocal)
     const hasSbt = useMemo(() => {
       return sbtAmount === '' || !sbtAmount || sbtAmount === '0' ? false : true
     }, [sbtAmount])
-    const { airdropPointsTooltip, growthCoefficientNativeTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip } = useMemo(() => {
+    const { rewardPointsTooltip, growthCoefficientNativeTooltip, growthCoefficientTooltip, SBTTooltip, crHeroTooltip, gpTooltip } = useMemo(() => {
       if (chainIdLocal) {
         return getTooltip({ chainId: chainIdLocal, mintMinimum })
       }
       return {
-        airdropPointsTooltip: [''],
+        rewardPointsTooltip: [''],
         growthCoefficientNativeTooltip: [''],
         growthCoefficientTooltip: [''],
         SBTTooltip: [''],
@@ -84,20 +84,20 @@ const Card = memo(
         <div className={css.cardOne}>
           <PixelCardOne
             title={`Obtained by staking $${Currency[chainIdLocal]}`}
-            airdropPoints={stakingAirdropStr}
+            rewardPoints={stakingRewardStr}
             growthCoefficientStr={stakingGrowthCoefficientStr}
-            airdropPointsTooltip={airdropPointsTooltip}
+            rewardPointsTooltip={rewardPointsTooltip}
             growthCoefficientTooltip={growthCoefficientNativeTooltip}
             dataLoading={isTvlDataLoading}
           />
           <PixelCardOne
             title={'Obtained by restaking tokens'}
-            airdropPoints={restakingAirdropStr}
+            rewardPoints={restakingRewardStr}
             growthCoefficientStr={restakingGrowthCoefficientStr}
             // !restakingGrowthCoefficient || restakingGrowthCoefficient === '0'
             // ? Growth[chainIdLocal as unknown as TVLChainId][1]
             // :
-            airdropPointsTooltip={airdropPointsTooltip}
+            rewardPointsTooltip={rewardPointsTooltip}
             growthCoefficientTooltip={growthCoefficientTooltip}
             dataLoading={isTvlDataLoading}
           />
@@ -140,17 +140,17 @@ const Card = memo(
 )
 const PixelCardOne = memo(
   ({
-    airdropPoints,
+    rewardPoints,
     growthCoefficientStr,
     title,
-    airdropPointsTooltip,
+    rewardPointsTooltip,
     growthCoefficientTooltip,
     dataLoading
   }: {
-    airdropPoints: string
+    rewardPoints: string
     growthCoefficientStr: string
     title: string
-    airdropPointsTooltip: string[]
+    rewardPointsTooltip: string[]
     growthCoefficientTooltip: string[]
     dataLoading: boolean
   }) => {
@@ -160,13 +160,13 @@ const PixelCardOne = memo(
         <div className={css.space}>
           <div className={css.fl}>
             <div className={css.title_amount}>
-              <p>{!airdropPoints || airdropPoints === '' ? '0' : airdropPoints}</p>
+              <p>{!rewardPoints || rewardPoints === '' ? '0' : rewardPoints}</p>
               <LoadingButton isLoading={dataLoading} hideMl={true} />
               {/* {dataLoading ? <Skeleton className={css.munSke} /> : null} */}
             </div>
             <div className={css.grey_title}>
-              <p>Airdrop Points Formula</p>
-              <PixelTooltip title={airdropPointsTooltip} />
+              <p>Reward Points Formula</p>
+              <PixelTooltip title={rewardPointsTooltip} />
             </div>
           </div>
           <div className={css.fr}>

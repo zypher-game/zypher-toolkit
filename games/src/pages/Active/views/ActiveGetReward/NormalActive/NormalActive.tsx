@@ -5,23 +5,23 @@ import React, { memo } from 'react'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
-import GetAirdropWrapV2 from '../components/GetAirdropWrapV2/GetAirdropWrapV2'
+import GetRewardWrapV2 from '../components/GetRewardWrapV2/GetRewardWrapV2'
 
 const NormalActive = memo(() => {
   const { activeData } = useActiveData()
-  const { airdropPoints } = activeData
+  const { rewardPoints } = activeData
   return (
     <ActiveComp>
-      <GetAirdropWrapV2
+      <GetRewardWrapV2
         title={
           <>
             <h3>
-              Hey! your media account is active and you are eligible to receive <strong>{airdropPoints}</strong> airdrop points.
+              Hey! your media account is active and you are eligible to receive <strong>{rewardPoints}</strong> reward points.
             </h3>
             <h3>However, your wallet is currently inactive.</h3>
           </>
         }
-        frImgPath={preStaticUrl + '/img/tvl/airdrop_data2.png'}
+        frImgPath={preStaticUrl + '/img/tvl/reward_data2.png'}
       />
     </ActiveComp>
   )

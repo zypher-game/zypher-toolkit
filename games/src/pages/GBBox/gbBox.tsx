@@ -33,7 +33,7 @@ export default (props: IProps): React.ReactElement | null => {
               <div className={css.content}>
                 <div className={css.title}>{`What are zBingo Genesis Blind Boxes?`}</div>
                 <div className={css.text}>
-                  {`The Genesis Blind Box is a special reward for the OG Zypher Game community members. In zBingo V1, Blind Box holders can enjoy more daily $Gold Point airdrops than other players. Each Blind Box conceals either $Gold Points or a Zynizens NFT, waiting for its grand revelation at zBingo V2's launch.`}
+                  {`The Genesis Blind Box is a special reward for the OG Zypher Game community members. In zBingo V1, Blind Box holders can enjoy more daily $Gold Point rewards than other players. Each Blind Box conceals either $Gold Points or a Zynizens NFT, waiting for its grand revelation at zBingo V2's launch.`}
                 </div>
                 <div className={css.title}>{`How to get the Genesis Blind Box？`}</div>
                 <div className={css.text}>

@@ -58,7 +58,7 @@ const StakingTab = memo(
                 title={['What is Linea Voyage XP? ']}
                 showLink="https://docs.linea.build/users/linea-voyage/lxp#what-is-linea-voyage-xp"
               />
-              by staking! And Linea’s airdrop expectations!
+              by staking! And Linea’s reward expectations!
             </p>
           </div>
         ) : (

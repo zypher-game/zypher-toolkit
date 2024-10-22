@@ -9,7 +9,7 @@ import { useGetPointCard } from './useDataCall'
 export const useGetPointCardDialog = () => {
   const { activeData } = useActiveData()
   const [pointCardData, setGetPointCardData] = useRecoilState(getPointCardData)
-  const { airdropPointsCardNumber, id, chainId, accountAddress, userStakedAmount } = activeData
+  const { rewardPointsCardNumber, id, chainId, accountAddress, userStakedAmount } = activeData
   const { getGroupScoreCardRead } = useGetPointCard()
   const [, setIsModalOpen] = useRecoilState(getPointCardDialogState)
   const getData = useCallback(async () => {
@@ -18,7 +18,7 @@ export const useGetPointCardDialog = () => {
       chainId: chainId!
     })
     setGetPointCardData(res)
-  }, [airdropPointsCardNumber, id, chainId])
+  }, [rewardPointsCardNumber, id, chainId])
   useEffect(() => {
     if (pointCardData) {
       if (pointCardData.ownerTeam.num || pointCardData.parentTeam.num) {
@@ -36,7 +36,7 @@ export const useGetPointCardDialog = () => {
   }, [JSON.stringify(pointCardData)])
 
   useEffect(() => {
-    if (airdropPointsCardNumber && airdropPointsCardNumber !== '' && canNext(accountAddress, chainId)) {
+    if (rewardPointsCardNumber && rewardPointsCardNumber !== '' && canNext(accountAddress, chainId)) {
       getData()
     }
   }, [getData, userStakedAmount])

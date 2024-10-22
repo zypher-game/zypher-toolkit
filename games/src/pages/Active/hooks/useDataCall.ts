@@ -306,14 +306,14 @@ export const useStakingCall = () => {
           ]
         })
       )
-      const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
+      const { stakingReward, stakingGrowthCoefficient, restakingReward, restakingGrowthCoefficient } = res.statistics
       const statistics = {
-        stakingAirdrop: stakingAirdrop,
-        stakingAirdropStr: formatMoney(new BigNumberJs(stakingAirdrop).toFixed(), 8),
+        stakingReward: stakingReward,
+        stakingRewardStr: formatMoney(new BigNumberJs(stakingReward).toFixed(), 8),
         stakingGrowthCoefficient: stakingGrowthCoefficient,
         stakingGrowthCoefficientStr: formatMoney(new BigNumberJs(stakingGrowthCoefficient).toFixed(), 8),
-        restakingAirdrop: restakingAirdrop,
-        restakingAirdropStr: formatMoney(new BigNumberJs(restakingAirdrop).toFixed(), 8),
+        restakingReward: restakingReward,
+        restakingRewardStr: formatMoney(new BigNumberJs(restakingReward).toFixed(), 8),
         restakingGrowthCoefficient: restakingGrowthCoefficient,
         restakingGrowthCoefficientStr: formatMoney(new BigNumberJs(restakingGrowthCoefficient).toFixed(), 8)
       }

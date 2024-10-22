@@ -589,13 +589,13 @@ export const useAllStakingData = () => {
 //             ]
 //           })
 //         )
-//         const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
+//         const { stakingReward, stakingGrowthCoefficient, restakingReward, restakingGrowthCoefficient } = res.statistics
 //         const statistics = {
-//           stakingAirdrop: stakingAirdrop,
-//           stakingAirdropStr: '0',
+//           stakingReward: stakingReward,
+//           stakingRewardStr: '0',
 //           stakingGrowthCoefficient: stakingGrowthCoefficient,
-//           restakingAirdrop: restakingAirdrop,
-//           restakingAirdropStr: '0',
+//           restakingReward: restakingReward,
+//           restakingRewardStr: '0',
 //           restakingGrowthCoefficient: restakingGrowthCoefficient
 //         }
 //         return {

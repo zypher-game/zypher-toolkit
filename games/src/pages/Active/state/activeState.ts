@@ -35,10 +35,10 @@ export interface IActiveData {
     followerCount: string // 粉丝数量
     isLoading: boolean
   }
-  airdropPointsCardNumber: string
-  airdropPoints: string
-  airdropPointsStr: string
-  airdropPointsDetail: {
+  rewardPointsCardNumber: string
+  rewardPoints: string
+  rewardPointsStr: string
+  rewardPointsDetail: {
     init: string
     byTwitter: string
     byTwitterMore: string
@@ -49,8 +49,8 @@ export interface IActiveData {
     balance: string
     balanceStr: string
   }
-  isCheckedAirdropPoints: boolean // airdrop 是否已经检测过
-  checkAirdropPointsLoading: boolean // 检测airdrop量
+  isCheckedRewardPoints: boolean // reward 是否已经检测过
+  checkRewardPointsLoading: boolean // 检测reward量
   userStakedAmount: string // 用户stake量
   userStakedAmountStr: string
   totalStakedAmount: string // 总量
@@ -92,10 +92,10 @@ export const initActiveData: IActiveData = {
     followerCount: '',
     isLoading: false
   },
-  checkAirdropPointsLoading: false,
-  airdropPoints: '',
-  airdropPointsCardNumber: '',
-  airdropPointsDetail: {
+  checkRewardPointsLoading: false,
+  rewardPoints: '',
+  rewardPointsCardNumber: '',
+  rewardPointsDetail: {
     init: '',
     byTwitter: '',
     byTwitterMore: '',
@@ -113,13 +113,13 @@ export const initActiveData: IActiveData = {
   crHeroBoxAmount: '',
   dollarGpRewords: '',
   ranking: '',
-  isCheckedAirdropPoints: false,
+  isCheckedRewardPoints: false,
   mintMinimum: '', // 最少质押多少给 SBT
   mintMinimumStr: '',
   burnMaximum: '',
   burnMaximumStr: '',
   sbtAmount: '',
-  airdropPointsStr: '',
+  rewardPointsStr: '',
   rankingStr: '',
   hasSBT: '',
   isTwitterPost: false
@@ -202,12 +202,12 @@ export type IStakingItem = {
 export type IStakingDataState = {
   records: Record<string, IStakingItem>
   statistics: {
-    stakingAirdrop: string
-    stakingAirdropStr: string
+    stakingReward: string
+    stakingRewardStr: string
     stakingGrowthCoefficient: string
     stakingGrowthCoefficientStr: string
-    restakingAirdrop: string
-    restakingAirdropStr: string
+    restakingReward: string
+    restakingRewardStr: string
     restakingGrowthCoefficient: string
     restakingGrowthCoefficientStr: string
   }
@@ -215,14 +215,14 @@ export type IStakingDataState = {
 export const initStakingDataState: IStakingDataState = {
   records: {},
   statistics: {
-    stakingAirdrop: '',
+    stakingReward: '',
     stakingGrowthCoefficient: '',
     stakingGrowthCoefficientStr: '',
-    restakingAirdrop: '',
+    restakingReward: '',
     restakingGrowthCoefficient: '',
     restakingGrowthCoefficientStr: '',
-    stakingAirdropStr: '',
-    restakingAirdropStr: ''
+    stakingRewardStr: '',
+    restakingRewardStr: ''
   }
 }
 export const restakingDataState = atom<Record<ChainId, IStakingDataState>>({

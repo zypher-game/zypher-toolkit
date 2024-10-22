@@ -154,12 +154,12 @@ const Staking = memo(({ isModal }: { isModal: boolean }) => {
     try {
       if (chooseValue?.chainId) {
         const isNative = chooseValue?.symbol === Currency[chooseValue.chainId] || chooseValue?.symbol === 'W' + Currency[chooseValue.chainId]
-        let stakingAirdrop
-        let restakingAirdrop
+        let stakingReward
+        let restakingReward
         if (chooseValue?.chainId && restakingData[chooseValue?.chainId]) {
           const statistics = restakingData[chooseValue?.chainId].statistics
-          stakingAirdrop = statistics.stakingAirdrop
-          restakingAirdrop = statistics.restakingAirdrop
+          stakingReward = statistics.stakingReward
+          restakingReward = statistics.restakingReward
         }
         if (!isDataLoading) {
           if (depositValue) {
@@ -181,10 +181,10 @@ const Staking = memo(({ isModal }: { isModal: boolean }) => {
             const CeilAmount = CeilAmountPre > 5 ? 5 : CeilAmountPre
             if (isNative) {
               X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['native']) // _totalStaked 的值向上取整就是其系数
-              growthCoefficient = stakingAirdrop ?? '0'
+              growthCoefficient = stakingReward ?? '0'
             } else {
               X = new BigNumberJs(CeilAmount).times(ChainGrowthCoefficient[_chainId]['erc20']) // _totalStaked 的值向上取整就是其系数
-              growthCoefficient = restakingAirdrop ?? '0'
+              growthCoefficient = restakingReward ?? '0'
             }
 
             const END_TIME = +(chooseValue?.END_TIME ?? '0') // 从合约获取的时间

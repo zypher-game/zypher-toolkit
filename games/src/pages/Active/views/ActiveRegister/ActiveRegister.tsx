@@ -15,7 +15,7 @@ import InvitationCode from './components/InvitationCode/InvitationCode'
 const ActiveRegister = memo(() => {
   const isW768 = useIsW768()
   const { activeData } = useActiveData()
-  const { invitationCode, checkAirdropPointsLoading, id } = activeData
+  const { invitationCode, checkRewardPointsLoading, id } = activeData
   useSign()
   const { CheckPointHandle, CheckDiscordHandle, CheckTwitterHandle } = useBind()
   useActiveRouterV2()
@@ -29,7 +29,7 @@ const ActiveRegister = memo(() => {
     <ActiveComp>
       <div className={css.register}>
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.5 }} className={css.textPart}>
-          {checkAirdropPointsLoading && isW768 ? (
+          {checkRewardPointsLoading && isW768 ? (
             <></>
           ) : (
             <div className={css.textPartInner}>
@@ -57,14 +57,14 @@ const ActiveRegister = memo(() => {
           <div className={css.process}>
             {!invitationCode ? (
               <InvitationCode />
-            ) : checkAirdropPointsLoading ? (
+            ) : checkRewardPointsLoading ? (
               <Checking />
             ) : (
               <Bind CheckPointHandle={CheckPointHandle} CheckDiscordHandle={CheckDiscordHandle} CheckTwitterHandle={CheckTwitterHandle} />
             )}
           </div>
         </motion.div>
-        {checkAirdropPointsLoading && isW768 ? <></> : <EarthPart />}
+        {checkRewardPointsLoading && isW768 ? <></> : <EarthPart />}
       </div>
     </ActiveComp>
   )

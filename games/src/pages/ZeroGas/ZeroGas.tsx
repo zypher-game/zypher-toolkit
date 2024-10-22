@@ -37,7 +37,7 @@ import StakingForbidDialog from '../Active/dialog/StakingDialog/StakingForbidDia
 import { usePreHandleAction } from '../Active/hooks/activeHooks'
 import { useChainIndex } from '../Active/hooks/useChainIndex'
 import { useStake } from '../Active/hooks/useStakeData'
-import { useAirdropPointsTooltip } from '../Active/hooks/useTooltip'
+import { useRewardPointsTooltip } from '../Active/hooks/useTooltip'
 import { activeDataState, IActiveDataState, initActiveData, ITVLStakingData, tvlStakingDataState } from '../Active/state/activeState'
 import DappItem, { IDappItem } from './components/DappItem/DappItem'
 import SBTCard from './components/SBTCard/SBTCard'
@@ -160,7 +160,7 @@ const ZeroGas = memo(() => {
     },
     [switchNetwork, chainId]
   )
-  const { getTooltip } = useAirdropPointsTooltip()
+  const { getTooltip } = useRewardPointsTooltip()
 
   const Widget = useMemo(() => {
     return Object.fromEntries(

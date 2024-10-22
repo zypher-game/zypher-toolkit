@@ -40,7 +40,7 @@ import css from './index.module.stylus'
 
 const shareText = `Play bingo with me! 
 🔥 This is a fun and simple bingo game that connects players together. 
-🎁 Play, Earn - Where Every Game Leads to an Airdrop Rewards!`
+🎁 Play, Earn - Where Every Game Leads to an Reward Rewards!`
 export const OnceTask = {
   ConnectWallet: { key: 1, value: 100 },
   JoinTelegram: { key: 2, value: 100 },

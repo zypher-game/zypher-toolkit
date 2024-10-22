@@ -3,7 +3,7 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { preAirdropPathname } from '@/pages/Active/hooks/activeHooks'
+import { preRewardPathname } from '@/pages/Active/hooks/activeHooks'
 
 import { navPath } from '../../config/config'
 import TextLabel from '../comp/TextLabel'
@@ -12,7 +12,7 @@ import css from './nav.module.styl'
 const Nav = memo(() => {
   const navigate = useNavigate()
   const toPathHandle = useCallback(() => {
-    navigate(`/${preAirdropPathname}`)
+    navigate(`/${preRewardPathname}`)
   }, [])
   return (
     <div className={css.nav}>

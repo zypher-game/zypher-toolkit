@@ -32,7 +32,7 @@ const stakeAmountListConfig: Record<TVLChainId, string[]> = {
   [TVLChainId.LineaMainnet]: ['5 '],
   [TVLChainId.LineaSepolia]: ['5 ']
 }
-export const useAirdropPointsTooltip = () => {
+export const useRewardPointsTooltip = () => {
   const tvlStakingData = useRecoilValue<Record<TVLChainId | ChainId, Record<string, ITVLStakingData>>>(tvlStakingDataState)
   const isTvlDataLoading = useRecoilValue(isTvlDataLoadingState)
   const getTooltip = useCallback(
@@ -43,18 +43,18 @@ export const useAirdropPointsTooltip = () => {
       )
       const CrHero = stakingData.map(v => `${v.getMinStake} ${v.symbol === `W${Currency[chainId]}` ? Currency[chainId] : v.symbol}`).join(' / ')
       return {
-        airdropPointsTooltip: [
+        rewardPointsTooltip: [
           `Points earned from staking will grow according to the following formula: X * Amount of ${Currency[chainId]} * Staking Duration, where the X variable is determined by your stake amount.`
           // `The points earned by staking will grow according to the formula: X * Amount of ${Currency[chainId]} * Staking duration, and the X variable depends on your stake amount.`
-          // '(Airdrop points also include additional airdrop point rewards obtained by completing the team.)'
+          // '(Reward points also include additional reward point rewards obtained by completing the team.)'
         ],
         growthCoefficientNativeTooltip: [
-          'The growth coefficient of airdrop points is based on the amount staked. The higher your stake, the greater the coefficient. ',
+          'The growth coefficient of reward points is based on the amount staked. The higher your stake, the greater the coefficient. ',
           '',
           'Note: The coefficients for staking and restaking are different.'
         ],
         growthCoefficientTooltip: [
-          'The growth coefficient of airdrop points is based on the amount staked. The higher your stake, the greater the coefficient. ',
+          'The growth coefficient of reward points is based on the amount staked. The higher your stake, the greater the coefficient. ',
           '',
           'Note: The coefficients for staking and restaking are different.'
         ],

@@ -21,7 +21,7 @@ const Banner = memo(() => {
     avatar,
     nickname,
     isTwitterPost,
-    airdropPointsDetail: { byTwitter, byTwitterMore }
+    rewardPointsDetail: { byTwitter, byTwitterMore }
   } = activeData
   const isW768 = useIsW768()
   const setIsModalOpen = useSetRecoilState(changeNameDialogState)
@@ -57,16 +57,16 @@ const Banner = memo(() => {
         <ul className={css.bottom_card}>
           <LiItem title={'#' + (activeData.rankingStr ?? '')} label={'Ranking'} iconPath={preStaticUrl + '/img/icon/pixel_ranking.svg'} />
           <LiItem
-            title={activeData.airdropPointsStr}
-            label={'Airdrop Points'}
+            title={activeData.rewardPointsStr}
+            label={'Reward Points'}
             warnText={[
-              'Here are the components of the total airdrop points:',
-              '1. Initial airdrop points',
-              '2. Airdrop points earned through staking',
-              '3. Commissions from airdrop points obtained by inviting friends',
-              '4. Airdrop point rewards for achieving group goal'
+              'Here are the components of the total reward points:',
+              '1. Initial reward points',
+              '2. Reward points earned through staking',
+              '3. Commissions from reward points obtained by inviting friends',
+              '4. Reward point rewards for achieving group goal'
             ]}
-            iconPath={preStaticUrl + '/img/icon/pixel_airdrop.svg'}
+            iconPath={preStaticUrl + '/img/icon/pixel_reward.svg'}
           />
         </ul>
         {isW768 ? <PointText className={css.bottom_card_text} /> : null}

@@ -36,7 +36,7 @@ const Get = memo(() => {
             <p
               className={css.margin}
             >{`CryptoRumble (CR) is a match-3 game where players defeat monsters and upgrade their characters, available on the Zypher platform.`}</p>
-            <p>{`Join the Treasure Ark event for free CR Mystery Box giveaways, play the game, and unlock extra rewards and airdrop opportunities!`}</p>
+            <p>{`Join the Treasure Ark event for free CR Mystery Box giveaways, play the game, and unlock extra rewards and reward opportunities!`}</p>
             <div className={css.list}>
               <img src={getPath + '/list1.png'} />
               <img src={getPath + '/list2.png'} />

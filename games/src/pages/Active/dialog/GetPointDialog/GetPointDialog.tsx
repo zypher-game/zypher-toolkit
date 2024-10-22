@@ -3,7 +3,7 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
 import { getPointAmount, pointSuccessDialogState } from '../../state/activeState'
-import { MoreActiveSuccessCard } from '../../views/ActiveGetAirdrop/MoreActiveSuccess/MoreActiveSuccess'
+import { MoreActiveSuccessCard } from '../../views/ActiveGetReward/MoreActiveSuccess/MoreActiveSuccess'
 import css from './GetPointDialog.module.styl'
 const GetPointDialog = memo(() => {
   const isModalOpen = useRecoilValue(pointSuccessDialogState)

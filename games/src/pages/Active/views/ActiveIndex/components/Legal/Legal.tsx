@@ -15,7 +15,7 @@ const Legal = memo(() => {
         <div className={css.text}>
           <p>
             {
-              'The Treasure Ark campaign, including all associated events, rewards, and promotions, is subject to change at the discretion of Zypher Network without prior notice. All rewards, including $GP, airdrop points, SBTs, and other game-related benefits, are distributed based on the terms and conditions specified within the campaign and are not guaranteed. Participation in the campaign does not constitute a guarantee of financial return, and participants should be aware of the inherent risks involved in staking and cryptocurrency-based activities.'
+              'The Treasure Ark campaign, including all associated events, rewards, and promotions, is subject to change at the discretion of Zypher Network without prior notice. All rewards, including $GP, reward points, SBTs, and other game-related benefits, are distributed based on the terms and conditions specified within the campaign and are not guaranteed. Participation in the campaign does not constitute a guarantee of financial return, and participants should be aware of the inherent risks involved in staking and cryptocurrency-based activities.'
             }
           </p>
           <p>

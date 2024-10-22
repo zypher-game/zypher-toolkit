@@ -34,11 +34,11 @@ export const useBind = () => {
     //   setErrorToast('Please Follow @MKJZhS4p2T on Discord')
     //   return
     // }
-    setActiveData(pre => ({ ...pre, checkAirdropPointsLoading: true }))
+    setActiveData(pre => ({ ...pre, checkRewardPointsLoading: true }))
     await sleep(3)
     const primary_score_res = await getPrimaryScore(chainId)
     const primaryScoreRes = form_primary_score(activeData, primary_score_res)
-    setActiveData(pre => ({ ...pre, ...primaryScoreRes, checkAirdropPointsLoading: false }))
+    setActiveData(pre => ({ ...pre, ...primaryScoreRes, checkRewardPointsLoading: false }))
   }, [JSON.stringify(activeData), account, setSuccessToast])
   const _invitationCode = useMemo(() => {
     return invitationCode.slice(0, 1) + '-' + invitationCode.slice(1)

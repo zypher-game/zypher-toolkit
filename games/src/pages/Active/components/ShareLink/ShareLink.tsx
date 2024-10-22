@@ -10,7 +10,7 @@ const ShareLink = memo(({ css, preWidth, pixel_styled }: { preWidth: string; css
   const twitterShare = useMemo(() => {
     if (account) {
       const title01 =
-        '🔥 Get set for an exhilarating journey! 🙌 Join me at Zypher Games with my exclusive invitation link unlock  Airdrop points and LXP and other rewards!! Let us start this thrilling adventure together! @Zypher_network'
+        '🔥 Get set for an exhilarating journey! 🙌 Join me at Zypher Games with my exclusive invitation link unlock  Reward points and LXP and other rewards!! Let us start this thrilling adventure together! @Zypher_network'
       const myhashtag = 'web3game'
       const link = 'https://zypher.game/'
       const tweetText = `${link}${title01}`
@@ -19,7 +19,7 @@ const ShareLink = memo(({ css, preWidth, pixel_styled }: { preWidth: string; css
     }
     return ''
   }, [account])
-  if (activeData.airdropPointsDetail.byTwitterMore || activeData.isTwitterPost) {
+  if (activeData.rewardPointsDetail.byTwitterMore || activeData.isTwitterPost) {
     return <></>
   }
   return (
@@ -34,7 +34,7 @@ const ShareLink = memo(({ css, preWidth, pixel_styled }: { preWidth: string; css
       >
         <ShareComponent url={twitterShare}>
           <SvgComponent src={preStaticUrl + '/img/layout/twitter.svg'} className={css.twitterIcon} />
-          <p>Tweet to get more Airdrop Points</p>
+          <p>Tweet to get more Reward Points</p>
           <SvgComponent src={`${preStaticUrl}/img/icon/pixel_link.svg`} className={css.linkIcon} />
         </ShareComponent>
       </ActivePixelButtonColor>

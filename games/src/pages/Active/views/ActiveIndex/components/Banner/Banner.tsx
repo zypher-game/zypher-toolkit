@@ -2,7 +2,7 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { preAirdropPathname } from '@/pages/Active/hooks/activeHooks'
+import { preRewardPathname } from '@/pages/Active/hooks/activeHooks'
 
 import { bannerPath } from '../../config/config'
 import Bg from '../comp/Bg'
@@ -12,7 +12,7 @@ import css from './banner.module.styl'
 const Banner = memo(() => {
   const navigate = useNavigate()
   const toPathHandle = useCallback(() => {
-    navigate(`/${preAirdropPathname}`)
+    navigate(`/${preRewardPathname}`)
   }, [])
   return (
     <div className={css.banner}>

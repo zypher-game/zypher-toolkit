@@ -6,7 +6,7 @@ import { useActiveData } from './useActiveData'
 export const useToPath = () => {
   const { setActiveData } = useActiveData()
   const toSetByTwitterMore = useCallback(() => {
-    setActiveData(pre => ({ ...pre, airdropPointsDetail: { ...pre.airdropPointsDetail, byTwitterMore: '0' } }))
+    setActiveData(pre => ({ ...pre, rewardPointsDetail: { ...pre.rewardPointsDetail, byTwitterMore: '0' } }))
     return
   }, [])
 
@@ -18,7 +18,7 @@ export const useToPath = () => {
   const keepGoingHandle = useCallback(async () => {
     toSetByTwitterMore()
     // await sleep(0.1)
-    // navigate(`/${preAirdropPathname}/${airdropPathname.staking}`)
+    // navigate(`/${preRewardPathname}/${rewardPathname.staking}`)
     return
   }, [])
   return { toSetByTwitterMore, toSetHero, keepGoingHandle }

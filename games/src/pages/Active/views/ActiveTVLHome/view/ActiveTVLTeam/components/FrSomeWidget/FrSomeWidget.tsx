@@ -46,17 +46,17 @@ const FrSomeWidget = memo(
       })
     }, [chainId])
     const tvlPointHandle = useCallback(() => {
-      if (activeData.airdropPointsCardNumber === '' || activeData.airdropPointsCardNumber === '0') {
+      if (activeData.rewardPointsCardNumber === '' || activeData.rewardPointsCardNumber === '0') {
         return
       }
       setIsTvlPointModalOpen(true)
-    }, [activeData.airdropPointsCardNumber])
+    }, [activeData.rewardPointsCardNumber])
 
     return (
       <>
         <FrPixelBorder>
           <StakingTitle tooltip={[stakingStr]} />
-          <p className={css.fr_grey}>Earn Airdrop Points + Rewards</p>
+          <p className={css.fr_grey}>Earn Reward Points + Rewards</p>
           <div className={css.fr_number}>
             {isDataLoading ? null : <p>{activeData.userStakedAmountStr}</p>}
             <LoadingButton hideMl={true} isLoading={isDataLoading} />
@@ -68,18 +68,18 @@ const FrSomeWidget = memo(
         </FrPixelBorder>
         <FrPixelBorder>
           <Title
-            label="Airdrop Points Card"
+            label="Reward Points Card"
             tooltip={[
-              'Airdrop points are earned from the following:',
+              'Reward points are earned from the following:',
               '1. Your inviter completing the group goal',
               '2. Your team achieving the group goal'
             ]}
           />
           <p className={css.fr_grey}>
-            {Number(groupGoal.need) === 0 ? null : `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Airdrop Points Card`}
+            {Number(groupGoal.need) === 0 ? null : `You still need ${groupGoal.needStr} ${Currency[chainId]} to get another free Reward Points Card`}
           </p>
           <div className={css.fr_number}>
-            <p>{activeData.airdropPointsCardNumber === '' ? '0' : activeData.airdropPointsCardNumber}</p>
+            <p>{activeData.rewardPointsCardNumber === '' ? '0' : activeData.rewardPointsCardNumber}</p>
           </div>
           <ActivePixelButtonColor
             themeType="brightBlue"
@@ -87,7 +87,7 @@ const FrSomeWidget = memo(
             width="144px"
             height="36px"
             pixel_height={3}
-            disable={activeData.airdropPointsCardNumber === '' || activeData.airdropPointsCardNumber === '0'}
+            disable={activeData.rewardPointsCardNumber === '' || activeData.rewardPointsCardNumber === '0'}
             onClick={tvlPointHandle}
           >
             <p>Open</p>

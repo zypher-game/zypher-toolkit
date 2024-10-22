@@ -68,7 +68,7 @@ const Bind = memo(
           fl={
             <div className={css.tooltip}>
               <p>1. Enter the invitation code</p>
-              <PixelTooltip title={['Build Your Team with Invite Codes and Unlock More Airdrop Points!']} />
+              <PixelTooltip title={['Build Your Team with Invite Codes and Unlock More Reward Points!']} />
             </div>
           }
           fr={<FrStatus label={`${invitationCode[0]}-${invitationCode.substring(1)}`} isLoading={false} />}
@@ -81,7 +81,7 @@ const Bind = memo(
           fl={'3. Join Zypher Games Discord'}
           fr={<FrStatus label={discordNickname} isLoading={discordIsLoading} btnLabel="Link to Discord" onClick={shareOnDiscord} />}
         /> */}
-        <LiItem fl={'3. Check your airdrop points'} fr={<FrStatus label="" isLoading={false} btnLabel="Check" onClick={CheckPointHandle} />} />
+        <LiItem fl={'3. Check your reward points'} fr={<FrStatus label="" isLoading={false} btnLabel="Check" onClick={CheckPointHandle} />} />
       </ul>
     )
   },

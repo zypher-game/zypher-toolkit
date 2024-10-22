@@ -67,7 +67,7 @@ const list = [
     isTreasureArk: true,
     treasureArk: {
       amount: '400,000,000',
-      label: 'Zypher Tokens for Airdrop!'
+      label: 'Zypher Tokens for Reward!'
     }
   },
   {

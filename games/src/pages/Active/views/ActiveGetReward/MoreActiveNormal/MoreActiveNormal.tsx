@@ -4,14 +4,14 @@ import React, { memo } from 'react'
 import { useToPath } from '@/pages/Active/hooks/useToPath'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
-import GetAirdropWrap from '../components/GetAirdropWrap/GetAirdropWrap'
+import GetRewardWrap from '../components/GetRewardWrap/GetRewardWrap'
 import css from './MoreActiveNormal.module.styl'
 const MoreActiveNormal = memo(() => {
   const { keepGoingHandle } = useToPath()
   const isW768 = useIsW768()
   return (
     <ActiveComp>
-      <GetAirdropWrap>
+      <GetRewardWrap>
         <ActivePixelButtonColor
           themeType="brightBlue"
           width={isW768 ? '100%' : '206px'}
@@ -22,7 +22,7 @@ const MoreActiveNormal = memo(() => {
         >
           <p>Keep Going</p>
         </ActivePixelButtonColor>
-      </GetAirdropWrap>
+      </GetRewardWrap>
     </ActiveComp>
   )
 })

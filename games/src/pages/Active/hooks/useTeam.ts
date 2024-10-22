@@ -90,16 +90,16 @@ export const useTeam = () => {
           }))
         )
         // const staking = `${_team['userInfo']['staking']}`
-        const airdropPoints = _team['userInfo']['points']
+        const rewardPoints = _team['userInfo']['points']
         const ranking = `${_team['userInfo']['rank']}`
         setActiveData(pre => ({
           // staking: staking,
           // stakingStr: new BigNumberJs(staking).toFormat(2),
-          airdropPoints: airdropPoints,
-          airdropPointsStr: new BigNumberJs(airdropPoints).toFormat(2),
+          rewardPoints: rewardPoints,
+          rewardPointsStr: new BigNumberJs(rewardPoints).toFormat(2),
           ranking: ranking,
           rankingStr: new BigNumberJs(ranking).toFormat(0),
-          airdropPointsCardNumber: `${point['cardNum']}`
+          rewardPointsCardNumber: `${point['cardNum']}`
         }))
         // group
         const total = _team['groupGoal']['total']

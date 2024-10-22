@@ -36,9 +36,9 @@ export const useGetData = () => {
             ...pre,
             ...{
               ...userInfo,
-              airdropPointsDetail: {
-                ...(userInfo?.airdropPointsDetail ?? {}),
-                byTwitterMore: pre.airdropPointsDetail.byTwitterMore
+              rewardPointsDetail: {
+                ...(userInfo?.rewardPointsDetail ?? {}),
+                byTwitterMore: pre.rewardPointsDetail.byTwitterMore
               }
             },
             accountAddress: account,

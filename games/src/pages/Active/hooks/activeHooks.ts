@@ -11,10 +11,10 @@ import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import { useActiveData } from './useActiveData'
-export const preAirdropPathname = 'treasureark'
-export const airdropPathname = {
+export const preRewardPathname = 'treasureark'
+export const rewardPathname = {
   register: 'register',
-  getAirdrop: 'getAirdrop',
+  getReward: 'getReward',
   staking: 'staking',
   chooseHunter: 'chooseHunter',
   tvl: ''
@@ -37,9 +37,9 @@ export const TVLTabList = [
     label: 'Leaderboard'
   }
 ]
-export const tvlPath = TVLTabList.map(v => `/${preAirdropPathname}/${airdropPathname.tvl}${v.path}`)
+export const tvlPath = TVLTabList.map(v => `/${preRewardPathname}/${rewardPathname.tvl}${v.path}`)
 
-export const getAirdropPathname = {
+export const getRewardPathname = {
   MoreActiveNormal: 'MoreActiveNormal',
   MoreActive: 'MoreActive',
   MoreActiveSuccess: 'MoreActiveSuccess',

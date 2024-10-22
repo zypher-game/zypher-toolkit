@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import { useToPath } from '@/pages/Active/hooks/useToPath'
 
 import ActiveComp from '../../../components/ActiveComp/ActiveComp'
-import GetAirdropWrap from '../components/GetAirdropWrap/GetAirdropWrap'
+import GetRewardWrap from '../components/GetRewardWrap/GetRewardWrap'
 import css from './MoreActive.module.styl'
 const MoreActive = memo(() => {
   const { keepGoingHandle } = useToPath()
@@ -11,7 +11,7 @@ const MoreActive = memo(() => {
 
   return (
     <ActiveComp>
-      <GetAirdropWrap>
+      <GetRewardWrap>
         <div>
           {/* <ShareLink
             css={css}
@@ -26,7 +26,7 @@ const MoreActive = memo(() => {
             <p>Keep Going</p>
           </div>
         </div>
-      </GetAirdropWrap>
+      </GetRewardWrap>
     </ActiveComp>
   )
 })

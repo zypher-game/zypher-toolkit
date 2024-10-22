@@ -12,7 +12,7 @@ interface IItem {
 const list: IItem[] = [
   {
     title: 'What is Treasure Ark?',
-    label: `<p>Treasure Ark is a fun and rewarding staking and gaming tournament hosted by Zypher Network, available on Linea (re-staking) and Zytron Layer 3 on Linea (games). It features multiple events where participants can team up to stake assets, play games, and earn rewards such as $GP tokens, airdrop points, Soulbound Tokens (SBTs), and NFTs. For more information, please join our <a href='https://t.me/zyphernetwork'>community</a>.</p>`
+    label: `<p>Treasure Ark is a fun and rewarding staking and gaming tournament hosted by Zypher Network, available on Linea (re-staking) and Zytron Layer 3 on Linea (games). It features multiple events where participants can team up to stake assets, play games, and earn rewards such as $GP tokens, reward points, Soulbound Tokens (SBTs), and NFTs. For more information, please join our <a href='https://t.me/zyphernetwork'>community</a>.</p>`
   },
   {
     title: 'When does Treasure Ark start and end?',
@@ -29,7 +29,7 @@ const list: IItem[] = [
 <i><em></em>Double Happiness: Linea LRT (LXP) rewards</i>
 <i><em></em>Triple Happiness: Additional LXP rewards from Zypher</i>
 <i><em></em>Quadra Happiness: Risk-free $GP rewards</i>
-<i><em></em>Penta Happiness: Zypher Points for ranking and airdrops</i>
+<i><em></em>Penta Happiness: Zypher Points for ranking and rewards</i>
 <i><em></em>Hexa Happiness: Extra revenue from issuing games</i>
     </p>`
   },
@@ -43,7 +43,7 @@ const list: IItem[] = [
   },
   {
     title: 'What happens at the end of Season 1?',
-    label: `<p>At the end of Season 1 (February 18, 2025), all airdrop points will be locked, and participants can redeem their staked tokens or choose to continue staking for additional $GP rewards and gas-free gaming privileges.</p>`
+    label: `<p>At the end of Season 1 (February 18, 2025), all reward points will be locked, and participants can redeem their staked tokens or choose to continue staking for additional $GP rewards and gas-free gaming privileges.</p>`
   }
 ]
 const FAQ = memo(() => {

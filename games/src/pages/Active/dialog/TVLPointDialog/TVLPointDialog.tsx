@@ -12,7 +12,7 @@ const TVLPointDialog = memo(({ openCard, isLoadingSingle, isLoadingAll }: IProps
   const setIsModalOpen = useSetRecoilState(tvlPointDialogState)
   const isW768 = useIsW768()
   const { activeData } = useActiveData()
-  const { airdropPointsCardNumber } = activeData
+  const { rewardPointsCardNumber } = activeData
 
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
@@ -21,8 +21,8 @@ const TVLPointDialog = memo(({ openCard, isLoadingSingle, isLoadingAll }: IProps
   return (
     <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.center}>
       <ActivePixelCard className={css.TVLPointDialog} backgroundColor="#1D263B" pixel_height={isW768 ? 5 : 10}>
-        <h3>You Got {airdropPointsCardNumber} Airdrop Points Card</h3>
-        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_point/bg.png'} alt="card2" className={`${css.card}`} />
+        <h3>You Got {rewardPointsCardNumber} Reward Points Card</h3>
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/reward_point/bg.png'} alt="card2" className={`${css.card}`} />
         {!isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
       </ActivePixelCard>
       {isW768 ? <Btn openCard={openCard} isLoadingSingle={isLoadingSingle} isLoadingAll={isLoadingAll} /> : null}
