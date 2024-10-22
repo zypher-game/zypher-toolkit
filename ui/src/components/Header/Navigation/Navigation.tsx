@@ -12,7 +12,7 @@ import sleep from "../../../utils/sleep";
 import { preStaticUrl } from "../../../constant/constant";
 
 export const NavKey = [
-  ["treasureark", "treasureark", "airdropLoading"],
+  ["treasureark", "treasureark", "rewardLoading"],
   ["games"],
   ["zeroGas"],
 ];
@@ -32,7 +32,7 @@ export const NavList: INavList[] = [
     link: `/${NavKey[0][0]}`,
     linkList: NavKey[0],
     label: "Treasure Ark",
-    classNames: "airdrop",
+    classNames: "reward",
     isTarget: false,
     showIfGames: false, // 只显示 games 的时候显不显示
     showArk: true,

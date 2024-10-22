@@ -6295,7 +6295,7 @@ import React22, {
   useState as useState14
 } from "react";
 var NavKey = [
-  ["treasureark", "treasureark", "airdropLoading"],
+  ["treasureark", "treasureark", "rewardLoading"],
   ["games"],
   ["zeroGas"]
 ];
@@ -6304,7 +6304,7 @@ var NavList = [
     link: `/${NavKey[0][0]}`,
     linkList: NavKey[0],
     label: "Treasure Ark",
-    classNames: "airdrop",
+    classNames: "reward",
     isTarget: false,
     showIfGames: false,
     showArk: true,
