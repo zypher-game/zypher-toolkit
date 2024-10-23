@@ -7456,6 +7456,7 @@ var PlayerAvatarList = ({
     decoding: "async",
     loading: "lazy",
     width: "100%",
+    height: "100%",
     src: selectedAvatar,
     style: { background: selectedBackground }
   }) : /* @__PURE__ */ React33.createElement("img", {
