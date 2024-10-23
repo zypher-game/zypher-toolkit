@@ -72,12 +72,6 @@ export class WagmiWalletHandler {
         configApi.wallet_bytecode as Hash,
         deployer as Address
       );
-      console.log({
-        address: this.account.address,
-        wallet_bytecode: configApi.wallet_bytecode as Hash,
-        deployer: deployer as Address,
-        aaWallet,
-      });
       this.aa = {
         isFree: new BigNumberJs(gas0Balance).gt(0),
         address: aaWallet,
@@ -122,7 +116,6 @@ export class WagmiWalletHandler {
           // value: bigint;
           // };
           const value = arg.value || 0;
-          console.log({ value });
           const sign = await this.walletClient.signTypedData({
             ...ZytronSignTypedData(this.chainId),
             message: {

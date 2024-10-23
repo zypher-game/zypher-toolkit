@@ -869,18 +869,14 @@ var useGas0Balance = () => {
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
-        console.log({ res });
         if (res.code !== 0) {
           _balance("0");
           key.current = "";
           return;
         }
-        console.log({ res });
         const gas0Balance = res.data.amount;
-        console.log({ gas0Balance });
         if (new BigNumberJs_default(gas0Balance).gt(0)) {
           httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
-            console.log({ configRes });
             setLoading(false);
             if (configRes.code !== 0) {
               _balance("0");
@@ -888,7 +884,6 @@ var useGas0Balance = () => {
               return;
             }
             _balance(gas0Balance);
-            console.log({ configRes });
             _config({
               ...Gas0Constants[chainId],
               deployer_address: configRes.data.deployer_address,
@@ -1179,12 +1174,6 @@ var WagmiWalletHandler = class {
         configApi.wallet_bytecode,
         deployer
       );
-      console.log({
-        address: this.account.address,
-        wallet_bytecode: configApi.wallet_bytecode,
-        deployer,
-        aaWallet
-      });
       this.aa = {
         isFree: new BigNumberJs_default(gas0Balance).gt(0),
         address: aaWallet,
@@ -1223,7 +1212,6 @@ var WagmiWalletHandler = class {
           const nonce = await this.aaNonce();
           const arg = params[0];
           const value = arg.value || 0;
-          console.log({ value });
           const sign = await this.walletClient.signTypedData({
             ...ZytronSignTypedData(this.chainId),
             message: {
@@ -1366,7 +1354,6 @@ var useGetWalletClient = () => {
         !!_walletClient,
         !!aaWalletClient
       ].join("-");
-      console.log({ gas0Balance, config });
       if (Gas0Constants[chainId]) {
         if (key.current === keyString && _walletClient && aaWalletClient) {
           return;
@@ -1374,8 +1361,6 @@ var useGetWalletClient = () => {
         setIsSet(true);
         key.current = keyString;
         if (new BigNumberJs_default(gas0Balance).gt(0) && config.deployer_address !== zeroAddress2) {
-          console.log(1111);
-          console.log(33333);
           const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
           setAaWallet((pre) => ({
             ...pre,
@@ -1391,8 +1376,6 @@ var useGetWalletClient = () => {
         }
       }
       setIsSet(true);
-      console.log(4444);
-      console.log({ account });
       setAaWallet((pre) => ({
         ...pre,
         wallet: void 0,
@@ -1405,7 +1388,6 @@ var useGetWalletClient = () => {
       setIsSet(false);
       return;
     } catch (err) {
-      console.log("getWalletClient err", err);
     }
   }, [key.current, account, chainId, walletClient, gas0Balance]);
   return { getWalletClient };
@@ -1413,21 +1395,16 @@ var useGetWalletClient = () => {
 var useCreate = () => {
   const { account: owner, wallet, aa_mm_address } = useAaWallet();
   const create = useCallback(async () => {
-    console.log(222222);
     if (wallet && aa_mm_address && wallet.aa && owner) {
-      console.log(11111);
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address);
-      console.log(1, { isCreate });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,
           wallet.aa.config.api,
           wallet.aa.isFree
         );
-        console.log(1);
         if (!hash)
           return;
-        console.log(1, hash);
         await wallet.publicClient.waitForTransactionReceipt({
           hash,
           confirmations: 1
@@ -3323,7 +3300,6 @@ var encodeFunctionMulticall = async (wallet, items) => {
     if (res.code !== 0)
       throw new Error(`functionmulticall err: ${res.msg}`);
     const data = res.data.data ? res.data.data : res.data;
-    console.log("res", res);
     return data.tx_hash;
   }
   return wallet.aa.contract.write.functionMulticall([items, Number(v), r, s]);
@@ -3724,7 +3700,6 @@ var useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      console.log({ refresh, WebApp: WebAppData });
       if (!IS_TELEGRAM) {
         return null;
       }
@@ -3766,7 +3741,6 @@ var useTelegramUser = () => {
   }, [JSON.stringify(user)]);
   useEffect5(() => {
     var _a, _b, _c, _d, _e, _f;
-    console.log({ IS_TELEGRAM });
     if (IS_TELEGRAM) {
       try {
         let _WebAppData = {
@@ -3780,7 +3754,6 @@ var useTelegramUser = () => {
         _WebAppData.user = (_d = params.get("user")) != null ? _d : "";
         _WebAppData.hash = (_e = params.get("hash")) != null ? _e : "";
         _WebAppData.auth_date = (_f = params.get("auth_date")) != null ? _f : "";
-        console.log({ _WebAppData });
         if (_WebAppData.user !== "") {
           setWebAppData(_WebAppData);
           window.WebAppData = _WebAppData;
@@ -3800,7 +3773,6 @@ var useTelegramAccountInit = (userInfo, _userInfo, setIsModalOpen) => {
   return useEffectValue(
     null,
     async () => {
-      console.log(1111111);
       if (!(userInfo == null ? void 0 : userInfo.star))
         return null;
       if (userInfo.star !== "0")
@@ -6910,13 +6882,11 @@ var Balance = memo25((props) => {
   const refreshBalance = useRecoilValue10(refreshBalanceState);
   const { data: walletClient } = useWalletClient2();
   const fetchErc20Balance = useCallback18(async () => {
-    console.log({ chainId, account, provider, walletClient });
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
-      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
@@ -6944,7 +6914,6 @@ var Balance = memo25((props) => {
             };
           });
           const multicall = await multicall_default(chainId);
-          console.log({ multicall });
           if (multicall) {
             const { results } = await multicall.call(params);
             setPointsBalance(
@@ -6966,7 +6935,6 @@ var Balance = memo25((props) => {
     }
   }, [chainId, account, provider, walletClient]);
   const fetchBalanceOf = useCallback18(async () => {
-    console.log({ chainId, account, walletClient });
     if (!chainId || !account || !walletClient) {
       return;
     }
@@ -8054,7 +8022,6 @@ import { useSetRecoilState as useSetRecoilState12 } from "recoil";
 var AccountInfo = memo30(
   ({ isW768, isMiddleWidth, copy, env, supportedChainList }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
-    console.log({ chainId });
     const setAccountInfoDialogState = useSetRecoilState12(accountInfoDialogState);
     const accountClick = useCallback24(() => {
       if (isW768) {

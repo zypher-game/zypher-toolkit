@@ -56,13 +56,11 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
   const refreshBalance = useRecoilValue(refreshBalanceState);
   const { data: walletClient } = useWalletClient();
   const fetchErc20Balance = useCallback(async (): Promise<void> => {
-    console.log({ chainId, account, provider, walletClient });
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
-      console.log({ pointsAddress });
       if (!pointsAddress) {
         setPointsBalance(0);
       } else {
@@ -87,7 +85,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
             ],
           }));
           const multicall = await MulticallContract(chainId);
-          console.log({ multicall });
           if (multicall) {
             const { results } = await multicall.call(params);
             setPointsBalance(
@@ -130,7 +127,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     }
   }, [chainId, account, provider, walletClient]);
   const fetchBalanceOf = useCallback(async (): Promise<void> => {
-    console.log({ chainId, account, walletClient });
     if (!chainId || !account || !walletClient) {
       return;
     }
