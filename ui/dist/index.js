@@ -1075,6 +1075,7 @@ var address2salt = (addr) => {
   return bytesToHex(bytes);
 };
 var getAddressAA = (owner, walletBytecode, deployer) => {
+  console.log({ owner, walletBytecode, deployer });
   const salt = address2salt(owner);
   const bytecode = encodeDeployData({
     abi: WalletAbi,
@@ -1196,6 +1197,7 @@ var WagmiWalletHandler = class {
           }
           const owner = this.walletClient.account.address;
           const isCreate = await getIsCode(this.publicClient, aaWallet);
+          console.log({ isCreate, aaWallet });
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
               owner,
@@ -1294,6 +1296,7 @@ var gas0WalletCreateAndApprove = async (owner, api, isFree) => {
   if (!isFree) {
     return;
   }
+  console.log({ owner });
   const { data } = await httpPost(`${api}/create`, {
     owner
   });
@@ -1397,6 +1400,7 @@ var useCreate = () => {
   const create = useCallback(async () => {
     if (wallet && aa_mm_address && wallet.aa && owner) {
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address);
+      console.log({ isCreate, aa_mm_address });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,
@@ -3468,9 +3472,7 @@ var LinkPre = {
   L: {
     key: 1,
     label: "L",
-    chainId: isPro() ? [
-      TVLChainId.LineaMainnet
-    ] : [
+    chainId: isPro() ? [TVLChainId.LineaMainnet] : [
       TVLChainId.LineaSepolia,
       TVLChainId.LineaMainnet
     ]
@@ -3487,8 +3489,8 @@ var getLinkPre = (chainId) => {
 var minStakingValue = {
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
-  [TVLChainId.LineaMainnet]: "0.01",
-  [TVLChainId.LineaSepolia]: "0.01"
+  [TVLChainId.LineaMainnet]: "0.001",
+  [TVLChainId.LineaSepolia]: "0.001"
 };
 var CODELENGTH = 6;
 

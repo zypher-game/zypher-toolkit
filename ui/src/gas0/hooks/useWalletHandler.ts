@@ -124,6 +124,7 @@ export const useCreate = () => {
   const create = useCallback(async () => {
     if (wallet && aa_mm_address && wallet.aa && owner) {
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address); // eoa =>
+      console.log({ isCreate, aa_mm_address });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,

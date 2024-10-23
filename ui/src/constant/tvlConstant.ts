@@ -135,12 +135,12 @@ export const LinkPre: Record<string, ILinkPre> = {
   L: {
     key: 1,
     label: "L",
-    chainId: (isPro() ?  [
-      TVLChainId.LineaMainnet,
-    ]: [
-      TVLChainId.LineaSepolia,
-      TVLChainId.LineaMainnet,
-    ] )as unknown as ChainId[],
+    chainId: (isPro()
+      ? [TVLChainId.LineaMainnet]
+      : [
+          TVLChainId.LineaSepolia,
+          TVLChainId.LineaMainnet,
+        ]) as unknown as ChainId[],
   },
   B: {
     key: 2,
@@ -155,7 +155,7 @@ export const getLinkPre = (chainId: ChainId): ILinkPre => {
 export const minStakingValue: Record<TVLChainId, string> = {
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
-  [TVLChainId.LineaMainnet]: "0.01",
-  [TVLChainId.LineaSepolia]: "0.01",
+  [TVLChainId.LineaMainnet]: "0.001",
+  [TVLChainId.LineaSepolia]: "0.001",
 };
 export const CODELENGTH = 6;

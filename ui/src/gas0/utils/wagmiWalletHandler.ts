@@ -94,6 +94,7 @@ export class WagmiWalletHandler {
           }
           const owner = this.walletClient.account.address;
           const isCreate = await getIsCode(this.publicClient, aaWallet); // eoa =>
+          console.log({ isCreate, aaWallet });
           if (!isCreate) {
             const hash = await gas0WalletCreateAndApprove(
               owner,
@@ -205,6 +206,7 @@ export const gas0WalletCreateAndApprove = async (
   if (!isFree) {
     return;
   }
+  console.log({ owner });
   const { data } = await httpPost(`${api}/create`, {
     owner,
   });
