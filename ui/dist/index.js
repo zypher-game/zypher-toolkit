@@ -110,7 +110,7 @@ var DPSupportChainId = !isPro() ? [
   "204" /* OPBNB */,
   "19546" /* ZytronLineaSepoliaTestnet */,
   "9901" /* ZytronLineaMain */
-] : ["59144" /* LineaMainnet */, "204" /* OPBNB */];
+] : ["59144" /* LineaMainnet */, "9901" /* ZytronLineaMain */, "204" /* OPBNB */];
 var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
   "42161" /* Arbitrum */,
@@ -133,6 +133,8 @@ var supportedChainIds = (env, chainList) => {
   return TGChainId ? TGChainId : chainList ? chainList : !isPro() || env === "develop" ? [
     "59144" /* LineaMainnet */,
     "59141" /* LineaSepolia */,
+    "19546" /* ZytronLineaSepoliaTestnet */,
+    "9901" /* ZytronLineaMain */,
     "223" /* B2 */,
     "167000" /* Taiko */,
     "204" /* OPBNB */,
@@ -141,12 +143,11 @@ var supportedChainIds = (env, chainList) => {
     "5000" /* Mantle */,
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
-    "19546" /* ZytronLineaSepoliaTestnet */,
-    "9901" /* ZytronLineaMain */,
     "8333" /* B3Mainnet */,
     "2717465680371000" /* SagaMainnet */
   ] : [
     "59144" /* LineaMainnet */,
+    "9901" /* ZytronLineaMain */,
     "204" /* OPBNB */,
     "167000" /* Taiko */,
     "42161" /* Arbitrum */,
