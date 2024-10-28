@@ -794,9 +794,7 @@ function useActiveWeb3React(env, chainList) {
       chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(
         `${chainId}`
       ) || !chainId ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(
-        `${chainId}`
-      ) || !chainId ? void 0 : address,
+      account: "0xEB5cd7F76401FF5fB96AaD009b9617961Ba0e8a6",
       provider
     };
   }, [chainId, address, provider]);
