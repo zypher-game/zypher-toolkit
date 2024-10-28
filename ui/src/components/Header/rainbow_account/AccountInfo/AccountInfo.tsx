@@ -20,7 +20,6 @@ type IAccountInfo = {
 const AccountInfo = memo(
   ({ isW768, isMiddleWidth, copy, env, supportedChainList }: IAccountInfo) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
-    console.log({ chainId });
     const setAccountInfoDialogState = useSetRecoilState(accountInfoDialogState);
     // const [showBig, setShowBig] = useRecoilState(showBigState);
     // const [showMiddle, setShowMiddle] = useRecoilState(showMiddleState);

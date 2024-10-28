@@ -163,7 +163,6 @@ export async function batchRequestMulticall({
 }): Promise<IContractResponse[]> {
   const requests = chainIdList.map(async (chainId: ChainId) => {
     await sleep(0.1)
-    console.log({ params })
     try {
       const multicall = await MulticallContract(chainId)
       if (multicall) {

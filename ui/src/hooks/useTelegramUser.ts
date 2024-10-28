@@ -87,7 +87,6 @@ export const useTelegramUser = () => {
   const user = useEffectValue(
     null,
     async () => {
-      console.log({ refresh, WebApp: WebAppData });
       if (!IS_TELEGRAM) {
         return null;
       }
@@ -131,7 +130,6 @@ export const useTelegramUser = () => {
     }
   }, [JSON.stringify(user)]);
   useEffect(() => {
-    console.log({ IS_TELEGRAM: IS_TELEGRAM });
     if (IS_TELEGRAM) {
       try {
         let _WebAppData: IWebAppData = {
@@ -145,7 +143,6 @@ export const useTelegramUser = () => {
         _WebAppData.user = params.get("user") ?? "";
         _WebAppData.hash = params.get("hash") ?? "";
         _WebAppData.auth_date = params.get("auth_date") ?? "";
-        console.log({ _WebAppData });
         if (_WebAppData.user !== "") {
           setWebAppData(_WebAppData);
           window.WebAppData = _WebAppData;
@@ -169,7 +166,6 @@ export const useTelegramAccountInit = (
   return useEffectValue(
     null,
     async () => {
-      console.log(1111111);
       if (!userInfo?.star) return null;
       if (userInfo.star !== "0") return null;
       const res = await httpPost<TelegramUserInfoDto>(

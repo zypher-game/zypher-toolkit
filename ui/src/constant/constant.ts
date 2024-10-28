@@ -79,7 +79,7 @@ export const DPSupportChainId = !isPro()
       ChainId.ZytronLineaSepoliaTestnet,
       ChainId.ZytronLineaMain,
     ]
-  : [ChainId.LineaMainnet, ChainId.OPBNB];
+  : [ChainId.LineaMainnet, ChainId.ZytronLineaMain, ChainId.OPBNB];
 
 // export const defaultChainId = ChainId.OPBNB;
 
@@ -122,6 +122,8 @@ export const supportedChainIds = (
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaSepolia,
+        ChainId.ZytronLineaSepoliaTestnet,
+        ChainId.ZytronLineaMain,
         ChainId.B2,
         // ChainId.B2Testnet,
         ChainId.Taiko,
@@ -136,14 +138,14 @@ export const supportedChainIds = (
         // ChainId.ComboTestnet,
         ChainId.Combo,
         ChainId.Sepolia,
-        ChainId.ZytronLineaSepoliaTestnet,
-        ChainId.ZytronLineaMain,
+
         // ChainId.ZytronB2Testnet,
         ChainId.B3Mainnet,
         ChainId.SagaMainnet,
       ]
     : [
         ChainId.LineaMainnet,
+        ChainId.ZytronLineaMain,
         ChainId.OPBNB,
         ChainId.Taiko,
         ChainId.Arbitrum,

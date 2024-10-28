@@ -70,7 +70,6 @@ export const useDataInfo = () => {
             }
           }`
         })
-        console.log({ z2048Info })
         const z2048InfoVal = z2048Info
           .map(z2048 => {
             if (z2048.response) {

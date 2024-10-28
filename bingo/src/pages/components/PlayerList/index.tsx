@@ -313,49 +313,58 @@ const PlayerListV1 = memo(
           header={Header}
           dataSource={list}
           split={false}
-          renderItem={([item]) => (
-            <List.Item className={css.listBox}>
-              <div className={css.content}>
-                <Row align="middle">
-                  <Col span={12}>
-                    <List.Item.Meta
-                      style={{ alignItems: 'center' }}
-                      avatar={
-                        <PlayerAvatar winner={winner === item} size={winner !== item ? 'small' : undefined} account={item} isGrey={winner !== item} />
-                      }
-                      title={
-                        <p className={css.name}>
-                          {t('Player', {
-                            you: `${data.findIndex(i => i.user === item) + 1} ${item === account && '(you)'}`
-                          })}
-                        </p>
-                      }
-                      description={<p className={css.address}>{getShortenAddress(ownerList[item.toLowerCase()] ?? item)}</p>}
-                    />
-                  </Col>
-                  <Col span={6}>
-                    <Space>
-                      <Text className={css.amount}>{winner === item ? '+' + winAmount : '-' + loseAmount}</Text>
-                      <PointsIcon isMobile={isMobile} />
-                    </Space>
-                  </Col>
-                  <Col span={6} style={{ textAlign: 'right' }}>
-                    <Text style={addressIsEqual(item, account) ? (isWinner ? { color: '#54E127' } : { color: '#E8421E' }) : {}}>
-                      <Space align="center" size={1}>
-                        <Win chainId={chainId} account={item} />
-                        {item === account &&
-                          (isWinner ? (
-                            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/arrow-up.svg`} className={css.arrowDown} alt="" />
-                          ) : (
-                            <img decoding="async" loading="lazy" src={preStaticUrl + `/img/arrow-down.svg`} className={css.arrowDown} alt="" />
-                          ))}
+          renderItem={([item]) => {
+            const isMy = addressIsEqual(item, account) || addressIsEqual(item, aa_mm_address)
+            return (
+              <List.Item className={css.listBox}>
+                <div className={css.content}>
+                  <Row align="middle">
+                    <Col span={12}>
+                      <List.Item.Meta
+                        style={{ alignItems: 'center' }}
+                        avatar={
+                          <PlayerAvatar
+                            winner={winner === item}
+                            size={winner !== item ? 'small' : undefined}
+                            account={item}
+                            isGrey={winner !== item}
+                          />
+                        }
+                        title={
+                          <p className={css.name}>
+                            {t('Player', {
+                              you: `${data.findIndex(i => addressIsEqual(i.user, item)) + 1} ${isMy ? '(you)' : ''}`
+                            })}
+                          </p>
+                        }
+                        description={<p className={css.address}>{getShortenAddress(ownerList[item.toLowerCase()] ?? item)}</p>}
+                      />
+                    </Col>
+                    <Col span={6}>
+                      <Space>
+                        <Text className={css.amount}>{addressIsEqual(winner, item) ? '+' + winAmount : '-' + loseAmount}</Text>
+                        <PointsIcon isMobile={isMobile} />
                       </Space>
-                    </Text>
-                  </Col>
-                </Row>
-              </div>
-            </List.Item>
-          )}
+                    </Col>
+                    <Col span={6} style={{ textAlign: 'right' }}>
+                      <Text style={isMy ? (isWinner ? { color: '#54E127' } : { color: '#E8421E' }) : {}}>
+                        <Space align="center" size={1}>
+                          <Win chainId={chainId} account={item} />
+                          {isMy ? (
+                            isWinner ? (
+                              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/arrow-up.svg`} className={css.arrowDown} alt="" />
+                            ) : (
+                              <img decoding="async" loading="lazy" src={preStaticUrl + `/img/arrow-down.svg`} className={css.arrowDown} alt="" />
+                            )
+                          ) : null}
+                        </Space>
+                      </Text>
+                    </Col>
+                  </Row>
+                </div>
+              </List.Item>
+            )
+          }}
         />
       </Content>
     )

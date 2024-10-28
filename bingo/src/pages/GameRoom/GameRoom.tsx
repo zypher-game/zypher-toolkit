@@ -240,7 +240,9 @@ const GameRoom: React.FC = () => {
     }
   }, [account, winner])
   useEffect(() => {
-    Win()
+    if (window.IS_TELEGRAM) {
+      Win()
+    }
   }, [account, winner])
 
   useEffect(() => {

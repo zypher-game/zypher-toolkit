@@ -92,14 +92,12 @@ const Timeline = memo(() => {
   const swiperRef = useRef<Swiper | null>(null)
 
   const handleSlideChange = useCallback((swiper: any) => {
-    console.log({ swiper: swiper.realIndex })
     setCurrentIndex(swiper.realIndex)
   }, [])
 
   const handleSlideClick = useCallback(
     (event: any, index: number) => {
       event.stopPropagation()
-      console.log({ currentIndex, index: index - 2 })
       setCurrentIndex(index - 2)
       if (swiperRef.current) {
         const loopedIndex = index - 2 + swiperRef.current.loopedSlides
@@ -108,7 +106,6 @@ const Timeline = memo(() => {
     },
     [currentIndex]
   )
-  console.log({ currentIndex })
   return (
     <div className={css.timeline}>
       <Title label="Timeline" />

@@ -78,7 +78,6 @@ export const useGetWalletClient = () => {
         !!_walletClient,
         !!aaWalletClient,
       ].join("-");
-      console.log({ gas0Balance, config });
       if (Gas0Constants[chainId]) {
         if (key.current === keyString && _walletClient && aaWalletClient) {
           return;
@@ -89,8 +88,6 @@ export const useGetWalletClient = () => {
           new BigNumberJs(gas0Balance).gt(0) &&
           config.deployer_address !== zeroAddress
         ) {
-          console.log(1111);
-          console.log(33333);
           const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
           setAaWallet((pre) => ({
             ...pre,
@@ -106,8 +103,6 @@ export const useGetWalletClient = () => {
         }
       }
       setIsSet(true);
-      console.log(4444);
-      console.log({ account });
       setAaWallet((pre) => ({
         ...pre,
         wallet: undefined,
@@ -119,9 +114,7 @@ export const useGetWalletClient = () => {
       }));
       setIsSet(false);
       return;
-    } catch (err) {
-      console.log("getWalletClient err", err);
-    }
+    } catch (err) {}
   }, [key.current, account, chainId, walletClient, gas0Balance]);
   return { getWalletClient };
 };
@@ -129,20 +122,16 @@ export const useGetWalletClient = () => {
 export const useCreate = () => {
   const { account: owner, wallet, aa_mm_address } = useAaWallet();
   const create = useCallback(async () => {
-    console.log(222222);
     if (wallet && aa_mm_address && wallet.aa && owner) {
-      console.log(11111);
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address); // eoa =>
-      console.log(1, { isCreate });
+      console.log({ isCreate, aa_mm_address });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,
           wallet.aa.config.api,
           wallet.aa.isFree
         );
-        console.log(1);
         if (!hash) return;
-        console.log(1, hash);
         await wallet.publicClient.waitForTransactionReceipt({
           hash,
           confirmations: 1,

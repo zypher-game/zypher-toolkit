@@ -71,7 +71,6 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
 
   const onCloseModal = useCallback(async () => {
     setModalLoading(true)
-    console.log(111)
     if (!chainId || !aa_mm_address || !walletClient) {
       setModalLoading(false)
       return
@@ -97,6 +96,7 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       } else {
         lineupUsers = rres[0]
       }
+      console.log(1)
       if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
           account: aa_mm_address,
@@ -117,12 +117,15 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
         toBingoPlayHrefHandle()
         return
       }
+      console.log(2)
       if (bingoVersion === IBingoVersion.v1) {
+        console.log(4, gameId)
         const txn = await lobbyContract.write.abandon([gameId], {
-          account: aa_mm_address,
-          maxFeePerGas: gasPrice[chainId],
-          maxPriorityFeePerGas: gasPrice[chainId]
+          account: aa_mm_address
+          // maxFeePerGas: gasPrice[chainId],
+          // maxPriorityFeePerGas: gasPrice[chainId]
         })
+        console.log(5)
         const hash = typeof txn === 'string' ? txn : txn.hash
         const leaveLx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
         if (leaveLx && leaveLx.status === txStatus) {
@@ -135,10 +138,11 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       resetGameRoom()
       toBingoPlayHrefHandle()
     } catch (e: any) {
+      console.log(3)
       setModalLoading(false)
       setErrorToast(e, lobbyContract)
     }
-  }, [aa_mm_address, chainId, walletClient, bingoVersion])
+  }, [aa_mm_address, gameId, chainId, walletClient, bingoVersion])
   const onExitQueue = async () => {
     setModalLoading(true)
     if (!chainId || !aa_mm_address || !walletClient) {
@@ -160,14 +164,12 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
         account: aa_mm_address
       })
       const rres = await bingoLobbyContract.functions.lineupUsers()
-      console.log({ rres, aa_mm_address })
       let lineupUsers: string[] = []
       if (bingoVersion === IBingoVersion.v1) {
         lineupUsers = rres[1]
       } else {
         lineupUsers = rres[0]
       }
-      console.log({ lineupUsers })
       if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
           account: aa_mm_address,

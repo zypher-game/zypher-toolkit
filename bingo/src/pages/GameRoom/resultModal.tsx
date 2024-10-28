@@ -5,7 +5,7 @@ import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
 import { Space } from 'antd'
 import { isEqual } from 'lodash'
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import styled, { css } from 'styled-components'
 
@@ -88,6 +88,9 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
       })
     }
   }, [updateResult, chainId, gameId, winner, account])
+  const isWinner = useMemo(() => {
+    return addressIsEqual(winner, account) || addressIsEqual(winner, aa_mm_address)
+  }, [winner, account, aa_mm_address])
   return (
     <DialogOverlay isOpen={open}>
       <DialogContent
@@ -100,13 +103,13 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
       >
         <Wrapper isMobile={isMobile}>
           <ResultM isMobile={isMobile}>
-            {addressIsEqual(winner, account) || addressIsEqual(winner, aa_mm_address) ? (
+            {isWinner ? (
               <img decoding="async" loading="lazy" className="winnerImg" src={preStaticUrl + `/img/bingo/winerBingo.png`} />
             ) : (
               <img decoding="async" loading="lazy" className="loseImg" src={preStaticUrl + `/img/bingo/your-lose_${lang}.png`} />
             )}
           </ResultM>
-          <PlayerList data={players} winner={winner} isWinner={winner === account} winAmount={winAmount} loseAmount={loseAmount} />
+          <PlayerList data={players} winner={winner} isWinner={isWinner} winAmount={winAmount} loseAmount={loseAmount} />
           <Footer>
             <Space size={30}>
               <ButtonHover

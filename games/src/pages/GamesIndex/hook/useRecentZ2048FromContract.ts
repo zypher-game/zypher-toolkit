@@ -279,7 +279,6 @@ export const useRecentZ2048FromContract = ({
         chainIdList,
         addressList: Object.fromEntries(chainIdList.map(chainId => [chainId, z2048Constant[chainId].Contracts.Z2048SBT])) as Record<ChainId, Address>
       })
-      console.log({ lastTokenIdListRes })
       const tokenIdList = Object.fromEntries(
         lastTokenIdListRes.map(v => {
           let arr = new Array(20).fill(0)

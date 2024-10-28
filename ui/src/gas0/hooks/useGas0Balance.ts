@@ -44,19 +44,15 @@ export const useGas0Balance = () => {
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
-        console.log({ res });
         // console.log(`${chainConf.Gas0.api}/balanceof/${acc.address}`, res);
         if (res.code !== 0) {
           _balance("0");
           key.current = "";
           return;
         }
-        console.log({ res });
         const gas0Balance = res.data.amount;
-        console.log({ gas0Balance });
         if (new BigNumberJs(gas0Balance).gt(0)) {
           httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
-            console.log({ configRes });
             setLoading(false);
             if (configRes.code !== 0) {
               _balance("0");
@@ -64,7 +60,6 @@ export const useGas0Balance = () => {
               return;
             }
             _balance(gas0Balance);
-            console.log({ configRes });
             _config({
               ...Gas0Constants[chainId],
               deployer_address: configRes.data.deployer_address,

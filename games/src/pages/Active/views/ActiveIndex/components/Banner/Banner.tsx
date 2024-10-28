@@ -30,7 +30,7 @@ const Banner = memo(() => {
         </div>
         <img src={bannerPath + '/start.png'} className={css.start} onClick={toPathHandle} />
         <a href="https://wiki.zypher.network/" target="_blank" rel="noreferrer" className={css.link}>
-          Learn More From Wiki
+          Learn More From the Wiki
         </a>
       </div>
     </div>

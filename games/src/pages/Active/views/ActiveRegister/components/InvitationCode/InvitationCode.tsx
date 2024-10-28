@@ -31,7 +31,6 @@ const InvitationCode = memo(() => {
       return
     }
     // 如果当前网络不是用户邀请码所在的网络，则要求用户切换网络
-    console.log({ sssschainId: choseChainKey.chainId })
     const isOk = preHandleAction(choseChainKey.chainId)
     if (!isOk) {
       return

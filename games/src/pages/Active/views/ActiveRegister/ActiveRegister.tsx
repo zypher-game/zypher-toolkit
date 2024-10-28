@@ -2,6 +2,7 @@ import { motion, PixelBorderCard, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
+import Audited from '../../components/Audited/Audited'
 import { useSign } from '../../hooks/activeHooks'
 import { useBind } from '../../hooks/bindHooks'
 import { useActiveData } from '../../hooks/useActiveData'
@@ -40,6 +41,7 @@ const ActiveRegister = memo(() => {
                 rankings, and experience the thrill of rivalry and camaraderie in collaborative team efforts. Together, they will compete for the
                 ultimate title of supremacy within the Digital Kingdom.
               </p>
+              <Audited />
               <PixelBorderCard
                 // width='305px'
                 // height=''

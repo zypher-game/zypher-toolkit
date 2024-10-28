@@ -43,7 +43,6 @@ export const encodeFunctionMulticall = async (
     // list wallet not same
     if (res.code !== 0) throw new Error(`functionmulticall err: ${res.msg}`);
     const data = res.data.data ? res.data.data : res.data;
-    console.log("res", res);
     return data.tx_hash;
   }
   return wallet.aa.contract.write.functionMulticall([items, Number(v), r, s]);

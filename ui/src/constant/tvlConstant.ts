@@ -66,6 +66,8 @@ export const activeTokenList: Record<
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
     CRHero: "0x2D70241E9772F25d0BC6Eb603f1552Aad3370CBC",
     Soulbound: "0x9555e2e9F79702B74EC5bDAB50b2cCB2b62FD39F",
+    // ZytronLineaSepoliaTestnet = "19546",
+    //ChainId: "0x4A3A40928743f8Faa7EfDB711E80B089eE72Be06"
   },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
@@ -135,12 +137,12 @@ export const LinkPre: Record<string, ILinkPre> = {
   L: {
     key: 1,
     label: "L",
-    chainId: (isPro() ?  [
-      TVLChainId.LineaMainnet,
-    ]: [
-      TVLChainId.LineaSepolia,
-      TVLChainId.LineaMainnet,
-    ] )as unknown as ChainId[],
+    chainId: (isPro()
+      ? [TVLChainId.LineaMainnet]
+      : [
+          TVLChainId.LineaSepolia,
+          TVLChainId.LineaMainnet,
+        ]) as unknown as ChainId[],
   },
   B: {
     key: 2,
@@ -155,7 +157,7 @@ export const getLinkPre = (chainId: ChainId): ILinkPre => {
 export const minStakingValue: Record<TVLChainId, string> = {
   [TVLChainId.B2]: "0.0005",
   [TVLChainId.B2Testnet]: "0.0005",
-  [TVLChainId.LineaMainnet]: "0.01",
-  [TVLChainId.LineaSepolia]: "0.01",
+  [TVLChainId.LineaMainnet]: "0.001",
+  [TVLChainId.LineaSepolia]: "0.001",
 };
 export const CODELENGTH = 6;

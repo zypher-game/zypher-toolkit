@@ -231,6 +231,7 @@ export const PlayerAvatarList: React.FC<IAvatar> = ({
               decoding="async"
               loading="lazy"
               width={"100%"}
+              height={"100%"}
               src={selectedAvatar}
               style={{ background: selectedBackground }}
             />

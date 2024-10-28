@@ -289,6 +289,7 @@ export const useStakingCall = () => {
           'Content-Type': 'application/json'
         }
       })
+      console.log({ restaking_res })
       const res = restaking_res.data
       const records = Object.fromEntries(
         res.records.map((v: any) => {
@@ -306,14 +307,15 @@ export const useStakingCall = () => {
           ]
         })
       )
-      const { stakingReward, stakingGrowthCoefficient, restakingReward, restakingGrowthCoefficient } = res.statistics
+      const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
+      console.log({ res, stakingAirdrop })
       const statistics = {
-        stakingReward: stakingReward,
-        stakingRewardStr: formatMoney(new BigNumberJs(stakingReward).toFixed(), 8),
+        stakingReward: stakingAirdrop,
+        stakingRewardStr: formatMoney(new BigNumberJs(stakingAirdrop).toFixed(), 8),
         stakingGrowthCoefficient: stakingGrowthCoefficient,
         stakingGrowthCoefficientStr: formatMoney(new BigNumberJs(stakingGrowthCoefficient).toFixed(), 8),
-        restakingReward: restakingReward,
-        restakingRewardStr: formatMoney(new BigNumberJs(restakingReward).toFixed(), 8),
+        restakingReward: restakingAirdrop,
+        restakingRewardStr: formatMoney(new BigNumberJs(restakingAirdrop).toFixed(), 8),
         restakingGrowthCoefficient: restakingGrowthCoefficient,
         restakingGrowthCoefficientStr: formatMoney(new BigNumberJs(restakingGrowthCoefficient).toFixed(), 8)
       }

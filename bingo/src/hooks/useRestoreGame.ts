@@ -33,10 +33,11 @@ export default function useRestoreGame<T>() {
       )
       const txn = await lobbyContract.read.restoreGame([account, cardNums, joinGame.signedLabel])
       const [playingGameId, autoEndTime, isCardContentMatched] = txn
-      const Playing = new BigNumberJs(playingGameId).toNumber() > 0
+      const Playing = new BigNumberJs(playingGameId.toString()).toNumber() > 0
       const currentTimestamp = Math.floor(Date.now() / 1000)
       const time = autoEndTime > 0 ? autoEndTime - currentTimestamp : 0
-      setGameId(new BigNumberJs(playingGameId).toNumber())
+      console.log({ txn, playingGameId: playingGameId.toString() })
+      setGameId(new BigNumberJs(playingGameId.toString()).toNumber())
       setGameTime(time)
       setisPlaying(Playing)
       setLoading(false)

@@ -131,7 +131,6 @@ export const useWithdrawHandle = (): {
         const hasSbt = !!(token.sbtId && token.sbtId !== '0')
         if (hasSbt) {
           const burnMaximum = activeData.burnMaximum
-          console.log({ tokenAmount, burnMaximum })
           if (!allowance && new BigNumberJs(token.withdrawAmount).minus(tokenAmount).lt(burnMaximum)) {
             setIsApproveLoading(true)
             const approveTxn = await _erc721Contract.write.setApprovalForAll([activeTokenList[_nativeChainId].Staking, true], {

@@ -275,6 +275,7 @@ export function TipsOkModal(props: CustomDialogProps) {
         <CloseBtn src={preStaticUrl + '/img/bingo/close.svg'} alt="close" onClick={onBlack} />
         <ConfirmTitile>{t('TIPS')}</ConfirmTitile>
         <ConfirmTip>
+          {/* Oops! Your game is still in progress, but your game card of the current g */}
           {bingoVersion === IBingoVersion.beta
             ? 'Your game card has been lost and the previous game is still in progress. Please wait for the game to end (expected a few minutes) before starting a new game.'
             : t('TipsOkModalText1')}

@@ -123,7 +123,6 @@ const SubmitCardV1 = () => {
       walletClient
     })
     try {
-      console.log({ aa_mm_address })
       const GPAddress = zkBingo(chainId, IContractName.ZypherGameToken)
       const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
       // const lineupUsers = await lobbyContract.read.lineupUsers()
@@ -156,6 +155,7 @@ const SubmitCardV1 = () => {
       const donationFee = await bingoLobbyContract.functions.donationFee()
       console.log({ donationFee: new BigNumberJs(donationFee).toString() })
       let hash = '' as Hash
+      console.log({ aa, wallet })
       if (account && aa && wallet) {
         const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
         const joinData = await (async () => {

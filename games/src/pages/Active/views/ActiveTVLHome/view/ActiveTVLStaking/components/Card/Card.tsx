@@ -73,6 +73,7 @@ const Card = memo(
         gpTooltip: ['']
       }
     }, [chainIdLocal, getTooltip, mintMinimum])
+    console.log({ stakingRewardStr })
     return (
       <motion.div
         key={`${chainIdLocal}`}
