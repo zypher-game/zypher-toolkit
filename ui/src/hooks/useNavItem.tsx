@@ -7,8 +7,9 @@ import { useActiveWeb3React } from "./useActiveWeb3React";
 import { isPro, preStaticUrl } from "../constant/constant";
 
 export const zAceLink = isPro()
-  ? "https://acequest.io/zAce/"
-  : "https://testnet.acequest.io/zAce/";
+  ? "https://zytron-linea.acequest.io/zAce/"
+  : //  "https://acequest.io/zAce/"
+    "https://testnet.acequest.io/zAce/";
 export const crLink = "https://testnet.cryptorumble.io";
 
 export const LinkList = [

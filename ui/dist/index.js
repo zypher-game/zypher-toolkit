@@ -3417,10 +3417,10 @@ var activeTokenList = {
     Soulbound: "0xa48A88ffE2d8E60d2ddC29921FC75acC32026800"
   },
   [TVLChainId.LineaSepolia]: {
-    Staking: "0x5e35952a6c2e747C7997F307ab5A476B6674058A",
+    Staking: "0xa415b3De245d8B616e92A0587954dAF8e8Edb0f5",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
     CRHero: "0x2D70241E9772F25d0BC6Eb603f1552Aad3370CBC",
-    Soulbound: "0x9555e2e9F79702B74EC5bDAB50b2cCB2b62FD39F"
+    Soulbound: "0xfF8f5EB4F4A1cD24Fd2dAFC3675F7D930970a0ef"
   },
   [TVLChainId.B2Testnet]: {
     Staking: "0x3A10Aa6D3d177AF22433CF1f1B6Ee1f7B7DbD303",
@@ -4981,7 +4981,7 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 });
 
 // src/hooks/useNavItem.tsx
-var zAceLink = isPro() ? "https://acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
+var zAceLink = isPro() ? "https://zytron-linea.acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
 var crLink = "https://testnet.cryptorumble.io";
 var LinkList = [
   "https://zypher.game/bingo/",
