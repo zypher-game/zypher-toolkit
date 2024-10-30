@@ -21,7 +21,7 @@ const NormalActive = memo(() => {
             <h3>However, your wallet is currently inactive.</h3>
           </>
         }
-        frImgPath={preStaticUrl + '/img/tvl/reward_data2.png'}
+        frImgPath={preStaticUrl + '/img/tvl/airdrop_data2.png'}
       />
     </ActiveComp>
   )

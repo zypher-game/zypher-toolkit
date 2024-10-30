@@ -55,7 +55,7 @@ const GetRewardWrap = memo(({ children }: { children: React.ReactNode }) => {
               </li>
             </ul>
           </div>
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/reward_data.png'} className={css.img} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/airdrop_data.png'} className={css.img} />
         </div>
         {!isW768 ? children : null}
       </GetRewardCard>

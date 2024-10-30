@@ -29,9 +29,9 @@ export const TVLStakingSupportedChainId = (!isPro()
   ? // ? [TVLChainId.B2Testnet, TVLChainId.Sepolia, ]
     [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
   : [TVLChainId.LineaMainnet]) as unknown as ChainId[];
-export const defaultActiveChainId = isPro()
+export const defaultActiveChainId = (isPro()
   ? TVLChainId.LineaMainnet
-  : TVLChainId.LineaSepolia;
+  : TVLChainId.LineaSepolia) as unknown as ChainId;
 export const L3ChainId: Record<any, ChainId> = {
   [TVLChainId.B2]: ChainId.ZytronB2Testnet,
   [TVLChainId.B2Testnet]: ChainId.ZytronB2Testnet,
@@ -62,10 +62,10 @@ export const activeTokenList: Record<
     Soulbound: "0xa48A88ffE2d8E60d2ddC29921FC75acC32026800",
   },
   [TVLChainId.LineaSepolia]: {
-    Staking: "0x5e35952a6c2e747C7997F307ab5A476B6674058A",
+    Staking: "0xa415b3De245d8B616e92A0587954dAF8e8Edb0f5",
     ZypherGameToken: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
     CRHero: "0x2D70241E9772F25d0BC6Eb603f1552Aad3370CBC",
-    Soulbound: "0x9555e2e9F79702B74EC5bDAB50b2cCB2b62FD39F",
+    Soulbound: "0xfF8f5EB4F4A1cD24Fd2dAFC3675F7D930970a0ef",
     // ZytronLineaSepoliaTestnet = "19546",
     //ChainId: "0x4A3A40928743f8Faa7EfDB711E80B089eE72Be06"
   },

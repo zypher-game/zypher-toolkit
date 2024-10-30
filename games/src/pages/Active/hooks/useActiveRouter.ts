@@ -1,15 +1,4 @@
-import {
-  ChainId,
-  defaultActiveChainId,
-  ITvlHero,
-  minStakingValue,
-  NavKey,
-  pathnameState,
-  TVLChainId,
-  useActiveWeb3React,
-  useRecoilState,
-  useRecoilValue
-} from '@ui/src'
+import { ChainId, defaultActiveChainId, minStakingValue, NavKey, TVLChainId, useActiveWeb3React, useRecoilState, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
@@ -18,7 +7,7 @@ import { useIsGetActiveData } from '@/hooks/useInit'
 
 import { chooseChainState, IActiveData, tvlPathState } from '../state/activeState'
 import { getHrefCode } from '../utils/getHrefParams'
-import { rewardPathname, canNext, getRewardPathname, preRewardPathname, tvlPath, TVLTabList } from './activeHooks'
+import { canNext, getRewardPathname, preRewardPathname, rewardPathname, tvlPath, TVLTabList } from './activeHooks'
 import { useActiveData } from './useActiveData'
 export const useGetActiveRouterFn = () => {
   const { activeData } = useActiveData()
@@ -78,8 +67,10 @@ export const useGetActiveRouterFn = () => {
             console.log(1)
             return `/${preRewardPathname}/${rewardPathname.chooseHunter}`
           }
-          console.log(1)
-          return tvlPath[tvlPathLink]
+          if (isRegistered) {
+            return tvlPath[tvlPathLink]
+          }
+          // return `/${preRewardPathname}/${rewardPathname.register}`
         }
 
         // 没有空投积分 媒体账号和钱包地址都不活跃

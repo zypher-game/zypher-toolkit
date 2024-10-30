@@ -74,7 +74,17 @@ const ActiveTVLTeam = memo(() => {
             {isW768 ? <FrSomeWidget activeData={activeData} groupGoal={groupGoal} availableCode={availableCode} loading={loading} /> : null}
             <div className={`${css.title_div} ${isW768 ? '' : css.mt30} ${css.mb10}`}>
               <h2 className={css.title}>My Team</h2>
-              <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} onClick={myTeamWarnHandle} />
+              <PixelCube3
+                pixel_height={2}
+                width="80px"
+                height="30px"
+                className={css.titleLink}
+                backgroundColor="#343C4F"
+                borderColor="#484F60"
+                onClick={myTeamWarnHandle}
+              >
+                <p>Rules</p>
+              </PixelCube3>
             </div>
             <div>
               <div className={css.team_goal_text}>

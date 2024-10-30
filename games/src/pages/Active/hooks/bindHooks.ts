@@ -80,6 +80,7 @@ export const useBind = () => {
     const twitterError = url.searchParams.get('TwitterError')
     const discordError = url.searchParams.get('DiscordError')
     if (twitterError || discordError) {
+      // ?TwitterError="twitter%20used"
       const msg = (twitterError ?? discordError ?? '').replace('"', '')
       setErrorToast(msg)
       setTimeout(() => {

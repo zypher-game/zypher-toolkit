@@ -6,7 +6,35 @@ import { initActiveData, IStakingItem } from '../state/activeState'
 import { form_primary_score } from '../utils/formmate'
 import { useGetData } from './useActiveInit'
 import { IRankBoard } from './useLeaderboard'
-
+export const useIsRegistered = () => {
+  const { chainId } = useActiveWeb3React()
+  const getIsRegistered = useCallback(
+    async (userId: string) => {
+      try {
+        if (chainId) {
+          const res = await request(`${TVL_API[chainId]}/api/isActived/${userId}`, {
+            method: 'POST',
+            data: JSON.stringify({ userId: Number(userId) }),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          })
+          if (res.data && res.data['message']) {
+            return res.data['message']
+          } else {
+            return undefined
+          }
+        }
+      } catch (e: any) {
+        return undefined
+      }
+    },
+    [chainId]
+  )
+  return {
+    getIsRegistered
+  }
+}
 export const useGetDataCall = () => {
   const { account } = useActiveWeb3React()
   const { codeCheck } = useCodeCheckCall()
@@ -53,11 +81,17 @@ export const useGetDataCall = () => {
                 try {
                   isRegistered = await getIsRegistered(infoObj.id)
                 } catch (e) {}
-                return {
-                  ...primaryScoreRes,
-                  ...infoObj,
-                  tvlHero: heroKey ?? '',
-                  isRegistered: `${isRegistered ?? false}` === 'true'
+                isRegistered = `${isRegistered ?? false}` === 'true'
+                if (!isRegistered) {
+                  checkRes = !!(await codeCheck(infoObj.invitationCode))
+                }
+                if (checkRes) {
+                  return {
+                    ...primaryScoreRes,
+                    ...infoObj,
+                    tvlHero: heroKey ?? '',
+                    isRegistered: isRegistered
+                  }
                 }
               }
               return {
@@ -483,35 +517,7 @@ export const useUpdateInfoCall = () => {
     updateHeadImg
   }
 }
-export const useIsRegistered = () => {
-  const { chainId } = useActiveWeb3React()
-  const getIsRegistered = useCallback(
-    async (userId: string) => {
-      try {
-        if (chainId) {
-          const res = await request(`${TVL_API[chainId]}/api/isActived/${userId}`, {
-            method: 'POST',
-            data: JSON.stringify({ userId: Number(userId) }),
-            headers: {
-              'Content-Type': 'application/json'
-            }
-          })
-          if (res.data && res.data['message']) {
-            return res.data['message']
-          } else {
-            return undefined
-          }
-        }
-      } catch (e: any) {
-        return undefined
-      }
-    },
-    [chainId]
-  )
-  return {
-    getIsRegistered
-  }
-}
+
 export const useUserHeroCall = () => {
   const [loading, setLoading] = useState(false)
   const { getHero } = useGetHero()

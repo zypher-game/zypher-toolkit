@@ -1,6 +1,7 @@
 import { AddressZero } from '@ethersproject/constants'
 import {
   activeTokenList,
+  addressIsEqual,
   ChainId,
   crLink,
   Currency,
@@ -35,16 +36,18 @@ import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import {
   depositCurrencyState,
+  initActiveData,
   isTvlDataLoadingState,
   ITVLStakingData,
   selectTokenDialogState,
   tvlStakingDataState,
   tvlStakingDialogState
 } from '../state/activeState'
-import { canNext, usePreHandleAction } from './activeHooks'
+import { canNext, preRewardPathname, rewardPathname, usePreHandleAction } from './activeHooks'
 import { useActiveData } from './useActiveData'
 import { useGetData } from './useActiveInit'
 import { useChainIndex } from './useChainIndex'
+import { useCodeCheckCall } from './useDataCall'
 import { useStake, useStakeData } from './useStakeData'
 import { useTvlStakingDialogState } from './useTvlStakingDialogState'
 
@@ -83,6 +86,11 @@ export const useStakeHandle = (
   const setIsStakingOpenHandle = useTvlStakingDialogState()
   const preHandleAction = usePreHandleAction()
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
+  const { codeCheck } = useCodeCheckCall()
+  const navigate = useNavigate()
+
+  const { activeData, setActiveData } = useActiveData()
+  const { invitationCode, isRegistered } = activeData
 
   useStake()
   useEffect(() => {
@@ -113,11 +121,26 @@ export const useStakeHandle = (
     },
     [nativeChainId, tvlStakingDialog, account]
   )
+
   const deposit = useCallback(
     async (totalStakedNumber: string) => {
       const currency = depositCurrency
       const amount = depositValue
       try {
+        console.log('invitationCode: ', invitationCode)
+        try {
+          if (!isRegistered) {
+            const check = await codeCheck(invitationCode)
+            console.log({ check, invitationCode })
+          }
+        } catch (e) {
+          setErrorToast('Verification code has been registered')
+          setActiveData(pre => {
+            return initActiveData
+          })
+          navigate(`/${preRewardPathname}/${rewardPathname.register}`)
+          return
+        }
         if (isDataLoading) {
           return
         }
@@ -229,7 +252,19 @@ export const useStakeHandle = (
         console.error('StakedHandle: ', e)
       }
     },
-    [isW768, isDataLoading, isApproveLoading, isDepositLoading, depositCurrency, depositValue, walletClient, account, nativeChainId, preHandleAction]
+    [
+      isW768,
+      invitationCode,
+      isDataLoading,
+      isApproveLoading,
+      isDepositLoading,
+      depositCurrency,
+      depositValue,
+      walletClient,
+      account,
+      nativeChainId,
+      preHandleAction
+    ]
   )
   useEffect(() => {
     if (
@@ -299,7 +334,7 @@ export const useReStakingHandle = () => {
   const { getData } = useGetData()
   const { account, chainId: nativeChainId } = useActiveWeb3React()
   const { activeData } = useActiveData()
-  const { crHeroBoxAmount, dollarGpRewords } = activeData
+  const { crHeroBoxAmount, dollarGpRewords, invitationCode } = activeData
   const { getStakingData } = useStakeData()
   const { postAccountUpdate } = useAccountInvitation(env)
   const [refreshBalance, setRefreshBalanceState] = useRecoilState(refreshBalanceState)

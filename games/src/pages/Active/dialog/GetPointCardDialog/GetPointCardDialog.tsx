@@ -21,7 +21,7 @@ const GetPointCardDialog = memo(() => {
         {owner ? (
           <Item
             className={css.owner}
-            bg={preStaticUrl + '/img/tvl/reward_point/owner_bg.png'}
+            bg={preStaticUrl + '/img/tvl/airdrop_point/owner_bg.png'}
             icon={preStaticUrl + '/img/icon/owner_icon.svg'}
             label={`@${owner}'s team`}
             text={'Congratulations on successfully leading your team to achieve the group goal and earning the reward points card reward.'}
@@ -32,7 +32,7 @@ const GetPointCardDialog = memo(() => {
         {parent ? (
           <Item
             className={css.parent}
-            bg={preStaticUrl + '/img/tvl/reward_point/parent_bg.png'}
+            bg={preStaticUrl + '/img/tvl/airdrop_point/parent_bg.png'}
             icon={preStaticUrl + '/img/icon/parent_icon.svg'}
             label={`@${parent}'s team`}
             text={
