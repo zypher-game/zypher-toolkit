@@ -56,7 +56,7 @@ const StakingTab = memo(
               Earn Linea XP
               <PixelTooltip
                 title={['What is Linea Voyage XP? ']}
-                showLink="https://docs.linea.build/users/linea-voyage/lxp#what-is-linea-voyage-xp"
+                showLink="https://docs.linea.build/users/linea-voyage/linea-surge/linea-surge-model"
               />
               by staking! And Linea’s reward expectations!
             </p>

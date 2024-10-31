@@ -103,12 +103,12 @@ echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"
 echo "Updated dependencies in yarn.lock"
 yarn
 
-git checkout test
-git fetch --prune
-git pull origin test
-git add .
-git commit -m "Update to version $new_version"
-git push origin test
+# git checkout test
+# git fetch --prune
+# git pull origin test
+# git add .
+# git commit -m "Update to version $new_version"
+# git push origin test
 
 
 git checkout ark_main

@@ -67,9 +67,9 @@ export const useGetActiveRouterFn = () => {
             console.log(1)
             return `/${preRewardPathname}/${rewardPathname.chooseHunter}`
           }
-          if (isRegistered) {
-            return tvlPath[tvlPathLink]
-          }
+          // if (isRegistered) {
+          return tvlPath[tvlPathLink]
+          // }
           // return `/${preRewardPathname}/${rewardPathname.register}`
         }
 
