@@ -213,7 +213,7 @@ var ChainRpcUrls = {
   ],
   ["223" /* B2 */]: ["https://rpc.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
-  ["9901" /* ZytronLineaMain */]: ["https://linea-mainnet-zytron.zypher.game"],
+  ["9901" /* ZytronLineaMain */]: ["https://rpc.zypher.network"],
   ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron.zypher.game"
   ],
@@ -247,9 +247,7 @@ var BlockExplorerUrls = {
   ["11155111" /* Sepolia */]: ["https://sepolia.etherscan.io"],
   ["223" /* B2 */]: ["https://explorer.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
-  ["9901" /* ZytronLineaMain */]: [
-    "https://linea-mainnet-zytron-blockscout.zypher.game"
-  ],
+  ["9901" /* ZytronLineaMain */]: ["https://explorer.zypher.network"],
   ["19546" /* ZytronLineaSepoliaTestnet */]: [
     "https://linea-testnet-zytron-blockscout.zypher.game"
   ],
@@ -794,9 +792,7 @@ function useActiveWeb3React(env, chainList) {
       chainId: IS_TELEGRAM ? "2717465680371000" /* SagaMainnet */ : chainId && !supportedChainIds(env, chainList).includes(
         `${chainId}`
       ) || !chainId ? void 0 : `${chainId}`,
-      account: chainId && !supportedChainIds(env, chainList).includes(
-        `${chainId}`
-      ) || !chainId ? void 0 : address,
+      account: "0xEB5cd7F76401FF5fB96AaD009b9617961Ba0e8a6",
       provider
     };
   }, [chainId, address, provider]);
@@ -5183,6 +5179,12 @@ var Games = (chainId) => {
           label: "Castle Of Blackwater",
           icon: "Blackwater.png",
           link: "https://castleofblackwater.com/"
+        },
+        {
+          label: "DC",
+          icon: "DC.png",
+          twitter: "https://x.com/d_cataclysm",
+          link: "https://dc.game/"
         }
       ]
     },

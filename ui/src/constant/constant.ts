@@ -213,7 +213,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   ],
   [ChainId.B2]: ["https://rpc.bsquared.network"],
   [ChainId.B2Testnet]: ["https://b2-testnet.alt.technology"],
-  [ChainId.ZytronLineaMain]: ["https://linea-mainnet-zytron.zypher.game"],
+  [ChainId.ZytronLineaMain]: ["https://rpc.zypher.network"],
   [ChainId.ZytronLineaSepoliaTestnet]: [
     "https://linea-testnet-zytron.zypher.game",
   ],
@@ -248,9 +248,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Sepolia]: ["https://sepolia.etherscan.io"],
   [ChainId.B2]: ["https://explorer.bsquared.network"],
   [ChainId.B2Testnet]: ["https://testnet-explorer.bsquared.network"],
-  [ChainId.ZytronLineaMain]: [
-    "https://linea-mainnet-zytron-blockscout.zypher.game",
-  ],
+  [ChainId.ZytronLineaMain]: ["https://explorer.zypher.network"],
   [ChainId.ZytronLineaSepoliaTestnet]: [
     "https://linea-testnet-zytron-blockscout.zypher.game",
   ],
