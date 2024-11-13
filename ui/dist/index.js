@@ -4977,7 +4977,7 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 });
 
 // src/hooks/useNavItem.tsx
-var zAceLink = isPro() ? "https://zytron-linea.acequest.io/zAce/" : "https://testnet.acequest.io/zAce/";
+var zAceLink = isPro() ? "https://zytron-linea.acequest.io/pokerking/" : "https://testnet.acequest.io/zAce/";
 var crLink = "https://testnet.cryptorumble.io";
 var LinkList = [
   "https://zypher.game/bingo/",
