@@ -29,16 +29,16 @@ export function useActiveWeb3React(
           !chainId
             ? undefined
             : `${chainId}`) as ChainId),
-      // account:
-      //   (chainId &&
-      //     !supportedChainIds(env, chainList).includes(
-      //       `${chainId}` as ChainId
-      //     )) ||
-      //   !chainId
-      //     ? undefined
-      //     : address,
+      account:
+        (chainId &&
+          !supportedChainIds(env, chainList).includes(
+            `${chainId}` as ChainId
+          )) ||
+        !chainId
+          ? undefined
+          : address,
       // account: "0xA9261E5C81f0c4c80BAE79a645eF60eb78f5e698",
-      account: "0xEB5cd7F76401FF5fB96AaD009b9617961Ba0e8a6",
+      // account: "0xEB5cd7F76401FF5fB96AaD009b9617961Ba0e8a6",
       provider: provider,
     };
   }, [chainId, address, provider]);
