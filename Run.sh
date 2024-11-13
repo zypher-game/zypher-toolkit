@@ -115,5 +115,5 @@ git checkout ark_main
 git fetch --prune
 git pull origin ark_main
 git add .
-git commit -m "Airdrop > Reward & Update to version $new_version"
+git commit -m "Update to version $new_version"
 git push origin ark_main

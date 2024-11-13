@@ -92,6 +92,12 @@ export const Games = (chainId: ChainId): IGames[] => {
           icon: "Blackwater.png",
           link: "https://castleofblackwater.com/",
         },
+        {
+          label: "Divine Cataclysm: Oblivion",
+          icon: "DC.png",
+          twitter: "https://x.com/d_cataclysm",
+          link: "https://dc.game/",
+        },
       ],
     },
     {

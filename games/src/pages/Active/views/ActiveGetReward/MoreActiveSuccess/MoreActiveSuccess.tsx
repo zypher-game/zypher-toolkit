@@ -4,7 +4,7 @@ import React, { memo, useCallback } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import RewardPointCard from '@/pages/Active/components/RewardPointCard/RewardPointCard'
-import { rewardPathname, preRewardPathname } from '@/pages/Active/hooks/activeHooks'
+import { preRewardPathname, rewardPathname } from '@/pages/Active/hooks/activeHooks'
 import { useActiveData } from '@/pages/Active/hooks/useActiveData'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { pointSuccessDialogState, tvlStakingDialogState } from '@/pages/Active/state/activeState'

@@ -375,7 +375,7 @@ export const useLeaderBoardCall = () => {
       const recent_user_res = await request(`${TVL_API[chainId]}/api/recent/user`, {
         method: 'GET',
         params: {
-          pageCount: 20,
+          pageCount: 100,
           pageNo: 1,
           linkType: linkType.key
         },
@@ -395,7 +395,7 @@ export const useLeaderBoardCall = () => {
       const rank_board_res = await request(`${TVL_API[chainId]}/api/rank-board`, {
         method: 'GET',
         params: {
-          pageCount: 20,
+          pageCount: 100,
           pageNo: 1,
           linkType: linkType.key
         },
