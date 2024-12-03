@@ -3928,21 +3928,24 @@ var PixelFlatBtn = memo((props) => {
   const lastClickTimeRef = useRef4(Date.now());
   const { onClick, children, className, style, hidePixel, disable, ..._props } = props;
   const [isActive, setIsActive] = useState6(false);
-  const clickHandle = useCallback4(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1e3) {
-      return;
-    }
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      setIsActive(true);
-      setTimeout(() => {
-        setIsActive(false);
-      }, 1e3);
-      onClick();
-    }
-  }, [onClick]);
+  const clickHandle = useCallback4(
+    (e) => {
+      const currentTime = Date.now();
+      const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+      if (timeSinceLastClick < 1e3) {
+        return;
+      }
+      lastClickTimeRef.current = currentTime;
+      if (onClick) {
+        setIsActive(true);
+        setTimeout(() => {
+          setIsActive(false);
+        }, 1e3);
+        onClick(e);
+      }
+    },
+    [onClick]
+  );
   if (hidePixel) {
     return /* @__PURE__ */ React.createElement("div", {
       className: `${className != null ? className : ""} ${disable ? "disable" : "normal"} ${isActive ? "click" : ""}`,
@@ -4191,6 +4194,40 @@ var cardTheme = {
       borderBottomColor: "#0E43FF",
       borderTopColor: "#0E43FF",
       backgroundColor: "#0E43FF"
+    }
+  },
+  purple: {
+    normal: {
+      borderBottomColor: "#542088",
+      borderTopColor: "#C791FF",
+      backgroundColor: "#AB56FF"
+    },
+    hover: {
+      borderBottomColor: "#542088",
+      borderTopColor: "#C791FF",
+      backgroundColor: "#AB56FF"
+    },
+    click: {
+      borderBottomColor: "#542088",
+      borderTopColor: "#C791FF",
+      backgroundColor: "#AB56FF"
+    }
+  },
+  pink: {
+    normal: {
+      borderBottomColor: "#9C3666",
+      borderTopColor: "#FFABD3",
+      backgroundColor: "#FF5EAA"
+    },
+    hover: {
+      borderBottomColor: "#9C3666",
+      borderTopColor: "#FFABD3",
+      backgroundColor: "#FF5EAA"
+    },
+    click: {
+      borderBottomColor: "#9C3666",
+      borderTopColor: "#FFABD3",
+      backgroundColor: "#FF5EAA"
     }
   }
 };

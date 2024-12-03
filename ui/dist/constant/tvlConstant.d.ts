@@ -28,6 +28,7 @@ export type TVLToken = {
     USDT: IToken;
     WETH: IToken;
 };
+export declare const isNewCycle = true;
 export declare const activeTokenList: Record<ChainId, Record<"Staking" | "ZypherGameToken" | "CRHero" | "Soulbound", Address>>;
 export declare const LRTSymbol: string[];
 export declare const tvlTokenAddress: Record<ChainId, Record<string, Address>>;

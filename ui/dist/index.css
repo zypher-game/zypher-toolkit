@@ -1505,7 +1505,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 @media screen and (max-width: 830px) {
   .account_info_dialog_dialog .account_info_dialog_modalMain {
-    padding: 20px 15px 33px;
+    padding: 80px 15px 33px;
   }
 }
 body .address_wrap_big_pop_wrap {
