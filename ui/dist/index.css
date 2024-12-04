@@ -742,6 +742,8 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 .dialog_close svg {
   fill: #fff;
   size: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/SideBar/SideBar.stylus */
