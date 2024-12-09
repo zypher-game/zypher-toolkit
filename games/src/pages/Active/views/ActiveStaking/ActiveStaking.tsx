@@ -5,6 +5,7 @@ import React, { memo } from 'react'
 import classnames from '@/utils/classnames'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
+import Redeposit from '../../components/Redeposit/Redeposit'
 import Staking from '../../components/Staking/Staking'
 import css from './ActiveStaking.module.styl'
 
@@ -30,7 +31,7 @@ const ActiveStaking = memo(() => {
           <p className={css.greyText}>Note: Please activate your account promptly to secure your invitation code.</p>
           {!isW768 ? <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/stake_card.png'} alt="stake" className={css.img} /> : null}
         </div>
-        <Staking isModal={false} />
+        <Redeposit isModal={false} />
       </div>
     </ActiveComp>
   )

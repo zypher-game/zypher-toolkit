@@ -14,7 +14,7 @@ const TVLRedepositDialog = memo(() => {
   }, [])
   return (
     <ModalWithMotion isOpen={isModalOpen} onDismiss={handleCancel} contentClassName={css.stakingDialog}>
-      <Redeposit />
+      <Redeposit isModal={true} />
       <DialogClose onClick={handleCancel} />
     </ModalWithMotion>
   )

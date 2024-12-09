@@ -54,9 +54,9 @@ const MobileRow: FC<IProps> = memo(({ item }: IProps) => {
           </div>
           <div className={css.mTable}>
             <div className={css.mTableHeader}>
-              <p>{t('Pledged per player')}</p>
-              <p>{t('Multiplier')}</p>
-              <p>{t('Winnings')}</p>
+              <p>Pledged per player</p>
+              <p>Multiplier</p>
+              <p>Winnings</p>
             </div>
             <div className={css.mTableBody}>
               <RenderNormalText label={item.inputPerPlayer} showPoint={true} isMobile={isMobile} chainId={item.chainId} />

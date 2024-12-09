@@ -4,8 +4,8 @@ import { Route, Routes } from 'react-router-dom'
 
 import ScrollToTop from '@/components/ScrollToTop'
 import { useConnectWallet } from '@/hooks/useConnectWallet'
-import { rewardPathname, getRewardPathname, preRewardPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
-import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister'
+import { getRewardPathname, preRewardPathname, rewardPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
+import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister_v2'
 import { ThemeProvider } from '@/theme'
 
 import Layout from '../components/Layout'
@@ -23,7 +23,6 @@ const NoActive = lazy(() => import('@/pages/Active/views/ActiveGetReward/NoActiv
 const NormalActive = lazy(() => import('@/pages/Active/views/ActiveGetReward/NormalActive/NormalActive'))
 const ActiveIndex = lazy(() => import('@/pages/Active/views/ActiveIndex/ActiveIndex'))
 const ActiveLoading = lazy(() => import('@/pages/Active/views/ActiveLoading/ActiveLoading'))
-// const ActiveComing = lazy(()=>import('@/pages/Active/views/ActiveRegister/ActiveComing'))
 const ActiveStaking = lazy(() => import('@/pages/Active/views/ActiveStaking/ActiveStaking'))
 const ActiveTVLLeaderboard = lazy(() => import('@/pages/Active/views/ActiveTVLHome/view/ActiveTVLLeaderboard/ActiveTVLLeaderboard'))
 const ActiveTVLStakingV2 = lazy(() => import('@/pages/Active/views/ActiveTVLHome/view/ActiveTVLStaking/ActiveTVLStaking'))

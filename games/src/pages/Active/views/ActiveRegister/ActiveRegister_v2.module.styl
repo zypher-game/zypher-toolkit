@@ -1,0 +1,97 @@
+.register 
+  max-width: 1100px
+  margin: 10vh auto
+  height: 100%;
+  display: flex
+  justify-content: flex-start
+  align-items: center
+  position: relative;
+  flex-wrap: wrap;
+  @media screen and (max-width: 1132px)
+    padding: 0 16px
+  @media screen and (max-width: 830px)
+    margin: 20px auto 100px
+  .textPart
+    position: relative
+    z-index 2
+    @media screen and (max-width: 830px)
+      width 100%
+  .textPartInner
+    @media screen and (max-width: 830px)
+      text-align: center
+    h2, h3
+      font-weight: 600
+      font-size: 32px
+      line-height: 30px
+      @media screen and (max-width: 830px)
+        font-size: 28px
+    h2
+      margin-bottom: 16px
+      @media screen and (max-width: 830px)
+        margin-bottom: 8px
+    h3
+      background: linear-gradient(0, #1649FF 0%, #1649FF 19%, #4D74FF 20%, #4D74FF 39%, #809BFF 40%, #809BFF 59%, #809BFF 60%, #809BFF 79%,#B2C3FF 80%, #B2C3FF 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+      margin-bottom: 24px
+      display: inline-block
+      @media screen and (max-width: 830px)
+        margin-bottom: 10px
+    .textGrey
+      max-width: 515px
+      font-size: 14px
+      line-height: 22px
+      color: #959BA8
+      margin-bottom: 24px
+      @media screen and (max-width: 830px)
+        font-size: 12px
+        max-width: 100%
+        margin-bottom: 10px
+  .process
+    margin-top: 32px
+.textPixelBorder
+  width 316px
+  padding: 37px 20px 15px
+  margin-top: 24px
+  height: 95px
+  background-image: url($preStaticUrl + '/img/tvl/newBorder-1.png')
+  background-repeat: no-repeat
+  background-size: cover;
+  background-position: center;
+  @media screen and (max-width: 830px)
+    margin: 12px auto 0
+    max-width: 100%
+  :global(>.pixel_flat_inner)
+    justify-content: flex-start
+    align-items: flex-start
+  p
+    font-size: 14px
+    line-height: 22px
+    color: #959BA8
+    @media screen and (max-width: 830px)
+      font-size: 12px
+    i
+      display: block
+      color: #fff
+      font-weight: 600
+.warn
+  display: flex
+  align-items: flex-start
+  gap: 8px
+  margin-top: 24px
+  .tooltip_pixel_warn
+    height: 21px
+    width: 21px
+    display: flex
+    align-items: center
+    justify-content: center
+    svg
+      size: 16px
+      rect
+        fill: #FFD02B
+  p
+    color: #FFD02B
+    line-height: 21px
+    font-size: 14px

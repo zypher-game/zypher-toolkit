@@ -359,6 +359,7 @@ export const useStakeData = () => {
 
             const END_TIMEIndex = methodArr.indexOf(`END_TIME${_chainId}`)
             const END_TIME = new BigNumberJs(v.response[END_TIMEIndex][0].hex).toFixed()
+            console.log({ END_TIME })
             userValue[_chainId]['END_TIME'] = END_TIME
             userValue[_chainId]['END_TIMEStr'] = getLocalTime(END_TIME)
             const startTimeIndex = methodArr.indexOf(`startTime${_chainId}`)
@@ -404,10 +405,13 @@ export const useStakeData = () => {
               // 判断时间
               let withdrawAmountBig = new BigNumberJs(0)
               let extendAmountBig = new BigNumberJs(0)
-              // unlockTime <= now
+              // unlockTime < now
+              console.log({ userInfo, unlockTime })
               if (new BigNumberJs(unlockTime).lt(now)) {
+                console.log(1)
                 withdrawAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
               } else {
+                console.log(2)
                 extendAmountBig = new BigNumberJs(userInfo ? userInfo[1].hex : '0')
               }
               const unlockTimeStr = timestampToDateStr(Number(unlockTime))
@@ -421,6 +425,7 @@ export const useStakeData = () => {
               //   stakeDataFromApiItemI = stakeDataFromApiItem.records[vv.address.toLowerCase()].total
               // }
               // const totalStakeBig = new BigNumberJs(stakeDataFromApi[index])
+              console.log({ symbol: vv.symbol, withdrawAmountBig: withdrawAmountBig.toFixed() })
               return [
                 vv.symbol,
                 {
@@ -446,7 +451,7 @@ export const useStakeData = () => {
                   extendAmount: extendAmountBig.toFixed(),
                   extendAmountStr: formatMoney(extendAmountBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   unlockTime: unlockTime,
-                  unlockTimeStr: unlockTimeStr,
+                  unlockTimeStr: unlockTimeStr.startsWith('1970') ? '-' : unlockTimeStr,
                   totalStakedAmount: totalStakeBig.toFixed(),
                   totalStakedAmountStr: formatMoney(totalStakeBig.dividedBy(divisorBigNumber).toFixed(), 8),
                   ratio: totalStakeBig.toFixed() !== '0' ? userStakeBig.dividedBy(totalStakeBig).times(100).toFixed(0) : '0',
@@ -485,6 +490,7 @@ export const useStakeData = () => {
             ]
           })
         ) as unknown as Record<ChainId, Record<string, ITVLStakingData>>
+        console.log({ resMap })
         setTvlStakingData(resMap)
         const reduceValue = Object.fromEntries(
           Object.keys(resMap).map(chainId => {

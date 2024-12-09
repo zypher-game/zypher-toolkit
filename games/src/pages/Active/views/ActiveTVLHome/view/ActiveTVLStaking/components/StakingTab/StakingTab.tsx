@@ -20,11 +20,13 @@ const StakingTab = memo(
     chainIndex: number
     changeChainIndexHandle: (index: number) => void
   }) => {
+    console.log({ chainIdLocal })
     const tvlStakingData = useRecoilValue(tvlStakingDataState)
     const isEnd = useMemo(() => {
       try {
         const now = parseInt(`${new Date().valueOf() / 1000}`)
         const END_TIME = tvlStakingData[chainIdLocal][Currency[chainIdLocal]].END_TIME
+        console.log({ END_TIME })
         if (END_TIME && new BigNumberJs(END_TIME).lt(now)) {
           return true
         }
@@ -32,7 +34,7 @@ const StakingTab = memo(
       } catch (e) {
         return false
       }
-    }, [JSON.stringify(tvlStakingData)])
+    }, [JSON.stringify(tvlStakingData), chainIdLocal])
     return (
       <>
         <div className={css.tab_col}>
@@ -44,7 +46,7 @@ const StakingTab = memo(
             {isEnd ? (
               <>
                 <WithdrawBtn chainId={chainIdLocal} />
-                <ExtendBtn chainId={chainIdLocal} />
+                {/* <ExtendBtn chainId={chainIdLocal} /> */}
                 <RedepositBtn chainId={chainIdLocal} />
               </>
             ) : null}

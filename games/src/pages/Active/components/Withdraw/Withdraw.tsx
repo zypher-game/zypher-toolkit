@@ -20,7 +20,6 @@ import {
   PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
-  TVLStakingSupportedChainId,
   useIsW768,
   useRecoilValue,
   useSetRecoilState
@@ -38,6 +37,7 @@ import {
   activeDataState,
   chooseChainState,
   IActiveDataState,
+  isTvlDataLoadingState,
   ITVLStakingData,
   selectChainDialogState,
   tvlStakingDataState
@@ -48,7 +48,9 @@ import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 const Withdraw = memo(() => {
   const isW768 = useIsW768()
   const chooseChain = useRecoilValue(chooseChainState)
+  const isTvlDataLoading = useRecoilValue(isTvlDataLoadingState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
+  const activeDataSource = useRecoilValue<IActiveDataState>(activeDataState)
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
   const {
     withdraw,
@@ -115,12 +117,15 @@ const Withdraw = memo(() => {
               obj.isBalanceEnough = true
               obj.btnLabel = 'Confirm'
               if (chooseValue?.sbtId && chooseValue?.sbtId !== '0') {
-                if (!isWithdrawLoading && chooseValue?.address !== AddressZero && !chooseValue?.allowance) {
-                  obj.isApprove = false
-                  obj.btnLabel = 'Approve And Destroy SBT'
-                } else {
-                  obj.isApprove = true
-                  obj.btnLabel = 'Destroy SBT'
+                const mintMinimum = activeDataSource[chainIdFromStake]?.mintMinimum ?? '0'
+                if (new BigNumberJs(chooseValue.withdrawAmount).minus(tokenAmount).lte(mintMinimum)) {
+                  if (!isWithdrawLoading && chooseValue?.address !== AddressZero && !chooseValue?.allowanceNFT) {
+                    obj.isApprove = false
+                    obj.btnLabel = 'Approve And Destroy SBT'
+                  } else {
+                    obj.isApprove = true
+                    obj.btnLabel = 'Destroy SBT'
+                  }
                 }
               }
             } else {
@@ -156,7 +161,7 @@ const Withdraw = memo(() => {
         <div className={css.staking_token_detail_fr}>
           <p className={css.balance}>
             Balance: {chooseValue?.withdrawAmountStr}
-            {chooseValue?.withdrawAmountStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
+            {chooseValue?.withdrawAmountStr === '' || isTvlDataLoading ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
           <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
@@ -186,13 +191,13 @@ const Withdraw = memo(() => {
       </PixelBorderCard>
       <HasSbt chainIdLocal={chainIdLocal} chooseValue={chooseValue} />
       <ActivePixelButtonColor
-        className="staking_confirm staking_confirm_top"
+        className="staking_confirm staking_confirm_top staking_confirm_purple"
         width="100%"
         height={isW768 ? '48px' : '54px'}
         pixel_height={5}
         onClick={withdraw}
         disable={isWithdrawLoading || isApproveLoading || isDataLoading || !isBalanceEnough}
-        themeType="brightBlue"
+        themeType="purple"
       >
         <p>{btnLabel}</p>
         <LoadingButton isLoading={isWithdrawLoading || isApproveLoading} />
@@ -211,8 +216,9 @@ const HasSbt = memo(({ chainIdLocal, chooseValue }: { chainIdLocal?: ChainId; ch
         v => v.address !== zeroAddress && v.address === chooseValue?.address && v.sbtId && v.sbtId !== '0'
       )
       if (hasList && hasList.length) {
+        const item = hasList[0]
         const mintMinimumStr = activeDataSource[chainIdLocal]?.mintMinimumStr
-        return `SBT - ${hasList.map(v => `${mintMinimumStr}${v.symbol}`).join(' / ')}`
+        return `SBT - ${item.withdrawAmountStr}/${mintMinimumStr} ${item.symbol}`
       }
     }
   }, [chainIdLocal, JSON.stringify(activeDataSource), JSON.stringify(chooseValue), JSON.stringify(tvlStakingData)])
@@ -220,10 +226,13 @@ const HasSbt = memo(({ chainIdLocal, chooseValue }: { chainIdLocal?: ChainId; ch
     return (
       <div className={css.label}>
         <p className={css.sbt}>{label}</p>
-        <p className={css.warn}>
-          ⚠️ If you do not meet the conditions for using SBT after withdrawing, we will ask you to authorize the destruction of SBT before withdrawing
-          your balance.
-        </p>
+        <div className={css.warn_icon}>
+          <img src={preStaticUrl + '/img/icon/pixel_warn_02.svg'} alt="warn" />
+          <p>
+            If you do not meet the conditions for using SBT after withdrawing, we will ask you to authorize the destruction of SBT before withdrawing
+            your balance.
+          </p>
+        </div>
       </div>
     )
   }

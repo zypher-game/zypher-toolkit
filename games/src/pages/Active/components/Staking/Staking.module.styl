@@ -10,7 +10,6 @@
     margin: 0
     @media screen and (max-width: 830px)
       font-size: 16px
-
 .staking_token_detail
   display: flex
   justify-content: space-between
@@ -18,6 +17,9 @@
   flex-wrap: wrap
   width: 100%;
   margin: 20px 0 10px
+  &.staking_token_detail_fl
+    justify-content: flex-start
+    gap: 6px
   p
     font-size: 14px
     @media screen and (max-width: 830px)
@@ -57,12 +59,19 @@
   padding-top: 20px 
   .sbt
     padding-bottom: 10px
-  .warn
-    color: #bdb229;
+.warn_icon
+  img
+    float: left
+    margin-right: 11px;
+    margin-top: 7px;
+  p
+    color: #FFD02B;
 
 
 .select 
   width: 100%;
+  font-size: 18px
+  font-weight: 600
   border: none;
   border-radius: none;
   color: #fff;
@@ -82,6 +91,7 @@
   option 
     color: #fff;
     background-color: #ddd;
+
 .btn
   display: flex
   justify-content: space-between
@@ -91,3 +101,38 @@
   margin-top: 30px
   :global(.staking_confirm)
     flex: 1
+.staking_week
+  position relative
+  width 100%
+  .week_border
+    position absolute
+    z-index 10
+    top: 50px
+    right 0
+    :global(>.pixel_flat_inner)
+      flex-direction: column;
+      height: 240px;
+      padding: 0;
+      overflow-y: scroll;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 10px
+      .weekItem
+        width 100%
+        cursor pointer
+        &.on
+          :global(>.pixel_flat_btn_bg)
+            opacity 1
+        &:hover
+          :global(>.pixel_flat_btn_bg)
+            opacity 1
+        :global(>.pixel_flat_inner)
+          justify-content: flex-start;
+          align-items: center;
+          padding-left: 20px
+        :global(>.pixel_flat_btn_bg)
+          opacity 0
+          transition: opacity 0.3s ease
+          
+
+          

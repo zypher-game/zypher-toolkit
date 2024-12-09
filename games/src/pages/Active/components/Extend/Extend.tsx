@@ -11,9 +11,9 @@ import {
   LoadingButton,
   PixelBorderCard,
   PixelBorderCardButton,
+  PixelCube2,
   preStaticUrl,
   SvgComponent,
-  TVLStakingSupportedChainId,
   useIsW768,
   useRecoilValue,
   useSetRecoilState
@@ -25,14 +25,16 @@ import SelectChainDialog from '../../dialog/SelectChainDialog/SelectChainDialog'
 import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
 import { useExtend } from '../../hooks/useExtend'
-import { chooseChainState, selectChainDialogState } from '../../state/activeState'
+import { chooseChainState, isTvlDataLoadingState, selectChainDialogState } from '../../state/activeState'
 import css from '../Staking/Staking.module.styl'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 
 const Extend = memo(() => {
+  const [showChoseWeek, setShowChoseWeek] = useState(false)
   const isW768 = useIsW768()
   const chooseChain = useRecoilValue(chooseChainState)
   const [chainIdLocal, setChainIdLocal] = useState<ChainId>()
+  const isTvlDataLoading = useRecoilValue(isTvlDataLoadingState)
   const setIsSelectChainModalOpen = useSetRecoilState(selectChainDialogState)
   const {
     selectLen,
@@ -72,6 +74,7 @@ const Extend = memo(() => {
       return undefined
     }
   }, [JSON.stringify(tvlStakingData), chainIdLocal, extendCurrency])
+
   const { btnLabel } = useMemo(() => {
     const obj = {
       isApprove: false,
@@ -102,16 +105,31 @@ const Extend = memo(() => {
     return obj
   }, [JSON.stringify(chooseValue), isExtendLoading, isDataLoading, chainIdFromStake, chooseChain])
 
-  const changeChainHandle = useCallback(() => {
-    // if (openChainModal) {
-    //   openChainModal()
-    //   setAccountInfoDialogOpen(false)
-    // }
+  const changeChainHandle = useCallback((e: any) => {
+    e.stopPropagation()
     setIsSelectChainModalOpen(true)
   }, [])
-
+  const useShowChoseWeek = useCallback((e: any) => {
+    e.stopPropagation()
+    setShowChoseWeek(true)
+  }, [])
+  const borderHandle = useCallback(() => {
+    setIsSelectChainModalOpen(false)
+    setShowChoseWeek(false)
+  }, [])
+  const _handleWeekChange = useCallback((e: any, v: number) => {
+    e.stopPropagation()
+    setShowChoseWeek(false)
+    handleWeekChange(v)
+  }, [])
   return (
-    <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
+    <PixelBorderCard
+      width={isW768 ? '100%' : '505px'}
+      className={`staking_staking ${css.staking}`}
+      pixel_height={9}
+      backgroundColor="#1D263B"
+      onClick={borderHandle}
+    >
       <h3 className={css.title}>Extend</h3>
       {hideTVLStakingSupportedChainId ? null : (
         <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
@@ -119,15 +137,9 @@ const Extend = memo(() => {
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
         </PixelBorderCardButton>
       )}
-      <div className={css.staking_token_detail}>
-        <p className={css.staking_token_detail_fl}>You can Extend</p>
-        <div className={css.staking_token_detail_fr}>
-          <p className={css.balance}>
-            Balance: {chooseValue?.withdrawAmountStr}
-            {chooseValue?.withdrawAmountStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
-          </p>
-          {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
-        </div>
+      <div className={`${css.staking_token_detail} ${css.staking_token_detail_fl}`}>
+        <p>You can Extend</p>
+        {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
       </div>
       <PixelBorderCard
         className="staking_input"
@@ -149,35 +161,58 @@ const Extend = memo(() => {
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
         </ActivePixelButton>
       </PixelBorderCard>
-      <PixelBorderCard
-        className="staking_input staking_week"
-        width="100%"
-        height={isW768 ? '44px' : '58px'}
-        pixel_height={6}
-        backgroundColor="#343C4F"
-        borderColor="#484F60"
-      >
-        <select className={css.select} value={week} onChange={handleWeekChange}>
-          {selectLen.map(v => (
-            <option key={v} value={v}>
-              {v} week
-            </option>
-          ))}
-        </select>
-      </PixelBorderCard>
+      <div className={css.staking_week}>
+        <PixelBorderCard
+          className="staking_input staking_week"
+          width="100%"
+          height={isW768 ? '44px' : '58px'}
+          pixel_height={6}
+          backgroundColor="#343C4F"
+          borderColor="#484F60"
+          onClick={useShowChoseWeek}
+        >
+          <p className="text_week">{week} week</p>
+          <img src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
+        </PixelBorderCard>
+        {showChoseWeek ? (
+          <PixelBorderCard
+            className={css.week_border}
+            width="160px"
+            height="280px"
+            pixel_height={6}
+            borderColor="#3A4254"
+            backgroundColor="#1D263B"
+            onClick={useShowChoseWeek}
+          >
+            {selectLen.map(v => (
+              <PixelCube2
+                key={v}
+                borderColor="#1649FF"
+                pixel_height={3}
+                width="120px"
+                height="34px"
+                className={`${css.weekItem} ${v === week ? css.on : ''}`}
+                onClick={(e: any) => _handleWeekChange(e, v)}
+              >
+                <p>{v} week</p>
+              </PixelCube2>
+            ))}
+          </PixelBorderCard>
+        ) : null}
+      </div>
       <ul className={`${css.text_li} ${css.text_li_margin20}`}>
         <li>
           <p>Current Unlock Time</p>
           <div className={css.fr}>
             <p>{chooseValue?.unlockTimeStr}</p>
-            <LoadingButton isLoading={isDataLoading} />
+            <LoadingButton isLoading={isDataLoading || isTvlDataLoading} />
           </div>
         </li>
         <li>
           <p>Revised Unlock Time</p>
           <div className={css.fr}>
             <p>{revisedUnLockTimeStr}</p>
-            <LoadingButton isLoading={isDataLoading} />
+            <LoadingButton isLoading={isDataLoading || isTvlDataLoading} />
           </div>
         </li>
       </ul>
@@ -188,7 +223,7 @@ const Extend = memo(() => {
         pixel_height={5}
         onClick={extend}
         disable={isExtendLoading || isApproveLoading || isDataLoading || btnLabel === 'No Balance'}
-        themeType="brightBlue"
+        themeType="pink"
       >
         <p>{btnLabel}</p>
         <LoadingButton isLoading={isExtendLoading || isApproveLoading} />

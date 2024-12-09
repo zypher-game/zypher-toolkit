@@ -86,7 +86,7 @@ const ActiveTVLTeam = memo(() => {
                 <p>Rules</p>
               </PixelCube3>
             </div>
-            <div>
+            {/* <div>
               <div className={css.team_goal_text}>
                 <p>Team Goal</p>
                 <p>
@@ -102,7 +102,7 @@ const ActiveTVLTeam = memo(() => {
                   }}
                 />
               </div>
-            </div>
+            </div> */}
             <div className={`${css.show_team} ${css.mt20}`}>
               <TeamWarn showTeamWarn={showTeamWarn} setShowTeamWarn={setShowTeamWarn} teamMembers={teamMembers.slice(0, 5)} />
             </div>

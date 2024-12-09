@@ -11,7 +11,7 @@ const RedepositBtn = memo(({ chainId }: { chainId: ChainId }) => {
   const isW768 = useIsW768()
   return (
     <ActivePixelButtonColor
-      themeType="brightBlue"
+      themeType="yellow"
       className={`${css.btn} ${css.redeposit}`}
       width={isW768 ? '70px' : '110px'}
       height={isW768 ? '62px' : '32px'}
@@ -21,7 +21,7 @@ const RedepositBtn = memo(({ chainId }: { chainId: ChainId }) => {
       {isW768 ? (
         <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/staking_icon.svg'} alt="staking" className={css.stakingImg} />
       ) : null}
-      <p>Deposit</p>
+      <p>Stake</p>
     </ActivePixelButtonColor>
   )
 })

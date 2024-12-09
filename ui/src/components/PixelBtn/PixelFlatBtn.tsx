@@ -16,24 +16,27 @@ const PixelFlatBtn = memo((props: IProps) => {
   const { onClick, children, className, style, hidePixel, disable, ..._props } =
     props;
   const [isActive, setIsActive] = useState(false);
-  const clickHandle = useCallback(() => {
-    const currentTime = Date.now();
-    const timeSinceLastClick = currentTime - lastClickTimeRef.current;
-    if (timeSinceLastClick < 1000) {
-      // 1000毫秒等于2秒
-      // 如果距离上次点击不到1秒，则忽略此次点击
-      return;
-    }
+  const clickHandle = useCallback(
+    (e: any) => {
+      const currentTime = Date.now();
+      const timeSinceLastClick = currentTime - lastClickTimeRef.current;
+      if (timeSinceLastClick < 1000) {
+        // 1000毫秒等于2秒
+        // 如果距离上次点击不到1秒，则忽略此次点击
+        return;
+      }
 
-    lastClickTimeRef.current = currentTime;
-    if (onClick) {
-      setIsActive(true);
-      setTimeout(() => {
-        setIsActive(false);
-      }, 1000);
-      onClick();
-    }
-  }, [onClick]);
+      lastClickTimeRef.current = currentTime;
+      if (onClick) {
+        setIsActive(true);
+        setTimeout(() => {
+          setIsActive(false);
+        }, 1000);
+        onClick(e);
+      }
+    },
+    [onClick]
+  );
   if (hidePixel) {
     return (
       <div

@@ -16,7 +16,6 @@ import {
   preStaticUrl,
   SvgComponent,
   TVLChainId,
-  TVLStakingSupportedChainId,
   useIsW768,
   useRecoilValue,
   useSetRecoilState
@@ -34,7 +33,7 @@ import { useStakeHandle, useTable } from '../../hooks/useStakeHandle'
 import { chooseChainState, restakingDataState, selectChainDialogState } from '../../state/activeState'
 import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 import css from './Staking.module.styl'
-const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string }> = {
+export const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string }> = {
   [TVLChainId.B2]: {
     native: '200',
     erc20: '100'

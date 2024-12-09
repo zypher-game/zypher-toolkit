@@ -18,9 +18,19 @@ body .staking_staking
   padding: 0 20px
   > .pixel_flat_inner 
     justify-content: space-between
+    input
+      font-size: 18px
+      font-weight: 600
+      &:disabled
+        opacity 0.5
+    .text_week
+      font-size: 18px
+      font-weight: 600
+
 
 .staking_week
   margin-top: 10px
+  cursor: pointer
 .staking_input_btn
   position: absolute;
   top: 1px;
@@ -48,3 +58,16 @@ body .staking_staking
 .staking_confirm_top
   margin-top: 40px
   
+.staking_confirm_yellow
+  p
+    color: #934417
+.staking_confirm_pink
+  p
+    color: #682143
+.staking_confirm_purple
+  > .pixel_flat_inner 
+    svg
+      rect
+        fill: #3A165A
+  p
+    color: #3A165A

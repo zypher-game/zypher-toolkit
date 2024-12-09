@@ -15,7 +15,7 @@ const WithdrawBtn = memo(({ chainId }: { chainId: ChainId }) => {
   const isW768 = useIsW768()
   return (
     <ActivePixelButtonColor
-      themeType="brown"
+      themeType="purple"
       className={`${css.btn} ${css.withdraw}`}
       width={isW768 ? '70px' : '110px'}
       height={isW768 ? '62px' : '32px'}
@@ -23,7 +23,7 @@ const WithdrawBtn = memo(({ chainId }: { chainId: ChainId }) => {
       onClick={showStakingHandle}
     >
       {isW768 ? (
-        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/staking_icon.svg'} alt="staking" className={css.stakingImg} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/tvl/withdraw_icon.svg'} alt="staking" className={css.stakingImg} />
       ) : null}
       <p>Withdraw</p>
     </ActivePixelButtonColor>

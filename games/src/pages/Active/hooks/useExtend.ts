@@ -69,9 +69,9 @@ export const useExtend = (): {
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
 
   useStake()
-  const handleWeekChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value
-    setWeek(Number(selectedValue))
+  const handleWeekChange = useCallback((num: number) => {
+    // const selectedValue = e.target.value
+    setWeek(num)
   }, [])
   useEffect(() => {
     setIsApproveLoading(false)

@@ -323,7 +323,6 @@ export const useStakingCall = () => {
           'Content-Type': 'application/json'
         }
       })
-      console.log({ restaking_res })
       const res = restaking_res.data
       const records = Object.fromEntries(
         res.records.map((v: any) => {
@@ -342,7 +341,6 @@ export const useStakingCall = () => {
         })
       )
       const { stakingAirdrop, stakingGrowthCoefficient, restakingAirdrop, restakingGrowthCoefficient } = res.statistics
-      console.log({ res, stakingAirdrop })
       const statistics = {
         stakingReward: stakingAirdrop,
         stakingRewardStr: formatMoney(new BigNumberJs(stakingAirdrop).toFixed(), 8),

@@ -80,12 +80,11 @@ const SelectTokenDialog = memo(() => {
     (v: ITVLStakingData) => {
       if (isWithdrawDialog) {
         setWithdrawCurrency(v.symbol)
-      } else if (isRedepositDialog) {
-        setRedepositCurrency(v.symbol)
       } else if (isExtendDialog) {
         setExtendCurrency(v.symbol)
       } else {
-        setDepositCurrency(v.symbol)
+        setRedepositCurrency(v.symbol)
+        // setDepositCurrency(v.symbol)
       }
       setIsModalOpen(false)
     },

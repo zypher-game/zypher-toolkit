@@ -65,13 +65,13 @@ const TeamWarn = memo(
             'Invite big players -> Earn more points and move up the leaderboard.'
           ],
           img: preStaticUrl + '/img/tvl/my_team_warn_01.png',
-          imgClassName: 'tvl_team_bg_01',
-          btn: (
-            <>
-              <p>Next page</p>
-              <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_right.svg'} />
-            </>
-          )
+          imgClassName: 'tvl_team_bg_01'
+          // btn: (
+          //   <>
+          //     <p>Next page</p>
+          //     <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_right.svg'} />
+          //   </>
+          // )
         }
       }
       return {
@@ -165,7 +165,7 @@ const TeamWarn = memo(
             </p>
           ))}
           <img decoding="async" loading="lazy" src={img} alt={title} className={css[imgClassName]} />
-          <ActivePixelButtonColor
+          {/* <ActivePixelButtonColor
             themeType="brightBlue"
             className={css.btn}
             pixel_height={3}
@@ -174,7 +174,7 @@ const TeamWarn = memo(
             onClick={showTeamWarnHandle}
           >
             {btn}
-          </ActivePixelButtonColor>
+          </ActivePixelButtonColor> */}
           <DialogClose onClick={handleCancel} />
         </PixelBorderCard>
       )

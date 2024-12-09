@@ -1,5 +1,4 @@
 import { getLinkPre, sleep, TVL_API, useActiveWeb3React } from '@ui/src'
-import { GlobalVar } from '@ui/src'
 import { useCallback, useEffect, useMemo } from 'react'
 
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
@@ -56,13 +55,15 @@ export const useBind = () => {
     const linkType = getLinkPre(chainId)
     window.open(`${TVL_API[chainId]}/connect-discord?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}`)
     setActiveData(pre => ({ ...pre, discord: { ...pre.discord, isLoading: false } }))
-  }, [_invitationCode, signedStr, preHandleAction, chainId])
+  }, [_invitationCode, getSignCall, signedStr, preHandleAction, chainId])
   const CheckTwitterHandle = useCallback(async () => {
     // const isOk = preHandleAction()
     // if (!isOk) {
     //   return
     // }
+    console.log(999)
     if (!signedStr || signedStr === '') {
+      console.log(888)
       getSignCall()
       return
     }
@@ -81,7 +82,7 @@ export const useBind = () => {
     const discordError = url.searchParams.get('DiscordError')
     if (twitterError || discordError) {
       // ?TwitterError="twitter%20used"
-      const msg = (twitterError ?? discordError ?? '').replace('"', '')
+      const msg = (twitterError ?? discordError ?? '').replaceAll('"', '')
       setErrorToast(msg)
       setTimeout(() => {
         url.searchParams.delete('TwitterError')

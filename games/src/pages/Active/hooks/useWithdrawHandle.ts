@@ -55,7 +55,7 @@ export const useWithdrawHandle = (): {
   const { account, chainId: nativeChainId } = useActiveWeb3React()
   const { getStakingData } = useStakeData()
   const isDataLoading = useRecoilValue(isTvlDataLoadingState)
-  const tvlStakingData = useRecoilValue(tvlStakingDataState)
+  const [tvlStakingData, setTvlStakingData] = useRecoilState(tvlStakingDataState)
   const { walletClient } = useAaWallet()
   const { postAccountUpdate } = useAccountInvitation(env)
   const isW768 = useIsW768()
@@ -146,6 +146,16 @@ export const useWithdrawHandle = (): {
                 setIsApproveLoading(false)
                 if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
                   setSuccessToast({ title: '', message: 'Approve successful' })
+                  setTvlStakingData(pre => ({
+                    ...pre,
+                    [_nativeChainId]: {
+                      ...pre[_nativeChainId],
+                      [currency]: {
+                        ...pre[_nativeChainId][currency],
+                        allowanceNFT: true
+                      }
+                    }
+                  }))
                 } else {
                   setErrorToast({ title: '', message: 'Approve Error!' })
                 }
@@ -154,7 +164,6 @@ export const useWithdrawHandle = (): {
                 setIsApproveLoading(false)
                 setErrorToast({ title: '', message: 'Approve Error!' })
               })
-            getStakingData()
             return
           }
         }

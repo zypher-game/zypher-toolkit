@@ -1,4 +1,4 @@
-import { motion, PixelBorderCard, useIsW768 } from '@ui/src'
+import { motion, preStaticUrl, SvgComponent, useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
 
 import ActiveComp from '../../components/ActiveComp/ActiveComp'
@@ -7,25 +7,19 @@ import { useSign } from '../../hooks/activeHooks'
 import { useBind } from '../../hooks/bindHooks'
 import { useActiveData } from '../../hooks/useActiveData'
 import { useActiveRouterV2 } from '../../hooks/useActiveRouter'
-import css from './ActiveRegister.module.styl'
+import css from './ActiveRegister_v2.module.styl'
 import Bind from './components/Bind/Bind'
 import Checking from './components/Checking/Checking'
 import EarthPart from './components/EarthPart/EarthPart'
 import InvitationCode from './components/InvitationCode/InvitationCode'
 
-const ActiveRegister = memo(() => {
+const ActiveRegisterV2 = memo(() => {
   const isW768 = useIsW768()
   const { activeData } = useActiveData()
-  const { invitationCode, checkRewardPointsLoading, id } = activeData
+  const { invitationCode, checkRewardPointsLoading } = activeData
   useSign()
   const { CheckPointHandle, CheckDiscordHandle, CheckTwitterHandle } = useBind()
   useActiveRouterV2()
-  // useEffect(() => {
-  //   const link = getActiveRouterFn()
-  //   if (link && link !== window.location.pathname) {
-  //     // navigate(link)
-  //   }
-  // }, [id, location, pathname])
   return (
     <ActiveComp>
       <div className={css.register}>
@@ -42,18 +36,18 @@ const ActiveRegister = memo(() => {
                 ultimate title of supremacy within the Digital Kingdom.
               </p>
               <Audited />
-              <PixelBorderCard
-                // width='305px'
-                // height=''
-                className={css.textPixelBorder}
-                pixel_height={4}
-                backgroundColor="#161E2E"
-                borderColor="#3A4254"
-              >
+              <div className={css.textPixelBorder}>
                 <p>
-                  Current Competition Schedule<i>Oct. 17, 2024 ~ Jan. 16, 2025</i>
+                  Current Competition Schedule<i>Jan 17, 2025 ~ Token Emission</i>
                 </p>
-              </PixelBorderCard>
+              </div>
+              <div className={css.warn}>
+                <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className={css.tooltip_pixel_warn} />
+                <div className={css.warn_fr}>
+                  <p>Participating in the new cycle requires extending</p>
+                  <p>The lock-up period of the staked tokens! </p>
+                </div>
+              </div>
             </div>
           )}
           <div className={css.process}>
@@ -72,4 +66,4 @@ const ActiveRegister = memo(() => {
   )
 })
 
-export default ActiveRegister
+export default ActiveRegisterV2

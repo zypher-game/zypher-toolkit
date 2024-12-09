@@ -19,7 +19,7 @@ import {
   useSetRecoilState
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from 'react'
+import { ChangeEvent, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt, zeroAddress } from 'viem'
 
 import { TVLStakingContract } from '@/contract/tvlStaking'
@@ -46,8 +46,8 @@ export const useRedeposit = (): {
   maxHandle: () => void
   chainId: ChainId
   isDataLoading: boolean
-  Lock: (hasLock: boolean) => Promise<void>
-  Increment: (hasLock: boolean) => Promise<void>
+  Lock: ({ hasLock, canOnlyIncrease }: { hasLock: boolean; canOnlyIncrease: boolean }) => Promise<void>
+  Increment: ({ hasLock, canClick, canOnlyIncrease }: { hasLock: boolean; canClick: boolean; canOnlyIncrease: boolean }) => Promise<void>
   // redeposit: (hasLock: boolean) => Promise<void>
   redepositValue: string
   redepositCurrency: string | undefined
@@ -63,12 +63,12 @@ export const useRedeposit = (): {
   const [redepositValue, setRedepositValue] = useState('')
   const setIsSelectTokenDialogModalOpen = useSetRecoilState(selectTokenDialogState)
   const [redepositCurrency, setRedepositCurrency] = useRecoilState(redepositCurrencyState)
-  const [week, setWeek] = useState(1)
+  const [week, setWeek] = useState(4)
   const [max, setMax] = useState('0')
+  const [tvlStakingData, setTvlStakingData] = useRecoilState(tvlStakingDataState)
   const { account, chainId: nativeChainId } = useActiveWeb3React()
   const { getStakingData } = useStakeData()
   const isDataLoading = useRecoilValue(isTvlDataLoadingState)
-  const tvlStakingData = useRecoilValue(tvlStakingDataState)
   const { walletClient } = useAaWallet()
   const { postAccountUpdate } = useAccountInvitation(env)
   const isW768 = useIsW768()
@@ -79,9 +79,9 @@ export const useRedeposit = (): {
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
 
   useStake()
-  const handleWeekChange = useCallback((e: ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = e.target.value
-    setWeek(Number(selectedValue))
+  const handleWeekChange = useCallback((num: SetStateAction<number>) => {
+    // const selectedValue = e.target.value
+    setWeek(num)
   }, [])
   useEffect(() => {
     setIsApproveLoading(false)
@@ -93,8 +93,8 @@ export const useRedeposit = (): {
     }
   }, [account, nativeChainId])
   const selectLen = useMemo(() => {
-    const MAX_LOCK_WEEKS = 52
-    return Array.from({ length: Number(MAX_LOCK_WEEKS) }, (_value, index) => index + 1)
+    const MAX_LOCK_WEEKS = 20
+    return Array.from({ length: Number(MAX_LOCK_WEEKS) }, (_value, index) => index + 4)
   }, [])
   const [revisedUnLockTimeStr, revisedUnLockTime] = useMemo(() => {
     if (redepositCurrency) {
@@ -278,10 +278,11 @@ export const useRedeposit = (): {
   //   ]
   // )
   const Increment = useCallback(
-    async (hasLock: boolean) => {
+    async ({ hasLock, canClick, canOnlyIncrease }: { hasLock: boolean; canOnlyIncrease: boolean; canClick: boolean }) => {
+      console.log({ canOnlyIncrease })
       const currency = redepositCurrency
       try {
-        if (isDataLoading) {
+        if (isDataLoading || !canClick) {
           return
         }
         const isOk = preHandleAction()
@@ -330,7 +331,16 @@ export const useRedeposit = (): {
                   setIsApproveLoading(false)
                   if ((result instanceof BigNumberJs && result.gte(tokenAmount)) || !(result instanceof BigNumberJs)) {
                     setSuccessToast({ title: '', message: 'Approve successful' })
-                    getStakingData()
+                    setTvlStakingData(pre => ({
+                      ...pre,
+                      [_nativeChainId]: {
+                        ...pre[_nativeChainId],
+                        [currency]: {
+                          ...pre[_nativeChainId][currency],
+                          allowance: new BigNumberJs(allowance.toString()).plus(tokenAmount).toFixed()
+                        }
+                      }
+                    }))
                   } else {
                     setSuccessToast({ title: '', message: 'Approve Error!' })
                   }
@@ -369,14 +379,13 @@ export const useRedeposit = (): {
         const hash = typeof res === 'string' ? res : res.hash
         const incrementTx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
         if (incrementTx && incrementTx.status === txStatus) {
-          setRedepositCurrency('')
           setIsIncrementLoading(false)
           setSuccessToast({ title: '', message: 'Increment successful' })
           await _successGet({
             tx: incrementTx,
             blockNumber: new BigNumberJs(incrementTx.blockNumber.toString()).toNumber()
           })
-          if (hasLock) {
+          if (canOnlyIncrease) {
             setRedepositDialog(false)
           }
         } else {
@@ -406,7 +415,7 @@ export const useRedeposit = (): {
     ]
   )
   const Lock = useCallback(
-    async (hasLock: boolean) => {
+    async ({ hasLock, canOnlyIncrease }: { hasLock: boolean; canOnlyIncrease: boolean }) => {
       const currency = redepositCurrency
       try {
         if (isDataLoading) {
@@ -435,7 +444,7 @@ export const useRedeposit = (): {
           throw new Error('Currency not Ready')
         }
         const token = tvlStakingData[_nativeChainId][currency]
-        const erc20Address = token.address
+        let erc20Address = token.address
         if (!token.withdrawAmount || token.withdrawAmount === '0') {
           setErrorToast('Please Increment First')
           return
@@ -451,6 +460,10 @@ export const useRedeposit = (): {
           // 合约.startTime() + （合约.getWeek()  + 延长几周）*  60 * 60 * 24 * 7
           // const times = new BigNumberJs(startTime).plus((Number(getWeek) + week) * 60 * 60 * 24 * 7).toFixed()
           // console.log({ erc20Address, times })
+          if (erc20Address === zeroAddress) {
+            erc20Address = tvlStakingData[_nativeChainId]['W' + currency].address
+          }
+          console.log({ erc20Address, revisedUnLockTime })
           const redepositRes = await contract.write.redeposit([erc20Address, revisedUnLockTime], {
             account: account
           })
@@ -463,7 +476,9 @@ export const useRedeposit = (): {
               tx: redepositTx,
               blockNumber: new BigNumberJs(redepositTx.blockNumber.toString()).toNumber()
             })
-            setRedepositDialog(false)
+            if (canOnlyIncrease) {
+              setRedepositDialog(false)
+            }
           } else {
             throw Object.assign(new Error('Redeposit Transaction Failed'), { name: 'redeposit' })
           }

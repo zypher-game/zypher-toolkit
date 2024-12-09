@@ -160,7 +160,9 @@ export type IActivePixelColorCardTheme =
   | "yellow"
   | "brown"
   | "brightBlue"
-  | "pureBrightBlue";
+  | "pureBrightBlue"
+  | "purple"
+  | "pink";
 type IActivePixelColorCardColor = {
   borderBottomColor: string;
   borderTopColor: string;
@@ -246,6 +248,41 @@ const cardTheme: Record<
       borderBottomColor: "#0E43FF",
       borderTopColor: "#0E43FF",
       backgroundColor: "#0E43FF",
+    },
+  },
+
+  purple: {
+    normal: {
+      borderBottomColor: "#542088",
+      borderTopColor: "#C791FF",
+      backgroundColor: "#AB56FF",
+    },
+    hover: {
+      borderBottomColor: "#542088",
+      borderTopColor: "#C791FF",
+      backgroundColor: "#AB56FF",
+    },
+    click: {
+      borderBottomColor: "#542088",
+      borderTopColor: "#C791FF",
+      backgroundColor: "#AB56FF",
+    },
+  },
+  pink: {
+    normal: {
+      borderBottomColor: "#9C3666",
+      borderTopColor: "#FFABD3",
+      backgroundColor: "#FF5EAA",
+    },
+    hover: {
+      borderBottomColor: "#9C3666",
+      borderTopColor: "#FFABD3",
+      backgroundColor: "#FF5EAA",
+    },
+    click: {
+      borderBottomColor: "#9C3666",
+      borderTopColor: "#FFABD3",
+      backgroundColor: "#FF5EAA",
     },
   },
 };

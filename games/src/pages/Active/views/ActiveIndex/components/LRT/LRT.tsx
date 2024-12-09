@@ -68,15 +68,19 @@ const LRT = memo(() => {
 }, isEqual)
 const Item = memo(({ symbol, chainId }: { symbol: string; chainId: ChainId }) => {
   const token = useMemo(() => {
-    return tvlTokens[chainId][symbol]
+    try {
+      return tvlTokens[chainId][symbol]
+    } catch {}
   }, [symbol, chainId])
 
   const copyAddressHandle = useCallback(() => {
-    if (token.address) {
-      copy(token.address)
+    if (token?.address) {
+      copy(token?.address)
     }
-  }, [token.address])
-
+  }, [token?.address])
+  if (!token) {
+    return null
+  }
   return (
     <PixelCube2 backgroundColor="#41444c" borderColor="#41444c" pixel_height={6} className={css.item} onClick={copyAddressHandle}>
       <div className={css.fl}>

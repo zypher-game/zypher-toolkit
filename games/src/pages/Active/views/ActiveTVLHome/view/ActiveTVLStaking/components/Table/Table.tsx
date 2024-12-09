@@ -58,6 +58,8 @@ const TableWrap = memo(
               'Ratio',
               'GP',
               ['APR', 'Covers a variety of benefits: LXP, Reward Points, SBT, CR Hero Mystery Box and GP.'],
+              'Unwithdraw',
+              'Unlock Time',
               'TVL'
             ]}
             isDataLoading={isDataLoading}
@@ -92,6 +94,8 @@ const TableWrap = memo(
                   v.ratio + '%',
                   v.earnGPStr,
                   v.apr + '%',
+                  v.withdrawAmountStr,
+                  v.unlockTimeStr,
                   v.totalStakedAmountStr
                 ]}
               />
@@ -172,6 +176,8 @@ const RowM = memo(({ v, onClick, type }: { v: ITVLStakingData; onClick?: any; ty
             ['Ratio', v.ratio + '%'],
             ['GP', v.earnGPStr],
             ['APR', v.apr + '%', 'Covers a variety of benefits: LXP, Reward Points, SBT, CR Hero Mystery Box and GP.'],
+            ['Unwithdraw', v.withdrawAmountStr],
+            ['Unlock Time', v.unlockTimeStr],
             ['TVL', v.totalStakedAmountStr]
           ].map(vv => (
             <div className={css.m_col} key={vv[0]}>

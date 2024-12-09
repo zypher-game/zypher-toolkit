@@ -11,7 +11,7 @@ const ExtendBtn = memo(({ chainId }: { chainId: ChainId }) => {
   const isW768 = useIsW768()
   return (
     <ActivePixelButtonColor
-      themeType="yellow"
+      themeType="pink"
       className={`${css.btn} ${css.staking} ${css.extend}`}
       width={isW768 ? '70px' : '110px'}
       height={isW768 ? '62px' : '32px'}
