@@ -7,4 +7,4 @@ export interface MulticallMessageItem {
     value: bigint;
     data: Hash;
 }
-export declare const encodeFunctionMulticall: (wallet: WagmiWalletHandler, items: MulticallMessageItem[]) => Promise<any>;
+export declare const encodeFunctionMulticall: (wallet: WagmiWalletHandler, items: MulticallMessageItem[]) => Promise<string>;

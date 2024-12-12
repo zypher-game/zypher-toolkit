@@ -21,7 +21,7 @@ import {
 
 import { PublicClient } from "wagmi";
 import { WalletAbi } from "../abis/Wallet";
-import { Gas0Constants, IGas0Config } from "../constants/Gas0Constant";
+import { Gas0Constants } from "../constants/Gas0Constant";
 import BigNumberJs from "../../utils/BigNumberJs";
 import { getAddressAA } from "./getAddressAA";
 import { ZytronSignTypedData } from "../constants/typedData";
@@ -144,10 +144,10 @@ export class WagmiWalletHandler {
                   owner,
                 }
               );
-              if (res.code !== 0) {
+              if (!res || res.status === "failure") {
                 throw new Error(`functioncall error: ${res.msg}`);
               }
-              return res.data.tx_hash;
+              return res.tx_hash;
             } else {
               const aaContract = getContract({
                 abi: WalletAbi,
@@ -210,8 +210,9 @@ export const gas0WalletCreateAndApprove = async (
   const { data } = await httpPost(`${api}/create`, {
     owner,
   });
-  if (data.code !== 0) throw new Error(`setController error: ${data.msg}`);
-  return data.data.tx_hash;
+  if (data.status === "failure")
+    throw new Error(`setController error: ${data.msg}`);
+  return data.tx_hash;
 };
 
 export const address2salt = (addr: Address) => {

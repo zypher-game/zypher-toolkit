@@ -32,7 +32,7 @@ export declare enum ChainId {
     Sepolia = "11155111",
     B2 = "223",
     B2Testnet = "1123",
-    ZytronLineaSepoliaTestnet = "19546",
+    ZytronLineaSepoliaTestnet = "50098",
     ZytronLineaMain = "9901",
     ZytronB2Testnet = "50097",
     Taiko = "167000",

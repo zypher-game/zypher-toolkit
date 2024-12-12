@@ -94,7 +94,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9["Sepolia"] = "11155111";
   ChainId9["B2"] = "223";
   ChainId9["B2Testnet"] = "1123";
-  ChainId9["ZytronLineaSepoliaTestnet"] = "19546";
+  ChainId9["ZytronLineaSepoliaTestnet"] = "50098";
   ChainId9["ZytronLineaMain"] = "9901";
   ChainId9["ZytronB2Testnet"] = "50097";
   ChainId9["Taiko"] = "167000";
@@ -108,9 +108,10 @@ var DPSupportChainId = !isPro() ? [
   "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
   "204" /* OPBNB */,
-  "19546" /* ZytronLineaSepoliaTestnet */,
+  "50098" /* ZytronLineaSepoliaTestnet */,
   "9901" /* ZytronLineaMain */
 ] : ["59144" /* LineaMainnet */, "9901" /* ZytronLineaMain */, "204" /* OPBNB */];
+console.log({ DPSupportChainId });
 var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
   "42161" /* Arbitrum */,
@@ -133,7 +134,7 @@ var supportedChainIds = (env, chainList) => {
   return TGChainId ? TGChainId : chainList ? chainList : !isPro() || env === "develop" ? [
     "59144" /* LineaMainnet */,
     "59141" /* LineaSepolia */,
-    "19546" /* ZytronLineaSepoliaTestnet */,
+    "50098" /* ZytronLineaSepoliaTestnet */,
     "9901" /* ZytronLineaMain */,
     "223" /* B2 */,
     "167000" /* Taiko */,
@@ -214,9 +215,7 @@ var ChainRpcUrls = {
   ["223" /* B2 */]: ["https://rpc.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://b2-testnet.alt.technology"],
   ["9901" /* ZytronLineaMain */]: ["https://rpc.zypher.network"],
-  ["19546" /* ZytronLineaSepoliaTestnet */]: [
-    "https://linea-testnet-zytron.zypher.game"
-  ],
+  ["50098" /* ZytronLineaSepoliaTestnet */]: ["https://rpc-testnet.zypher.network"],
   ["50097" /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
   ["167000" /* Taiko */]: ["https://rpc.hekla.taiko.xyz"],
   ["2717465680371000" /* SagaMainnet */]: [
@@ -248,8 +247,8 @@ var BlockExplorerUrls = {
   ["223" /* B2 */]: ["https://explorer.bsquared.network"],
   ["1123" /* B2Testnet */]: ["https://testnet-explorer.bsquared.network"],
   ["9901" /* ZytronLineaMain */]: ["https://explorer.zypher.network"],
-  ["19546" /* ZytronLineaSepoliaTestnet */]: [
-    "https://linea-testnet-zytron-blockscout.zypher.game"
+  ["50098" /* ZytronLineaSepoliaTestnet */]: [
+    "https://explorer-testnet.zypher.network"
   ],
   ["50097" /* ZytronB2Testnet */]: [
     "https://b2-testnet-zytron-blockscout.zypher.game"
@@ -281,7 +280,7 @@ var ChainName = {
   ["11155111" /* Sepolia */]: "Sepolia",
   ["223" /* B2 */]: "B\xB2",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
-  ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "Zytron Testnet",
   ["9901" /* ZytronLineaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
@@ -311,7 +310,7 @@ var ChainNetworkName = {
   ["11155111" /* Sepolia */]: "Sepolia",
   ["223" /* B2 */]: "B\xB2 Mainnet",
   ["1123" /* B2Testnet */]: "B\xB2 Testnet",
-  ["19546" /* ZytronLineaSepoliaTestnet */]: "Zytron Linea(Sepolia) Testnet",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "Zytron Testnet",
   ["9901" /* ZytronLineaMain */]: "Zytron Linea",
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
@@ -341,7 +340,7 @@ var isTestnet = {
   ["11155111" /* Sepolia */]: true,
   ["223" /* B2 */]: false,
   ["1123" /* B2Testnet */]: true,
-  ["19546" /* ZytronLineaSepoliaTestnet */]: true,
+  ["50098" /* ZytronLineaSepoliaTestnet */]: true,
   ["9901" /* ZytronLineaMain */]: false,
   ["50097" /* ZytronB2Testnet */]: true,
   ["167000" /* Taiko */]: false,
@@ -372,7 +371,7 @@ var Currency = {
   ["223" /* B2 */]: "BTC",
   ["1123" /* B2Testnet */]: "BTC",
   ["9901" /* ZytronLineaMain */]: "ETH",
-  ["19546" /* ZytronLineaSepoliaTestnet */]: "ETH",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "ETH",
   ["50097" /* ZytronB2Testnet */]: "BTC",
   ["167000" /* Taiko */]: "ETH",
   ["2717465680371000" /* SagaMainnet */]: "zyp",
@@ -460,10 +459,10 @@ var CurrencyContract = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"]
   },
   ["9901" /* ZytronLineaMain */]: {
-    multicall: ["0x532293bF9ee1A064549dB9d040d5f00A85C49BbB"]
+    multicall: ["0xa8fAD960aCf062715e1fd3DBD0ee319B2d753b23"]
   },
-  ["19546" /* ZytronLineaSepoliaTestnet */]: {
-    multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"]
+  ["50098" /* ZytronLineaSepoliaTestnet */]: {
+    multicall: ["0xF3e4AEe14224a0231f80eFaB003Ecb3c00377DE2"]
   },
   ["50097" /* ZytronB2Testnet */]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"]
@@ -531,16 +530,16 @@ var zkBingo = (chainId, name) => {
   try {
     const _repo = isTestnet[chainId] ? "develop" : "release";
     let address = (_b = (_a = zkBingoContractsV1) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
-    if (chainId === "19546" /* ZytronLineaSepoliaTestnet */) {
+    if (chainId === "50098" /* ZytronLineaSepoliaTestnet */) {
       address = {
         date: "2024-08-01T07:49:19.451Z",
-        chainId: 19546,
-        deployer: "0x44Cb6dA95D121F812AD047747129C34C1F9a37f6",
-        ZypherGameToken: "0x71a56BD2E4391bc6f6012F843DE6d7e82E3bc64f",
-        ZkBingoCard: "0x3e409DF35a8D54a420ec9592dDA288735153b81a",
-        ZkBingoLobby: "0x4C3A8897f5755c1EE4B67d36F1961E3C516C5b8a",
-        ZkBingoFee: "0xD0AFCaDAebFB4FFbaDC0CeE761689B7bC8d681cb",
-        ZkBingoPoints: "0x98454527B93eEd4F5252774Ea2166b126eD2C847"
+        chainId: 50098,
+        deployer: "0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE",
+        ZypherGameToken: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
+        ZkBingoCard: "0xF5b60bb4Da816b98Ef69cd0B811b51Cc73D29647",
+        ZkBingoLobby: "0x4961661f732e995133fDAa7881481BB10e424f78",
+        ZkBingoFee: "0xE33C000C23D6712319Fe2BF8FA873E62AdE2fa01",
+        ZkBingoPoints: "0xc7A8cbA2982228C00089226cf1C5cF5b253BBb58"
       };
     } else if (chainId === "9901" /* ZytronLineaMain */) {
       address = {
@@ -802,11 +801,11 @@ function useActiveWeb3React(env, chainList) {
 
 // src/gas0/constants/Gas0Constant.ts
 var Gas0Constants = {
-  ["19546" /* ZytronLineaSepoliaTestnet */]: {
-    api: "https://rpc-zytron-testnet-linea.zypher.game/api"
+  ["50098" /* ZytronLineaSepoliaTestnet */]: {
+    api: "https://gas-testnet.zypher.network"
   },
   ["9901" /* ZytronLineaMain */]: {
-    api: "https://zytron-linea-mainnet-0gas.zypher.game/api"
+    api: "https://gas.zypher.network"
   }
 };
 
@@ -868,16 +867,16 @@ var useGas0Balance = () => {
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
-        if (res.code !== 0) {
+        if (!res || res.status === "failure") {
           _balance("0");
           key.current = "";
           return;
         }
-        const gas0Balance = res.data.amount;
+        const gas0Balance = res.amount;
         if (new BigNumberJs_default(gas0Balance).gt(0)) {
           httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
             setLoading(false);
-            if (configRes.code !== 0) {
+            if (!configRes || configRes.status === "failure") {
               _balance("0");
               key.current = "";
               return;
@@ -885,11 +884,11 @@ var useGas0Balance = () => {
             _balance(gas0Balance);
             _config({
               ...Gas0Constants[chainId],
-              deployer_address: configRes.data.deployer_address,
-              function_call_tip: configRes.data.function_call_tip,
-              function_multicall_tip: configRes.data.function_multicall_tip,
-              token_proxy: configRes.data.token_proxy,
-              wallet_bytecode: configRes.data.wallet_bytecode
+              deployer_address: configRes.deployer_address,
+              function_call_tip: configRes.function_call_tip,
+              function_multicall_tip: configRes.function_multicall_tip,
+              token_proxy: configRes.token_proxy,
+              wallet_bytecode: configRes.wallet_bytecode
             });
           });
         } else {
@@ -1240,10 +1239,10 @@ var WagmiWalletHandler = class {
                   owner
                 }
               );
-              if (res.code !== 0) {
+              if (!res || res.status === "failure") {
                 throw new Error(`functioncall error: ${res.msg}`);
               }
-              return res.data.tx_hash;
+              return res.tx_hash;
             } else {
               const aaContract = getContract({
                 abi: WalletAbi,
@@ -1299,9 +1298,9 @@ var gas0WalletCreateAndApprove = async (owner, api, isFree) => {
   const { data } = await httpPost(`${api}/create`, {
     owner
   });
-  if (data.code !== 0)
+  if (data.status === "failure")
     throw new Error(`setController error: ${data.msg}`);
-  return data.data.tx_hash;
+  return data.tx_hash;
 };
 
 // src/gas0/hooks/useWalletHandler.ts
@@ -3293,7 +3292,7 @@ var encodeFunctionMulticall = async (wallet, items) => {
         wallet: v2.from,
         to: v2.to,
         data: v2.data,
-        value: String(v2.value)
+        value: `0x${parseInt(String(v2.value), 10).toString(16)}`
       })),
       v: Number(v),
       r,
@@ -3303,7 +3302,7 @@ var encodeFunctionMulticall = async (wallet, items) => {
     if (res.code !== 0)
       throw new Error(`functionmulticall err: ${res.msg}`);
     const data = res.data.data ? res.data.data : res.data;
-    return data.tx_hash;
+    return `${data.tx_hash}`.replaceAll('"', "").replace(/\\/g, "");
   }
   return wallet.aa.contract.write.functionMulticall([items, Number(v), r, s]);
 };
@@ -3405,7 +3404,7 @@ var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.LineaMainnet]: "9901" /* ZytronLineaMain */,
-  [TVLChainId.LineaSepolia]: "19546" /* ZytronLineaSepoliaTestnet */
+  [TVLChainId.LineaSepolia]: "50098" /* ZytronLineaSepoliaTestnet */
 };
 var activeTokenList = {
   [TVLChainId.LineaMainnet]: {
@@ -5653,7 +5652,7 @@ var ChainPointPrice = {
   ["59141" /* LineaSepolia */]: 1 / 2e6,
   ["204" /* OPBNB */]: 1 / 25e4,
   ["5611" /* OPBNBTEST */]: 1 / 25e4,
-  ["19546" /* ZytronLineaSepoliaTestnet */]: 1 / 2e6,
+  ["50098" /* ZytronLineaSepoliaTestnet */]: 1 / 2e6,
   ["9901" /* ZytronLineaMain */]: 1 / 2e6
 };
 var pointsListDefault = (chainId) => {
@@ -13224,7 +13223,7 @@ var graphqlApiUrl = {
   ["59141" /* LineaSepolia */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
   ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  ["19546" /* ZytronLineaSepoliaTestnet */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
   ["9901" /* ZytronLineaMain */]: " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo"
 };
 var chainIdPre = {
@@ -13250,7 +13249,7 @@ var chainIdPre = {
   ["11155111" /* Sepolia */]: "Sp",
   ["223" /* B2 */]: "B2",
   ["1123" /* B2Testnet */]: "B2T",
-  ["19546" /* ZytronLineaSepoliaTestnet */]: "",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "",
   ["9901" /* ZytronLineaMain */]: "",
   ["50097" /* ZytronB2Testnet */]: "",
   ["167000" /* Taiko */]: "TK",

@@ -45,16 +45,16 @@ export const useGas0Balance = () => {
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
         // console.log(`${chainConf.Gas0.api}/balanceof/${acc.address}`, res);
-        if (res.code !== 0) {
+        if (!res || res.status === "failure") {
           _balance("0");
           key.current = "";
           return;
         }
-        const gas0Balance = res.data.amount;
+        const gas0Balance = res.amount;
         if (new BigNumberJs(gas0Balance).gt(0)) {
           httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
             setLoading(false);
-            if (configRes.code !== 0) {
+            if (!configRes || configRes.status === "failure") {
               _balance("0");
               key.current = "";
               return;
@@ -62,11 +62,11 @@ export const useGas0Balance = () => {
             _balance(gas0Balance);
             _config({
               ...Gas0Constants[chainId],
-              deployer_address: configRes.data.deployer_address,
-              function_call_tip: configRes.data.function_call_tip,
-              function_multicall_tip: configRes.data.function_multicall_tip,
-              token_proxy: configRes.data.token_proxy,
-              wallet_bytecode: configRes.data.wallet_bytecode,
+              deployer_address: configRes.deployer_address,
+              function_call_tip: configRes.function_call_tip,
+              function_multicall_tip: configRes.function_multicall_tip,
+              token_proxy: configRes.token_proxy,
+              wallet_bytecode: configRes.wallet_bytecode,
             });
           });
         } else {

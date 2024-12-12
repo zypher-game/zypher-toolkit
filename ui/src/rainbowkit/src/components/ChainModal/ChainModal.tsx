@@ -40,7 +40,6 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
   const { appName } = useContext(AppContext);
 
   const rainbowkitChains = useRainbowKitChains();
-
   const chainClickHandle = useCallback(
     ({ isCurrentChain, chain }: { isCurrentChain: boolean; chain: Chain }) => {
       if (isCurrentChain) {
@@ -122,7 +121,6 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
             {switchNetwork ? (
               rainbowkitChains.map(({ iconBackground, id, name }, idx) => {
                 const chain = chains.find((c) => c.id === id);
-
                 const isCurrentChain = chain
                   ? chain.id === activeChain?.id
                   : false;

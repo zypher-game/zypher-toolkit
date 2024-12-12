@@ -7,4 +7,4 @@ export declare const aaApproveAndFcErc20: ({ erc20Address, wallet, tokenAmount, 
     permitForAddress: Address;
     tokenAmount: string;
     otherFc: MulticallMessageItem[];
-}) => Promise<any>;
+}) => Promise<string>;
