@@ -387,6 +387,8 @@ export const useRedeposit = (): {
           })
           if (canOnlyIncrease) {
             setRedepositDialog(false)
+          } else {
+            setRedepositValue('')
           }
         } else {
           throw Object.assign(new Error('Increment Transaction Failed'), { name: 'increment' })

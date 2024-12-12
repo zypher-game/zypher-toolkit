@@ -2,7 +2,6 @@ import { BigNumberJs, ChainId, Currency, TVLStakingSupportedChainId, useRecoilVa
 import React, { memo, useMemo } from 'react'
 
 import Audited from '@/pages/Active/components/Audited/Audited'
-import ExtendBtn from '@/pages/Active/components/ExtendBtn/ExtendBtn'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import RedepositBtn from '@/pages/Active/components/RedepositBtn/RedepositBtn'
 import StakingBtn from '@/pages/Active/components/StakingBtn/StakingBtn'
@@ -20,13 +19,11 @@ const StakingTab = memo(
     chainIndex: number
     changeChainIndexHandle: (index: number) => void
   }) => {
-    console.log({ chainIdLocal })
     const tvlStakingData = useRecoilValue(tvlStakingDataState)
     const isEnd = useMemo(() => {
       try {
         const now = parseInt(`${new Date().valueOf() / 1000}`)
         const END_TIME = tvlStakingData[chainIdLocal][Currency[chainIdLocal]].END_TIME
-        console.log({ END_TIME })
         if (END_TIME && new BigNumberJs(END_TIME).lt(now)) {
           return true
         }

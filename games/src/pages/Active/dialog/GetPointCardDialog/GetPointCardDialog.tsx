@@ -16,7 +16,12 @@ const GetPointCardDialog = memo(() => {
     }
   }, [postGroupRead])
   return (
-    <ModalWithMotion isOpen={!!(parent || owner)} onDismiss={handleCancel} contentClassName={css.center}>
+    <ModalWithMotion
+      isOpen={!!(parent || owner)}
+      // isOpen={true}
+      onDismiss={handleCancel}
+      contentClassName={css.center}
+    >
       <div className={css.card}>
         {owner ? (
           <Item

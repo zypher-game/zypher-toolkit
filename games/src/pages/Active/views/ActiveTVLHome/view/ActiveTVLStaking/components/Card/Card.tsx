@@ -91,7 +91,7 @@ const Card = memo(
             dataLoading={isTvlDataLoading}
           />
           <PixelCardOne
-            title={'Obtained by restaking tokens'}
+            title={'Obtained by staking LRT tokens'}
             rewardPoints={restakingRewardStr}
             growthCoefficientStr={restakingGrowthCoefficientStr}
             // !restakingGrowthCoefficient || restakingGrowthCoefficient === '0'

@@ -54,11 +54,11 @@ const TableWrap = memo(
             isHead={true}
             data={[
               'Token',
-              type === 'native' ? 'Staked' : 'Restaked',
+              'Staked',
               'Ratio',
               'GP',
               ['APR', 'Covers a variety of benefits: LXP, Reward Points, SBT, CR Hero Mystery Box and GP.'],
-              'Unwithdraw',
+              'Unlock Amt',
               'Unlock Time',
               'TVL'
             ]}
@@ -176,7 +176,7 @@ const RowM = memo(({ v, onClick, type }: { v: ITVLStakingData; onClick?: any; ty
             ['Ratio', v.ratio + '%'],
             ['GP', v.earnGPStr],
             ['APR', v.apr + '%', 'Covers a variety of benefits: LXP, Reward Points, SBT, CR Hero Mystery Box and GP.'],
-            ['Unwithdraw', v.withdrawAmountStr],
+            ['Unlock Amt', v.withdrawAmountStr],
             ['Unlock Time', v.unlockTimeStr],
             ['TVL', v.totalStakedAmountStr]
           ].map(vv => (

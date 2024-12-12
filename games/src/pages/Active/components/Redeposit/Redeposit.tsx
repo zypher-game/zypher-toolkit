@@ -303,7 +303,8 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
           </li>
           <li>
             <p>
-              Earn Points Per Day By {stakingLabel} {currency}
+              Earn Points Per Day By Staking LRT Tokens
+              {/* Earn Points Per Day By {stakingLabel} {currency} */}
             </p>
             <div className={css.fr}>
               <p>{earnPoints}</p>
