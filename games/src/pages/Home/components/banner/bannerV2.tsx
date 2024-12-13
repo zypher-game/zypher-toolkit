@@ -29,7 +29,7 @@ const BannerV2Widget: FC = memo(() => {
         imgPath: preStaticUrl + `/img/home/banner09.jpg`
       },
       {
-        link: isPro() ? 'https://acequest.io/zAce/' : 'https://testnet.acequest.io/zAce/',
+        link: isPro ? 'https://acequest.io/zAce/' : 'https://testnet.acequest.io/zAce/',
         alt: 'zAce',
         imgPath: preStaticUrl + `/img/home/banner11.jpg`
       },

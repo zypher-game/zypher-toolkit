@@ -58,7 +58,6 @@ export const usePreHandleAction = () => {
   const _preHandleAction = usePreHandleGlobal()
   const preHandleAction = useCallback(
     (chainId?: ChainId | ChainId[]) => {
-      console.log({ chainId, ss: isArray(chainId) })
       if (chainId && !isArray(chainId)) {
         return _preHandleAction(env, [chainId])
       }

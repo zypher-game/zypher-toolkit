@@ -32,17 +32,19 @@ const TVLFooter = memo(() => {
       _chainId = defaultActiveChainId as unknown as ChainId
     }
     const linkType = getLinkPre(_chainId)
-    const res = await request(`${TVL_API[_chainId]}/api/allStaking`, {
-      method: 'GET',
-      params: {
-        linkType: linkType.key
-      },
-      headers: {
-        'Content-Type': 'application/json'
+    if (linkType) {
+      const res = await request(`${TVL_API[_chainId]}/api/allStaking`, {
+        method: 'GET',
+        params: {
+          linkType: linkType.key
+        },
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+      if (res.data && res.data['total']) {
+        setTvl(formatMoney(new BigNumberJs(res.data['total']).dividedBy(divisorBigNumber).toFixed(), 8))
       }
-    })
-    if (res.data && res.data['total']) {
-      setTvl(formatMoney(new BigNumberJs(res.data['total']).dividedBy(divisorBigNumber).toFixed(), 8))
     }
   }, [chainId])
   useEffect(() => {

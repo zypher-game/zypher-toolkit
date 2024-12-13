@@ -73,6 +73,7 @@ const StartGame: React.FC = () => {
       }
     }
   }, [account, chainId])
+  // console.log({ currentStep })
   return (
     <>
       <div className={`${css.startGame} ${IS_TELEGRAM ? css.startTgGame : ''}`}>

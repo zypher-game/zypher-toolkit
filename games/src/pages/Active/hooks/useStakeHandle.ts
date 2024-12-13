@@ -127,11 +127,9 @@ export const useStakeHandle = (
       const currency = depositCurrency
       const amount = depositValue
       try {
-        console.log('invitationCode: ', invitationCode)
         try {
           if (!isRegistered) {
             const check = await codeCheck(invitationCode)
-            console.log({ check, invitationCode })
           }
         } catch (e) {
           setErrorToast('Verification code has been registered')

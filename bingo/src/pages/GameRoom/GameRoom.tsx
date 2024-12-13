@@ -177,13 +177,6 @@ const PlayerTurn = styled.div<{ lang: string }>`
     font-size: 14px;
   }
 `
-const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }>`
-  position: absolute;
-  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '4px' : ' -73px')};
-  left: ${({ isMobile }) => (isMobile ? '0px' : ' 40px')};
-  z-index: 9998;
-  width: ${({ isMobile }) => (isMobile ? '100%' : ' 500px')};
-`
 
 const GameRoom: React.FC = () => {
   const IS_TELEGRAM = useIsTelegram()
@@ -228,21 +221,23 @@ const GameRoom: React.FC = () => {
   }, [gamesWon, gamesWon])
   const [gradeModalOpen, setGradeModalOpen] = useState(false)
   const Win = useCallback(async () => {
-    if (!!winner) {
-      await httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
-      setRefreshState(pre => pre + 1)
-      colseBackgroundMusic()
-      if (addressIsEqual(account, winner)) {
-        playWinSound()
-      } else {
-        playLoseSound()
+    try {
+      if (!!winner) {
+        if (window.IS_TELEGRAM) {
+          await httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
+        }
+        setRefreshState(pre => pre + 1)
+        colseBackgroundMusic()
+        if (addressIsEqual(account, winner)) {
+          playWinSound()
+        } else {
+          playLoseSound()
+        }
       }
-    }
+    } catch {}
   }, [account, winner])
   useEffect(() => {
-    if (window.IS_TELEGRAM) {
-      Win()
-    }
+    Win()
   }, [account, winner])
 
   useEffect(() => {
@@ -502,10 +497,6 @@ const GameRoom: React.FC = () => {
 
   return (
     <>
-      <ControllerWrapper isMobile={isMobile} IS_TELEGRAM={IS_TELEGRAM}>
-        <ControllerMenu />
-      </ControllerWrapper>
-
       <div className={css.gameRoomCard}>
         {showTurn && <PlayerTurn lang={lang}>{t('Round number', { number: round })}</PlayerTurn>}
         <div id="game-room" className={css.gameRoom}>

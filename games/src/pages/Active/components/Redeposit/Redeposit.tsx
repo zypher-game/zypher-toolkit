@@ -85,7 +85,6 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
     }
   }, [JSON.stringify(tvlStakingData), chainIdLocal, redepositCurrency])
   const { canOnlyLock, canIncrease, canOnlyIncrease } = useMemo(() => {
-    console.log({ chooseValue })
     const obj = {
       canOnlyLock: false,
       canOnlyIncrease: false,

@@ -25,11 +25,11 @@ export enum TVLChainId {
   LineaSepolia = ChainId.LineaSepolia,
 }
 export const hideTVLStakingSupportedChainId = true;
-export const TVLStakingSupportedChainId = (!isPro()
+export const TVLStakingSupportedChainId = (!isPro
   ? [TVLChainId.LineaSepolia]
   : // [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
     [TVLChainId.LineaMainnet]) as unknown as ChainId[];
-export const defaultActiveChainId = (isPro()
+export const defaultActiveChainId = (isPro
   ? TVLChainId.LineaMainnet
   : TVLChainId.LineaSepolia) as unknown as ChainId;
 export const L3ChainId: Record<any, ChainId> = {
@@ -136,7 +136,7 @@ export const LinkPre: Record<string, ILinkPre> = {
   L: {
     key: 1,
     label: "L",
-    chainId: (isPro()
+    chainId: (isPro
       ? [TVLChainId.LineaMainnet]
       : [
           TVLChainId.LineaSepolia,

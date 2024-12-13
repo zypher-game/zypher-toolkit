@@ -3,8 +3,7 @@ import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
 import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
 import contract from "@zypher-game/events/contracts.json";
 import BigNumberjs from "bignumber.js";
-import { Address, WalletClient } from "wagmi";
-
+import { Address } from "wagmi";
 export const appInfo = {
   appName: "Zypher Game",
 };
@@ -12,7 +11,7 @@ export const divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 export const txStatus = "success"; // '1'
 
-export const isPro = (): boolean => {
+export const isPro = ((): boolean => {
   if (
     window.location.host.startsWith("ark") ||
     window.location.host.startsWith("app") ||
@@ -21,7 +20,9 @@ export const isPro = (): boolean => {
     return true;
   }
   return false;
-};
+})();
+export const GPV2 = false;
+// export const GPV2 = isPro ? false : true;
 
 export const isLocalhost = (): boolean => {
   if (window.location.host.startsWith("192.168")) {
@@ -30,7 +31,7 @@ export const isLocalhost = (): boolean => {
   return false;
 };
 
-export const preStaticUrl = isPro()
+export const preStaticUrl = isPro
   ? "https://static.zypher.game"
   : "https://static-dev.zypher.game";
 export enum ChainId {
@@ -60,7 +61,7 @@ export enum ChainId {
   B2 = "223",
   B2Testnet = "1123",
 
-  ZytronLineaSepoliaTestnet = "19546",
+  ZytronLineaSepoliaTestnet = "50098",
   ZytronLineaMain = "9901",
   ZytronB2Testnet = "50097",
 
@@ -70,7 +71,7 @@ export enum ChainId {
   B3Mainnet = "8333",
 }
 const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
-export const DPSupportChainId = !isPro()
+export const DPSupportChainId = !isPro
   ? [
       ChainId.LineaMainnet,
       ChainId.LineaSepolia,
@@ -82,11 +83,11 @@ export const DPSupportChainId = !isPro()
   : [ChainId.LineaMainnet, ChainId.ZytronLineaMain, ChainId.OPBNB];
 
 // export const defaultChainId = ChainId.OPBNB;
-
+console.log({ DPSupportChainId });
 export const bingoV1SupportedChainId = DPSupportChainId;
 export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
-  : !isPro()
+  : !isPro
   ? [
       ChainId.Arbitrum,
       // ChainId.ArbitrumGoerli,
@@ -118,7 +119,7 @@ export const supportedChainIds = (
     ? TGChainId
     : chainList
     ? chainList
-    : !isPro() || env === "develop"
+    : !isPro || env === "develop"
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaSepolia,
@@ -214,9 +215,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
   [ChainId.B2]: ["https://rpc.bsquared.network"],
   [ChainId.B2Testnet]: ["https://b2-testnet.alt.technology"],
   [ChainId.ZytronLineaMain]: ["https://rpc.zypher.network"],
-  [ChainId.ZytronLineaSepoliaTestnet]: [
-    "https://linea-testnet-zytron.zypher.game",
-  ],
+  [ChainId.ZytronLineaSepoliaTestnet]: ["https://rpc-testnet.zypher.network"],
   [ChainId.ZytronB2Testnet]: ["https://b2-testnet-zytron.zypher.game"],
   [ChainId.Taiko]: ["https://rpc.hekla.taiko.xyz"],
   [ChainId.SagaMainnet]: [
@@ -250,7 +249,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.B2Testnet]: ["https://testnet-explorer.bsquared.network"],
   [ChainId.ZytronLineaMain]: ["https://explorer.zypher.network"],
   [ChainId.ZytronLineaSepoliaTestnet]: [
-    "https://linea-testnet-zytron-blockscout.zypher.game",
+    "https://explorer-testnet.zypher.network",
   ],
   [ChainId.ZytronB2Testnet]: [
     "https://b2-testnet-zytron-blockscout.zypher.game",
@@ -283,7 +282,7 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.Sepolia]: "Sepolia",
   [ChainId.B2]: "B²",
   [ChainId.B2Testnet]: "B² Testnet",
-  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
+  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Testnet",
   [ChainId.ZytronLineaMain]: "Zytron Linea",
   [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
   [ChainId.Taiko]: "Taiko Mainnet",
@@ -313,7 +312,7 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Sepolia]: "Sepolia",
   [ChainId.B2]: "B² Mainnet",
   [ChainId.B2Testnet]: "B² Testnet",
-  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Linea(Sepolia) Testnet",
+  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Testnet",
   [ChainId.ZytronLineaMain]: "Zytron Linea",
   [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
   [ChainId.Taiko]: "Taiko Mainnet",
@@ -471,10 +470,10 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
   },
   [ChainId.ZytronLineaMain]: {
-    multicall: ["0x532293bF9ee1A064549dB9d040d5f00A85C49BbB"],
+    multicall: ["0xa8fAD960aCf062715e1fd3DBD0ee319B2d753b23"],
   },
   [ChainId.ZytronLineaSepoliaTestnet]: {
-    multicall: ["0x7e31A57750CeaD3F6c380d2aeEe3d6aE48c931b9"],
+    multicall: ["0xF3e4AEe14224a0231f80eFaB003Ecb3c00377DE2"],
   },
   [ChainId.ZytronB2Testnet]: {
     multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
@@ -551,13 +550,13 @@ export const zkBingo = (
     if (chainId === ChainId.ZytronLineaSepoliaTestnet) {
       address = {
         date: "2024-08-01T07:49:19.451Z",
-        chainId: 19546,
-        deployer: "0x44Cb6dA95D121F812AD047747129C34C1F9a37f6",
-        ZypherGameToken: "0x71a56BD2E4391bc6f6012F843DE6d7e82E3bc64f",
-        ZkBingoCard: "0x3e409DF35a8D54a420ec9592dDA288735153b81a",
-        ZkBingoLobby: "0x4C3A8897f5755c1EE4B67d36F1961E3C516C5b8a",
-        ZkBingoFee: "0xD0AFCaDAebFB4FFbaDC0CeE761689B7bC8d681cb",
-        ZkBingoPoints: "0x98454527B93eEd4F5252774Ea2166b126eD2C847",
+        chainId: 50098,
+        deployer: "0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE",
+        ZypherGameToken: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
+        ZkBingoCard: "0xF5b60bb4Da816b98Ef69cd0B811b51Cc73D29647",
+        ZkBingoLobby: "0x4961661f732e995133fDAa7881481BB10e424f78",
+        ZkBingoFee: "0xE33C000C23D6712319Fe2BF8FA873E62AdE2fa01",
+        ZkBingoPoints: "0xc7A8cbA2982228C00089226cf1C5cF5b253BBb58",
       };
     } else if (chainId === ChainId.ZytronLineaMain) {
       address = {

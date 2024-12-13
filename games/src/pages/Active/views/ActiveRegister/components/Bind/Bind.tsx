@@ -23,7 +23,6 @@ const Bind = memo(
     // const [isDiscordClick, setIsDiscordClick] = useState(false)
     const { getUserInfo } = useGetDataCall()
     const shareOnTwitter = () => {
-      console.log({ isTwitterClick })
       CheckTwitterHandle()
       setIsTwitterClick(true)
     }

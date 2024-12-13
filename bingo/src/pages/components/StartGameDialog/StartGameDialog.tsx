@@ -96,7 +96,6 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       } else {
         lineupUsers = rres[0]
       }
-      console.log(1)
       if (lineupUsers.map((v: string) => v.toLowerCase()).includes(aa_mm_address.toLowerCase())) {
         const txn = await lobbyContract.write.leave({
           account: aa_mm_address,
@@ -117,15 +116,12 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
         toBingoPlayHrefHandle()
         return
       }
-      console.log(2)
       if (bingoVersion === IBingoVersion.v1) {
-        console.log(4, gameId)
         const txn = await lobbyContract.write.abandon([gameId], {
           account: aa_mm_address
           // maxFeePerGas: gasPrice[chainId],
           // maxPriorityFeePerGas: gasPrice[chainId]
         })
-        console.log(5)
         const hash = typeof txn === 'string' ? txn : txn.hash
         const leaveLx: TransactionReceipt | undefined = await waitForTransaction({ confirmations: 1, hash })
         if (leaveLx && leaveLx.status === txStatus) {
@@ -138,7 +134,6 @@ const StartGameDialog = memo(({ isFromIndex }: { isFromIndex: boolean }) => {
       resetGameRoom()
       toBingoPlayHrefHandle()
     } catch (e: any) {
-      console.log(3)
       setModalLoading(false)
       setErrorToast(e, lobbyContract)
     }

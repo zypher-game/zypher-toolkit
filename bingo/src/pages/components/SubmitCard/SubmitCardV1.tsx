@@ -153,9 +153,9 @@ const SubmitCardV1 = () => {
       const GpContract = erc20Contract(chainId, env, GPAddress, walletClient)
       const { betSize: tokenAmount, level: realLevel } = activeLevels[level] as any
       const donationFee = await bingoLobbyContract.functions.donationFee()
-      console.log({ donationFee: new BigNumberJs(donationFee).toString() })
+      // console.log({ donationFee: new BigNumberJs(donationFee).toString() })
       let hash = '' as Hash
-      console.log({ aa, wallet })
+      // console.log({ aa, wallet })
       if (account && aa && wallet) {
         const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
         const joinData = await (async () => {

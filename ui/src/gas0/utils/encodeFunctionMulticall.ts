@@ -33,7 +33,7 @@ export const encodeFunctionMulticall = async (
         wallet: v.from,
         to: v.to,
         data: v.data,
-        value: String(v.value),
+        value: `0x${parseInt(String(v.value), 10).toString(16)}`,
       })),
       v: Number(v),
       r,
@@ -43,7 +43,7 @@ export const encodeFunctionMulticall = async (
     // list wallet not same
     if (res.code !== 0) throw new Error(`functionmulticall err: ${res.msg}`);
     const data = res.data.data ? res.data.data : res.data;
-    return data.tx_hash;
+    return `${data.tx_hash}`.replaceAll('"', "").replace(/\\/g, "");
   }
   return wallet.aa.contract.write.functionMulticall([items, Number(v), r, s]);
 };

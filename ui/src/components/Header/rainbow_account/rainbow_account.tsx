@@ -3,13 +3,18 @@ import React, { memo, useCallback } from "react";
 import { useSetRecoilState } from "recoil";
 
 import { useIsW768 } from "../../../hooks/useWindowSize";
+import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
 
 import Balance from "../../ConnectWallet/components/Balance/Balance";
 import ChainSelectorWidget from "../../ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDialog";
 import PointsRuleDialog from "../../ConnectWallet/components/PointsDialog/PointsRuleDialog";
-import { pointsDialogState } from "../../ConnectWallet/state/connectWalletState";
-import { ChainId } from "../../../constant/constant";
+import {
+  pointsDialogState,
+  pointsL2DialogState,
+  pointsL3DialogState,
+} from "../../ConnectWallet/state/connectWalletState";
+import { ChainId, GPV2 } from "../../../constant/constant";
 import AccountInfo from "./AccountInfo/AccountInfo";
 const Account = memo(
   ({
@@ -33,9 +38,29 @@ const Account = memo(
   }) => {
     const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
+    const setPointsL3DialogState = useSetRecoilState(pointsL3DialogState);
+    const setPointsL2DialogState = useSetRecoilState(pointsL2DialogState);
+    const { chainId } = useActiveWeb3React();
     const showPointsModal = useCallback(() => {
-      setPointsDialogState(true);
-    }, [setPointsDialogState]);
+      // GPV2
+      if (GPV2) {
+        if (
+          [ChainId.ZytronLineaMain, ChainId.ZytronLineaSepoliaTestnet].includes(
+            chainId
+          )
+        ) {
+          setPointsL3DialogState(true);
+        } else if (
+          [ChainId.LineaMainnet, ChainId.LineaSepolia].includes(chainId)
+        ) {
+          setPointsL2DialogState(true);
+        } else {
+          setPointsDialogState(true);
+        }
+      } else {
+        setPointsDialogState(true);
+      }
+    }, [setPointsDialogState, chainId]);
     return (
       <>
         <Balance

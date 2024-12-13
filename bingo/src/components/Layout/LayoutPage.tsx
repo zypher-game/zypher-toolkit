@@ -8,6 +8,7 @@ import {
   NavKey,
   SideBar,
   sideCollapseState,
+  useIsTelegram,
   useIsW768,
   useRecoilState,
   useRecoilValue
@@ -19,7 +20,9 @@ import { isEqual } from 'lodash'
 import React, { memo, useEffect, useMemo, useState } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import styled from 'styled-components'
 
+import ControllerMenu from '@/pages/GameRoom/components/ControllerMenu'
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
 import { useAppDispatch } from '@/store/hooks'
 import { env } from '@/utils/config'
@@ -34,6 +37,14 @@ const { Sider, Content } = LayoutAntd
 interface IProps {
   children: React.ReactNode
 }
+
+const ControllerWrapper = styled.div<{ isMobile: boolean; IS_TELEGRAM: boolean }>`
+  position: ${({ isMobile }) => (isMobile ? 'absolute' : ' fixed')};
+  top: ${({ isMobile, IS_TELEGRAM }) => (IS_TELEGRAM ? '0px' : isMobile ? '51px' : ' 0')};
+  left: ${({ isMobile }) => (isMobile ? '0px' : ' 40px')};
+  z-index: 99;
+  width: ${({ isMobile }) => (isMobile ? '100%' : ' 500px')};
+`
 const LayoutPage = memo((props: IProps) => {
   const bingoVersion = useRecoilValue(bingoVersionState)
   const location = useLocation()
@@ -61,9 +72,17 @@ const LayoutPage = memo((props: IProps) => {
   const supportedChainList = useMemo(() => {
     return bingoVersion === IBingoVersion.beta ? bingoBetaSupportedChainId : bingoV1SupportedChainId
   }, [bingoVersion])
-
+  const IS_TELEGRAM = useIsTelegram()
+  const isPlay = useMemo(() => {
+    return (pathnameArr ?? []).join().includes('play')
+  }, [JSON.stringify(pathnameArr)])
   return (
     <LayoutAntd className={classnames(`lt-layout ${bingoVersion}`, pathnameArr[1] === '' ? 'zBingo' : pathnameArr[1])}>
+      {isPlay ? (
+        <ControllerWrapper isMobile={isW768} IS_TELEGRAM={IS_TELEGRAM}>
+          <ControllerMenu />
+        </ControllerWrapper>
+      ) : null}
       <Header
         className="lt-header"
         env={env}

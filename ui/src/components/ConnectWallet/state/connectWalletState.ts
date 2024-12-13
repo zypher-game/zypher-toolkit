@@ -36,6 +36,18 @@ export const pointsDialogState = atom({
   default: false,
   effects_UNSTABLE: [localStorageEffect("pointsDialog")],
 });
+
+export const pointsL3DialogState = atom({
+  key: "pointsL3DialogState",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("pointsL3DialogState")],
+});
+
+export const pointsL2DialogState = atom({
+  key: "pointsL2DialogState",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("pointsL2DialogState")],
+});
 export const pointsAnimState = atom({
   key: "pointsAnim",
   default: false,
