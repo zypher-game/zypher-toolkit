@@ -13223,7 +13223,7 @@ var graphqlApiUrl = {
   ["59141" /* LineaSepolia */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
   ["204" /* OPBNB */]: "https://opbnb-mainnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
   ["5611" /* OPBNBTEST */]: "https://opbnb-testnet-graph.zypher.game/subgraphs/name/opbnb/bingo",
-  ["50098" /* ZytronLineaSepoliaTestnet */]: "https://linea-sepolia-graph.zypher.game/subgraphs/name/linea/bingo",
+  ["50098" /* ZytronLineaSepoliaTestnet */]: "https://zytron-linea-testnet-graph.zypher.game/subgraphs/name/zytron/bingo",
   ["9901" /* ZytronLineaMain */]: " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo"
 };
 var chainIdPre = {
