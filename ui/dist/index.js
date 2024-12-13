@@ -64,7 +64,7 @@ var isPro = (() => {
   }
   return false;
 })();
-var GPV2 = isPro ? false : true;
+var GPV2 = false;
 var isLocalhost = () => {
   if (window.location.host.startsWith("192.168")) {
     return true;
