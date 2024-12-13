@@ -12930,7 +12930,7 @@ var Header = (props) => {
       isW1670 ? "header_header_1670" : "",
       props.className
     ),
-    style: { position: "sticky", top: 0, zIndex: 99, width: "100%" }
+    style: { position: "sticky", top: 0, zIndex: 98, width: "100%" }
   }, isBingo ? null : /* @__PURE__ */ React93.createElement("div", {
     className: "header_left"
   }, /* @__PURE__ */ React93.createElement(ZypherLogo, {

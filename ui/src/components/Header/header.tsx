@@ -91,7 +91,7 @@ const Header = (props: IProps): React.ReactElement | null => {
         isW1670 ? "header_header_1670" : "",
         props.className
       )}
-      style={{ position: "sticky", top: 0, zIndex: 99, width: "100%" }}
+      style={{ position: "sticky", top: 0, zIndex: 98, width: "100%" }}
     >
       {isBingo ? null : (
         <div className={"header_left"}>
