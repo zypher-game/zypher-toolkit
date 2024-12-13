@@ -6,7 +6,6 @@ import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 import CurrencyLogo from "../../../../components/CurrencyLogo";
-import erc20Contract from "../../../../contract/erc20";
 import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
@@ -104,23 +103,6 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           console.error("fetchAccountMonsterNft: ", e);
           return undefined;
         }
-
-        // console.log(1111);
-        // const pointsContract = erc20Contract(
-        //   chainId,
-        //   env,
-        //   pointsAddress,
-        //   walletClient
-        // );
-        // console.log(3333);
-        // const balance = await pointsContract.read.balanceOf([account]);
-        // console.log(4444);
-        // console.log({ balance, pointsAddress, account });
-        // setPointsBalance(
-        //   new BigNumberJs(balance.toString())
-        //     .dividedBy(divisorBigNumber)
-        //     .toNumber()
-        // );
       }
     } catch (e) {
       setPointsBalance(0);

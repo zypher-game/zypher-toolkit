@@ -4,7 +4,6 @@ import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
 import contract from "@zypher-game/events/contracts.json";
 import BigNumberjs from "bignumber.js";
 import { Address } from "wagmi";
-
 export const appInfo = {
   appName: "Zypher Game",
 };
@@ -12,7 +11,7 @@ export const divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 export const txStatus = "success"; // '1'
 
-export const isPro = (): boolean => {
+export const isPro = ((): boolean => {
   if (
     window.location.host.startsWith("ark") ||
     window.location.host.startsWith("app") ||
@@ -21,7 +20,8 @@ export const isPro = (): boolean => {
     return true;
   }
   return false;
-};
+})();
+export const GPV2 = isPro ? false : true;
 
 export const isLocalhost = (): boolean => {
   if (window.location.host.startsWith("192.168")) {
@@ -30,7 +30,7 @@ export const isLocalhost = (): boolean => {
   return false;
 };
 
-export const preStaticUrl = isPro()
+export const preStaticUrl = isPro
   ? "https://static.zypher.game"
   : "https://static-dev.zypher.game";
 export enum ChainId {
@@ -70,7 +70,7 @@ export enum ChainId {
   B3Mainnet = "8333",
 }
 const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
-export const DPSupportChainId = !isPro()
+export const DPSupportChainId = !isPro
   ? [
       ChainId.LineaMainnet,
       ChainId.LineaSepolia,
@@ -86,7 +86,7 @@ console.log({ DPSupportChainId });
 export const bingoV1SupportedChainId = DPSupportChainId;
 export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
-  : !isPro()
+  : !isPro
   ? [
       ChainId.Arbitrum,
       // ChainId.ArbitrumGoerli,
@@ -118,7 +118,7 @@ export const supportedChainIds = (
     ? TGChainId
     : chainList
     ? chainList
-    : !isPro() || env === "develop"
+    : !isPro || env === "develop"
     ? [
         ChainId.LineaMainnet,
         ChainId.LineaSepolia,

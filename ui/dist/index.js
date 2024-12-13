@@ -58,19 +58,20 @@ var appInfo = {
 var divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
 var divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
 var txStatus = "success";
-var isPro = () => {
+var isPro = (() => {
   if (window.location.host.startsWith("ark") || window.location.host.startsWith("app") || window.location.host.startsWith("zypher")) {
     return true;
   }
   return false;
-};
+})();
+var GPV2 = isPro ? false : true;
 var isLocalhost = () => {
   if (window.location.host.startsWith("192.168")) {
     return true;
   }
   return false;
 };
-var preStaticUrl = isPro() ? "https://static.zypher.game" : "https://static-dev.zypher.game";
+var preStaticUrl = isPro ? "https://static.zypher.game" : "https://static-dev.zypher.game";
 var ChainId = /* @__PURE__ */ ((ChainId9) => {
   ChainId9["Bsc"] = "56";
   ChainId9["BscTestnet"] = "97";
@@ -103,7 +104,7 @@ var ChainId = /* @__PURE__ */ ((ChainId9) => {
   return ChainId9;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
-var DPSupportChainId = !isPro() ? [
+var DPSupportChainId = !isPro ? [
   "59144" /* LineaMainnet */,
   "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
@@ -113,7 +114,7 @@ var DPSupportChainId = !isPro() ? [
 ] : ["59144" /* LineaMainnet */, "9901" /* ZytronLineaMain */, "204" /* OPBNB */];
 console.log({ DPSupportChainId });
 var bingoV1SupportedChainId = DPSupportChainId;
-var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro() ? [
+var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro ? [
   "42161" /* Arbitrum */,
   "5000" /* Mantle */,
   "9980" /* Combo */,
@@ -131,7 +132,7 @@ var bingoSupportedChainId = TGChainId || [
   ...bingoBetaSupportedChainId
 ];
 var supportedChainIds = (env, chainList) => {
-  return TGChainId ? TGChainId : chainList ? chainList : !isPro() || env === "develop" ? [
+  return TGChainId ? TGChainId : chainList ? chainList : !isPro || env === "develop" ? [
     "59144" /* LineaMainnet */,
     "59141" /* LineaSepolia */,
     "50098" /* ZytronLineaSepoliaTestnet */,
@@ -3398,8 +3399,8 @@ var TVLChainId = ((TVLChainId2) => {
   return TVLChainId2;
 })(TVLChainId || {});
 var hideTVLStakingSupportedChainId = true;
-var TVLStakingSupportedChainId = !isPro() ? [TVLChainId.LineaSepolia] : [TVLChainId.LineaMainnet];
-var defaultActiveChainId = isPro() ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia;
+var TVLStakingSupportedChainId = !isPro ? [TVLChainId.LineaSepolia] : [TVLChainId.LineaMainnet];
+var defaultActiveChainId = isPro ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia;
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
   [TVLChainId.B2Testnet]: "50097" /* ZytronB2Testnet */,
@@ -3470,7 +3471,7 @@ var LinkPre = {
   L: {
     key: 1,
     label: "L",
-    chainId: isPro() ? [TVLChainId.LineaMainnet] : [
+    chainId: isPro ? [TVLChainId.LineaMainnet] : [
       TVLChainId.LineaSepolia,
       TVLChainId.LineaMainnet
     ]
@@ -5015,7 +5016,7 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 });
 
 // src/hooks/useNavItem.tsx
-var zAceLink = isPro() ? "https://zytron-linea.acequest.io/pokerking/" : "https://testnet.acequest.io/zAce/";
+var zAceLink = isPro ? "https://zytron-linea.acequest.io/pokerking/" : "https://testnet.acequest.io/zAce/";
 var crLink = "https://testnet.cryptorumble.io";
 var LinkList = [
   "https://zypher.game/bingo/",
@@ -5497,6 +5498,16 @@ var pointsDialogState = atom7({
   default: false,
   effects_UNSTABLE: [localStorageEffect("pointsDialog")]
 });
+var pointsL3DialogState = atom7({
+  key: "pointsL3DialogState",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("pointsL3DialogState")]
+});
+var pointsL2DialogState = atom7({
+  key: "pointsL2DialogState",
+  default: false,
+  effects_UNSTABLE: [localStorageEffect("pointsL2DialogState")]
+});
 var pointsAnimState = atom7({
   key: "pointsAnim",
   default: false
@@ -5551,7 +5562,7 @@ var pointsBalanceState = atom7({
 
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames4 from "classnames";
-import React17, { memo as memo13, useCallback as useCallback12, useEffect as useEffect12, useState as useState13 } from "react";
+import React17, { memo as memo13, useCallback as useCallback12, useEffect as useEffect11, useState as useState13 } from "react";
 import { useRecoilState as useRecoilState6, useRecoilValue as useRecoilValue9 } from "recoil";
 
 // src/components/CurrencyLogo/index.tsx
@@ -5606,7 +5617,7 @@ var useAccountInvitation = (env) => {
 };
 
 // src/hooks/usePoint.ts
-import { useCallback as useCallback11, useEffect as useEffect11, useState as useState12 } from "react";
+import { useCallback as useCallback11, useEffect as useEffect10, useState as useState12 } from "react";
 import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState6 } from "recoil";
 
 // src/hooks/usePublicNodeWaitForTransaction.ts
@@ -5704,7 +5715,7 @@ var useSwapPoint = ({
   const [pointsWarn, setPointsWarn] = useRecoilState4(pointsWarnState);
   const [choseIndex, setChoseIndex] = useState12();
   const { walletClient } = useAaWallet();
-  useEffect11(() => {
+  useEffect10(() => {
     setIsLoading(false);
   }, [pointsDialogOpen]);
   const swapPointHandle = useCallback11(
@@ -6006,7 +6017,7 @@ var PointsDialog = memo13(
       setSuccessToast,
       setErrorToast
     });
-    useEffect12(() => {
+    useEffect11(() => {
       if (chainId) {
         setTimeout(() => {
           const list = pointsListDefault(chainId);
@@ -6304,7 +6315,7 @@ import { useSetRecoilState as useSetRecoilState8 } from "recoil";
 import React22, {
   memo as memo18,
   useCallback as useCallback14,
-  useEffect as useEffect13,
+  useEffect as useEffect12,
   useMemo as useMemo6,
   useRef as useRef6,
   useState as useState14
@@ -6395,7 +6406,7 @@ var Navigation = memo18(
         }
       }
     }, [pathname, isW768, linksRefs.current]);
-    useEffect13(() => {
+    useEffect12(() => {
       init();
     }, [init]);
     const init2 = useCallback14(async () => {
@@ -6429,7 +6440,7 @@ var Navigation = memo18(
         });
       }
     }, [chooseIndex, pathname]);
-    useEffect13(() => {
+    useEffect12(() => {
       init2();
     }, [chooseIndex, pathname, linksRefs.current]);
     const updateLinePosition = useCallback14(async () => {
@@ -6452,10 +6463,10 @@ var Navigation = memo18(
         }
       }
     }, [chooseIndex, activeIndex, pathname, linksRefs]);
-    useEffect13(() => {
+    useEffect12(() => {
       updateLinePosition();
     }, [chooseIndex, activeIndex, pathname]);
-    useEffect13(() => {
+    useEffect12(() => {
       (async () => {
         await sleep(0.3);
         updateLinePosition();
@@ -6487,7 +6498,7 @@ var Navigation = memo18(
 var LinkComp = memo18(
   ({ item, children, setLinksRefs, className, Link }) => {
     const ref = useRef6(null);
-    useEffect13(() => {
+    useEffect12(() => {
       if (ref.current) {
         setLinksRefs(ref.current);
       }
@@ -6651,7 +6662,7 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React26, { memo as memo22, useCallback as useCallback16, useEffect as useEffect14, useMemo as useMemo8 } from "react";
+import React26, { memo as memo22, useCallback as useCallback16, useEffect as useEffect13, useMemo as useMemo8 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
 import styled3 from "styled-components";
 
@@ -6744,7 +6755,7 @@ var LinkToBetaDialog = memo22(() => {
       );
     }
   }, [ToUrlName]);
-  useEffect14(() => {
+  useEffect13(() => {
     if (!linkToBetaDialogOpen) {
       setLinkToBetaDialogChainId(void 0);
     }
@@ -6779,7 +6790,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames11 from "classnames";
-import React93, { useEffect as useEffect34, useMemo as useMemo18 } from "react";
+import React93, { useEffect as useEffect33, useMemo as useMemo18 } from "react";
 import { useRecoilState as useRecoilState14, useRecoilValue as useRecoilValue13, useSetRecoilState as useSetRecoilState16 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -6791,13 +6802,13 @@ import { useSetRecoilState as useSetRecoilState13 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
-import React29, { memo as memo25, useCallback as useCallback18, useEffect as useEffect16, useState as useState15 } from "react";
+import React29, { memo as memo25, useCallback as useCallback18, useEffect as useEffect15, useState as useState15 } from "react";
 import { useRecoilValue as useRecoilValue10, useSetRecoilState as useSetRecoilState10 } from "recoil";
 import styled4 from "styled-components";
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
-import React28, { memo as memo24, useCallback as useCallback17, useEffect as useEffect15 } from "react";
+import React28, { memo as memo24, useCallback as useCallback17, useEffect as useEffect14 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React27, { memo as memo23 } from "react";
@@ -6885,7 +6896,7 @@ var BalanceCountUpItem = memo24(
         onClick();
       }
     }, [onClick]);
-    useEffect15(() => {
+    useEffect14(() => {
       if (mount === 1) {
         setPointsAnimState(true);
         setTimeout(() => {
@@ -6989,7 +7000,7 @@ var Balance = memo25((props) => {
     await fetchErc20Balance();
     setLoading(false);
   }, [chainId, account, provider, walletClient, fetchErc20Balance]);
-  useEffect16(() => {
+  useEffect15(() => {
     if (account && chainId && walletClient) {
       fetchBalanceOf();
     }
@@ -7204,7 +7215,7 @@ var Avatar = ({
 var Avatar_default = Avatar;
 
 // src/hooks/useAvatar.ts
-import { useCallback as useCallback21, useEffect as useEffect17, useState as useState16 } from "react";
+import { useCallback as useCallback21, useEffect as useEffect16, useState as useState16 } from "react";
 import { atom as atom10, useRecoilState as useRecoilState11, useRecoilValue as useRecoilValue12 } from "recoil";
 
 // src/utils/generateAvatar.ts
@@ -7281,10 +7292,10 @@ var useAvatar = (account, hideAvatars) => {
       console.log("error _account", err);
     }
   }, [JSON.stringify(ownerList), account]);
-  useEffect17(() => {
+  useEffect16(() => {
     getAccount();
   }, [getAccount]);
-  useEffect17(() => {
+  useEffect16(() => {
     if (_account && !hideAvatars) {
       if (_account && !avatars2[`${_account == null ? void 0 : _account.toLowerCase()}`]) {
         getData();
@@ -7511,7 +7522,7 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React36, { memo as memo29, useCallback as useCallback23, useEffect as useEffect18, useState as useState17 } from "react";
+import React36, { memo as memo29, useCallback as useCallback23, useEffect as useEffect17, useState as useState17 } from "react";
 import { useRecoilState as useRecoilState13 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
@@ -7863,7 +7874,7 @@ var AccountInfoDialog = memo29(({ copy }) => {
     setAccountInfoDialogOpen(false);
     disconnect();
   }, [disconnect]);
-  useEffect18(() => {
+  useEffect17(() => {
     if (accountInfoDialogOpen && isMobile2) {
       setAccountInfoDialogOpen(false);
     }
@@ -7900,7 +7911,7 @@ var AddressBigWrapPop = memo29(({ copy }) => {
   const { account, chainId } = useActiveWeb3React();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState13(accountInfoDialogState);
-  useEffect18(() => {
+  useEffect17(() => {
     if (index || index === 0) {
       setTimeout(() => {
         setIndex(void 0);
@@ -7954,7 +7965,7 @@ var AddressMiddleWrapPop = memo29(({ copy }) => {
   const nativeBalanceStr = useNativeBalanceStr();
   const { disconnect } = useDisconnect2();
   const [, setAccountInfoDialogOpen] = useRecoilState13(accountInfoDialogState);
-  useEffect18(() => {
+  useEffect17(() => {
     if (index || index === 0) {
       setTimeout(() => {
         setIndex(void 0);
@@ -8105,9 +8116,24 @@ var Account2 = memo31(
   }) => {
     const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState13(pointsDialogState);
+    const setPointsL3DialogState = useSetRecoilState13(pointsL3DialogState);
+    const setPointsL2DialogState = useSetRecoilState13(pointsL2DialogState);
+    const { chainId } = useActiveWeb3React();
     const showPointsModal = useCallback25(() => {
-      setPointsDialogState(true);
-    }, [setPointsDialogState]);
+      if (GPV2) {
+        if (["9901" /* ZytronLineaMain */, "50098" /* ZytronLineaSepoliaTestnet */].includes(
+          chainId
+        )) {
+          setPointsL3DialogState(true);
+        } else if (["59144" /* LineaMainnet */, "59141" /* LineaSepolia */].includes(chainId)) {
+          setPointsL2DialogState(true);
+        } else {
+          setPointsDialogState(true);
+        }
+      } else {
+        setPointsDialogState(true);
+      }
+    }, [setPointsDialogState, chainId]);
     return /* @__PURE__ */ React38.createElement(React38.Fragment, null, /* @__PURE__ */ React38.createElement(Balance_default, {
       isMiddleWidth,
       CountUpNumber,
@@ -8151,7 +8177,7 @@ import { useAccount as useAccount3 } from "wagmi";
 import React39, {
   createContext as createContext3,
   useContext as useContext3,
-  useEffect as useEffect19,
+  useEffect as useEffect18,
   useMemo as useMemo13,
   useRef as useRef8
 } from "react";
@@ -8175,7 +8201,7 @@ function RainbowKitAuthenticationProvider({
   });
   const { isDisconnected } = useAccount2();
   const onceRef = useRef8(false);
-  useEffect19(() => {
+  useEffect18(() => {
     if (onceRef.current)
       return;
     onceRef.current = true;
@@ -8262,7 +8288,7 @@ function useMainnetEnsName(address) {
 }
 
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React54, { useCallback as useCallback30, useEffect as useEffect27, useState as useState21 } from "react";
+import React54, { useCallback as useCallback30, useEffect as useEffect26, useState as useState21 } from "react";
 import { createPortal } from "react-dom";
 import { RemoveScroll } from "react-remove-scroll";
 
@@ -8354,13 +8380,13 @@ function cssStringFromTheme(theme, options = {}) {
 }
 
 // src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect20, useState as useState18 } from "react";
+import { useEffect as useEffect19, useState as useState18 } from "react";
 var useWindowSize2 = () => {
   const [windowSize, setWindowSize] = useState18({
     height: void 0,
     width: void 0
   });
-  useEffect20(() => {
+  useEffect19(() => {
     function handleResize() {
       setWindowSize({
         height: window.innerHeight,
@@ -8500,7 +8526,7 @@ var lightTheme = ({
 lightTheme.accentColors = accentColors;
 
 // src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect21, useState as useState19 } from "react";
+import React41, { createContext as createContext4, useContext as useContext4, useEffect as useEffect20, useState as useState19 } from "react";
 import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
 
 // src/rainbowkit/src/transactions/transactionStore.ts
@@ -8641,10 +8667,10 @@ function TransactionStoreProvider({ children }) {
   const { address } = useAccount4();
   const chainId = useChainId();
   const [store] = useState19(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
-  useEffect21(() => {
+  useEffect20(() => {
     store.setProvider(provider);
   }, [store, provider]);
-  useEffect21(() => {
+  useEffect20(() => {
     if (address && chainId) {
       store.waitForPendingTransactions(address, chainId);
     }
@@ -8674,7 +8700,7 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React44, { useEffect as useEffect22, useMemo as useMemo15, useState as useState20 } from "react";
+import React44, { useEffect as useEffect21, useMemo as useMemo15, useState as useState20 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
 import React43, { useMemo as useMemo14 } from "react";
@@ -8800,7 +8826,7 @@ function emojiAvatarForAddress(address) {
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
 var EmojiAvatar = ({ address, ensImage, size }) => {
   const [loaded, setLoaded] = useState20(false);
-  useEffect22(() => {
+  useEffect21(() => {
     if (ensImage) {
       const img = new Image();
       img.src = ensImage;
@@ -8869,7 +8895,7 @@ import { createContext as createContext9 } from "react";
 var ShowRecentTransactionsContext = createContext9(false);
 
 // src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback26, useEffect as useEffect23 } from "react";
+import { useCallback as useCallback26, useEffect as useEffect22 } from "react";
 var storageKey3 = "rk-version";
 function setRainbowKitVersion({ version }) {
   localStorage.setItem(storageKey3, version);
@@ -8878,16 +8904,16 @@ function useFingerprint() {
   const fingerprint = useCallback26(() => {
     setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
-  useEffect23(() => {
+  useEffect22(() => {
     fingerprint();
   }, [fingerprint]);
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback28, useEffect as useEffect25 } from "react";
+import { useCallback as useCallback28, useEffect as useEffect24 } from "react";
 
 // src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
-import { useEffect as useEffect24, useReducer } from "react";
+import { useEffect as useEffect23, useReducer } from "react";
 var cachedUrls = /* @__PURE__ */ new Map();
 var cachedRequestPromises = /* @__PURE__ */ new Map();
 async function loadAsyncImage(asyncImage) {
@@ -8919,7 +8945,7 @@ function useForceUpdate() {
 function useAsyncImage(url) {
   const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
   const forceUpdate = useForceUpdate();
-  useEffect24(() => {
+  useEffect23(() => {
     if (typeof url === "function" && !cachedUrl) {
       loadAsyncImage(url).then(forceUpdate);
     }
@@ -9315,7 +9341,7 @@ function usePreloadImages() {
       loadImages(signInIcon);
     }
   }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
-  useEffect25(() => {
+  useEffect24(() => {
     preloadImages();
   }, [preloadImages]);
 }
@@ -9415,7 +9441,7 @@ var content = "Dialog_content__1dq44ga5 sprinkles_display_flex_smallScreen__dmay
 var overlay = "Dialog_overlay__1dq44ga3 sprinkles_backdropFilter_modalOverlay__dmay209g sprinkles_background_modalBackdrop_base__dmay20b5 sprinkles_display_flex_smallScreen__dmay20a sprinkles_justifyContent_center__dmay202n sprinkles_position_fixed__dmay208p";
 
 // src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React53, { useCallback as useCallback29, useEffect as useEffect26, useRef as useRef10 } from "react";
+import React53, { useCallback as useCallback29, useEffect as useEffect25, useRef as useRef10 } from "react";
 var moveFocusWithin = (element2, position) => {
   const focusableElements = element2.querySelectorAll(
     "button:not(:disabled), a[href]"
@@ -9426,14 +9452,14 @@ var moveFocusWithin = (element2, position) => {
 };
 function FocusTrap(props) {
   const contentRef = useRef10(null);
-  useEffect26(() => {
+  useEffect25(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
       var _a;
       (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
     };
   }, []);
-  useEffect26(() => {
+  useEffect25(() => {
     if (contentRef.current) {
       const elementToFocus = contentRef.current.querySelector("[data-auto-focus]");
       if (elementToFocus) {
@@ -9466,13 +9492,13 @@ function FocusTrap(props) {
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
 var stopPropagation = (event) => event.stopPropagation();
 function Dialog({ children, onClose, open, titleId }) {
-  useEffect27(() => {
+  useEffect26(() => {
     const handleEscape = (event) => open && event.key === "Escape" && onClose();
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [open, onClose]);
   const [bodyScrollable, setBodyScrollable] = useState21(true);
-  useEffect27(() => {
+  useEffect26(() => {
     setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
   }, []);
   const handleBackdropClick = useCallback30(() => onClose(), [onClose]);
@@ -9540,7 +9566,7 @@ function DialogContent3({
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React66, { useCallback as useCallback32, useContext as useContext9, useEffect as useEffect29, useState as useState23 } from "react";
+import React66, { useCallback as useCallback32, useContext as useContext9, useEffect as useEffect28, useState as useState23 } from "react";
 
 // src/rainbowkit/src/components/Avatar/Avatar.tsx
 import React56, { useContext as useContext7 } from "react";
@@ -9697,7 +9723,7 @@ function useClearRecentTransactions() {
 }
 
 // src/rainbowkit/src/transactions/useRecentTransactions.ts
-import { useEffect as useEffect28, useState as useState22 } from "react";
+import { useEffect as useEffect27, useState as useState22 } from "react";
 import { useAccount as useAccount8 } from "wagmi";
 function useRecentTransactions() {
   const store = useTransactionStore();
@@ -9706,7 +9732,7 @@ function useRecentTransactions() {
   const [transactions, setTransactions] = useState22(
     () => store && address && chainId ? store.getTransactions(address, chainId) : []
   );
-  useEffect28(() => {
+  useEffect27(() => {
     if (store && address && chainId) {
       setTransactions(store.getTransactions(address, chainId));
       return store.onChange(() => {
@@ -9995,7 +10021,7 @@ function ProfileDetails({
       setCopiedAddress(true);
     }
   }, [address]);
-  useEffect29(() => {
+  useEffect28(() => {
     if (copiedAddress) {
       const timer = setTimeout(() => {
         setCopiedAddress(false);
@@ -10401,7 +10427,7 @@ import React86 from "react";
 import React85 from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect32, useState as useState25 } from "react";
+import React83, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect31, useState as useState25 } from "react";
 
 // src/rainbowkit/src/utils/groupBy.ts
 function groupBy(items, getKey) {
@@ -10613,12 +10639,12 @@ var InfoButton = ({
 import React77, { useState as useState24 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
-import { useContext as useContext12, useEffect as useEffect30, useRef as useRef11 } from "react";
+import { useContext as useContext12, useEffect as useEffect29, useRef as useRef11 } from "react";
 var useCoolMode = (imageUrl) => {
   const ref = useRef11(null);
   const coolModeEnabled = useContext12(CoolModeContext);
   const resolvedImageUrl = useAsyncImage(imageUrl);
-  useEffect30(() => {
+  useEffect29(() => {
     if (coolModeEnabled && ref.current && resolvedImageUrl) {
       return makeElementCool(ref.current, resolvedImageUrl);
     }
@@ -10850,7 +10876,7 @@ var ModalSelection = ({
 ModalSelection.displayName = "ModalSelection";
 
 // src/rainbowkit/src/components/ConnectOptions/ConnectDetails.tsx
-import React82, { useContext as useContext13, useEffect as useEffect31 } from "react";
+import React82, { useContext as useContext13, useEffect as useEffect30 } from "react";
 
 // src/rainbowkit/src/components/Icons/Create.tsx
 import React78 from "react";
@@ -11183,7 +11209,7 @@ function ConnectDetail({
   } : null;
   const { width: windowWidth } = useWindowSize2();
   const smallWindow = windowWidth && windowWidth < 768;
-  useEffect31(() => {
+  useEffect30(() => {
     preloadBrowserIcon();
   }, []);
   return /* @__PURE__ */ React82.createElement(Box, {
@@ -11446,7 +11472,7 @@ function DownloadOptionsDetail({
   const modalSize = useContext13(ModalSizeContext);
   const isCompact = modalSize === "compact";
   const { extension, extensionDownloadUrl, mobileDownloadUrl } = wallet;
-  useEffect31(() => {
+  useEffect30(() => {
     preloadCreateIcon();
     preloadScanIcon();
     preloadRefreshIcon();
@@ -11498,7 +11524,7 @@ function DownloadDetail({
   wallet
 }) {
   const { downloadUrls, qrCode } = wallet;
-  useEffect31(() => {
+  useEffect30(() => {
     preloadCreateIcon();
     preloadScanIcon();
   }, []);
@@ -11810,7 +11836,7 @@ function DesktopOptions({ onClose }) {
   let headerLabel = null;
   let headerBackButtonLink = null;
   let headerBackButtonCallback;
-  useEffect32(() => {
+  useEffect31(() => {
     setConnectionError(false);
   }, [walletStep, selectedWallet]);
   const hasExtension = !!(selectedWallet == null ? void 0 : selectedWallet.extensionDownloadUrl);
@@ -12587,10 +12613,10 @@ import React90, { useContext as useContext17 } from "react";
 import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork7 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
-import { useEffect as useEffect33, useReducer as useReducer3 } from "react";
+import { useEffect as useEffect32, useReducer as useReducer3 } from "react";
 var useIsMounted = () => {
   const [mounted, setMounted] = useReducer3(() => true, false);
-  useEffect33(setMounted, [setMounted]);
+  useEffect32(setMounted, [setMounted]);
   return mounted;
 };
 
@@ -12878,7 +12904,7 @@ var Header = (props) => {
       isWBig: width >= 1340
     };
   }, [width]);
-  useEffect34(() => {
+  useEffect33(() => {
     if (showBig) {
       setShowBig(false);
     }
@@ -12886,7 +12912,7 @@ var Header = (props) => {
       setShowMiddle(false);
     }
   }, [width]);
-  useEffect34(() => {
+  useEffect33(() => {
     if (isW830 && collapsed === void 0) {
       setSideCollapse(true);
     }
@@ -13091,10 +13117,10 @@ var TonConnectUIProvider = memo34(({ children }) => {
 var TonConnectUIProvider_default = TonConnectUIProvider;
 
 // src/hooks/useInitRainbowFn.ts
-import { useEffect as useEffect35 } from "react";
+import { useEffect as useEffect34 } from "react";
 var useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();
-  useEffect35(() => {
+  useEffect34(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
         return true;
@@ -13108,11 +13134,11 @@ var useInitRainbowFn = () => {
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState17 } from "recoil";
-import { useEffect as useEffect36 } from "react";
+import { useEffect as useEffect35 } from "react";
 import { ethers as ethers4 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState17(invitationAddressState);
-  useEffect36(() => {
+  useEffect35(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -13131,7 +13157,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback36, useEffect as useEffect37, useState as useState28 } from "react";
+import { useCallback as useCallback36, useEffect as useEffect36, useState as useState28 } from "react";
 import BigNumberjs3 from "bignumber.js";
 import { ethers as ethers5 } from "ethers";
 
@@ -13210,7 +13236,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect37(() => {
+  useEffect36(() => {
     fetchGameInfos();
   }, []);
   return {
@@ -13476,13 +13502,13 @@ var getRecentGameById = async ({
 };
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect38, useRef as useRef13 } from "react";
+import { useEffect as useEffect37, useRef as useRef13 } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef13();
-  useEffect38(() => {
+  useEffect37(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect38(() => {
+  useEffect37(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();

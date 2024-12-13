@@ -6,6 +6,8 @@ export declare const ChainSelector: import("recoil").RecoilState<boolean>;
 export declare const refreshBalanceState: import("recoil").RecoilState<string>;
 export declare const refreshAvatarState: import("recoil").RecoilState<string>;
 export declare const pointsDialogState: import("recoil").RecoilState<boolean>;
+export declare const pointsL3DialogState: import("recoil").RecoilState<boolean>;
+export declare const pointsL2DialogState: import("recoil").RecoilState<boolean>;
 export declare const pointsAnimState: import("recoil").RecoilState<boolean>;
 export declare const pointsAnimNumState: import("recoil").RecoilState<number>;
 export declare const pointsWarnState: import("recoil").RecoilState<number>;

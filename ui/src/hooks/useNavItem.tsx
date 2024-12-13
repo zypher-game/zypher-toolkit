@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { LngNs } from "../utils/i18n";
 import { useCustomTranslation } from "./useCustomTranslation";
@@ -6,7 +6,7 @@ import { INavLink, INavLinkType } from "./useNavItem.type";
 import { useActiveWeb3React } from "./useActiveWeb3React";
 import { isPro, preStaticUrl } from "../constant/constant";
 
-export const zAceLink = isPro()
+export const zAceLink = isPro
   ? "https://zytron-linea.acequest.io/pokerking/"
   : //  "https://acequest.io/zAce/"
     "https://testnet.acequest.io/zAce/";
