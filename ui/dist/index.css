@@ -1925,7 +1925,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   border: none;
   border-radius: none;
   color: #fff;
-  background: url($preStaticUrl/img/icon/pixel_arrow_down.svg) no-repeat;
+  background: url(https://static.zypher.game/img/icon/pixel_arrow_down.svg) no-repeat;
   background-position: 94% center;
   appearance: none;
   -webkit-appearance: none;
