@@ -6,3 +6,8 @@ export interface IPointsItem {
     priceStr: string;
     discount: string | undefined;
 }
+export type IPointsDialog = {
+    env: string;
+    setSuccessToast: any;
+    setErrorToast: any;
+};

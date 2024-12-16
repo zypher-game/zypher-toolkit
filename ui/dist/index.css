@@ -280,6 +280,29 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   }
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Token/TokenWithChain/TokenWithChain.styl */
+.token_with_chain {
+  position: relative;
+}
+.token_with_chain .token_with_chain_token {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+}
+.token_with_chain .token_with_chain_chain_id {
+  position: absolute;
+  widows: 40%;
+  height: 40%;
+  bottom: 0;
+  right: 0;
+  border: 1px solid #fff;
+  border-radius: 50%;
+  z-index: 3;
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.stylus */
 .points_dialog_zindex {
   z-index: 1001 !important;
@@ -671,6 +694,12 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   size: 32px;
   fill: #fff;
   cursor: pointer;
+}
+@media screen and (max-width: 830px) and (max-width: 830px) {
+  .customDialog.bottom {
+    height: 100vh;
+    max-height: 100vh;
+  }
 }
 @media screen and (max-width: 830px) and (max-width: 830px) {
   .customDialog [data-reach-dialog-content] {
@@ -1785,6 +1814,265 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   opacity: 1;
   height: auto;
   padding-top: 20px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Staking/Staking.styl */
+@media screen and (max-width: 830px) {
+  .bottom .S_staking {
+    padding: 30px 20px;
+    width: 100vw;
+    background-color: #1d263b;
+    position: relative;
+  }
+}
+.S_staking {
+  padding: 40px;
+}
+@media screen and (max-width: 830px) {
+  .S_staking {
+    padding: 30px 20px;
+  }
+}
+.S_staking .S_title {
+  font-size: 18px;
+  font-weight: 600;
+  padding-bottom: 20px;
+  text-align: center;
+  margin: 0;
+}
+@media screen and (max-width: 830px) {
+  .S_staking .S_title {
+    font-size: 16px;
+  }
+}
+.S_staking_token_detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  width: 100%;
+  margin: 20px 0 10px;
+}
+.S_staking_token_detail.S_staking_token_detail_fl {
+  justify-content: flex-start;
+  gap: 6px;
+}
+.S_staking_token_detail p {
+  font-size: 14px;
+}
+@media screen and (max-width: 830px) {
+  .S_staking_token_detail p {
+    white-space: nowrap;
+    font-size: 12px;
+  }
+}
+.S_staking_token_detail .S_staking_token_detail_fr {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+.S_staking_token_detail .S_staking_token_detail_fr .S_balance {
+  display: flex;
+}
+.S_staking_token_detail .S_staking_token_detail_fr .S_staking_max p {
+  line-height: 20px;
+  font-size: 12px;
+}
+.S_text_li {
+  margin: 20px 0 38px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+.S_text_li.S_text_li_margin20 {
+  margin: 20px 0 10px;
+}
+.S_text_li li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.S_text_li .S_fr {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.S_label {
+  padding-top: 20px;
+}
+.S_label .S_sbt {
+  padding-bottom: 10px;
+}
+.S_warn_icon img {
+  float: left;
+  margin-right: 11px;
+  margin-top: 7px;
+}
+.S_warn_icon p {
+  color: #ffd02b;
+}
+.S_arr_down {
+  position: absolute;
+  z-index: 4;
+  top: 176px;
+}
+.S_select {
+  width: 100%;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  border-radius: none;
+  color: #fff;
+  background: url($preStaticUrl/img/icon/pixel_arrow_down.svg) no-repeat;
+  background-position: 94% center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+.S_select:focus {
+  border-color: #1649ff;
+}
+.S_select:focus-visible {
+  outline: #1649ff;
+}
+.S_select option {
+  color: #fff;
+  background-color: #ddd;
+}
+.S_btn {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  margin-top: 30px;
+}
+.S_btn :global(.staking_confirm) {
+  flex: 1;
+}
+.S_staking_week {
+  position: relative;
+  width: 100%;
+}
+.S_staking_week .S_week_border {
+  position: absolute;
+  z-index: 10;
+  top: 50px;
+  right: 0;
+}
+.S_staking_week .S_week_border :global(>.pixel_flat_inner) {
+  flex-direction: column;
+  height: 240px;
+  padding: 0;
+  overflow-y: scroll;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem {
+  width: 100%;
+  cursor: pointer;
+}
+.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem.S_on :global(>.pixel_flat_btn_bg) {
+  opacity: 1;
+}
+.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem:hover :global(>.pixel_flat_btn_bg) {
+  opacity: 1;
+}
+.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem :global(>.pixel_flat_inner) {
+  justify-content: flex-start;
+  align-items: center;
+  padding-left: 20px;
+}
+.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem :global(>.pixel_flat_btn_bg) {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+body .W_staking_staking:hover > .pixel_flat_btn_bg > .pixel_flat_btn_inner,
+body .W_staking_staking:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_1,
+body .W_staking_staking:hover > .pixel_flat_btn_bg > .pixel_flat_btn_top_2,
+body .W_staking_staking:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_1,
+body .W_staking_staking:hover > .pixel_flat_btn_bg > .pixel_flat_btn_bottom_2 {
+  border: 1px solid #1d263b;
+}
+body .W_staking_staking > .pixel_flat_inner {
+  width: 100%;
+  height: 100%;
+  flex-direction: column;
+}
+.W_staking_switch > .pixel_flat_inner {
+  gap: 10px;
+}
+.W_staking_input {
+  padding: 0 20px;
+}
+.W_staking_input > .pixel_flat_inner {
+  justify-content: space-between;
+}
+.W_staking_input > .pixel_flat_inner input {
+  font-size: 18px;
+  font-weight: 600;
+}
+.W_staking_input > .pixel_flat_inner input:disabled {
+  opacity: 0.5;
+}
+.W_staking_input > .pixel_flat_inner .W_text_week {
+  font-size: 18px;
+  font-weight: 600;
+}
+.W_staking_week {
+  margin-top: 10px;
+  cursor: pointer;
+}
+.W_staking_input_btn {
+  position: absolute;
+  top: 1px;
+  right: -19px;
+  height: calc(100% - 2px);
+  width: 130px;
+}
+@media screen and (max-width: 830px) {
+  .W_staking_input_btn {
+    width: 107px;
+  }
+}
+.W_staking_input_btn > .pixel_flat_inner {
+  gap: 6px;
+  padding-left: 20px;
+}
+@media screen and (max-width: 830px) {
+  .W_staking_input_btn > .pixel_flat_inner {
+    gap: 4px;
+    padding-left: 18px;
+  }
+}
+.W_staking_input_btn:after {
+  content: "";
+  width: 20px;
+  height: 100%;
+  border-right: 1px solid #484f60;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  background: #343c4f;
+}
+.W_staking_confirm_top {
+  margin-top: 40px;
+}
+.W_staking_confirm_yellow p {
+  color: #934417;
+}
+.W_staking_confirm_pink p {
+  color: #682143;
+}
+.W_staking_confirm_purple > .pixel_flat_inner svg rect {
+  fill: #3a165a;
+}
+.W_staking_confirm_purple p {
+  color: #3a165a;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */

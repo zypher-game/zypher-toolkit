@@ -68,7 +68,7 @@ export const graphqlApiUrl: Partial<Record<ChainId, string>> = {
   [ChainId.ZytronLineaSepoliaTestnet]:
     "https://zytron-linea-testnet-graph.zypher.game/subgraphs/name/zytron/bingo",
   [ChainId.ZytronLineaMain]:
-    " https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo",
+    "https://zytron-linea-mainnet-graph.zypher.game/subgraphs/name/zytron/bingo",
 };
 
 export const chainIdPre: Record<ChainId, string> = {

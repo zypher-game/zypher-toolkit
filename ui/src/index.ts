@@ -42,7 +42,6 @@ export { useIsTelegram } from "./hooks/useIsTelegram";
 export { useGetTgName, tgNameListState } from "./hooks/useGetTgName";
 export { useGetOwnAddress, ownerListState } from "./hooks/useGetOwnAddress";
 export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
-
 export {
   IGameStatus,
   IGameName,
@@ -153,6 +152,7 @@ export { default as cn } from "./utils/cn";
 export { default as sleep, timeoutPromise } from "./utils/sleep";
 export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 export { default as Icon } from "./components/icons";
+export { default as TokenWithChain } from "./components/Token/TokenWithChain/TokenWithChain";
 
 export {
   LinkList,
@@ -238,7 +238,7 @@ export {
 } from "./hooks/useRecentGamesFromGraph";
 export { useInterval } from "./hooks/useInterval";
 
-export { useSwapPoint } from "./hooks/usePoint";
+export { useSwapPoint, ChainPointPrice } from "./hooks/usePoint";
 export { usePublicNodeWaitForTransaction } from "./hooks/usePublicNodeWaitForTransaction";
 export {
   default as useWindowSize,

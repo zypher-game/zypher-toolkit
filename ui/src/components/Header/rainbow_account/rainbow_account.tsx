@@ -16,6 +16,8 @@ import {
 } from "../../ConnectWallet/state/connectWalletState";
 import { ChainId, GPV2 } from "../../../constant/constant";
 import AccountInfo from "./AccountInfo/AccountInfo";
+import PointsL2Dialog from "../../Staking/GP/PointsL2Dialog";
+import PointsL3Dialog from "../../Staking/GP/PointsL3Dialog";
 const Account = memo(
   ({
     isMiddleWidth,
@@ -78,7 +80,16 @@ const Account = memo(
         {!isMiddleWidth && <ChainSelectorWidget />}
         <PointsDialog
           env={env}
-          dispatch={dispatch}
+          setSuccessToast={setSuccessToast}
+          setErrorToast={setErrorToast}
+        />
+        <PointsL2Dialog
+          env={env}
+          setSuccessToast={setSuccessToast}
+          setErrorToast={setErrorToast}
+        />
+        <PointsL3Dialog
+          env={env}
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
         />

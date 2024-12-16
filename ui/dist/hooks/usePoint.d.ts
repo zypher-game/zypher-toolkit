@@ -1,12 +1,12 @@
 import { ChainId, IPointsItem } from "..";
+export declare const ChainPointPrice: Record<ChainId, number>;
 export declare const pointsListDefault: (chainId: ChainId) => IPointsItem[] | undefined;
 type ISwapPoint = {
     isLoading: boolean;
     swapPointHandle: any;
 };
-export declare const useSwapPoint: ({ env, dispatch, setSuccessToast, setErrorToast, }: {
+export declare const useSwapPoint: ({ env, setSuccessToast, setErrorToast, }: {
     env: string;
-    dispatch: any;
     setSuccessToast: any;
     setErrorToast: any;
 }) => ISwapPoint;
