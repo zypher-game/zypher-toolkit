@@ -13,7 +13,7 @@ import { useRainbowKitChains } from "../RainbowKitProvider/RainbowKitChainContex
 import { Text } from "../Text/Text";
 import DialogClose from "../../../../components/DialogClose/DialogClose";
 import { ActivePixelCard } from "../../../../components/PixelBtn/ActivePixelButton";
-import { ChainImage } from "../../../../constant/constant";
+import { ChainId, ChainImage } from "../../../../constant/constant";
 import { useIsW768 } from "../../../../hooks/useWindowSize";
 
 export interface ChainModalProps {
@@ -164,7 +164,11 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
                                 background={iconBackground}
                                 borderRadius="full"
                                 height={chainIconSize}
-                                src={ChainImage[chain.id]}
+                                src={
+                                  ChainImage[
+                                    `${chain.id}` as unknown as ChainId
+                                  ]
+                                }
                                 width={chainIconSize}
                               />
                             </Box>

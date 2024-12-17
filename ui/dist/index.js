@@ -71,36 +71,36 @@ var isLocalhost = () => {
   return false;
 };
 var preStaticUrl = isPro ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId10) => {
-  ChainId10["Bsc"] = "56";
-  ChainId10["BscTestnet"] = "97";
-  ChainId10["Arbitrum"] = "42161";
-  ChainId10["ArbitrumRinkeby"] = "421611";
-  ChainId10["ArbitrumGoerli"] = "421613";
-  ChainId10["LineaSepolia"] = "59141";
-  ChainId10["LineaMainnet"] = "59144";
-  ChainId10["POLYGON_MUMBAI"] = "80001";
-  ChainId10["POLYGON_ZKEVM"] = "1442";
-  ChainId10["ScrollAlphaTestnet"] = "534353";
-  ChainId10["OPBNBTEST"] = "5611";
-  ChainId10["OPBNB"] = "204";
-  ChainId10["ScrollSepoliaTestnet"] = "534351";
-  ChainId10["MantaPacificMainnet"] = "169";
-  ChainId10["MantaPacificTestnet"] = "3441005";
-  ChainId10["Combo"] = "9980";
-  ChainId10["ComboTestnet"] = "91715";
-  ChainId10["Mantle"] = "5000";
-  ChainId10["MantleTestnet"] = "5001";
-  ChainId10["Sepolia"] = "11155111";
-  ChainId10["B2"] = "223";
-  ChainId10["B2Testnet"] = "1123";
-  ChainId10["ZytronLineaSepoliaTestnet"] = "50098";
-  ChainId10["ZytronLineaMain"] = "9901";
-  ChainId10["ZytronB2Testnet"] = "50097";
-  ChainId10["Taiko"] = "167000";
-  ChainId10["SagaMainnet"] = "2717465680371000";
-  ChainId10["B3Mainnet"] = "8333";
-  return ChainId10;
+var ChainId = /* @__PURE__ */ ((ChainId11) => {
+  ChainId11["Bsc"] = "56";
+  ChainId11["BscTestnet"] = "97";
+  ChainId11["Arbitrum"] = "42161";
+  ChainId11["ArbitrumRinkeby"] = "421611";
+  ChainId11["ArbitrumGoerli"] = "421613";
+  ChainId11["LineaSepolia"] = "59141";
+  ChainId11["LineaMainnet"] = "59144";
+  ChainId11["POLYGON_MUMBAI"] = "80001";
+  ChainId11["POLYGON_ZKEVM"] = "1442";
+  ChainId11["ScrollAlphaTestnet"] = "534353";
+  ChainId11["OPBNBTEST"] = "5611";
+  ChainId11["OPBNB"] = "204";
+  ChainId11["ScrollSepoliaTestnet"] = "534351";
+  ChainId11["MantaPacificMainnet"] = "169";
+  ChainId11["MantaPacificTestnet"] = "3441005";
+  ChainId11["Combo"] = "9980";
+  ChainId11["ComboTestnet"] = "91715";
+  ChainId11["Mantle"] = "5000";
+  ChainId11["MantleTestnet"] = "5001";
+  ChainId11["Sepolia"] = "11155111";
+  ChainId11["B2"] = "223";
+  ChainId11["B2Testnet"] = "1123";
+  ChainId11["ZytronLineaSepoliaTestnet"] = "50098";
+  ChainId11["ZytronLineaMain"] = "9901";
+  ChainId11["ZytronB2Testnet"] = "50097";
+  ChainId11["Taiko"] = "167000";
+  ChainId11["SagaMainnet"] = "2717465680371000";
+  ChainId11["B3Mainnet"] = "8333";
+  return ChainId11;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
 var DPSupportChainId = !isPro ? [
@@ -111,7 +111,6 @@ var DPSupportChainId = !isPro ? [
   "50098" /* ZytronLineaSepoliaTestnet */,
   "9901" /* ZytronLineaMain */
 ] : ["59144" /* LineaMainnet */, "9901" /* ZytronLineaMain */, "204" /* OPBNB */];
-console.log({ DPSupportChainId });
 var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro ? [
   "42161" /* Arbitrum */,
@@ -561,7 +560,9 @@ var zkBingo = (chainId, name) => {
     } else if (name === "points" /* Points */) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === "ZypherGameToken" /* ZypherGameToken */) {
-      returnAddress = address.ZypherGameToken ? address.ZypherGameToken : address.ZkBingoToken;
+      if (DPSupportChainId.includes(chainId)) {
+        returnAddress = address.ZypherGameToken ? address.ZypherGameToken : address.ZkBingoToken;
+      }
     } else if (name === "reward" /* Reward */) {
       returnAddress = address.Reward;
     } else if (name === "ZkBingoFee" /* Fee */) {
@@ -1073,7 +1074,6 @@ var address2salt = (addr) => {
   return bytesToHex(bytes);
 };
 var getAddressAA = (owner, walletBytecode, deployer) => {
-  console.log({ owner, walletBytecode, deployer });
   const salt = address2salt(owner);
   const bytecode = encodeDeployData({
     abi: WalletAbi,
@@ -6961,6 +6961,7 @@ var balanceItem_default = BalanceItem;
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { erc20ABI, useWalletClient as useWalletClient2 } from "wagmi";
+import { zeroAddress as zeroAddress4 } from "viem";
 var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
   margin-left: 0 !important;
@@ -6980,7 +6981,7 @@ var Balance = memo26((props) => {
     }
     try {
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
-      if (!pointsAddress) {
+      if (!pointsAddress || pointsAddress === zeroAddress4) {
         setPointsBalance(0);
       } else {
         try {
@@ -7019,7 +7020,7 @@ var Balance = memo26((props) => {
           }
           return void 0;
         } catch (e) {
-          console.error("fetchAccountMonsterNft: ", e);
+          console.error("pointsAddress: ", e);
           return void 0;
         }
       }
@@ -9227,7 +9228,7 @@ var ZgClientContract = ({
 var ZgClient_default2 = ZgClientContract;
 
 // src/components/Staking/GP/hooks/useGPDeposit.ts
-import { zeroAddress as zeroAddress4 } from "viem";
+import { zeroAddress as zeroAddress5 } from "viem";
 import { useRecoilState as useRecoilState14, useRecoilValue as useRecoilValue15, useSetRecoilState as useSetRecoilState13 } from "recoil";
 
 // src/contract/abi/erc20Abi.json
@@ -9554,7 +9555,7 @@ var useGPDeposit = ({
       return {
         NativeToken: {
           index: 1,
-          address: zeroAddress4,
+          address: zeroAddress5,
           symbol: currency,
           logoPath: getCryptoImg("token", currency)
         },
@@ -9572,7 +9573,7 @@ var useGPDeposit = ({
     getData();
   }, [chainId, account]);
   const getData = useCallback27(async () => {
-    if (chainId && account) {
+    if (chainId && GPV2SupportChainId.includes(chainId) && account) {
       const { Store } = GPAddress[chainId];
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
       const pointsContract = erc20_default(
@@ -9799,7 +9800,6 @@ var PointsV2Dialog = memo37(
       setErrorToast
     });
     useEffect19(() => {
-      console.log({ chainId });
       if (chainId) {
         setChainDetail({
           L3: [
@@ -12079,7 +12079,7 @@ function ChainModal({ onClose, open, fn }) {
       background: iconBackground,
       borderRadius: "full",
       height: chainIconSize,
-      src: ChainImage[chain.id],
+      src: ChainImage[`${chain.id}`],
       width: chainIconSize
     })), /* @__PURE__ */ React78.createElement("div", null, (_a2 = chain.name) != null ? _a2 : name)), isCurrentChain && /* @__PURE__ */ React78.createElement(Box, {
       alignItems: "center",
@@ -15298,6 +15298,47 @@ async function getWeb3Sign(dataToSign, account, isArrayify = true, walletClient)
   }
 }
 
+// src/connectors/setupNetwork.ts
+var setupNetwork = async (chainId) => {
+  const provider = window.ethereum;
+  if (provider) {
+    try {
+      try {
+        await provider.request({
+          method: "wallet_switchEthereumChain",
+          params: [{ chainId: `0x${parseInt(chainId, 10).toString(16)}` }]
+        });
+      } catch (error) {
+        await provider.request({
+          method: "wallet_addEthereumChain",
+          params: [
+            {
+              chainId: `0x${parseInt(chainId, 10).toString(16)}`,
+              chainName: `${ChainName[chainId]}`,
+              nativeCurrency: {
+                name: `${Currency[chainId]}`,
+                symbol: `${Currency[chainId]}`,
+                decimals: 18
+              },
+              rpcUrls: ChainRpcUrls[chainId],
+              blockExplorerUrls: BlockExplorerUrls[chainId]
+            }
+          ]
+        });
+      }
+      return true;
+    } catch (error) {
+      console.error("Failed to setup the network in Metamask:", error);
+      return false;
+    }
+  } else {
+    console.error(
+      `Can't setup the ${ChainName[chainId]} on metamask because window.ethereum is undefined`
+    );
+    return false;
+  }
+};
+
 // src/contract/abi/erc721.json
 var erc721_default = [
   {
@@ -17979,6 +18020,7 @@ export {
   safeWallet,
   safeheronWallet,
   selector,
+  setupNetwork,
   sideCollapseState,
   sleep,
   splitArrByLen,

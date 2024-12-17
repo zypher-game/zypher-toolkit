@@ -1,7 +1,6 @@
 import * as config from "../constant/constant";
 
-const setupNetwork = async (
-  env: string,
+export const setupNetwork = async (
   chainId: config.ChainId
 ): Promise<boolean> => {
   const provider = window.ethereum;
@@ -43,5 +42,3 @@ const setupNetwork = async (
     return false;
   }
 };
-
-export default setupNetwork;

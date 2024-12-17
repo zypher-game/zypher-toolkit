@@ -257,6 +257,7 @@ export {
   getContractFromRpc,
   getProvider,
 } from "./connectors/contractV2";
+export { setupNetwork } from "./connectors/setupNetwork";
 export { default as erc20Contract, erc20Abi } from "./contract/erc20";
 export { default as erc721Contract, erc721Abi } from "./contract/erc721";
 export { default as ZkBingoPointsContract } from "./contract/bingoPoints";

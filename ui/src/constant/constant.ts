@@ -81,7 +81,6 @@ export const DPSupportChainId = !isPro
   : [ChainId.LineaMainnet, ChainId.ZytronLineaMain, ChainId.OPBNB];
 
 // export const defaultChainId = ChainId.OPBNB;
-console.log({ DPSupportChainId });
 export const bingoV1SupportedChainId = DPSupportChainId;
 export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
@@ -577,9 +576,11 @@ export const zkBingo = (
       returnAddress = address.ZkBingoPoints;
     } else if (name === IContractName.ZypherGameToken) {
       // GP
-      returnAddress = address.ZypherGameToken
-        ? address.ZypherGameToken
-        : address.ZkBingoToken;
+      if (DPSupportChainId.includes(chainId)) {
+        returnAddress = address.ZypherGameToken
+          ? address.ZypherGameToken
+          : address.ZkBingoToken;
+      }
     } else if (name === IContractName.Reward) {
       returnAddress = address.Reward;
     } else if (name === IContractName.Fee) {

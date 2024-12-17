@@ -14,7 +14,7 @@ import { Address, zeroAddress } from "viem";
 import { getIsCode } from "../utils/getIsCode";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
-import { ChainId } from "ui/src/constant/constant";
+import { ChainId } from "../../constant/constant";
 
 export type IAAWallet = {
   getContainer?: HTMLElement | null;

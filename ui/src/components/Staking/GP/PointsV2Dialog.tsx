@@ -60,7 +60,6 @@ const PointsV2Dialog = memo(
       setErrorToast,
     });
     useEffect(() => {
-      console.log({ chainId });
       if (chainId) {
         setChainDetail({
           L3: [
