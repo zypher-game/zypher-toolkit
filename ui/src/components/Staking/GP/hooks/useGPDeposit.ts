@@ -134,7 +134,6 @@ export const useGPDeposit = ({
       const zgClient = ZgClientContract({ chainId, env });
       if (zgClient) {
         const health = await zgClient.read.health();
-        console.log({ health });
         setHealth({
           ...health,
           accumulatedFee: health["accumulatedFee"].toString(),

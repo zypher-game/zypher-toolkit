@@ -64,7 +64,6 @@ var isPro = (() => {
   }
   return false;
 })();
-var GPV2 = isPro ? false : true;
 var isLocalhost = () => {
   if (window.location.host.startsWith("192.168")) {
     return true;
@@ -72,36 +71,36 @@ var isLocalhost = () => {
   return false;
 };
 var preStaticUrl = isPro ? "https://static.zypher.game" : "https://static-dev.zypher.game";
-var ChainId = /* @__PURE__ */ ((ChainId11) => {
-  ChainId11["Bsc"] = "56";
-  ChainId11["BscTestnet"] = "97";
-  ChainId11["Arbitrum"] = "42161";
-  ChainId11["ArbitrumRinkeby"] = "421611";
-  ChainId11["ArbitrumGoerli"] = "421613";
-  ChainId11["LineaSepolia"] = "59141";
-  ChainId11["LineaMainnet"] = "59144";
-  ChainId11["POLYGON_MUMBAI"] = "80001";
-  ChainId11["POLYGON_ZKEVM"] = "1442";
-  ChainId11["ScrollAlphaTestnet"] = "534353";
-  ChainId11["OPBNBTEST"] = "5611";
-  ChainId11["OPBNB"] = "204";
-  ChainId11["ScrollSepoliaTestnet"] = "534351";
-  ChainId11["MantaPacificMainnet"] = "169";
-  ChainId11["MantaPacificTestnet"] = "3441005";
-  ChainId11["Combo"] = "9980";
-  ChainId11["ComboTestnet"] = "91715";
-  ChainId11["Mantle"] = "5000";
-  ChainId11["MantleTestnet"] = "5001";
-  ChainId11["Sepolia"] = "11155111";
-  ChainId11["B2"] = "223";
-  ChainId11["B2Testnet"] = "1123";
-  ChainId11["ZytronLineaSepoliaTestnet"] = "50098";
-  ChainId11["ZytronLineaMain"] = "9901";
-  ChainId11["ZytronB2Testnet"] = "50097";
-  ChainId11["Taiko"] = "167000";
-  ChainId11["SagaMainnet"] = "2717465680371000";
-  ChainId11["B3Mainnet"] = "8333";
-  return ChainId11;
+var ChainId = /* @__PURE__ */ ((ChainId10) => {
+  ChainId10["Bsc"] = "56";
+  ChainId10["BscTestnet"] = "97";
+  ChainId10["Arbitrum"] = "42161";
+  ChainId10["ArbitrumRinkeby"] = "421611";
+  ChainId10["ArbitrumGoerli"] = "421613";
+  ChainId10["LineaSepolia"] = "59141";
+  ChainId10["LineaMainnet"] = "59144";
+  ChainId10["POLYGON_MUMBAI"] = "80001";
+  ChainId10["POLYGON_ZKEVM"] = "1442";
+  ChainId10["ScrollAlphaTestnet"] = "534353";
+  ChainId10["OPBNBTEST"] = "5611";
+  ChainId10["OPBNB"] = "204";
+  ChainId10["ScrollSepoliaTestnet"] = "534351";
+  ChainId10["MantaPacificMainnet"] = "169";
+  ChainId10["MantaPacificTestnet"] = "3441005";
+  ChainId10["Combo"] = "9980";
+  ChainId10["ComboTestnet"] = "91715";
+  ChainId10["Mantle"] = "5000";
+  ChainId10["MantleTestnet"] = "5001";
+  ChainId10["Sepolia"] = "11155111";
+  ChainId10["B2"] = "223";
+  ChainId10["B2Testnet"] = "1123";
+  ChainId10["ZytronLineaSepoliaTestnet"] = "50098";
+  ChainId10["ZytronLineaMain"] = "9901";
+  ChainId10["ZytronB2Testnet"] = "50097";
+  ChainId10["Taiko"] = "167000";
+  ChainId10["SagaMainnet"] = "2717465680371000";
+  ChainId10["B3Mainnet"] = "8333";
+  return ChainId10;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
 var DPSupportChainId = !isPro ? [
@@ -1342,7 +1341,6 @@ var useGetWalletClient = () => {
   const setAaWallet = useSetAaWallet();
   const { walletClient: _walletClient, aaWalletClient } = useAaWallet();
   const getWalletClient = useCallback(() => {
-    console.log(222, { chainId });
     try {
       if (isSet) {
         return;
@@ -1358,9 +1356,7 @@ var useGetWalletClient = () => {
         !!aaWalletClient
       ].join("-");
       if (Gas0Constants[chainId]) {
-        console.log({ keyString });
         if (key.current === keyString && _walletClient && aaWalletClient) {
-          console.log(9999);
           return;
         }
         setIsSet(true);
@@ -1405,7 +1401,6 @@ var useCreate = () => {
   const create = useCallback(async () => {
     if (wallet && aa_mm_address && wallet.aa && owner) {
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address);
-      console.log({ isCreate, aa_mm_address });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,
@@ -9590,7 +9585,6 @@ var useGPDeposit = ({
       const zgClient = ZgClient_default2({ chainId, env });
       if (zgClient) {
         const health2 = await zgClient.read.health();
-        console.log({ health: health2 });
         setHealth({
           ...health2,
           accumulatedFee: health2["accumulatedFee"].toString(),
@@ -9877,12 +9871,8 @@ var Account2 = memo38(
     const setPointsV2DialogState = useSetRecoilState14(pointsV2DialogState);
     const { chainId } = useActiveWeb3React();
     const showPointsModal = useCallback29(() => {
-      if (GPV2) {
-        if (GPV2SupportChainId.includes(chainId)) {
-          setPointsV2DialogState(true);
-        } else {
-          setPointsDialogState(true);
-        }
+      if (GPV2SupportChainId.includes(chainId)) {
+        setPointsV2DialogState(true);
       } else {
         setPointsDialogState(true);
       }

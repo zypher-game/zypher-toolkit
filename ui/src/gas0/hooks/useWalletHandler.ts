@@ -66,7 +66,6 @@ export const useGetWalletClient = () => {
   const setAaWallet = useSetAaWallet();
   const { walletClient: _walletClient, aaWalletClient } = useAaWallet();
   const getWalletClient = useCallback(() => {
-    console.log(222, { chainId });
     try {
       if (isSet) {
         return;
@@ -82,9 +81,7 @@ export const useGetWalletClient = () => {
         !!aaWalletClient,
       ].join("-");
       if (Gas0Constants[chainId]) {
-        console.log({ keyString });
         if (key.current === keyString && _walletClient && aaWalletClient) {
-          console.log(9999);
           return;
         }
         setIsSet(true);
@@ -132,7 +129,6 @@ export const useCreate = () => {
   const create = useCallback(async () => {
     if (wallet && aa_mm_address && wallet.aa && owner) {
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address); // eoa =>
-      console.log({ isCreate, aa_mm_address });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,

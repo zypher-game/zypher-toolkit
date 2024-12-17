@@ -13,7 +13,7 @@ import {
   pointsDialogState,
   pointsV2DialogState,
 } from "../../ConnectWallet/state/connectWalletState";
-import { ChainId, GPV2 } from "../../../constant/constant";
+import { ChainId } from "../../../constant/constant";
 import AccountInfo from "./AccountInfo/AccountInfo";
 import PointsV2Dialog from "../../Staking/GP/PointsV2Dialog";
 import { GPV2SupportChainId } from "../../Staking/GP/constant/GPConstant";
@@ -43,12 +43,8 @@ const Account = memo(
     const { chainId } = useActiveWeb3React();
     const showPointsModal = useCallback(() => {
       // GPV2
-      if (GPV2) {
-        if (GPV2SupportChainId.includes(chainId)) {
-          setPointsV2DialogState(true);
-        } else {
-          setPointsDialogState(true);
-        }
+      if (GPV2SupportChainId.includes(chainId)) {
+        setPointsV2DialogState(true);
       } else {
         setPointsDialogState(true);
       }

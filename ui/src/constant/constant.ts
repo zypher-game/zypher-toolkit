@@ -21,7 +21,6 @@ export const isPro = ((): boolean => {
   }
   return false;
 })();
-export const GPV2 = isPro ? false : true;
 
 export const isLocalhost = (): boolean => {
   if (window.location.host.startsWith("192.168")) {
