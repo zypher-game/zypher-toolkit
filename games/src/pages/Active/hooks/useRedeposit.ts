@@ -524,20 +524,17 @@ export const useRedeposit = (): {
     setMax('0')
     return
   }, [redepositCurrency, nativeChainId, JSON.stringify(tvlStakingData)])
-  const redepositInputHandle = useCallback(
-    (e: React.ChangeEvent<HTMLInputElement>) => {
-      const inputValue = e.target.value
-      const regex = /^\d*\.?\d{0,8}$/
-      if (regex.test(inputValue)) {
-        // if (new BigNumberJs(inputValue).lte(max)) {
-        setRedepositValue(inputValue)
-        // } else {
-        //   setRedepositValue(max)
-        // }
-      }
-    },
-    [max]
-  )
+  const redepositInputHandle = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value
+    const regex = /^\d*\.?\d{0,8}$/
+    if (regex.test(inputValue)) {
+      // if (new BigNumberJs(inputValue).lte(max)) {
+      setRedepositValue(inputValue)
+      // } else {
+      //   setRedepositValue(max)
+      // }
+    }
+  }, [])
   const maxHandle = useCallback(() => {
     const isOk = preHandleAction()
     if (isOk) {

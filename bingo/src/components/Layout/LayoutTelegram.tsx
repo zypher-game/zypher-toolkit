@@ -26,7 +26,7 @@ const LayoutTelegram = memo(({ children }: { children: ReactNode }) => {
     setPathname(arr)
   }, [location])
   const isPlay = useMemo(() => {
-    return (pathnameArr ?? []).join().includes('play')
+    return (pathnameArr ?? []).join().includes('gameRoom')
   }, [JSON.stringify(pathnameArr)])
   return (
     <LayoutAntd className="lt-layout bingo beta tg">

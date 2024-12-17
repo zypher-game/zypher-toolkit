@@ -12,9 +12,14 @@ import Table from './components/Table/Table'
 const ActiveTVLStaking = memo(() => {
   const { chainIndex, setChainIndex, chainIdLocal } = useChainIndex()
 
-  const changeChainIndexHandle = useCallback((index: number) => {
-    setChainIndex(index)
-  }, [])
+  const changeChainIndexHandle = useCallback(
+    (index: number) => {
+      if (chainIndex !== index) {
+        setChainIndex(index)
+      }
+    },
+    [chainIndex]
+  )
   const {
     claimGpLoading,
     onClaimGPHandle,

@@ -1,5 +1,3 @@
-import './Staking.styl'
-
 import { AddressZero } from '@ethersproject/constants'
 import {
   ActivePixelButton,
@@ -15,6 +13,7 @@ import {
   PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
+  TokenWithChain,
   TVLChainId,
   useIsW768,
   useRecoilValue,
@@ -31,8 +30,6 @@ import SelectTokenDialog from '../../dialog/SelectTokenDialog/SelectTokenDialog'
 import { canNext } from '../../hooks/activeHooks'
 import { useStakeHandle, useTable } from '../../hooks/useStakeHandle'
 import { chooseChainState, restakingDataState, selectChainDialogState } from '../../state/activeState'
-import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
-import css from './Staking.module.styl'
 export const ChainGrowthCoefficient: Record<TVLChainId, { native: string; erc20: string }> = {
   [TVLChainId.B2]: {
     native: '200',
@@ -222,29 +219,35 @@ const Staking = memo(({ isModal }: { isModal: boolean }) => {
     }
   }, [JSON.stringify(restakingData), JSON.stringify(chooseValue), isDataLoading, depositValue, JSON.stringify(native), JSON.stringify(erc20)])
   return (
-    <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
-      <h3 className={css.title}>Staking</h3>
+    <PixelBorderCard width={isW768 ? '100%' : '505px'} className="W_staking_staking W_S_staking" pixel_height={9} backgroundColor="#1D263B">
+      <h3 className="S_title">Staking</h3>
       {hideTVLStakingSupportedChainId ? null : (
-        <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
+        <PixelBorderCardButton
+          className="W_staking_switch"
+          height={isW768 ? '32px' : '36px'}
+          width="100%"
+          pixel_height={6}
+          onClick={changeChainHandle}
+        >
           <p>Current network: {ChainName[chainIdFromStake]}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
         </PixelBorderCardButton>
       )}
-      <div className={css.staking_token_detail}>
-        <p className={css.staking_token_detail_fl}>You can restake</p>
-        <div className={css.staking_token_detail_fr}>
-          <p className={css.balance}>
+      <div className="S_staking_token_detail">
+        <p className="S_staking_token_detail_fl">You can restake</p>
+        <div className="S_staking_token_detail_fr">
+          <p className="S_balance">
             Balance: {chooseValue?.balanceStr}
             {chooseValue?.balanceStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
-          <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
+          <ActivePixelButton className="S_staking_max" width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
             <p>MAX</p>
           </ActivePixelButton>
         </div>
       </div>
       <PixelBorderCard
-        className="staking_input"
+        className="W_staking_input"
         width="100%"
         height={isW768 ? '44px' : '58px'}
         pixel_height={6}
@@ -252,48 +255,43 @@ const Staking = memo(({ isModal }: { isModal: boolean }) => {
         borderColor="#484F60"
       >
         <input onChange={depositInputHandle} type="text" value={depositValue} />
-        <ActivePixelButton
-          className={`staking_input_btn ${css.staking_input_btn}`}
-          backgroundColor="#1649FF"
-          pixel_height={6}
-          onClick={changeDepositCurrencyHandle}
-        >
+        <ActivePixelButton className="W_staking_input_btn" backgroundColor="#1649FF" pixel_height={6} onClick={changeDepositCurrencyHandle}>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} width={22} /> : null}
           <p>{chooseValue?.symbol}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
         </ActivePixelButton>
       </PixelBorderCard>
-      <ul className={css.text_li}>
+      <ul className="S_text_li">
         <li>
           <p>Total Staked</p>
-          <div className={css.fr}>
+          <div className="S_fr">
             <p>{totalStaked}</p>
             <LoadingButton isLoading={isDataLoading} />
           </div>
         </li>
         <li>
           <p>Earn Points Per Day</p>
-          <div className={css.fr}>
+          <div className="S_fr">
             <p>{earnPoints}</p>
             <LoadingButton isLoading={isDataLoading} />
           </div>
         </li>
         <li>
           <p>Estimated final points based on duration</p>
-          <div className={css.fr}>
+          <div className="S_fr">
             <p>{finalPoints}</p>
             <LoadingButton isLoading={isDataLoading} />
           </div>
         </li>
         <li>
           <p>$GP earned</p>
-          <div className={css.fr}>
+          <div className="S_fr">
             <p>Released every week</p>
           </div>
         </li>
       </ul>
       <ActivePixelButtonColor
-        className="staking_confirm"
+        className="W_staking_confirm"
         width="100%"
         height={isW768 ? '48px' : '54px'}
         pixel_height={5}

@@ -1,5 +1,6 @@
 import {
   ChainId,
+  ChainPointPrice,
   DPSupportChainId,
   erc20Contract,
   formatMoney,
@@ -9,10 +10,10 @@ import {
   supportedChainIds,
   timestampToDateStr,
   txStatus,
+  useAaWallet,
   useAccountInvitation,
   useActiveWeb3React,
   useChainModal,
-  useAaWallet,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useSetRecoilState,
@@ -62,11 +63,6 @@ export const claimConfsDefault: IClaimConfMap = {
 // 优惠档A：100,000  = $ 100 = 0.05 ETH, 98 折 = 0.049 ETH
 // 优惠档B：300,000 = $ 300 = 0.15 ETH, 95 折 = 0.1425 ETH
 // 优惠档C：500,000 = $ 500 = 0.25 ETH, 9 折 = 0.225 ETH
-const ChainPointPrice = {
-  [ChainId.LineaMainnet]: 1 / 2_000_000,
-  [ChainId.OPBNB]: 1 / 250_000,
-  [ChainId.OPBNBTEST]: 1 / 250_000
-} as unknown as Record<ChainId, number>
 export const pointsListDefault = (chainId: ChainId): IPointsItem[] | undefined => {
   try {
     return [['10000'], ['30000'], ['50000'], ['60000'], ['80000'], ['100000 ', '2'], ['300000', '5'], ['500000', '10']].map((v, index) => {

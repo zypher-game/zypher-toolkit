@@ -27,6 +27,9 @@
             align-items: flex-end;
             top: auto;
             overflow-y: scroll
+            @media screen and (max-width: 830px)
+                height: 100vh;
+                max-height: 100vh;
             // background: transparent
             [data-reach-dialog-content]
                 margin: 0

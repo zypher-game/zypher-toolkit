@@ -1,5 +1,3 @@
-import '../Staking/Staking.styl'
-
 // 质押 满足条件
 // withdraw
 // 会不会小于金额   =>
@@ -20,6 +18,7 @@ import {
   PixelBorderCardButton,
   preStaticUrl,
   SvgComponent,
+  TokenWithChain,
   useIsW768,
   useRecoilValue,
   useSetRecoilState
@@ -42,8 +41,6 @@ import {
   selectChainDialogState,
   tvlStakingDataState
 } from '../../state/activeState'
-import css from '../Staking/Staking.module.styl'
-import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 
 const Withdraw = memo(() => {
   const isW768 = useIsW768()
@@ -148,29 +145,35 @@ const Withdraw = memo(() => {
     return obj
   }, [JSON.stringify(chooseValue), isWithdrawLoading, isDataLoading, withdrawValue, chainIdFromStake, chooseChain])
   return (
-    <PixelBorderCard width={isW768 ? '100%' : '505px'} className={`staking_staking ${css.staking}`} pixel_height={9} backgroundColor="#1D263B">
-      <h3 className={css.title}>Withdraw</h3>
+    <PixelBorderCard width={isW768 ? '100%' : '505px'} className="W_staking_staking S_staking" pixel_height={9} backgroundColor="#1D263B">
+      <h3 className="S_title">Withdraw</h3>
       {hideTVLStakingSupportedChainId ? null : (
-        <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
+        <PixelBorderCardButton
+          className="W_staking_switch"
+          height={isW768 ? '32px' : '36px'}
+          width="100%"
+          pixel_height={6}
+          onClick={changeChainHandle}
+        >
           <p>Current network: {ChainName[chainIdFromStake]}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
         </PixelBorderCardButton>
       )}
-      <div className={css.staking_token_detail}>
-        <p className={css.staking_token_detail_fl}>You can Withdraw</p>
-        <div className={css.staking_token_detail_fr}>
-          <p className={css.balance}>
+      <div className="S_staking_token_detail">
+        <p className="S_staking_token_detail_fl">You can Withdraw</p>
+        <div className="S_staking_token_detail_fr">
+          <p className="S_balance">
             Balance: {chooseValue?.withdrawAmountStr}
             {chooseValue?.withdrawAmountStr === '' || isTvlDataLoading ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
-          <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
+          <ActivePixelButton className="S_staking_max" width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
             <p>MAX</p>
           </ActivePixelButton>
         </div>
       </div>
       <PixelBorderCard
-        className="staking_input"
+        className="W_staking_input"
         width="100%"
         height={isW768 ? '44px' : '58px'}
         pixel_height={6}
@@ -179,7 +182,7 @@ const Withdraw = memo(() => {
       >
         <input onChange={withdrawInputHandle} type="text" value={withdrawValue} />
         <ActivePixelButton
-          className={`staking_input_btn ${css.staking_input_btn}`}
+          className="W_staking_input_btn S_staking_input_btn"
           backgroundColor="#1649FF"
           pixel_height={6}
           onClick={changeWithdrawCurrencyHandle}
@@ -191,7 +194,7 @@ const Withdraw = memo(() => {
       </PixelBorderCard>
       <HasSbt chainIdLocal={chainIdLocal} chooseValue={chooseValue} />
       <ActivePixelButtonColor
-        className="staking_confirm staking_confirm_top staking_confirm_purple"
+        className="W_staking_confirm W_staking_confirm_top W_staking_confirm_purple"
         width="100%"
         height={isW768 ? '48px' : '54px'}
         pixel_height={5}
@@ -224,9 +227,9 @@ const HasSbt = memo(({ chainIdLocal, chooseValue }: { chainIdLocal?: ChainId; ch
   }, [chainIdLocal, JSON.stringify(activeDataSource), JSON.stringify(chooseValue), JSON.stringify(tvlStakingData)])
   if (label && label !== '0') {
     return (
-      <div className={css.label}>
-        <p className={css.sbt}>{label}</p>
-        <div className={css.warn_icon}>
+      <div className="S_label">
+        <p className="S_sbt">{label}</p>
+        <div className="S_warn_icon">
           <img src={preStaticUrl + '/img/icon/pixel_warn_02.svg'} alt="warn" />
           <p>
             If you do not meet the conditions for using SBT after withdrawing, we will ask you to authorize the destruction of SBT before withdrawing

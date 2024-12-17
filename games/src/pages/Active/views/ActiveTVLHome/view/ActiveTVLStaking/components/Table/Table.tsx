@@ -1,8 +1,7 @@
-import { ChainId, Currency, LoadingButton, motion, PixelTableBorder, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, Currency, LoadingButton, motion, PixelTableBorder, TokenWithChain, useIsW768, useRecoilValue } from '@ui/src'
 import React, { memo, useCallback } from 'react'
 
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
-import TokenWithChain from '@/pages/Active/components/Token/TokenWithChain/TokenWithChain'
 import { useTable } from '@/pages/Active/hooks/useStakeHandle'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'
 import { isTvlDataLoadingState, ITVLStakingData } from '@/pages/Active/state/activeState'

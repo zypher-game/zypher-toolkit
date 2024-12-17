@@ -43,7 +43,6 @@ const StakingTab = memo(
             {isEnd ? (
               <>
                 <WithdrawBtn chainId={chainIdLocal} />
-                {/* <ExtendBtn chainId={chainIdLocal} /> */}
                 <RedepositBtn chainId={chainIdLocal} />
               </>
             ) : null}

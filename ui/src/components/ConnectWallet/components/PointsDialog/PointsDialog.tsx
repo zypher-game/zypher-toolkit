@@ -24,7 +24,7 @@ import PointsWarn from "./PointsWarn";
 import "./PointsDialog.stylus";
 import { PointsIcon } from "../../../icons/PointsIcon/PointsIcon";
 import Modal from "../../../../components/Modal/Modal";
-import { IPointsItem } from "./PointsDialog.type";
+import { IPointsDialog, IPointsItem } from "./PointsDialog.type";
 import { PixelTable } from "../../../PixelTable/PixelTable";
 import {
   ActivePixelCard,
@@ -33,14 +33,8 @@ import {
 import LoadingButton from "../../../LoadingSvg/LoadingButton";
 import DialogClose from "../../../DialogClose/DialogClose";
 
-type IProps = {
-  env: string;
-  dispatch: any;
-  setSuccessToast: any;
-  setErrorToast: any;
-};
 const PointsDialog = memo(
-  ({ env, dispatch, setSuccessToast, setErrorToast }: IProps) => {
+  ({ env, setSuccessToast, setErrorToast }: IPointsDialog) => {
     const { t } = useCustomTranslation([LngNs.points]);
     const [pointsDialogOpen, setPointsDialogOpen] =
       useRecoilState(pointsDialogState);
@@ -52,7 +46,6 @@ const PointsDialog = memo(
 
     const { isLoading, swapPointHandle } = useSwapPoint({
       env,
-      dispatch,
       setSuccessToast,
       setErrorToast,
     });

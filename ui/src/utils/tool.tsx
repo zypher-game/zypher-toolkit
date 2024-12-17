@@ -69,7 +69,11 @@ export const formatMoney = (value: number | string, n = 2): string => {
     if (r && r !== "00") {
       res += `.${r.replace(/0+$/, "")}`;
     }
-    return `${isNegative ? "-" : ""}${res}`;
+    const lp = `${isNegative ? "-" : ""}${res}`;
+    if (lp === "0.") {
+      return "0";
+    }
+    return lp;
   } catch (e) {
     console.error("formatMoney:", e);
     return "";

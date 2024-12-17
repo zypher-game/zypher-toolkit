@@ -1,5 +1,3 @@
-import '../Staking/Staking.styl'
-
 import {
   ActivePixelButton,
   ActivePixelButtonColor,
@@ -16,6 +14,7 @@ import {
   PixelCube2,
   preStaticUrl,
   SvgComponent,
+  TokenWithChain,
   TVLChainId,
   useIsW768,
   useRecoilValue,
@@ -32,8 +31,6 @@ import { useRedeposit } from '../../hooks/useRedeposit'
 import { useTable } from '../../hooks/useStakeHandle'
 import { chooseChainState, selectChainDialogState } from '../../state/activeState'
 import { ChainGrowthCoefficient } from '../Staking/Staking'
-import css from '../Staking/Staking.module.styl'
-import TokenWithChain from '../Token/TokenWithChain/TokenWithChain'
 
 const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
   const isW768 = useIsW768()
@@ -237,35 +234,41 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
   return (
     <PixelBorderCard
       width={isW768 ? '100%' : '505px'}
-      className={`staking_staking ${css.staking}`}
+      className="W_staking_staking S_staking"
       pixel_height={9}
       backgroundColor="#1D263B"
       onClick={borderHandle}
     >
-      <h3 className={css.title}>Stake</h3>
+      <h3 className={'S_title'}>Stake</h3>
       {hideTVLStakingSupportedChainId ? null : (
-        <PixelBorderCardButton className="staking_switch" height={isW768 ? '32px' : '36px'} width="100%" pixel_height={6} onClick={changeChainHandle}>
+        <PixelBorderCardButton
+          className="W_staking_switch"
+          height={isW768 ? '32px' : '36px'}
+          width="100%"
+          pixel_height={6}
+          onClick={changeChainHandle}
+        >
           <p>Current network: {ChainName[chainIdFromStake]}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_switch.svg'} />
         </PixelBorderCardButton>
       )}
-      <div className={css.staking_token_detail}>
-        <p className={css.staking_token_detail_fl}>You can Deposit</p>
-        <div className={css.staking_token_detail_fr}>
-          <p className={css.balance}>
+      <div className={'S_staking_token_detail'}>
+        <p className={'S_staking_token_detail_fl'}>You can Deposit</p>
+        <div className={'S_staking_token_detail_fr'}>
+          <p className={'S_balance'}>
             Balance: {chooseValue?.balanceStr}
             {chooseValue?.balanceStr === '' ? <LoadingButton isLoading={isDataLoading} /> : <></>}
           </p>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} /> : null}
           {canOnlyLock ? null : (
-            <ActivePixelButton className={css.staking_max} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
+            <ActivePixelButton className={'S_staking_max'} width="40px" height="20px" backgroundColor="#661AFF" pixel_height={2} onClick={maxHandle}>
               <p>MAX</p>
             </ActivePixelButton>
           )}
         </div>
       </div>
       <PixelBorderCard
-        className="staking_input"
+        className="W_staking_input"
         width="100%"
         height={isW768 ? '44px' : '58px'}
         pixel_height={6}
@@ -273,12 +276,7 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
         borderColor="#484F60"
       >
         <input onChange={redepositInputHandle} type="text" disabled={canOnlyLock} value={canOnlyLock ? '0' : redepositValue} />
-        <ActivePixelButton
-          className={`staking_input_btn ${css.staking_input_btn}`}
-          backgroundColor="#1649FF"
-          pixel_height={6}
-          onClick={changeRedepositCurrencyHandle}
-        >
+        <ActivePixelButton className="W_staking_input_btn" backgroundColor="#1649FF" pixel_height={6} onClick={changeRedepositCurrencyHandle}>
           {chooseValue ? <TokenWithChain chainId={chainIdLocal} token={chooseValue} width={22} /> : null}
           <p>{chooseValue?.symbol}</p>
           <SvgComponent src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
@@ -286,17 +284,17 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
       </PixelBorderCard>
 
       {canIncrease ? (
-        <ul className={css.text_li}>
+        <ul className="S_text_li">
           <li>
             <p>Locked Amount</p>
-            <div className={css.fr}>
+            <div className="S_fr">
               <p>{totalDeposit}</p>
               <LoadingButton isLoading={isDataLoading} />
             </div>
           </li>
           <li>
             <p>Increased Amount</p>
-            <div className={css.fr}>
+            <div className="S_fr">
               <p>{redepositValue}</p>
             </div>
           </li>
@@ -305,14 +303,14 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
               Earn Points Per Day By Staking LRT Tokens
               {/* Earn Points Per Day By {stakingLabel} {currency} */}
             </p>
-            <div className={css.fr}>
+            <div className="S_fr">
               <p>{earnPoints}</p>
             </div>
           </li>
           {canOnlyIncrease ? (
             <li>
               <p>Unlock Time</p>
-              <div className={css.fr}>
+              <div className="S_fr">
                 <p>{chooseValue?.unlockTimeStr}</p>
                 <LoadingButton isLoading={isDataLoading} />
               </div>
@@ -321,9 +319,9 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
         </ul>
       ) : (
         <>
-          <div className={css.staking_week}>
+          <div className="S_staking_week">
             <PixelBorderCard
-              className="staking_input staking_week"
+              className="W_staking_input W_staking_week"
               width="100%"
               height={isW768 ? '44px' : '58px'}
               pixel_height={6}
@@ -331,12 +329,12 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
               borderColor="#484F60"
               onClick={useShowChoseWeek}
             >
-              <p className="text_week">{week} week</p>
+              <p className="W_text_week">{week} week</p>
               <img src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
             </PixelBorderCard>
             {showChoseWeek ? (
               <PixelBorderCard
-                className={css.week_border}
+                className={'S_week_border'}
                 width="160px"
                 height="280px"
                 pixel_height={6}
@@ -351,7 +349,7 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
                     pixel_height={3}
                     width="120px"
                     height="34px"
-                    className={`${css.weekItem} ${v === week ? css.on : ''}`}
+                    className={`S_weekItem ${v === week ? 'S_on' : ''}`}
                     onClick={(e: any) => _handleWeekChange(e, v)}
                   >
                     <p>{v} week</p>
@@ -360,10 +358,10 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
               </PixelBorderCard>
             ) : null}
           </div>
-          <ul className={`${css.text_li} ${css.text_li_margin20}`}>
+          <ul className="S_text_li S_text_li_margin20">
             <li>
               <p>Unlocked Amount</p>
-              <div className={css.fr}>
+              <div className="S_fr">
                 <p>{chooseValue?.withdrawAmountStr}</p>
                 <LoadingButton isLoading={isDataLoading} />
               </div>
@@ -371,7 +369,7 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
             {!isModal ? null : (
               <li>
                 <p>Unlock Time</p>
-                <div className={css.fr}>
+                <div className="S_fr">
                   <p>{chooseValue?.unlockTimeStr}</p>
                   <LoadingButton isLoading={isDataLoading} />
                 </div>
@@ -379,13 +377,13 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
             )}
             <li>
               <p>Revised Unlock Time</p>
-              <div className={css.fr}>
+              <div className="S_fr">
                 <p>{revisedUnLockTimeStr}</p>
                 <LoadingButton isLoading={isDataLoading} />
               </div>
             </li>
           </ul>
-          <div className={css.warn_icon}>
+          <div className="S_warn_icon">
             <img src={preStaticUrl + '/img/icon/pixel_warn_02.svg'} alt="warn" />
             <p>You have unlocked tokens. Please lock them first and then increase and lock them again.</p>
           </div>
@@ -393,7 +391,7 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
       )}
       {canOnlyIncrease ? (
         <ActivePixelButtonColor
-          className={'staking_confirm staking_confirm_top'}
+          className="W_staking_confirm W_staking_confirm_top"
           width="100%"
           height={isW768 ? '48px' : '54px'}
           pixel_height={5}
@@ -405,9 +403,9 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
           <LoadingButton isLoading={isRedepositLoading || isIncrementLoading || isApproveLoading} />
         </ActivePixelButtonColor>
       ) : (
-        <div className={css.btn}>
+        <div className="S_btn">
           <ActivePixelButtonColor
-            className="staking_confirm"
+            className="W_staking_confirm"
             width="100%"
             height={isW768 ? '48px' : '54px'}
             pixel_height={5}
@@ -419,7 +417,7 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
             <LoadingButton isLoading={isIncrementLoading || isApproveLoading} />
           </ActivePixelButtonColor>
           <ActivePixelButtonColor
-            className="staking_confirm staking_confirm_yellow"
+            className="W_staking_confirm W_staking_confirm_yellow"
             width="100%"
             height={isW768 ? '48px' : '54px'}
             pixel_height={5}

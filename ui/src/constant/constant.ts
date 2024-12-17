@@ -21,8 +21,6 @@ export const isPro = ((): boolean => {
   }
   return false;
 })();
-export const GPV2 = false;
-// export const GPV2 = isPro ? false : true;
 
 export const isLocalhost = (): boolean => {
   if (window.location.host.startsWith("192.168")) {
@@ -562,12 +560,12 @@ export const zkBingo = (
       address = {
         date: "2024-09-18T07:29:26.176Z",
         chainId: 9901,
-        deployer: "0x777309A93086d59d913b86D1D6F3dA652C473f4D",
-        ZypherGameToken: "0xF730dd9CD6557FC3F0CB2Ed588F9143d4D8fb01f",
-        ZkBingoPoints: "0xf68964E6f6Edee07425fCd40FC851963A82beA25",
-        ZkBingoCard: "0x993ee6324721525e893874cc29B3509512827F59",
-        ZkBingoLobby: "0x356D07c74A4737b0E07816364aD3E127A8698993",
-        ZkBingoFee: "0x759B0b65cD7eec869c5fB03cb613909A31859244",
+        deployer: "0x27863BeD6A09f73D4a02b4eDA99f65167Ecd04F4",
+        ZypherGameToken: "0x9aa0e7639e385437236686797d4210d60C9b9E1E",
+        ZkBingoCard: "0xFd77c5621a42Ea80576E6f0eC93766F86772E7D9",
+        ZkBingoLobby: "0x9Ddb32Cf25B374D0581CFE76114B88804507c86D",
+        ZkBingoFee: "0xa2BC76a002FBE3E86Ffa444eB4f6f4c59e752bfe",
+        ZkBingoPoints: "0x7BE15946c0F8655f8d29B2D19DA54006DF65A7fc",
       };
     }
     let returnAddress = AddressZero;

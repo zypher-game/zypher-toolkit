@@ -8,6 +8,7 @@ import {
   DialogClose,
   hideTVLStakingSupportedChainId,
   ModalWithMotion,
+  TokenWithChain,
   TVLStakingSupportedChainId,
   useActiveWeb3React,
   useIsW768,
@@ -20,16 +21,13 @@ import { isEqual } from 'lodash'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import { zeroAddress } from 'viem'
 
-import TokenWithChain from '../../components/Token/TokenWithChain/TokenWithChain'
 import { canNext } from '../../hooks/activeHooks'
 import {
   chooseChainState,
   depositCurrencyState,
-  extendCurrencyState,
   ITVLStakingData,
   redepositCurrencyState,
   selectTokenDialogState,
-  tvlExtendDialogState,
   tvlRedepositDialogState,
   tvlStakingDataState,
   tvlWithdrawDialogState,
@@ -45,12 +43,10 @@ const SelectTokenDialog = memo(() => {
   const [chainIdLocal, setChainIdLocal] = useRecoilState(chooseChainState)
   const [tokenList, setTokenList] = useState<ITVLStakingData[]>([])
   const isWithdrawDialog = useRecoilValue(tvlWithdrawDialogState)
-  const isExtendDialog = useRecoilValue(tvlExtendDialogState)
   const isRedepositDialog = useRecoilValue(tvlRedepositDialogState)
   const [depositCurrency, setDepositCurrency] = useRecoilState(depositCurrencyState)
   const [withdrawCurrency, setWithdrawCurrency] = useRecoilState(withdrawCurrencyState)
   const [redepositCurrency, setRedepositCurrency] = useRecoilState(redepositCurrencyState)
-  const [extendCurrency, setExtendCurrency] = useRecoilState(extendCurrencyState)
   useEffect(() => {
     const can = canNext(account, chainId)
     if (can) {
@@ -65,11 +61,11 @@ const SelectTokenDialog = memo(() => {
     if (can) {
       arr = Object.values(tvlStakingData[chainIdLocal!]) as ITVLStakingData[]
     }
-    if (isWithdrawDialog || isExtendDialog) {
+    if (isWithdrawDialog) {
       arr = arr.filter(v => v.address !== zeroAddress)
     }
     setTokenList(arr.sort((a, b) => a.index - b.index))
-  }, [JSON.stringify(tvlStakingData), isWithdrawDialog, isExtendDialog, chainIdLocal])
+  }, [JSON.stringify(tvlStakingData), isWithdrawDialog, chainIdLocal])
   const handleCancel = useCallback(() => {
     setIsModalOpen(false)
   }, [])
@@ -80,15 +76,13 @@ const SelectTokenDialog = memo(() => {
     (v: ITVLStakingData) => {
       if (isWithdrawDialog) {
         setWithdrawCurrency(v.symbol)
-      } else if (isExtendDialog) {
-        setExtendCurrency(v.symbol)
       } else {
         setRedepositCurrency(v.symbol)
         // setDepositCurrency(v.symbol)
       }
       setIsModalOpen(false)
     },
-    [isRedepositDialog, isWithdrawDialog, isExtendDialog]
+    [isRedepositDialog, isWithdrawDialog]
   )
 
   return (
@@ -132,14 +126,12 @@ const SelectTokenDialog = memo(() => {
               v={v}
               key={v.address}
               isWithdrawDialog={isWithdrawDialog}
-              isExtendDialog={isExtendDialog}
               isRedepositDialog={isRedepositDialog}
               withdrawCurrency={withdrawCurrency}
               redepositCurrency={redepositCurrency}
               depositCurrency={depositCurrency}
               chainIdLocal={chainIdLocal}
               changeTokenHandle={changeTokenHandle}
-              extendCurrency={extendCurrency}
             />
           ))}
         </div>
@@ -151,12 +143,10 @@ const SelectTokenDialog = memo(() => {
 const Item = memo(
   ({
     isWithdrawDialog,
-    isExtendDialog,
     withdrawCurrency,
     isRedepositDialog,
     redepositCurrency,
     depositCurrency,
-    extendCurrency,
     chainIdLocal,
     changeTokenHandle,
     v
@@ -164,19 +154,17 @@ const Item = memo(
     chainIdLocal?: ChainId
     changeTokenHandle: any
     v: ITVLStakingData
-    isExtendDialog: boolean
     isWithdrawDialog: boolean
     withdrawCurrency?: string
     isRedepositDialog: boolean
     redepositCurrency?: string
-    extendCurrency?: string
     depositCurrency?: string
   }) => {
     const [isOn, balance] = useMemo(() => {
-      const key = isWithdrawDialog ? withdrawCurrency : isRedepositDialog ? redepositCurrency : isExtendDialog ? extendCurrency : depositCurrency
-      const _balance = isWithdrawDialog ? v.withdrawAmountStr : isExtendDialog ? v.withdrawAmountStr : v.balanceStr
+      const key = isWithdrawDialog ? withdrawCurrency : isRedepositDialog ? redepositCurrency : depositCurrency
+      const _balance = isWithdrawDialog ? v.withdrawAmountStr : v.balanceStr
       return [key === v.symbol && v.chainId === chainIdLocal, _balance]
-    }, [depositCurrency, withdrawCurrency, redepositCurrency, isWithdrawDialog, isRedepositDialog, isExtendDialog])
+    }, [depositCurrency, withdrawCurrency, redepositCurrency, isWithdrawDialog, isRedepositDialog])
     return (
       <PixelBorderCardButton
         className={`select_staking_switch ${isOn ? 'staking_switch_li_dialog' : ''}`}

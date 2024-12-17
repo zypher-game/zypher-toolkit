@@ -287,11 +287,6 @@ export const tvlWithdrawDialogState = atom({
   default: false
 })
 
-export const tvlExtendDialogState = atom({
-  key: 'tvlExtendDialogState' + version,
-  default: false
-})
-
 export const tvlRedepositDialogState = atom({
   key: 'tvlRedepositDialogState' + version,
   default: false
@@ -352,11 +347,6 @@ export const redepositCurrencyState = atom<string | undefined>({
   key: 'redepositCurrencyState' + version,
   default: undefined,
   effects_UNSTABLE: [localStorageEffect('redepositCurrencyState' + version)]
-})
-export const extendCurrencyState = atom<string | undefined>({
-  key: 'extendCurrencyState' + version,
-  default: undefined,
-  effects_UNSTABLE: [localStorageEffect('extendCurrencyState' + version)]
 })
 
 export const withdrawCurrencyState = atom<string | undefined>({

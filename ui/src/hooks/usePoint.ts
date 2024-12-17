@@ -6,9 +6,7 @@ import {
   pointsDialogState,
   pointsWarnState,
   refreshBalanceState,
-  sleep,
   useAaWallet,
-  timeoutPromise,
 } from "..";
 import { TransactionReceipt } from "viem";
 import BigNumberjs from "bignumber.js";
@@ -17,19 +15,18 @@ import { useAccountInvitation } from "./useAccountInvitation";
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { usePublicNodeWaitForTransaction } from "./usePublicNodeWaitForTransaction";
-import { useWalletClient } from "wagmi";
 import ZkBingoPointsContract from "../contract/bingoPoints";
 import { IContractName, txStatus, zkBingo } from "../constant/constant";
 import { ethers } from "ethers";
 import { pointsAnimNumState } from "../components/ConnectWallet/state/connectWalletState";
-const ChainPointPrice = {
+export const ChainPointPrice = {
   [ChainId.LineaMainnet]: 1 / 2_000_000,
   [ChainId.LineaSepolia]: 1 / 2_000_000,
   [ChainId.OPBNB]: 1 / 250_000,
   [ChainId.OPBNBTEST]: 1 / 250_000,
   [ChainId.ZytronLineaSepoliaTestnet]: 1 / 2_000_000,
   [ChainId.ZytronLineaMain]: 1 / 2_000_000,
-};
+} as unknown as Record<ChainId, number>;
 export const pointsListDefault = (
   chainId: ChainId
 ): IPointsItem[] | undefined => {
@@ -76,12 +73,10 @@ type ISwapPoint = {
 };
 export const useSwapPoint = ({
   env,
-  dispatch,
   setSuccessToast,
   setErrorToast,
 }: {
   env: string;
-  dispatch: any;
   setSuccessToast: any;
   setErrorToast: any;
 }): ISwapPoint => {

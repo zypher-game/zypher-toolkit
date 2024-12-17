@@ -33,9 +33,14 @@ const ActiveTVLLeaderboard = memo(() => {
     }
     return newList
   }, [JSON.stringify(rankBoard)])
-  const changeChainIndexHandle = useCallback((index: number) => {
-    setChainIndex(index)
-  }, [])
+  const changeChainIndexHandle = useCallback(
+    (index: number) => {
+      if (chainIndex !== index) {
+        setChainIndex(index)
+      }
+    },
+    [chainIndex]
+  )
 
   return (
     <TVLWrap

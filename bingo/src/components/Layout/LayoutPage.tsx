@@ -74,7 +74,7 @@ const LayoutPage = memo((props: IProps) => {
   }, [bingoVersion])
   const IS_TELEGRAM = useIsTelegram()
   const isPlay = useMemo(() => {
-    return (pathnameArr ?? []).join().includes('play')
+    return (pathnameArr ?? []).join().includes('gameRoom')
   }, [JSON.stringify(pathnameArr)])
   return (
     <LayoutAntd className={classnames(`lt-layout ${bingoVersion}`, pathnameArr[1] === '' ? 'zBingo' : pathnameArr[1])}>

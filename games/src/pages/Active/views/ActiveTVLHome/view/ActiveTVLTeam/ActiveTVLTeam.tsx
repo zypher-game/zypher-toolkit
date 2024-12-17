@@ -1,17 +1,5 @@
-import {
-  ChainImage,
-  Currency,
-  PixelCube3,
-  preStaticUrl,
-  refreshAvatarState,
-  SvgComponent,
-  useActiveWeb3React,
-  useIsW768,
-  useRecoilValue
-} from '@ui/src'
-import { upperCase } from 'lodash'
-import React, { memo, useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { useLocation } from 'react-router-dom'
+import { ChainImage, PixelCube3, preStaticUrl, refreshAvatarState, SvgComponent, useActiveWeb3React, useIsW768, useRecoilValue } from '@ui/src'
+import React, { memo, useCallback, useEffect, useState } from 'react'
 
 import NoDataListLoading from '@/components/NoData/NoDataListLoading/NoDataListLoading'
 import GetPointCardDialog from '@/pages/Active/dialog/GetPointCardDialog/GetPointCardDialog'
