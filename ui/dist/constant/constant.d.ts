@@ -7,7 +7,7 @@ export declare const divisor6xBigNumber: BigNumberjs;
 export declare const divisorBigNumber: BigNumberjs;
 export declare const txStatus = "success";
 export declare const isPro: boolean;
-export declare const GPV2 = false;
+export declare const GPV2: boolean;
 export declare const isLocalhost: () => boolean;
 export declare const preStaticUrl: string;
 export declare enum ChainId {

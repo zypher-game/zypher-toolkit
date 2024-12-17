@@ -47,8 +47,6 @@ const TokenWithChain = memo(
           alt={token.symbol}
         />
         <img
-          decoding="async"
-          loading="lazy"
           className={"token_with_chain_chain_id"}
           src={ChainImage[cChainId]}
           alt={Currency[cChainId]}

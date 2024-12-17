@@ -1819,7 +1819,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Staking/Staking.styl */
 @media screen and (max-width: 830px) {
   .bottom .S_staking {
-    padding: 30px 20px;
+    padding: 36px 20px;
     width: 100vw;
     background-color: #1d263b;
     position: relative;
@@ -1886,6 +1886,9 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   gap: 12px;
   width: 100%;
 }
+.S_text_li.S_text_li_column li {
+  align-items: flex-start;
+}
 .S_text_li.S_text_li_margin20 {
   margin: 20px 0 10px;
 }
@@ -1898,6 +1901,20 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   display: flex;
   justify-content: flex-end;
   align-items: center;
+}
+.S_text_li .S_fr_column {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-end;
+  text-align: end;
+}
+.S_text_li .S_fr_column .S_fr_yellow {
+  color: #ffd02b;
+  width: 100%;
+}
+.S_text_li .S_fr_column .S_fr_grey {
+  opacity: 0.5;
 }
 .S_label {
   padding-top: 20px;
@@ -1916,7 +1933,13 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
 .S_arr_down {
   position: absolute;
   z-index: 4;
-  top: 176px;
+  top: 210px;
+  left: calc(50% - 7px);
+}
+@media screen and (max-width: 830px) {
+  .S_arr_down {
+    top: 200px;
+  }
 }
 .S_select {
   width: 100%;
@@ -1949,7 +1972,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   width: 100%;
   margin-top: 30px;
 }
-.S_btn :global(.staking_confirm) {
+.S_btn .staking_confirm {
   flex: 1;
 }
 .S_staking_week {
@@ -1962,7 +1985,7 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   top: 50px;
   right: 0;
 }
-.S_staking_week .S_week_border :global(>.pixel_flat_inner) {
+.S_staking_week .S_week_border > .pixel_flat_inner {
   flex-direction: column;
   height: 240px;
   padding: 0;
@@ -1971,22 +1994,22 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   align-items: center;
   gap: 10px;
 }
-.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem {
+.S_staking_week .S_week_border > .pixel_flat_inner .S_weekItem {
   width: 100%;
   cursor: pointer;
 }
-.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem.S_on :global(>.pixel_flat_btn_bg) {
+.S_staking_week .S_week_border > .pixel_flat_inner .S_weekItem.S_on > .pixel_flat_btn_bg {
   opacity: 1;
 }
-.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem:hover :global(>.pixel_flat_btn_bg) {
+.S_staking_week .S_week_border > .pixel_flat_inner .S_weekItem:hover > .pixel_flat_btn_bg {
   opacity: 1;
 }
-.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem :global(>.pixel_flat_inner) {
+.S_staking_week .S_week_border > .pixel_flat_inner .S_weekItem > .pixel_flat_inner {
   justify-content: flex-start;
   align-items: center;
   padding-left: 20px;
 }
-.S_staking_week .S_week_border :global(>.pixel_flat_inner) .S_weekItem :global(>.pixel_flat_btn_bg) {
+.S_staking_week .S_week_border > .pixel_flat_inner .S_weekItem > .pixel_flat_btn_bg {
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -2001,6 +2024,7 @@ body .W_staking_staking > .pixel_flat_inner {
   width: 100%;
   height: 100%;
   flex-direction: column;
+  position: static;
 }
 .W_staking_switch > .pixel_flat_inner {
   gap: 10px;
@@ -2073,6 +2097,77 @@ body .W_staking_staking > .pixel_flat_inner {
 }
 .W_staking_confirm_purple p {
   color: #3a165a;
+}
+.SS_tab {
+  width: fit-content;
+}
+@media screen and (max-width: 830px) {
+  .SS_tab {
+    width: 100%;
+  }
+}
+.SS_tab:first-child .SS_tab_li:after,
+.SS_tab:last-child .SS_tab_li:after {
+  contain: "";
+  width: 4px;
+  height: calc(100% - 8px);
+  top: 4px;
+  background-color: #1649ff;
+}
+.SS_tab .SS_tab_li {
+  display: flex;
+  padding: 0 23px;
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  min-width: 110px;
+  position: relative;
+  cursor: pointer;
+}
+@media screen and (max-width: 830px) {
+  .SS_tab .SS_tab_li {
+    width: 50%;
+  }
+}
+.SS_tab .SS_tab_li p {
+  transition: opacity 0.3s ease;
+  font-size: 14px;
+}
+@media screen and (max-width: 830px) {
+  .SS_tab .SS_tab_li p {
+    font-size: 12px;
+  }
+}
+.SS_tab .SS_tab_li:hover p {
+  opacity: 0.8;
+}
+.SS_tab .SS_tab_li.on {
+  background-color: #1649ff;
+}
+.SS_tab .SS_tab_li.on p {
+  font-weight: 600;
+}
+.SS_tab .SS_tab_li.on:hover p {
+  opacity: 1;
+}
+.SS_tab .SS_tab_li.on:first-child:after,
+.SS_tab .SS_tab_li.on:last-child:after {
+  content: "";
+  position: absolute;
+  width: 4px;
+  height: calc(100% - 8px);
+  top: 4px;
+  background-color: #1649ff;
+}
+.SS_tab .SS_tab_li.on:first-child:after {
+  left: -4px;
+}
+.SS_tab .SS_tab_li.on:last-child:after {
+  right: -4px;
+}
+.SS_tab > .pixel_flat_inner {
+  justify-content: flex-start;
+  padding: 0 8px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */

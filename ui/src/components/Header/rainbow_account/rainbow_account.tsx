@@ -11,13 +11,12 @@ import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDial
 import PointsRuleDialog from "../../ConnectWallet/components/PointsDialog/PointsRuleDialog";
 import {
   pointsDialogState,
-  pointsL2DialogState,
-  pointsL3DialogState,
+  pointsV2DialogState,
 } from "../../ConnectWallet/state/connectWalletState";
 import { ChainId, GPV2 } from "../../../constant/constant";
 import AccountInfo from "./AccountInfo/AccountInfo";
-import PointsL2Dialog from "../../Staking/GP/PointsL2Dialog";
-import PointsL3Dialog from "../../Staking/GP/PointsL3Dialog";
+import PointsV2Dialog from "../../Staking/GP/PointsV2Dialog";
+import { GPV2SupportChainId } from "../../Staking/GP/constant/GPConstant";
 const Account = memo(
   ({
     isMiddleWidth,
@@ -40,22 +39,13 @@ const Account = memo(
   }) => {
     const isW768 = useIsW768();
     const setPointsDialogState = useSetRecoilState(pointsDialogState);
-    const setPointsL3DialogState = useSetRecoilState(pointsL3DialogState);
-    const setPointsL2DialogState = useSetRecoilState(pointsL2DialogState);
+    const setPointsV2DialogState = useSetRecoilState(pointsV2DialogState);
     const { chainId } = useActiveWeb3React();
     const showPointsModal = useCallback(() => {
       // GPV2
       if (GPV2) {
-        if (
-          [ChainId.ZytronLineaMain, ChainId.ZytronLineaSepoliaTestnet].includes(
-            chainId
-          )
-        ) {
-          setPointsL3DialogState(true);
-        } else if (
-          [ChainId.LineaMainnet, ChainId.LineaSepolia].includes(chainId)
-        ) {
-          setPointsL2DialogState(true);
+        if (GPV2SupportChainId.includes(chainId)) {
+          setPointsV2DialogState(true);
         } else {
           setPointsDialogState(true);
         }
@@ -83,12 +73,7 @@ const Account = memo(
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
         />
-        <PointsL2Dialog
-          env={env}
-          setSuccessToast={setSuccessToast}
-          setErrorToast={setErrorToast}
-        />
-        <PointsL3Dialog
+        <PointsV2Dialog
           env={env}
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}

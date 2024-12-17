@@ -5,12 +5,6 @@ const Detail = memo(
     return (
       <>
         <li>
-          <p>Minimum deposit amount</p>
-          <div className="S_fr">
-            <p>0.0005 ETH</p>
-          </div>
-        </li>
-        <li>
           <p>Exchange rate</p>
           <div className="S_fr">
             <p>1 ETH = 2,000,000 GP</p>

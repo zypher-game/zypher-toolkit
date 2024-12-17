@@ -1,8 +1,10 @@
 import { Iaa, WagmiWalletHandler } from "../utils/wagmiWalletHandler";
 import { Address } from "viem";
+import { ChainId } from "ui/src/constant/constant";
 export type IAAWallet = {
     getContainer?: HTMLElement | null;
     wallet?: WagmiWalletHandler;
+    chainId?: ChainId;
     walletClient?: any;
     aaWalletClient?: any;
     mockAcc?: any;

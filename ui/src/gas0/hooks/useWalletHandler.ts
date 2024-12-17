@@ -10,14 +10,16 @@ import {
 import { Gas0Constants } from "../constants/Gas0Constant";
 
 import BigNumberJs from "../../utils/BigNumberJs";
-import { Address, WalletClient, zeroAddress } from "viem";
+import { Address, zeroAddress } from "viem";
 import { getIsCode } from "../utils/getIsCode";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
+import { ChainId } from "ui/src/constant/constant";
 
 export type IAAWallet = {
   getContainer?: HTMLElement | null;
   wallet?: WagmiWalletHandler;
+  chainId?: ChainId;
   walletClient?: any;
   aaWalletClient?: any;
   mockAcc?: any;
@@ -91,6 +93,7 @@ export const useGetWalletClient = () => {
           const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
           setAaWallet((pre) => ({
             ...pre,
+            chainId: chainId,
             wallet: WH,
             aa: WH.aa,
             account: WH.account.address,
@@ -105,6 +108,7 @@ export const useGetWalletClient = () => {
       setIsSet(true);
       setAaWallet((pre) => ({
         ...pre,
+        chainId: chainId,
         wallet: undefined,
         aa: undefined,
         account: account,
