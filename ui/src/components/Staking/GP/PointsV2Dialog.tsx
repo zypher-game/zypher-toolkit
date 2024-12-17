@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
-import React, { memo, useCallback, useMemo } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useRecoilState } from "recoil";
 import "../Staking.styl";
 import { useIsW768 } from "../../../hooks/useWindowSize";
@@ -28,6 +28,13 @@ const PointsV2Dialog = memo(
     const handleCancel = useCallback(() => {
       setPointsV2DialogOpen(false);
     }, []);
+    const [chainDetail, setChainDetail] = useState<{
+      L2: boolean;
+      L3: boolean;
+    }>({
+      L2: false,
+      L3: false,
+    });
     const isW768 = useIsW768();
     const changeTableHandle = useCallback(
       (index) => {
@@ -52,24 +59,19 @@ const PointsV2Dialog = memo(
       setSuccessToast,
       setErrorToast,
     });
-    const { L2, L3 } = useMemo(() => {
+    useEffect(() => {
+      console.log({ chainId });
       if (chainId) {
-        return {
+        setChainDetail({
           L3: [
             ChainId.ZytronLineaMain,
             ChainId.ZytronLineaSepoliaTestnet,
           ].includes(chainId),
           L2: [ChainId.LineaMainnet, ChainId.LineaSepolia].includes(chainId),
-        };
+        });
       }
-      return {
-        L2: false,
-        L3: false,
-      };
     }, [chainId]);
-    if (L3 === undefined) {
-      return null;
-    }
+
     return (
       <ModalWithMotion
         isOpen={pointsV2DialogOpen}
@@ -83,7 +85,7 @@ const PointsV2Dialog = memo(
           pixel_height={9}
           backgroundColor="#1D263B"
         >
-          {L3 ? (
+          {chainDetail.L3 ? (
             <PixelCube2
               className="SS_tab"
               pixel_height={4}
@@ -104,7 +106,7 @@ const PointsV2Dialog = memo(
           ) : (
             <h3 className="S_title">Deposit</h3>
           )}
-          {L2 || tabIndex === 0 ? (
+          {chainDetail.L2 || tabIndex === 0 ? (
             <GPDeposit
               NativeToken={NativeToken}
               GPToken={GPToken}
@@ -113,7 +115,7 @@ const PointsV2Dialog = memo(
               health={health}
             />
           ) : null}
-          {L3 && tabIndex === 1 ? (
+          {chainDetail.L3 && tabIndex === 1 ? (
             <GPWithdraw
               NativeToken={NativeToken}
               GPToken={GPToken}
