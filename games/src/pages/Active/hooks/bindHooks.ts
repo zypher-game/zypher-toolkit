@@ -61,9 +61,7 @@ export const useBind = () => {
     // if (!isOk) {
     //   return
     // }
-    console.log(999)
     if (!signedStr || signedStr === '') {
-      console.log(888)
       getSignCall()
       return
     }

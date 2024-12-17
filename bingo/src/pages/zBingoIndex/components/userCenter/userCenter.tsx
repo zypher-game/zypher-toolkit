@@ -14,7 +14,6 @@ const UserCenter = memo(() => {
   const IS_TELEGRAM = useIsTelegram()
   const { gamesLen, gamesWon, gamesWonNumber, winningPercent, account, bingoVersion } = useGetProfileFromGraph()
   const userInfo = useRecoilValue(TelegramUserInfoState)
-  // const { hasMonsterNft } = useMonster()
   if (!account) {
     return <></>
   }

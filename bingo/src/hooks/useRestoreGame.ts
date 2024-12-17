@@ -36,7 +36,6 @@ export default function useRestoreGame<T>() {
       const Playing = new BigNumberJs(playingGameId.toString()).toNumber() > 0
       const currentTimestamp = Math.floor(Date.now() / 1000)
       const time = autoEndTime > 0 ? autoEndTime - currentTimestamp : 0
-      console.log({ txn, playingGameId: playingGameId.toString() })
       setGameId(new BigNumberJs(playingGameId.toString()).toNumber())
       setGameTime(time)
       setisPlaying(Playing)

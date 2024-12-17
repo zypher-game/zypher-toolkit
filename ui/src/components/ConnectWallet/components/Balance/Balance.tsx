@@ -32,6 +32,7 @@ import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
 import BigNumberJs from "../../../../utils/BigNumberJs";
 import { erc20ABI, useWalletClient } from "wagmi";
 import MulticallContract from "../../../../contract/multicall";
+import { zeroAddress } from "viem";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -60,7 +61,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     }
     try {
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
-      if (!pointsAddress) {
+      if (!pointsAddress || pointsAddress === zeroAddress) {
         setPointsBalance(0);
       } else {
         try {
@@ -100,7 +101,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           }
           return undefined;
         } catch (e: any) {
-          console.error("fetchAccountMonsterNft: ", e);
+          console.error("pointsAddress: ", e);
           return undefined;
         }
       }

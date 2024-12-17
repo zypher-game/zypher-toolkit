@@ -31,7 +31,7 @@ export const fetchAccountMonsterNft = async ({ chainId, account }: { chainId: Ch
     }
     return undefined
   } catch (e: any) {
-    console.error('fetchAccountMonsterNft: ', e)
+    console.error('2fetchAccountMonsterNft: ', e)
     return undefined
   }
 }

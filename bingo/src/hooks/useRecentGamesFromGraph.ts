@@ -265,7 +265,7 @@ export const getRecentGameById = async ({
     }
     return undefined
   } catch (err) {
-    console.error('getRecentGameById err: ', err)
+    // console.error('getRecentGameById err: ', err)
     return undefined
   }
 }

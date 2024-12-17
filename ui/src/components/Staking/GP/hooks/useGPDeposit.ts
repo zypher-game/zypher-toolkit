@@ -23,7 +23,7 @@ import {
 import BigNumberJs from "../../../../utils/BigNumberJs";
 import { IToken } from "../../../../constant/tvlConstant";
 import erc20Contract from "../../../../contract/erc20";
-import { GPAddress } from "../constant/GPConstant";
+import { GPAddress, GPV2SupportChainId } from "../constant/GPConstant";
 import { formatMoney } from "../../../../utils/tool";
 
 export interface IHealth {
@@ -121,7 +121,7 @@ export const useGPDeposit = ({
     getData();
   }, [chainId, account]);
   const getData = useCallback(async () => {
-    if (chainId && account) {
+    if (chainId && GPV2SupportChainId.includes(chainId) && account) {
       const { Store } = GPAddress[chainId];
       const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken);
       const pointsContract = erc20Contract(

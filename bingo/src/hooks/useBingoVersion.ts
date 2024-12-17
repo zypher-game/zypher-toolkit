@@ -1,5 +1,16 @@
-import { bingoBetaSupportedChainId, bingoSupportedChainId, ChainId, useActiveWeb3React, useIsTelegram, useSetRecoilState } from '@ui/src'
-import { useEffect } from 'react'
+import {
+  bingoBetaSupportedChainId,
+  bingoSupportedChainId,
+  ChainId,
+  setupNetwork,
+  timeoutPromise,
+  useActiveWeb3React,
+  useChainId,
+  useIsTelegram,
+  useSetRecoilState,
+  useSwitchNetwork
+} from '@ui/src'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
@@ -11,21 +22,42 @@ export const useBingoVersion = () => {
   // page init
   const IS_TELEGRAM = useIsTelegram()
   const navigate = useNavigate()
-  const { chainId } = useActiveWeb3React()
+  const chainId = useChainId()
   const setBingoVersion = useSetRecoilState(bingoVersionState)
   const chainIdParams = useChainIdParams()
+  const { switchNetworkAsync, isLoading } = useSwitchNetwork()
+  const [initialLoad, setInitialLoad] = useState(true) // Track initial load
   useEffect(() => {
-    if (bingoSupportedChainId.includes(chainId)) {
-      if (`${chainIdParams}` !== `${chainId}`) {
-        if (!(window.location.pathname.indexOf('gameRoom') > -1)) {
-          toBingoHref({
-            chainIdParams: `${chainId}`,
-            navigate
-          })
-        }
+    if (`${chainIdParams}` !== `${chainId}`) {
+      if (!(window.location.pathname.indexOf('gameRoom') > -1)) {
+        try {
+          const ch = (initialLoad ? chainIdParams : chainId) as unknown as ChainId
+          if (switchNetworkAsync) {
+            Promise.race([
+              new Promise(async (resolve, reject) => {
+                try {
+                  await setupNetwork(ch)
+                  await switchNetworkAsync(parseInt(ch, 10))
+                  resolve(true)
+                } catch (error) {
+                  reject(error)
+                }
+              }),
+              timeoutPromise(initialLoad ? 10000 : 2000)
+            ]).finally(() => {
+              setInitialLoad(false)
+              toBingoHref({
+                chainIdParams: `${ch}`,
+                navigate
+              })
+            })
+          }
+        } catch (err: any) {}
       }
+    } else {
+      setInitialLoad(false)
     }
-  }, [chainId, chainIdParams])
+  }, [chainId, isLoading, switchNetworkAsync, chainIdParams])
   useEffect(() => {
     if (IS_TELEGRAM) {
       setBingoVersion(IBingoVersion.beta)
