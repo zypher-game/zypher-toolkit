@@ -52,13 +52,20 @@ const PointsV2Dialog = memo(
       setSuccessToast,
       setErrorToast,
     });
-    const L3 = useMemo(() => {
+    const { L2, L3 } = useMemo(() => {
       if (chainId) {
-        return [
-          ChainId.ZytronLineaMain,
-          ChainId.ZytronLineaSepoliaTestnet,
-        ].includes(chainId);
+        return {
+          L3: [
+            ChainId.ZytronLineaMain,
+            ChainId.ZytronLineaSepoliaTestnet,
+          ].includes(chainId),
+          L2: [ChainId.LineaMainnet, ChainId.LineaSepolia].includes(chainId),
+        };
       }
+      return {
+        L2: false,
+        L3: false,
+      };
     }, [chainId]);
     if (L3 === undefined) {
       return null;
@@ -97,7 +104,7 @@ const PointsV2Dialog = memo(
           ) : (
             <h3 className="S_title">Deposit</h3>
           )}
-          {tabIndex === 0 ? (
+          {L2 || tabIndex === 0 ? (
             <GPDeposit
               NativeToken={NativeToken}
               GPToken={GPToken}

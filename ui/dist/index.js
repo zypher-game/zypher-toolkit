@@ -9796,13 +9796,20 @@ var PointsV2Dialog = memo37(
       setSuccessToast,
       setErrorToast
     });
-    const L3 = useMemo17(() => {
+    const { L2, L3 } = useMemo17(() => {
       if (chainId) {
-        return [
-          "9901" /* ZytronLineaMain */,
-          "50098" /* ZytronLineaSepoliaTestnet */
-        ].includes(chainId);
+        return {
+          L3: [
+            "9901" /* ZytronLineaMain */,
+            "50098" /* ZytronLineaSepoliaTestnet */
+          ].includes(chainId),
+          L2: ["59144" /* LineaMainnet */, "59141" /* LineaSepolia */].includes(chainId)
+        };
       }
+      return {
+        L2: false,
+        L3: false
+      };
     }, [chainId]);
     if (L3 === void 0) {
       return null;
@@ -9829,7 +9836,7 @@ var PointsV2Dialog = memo37(
       onClick: () => changeTableHandle(index)
     }, /* @__PURE__ */ React45.createElement("p", null, v)))) : /* @__PURE__ */ React45.createElement("h3", {
       className: "S_title"
-    }, "Deposit"), tabIndex === 0 ? /* @__PURE__ */ React45.createElement(GPDeposit_default, {
+    }, "Deposit"), L2 || tabIndex === 0 ? /* @__PURE__ */ React45.createElement(GPDeposit_default, {
       NativeToken,
       GPToken,
       deposit,
