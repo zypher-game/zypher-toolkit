@@ -299,6 +299,7 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
   bottom: 0;
   right: 0;
   border: 1px solid #fff;
+  background-color: #000;
   border-radius: 50%;
   z-index: 3;
 }
@@ -1832,6 +1833,16 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   .S_staking {
     padding: 30px 20px;
   }
+}
+.S_staking p,
+.S_staking h1,
+.S_staking h2,
+.S_staking h3,
+.S_staking h4,
+.S_staking h5,
+.S_staking h6,
+.S_staking input {
+  color: #fff;
 }
 .S_staking .S_title {
   font-size: 18px;
