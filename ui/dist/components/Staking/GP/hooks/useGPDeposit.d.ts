@@ -34,10 +34,12 @@ export interface IUseGPDeposit {
         nativeValue: string;
         GPValue: string;
     }) => Promise<void>;
-    withdraw?: ({ nativeValue, GPValue, }: {
+    withdraw?: ({ nativeValue, GPValue, isL3, }: {
         nativeValue: string;
         GPValue: string;
+        isL3: boolean;
     }) => Promise<void>;
+    getWithdrawETH?: (GPValue: string) => Promise<string>;
 }
 export declare const useGPDeposit: ({ env, setSuccessToast, setErrorToast, }: {
     env: string;

@@ -1,6 +1,6 @@
 import classnames from "classnames";
 import { isEqual } from "../../../utils/lodash";
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback } from "react";
 import { useRecoilState } from "recoil";
 import "../Staking.styl";
 import { useIsW768 } from "../../../hooks/useWindowSize";
@@ -14,8 +14,6 @@ import {
 import { PixelBorderCard, PixelCube2 } from "../../PixelBtn/ActivePixelButton";
 import DialogClose from "../../DialogClose/DialogClose";
 import GPDeposit from "./components/GPDeposit";
-import { useAaWallet } from "../../../gas0/hooks/useWalletHandler";
-import { ChainId } from "../../../constant/constant";
 import GPWithdraw from "./components/GPWithdraw";
 import { useGPDeposit } from "./hooks/useGPDeposit";
 const tabTitleArr = ["Deposit", "Withdraw"];
@@ -24,17 +22,9 @@ const PointsV2Dialog = memo(
     const [tabIndex, setTabIndex] = useRecoilState(pointsV2TabIndexState);
     const [pointsV2DialogOpen, setPointsV2DialogOpen] =
       useRecoilState(pointsV2DialogState);
-    const { chainId } = useAaWallet();
     const handleCancel = useCallback(() => {
       setPointsV2DialogOpen(false);
     }, []);
-    const [chainDetail, setChainDetail] = useState<{
-      L2: boolean;
-      L3: boolean;
-    }>({
-      L2: false,
-      L3: false,
-    });
     const isW768 = useIsW768();
     const changeTableHandle = useCallback(
       (index) => {
@@ -54,22 +44,12 @@ const PointsV2Dialog = memo(
       loadingApprove,
       allowance,
       health,
+      getWithdrawETH,
     } = useGPDeposit({
       env,
       setSuccessToast,
       setErrorToast,
     });
-    useEffect(() => {
-      if (chainId) {
-        setChainDetail({
-          L3: [
-            ChainId.ZytronLineaMain,
-            ChainId.ZytronLineaSepoliaTestnet,
-          ].includes(chainId),
-          L2: [ChainId.LineaMainnet, ChainId.LineaSepolia].includes(chainId),
-        });
-      }
-    }, [chainId]);
 
     return (
       <ModalWithMotion
@@ -84,28 +64,24 @@ const PointsV2Dialog = memo(
           pixel_height={9}
           backgroundColor="#1D263B"
         >
-          {chainDetail.L3 ? (
-            <PixelCube2
-              className="SS_tab"
-              pixel_height={4}
-              height={isW768 ? "36px" : "44px"}
-              backgroundColor="#1D263B"
-              borderColor="#1649FF"
-            >
-              {tabTitleArr.map((v, index) => (
-                <div
-                  className={`SS_tab_li  ${index === tabIndex ? "on" : ""}`}
-                  key={v}
-                  onClick={() => changeTableHandle(index)}
-                >
-                  <p>{v}</p>
-                </div>
-              ))}
-            </PixelCube2>
-          ) : (
-            <h3 className="S_title">Deposit</h3>
-          )}
-          {chainDetail.L2 || tabIndex === 0 ? (
+          <PixelCube2
+            className="SS_tab"
+            pixel_height={4}
+            height={isW768 ? "36px" : "44px"}
+            backgroundColor="#1D263B"
+            borderColor="#1649FF"
+          >
+            {tabTitleArr.map((v, index) => (
+              <div
+                className={`SS_tab_li  ${index === tabIndex ? "on" : ""}`}
+                key={v}
+                onClick={() => changeTableHandle(index)}
+              >
+                <p>{v}</p>
+              </div>
+            ))}
+          </PixelCube2>
+          {tabIndex === 0 ? (
             <GPDeposit
               NativeToken={NativeToken}
               GPToken={GPToken}
@@ -113,8 +89,7 @@ const PointsV2Dialog = memo(
               loadingDeposit={loadingDeposit}
               health={health}
             />
-          ) : null}
-          {chainDetail.L3 && tabIndex === 1 ? (
+          ) : (
             <GPWithdraw
               NativeToken={NativeToken}
               GPToken={GPToken}
@@ -123,8 +98,9 @@ const PointsV2Dialog = memo(
               loadingApprove={loadingApprove}
               allowance={allowance}
               health={health}
+              getWithdrawETH={getWithdrawETH}
             />
-          ) : null}
+          )}
           <DialogClose onClick={handleCancel} />
         </PixelBorderCard>
       </ModalWithMotion>

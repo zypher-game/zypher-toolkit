@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { isEqual } from "../../../../utils/lodash";
 import FromToken from "./fromToken";
 import SvgComponent from "../../../SvgComponent/SvgComponent";
@@ -13,7 +13,9 @@ import { ActivePixelButtonColor } from "../../../PixelBtn/ActivePixelButton";
 import { useIsW768 } from "../../../../hooks/useWindowSize";
 import { ChainPointPrice } from "../../../../hooks/usePoint";
 import BigNumberJs from "../../../../utils/BigNumberJs";
-import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
+
+import { useAaWallet } from "../../../../gas0/hooks/useWalletHandler";
+import { ChainId } from "../../../../constant/constant";
 import { useRecoilValue } from "recoil";
 import { pointsBalanceState } from "../../../ConnectWallet/state/connectWalletState";
 import { usePointsBalanceStr } from "../../../ConnectWallet/hooks/connectWalletHooks";
@@ -31,83 +33,116 @@ const GPWithdraw = memo(
     loadingApprove,
     allowance,
     health,
+    getWithdrawETH,
   }: IUseGPDeposit) => {
     const [depositValue, setDepositValue] = useState("");
     const [receiveValue, setReceiveValue] = useState("");
-    const { chainId } = useActiveWeb3React();
     const pointsBalance = useRecoilValue(pointsBalanceState);
     const pointsBalanceStr = usePointsBalanceStr();
+    const [actualReceived, setActualReceived] = useState("-");
     const isW768 = useIsW768();
 
-    const maxHandle = useCallback(() => {
-      setDepositValue(`${pointsBalance}`);
-      const value = new BigNumberJs(pointsBalance)
-        .times(ChainPointPrice[chainId])
-        .toFixed();
-      if (value === "NaN") {
-        setReceiveValue("");
-      } else {
-        setReceiveValue(value);
+    const { chainId } = useAaWallet();
+    const [isL3, setIsL3] = useState(false);
+    useEffect(() => {
+      if (chainId) {
+        setIsL3(
+          [ChainId.ZytronLineaMain, ChainId.ZytronLineaSepoliaTestnet].includes(
+            chainId
+          )
+        );
       }
-    }, [pointsBalance]);
+    }, [chainId]);
+
+    const maxHandle = useCallback(() => {
+      if (chainId && isL3) {
+        setDepositValue(`${pointsBalance}`);
+        const value = new BigNumberJs(pointsBalance)
+          .times(ChainPointPrice[chainId])
+          .toFixed();
+        if (value === "NaN") {
+          setReceiveValue("");
+        } else {
+          setReceiveValue(value);
+        }
+      }
+    }, [pointsBalance, isL3]);
     const depositInputHandle = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value;
-        const regex = /^\d*\.?\d{0,8}$/;
-        if (regex.test(inputValue)) {
-          setDepositValue(inputValue);
-          const value = new BigNumberJs(inputValue)
-            .times(ChainPointPrice[chainId])
-            .toFixed();
-          if (value === "NaN") {
-            setReceiveValue("");
-          } else {
-            setReceiveValue(value);
+        if (chainId && isL3) {
+          const inputValue = e.target.value;
+          const regex = /^\d*\.?\d{0,8}$/;
+          if (regex.test(inputValue)) {
+            setDepositValue(inputValue);
+            const value = new BigNumberJs(inputValue)
+              .times(ChainPointPrice[chainId])
+              .toFixed();
+            if (value === "NaN") {
+              setReceiveValue("");
+            } else {
+              setReceiveValue(value);
+            }
           }
         }
       },
-      [chainId]
+      [chainId, isL3]
     );
     const receiveInputHandle = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
-        const inputValue = e.target.value;
-        const regex = /^\d*\.?\d{0,8}$/;
-        if (regex.test(inputValue)) {
-          setReceiveValue(inputValue);
-          const value = new BigNumberJs(inputValue)
-            .dividedBy(ChainPointPrice[chainId])
-            .toFixed();
-          if (value === "NaN") {
-            setDepositValue("");
-          } else {
-            setDepositValue(value);
+        if (chainId && isL3) {
+          const inputValue = e.target.value;
+          const regex = /^\d*\.?\d{0,8}$/;
+          if (regex.test(inputValue)) {
+            setReceiveValue(inputValue);
+            const value = new BigNumberJs(inputValue)
+              .dividedBy(ChainPointPrice[chainId])
+              .toFixed();
+            if (value === "NaN") {
+              setDepositValue("");
+            } else {
+              setDepositValue(value);
+            }
           }
         }
       },
-      [chainId]
+      [chainId, isL3]
+    );
+    const getWithdrawETHHandle = useCallback(
+      async (depositValue: string) => {
+        if (getWithdrawETH) {
+          const v = await getWithdrawETH(depositValue);
+          setActualReceived(v);
+        }
+      },
+      [getWithdrawETH]
     );
     const withdrawFree = useMemo(() => {
       if (
+        chainId &&
+        isL3 &&
         [receiveValue].every(
           (val: string) => !isNaN(Number(val)) && Number(val) > 0
         )
       ) {
+        getWithdrawETHHandle(depositValue);
         return `${formatMoney(
           new BigNumberJs(receiveValue).times(0.001).toFixed(),
           8
         )} ${Currency[chainId]}`;
       }
       return "-";
-    }, [receiveValue]);
+    }, [receiveValue, getWithdrawETHHandle, isL3, chainId]);
+
     const isDisable = useMemo(() => {
       return (
-        loadingWithdraw ||
-        loadingApprove ||
-        ![depositValue, receiveValue].every(
-          (val: string) => !isNaN(Number(val)) && Number(val) > 0
-        )
+        isL3 &&
+        (loadingWithdraw ||
+          loadingApprove ||
+          ![depositValue, receiveValue].every(
+            (val: string) => !isNaN(Number(val)) && Number(val) > 0
+          ))
       );
-    }, [loadingWithdraw, depositValue, receiveValue]);
+    }, [isL3, loadingWithdraw, depositValue, receiveValue]);
     const pointBalance = useRecoilValue(pointsBalanceState);
     const { btnLabel, isBalanceEnough } = useMemo(() => {
       const obj = {
@@ -142,12 +177,20 @@ const GPWithdraw = memo(
           obj.btnLabel = "Connect Wallet";
         }
       }
+      if (!isL3) {
+        obj.btnLabel = "Switch to Zytron Linea Layer3";
+      }
       return obj;
-    }, [chainId, pointBalance, allowance, depositValue]);
+    }, [chainId, isL3, pointBalance, allowance, depositValue]);
+    const withdrawHandle = useCallback(() => {
+      if (withdraw) {
+        withdraw({ nativeValue: receiveValue, GPValue: depositValue, isL3 });
+      }
+    }, [withdraw, isL3, receiveValue, depositValue]);
     // 0.0178
     return (
       <>
-        {GPToken ? (
+        {GPToken && chainId ? (
           <FromToken
             label="Withdraw"
             balanceStr={pointsBalanceStr}
@@ -163,7 +206,7 @@ const GPWithdraw = memo(
           src={preStaticUrl + "/img/icon/pixel_arrow_down02.svg"}
         />
         {/* Receive */}
-        {NativeToken ? (
+        {NativeToken && chainId ? (
           <ToToken
             label="Receive"
             chainId={chainId}
@@ -187,6 +230,15 @@ const GPWithdraw = memo(
               <p className="S_fr_grey">{withdrawFree}</p>
             </div>
           </li>
+          <li>
+            <p>Actual amount received</p>
+            <div className="S_fr">
+              <p>
+                {actualReceived}{" "}
+                {chainId && Currency[chainId] ? Currency[chainId] : "-"}
+              </p>
+            </div>
+          </li>
         </ul>
         <ActivePixelButtonColor
           className="W_staking_confirm"
@@ -194,10 +246,7 @@ const GPWithdraw = memo(
           height={isW768 ? "48px" : "54px"}
           pixel_height={5}
           disable={isDisable || !isBalanceEnough}
-          onClick={() =>
-            withdraw &&
-            withdraw({ nativeValue: receiveValue, GPValue: depositValue })
-          }
+          onClick={withdrawHandle}
           themeType="brightBlue"
         >
           <p>{btnLabel}</p>

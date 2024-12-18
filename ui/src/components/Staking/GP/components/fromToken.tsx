@@ -63,7 +63,7 @@ const FromToken = memo(
             backgroundColor="#1649FF"
             pixel_height={6}
           >
-            <TokenWithChain chainId={chainId} token={token} width={22} />
+            <TokenWithChain chainId={chainId} token={token} width={30} />
             <p>{token.symbol}</p>
           </ActivePixelButton>
         </PixelBorderCard>
