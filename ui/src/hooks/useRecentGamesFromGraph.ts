@@ -100,6 +100,7 @@ export const chainIdPre: Record<ChainId, string> = {
   [ChainId.Taiko]: "TK",
   [ChainId.SagaMainnet]: "",
   [ChainId.B3Mainnet]: "",
+  [ChainId.EXPTestnet]: "",
 };
 export function getStatus(status: number): IGameStatus {
   if (status === 0) {

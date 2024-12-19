@@ -100,6 +100,7 @@ var ChainId = /* @__PURE__ */ ((ChainId11) => {
   ChainId11["Taiko"] = "167000";
   ChainId11["SagaMainnet"] = "2717465680371000";
   ChainId11["B3Mainnet"] = "8333";
+  ChainId11["EXPTestnet"] = "18880";
   return ChainId11;
 })(ChainId || {});
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
@@ -117,7 +118,8 @@ var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro ? [
   "5000" /* Mantle */,
   "9980" /* Combo */,
   "169" /* MantaPacificMainnet */,
-  "8333" /* B3Mainnet */
+  "8333" /* B3Mainnet */,
+  "18880" /* EXPTestnet */
 ] : [
   "42161" /* Arbitrum */,
   "5000" /* Mantle */,
@@ -144,7 +146,8 @@ var supportedChainIds = (env, chainList) => {
     "9980" /* Combo */,
     "11155111" /* Sepolia */,
     "8333" /* B3Mainnet */,
-    "2717465680371000" /* SagaMainnet */
+    "2717465680371000" /* SagaMainnet */,
+    "18880" /* EXPTestnet */
   ] : [
     "59144" /* LineaMainnet */,
     "9901" /* ZytronLineaMain */,
@@ -220,7 +223,8 @@ var ChainRpcUrls = {
   ["2717465680371000" /* SagaMainnet */]: [
     "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io"
   ],
-  ["8333" /* B3Mainnet */]: ["https://mainnet-rpc.b3.fun"]
+  ["8333" /* B3Mainnet */]: ["https://mainnet-rpc.b3.fun"],
+  ["18880" /* EXPTestnet */]: ["https://rpc1-testnet.expchain.ai"]
 };
 var BlockExplorerUrls = {
   ["56" /* Bsc */]: ["https://bscscan.com"],
@@ -254,7 +258,8 @@ var BlockExplorerUrls = {
   ],
   ["167000" /* Taiko */]: ["https://hekla.taikoscan.network"],
   ["2717465680371000" /* SagaMainnet */]: ["https://zypher-2717465680371000-1.sagaexplorer.io"],
-  ["8333" /* B3Mainnet */]: ["https://explorer.b3.fun"]
+  ["8333" /* B3Mainnet */]: ["https://explorer.b3.fun"],
+  ["18880" /* EXPTestnet */]: ["https://blockscout-testnet.expchain.ai"]
 };
 var ChainName = {
   ["56" /* Bsc */]: "BSC Mainnet",
@@ -284,7 +289,8 @@ var ChainName = {
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher",
-  ["8333" /* B3Mainnet */]: "B3"
+  ["8333" /* B3Mainnet */]: "B3",
+  ["18880" /* EXPTestnet */]: "EXP Testnet"
 };
 var ChainNetworkName = {
   ["56" /* Bsc */]: "bsc",
@@ -314,7 +320,8 @@ var ChainNetworkName = {
   ["50097" /* ZytronB2Testnet */]: "Zytron B\xB2 Testnet",
   ["167000" /* Taiko */]: "Taiko Mainnet",
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher",
-  ["8333" /* B3Mainnet */]: "B3"
+  ["8333" /* B3Mainnet */]: "B3",
+  ["18880" /* EXPTestnet */]: "EXP Testnet"
 };
 var isTestnet = {
   ["56" /* Bsc */]: false,
@@ -344,7 +351,8 @@ var isTestnet = {
   ["50097" /* ZytronB2Testnet */]: true,
   ["167000" /* Taiko */]: false,
   ["2717465680371000" /* SagaMainnet */]: true,
-  ["8333" /* B3Mainnet */]: false
+  ["8333" /* B3Mainnet */]: false,
+  ["18880" /* EXPTestnet */]: true
 };
 var Currency = {
   ["56" /* Bsc */]: "BNB",
@@ -374,7 +382,8 @@ var Currency = {
   ["50097" /* ZytronB2Testnet */]: "BTC",
   ["167000" /* Taiko */]: "ETH",
   ["2717465680371000" /* SagaMainnet */]: "zyp",
-  ["8333" /* B3Mainnet */]: "ETH"
+  ["8333" /* B3Mainnet */]: "ETH",
+  ["18880" /* EXPTestnet */]: "tZKJ"
 };
 var getCryptoImg = (fileName, key, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -474,6 +483,9 @@ var CurrencyContract = {
   },
   ["8333" /* B3Mainnet */]: {
     multicall: [MulticallV3]
+  },
+  ["18880" /* EXPTestnet */]: {
+    multicall: ["0x0859A1F20d5A92168CFF9D0db858E03b0920F908"]
   }
 };
 var IContractName = /* @__PURE__ */ ((IContractName2) => {
@@ -495,7 +507,7 @@ var zkBingoV0 = (chainId, name) => {
     throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
   }
   try {
-    const _repo = isTestnet[chainId] ? "develop" : "release";
+    const _repo = isTestnet[chainId] && "18880" /* EXPTestnet */ !== chainId ? "develop" : "release";
     const address = (_b = (_a = zkBingoContracts) == null ? void 0 : _a[chainId]) == null ? void 0 : _b[_repo];
     let returnAddress = AddressZero;
     if (name === "lobby" /* Lobby */) {
@@ -15096,7 +15108,8 @@ var chainIdPre = {
   ["50097" /* ZytronB2Testnet */]: "",
   ["167000" /* Taiko */]: "TK",
   ["2717465680371000" /* SagaMainnet */]: "",
-  ["8333" /* B3Mainnet */]: ""
+  ["8333" /* B3Mainnet */]: "",
+  ["18880" /* EXPTestnet */]: ""
 };
 function getStatus(status) {
   if (status === 0) {
