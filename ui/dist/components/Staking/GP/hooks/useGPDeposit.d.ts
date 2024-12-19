@@ -28,16 +28,15 @@ export interface IUseGPDeposit {
     loadingDeposit?: boolean;
     loadingWithdraw?: boolean;
     allowance?: string;
-    loadingApprove?: boolean;
     health?: IHealth;
     deposit?: ({ nativeValue, GPValue, }: {
         nativeValue: string;
         GPValue: string;
     }) => Promise<void>;
-    withdraw?: ({ nativeValue, GPValue, isL3, }: {
+    withdraw?: ({ nativeValue, GPValue, isL2, }: {
         nativeValue: string;
         GPValue: string;
-        isL3: boolean;
+        isL2: boolean;
     }) => Promise<void>;
     getWithdrawETH?: (GPValue: string) => Promise<string>;
 }

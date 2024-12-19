@@ -1,7 +1,7 @@
 import React from "react";
 import { IToken } from "../../../../constant/tvlConstant";
 import { ChainId } from "../../../../constant/constant";
-declare const FromToken: React.MemoExoticComponent<({ label, balanceStr, chainId, token, maxHandle, onChange, value, }: {
+declare const FromToken: React.MemoExoticComponent<({ label, balanceStr, chainId, token, maxHandle, onChange, value, inputDisabled, }: {
     label: string;
     balanceStr: string;
     chainId: ChainId;
@@ -9,5 +9,6 @@ declare const FromToken: React.MemoExoticComponent<({ label, balanceStr, chainId
     onChange: any;
     value: string;
     maxHandle: () => void;
+    inputDisabled?: boolean | undefined;
 }) => React.JSX.Element>;
 export default FromToken;

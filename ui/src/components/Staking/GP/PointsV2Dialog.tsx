@@ -41,7 +41,6 @@ const PointsV2Dialog = memo(
       deposit,
       loadingDeposit,
       loadingWithdraw,
-      loadingApprove,
       allowance,
       health,
       getWithdrawETH,
@@ -95,7 +94,6 @@ const PointsV2Dialog = memo(
               GPToken={GPToken}
               withdraw={withdraw}
               loadingWithdraw={loadingWithdraw}
-              loadingApprove={loadingApprove}
               allowance={allowance}
               health={health}
               getWithdrawETH={getWithdrawETH}

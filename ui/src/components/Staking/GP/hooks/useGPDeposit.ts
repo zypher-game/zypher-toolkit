@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useAaWallet } from "../../../../gas0/hooks/useWalletHandler";
 import ZgClientContract from "../contract/ZgClient";
-import { ethers } from "ethers";
 import { Address, TransactionReceipt, zeroAddress } from "viem";
 import { usePublicNodeWaitForTransaction } from "../../../../hooks/usePublicNodeWaitForTransaction";
 import {
@@ -59,8 +58,6 @@ export interface IUseGPDeposit {
   loadingWithdraw?: boolean;
 
   allowance?: string;
-  loadingApprove?: boolean;
-
   health?: IHealth;
   deposit?: ({
     nativeValue,
@@ -72,11 +69,11 @@ export interface IUseGPDeposit {
   withdraw?: ({
     nativeValue,
     GPValue,
-    isL3,
+    isL2,
   }: {
     nativeValue: string;
     GPValue: string;
-    isL3: boolean;
+    isL2: boolean;
   }) => Promise<void>;
   getWithdrawETH?: (GPValue: string) => Promise<string>;
 }
@@ -97,13 +94,12 @@ export const useGPDeposit = ({
     useRecoilState(refreshBalanceState);
   const [loadingDeposit, setIsLoadingDeposit] = useState(false);
   const [loadingWithdraw, setIsLoadingWithdraw] = useState(false);
-  const [loadingApprove, setIsLoadingApprove] = useState(false);
   const [allowance, setAllowance] = useState("");
   const [health, setHealth] = useState<IHealth>();
 
   const nativeBalance = useRecoilValue(nativeBalanceState);
   const pointBalance = useRecoilValue(pointsBalanceState);
-  const { switchNetwork } = useSwitchNetwork();
+  const { switchNetworkAsync } = useSwitchNetwork();
   const { NativeToken, GPToken } = useMemo(() => {
     if (chainId) {
       const currency = Currency[chainId];
@@ -244,23 +240,28 @@ export const useGPDeposit = ({
     async ({
       nativeValue,
       GPValue,
-      isL3,
+      isL2,
     }: {
       nativeValue: string;
       GPValue: string;
-      isL3: boolean;
+      isL2: boolean;
     }) => {
       if (!chainId || !walletClient) {
         setErrorToast("walletClient is not ready");
         return;
       }
-      if (!isL3) {
-        if (switchNetwork) {
+      if (isL2) {
+        setIsLoadingWithdraw(true);
+        console.log(111);
+        if (switchNetworkAsync) {
           const chain = isPro
             ? ChainId.ZytronLineaMain
             : ChainId.ZytronLineaSepoliaTestnet;
-          switchNetwork(parseInt(chain, 10));
+          await switchNetworkAsync(parseInt(chain, 10));
+        } else {
+          setErrorToast("switchNetwork is not ready");
         }
+        setIsLoadingWithdraw(false);
         return;
       }
       const zgClient = ZgClientContract({ chainId, env, signer: walletClient });
@@ -337,7 +338,7 @@ export const useGPDeposit = ({
         setIsLoadingWithdraw(false);
       }
     },
-    [chainId, pointBalance, account, JSON.stringify(health)]
+    [chainId, switchNetworkAsync, pointBalance, account, JSON.stringify(health)]
   );
   const getWithdrawETH = useCallback(
     async (GPValue: string) => {
@@ -378,7 +379,6 @@ export const useGPDeposit = ({
     deposit,
     withdraw,
     allowance,
-    loadingApprove,
     health,
     getWithdrawETH,
   };

@@ -1,7 +1,7 @@
 import { SyncOutlined } from "@ant-design/icons";
 
 import { isEqual } from "../../../../utils/lodash";
-import React, { memo, useCallback, useEffect, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
@@ -33,6 +33,7 @@ import BigNumberJs from "../../../../utils/BigNumberJs";
 import { erc20ABI, useWalletClient } from "wagmi";
 import MulticallContract from "../../../../contract/multicall";
 import { zeroAddress } from "viem";
+import { GPV2SupportChainId } from "../../../../components/Staking/GP/constant/GPConstant";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -126,7 +127,13 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       fetchBalanceOf();
     }
   }, [account, chainId, refreshBalance, walletClient]);
-
+  const PointV2 = useMemo(() => {
+    if (GPV2SupportChainId.includes(chainId)) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [chainId]);
   const pointsBalance = useRecoilValue(pointsBalanceState);
 
   const nativeBalanceStr = useNativeBalanceStr();
@@ -150,7 +157,12 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           loading={loading}
           className={props.className}
           CountUpNumber={CountUpNumber}
-          preChild={<AddIcon name="pixel_add" isMobile={isMiddleWidth} />}
+          preChild={
+            <AddIcon
+              name={PointV2 ? "pixel_switch_02" : "pixel_add"}
+              isMobile={isMiddleWidth}
+            />
+          }
           balanceStr={pointsBalanceStr}
         />
       ) : null}

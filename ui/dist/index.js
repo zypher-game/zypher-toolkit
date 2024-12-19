@@ -6828,7 +6828,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames12 from "classnames";
-import React101, { useEffect as useEffect35, useMemo as useMemo22 } from "react";
+import React101, { useEffect as useEffect35, useMemo as useMemo23 } from "react";
 import { useRecoilState as useRecoilState16, useRecoilValue as useRecoilValue16, useSetRecoilState as useSetRecoilState17 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -6840,7 +6840,7 @@ import { useSetRecoilState as useSetRecoilState14 } from "recoil";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
-import React30, { memo as memo26, useCallback as useCallback18, useEffect as useEffect15, useState as useState15 } from "react";
+import React30, { memo as memo26, useCallback as useCallback18, useEffect as useEffect15, useMemo as useMemo10, useState as useState15 } from "react";
 import { useRecoilValue as useRecoilValue10, useSetRecoilState as useSetRecoilState10 } from "recoil";
 import styled5 from "styled-components";
 
@@ -6961,6 +6961,23 @@ var balanceItem_default = BalanceItem;
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { erc20ABI, useWalletClient as useWalletClient2 } from "wagmi";
 import { zeroAddress as zeroAddress4 } from "viem";
+
+// src/components/Staking/GP/constant/GPConstant.ts
+var GPAddress = {
+  ["59141" /* LineaSepolia */]: {
+    GP: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
+    Store: "0xE877BACFd073A9E35C12F55C40ad89ad88Ed72b2"
+  },
+  ["50098" /* ZytronLineaSepoliaTestnet */]: {
+    GP: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
+    Store: "0xfA70A828461c5757CC74b97F056261D720739B10"
+  }
+};
+var GPV2SupportChainId = Object.keys(
+  GPAddress
+);
+
+// src/components/ConnectWallet/components/Balance/Balance.tsx
 var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
   margin-left: 0 !important;
@@ -7044,6 +7061,13 @@ var Balance = memo26((props) => {
       fetchBalanceOf();
     }
   }, [account, chainId, refreshBalance, walletClient]);
+  const PointV2 = useMemo10(() => {
+    if (GPV2SupportChainId.includes(chainId)) {
+      return true;
+    } else {
+      return false;
+    }
+  }, [chainId]);
   const pointsBalance = useRecoilValue10(pointsBalanceState);
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
@@ -7060,7 +7084,7 @@ var Balance = memo26((props) => {
     className: props.className,
     CountUpNumber,
     preChild: /* @__PURE__ */ React30.createElement(AddIcon, {
-      name: "pixel_add",
+      name: PointV2 ? "pixel_switch_02" : "pixel_add",
       isMobile: isMiddleWidth
     }),
     balanceStr: pointsBalanceStr
@@ -7207,7 +7231,7 @@ import React38, { memo as memo31, useCallback as useCallback24 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
-import React34, { memo as memo28, useMemo as useMemo10 } from "react";
+import React34, { memo as memo28, useMemo as useMemo11 } from "react";
 import styled8 from "styled-components";
 
 // src/components/Avatar/Avatar.tsx
@@ -7406,7 +7430,7 @@ var PlayerAvatar = memo28(
   }) => {
     const { t } = useCustomTranslation([LngNs.zBingo]);
     const { avatars: avatars2, aa_mm_address } = useAvatar(account, hideAvatars);
-    const avatarText = useMemo10(() => {
+    const avatarText = useMemo11(() => {
       const nameText = name != null ? name : aa_mm_address;
       if (nameText && nameText !== "-") {
         return `${getShortenAddress(nameText, preLen, endLen)}${otherStr ? ` ${otherStr}` : ""}`;
@@ -7565,7 +7589,7 @@ import React37, { memo as memo30, useCallback as useCallback23, useEffect as use
 import { useRecoilState as useRecoilState13 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
-import { useMemo as useMemo12 } from "react";
+import { useMemo as useMemo13 } from "react";
 
 // src/rainbowkit/src/wallets/useWalletConnectors.ts
 import { useConnect } from "wagmi";
@@ -7598,7 +7622,7 @@ function isNotNullish(value) {
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext.tsx
-import React35, { createContext as createContext2, useContext as useContext2, useMemo as useMemo11 } from "react";
+import React35, { createContext as createContext2, useContext as useContext2, useMemo as useMemo12 } from "react";
 var RainbowKitChainContext = createContext2({
   chains: []
 });
@@ -7608,7 +7632,7 @@ function RainbowKitChainProvider({
   initialChain
 }) {
   return /* @__PURE__ */ React35.createElement(RainbowKitChainContext.Provider, {
-    value: useMemo11(
+    value: useMemo12(
       () => ({
         chains,
         initialChainId: typeof initialChain === "number" ? initialChain : initialChain == null ? void 0 : initialChain.id
@@ -7623,7 +7647,7 @@ var useRainbowKitChains = () => {
 var useInitialChainId = () => useContext2(RainbowKitChainContext).initialChainId;
 var useRainbowKitChainsById = () => {
   const rainbowkitChains = useRainbowKitChains();
-  return useMemo11(() => {
+  return useMemo12(() => {
     const rainbowkitChainsById = {};
     rainbowkitChains.forEach((rkChain) => {
       rainbowkitChainsById[rkChain.id] = rkChain;
@@ -7780,7 +7804,7 @@ function useWalletConnectors() {
 // src/hooks/useActiveWallet.ts
 var useActiveWallet = () => {
   const wallets = useWalletConnectors();
-  return useMemo12(() => {
+  return useMemo13(() => {
     if (wallets) {
       const wall = wallets.filter((v) => v.ready && v.recent);
       return wall == null ? void 0 : wall[0];
@@ -7791,7 +7815,7 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React36, { memo as memo29, useCallback as useCallback22, useMemo as useMemo13 } from "react";
+import React36, { memo as memo29, useCallback as useCallback22, useMemo as useMemo14 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState12 } from "recoil";
 var MUserInfo = memo29(
@@ -7802,7 +7826,7 @@ var MUserInfo = memo29(
     const nativeBalanceStr = useNativeBalanceStr();
     const pointsBalanceStr = usePointsBalanceStr();
     const isMobile2 = useIsW768();
-    const list = useMemo13(() => {
+    const list = useMemo14(() => {
       return [
         {
           balanceStr: pointsBalanceStr,
@@ -8173,7 +8197,7 @@ var ModalWithMotion = ({
 var ModalWithMotion_default = ModalWithMotion;
 
 // src/components/Staking/GP/components/GPDeposit.tsx
-import React43, { memo as memo35, useCallback as useCallback25, useMemo as useMemo14, useState as useState18 } from "react";
+import React43, { memo as memo35, useCallback as useCallback25, useMemo as useMemo15, useState as useState18 } from "react";
 
 // src/components/Staking/GP/components/fromToken.tsx
 import React40, { memo as memo32 } from "react";
@@ -8185,7 +8209,8 @@ var FromToken = memo32(
     token,
     maxHandle,
     onChange,
-    value
+    value,
+    inputDisabled
   }) => {
     const isW768 = useIsW768();
     return /* @__PURE__ */ React40.createElement(React40.Fragment, null, /* @__PURE__ */ React40.createElement("div", {
@@ -8216,7 +8241,8 @@ var FromToken = memo32(
     }, /* @__PURE__ */ React40.createElement("input", {
       onChange,
       type: "text",
-      value
+      value,
+      disabled: inputDisabled
     }), /* @__PURE__ */ React40.createElement(ActivePixelButton, {
       className: "W_staking_input_btn",
       backgroundColor: "#1649FF",
@@ -8239,7 +8265,8 @@ var ToToken = memo33(
     token,
     onChange,
     value,
-    label
+    label,
+    inputDisabled
   }) => {
     const isW768 = useIsW768();
     return /* @__PURE__ */ React41.createElement(React41.Fragment, null, /* @__PURE__ */ React41.createElement("div", {
@@ -8256,7 +8283,8 @@ var ToToken = memo33(
     }, /* @__PURE__ */ React41.createElement("input", {
       onChange,
       type: "text",
-      value
+      value,
+      disabled: inputDisabled
     }), /* @__PURE__ */ React41.createElement(ActivePixelButton, {
       className: "W_staking_input_btn",
       backgroundColor: "#1649FF",
@@ -8287,23 +8315,6 @@ var details_default = Detail;
 
 // src/components/Staking/GP/components/GPDeposit.tsx
 import { useRecoilValue as useRecoilValue13 } from "recoil";
-
-// src/components/Staking/GP/constant/GPConstant.ts
-var GPAddress = {
-  ["59141" /* LineaSepolia */]: {
-    GP: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
-    Store: "0xE877BACFd073A9E35C12F55C40ad89ad88Ed72b2"
-  },
-  ["50098" /* ZytronLineaSepoliaTestnet */]: {
-    GP: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
-    Store: "0xfA70A828461c5757CC74b97F056261D720739B10"
-  }
-};
-var GPV2SupportChainId = Object.keys(
-  GPAddress
-);
-
-// src/components/Staking/GP/components/GPDeposit.tsx
 var GPDeposit = memo35(
   ({
     NativeToken,
@@ -8359,12 +8370,12 @@ var GPDeposit = memo35(
       },
       [chainId]
     );
-    const isDisable = useMemo14(() => {
+    const isDisable = useMemo15(() => {
       return loadingDeposit || ![depositValue, receiveValue].every(
         (val) => !isNaN(Number(val)) && Number(val) > 0
       );
     }, [loadingDeposit, depositValue, receiveValue]);
-    const { btnLabel, isBalanceEnough } = useMemo14(() => {
+    const { btnLabel, isBalanceEnough } = useMemo15(() => {
       const obj = {
         isBalanceEnough: false,
         btnLabel: "Deposit"
@@ -8426,7 +8437,7 @@ var GPDeposit = memo35(
 var GPDeposit_default = GPDeposit;
 
 // src/components/Staking/GP/components/GPWithdraw.tsx
-import React44, { memo as memo36, useCallback as useCallback26, useEffect as useEffect18, useMemo as useMemo15, useState as useState19 } from "react";
+import React44, { memo as memo36, useCallback as useCallback26, useEffect as useEffect18, useMemo as useMemo16, useState as useState19 } from "react";
 import { useRecoilValue as useRecoilValue14 } from "recoil";
 var GPWithdraw = memo36(
   ({
@@ -8434,7 +8445,6 @@ var GPWithdraw = memo36(
     GPToken,
     withdraw,
     loadingWithdraw,
-    loadingApprove,
     allowance,
     health,
     getWithdrawETH
@@ -8447,6 +8457,7 @@ var GPWithdraw = memo36(
     const isW768 = useIsW768();
     const { chainId } = useAaWallet();
     const [isL3, setIsL3] = useState19(false);
+    const [isL2, setIsL2] = useState19(false);
     useEffect18(() => {
       if (chainId) {
         setIsL3(
@@ -8454,6 +8465,7 @@ var GPWithdraw = memo36(
             chainId
           )
         );
+        setIsL2(["59144" /* LineaMainnet */, "59141" /* LineaSepolia */].includes(chainId));
       }
     }, [chainId]);
     const maxHandle = useCallback26(() => {
@@ -8512,7 +8524,7 @@ var GPWithdraw = memo36(
       },
       [getWithdrawETH]
     );
-    const withdrawFree = useMemo15(() => {
+    const withdrawFree = useMemo16(() => {
       if (chainId && isL3 && [receiveValue].every(
         (val) => !isNaN(Number(val)) && Number(val) > 0
       )) {
@@ -8524,13 +8536,13 @@ var GPWithdraw = memo36(
       }
       return "-";
     }, [receiveValue, getWithdrawETHHandle, isL3, chainId]);
-    const isDisable = useMemo15(() => {
-      return isL3 && (loadingWithdraw || loadingApprove || ![depositValue, receiveValue].every(
+    const isDisable = useMemo16(() => {
+      return loadingWithdraw || ![depositValue, receiveValue].every(
         (val) => !isNaN(Number(val)) && Number(val) > 0
-      ));
-    }, [isL3, loadingWithdraw, depositValue, receiveValue]);
+      );
+    }, [loadingWithdraw, depositValue, receiveValue]);
     const pointBalance = useRecoilValue14(pointsBalanceState);
-    const { btnLabel, isBalanceEnough } = useMemo15(() => {
+    const { btnLabel, isBalanceEnough } = useMemo16(() => {
       const obj = {
         isApprove: false,
         isBalanceEnough: false,
@@ -8558,16 +8570,20 @@ var GPWithdraw = memo36(
           obj.btnLabel = "Connect Wallet";
         }
       }
-      if (!isL3) {
+      if (isL2) {
         obj.btnLabel = "Switch to Zytron Linea Layer3";
       }
       return obj;
-    }, [chainId, isL3, pointBalance, allowance, depositValue]);
+    }, [chainId, isL2, pointBalance, allowance, depositValue]);
     const withdrawHandle = useCallback26(() => {
       if (withdraw) {
-        withdraw({ nativeValue: receiveValue, GPValue: depositValue, isL3 });
+        withdraw({
+          nativeValue: receiveValue,
+          GPValue: depositValue,
+          isL2
+        });
       }
-    }, [withdraw, isL3, receiveValue, depositValue]);
+    }, [withdraw, isL2, receiveValue, depositValue]);
     return /* @__PURE__ */ React44.createElement(React44.Fragment, null, GPToken && chainId ? /* @__PURE__ */ React44.createElement(fromToken_default, {
       label: "Withdraw",
       balanceStr: pointsBalanceStr,
@@ -8575,7 +8591,8 @@ var GPWithdraw = memo36(
       token: GPToken,
       maxHandle,
       onChange: depositInputHandle,
-      value: depositValue
+      value: depositValue,
+      inputDisabled: isL2
     }) : null, /* @__PURE__ */ React44.createElement(SvgComponent_default, {
       className: "S_arr_down",
       src: preStaticUrl + "/img/icon/pixel_arrow_down02.svg"
@@ -8584,7 +8601,8 @@ var GPWithdraw = memo36(
       chainId,
       token: NativeToken,
       onChange: receiveInputHandle,
-      value: receiveValue
+      value: receiveValue,
+      inputDisabled: isL2
     }) : null, /* @__PURE__ */ React44.createElement("ul", {
       className: "S_text_li S_text_li_column"
     }, /* @__PURE__ */ React44.createElement("li", null, /* @__PURE__ */ React44.createElement("p", null, "Minimum withdraw amount"), /* @__PURE__ */ React44.createElement("div", {
@@ -8602,7 +8620,7 @@ var GPWithdraw = memo36(
       width: "100%",
       height: isW768 ? "48px" : "54px",
       pixel_height: 5,
-      disable: isDisable || !isBalanceEnough,
+      disable: !isL2 && (isDisable || !isBalanceEnough),
       onClick: withdrawHandle,
       themeType: "brightBlue"
     }, /* @__PURE__ */ React44.createElement("p", null, btnLabel), /* @__PURE__ */ React44.createElement(LoadingButton_default, {
@@ -8614,7 +8632,7 @@ var GPWithdraw = memo36(
 var GPWithdraw_default = GPWithdraw;
 
 // src/components/Staking/GP/hooks/useGPDeposit.ts
-import { useCallback as useCallback27, useEffect as useEffect19, useMemo as useMemo16, useState as useState20 } from "react";
+import { useCallback as useCallback27, useEffect as useEffect19, useMemo as useMemo17, useState as useState20 } from "react";
 
 // src/components/Staking/GP/contract/abi/ZgClient.json
 var ZgClient_default = [
@@ -9582,13 +9600,12 @@ var useGPDeposit = ({
   const [refreshBalance, setRefreshBalanceState] = useRecoilState14(refreshBalanceState);
   const [loadingDeposit, setIsLoadingDeposit] = useState20(false);
   const [loadingWithdraw, setIsLoadingWithdraw] = useState20(false);
-  const [loadingApprove, setIsLoadingApprove] = useState20(false);
   const [allowance, setAllowance] = useState20("");
   const [health, setHealth] = useState20();
   const nativeBalance = useRecoilValue15(nativeBalanceState);
   const pointBalance = useRecoilValue15(pointsBalanceState);
-  const { switchNetwork } = useSwitchNetwork();
-  const { NativeToken, GPToken } = useMemo16(() => {
+  const { switchNetworkAsync } = useSwitchNetwork();
+  const { NativeToken, GPToken } = useMemo17(() => {
     if (chainId) {
       const currency = Currency[chainId];
       return {
@@ -9715,17 +9732,22 @@ var useGPDeposit = ({
     async ({
       nativeValue,
       GPValue,
-      isL3
+      isL2
     }) => {
       if (!chainId || !walletClient) {
         setErrorToast("walletClient is not ready");
         return;
       }
-      if (!isL3) {
-        if (switchNetwork) {
+      if (isL2) {
+        setIsLoadingWithdraw(true);
+        console.log(111);
+        if (switchNetworkAsync) {
           const chain = isPro ? "9901" /* ZytronLineaMain */ : "50098" /* ZytronLineaSepoliaTestnet */;
-          switchNetwork(parseInt(chain, 10));
+          await switchNetworkAsync(parseInt(chain, 10));
+        } else {
+          setErrorToast("switchNetwork is not ready");
         }
+        setIsLoadingWithdraw(false);
         return;
       }
       const zgClient = ZgClient_default2({ chainId, env, signer: walletClient });
@@ -9792,7 +9814,7 @@ var useGPDeposit = ({
         setIsLoadingWithdraw(false);
       }
     },
-    [chainId, pointBalance, account, JSON.stringify(health)]
+    [chainId, switchNetworkAsync, pointBalance, account, JSON.stringify(health)]
   );
   const getWithdrawETH = useCallback27(
     async (GPValue) => {
@@ -9826,7 +9848,6 @@ var useGPDeposit = ({
     deposit,
     withdraw,
     allowance,
-    loadingApprove,
     health,
     getWithdrawETH
   };
@@ -9857,7 +9878,6 @@ var PointsV2Dialog = memo37(
       deposit,
       loadingDeposit,
       loadingWithdraw,
-      loadingApprove,
       allowance,
       health,
       getWithdrawETH
@@ -9897,7 +9917,6 @@ var PointsV2Dialog = memo37(
       GPToken,
       withdraw,
       loadingWithdraw,
-      loadingApprove,
       allowance,
       health,
       getWithdrawETH
@@ -9965,7 +9984,7 @@ import React95, {
   createContext as createContext11,
   useCallback as useCallback39,
   useContext as useContext16,
-  useMemo as useMemo21,
+  useMemo as useMemo22,
   useRef as useRef12,
   useState as useState30
 } from "react";
@@ -9979,7 +9998,7 @@ import React47, {
   createContext as createContext3,
   useContext as useContext3,
   useEffect as useEffect20,
-  useMemo as useMemo17,
+  useMemo as useMemo18,
   useRef as useRef8
 } from "react";
 import { useAccount as useAccount2 } from "wagmi";
@@ -10011,7 +10030,7 @@ function RainbowKitAuthenticationProvider({
     }
   }, [status, adapter, isDisconnected]);
   return /* @__PURE__ */ React47.createElement(AuthenticationContext.Provider, {
-    value: useMemo17(
+    value: useMemo18(
       () => enabled ? { adapter, status } : null,
       [enabled, adapter, status]
     )
@@ -10501,17 +10520,17 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React52, { useEffect as useEffect23, useMemo as useMemo19, useState as useState23 } from "react";
+import React52, { useEffect as useEffect23, useMemo as useMemo20, useState as useState23 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-import React51, { useMemo as useMemo18 } from "react";
+import React51, { useMemo as useMemo19 } from "react";
 
 // src/rainbowkit/src/components/Icons/Icons.css.ts
 var SpinnerIconClassName = "Icons_SpinnerIconClassName__j63hpy2";
 var SpinnerIconPathClassName = "Icons_SpinnerIconPathClassName__j63hpy3";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
-var useRandomId = (prefix) => useMemo18(
+var useRandomId = (prefix) => useMemo19(
   () => `${prefix}_${Math.round(Math.random() * 1e9)}`,
   [prefix]
 );
@@ -10634,7 +10653,7 @@ var EmojiAvatar = ({ address, ensImage, size }) => {
       img.onload = () => setLoaded(true);
     }
   }, [ensImage]);
-  const { color: backgroundColor, emoji } = useMemo19(
+  const { color: backgroundColor, emoji } = useMemo20(
     () => emojiAvatarForAddress(address),
     [address]
   );
@@ -12159,11 +12178,7 @@ function ChainModal({ onClose, open, fn }) {
       display: "flex",
       flexDirection: "row",
       marginRight: "6"
-    }, /* @__PURE__ */ React78.createElement(Text2, {
-      color: "modalText",
-      size: "14",
-      weight: "medium"
-    }, "Confirm in Wallet"), /* @__PURE__ */ React78.createElement(Box, {
+    }, /* @__PURE__ */ React78.createElement(Box, {
       background: "standby",
       borderRadius: "full",
       height: "12",
@@ -12720,7 +12735,7 @@ var ScanIcon = () => /* @__PURE__ */ React88.createElement(AsyncImage, {
 
 // src/rainbowkit/src/components/QRCode/QRCode.tsx
 import QRCodeUtil from "qrcode";
-import React89, { useMemo as useMemo20 } from "react";
+import React89, { useMemo as useMemo21 } from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.css.ts
 var QRCodeBackgroundClassName = "DesktopOptions_QRCodeBackgroundClassName__vrwex40";
@@ -12751,7 +12766,7 @@ function QRCode({
 }) {
   const padding = "20";
   const size = sizeProp - parseInt(padding, 10) * 2;
-  const dots = useMemo20(() => {
+  const dots = useMemo21(() => {
     const dots2 = [];
     const matrix = generateMatrix(uri, ecl);
     const cellSize = size / matrix.length;
@@ -14316,7 +14331,7 @@ function ModalProvider({ children }) {
     onDisconnect: () => closeModals()
   });
   return /* @__PURE__ */ React95.createElement(ModalContext.Provider, {
-    value: useMemo21(
+    value: useMemo22(
       () => ({
         accountModalOpen,
         chainModalOpen,
@@ -14695,7 +14710,7 @@ var Header = (props) => {
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState16(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState16(showMiddleState);
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo22(() => {
+  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo23(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
@@ -14718,7 +14733,7 @@ var Header = (props) => {
       setSideCollapse(true);
     }
   }, [isW830]);
-  const isBingo = useMemo22(() => {
+  const isBingo = useMemo23(() => {
     return pathname === "bingo";
   }, [pathname]);
   return /* @__PURE__ */ React101.createElement("header", {
@@ -14767,7 +14782,7 @@ var Header = (props) => {
 var header_default = Header;
 
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React102, { useMemo as useMemo23 } from "react";
+import React102, { useMemo as useMemo24 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -14840,7 +14855,7 @@ var RainbowKitWithThemeProvider = ({
 }) => {
   const WebAppData = useTelegramUser();
   const setAaWallet = useSetAaWallet();
-  const { wagmiConfig, chains, computedTheme } = useMemo23(() => {
+  const { wagmiConfig, chains, computedTheme } = useMemo24(() => {
     if (env) {
       const wagmiConfig2 = getWagmiConfig({
         env,
