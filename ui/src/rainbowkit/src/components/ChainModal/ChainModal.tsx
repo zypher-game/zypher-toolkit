@@ -207,9 +207,6 @@ export function ChainModal({ onClose, open, fn }: ChainModalProps) {
                               flexDirection="row"
                               marginRight="6"
                             >
-                              <Text color="modalText" size="14" weight="medium">
-                                Confirm in Wallet
-                              </Text>
                               <Box
                                 background="standby"
                                 borderRadius="full"

@@ -16,12 +16,14 @@ const ToToken = memo(
     onChange,
     value,
     label,
+    inputDisabled,
   }: {
     chainId: ChainId;
     token: IToken;
     onChange: any;
     value: string;
     label: string;
+    inputDisabled?: boolean;
   }) => {
     const isW768 = useIsW768();
     return (
@@ -37,7 +39,12 @@ const ToToken = memo(
           backgroundColor="#343C4F"
           borderColor="#484F60"
         >
-          <input onChange={onChange} type="text" value={value} />
+          <input
+            onChange={onChange}
+            type="text"
+            value={value}
+            disabled={inputDisabled}
+          />
           <ActivePixelButton
             className={"W_staking_input_btn"}
             backgroundColor="#1649FF"

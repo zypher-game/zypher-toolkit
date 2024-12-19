@@ -18,6 +18,7 @@ const FromToken = memo(
     maxHandle,
     onChange,
     value,
+    inputDisabled,
   }: {
     label: string;
     balanceStr: string;
@@ -26,6 +27,7 @@ const FromToken = memo(
     onChange: any;
     value: string;
     maxHandle: () => void;
+    inputDisabled?: boolean;
   }) => {
     const isW768 = useIsW768();
     return (
@@ -57,7 +59,12 @@ const FromToken = memo(
           backgroundColor="#343C4F"
           borderColor="#484F60"
         >
-          <input onChange={onChange} type="text" value={value} />
+          <input
+            onChange={onChange}
+            type="text"
+            value={value}
+            disabled={inputDisabled}
+          />
           <ActivePixelButton
             className={"W_staking_input_btn"}
             backgroundColor="#1649FF"

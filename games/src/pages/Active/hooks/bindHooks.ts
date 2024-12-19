@@ -73,7 +73,7 @@ export const useBind = () => {
       `${TVL_API[chainId]}/connect-twitter?linkCode=${_invitationCode}&addr=${account}&linkType=${linkType.key}&time=${new Date().toLocaleString()}`
     )
     setActiveData(pre => ({ ...pre, twitter: { ...pre.twitter, isLoading: false } }))
-  }, [_invitationCode, signedStr, twitterNickname, preHandleAction, chainId])
+  }, [_invitationCode, getSignCall, signedStr, twitterNickname, preHandleAction, chainId])
   useEffect(() => {
     const url = new URL(window.location.href)
     const twitterError = url.searchParams.get('TwitterError')

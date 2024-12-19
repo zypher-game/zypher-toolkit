@@ -2,3 +2,7 @@
 # yarn lockfile v1
 
 
+"@ui@zypher-game/toolkit":
+  version "Version updated to 0.3.23
+0.3.23"
+  resolved "https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/c52eb49de23bea29f575ea9bf3ec5aa0de5b8b5b"

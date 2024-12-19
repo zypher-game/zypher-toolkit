@@ -30,7 +30,6 @@ const GPWithdraw = memo(
     GPToken,
     withdraw,
     loadingWithdraw,
-    loadingApprove,
     allowance,
     health,
     getWithdrawETH,
@@ -44,6 +43,7 @@ const GPWithdraw = memo(
 
     const { chainId } = useAaWallet();
     const [isL3, setIsL3] = useState(false);
+    const [isL2, setIsL2] = useState(false);
     useEffect(() => {
       if (chainId) {
         setIsL3(
@@ -51,6 +51,7 @@ const GPWithdraw = memo(
             chainId
           )
         );
+        setIsL2([ChainId.LineaMainnet, ChainId.LineaSepolia].includes(chainId));
       }
     }, [chainId]);
 
@@ -135,14 +136,12 @@ const GPWithdraw = memo(
 
     const isDisable = useMemo(() => {
       return (
-        isL3 &&
-        (loadingWithdraw ||
-          loadingApprove ||
-          ![depositValue, receiveValue].every(
-            (val: string) => !isNaN(Number(val)) && Number(val) > 0
-          ))
+        loadingWithdraw ||
+        ![depositValue, receiveValue].every(
+          (val: string) => !isNaN(Number(val)) && Number(val) > 0
+        )
       );
-    }, [isL3, loadingWithdraw, depositValue, receiveValue]);
+    }, [loadingWithdraw, depositValue, receiveValue]);
     const pointBalance = useRecoilValue(pointsBalanceState);
     const { btnLabel, isBalanceEnough } = useMemo(() => {
       const obj = {
@@ -177,16 +176,20 @@ const GPWithdraw = memo(
           obj.btnLabel = "Connect Wallet";
         }
       }
-      if (!isL3) {
+      if (isL2) {
         obj.btnLabel = "Switch to Zytron Linea Layer3";
       }
       return obj;
-    }, [chainId, isL3, pointBalance, allowance, depositValue]);
+    }, [chainId, isL2, pointBalance, allowance, depositValue]);
     const withdrawHandle = useCallback(() => {
       if (withdraw) {
-        withdraw({ nativeValue: receiveValue, GPValue: depositValue, isL3 });
+        withdraw({
+          nativeValue: receiveValue,
+          GPValue: depositValue,
+          isL2: isL2,
+        });
       }
-    }, [withdraw, isL3, receiveValue, depositValue]);
+    }, [withdraw, isL2, receiveValue, depositValue]);
     // 0.0178
     return (
       <>
@@ -199,6 +202,7 @@ const GPWithdraw = memo(
             maxHandle={maxHandle}
             onChange={depositInputHandle}
             value={depositValue}
+            inputDisabled={isL2}
           />
         ) : null}
         <SvgComponent
@@ -213,6 +217,7 @@ const GPWithdraw = memo(
             token={NativeToken}
             onChange={receiveInputHandle}
             value={receiveValue}
+            inputDisabled={isL2}
           />
         ) : null}
         <ul className="S_text_li S_text_li_column">
@@ -245,7 +250,7 @@ const GPWithdraw = memo(
           width="100%"
           height={isW768 ? "48px" : "54px"}
           pixel_height={5}
-          disable={isDisable || !isBalanceEnough}
+          disable={!isL2 && (isDisable || !isBalanceEnough)}
           onClick={withdrawHandle}
           themeType="brightBlue"
         >
