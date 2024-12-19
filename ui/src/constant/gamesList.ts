@@ -175,10 +175,9 @@ export const Games = (chainId: ChainId): IGames[] => {
           link: "https://factory.cellula.life/welcome",
         },
         {
-          label: "Metaline X",
-          icon: "Metaline X.png",
-          twitter: "https://twitter.com/Metaline001",
-          link: "https://app.metaline.games/",
+          label: "zZombieSurvivalBot",
+          icon: "zombieSurvival.png",
+          link: "https://t.me/zZombieSurvivalBot",
         },
         {
           label: "Trumen World",

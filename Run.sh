@@ -5,6 +5,7 @@ path_work="/Users/admin/Desktop/work"
 # path_app_frontend1="$path_work/bingo/bingo_test_beta"
 path_app_frontend1="$path_work/bingo/bingo_test_beta"
 path_app_frontend2="$path_work/app/app-frontend_test"
+path_app_frontend3="$path_work/app/app-frontend_ark_main"
 path_pixel="$path_work/zypher-toolkit-pixel"
 path_pixel_front="$path_work/zypher-toolkit-pixel_front"
 path_ui="$path_pixel/ui"
@@ -14,11 +15,13 @@ path_front2="$path_pixel_front/games"
 # # # 删除指定目录
 rm -rf "$path_app_frontend1/src"
 rm -rf "$path_app_frontend2/src"
+rm -rf "$path_app_frontend3/src"
 rm -rf "$path_ui/src"
 
 # 复制src目录
 cp -r "$path_front1/src" "$path_app_frontend1/"
 cp -r "$path_front2/src" "$path_app_frontend2/"
+cp -r "$path_front2/src" "$path_app_frontend3/"
 cp -r "$path_pixel_front/ui/src" "$path_ui/"
 
 # 进入目录并更新package.json的version字段
@@ -62,60 +65,75 @@ echo "Committed hash: $latest_hash"
 
 
 
-cd "$path_app_frontend1/src"
-perl -i -pe 's|^// import |import |' index.tsx
-perl -i -pe 's|^// | |'  global.d.ts
+# cd "$path_app_frontend1/src"
+# perl -i -pe 's|^// import |import |' index.tsx
+# perl -i -pe 's|^// | |'  global.d.ts
 
-# 更新bingo_test_beta的 yarn.lock
-cd "$path_app_frontend1"
-echo $path_app_frontend1
-sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-# 添加新的 "@ui@zypher-game/toolkit" 依赖项
-echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
-echo "Updated dependencies in yarn.lock"
-yarn
+# # 更新bingo_test_beta的 yarn.lock
+# cd "$path_app_frontend1"
+# echo $path_app_frontend1
+# sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# # 添加新的 "@ui@zypher-game/toolkit" 依赖项
+# echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+# echo "Updated dependencies in yarn.lock"
+# yarn
 
-git checkout test
-git fetch --prune
-git pull origin test
-git add .
-git commit -m "Update to version $new_version"
-git push origin test
-
-# git checkout test-tg
+# git checkout test
 # git fetch --prune
 # git pull origin test
 # git add .
 # git commit -m "Update to version $new_version"
-# git push origin test-tg
+# git push origin test
+
+# # git checkout test-tg
+# # git fetch --prune
+# # git pull origin test
+# # git add .
+# # git commit -m "Update to version $new_version"
+# # git push origin test-tg
 
 
-cd "$path_app_frontend2/src"
+# cd "$path_app_frontend2/src"
+# perl -i -pe 's|^// import |import |' index.tsx
+# perl -i -pe 's|^// | |'  global.d.ts
+
+# # 更新bingo_test_beta的 yarn.lock
+# cd "$path_app_frontend2"
+# echo $path_app_frontend2
+# sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# # 添加新的 "@ui@zypher-game/toolkit" 依赖项
+# echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+# echo "Updated dependencies in yarn.lock"
+# yarn
+
+# git checkout test
+# git fetch --prune
+# git pull origin test
+# git add .
+# git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
+# git push origin test --force
+
+
+
+
+
+cd "$path_app_frontend3/src"
 perl -i -pe 's|^// import |import |' index.tsx
 perl -i -pe 's|^// | |'  global.d.ts
 
-# 更新bingo_test_beta的 yarn.lock
-cd "$path_app_frontend2"
-echo $path_app_frontend2
+cd "$path_app_frontend3"
+echo $path_app_frontend3
 sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
 # 添加新的 "@ui@zypher-game/toolkit" 依赖项
 echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
 echo "Updated dependencies in yarn.lock"
 yarn
 
-git checkout test
+git checkout ark_main
 git fetch --prune
-git pull origin test
+git pull origin ark_main
 git add .
-git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
-git push origin test --force
-
-
-# git checkout ark_main
-# git fetch --prune
-# git pull origin ark_main
-# git add .
-# git commit -m "Update to version $new_version"
-# # git tag -a v2.1.13 -m "Version 2.1.13"
-# git push origin ark_main
-# # git push origin v2.1.13
+git commit -m "Update to version $new_version"
+# git tag -a v2.1.16 -m "Version 2.1.16"
+git push origin ark_main
+# git push origin v2.1.16

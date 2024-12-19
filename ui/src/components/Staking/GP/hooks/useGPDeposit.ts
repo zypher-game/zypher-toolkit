@@ -5,10 +5,12 @@ import { ethers } from "ethers";
 import { Address, TransactionReceipt, zeroAddress } from "viem";
 import { usePublicNodeWaitForTransaction } from "../../../../hooks/usePublicNodeWaitForTransaction";
 import {
+  ChainId,
   Currency,
   divisorBigNumber,
   getCryptoImg,
   IContractName,
+  isPro,
   txStatus,
   zkBingo,
 } from "../../../../constant/constant";
@@ -25,6 +27,7 @@ import { IToken } from "../../../../constant/tvlConstant";
 import erc20Contract from "../../../../contract/erc20";
 import { GPAddress, GPV2SupportChainId } from "../constant/GPConstant";
 import { formatMoney } from "../../../../utils/tool";
+import { useSwitchNetwork } from "wagmi";
 
 export interface IHealth {
   gp: Address;
@@ -69,10 +72,13 @@ export interface IUseGPDeposit {
   withdraw?: ({
     nativeValue,
     GPValue,
+    isL3,
   }: {
     nativeValue: string;
     GPValue: string;
+    isL3: boolean;
   }) => Promise<void>;
+  getWithdrawETH?: (GPValue: string) => Promise<string>;
 }
 export const useGPDeposit = ({
   env,
@@ -97,6 +103,7 @@ export const useGPDeposit = ({
 
   const nativeBalance = useRecoilValue(nativeBalanceState);
   const pointBalance = useRecoilValue(pointsBalanceState);
+  const { switchNetwork } = useSwitchNetwork();
   const { NativeToken, GPToken } = useMemo(() => {
     if (chainId) {
       const currency = Currency[chainId];
@@ -237,12 +244,23 @@ export const useGPDeposit = ({
     async ({
       nativeValue,
       GPValue,
+      isL3,
     }: {
       nativeValue: string;
       GPValue: string;
+      isL3: boolean;
     }) => {
       if (!chainId || !walletClient) {
         setErrorToast("walletClient is not ready");
+        return;
+      }
+      if (!isL3) {
+        if (switchNetwork) {
+          const chain = isPro
+            ? ChainId.ZytronLineaMain
+            : ChainId.ZytronLineaSepoliaTestnet;
+          switchNetwork(parseInt(chain, 10));
+        }
         return;
       }
       const zgClient = ZgClientContract({ chainId, env, signer: walletClient });
@@ -261,7 +279,6 @@ export const useGPDeposit = ({
         const { Store, GP } = GPAddress[chainId];
         const pointsContract = erc20Contract(chainId, env, GP, walletClient);
         const allowance = await pointsContract.read.allowance([account, Store]);
-        console.log({ GP, allowance: allowance.toString() });
         const tokenAmount = new BigNumberJs(GPValue)
           .times(divisorBigNumber)
           .toFixed();
@@ -320,7 +337,38 @@ export const useGPDeposit = ({
         setIsLoadingWithdraw(false);
       }
     },
-    [chainId, nativeBalance, account, JSON.stringify(health)]
+    [chainId, pointBalance, account, JSON.stringify(health)]
+  );
+  const getWithdrawETH = useCallback(
+    async (GPValue: string) => {
+      if (chainId) {
+        const zgClient = ZgClientContract({ chainId, env });
+        if (!zgClient) {
+          setErrorToast("ZgClientContract is not ready");
+        } else {
+          try {
+            const tokenAmount = new BigNumberJs(GPValue)
+              .times(divisorBigNumber)
+              .toFixed();
+            // console.log({ tokenAmount });
+            const value = await zgClient.read.queryWithdraw([tokenAmount]);
+            // console.log({ value });
+            if (value && value["receivedETH"]) {
+              return formatMoney(
+                new BigNumberJs(value["receivedETH"].toString())
+                  .dividedBy(divisorBigNumber)
+                  .toFixed(),
+                8
+              );
+            }
+          } catch (err: any) {
+            // console.log("getWithdrawETH: ", err);
+          }
+        }
+      }
+      return "-";
+    },
+    [chainId]
   );
   return {
     NativeToken,
@@ -332,5 +380,6 @@ export const useGPDeposit = ({
     allowance,
     loadingApprove,
     health,
+    getWithdrawETH,
   };
 };
