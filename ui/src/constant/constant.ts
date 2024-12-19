@@ -67,6 +67,7 @@ export enum ChainId {
 
   SagaMainnet = "2717465680371000",
   B3Mainnet = "8333",
+  EXPTestnet = "18880",
 }
 const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
 export const DPSupportChainId = !isPro
@@ -96,6 +97,7 @@ export const bingoBetaSupportedChainId = TGChainId
       // ChainId.MantaPacificTestnet,
       ChainId.MantaPacificMainnet,
       ChainId.B3Mainnet,
+      ChainId.EXPTestnet,
     ]
   : [
       ChainId.Arbitrum,
@@ -140,6 +142,7 @@ export const supportedChainIds = (
         // ChainId.ZytronB2Testnet,
         ChainId.B3Mainnet,
         ChainId.SagaMainnet,
+        ChainId.EXPTestnet,
       ]
     : [
         ChainId.LineaMainnet,
@@ -219,6 +222,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
     "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io",
   ],
   [ChainId.B3Mainnet]: ["https://mainnet-rpc.b3.fun"],
+  [ChainId.EXPTestnet]: ["https://rpc1-testnet.expchain.ai"],
 };
 
 export const BlockExplorerUrls: Record<ChainId, string[]> = {
@@ -254,6 +258,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.Taiko]: ["https://hekla.taikoscan.network"],
   [ChainId.SagaMainnet]: ["https://zypher-2717465680371000-1.sagaexplorer.io"],
   [ChainId.B3Mainnet]: ["https://explorer.b3.fun"],
+  [ChainId.EXPTestnet]: ["https://blockscout-testnet.expchain.ai"],
 };
 
 export const ChainName: Record<ChainId, string> = {
@@ -285,6 +290,7 @@ export const ChainName: Record<ChainId, string> = {
   [ChainId.Taiko]: "Taiko Mainnet",
   [ChainId.SagaMainnet]: "Saga Zypher",
   [ChainId.B3Mainnet]: "B3",
+  [ChainId.EXPTestnet]: "EXP Testnet",
 };
 export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Bsc]: "bsc",
@@ -315,6 +321,7 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.Taiko]: "Taiko Mainnet",
   [ChainId.SagaMainnet]: "Saga Zypher",
   [ChainId.B3Mainnet]: "B3",
+  [ChainId.EXPTestnet]: "EXP Testnet",
 };
 
 export const isTestnet: Record<ChainId, boolean> = {
@@ -346,6 +353,7 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.Taiko]: false,
   [ChainId.SagaMainnet]: true,
   [ChainId.B3Mainnet]: false,
+  [ChainId.EXPTestnet]: true,
 };
 
 export const Currency: Record<ChainId, string> = {
@@ -377,6 +385,7 @@ export const Currency: Record<ChainId, string> = {
   [ChainId.Taiko]: "ETH",
   [ChainId.SagaMainnet]: "zyp",
   [ChainId.B3Mainnet]: "ETH",
+  [ChainId.EXPTestnet]: "tZKJ",
 };
 export const getCryptoImg = (fileName: string, key: any, type = ".svg") => {
   return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
@@ -484,6 +493,9 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   [ChainId.B3Mainnet]: {
     multicall: [MulticallV3],
   },
+  [ChainId.EXPTestnet]: {
+    multicall: ["0x0859A1F20d5A92168CFF9D0db858E03b0920F908"],
+  },
 };
 
 export enum IContractName {
@@ -506,7 +518,10 @@ export const zkBingoV0 = (
     throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
   }
   try {
-    const _repo = isTestnet[chainId] ? "develop" : "release";
+    const _repo =
+      isTestnet[chainId] && ChainId.EXPTestnet !== chainId
+        ? "develop"
+        : "release";
     // @ts-ignore
     const address = zkBingoContracts?.[chainId]?.[_repo];
     let returnAddress = AddressZero;

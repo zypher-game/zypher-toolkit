@@ -68,6 +68,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
         timeoutPromise()
       ])
     } catch (e) {
+      console.log({ e })
       setErrorToast(e, lobbyContract)
     } finally {
       setPending(false)

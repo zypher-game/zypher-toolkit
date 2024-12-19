@@ -64,7 +64,8 @@ export const TransactionsCount: Record<ChainId, string> = {
   [ChainId.SagaMainnet]: '3398',
   [ChainId.LineaSepolia]: '0',
   // https://explorer.b3.fun/address/0x6d82a3597b05e4390efB612604e4E9cF0CA00ccb
-  [ChainId.B3Mainnet]: '953'
+  [ChainId.B3Mainnet]: '953',
+  [ChainId.EXPTestnet]: '0'
 }
 
 export const monsterGraphqlApiUrl: Partial<Record<ChainId, string>> = {

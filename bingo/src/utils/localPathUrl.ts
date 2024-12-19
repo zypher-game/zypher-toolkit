@@ -8,7 +8,8 @@ export enum ILocalPathUrl {
   MANTLE = 'MANTLE',
   TaikoHeklaTestnet9 = 'TaikoHeklaTestnet9',
   Saga = 'Saga',
-  B3 = 'B3'
+  B3 = 'B3',
+  EXP = 'EXP'
 }
 export const localPathUrl = (chainId: ChainId): ILocalPathUrl => {
   if (chainId === ChainId.Combo || chainId === ChainId.ComboTestnet) {
@@ -19,6 +20,8 @@ export const localPathUrl = (chainId: ChainId): ILocalPathUrl => {
     return ILocalPathUrl.MANTLE
   } else if (chainId === ChainId.B3Mainnet) {
     return ILocalPathUrl.B3
+  } else if (chainId === ChainId.EXPTestnet) {
+    return ILocalPathUrl.EXP
   } else if (window.IS_TELEGRAM) {
     return ILocalPathUrl.Saga
   }

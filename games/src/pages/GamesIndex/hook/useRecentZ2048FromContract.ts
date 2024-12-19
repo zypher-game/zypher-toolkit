@@ -62,7 +62,8 @@ const MarketLinkPre: Record<ChainId, string> = {
   [ChainId.LineaSepolia]: '',
   [ChainId.SagaMainnet]: '',
   [ChainId.ZytronLineaMain]: '',
-  [ChainId.B3Mainnet]: ''
+  [ChainId.B3Mainnet]: '',
+  [ChainId.EXPTestnet]: ''
 }
 export const z2048Constant: any = {
   [ChainId.B3Mainnet]: {

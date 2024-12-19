@@ -93,7 +93,9 @@ const SubmitCardBeta: React.FC<ISubmitCard> = ({ disabled }) => {
       }
       const localpath = localPathUrl(chainId)
       let res
-      if ([ILocalPathUrl.MANTA, ILocalPathUrl.COMBO, ILocalPathUrl.MANTLE, ILocalPathUrl.Hypr, ILocalPathUrl.B3].includes(localpath)) {
+      if (
+        [ILocalPathUrl.MANTA, ILocalPathUrl.COMBO, ILocalPathUrl.MANTLE, ILocalPathUrl.Hypr, ILocalPathUrl.B3, ILocalPathUrl.EXP].includes(localpath)
+      ) {
         const donationFee = await bingoLobbyContract.functions.joinFee()
         res = await lobbyContract.write.join([joinGame.signedCard], {
           value: new BigNumber(donationFee).toString(),
