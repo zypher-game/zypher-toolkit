@@ -1,22 +1,17 @@
 import { isEqual } from "../../../utils/lodash";
-import React, { memo, useCallback } from "react";
-import { useSetRecoilState } from "recoil";
+import React, { memo } from "react";
 
 import { useIsW768 } from "../../../hooks/useWindowSize";
-import { useActiveWeb3React } from "../../../hooks/useActiveWeb3React";
 
 import Balance from "../../ConnectWallet/components/Balance/Balance";
 import ChainSelectorWidget from "../../ConnectWallet/components/ChainSelector/ChainSelectorWidget";
 import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDialog";
 import PointsRuleDialog from "../../ConnectWallet/components/PointsDialog/PointsRuleDialog";
-import {
-  pointsDialogState,
-  pointsV2DialogState,
-} from "../../ConnectWallet/state/connectWalletState";
+
 import { ChainId } from "../../../constant/constant";
 import AccountInfo from "./AccountInfo/AccountInfo";
 import PointsV2Dialog from "../../Staking/GP/PointsV2Dialog";
-import { GPV2SupportChainId } from "../../Staking/GP/constant/GPConstant";
+import { usePointsDialogState } from "../../../hooks/usePointsDialogState";
 const Account = memo(
   ({
     isMiddleWidth,
@@ -38,17 +33,7 @@ const Account = memo(
     supportedChainList?: ChainId[];
   }) => {
     const isW768 = useIsW768();
-    const setPointsDialogState = useSetRecoilState(pointsDialogState);
-    const setPointsV2DialogState = useSetRecoilState(pointsV2DialogState);
-    const { chainId } = useActiveWeb3React();
-    const showPointsModal = useCallback(() => {
-      // GPV2
-      if (GPV2SupportChainId.includes(chainId)) {
-        setPointsV2DialogState(true);
-      } else {
-        setPointsDialogState(true);
-      }
-    }, [setPointsDialogState, chainId]);
+    const showPointsModal = usePointsDialogState();
     return (
       <>
         <Balance

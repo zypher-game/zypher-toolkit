@@ -10,11 +10,10 @@ import {
   INavLink,
   INavLinkType,
   motion,
-  pointsDialogState,
   preStaticUrl,
   useActiveWeb3React,
   useIsW768,
-  useSetRecoilState
+  usePointsDialogState
 } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
@@ -48,10 +47,7 @@ const itemVariant = {
 
 const GameItem = memo(() => {
   const { chainId } = useActiveWeb3React()
-  const setPointsDialogState = useSetRecoilState(pointsDialogState)
-  const showPointsModal = useCallback(() => {
-    setPointsDialogState(true)
-  }, [setPointsDialogState, chainId])
+  const showPointsModal = usePointsDialogState()
   const { gameList, GpItem } = useMemo(() => {
     const obj: {
       gameList: IGames[]
@@ -223,12 +219,8 @@ const GameItem = memo(() => {
 // })
 const GpItemComp = memo(({ item }: { item: INavLink }) => {
   const preHandleAction = usePreHandleGlobal()
-  const { chainId } = useActiveWeb3React()
   const isW768 = useIsW768()
-  const setPointsDialogState = useSetRecoilState(pointsDialogState)
-  const showPointsModal = useCallback(() => {
-    setPointsDialogState(true)
-  }, [setPointsDialogState, chainId])
+  const showPointsModal = usePointsDialogState()
   const toPathHandle = useCallback(async () => {
     if (isNaN(Number(item.keyValue))) {
       if (item.keyValue === 'points') {

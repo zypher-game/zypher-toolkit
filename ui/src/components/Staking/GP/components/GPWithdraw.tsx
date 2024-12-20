@@ -112,10 +112,21 @@ const GPWithdraw = memo(
       async (depositValue: string) => {
         if (getWithdrawETH) {
           const v = await getWithdrawETH(depositValue);
-          setActualReceived(v);
+          // setActualReceived(v);
+          if (v === "-") {
+            setActualReceived(v);
+          } else {
+            if (
+              new BigNumberJs(receiveValue)
+                .times(divisorBigNumber)
+                .gt(health?.ethLiquidity ?? "0")
+            ) {
+              setActualReceived("-");
+            }
+          }
         }
       },
-      [getWithdrawETH]
+      [receiveValue, getWithdrawETH, JSON.stringify(health)]
     );
     const withdrawFree = useMemo(() => {
       if (
@@ -132,7 +143,13 @@ const GPWithdraw = memo(
         )} ${Currency[chainId]}`;
       }
       return "-";
-    }, [receiveValue, getWithdrawETHHandle, isL3, chainId]);
+    }, [
+      JSON.stringify(health),
+      receiveValue,
+      getWithdrawETHHandle,
+      isL3,
+      chainId,
+    ]);
     const pointBalance = useRecoilValue(pointsBalanceState);
     const { btnLabel, isBalanceEnough } = useMemo(() => {
       const obj = {
@@ -190,10 +207,11 @@ const GPWithdraw = memo(
         // new BigNumberJs(depositValue)
         //   .times(divisorBigNumber)
         //   .gt(health?.maxWithdraw ?? "0");
-        if (bol) {
-          return isBalanceEnough;
+        if (isBalanceEnough) {
+          return bol;
+        } else {
+          return true;
         }
-        return bol;
       }
       return false;
     }, [
@@ -214,6 +232,7 @@ const GPWithdraw = memo(
       }
     }, [withdraw, isL2, receiveValue, depositValue]);
     // 0.0178
+    console.log({ isDisable });
     return (
       <>
         {GPToken && chainId ? (

@@ -9,7 +9,6 @@ import {
   LngNs,
   MulticallMessageItem,
   pointsBalanceState,
-  pointsDialogState,
   preStaticUrl,
   refreshBalanceState,
   txStatus,
@@ -18,6 +17,7 @@ import {
   useCustomTranslation,
   useIsTelegram,
   useIsW768,
+  usePointsDialogState,
   usePublicNodeWaitForTransaction,
   useRecoilState,
   useRecoilValue,
@@ -68,10 +68,7 @@ const SubmitCardV1 = () => {
     }
     return false
   }, [pointsBalance, level, activeLevels])
-  const setPointsDialogState = useSetRecoilState(pointsDialogState)
-  const showPointsModal = useCallback(() => {
-    setPointsDialogState(true)
-  }, [setPointsDialogState])
+  const showPointsModal = usePointsDialogState()
   const [isApprove, setIsApprove] = useState(false)
   useEffect(() => {
     if (chainId && account && walletClient && activeLevels.length) {
@@ -154,7 +151,7 @@ const SubmitCardV1 = () => {
       const { betSize: tokenAmount, level: realLevel } = activeLevels[level] as any
       const donationFee = await bingoLobbyContract.functions.donationFee()
       // console.log({ donationFee: new BigNumberJs(donationFee).toString() })
-      let hash = '' as Hash
+      let hash = ''
       // console.log({ aa, wallet })
       if (account && aa && wallet) {
         const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
@@ -213,7 +210,7 @@ const SubmitCardV1 = () => {
 
       const joinTx: TransactionReceipt | undefined = await waitForTransaction({
         confirmations: 1,
-        hash
+        hash: hash as Hash
       })
       if (joinTx && joinTx.status === txStatus) {
         postAccountUpdate({ tx: joinTx })

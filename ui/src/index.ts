@@ -167,6 +167,7 @@ export {
   TelegramUserInfoDto,
   RefreshState,
 } from "./hooks/useTelegramUser";
+export { usePointsDialogState } from "./hooks/usePointsDialogState";
 export {
   connectorState,
   walletModalOpenState,
