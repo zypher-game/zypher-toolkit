@@ -7,7 +7,7 @@ import {
   useTonWallet as useTonWallet2
 } from "@tonconnect/ui-react";
 import {
-  useSetRecoilState as useSetRecoilState19,
+  useSetRecoilState as useSetRecoilState5,
   atom as atom11,
   selector,
   RecoilRoot,
@@ -5033,7 +5033,7 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 });
 
 // src/hooks/useNavItem.tsx
-var zAceLink = isPro ? "https://zytron-linea.acequest.io/pokerking/" : "https://testnet.acequest.io/zAce/";
+var zAceLink = isPro ? "https://zytron-linea.acequest.io/pokerking/" : "https://testnet.acequest.io/pokerking/";
 var crLink = "https://cryptorumble.io";
 var LinkList = [
   "https://zypher.game/bingo/",
@@ -5162,14 +5162,19 @@ var Games = (chainId) => {
       keyValue: "21",
       dapps: [
         {
-          label: "CryptoRumble",
+          label: "Crypto Rumble",
           icon: "Candy.png",
-          link: LinkList[3]
+          link: crLink
         },
         {
-          label: "zBingo",
-          icon: "zBingo.png",
-          link: `${LinkList[0]}${chainId ? chainId + "/" : ""}`
+          label: "Poker King",
+          icon: "zAce.png",
+          link: zAceLink
+        },
+        {
+          label: "Gammo",
+          icon: "Gammo.png",
+          link: "https://t.me/GammoBot"
         }
       ]
     },
@@ -5177,14 +5182,19 @@ var Games = (chainId) => {
       keyValue: "22",
       dapps: [
         {
-          label: "zAce",
-          icon: "zAce.png",
-          link: LinkList[2]
+          label: "Zombie Survival",
+          icon: "zombieSurvival.png",
+          link: "https://t.me/zZombieSurvivalBot"
         },
         {
-          label: "z2048",
-          icon: "z2048.png",
-          link: LinkList[1]
+          label: "Rainbow Journey",
+          icon: "RainbowJourney.png",
+          link: "https://t.me/RainbowJourneyBot"
+        },
+        {
+          label: "BigWhale",
+          icon: "BigWhale.png",
+          link: "https://t.me/zBigWhaleBot"
         }
       ]
     },
@@ -5209,16 +5219,19 @@ var Games = (chainId) => {
       keyValue: "24",
       dapps: [
         {
-          label: "Anome",
-          icon: "Anome.png",
-          twitter: "https://twitter.com/Anome_Official",
-          link: "https://b2.anome.xyz/"
+          label: "z2048",
+          icon: "z2048.png",
+          link: "https://zypher.game/2048/"
         },
         {
-          label: "Gabby World",
-          icon: "Gabby World.png",
-          twitter: "https://twitter.com/gabby_world_",
-          link: "https://tabi.gabby.world/"
+          label: "Bingo",
+          icon: "zBingo.png",
+          link: "https://zypher.game/bingo/59144/"
+        },
+        {
+          label: "Divine Cataclysm: Oblivion",
+          icon: "DC.png",
+          link: "https://www.dc.game/"
         }
       ]
     },
@@ -5226,43 +5239,19 @@ var Games = (chainId) => {
       keyValue: "25",
       dapps: [
         {
-          label: "PawX",
-          icon: "PawX.png",
-          twitter: "https://twitter.com/PawXcats",
-          link: "https://www.pawx.me/"
+          label: "z2048",
+          icon: "z2048.png",
+          link: "https://t.me/zypher2048bot"
         },
         {
-          label: "Castle Of Blackwater",
-          icon: "Blackwater.png",
-          link: "https://castleofblackwater.com/"
+          label: "Bingo",
+          icon: "zBingo.png",
+          link: "https://t.me/zBingoBot"
         },
         {
-          label: "Divine Cataclysm: Oblivion",
-          icon: "DC.png",
-          twitter: "https://x.com/d_cataclysm",
-          link: "https://dc.game/"
-        }
-      ]
-    },
-    {
-      keyValue: "26",
-      dapps: [
-        {
-          label: "Cross The Ages",
-          icon: "CrossAges.png",
-          twitter: "https://twitter.com/CrossTheAges ",
-          link: "https://linktr.ee/crosstheages "
-        },
-        {
-          label: "Wildcard",
-          icon: "Wildcard.png",
-          twitter: "https://twitter.com/PlayWildcard"
-        },
-        {
-          label: "BitcoinLoot",
-          icon: "BitcoinLoot.png",
-          twitter: "https://twitter.com/btc_loot",
-          link: "https://www.bitcoinloot.co/home/"
+          label: "Ten Sum Rings",
+          icon: "TensumRings_temp.png",
+          link: "https://ten-sum-next.zypher.game/"
         }
       ]
     },
@@ -5270,22 +5259,19 @@ var Games = (chainId) => {
       keyValue: "27",
       dapps: [
         {
-          label: "Degen Verse",
-          icon: "Degen Verse.png",
-          twitter: "https://twitter.com/degen_game",
-          link: "https://degengame.cc/#/home"
+          label: "Protect T-RUMP",
+          icon: "ProtectTrump.png",
+          link: "https://t.me/protectRumpBot"
         },
         {
-          label: "Yuliverse",
-          icon: "Yuliverse.png",
-          twitter: "https://twitter.com/TheYuliverse",
-          link: "https://www.yuliverse.com/"
+          label: "Assassins Jump",
+          icon: "AssassinsJump.png",
+          link: "https://t.me/assassinsjump_bot"
         },
         {
-          label: "Forge Heros",
-          icon: "Forge Heros.png",
-          twitter: "https://twitter.com/ForgeHeroesGame",
-          link: "https://x.com/ForgeHeroesGame"
+          label: "Stick Cat",
+          icon: "Stick Cat.png",
+          link: "https://t.me/zStickCatBot"
         }
       ]
     },
@@ -5303,10 +5289,8 @@ var Games = (chainId) => {
           link: "https://www.creoengine.com/"
         },
         {
-          label: "Crystal Fun",
-          icon: "Crystal Fun.png",
-          twitter: "https://x.com/playCrystalFun",
-          link: "https://outer.gg/"
+          label: "Galaxia: Elements Conquest Coming Soon",
+          icon: "Galaxia.png"
         }
       ]
     },
@@ -5314,20 +5298,19 @@ var Games = (chainId) => {
       keyValue: "29",
       dapps: [
         {
-          label: "Cellula",
+          label: "Crypto Shooter",
           icon: "Cellula.png",
-          link: "https://factory.cellula.life/welcome"
+          link: "https://t.me/Crypto_ShooterBot"
         },
         {
-          label: "zZombieSurvivalBot",
-          icon: "zombieSurvival.png",
-          link: "https://t.me/zZombieSurvivalBot"
+          label: "Battles of Airdrop",
+          icon: "Airdrop.jpg",
+          link: "https://t.me/AirdropBattlesBot"
         },
         {
-          label: "Trumen World",
-          icon: "Trumen World.png",
-          twitter: "https://twitter.com/trumen_worl",
-          link: "https://www.trumen.world/"
+          label: "Ten Sum Rings",
+          icon: "TensumRings_temp.png",
+          link: "https://t.me/TenSumRingsBot"
         }
       ]
     }
@@ -5522,6 +5505,9 @@ var form_info_init = () => {
   };
 };
 
+// src/hooks/usePointsDialogState.ts
+import { useCallback as useCallback9 } from "react";
+
 // src/components/ConnectWallet/state/connectWalletState.ts
 import { atom as atom7 } from "recoil";
 var connectorState = atom7({
@@ -5612,9 +5598,39 @@ var pointsBalanceState = atom7({
   effects_UNSTABLE: [localStorageEffect("pointsBalance")]
 });
 
+// src/components/Staking/GP/constant/GPConstant.ts
+var GPAddress = {
+  ["59141" /* LineaSepolia */]: {
+    GP: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
+    Store: "0xE877BACFd073A9E35C12F55C40ad89ad88Ed72b2"
+  },
+  ["50098" /* ZytronLineaSepoliaTestnet */]: {
+    GP: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
+    Store: "0xfA70A828461c5757CC74b97F056261D720739B10"
+  }
+};
+var GPV2SupportChainId = Object.keys(
+  GPAddress
+);
+
+// src/hooks/usePointsDialogState.ts
+var usePointsDialogState = () => {
+  const setPointsDialogState = useSetRecoilState5(pointsDialogState);
+  const setPointsV2DialogState = useSetRecoilState5(pointsV2DialogState);
+  const { chainId } = useActiveWeb3React();
+  const showPointsModal = useCallback9(() => {
+    if (GPV2SupportChainId.includes(chainId)) {
+      setPointsV2DialogState(true);
+    } else {
+      setPointsDialogState(true);
+    }
+  }, [setPointsDialogState, chainId]);
+  return showPointsModal;
+};
+
 // src/components/ConnectWallet/components/PointsDialog/PointsDialog.tsx
 import classnames4 from "classnames";
-import React18, { memo as memo14, useCallback as useCallback12, useEffect as useEffect11, useState as useState13 } from "react";
+import React18, { memo as memo14, useCallback as useCallback13, useEffect as useEffect11, useState as useState13 } from "react";
 import { useRecoilState as useRecoilState6, useRecoilValue as useRecoilValue9 } from "recoil";
 
 // src/components/CurrencyLogo/index.tsx
@@ -5645,8 +5661,8 @@ var CurrencyLogo_default = Logo;
 import BigNumberjs2 from "bignumber.js";
 
 // src/hooks/useAccountInvitation.ts
-import { atom as atom8, useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState5 } from "recoil";
-import { useCallback as useCallback9 } from "react";
+import { atom as atom8, useRecoilValue as useRecoilValue6, useSetRecoilState as useSetRecoilState6 } from "recoil";
+import { useCallback as useCallback10 } from "react";
 var invitationAddressState = atom8({
   key: "invitationAddressState",
   default: void 0,
@@ -5657,8 +5673,8 @@ var useAccountInvitation = (env) => {
   const invitationAddres = useRecoilValue6(
     invitationAddressState
   );
-  const setInvitationAddressState = useSetRecoilState5(invitationAddressState);
-  const postAccountUpdate = useCallback9(
+  const setInvitationAddressState = useSetRecoilState6(invitationAddressState);
+  const postAccountUpdate = useCallback10(
     async ({ tx }) => {
     },
     [chainId, account, invitationAddres]
@@ -5669,15 +5685,15 @@ var useAccountInvitation = (env) => {
 };
 
 // src/hooks/usePoint.ts
-import { useCallback as useCallback11, useEffect as useEffect10, useState as useState12 } from "react";
-import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState6 } from "recoil";
+import { useCallback as useCallback12, useEffect as useEffect10, useState as useState12 } from "react";
+import { useRecoilState as useRecoilState4, useRecoilValue as useRecoilValue7, useSetRecoilState as useSetRecoilState7 } from "recoil";
 
 // src/hooks/usePublicNodeWaitForTransaction.ts
-import { useCallback as useCallback10 } from "react";
+import { useCallback as useCallback11 } from "react";
 import { waitForTransaction } from "wagmi/actions";
 function usePublicNodeWaitForTransaction(env) {
   const { chainId } = useActiveWeb3React(env);
-  const waitForTransaction_ = useCallback10(
+  const waitForTransaction_ = useCallback11(
     async (opts) => {
       if (!chainId) {
         return void 0;
@@ -5758,8 +5774,8 @@ var useSwapPoint = ({
   const { postAccountUpdate } = useAccountInvitation(env);
   const [isLoading, setIsLoading] = useState12(false);
   const pointsDialogOpen = useRecoilValue7(pointsDialogState);
-  const setPointsDialogOpen = useSetRecoilState6(pointsDialogState);
-  const setPointsAnimNumState = useSetRecoilState6(pointsAnimNumState);
+  const setPointsDialogOpen = useSetRecoilState7(pointsDialogState);
+  const setPointsAnimNumState = useSetRecoilState7(pointsAnimNumState);
   const [refreshBalance, setRefreshBalanceState] = useRecoilState4(refreshBalanceState);
   const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
   const hidePointsWarn = useRecoilValue7(hidePointsWarnState);
@@ -5769,7 +5785,7 @@ var useSwapPoint = ({
   useEffect10(() => {
     setIsLoading(false);
   }, [pointsDialogOpen]);
-  const swapPointHandle = useCallback11(
+  const swapPointHandle = useCallback12(
     async (index) => {
       if ((pointsWarn === 1 || hidePointsWarn) && walletClient) {
         const _index = choseIndex || choseIndex === 0 ? choseIndex : index;
@@ -6077,7 +6093,7 @@ var PointsDialog = memo14(
         }, 800);
       }
     }, [chainId]);
-    const handleCancel = useCallback12(() => {
+    const handleCancel = useCallback13(() => {
       setPointsDialogOpen(false);
     }, []);
     return /* @__PURE__ */ React18.createElement(Modal_default, {
@@ -6219,8 +6235,8 @@ import React21, { memo as memo17 } from "react";
 
 // src/components/SideBar/component/LinkItemA.tsx
 import classnames5 from "classnames";
-import React20, { memo as memo16, useCallback as useCallback13 } from "react";
-import { useSetRecoilState as useSetRecoilState7 } from "recoil";
+import React20, { memo as memo16, useCallback as useCallback14 } from "react";
+import { useSetRecoilState as useSetRecoilState8 } from "recoil";
 
 // src/components/Header/state.ts
 import { atom as atom9 } from "recoil";
@@ -6235,9 +6251,9 @@ var sideCollapseState = atom9({
 
 // src/components/SideBar/component/LinkItemA.tsx
 var useLink = (link, isMobile2, useNavigate) => {
-  const setSideCollapse = useSetRecoilState7(sideCollapseState);
+  const setSideCollapse = useSetRecoilState8(sideCollapseState);
   const navigate = useNavigate();
-  const linkClickHandle = useCallback13(
+  const linkClickHandle = useCallback14(
     (event) => {
       if (link.disabled) {
         return;
@@ -6359,12 +6375,12 @@ var SideBarTitleLink = memo18(
 );
 
 // src/components/SideBar/SideBar.tsx
-import { useSetRecoilState as useSetRecoilState8 } from "recoil";
+import { useSetRecoilState as useSetRecoilState9 } from "recoil";
 
 // src/components/Header/Navigation/Navigation.tsx
 import React23, {
   memo as memo19,
-  useCallback as useCallback14,
+  useCallback as useCallback15,
   useEffect as useEffect12,
   useMemo as useMemo7,
   useRef as useRef6,
@@ -6447,7 +6463,7 @@ var Navigation = memo19(
         isWBig: width >= 1670
       };
     }, [width]);
-    const init = useCallback14(async () => {
+    const init = useCallback15(async () => {
       if (!isW768 && linksRefs.current.length) {
         const index = NavKey.findIndex((key) => key.includes(pathname));
         if (index > -1) {
@@ -6459,7 +6475,7 @@ var Navigation = memo19(
     useEffect12(() => {
       init();
     }, [init]);
-    const init2 = useCallback14(async () => {
+    const init2 = useCallback15(async () => {
       if (!isW768 && linksRefs.current.length) {
         linksRefs.current.forEach(async (linkRef, index) => {
           if ((linkRef == null ? void 0 : linkRef.className) === "nav_on") {
@@ -6493,7 +6509,7 @@ var Navigation = memo19(
     useEffect12(() => {
       init2();
     }, [chooseIndex, pathname, linksRefs.current]);
-    const updateLinePosition = useCallback14(async () => {
+    const updateLinePosition = useCallback15(async () => {
       if (activeIndex !== null && activeIndex !== void 0 && linksRefs.current[activeIndex]) {
         const line = document.querySelector(".pixel_line");
         const link = linksRefs.current[activeIndex];
@@ -6629,7 +6645,7 @@ var LinkComp2 = memo20(
 var SideBar = (props) => {
   const { useNavigate, pathname } = props;
   const { chainId } = useActiveWeb3React();
-  const setSideCollapse = useSetRecoilState8(sideCollapseState);
+  const setSideCollapse = useSetRecoilState9(sideCollapseState);
   const {
     sideBarGamesLinkList
   } = useMemo8(() => {
@@ -6712,16 +6728,16 @@ var DivWrap_default = DivWrap;
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
-import React27, { memo as memo23, useCallback as useCallback16, useEffect as useEffect13, useMemo as useMemo9 } from "react";
+import React27, { memo as memo23, useCallback as useCallback17, useEffect as useEffect13, useMemo as useMemo9 } from "react";
 import { useRecoilState as useRecoilState7 } from "recoil";
 import styled4 from "styled-components";
 
 // src/components/ConnectWallet/components/DialogComponents/DialogTitle.tsx
 import classnames7 from "classnames";
-import React26, { memo as memo22, useCallback as useCallback15 } from "react";
+import React26, { memo as memo22, useCallback as useCallback16 } from "react";
 var DialogTitle = memo22(
   ({ label, setDialogOpen, children, classNames }) => {
-    const closeHandle = useCallback15(() => {
+    const closeHandle = useCallback16(() => {
       setDialogOpen(false);
     }, [setDialogOpen]);
     return /* @__PURE__ */ React26.createElement("div", {
@@ -6793,7 +6809,7 @@ var LinkToBetaDialog = memo23(() => {
     }
     return "";
   }, [linkToBetaDialogChainId]);
-  const handleButtonClick = useCallback16(() => {
+  const handleButtonClick = useCallback17(() => {
     setLinkToBetaDialogOpen(false);
     if (ToUrlName[0].startsWith("https")) {
       return window.open(ToUrlName[0], "_blank");
@@ -6847,18 +6863,17 @@ import { useRecoilState as useRecoilState16, useRecoilValue as useRecoilValue16,
 import React100, { memo as memo40 } from "react";
 
 // src/components/Header/rainbow_account/rainbow_account.tsx
-import React46, { memo as memo38, useCallback as useCallback29 } from "react";
-import { useSetRecoilState as useSetRecoilState14 } from "recoil";
+import React46, { memo as memo38 } from "react";
 
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { SyncOutlined } from "@ant-design/icons";
-import React30, { memo as memo26, useCallback as useCallback18, useEffect as useEffect15, useMemo as useMemo10, useState as useState15 } from "react";
-import { useRecoilValue as useRecoilValue10, useSetRecoilState as useSetRecoilState10 } from "recoil";
+import React30, { memo as memo26, useCallback as useCallback19, useEffect as useEffect15, useMemo as useMemo10, useState as useState15 } from "react";
+import { useRecoilValue as useRecoilValue10, useSetRecoilState as useSetRecoilState11 } from "recoil";
 import styled5 from "styled-components";
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
 import { LoadingOutlined } from "@ant-design/icons";
-import React29, { memo as memo25, useCallback as useCallback17, useEffect as useEffect14 } from "react";
+import React29, { memo as memo25, useCallback as useCallback18, useEffect as useEffect14 } from "react";
 
 // src/components/ConnectWallet/components/PointsDialog/GetPointsSuccess.tsx
 import React28, { memo as memo24 } from "react";
@@ -6898,7 +6913,7 @@ var PointsItem = () => {
 var GetPointsSuccess_default = GetPointsSuccess;
 
 // src/components/ConnectWallet/components/Balance/balanceItem.tsx
-import { useRecoilState as useRecoilState9, useSetRecoilState as useSetRecoilState9 } from "recoil";
+import { useRecoilState as useRecoilState9, useSetRecoilState as useSetRecoilState10 } from "recoil";
 var BalanceItem = memo25(
   ({
     className,
@@ -6910,7 +6925,7 @@ var BalanceItem = memo25(
     CountUpNumber,
     balance
   }) => {
-    const onClickHandle = useCallback17(() => {
+    const onClickHandle = useCallback18(() => {
       if (onClick) {
         onClick();
       }
@@ -6939,9 +6954,9 @@ var BalanceCountUpItem = memo25(
     CountUpNumber,
     balanceStr
   }) => {
-    const setPointsAnimState = useSetRecoilState9(pointsAnimState);
+    const setPointsAnimState = useSetRecoilState10(pointsAnimState);
     const [mount, setMount] = useRecoilState9(pointsAnimNumState);
-    const onClickHandle = useCallback17(() => {
+    const onClickHandle = useCallback18(() => {
       if (onClick) {
         onClick();
       }
@@ -6973,23 +6988,6 @@ var balanceItem_default = BalanceItem;
 // src/components/ConnectWallet/components/Balance/Balance.tsx
 import { erc20ABI, useWalletClient as useWalletClient2 } from "wagmi";
 import { zeroAddress as zeroAddress4 } from "viem";
-
-// src/components/Staking/GP/constant/GPConstant.ts
-var GPAddress = {
-  ["59141" /* LineaSepolia */]: {
-    GP: "0x91D416d939baA3Aa822DD1B776fC5e9610b952C2",
-    Store: "0xE877BACFd073A9E35C12F55C40ad89ad88Ed72b2"
-  },
-  ["50098" /* ZytronLineaSepoliaTestnet */]: {
-    GP: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
-    Store: "0xfA70A828461c5757CC74b97F056261D720739B10"
-  }
-};
-var GPV2SupportChainId = Object.keys(
-  GPAddress
-);
-
-// src/components/ConnectWallet/components/Balance/Balance.tsx
 var AddIcon = styled5(icons_default)`
   margin-right: ${({ isMobile: isMobile2 }) => isMobile2 ? "4px" : "10px"};
   margin-left: 0 !important;
@@ -6999,11 +6997,11 @@ var Balance = memo26((props) => {
   const { showPointsModal, env, CountUpNumber, isMiddleWidth } = props;
   const { chainId, account, provider } = useActiveWeb3React();
   const [loading, setLoading] = useState15(false);
-  const setNativeBalance = useSetRecoilState10(nativeBalanceState);
-  const setPointsBalance = useSetRecoilState10(pointsBalanceState);
+  const setNativeBalance = useSetRecoilState11(nativeBalanceState);
+  const setPointsBalance = useSetRecoilState11(pointsBalanceState);
   const refreshBalance = useRecoilValue10(refreshBalanceState);
   const { data: walletClient } = useWalletClient2();
-  const fetchErc20Balance = useCallback18(async () => {
+  const fetchErc20Balance = useCallback19(async () => {
     if (!chainId || !account || !provider || !walletClient) {
       return;
     }
@@ -7056,7 +7054,7 @@ var Balance = memo26((props) => {
       setPointsBalance(0);
     }
   }, [chainId, account, provider, walletClient]);
-  const fetchBalanceOf = useCallback18(async () => {
+  const fetchBalanceOf = useCallback19(async () => {
     if (!chainId || !account || !walletClient) {
       return;
     }
@@ -7113,7 +7111,7 @@ var Balance = memo26((props) => {
 var Balance_default = Balance;
 
 // src/components/ConnectWallet/components/ChainSelector/ChainSelectorWidget.tsx
-import React31, { memo as memo27, useCallback as useCallback19 } from "react";
+import React31, { memo as memo27, useCallback as useCallback20 } from "react";
 import styled6 from "styled-components";
 import { useRecoilState as useRecoilState10 } from "recoil";
 var StatusI = styled6.i`
@@ -7146,7 +7144,7 @@ var ChainSelectorWidget = memo27(({ className, direction_type }) => {
   const [pointsDialogOpen, setPointsDialogOpen] = useRecoilState10(pointsDialogState);
   const [sideCollapse, setSideCollapse] = useRecoilState10(sideCollapseState);
   const { openChainModal } = useChainModal();
-  const openChainModalHandle = useCallback19(() => {
+  const openChainModalHandle = useCallback20(() => {
     if (accountInfoDialogOpen) {
       setAccountInfoDialogOpen(false);
     }
@@ -7186,14 +7184,14 @@ var ChainSelectorWidget_default = ChainSelectorWidget;
 
 // src/components/ConnectWallet/components/PointsDialog/PointsRuleDialog.tsx
 import { DialogContent as DialogContent2, DialogOverlay as DialogOverlay2 } from "@reach/dialog";
-import React32, { useCallback as useCallback20 } from "react";
-import { useRecoilValue as useRecoilValue11, useSetRecoilState as useSetRecoilState11 } from "recoil";
+import React32, { useCallback as useCallback21 } from "react";
+import { useRecoilValue as useRecoilValue11, useSetRecoilState as useSetRecoilState12 } from "recoil";
 import { Trans } from "react-i18next";
 var PointsRuleDialog = () => {
   const { t } = useCustomTranslation([LngNs.points]);
   const isModalOpen = useRecoilValue11(pointsRuleDialogState);
-  const setIsModalOpen = useSetRecoilState11(pointsRuleDialogState);
-  const handleCancel = useCallback20(() => {
+  const setIsModalOpen = useSetRecoilState12(pointsRuleDialogState);
+  const handleCancel = useCallback21(() => {
     setIsModalOpen(false);
   }, []);
   return /* @__PURE__ */ React32.createElement(React32.Fragment, null, /* @__PURE__ */ React32.createElement(DialogOverlay2, {
@@ -7239,7 +7237,7 @@ var PointsRuleDialog = () => {
 var PointsRuleDialog_default = PointsRuleDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import React38, { memo as memo31, useCallback as useCallback24 } from "react";
+import React38, { memo as memo31, useCallback as useCallback25 } from "react";
 
 // src/components/PlayerAvatar/index.tsx
 import cx from "classnames";
@@ -7290,7 +7288,7 @@ var Avatar = ({
 var Avatar_default = Avatar;
 
 // src/hooks/useAvatar.ts
-import { useCallback as useCallback21, useEffect as useEffect16, useState as useState16 } from "react";
+import { useCallback as useCallback22, useEffect as useEffect16, useState as useState16 } from "react";
 import { atom as atom10, useRecoilState as useRecoilState11, useRecoilValue as useRecoilValue12 } from "recoil";
 
 // src/utils/generateAvatar.ts
@@ -7357,7 +7355,7 @@ var useAvatar = (account, hideAvatars) => {
   const IS_TELEGRAM = useIsTelegram();
   const [_account, _setAccount] = useState16(account);
   const ownerList = useRecoilValue12(ownerListState);
-  const getAccount = useCallback21(async () => {
+  const getAccount = useCallback22(async () => {
     var _a2;
     try {
       if (account && account !== "-") {
@@ -7383,7 +7381,7 @@ var useAvatar = (account, hideAvatars) => {
       });
     }
   }, [_account, refreshAvatar]);
-  const getData = useCallback21(() => {
+  const getData = useCallback22(() => {
     const img = new Image();
     let src6 = "";
     let selectedBackground = "#fff";
@@ -7597,7 +7595,7 @@ var PlayerAvatar_default = PlayerAvatar;
 
 // src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.tsx
 import classnames10 from "classnames";
-import React37, { memo as memo30, useCallback as useCallback23, useEffect as useEffect17, useState as useState17 } from "react";
+import React37, { memo as memo30, useCallback as useCallback24, useEffect as useEffect17, useState as useState17 } from "react";
 import { useRecoilState as useRecoilState13 } from "recoil";
 
 // src/hooks/useActiveWallet.ts
@@ -7827,7 +7825,7 @@ var useActiveWallet = () => {
 
 // src/components/ConnectWallet/components/AccountInfoDialog/components/MUserInfo.tsx
 import classnames9 from "classnames";
-import React36, { memo as memo29, useCallback as useCallback22, useMemo as useMemo14 } from "react";
+import React36, { memo as memo29, useCallback as useCallback23, useMemo as useMemo14 } from "react";
 import { useDisconnect } from "wagmi";
 import { useRecoilState as useRecoilState12 } from "recoil";
 var MUserInfo = memo29(
@@ -7857,14 +7855,14 @@ var MUserInfo = memo29(
         }
       ];
     }, []);
-    const openHandle = useCallback22(() => {
+    const openHandle = useCallback23(() => {
       var _a;
       window.open(
         `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
         "_blank"
       );
     }, [account, chainId]);
-    const cancelHandle = useCallback22(() => {
+    const cancelHandle = useCallback23(() => {
       setAccountInfoDialogOpen(false);
       disconnect();
     }, [disconnect]);
@@ -7945,7 +7943,7 @@ var AccountInfoDialog = memo30(({ copy }) => {
   const isMobile2 = useIsW1100();
   const { disconnect } = useDisconnect2();
   const wallet = useActiveWallet();
-  const cancel = useCallback23(() => {
+  const cancel = useCallback24(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
   }, [disconnect]);
@@ -7993,11 +7991,11 @@ var AddressBigWrapPop = memo30(({ copy }) => {
       }, 2e3);
     }
   }, [index]);
-  const copyAddressHandle = useCallback23(() => {
+  const copyAddressHandle = useCallback24(() => {
     copy(account);
     setIndex(0);
   }, [account]);
-  const openHandle = useCallback23(() => {
+  const openHandle = useCallback24(() => {
     var _a;
     window.open(
       `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
@@ -8005,7 +8003,7 @@ var AddressBigWrapPop = memo30(({ copy }) => {
     );
     setIndex(1);
   }, [account, chainId]);
-  const cancelHandle = useCallback23(() => {
+  const cancelHandle = useCallback24(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
     setIndex(2);
@@ -8047,11 +8045,11 @@ var AddressMiddleWrapPop = memo30(({ copy }) => {
       }, 2e3);
     }
   }, [index]);
-  const copyAddressHandle = useCallback23(() => {
+  const copyAddressHandle = useCallback24(() => {
     copy(account);
     setIndex(0);
   }, [account]);
-  const openHandle = useCallback23(() => {
+  const openHandle = useCallback24(() => {
     var _a;
     window.open(
       `${(_a = BlockExplorerUrls[chainId]) != null ? _a : [0]}/address/${account}`,
@@ -8059,7 +8057,7 @@ var AddressMiddleWrapPop = memo30(({ copy }) => {
     );
     setIndex(1);
   }, [account, chainId]);
-  const cancelHandle = useCallback23(() => {
+  const cancelHandle = useCallback24(() => {
     setAccountInfoDialogOpen(false);
     disconnect();
     setIndex(2);
@@ -8148,12 +8146,12 @@ var BalanceItem2 = memo30(
 var AccountInfoDialog_default = AccountInfoDialog;
 
 // src/components/Header/rainbow_account/AccountInfo/AccountInfo.tsx
-import { useSetRecoilState as useSetRecoilState12 } from "recoil";
+import { useSetRecoilState as useSetRecoilState13 } from "recoil";
 var AccountInfo = memo31(
   ({ isW768, isMiddleWidth, copy, env, supportedChainList }) => {
     const { chainId, account } = useActiveWeb3React(env, supportedChainList);
-    const setAccountInfoDialogState = useSetRecoilState12(accountInfoDialogState);
-    const accountClick = useCallback24(() => {
+    const setAccountInfoDialogState = useSetRecoilState13(accountInfoDialogState);
+    const accountClick = useCallback25(() => {
       if (isW768) {
         setAccountInfoDialogState(true);
       }
@@ -8179,7 +8177,7 @@ var AccountInfo_default = AccountInfo;
 
 // src/components/Staking/GP/PointsV2Dialog.tsx
 import classnames11 from "classnames";
-import React45, { memo as memo37, useCallback as useCallback28 } from "react";
+import React45, { memo as memo37, useCallback as useCallback29 } from "react";
 import { useRecoilState as useRecoilState15 } from "recoil";
 
 // src/components/Modal/ModalWithMotion/ModalWithMotion.tsx
@@ -8209,7 +8207,7 @@ var ModalWithMotion = ({
 var ModalWithMotion_default = ModalWithMotion;
 
 // src/components/Staking/GP/components/GPDeposit.tsx
-import React43, { memo as memo35, useCallback as useCallback25, useMemo as useMemo15, useState as useState18 } from "react";
+import React43, { memo as memo35, useCallback as useCallback26, useMemo as useMemo15, useState as useState18 } from "react";
 
 // src/components/Staking/GP/components/fromToken.tsx
 import React40, { memo as memo32 } from "react";
@@ -8341,7 +8339,7 @@ var GPDeposit = memo35(
     const nativeBalance = useRecoilValue13(nativeBalanceState);
     const nativeBalanceStr = useNativeBalanceStr();
     const isW768 = useIsW768();
-    const maxHandle = useCallback25(() => {
+    const maxHandle = useCallback26(() => {
       setDepositValue(`${nativeBalance}`);
       const value = new BigNumberJs_default(nativeBalance).dividedBy(ChainPointPrice[chainId]).toFixed();
       if (value === "NaN") {
@@ -8350,7 +8348,7 @@ var GPDeposit = memo35(
         setReceiveValue(value);
       }
     }, [nativeBalance]);
-    const depositInputHandle = useCallback25(
+    const depositInputHandle = useCallback26(
       (e) => {
         const inputValue = e.target.value;
         const regex = /^\d*\.?\d{0,8}$/;
@@ -8366,7 +8364,7 @@ var GPDeposit = memo35(
       },
       [chainId]
     );
-    const receiveInputHandle = useCallback25(
+    const receiveInputHandle = useCallback26(
       (e) => {
         const inputValue = e.target.value;
         const regex = /^\d*\.?\d{0,8}$/;
@@ -8449,7 +8447,7 @@ var GPDeposit = memo35(
 var GPDeposit_default = GPDeposit;
 
 // src/components/Staking/GP/components/GPWithdraw.tsx
-import React44, { memo as memo36, useCallback as useCallback26, useEffect as useEffect18, useMemo as useMemo16, useState as useState19 } from "react";
+import React44, { memo as memo36, useCallback as useCallback27, useEffect as useEffect18, useMemo as useMemo16, useState as useState19 } from "react";
 import { useRecoilValue as useRecoilValue14 } from "recoil";
 var GPWithdraw = memo36(
   ({
@@ -8480,7 +8478,7 @@ var GPWithdraw = memo36(
         setIsL2(["59144" /* LineaMainnet */, "59141" /* LineaSepolia */].includes(chainId));
       }
     }, [chainId]);
-    const maxHandle = useCallback26(() => {
+    const maxHandle = useCallback27(() => {
       if (chainId && isL3) {
         setDepositValue(`${pointsBalance}`);
         const value = new BigNumberJs_default(pointsBalance).times(ChainPointPrice[chainId]).toFixed();
@@ -8491,7 +8489,7 @@ var GPWithdraw = memo36(
         }
       }
     }, [pointsBalance, isL3]);
-    const depositInputHandle = useCallback26(
+    const depositInputHandle = useCallback27(
       (e) => {
         if (chainId && isL3) {
           const inputValue = e.target.value;
@@ -8509,7 +8507,7 @@ var GPWithdraw = memo36(
       },
       [chainId, isL3]
     );
-    const receiveInputHandle = useCallback26(
+    const receiveInputHandle = useCallback27(
       (e) => {
         if (chainId && isL3) {
           const inputValue = e.target.value;
@@ -8527,14 +8525,21 @@ var GPWithdraw = memo36(
       },
       [chainId, isL3]
     );
-    const getWithdrawETHHandle = useCallback26(
+    const getWithdrawETHHandle = useCallback27(
       async (depositValue2) => {
+        var _a;
         if (getWithdrawETH) {
           const v = await getWithdrawETH(depositValue2);
-          setActualReceived(v);
+          if (v === "-") {
+            setActualReceived(v);
+          } else {
+            if (new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_a = health == null ? void 0 : health.ethLiquidity) != null ? _a : "0")) {
+              setActualReceived("-");
+            }
+          }
         }
       },
-      [getWithdrawETH]
+      [receiveValue, getWithdrawETH, JSON.stringify(health)]
     );
     const withdrawFree = useMemo16(() => {
       if (chainId && isL3 && [receiveValue].every(
@@ -8547,7 +8552,13 @@ var GPWithdraw = memo36(
         )} ${Currency[chainId]}`;
       }
       return "-";
-    }, [receiveValue, getWithdrawETHHandle, isL3, chainId]);
+    }, [
+      JSON.stringify(health),
+      receiveValue,
+      getWithdrawETHHandle,
+      isL3,
+      chainId
+    ]);
     const pointBalance = useRecoilValue14(pointsBalanceState);
     const { btnLabel, isBalanceEnough } = useMemo16(() => {
       const obj = {
@@ -8591,10 +8602,11 @@ var GPWithdraw = memo36(
         (val) => !isNaN(Number(val)) && Number(val) > 0
       )) {
         const bol = loadingWithdraw || new BigNumberJs_default(depositValue).times(divisorBigNumber).lt((_a = health == null ? void 0 : health.minWithdraw) != null ? _a : "0");
-        if (bol) {
-          return isBalanceEnough;
+        if (isBalanceEnough) {
+          return bol;
+        } else {
+          return true;
         }
-        return bol;
       }
       return false;
     }, [
@@ -8605,7 +8617,7 @@ var GPWithdraw = memo36(
       receiveValue,
       JSON.stringify(health)
     ]);
-    const withdrawHandle = useCallback26(() => {
+    const withdrawHandle = useCallback27(() => {
       if (withdraw) {
         withdraw({
           nativeValue: receiveValue,
@@ -8614,6 +8626,7 @@ var GPWithdraw = memo36(
         });
       }
     }, [withdraw, isL2, receiveValue, depositValue]);
+    console.log({ isDisable });
     return /* @__PURE__ */ React44.createElement(React44.Fragment, null, GPToken && chainId ? /* @__PURE__ */ React44.createElement(fromToken_default, {
       label: "Withdraw",
       balanceStr: pointsBalanceStr,
@@ -8666,7 +8679,7 @@ var GPWithdraw = memo36(
 var GPWithdraw_default = GPWithdraw;
 
 // src/components/Staking/GP/hooks/useGPDeposit.ts
-import { useCallback as useCallback27, useEffect as useEffect19, useMemo as useMemo17, useState as useState20 } from "react";
+import { useCallback as useCallback28, useEffect as useEffect19, useMemo as useMemo17, useState as useState20 } from "react";
 
 // src/components/Staking/GP/contract/abi/ZgClient.json
 var ZgClient_default = [
@@ -9318,7 +9331,7 @@ var ZgClient_default2 = ZgClientContract;
 
 // src/components/Staking/GP/hooks/useGPDeposit.ts
 import { zeroAddress as zeroAddress5 } from "viem";
-import { useRecoilState as useRecoilState14, useRecoilValue as useRecoilValue15, useSetRecoilState as useSetRecoilState13 } from "recoil";
+import { useRecoilState as useRecoilState14, useRecoilValue as useRecoilValue15, useSetRecoilState as useSetRecoilState14 } from "recoil";
 
 // src/contract/abi/erc20Abi.json
 var erc20Abi_default = [
@@ -9627,7 +9640,7 @@ var useGPDeposit = ({
   setSuccessToast,
   setErrorToast
 }) => {
-  const setPointsDialogOpen = useSetRecoilState13(pointsV2DialogState);
+  const setPointsDialogOpen = useSetRecoilState14(pointsV2DialogState);
   const { postAccountUpdate } = useAccountInvitation(env);
   const { walletClient, account, chainId } = useAaWallet();
   const { waitForTransaction: waitForTransaction2 } = usePublicNodeWaitForTransaction(env);
@@ -9662,7 +9675,7 @@ var useGPDeposit = ({
   useEffect19(() => {
     getData();
   }, [chainId, account]);
-  const getData = useCallback27(async () => {
+  const getData = useCallback28(async () => {
     if (chainId && GPV2SupportChainId.includes(chainId) && account) {
       const { Store } = GPAddress[chainId];
       const pointsAddress = zkBingo(chainId, "ZypherGameToken" /* ZypherGameToken */);
@@ -9707,7 +9720,7 @@ var useGPDeposit = ({
       setAllowance(allowance2.toString());
     }
   }, [chainId, account]);
-  const deposit = useCallback27(
+  const deposit = useCallback28(
     async ({
       nativeValue,
       GPValue
@@ -9763,7 +9776,7 @@ var useGPDeposit = ({
     },
     [chainId, nativeBalance, account, JSON.stringify(health)]
   );
-  const withdraw = useCallback27(
+  const withdraw = useCallback28(
     async ({
       nativeValue,
       GPValue,
@@ -9851,7 +9864,7 @@ var useGPDeposit = ({
     },
     [chainId, switchNetworkAsync, pointBalance, account, JSON.stringify(health)]
   );
-  const getWithdrawETH = useCallback27(
+  const getWithdrawETH = useCallback28(
     async (GPValue) => {
       if (chainId) {
         const zgClient = ZgClient_default2({ chainId, env });
@@ -9894,11 +9907,11 @@ var PointsV2Dialog = memo37(
   ({ env, setSuccessToast, setErrorToast }) => {
     const [tabIndex, setTabIndex] = useRecoilState15(pointsV2TabIndexState);
     const [pointsV2DialogOpen, setPointsV2DialogOpen] = useRecoilState15(pointsV2DialogState);
-    const handleCancel = useCallback28(() => {
+    const handleCancel = useCallback29(() => {
       setPointsV2DialogOpen(false);
     }, []);
     const isW768 = useIsW768();
-    const changeTableHandle = useCallback28(
+    const changeTableHandle = useCallback29(
       (index) => {
         if (tabIndex !== index) {
           setTabIndex(index);
@@ -9976,16 +9989,7 @@ var Account2 = memo38(
     supportedChainList
   }) => {
     const isW768 = useIsW768();
-    const setPointsDialogState = useSetRecoilState14(pointsDialogState);
-    const setPointsV2DialogState = useSetRecoilState14(pointsV2DialogState);
-    const { chainId } = useActiveWeb3React();
-    const showPointsModal = useCallback29(() => {
-      if (GPV2SupportChainId.includes(chainId)) {
-        setPointsV2DialogState(true);
-      } else {
-        setPointsDialogState(true);
-      }
-    }, [setPointsDialogState, chainId]);
+    const showPointsModal = usePointsDialogState();
     return /* @__PURE__ */ React46.createElement(React46.Fragment, null, /* @__PURE__ */ React46.createElement(Balance_default, {
       isMiddleWidth,
       CountUpNumber,
@@ -14998,7 +15002,7 @@ var useGetInvitationAddress = () => {
       if (isValidAddress) {
         setInvitationAddressState({
           address: shareParam,
-          chainId: Number(chain_id)
+          chainId: String(chain_id)
         });
       }
     }
@@ -18178,6 +18182,7 @@ export {
   useNativeBalanceStr,
   useNavItem,
   usePointsBalanceStr,
+  usePointsDialogState,
   usePublicClient4 as usePublicClient,
   usePublicNodeWaitForTransaction,
   useRecentGamesFromGraph,
@@ -18185,7 +18190,7 @@ export {
   useRecoilValue17 as useRecoilValue,
   useResetRecoilState,
   useSetAaWallet,
-  useSetRecoilState19 as useSetRecoilState,
+  useSetRecoilState5 as useSetRecoilState,
   useSpring,
   useSwapPoint,
   useSwitchNetwork3 as useSwitchNetwork,

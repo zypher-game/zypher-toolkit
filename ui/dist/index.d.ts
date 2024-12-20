@@ -35,6 +35,7 @@ export { default as TokenWithChain } from "./components/Token/TokenWithChain/Tok
 export { LinkList, blankLinkList, useNavItem, zAceLink, crLink, } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
 export { useTelegramAccountInit, TelegramUserInfoDto, RefreshState, } from "./hooks/useTelegramUser";
+export { usePointsDialogState } from "./hooks/usePointsDialogState";
 export { connectorState, walletModalOpenState, ChainSelector, refreshBalanceState, refreshAvatarState, pointsDialogState, pointsWarnState, hidePointsWarnState, pointsRuleDialogState, accountInfoDialogState, linkToBetaDialogState, linkToBetaDialogChainIdState, nativeBalanceState, pointsBalanceState, } from "./components/ConnectWallet/state/connectWalletState";
 export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
 export { default as SideBar } from "./components/SideBar/SideBar";

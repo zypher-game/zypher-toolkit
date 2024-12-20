@@ -26,7 +26,7 @@ export const useGetInvitationAddress = (): void => {
       if (isValidAddress) {
         setInvitationAddressState({
           address: shareParam,
-          chainId: Number(chain_id) as ChainId,
+          chainId: String(chain_id) as ChainId,
         });
       }
     }
