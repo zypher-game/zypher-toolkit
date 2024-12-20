@@ -10,7 +10,7 @@ export const zAceLink = isPro
   ? "https://zytron-linea.acequest.io/pokerking/"
   : //  "https://acequest.io/zAce/"
     "https://testnet.acequest.io/zAce/";
-export const crLink = "https://testnet.cryptorumble.io";
+export const crLink = "https://cryptorumble.io";
 
 export const LinkList = [
   // "/zBingo",

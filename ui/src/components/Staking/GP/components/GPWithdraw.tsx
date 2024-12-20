@@ -133,15 +133,6 @@ const GPWithdraw = memo(
       }
       return "-";
     }, [receiveValue, getWithdrawETHHandle, isL3, chainId]);
-
-    const isDisable = useMemo(() => {
-      return (
-        loadingWithdraw ||
-        ![depositValue, receiveValue].every(
-          (val: string) => !isNaN(Number(val)) && Number(val) > 0
-        )
-      );
-    }, [loadingWithdraw, depositValue, receiveValue]);
     const pointBalance = useRecoilValue(pointsBalanceState);
     const { btnLabel, isBalanceEnough } = useMemo(() => {
       const obj = {
@@ -181,6 +172,38 @@ const GPWithdraw = memo(
       }
       return obj;
     }, [chainId, isL2, pointBalance, allowance, depositValue]);
+
+    const isDisable = useMemo(() => {
+      if (isL2) {
+        return false;
+      }
+      if (
+        [depositValue, receiveValue].every(
+          (val: string) => !isNaN(Number(val)) && Number(val) > 0
+        )
+      ) {
+        const bol =
+          loadingWithdraw ||
+          new BigNumberJs(depositValue)
+            .times(divisorBigNumber)
+            .lt(health?.minWithdraw ?? "0");
+        // new BigNumberJs(depositValue)
+        //   .times(divisorBigNumber)
+        //   .gt(health?.maxWithdraw ?? "0");
+        if (bol) {
+          return isBalanceEnough;
+        }
+        return bol;
+      }
+      return false;
+    }, [
+      isL2,
+      isBalanceEnough,
+      loadingWithdraw,
+      depositValue,
+      receiveValue,
+      JSON.stringify(health),
+    ]);
     const withdrawHandle = useCallback(() => {
       if (withdraw) {
         withdraw({
@@ -244,13 +267,23 @@ const GPWithdraw = memo(
               </p>
             </div>
           </li>
+          {!isDisable && depositValue && actualReceived === "-" ? (
+            <li>
+              <p></p>
+              <div className="S_fr_column">
+                <p className="S_fr_yellow">
+                  The operation is too frequent. Please try again later.
+                </p>
+              </div>
+            </li>
+          ) : null}
         </ul>
         <ActivePixelButtonColor
           className="W_staking_confirm"
           width="100%"
           height={isW768 ? "48px" : "54px"}
           pixel_height={5}
-          disable={!isL2 && (isDisable || !isBalanceEnough)}
+          disable={isDisable || actualReceived === "-"}
           onClick={withdrawHandle}
           themeType="brightBlue"
         >

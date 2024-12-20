@@ -5034,7 +5034,7 @@ i18n2.use(Backend).use(LanguageDetector).use(initReactI18next).init({
 
 // src/hooks/useNavItem.tsx
 var zAceLink = isPro ? "https://zytron-linea.acequest.io/pokerking/" : "https://testnet.acequest.io/zAce/";
-var crLink = "https://testnet.cryptorumble.io";
+var crLink = "https://cryptorumble.io";
 var LinkList = [
   "https://zypher.game/bingo/",
   "https://zypher.game/2048/",
@@ -8548,11 +8548,6 @@ var GPWithdraw = memo36(
       }
       return "-";
     }, [receiveValue, getWithdrawETHHandle, isL3, chainId]);
-    const isDisable = useMemo16(() => {
-      return loadingWithdraw || ![depositValue, receiveValue].every(
-        (val) => !isNaN(Number(val)) && Number(val) > 0
-      );
-    }, [loadingWithdraw, depositValue, receiveValue]);
     const pointBalance = useRecoilValue14(pointsBalanceState);
     const { btnLabel, isBalanceEnough } = useMemo16(() => {
       const obj = {
@@ -8587,6 +8582,29 @@ var GPWithdraw = memo36(
       }
       return obj;
     }, [chainId, isL2, pointBalance, allowance, depositValue]);
+    const isDisable = useMemo16(() => {
+      var _a;
+      if (isL2) {
+        return false;
+      }
+      if ([depositValue, receiveValue].every(
+        (val) => !isNaN(Number(val)) && Number(val) > 0
+      )) {
+        const bol = loadingWithdraw || new BigNumberJs_default(depositValue).times(divisorBigNumber).lt((_a = health == null ? void 0 : health.minWithdraw) != null ? _a : "0");
+        if (bol) {
+          return isBalanceEnough;
+        }
+        return bol;
+      }
+      return false;
+    }, [
+      isL2,
+      isBalanceEnough,
+      loadingWithdraw,
+      depositValue,
+      receiveValue,
+      JSON.stringify(health)
+    ]);
     const withdrawHandle = useCallback26(() => {
       if (withdraw) {
         withdraw({
@@ -8627,12 +8645,16 @@ var GPWithdraw = memo36(
       className: "S_fr_grey"
     }, withdrawFree))), /* @__PURE__ */ React44.createElement("li", null, /* @__PURE__ */ React44.createElement("p", null, "Actual amount received"), /* @__PURE__ */ React44.createElement("div", {
       className: "S_fr"
-    }, /* @__PURE__ */ React44.createElement("p", null, actualReceived, " ", chainId && Currency[chainId] ? Currency[chainId] : "-")))), /* @__PURE__ */ React44.createElement(ActivePixelButtonColor, {
+    }, /* @__PURE__ */ React44.createElement("p", null, actualReceived, " ", chainId && Currency[chainId] ? Currency[chainId] : "-"))), !isDisable && depositValue && actualReceived === "-" ? /* @__PURE__ */ React44.createElement("li", null, /* @__PURE__ */ React44.createElement("p", null), /* @__PURE__ */ React44.createElement("div", {
+      className: "S_fr_column"
+    }, /* @__PURE__ */ React44.createElement("p", {
+      className: "S_fr_yellow"
+    }, "The operation is too frequent. Please try again later."))) : null), /* @__PURE__ */ React44.createElement(ActivePixelButtonColor, {
       className: "W_staking_confirm",
       width: "100%",
       height: isW768 ? "48px" : "54px",
       pixel_height: 5,
-      disable: !isL2 && (isDisable || !isBalanceEnough),
+      disable: isDisable || actualReceived === "-",
       onClick: withdrawHandle,
       themeType: "brightBlue"
     }, /* @__PURE__ */ React44.createElement("p", null, btnLabel), /* @__PURE__ */ React44.createElement(LoadingButton_default, {
@@ -9654,6 +9676,7 @@ var useGPDeposit = ({
       const zgClient = ZgClient_default2({ chainId, env });
       if (zgClient) {
         const health2 = await zgClient.read.health();
+        console.log({ health: health2 });
         setHealth({
           ...health2,
           accumulatedFee: health2["accumulatedFee"].toString(),
