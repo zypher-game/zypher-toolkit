@@ -218,7 +218,7 @@ export const ChainRpcUrls: Record<ChainId, string[]> = {
     "https://linea-testnet-zytron.zypher.game",
   ],
   [ChainId.ZytronB2Testnet]: ["https://b2-testnet-zytron.zypher.game"],
-  [ChainId.Taiko]: ["https://rpc.hekla.taiko.xyz"],
+  [ChainId.Taiko]: ["https://rpc.taiko.xyz"],
   [ChainId.SagaMainnet]: [
     "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io",
   ],
@@ -255,7 +255,7 @@ export const BlockExplorerUrls: Record<ChainId, string[]> = {
   [ChainId.ZytronB2Testnet]: [
     "https://b2-testnet-zytron-blockscout.zypher.game",
   ],
-  [ChainId.Taiko]: ["https://hekla.taikoscan.network"],
+  [ChainId.Taiko]: ["https://taikoscan.io"],
   [ChainId.SagaMainnet]: ["https://zypher-2717465680371000-1.sagaexplorer.io"],
   [ChainId.B3Mainnet]: ["https://explorer.b3.fun"],
 };
