@@ -4001,13 +4001,13 @@ var Games = (chainId) => {
           label: "Gabby World",
           icon: "Gabby World.png",
           twitter: "https://twitter.com/gabby_world_",
-          link: "https://tabi.gabby.world/"
+          link: "https://gabby.world"
         },
         {
           label: "PawX",
           icon: "PawX.png",
           twitter: "https://twitter.com/PawXcats",
-          link: "https://www.pawx.me/"
+          link: "https://linktr.ee/pawx"
         },
         {
           label: "Castle Of Blackwater",
@@ -4052,12 +4052,6 @@ var Games = (chainId) => {
           label: "Cellula",
           icon: "Cellula.png",
           link: "https://factory.cellula.life/welcome"
-        },
-        {
-          label: "Trumen World",
-          icon: "Trumen World.png",
-          twitter: "https://twitter.com/trumen_worl",
-          link: "https://www.trumen.world/"
         }
       ]
     }
