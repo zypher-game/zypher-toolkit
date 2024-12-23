@@ -1,3 +1,10 @@
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel_tvl/ui/src/components/SvgComponent/SvgComponent.stylus */
+.svg_component {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel_tvl/ui/src/components/SideBar/component/Language.stylus */
 div .address_wrap_pop_lang_wrap {
   position: absolute;
@@ -261,13 +268,6 @@ div .address_wrap_pop_lang > .pixel_flat_inner {
     bottom: 2px;
     left: 2px;
   }
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel_tvl/ui/src/components/SvgComponent/SvgComponent.stylus */
-.svg_component {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel_tvl/ui/src/components/Header/rainbow_account/IsPixelWidget.stylus */

@@ -154,13 +154,7 @@ export { default as sleep, timeoutPromise } from "./utils/sleep";
 export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
 export { default as Icon } from "./components/icons";
 
-export {
-  LinkList,
-  blankLinkList,
-  useNavItem,
-  zAceLink,
-  crLink,
-} from "./hooks/useNavItem";
+export { LinkList, blankLinkList, zAceLink, crLink } from "./hooks/useNavItem";
 export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
 export {
   useTelegramAccountInit,

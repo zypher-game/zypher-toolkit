@@ -83,7 +83,6 @@ const LinkComp = memo(
 );
 const SideBar: React.FC<IProps> = (props: IProps) => {
   const { useNavigate, pathname } = props;
-  // const items = useNavItem();
   const { chainId } = useActiveWeb3React();
   const setSideCollapse = useSetRecoilState(sideCollapseState);
   const {
