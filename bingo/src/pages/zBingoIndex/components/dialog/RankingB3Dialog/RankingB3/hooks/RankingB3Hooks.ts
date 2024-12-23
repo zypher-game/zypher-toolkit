@@ -1,22 +1,21 @@
 import {
   addressIsEqual,
   atom,
-  BigNumberJs,
   ChainId,
   formatMoney,
   httpGet,
   httpPost,
+  ILocalPathUrl,
+  localPathUrl,
   localStorageEffect,
   useActiveWeb3React,
   useRecoilState,
   useRecoilValue
 } from '@ui/src'
-import { ethers } from 'ethers'
 import { isEqual } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
 
 import { rankingB3DialogState } from '@/pages/state/state'
-import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
 
 import { defaultUser } from '../RankingB3'
 

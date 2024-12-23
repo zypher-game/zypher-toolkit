@@ -1,8 +1,6 @@
-import { useActiveWeb3React, useIsTelegram } from '@ui/src'
+import { ILocalPathUrl, localPathUrl, useActiveWeb3React, useIsTelegram } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
-
-import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
 
 import SideBarPage, { ISide } from './SideBarPage'
 import SideBarPageB3 from './SideBarPageB3'

@@ -3,6 +3,8 @@ import {
   ChainRpcUrls,
   getProvider,
   getWeb3Sign,
+  ILocalPathUrl,
+  localPathUrl,
   refreshBalanceState,
   TelegramUserInfoState,
   txStatus,
@@ -26,7 +28,6 @@ import { useChainIdParams } from '@/hooks/useChainIdParams'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import generateCardNumbers from '@/utils/generateCardNumbers'
-import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
 import { toBingoPlayHref } from '@/utils/toBingoHref'
 
 export const usePlay = () => {
@@ -126,7 +127,9 @@ export const usePlay = () => {
       }
       const localpath = localPathUrl(chainId)
       let res
-      if ([ILocalPathUrl.MANTA, ILocalPathUrl.COMBO, ILocalPathUrl.MANTLE, ILocalPathUrl.Hypr, ILocalPathUrl.B3].includes(localpath)) {
+      if (
+        [ILocalPathUrl.MANTA, ILocalPathUrl.COMBO, ILocalPathUrl.MANTLE, ILocalPathUrl.Hypr, ILocalPathUrl.B3, ILocalPathUrl.EXP].includes(localpath)
+      ) {
         const donationFee = await bingoLobbyContract.functions.joinFee()
         res = await lobbyContract.write.join([joinGame.signedCard], {
           value: new BigNumberJs(donationFee).toString(),

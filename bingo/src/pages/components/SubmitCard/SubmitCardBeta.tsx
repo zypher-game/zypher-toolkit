@@ -2,7 +2,9 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
   getProvider,
+  ILocalPathUrl,
   LngNs,
+  localPathUrl,
   preStaticUrl,
   refreshBalanceState,
   txStatus,
@@ -13,8 +15,7 @@ import {
   useIsW768,
   usePublicNodeWaitForTransaction,
   useRecoilState,
-  useSetRecoilState,
-  useWalletHandler
+  useSetRecoilState
 } from '@ui/src'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
@@ -30,7 +31,6 @@ import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
-import { ILocalPathUrl, localPathUrl } from '@/utils/localPathUrl'
 
 import { SetUpSubText } from '../Text'
 import css from './index.module.stylus'

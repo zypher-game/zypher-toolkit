@@ -2,6 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   bingoBetaSupportedChainId,
   ChainId,
+  getChainNameText,
   preStaticUrl,
   RefreshState,
   TelegramUserInfoState,
@@ -17,7 +18,7 @@ import React, { memo, useCallback, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 import { useChainIdParams } from '@/hooks/useChainIdParams'
-import { getChainNameText, GetGameListBoxImg } from '@/hooks/useMText'
+import { GetGameListBoxImg } from '@/hooks/useMText'
 import { IGameListBeta } from '@/hooks/useRecentGames'
 import { showModalState, showTipModalState, showTipOkModalState } from '@/pages/state/state'
 import { setErrorToast } from '@/utils/Error/setErrorToast'

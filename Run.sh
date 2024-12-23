@@ -113,29 +113,29 @@ git push origin test
 # ---------bingo  end----------------
 
 
-# ---------app_test----------------
-rm -rf "$app_test/src"
-cp -r "$path_front2/src" "$app_test/"
-cd "$app_test/src"
-perl -i -pe 's|^// import |import |' index.tsx
-perl -i -pe 's|^// | |'  global.d.ts
+# # ---------app_test----------------
+# rm -rf "$app_test/src"
+# cp -r "$path_front2/src" "$app_test/"
+# cd "$app_test/src"
+# perl -i -pe 's|^// import |import |' index.tsx
+# perl -i -pe 's|^// | |'  global.d.ts
 
-# 更新bingo_test_beta的 yarn.lock
-cd "$app_test"
-echo $app_test
-sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-# 添加新的 "@ui@zypher-game/toolkit" 依赖项
-echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
-echo "Updated dependencies in yarn.lock"
-yarn
+# # 更新bingo_test_beta的 yarn.lock
+# cd "$app_test"
+# echo $app_test
+# sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# # 添加新的 "@ui@zypher-game/toolkit" 依赖项
+# echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+# echo "Updated dependencies in yarn.lock"
+# yarn
 
-git checkout test
-git fetch --prune
-git pull origin test
-git add .
-git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
-git push origin test --force
-# ---------app_test   end----------------
+# git checkout test
+# git fetch --prune
+# git pull origin test
+# git add .
+# git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
+# git push origin test --force
+# # ---------app_test   end----------------
 
 
 
