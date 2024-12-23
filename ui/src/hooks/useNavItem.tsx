@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useMemo } from "react";
 
 import { LngNs } from "../utils/i18n";
 import { useCustomTranslation } from "./useCustomTranslation";
@@ -8,9 +8,8 @@ import { isPro, preStaticUrl } from "../constant/constant";
 
 export const zAceLink = isPro()
   ? "https://zytron-linea.acequest.io/pokerking/"
-  : //  "https://acequest.io/zAce/"
-    "https://testnet.acequest.io/zAce/";
-export const crLink = "https://testnet.cryptorumble.io";
+  : "https://testnet.acequest.io/pokerking/";
+export const crLink = "https://cryptorumble.io";
 
 export const LinkList = [
   // "/zBingo",
