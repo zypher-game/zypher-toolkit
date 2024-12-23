@@ -219,7 +219,7 @@ var ChainRpcUrls = {
   ["9901" /* ZytronLineaMain */]: ["https://rpc.zypher.network"],
   ["50098" /* ZytronLineaSepoliaTestnet */]: ["https://rpc-testnet.zypher.network"],
   ["50097" /* ZytronB2Testnet */]: ["https://b2-testnet-zytron.zypher.game"],
-  ["167000" /* Taiko */]: ["https://rpc.hekla.taiko.xyz"],
+  ["167000" /* Taiko */]: ["https://rpc.taiko.xyz"],
   ["2717465680371000" /* SagaMainnet */]: [
     "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io"
   ],
@@ -256,7 +256,7 @@ var BlockExplorerUrls = {
   ["50097" /* ZytronB2Testnet */]: [
     "https://b2-testnet-zytron-blockscout.zypher.game"
   ],
-  ["167000" /* Taiko */]: ["https://hekla.taikoscan.network"],
+  ["167000" /* Taiko */]: ["https://taikoscan.io"],
   ["2717465680371000" /* SagaMainnet */]: ["https://zypher-2717465680371000-1.sagaexplorer.io"],
   ["8333" /* B3Mainnet */]: ["https://explorer.b3.fun"],
   ["18880" /* EXPTestnet */]: ["https://blockscout-testnet.expchain.ai"]
@@ -5173,7 +5173,7 @@ var Games = (chainId) => {
         },
         {
           label: "Gammo",
-          icon: "Gammo.png",
+          icon: "Gammo TG.png",
           link: "https://t.me/GammoBot"
         }
       ]
@@ -5183,17 +5183,17 @@ var Games = (chainId) => {
       dapps: [
         {
           label: "Zombie Survival",
-          icon: "zombieSurvival.png",
+          icon: "zombieSurvival TG.png",
           link: "https://t.me/zZombieSurvivalBot"
         },
         {
           label: "Rainbow Journey",
-          icon: "RainbowJourney.png",
+          icon: "RainbowJourney TG.png",
           link: "https://t.me/RainbowJourneyBot"
         },
         {
           label: "BigWhale",
-          icon: "BigWhale.png",
+          icon: "BigWhale TG.png",
           link: "https://t.me/zBigWhaleBot"
         }
       ]
@@ -5240,17 +5240,17 @@ var Games = (chainId) => {
       dapps: [
         {
           label: "z2048",
-          icon: "z2048.png",
+          icon: "z2048 TG.png",
           link: "https://t.me/zypher2048bot"
         },
         {
           label: "Bingo",
-          icon: "zBingo.png",
+          icon: "zbingo TG.png",
           link: "https://t.me/zBingoBot"
         },
         {
           label: "Ten Sum Rings",
-          icon: "TensumRings_temp.png",
+          icon: "TensumRings_temp_ TG.png",
           link: "https://ten-sum-next.zypher.game/"
         }
       ]
@@ -5260,17 +5260,17 @@ var Games = (chainId) => {
       dapps: [
         {
           label: "Protect T-RUMP",
-          icon: "ProtectTrump.png",
+          icon: "ProtectTrump TG.png",
           link: "https://t.me/protectRumpBot"
         },
         {
           label: "Assassins Jump",
-          icon: "AssassinsJump.png",
+          icon: "AssassinsJump TG.png",
           link: "https://t.me/assassinsjump_bot"
         },
         {
           label: "Stick Cat",
-          icon: "Stick Cat.png",
+          icon: "Stick Cat TG.png",
           link: "https://t.me/zStickCatBot"
         }
       ]
@@ -5279,14 +5279,9 @@ var Games = (chainId) => {
       keyValue: "28",
       dapps: [
         {
-          label: "Splinterlands",
-          icon: "Splinterlands.png",
-          twitter: "https://twitter.com/Splinterlands"
-        },
-        {
-          label: "Core Engine",
-          icon: "Core Engine.png",
-          link: "https://www.creoengine.com/"
+          label: "Endless Snake",
+          icon: "Endless TG.png",
+          link: "https://t.me/endlessSnakeZYBot"
         },
         {
           label: "Galaxia: Elements Conquest Coming Soon",
@@ -5299,18 +5294,40 @@ var Games = (chainId) => {
       dapps: [
         {
           label: "Crypto Shooter",
-          icon: "Cellula.png",
+          icon: "Crypto Shooter TG.png",
           link: "https://t.me/Crypto_ShooterBot"
         },
         {
           label: "Battles of Airdrop",
-          icon: "Airdrop.jpg",
+          icon: "Airdrop TG.png",
           link: "https://t.me/AirdropBattlesBot"
         },
         {
           label: "Ten Sum Rings",
-          icon: "TensumRings_temp.png",
+          icon: "TensumRings_temp_ TG.png",
           link: "https://t.me/TenSumRingsBot"
+        }
+      ]
+    },
+    {
+      keyValue: "more",
+      dapps: [
+        {
+          label: "Cross The Ages",
+          icon: "CrossAges.png",
+          twitter: "https://twitter.com/CrossTheAges ",
+          link: "https://linktr.ee/crosstheages "
+        },
+        {
+          label: "Wildcard",
+          icon: "Wildcard.png",
+          twitter: "https://twitter.com/PlayWildcard"
+        },
+        {
+          label: "BitcoinLoot",
+          icon: "BitcoinLoot.png",
+          twitter: "https://twitter.com/btc_loot",
+          link: "https://www.bitcoinloot.co/home/"
         }
       ]
     }
@@ -6725,6 +6742,59 @@ var DivWrap = memo21(
 );
 var DivWrap_default = DivWrap;
 
+// src/components/ConnectWallet/components/linkToBetaDialog/localPathUrl.ts
+var ILocalPathUrl = /* @__PURE__ */ ((ILocalPathUrl2) => {
+  ILocalPathUrl2["COMBO"] = "COMBO";
+  ILocalPathUrl2["MANTA"] = "MANTA";
+  ILocalPathUrl2["BATE"] = "BATE";
+  ILocalPathUrl2["Hypr"] = "Hypr";
+  ILocalPathUrl2["MANTLE"] = "MANTLE";
+  ILocalPathUrl2["TaikoHeklaTestnet9"] = "TaikoHeklaTestnet9";
+  ILocalPathUrl2["Saga"] = "Saga";
+  ILocalPathUrl2["B3"] = "B3";
+  ILocalPathUrl2["EXP"] = "EXP";
+  return ILocalPathUrl2;
+})(ILocalPathUrl || {});
+var getChainNameText = (chainId, params) => {
+  const { isLowcase = false } = params || {};
+  const localpath = localPathUrl(chainId);
+  let text = "Beta";
+  if (localpath === "COMBO" /* COMBO */) {
+    text = "Combo";
+  } else if (localpath === "MANTA" /* MANTA */) {
+    text = "Manta";
+  } else if (localpath === "MANTLE" /* MANTLE */) {
+    text = "Mantle";
+  } else if (localpath === "Hypr" /* Hypr */) {
+    text = "Hypr";
+  } else if (localpath === "TaikoHeklaTestnet9" /* TaikoHeklaTestnet9 */) {
+    text = "TaikoHeklaTestnet";
+  } else if (localpath === "Saga" /* Saga */) {
+    text = "Diamond Points";
+  } else if (localpath === "B3" /* B3 */) {
+    text = "B3";
+  } else if (localpath === "EXP" /* EXP */) {
+    text = "EXP";
+  }
+  return isLowcase ? text.toLowerCase() : text;
+};
+var localPathUrl = (chainId) => {
+  if (chainId === "9980" /* Combo */ || chainId === "91715" /* ComboTestnet */) {
+    return "COMBO" /* COMBO */;
+  } else if (chainId === "169" /* MantaPacificMainnet */ || chainId === "3441005" /* MantaPacificTestnet */) {
+    return "MANTA" /* MANTA */;
+  } else if (chainId === "5000" /* Mantle */ || chainId === "5001" /* MantleTestnet */) {
+    return "MANTLE" /* MANTLE */;
+  } else if (chainId === "8333" /* B3Mainnet */) {
+    return "B3" /* B3 */;
+  } else if (chainId === "18880" /* EXPTestnet */) {
+    return "EXP" /* EXP */;
+  } else if (window.IS_TELEGRAM) {
+    return "Saga" /* Saga */;
+  }
+  return "BATE" /* BATE */;
+};
+
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 import { WarningOutlined } from "@ant-design/icons";
 import classnames8 from "classnames";
@@ -6752,19 +6822,6 @@ var DialogTitle = memo22(
   }
 );
 var DialogTitle_default = DialogTitle;
-
-// src/components/ConnectWallet/components/linkToBetaDialog/localPathUrl.ts
-var getChainNameText = (chainId) => {
-  let text = "Beta";
-  if (chainId === "91715" /* ComboTestnet */) {
-    text = "Combo";
-  } else if (chainId === "169" /* MantaPacificMainnet */ || chainId === "3441005" /* MantaPacificTestnet */) {
-    text = "Manta";
-  } else if (chainId === "5000" /* Mantle */ || chainId === "5001" /* MantleTestnet */) {
-    text = "Mantle";
-  }
-  return [text.toLowerCase(), text];
-};
 
 // src/components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog.tsx
 var Content = styled4.div`
@@ -17964,6 +18021,7 @@ export {
   IContractName,
   IGameName,
   IGameStatus,
+  ILocalPathUrl,
   INavLinkType,
   ITvlHero,
   icons_default as Icon,
@@ -18070,6 +18128,7 @@ export {
   frameWallet,
   frontierWallet,
   getChainId,
+  getChainNameText,
   getContract2 as getContract,
   getContractFromRpc,
   getCryptoImg,
@@ -18102,6 +18161,7 @@ export {
   lightTheme,
   linkToBetaDialogChainIdState,
   linkToBetaDialogState,
+  localPathUrl,
   localStorageEffect,
   measureText,
   metaMaskWallet,

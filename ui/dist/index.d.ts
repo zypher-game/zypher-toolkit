@@ -44,6 +44,7 @@ export { NavKey } from "./components/Header/Navigation/Navigation";
 export { default as IsPixelWidget } from "./components/Header/rainbow_account/IsPixelWidget";
 export { useNativeBalanceStr, usePointsBalanceStr, } from "./components/ConnectWallet/hooks/connectWalletHooks";
 export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
+export { ILocalPathUrl, localPathUrl, getChainNameText, } from "./components/ConnectWallet/components/linkToBetaDialog/localPathUrl";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
 export { sideCollapseState, pathnameState } from "./components/Header/state";
