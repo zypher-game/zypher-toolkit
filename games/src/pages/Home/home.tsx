@@ -43,7 +43,7 @@ const Home: React.FC = () => {
           </HomeListItem>
 
           <GamesWidget isMobile={isMobile} />
-          <div className={css.footer}>Copyright © 2023 Zypher Games. All rights reserved.</div>
+          <div className={css.footer}>Copyright © 2024 Zypher Games. All rights reserved.</div>
         </div>
       </div>
     </IsMdProvider>

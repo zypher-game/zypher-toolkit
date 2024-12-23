@@ -15,6 +15,7 @@ import {
   useIsW768,
   usePointsDialogState
 } from '@ui/src'
+import { partition } from 'lodash'
 import React, { memo, useCallback, useMemo } from 'react'
 
 import { usePreHandleGlobal } from '@/hooks/usePreHandleGlobal'
@@ -22,6 +23,7 @@ import { PixelCube2Tooltip } from '@/pages/Active/components/PixelTooltip/PixelT
 import { env } from '@/utils/config'
 
 import css from './GameItem.module.styl'
+import cssGameItemType2 from './GameItemType2.module.styl'
 
 const itemVariant = {
   hidden: { width: 0, opacity: 0, x: -10 },
@@ -48,12 +50,15 @@ const itemVariant = {
 const GameItem = memo(() => {
   const { chainId } = useActiveWeb3React()
   const showPointsModal = usePointsDialogState()
-  const { gameList, GpItem } = useMemo(() => {
+  const { gameList, more, GpItem } = useMemo(() => {
+    const [filteredGames, excludedGames] = partition(Games(chainId), v => v.keyValue === 'more')
     const obj: {
       gameList: IGames[]
+      more: IGames
       GpItem: INavLink
     } = {
-      gameList: Games(chainId),
+      gameList: excludedGames,
+      more: filteredGames[0],
       GpItem: {
         label: 'Gold Points',
         keyValue: 'points',
@@ -71,13 +76,15 @@ const GameItem = memo(() => {
     <AnimatePresence>
       <div className={css.gameItem}>
         <>
-          {/* <ListWithMotion<IGames> parentClassName={css.fl_list} data={gameList} renderItem={item => <GamesItemComp item={item} />} /> */}
+          <img src={preStaticUrl + '/img/games/games/tree.png'} className={cssGameItemType2.tree} />
           {gameList.map(v => (
             <GamesItemComp key={v.keyValue} item={v} />
           ))}
           <GpItemComp item={GpItem} />
-          {/* <GameItemComingSoon disableGameList={disableGameList} /> */}
+          <MoreItemComp item={more} />
         </>
+        {/* <GameItemComingSoon disableGameList={disableGameList} /> */}
+
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }} className="gameItem_bg">
           <div className="pixel_island1_div">
             <img
@@ -243,8 +250,8 @@ const GpItemComp = memo(({ item }: { item: INavLink }) => {
       whileTap="tap"
       variants={itemVariant}
     >
-      <GameItemBgLeft />
-      <GameItemMiddle className={css.game}>
+      <GameItemBgLeft cssVersion={css} />
+      <GameItemMiddle cssVersion={css} className={css.game}>
         <img decoding="async" loading="lazy" className={css.icon} src={preStaticUrl + '/img/layout/' + item.icon} alt={item.label} />
         <div className={css.fr}>
           <h4>{item.label}</h4>
@@ -254,8 +261,41 @@ const GpItemComp = memo(({ item }: { item: INavLink }) => {
           </ActivePixelButton>
         </div>
       </GameItemMiddle>
-      <GameItemBgRight />
+      <GameItemBgRight cssVersion={css} />
     </motion.div>
+  )
+})
+
+const MoreItemComp = memo(({ item }: { item: IGames }) => {
+  const toPathHandle = useCallback(async (v: IGamesItem) => {
+    if (v.link || v.twitter) {
+      window.open(v.link ?? v.twitter)
+    }
+  }, [])
+  return (
+    <div className={`${css.gameItemComp} ${cssGameItemType2.more}`}>
+      <h4 className={cssGameItemType2.moreGameTitle}>More Games</h4>
+      <div className={cssGameItemType2.moreGame}>
+        {item.dapps.map(v => (
+          <PixelCube2Tooltip key={v.label} title={[v.label]}>
+            <div className={cssGameItemType2.moreGameItem}>
+              <div className={cssGameItemType2.moreGameItemImg}>
+                <img
+                  fetchPriority="high"
+                  decoding="async"
+                  loading="lazy"
+                  className={css.icon}
+                  src={preStaticUrl + '/img/games/games/' + v.icon}
+                  alt={v.label}
+                  onClick={() => toPathHandle(v)}
+                />
+              </div>
+              <p>{v.label}</p>
+            </div>
+          </PixelCube2Tooltip>
+        ))}
+      </div>
+    </div>
   )
 })
 const GamesItemComp = memo(({ item }: { item: IGames }) => {
@@ -273,8 +313,8 @@ const GamesItemComp = memo(({ item }: { item: IGames }) => {
       whileTap="tap"
       variants={itemVariant}
     >
-      <GameItemBgLeft />
-      <GameItemMiddle className={css.game}>
+      <GameItemBgLeft cssVersion={css} />
+      <GameItemMiddle cssVersion={css} className={css.game}>
         {item.dapps.map(v => (
           <PixelCube2Tooltip key={v.label} title={[v.label]}>
             <img
@@ -289,70 +329,70 @@ const GamesItemComp = memo(({ item }: { item: IGames }) => {
           </PixelCube2Tooltip>
         ))}
       </GameItemMiddle>
-      <GameItemBgRight />
+      <GameItemBgRight cssVersion={css} />
     </motion.div>
   )
 })
 
-const GameItemBgLeft = memo(() => {
+const GameItemBgLeft = memo(({ cssVersion }: { cssVersion: any }) => {
   return (
-    <div className={css.gameItemBgLeft}>
-      <div className={css.item1} />
-      <div className={css.item2} />
-      <div className={css.item3} />
-      <div className={css.item4}>
-        <div className={css.item401} />
-        <div className={css.item402} />
+    <div className={cssVersion.gameItemBgLeft}>
+      <div className={cssVersion.item1} />
+      <div className={cssVersion.item2} />
+      <div className={cssVersion.item3} />
+      <div className={cssVersion.item4}>
+        <div className={cssVersion.item401} />
+        <div className={cssVersion.item402} />
       </div>
-      <div className={css.item5} />
-      <div className={css.item6} />
-      <div className={css.item7} />
+      <div className={cssVersion.item5} />
+      <div className={cssVersion.item6} />
+      <div className={cssVersion.item7} />
     </div>
   )
 })
-const GameItemBgRight = memo(() => {
+const GameItemBgRight = memo(({ cssVersion }: { cssVersion: any }) => {
   return (
-    <div className={css.gameItemBgRight}>
-      <div className={css.item1} />
-      <div className={css.item2} />
-      {/* <div className={css.item3} /> */}
-      <div className={css.item6} />
-      <div className={css.item4}>
-        <div className={css.item401} />
-        <div className={css.item402} />
+    <div className={cssVersion.gameItemBgRight}>
+      <div className={cssVersion.item1} />
+      <div className={cssVersion.item2} />
+      {/* <div className={cssVersion.item3} /> */}
+      <div className={cssVersion.item6} />
+      <div className={cssVersion.item4}>
+        <div className={cssVersion.item401} />
+        <div className={cssVersion.item402} />
       </div>
-      <div className={css.item5} />
-      <div className={css.item7} />
+      <div className={cssVersion.item5} />
+      <div className={cssVersion.item7} />
     </div>
   )
 })
-const GameItemMiddle = memo(({ children, className }: { children: React.ReactNode; className?: string }) => {
+const GameItemMiddle = memo(({ cssVersion, children, className }: { cssVersion: any; children: React.ReactNode; className?: string }) => {
   return (
-    <div className={css.gameItemMiddle}>
-      <div className={css.bg}>
-        <div className={css.Left}>
-          <div className={css.Left3} />
-          <div className={css.Left1} />
-          <div className={css.Left2} />
+    <div className={cssVersion.gameItemMiddle}>
+      <div className={cssVersion.bg}>
+        <div className={cssVersion.Left}>
+          <div className={cssVersion.Left3} />
+          <div className={cssVersion.Left1} />
+          <div className={cssVersion.Left2} />
         </div>
-        <div className={css.Middle}>
-          <div className={css.Top}>
-            <div className={css.Top01} />
-            <div className={css.Top_tetris01} />
-            <div className={css.Top_tetris02} />
+        <div className={cssVersion.Middle}>
+          <div className={cssVersion.Top}>
+            <div className={cssVersion.Top01} />
+            <div className={cssVersion.Top_tetris01} />
+            <div className={cssVersion.Top_tetris02} />
           </div>
-          <div className={css.Bottom}>
-            <div className={css.Bottom01} />
-            <div className={css.Bottom_tetris01} />
-            <div className={css.Bottom_tetris02} />
-            <div className={css.Bottom_tetris03} />
-            <div className={css.Bottom_tetris04} />
+          <div className={cssVersion.Bottom}>
+            <div className={cssVersion.Bottom01} />
+            <div className={cssVersion.Bottom_tetris01} />
+            <div className={cssVersion.Bottom_tetris02} />
+            <div className={cssVersion.Bottom_tetris03} />
+            <div className={cssVersion.Bottom_tetris04} />
           </div>
         </div>
-        <div className={css.Right}>
-          <div className={css.Right3} />
-          <div className={css.Right1} />
-          <div className={css.Right2} />
+        <div className={cssVersion.Right}>
+          <div className={cssVersion.Right3} />
+          <div className={cssVersion.Right1} />
+          <div className={cssVersion.Right2} />
         </div>
       </div>
       <div className={`${className ?? ''}`}>{children}</div>

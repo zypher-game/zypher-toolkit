@@ -1,12 +1,14 @@
-.center
-  max-width: 550px
-  @media screen and (max-width: 830px)
-    max-width 90%
-  :global(.dialog_close)
+:global(body [data-reach-dialog-content])
+  &.center
+    max-width: 550px
     @media screen and (max-width: 830px)
-      width 24px
-      height 24px
-      scale: 1
+      max-width 90%
+      margin:  0 auto
+    :global(.dialog_close)
+      @media screen and (max-width: 830px)
+        width 24px
+        height 24px
+        scale: 1
 .ZypherGamesDialog
   padding: 60px
   @media screen and (max-width: 830px)

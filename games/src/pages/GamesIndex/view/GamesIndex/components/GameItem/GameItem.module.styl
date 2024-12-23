@@ -7,13 +7,15 @@ $mBorderH = 56px
 .gameItem
   margin-top: 1vh
   position: relative
-  height: 83vh
-  min-height: 83vh
+  height: 108vh
+  min-height: 108vh
   @media screen and (max-width: 830px)
-    height: 820px
-    min-height: 820px
-    margin-top: -13%
-
+    height: 1700px
+    min-height: 1700px
+    margin-top: -2%
+  @media screen and (max-width: 500px)
+    height: 1400px
+    min-height: 1400px
 .fr
   display flex
   // justify-content: flex-start
@@ -24,9 +26,8 @@ $mBorderH = 56px
   width 44px
   border-radius: 4px
   // border-radius: 9px
-  @media screen and (max-width: 830px)
-    width 32px
-    // border-radius: 4px
+  @media screen and (max-width: 500px)
+    width: 32px
 .gameItemCompComingImg
   display: flex
   justify-content: center
@@ -107,13 +108,13 @@ $mBorderH = 56px
   .gameItemMiddle
     margin-top: 10px
     height: 72px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: 8px
       height: 52px
 
   .gameItemBgRight
     margin-top: 5px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: 4px
 
 .Bottom_tetris04
@@ -123,7 +124,7 @@ $mBorderH = 56px
   bottom: 2px
   background-color: #D4AD6A
   width: $pcBorderSize * 2
-  @media screen and (max-width: 830px)
+  @media screen and (max-width: 500px)
     width: $mBorderSize * 2
   &:before,
   &:after
@@ -135,7 +136,7 @@ $mBorderH = 56px
     right: 1px
     width: $pcBorderSize
     bottom: $pcBorderSize
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       bottom: $mBorderSize
   &:after
@@ -144,7 +145,7 @@ $mBorderH = 56px
     background-color: #ECC88A
     right: -$pcBorderSize
     bottom: 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       right: -$mBorderSize
 
@@ -155,7 +156,7 @@ $mBorderH = 56px
   right: 30%
   bottom: 2px
   background-color: #D4AD6A
-  @media screen and (max-width: 830px)
+  @media screen and (max-width: 500px)
     width: $mBorderSize * 3
   &:before,
   &:after
@@ -167,7 +168,7 @@ $mBorderH = 56px
     background-color: #D4AD6A
     right: $pcBorderSize
     bottom: $pcBorderSize
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       right: $mBorderSize
       bottom: $mBorderSize
@@ -178,7 +179,7 @@ $mBorderH = 56px
     background-color: #ECC88A
     right: $pcBorderSize
     bottom: 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       height $mBorderSize
       right: $mBorderSize
@@ -190,7 +191,7 @@ $mBorderH = 56px
   left: 30%
   bottom: 2px
   background-color: #D4AD6A
-  @media screen and (max-width: 830px)
+  @media screen and (max-width: 500px)
     width: $mBorderSize * 2
   &:before,
   &:after
@@ -202,7 +203,7 @@ $mBorderH = 56px
     background-color: #D4AD6A
     right: 0
     bottom: $pcBorderSize
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       bottom: $mBorderSize
 
@@ -212,7 +213,7 @@ $mBorderH = 56px
     background-color: #ECC88A
     right: 0
     bottom: 7px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
 
 
@@ -223,7 +224,7 @@ $mBorderH = 56px
   left: 3%
   bottom: 2px
   background-color: #D4AD6A
-  @media screen and (max-width: 830px)
+  @media screen and (max-width: 500px)
     width: $mBorderSize * 3
   &:before,
   &:after
@@ -235,7 +236,7 @@ $mBorderH = 56px
     background-color: #D4AD6A
     left: $pcBorderSize
     bottom: $pcBorderSize
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize * 2
       left: $mBorderSize
       bottom: $mBorderSize
@@ -246,7 +247,7 @@ $mBorderH = 56px
     background-color: #ECC88A
     right: 0
     bottom: 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       height $mBorderSize
 
@@ -267,14 +268,14 @@ $mBorderH = 56px
     height 4px
     background-color: #D4AD6A
     left: $pcBorderSize
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       left: $mBorderSize
   &:after
     width: $pcBorderSize
     height 2px
     background-color: #ECC88A
     right: 0
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
 
 .Top_tetris02
@@ -293,7 +294,7 @@ $mBorderH = 56px
     height 4px
     background-color: #D4AD6A
     left: $pcBorderSize
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       left: $mBorderSize
 
@@ -302,7 +303,7 @@ $mBorderH = 56px
   position relative
   background-color: #F1D5A5
   padding: 13px 16px
-  @media screen and (max-width: 830px)
+  @media screen and (max-width: 500px)
     padding: 10px
   .bg
     position absolute
@@ -316,25 +317,25 @@ $mBorderH = 56px
     width $pcBorderSize
     height: 100%;
     background-color: #9E8E71
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width $mBorderSize
     .Left3
       height: $pcBorderSize
       background-color: #000
-      @media screen and (max-width: 830px)
+      @media screen and (max-width: 500px)
         height: $mBorderSize
     .Left1
       height: calc(100% - 3px * 2)
       border-top: $pcBorderSize solid #6a5735
       border-bottom: $pcBorderSize solid #6a5735
-      @media screen and (max-width: 830px)
+      @media screen and (max-width: 500px)
         height: calc(100% - 2px * 2)
         border-top: $mBorderSize solid #6a5735
         border-bottom: $mBorderSize solid #6a5735
     .Left2
       height: $pcBorderSize
       background-color: #000
-      @media screen and (max-width: 830px)
+      @media screen and (max-width: 500px)
         height: $mBorderSize
   .Middle
     width: 100%
@@ -342,7 +343,7 @@ $mBorderH = 56px
     border-top: $pcBorderSize solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
     position relative
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       border-top: $mBorderSize solid #1E4575
       border-bottom: $mBorderSize solid #1E4575
     .Top
@@ -353,7 +354,7 @@ $mBorderH = 56px
       .Top01
         height: $pcBorderSize
         background-color: #D4AD6A
-        @media screen and (max-width: 830px)
+        @media screen and (max-width: 500px)
           height: $mBorderSize
         &:after 
           content: ""
@@ -363,7 +364,7 @@ $mBorderH = 56px
           width 12px
           height $pcBorderSize
           background-color: #F1D5A5
-          @media screen and (max-width: 830px)
+          @media screen and (max-width: 500px)
             height $mBorderSize
     .Bottom
       position absolute
@@ -373,7 +374,7 @@ $mBorderH = 56px
       .Bottom01
         height: $pcBorderSize
         background-color: #D4AD6A
-        @media screen and (max-width: 830px)
+        @media screen and (max-width: 500px)
           height: $mBorderSize
         &:after 
           content: ""
@@ -383,7 +384,7 @@ $mBorderH = 56px
           width 15px
           height $pcBorderSize
           background-color: #F1D5A5
-          @media screen and (max-width: 830px)
+          @media screen and (max-width: 500px)
             height $mBorderSize
   .Right
     width 2px
@@ -392,13 +393,13 @@ $mBorderH = 56px
     .Right3
       height: $pcBorderSize
       background-color: #000
-      @media screen and (max-width: 830px)
+      @media screen and (max-width: 500px)
         height: $mBorderSize
     .Right1
       height: calc(100% - 6px)
       border-top: $pcBorderSize * 2 solid #6a5735
       border-bottom: $pcBorderSize solid #6a5735
-      @media screen and (max-width: 830px)
+      @media screen and (max-width: 500px)
         height: calc(100% - 4px)
         border-top: $mBorderSize * 2 solid #6a5735
         border-bottom: $mBorderSize solid #6a5735
@@ -406,7 +407,7 @@ $mBorderH = 56px
     .Right2
       height: $pcBorderSize
       background-color: #000
-      @media screen and (max-width: 830px)
+      @media screen and (max-width: 500px)
         height: $mBorderSize
 .gameItemBgLeft,
 .gameItemBgRight
@@ -429,7 +430,7 @@ $mBorderH = 56px
     width: $pcBorderSize
     background-color: #1E4575
     height: $pcBorderH
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: 4px
       width: $mBorderSize
       height: $mBorderH
@@ -441,7 +442,7 @@ $mBorderH = 56px
     background-color: #F1D5A5
     border-top: $pcBorderSize * 2 solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       height: $mBorderH + $mBorderSize * 3
       border-top: $mBorderSize * 2 solid #1E4575
@@ -453,7 +454,7 @@ $mBorderH = 56px
     border-top: $pcBorderSize solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
     height: $pcBorderH + $pcBorderSize * 2 + 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: 1px
       width: $mBorderSize
       border-top: $mBorderSize solid #1E4575
@@ -469,14 +470,14 @@ $mBorderH = 56px
   //   height: 86px
   .item4
     margin-top: $pcBorderSize * 2 - 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: 3px
   .item401
     width: $pcBorderSize
     background-color: #D4AD6A
     border-top: $pcBorderSize solid #1E4575
     height: 44px - $pcBorderSize 
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       border-top: $mBorderSize solid #1E4575
       height: 39px 
@@ -486,7 +487,7 @@ $mBorderH = 56px
     height: 39px
     background-color: #F1D5A5
     border-bottom: $pcBorderSize solid #1E4575
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       height: 18px
       width: $mBorderSize
       border-bottom: $mBorderSize solid #1E4575
@@ -498,7 +499,7 @@ $mBorderH = 56px
     border-top: $pcBorderSize solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
     height: $pcBorderH + $pcBorderSize * 2 + 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       border-top: $mBorderSize solid #1E4575
       border-bottom: $mBorderSize solid #1E4575
@@ -509,7 +510,7 @@ $mBorderH = 56px
     width: $pcBorderSize
     background-color: #1E4575
     height: $pcBorderH  + $pcBorderSize - 1px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: $mBorderSize
       width: $mBorderSize
       height: $mBorderH  + $mBorderSize 
@@ -521,7 +522,7 @@ $mBorderH = 56px
     width: $pcBorderSize
     background-color: #1E4575
     height: $pcBorderH
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: $mBorderSize * 2
       width: $mBorderSize
       height: $mBorderH
@@ -532,7 +533,7 @@ $mBorderH = 56px
     border-top: $pcBorderSize solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
     height: $pcBorderH + $pcBorderSize * 2
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: $mBorderSize
       border-top: $mBorderSize solid #1E4575
       border-bottom: $mBorderSize solid #1E4575
@@ -547,7 +548,7 @@ $mBorderH = 56px
     bottom: $pcBorderSize
     left: $pcBorderSize + 2;
     z-index: 3;
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       border-bottom: $mBorderSize solid #1E4575
       height: 3px + $mBorderSize
       bottom: 0
@@ -560,7 +561,7 @@ $mBorderH = 56px
     background-color: #D4AD6A
     border-top: $pcBorderSize solid #1E4575
     height: 63px
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       height: 39px
       width: $mBorderSize
       border-top: $mBorderSize solid #1E4575
@@ -570,7 +571,7 @@ $mBorderH = 56px
     height: 27px
     background-color: #F1D5A5
     border-bottom: $pcBorderSize solid #1E4575
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       width: $mBorderSize
       border-bottom: $mBorderSize solid #1E4575
 
@@ -581,7 +582,7 @@ $mBorderH = 56px
     border-top: $pcBorderSize solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
     height: $pcBorderH + $pcBorderSize + $pcBorderSize * 2
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: $mBorderSize
       width $mBorderSize
       border-top: $mBorderSize solid #1E4575
@@ -595,7 +596,7 @@ $mBorderH = 56px
     border-top: $pcBorderSize solid #1E4575
     border-bottom: $pcBorderSize solid #1E4575
     height: $pcBorderH  + $pcBorderSize * 2
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: $mBorderSize
       width $mBorderSize
       border-top: $mBorderSize solid #1E4575
@@ -607,7 +608,7 @@ $mBorderH = 56px
     width $pcBorderSize
     background-color: #1E4575
     height: $pcBorderH
-    @media screen and (max-width: 830px)
+    @media screen and (max-width: 500px)
       margin-top: $mBorderSize * 2
       width $mBorderSize
       height: $mBorderH

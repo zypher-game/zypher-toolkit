@@ -10,7 +10,7 @@ window.isGames = ${res.parsed.isGames};
 export const env = '${res.parsed.env}';
 `
 const strStyl = `
-$preStaticUrl = 'https://static${res.parsed.env.indexOf('develop') > -1 ? '-dev' : ''}.zypher.game'
+$preStaticUrl = 'https://static${res.parsed.env.includes('dev') ? '-dev' : ''}.zypher.game'
 `
 fs.writeFileSync(path.join(__dirname, '../src/utils/config.ts'), str)
 fs.writeFileSync(path.join(__dirname, '../src/assets/stylus/lib/env.styl'), strStyl)

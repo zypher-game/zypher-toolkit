@@ -29,7 +29,7 @@ export const Games = (chainId: ChainId): IGames[] => {
         },
         {
           label: "Gammo",
-          icon: "Gammo.png",
+          icon: "Gammo TG.png",
           link: "https://t.me/GammoBot",
         },
       ],
@@ -39,17 +39,17 @@ export const Games = (chainId: ChainId): IGames[] => {
       dapps: [
         {
           label: "Zombie Survival",
-          icon: "zombieSurvival.png",
+          icon: "zombieSurvival TG.png",
           link: "https://t.me/zZombieSurvivalBot",
         },
         {
           label: "Rainbow Journey",
-          icon: "RainbowJourney.png",
+          icon: "RainbowJourney TG.png",
           link: "https://t.me/RainbowJourneyBot",
         },
         {
           label: "BigWhale",
-          icon: "BigWhale.png",
+          icon: "BigWhale TG.png",
           link: "https://t.me/zBigWhaleBot",
         },
       ],
@@ -96,17 +96,17 @@ export const Games = (chainId: ChainId): IGames[] => {
       dapps: [
         {
           label: "z2048",
-          icon: "z2048.png",
+          icon: "z2048 TG.png",
           link: "https://t.me/zypher2048bot",
         },
         {
           label: "Bingo",
-          icon: "zBingo.png",
+          icon: "zbingo TG.png",
           link: "https://t.me/zBingoBot",
         },
         {
           label: "Ten Sum Rings",
-          icon: "TensumRings_temp.png",
+          icon: "TensumRings_temp_ TG.png",
           link: "https://ten-sum-next.zypher.game/",
         },
       ],
@@ -138,17 +138,17 @@ export const Games = (chainId: ChainId): IGames[] => {
       dapps: [
         {
           label: "Protect T-RUMP",
-          icon: "ProtectTrump.png",
+          icon: "ProtectTrump TG.png",
           link: "https://t.me/protectRumpBot",
         },
         {
           label: "Assassins Jump",
-          icon: "AssassinsJump.png",
+          icon: "AssassinsJump TG.png",
           link: "https://t.me/assassinsjump_bot",
         },
         {
           label: "Stick Cat",
-          icon: "Stick Cat.png",
+          icon: "Stick Cat TG.png",
           link: "https://t.me/zStickCatBot",
         },
       ],
@@ -157,14 +157,9 @@ export const Games = (chainId: ChainId): IGames[] => {
       keyValue: "28",
       dapps: [
         {
-          label: "Splinterlands",
-          icon: "Splinterlands.png",
-          twitter: "https://twitter.com/Splinterlands",
-        },
-        {
-          label: "Core Engine",
-          icon: "Core Engine.png",
-          link: "https://www.creoengine.com/",
+          label: "Endless Snake",
+          icon: "Endless TG.png",
+          link: "https://t.me/endlessSnakeZYBot",
         },
         {
           label: "Galaxia: Elements Conquest Coming Soon",
@@ -177,18 +172,40 @@ export const Games = (chainId: ChainId): IGames[] => {
       dapps: [
         {
           label: "Crypto Shooter",
-          icon: "Cellula.png",
+          icon: "Crypto Shooter TG.png",
           link: "https://t.me/Crypto_ShooterBot",
         },
         {
           label: "Battles of Airdrop",
-          icon: "Airdrop.jpg",
+          icon: "Airdrop TG.png",
           link: "https://t.me/AirdropBattlesBot",
         },
         {
           label: "Ten Sum Rings",
-          icon: "TensumRings_temp.png",
+          icon: "TensumRings_temp_ TG.png",
           link: "https://t.me/TenSumRingsBot",
+        },
+      ],
+    },
+    {
+      keyValue: "more",
+      dapps: [
+        {
+          label: "Cross The Ages",
+          icon: "CrossAges.png",
+          twitter: "https://twitter.com/CrossTheAges ",
+          link: "https://linktr.ee/crosstheages ",
+        },
+        {
+          label: "Wildcard",
+          icon: "Wildcard.png",
+          twitter: "https://twitter.com/PlayWildcard",
+        },
+        {
+          label: "BitcoinLoot",
+          icon: "BitcoinLoot.png",
+          twitter: "https://twitter.com/btc_loot",
+          link: "https://www.bitcoinloot.co/home/",
         },
       ],
     },
