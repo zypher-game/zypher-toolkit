@@ -2,8 +2,10 @@ import classnames from "classnames";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import {
+  ChainId,
   Currency,
   CurrencyLogo as CurrencyLogoUrl,
+  preStaticUrl,
 } from "../../../../constant/constant";
 import CurrencyLogo from "../../../../components/CurrencyLogo";
 
@@ -31,6 +33,7 @@ import { getShortenAddress } from "../../../../utils/tool";
 import ChainSelectorWidget from "../ChainSelector/ChainSelectorWidget";
 import { useNativeBalanceStr } from "../../hooks/connectWalletHooks";
 import Language from "../../../../components/SideBar/component/Language";
+import { useToFaucet } from "../../hooks/useToFaucet";
 
 const AccountInfoDialog = memo(({ copy }: { copy: any }) => {
   const { t } = useCustomTranslation([LngNs.common]);
@@ -189,6 +192,8 @@ export const AddressMiddleWrapPop = memo(({ copy }: { copy: any }) => {
     disconnect();
     setIndex(2);
   }, [disconnect]);
+  const toPath = useToFaucet();
+
   return (
     <div className="address_wrap_big_pop_wrap">
       <PixelBorderCard
@@ -225,6 +230,19 @@ export const AddressMiddleWrapPop = memo(({ copy }: { copy: any }) => {
               />
             }
           />
+          {chainId === ChainId.EXPTestnet ? (
+            <BalanceItem
+              logo={
+                <CurrencyLogo
+                  className={"balance_item_faucet"}
+                  src={`${preStaticUrl}/img/icon/faucet.svg`}
+                />
+              }
+              currency="Faucet"
+              balanceStr=""
+              onClick={toPath}
+            />
+          ) : null}
         </div>
         <Language type={"list"} />
         <AddressWrapPopItem
@@ -276,13 +294,15 @@ const BalanceItem = memo(
     logo,
     balanceStr,
     currency,
+    onClick,
   }: {
     logo: React.ReactNode;
     balanceStr: string;
     currency: string;
+    onClick?: any;
   }) => {
     return (
-      <div className="middle_balance_item">
+      <div className="middle_balance_item" onClick={onClick}>
         <div className="fl">
           {logo}
           <p>{currency}</p>

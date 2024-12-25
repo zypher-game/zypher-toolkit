@@ -1217,6 +1217,13 @@ body .tvlPixelTable_header > .pixel_flat_inner {
     margin-left: 4px;
   }
 }
+.balance_item_balance .balance_item_img.balance_item_faucet,
+.balance_item_balance img.balance_item_faucet {
+  width: 20px;
+  height: 20px;
+  margin-left: 4px;
+  cursor: pointer;
+}
 .refresh_balance {
   color: #fff;
   border-radius: 50%;
@@ -1541,8 +1548,6 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 body .address_wrap_big_pop_wrap {
-  opacity: 0;
-  height: 0;
   position: absolute;
   top: 36px;
   right: 0;
@@ -1622,12 +1627,30 @@ body .middle_selector > .pixel_flat_inner .ChainSelectorWidgetWrapper i {
   justify-content: space-between;
   font-weight: 600;
   align-items: center;
+  margin: 4px;
 }
 .middle_balance_item .fl {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   gap: 10px;
+}
+.middle_balance_item .fl .balance_item_img,
+.middle_balance_item .fl img {
+  width: 24px;
+  height: 24px;
+}
+@media screen and (max-width: 830px) {
+  .middle_balance_item .fl .balance_item_img,
+  .middle_balance_item .fl img {
+    width: 20px;
+    height: 24px;
+  }
+}
+.middle_balance_item .fl .balance_item_img.balance_item_faucet,
+.middle_balance_item .fl img.balance_item_faucet {
+  padding: 3px;
+  cursor: pointer;
 }
 .address_wrap_pop_item > .pixel_flat_btn_bg > div {
   transition: all 0.3s ease;

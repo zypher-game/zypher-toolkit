@@ -4,8 +4,8 @@
         @media screen and (max-width: 830px)
             padding: 80px 15px 33px
 body .address_wrap_big_pop_wrap
-    opacity 0
-    height 0
+    // opacity 0
+    // height 0
     position absolute  
     top: 36px;
     right: 0;
@@ -73,11 +73,21 @@ body .middle_selector
     justify-content: space-between
     font-weight: 600
     align-items: center;
+    margin: 4px
     .fl
         display: flex
         justify-content: flex-start
         align-items: center
         gap: 10px
+        .balance_item_img, img
+            width: 24px
+            height: 24px
+            @media screen and (max-width: 830px)
+                width: 20px
+                height: 24px
+            &.balance_item_faucet
+                padding: 3px
+                cursor pointer
 .address_wrap_pop_item
     >.pixel_flat_btn_bg > div
         transition: all 0.3s ease
