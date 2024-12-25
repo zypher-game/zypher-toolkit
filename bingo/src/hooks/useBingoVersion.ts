@@ -32,10 +32,10 @@ export const useBingoVersion = () => {
     if (`${chainIdParams}` !== `${chainId}`) {
       if (!(window.location.pathname.indexOf('gameRoom') > -1)) {
         try {
-          let ch = (initialLoad ? chainIdParams : chainId) as unknown as ChainId
-          if (!supportedChainIds().includes(ch)) {
-            ch = supportedChainIds()[0]
-          }
+          const ch = (initialLoad ? chainIdParams : chainId) as unknown as ChainId
+          // if (!supportedChainIds().includes(ch)) {
+          //   ch = supportedChainIds()[0]
+          // }
           if (switchNetworkAsync) {
             Promise.race([
               new Promise(async (resolve, reject) => {

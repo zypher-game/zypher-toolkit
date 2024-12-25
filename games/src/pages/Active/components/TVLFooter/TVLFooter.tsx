@@ -32,7 +32,7 @@ const TVLFooter = memo(() => {
       _chainId = defaultActiveChainId as unknown as ChainId
     }
     const linkType = getLinkPre(_chainId)
-    if (linkType) {
+    if (linkType && linkType.key) {
       const res = await request(`${TVL_API[_chainId]}/api/allStaking`, {
         method: 'GET',
         params: {

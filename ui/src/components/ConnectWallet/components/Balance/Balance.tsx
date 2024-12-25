@@ -10,10 +10,12 @@ import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
 import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
 import Icon from "../../../../components/icons";
 import {
+  ChainId,
   CurrencyLogo as CurrencyLogoUrl,
   divisorBigNumber,
   DPSupportChainId,
   IContractName,
+  preStaticUrl,
   zkBingo,
 } from "../../../../constant/constant";
 
@@ -34,6 +36,7 @@ import { erc20ABI, useWalletClient } from "wagmi";
 import MulticallContract from "../../../../contract/multicall";
 import { zeroAddress } from "viem";
 import { GPV2SupportChainId } from "../../../../components/Staking/GP/constant/GPConstant";
+import { useToFaucet } from "../../hooks/useToFaucet";
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
   margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
@@ -138,7 +141,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
 
   const nativeBalanceStr = useNativeBalanceStr();
   const pointsBalanceStr = usePointsBalanceStr();
-
+  const toPath = useToFaucet();
   return (
     <>
       {isMiddleWidth ? null : (
@@ -167,17 +170,33 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
         />
       ) : null}
       {!isMiddleWidth && (
-        <BalanceItem
-          logo={
-            <CurrencyLogo
-              className={"balance_item_img"}
-              src={CurrencyLogoUrl[chainId || 97]}
+        <>
+          <BalanceItem
+            logo={
+              <CurrencyLogo
+                className={"balance_item_img"}
+                src={CurrencyLogoUrl[chainId || 97]}
+              />
+            }
+            balanceStr={nativeBalanceStr}
+            loading={loading}
+            className={props.className}
+          />
+          {chainId === ChainId.EXPTestnet ? (
+            <BalanceItem
+              logo={
+                <CurrencyLogo
+                  className={"balance_item_faucet"}
+                  src={`${preStaticUrl}/img/icon/faucet.svg`}
+                />
+              }
+              balanceStr="Faucet"
+              loading={false}
+              className={props.className}
+              onClick={toPath}
             />
-          }
-          balanceStr={nativeBalanceStr}
-          loading={loading}
-          className={props.className}
-        />
+          ) : null}
+        </>
       )}
     </>
   );
