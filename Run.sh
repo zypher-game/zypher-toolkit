@@ -85,24 +85,24 @@ git commit -m "Update to version $new_version"
 git push origin test
 
 
-# latest_tag_bingo=$(git describe --tags --abbrev=0)
-# if [ -z "$latest_tag_bingo" ]; then
-#   echo "No tags found. Please create an initial tag."
-#   exit 1
-# fi
-# # 去掉 'v' 前缀
-# version_bingo=${latest_tag_bingo#v}
-# # 将版本号拆分为数组
-# IFS='.' read -r -a version_parts_bingo <<< "$version_bingo"
-# # 递增最后一位（修订号）
-# ((version_parts_bingo[2]++))
-# # 重新组合新的版本号
-# bingo_new_version="v${version_parts_bingo[0]}.${version_parts_bingo[1]}.${version_parts_bingo[2]}"
-# # 切换到目标分支并更新代码库
-# git tag -a "$bingo_new_version" -m "Version ${bingo_new_version#v}"
-# # 推送到远程仓库
-# git push origin "$bingo_new_version"
-# echo "Updated to version $bingo_new_version"
+latest_tag_bingo=$(git describe --tags --abbrev=0)
+if [ -z "$latest_tag_bingo" ]; then
+  echo "No tags found. Please create an initial tag."
+  exit 1
+fi
+# 去掉 'v' 前缀
+version_bingo=${latest_tag_bingo#v}
+# 将版本号拆分为数组
+IFS='.' read -r -a version_parts_bingo <<< "$version_bingo"
+# 递增最后一位（修订号）
+((version_parts_bingo[2]++))
+# 重新组合新的版本号
+bingo_new_version="v${version_parts_bingo[0]}.${version_parts_bingo[1]}.${version_parts_bingo[2]}"
+# 切换到目标分支并更新代码库
+git tag -a "$bingo_new_version" -m "Version ${bingo_new_version#v}"
+# 推送到远程仓库
+git push origin "$bingo_new_version"
+echo "Updated to version $bingo_new_version"
 
 # git checkout test-tg
 # git fetch --prune
