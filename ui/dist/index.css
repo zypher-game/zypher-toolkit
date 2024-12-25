@@ -1548,6 +1548,8 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 body .address_wrap_big_pop_wrap {
+  opacity: 0;
+  height: 0;
   position: absolute;
   top: 36px;
   right: 0;

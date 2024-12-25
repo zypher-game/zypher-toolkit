@@ -4,8 +4,8 @@
         @media screen and (max-width: 830px)
             padding: 80px 15px 33px
 body .address_wrap_big_pop_wrap
-    // opacity 0
-    // height 0
+    opacity 0
+    height 0
     position absolute  
     top: 36px;
     right: 0;
