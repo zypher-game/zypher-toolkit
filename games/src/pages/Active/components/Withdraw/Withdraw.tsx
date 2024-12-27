@@ -121,7 +121,6 @@ const Withdraw = memo(() => {
                     obj.btnLabel = 'Approve And Destroy SBT'
                   } else {
                     obj.isApprove = true
-                    obj.btnLabel = 'Destroy SBT'
                   }
                 }
               }
