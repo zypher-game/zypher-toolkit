@@ -9773,7 +9773,6 @@ var useGPDeposit = ({
       const zgClient = ZgClient_default2({ chainId, env });
       if (zgClient) {
         const health2 = await zgClient.read.health();
-        console.log({ health: health2 });
         setHealth({
           ...health2,
           accumulatedFee: health2["accumulatedFee"].toString(),
