@@ -12,11 +12,11 @@ const Banner = memo(() => {
           <h3 className={css.fl_title}>Get Linea XP + SBT + $GP Rewards + Reward Points + CR Hero Mystery Boxes!</h3>
           <p className={css.fl_grey}>Improve your character profile by increasing your stake amount! Show your glory!</p>
           <div className={css.fl_text}>
-            <h3>New Cycle: Jan 17.2025 - Token Emission</h3>
+            <h3>New Cycle: Feb 6, 2025 - Token Emission</h3>
           </div>
           <div className={css.label}>
             <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className={css.tooltip_pixel_warn} />
-            <p>Participating in the new cycle requires extending the lock-up period of the staked tokens! </p>
+            <p>The first phase staking assets can be withdrawn, and the second phase re-staking opens on February 6th.</p>
           </div>
           <p className={css.fl_grey}>The reward points will continue to grow based on the amount and duration of your staked assets!</p>
         </div>

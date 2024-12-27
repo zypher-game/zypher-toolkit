@@ -19,7 +19,7 @@ import {
   useSetRecoilState
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
-import { ChangeEvent, SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
+import { SetStateAction, useCallback, useEffect, useMemo, useState } from 'react'
 import { TransactionReceipt, zeroAddress } from 'viem'
 
 import { TVLStakingContract } from '@/contract/tvlStaking'

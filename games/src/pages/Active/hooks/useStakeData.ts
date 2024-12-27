@@ -421,7 +421,6 @@ export const useStakeData = () => {
               //   stakeDataFromApiItemI = stakeDataFromApiItem.records[vv.address.toLowerCase()].total
               // }
               // const totalStakeBig = new BigNumberJs(stakeDataFromApi[index])
-              console.log({ symbol: vv.symbol, withdrawAmountBig: withdrawAmountBig.toFixed() })
               return [
                 vv.symbol,
                 {

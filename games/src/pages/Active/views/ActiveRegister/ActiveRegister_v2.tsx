@@ -38,14 +38,14 @@ const ActiveRegisterV2 = memo(() => {
               <Audited />
               <div className={css.textPixelBorder}>
                 <p>
-                  Current Competition Schedule<i>Jan 17, 2025 ~ Token Emission</i>
+                  Current Competition Schedule<i>Feb 6, 2025 ~ Token Emission</i>
                 </p>
               </div>
               <div className={css.warn}>
                 <SvgComponent src={preStaticUrl + '/img/icon/pixel_warn.svg'} className={css.tooltip_pixel_warn} />
                 <div className={css.warn_fr}>
-                  <p>Participating in the new cycle requires extending</p>
-                  <p>The lock-up period of the staked tokens! </p>
+                  <p>The first phase staking assets can be withdrawn,</p>
+                  <p>and the second phase re-staking opens on February 6th.</p>
                 </div>
               </div>
             </div>

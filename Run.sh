@@ -61,68 +61,16 @@ git commit -m "Bump version to $new_version"
 git push origin frontend
 # ------------toolkit end----------------
 
-# ---------bingo----------------
-rm -rf "$bingo_frontend/src"
-cp -r "$path_front1/src" "$bingo_frontend/"
-cd "$bingo_frontend/src"
-perl -i -pe 's|^// import |import |' index.tsx
-perl -i -pe 's|^// | |'  global.d.ts
-
-# 更新bingo_test_beta的 yarn.lock
-cd "$bingo_frontend"
-echo $bingo_frontend
-sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-# 添加新的 "@ui@zypher-game/toolkit" 依赖项
-echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
-echo "Updated dependencies in yarn.lock"
-yarn
-
-git checkout test
-git fetch --prune
-git pull origin test
-git add .
-git commit -m "Update to version $new_version"
-git push origin test
-
-
-latest_tag_bingo=$(git describe --tags --abbrev=0)
-if [ -z "$latest_tag_bingo" ]; then
-  echo "No tags found. Please create an initial tag."
-  exit 1
-fi
-# 去掉 'v' 前缀
-version_bingo=${latest_tag_bingo#v}
-# 将版本号拆分为数组
-IFS='.' read -r -a version_parts_bingo <<< "$version_bingo"
-# 递增最后一位（修订号）
-((version_parts_bingo[2]++))
-# 重新组合新的版本号
-bingo_new_version="v${version_parts_bingo[0]}.${version_parts_bingo[1]}.${version_parts_bingo[2]}"
-# 切换到目标分支并更新代码库
-git tag -a "$bingo_new_version" -m "Version ${bingo_new_version#v}"
-# 推送到远程仓库
-git push origin "$bingo_new_version"
-echo "Updated to version $bingo_new_version"
-
-# git checkout test-tg
-# git fetch --prune
-# git pull origin test
-# git add .
-# git commit -m "Update to version $new_version"
-# git push origin test-tg
-# ---------bingo  end----------------
-
-
-# # ---------app_test----------------
-# rm -rf "$app_test/src"
-# cp -r "$path_front2/src" "$app_test/"
-# cd "$app_test/src"
+# # ---------bingo----------------
+# rm -rf "$bingo_frontend/src"
+# cp -r "$path_front1/src" "$bingo_frontend/"
+# cd "$bingo_frontend/src"
 # perl -i -pe 's|^// import |import |' index.tsx
 # perl -i -pe 's|^// | |'  global.d.ts
 
 # # 更新bingo_test_beta的 yarn.lock
-# cd "$app_test"
-# echo $app_test
+# cd "$bingo_frontend"
+# echo $bingo_frontend
 # sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
 # # 添加新的 "@ui@zypher-game/toolkit" 依赖项
 # echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
@@ -133,9 +81,61 @@ echo "Updated to version $bingo_new_version"
 # git fetch --prune
 # git pull origin test
 # git add .
-# git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
-# git push origin test --force
-# # ---------app_test   end----------------
+# git commit -m "Update to version $new_version"
+# git push origin test
+
+
+# latest_tag_bingo=$(git describe --tags --abbrev=0)
+# if [ -z "$latest_tag_bingo" ]; then
+#   echo "No tags found. Please create an initial tag."
+#   exit 1
+# fi
+# # 去掉 'v' 前缀
+# version_bingo=${latest_tag_bingo#v}
+# # 将版本号拆分为数组
+# IFS='.' read -r -a version_parts_bingo <<< "$version_bingo"
+# # 递增最后一位（修订号）
+# ((version_parts_bingo[2]++))
+# # 重新组合新的版本号
+# bingo_new_version="v${version_parts_bingo[0]}.${version_parts_bingo[1]}.${version_parts_bingo[2]}"
+# # 切换到目标分支并更新代码库
+# git tag -a "$bingo_new_version" -m "Version ${bingo_new_version#v}"
+# # 推送到远程仓库
+# git push origin "$bingo_new_version"
+# echo "Updated to version $bingo_new_version"
+
+# # git checkout test-tg
+# # git fetch --prune
+# # git pull origin test
+# # git add .
+# # git commit -m "Update to version $new_version"
+# # git push origin test-tg
+# # ---------bingo  end----------------
+
+
+# ---------app_test----------------
+rm -rf "$app_test/src"
+cp -r "$path_front2/src" "$app_test/"
+cd "$app_test/src"
+perl -i -pe 's|^// import |import |' index.tsx
+perl -i -pe 's|^// | |'  global.d.ts
+
+# 更新bingo_test_beta的 yarn.lock
+cd "$app_test"
+echo $app_test
+sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# 添加新的 "@ui@zypher-game/toolkit" 依赖项
+echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+echo "Updated dependencies in yarn.lock"
+yarn
+
+git checkout test
+git fetch --prune
+git pull origin test
+git add .
+git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
+git push origin test --force
+# ---------app_test   end----------------
 
 
 

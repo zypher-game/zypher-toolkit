@@ -222,15 +222,20 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
     e.stopPropagation()
     setShowChoseWeek(true)
   }, [])
+  const stopPropagation = useCallback((e: any) => {
+    e.stopPropagation()
+  }, [])
   const borderHandle = useCallback(() => {
     setIsSelectChainModalOpen(false)
     setShowChoseWeek(false)
   }, [])
-  const _handleWeekChange = useCallback((e: any, v: number) => {
-    e.stopPropagation()
-    setShowChoseWeek(false)
-    handleWeekChange(v)
-  }, [])
+  const _handleWeekChange = useCallback(
+    (e: any, v: number) => {
+      setShowChoseWeek(false)
+      handleWeekChange(v)
+    },
+    [handleWeekChange]
+  )
   return (
     <PixelBorderCard
       width={isW768 ? '100%' : '505px'}
@@ -332,30 +337,32 @@ const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
               <p className="W_text_week">{week} week</p>
               <img src={preStaticUrl + '/img/icon/pixel_arrow_down.svg'} />
             </PixelBorderCard>
+
             {showChoseWeek ? (
-              <PixelBorderCard
-                className={'S_week_border'}
-                width="160px"
-                height="280px"
-                pixel_height={6}
-                borderColor="#3A4254"
-                backgroundColor="#1D263B"
-                onClick={useShowChoseWeek}
-              >
-                {selectLen.map(v => (
-                  <PixelCube2
-                    key={v}
-                    borderColor="#1649FF"
-                    pixel_height={3}
-                    width="120px"
-                    height="34px"
-                    className={`S_weekItem ${v === week ? 'S_on' : ''}`}
-                    onClick={(e: any) => _handleWeekChange(e, v)}
-                  >
-                    <p>{v} week</p>
-                  </PixelCube2>
-                ))}
-              </PixelBorderCard>
+              <div onClick={stopPropagation}>
+                <PixelBorderCard
+                  className={'S_week_border'}
+                  width="160px"
+                  height="280px"
+                  pixel_height={6}
+                  borderColor="#3A4254"
+                  backgroundColor="#1D263B"
+                >
+                  {selectLen.map(v => (
+                    <PixelCube2
+                      key={v}
+                      borderColor="#1649FF"
+                      pixel_height={3}
+                      width="120px"
+                      height="34px"
+                      className={`S_weekItem ${v === week ? 'S_on' : ''}`}
+                      onClick={(e: any) => _handleWeekChange(e, v)}
+                    >
+                      <p>{v} week</p>
+                    </PixelCube2>
+                  ))}
+                </PixelBorderCard>
+              </div>
             ) : null}
           </div>
           <ul className="S_text_li S_text_li_margin20">

@@ -52,11 +52,9 @@ export const useGetActiveRouterFn = () => {
           console.log(1)
           return `/${preRewardPathname}/${rewardPathname.chooseHunter}`
         } else {
-          console.log(1, tvlPath[tvlPathLink])
           return tvlPath[tvlPathLink]
         }
       }
-      console.log({ rewardPoints, userStakedAmount, cc: minStakingValue[chainId as unknown as TVLChainId] })
       // 获得的积分已经被计算过了
       if (rewardPoints !== '') {
         // 已经获得了额外的奖励
