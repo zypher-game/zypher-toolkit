@@ -8,7 +8,7 @@ export const appInfo = {
   appName: "Zypher Game",
 };
 export const divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
-export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18);
+export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18); // 100000000000000000
 export const txStatus = "success"; // '1'
 
 export const isPro = ((): boolean => {
