@@ -112,16 +112,24 @@ const GPWithdraw = memo(
       async (depositValue: string) => {
         if (getWithdrawETH) {
           const v = await getWithdrawETH(depositValue);
-          // setActualReceived(v);
+          console.log({ v });
           if (v === "-") {
             setActualReceived(v);
           } else {
+            console.log({
+              receiveValue,
+              sessionStorage: new BigNumberJs(receiveValue)
+                .times(divisorBigNumber)
+                .gt(health?.ethLiquidity ?? "0"),
+            });
             if (
               new BigNumberJs(receiveValue)
                 .times(divisorBigNumber)
                 .gt(health?.ethLiquidity ?? "0")
             ) {
               setActualReceived("-");
+            } else {
+              setActualReceived(v);
             }
           }
         }

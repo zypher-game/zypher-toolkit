@@ -8619,14 +8619,21 @@ var GPWithdraw = memo36(
     );
     const getWithdrawETHHandle = useCallback28(
       async (depositValue2) => {
-        var _a;
+        var _a, _b;
         if (getWithdrawETH) {
           const v = await getWithdrawETH(depositValue2);
+          console.log({ v });
           if (v === "-") {
             setActualReceived(v);
           } else {
-            if (new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_a = health == null ? void 0 : health.ethLiquidity) != null ? _a : "0")) {
+            console.log({
+              receiveValue,
+              sessionStorage: new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_a = health == null ? void 0 : health.ethLiquidity) != null ? _a : "0")
+            });
+            if (new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_b = health == null ? void 0 : health.ethLiquidity) != null ? _b : "0")) {
               setActualReceived("-");
+            } else {
+              setActualReceived(v);
             }
           }
         }
@@ -9747,6 +9754,7 @@ var useGPDeposit = ({
   const [loadingWithdraw, setIsLoadingWithdraw] = useState20(false);
   const [allowance, setAllowance] = useState20("");
   const [health, setHealth] = useState20();
+  console.log({ health });
   const nativeBalance = useRecoilValue15(nativeBalanceState);
   const pointBalance = useRecoilValue15(pointsBalanceState);
   const { switchNetworkAsync } = useSwitchNetwork();
