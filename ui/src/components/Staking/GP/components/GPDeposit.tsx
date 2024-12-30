@@ -1,4 +1,4 @@
-import React, { memo, useCallback, useMemo, useState } from "react";
+import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
 import { isEqual } from "../../../../utils/lodash";
 import FromToken from "./fromToken";
 import SvgComponent from "../../../SvgComponent/SvgComponent";
@@ -31,6 +31,18 @@ const GPDeposit = memo(
     const nativeBalance = useRecoilValue(nativeBalanceState);
     const nativeBalanceStr = useNativeBalanceStr();
     const isW768 = useIsW768();
+    useEffect(() => {
+      if (health?.minDeposit) {
+        const amount = new BigNumberJs(health.minDeposit)
+          .dividedBy(divisorBigNumber)
+          .toFixed();
+        const value = new BigNumberJs(amount)
+          .dividedBy(ChainPointPrice[chainId])
+          .toFixed();
+        setDepositValue(amount);
+        setReceiveValue(value);
+      }
+    }, [Boolean(!!health?.minDeposit)]);
     const maxHandle = useCallback(() => {
       setDepositValue(`${nativeBalance}`);
       const value = new BigNumberJs(nativeBalance)

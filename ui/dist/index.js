@@ -6913,7 +6913,7 @@ var LinkToBetaDialog_default = LinkToBetaDialog;
 
 // src/components/Header/header.tsx
 import classnames12 from "classnames";
-import React101, { useEffect as useEffect35, useMemo as useMemo23 } from "react";
+import React101, { useEffect as useEffect36, useMemo as useMemo23 } from "react";
 import { useRecoilState as useRecoilState16, useRecoilValue as useRecoilValue16, useSetRecoilState as useSetRecoilState17 } from "recoil";
 
 // src/components/Header/rainbow_account/rainbow_connectWallet.tsx
@@ -8291,7 +8291,7 @@ var ModalWithMotion = ({
 var ModalWithMotion_default = ModalWithMotion;
 
 // src/components/Staking/GP/components/GPDeposit.tsx
-import React43, { memo as memo35, useCallback as useCallback27, useMemo as useMemo15, useState as useState18 } from "react";
+import React43, { memo as memo35, useCallback as useCallback27, useEffect as useEffect18, useMemo as useMemo15, useState as useState18 } from "react";
 
 // src/components/Staking/GP/components/fromToken.tsx
 import React40, { memo as memo32 } from "react";
@@ -8423,6 +8423,14 @@ var GPDeposit = memo35(
     const nativeBalance = useRecoilValue13(nativeBalanceState);
     const nativeBalanceStr = useNativeBalanceStr();
     const isW768 = useIsW768();
+    useEffect18(() => {
+      if (health == null ? void 0 : health.minDeposit) {
+        const amount = new BigNumberJs_default(health.minDeposit).dividedBy(divisorBigNumber).toFixed();
+        const value = new BigNumberJs_default(amount).dividedBy(ChainPointPrice[chainId]).toFixed();
+        setDepositValue(amount);
+        setReceiveValue(value);
+      }
+    }, [Boolean(!!(health == null ? void 0 : health.minDeposit))]);
     const maxHandle = useCallback27(() => {
       setDepositValue(`${nativeBalance}`);
       const value = new BigNumberJs_default(nativeBalance).dividedBy(ChainPointPrice[chainId]).toFixed();
@@ -8531,7 +8539,7 @@ var GPDeposit = memo35(
 var GPDeposit_default = GPDeposit;
 
 // src/components/Staking/GP/components/GPWithdraw.tsx
-import React44, { memo as memo36, useCallback as useCallback28, useEffect as useEffect18, useMemo as useMemo16, useState as useState19 } from "react";
+import React44, { memo as memo36, useCallback as useCallback28, useEffect as useEffect19, useMemo as useMemo16, useState as useState19 } from "react";
 import { useRecoilValue as useRecoilValue14 } from "recoil";
 var GPWithdraw = memo36(
   ({
@@ -8552,7 +8560,7 @@ var GPWithdraw = memo36(
     const { chainId } = useAaWallet();
     const [isL3, setIsL3] = useState19(false);
     const [isL2, setIsL2] = useState19(false);
-    useEffect18(() => {
+    useEffect19(() => {
       if (chainId) {
         setIsL3(
           ["9901" /* ZytronLineaMain */, "50098" /* ZytronLineaSepoliaTestnet */].includes(
@@ -8678,16 +8686,14 @@ var GPWithdraw = memo36(
       return obj;
     }, [chainId, isL2, pointBalance, allowance, depositValue]);
     const isDisable = useMemo16(() => {
-      var _a;
       if (isL2) {
         return false;
       }
       if ([depositValue, receiveValue].every(
         (val) => !isNaN(Number(val)) && Number(val) > 0
       )) {
-        const bol = loadingWithdraw || new BigNumberJs_default(depositValue).times(divisorBigNumber).lt((_a = health == null ? void 0 : health.minWithdraw) != null ? _a : "0");
         if (isBalanceEnough) {
-          return bol;
+          return loadingWithdraw;
         } else {
           return true;
         }
@@ -8711,6 +8717,14 @@ var GPWithdraw = memo36(
       }
     }, [withdraw, isL2, receiveValue, depositValue]);
     console.log({ isDisable });
+    useEffect19(() => {
+      if (chainId && (health == null ? void 0 : health.minWithdraw)) {
+        const amount = new BigNumberJs_default(health.minWithdraw).dividedBy(divisorBigNumber).toFixed();
+        const value = new BigNumberJs_default(amount).times(ChainPointPrice[chainId]).toFixed();
+        setDepositValue(amount);
+        setReceiveValue(value);
+      }
+    }, [Boolean(!!(health == null ? void 0 : health.minWithdraw))]);
     return /* @__PURE__ */ React44.createElement(React44.Fragment, null, GPToken && chainId ? /* @__PURE__ */ React44.createElement(fromToken_default, {
       label: "Withdraw",
       balanceStr: pointsBalanceStr,
@@ -8763,7 +8777,7 @@ var GPWithdraw = memo36(
 var GPWithdraw_default = GPWithdraw;
 
 // src/components/Staking/GP/hooks/useGPDeposit.ts
-import { useCallback as useCallback29, useEffect as useEffect19, useMemo as useMemo17, useState as useState20 } from "react";
+import { useCallback as useCallback29, useEffect as useEffect20, useMemo as useMemo17, useState as useState20 } from "react";
 
 // src/components/Staking/GP/contract/abi/ZgClient.json
 var ZgClient_default = [
@@ -9756,7 +9770,7 @@ var useGPDeposit = ({
     }
     return {};
   }, [chainId]);
-  useEffect19(() => {
+  useEffect20(() => {
     getData();
   }, [chainId, account]);
   const getData = useCallback29(async () => {
@@ -10119,7 +10133,7 @@ import { useAccount as useAccount3 } from "wagmi";
 import React47, {
   createContext as createContext3,
   useContext as useContext3,
-  useEffect as useEffect20,
+  useEffect as useEffect21,
   useMemo as useMemo18,
   useRef as useRef8
 } from "react";
@@ -10143,7 +10157,7 @@ function RainbowKitAuthenticationProvider({
   });
   const { isDisconnected } = useAccount2();
   const onceRef = useRef8(false);
-  useEffect20(() => {
+  useEffect21(() => {
     if (onceRef.current)
       return;
     onceRef.current = true;
@@ -10230,7 +10244,7 @@ function useMainnetEnsName(address) {
 }
 
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
-import React62, { useCallback as useCallback35, useEffect as useEffect28, useState as useState24 } from "react";
+import React62, { useCallback as useCallback35, useEffect as useEffect29, useState as useState24 } from "react";
 import { createPortal } from "react-dom";
 import { RemoveScroll } from "react-remove-scroll";
 
@@ -10322,13 +10336,13 @@ function cssStringFromTheme(theme, options = {}) {
 }
 
 // src/rainbowkit/src/hooks/useWindowSize.ts
-import { useEffect as useEffect21, useState as useState21 } from "react";
+import { useEffect as useEffect22, useState as useState21 } from "react";
 var useWindowSize2 = () => {
   const [windowSize, setWindowSize] = useState21({
     height: void 0,
     width: void 0
   });
-  useEffect21(() => {
+  useEffect22(() => {
     function handleResize() {
       setWindowSize({
         height: window.innerHeight,
@@ -10468,7 +10482,7 @@ var lightTheme = ({
 lightTheme.accentColors = accentColors;
 
 // src/rainbowkit/src/transactions/TransactionStoreContext.tsx
-import React49, { createContext as createContext4, useContext as useContext4, useEffect as useEffect22, useState as useState22 } from "react";
+import React49, { createContext as createContext4, useContext as useContext4, useEffect as useEffect23, useState as useState22 } from "react";
 import { useAccount as useAccount4, usePublicClient as usePublicClient3 } from "wagmi";
 
 // src/rainbowkit/src/transactions/transactionStore.ts
@@ -10609,10 +10623,10 @@ function TransactionStoreProvider({ children }) {
   const { address } = useAccount4();
   const chainId = useChainId();
   const [store] = useState22(() => storeSingleton != null ? storeSingleton : storeSingleton = createTransactionStore({ provider }));
-  useEffect22(() => {
+  useEffect23(() => {
     store.setProvider(provider);
   }, [store, provider]);
-  useEffect22(() => {
+  useEffect23(() => {
     if (address && chainId) {
       store.waitForPendingTransactions(address, chainId);
     }
@@ -10642,7 +10656,7 @@ var AppContext = createContext5(defaultAppInfo);
 import { createContext as createContext6 } from "react";
 
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
-import React52, { useEffect as useEffect23, useMemo as useMemo20, useState as useState23 } from "react";
+import React52, { useEffect as useEffect24, useMemo as useMemo20, useState as useState23 } from "react";
 
 // src/rainbowkit/src/components/Icons/Spinner.tsx
 import React51, { useMemo as useMemo19 } from "react";
@@ -10768,7 +10782,7 @@ function emojiAvatarForAddress(address) {
 // src/rainbowkit/src/components/Avatar/EmojiAvatar.tsx
 var EmojiAvatar = ({ address, ensImage, size }) => {
   const [loaded, setLoaded] = useState23(false);
-  useEffect23(() => {
+  useEffect24(() => {
     if (ensImage) {
       const img = new Image();
       img.src = ensImage;
@@ -10837,7 +10851,7 @@ import { createContext as createContext9 } from "react";
 var ShowRecentTransactionsContext = createContext9(false);
 
 // src/rainbowkit/src/components/RainbowKitProvider/useFingerprint.ts
-import { useCallback as useCallback31, useEffect as useEffect24 } from "react";
+import { useCallback as useCallback31, useEffect as useEffect25 } from "react";
 var storageKey3 = "rk-version";
 function setRainbowKitVersion({ version }) {
   localStorage.setItem(storageKey3, version);
@@ -10846,16 +10860,16 @@ function useFingerprint() {
   const fingerprint = useCallback31(() => {
     setRainbowKitVersion({ version: "__buildVersion" });
   }, []);
-  useEffect24(() => {
+  useEffect25(() => {
     fingerprint();
   }, [fingerprint]);
 }
 
 // src/rainbowkit/src/components/RainbowKitProvider/usePreloadImages.ts
-import { useCallback as useCallback33, useEffect as useEffect26 } from "react";
+import { useCallback as useCallback33, useEffect as useEffect27 } from "react";
 
 // src/rainbowkit/src/components/AsyncImage/useAsyncImage.ts
-import { useEffect as useEffect25, useReducer } from "react";
+import { useEffect as useEffect26, useReducer } from "react";
 var cachedUrls = /* @__PURE__ */ new Map();
 var cachedRequestPromises = /* @__PURE__ */ new Map();
 async function loadAsyncImage(asyncImage) {
@@ -10887,7 +10901,7 @@ function useForceUpdate() {
 function useAsyncImage(url) {
   const cachedUrl = typeof url === "function" ? cachedUrls.get(url) : void 0;
   const forceUpdate = useForceUpdate();
-  useEffect25(() => {
+  useEffect26(() => {
     if (typeof url === "function" && !cachedUrl) {
       loadAsyncImage(url).then(forceUpdate);
     }
@@ -11283,7 +11297,7 @@ function usePreloadImages() {
       loadImages(signInIcon);
     }
   }, [walletConnectors, rainbowKitChains, isUnauthenticated]);
-  useEffect26(() => {
+  useEffect27(() => {
     preloadImages();
   }, [preloadImages]);
 }
@@ -11383,7 +11397,7 @@ var content = "Dialog_content__1dq44ga5 sprinkles_display_flex_smallScreen__dmay
 var overlay = "Dialog_overlay__1dq44ga3 sprinkles_backdropFilter_modalOverlay__dmay209g sprinkles_background_modalBackdrop_base__dmay20b5 sprinkles_display_flex_smallScreen__dmay20a sprinkles_justifyContent_center__dmay202n sprinkles_position_fixed__dmay208p";
 
 // src/rainbowkit/src/components/Dialog/FocusTrap.tsx
-import React61, { useCallback as useCallback34, useEffect as useEffect27, useRef as useRef10 } from "react";
+import React61, { useCallback as useCallback34, useEffect as useEffect28, useRef as useRef10 } from "react";
 var moveFocusWithin = (element2, position) => {
   const focusableElements = element2.querySelectorAll(
     "button:not(:disabled), a[href]"
@@ -11394,14 +11408,14 @@ var moveFocusWithin = (element2, position) => {
 };
 function FocusTrap(props) {
   const contentRef = useRef10(null);
-  useEffect27(() => {
+  useEffect28(() => {
     const previouslyActiveElement = document.activeElement;
     return () => {
       var _a;
       (_a = previouslyActiveElement.focus) == null ? void 0 : _a.call(previouslyActiveElement);
     };
   }, []);
-  useEffect27(() => {
+  useEffect28(() => {
     if (contentRef.current) {
       const elementToFocus = contentRef.current.querySelector("[data-auto-focus]");
       if (elementToFocus) {
@@ -11434,13 +11448,13 @@ function FocusTrap(props) {
 // src/rainbowkit/src/components/Dialog/Dialog.tsx
 var stopPropagation = (event) => event.stopPropagation();
 function Dialog({ children, onClose, open, titleId }) {
-  useEffect28(() => {
+  useEffect29(() => {
     const handleEscape = (event) => open && event.key === "Escape" && onClose();
     document.addEventListener("keydown", handleEscape);
     return () => document.removeEventListener("keydown", handleEscape);
   }, [open, onClose]);
   const [bodyScrollable, setBodyScrollable] = useState24(true);
-  useEffect28(() => {
+  useEffect29(() => {
     setBodyScrollable(getComputedStyle(window.document.body).overflow !== "hidden");
   }, []);
   const handleBackdropClick = useCallback35(() => onClose(), [onClose]);
@@ -11508,7 +11522,7 @@ function DialogContent4({
 }
 
 // src/rainbowkit/src/components/ProfileDetails/ProfileDetails.tsx
-import React74, { useCallback as useCallback37, useContext as useContext9, useEffect as useEffect30, useState as useState26 } from "react";
+import React74, { useCallback as useCallback37, useContext as useContext9, useEffect as useEffect31, useState as useState26 } from "react";
 
 // src/rainbowkit/src/components/Avatar/Avatar.tsx
 import React64, { useContext as useContext7 } from "react";
@@ -11665,7 +11679,7 @@ function useClearRecentTransactions() {
 }
 
 // src/rainbowkit/src/transactions/useRecentTransactions.ts
-import { useEffect as useEffect29, useState as useState25 } from "react";
+import { useEffect as useEffect30, useState as useState25 } from "react";
 import { useAccount as useAccount8 } from "wagmi";
 function useRecentTransactions() {
   const store = useTransactionStore();
@@ -11674,7 +11688,7 @@ function useRecentTransactions() {
   const [transactions, setTransactions] = useState25(
     () => store && address && chainId ? store.getTransactions(address, chainId) : []
   );
-  useEffect29(() => {
+  useEffect30(() => {
     if (store && address && chainId) {
       setTransactions(store.getTransactions(address, chainId));
       return store.onChange(() => {
@@ -11963,7 +11977,7 @@ function ProfileDetails({
       setCopiedAddress(true);
     }
   }, [address]);
-  useEffect30(() => {
+  useEffect31(() => {
     if (copiedAddress) {
       const timer = setTimeout(() => {
         setCopiedAddress(false);
@@ -12365,7 +12379,7 @@ import React94 from "react";
 import React93 from "react";
 
 // src/rainbowkit/src/components/ConnectOptions/DesktopOptions.tsx
-import React91, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect33, useState as useState28 } from "react";
+import React91, { Fragment as Fragment2, useContext as useContext14, useEffect as useEffect34, useState as useState28 } from "react";
 
 // src/rainbowkit/src/utils/groupBy.ts
 function groupBy(items, getKey) {
@@ -12577,12 +12591,12 @@ var InfoButton = ({
 import React85, { useState as useState27 } from "react";
 
 // src/rainbowkit/src/components/RainbowKitProvider/useCoolMode.ts
-import { useContext as useContext12, useEffect as useEffect31, useRef as useRef11 } from "react";
+import { useContext as useContext12, useEffect as useEffect32, useRef as useRef11 } from "react";
 var useCoolMode = (imageUrl) => {
   const ref = useRef11(null);
   const coolModeEnabled = useContext12(CoolModeContext);
   const resolvedImageUrl = useAsyncImage(imageUrl);
-  useEffect31(() => {
+  useEffect32(() => {
     if (coolModeEnabled && ref.current && resolvedImageUrl) {
       return makeElementCool(ref.current, resolvedImageUrl);
     }
@@ -12814,7 +12828,7 @@ var ModalSelection = ({
 ModalSelection.displayName = "ModalSelection";
 
 // src/rainbowkit/src/components/ConnectOptions/ConnectDetails.tsx
-import React90, { useContext as useContext13, useEffect as useEffect32 } from "react";
+import React90, { useContext as useContext13, useEffect as useEffect33 } from "react";
 
 // src/rainbowkit/src/components/Icons/Create.tsx
 import React86 from "react";
@@ -13147,7 +13161,7 @@ function ConnectDetail({
   } : null;
   const { width: windowWidth } = useWindowSize2();
   const smallWindow = windowWidth && windowWidth < 768;
-  useEffect32(() => {
+  useEffect33(() => {
     preloadBrowserIcon();
   }, []);
   return /* @__PURE__ */ React90.createElement(Box, {
@@ -13410,7 +13424,7 @@ function DownloadOptionsDetail({
   const modalSize = useContext13(ModalSizeContext);
   const isCompact = modalSize === "compact";
   const { extension, extensionDownloadUrl, mobileDownloadUrl } = wallet;
-  useEffect32(() => {
+  useEffect33(() => {
     preloadCreateIcon();
     preloadScanIcon();
     preloadRefreshIcon();
@@ -13462,7 +13476,7 @@ function DownloadDetail({
   wallet
 }) {
   const { downloadUrls, qrCode } = wallet;
-  useEffect32(() => {
+  useEffect33(() => {
     preloadCreateIcon();
     preloadScanIcon();
   }, []);
@@ -13774,7 +13788,7 @@ function DesktopOptions({ onClose }) {
   let headerLabel = null;
   let headerBackButtonLink = null;
   let headerBackButtonCallback;
-  useEffect33(() => {
+  useEffect34(() => {
     setConnectionError(false);
   }, [walletStep, selectedWallet]);
   const hasExtension = !!(selectedWallet == null ? void 0 : selectedWallet.extensionDownloadUrl);
@@ -14551,10 +14565,10 @@ import React98, { useContext as useContext17 } from "react";
 import { useAccount as useAccount12, useBalance as useBalance2, useNetwork as useNetwork7 } from "wagmi";
 
 // src/rainbowkit/src/hooks/useIsMounted.ts
-import { useEffect as useEffect34, useReducer as useReducer3 } from "react";
+import { useEffect as useEffect35, useReducer as useReducer3 } from "react";
 var useIsMounted = () => {
   const [mounted, setMounted] = useReducer3(() => true, false);
-  useEffect34(setMounted, [setMounted]);
+  useEffect35(setMounted, [setMounted]);
   return mounted;
 };
 
@@ -14842,7 +14856,7 @@ var Header = (props) => {
       isWBig: width >= 1340
     };
   }, [width]);
-  useEffect35(() => {
+  useEffect36(() => {
     if (showBig) {
       setShowBig(false);
     }
@@ -14850,7 +14864,7 @@ var Header = (props) => {
       setShowMiddle(false);
     }
   }, [width]);
-  useEffect35(() => {
+  useEffect36(() => {
     if (isW830 && collapsed === void 0) {
       setSideCollapse(true);
     }
@@ -15055,10 +15069,10 @@ var TonConnectUIProvider = memo41(({ children }) => {
 var TonConnectUIProvider_default = TonConnectUIProvider;
 
 // src/hooks/useInitRainbowFn.ts
-import { useEffect as useEffect36 } from "react";
+import { useEffect as useEffect37 } from "react";
 var useInitRainbowFn = () => {
   const { setFn, closeChainModal } = useChainModal();
-  useEffect36(() => {
+  useEffect37(() => {
     if (setFn && closeChainModal) {
       setFn((_c) => {
         return true;
@@ -15072,11 +15086,11 @@ var useInitRainbowFn = () => {
 
 // src/hooks/useGetInvitationAddress.tsx
 import { useSetRecoilState as useSetRecoilState18 } from "recoil";
-import { useEffect as useEffect37 } from "react";
+import { useEffect as useEffect38 } from "react";
 import { ethers as ethers4 } from "ethers";
 var useGetInvitationAddress = () => {
   const setInvitationAddressState = useSetRecoilState18(invitationAddressState);
-  useEffect37(() => {
+  useEffect38(() => {
     const urlObj = new URL(window.location.href);
     const shareParam = urlObj.searchParams.get("share");
     const chain_id = urlObj.searchParams.get("chain_id");
@@ -15095,7 +15109,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback41, useEffect as useEffect38, useState as useState31 } from "react";
+import { useCallback as useCallback41, useEffect as useEffect39, useState as useState31 } from "react";
 import BigNumberjs3 from "bignumber.js";
 import { ethers as ethers5 } from "ethers";
 
@@ -15174,7 +15188,7 @@ var useRecentGamesFromGraph = ({
       setHasError(true);
     }
   }, []);
-  useEffect38(() => {
+  useEffect39(() => {
     fetchGameInfos();
   }, []);
   return {
@@ -15441,13 +15455,13 @@ var getRecentGameById = async ({
 };
 
 // src/hooks/useInterval.ts
-import { useEffect as useEffect39, useRef as useRef13 } from "react";
+import { useEffect as useEffect40, useRef as useRef13 } from "react";
 function useInterval(callback, delay, leading = true) {
   const savedCallback = useRef13();
-  useEffect39(() => {
+  useEffect40(() => {
     savedCallback.current = callback;
   }, [callback]);
-  useEffect39(() => {
+  useEffect40(() => {
     function tick() {
       const current = savedCallback.current;
       current && current();

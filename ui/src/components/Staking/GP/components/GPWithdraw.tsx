@@ -199,16 +199,14 @@ const GPWithdraw = memo(
           (val: string) => !isNaN(Number(val)) && Number(val) > 0
         )
       ) {
-        const bol =
-          loadingWithdraw ||
-          new BigNumberJs(depositValue)
-            .times(divisorBigNumber)
-            .lt(health?.minWithdraw ?? "0");
+        // new BigNumberJs(depositValue)
+        //   .times(divisorBigNumber)
+        //   .lt(health?.minWithdraw ?? "0");
         // new BigNumberJs(depositValue)
         //   .times(divisorBigNumber)
         //   .gt(health?.maxWithdraw ?? "0");
         if (isBalanceEnough) {
-          return bol;
+          return loadingWithdraw;
         } else {
           return true;
         }
@@ -233,6 +231,19 @@ const GPWithdraw = memo(
     }, [withdraw, isL2, receiveValue, depositValue]);
     // 0.0178
     console.log({ isDisable });
+
+    useEffect(() => {
+      if (chainId && health?.minWithdraw) {
+        const amount = new BigNumberJs(health.minWithdraw)
+          .dividedBy(divisorBigNumber)
+          .toFixed();
+        const value = new BigNumberJs(amount)
+          .times(ChainPointPrice[chainId])
+          .toFixed();
+        setDepositValue(amount);
+        setReceiveValue(value);
+      }
+    }, [Boolean(!!health?.minWithdraw)]);
     return (
       <>
         {GPToken && chainId ? (
