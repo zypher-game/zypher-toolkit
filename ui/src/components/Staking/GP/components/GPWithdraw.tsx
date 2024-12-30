@@ -116,12 +116,6 @@ const GPWithdraw = memo(
           if (v === "-") {
             setActualReceived(v);
           } else {
-            console.log({
-              receiveValue,
-              sessionStorage: new BigNumberJs(receiveValue)
-                .times(divisorBigNumber)
-                .gt(health?.ethLiquidity ?? "0"),
-            });
             if (
               new BigNumberJs(receiveValue)
                 .times(divisorBigNumber)
@@ -229,6 +223,9 @@ const GPWithdraw = memo(
       JSON.stringify(health),
     ]);
     const withdrawHandle = useCallback(() => {
+      if (isDisable || actualReceived === "-") {
+        return;
+      }
       if (withdraw) {
         withdraw({
           nativeValue: receiveValue,
@@ -236,9 +233,7 @@ const GPWithdraw = memo(
           isL2: isL2,
         });
       }
-    }, [withdraw, isL2, receiveValue, depositValue]);
-    // 0.0178
-    console.log({ isDisable });
+    }, [isDisable, actualReceived, withdraw, isL2, receiveValue, depositValue]);
 
     useEffect(() => {
       if (chainId && health?.minWithdraw) {

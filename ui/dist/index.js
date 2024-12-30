@@ -8619,18 +8619,14 @@ var GPWithdraw = memo36(
     );
     const getWithdrawETHHandle = useCallback28(
       async (depositValue2) => {
-        var _a, _b;
+        var _a;
         if (getWithdrawETH) {
           const v = await getWithdrawETH(depositValue2);
           console.log({ v });
           if (v === "-") {
             setActualReceived(v);
           } else {
-            console.log({
-              receiveValue,
-              sessionStorage: new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_a = health == null ? void 0 : health.ethLiquidity) != null ? _a : "0")
-            });
-            if (new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_b = health == null ? void 0 : health.ethLiquidity) != null ? _b : "0")) {
+            if (new BigNumberJs_default(receiveValue).times(divisorBigNumber).gt((_a = health == null ? void 0 : health.ethLiquidity) != null ? _a : "0")) {
               setActualReceived("-");
             } else {
               setActualReceived(v);
@@ -8715,6 +8711,9 @@ var GPWithdraw = memo36(
       JSON.stringify(health)
     ]);
     const withdrawHandle = useCallback28(() => {
+      if (isDisable || actualReceived === "-") {
+        return;
+      }
       if (withdraw) {
         withdraw({
           nativeValue: receiveValue,
@@ -8722,8 +8721,7 @@ var GPWithdraw = memo36(
           isL2
         });
       }
-    }, [withdraw, isL2, receiveValue, depositValue]);
-    console.log({ isDisable });
+    }, [isDisable, actualReceived, withdraw, isL2, receiveValue, depositValue]);
     useEffect19(() => {
       if (chainId && (health == null ? void 0 : health.minWithdraw)) {
         const amount = new BigNumberJs_default(health.minWithdraw).dividedBy(divisorBigNumber).toFixed();
