@@ -21,6 +21,8 @@
       top: 60%
       width: 70%
       height: 450px
+      background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m_TG.png') no-repeat
+      background-size: 100% 100%
     h3
       font-size: 18px
       font-family: Lemon
