@@ -1,0 +1,93 @@
+.staking
+  padding: 40px
+  @media screen and (max-width: 830px)
+    padding: 30px 20px
+  .title
+    font-size: 18px
+    font-weight: 600
+    padding-bottom: 20px
+    text-align: center
+    margin: 0
+    @media screen and (max-width: 830px)
+      font-size: 16px
+
+.staking_token_detail
+  display: flex
+  justify-content: space-between
+  align-items: center
+  flex-wrap: wrap
+  width: 100%;
+  margin: 20px 0 10px
+  p
+    font-size: 14px
+    @media screen and (max-width: 830px)
+      white-space: nowrap
+      font-size: 12px
+  .staking_token_detail_fr
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    gap: 8px
+    .balance
+      display: flex
+    .staking_max
+      p
+        line-height: 20px
+        font-size: 12px
+
+.text_li
+  margin: 20px 0 38px
+  display: flex
+  flex-direction: column
+  gap: 12px
+  width: 100%;
+  &.text_li_margin20
+    margin: 20px 0 10px
+  li
+    display: flex
+    justify-content: space-between
+    align-items: center
+
+  .fr
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    
+.label
+  padding-top: 20px 
+  .sbt
+    padding-bottom: 10px
+  .warn
+    color: #bdb229;
+
+
+.select 
+  width: 100%;
+  border: none;
+  border-radius: none;
+  color: #fff;
+  background: url($preStaticUrl + '/img/icon/pixel_arrow_down.svg') no-repeat
+  background-position: 94% center;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  &:focus 
+    border-color: #1649FF;
+
+
+  &:focus-visible 
+    outline: #1649FF;
+
+  option 
+    color: #fff;
+    background-color: #ddd;
+.btn
+  display: flex
+  justify-content: space-between
+  gap: 10px
+  align-items: center
+  width 100%
+  margin-top: 30px
+  :global(.staking_confirm)
+    flex: 1

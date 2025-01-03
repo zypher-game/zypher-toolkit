@@ -5,7 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 import ScrollToTop from '@/components/ScrollToTop'
 import { useConnectWallet } from '@/hooks/useConnectWallet'
 import { getRewardPathname, preRewardPathname, rewardPathname, tvlPath } from '@/pages/Active/hooks/activeHooks'
-import ActiveRegister from '@/pages/Active/views/ActiveRegister/ActiveRegister_v2'
+import ActiveRegister from '@/pages/Active/views/ActiveRegister/Index'
 import { ThemeProvider } from '@/theme'
 
 import Layout from '../components/Layout'

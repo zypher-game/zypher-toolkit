@@ -2,7 +2,7 @@ import { DialogClose, ModalWithMotion, useRecoilValue, useSetRecoilState } from 
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
-import Staking from '../../components/Staking/Staking'
+import Staking from '../../components/Staking/Index'
 import { tvlStakingDialogState } from '../../state/activeState'
 import css from './StakingDialog.module.stylus'
 const TVLStakingDialog = memo(() => {

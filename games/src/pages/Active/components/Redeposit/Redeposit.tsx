@@ -30,7 +30,7 @@ import { canNext } from '../../hooks/activeHooks'
 import { useRedeposit } from '../../hooks/useRedeposit'
 import { useTable } from '../../hooks/useStakeHandle'
 import { chooseChainState, selectChainDialogState } from '../../state/activeState'
-import { ChainGrowthCoefficient } from '../Staking/Staking'
+import { ChainGrowthCoefficient } from '../Staking/StakingV2'
 
 const Redeposit = memo(({ isModal }: { isModal: boolean }) => {
   const isW768 = useIsW768()

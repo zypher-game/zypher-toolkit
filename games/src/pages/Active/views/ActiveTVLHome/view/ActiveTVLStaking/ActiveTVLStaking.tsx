@@ -4,10 +4,10 @@ import { useChainIndex } from '@/pages/Active/hooks/useChainIndex'
 import { useReStakingHandle } from '@/pages/Active/hooks/useStakeHandle'
 
 import TVLWrap from '../TVLWrap'
-import Banner from './components/Banner/Banner'
+import Banner from './components/Banner/Index'
 import Card from './components/Card/Card'
 import StakingTab from './components/StakingTab/StakingTab'
-import Table from './components/Table/Table'
+import Table from './components/Table/Index'
 
 const ActiveTVLStaking = memo(() => {
   const { chainIndex, setChainIndex, chainIdLocal } = useChainIndex()

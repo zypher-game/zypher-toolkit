@@ -13,6 +13,7 @@ import {
 } from '@ui/src'
 import { Address } from 'wagmi'
 const version = 'v1'
+export const isTVLEnd = false
 export interface IActiveData {
   chainId?: ChainId
   accountAddress: Address
