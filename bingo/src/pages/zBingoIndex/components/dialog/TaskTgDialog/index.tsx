@@ -150,13 +150,13 @@ const TaskTgDialog = memo(() => {
       const reqDto: any = { WebAppData, name }
       if (name === 'ConnectWallet') {
         if (!ui.account) {
-          return ui.openModal()
+          return ui.openSingleWalletModal('uxuyTonWallet')
         }
         if (!proof) {
           if (ui.account) {
             await ui.disconnect()
           }
-          return ui.openModal()
+          return ui.openSingleWalletModal('uxuyTonWallet')
         }
         reqDto.data = {
           proof: { ...proof.proof, state_init: ui.account.walletStateInit },
@@ -248,7 +248,7 @@ const TaskTgDialog = memo(() => {
                 />
                 <h2 className={css.name}>Basic Tasks</h2>
                 <TaskItemCpt
-                  name={`Connect Wallet${userInfo?.tonWallet ? `(${getShortenAddress(toUserFriendlyAddress(userInfo?.tonWallet), 4, 4)})` : ''}`}
+                  name={`UXUY Wallet${userInfo?.tonWallet ? `(${getShortenAddress(toUserFriendlyAddress(userInfo?.tonWallet), 4, 4)})` : ''}`}
                   des="+100"
                   checked={OnceTaskChecked?.ConnectWallet}
                   all
