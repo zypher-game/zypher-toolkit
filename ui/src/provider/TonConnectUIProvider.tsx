@@ -15,27 +15,15 @@ const TonConnectUIProvider = memo(({ children }: { children: ReactNode }) => {
       walletsListConfiguration={{
         includeWallets: [
           {
-            appName: "bitgetTonWallet",
-            name: "Bitget Wallet",
+            aboutUrl: "https://uxuy.com",
+            universalLink: "https://t.me/UXUYbot/app",
+            bridgeUrl: "https://bridge.uxuy.me/bridge",
+            name: "UXUY Wallet",
+            appName: "uxuyTonWallet",
+            jsBridgeKey: "uxuyTonWallet",
             imageUrl:
-              "https://raw.githubusercontent.com/bitkeepwallet/download/main/logo/png/bitget_wallet_logo_0_gas_fee.png",
-            aboutUrl: "https://web3.bitget.com",
-            deepLink: "bitkeep://",
-            bridgeUrl: "https://bridge.tonapi.io/bridge",
-            jsBridgeKey: "bitgetTonWallet",
-            platforms: ["ios", "android", "chrome"],
-            universalLink: "https://bkcode.vip/ton-connect",
-          },
-          {
-            appName: "okxTonWallet",
-            name: "OKX Wallet",
-            imageUrl:
-              "https://static.okx.com/cdn/assets/imgs/247/58E63FEA47A2B7D7.png",
-            aboutUrl: "https://www.okx.com/web3",
-            universalLink: "https://www.ouxyi.link/ul/uYJPB0",
-            jsBridgeKey: "okxTonWallet",
-            bridgeUrl: "https://www.okx.com/tonbridge/discover/rpc/bridge",
-            platforms: ["chrome", "safari", "firefox", "ios", "android"],
+              "https://raw.githubusercontent.com/uxuycom/uxuy-docsite/main/static/assets/UXUYWallet-logo/UXUYWallet_logo_circle.svg",
+            platforms: ["android", "ios", "linux", "windows", "macos"],
           },
         ],
       }}
