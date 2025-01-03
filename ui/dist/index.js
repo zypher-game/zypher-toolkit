@@ -8451,7 +8451,7 @@ var GPDeposit = memo35(
     const depositInputHandle = useCallback27(
       (e) => {
         const inputValue = e.target.value;
-        const regex = /^\d*\.?\d{0,8}$/;
+        const regex = /^\d*\.?\d{0,9}$/;
         if (regex.test(inputValue)) {
           setDepositValue(inputValue);
           const value = new BigNumberJs_default(inputValue).dividedBy(ChainPointPrice[chainId]).toFixed();

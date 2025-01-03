@@ -57,7 +57,7 @@ const GPDeposit = memo(
     const depositInputHandle = useCallback(
       (e: React.ChangeEvent<HTMLInputElement>) => {
         const inputValue = e.target.value;
-        const regex = /^\d*\.?\d{0,8}$/;
+        const regex = /^\d*\.?\d{0,9}$/;
         if (regex.test(inputValue)) {
           setDepositValue(inputValue);
           const value = new BigNumberJs(inputValue)
