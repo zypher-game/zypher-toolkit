@@ -129,6 +129,7 @@ export const useSwapPoint = ({
                 [lobbyContractAddress, v.index],
                 {
                   value: ethers.utils.parseEther(v.price),
+                  account: account,
                 }
               );
               const hash = typeof res === "string" ? res : res.hash;

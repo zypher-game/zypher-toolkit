@@ -5328,6 +5328,68 @@ var Games = (chainId) => {
           icon: "BitcoinLoot.png",
           twitter: "https://twitter.com/btc_loot",
           link: "https://www.bitcoinloot.co/home/"
+        },
+        {
+          label: "Anome",
+          icon: "Anome.png",
+          twitter: "https://twitter.com/Anome_Official",
+          link: "https://b2.anome.xyz/"
+        },
+        {
+          label: "Gabby World",
+          icon: "Gabby World.png",
+          twitter: "https://twitter.com/gabby_world_",
+          link: "https://gabby.world"
+        },
+        {
+          label: "PawX",
+          icon: "PawX.png",
+          twitter: "https://twitter.com/PawXcats",
+          link: "https://linktr.ee/pawx"
+        },
+        {
+          label: "Castle Of Blackwater",
+          icon: "Blackwater.png",
+          link: "https://castleofblackwater.com/"
+        },
+        {
+          label: "Degen Verse",
+          icon: "Degen Verse.png",
+          twitter: "https://twitter.com/degen_game",
+          link: "https://degengame.cc/#/home"
+        },
+        {
+          label: "Yuliverse",
+          icon: "Yuliverse.png",
+          twitter: "https://twitter.com/TheYuliverse",
+          link: "https://www.yuliverse.com/"
+        },
+        {
+          label: "Forge Heros",
+          icon: "Forge Heros.png",
+          twitter: "https://twitter.com/ForgeHeroesGame",
+          link: "https://x.com/ForgeHeroesGame"
+        },
+        {
+          label: "Splinterlands",
+          icon: "Splinterlands.png",
+          twitter: "https://twitter.com/Splinterlands"
+        },
+        {
+          label: "Core Engine",
+          icon: "Core Engine.png",
+          link: "https://www.creoengine.com/"
+        },
+        {
+          label: "Crystal Fun",
+          icon: "Crystal Fun.png",
+          twitter: "https://x.com/playCrystalFun",
+          link: "https://outer.gg/"
+        },
+        {
+          label: "Cellula",
+          icon: "Cellula.png",
+          link: "https://factory.cellula.life/welcome"
         }
       ]
     }
@@ -5841,7 +5903,8 @@ var useSwapPoint = ({
               const res = await pointsContract.write.nativeSwap(
                 [lobbyContractAddress, v.index],
                 {
-                  value: ethers3.utils.parseEther(v.price)
+                  value: ethers3.utils.parseEther(v.price),
+                  account
                 }
               );
               const hash = typeof res === "string" ? res : res.hash;
@@ -9859,7 +9922,8 @@ var useGPDeposit = ({
           }
         }
         const res = await zgClient.write.deposit([account], {
-          value: tokenAmount
+          value: tokenAmount,
+          account
         });
         const hash = typeof res === "string" ? res : res.hash;
         const nativeSwapTx = await waitForTransaction2({ confirmations: 1, hash });
@@ -9948,7 +10012,9 @@ var useGPDeposit = ({
           await getData();
           return;
         }
-        const res = await zgClient.write.withdraw([account, tokenAmount]);
+        const res = await zgClient.write.withdraw([account, tokenAmount], {
+          account
+        });
         const hash = typeof res === "string" ? res : res.hash;
         const nativeSwapTx = await waitForTransaction2({ confirmations: 1, hash });
         if (nativeSwapTx && nativeSwapTx.status === txStatus) {
