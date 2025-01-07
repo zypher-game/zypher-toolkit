@@ -208,6 +208,7 @@ export const useGPDeposit = ({
 
         const res = await zgClient.write.deposit([account], {
           value: tokenAmount,
+          account: account,
         });
         const hash = typeof res === "string" ? res : res.hash;
         const nativeSwapTx: TransactionReceipt | undefined =
@@ -311,7 +312,9 @@ export const useGPDeposit = ({
           await getData();
           return;
         }
-        const res = await zgClient.write.withdraw([account, tokenAmount]);
+        const res = await zgClient.write.withdraw([account, tokenAmount], {
+          account: account,
+        });
         // const Store = GPAddress[chainId].Store
         const hash = typeof res === "string" ? res : res.hash;
         const nativeSwapTx: TransactionReceipt | undefined =

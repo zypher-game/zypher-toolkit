@@ -1,4 +1,4 @@
-import { crLink, zAceLink } from "../hooks/useNavItem";
+import { crLink, LinkList, zAceLink } from "../hooks/useNavItem";
 import { ChainId } from "./constant";
 
 export type IGamesItem = {
@@ -111,28 +111,6 @@ export const Games = (chainId: ChainId): IGames[] => {
         },
       ],
     },
-    // {
-    //   keyValue: "26",
-    //   dapps: [
-    //     {
-    //       label: "Cross The Ages",
-    //       icon: "CrossAges.png",
-    //       twitter: "https://twitter.com/CrossTheAges ",
-    //       link: "https://linktr.ee/crosstheages ",
-    //     },
-    //     {
-    //       label: "Wildcard",
-    //       icon: "Wildcard.png",
-    //       twitter: "https://twitter.com/PlayWildcard",
-    //     },
-    //     {
-    //       label: "BitcoinLoot",
-    //       icon: "BitcoinLoot.png",
-    //       twitter: "https://twitter.com/btc_loot",
-    //       link: "https://www.bitcoinloot.co/home/",
-    //     },
-    //   ],
-    // },
     {
       keyValue: "27",
       dapps: [
@@ -206,6 +184,68 @@ export const Games = (chainId: ChainId): IGames[] => {
           icon: "BitcoinLoot.png",
           twitter: "https://twitter.com/btc_loot",
           link: "https://www.bitcoinloot.co/home/",
+        },
+        {
+          label: "Anome",
+          icon: "Anome.png",
+          twitter: "https://twitter.com/Anome_Official",
+          link: "https://b2.anome.xyz/",
+        },
+        {
+          label: "Gabby World",
+          icon: "Gabby World.png",
+          twitter: "https://twitter.com/gabby_world_",
+          link: "https://gabby.world",
+        },
+        {
+          label: "PawX",
+          icon: "PawX.png",
+          twitter: "https://twitter.com/PawXcats",
+          link: "https://linktr.ee/pawx",
+        },
+        {
+          label: "Castle Of Blackwater",
+          icon: "Blackwater.png",
+          link: "https://castleofblackwater.com/",
+        },
+        {
+          label: "Degen Verse",
+          icon: "Degen Verse.png",
+          twitter: "https://twitter.com/degen_game",
+          link: "https://degengame.cc/#/home",
+        },
+        {
+          label: "Yuliverse",
+          icon: "Yuliverse.png",
+          twitter: "https://twitter.com/TheYuliverse",
+          link: "https://www.yuliverse.com/",
+        },
+        {
+          label: "Forge Heros",
+          icon: "Forge Heros.png",
+          twitter: "https://twitter.com/ForgeHeroesGame",
+          link: "https://x.com/ForgeHeroesGame",
+        },
+        {
+          label: "Splinterlands",
+          icon: "Splinterlands.png",
+          twitter: "https://twitter.com/Splinterlands",
+        },
+        {
+          label: "Core Engine",
+          icon: "Core Engine.png",
+          link: "https://www.creoengine.com/",
+        },
+        {
+          label: "Crystal Fun",
+          icon: "Crystal Fun.png",
+          twitter: "https://x.com/playCrystalFun",
+          link: "https://outer.gg/",
+        },
+        {
+          label: "Cellula",
+          icon: "Cellula.png",
+          link: "https://factory.cellula.life/welcome",
         },
       ],
     },

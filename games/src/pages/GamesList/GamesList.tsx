@@ -11,9 +11,9 @@ import GameListBorderSelect from '@/components/gameList/gameListBorderSelect'
 import Z2048MobileRow from '@/components/gameList/z2048/tableRow/m/Z2048MobileRow'
 import { NotDataWithLoading } from '@/components/NoData'
 
+import { HomeListItem } from '../GamesIndex/components/widget'
+import { useGameListIndex } from '../GamesIndex/hook/useGameListIndex'
 import { I2048GameList } from '../GamesIndex/hook/useRecentZ2048FromContract'
-import { HomeListItem } from '../Home/components/widget'
-import { useGameListIndex } from '../Home/hooks/useGameListIndex'
 
 const GamesList = memo(() => {
   const [selectValue, setSelectValue] = useState<ChainId | 'All'>('All')

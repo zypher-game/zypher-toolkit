@@ -418,7 +418,7 @@ export const useReStakingHandle = () => {
   )
 
   const onOpenCrHeroHandle = useCallback(async () => {
-    window.open(crLink + '/reward', '_blank')
+    window.open(crLink, '_blank')
   }, [])
 
   const onClaimSBTHandle = useCallback(

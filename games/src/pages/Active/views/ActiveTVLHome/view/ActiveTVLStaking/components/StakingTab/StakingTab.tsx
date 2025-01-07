@@ -3,10 +3,11 @@ import React, { memo, useMemo } from 'react'
 
 import Audited from '@/pages/Active/components/Audited/Audited'
 import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
+import RedepositBtn from '@/pages/Active/components/RedepositBtn/RedepositBtn'
 // import RedepositBtn from '@/pages/Active/components/RedepositBtn/RedepositBtn'
 import StakingBtn from '@/pages/Active/components/StakingBtn/StakingBtn'
 import WithdrawBtn from '@/pages/Active/components/WithdrawBtn/WithdrawBtn'
-import { tvlStakingDataState } from '@/pages/Active/state/activeState'
+import { isRedepositStart, tvlStakingDataState } from '@/pages/Active/state/activeState'
 
 import css from './StakingTab.module.styl'
 const StakingTab = memo(
@@ -43,7 +44,7 @@ const StakingTab = memo(
             {isEnd ? (
               <>
                 <WithdrawBtn chainId={chainIdLocal} />
-                {/* <RedepositBtn chainId={chainIdLocal} /> */}
+                {isRedepositStart ? <RedepositBtn chainId={chainIdLocal} /> : null}
               </>
             ) : null}
           </div>

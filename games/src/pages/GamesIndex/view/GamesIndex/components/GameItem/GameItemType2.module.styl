@@ -6,14 +6,16 @@
   background-size: 100% 100%;
   width 1200px
   display: block;
-  padding: 100px 120px 120px;
+  max-width: 1200px
+  padding: 100px 100px 120px;
   @media screen and (max-width: 1200px)
     width 98%
     left: 1%
+    padding: 100px 10vw 120px;
   @media screen and (max-width: 830px)
     bottom: 110px
     background-image: url($preStaticUrl + '/img/games/games/item2_m.png')
-    padding: 40px
+    padding: 70px 10vw
 .moreGameTitle
   color: #FF5EAA
   font-size: 18px
@@ -22,12 +24,23 @@
   @media screen and (max-width: 830px)
     font-size: 12px
 .moreGame
-  display: flex
-  justify-content: flex-start
-  align-items: flex-start
-  gap: 10px
-  position relative
-  z-index: 6;
+  // display: flex
+  // justify-content: flex-start
+  // align-items: flex-start
+  // gap: 10px
+  // position relative
+  // z-index: 6;
+  // flex-wrap: wrap
+  display: grid
+  grid-template-columns: repeat(8, 1fr);
+  grid-auto-rows: 110px; 
+  grid-auto-columns: 90px;
+  @media screen and (max-width: 900px)
+    grid-template-columns: repeat(7, 1fr);
+  @media screen and (max-width: 600px)
+    grid-template-columns: repeat(5, 1fr);
+  @media screen and (max-width: 440px)
+    grid-template-columns: repeat(4, 1fr);
 .moreGameTitle
   position relative
   z-index: 6;
@@ -42,17 +55,23 @@
     font-size: 12px
 .tree
   position: absolute
-  top: 65%;
+  top: 59%;
   right: 10%;
   width 92px
   z-index 8
-  @media screen and (max-width: 830px)
-    top: 81%;
+  @media screen and (max-width: 900px)
+    top: 69%;
     width 9%
     min-width: 44px
     max-width: 92px
+  @media screen and (max-width: 600px)
+    top: 68%
+  @media screen and (max-width: 440px)
+    top: 61%
 .moreGameItem
   width: 90px
+  @media screen and (max-width: 830px)
+    width: 70px
   .moreGameItemImg
     margin: 0 auto
     width 64px

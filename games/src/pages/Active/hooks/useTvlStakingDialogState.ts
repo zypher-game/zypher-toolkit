@@ -5,6 +5,7 @@ import { setErrorToast } from '@/utils/Error/setErrorToast'
 
 import {
   depositCurrencyState,
+  isRedepositStart,
   tvlRedepositDialogState,
   tvlStakingDataState,
   tvlStakingDialogState,
@@ -67,6 +68,11 @@ export const useTvlStakingDialogState = () => {
       if (isOpen) {
         if (key === 'tvlStakingDialogState') {
           if (isEnd) {
+            if (isRedepositStart) {
+              setIsRedepositOpen(isOpen)
+            } else {
+              setErrorToast('Current Competition Schedule is End ')
+            }
             return
           }
         }

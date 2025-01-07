@@ -82,7 +82,6 @@ const Layout = memo((props: IProps) => {
         </Sider>
       ) : null}
       {isW768 && !sideCollapse && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />}
-      {/* <div id="snow" /> */}
     </LayoutAntd>
   )
 }, isEqual)

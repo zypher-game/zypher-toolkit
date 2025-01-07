@@ -44,7 +44,7 @@ const FrSomeWidget = memo(
         chainId: chainId,
         isOpen: true
       })
-    }, [chainId])
+    }, [chainId, setIsStakingOpenHandle])
     const tvlPointHandle = useCallback(() => {
       if (activeData.rewardPointsCardNumber === '' || activeData.rewardPointsCardNumber === '0') {
         return

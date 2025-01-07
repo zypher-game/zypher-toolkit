@@ -44,7 +44,6 @@ export const useStake = () => {
   const { accountAddress } = activeData
   const { account, chainId } = useActiveWeb3React()
   const [, setTvlStakingData] = useRecoilState(tvlStakingDataState)
-
   useEffect(() => {
     if (account && chainId) {
       getStakingData()
