@@ -8782,7 +8782,7 @@ var GPWithdraw = memo36(
       JSON.stringify(health)
     ]);
     const withdrawHandle = useCallback28(() => {
-      if (isDisable || actualReceived === "-") {
+      if (!isL2 && (isDisable || actualReceived === "-")) {
         return;
       }
       if (withdraw) {
@@ -8841,7 +8841,7 @@ var GPWithdraw = memo36(
       width: "100%",
       height: isW768 ? "48px" : "54px",
       pixel_height: 5,
-      disable: isDisable || actualReceived === "-",
+      disable: isL2 ? false : isDisable || actualReceived === "-",
       onClick: withdrawHandle,
       themeType: "brightBlue"
     }, /* @__PURE__ */ React44.createElement("p", null, btnLabel), /* @__PURE__ */ React44.createElement(LoadingButton_default, {
