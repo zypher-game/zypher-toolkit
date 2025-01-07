@@ -223,7 +223,7 @@ const GPWithdraw = memo(
       JSON.stringify(health),
     ]);
     const withdrawHandle = useCallback(() => {
-      if (isDisable || actualReceived === "-") {
+      if (!isL2 && (isDisable || actualReceived === "-")) {
         return;
       }
       if (withdraw) {
@@ -316,7 +316,7 @@ const GPWithdraw = memo(
           width="100%"
           height={isW768 ? "48px" : "54px"}
           pixel_height={5}
-          disable={isDisable || actualReceived === "-"}
+          disable={isL2 ? false : isDisable || actualReceived === "-"}
           onClick={withdrawHandle}
           themeType="brightBlue"
         >
