@@ -10,7 +10,6 @@ import {
 } from '@ui/src'
 import React, { memo, useCallback, useMemo } from 'react'
 
-import PixelTooltip from '@/pages/Active/components/PixelTooltip/PixelTooltip'
 import { StakingTitle, Title } from '@/pages/Active/components/Title/Title'
 import { IAvailableCode, IGroupGoal } from '@/pages/Active/hooks/useTeam'
 import { useTvlStakingDialogState } from '@/pages/Active/hooks/useTvlStakingDialogState'

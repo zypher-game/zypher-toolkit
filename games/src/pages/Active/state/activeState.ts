@@ -12,9 +12,11 @@ import {
   tvlTokens
 } from '@ui/src'
 import { Address } from 'wagmi'
+
+import { env } from '@/utils/config'
 const version = 'v1'
-export const isTVLEnd = false
-export const isRedepositStart = false
+export const isTVLEnd = env === 'develop' ? true : false
+export const isRedepositStart = env === 'develop' ? true : false
 export interface IActiveData {
   chainId?: ChainId
   accountAddress: Address
