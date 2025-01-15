@@ -106,7 +106,7 @@ export const Games = (chainId: ChainId): IGames[] => {
         },
         {
           label: "Ten Sum Rings",
-          icon: "TensumRings_temp_ TG.png",
+          icon: "TensumRings_temp.png",
           link: "https://ten-sum-next.zypher.game/",
         },
       ],

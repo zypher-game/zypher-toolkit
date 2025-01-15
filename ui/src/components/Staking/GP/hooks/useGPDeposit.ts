@@ -96,7 +96,6 @@ export const useGPDeposit = ({
   const [loadingWithdraw, setIsLoadingWithdraw] = useState(false);
   const [allowance, setAllowance] = useState("");
   const [health, setHealth] = useState<IHealth>();
-  console.log({ health });
   const nativeBalance = useRecoilValue(nativeBalanceState);
   const pointBalance = useRecoilValue(pointsBalanceState);
   const { switchNetworkAsync } = useSwitchNetwork();
@@ -253,7 +252,6 @@ export const useGPDeposit = ({
       }
       if (isL2) {
         setIsLoadingWithdraw(true);
-        console.log(111);
         if (switchNetworkAsync) {
           const chain = isPro
             ? ChainId.ZytronLineaMain

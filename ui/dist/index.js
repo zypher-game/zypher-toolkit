@@ -3412,7 +3412,7 @@ var TVLChainId = ((TVLChainId3) => {
   return TVLChainId3;
 })(TVLChainId || {});
 var hideTVLStakingSupportedChainId = true;
-var TVLStakingSupportedChainId = !isPro ? [TVLChainId.LineaSepolia] : [TVLChainId.LineaMainnet];
+var TVLStakingSupportedChainId = !isPro ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] : [TVLChainId.LineaMainnet];
 var defaultActiveChainId = isPro ? TVLChainId.LineaMainnet : TVLChainId.LineaSepolia;
 var L3ChainId = {
   [TVLChainId.B2]: "50097" /* ZytronB2Testnet */,
@@ -5250,7 +5250,7 @@ var Games = (chainId) => {
         },
         {
           label: "Ten Sum Rings",
-          icon: "TensumRings_temp_ TG.png",
+          icon: "TensumRings_temp.png",
           link: "https://ten-sum-next.zypher.game/"
         }
       ]
@@ -9823,7 +9823,6 @@ var useGPDeposit = ({
   const [loadingWithdraw, setIsLoadingWithdraw] = useState20(false);
   const [allowance, setAllowance] = useState20("");
   const [health, setHealth] = useState20();
-  console.log({ health });
   const nativeBalance = useRecoilValue15(nativeBalanceState);
   const pointBalance = useRecoilValue15(pointsBalanceState);
   const { switchNetworkAsync } = useSwitchNetwork();
@@ -9963,7 +9962,6 @@ var useGPDeposit = ({
       }
       if (isL2) {
         setIsLoadingWithdraw(true);
-        console.log(111);
         if (switchNetworkAsync) {
           const chain = isPro ? "9901" /* ZytronLineaMain */ : "50098" /* ZytronLineaSepoliaTestnet */;
           await switchNetworkAsync(parseInt(chain, 10));
