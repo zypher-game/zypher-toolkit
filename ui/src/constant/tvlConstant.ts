@@ -26,7 +26,7 @@ export enum TVLChainId {
 }
 export const hideTVLStakingSupportedChainId = true;
 export const TVLStakingSupportedChainId = (!isPro
-  ? [TVLChainId.LineaSepolia]
+  ? [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia]
   : // [TVLChainId.LineaMainnet, TVLChainId.LineaSepolia] // ,
     [TVLChainId.LineaMainnet]) as unknown as ChainId[];
 export const defaultActiveChainId = (isPro

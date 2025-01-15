@@ -38,7 +38,7 @@ const ActiveRegisterV2 = memo(() => {
               <Audited />
               <div className={css.textPixelBorder}>
                 <p>
-                  Current Competition Schedule<i>Feb 6, 2025 ~ Token Emission</i>
+                  First Phase Competition Schedule<i>Feb 6, 2025 ~ Token Emission</i>
                 </p>
               </div>
               <div className={css.warn}>

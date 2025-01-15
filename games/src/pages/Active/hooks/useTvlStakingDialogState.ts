@@ -71,7 +71,7 @@ export const useTvlStakingDialogState = () => {
             if (isRedepositStart) {
               setIsRedepositOpen(isOpen)
             } else {
-              setErrorToast('Current Competition Schedule is End ')
+              setErrorToast('First Phase Competition Schedule is End ')
             }
             return
           }

@@ -73,9 +73,7 @@ export const useGetDataCall = () => {
                 let primary_score_res
                 try {
                   primary_score_res = await getPrimaryScore(chainId)
-                } catch (e) {
-                  console.log('primary_score_res Error', e)
-                }
+                } catch (e) {}
                 const primaryScoreRes = form_primary_score(infoObj, primary_score_res ?? {})
                 let isRegistered = false
                 try {
@@ -101,7 +99,6 @@ export const useGetDataCall = () => {
           }
         }
       } catch (e: any) {
-        console.log('getUserInfo err', e)
         return initActiveData
       }
     },
