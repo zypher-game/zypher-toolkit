@@ -14,6 +14,7 @@ const Banner = memo(() => {
           <p className={css.fl_grey}>
             The first phase staking assets can be withdrawn, and the second phase staking opens at a later date to be determined.
           </p>
+          <p className={css.fl_grey2}>The reward points will continue to grow based on the amount and duration of your staked assets!</p>
         </div>
         <Tab />
       </div>

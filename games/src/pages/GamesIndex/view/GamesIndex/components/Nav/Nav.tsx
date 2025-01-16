@@ -58,9 +58,9 @@ const Nav = memo(() => {
         <NavItemFr className={css.fr_item} onClick={() => historyModalOpenHandle(0)}>
           <p>History</p>
         </NavItemFr>
-        <NavItemFr className={css.fr_item} onClick={() => historyModalOpenHandle(1)}>
+        {/* <NavItemFr className={css.fr_item} onClick={() => historyModalOpenHandle(1)}>
           <p>NFTs</p>
-        </NavItemFr>
+        </NavItemFr> */}
         <NavItemFr className={css.fr_item_icon} onClick={announcementModalOpenHandle}>
           {announcementTime[0] ? <SvgComponent src={`${preStaticUrl}/img/icon/pixel_point.svg`} className={css.pixel_point} /> : null}
           <SvgComponent src={`${preStaticUrl}/img/icon/pixel_news.svg`} className={css.pixel_news} />
