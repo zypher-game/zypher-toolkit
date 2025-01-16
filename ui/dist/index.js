@@ -6493,7 +6493,7 @@ var NavList = [
   {
     link: `/${NavKey[1][0]}`,
     linkList: NavKey[1],
-    label: "Games",
+    label: "AI Games",
     classNames: "games",
     isTarget: false,
     showIfGames: true,
