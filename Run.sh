@@ -167,7 +167,9 @@ git checkout ark_main
 git fetch --prune
 git pull origin ark_main
 git add .
-git commit -m "Update to version $new_version"
+git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
+git push origin ark_main --force
+
 
 # # 获取最新的标签，假设标签格式为 vX.Y.Z
 # latest_tag=$(git describe --tags --abbrev=0)

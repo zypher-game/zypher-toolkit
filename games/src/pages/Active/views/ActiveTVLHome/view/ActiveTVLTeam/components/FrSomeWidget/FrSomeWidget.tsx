@@ -61,9 +61,9 @@ const FrSomeWidget = memo(
             <LoadingButton hideMl={true} isLoading={isDataLoading} />
             <img decoding="async" loading="lazy" src={CurrencyLogo[chainId]} />
           </div>
-          <ActivePixelButtonColor themeType="brightBlue" className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={stakingHandle}>
+          {/* <ActivePixelButtonColor themeType="brightBlue" className={css.fr_btn} width="144px" height="36px" pixel_height={3} onClick={stakingHandle}>
             <p>Stake more</p>
-          </ActivePixelButtonColor>
+          </ActivePixelButtonColor> */}
         </FrPixelBorder>
         <FrPixelBorder>
           <Title
