@@ -9,6 +9,12 @@ interface IProps {
 const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
   return (
     <div className={className}>
+      <a href="https://t.me/zyphernetwork" target="_blank" rel="noreferrer">
+        <SvgComponent
+          className="community_svg"
+          src={preStaticUrl + "/img/layout/telegram.svg"}
+        />
+      </a>
       <a
         href="https://twitter.com/Zypher_network"
         target="_blank"
