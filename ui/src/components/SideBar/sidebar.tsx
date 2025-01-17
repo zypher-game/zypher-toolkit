@@ -27,12 +27,21 @@ export const ZypherLogo = memo(
     return (
       <LinkComp Link={Link} href="/" className="zypher_logo">
         {isMobile ? (
-          <img
-            fetchPriority="high"
-            decoding="async"
-            loading="lazy"
-            src={preStaticUrl + "/img/layout/logo-min.svg"}
-          />
+          window.isGames ? (
+            <img
+              fetchPriority="high"
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + "/img/layout/logo-min.svg"}
+            />
+          ) : (
+            <img
+              fetchPriority="high"
+              decoding="async"
+              loading="lazy"
+              src={preStaticUrl + "/img/zypher/logo_small.svg"}
+            />
+          )
         ) : window.isGames ? (
           <img
             fetchPriority="high"
@@ -48,7 +57,7 @@ export const ZypherLogo = memo(
             src={preStaticUrl + "/img/zypher/logo.svg"}
           />
         )}
-        {window.isGames ? (
+        {isMobile ? (
           <img
             decoding="async"
             loading="lazy"
