@@ -6697,11 +6697,16 @@ var ZypherLogo = memo20(
       Link,
       href: "/",
       className: "zypher_logo"
-    }, isMobile2 ? /* @__PURE__ */ React24.createElement("img", {
+    }, isMobile2 ? window.isGames ? /* @__PURE__ */ React24.createElement("img", {
       fetchPriority: "high",
       decoding: "async",
       loading: "lazy",
       src: preStaticUrl + "/img/layout/logo-min.svg"
+    }) : /* @__PURE__ */ React24.createElement("img", {
+      fetchPriority: "high",
+      decoding: "async",
+      loading: "lazy",
+      src: preStaticUrl + "/img/zypher/logo_small.svg"
     }) : window.isGames ? /* @__PURE__ */ React24.createElement("img", {
       fetchPriority: "high",
       decoding: "async",
@@ -6712,7 +6717,7 @@ var ZypherLogo = memo20(
       decoding: "async",
       loading: "lazy",
       src: preStaticUrl + "/img/zypher/logo.svg"
-    }), window.isGames ? /* @__PURE__ */ React24.createElement("img", {
+    }), isMobile2 ? /* @__PURE__ */ React24.createElement("img", {
       decoding: "async",
       loading: "lazy",
       src: preStaticUrl + "/img/layout/ai.svg"
