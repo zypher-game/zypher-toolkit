@@ -159,15 +159,14 @@
       display: block
       width: 24px
       height: 24px
-      .community_svg 
-        fill: #fff;
-        transition: all 0.3 ease;
-        path
-          transition: all 0.3 ease;
-      &:hover 
-        .community_svg 
-          path 
-            fill-opacity: 1;
+.community_svg 
+  fill: #fff;
+  transition: all 0.3 ease;
+  path
+    transition: all 0.3 ease;
+  &:hover 
+    path 
+      fill-opacity: 1;
 .sideBar_Bottom
   position: absolute
   bottom: 0

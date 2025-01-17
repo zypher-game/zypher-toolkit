@@ -1,6 +1,6 @@
 import './index.styl'
 
-import { Header, motion, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
+import { Footer, Header, motion, NavKey, SideBar, sideCollapseState, useIsW768, useRecoilState } from '@ui/src'
 import { pathnameState } from '@ui/src'
 import { Layout as LayoutAntd } from 'antd'
 import classnames from 'classnames'
@@ -44,7 +44,7 @@ const Layout = memo((props: IProps) => {
     }
   }, [isW768, sideCollapse])
   return (
-    <LayoutAntd className={classnames('lt-layout', window.isGames ? NavKey[1][0] : pathnameArr[1] === '' ? NavKey[0][1] : pathnameArr[1])}>
+    <LayoutAntd className={classnames('lt-layout', window.isGames ? NavKey[1][0] : pathnameArr[1] === '' ? NavKey[0][1] : pathnameArr.join(' '))}>
       <Header
         className="lt-header"
         env={env}
@@ -69,6 +69,7 @@ const Layout = memo((props: IProps) => {
           {props.children}
         </motion.div>
       </Content>
+      <Footer showLogo={true} Link={Link} />
       {isW768 ? (
         <Sider
           collapsible

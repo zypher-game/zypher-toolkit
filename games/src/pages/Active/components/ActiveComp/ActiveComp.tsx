@@ -3,7 +3,6 @@ import React, { memo } from 'react'
 
 import MeteorShower from '@/components/Meteor/Meteor'
 
-import TVLFooter from '../TVLFooter/TVLFooter'
 import css from './ActiveComp.module.styl'
 interface IProps {
   children: React.ReactNode
@@ -18,7 +17,7 @@ const ActiveComp = memo(({ children }: IProps) => {
       className={css.ActiveComp}
     >
       <div className={css.active_comp_inner}>{children}</div>
-      <TVLFooter />
+      {/* <TVLFooter /> */}
       <MeteorShower />
     </motion.div>
   )

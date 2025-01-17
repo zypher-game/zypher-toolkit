@@ -148,27 +148,27 @@ git push origin test --force
 
 
 
-# ---------app_ark_main----------------
-rm -rf "$app_ark_main/src"
-cp -r "$path_front2/src" "$app_ark_main/"
-cd "$app_ark_main/src"
-perl -i -pe 's|^// import |import |' index.tsx
-perl -i -pe 's|^// | |'  global.d.ts
+# # ---------app_ark_main----------------
+# rm -rf "$app_ark_main/src"
+# cp -r "$path_front2/src" "$app_ark_main/"
+# cd "$app_ark_main/src"
+# perl -i -pe 's|^// import |import |' index.tsx
+# perl -i -pe 's|^// | |'  global.d.ts
 
-cd "$app_ark_main"
-echo $app_ark_main
-sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
-# 添加新的 "@ui@zypher-game/toolkit" 依赖项
-echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
-echo "Updated dependencies in yarn.lock"
-yarn
+# cd "$app_ark_main"
+# echo $app_ark_main
+# sed -i '' "/\"@ui@zypher-game\/toolkit\"/,/^$/d" yarn.lock
+# # 添加新的 "@ui@zypher-game/toolkit" 依赖项
+# echo -e "\"@ui@zypher-game/toolkit\":\n  version \"$new_version\"\n  resolved \"https://codeload.github.com/zypher-game/zypher-toolkit/tar.gz/$latest_hash\"" >> yarn.lock
+# echo "Updated dependencies in yarn.lock"
+# yarn
 
-git checkout ark_main
-git fetch --prune
-git pull origin ark_main
-git add .
-git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
-git push origin ark_main --force
+# git checkout ark_main
+# git fetch --prune
+# git pull origin ark_main
+# git add .
+# git commit -m "Change TVL end Time Staking and withdraw && Update to version $new_version"
+# git push origin ark_main --force
 
 
 # # 获取最新的标签，假设标签格式为 vX.Y.Z

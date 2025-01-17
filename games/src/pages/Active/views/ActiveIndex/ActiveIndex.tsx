@@ -31,7 +31,7 @@ const ActiveIndex = memo(() => {
       <Timeline />
       <Why />
       <Legal />
-      <TVLFooter />
+      {/* <TVLFooter /> */}
     </div>
   )
 }, isEqual)

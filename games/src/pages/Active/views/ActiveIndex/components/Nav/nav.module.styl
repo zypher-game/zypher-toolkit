@@ -1,6 +1,5 @@
-.nav 
+div.nav 
   position fixed
-  z-index 10
   width: calc(100vw - 80px);
   left: 40px
   top: 100px
@@ -10,7 +9,9 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-
+  z-index 10 
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
   .bg 
     position: absolute;
     width: 100%;

@@ -1,0 +1,113 @@
+.footer_wrap
+  position: relative;
+  z-index: 9
+  padding: 110px 0;
+  background: linear-gradient(180deg, rgba(19,24,40,0.1) 0%, rgba(19,24,40,0.8) 100%)
+  @media screen and (max-width: 1236px)
+    padding: 16px 0 120px
+.footer_inner
+  margin: 0 auto;
+  width: 1200px;
+  @media screen and (max-width: 830px)
+    width: calc(100vw - 32px)
+  
+.footer_top 
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  @media screen and (max-width: 830px)
+    flex-direction: column;
+    gap: 36px;
+    .zypher_logo 
+      display: block;
+      height: 30px;
+
+  .footer_item 
+    flex: 1;
+
+    h4 
+      color: #fff;
+      font-size: 16px;
+      font-weight: 500;
+      padding-bottom: 16px;
+      font-family: Poppins;
+      line-height: 25px;
+
+    .whitepaper 
+      padding-top: 16px;
+      // padding-top: 24px;
+      // text-decoration: underline;
+
+.language_item 
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+
+  p 
+    opacity: 0.5;
+    line-height: 25px;
+    cursor: pointer;
+
+    &:hover 
+      opacity: 1;
+
+.product_item 
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+  line-height: 25px;
+  @media screen and (max-width: 830px)
+    flex-direction: row;
+
+  a.product_item_white 
+    opacity: 1;
+
+  p,
+  a 
+    opacity: 0.5;
+    color: #FFF;
+    cursor: pointer;
+    transition: opacity 0.3s ease
+    &:hover 
+      opacity: 1;
+
+.footer_community 
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 50px;
+
+  a 
+    display: block;
+
+    img 
+      display: block;
+      width: 32px;
+
+.footer_bottom 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 24px;
+  @media screen and (max-width: 830px)
+    gap: 10px;
+    padding-top: 24px;
+  p 
+    font-size: 14px;
+    color: #FFF;
+    opacity: 0.5;
+    &:first-child 
+      opacity: 0.3;
+    @media screen and (max-width: 830px)
+      font-size: 11px;
+

@@ -7,7 +7,6 @@ import {
   divisorBigNumber,
   formatMoney,
   getLinkPre,
-  localStorageEffect,
   request,
   TVL_API,
   useActiveWeb3React,

@@ -1,7 +1,4 @@
-import { useIsW768 } from '@ui/src'
 import React, { memo } from 'react'
-
-import TVLFooter from '@/pages/Active/components/TVLFooter/TVLFooter'
 
 import AnnouncementDialog from '../../dialog/AnnouncementDialog/AnnouncementDialog'
 import DataDialog from '../../dialog/DataDialog/DataDialog'
@@ -15,7 +12,6 @@ import Nav from './components/Nav/Nav'
 import css from './GamesIndex.module.styl'
 const GameIndex = memo(() => {
   const gameList = useGameListIndex()
-  const w768 = useIsW768()
   return (
     <div className={css.games}>
       <div className={css.inner}>
@@ -23,7 +19,7 @@ const GameIndex = memo(() => {
         <Banner />
         <GameItem />
       </div>
-      {w768 ? null : <TVLFooter />}
+      {/* {w768 ? null : <TVLFooter />} */}
       <ZypherGamesDialog />
       <DataDialog />
       <GameListDialog {...gameList} showFilter={true} loadMorecss={true} />

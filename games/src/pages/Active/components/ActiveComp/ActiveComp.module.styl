@@ -1,10 +1,22 @@
 .ActiveComp
-  background: url($preStaticUrl + '/img/tvl/register_bg.jpg') no-repeat center
   width: 100%;
-  background-size: 100% 100%
   min-height: calc(100vh - 70px)
   @media screen and (max-width: 830px)
     min-height: calc(100vh - 44px)
+:global(.treasureark)
+  position relative
+  &::before
+    content: "";
+    position: absolute; /* 使用 absolute 定位使伪元素跟随页面滚动 */
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100vw;
+    height: 100%; 
+    background: url($preStaticUrl + '/img/tvl/register_bg.jpg') no-repeat center
+    background-size: cover; /* 确保背景图片完全覆盖伪元素 */
+    z-index: 1; /* 确保伪元素在所有内容之下 */
+
 .active_comp_inner
   position: relative
   z-index 8
