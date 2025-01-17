@@ -14995,8 +14995,119 @@ var Header = (props) => {
 };
 var header_default = Header;
 
+// src/components/Footer/Footer.tsx
+import { changeLanguage as changeLanguage2 } from "i18next";
+import React102, { memo as memo41, useCallback as useCallback41 } from "react";
+var SolutionsList = [
+  {
+    show: true,
+    title: "Distributed Prover Network",
+    content: "Zypher's distributed prover network generates scalable ZK proofs, ensuring secure, verifiable computations. It operates on a decentralized, incentivized merged mining model."
+  },
+  {
+    show: true,
+    title: "ZK Prompt",
+    content: "ZKPrompt enables AI agents to commit to prompts privately while generating verifiable outputs using zero-knowledge proofs. It ensures secure, trustless interactions between AI agents and decentralized applications, allowing on-chain verification without exposing sensitive input data."
+  },
+  {
+    show: true,
+    title: "ZK Inference",
+    content: "zkInference encodes AI models and logic into zk circuits, enabling trustless, privacy-preserving off-chain computations with verifiable on-chain proofs of accuracy."
+  },
+  {
+    show: true,
+    title: "Secret Engine",
+    content: "A suite of zk-as-a-service SDKs, enabling information asymmetry essential for strategic gaming mechanisms, offering fully on-chain secrets and randomness with guaranteed fairness. Soon to be supported as AVSes.",
+    link: "https://docs.zypher.network/zk/secret/overview/"
+  },
+  {
+    show: false,
+    title: "AW Engine",
+    content: "A scalable, modular framework designed to support vertical hyper-scaling. Programmable through circuits or zkVM, with the z4 SDK specifically crafted for real-time multiplayer events, including PvP scenarios.",
+    link: "https://docs.zypher.network/zk/aw/overview/"
+  },
+  {
+    show: false,
+    title: "Zytron Kit",
+    content: "A Sovereign Rollup Stack engineered for the seamless deployment of dedicated gaming infrastructure, featuring 0 gas, 0.1s blocktime, zk pre-compiles and more. Optimized for highly interactive games such as MMOs and FOCGs.",
+    link: "https://zytron.zypher.network/"
+  },
+  {
+    show: false,
+    title: "Redacted",
+    content: "Deploy large-scale multiplayer games on [redacted] using your preferred programming languages (RUST, Solidity, WASM) and game engines (Bevy, Unity, Unreal). Pre-registration will be available soon."
+  }
+];
+var Footer = memo41(
+  ({ showLogo, Link }) => {
+    const isMobile2 = useIsW768();
+    const changeLanguageHandle = useCallback41((item) => {
+      changeLanguage2(item.keyValue);
+      storage_default.set("language", item.keyValue);
+    }, []);
+    return /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_wrap"
+    }, /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_inner"
+    }, /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_top"
+    }, showLogo ? /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_item"
+    }, /* @__PURE__ */ React102.createElement(ZypherLogo, {
+      Link,
+      isMobile: isMobile2
+    })) : null, /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_item"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Language"), /* @__PURE__ */ React102.createElement("ul", {
+      className: "language_item"
+    }, languageList.map((v) => /* @__PURE__ */ React102.createElement("li", {
+      key: v.label,
+      onClick: () => changeLanguageHandle(v)
+    }, /* @__PURE__ */ React102.createElement("p", null, v.label)))), /* @__PURE__ */ React102.createElement("a", {
+      href: "/whitepaper",
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React102.createElement("h4", {
+      className: "whitepaper"
+    }, "White paper")), /* @__PURE__ */ React102.createElement("a", {
+      href: "/economics",
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Econ paper")), /* @__PURE__ */ React102.createElement("a", {
+      href: "https://wiki.zypher.network/",
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Wiki"))), /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_item"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Product"), /* @__PURE__ */ React102.createElement("ul", {
+      className: "product_item"
+    }, SolutionsList.filter((v) => v.link).map((v) => /* @__PURE__ */ React102.createElement("li", {
+      key: v.title
+    }, /* @__PURE__ */ React102.createElement("a", {
+      href: v.link,
+      target: "_blank",
+      rel: "noreferrer"
+    }, v.title))), /* @__PURE__ */ React102.createElement("li", null, /* @__PURE__ */ React102.createElement("a", {
+      className: "product_item_white",
+      href: "https://drive.google.com/drive/folders/1hEpEikETzoxAMEFwZk7S5nksO1bdsrxh",
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Brand Kit"))))), /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_item"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Social"), /* @__PURE__ */ React102.createElement(CommunityLink_default, {
+      className: "footer_community"
+    }))), /* @__PURE__ */ React102.createElement("div", {
+      className: "footer_bottom"
+    }, isMobile2 ? /* @__PURE__ */ React102.createElement(React102.Fragment, null, /* @__PURE__ */ React102.createElement("p", null, "Zypher Games 2025"), /* @__PURE__ */ React102.createElement("p", null, "|"), /* @__PURE__ */ React102.createElement("p", null, "Privacy Policy"), /* @__PURE__ */ React102.createElement("p", null, "|"), /* @__PURE__ */ React102.createElement("p", null, "Terms of Service")) : /* @__PURE__ */ React102.createElement(React102.Fragment, null, /* @__PURE__ */ React102.createElement("p", null, "Copyright \xA9 2025 Zypher Games"), /* @__PURE__ */ React102.createElement("p", null, "Terms of Service"), /* @__PURE__ */ React102.createElement("p", null, "Privacy Policy")))));
+  },
+  () => {
+    return false;
+  }
+);
+var Footer_default = Footer;
+
 // src/provider/RainbowKitWithThemeProvider.tsx
-import React102, { useMemo as useMemo24 } from "react";
+import React103, { useMemo as useMemo24 } from "react";
 import { WagmiConfig } from "wagmi";
 
 // src/rainbowkit/src/themes/darkTheme.ts
@@ -15093,9 +15204,9 @@ var RainbowKitWithThemeProvider = ({
   if (!wagmiConfig || !chains || !computedTheme) {
     return null;
   }
-  return /* @__PURE__ */ React102.createElement(WagmiConfig, {
+  return /* @__PURE__ */ React103.createElement(WagmiConfig, {
     config: wagmiConfig
-  }, /* @__PURE__ */ React102.createElement(RainbowKitProvider, {
+  }, /* @__PURE__ */ React103.createElement(RainbowKitProvider, {
     chains,
     appInfo,
     theme: computedTheme
@@ -15108,10 +15219,10 @@ import {
   THEME,
   TonConnectUIProvider as TonConnectUIProviderWidget
 } from "@tonconnect/ui-react";
-import React103 from "react";
-import { memo as memo41 } from "react";
-var TonConnectUIProvider = memo41(({ children }) => {
-  return /* @__PURE__ */ React103.createElement(TonConnectUIProviderWidget, {
+import React104 from "react";
+import { memo as memo42 } from "react";
+var TonConnectUIProvider = memo42(({ children }) => {
+  return /* @__PURE__ */ React104.createElement(TonConnectUIProviderWidget, {
     uiPreferences: {
       theme: THEME.DARK,
       colorsSet: { [THEME.DARK]: { background: { primary: "#070823" } } }
@@ -15176,7 +15287,7 @@ var useGetInvitationAddress = () => {
 // src/hooks/useRecentGamesFromGraph.ts
 import ZkBingoCardAbi from "@zypher-game/bingo-periphery/abi/BingoCard.json";
 import ZkBingoLobbyAbi from "@zypher-game/bingo-periphery/abi/ZkBingoLobby.json";
-import { useCallback as useCallback41, useEffect as useEffect39, useState as useState31 } from "react";
+import { useCallback as useCallback42, useEffect as useEffect39, useState as useState31 } from "react";
 import BigNumberjs3 from "bignumber.js";
 import { ethers as ethers5 } from "ethers";
 
@@ -15232,7 +15343,7 @@ var useRecentGamesFromGraph = ({
 }) => {
   const [list, setList] = useState31();
   const [hasError, setHasError] = useState31(false);
-  const fetchGameInfos = useCallback41(async () => {
+  const fetchGameInfos = useCallback42(async () => {
     var _a, _b;
     try {
       const value_pre = await batchRequestFromGraph({ env });
@@ -15544,7 +15655,7 @@ function useInterval(callback, delay, leading = true) {
 }
 
 // src/index.ts
-import { changeLanguage as changeLanguage2 } from "i18next";
+import { changeLanguage as changeLanguage3 } from "i18next";
 
 // src/utils/addressIsEqual.ts
 var addressIsEqual = (pre, next) => {
@@ -15963,8 +16074,8 @@ var getLocalTime = (timestamp) => {
 };
 
 // src/components/PixelTab/PixelTab.tsx
-import React104, { memo as memo42 } from "react";
-var PixelTab = memo42(
+import React105, { memo as memo43 } from "react";
+var PixelTab = memo43(
   ({
     tabList,
     height,
@@ -15973,9 +16084,9 @@ var PixelTab = memo42(
     themeType,
     hidePixel
   }) => {
-    return /* @__PURE__ */ React104.createElement("ul", {
+    return /* @__PURE__ */ React105.createElement("ul", {
       className: classNames
-    }, tabList.map((v, index) => /* @__PURE__ */ React104.createElement(PixelTabLiItem, {
+    }, tabList.map((v, index) => /* @__PURE__ */ React105.createElement(PixelTabLiItem, {
       themeType,
       hidePixel,
       onClick: v.onClick,
@@ -15988,7 +16099,7 @@ var PixelTab = memo42(
     })));
   }
 );
-var PixelTabLiItem = memo42(
+var PixelTabLiItem = memo43(
   ({
     onClick,
     on,
@@ -16000,50 +16111,50 @@ var PixelTabLiItem = memo42(
     themeType
   }) => {
     if (on) {
-      return /* @__PURE__ */ React104.createElement("li", null, /* @__PURE__ */ React104.createElement(ActivePixelButtonColor, {
+      return /* @__PURE__ */ React105.createElement("li", null, /* @__PURE__ */ React105.createElement(ActivePixelButtonColor, {
         hidePixel,
         themeType: themeType != null ? themeType : "brightBlue",
         height,
         pixel_height,
         className: "active_tvl_tab_on"
-      }, logo ? /* @__PURE__ */ React104.createElement(SvgComponent_default, {
+      }, logo ? /* @__PURE__ */ React105.createElement(SvgComponent_default, {
         src: logo
-      }) : null, label ? /* @__PURE__ */ React104.createElement("p", null, label) : null));
+      }) : null, label ? /* @__PURE__ */ React105.createElement("p", null, label) : null));
     }
-    return /* @__PURE__ */ React104.createElement("li", null, /* @__PURE__ */ React104.createElement(ActivePixelButton, {
+    return /* @__PURE__ */ React105.createElement("li", null, /* @__PURE__ */ React105.createElement(ActivePixelButton, {
       hidePixel,
       height,
       pixel_height,
       backgroundColor: "#1D263B",
       className: "active_tvl_tab",
       onClick
-    }, logo ? /* @__PURE__ */ React104.createElement(SvgComponent_default, {
+    }, logo ? /* @__PURE__ */ React105.createElement(SvgComponent_default, {
       src: logo
-    }) : null, label ? /* @__PURE__ */ React104.createElement("p", null, label) : null));
+    }) : null, label ? /* @__PURE__ */ React105.createElement("p", null, label) : null));
   }
 );
 var PixelTab_default = PixelTab;
 
 // src/components/PixelTab/PixelTabBorder.tsx
-import React105, { memo as memo43 } from "react";
-var PixelTabBorder = memo43(
+import React106, { memo as memo44 } from "react";
+var PixelTabBorder = memo44(
   ({
     className,
     tabList,
     height,
     pixel_height
   }) => {
-    return /* @__PURE__ */ React105.createElement(PixelCube2, {
+    return /* @__PURE__ */ React106.createElement(PixelCube2, {
       className: `ActiveTVLStaking_tab ${className != null ? className : ""}`,
       pixel_height,
       height,
       backgroundColor: "#1D263B",
       borderColor: "#1649FF"
-    }, tabList.map((v, index) => /* @__PURE__ */ React105.createElement("div", {
+    }, tabList.map((v, index) => /* @__PURE__ */ React106.createElement("div", {
       className: `ActiveTVLStaking_tab_li ${v.on ? "on" : ""}`,
       key: v.label,
       onClick: v.onClick
-    }, /* @__PURE__ */ React105.createElement("p", null, v.label))));
+    }, /* @__PURE__ */ React106.createElement("p", null, v.label))));
   }
 );
 var PixelTabBorder_default = PixelTabBorder;
@@ -16118,13 +16229,13 @@ var midnightTheme = ({
 midnightTheme.accentColors = accentColors3;
 
 // src/rainbowkit/src/transactions/useAddRecentTransaction.ts
-import { useCallback as useCallback42 } from "react";
+import { useCallback as useCallback43 } from "react";
 import { useAccount as useAccount13 } from "wagmi";
 function useAddRecentTransaction() {
   const store = useTransactionStore();
   const { address } = useAccount13();
   const chainId = useChainId();
-  return useCallback42(
+  return useCallback43(
     (transaction) => {
       if (!address || !chainId) {
         throw new Error("No address or chain ID found");
@@ -18121,6 +18232,7 @@ export {
   DialogClose_default as DialogClose,
   DivWrap_default as DivWrap,
   FORMAT,
+  Footer_default as Footer,
   Games,
   Gas0Constants,
   GlobalVar,
@@ -18202,7 +18314,7 @@ export {
   bnPow10,
   braveWallet,
   chainIdPre,
-  changeLanguage2 as changeLanguage,
+  changeLanguage3 as changeLanguage,
   cn_default as cn,
   coin98Wallet,
   coinbaseWallet,

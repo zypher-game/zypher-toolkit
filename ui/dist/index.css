@@ -964,14 +964,14 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   width: 24px;
   height: 24px;
 }
-.sidebarWrap .communityLink a .community_svg {
+.community_svg {
   fill: #fff;
   transition: all 0.3 ease;
 }
-.sidebarWrap .communityLink a .community_svg path {
+.community_svg path {
   transition: all 0.3 ease;
 }
-.sidebarWrap .communityLink a:hover .community_svg path {
+.community_svg:hover path {
   fill-opacity: 1;
 }
 .sideBar_Bottom {
@@ -1102,6 +1102,11 @@ body .tvlPixelTable_header > .pixel_flat_inner {
 }
 .zypher_logo img:nth-child(1) {
   width: 166px;
+}
+@media screen and (max-width: 830px) {
+  .zypher_logo img:nth-child(1) {
+    width: 32px;
+  }
 }
 .header_header {
   position: relative;
@@ -4478,6 +4483,143 @@ body .W_staking_staking > .pixel_flat_inner {
 }
 .MobileOptions_scroll__1656yi90::-webkit-scrollbar {
   display: none;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Footer/Footer.stylus */
+.footer_wrap {
+  position: relative;
+  z-index: 9;
+  padding: 110px 0;
+  background: linear-gradient(180deg, rgba(19, 24, 40, 0.1) 0%, rgba(19, 24, 40, 0.8) 100%);
+}
+@media screen and (max-width: 1236px) {
+  .footer_wrap {
+    padding: 16px 0 120px;
+  }
+}
+.footer_inner {
+  margin: 0 auto;
+  width: 1200px;
+}
+@media screen and (max-width: 830px) {
+  .footer_inner {
+    width: calc(100vw - 32px);
+  }
+}
+.footer_top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+@media screen and (max-width: 830px) {
+  .footer_top {
+    flex-direction: column;
+    gap: 36px;
+  }
+  .footer_top .zypher_logo {
+    display: block;
+    height: 30px;
+  }
+}
+.footer_top .footer_item {
+  flex: 1;
+}
+.footer_top .footer_item h4 {
+  color: #fff;
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 16px;
+  font-family: Poppins;
+  line-height: 25px;
+}
+.footer_top .footer_item .whitepaper {
+  padding-top: 16px;
+}
+.language_item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 16px;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+.language_item p {
+  opacity: 0.5;
+  line-height: 25px;
+  cursor: pointer;
+}
+.language_item p:hover {
+  opacity: 1;
+}
+.product_item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 16px;
+  font-size: 14px;
+  line-height: 25px;
+}
+@media screen and (max-width: 830px) {
+  .product_item {
+    flex-direction: row;
+  }
+}
+.product_item a.product_item_white {
+  opacity: 1;
+}
+.product_item p,
+.product_item a {
+  opacity: 0.5;
+  color: #fff;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+.product_item p:hover,
+.product_item a:hover {
+  opacity: 1;
+}
+.footer_community {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 50px;
+}
+.footer_community a {
+  display: block;
+}
+.footer_community a img {
+  display: block;
+  width: 32px;
+}
+.footer_bottom {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 48px;
+  padding-top: 48px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  gap: 24px;
+}
+@media screen and (max-width: 830px) {
+  .footer_bottom {
+    gap: 10px;
+    padding-top: 24px;
+  }
+}
+.footer_bottom p {
+  font-size: 14px;
+  color: #fff;
+  opacity: 0.5;
+}
+.footer_bottom p:first-child {
+  opacity: 0.3;
+}
+@media screen and (max-width: 830px) {
+  .footer_bottom p {
+    font-size: 11px;
+  }
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/PixelTab/PixelTab.styl */

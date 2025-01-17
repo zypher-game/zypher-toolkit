@@ -202,6 +202,7 @@ export {
 } from "./components/ConnectWallet/components/linkToBetaDialog/localPathUrl";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
+export { default as Footer } from "./components/Footer/Footer";
 export { sideCollapseState, pathnameState } from "./components/Header/state";
 export {
   default as PlayerAvatar,

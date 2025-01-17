@@ -47,6 +47,7 @@ export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
 export { ILocalPathUrl, localPathUrl, getChainNameText, } from "./components/ConnectWallet/components/linkToBetaDialog/localPathUrl";
 export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
 export { Header } from "./components/Header";
+export { default as Footer } from "./components/Footer/Footer";
 export { sideCollapseState, pathnameState } from "./components/Header/state";
 export { default as PlayerAvatar, IPlayerAvatar, PlayerAvatarList, } from "./components/PlayerAvatar";
 export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
