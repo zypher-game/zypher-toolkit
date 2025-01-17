@@ -6280,6 +6280,13 @@ var CommunityLink = memo15(({ className }) => {
   return /* @__PURE__ */ React19.createElement("div", {
     className
   }, /* @__PURE__ */ React19.createElement("a", {
+    href: "https://t.me/zyphernetwork",
+    target: "_blank",
+    rel: "noreferrer"
+  }, /* @__PURE__ */ React19.createElement(SvgComponent_default, {
+    className: "community_svg",
+    src: preStaticUrl + "/img/layout/telegram.svg"
+  })), /* @__PURE__ */ React19.createElement("a", {
     href: "https://twitter.com/Zypher_network",
     target: "_blank",
     rel: "noreferrer"
@@ -15043,7 +15050,7 @@ var Footer = memo41(
     const isMobile2 = useIsW768();
     const changeLanguageHandle = useCallback41((item) => {
       changeLanguage2(item.keyValue);
-      storage_default.set("language", item.keyValue);
+      storage.set("language", item.keyValue);
     }, []);
     return /* @__PURE__ */ React102.createElement("div", {
       className: "footer_wrap"

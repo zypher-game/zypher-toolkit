@@ -5,8 +5,6 @@ import "./Footer.stylus";
 import { languageList } from "../SideBar/component/Language";
 import { useIsW768 } from "../../hooks/useWindowSize";
 import CommunityLink from "../SideBar/component/CommunityLink";
-import { preStaticUrl } from "../../constant/constant";
-import storage from "../../utils/storage";
 import { ZypherLogo } from "../SideBar/SideBar";
 
 type ISolutionsItem = {
