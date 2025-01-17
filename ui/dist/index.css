@@ -1116,7 +1116,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   align-items: center;
   padding-left: 40px;
 }
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1430px) {
   .header_header .header_left {
     padding-left: 16px;
   }
@@ -1128,7 +1128,7 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   align-items: center;
   padding-right: 40px;
 }
-@media screen and (max-width: 1400px) {
+@media screen and (max-width: 1430px) {
   .header_header .header_right {
     padding-right: 16px;
   }

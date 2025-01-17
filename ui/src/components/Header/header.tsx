@@ -54,14 +54,14 @@ const Header = (props: IProps): React.ReactElement | null => {
   const [showBig, setShowBig] = useRecoilState(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState(showMiddleState);
 
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo(() => {
+  const { isW830, isW1190, isW1390, isW1540, isW1670, isWBig } = useMemo(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
-      isW1340: width <= 1340,
+      isW1390: width <= 1390,
       isW1540: width <= 1540,
       isW1670: width < 1670,
-      isWBig: width >= 1340,
+      isWBig: width >= 1390,
     };
   }, [width]);
   useEffect(() => {
@@ -86,7 +86,7 @@ const Header = (props: IProps): React.ReactElement | null => {
         "header_header",
         isW830 ? "header_header_830" : "",
         isW1190 ? "header_header_1190" : "",
-        isW1340 ? "header_header_1340" : "",
+        isW1390 ? "header_header_1390" : "",
         isW1540 ? "header_header_1540" : "",
         isW1670 ? "header_header_1670" : "",
         props.className
@@ -103,7 +103,7 @@ const Header = (props: IProps): React.ReactElement | null => {
         <RainbowConnectWallet
           type="pixel"
           isBigWidth={isWBig}
-          isMiddleWidth={isW1340}
+          isMiddleWidth={isW1390}
           useLocation={useLocation}
           copy={copy}
           env={env}

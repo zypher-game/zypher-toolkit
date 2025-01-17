@@ -14924,14 +14924,14 @@ var Header = (props) => {
   const { width } = useWindowSize();
   const [showBig, setShowBig] = useRecoilState16(showBigState);
   const [showMiddle, setShowMiddle] = useRecoilState16(showMiddleState);
-  const { isW830, isW1190, isW1340, isW1540, isW1670, isWBig } = useMemo23(() => {
+  const { isW830, isW1190, isW1390, isW1540, isW1670, isWBig } = useMemo23(() => {
     return {
       isW830: width <= 830,
       isW1190: width <= 1190,
-      isW1340: width <= 1340,
+      isW1390: width <= 1390,
       isW1540: width <= 1540,
       isW1670: width < 1670,
-      isWBig: width >= 1340
+      isWBig: width >= 1390
     };
   }, [width]);
   useEffect36(() => {
@@ -14955,7 +14955,7 @@ var Header = (props) => {
       "header_header",
       isW830 ? "header_header_830" : "",
       isW1190 ? "header_header_1190" : "",
-      isW1340 ? "header_header_1340" : "",
+      isW1390 ? "header_header_1390" : "",
       isW1540 ? "header_header_1540" : "",
       isW1670 ? "header_header_1670" : "",
       props.className
@@ -14974,7 +14974,7 @@ var Header = (props) => {
   }, /* @__PURE__ */ React101.createElement(rainbow_connectWallet_default, {
     type: "pixel",
     isBigWidth: isWBig,
-    isMiddleWidth: isW1340,
+    isMiddleWidth: isW1390,
     useLocation,
     copy,
     env,
