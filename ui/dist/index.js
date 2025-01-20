@@ -5174,7 +5174,7 @@ var Games = (chainId) => {
         {
           label: "Gammo",
           icon: "Gammo TG.png",
-          link: "https://t.me/GammoBot"
+          link: "https://t.me/zyGammoBot"
         }
       ]
     },

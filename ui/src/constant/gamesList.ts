@@ -30,7 +30,7 @@ export const Games = (chainId: ChainId): IGames[] => {
         {
           label: "Gammo",
           icon: "Gammo TG.png",
-          link: "https://t.me/GammoBot",
+          link: "https://t.me/zyGammoBot",
         },
       ],
     },
