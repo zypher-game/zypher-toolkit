@@ -1,0 +1,22 @@
+FROM docker.io/node:16-alpine AS builder
+ARG CURRENT_ENV
+
+RUN apk add git
+
+COPY . /bingo-frontend
+WORKDIR /bingo-frontend
+RUN npm cache clean --force
+RUN npm config set registry https://registry.npmjs.org/
+RUN yarn cache clean
+RUN yarn install
+RUN yarn build:dev
+
+FROM jidckii/nginx-geoip2 
+
+EXPOSE 3000
+COPY --from=builder /bingo-frontend/dist /usr/share/nginx/html
+
+RUN sed -i 's/country iso_code/source=$http_x_forwarded_for &/g' /etc/nginx/nginx.conf
+COPY --from=builder /bingo-frontend/nginx_deny_cn.conf /etc/nginx/conf.d/nginx_deny_cn.conf
+
+CMD ["nginx", "-g", "daemon off;"]

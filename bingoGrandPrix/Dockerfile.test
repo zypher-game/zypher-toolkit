@@ -1,0 +1,18 @@
+FROM docker.io/node:16-alpine AS builder
+
+RUN apk add git
+
+COPY . /bingo-frontend
+WORKDIR /bingo-frontend
+RUN npm cache clean --force
+RUN npm config set registry https://registry.npmjs.org/
+RUN yarn cache clean
+RUN yarn install
+RUN yarn build
+
+FROM docker.io/busybox:latest
+
+EXPOSE 3000
+COPY --from=builder /bingo-frontend/dist /build
+RUN echo "E404:index.html" > /etc/httpd.conf
+ENTRYPOINT ["httpd", "-f", "-p", "0.0.0.0:3000", "-h", "/build", "-c", "/etc/httpd.conf"]
