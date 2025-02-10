@@ -1,0 +1,76 @@
+
+lightBg.png
+size: 929, 1056
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+1blue
+  rotate: false
+  xy: 2, 507
+  size: 570, 549
+  orig: 598, 585
+  offset: 15, 19
+  index: -1
+2blue
+  rotate: true
+  xy: 2, 33
+  size: 472, 463
+  orig: 490, 491
+  offset: 10, 13
+  index: -1
+Gblue
+  rotate: true
+  xy: 467, 4
+  size: 377, 412
+  orig: 385, 428
+  offset: 8, 8
+  index: -1
+si1
+  rotate: false
+  xy: 574, 934
+  size: 225, 122
+  orig: 225, 122
+  offset: 0, 0
+  index: -1
+si2
+  rotate: true
+  xy: 801, 843
+  size: 213, 122
+  orig: 214, 122
+  offset: 0, 0
+  index: -1
+xx
+  rotate: false
+  xy: 574, 523
+  size: 149, 149
+  orig: 167, 167
+  offset: 9, 9
+  index: -1
+xx2
+  rotate: false
+  xy: 725, 523
+  size: 149, 149
+  orig: 167, 167
+  offset: 9, 9
+  index: -1
+丝带
+  rotate: false
+  xy: 467, 383
+  size: 430, 122
+  orig: 430, 122
+  offset: 0, 0
+  index: -1
+失
+  rotate: false
+  xy: 759, 674
+  size: 168, 167
+  orig: 168, 167
+  offset: 0, 0
+  index: -1
+败
+  rotate: true
+  xy: 574, 750
+  size: 182, 183
+  orig: 182, 183
+  offset: 0, 0
+  index: -1

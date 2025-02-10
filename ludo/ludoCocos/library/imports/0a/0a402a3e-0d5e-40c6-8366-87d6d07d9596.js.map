@@ -1,0 +1,1 @@
+{"version":3,"sources":["assets/Script/Core/Manager/type.ts"],"names":[],"mappings":"","file":"","sourceRoot":"/","sourcesContent":["export type AnimationClipsCallBack = (p: cc.AnimationClip[]) => void;\nexport type AnimationChipCallBack = (p: cc.AnimationClip) => void;\n"]}

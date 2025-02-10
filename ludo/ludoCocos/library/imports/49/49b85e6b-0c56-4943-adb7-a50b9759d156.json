@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "yanwu",
+    "texture": "f3c6c737-d06c-4e4b-b537-05dd19b6beca",
+    "atlas": "",
+    "rect": [
+      2,
+      2,
+      936,
+      770
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      940,
+      774
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

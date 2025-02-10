@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "wallet_bg",
+    "texture": "401ffd04-ca57-43fc-98b3-c122f1b9d366",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      400,
+      100
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      400,
+      100
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

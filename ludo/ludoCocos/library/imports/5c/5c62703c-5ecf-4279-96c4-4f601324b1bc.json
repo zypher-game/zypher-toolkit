@@ -1,0 +1,29 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "juxu",
+    "texture": "4b0adbe0-1ae0-4494-ba4c-8726419e295d",
+    "atlas": "38c9ffd9-5eab-4506-b778-75e89d524496",
+    "rect": [
+      2,
+      847,
+      167,
+      76
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      167,
+      76
+    ],
+    "rotated": 1,
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

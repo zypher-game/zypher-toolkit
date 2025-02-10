@@ -1,0 +1,14 @@
+{
+  "__type__": "dragonBones.DragonBonesAtlasAsset",
+  "_name": "sp_shouzhi_tex",
+  "_objFlags": 0,
+  "_native": "",
+  "_atlasJson": "{\"SubTexture\":[{\"width\":113,\"y\":1,\"height\":134,\"name\":\"shouzhi\",\"x\":1}],\"width\":128,\"imagePath\":\"sp_shouzhi_tex.png\",\"name\":\"sp_shouzhi\",\"height\":256}",
+  "_texture": {
+    "__uuid__": "09ef63e1-099c-49b3-95ef-d831cfaafd74"
+  },
+  "texture": {
+    "__uuid__": "09ef63e1-099c-49b3-95ef-d831cfaafd74"
+  },
+  "_textureAtlasData": null
+}

@@ -1,0 +1,44 @@
+{
+  "_des": "表注释：新手引导表",
+  "_name": "guideChainData",
+  "_version": "2022/4/7",
+  "data": [
+    {
+      "guideId": 1,
+      "chain": [
+        101,
+        102
+      ],
+      "keyStep": "",
+      "closeId": null,
+      "viewId": 100000,
+      "txt": "点击进入排位赛,点击进入匹配"
+    },
+    {
+      "guideId": 2,
+      "chain": [
+        103,
+        104,
+        105,
+        103,
+        109
+      ],
+      "keyStep": 109,
+      "closeId": null,
+      "viewId": 600101,
+      "txt": "点击投掷骰子,触摸飞机起飞，卡牌不足,可在大招宝库购买，点击投掷骰子， 触摸飞机移动"
+    },
+    {
+      "guideId": null,
+      "chain": [
+        106,
+        107,
+        108
+      ],
+      "keyStep": "",
+      "closeId": null,
+      "viewId": 100000,
+      "txt": "点击进入大招宝库,点击购买卡牌,前往试试大招的效果吧！"
+    }
+  ]
+}

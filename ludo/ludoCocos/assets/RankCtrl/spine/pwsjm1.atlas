@@ -1,0 +1,97 @@
+
+pwsjm1.png
+size: 824, 532
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+t1
+  rotate: false
+  xy: 738, 81
+  size: 41, 43
+  orig: 45, 45
+  offset: 2, 0
+  index: -1
+图层1
+  rotate: false
+  xy: 2, 4
+  size: 219, 244
+  orig: 251, 249
+  offset: 21, 4
+  index: -1
+图层36
+  rotate: false
+  xy: 2, 250
+  size: 572, 282
+  orig: 572, 282
+  offset: 0, 0
+  index: -1
+图层57
+  rotate: false
+  xy: 223, 28
+  size: 135, 56
+  orig: 135, 56
+  offset: 0, 0
+  index: -1
+图层649
+  rotate: false
+  xy: 223, 86
+  size: 191, 162
+  orig: 214, 188
+  offset: 16, 9
+  index: -1
+旋转桨1
+  rotate: false
+  xy: 360, 29
+  size: 54, 55
+  orig: 54, 55
+  offset: 0, 0
+  index: -1
+旋转桨2
+  rotate: false
+  xy: 684, 70
+  size: 52, 54
+  orig: 52, 54
+  offset: 0, 0
+  index: -1
+爆炸云
+  rotate: true
+  xy: 576, 235
+  size: 297, 246
+  orig: 298, 252
+  offset: 1, 1
+  index: -1
+红弹
+  rotate: false
+  xy: 565, 13
+  size: 117, 111
+  orig: 130, 120
+  offset: 12, 6
+  index: -1
+蓝弹
+  rotate: false
+  xy: 416, 65
+  size: 147, 183
+  orig: 148, 190
+  offset: 0, 4
+  index: -1
+速度线1
+  rotate: false
+  xy: 684, 20
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+速度线2
+  rotate: false
+  xy: 684, 20
+  size: 48, 48
+  orig: 48, 48
+  offset: 0, 0
+  index: -1
+飞机
+  rotate: false
+  xy: 565, 126
+  size: 231, 107
+  orig: 248, 109
+  offset: 17, 2
+  index: -1

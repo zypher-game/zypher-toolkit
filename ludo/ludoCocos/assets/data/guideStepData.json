@@ -1,0 +1,97 @@
+{
+  "_des": "表注释：新手引导表",
+  "_name": "guideStepData",
+  "_version": "2022/4/25",
+  "data": [
+    {
+      "stepId": 101,
+      "type": 2,
+      "msgkey": "点击进入排位赛",
+      "path": "Canvas/uiRoot/HomeCtrl/bg/rankBtn",
+      "offset": [],
+      "aniOffset": [],
+      "aniRotate": "",
+      "aniType": "",
+      "talkPos": [
+        -50,
+        0
+      ],
+      "drags": [],
+      "listIndex": "",
+      "time": 0,
+      "fixed": 0
+    },
+    {
+      "stepId": 102,
+      "type": 2,
+      "msgkey": "点击进入匹配",
+      "path": "Canvas/uiRoot/RankCtrl/bg/ScrollView/view/content/RankItem1",
+      "offset": [],
+      "aniOffset": [],
+      "aniRotate": "",
+      "aniType": "",
+      "talkPos": [
+        -50,
+        0
+      ],
+      "drags": [],
+      "listIndex": "",
+      "time": 0,
+      "fixed": 0
+    },
+    {
+      "stepId": 103,
+      "type": 2,
+      "msgkey": "点击投掷骰子",
+      "path": "Canvas/uiRoot/BattleViewCtrl/bg/touzhi",
+      "offset": [],
+      "aniOffset": [],
+      "aniRotate": "",
+      "aniType": "",
+      "talkPos": [
+        -50,
+        0
+      ],
+      "drags": [],
+      "listIndex": "",
+      "time": 1000,
+      "fixed": 0
+    },
+    {
+      "stepId": 104,
+      "type": 2,
+      "msgkey": "触摸飞机起飞",
+      "path": "Canvas/uiRoot/BattleViewCtrl/bg/map/fightLayer/JXRBRole_2_0",
+      "offset": [],
+      "aniOffset": [],
+      "aniRotate": "",
+      "aniType": "",
+      "talkPos": [
+        -50,
+        0
+      ],
+      "drags": [],
+      "listIndex": "",
+      "time": 0,
+      "fixed": 0
+    },
+    {
+      "stepId": 109,
+      "type": 2,
+      "msgkey": "触摸飞机移动",
+      "path": "Canvas/uiRoot/BattleViewCtrl/bg/map/fightLayer/JXRBRole_2_0",
+      "offset": [],
+      "aniOffset": [],
+      "aniRotate": "",
+      "aniType": "",
+      "talkPos": [
+        -50,
+        0
+      ],
+      "drags": [],
+      "listIndex": "",
+      "time": 0,
+      "fixed": 0
+    }
+  ]
+}

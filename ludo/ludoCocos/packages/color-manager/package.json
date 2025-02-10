@@ -1,0 +1,20 @@
+{
+  "name": "color-manager",
+  "version": "0.0.1",
+  "description": "The package is a color manager for project",
+  "author": "stanYQ",
+  "main": "main.js",
+  "main-menu": {
+    "i18n:MAIN_MENU.project.title/i18n:color-manager.colorManager": {
+      "accelerator": "CmdOrCtrl+i",
+      "message": "color-manager:open"
+    }
+  },
+  "panel": {
+    "main": "panel/index.js",
+    "type": "dockable",
+    "title": "colorManager",
+    "width": 960,
+    "height": 850
+  }
+}

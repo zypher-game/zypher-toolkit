@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "fkbj",
+    "texture": "45733f2d-53a0-441c-a2dd-0c5060794100",
+    "atlas": "",
+    "rect": [
+      2,
+      181,
+      1015,
+      836
+    ],
+    "offset": [
+      0,
+      -89.5
+    ],
+    "originalSize": [
+      1019,
+      1019
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -1,0 +1,828 @@
+{
+  "__type__": "sp.SkeletonData",
+  "_name": "pwsjm3",
+  "_objFlags": 0,
+  "_native": "",
+  "_skeletonJson": {
+    "skeleton": {
+      "hash": "ZnQdsIYp1ow",
+      "spine": "3.8-from-4.0.09",
+      "x": -285,
+      "y": -141.29,
+      "width": 569.9,
+      "height": 277.68,
+      "images": "",
+      "audio": ""
+    },
+    "bones": [
+      {
+        "name": "root"
+      },
+      {
+        "name": "bone",
+        "parent": "root",
+        "x": 205.26,
+        "y": -30.22
+      },
+      {
+        "name": "bone2",
+        "parent": "root",
+        "x": 87.62,
+        "y": -9.61
+      },
+      {
+        "name": "bone3",
+        "parent": "root",
+        "x": -196.37,
+        "y": -96.64
+      },
+      {
+        "name": "bone4",
+        "parent": "root",
+        "x": -237.91,
+        "y": 37.32
+      },
+      {
+        "name": "bone5",
+        "parent": "root",
+        "x": 184.53,
+        "y": -91.79
+      },
+      {
+        "name": "bone6",
+        "parent": "root",
+        "x": -9.34,
+        "y": -68.98
+      },
+      {
+        "name": "bone7",
+        "parent": "root",
+        "x": 79.7,
+        "y": 71.36
+      },
+      {
+        "name": "bone8",
+        "parent": "root",
+        "x": -256.25,
+        "y": 123.38
+      },
+      {
+        "name": "bone9",
+        "parent": "root",
+        "x": -127.05,
+        "y": 69.03
+      },
+      {
+        "name": "bone19",
+        "parent": "root",
+        "x": 102.02,
+        "y": -31.94,
+        "color": "ff0000ff"
+      },
+      {
+        "name": "bone10",
+        "parent": "bone19",
+        "x": -53.21,
+        "y": 14.51
+      },
+      {
+        "name": "bone11",
+        "parent": "root",
+        "x": 173.07,
+        "y": 39.96
+      },
+      {
+        "name": "bone12",
+        "parent": "root",
+        "x": -49.3,
+        "y": -96.78
+      },
+      {
+        "name": "bone13",
+        "parent": "root",
+        "x": -146.27,
+        "y": -13.53
+      },
+      {
+        "name": "bone14",
+        "parent": "root",
+        "x": 252.32,
+        "y": 77.22
+      },
+      {
+        "name": "bone15",
+        "parent": "root",
+        "x": -40.15,
+        "y": -132.94
+      },
+      {
+        "name": "bone16",
+        "parent": "root",
+        "x": 270.35,
+        "y": 115
+      },
+      {
+        "name": "bone17",
+        "parent": "root",
+        "x": 63.44,
+        "y": 128.71
+      },
+      {
+        "name": "bone18",
+        "parent": "root",
+        "x": 189.58,
+        "y": -78.76
+      },
+      {
+        "name": "bone20",
+        "parent": "root"
+      }
+    ],
+    "slots": [
+      {
+        "name": "bb",
+        "bone": "bone20",
+        "attachment": "bb"
+      },
+      {
+        "name": "图层646",
+        "bone": "bone20",
+        "attachment": "图层646"
+      },
+      {
+        "name": "云5",
+        "bone": "bone19",
+        "attachment": "云"
+      },
+      {
+        "name": "云",
+        "bone": "bone8"
+      },
+      {
+        "name": "云2",
+        "bone": "bone16",
+        "attachment": "云2"
+      },
+      {
+        "name": "云3",
+        "bone": "bone",
+        "attachment": "云3"
+      },
+      {
+        "name": "云4",
+        "bone": "bone17",
+        "attachment": "云4"
+      },
+      {
+        "name": "火焰",
+        "bone": "bone3",
+        "attachment": "火焰"
+      },
+      {
+        "name": "火焰3",
+        "bone": "bone12",
+        "attachment": "火焰2"
+      },
+      {
+        "name": "火焰2",
+        "bone": "bone12"
+      },
+      {
+        "name": "烟1",
+        "bone": "bone2",
+        "attachment": "烟1"
+      },
+      {
+        "name": "烟2",
+        "bone": "bone7",
+        "attachment": "烟2"
+      },
+      {
+        "name": "爆炸云4",
+        "bone": "bone9",
+        "attachment": "爆炸云1"
+      },
+      {
+        "name": "爆炸云2",
+        "bone": "bone14",
+        "attachment": "爆炸云2"
+      },
+      {
+        "name": "爆炸云2(2)",
+        "bone": "bone13",
+        "attachment": "爆炸云2(2)"
+      },
+      {
+        "name": "爆炸云3",
+        "bone": "bone4",
+        "attachment": "爆炸云3"
+      },
+      {
+        "name": "飞机",
+        "bone": "bone19",
+        "attachment": "飞机"
+      },
+      {
+        "name": "火花",
+        "bone": "bone5",
+        "attachment": "火花"
+      },
+      {
+        "name": "3",
+        "bone": "bone6",
+        "attachment": "3"
+      },
+      {
+        "name": "云55",
+        "bone": "bone15",
+        "attachment": "云55"
+      },
+      {
+        "name": "2",
+        "bone": "bone11",
+        "attachment": "1"
+      },
+      {
+        "name": "6",
+        "bone": "bone10",
+        "attachment": "5"
+      },
+      {
+        "name": "4",
+        "bone": "bone18",
+        "attachment": "4"
+      }
+    ],
+    "skins": [
+      {
+        "name": "default",
+        "attachments": {
+          "2": {
+            "1": {
+              "x": -23.93,
+              "y": 15.13,
+              "width": 135,
+              "height": 78
+            }
+          },
+          "3": {
+            "3": {
+              "x": 8.12,
+              "y": 6.46,
+              "width": 127,
+              "height": 91
+            }
+          },
+          "4": {
+            "4": {
+              "x": -15.09,
+              "y": 10.01,
+              "width": 91,
+              "height": 36
+            }
+          },
+          "6": {
+            "5": {
+              "x": -2.93,
+              "y": 11.43,
+              "width": 192,
+              "height": 103
+            }
+          },
+          "bb": {
+            "bb": {
+              "type": "clipping",
+              "end": "bb",
+              "vertexCount": 4,
+              "vertices": [
+                -285,
+                136.39,
+                284.9,
+                133.67,
+                284.64,
+                -141.29,
+                -284.81,
+                -137.75
+              ],
+              "color": "ce3a3aff"
+            }
+          },
+          "云2": {
+            "云2": {
+              "x": -43.88,
+              "y": 8.22,
+              "width": 152,
+              "height": 56
+            }
+          },
+          "云3": {
+            "云3": {
+              "x": -16.65,
+              "y": -3.67,
+              "width": 266,
+              "height": 208
+            }
+          },
+          "云4": {
+            "云4": {
+              "x": 1.54,
+              "y": 4,
+              "width": 86,
+              "height": 51
+            }
+          },
+          "云5": {
+            "云": {
+              "x": -339.56,
+              "y": 160.47,
+              "width": 105,
+              "height": 96
+            }
+          },
+          "云55": {
+            "云55": {
+              "x": -23.02,
+              "y": 3.98,
+              "width": 129,
+              "height": 57
+            }
+          },
+          "图层646": {
+            "图层646": {
+              "width": 572,
+              "height": 282
+            }
+          },
+          "火焰": {
+            "火焰": {
+              "x": 23.01,
+              "y": 13.12,
+              "width": 290,
+              "height": 187
+            }
+          },
+          "火焰3": {
+            "火焰2": {
+              "x": -10.29,
+              "y": 3.69,
+              "width": 77,
+              "height": 74
+            }
+          },
+          "火花": {
+            "火花": {
+              "x": -19.56,
+              "y": 6.29,
+              "width": 255,
+              "height": 132
+            }
+          },
+          "烟1": {
+            "烟1": {
+              "x": -6.23,
+              "y": 19.07,
+              "width": 294,
+              "height": 231
+            }
+          },
+          "烟2": {
+            "烟2": {
+              "x": -24.39,
+              "y": 18.59,
+              "width": 139,
+              "height": 92
+            }
+          },
+          "爆炸云2": {
+            "爆炸云2": {
+              "x": -1.85,
+              "y": -3.26,
+              "width": 72,
+              "height": 70
+            }
+          },
+          "爆炸云2(2)": {
+            "爆炸云2(2)": {
+              "x": 3.5,
+              "y": -4.75,
+              "width": 72,
+              "height": 70
+            }
+          },
+          "爆炸云3": {
+            "爆炸云3": {
+              "x": 9.77,
+              "y": -38.5,
+              "width": 172,
+              "height": 176
+            }
+          },
+          "爆炸云4": {
+            "爆炸云1": {
+              "x": 5.5,
+              "y": -7.96,
+              "width": 111,
+              "height": 97
+            }
+          },
+          "飞机": {
+            "飞机": {
+              "x": -15.24,
+              "y": -6.91,
+              "width": 319,
+              "height": 238
+            }
+          }
+        }
+      }
+    ],
+    "animations": {
+      "animation": {
+        "slots": {
+          "2": {
+            "color": [
+              {
+                "color": "ffffffff"
+              },
+              {
+                "time": 0.8333,
+                "color": "ffffffca"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffffff"
+              }
+            ]
+          },
+          "3": {
+            "color": [
+              {
+                "color": "ffffffff"
+              },
+              {
+                "time": 0.8333,
+                "color": "ffffffc2"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffffff"
+              }
+            ]
+          },
+          "6": {
+            "color": [
+              {
+                "color": "ffffffff"
+              },
+              {
+                "time": 0.8333,
+                "color": "ffffff93"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffffff"
+              }
+            ]
+          },
+          "云55": {
+            "color": [
+              {
+                "color": "ffffffc6"
+              },
+              {
+                "time": 0.3333,
+                "color": "ffffffa3"
+              },
+              {
+                "time": 1.1333,
+                "color": "ffffffff"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffffc6"
+              }
+            ]
+          },
+          "烟2": {
+            "color": [
+              {
+                "color": "ffffffe8"
+              },
+              {
+                "time": 0.3,
+                "color": "ffffffff"
+              },
+              {
+                "time": 1.1333,
+                "color": "ffffffc0"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffffe8"
+              }
+            ]
+          },
+          "爆炸云2": {
+            "color": [
+              {
+                "time": 0.9,
+                "color": "fffffffe"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffff00"
+              }
+            ]
+          },
+          "爆炸云2(2)": {
+            "color": [
+              {
+                "time": 0.8,
+                "color": "ffffffff"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffff00"
+              }
+            ]
+          },
+          "爆炸云3": {
+            "color": [
+              {
+                "time": 0.7333,
+                "color": "ffffffff"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffff00"
+              }
+            ]
+          },
+          "爆炸云4": {
+            "color": [
+              {
+                "time": 0.6667,
+                "color": "ffffffff"
+              },
+              {
+                "time": 1.6667,
+                "color": "ffffff00"
+              }
+            ]
+          }
+        },
+        "bones": {
+          "bone18": {
+            "translate": [
+              {
+                "y": -1.91
+              },
+              {
+                "time": 0.4333
+              },
+              {
+                "time": 1.1,
+                "y": -2.93
+              },
+              {
+                "time": 1.3333,
+                "y": -1.91
+              }
+            ]
+          },
+          "bone17": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "y": 2.45
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone16": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "y": 4.9
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone15": {
+            "translate": [
+              {
+                "y": -2.28
+              },
+              {
+                "time": 0.3333
+              },
+              {
+                "time": 1.1333,
+                "y": -5.92
+              },
+              {
+                "time": 1.6667,
+                "y": -2.28
+              }
+            ]
+          },
+          "bone14": {
+            "scale": [
+              {
+                "x": 0,
+                "y": 0,
+                "curve": "stepped"
+              },
+              {
+                "time": 0.1667,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "time": 0.5
+              }
+            ]
+          },
+          "bone13": {
+            "scale": [
+              {
+                "x": 0,
+                "y": 0,
+                "curve": "stepped"
+              },
+              {
+                "time": 0.2667,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "time": 0.5
+              }
+            ]
+          },
+          "bone11": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "x": -6.93,
+                "y": 3.85
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone10": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "x": 8.28
+              },
+              {
+                "time": 1.6667
+              }
+            ],
+            "scale": [
+              {},
+              {
+                "time": 0.8333,
+                "x": 0.922,
+                "y": 0.922
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone9": {
+            "scale": [
+              {
+                "x": 0,
+                "y": 0
+              },
+              {
+                "time": 0.3333
+              }
+            ]
+          },
+          "bone7": {
+            "translate": [
+              {
+                "x": -4.72,
+                "y": 2.5
+              },
+              {
+                "time": 0.3
+              },
+              {
+                "time": 1.1333,
+                "x": -13.1,
+                "y": 6.93
+              },
+              {
+                "time": 1.6667,
+                "x": -4.72,
+                "y": 2.5
+              }
+            ]
+          },
+          "bone6": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "y": -4.62
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone4": {
+            "scale": [
+              {
+                "x": 0,
+                "y": 0,
+                "curve": "stepped"
+              },
+              {
+                "time": 0.1333,
+                "x": 0,
+                "y": 0
+              },
+              {
+                "time": 0.4
+              }
+            ]
+          },
+          "bone3": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "y": -7.7
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone2": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "y": -8.37
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone": {
+            "translate": [
+              {},
+              {
+                "time": 0.8333,
+                "y": -4.9
+              },
+              {
+                "time": 1.6667
+              }
+            ]
+          },
+          "bone19": {
+            "translate": [
+              {},
+              {
+                "time": 0.6667,
+                "y": -7.32
+              },
+              {
+                "time": 1.3333
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "_atlasText": "\r\npwsjm3.png\r\nsize: 945, 653\r\nformat: RGBA8888\r\nfilter: Linear, Linear\r\nrepeat: none\r\n1\r\n  rotate: true\r\n  xy: 872, 390\r\n  size: 112, 60\r\n  orig: 135, 78\r\n  offset: 23, 0\r\n  index: -1\r\n3\r\n  rotate: true\r\n  xy: 754, 112\r\n  size: 126, 90\r\n  orig: 127, 91\r\n  offset: 1, 1\r\n  index: -1\r\n4\r\n  rotate: true\r\n  xy: 538, 76\r\n  size: 88, 35\r\n  orig: 91, 36\r\n  offset: 1, 0\r\n  index: -1\r\n5\r\n  rotate: false\r\n  xy: 345, 63\r\n  size: 191, 101\r\n  orig: 192, 103\r\n  offset: 1, 0\r\n  index: -1\r\n云\r\n  rotate: false\r\n  xy: 754, 15\r\n  size: 105, 95\r\n  orig: 105, 96\r\n  offset: 0, 1\r\n  index: -1\r\n云2\r\n  rotate: true\r\n  xy: 872, 504\r\n  size: 149, 55\r\n  orig: 152, 56\r\n  offset: 3, 0\r\n  index: -1\r\n云3\r\n  rotate: false\r\n  xy: 312, 166\r\n  size: 263, 203\r\n  orig: 266, 208\r\n  offset: 3, 5\r\n  index: -1\r\n云4\r\n  rotate: true\r\n  xy: 861, 40\r\n  size: 86, 50\r\n  orig: 86, 51\r\n  offset: 0, 0\r\n  index: -1\r\n云55\r\n  rotate: false\r\n  xy: 345, 6\r\n  size: 129, 55\r\n  orig: 129, 57\r\n  offset: 0, 0\r\n  index: -1\r\n图层646\r\n  rotate: false\r\n  xy: 2, 371\r\n  size: 572, 282\r\n  orig: 572, 282\r\n  offset: 0, 0\r\n  index: -1\r\n火焰\r\n  rotate: false\r\n  xy: 577, 240\r\n  size: 284, 181\r\n  orig: 290, 187\r\n  offset: 3, 4\r\n  index: -1\r\n火焰2\r\n  rotate: true\r\n  xy: 476, 4\r\n  size: 57, 61\r\n  orig: 77, 74\r\n  offset: 20, 13\r\n  index: -1\r\n火花\r\n  rotate: false\r\n  xy: 2, 10\r\n  size: 254, 131\r\n  orig: 255, 132\r\n  offset: 1, 1\r\n  index: -1\r\n烟1\r\n  rotate: false\r\n  xy: 576, 423\r\n  size: 294, 230\r\n  orig: 294, 231\r\n  offset: 0, 1\r\n  index: -1\r\n烟2\r\n  rotate: true\r\n  xy: 258, 4\r\n  size: 137, 85\r\n  orig: 139, 92\r\n  offset: 0, 3\r\n  index: -1\r\n爆炸云1\r\n  rotate: true\r\n  xy: 846, 128\r\n  size: 110, 97\r\n  orig: 111, 97\r\n  offset: 0, 0\r\n  index: -1\r\n爆炸云2\r\n  rotate: true\r\n  xy: 863, 244\r\n  size: 71, 70\r\n  orig: 72, 70\r\n  offset: 0, 0\r\n  index: -1\r\n爆炸云2(2)\r\n  rotate: true\r\n  xy: 863, 317\r\n  size: 71, 70\r\n  orig: 72, 70\r\n  offset: 0, 0\r\n  index: -1\r\n爆炸云3\r\n  rotate: true\r\n  xy: 577, 67\r\n  size: 171, 175\r\n  orig: 172, 176\r\n  offset: 1, 0\r\n  index: -1\r\n飞机\r\n  rotate: false\r\n  xy: 2, 143\r\n  size: 308, 226\r\n  orig: 319, 238\r\n  offset: 11, 12\r\n  index: -1\r\n",
+  "textures": [
+    {
+      "__uuid__": "ff3b2887-b6f9-406f-b065-6497d500dbe1"
+    }
+  ],
+  "textureNames": [
+    "pwsjm3.png"
+  ],
+  "scale": 1
+}

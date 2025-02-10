@@ -1,0 +1,53 @@
+/* :host {
+    margin: 5px;
+}
+
+h2 {
+    color: #f90;
+} */
+
+.bottom {
+    height: 80px;
+    margin-bottom: 0px;
+}
+
+ui-button {
+    margin-left: 10px;
+}
+
+.item {
+    height: 30px;
+    padding-top: 20px;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+.collorName,
+.uiColor,
+.describe {
+    padding-left: 10px;
+    height: 100%;
+}
+
+.describeLabel{
+    padding-left: 10px;
+    height: 100%; 
+    margin-top: 7px;
+}
+
+h3{
+    margin-top: 5px;
+}
+
+ui-color,ui-input{
+ width: 100%;
+}
+
+.showColor{
+    width: 120px;
+}
+
+.input{
+    width: 100px;
+
+}

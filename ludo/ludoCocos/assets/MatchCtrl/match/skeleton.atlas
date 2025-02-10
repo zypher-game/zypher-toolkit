@@ -1,0 +1,109 @@
+
+skeleton.png
+size: 978, 978
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+biubiu
+  rotate: true
+  xy: 2, 307
+  size: 346, 769
+  orig: 356, 777
+  offset: 5, 4
+  index: -1
+q1
+  rotate: false
+  xy: 105, 860
+  size: 118, 118
+  orig: 118, 118
+  offset: 0, 0
+  index: -1
+q2
+  rotate: false
+  xy: 813, 815
+  size: 163, 163
+  orig: 163, 163
+  offset: 0, 0
+  index: -1
+redkuang
+  rotate: false
+  xy: 225, 823
+  size: 421, 155
+  orig: 421, 155
+  offset: 0, 0
+  index: -1
+s
+  rotate: true
+  xy: 431, 655
+  size: 161, 222
+  orig: 172, 227
+  offset: 4, 5
+  index: -1
+v
+  rotate: true
+  xy: 648, 818
+  size: 160, 163
+  orig: 160, 163
+  offset: 0, 0
+  index: -1
+zs1
+  rotate: false
+  xy: 2, 944
+  size: 39, 34
+  orig: 39, 34
+  offset: 0, 0
+  index: -1
+zs2
+  rotate: false
+  xy: 43, 920
+  size: 60, 58
+  orig: 60, 58
+  offset: 0, 0
+  index: -1
+矩形 1470 拷贝
+  rotate: false
+  xy: 2, 666
+  size: 427, 155
+  orig: 427, 155
+  offset: 0, 0
+  index: -1
+
+skeleton_2.png
+size: 1013, 1013
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+blue
+  rotate: true
+  xy: 2, 122
+  size: 445, 1009
+  orig: 445, 1009
+  offset: 0, 0
+  index: -1
+diandianred
+  rotate: true
+  xy: 2, 569
+  size: 444, 477
+  orig: 448, 500
+  offset: 4, 0
+  index: -1
+
+skeleton_3.png
+size: 1013, 1013
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+red
+  rotate: false
+  xy: 452, 4
+  size: 447, 1009
+  orig: 447, 1009
+  offset: 0, 0
+  index: -1
+背景
+  rotate: false
+  xy: 2, 4
+  size: 448, 1009
+  orig: 448, 1009
+  offset: 0, 0
+  index: -1

@@ -4,7 +4,8 @@
   "scripts": {
     "bingo_start": "cd bingo && npm run start",
     "bingo_start:tg_pro": "cd bingo && npm run start:tg_pro",
-    "games_start": "cd games && npm run start"
+    "games_start": "cd games && npm run start",
+    "ludo_dev_wrap": "cd ludo/ludoReact && npm run start"
   },
   "peerDependencies": {
     "@vanilla-extract/css": "1.9.1",

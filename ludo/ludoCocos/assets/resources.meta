@@ -1,0 +1,32 @@
+{
+  "ver": "1.1.2",
+  "uuid": "91f00717-58a8-4ae8-a518-1087b6869d63",
+  "isBundle": true,
+  "bundleName": "resources",
+  "priority": 8,
+  "compressionType": {
+    "cocos-runtime": "subpackage",
+    "wechatgame": "subpackage",
+    "bytedance": "subpackage",
+    "qgame": "subpackage"
+  },
+  "optimizeHotUpdate": {
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "bytedance": false,
+    "qgame": false
+  },
+  "inlineSpriteFrames": {
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "bytedance": false,
+    "qgame": false
+  },
+  "isRemoteBundle": {
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "bytedance": false,
+    "qgame": false
+  },
+  "subMetas": {}
+}

@@ -16,7 +16,6 @@ const Account = memo(
   ({
     isMiddleWidth,
     env,
-    dispatch,
     setSuccessToast,
     setErrorToast,
     copy,
@@ -25,7 +24,6 @@ const Account = memo(
   }: {
     isMiddleWidth: boolean;
     env: string;
-    dispatch: any;
     setSuccessToast: any;
     copy: any;
     CountUpNumber?: React.FC<any>;

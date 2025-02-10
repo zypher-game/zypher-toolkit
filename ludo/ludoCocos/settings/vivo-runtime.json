@@ -1,0 +1,19 @@
+{
+  "package": "com.ytd.zqxyx.vivominigame",
+  "name": "最强小英雄",
+  "icon": "F:\\littleHero\\Project\\icon\\256x256new.png",
+  "versionName": "1.6.4",
+  "versionCode": "164",
+  "minPlatformVersion": "1090",
+  "deviceOrientation": "landscape",
+  "logLevel": "log",
+  "npmPath": "",
+  "tinyPackageServer": "",
+  "useDebugKey": false,
+  "privatePath": "F:\\littleHero\\Project\\private.pem",
+  "certificatePath": "F:\\littleHero\\Project\\certificate.pem",
+  "disabledMode": "",
+  "showNpmPath": true,
+  "packFirstScreenRes": false,
+  "separateEngineMode": true
+}

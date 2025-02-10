@@ -1,0 +1,222 @@
+{
+  "__type__": "sp.SkeletonData",
+  "_name": "SD",
+  "_objFlags": 0,
+  "_native": "",
+  "_skeletonJson": {
+    "skeleton": {
+      "hash": "fnW4D1yo9G4",
+      "spine": "3.8-from-4.0.09",
+      "x": -299.92,
+      "y": -96.5,
+      "width": 605.29,
+      "height": 310.73,
+      "images": "./images/",
+      "audio": "E:/游戏项目/飞行棋动画/排位闪电"
+    },
+    "bones": [
+      {
+        "name": "root"
+      },
+      {
+        "name": "bone3",
+        "parent": "root",
+        "x": 2.77,
+        "y": 60.62,
+        "scaleX": 3,
+        "scaleY": 3
+      },
+      {
+        "name": "bone4",
+        "parent": "root",
+        "x": 56.01,
+        "y": 86.98
+      },
+      {
+        "name": "bone5",
+        "parent": "root",
+        "rotation": -91.03,
+        "x": 2.73,
+        "y": 58.86,
+        "scaleX": 3,
+        "scaleY": 3
+      }
+    ],
+    "slots": [
+      {
+        "name": "图层 1",
+        "bone": "root"
+      },
+      {
+        "name": "2",
+        "bone": "root"
+      },
+      {
+        "name": "3",
+        "bone": "root"
+      },
+      {
+        "name": "4",
+        "bone": "root"
+      },
+      {
+        "name": "F/L_00000",
+        "bone": "bone5",
+        "attachment": "F/L_00000"
+      }
+    ],
+    "skins": [
+      {
+        "name": "default",
+        "attachments": {
+          "F/L_00000": {
+            "F/L_00000": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00001": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00002": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00003": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00004": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00005": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00006": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00007": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00008": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00009": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00010": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00011": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00014": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00016": {
+              "width": 100,
+              "height": 200
+            },
+            "F/L_00018": {
+              "width": 100,
+              "height": 200
+            }
+          }
+        }
+      }
+    ],
+    "animations": {
+      "animation": {
+        "slots": {
+          "F/L_00000": {
+            "attachment": [
+              {
+                "time": 0.0667,
+                "name": "F/L_00001"
+              },
+              {
+                "time": 0.1333,
+                "name": "F/L_00002"
+              },
+              {
+                "time": 0.2,
+                "name": "F/L_00003"
+              },
+              {
+                "time": 0.2667,
+                "name": "F/L_00004"
+              },
+              {
+                "time": 0.3333,
+                "name": "F/L_00005"
+              },
+              {
+                "time": 0.4,
+                "name": "F/L_00006"
+              },
+              {
+                "time": 0.4667,
+                "name": "F/L_00007"
+              },
+              {
+                "time": 0.5333,
+                "name": "F/L_00008"
+              },
+              {
+                "time": 0.6,
+                "name": "F/L_00009"
+              },
+              {
+                "time": 0.6667,
+                "name": "F/L_00010"
+              },
+              {
+                "time": 0.7333,
+                "name": "F/L_00011"
+              },
+              {
+                "time": 0.8,
+                "name": "F/L_00014"
+              },
+              {
+                "time": 0.8667,
+                "name": "F/L_00016"
+              },
+              {
+                "time": 0.9333,
+                "name": "F/L_00018"
+              },
+              {
+                "time": 1,
+                "name": null
+              },
+              {
+                "time": 1.6667,
+                "name": null
+              }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "_atlasText": "\r\nSD.png\r\nsize: 1024, 128\r\nformat: RGBA8888\r\nfilter: Linear, Linear\r\nrepeat: none\r\nF/L_00000\r\n  rotate: true\r\n  xy: 673, 88\r\n  size: 39, 43\r\n  orig: 100, 200\r\n  offset: 29, 12\r\n  index: -1\r\nF/L_00001\r\n  rotate: true\r\n  xy: 673, 88\r\n  size: 39, 43\r\n  orig: 100, 200\r\n  offset: 29, 12\r\n  index: -1\r\nF/L_00002\r\n  rotate: true\r\n  xy: 398, 22\r\n  size: 42, 127\r\n  orig: 100, 200\r\n  offset: 25, 17\r\n  index: -1\r\nF/L_00003\r\n  rotate: true\r\n  xy: 2, 11\r\n  size: 51, 142\r\n  orig: 100, 200\r\n  offset: 22, 13\r\n  index: -1\r\nF/L_00004\r\n  rotate: true\r\n  xy: 147, 66\r\n  size: 61, 138\r\n  orig: 100, 200\r\n  offset: 19, 18\r\n  index: -1\r\nF/L_00005\r\n  rotate: true\r\n  xy: 257, 4\r\n  size: 60, 139\r\n  orig: 100, 200\r\n  offset: 26, 20\r\n  index: -1\r\nF/L_00006\r\n  rotate: true\r\n  xy: 2, 64\r\n  size: 63, 143\r\n  orig: 100, 200\r\n  offset: 18, 20\r\n  index: -1\r\nF/L_00007\r\n  rotate: true\r\n  xy: 287, 66\r\n  size: 61, 129\r\n  orig: 100, 200\r\n  offset: 25, 38\r\n  index: -1\r\nF/L_00008\r\n  rotate: true\r\n  xy: 418, 77\r\n  size: 50, 106\r\n  orig: 100, 200\r\n  offset: 24, 54\r\n  index: -1\r\nF/L_00009\r\n  rotate: true\r\n  xy: 146, 8\r\n  size: 54, 109\r\n  orig: 100, 200\r\n  offset: 19, 59\r\n  index: -1\r\nF/L_00010\r\n  rotate: true\r\n  xy: 527, 36\r\n  size: 47, 89\r\n  orig: 100, 200\r\n  offset: 20, 67\r\n  index: -1\r\nF/L_00011\r\n  rotate: true\r\n  xy: 618, 43\r\n  size: 40, 99\r\n  orig: 100, 200\r\n  offset: 26, 68\r\n  index: -1\r\nF/L_00014\r\n  rotate: true\r\n  xy: 526, 85\r\n  size: 42, 100\r\n  orig: 100, 200\r\n  offset: 20, 75\r\n  index: -1\r\nF/L_00016\r\n  rotate: false\r\n  xy: 719, 81\r\n  size: 45, 46\r\n  orig: 100, 200\r\n  offset: 18, 132\r\n  index: -1\r\nF/L_00018\r\n  rotate: false\r\n  xy: 628, 87\r\n  size: 43, 40\r\n  orig: 100, 200\r\n  offset: 17, 141\r\n  index: -1\r\n",
+  "textures": [
+    {
+      "__uuid__": "28555655-a349-4895-89a4-dd455393e82c"
+    }
+  ],
+  "textureNames": [
+    "SD.png"
+  ],
+  "scale": 1
+}

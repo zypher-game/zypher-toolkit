@@ -189,7 +189,7 @@ export { default as SideBar } from "./components/SideBar/SideBar";
 export { default as DivWrap } from "./components/DivWrap/DivWrap";
 export { NavKey } from "./components/Header/Navigation/Navigation";
 export { default as IsPixelWidget } from "./components/Header/rainbow_account/IsPixelWidget";
-
+export { default as Account } from "./components/Header/rainbow_account/rainbow_account";
 export {
   useNativeBalanceStr,
   usePointsBalanceStr,

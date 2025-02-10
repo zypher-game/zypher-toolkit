@@ -1,0 +1,41 @@
+{
+  "_des": "表注释：游戏内各杂项配置说明及数值",
+  "_name": "systemConfig",
+  "_version": "2022/4/25",
+  "data": [
+    {
+      "key": "roundTime",
+      "value": 1,
+      "txt": "回合时间"
+    },
+    {
+      "key": "InitCoin",
+      "value": 10000,
+      "txt": "初始金币"
+    },
+    {
+      "key": "videoCoin",
+      "value": 600,
+      "txt": "视频奖励金币数量"
+    },
+    {
+      "key": "videoPhysical",
+      "value": 2,
+      "txt": "视频奖励体力数量"
+    },
+    {
+      "key": "robotDiceTime",
+      "value": [
+        3,
+        4,
+        5
+      ],
+      "txt": "机器人投掷随机时间"
+    },
+    {
+      "key": "moveCountDown",
+      "value": 1,
+      "txt": "选择移动对象倒计时"
+    }
+  ]
+}

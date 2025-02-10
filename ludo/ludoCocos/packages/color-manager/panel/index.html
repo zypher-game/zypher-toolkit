@@ -1,0 +1,36 @@
+<div class="layout vertical" style="height: 100%;">
+    <div class="flex" style="width: 100%;overflow:scroll;height: 90%;">
+        <div class="layout horizontal item" v-for="color in colors" :key="color.colorName">
+            <div class="uiColor">
+                <ui-input v-value="color.colorName" style="width: 120px;"></ui-input>
+                <ui-color class="showColor" v-value="color.colorRGB"></ui-color>
+            </div>
+            <span style=" margin-top: 10px; margin-left: 20px;">描述：</span>
+            <div class="flex-2 describeLabel">
+                <ui-input v-value:value="color.describe"></ui-input>
+            </div>
+            <ui-button style="margin-top: 5px;" v-on:confirm="onRemoveBtnClick(color.colorName)">删除</ui-button>
+        </div>
+    </div>
+    <div class="bottom">
+        <div class="layout horizontal" style="height:40px;">
+            <div>
+                <h3 class="describe">名称:</h3>
+            </div>
+            <div class="describe" style="width: 60px;">
+                <ui-input v-value="addInfo.colorName" placeholder="Name..."></ui-input>
+            </div>
+            <div class="uiColor" style="width: 60px;">
+                <ui-color v-value="addInfo.colorRGB"></ui-color>
+            </div>
+            <div>
+                <h3 class="describe">描述:</h3>
+            </div>
+            <div class="flex-2 describe" style="margin-right: 10px;">
+                <ui-input v-value="addInfo.describe" placeholder="Describe..."></ui-input>
+            </div>
+        </div>
+        <ui-button v-on:confirm="onAddBtnClick">添加</ui-button>
+        <ui-button v-on:confirm="onDeriveBtnClick">保存</ui-button>
+    </div>
+</div>

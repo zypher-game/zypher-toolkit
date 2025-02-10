@@ -1,0 +1,32 @@
+{
+  "ver": "1.1.2",
+  "uuid": "be783e3e-0498-42b1-8caf-56abf1fb8260",
+  "isBundle": false,
+  "bundleName": "audio",
+  "priority": "3",
+  "compressionType": {
+    "bytedance": "subpackage",
+    "cocos-runtime": "subpackage",
+    "wechatgame": "subpackage",
+    "qgame": "subpackage"
+  },
+  "optimizeHotUpdate": {
+    "bytedance": false,
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "qgame": false
+  },
+  "inlineSpriteFrames": {
+    "bytedance": false,
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "qgame": false
+  },
+  "isRemoteBundle": {
+    "bytedance": false,
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "qgame": false
+  },
+  "subMetas": {}
+}

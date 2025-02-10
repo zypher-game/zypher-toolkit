@@ -1,0 +1,84 @@
+"use strict";
+cc._RF.push(module, 'aa14dpjH3NMJoEMyAkwMKG0', 'Zh');
+// Script/Game/Common/Zh.ts
+
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.JXLocales = void 0;
+exports.JXLocales = {
+    load: {
+        assetLoad: "资源加载中...",
+        process: "资源加载中： {1}/{2}",
+        static: "配置数据加载中：{1}/{2}",
+        load_pro: "进度显示",
+        initUserData: "初始化用户数据",
+        userDataLoad: "用户数据加载中{1}/{2}",
+        loading: "加载中...",
+        loadPackage: "正在加载分包",
+        enter_game: "正在进入游戏世界",
+    },
+    fight: {
+        ready: "准备",
+        no_card: "没有对应技能卡牌",
+    },
+    tip: {
+        box0: "宝箱未解锁",
+    },
+    /**段位图标动效 */
+    levelSkin: {
+        //baiyin: "baiyin",
+        // by_hj: 'by-hj',
+        // by_qt: 'by-qt',
+        // dashi: 'dashi',
+        //ds_wz: 'ds-wz',
+        //ds_xy: 'ds-xy',
+        //hj_by: 'hj-by',
+        //hj_zs: 'hj-zs',
+        //huangjin: "huangjin",
+        //qingtong: 'qingtong',
+        //qt_by: "qt-by",
+        // wangzhe: 'wangzhe',
+        //wz_ds: "wz-ds",
+        //xingyao: 'xingyao',
+        //xy_ds: 'xy-ds',
+        //xy_zs: "xy-zs",
+        //zs_hj: 'zs-hj',
+        //zs_xy: 'zs-xy',
+        //zuanshi: 'zuanshi',
+        level1: "qingtong",
+        level2: "baiyin",
+        level3: "huangjin",
+        level4: "zuanshi",
+        level5: "xingyao",
+        level6: "dashi",
+        level7: "wangzhe",
+        upgrade2: "qt-by",
+        upgrade3: "by-hj",
+        upgrade4: "hj-zs",
+        upgrade5: "zs-xy",
+        upgrade6: "xy-ds",
+        upgrade7: "ds-wz",
+        demote1: "by-qt",
+        demote2: "hj-by",
+        demote3: "zs-hj",
+        demote4: "xy-zs",
+        demote5: "ds-xy",
+        demote6: "wz-ds",
+        star: {
+            jia: "jia",
+            jian: "jian",
+            kong: "kong",
+            wu: "wu",
+        },
+    },
+    currency: {
+        info0: "观看广告获得{1}金币",
+        info1: "观看广告获得{1}点体力",
+        coin: "金币不足",
+        py: "体力不足",
+    },
+    common: { guide_step_tip: "当前引导{1}/{2}" },
+    tth: "万",
+};
+
+cc._RF.pop();

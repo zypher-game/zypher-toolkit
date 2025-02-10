@@ -67,7 +67,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
                 <AccountInfo
                   copy={copy}
                   env={env}
-                  dispatch={dispatch}
                   setSuccessToast={setSuccessToast}
                   setErrorToast={setErrorToast}
                   CountUpNumber={CountUpNumber}

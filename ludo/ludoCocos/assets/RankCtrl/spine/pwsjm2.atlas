@@ -1,0 +1,76 @@
+
+pwsjm2.png
+size: 692, 692
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+beijing
+  rotate: false
+  xy: 2, 410
+  size: 572, 282
+  orig: 572, 282
+  offset: 0, 0
+  index: -1
+bianyuan
+  rotate: true
+  xy: 2, 177
+  size: 231, 247
+  orig: 233, 249
+  offset: 1, 1
+  index: -1
+f1
+  rotate: false
+  xy: 482, 9
+  size: 176, 160
+  orig: 176, 160
+  offset: 0, 0
+  index: -1
+f2
+  rotate: false
+  xy: 2, 7
+  size: 183, 168
+  orig: 186, 171
+  offset: 2, 2
+  index: -1
+feiji
+  rotate: false
+  xy: 482, 171
+  size: 208, 230
+  orig: 208, 238
+  offset: 0, 0
+  index: -1
+huoyan
+  rotate: true
+  xy: 187, 112
+  size: 63, 54
+  orig: 64, 55
+  offset: 1, 0
+  index: -1
+w1
+  rotate: true
+  xy: 576, 594
+  size: 98, 95
+  orig: 98, 96
+  offset: 0, 1
+  index: -1
+w2
+  rotate: true
+  xy: 576, 403
+  size: 89, 87
+  orig: 90, 88
+  offset: 0, 1
+  index: -1
+w3
+  rotate: true
+  xy: 576, 494
+  size: 98, 95
+  orig: 100, 98
+  offset: 1, 2
+  index: -1
+yingzi
+  rotate: false
+  xy: 251, 161
+  size: 229, 247
+  orig: 231, 249
+  offset: 1, 1
+  index: -1

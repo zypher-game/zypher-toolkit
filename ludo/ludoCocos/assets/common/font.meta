@@ -1,0 +1,32 @@
+{
+  "ver": "1.1.2",
+  "uuid": "fd02ee38-0fe0-45ce-b1f7-ead365201ee1",
+  "isBundle": false,
+  "bundleName": "font",
+  "priority": "3",
+  "compressionType": {
+    "bytedance": "subpackage",
+    "cocos-runtime": "subpackage",
+    "wechatgame": "subpackage",
+    "qgame": "subpackage"
+  },
+  "optimizeHotUpdate": {
+    "bytedance": false,
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "qgame": false
+  },
+  "inlineSpriteFrames": {
+    "bytedance": false,
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "qgame": false
+  },
+  "isRemoteBundle": {
+    "bytedance": false,
+    "cocos-runtime": false,
+    "wechatgame": false,
+    "qgame": false
+  },
+  "subMetas": {}
+}

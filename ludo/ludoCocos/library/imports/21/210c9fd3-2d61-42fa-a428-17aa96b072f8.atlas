@@ -1,0 +1,83 @@
+
+yanwu.png
+size: 940, 774
+format: RGBA8888
+filter: Linear, Linear
+repeat: none
+_0000_du_10
+  rotate: false
+  xy: 253, 4
+  size: 264, 232
+  orig: 296, 275
+  offset: 19, 18
+  index: -1
+_0001_du_09
+  rotate: true
+  xy: 519, 7
+  size: 248, 247
+  orig: 296, 275
+  offset: 22, 19
+  index: -1
+_0002_du_08
+  rotate: false
+  xy: 701, 274
+  size: 237, 245
+  orig: 296, 275
+  offset: 24, 20
+  index: -1
+_0003_du_07
+  rotate: false
+  xy: 475, 521
+  size: 231, 253
+  orig: 296, 275
+  offset: 25, 13
+  index: -1
+_0004_du_06
+  rotate: true
+  xy: 2, 5
+  size: 225, 249
+  orig: 296, 275
+  offset: 25, 16
+  index: -1
+_0005_du_05
+  rotate: false
+  xy: 708, 531
+  size: 222, 243
+  orig: 296, 275
+  offset: 28, 22
+  index: -1
+_0006_du_04
+  rotate: true
+  xy: 236, 515
+  size: 259, 237
+  orig: 296, 275
+  offset: 33, 23
+  index: -1
+_0007_du_03
+  rotate: true
+  xy: 470, 257
+  size: 256, 229
+  orig: 296, 275
+  offset: 36, 25
+  index: -1
+_0008_du_02
+  rotate: true
+  xy: 2, 232
+  size: 270, 231
+  orig: 296, 275
+  offset: 17, 22
+  index: -1
+_0009_du_01
+  rotate: true
+  xy: 2, 504
+  size: 270, 232
+  orig: 296, 275
+  offset: 17, 20
+  index: -1
+_0010_du_00
+  rotate: true
+  xy: 235, 238
+  size: 264, 233
+  orig: 296, 275
+  offset: 19, 19
+  index: -1

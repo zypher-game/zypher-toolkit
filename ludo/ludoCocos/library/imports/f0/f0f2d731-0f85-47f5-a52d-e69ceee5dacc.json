@@ -1,0 +1,83 @@
+{
+  "__type__": "cc.JsonAsset",
+  "_name": "rankData",
+  "_objFlags": 0,
+  "_native": "",
+  "json": {
+    "_des": "表注释：段位表。\n",
+    "_name": "rankData",
+    "_version": "2022/4/6",
+    "data": [
+      {
+        "id": 1,
+        "name": "青铜",
+        "star": 3,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      },
+      {
+        "id": 2,
+        "name": "白银",
+        "star": 3,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      },
+      {
+        "id": 3,
+        "name": "黄金",
+        "star": 3,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      },
+      {
+        "id": 4,
+        "name": "钻石",
+        "star": 3,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      },
+      {
+        "id": 5,
+        "name": "星耀",
+        "star": 3,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      },
+      {
+        "id": 6,
+        "name": "大师",
+        "star": 3,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      },
+      {
+        "id": 7,
+        "name": "王者",
+        "star": 999,
+        "blindBox": [
+          1014,
+          1015,
+          1016
+        ]
+      }
+    ]
+  }
+}

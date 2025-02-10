@@ -1,0 +1,26 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "gameOver.plist",
+  "_objFlags": 0,
+  "_native": "",
+  "_spriteFrames": {
+    "coin": {
+      "__uuid__": "68619a20-322d-4b63-af12-a70fbec14e38"
+    },
+    "juxu": {
+      "__uuid__": "5c62703c-5ecf-4279-96c4-4f601324b1bc"
+    },
+    "lose": {
+      "__uuid__": "b906433c-7f62-4d3e-9911-572ef68d60be"
+    },
+    "receive": {
+      "__uuid__": "9476440a-d95e-4792-af08-46c846cfe779"
+    },
+    "round": {
+      "__uuid__": "c6baca05-cbbe-4443-bcb5-bb07c80332ca"
+    },
+    "win": {
+      "__uuid__": "f4765c58-a825-482f-9339-4b2f267567c7"
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "package": "com.tyq.zqxyx.nearme.gamecenter",
+  "name": "最强小英雄",
+  "icon": "F:\\littleHero\\Project\\icon.png",
+  "versionName": "1.6.3",
+  "versionCode": "163",
+  "minPlatformVersion": "1060",
+  "deviceOrientation": "landscape",
+  "logLevel": "log",
+  "tinyPackageServer": "",
+  "useDebugKey": false,
+  "privatePath": "F:\\littleHero\\Project\\private.pem",
+  "certificatePath": "F:\\littleHero\\Project\\certificate.pem",
+  "disabledMode": "",
+  "npmPath": "",
+  "showNpmPath": false,
+  "packFirstScreenRes": false,
+  "separateEngineMode": false
+}

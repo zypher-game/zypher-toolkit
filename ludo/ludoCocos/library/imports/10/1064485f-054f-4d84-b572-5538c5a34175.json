@@ -1,0 +1,77 @@
+{
+  "__type__": "cc.SpriteAtlas",
+  "_name": "rankImg.plist",
+  "_objFlags": 0,
+  "_native": "",
+  "_spriteFrames": {
+    "Diamonds3": {
+      "__uuid__": "1d0a223b-b424-4eb0-b586-1c620603946c"
+    },
+    "No": {
+      "__uuid__": "5c09bad0-b06a-4d61-b047-fb497a05fe38"
+    },
+    "Qualifying": {
+      "__uuid__": "f4c96f40-d20e-4b53-8a96-57b969331a2f"
+    },
+    "add": {
+      "__uuid__": "2668bfc2-bcc1-4505-ac33-785422dcf31e"
+    },
+    "bar": {
+      "__uuid__": "7b85223a-3cef-416a-b298-2380f7d28eb6"
+    },
+    "box1": {
+      "__uuid__": "ec4e66a2-9ada-4566-b849-567cb832e86d"
+    },
+    "box2": {
+      "__uuid__": "a86143f2-c009-4eee-9493-4784b9f5ab1c"
+    },
+    "box3": {
+      "__uuid__": "fa6cc48c-93eb-4123-8f3a-9d77fee05e74"
+    },
+    "boxUnLock": {
+      "__uuid__": "30cfbc6b-1740-4759-9774-3840aa12a5af"
+    },
+    "close": {
+      "__uuid__": "ab75d957-bc76-421e-900c-3561efbbb9d3"
+    },
+    "coin": {
+      "__uuid__": "1537248e-bfb1-4d7c-8b6a-0d1e5e9dd6a7"
+    },
+    "gameHead_1": {
+      "__uuid__": "4018d2aa-1ec0-40fc-b535-0d173bf63989"
+    },
+    "gameHead_2": {
+      "__uuid__": "98635063-8fe9-4564-a829-8336b4d373ce"
+    },
+    "gameHead_3": {
+      "__uuid__": "b719fab8-d66f-44f2-a395-d430682b96a3"
+    },
+    "gameName_1": {
+      "__uuid__": "3688262e-fc63-4804-83cc-011f0cd1ba1d"
+    },
+    "gameName_2": {
+      "__uuid__": "c99c3b9e-bfc8-4b71-bfaa-5a4b4583ae86"
+    },
+    "gameName_3": {
+      "__uuid__": "ad586720-0f57-408d-afb9-b88078099265"
+    },
+    "pass": {
+      "__uuid__": "e0855871-a5a0-4580-8f35-6949910593ac"
+    },
+    "physical": {
+      "__uuid__": "f225852c-c6b4-453d-b17c-afcecb06bc9f"
+    },
+    "receive": {
+      "__uuid__": "80bcbb6b-4338-4470-ac85-b7d3699d44d0"
+    },
+    "unLocked": {
+      "__uuid__": "a8b18c3e-dac3-4722-b1b2-8de3b4b1fa65"
+    },
+    "val": {
+      "__uuid__": "f4882d81-f164-4a99-bd4d-4ed29346bd54"
+    },
+    "val2": {
+      "__uuid__": "39f1b5c8-736e-4218-8678-6844e52e3120"
+    }
+  }
+}
