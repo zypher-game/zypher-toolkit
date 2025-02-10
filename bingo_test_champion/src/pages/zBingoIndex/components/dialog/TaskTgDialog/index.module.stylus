@@ -1,0 +1,130 @@
+.bg
+  @media screen and (max-width: 830px)
+    background: transparent!important
+body [data-reach-dialog-content].taskBg
+  position relative
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.png") no-repeat
+  width: 90%;
+  padding: 0 3px 10px;
+  background-size: 100% 100%
+  max-width: 830px
+    // bingoindexbg01_m.png
+  .close
+    position absolute
+    cursor pointer
+    width: 34px;
+    height: 34px;
+    right: 10px;
+    top: 10px;
+.taskInnerBg
+  position relative
+  width: 97%
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.png") no-repeat
+  padding: 30px 25px
+  background-size: 100% 100%
+  overflow: hidden
+  margin: 0 auto
+.taskInner
+  max-height: 70vh;
+  overflow-y: scroll
+  &::-webkit-scrollbar 
+    display: none;
+
+  &::-webkit-scrollbar-thumb 
+    background-color: rgba(143, 72, 0, 0.5); 
+    border-radius: 8px; 
+.total
+  height: 40px;
+  display: flex;
+  gap: 6px
+  align-items: center;
+  justify-content: center;
+  background: url($preStaticUrl + '/img/bingo/title.png') no-repeat
+  background-size: 100% 100%
+  // border: 1px solid #613C17;
+  // padding: 10px 20px;
+  // border-radius: 8px;
+  .flex
+    display: flex;
+    align-items: center;
+    justify-content:flex-end
+    gap: 4px
+  .text
+    font-size: 14px;
+    color: #613C17;
+  .num
+    font-size: 16px;
+    font-family: Lemon;
+    color: #613C17;
+.title
+  lemonFont()
+  text-align: center
+  font-size: 18px;
+  line-height: 24px;
+  padding: 30px 0 16px;
+.list
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #FFE4BB
+  border-radius: 8px
+  margin: 8px 0 
+  padding: 10px
+  font-family: Lemon
+  .left
+    font-size: 14px;
+    color: #613C17;
+    .name
+      color: #613C17;
+      font-family: "Poppins";
+      font-weight: 400;
+    .des
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      gap: 8px;
+  > .action
+    > img
+      display: none;
+  &.checked
+    background-color: #E8C38C
+    > .left
+      opacity: 0.8;
+    > .action
+      > .btn
+        display: none;
+      > img
+        display: block;
+    &.all
+      > .action
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        > .btn
+          display: flex;
+          transform: scale(0.8);
+        > img 
+          display: block;
+h2.name
+  lemonFont()
+  font-size: 16px
+  padding-top: 20px
+.pointImg
+  width 20px
+  height: 20px
+.action
+  .btn
+    width 90px
+    height 32px
+    :global(.btn-text)
+      font-size: 16px
+.loading
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-color: rgba(0, 0, 0, 0.3);

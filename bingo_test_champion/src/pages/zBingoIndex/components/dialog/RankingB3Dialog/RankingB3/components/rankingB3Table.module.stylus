@@ -1,0 +1,103 @@
+.text1,.text2,.text3
+  text-align: right 
+  width 30%
+  @media screen and (max-width: 830px)
+    width auto
+.ranking_header
+  padding: 0 26px 
+  background: linear-gradient(180deg, #c2650c 0%, #ac5707 100%)
+  box-shadow: 0px 1px 2px 0px #8f4502 inset, 0px -2px 0px 0px #b67149 inset
+  background-color: #B67149
+  border-radius: 16px;
+  font-family: Lemon
+  display: flex
+  justify-content: space-between
+  align-items: center
+  height: 44px
+  opacity 0.9
+  margin: 0 30px 8px;
+  @media screen and (max-width: 830px)
+    border-radius: 8px;
+    margin: 0 20px 8px 
+    padding: 0 12px 
+    height: 38px
+  .fl
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    gap: 34px;
+  .fr
+    display: flex
+    justify-content: flex-end
+    align-items: center
+    min-width: 50%
+  p
+    color: #ffe4ae
+    font-size: 14px
+    @media screen and (max-width: 830px)
+      font-size: 12px
+.ranking_table 
+  height: 400px
+  overflow-x: scroll
+  padding: 0 30px 
+  position relative
+  @media screen and (max-width: 830px)
+    height: 366px
+    padding: 0 20px 
+.item
+  font-family: Lemon
+  display: flex
+  justify-content: space-between
+  align-items: center
+  padding: 0 26px
+  height 74px
+  border-radius: 16px;
+  background: linear-gradient(180deg, #FCECCD 0%, #F9E6C2 100%);
+  box-shadow: 0px 1px 2px 0px #FFFEFD inset, 0px -2px 0px 0px #B67149 inset;
+  margin-bottom: 10px
+  @media screen and (max-width: 830px)
+    padding: 0 12px 0
+    height 46px
+    margin-bottom: 8px
+  .number
+    position relative
+    min-width: 50%
+    &.numberList
+      display: flex
+      justify-content: flex-end
+      align-items: center
+      gap: 16px;
+    img
+      position absolute
+      top: -6px
+      left: -35px
+      width: 48px
+      @media screen and (max-width: 830px)
+        width: 24px
+        top: -3px
+        left: -26px
+    p
+      height: 38px
+      line-height: 38px
+      color: #6a3700;
+      font-size: 24px;
+      @media screen and (max-width: 830px)
+        line-height: 20px
+        height: 20px
+        padding: 0 10px 0 20px
+        font-size: 12px;
+    // p
+    //   margin-left: -20px
+    //   padding: 0 16px
+    //   height: 38px
+    //   line-height: 38px
+    //   border-radius: 21px;
+    //   background: #8E571E;
+    //   box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25) inset;
+    //   color: #FFDC7C;
+    //   font-size: 20px;
+    //   @media screen and (max-width: 830px)
+    //     line-height: 20px
+    //     height: 20px
+    //     padding: 0 10px 0 20px
+    //     font-size: 12px;

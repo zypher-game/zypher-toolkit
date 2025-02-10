@@ -1,0 +1,25 @@
+.avatar-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  background-size: cover;
+  margin-right: 10px;
+  border-radius: 50%;
+  position: relative;
+  transition: all 0.5s;
+  background: pink;
+  border: 1px solid red;
+}
+
+button {
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}

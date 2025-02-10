@@ -1,0 +1,101 @@
+.inner
+  width: 690px
+  height: 680px
+  background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta.png') no-repeat
+  background-size: 100% 100%
+  background-position: center
+  position fixed
+  left: 50%
+  top: 50%
+  transform: translate(-50%, -50%)
+  text-align: center
+  @media screen and (max-width: 830px)
+    padding-top: 50px;
+    max-width: 360px
+    width: 70%
+    height: 400px
+    background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m.png') no-repeat
+    background-size: 100% 100%
+    top: 58%
+    &.tgInner
+      top: 60%
+      width: 70%
+      height: 450px
+      background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m_TG.png') no-repeat
+      background-size: 100% 100%
+    h3
+      font-size: 18px
+      font-family: Lemon
+      @media screen and (max-width: 830px)
+        font-size: 13px
+  .title 
+    font-weight: 600
+    position absolute
+    width 313px
+    top: -20px
+    left: 50%
+    transform: translateX(-50%)
+    @media screen and (max-width: 830px)
+      width 50%
+      top: -42px
+  h3
+    font-size: 20px
+    color: #FFE7CC
+    margin: 160px 0 40px
+    @media screen and (max-width: 830px)
+      font-size: 14px
+      margin: 20px 0 20px
+  .border
+    width: 180px;
+    height: 180px;
+    margin: 0 auto;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 6px solid #D17700;
+    padding: 10px
+    display: flex
+    align-items: center
+    justify-content: center
+    @media screen and (max-width: 830px)
+      padding: 2px
+      width: 120px;
+      height: 120px;
+    img 
+      display block
+      width: 100%
+  .button
+    font-style: normal
+    font-size: 34px
+    background: url($preStaticUrl + '/img/bingo/bingo_btn.png') no-repeat
+    background-size: 100% 100%
+    width: 350px
+    height: 80px
+    line-height: 80px
+    flexCenter()
+    margin: 40px auto 0
+    font-family: Lemon
+    cursor pointer
+    gap: 6px
+    &.buttonAnim
+      animation: scale 0.5s infinite;
+    @media screen and (max-width: 830px)
+      font-size: 20px
+      width: 60%
+      height: 50px
+      line-height: 50px
+    &.disabled
+      opacity: 0.95
+      pointer-events: none
+      cursor: not-allowed
+
+@keyframes scale {
+  0% {
+    transform: scale(0.95);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+  100% {
+    transform: scale(0.95);
+  }
+}

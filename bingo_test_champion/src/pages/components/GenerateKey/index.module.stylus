@@ -1,0 +1,53 @@
+.generateKey
+  margin: 0 auto
+
+  &.disabled
+    opacity: 0.1
+    pointer-events: none
+
+  .title
+    font-style: normal
+    font-size: 14px
+    line-height: 24px
+    text-align: center
+    lemonFont()
+  img
+    margin: 0 auto 
+    padding: 16px
+    display: block
+
+  .button
+    font-style: normal
+    font-weight: 400
+    font-size: 24px
+    color: #FFF5E1
+    text-shadow: -1px -1.5px 0px #208001
+    background: url($preStaticUrl + '/img/bingo/btn.svg') no-repeat
+    background-size: 100% auto
+    width: 258px
+    height: 67px
+    border: 0 none
+    flexCenter()
+    margin: 32px auto 8px
+
+    &:disabled
+      pointer-events: none
+      cursor: not-allowed
+
+  .tip
+    font-style: normal
+    font-size: 12px
+    line-height: 30px
+    opacity: 0.6
+    margin: 8px 0 0
+    text-align: center
+    lemonFont()
+.mTitle
+  text-align: center;
+  font-size: 16px;
+  lemonFont()
+.btnWrap
+  display: flex
+  justify-content: center
+  align-items: center
+  padding-top: 24px

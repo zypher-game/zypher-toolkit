@@ -1,0 +1,81 @@
+.matchmarking
+  text-align: center
+  margin: 0 auto
+  padding: 0 7px
+
+  .title
+    font-style: normal
+    font-size: 12px
+    line-height: 14px
+    text-align: center
+    max-width: 570px
+    margin: 8px auto 32px
+    color: #62380C
+  .pending
+    flexCenter()
+    font-style: normal
+    font-size: 16px
+    line-height: 30px
+    lemonFont()
+    gap: 9px
+    padding-top: 20px
+    :global(.icon)
+      margin: 0 8px 0 0
+    :global(.svg_component)
+      width: 20px
+  .button
+    font-style: normal
+    font-weight: 400
+    font-size: 24px
+    color: #FFF5E1
+    text-shadow: -1px -1.5px 0px #208001
+    background: url($preStaticUrl + '/img/bingo//btn.svg') no-repeat
+    background-size: 100% auto
+    width: 258px
+    height: 67px
+    border: 0 none
+    flexCenter()
+    margin: 0 auto
+
+    &:disabled
+      pointer-events: none
+      cursor: not-allowed
+
+  .tip
+    font-style: normal
+    font-size: 12px
+    line-height: 30px
+    /* identical to box height, or 250% */
+    text-align: center
+    opacity: 0.6
+    margin: 8px 0 0
+    lemonFont()
+  .checkCard
+    margin: 24px 0 16px
+    font-style: normal
+    font-weight: 400
+    font-size: 12px
+    line-height: 16px
+    text-align: center
+    color: #59B407
+    cursor: pointer
+    font-family: Lemon
+		@media screen and (max-width: 830px)
+      margin: 14px 0 6px
+  .players
+    flexCenter()
+    gap: 35px
+.cardBox
+  display: flex;
+  .bingoCardView 
+    display:flex;
+    align-items:center
+    justify-content: center;
+    flex-direction: column
+  .CardBack 
+    cursor: pointer
+    width: 350px
+    padding: 34px 84px
+    font-size: 16px;
+    color:#613C17;
+    

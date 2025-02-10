@@ -4,6 +4,7 @@
   "scripts": {
     "bingo_start": "cd bingo && npm run start",
     "bingo_start:tg_pro": "cd bingo && npm run start:tg_pro",
+    "bingo_champion_start": "cd bingo_test_champion && npm run start",
     "games_start": "cd games && npm run start",
     "ludo_dev_wrap": "cd ludo/ludoReact && npm run start"
   },
