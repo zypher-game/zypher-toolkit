@@ -1,5 +1,5 @@
-import BigNumberjs from "bignumber.js";
-import { Address } from "wagmi";
+import BigNumberjs from 'bignumber.js';
+import { Address } from 'wagmi';
 export declare const appInfo: {
     appName: string;
 };
@@ -38,8 +38,10 @@ export declare enum ChainId {
     Taiko = "167000",
     SagaMainnet = "2717465680371000",
     B3Mainnet = "8333",
-    EXPTestnet = "18880"
+    EXPTestnet = "18880",
+    BaseSepolia = "84532"
 }
+export declare const bingoChampionSupportedChainId: ChainId[];
 export declare const DPSupportChainId: ChainId[];
 export declare const bingoV1SupportedChainId: ChainId[];
 export declare const bingoBetaSupportedChainId: ChainId[];
@@ -70,8 +72,9 @@ export declare enum IContractName {
     ZkGame2048 = "ZkGame2048",
     ZkGame2048API = "ZkGame2048API"
 }
-export declare const zkBingoV0: (chainId: ChainId | undefined, name: IContractName) => Address;
-export declare const zkBingo: (chainId: ChainId | number | undefined, name: IContractName) => Address;
+export declare const zkBingoBeta: (chainId: ChainId | undefined, name: IContractName) => Address;
+export declare const zkBingoV1: (chainId: ChainId | number | undefined, name: IContractName) => Address;
+export declare const zkBingoChampion: (chainId: ChainId | number | undefined, name: IContractName) => Address;
 export declare const defaultRankChainId = ChainId.ArbitrumGoerli;
 export declare const TG_BOT_URL: string;
 export declare const targetDate: Date;

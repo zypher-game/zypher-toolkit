@@ -7,7 +7,7 @@ body .address_wrap_big_pop_wrap
     opacity 0
     height 0
     position absolute  
-    top: 36px;
+    top: 16px;
     right: 0;
     z-index: 4;
     transition: all 0.3s ease

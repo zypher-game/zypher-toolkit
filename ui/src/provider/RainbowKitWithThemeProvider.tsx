@@ -1,15 +1,15 @@
-import "../utils/i18n";
+import '../utils/i18n';
 
-import React, { FC, ReactNode, useMemo } from "react";
+import React, { FC, ReactNode, useMemo } from 'react';
 
-import { appInfo, ChainId } from "../constant/constant";
-import { WagmiConfig } from "wagmi";
+import { appInfo, ChainId } from '../constant/constant';
+import { WagmiConfig } from 'wagmi';
 
-import { getWagmiConfig, getConfigureChains } from "../rainbow/rainbow";
-import { darkTheme } from "../rainbowkit/src/themes/darkTheme";
-import { RainbowKitProvider } from "../rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
-import { useTelegramUser, useWebAppData } from "../hooks/useTelegramUser";
-import { useSetAaWallet } from "../gas0/hooks/useWalletHandler";
+import { getWagmiConfig, getConfigureChains } from '../rainbow/rainbow';
+import { darkTheme } from '../rainbowkit/src/themes/darkTheme';
+import { RainbowKitProvider } from '../rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider';
+import { useTelegramUser, useWebAppData } from '../hooks/useTelegramUser';
+import { useSetAaWallet } from '../gas0/hooks/useWalletHandler';
 
 type IProps = {
   env: string;
@@ -36,9 +36,9 @@ const RainbowKitWithThemeProvider: FC<IProps> = ({
         wagmiConfig: wagmiConfig,
         chains: chains,
         computedTheme: darkTheme({
-          accentColor: "#fff",
-          borderRadius: "large",
-          fontStack: "Pixel",
+          accentColor: '#fff',
+          borderRadius: 'large',
+          fontStack: 'Pixel',
         }),
       };
     }

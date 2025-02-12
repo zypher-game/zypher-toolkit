@@ -1,36 +1,31 @@
-import { isEqual } from "../../../utils/lodash";
-import React, { memo } from "react";
+import { isEqual } from '../../../utils/lodash';
+import React, { memo } from 'react';
 
-import { useIsW768 } from "../../../hooks/useWindowSize";
+import { useIsW768 } from '../../../hooks/useWindowSize';
 
-import Balance from "../../ConnectWallet/components/Balance/Balance";
-import ChainSelectorWidget from "../../ConnectWallet/components/ChainSelector/ChainSelectorWidget";
-import PointsDialog from "../../ConnectWallet/components/PointsDialog/PointsDialog";
-import PointsRuleDialog from "../../ConnectWallet/components/PointsDialog/PointsRuleDialog";
+import Balance from '../../ConnectWallet/components/Balance/Balance';
+import ChainSelectorWidget from '../../ConnectWallet/components/ChainSelector/ChainSelectorWidget';
+import PointsDialog from '../../ConnectWallet/components/PointsDialog/PointsDialog';
+import PointsRuleDialog from '../../ConnectWallet/components/PointsDialog/PointsRuleDialog';
 
-import { ChainId } from "../../../constant/constant";
-import AccountInfo from "./AccountInfo/AccountInfo";
-import PointsV2Dialog from "../../Staking/GP/PointsV2Dialog";
-import { usePointsDialogState } from "../../../hooks/usePointsDialogState";
+import AccountInfo from './AccountInfo/AccountInfo';
+import PointsV2Dialog from '../../Staking/GP/PointsV2Dialog';
+import { usePointsDialogState } from '../../../hooks/usePointsDialogState';
 const Account = memo(
   ({
     isMiddleWidth,
     env,
-    dispatch,
     setSuccessToast,
     setErrorToast,
     copy,
     CountUpNumber,
-    supportedChainList,
   }: {
     isMiddleWidth: boolean;
     env: string;
-    dispatch: any;
     setSuccessToast: any;
     copy: any;
     CountUpNumber?: React.FC<any>;
     setErrorToast: any;
-    supportedChainList?: ChainId[];
   }) => {
     const isW768 = useIsW768();
     const showPointsModal = usePointsDialogState();
@@ -63,6 +58,6 @@ const Account = memo(
       </>
     );
   },
-  isEqual
+  isEqual,
 );
 export default Account;

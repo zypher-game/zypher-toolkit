@@ -4,7 +4,7 @@ import {
   GetWalletClientResult,
   getContract,
   getPublicClient,
-} from "wagmi/actions";
+} from 'wagmi/actions';
 import {
   Address,
   Chain,
@@ -17,19 +17,19 @@ import {
   Account,
   hexToBytes,
   bytesToHex,
-} from "viem";
+} from 'viem';
 
-import { PublicClient } from "wagmi";
-import { WalletAbi } from "../abis/Wallet";
-import { Gas0Constants } from "../constants/Gas0Constant";
-import BigNumberJs from "../../utils/BigNumberJs";
-import { getAddressAA } from "./getAddressAA";
-import { ZytronSignTypedData } from "../constants/typedData";
-import { httpPost } from "../../utils/request";
-import { IContractName, zkBingo } from "../../constant/constant";
-import { IGas0ApiConfig } from "../hooks/useGas0Balance";
-import { Hash } from "@wagmi/core";
-import { getIsCode } from "./getIsCode";
+import { PublicClient } from 'wagmi';
+import { WalletAbi } from '../abis/Wallet';
+import { Gas0Constants } from '../constants/Gas0Constant';
+import BigNumberJs from '../../utils/BigNumberJs';
+import { getAddressAA } from './getAddressAA';
+import { ZytronSignTypedData } from '../constants/typedData';
+import { httpPost } from '../../utils/request';
+import { IContractName, zkBingoV1 } from '../../constant/constant';
+import { IGas0ApiConfig } from '../hooks/useGas0Balance';
+import { Hash } from '@wagmi/core';
+import { getIsCode } from './getIsCode';
 export type Iaa = {
   isFree: boolean;
   address: Address;
@@ -53,7 +53,7 @@ export class WagmiWalletHandler {
   constructor(
     walletClient: NonNullable<GetWalletClientResult>,
     gas0Balance: string,
-    configApi: IGas0ApiConfig
+    configApi: IGas0ApiConfig,
   ) {
     this.chainId = walletClient.chain.id;
     this.chain = walletClient.chain;
@@ -61,7 +61,7 @@ export class WagmiWalletHandler {
     this.publicClient = getPublicClient({ chainId: this.chainId });
     this.account = this.walletClient.account;
     this.address = {
-      GP: zkBingo(this.chainId, IContractName.ZypherGameToken),
+      GP: zkBingoV1(this.chainId, IContractName.ZypherGameToken),
     };
     const conf = Gas0Constants[this.chainId];
     if (conf) {
@@ -70,7 +70,7 @@ export class WagmiWalletHandler {
       const aaWallet = getAddressAA(
         this.account.address,
         configApi.wallet_bytecode as Hash,
-        deployer as Address
+        deployer as Address,
       );
       this.aa = {
         isFree: new BigNumberJs(gas0Balance).gt(0),
@@ -88,7 +88,7 @@ export class WagmiWalletHandler {
       const aa = this.aa;
       const transport: Transport = custom({
         request: async ({ method, params }) => {
-          if (method !== "eth_sendTransaction") {
+          if (method !== 'eth_sendTransaction') {
             const res = await this.publicClient.request({ method, params });
             return res;
           }
@@ -99,7 +99,7 @@ export class WagmiWalletHandler {
             const hash = await gas0WalletCreateAndApprove(
               owner,
               aa.config.api,
-              aa.isFree
+              aa.isFree,
             );
             if (!hash) return;
             await this.publicClient.waitForTransactionReceipt({
@@ -128,7 +128,7 @@ export class WagmiWalletHandler {
               tip: aa.config.function_call_tip,
             },
           });
-          if (typeof sign === "string") {
+          if (typeof sign === 'string') {
             const { v, r, s } = hexToSignature(sign as `0x${string}`);
             if (aa.isFree) {
               const { data: res } = await httpPost(
@@ -142,9 +142,9 @@ export class WagmiWalletHandler {
                   r,
                   s,
                   owner,
-                }
+                },
               );
-              if (!res || res.status === "failure") {
+              if (!res || res.status === 'failure') {
                 throw new Error(`functioncall error: ${res.msg}`);
               }
               return res.tx_hash;
@@ -183,7 +183,7 @@ export class WagmiWalletHandler {
         err &&
         err.message &&
         err.message.match(
-          /^The contract function "nonce" returned no data \("0x"\)/
+          /^The contract function "nonce" returned no data \("0x"\)/,
         )
       )
         return BigInt(0);
@@ -201,7 +201,7 @@ export class WagmiWalletHandler {
 export const gas0WalletCreateAndApprove = async (
   owner: Address,
   api: string,
-  isFree: boolean
+  isFree: boolean,
 ) => {
   if (!isFree) {
     return;
@@ -210,7 +210,7 @@ export const gas0WalletCreateAndApprove = async (
   const { data } = await httpPost(`${api}/create`, {
     owner,
   });
-  if (data.status === "failure")
+  if (data.status === 'failure')
     throw new Error(`setController error: ${data.msg}`);
   return data.tx_hash;
 };

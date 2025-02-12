@@ -1,4 +1,4 @@
-import { ChainId, IPointsItem } from "..";
+import { ChainId, IPointsItem } from '..';
 export declare const ChainPointPrice: Record<ChainId, number>;
 export declare const pointsListDefault: (chainId: ChainId) => IPointsItem[] | undefined;
 type ISwapPoint = {

@@ -1069,124 +1069,6 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   opacity: 0.9;
 }
 
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
-.dialog_title_modalTitleInner {
-  position: relative;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 64px;
-  padding: 15px 20px;
-  background: #293457;
-}
-.dialog_title_modalTitleInner .dialog_title_title {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  color: var(--var-text-light);
-  line-height: 24px;
-}
-.dialog_title_modalTitleInner span {
-  display: block;
-  cursor: pointer;
-}
-.dialog_title_modalTitleInner span :global(.icon) {
-  size: 24px;
-  fill: var(--var-text-light);
-}
-
-/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/header.stylus */
-.zypher_logo {
-  gap: 6px;
-  display: flex;
-}
-.zypher_logo img:nth-child(1) {
-  width: 166px;
-}
-@media screen and (max-width: 830px) {
-  .zypher_logo img:nth-child(1) {
-    width: 32px;
-  }
-}
-.header_header {
-  position: relative;
-  z-index: 1;
-  clear: both;
-  vertical-align: middle;
-}
-.header_header .header_left {
-  float: left;
-  display: flex;
-  height: 100%;
-  align-items: center;
-  padding-left: 40px;
-}
-@media screen and (max-width: 1430px) {
-  .header_header .header_left {
-    padding-left: 16px;
-  }
-}
-.header_header .header_right {
-  float: right;
-  display: flex;
-  height: 100%;
-  align-items: center;
-  padding-right: 40px;
-}
-@media screen and (max-width: 1430px) {
-  .header_header .header_right {
-    padding-right: 16px;
-  }
-}
-@media screen and (max-width: 830px) {
-  .header_header .header_right {
-    padding: 0 16px 0 0;
-  }
-}
-.header_header .header_right .header_btn_pixel {
-  width: 40px;
-}
-@media screen and (max-width: 830px) {
-  .header_header .header_right .header_btn_pixel {
-    width: 30px;
-  }
-}
-.header_header .header_right .header_btn_pixel .header_btn {
-  margin-left: 0;
-}
-.header_header .header_right .header_btn {
-  cursor: pointer;
-  border-radius: 8px;
-  size: 38px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 8px;
-  color: var(--var-btn);
-}
-@media screen and (max-width: 830px) {
-  .header_header .header_right .header_btn {
-    size: 28px;
-  }
-}
-.header_header .header_right .header_btn :global(.icon) {
-  fill: #fff;
-  size: 30px;
-}
-.header_header .header_right .header_btn :global(.icon):hover {
-  fill: #fff;
-}
-.header_header .header_right .header_btn .header_icon {
-  size: 24px;
-  width: 24px;
-  height: 24px;
-}
-.header_header .header_right .header_btn .header_icon.header_close {
-  size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/Balance/balance.stylus */
 .balance_item_balance_point {
   position: relative;
@@ -1543,6 +1425,32 @@ body .tvlPixelTable_header > .pixel_flat_inner {
   }
 }
 
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/DialogComponents/DialogTitle.stylus */
+.dialog_title_modalTitleInner {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 64px;
+  padding: 15px 20px;
+  background: #293457;
+}
+.dialog_title_modalTitleInner .dialog_title_title {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--var-text-light);
+  line-height: 24px;
+}
+.dialog_title_modalTitleInner span {
+  display: block;
+  cursor: pointer;
+}
+.dialog_title_modalTitleInner span :global(.icon) {
+  size: 24px;
+  fill: var(--var-text-light);
+}
+
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/ConnectWallet/components/AccountInfoDialog/AccountInfoDialog.stylus */
 .account_info_dialog_dialog .account_info_dialog_modalMain {
   padding: 20px 32px 33px;
@@ -1556,7 +1464,7 @@ body .address_wrap_big_pop_wrap {
   opacity: 0;
   height: 0;
   position: absolute;
-  top: 36px;
+  top: 16px;
   right: 0;
   z-index: 4;
   transition: all 0.3s ease;
@@ -2215,6 +2123,98 @@ body .W_staking_staking > .pixel_flat_inner {
 .SS_tab > .pixel_flat_inner {
   justify-content: flex-start;
   padding: 0 8px;
+}
+
+/* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/header.stylus */
+.zypher_logo {
+  gap: 6px;
+  display: flex;
+}
+.zypher_logo img:nth-child(1) {
+  width: 166px;
+}
+@media screen and (max-width: 830px) {
+  .zypher_logo img:nth-child(1) {
+    width: 32px;
+  }
+}
+.header_header {
+  position: relative;
+  z-index: 1;
+  clear: both;
+  vertical-align: middle;
+}
+.header_header .header_left {
+  float: left;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-left: 40px;
+}
+@media screen and (max-width: 1430px) {
+  .header_header .header_left {
+    padding-left: 16px;
+  }
+}
+.header_header .header_right {
+  float: right;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  padding-right: 40px;
+}
+@media screen and (max-width: 1430px) {
+  .header_header .header_right {
+    padding-right: 16px;
+  }
+}
+@media screen and (max-width: 830px) {
+  .header_header .header_right {
+    padding: 0 16px 0 0;
+  }
+}
+.header_header .header_right .header_btn_pixel {
+  width: 40px;
+}
+@media screen and (max-width: 830px) {
+  .header_header .header_right .header_btn_pixel {
+    width: 30px;
+  }
+}
+.header_header .header_right .header_btn_pixel .header_btn {
+  margin-left: 0;
+}
+.header_header .header_right .header_btn {
+  cursor: pointer;
+  border-radius: 8px;
+  size: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 8px;
+  color: var(--var-btn);
+}
+@media screen and (max-width: 830px) {
+  .header_header .header_right .header_btn {
+    size: 28px;
+  }
+}
+.header_header .header_right .header_btn :global(.icon) {
+  fill: #fff;
+  size: 30px;
+}
+.header_header .header_right .header_btn :global(.icon):hover {
+  fill: #fff;
+}
+.header_header .header_right .header_btn .header_icon {
+  size: 24px;
+  width: 24px;
+  height: 24px;
+}
+.header_header .header_right .header_btn .header_icon.header_close {
+  size: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 /* stylus:/Users/admin/Desktop/work/zypher-toolkit-pixel/ui/src/components/Header/rainbow_account/rainbow_connectWallet.stylus */

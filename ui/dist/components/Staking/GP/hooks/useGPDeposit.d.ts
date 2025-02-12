@@ -1,5 +1,5 @@
-import { Address } from "viem";
-import { IToken } from "../../../../constant/tvlConstant";
+import { Address } from 'viem';
+import { IToken } from '../../../../constant/tvlConstant';
 export interface IHealth {
     gp: Address;
     vault: Address;

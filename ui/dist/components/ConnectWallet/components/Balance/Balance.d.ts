@@ -1,5 +1,5 @@
-import React from "react";
-import "./balance.stylus";
+import React from 'react';
+import './balance.stylus';
 interface IProps {
     env: string;
     className?: string;

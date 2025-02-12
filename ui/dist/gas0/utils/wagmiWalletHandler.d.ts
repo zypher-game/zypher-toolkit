@@ -1,8 +1,8 @@
-import { GetContractResult, GetPublicClientResult, GetWalletClientResult } from "wagmi/actions";
-import { Address, Chain, Transport, Account } from "viem";
-import { PublicClient } from "wagmi";
-import { WalletAbi } from "../abis/Wallet";
-import { IGas0ApiConfig } from "../hooks/useGas0Balance";
+import { GetContractResult, GetPublicClientResult, GetWalletClientResult } from 'wagmi/actions';
+import { Address, Chain, Transport, Account } from 'viem';
+import { PublicClient } from 'wagmi';
+import { WalletAbi } from '../abis/Wallet';
+import { IGas0ApiConfig } from '../hooks/useGas0Balance';
 export type Iaa = {
     isFree: boolean;
     address: Address;

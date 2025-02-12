@@ -1,11 +1,10 @@
-import React from "react";
-import { ChainId } from "../../../constant/constant";
-import "./rainbow_connectWallet.stylus";
-import { UIType } from "../header";
+import React from 'react';
+import { ChainId } from '../../../constant/constant';
+import './rainbow_connectWallet.stylus';
+import { UIType } from '../header';
 interface IProps {
     useLocation: any;
     env: string;
-    dispatch: any;
     setSuccessToast: any;
     setErrorToast: any;
     className?: string;

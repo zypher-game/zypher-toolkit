@@ -1,13 +1,13 @@
-declare module "*.svg" {
+declare module '*.svg' {
   const dataUrl: string;
   export default dataUrl;
 }
 
-declare module "*.png" {
+declare module '*.png' {
   const dataUrl: string;
   export default dataUrl;
 }
-declare module "*.stylus" {
+declare module '*.stylus' {
   const styles: { [className: string]: string };
   export default styles;
 }
@@ -19,15 +19,16 @@ declare global {
     env: string;
     isGames: boolean;
     IS_TELEGRAM: boolean;
+    IS_Champion: boolean;
     Telegram: Telegram;
     isArrayify: boolean;
     dataToSign: any;
     WebAppData: any;
   }
 }
-import "react";
-declare module "react" {
+import 'react';
+declare module 'react' {
   interface ImgHTMLAttributes<T> extends React.HTMLAttributes<T> {
-    fetchPriority?: "high" | "low" | "auto";
+    fetchPriority?: 'high' | 'low' | 'auto';
   }
 }

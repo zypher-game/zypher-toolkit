@@ -1,26 +1,25 @@
-import classnames from "classnames";
-import React, { useEffect, useMemo } from "react";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+import classnames from 'classnames';
+import React, { useEffect, useMemo } from 'react';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 
-import useWindowSize from "../../hooks/useWindowSize";
-import Icon from "../../components/icons";
+import useWindowSize from '../../hooks/useWindowSize';
+import Icon from '../../components/icons';
 
-import LinkToBetaDialog from "../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
-import { ZypherLogo } from "../SideBar/SideBar";
-import "./header.stylus";
-import RainbowConnectWallet from "./rainbow_account/rainbow_connectWallet";
-import { sideCollapseState } from "./state";
-import { ChainId } from "../../constant/constant";
-import IsPixelWidget from "./rainbow_account/IsPixelWidget";
-import Navigation from "./Navigation/Navigation";
+import LinkToBetaDialog from '../ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog';
+import { ZypherLogo } from '../SideBar/SideBar';
+import './header.stylus';
+import RainbowConnectWallet from './rainbow_account/rainbow_connectWallet';
+import { sideCollapseState } from './state';
+import { ChainId } from '../../constant/constant';
+import IsPixelWidget from './rainbow_account/IsPixelWidget';
+import Navigation from './Navigation/Navigation';
 import {
   showBigState,
   showMiddleState,
-} from "../ConnectWallet/state/connectWalletState";
-export type UIType = "pixel" | "other";
+} from '../ConnectWallet/state/connectWalletState';
+export type UIType = 'pixel' | 'other';
 interface IProps {
   env: string;
-  dispatch: any;
   setSuccessToast: any;
   setErrorToast: any;
   className?: string;
@@ -40,7 +39,6 @@ const Header = (props: IProps): React.ReactElement | null => {
   const {
     hideMenu = false,
     env,
-    dispatch,
     setSuccessToast,
     setErrorToast,
     copy,
@@ -78,48 +76,47 @@ const Header = (props: IProps): React.ReactElement | null => {
     }
   }, [isW830]);
   const isBingo = useMemo(() => {
-    return pathname === "bingo";
+    return pathname === 'bingo';
   }, [pathname]);
   return (
     <header
       className={classnames(
-        "header_header",
-        isW830 ? "header_header_830" : "",
-        isW1190 ? "header_header_1190" : "",
-        isW1390 ? "header_header_1390" : "",
-        isW1540 ? "header_header_1540" : "",
-        isW1670 ? "header_header_1670" : "",
-        props.className
+        'header_header',
+        isW830 ? 'header_header_830' : '',
+        isW1190 ? 'header_header_1190' : '',
+        isW1390 ? 'header_header_1390' : '',
+        isW1540 ? 'header_header_1540' : '',
+        isW1670 ? 'header_header_1670' : '',
+        props.className,
       )}
-      style={{ position: "sticky", top: 0, zIndex: 98, width: "100%" }}
+      style={{ position: 'sticky', top: 0, zIndex: 98, width: '100%' }}
     >
       {isBingo ? null : (
-        <div className={"header_left"}>
+        <div className={'header_left'}>
           <ZypherLogo Link={Link} isMobile={isW830} />
         </div>
       )}
       {!isW830 && !isBingo && <Navigation pathname={pathname} Link={Link} />}
-      <div className={"header_right"}>
+      <div className={'header_right'}>
         <RainbowConnectWallet
-          type="pixel"
+          type='pixel'
           isBigWidth={isWBig}
           isMiddleWidth={isW1390}
           useLocation={useLocation}
           copy={copy}
           env={env}
-          dispatch={dispatch}
           setSuccessToast={setSuccessToast}
           setErrorToast={setErrorToast}
           CountUpNumber={CountUpNumber}
           supportedChainList={supportedChainList}
         />
         {isW830 && !hideMenu ? (
-          <IsPixelWidget className="header_btn_pixel">
+          <IsPixelWidget className='header_btn_pixel'>
             <div
-              className="header_btn"
+              className='header_btn'
               onClick={() => setSideCollapse(!collapsed)}
             >
-              <Icon className="header_icon" name="menu" />
+              <Icon className='header_icon' name='menu' />
             </div>
           </IsPixelWidget>
         ) : null}

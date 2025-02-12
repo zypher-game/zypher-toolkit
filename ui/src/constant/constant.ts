@@ -1,21 +1,22 @@
-import { AddressZero } from "@ethersproject/constants";
-import zkBingoContracts from "@zypher-game/bingo-periphery/contracts.json";
-import zkBingoContractsV1 from "@zypher-game/bingo-periphery-v1/contracts.json";
-import contract from "@zypher-game/events/contracts.json";
-import BigNumberjs from "bignumber.js";
-import { Address } from "wagmi";
+import { AddressZero } from '@ethersproject/constants';
+import zkBingoContracts from '@zypher-game/bingo-periphery/contracts.json';
+import zkBingoContractsV1 from '@zypher-game/bingo-periphery-v1/contracts.json';
+import zkBingoContractsChampion from '@zypher-game/bingo-periphery-v1/contracts.json';
+import contract from '@zypher-game/events/contracts.json';
+import BigNumberjs from 'bignumber.js';
+import { Address } from 'wagmi';
 export const appInfo = {
-  appName: "Zypher Game",
+  appName: 'Zypher Game',
 };
-export const divisor6xBigNumber = new BigNumberjs("10").exponentiatedBy(6);
-export const divisorBigNumber = new BigNumberjs("10").exponentiatedBy(18); // 100000000000000000
-export const txStatus = "success"; // '1'
+export const divisor6xBigNumber = new BigNumberjs('10').exponentiatedBy(6);
+export const divisorBigNumber = new BigNumberjs('10').exponentiatedBy(18); // 100000000000000000
+export const txStatus = 'success'; // '1'
 
 export const isPro = ((): boolean => {
   if (
-    window.location.host.startsWith("ark") ||
-    window.location.host.startsWith("app") ||
-    window.location.host.startsWith("zypher")
+    window.location.host.startsWith('ark') ||
+    window.location.host.startsWith('app') ||
+    window.location.host.startsWith('zypher')
   ) {
     return true;
   }
@@ -23,55 +24,60 @@ export const isPro = ((): boolean => {
 })();
 
 export const isLocalhost = (): boolean => {
-  if (window.location.host.startsWith("192.168")) {
+  if (window.location.host.startsWith('192.168')) {
     return true;
   }
   return false;
 };
 
 export const preStaticUrl = isPro
-  ? "https://static.zypher.game"
-  : "https://static-dev.zypher.game";
+  ? 'https://static.zypher.game'
+  : 'https://static-dev.zypher.game';
 export enum ChainId {
-  Bsc = "56",
-  BscTestnet = "97",
-  Arbitrum = "42161",
-  ArbitrumRinkeby = "421611",
-  ArbitrumGoerli = "421613",
-  LineaSepolia = "59141",
-  LineaMainnet = "59144",
-  POLYGON_MUMBAI = "80001",
+  Bsc = '56',
+  BscTestnet = '97',
+  Arbitrum = '42161',
+  ArbitrumRinkeby = '421611',
+  ArbitrumGoerli = '421613',
+  LineaSepolia = '59141',
+  LineaMainnet = '59144',
+  POLYGON_MUMBAI = '80001',
 
   //develop
-  POLYGON_ZKEVM = "1442",
-  ScrollAlphaTestnet = "534353",
-  OPBNBTEST = "5611",
-  OPBNB = "204",
-  ScrollSepoliaTestnet = "534351",
-  MantaPacificMainnet = "169",
-  MantaPacificTestnet = "3441005",
-  Combo = "9980",
-  ComboTestnet = "91715",
-  Mantle = "5000",
-  MantleTestnet = "5001",
+  POLYGON_ZKEVM = '1442',
+  ScrollAlphaTestnet = '534353',
+  OPBNBTEST = '5611',
+  OPBNB = '204',
+  ScrollSepoliaTestnet = '534351',
+  MantaPacificMainnet = '169',
+  MantaPacificTestnet = '3441005',
+  Combo = '9980',
+  ComboTestnet = '91715',
+  Mantle = '5000',
+  MantleTestnet = '5001',
 
-  Sepolia = "11155111",
-  B2 = "223",
-  B2Testnet = "1123",
+  Sepolia = '11155111',
+  B2 = '223',
+  B2Testnet = '1123',
 
-  ZytronLineaSepoliaTestnet = "50098",
-  ZytronLineaMain = "9901",
-  ZytronB2Testnet = "50097",
+  ZytronLineaSepoliaTestnet = '50098',
+  ZytronLineaMain = '9901',
+  ZytronB2Testnet = '50097',
 
-  Taiko = "167000",
+  Taiko = '167000',
 
-  SagaMainnet = "2717465680371000",
-  B3Mainnet = "8333",
-  EXPTestnet = "18880",
+  SagaMainnet = '2717465680371000',
+  B3Mainnet = '8333',
+  EXPTestnet = '18880',
+  BaseSepolia = '84532',
 }
 const TGChainId = window.IS_TELEGRAM ? [ChainId.SagaMainnet] : undefined;
+export const bingoChampionSupportedChainId = !isPro
+  ? [ChainId.BaseSepolia]
+  : [];
 export const DPSupportChainId = !isPro
   ? [
+      ...bingoChampionSupportedChainId,
       ChainId.LineaMainnet,
       ChainId.LineaSepolia,
       ChainId.OPBNBTEST,
@@ -79,10 +85,14 @@ export const DPSupportChainId = !isPro
       ChainId.ZytronLineaSepoliaTestnet,
       ChainId.ZytronLineaMain,
     ]
-  : [ChainId.LineaMainnet, ChainId.ZytronLineaMain, ChainId.OPBNB];
-
-// export const defaultChainId = ChainId.OPBNB;
+  : [
+      ...bingoChampionSupportedChainId,
+      ChainId.LineaMainnet,
+      ChainId.ZytronLineaMain,
+      ChainId.OPBNB,
+    ];
 export const bingoV1SupportedChainId = DPSupportChainId;
+
 export const bingoBetaSupportedChainId = TGChainId
   ? TGChainId
   : !isPro
@@ -107,19 +117,21 @@ export const bingoBetaSupportedChainId = TGChainId
       ChainId.B3Mainnet,
     ];
 export const bingoSupportedChainId = TGChainId || [
+  ...bingoChampionSupportedChainId,
   ...bingoV1SupportedChainId,
   ...bingoBetaSupportedChainId,
 ];
 export const supportedChainIds = (
   env?: string,
-  chainList?: ChainId[]
+  chainList?: ChainId[],
 ): Array<ChainId> => {
   return TGChainId
     ? TGChainId
     : chainList
     ? chainList
-    : !isPro || env === "develop"
+    : !isPro || env === 'develop'
     ? [
+        ChainId.BaseSepolia,
         ChainId.LineaMainnet,
         ChainId.LineaSepolia,
         ChainId.ZytronLineaSepoliaTestnet,
@@ -159,169 +171,173 @@ export const supportedChainIds = (
       ];
 };
 export const ChainRpcUrls: Record<ChainId, string[]> = {
-  [ChainId.LineaSepolia]: ["https://rpc.sepolia.linea.build"],
-  [ChainId.LineaMainnet]: ["https://rpc.linea.build"],
-  [ChainId.Arbitrum]: ["https://arb1.arbitrum.io/rpc"],
-  [ChainId.OPBNBTEST]: ["https://opbnb-testnet-rpc.bnbchain.org/"],
+  [ChainId.LineaSepolia]: ['https://rpc.sepolia.linea.build'],
+  [ChainId.LineaMainnet]: ['https://rpc.linea.build'],
+  [ChainId.Arbitrum]: ['https://arb1.arbitrum.io/rpc'],
+  [ChainId.OPBNBTEST]: ['https://opbnb-testnet-rpc.bnbchain.org/'],
   [ChainId.OPBNB]: [
-    "https://opbnb-mainnet-rpc.bnbchain.org",
-    "https://opbnb-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3",
+    'https://opbnb-mainnet-rpc.bnbchain.org',
+    'https://opbnb-mainnet.nodereal.io/v1/64a9df0874fb4a93b9d0a3849de012d3',
   ],
-  [ChainId.ScrollSepoliaTestnet]: ["https://sepolia-rpc.scroll.io/"],
-  [ChainId.ScrollAlphaTestnet]: ["https://scroll-alpha-public.unifra.io"],
-  [ChainId.MantaPacificMainnet]: ["https://pacific-rpc.manta.network/http"],
+  [ChainId.ScrollSepoliaTestnet]: ['https://sepolia-rpc.scroll.io/'],
+  [ChainId.ScrollAlphaTestnet]: ['https://scroll-alpha-public.unifra.io'],
+  [ChainId.MantaPacificMainnet]: ['https://pacific-rpc.manta.network/http'],
 
   [ChainId.Bsc]: [
-    "https://bsc-dataseed1.binance.org",
-    "https://bsc-mainnet.nodereal.io/v1/a986025b4eae4b82b9c2d577c730d09a",
+    'https://bsc-dataseed1.binance.org',
+    'https://bsc-mainnet.nodereal.io/v1/a986025b4eae4b82b9c2d577c730d09a',
   ],
   [ChainId.BscTestnet]: [
-    "https://endpoints.omniatech.io/v1/bsc/testnet/public",
-    "https://bsc-testnet.publicnode.com",
-    "https://bsc-testnet.nodereal.io/v1/9459391f32694c11b182c8d4d9cee750",
+    'https://endpoints.omniatech.io/v1/bsc/testnet/public',
+    'https://bsc-testnet.publicnode.com',
+    'https://bsc-testnet.nodereal.io/v1/9459391f32694c11b182c8d4d9cee750',
   ],
-  [ChainId.ArbitrumRinkeby]: ["https://rinkeby.arbitrum.io/rpc"],
+  [ChainId.ArbitrumRinkeby]: ['https://rinkeby.arbitrum.io/rpc'],
   [ChainId.ArbitrumGoerli]: [
-    "https://endpoints.omniatech.io/v1/arbitrum/goerli/public",
-    "https://goerli-rollup.arbitrum.io/rpc",
+    'https://endpoints.omniatech.io/v1/arbitrum/goerli/public',
+    'https://goerli-rollup.arbitrum.io/rpc',
   ],
   [ChainId.POLYGON_MUMBAI]: [
-    "https://polygon-mumbai-bor.publicnode.com",
-    "https://matic-mumbai.chainstacklabs.com",
-    "https://rpc-mumbai.maticvigil.com",
-    "https://matic-testnet-archive-rpc.bwarelabs.com",
+    'https://polygon-mumbai-bor.publicnode.com',
+    'https://matic-mumbai.chainstacklabs.com',
+    'https://rpc-mumbai.maticvigil.com',
+    'https://matic-testnet-archive-rpc.bwarelabs.com',
   ],
-  [ChainId.POLYGON_ZKEVM]: ["https://rpc.public.zkevm-test.net"],
+  [ChainId.POLYGON_ZKEVM]: ['https://rpc.public.zkevm-test.net'],
   [ChainId.MantaPacificTestnet]: [
-    "https://manta-testnet.calderachain.xyz/http",
+    'https://manta-testnet.calderachain.xyz/http',
   ],
   [ChainId.Combo]: [
-    "https://combo-mainnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1",
-    "https://combo-mainnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
-    "https://combo-mainnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
+    'https://combo-mainnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1',
+    'https://combo-mainnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3',
+    'https://combo-mainnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac',
   ],
   [ChainId.ComboTestnet]: [
-    "https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3",
-    "https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac",
-    "https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1",
+    'https://combo-testnet.nodereal.io/v1/0caf221faccb46e59c65e618779914e3',
+    'https://combo-testnet.nodereal.io/v1/e36b7be476d84006acd740b7cebdcdac',
+    'https://combo-testnet.nodereal.io/v1/a8d873f8ca3f481e825920241e610cc1',
     // "https://test-rpc.combonetwork.io",
   ],
-  [ChainId.Mantle]: ["https://mantle.publicnode.com"],
-  [ChainId.MantleTestnet]: ["https://rpc.testnet.mantle.xyz"],
+  [ChainId.Mantle]: ['https://mantle.publicnode.com'],
+  [ChainId.MantleTestnet]: ['https://rpc.testnet.mantle.xyz'],
   [ChainId.Sepolia]: [
-    "https://endpoints.omniatech.io/v1/eth/sepolia/public",
-    "https://ethereum-sepolia-rpc.publicnode.com",
+    'https://endpoints.omniatech.io/v1/eth/sepolia/public',
+    'https://ethereum-sepolia-rpc.publicnode.com',
   ],
-  [ChainId.B2]: ["https://rpc.bsquared.network"],
-  [ChainId.B2Testnet]: ["https://b2-testnet.alt.technology"],
-  [ChainId.ZytronLineaMain]: ["https://rpc.zypher.network"],
-  [ChainId.ZytronLineaSepoliaTestnet]: ["https://rpc-testnet.zypher.network"],
-  [ChainId.ZytronB2Testnet]: ["https://b2-testnet-zytron.zypher.game"],
-  [ChainId.Taiko]: ["https://rpc.taiko.xyz"],
+  [ChainId.B2]: ['https://rpc.bsquared.network'],
+  [ChainId.B2Testnet]: ['https://b2-testnet.alt.technology'],
+  [ChainId.ZytronLineaMain]: ['https://rpc.zypher.network'],
+  [ChainId.ZytronLineaSepoliaTestnet]: ['https://rpc-testnet.zypher.network'],
+  [ChainId.ZytronB2Testnet]: ['https://b2-testnet-zytron.zypher.game'],
+  [ChainId.Taiko]: ['https://rpc.taiko.xyz'],
   [ChainId.SagaMainnet]: [
-    "https://zypher-2717465680371000-1.jsonrpc.sagarpc.io",
+    'https://zypher-2717465680371000-1.jsonrpc.sagarpc.io',
   ],
-  [ChainId.B3Mainnet]: ["https://mainnet-rpc.b3.fun"],
-  [ChainId.EXPTestnet]: ["https://rpc1-testnet.expchain.ai"],
+  [ChainId.B3Mainnet]: ['https://mainnet-rpc.b3.fun'],
+  [ChainId.EXPTestnet]: ['https://rpc1-testnet.expchain.ai'],
+  [ChainId.BaseSepolia]: ['https://sepolia.base.org'],
 };
 
 export const BlockExplorerUrls: Record<ChainId, string[]> = {
-  [ChainId.Bsc]: ["https://bscscan.com"],
-  [ChainId.BscTestnet]: ["https://testnet.bscscan.com"],
-  [ChainId.Arbitrum]: ["https://arbiscan.io"],
-  [ChainId.ArbitrumRinkeby]: ["https://testnet.arbiscan.io"],
-  [ChainId.POLYGON_MUMBAI]: ["https://mumbai.polygonscan.com"],
-  [ChainId.LineaMainnet]: ["https://lineascan.build"],
-  [ChainId.LineaSepolia]: ["https://sepolia.lineascan.build"],
-  [ChainId.ArbitrumGoerli]: ["https://goerli.arbiscan.io/"],
-  [ChainId.POLYGON_ZKEVM]: ["https://testnet-zkevm.polygonscan.com"],
-  [ChainId.OPBNBTEST]: ["https://opbnb-testnet.bscscan.com"],
-  [ChainId.OPBNB]: ["https://opbnbscan.com/"],
-  [ChainId.ScrollSepoliaTestnet]: ["https://sepolia-blockscout.scroll.io"],
-  [ChainId.ScrollAlphaTestnet]: ["https://alpha-blockscout.scroll.io"],
-  [ChainId.MantaPacificMainnet]: ["https://pacific-explorer.manta.network"],
-  [ChainId.MantaPacificTestnet]: ["https://manta-testnet.calderaexplorer.xyz"],
-  [ChainId.ComboTestnet]: ["https://combotrace-testnet.nodereal.io/"],
-  [ChainId.Mantle]: ["https://explorer.mantle.xyz"],
-  [ChainId.MantleTestnet]: ["https://explorer.testnet.mantle.xyz"],
-  [ChainId.Combo]: ["https://combotrace.nodereal.io"],
-  [ChainId.Sepolia]: ["https://sepolia.etherscan.io"],
-  [ChainId.B2]: ["https://explorer.bsquared.network"],
-  [ChainId.B2Testnet]: ["https://testnet-explorer.bsquared.network"],
-  [ChainId.ZytronLineaMain]: ["https://explorer.zypher.network"],
+  [ChainId.Bsc]: ['https://bscscan.com'],
+  [ChainId.BscTestnet]: ['https://testnet.bscscan.com'],
+  [ChainId.Arbitrum]: ['https://arbiscan.io'],
+  [ChainId.ArbitrumRinkeby]: ['https://testnet.arbiscan.io'],
+  [ChainId.POLYGON_MUMBAI]: ['https://mumbai.polygonscan.com'],
+  [ChainId.LineaMainnet]: ['https://lineascan.build'],
+  [ChainId.LineaSepolia]: ['https://sepolia.lineascan.build'],
+  [ChainId.ArbitrumGoerli]: ['https://goerli.arbiscan.io/'],
+  [ChainId.POLYGON_ZKEVM]: ['https://testnet-zkevm.polygonscan.com'],
+  [ChainId.OPBNBTEST]: ['https://opbnb-testnet.bscscan.com'],
+  [ChainId.OPBNB]: ['https://opbnbscan.com/'],
+  [ChainId.ScrollSepoliaTestnet]: ['https://sepolia-blockscout.scroll.io'],
+  [ChainId.ScrollAlphaTestnet]: ['https://alpha-blockscout.scroll.io'],
+  [ChainId.MantaPacificMainnet]: ['https://pacific-explorer.manta.network'],
+  [ChainId.MantaPacificTestnet]: ['https://manta-testnet.calderaexplorer.xyz'],
+  [ChainId.ComboTestnet]: ['https://combotrace-testnet.nodereal.io/'],
+  [ChainId.Mantle]: ['https://explorer.mantle.xyz'],
+  [ChainId.MantleTestnet]: ['https://explorer.testnet.mantle.xyz'],
+  [ChainId.Combo]: ['https://combotrace.nodereal.io'],
+  [ChainId.Sepolia]: ['https://sepolia.etherscan.io'],
+  [ChainId.B2]: ['https://explorer.bsquared.network'],
+  [ChainId.B2Testnet]: ['https://testnet-explorer.bsquared.network'],
+  [ChainId.ZytronLineaMain]: ['https://explorer.zypher.network'],
   [ChainId.ZytronLineaSepoliaTestnet]: [
-    "https://explorer-testnet.zypher.network",
+    'https://explorer-testnet.zypher.network',
   ],
   [ChainId.ZytronB2Testnet]: [
-    "https://b2-testnet-zytron-blockscout.zypher.game",
+    'https://b2-testnet-zytron-blockscout.zypher.game',
   ],
-  [ChainId.Taiko]: ["https://taikoscan.io"],
-  [ChainId.SagaMainnet]: ["https://zypher-2717465680371000-1.sagaexplorer.io"],
-  [ChainId.B3Mainnet]: ["https://explorer.b3.fun"],
-  [ChainId.EXPTestnet]: ["https://blockscout-testnet.expchain.ai"],
+  [ChainId.Taiko]: ['https://taikoscan.io'],
+  [ChainId.SagaMainnet]: ['https://zypher-2717465680371000-1.sagaexplorer.io'],
+  [ChainId.B3Mainnet]: ['https://explorer.b3.fun'],
+  [ChainId.EXPTestnet]: ['https://blockscout-testnet.expchain.ai'],
+  [ChainId.BaseSepolia]: ['https://sepolia.basescan.org'],
 };
 
 export const ChainName: Record<ChainId, string> = {
-  [ChainId.Bsc]: "BSC Mainnet",
-  [ChainId.BscTestnet]: "BSC Testnet",
-  [ChainId.Arbitrum]: "Arbitrum One",
-  [ChainId.ArbitrumGoerli]: "Arbitrum Goerli Testnet",
-  [ChainId.ArbitrumRinkeby]: "Arbitrum Rinkeby",
-  [ChainId.LineaSepolia]: "Linea Sepolia",
-  [ChainId.LineaMainnet]: "Linea Mainnet",
-  [ChainId.POLYGON_MUMBAI]: "Polygon Mumbai",
-  [ChainId.POLYGON_ZKEVM]: "Polygon zkEVM Testnet",
-  [ChainId.OPBNBTEST]: "opBNB testnet",
-  [ChainId.OPBNB]: "opBNB Mainnet",
-  [ChainId.ScrollAlphaTestnet]: "Scroll Alpha Testnet",
-  [ChainId.ScrollSepoliaTestnet]: "Scroll Sepolia Testnet",
-  [ChainId.MantaPacificMainnet]: "Manta Pacific",
-  [ChainId.MantaPacificTestnet]: "Manta Pacific Testnet",
-  [ChainId.ComboTestnet]: "Combo Testnet",
-  [ChainId.Mantle]: "Mantle",
-  [ChainId.MantleTestnet]: "Mantle Testnet",
-  [ChainId.Combo]: "Combo",
-  [ChainId.Sepolia]: "Sepolia",
-  [ChainId.B2]: "B²",
-  [ChainId.B2Testnet]: "B² Testnet",
-  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Testnet",
-  [ChainId.ZytronLineaMain]: "Zytron Linea",
-  [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
-  [ChainId.Taiko]: "Taiko Mainnet",
-  [ChainId.SagaMainnet]: "Saga Zypher",
-  [ChainId.B3Mainnet]: "B3",
-  [ChainId.EXPTestnet]: "EXP Testnet",
+  [ChainId.Bsc]: 'BSC Mainnet',
+  [ChainId.BscTestnet]: 'BSC Testnet',
+  [ChainId.Arbitrum]: 'Arbitrum One',
+  [ChainId.ArbitrumGoerli]: 'Arbitrum Goerli Testnet',
+  [ChainId.ArbitrumRinkeby]: 'Arbitrum Rinkeby',
+  [ChainId.LineaSepolia]: 'Linea Sepolia',
+  [ChainId.LineaMainnet]: 'Linea Mainnet',
+  [ChainId.POLYGON_MUMBAI]: 'Polygon Mumbai',
+  [ChainId.POLYGON_ZKEVM]: 'Polygon zkEVM Testnet',
+  [ChainId.OPBNBTEST]: 'opBNB testnet',
+  [ChainId.OPBNB]: 'opBNB Mainnet',
+  [ChainId.ScrollAlphaTestnet]: 'Scroll Alpha Testnet',
+  [ChainId.ScrollSepoliaTestnet]: 'Scroll Sepolia Testnet',
+  [ChainId.MantaPacificMainnet]: 'Manta Pacific',
+  [ChainId.MantaPacificTestnet]: 'Manta Pacific Testnet',
+  [ChainId.ComboTestnet]: 'Combo Testnet',
+  [ChainId.Mantle]: 'Mantle',
+  [ChainId.MantleTestnet]: 'Mantle Testnet',
+  [ChainId.Combo]: 'Combo',
+  [ChainId.Sepolia]: 'Sepolia',
+  [ChainId.B2]: 'B²',
+  [ChainId.B2Testnet]: 'B² Testnet',
+  [ChainId.ZytronLineaSepoliaTestnet]: 'Zytron Testnet',
+  [ChainId.ZytronLineaMain]: 'Zytron Linea',
+  [ChainId.ZytronB2Testnet]: 'Zytron B² Testnet',
+  [ChainId.Taiko]: 'Taiko Mainnet',
+  [ChainId.SagaMainnet]: 'Saga Zypher',
+  [ChainId.B3Mainnet]: 'B3',
+  [ChainId.EXPTestnet]: 'EXP Testnet',
+  [ChainId.BaseSepolia]: 'Base Sepolia Testnet',
 };
 export const ChainNetworkName: Record<ChainId, string> = {
-  [ChainId.Bsc]: "bsc",
-  [ChainId.BscTestnet]: "bsc-testnet",
-  [ChainId.Arbitrum]: "arbitrum",
-  [ChainId.ArbitrumRinkeby]: "arbitrum-rinkeby",
-  [ChainId.LineaSepolia]: "Linea Sepolia",
-  [ChainId.LineaMainnet]: "linea",
-  [ChainId.POLYGON_MUMBAI]: "maticmum",
-  [ChainId.ArbitrumGoerli]: "arbitrum-goerli",
-  [ChainId.POLYGON_ZKEVM]: "polygon_zkEVM_testnet",
-  [ChainId.ScrollAlphaTestnet]: "Scroll Alpha Testnet",
-  [ChainId.OPBNBTEST]: "opBNB testnet",
-  [ChainId.OPBNB]: "opBNB Mainnet",
-  [ChainId.ScrollSepoliaTestnet]: "Scroll Sepolia Testnet",
-  [ChainId.MantaPacificMainnet]: "Manta Pacific",
-  [ChainId.MantaPacificTestnet]: "Manta Pacific",
-  [ChainId.Combo]: "Combo",
-  [ChainId.ComboTestnet]: "Combo Testnet",
-  [ChainId.Mantle]: "Mantle",
-  [ChainId.MantleTestnet]: "Mantle Testnet",
-  [ChainId.Sepolia]: "Sepolia",
-  [ChainId.B2]: "B² Mainnet",
-  [ChainId.B2Testnet]: "B² Testnet",
-  [ChainId.ZytronLineaSepoliaTestnet]: "Zytron Testnet",
-  [ChainId.ZytronLineaMain]: "Zytron Linea",
-  [ChainId.ZytronB2Testnet]: "Zytron B² Testnet",
-  [ChainId.Taiko]: "Taiko Mainnet",
-  [ChainId.SagaMainnet]: "Saga Zypher",
-  [ChainId.B3Mainnet]: "B3",
-  [ChainId.EXPTestnet]: "EXP Testnet",
+  [ChainId.Bsc]: 'bsc',
+  [ChainId.BscTestnet]: 'bsc-testnet',
+  [ChainId.Arbitrum]: 'arbitrum',
+  [ChainId.ArbitrumRinkeby]: 'arbitrum-rinkeby',
+  [ChainId.LineaSepolia]: 'Linea Sepolia',
+  [ChainId.LineaMainnet]: 'linea',
+  [ChainId.POLYGON_MUMBAI]: 'maticmum',
+  [ChainId.ArbitrumGoerli]: 'arbitrum-goerli',
+  [ChainId.POLYGON_ZKEVM]: 'polygon_zkEVM_testnet',
+  [ChainId.ScrollAlphaTestnet]: 'Scroll Alpha Testnet',
+  [ChainId.OPBNBTEST]: 'opBNB testnet',
+  [ChainId.OPBNB]: 'opBNB Mainnet',
+  [ChainId.ScrollSepoliaTestnet]: 'Scroll Sepolia Testnet',
+  [ChainId.MantaPacificMainnet]: 'Manta Pacific',
+  [ChainId.MantaPacificTestnet]: 'Manta Pacific',
+  [ChainId.Combo]: 'Combo',
+  [ChainId.ComboTestnet]: 'Combo Testnet',
+  [ChainId.Mantle]: 'Mantle',
+  [ChainId.MantleTestnet]: 'Mantle Testnet',
+  [ChainId.Sepolia]: 'Sepolia',
+  [ChainId.B2]: 'B² Mainnet',
+  [ChainId.B2Testnet]: 'B² Testnet',
+  [ChainId.ZytronLineaSepoliaTestnet]: 'Zytron Testnet',
+  [ChainId.ZytronLineaMain]: 'Zytron Linea',
+  [ChainId.ZytronB2Testnet]: 'Zytron B² Testnet',
+  [ChainId.Taiko]: 'Taiko Mainnet',
+  [ChainId.SagaMainnet]: 'Saga Zypher',
+  [ChainId.B3Mainnet]: 'B3',
+  [ChainId.EXPTestnet]: 'EXP Testnet',
+  [ChainId.BaseSepolia]: 'ETH',
 };
 
 export const isTestnet: Record<ChainId, boolean> = {
@@ -354,60 +370,62 @@ export const isTestnet: Record<ChainId, boolean> = {
   [ChainId.SagaMainnet]: true,
   [ChainId.B3Mainnet]: false,
   [ChainId.EXPTestnet]: true,
+  [ChainId.BaseSepolia]: true,
 };
 
 export const Currency: Record<ChainId, string> = {
-  [ChainId.Bsc]: "BNB",
-  [ChainId.BscTestnet]: "BNB",
-  [ChainId.Arbitrum]: "ETH",
-  [ChainId.ArbitrumRinkeby]: "ETH",
-  [ChainId.LineaSepolia]: "ETH",
-  [ChainId.LineaMainnet]: "ETH",
-  [ChainId.POLYGON_MUMBAI]: "ETH",
-  [ChainId.ArbitrumGoerli]: "ETH",
-  [ChainId.POLYGON_ZKEVM]: "ETH",
-  [ChainId.OPBNBTEST]: "BNB",
-  [ChainId.OPBNB]: "BNB",
-  [ChainId.ScrollAlphaTestnet]: "ETH",
-  [ChainId.ScrollSepoliaTestnet]: "ETH",
-  [ChainId.MantaPacificMainnet]: "ETH",
-  [ChainId.MantaPacificTestnet]: "ETH",
-  [ChainId.Combo]: "BNB",
-  [ChainId.ComboTestnet]: "BNB",
-  [ChainId.Mantle]: "MNT",
-  [ChainId.MantleTestnet]: "MNT",
-  [ChainId.Sepolia]: "ETH",
-  [ChainId.B2]: "BTC",
-  [ChainId.B2Testnet]: "BTC",
-  [ChainId.ZytronLineaMain]: "ETH",
-  [ChainId.ZytronLineaSepoliaTestnet]: "ETH",
-  [ChainId.ZytronB2Testnet]: "BTC",
-  [ChainId.Taiko]: "ETH",
-  [ChainId.SagaMainnet]: "zyp",
-  [ChainId.B3Mainnet]: "ETH",
-  [ChainId.EXPTestnet]: "tZKJ",
+  [ChainId.Bsc]: 'BNB',
+  [ChainId.BscTestnet]: 'BNB',
+  [ChainId.Arbitrum]: 'ETH',
+  [ChainId.ArbitrumRinkeby]: 'ETH',
+  [ChainId.LineaSepolia]: 'ETH',
+  [ChainId.LineaMainnet]: 'ETH',
+  [ChainId.POLYGON_MUMBAI]: 'ETH',
+  [ChainId.ArbitrumGoerli]: 'ETH',
+  [ChainId.POLYGON_ZKEVM]: 'ETH',
+  [ChainId.OPBNBTEST]: 'BNB',
+  [ChainId.OPBNB]: 'BNB',
+  [ChainId.ScrollAlphaTestnet]: 'ETH',
+  [ChainId.ScrollSepoliaTestnet]: 'ETH',
+  [ChainId.MantaPacificMainnet]: 'ETH',
+  [ChainId.MantaPacificTestnet]: 'ETH',
+  [ChainId.Combo]: 'BNB',
+  [ChainId.ComboTestnet]: 'BNB',
+  [ChainId.Mantle]: 'MNT',
+  [ChainId.MantleTestnet]: 'MNT',
+  [ChainId.Sepolia]: 'ETH',
+  [ChainId.B2]: 'BTC',
+  [ChainId.B2Testnet]: 'BTC',
+  [ChainId.ZytronLineaMain]: 'ETH',
+  [ChainId.ZytronLineaSepoliaTestnet]: 'ETH',
+  [ChainId.ZytronB2Testnet]: 'BTC',
+  [ChainId.Taiko]: 'ETH',
+  [ChainId.SagaMainnet]: 'zyp',
+  [ChainId.B3Mainnet]: 'ETH',
+  [ChainId.EXPTestnet]: 'tZKJ',
+  [ChainId.BaseSepolia]: 'ETH',
 };
-export const getCryptoImg = (fileName: string, key: any, type = ".svg") => {
-  return preStaticUrl + "/crypto/" + fileName + "/" + key + type;
+export const getCryptoImg = (fileName: string, key: any, type = '.svg') => {
+  return preStaticUrl + '/crypto/' + fileName + '/' + key + type;
 };
 export const ChainImage: Record<ChainId, string> = Object.fromEntries(
   (Object.values(ChainId) as ChainId[]).map((v) => [
     v,
-    getCryptoImg("chain", v),
-  ])
+    getCryptoImg('chain', v),
+  ]),
 ) as Record<ChainId, string>;
 export const CurrencyLogo: Record<ChainId, string> = Object.fromEntries(
   (Object.values(ChainId) as ChainId[]).map((v) => [
     v,
-    getCryptoImg("token", Currency[v]),
-  ])
+    getCryptoImg('token', Currency[v]),
+  ]),
 ) as Record<ChainId, string>;
 
 interface IExternalMarketContract {
   multicall: Address[];
 }
 // 支持的链
-const MulticallV3 = "0xca11bde05977b3631167028862be2a173976ca11";
+const MulticallV3 = '0xca11bde05977b3631167028862be2a173976ca11';
 
 export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
   [ChainId.Bsc]: {
@@ -454,65 +472,68 @@ export const CurrencyContract: Record<ChainId, IExternalMarketContract> = {
     multicall: [MulticallV3],
   },
   [ChainId.MantaPacificTestnet]: {
-    multicall: ["0xd4E91b4401EDb2BD95791462F4ccAaae4026540D"],
+    multicall: ['0xd4E91b4401EDb2BD95791462F4ccAaae4026540D'],
   },
   [ChainId.Combo]: {
-    multicall: ["0x67c369D697C7A3B5BAE1cA9AEF0bA32F6d4d815a"],
+    multicall: ['0x67c369D697C7A3B5BAE1cA9AEF0bA32F6d4d815a'],
   },
   [ChainId.ComboTestnet]: {
-    multicall: ["0x4961661f732e995133fDAa7881481BB10e424f78"],
+    multicall: ['0x4961661f732e995133fDAa7881481BB10e424f78'],
   },
   [ChainId.Mantle]: {
     multicall: [MulticallV3],
   },
   [ChainId.MantleTestnet]: {
-    multicall: ["0xcA11bde05977b3631167028862bE2a173976CA11"],
+    multicall: ['0xcA11bde05977b3631167028862bE2a173976CA11'],
   },
   [ChainId.Sepolia]: {
     multicall: [MulticallV3],
   },
-  [ChainId.B2]: { multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"] },
+  [ChainId.B2]: { multicall: ['0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202'] },
   [ChainId.B2Testnet]: {
-    multicall: ["0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202"],
+    multicall: ['0x58d644e9B8cfBb07fb7913Bb373b7eCAAEbdF202'],
   },
   [ChainId.ZytronLineaMain]: {
-    multicall: ["0xa8fAD960aCf062715e1fd3DBD0ee319B2d753b23"],
+    multicall: ['0xa8fAD960aCf062715e1fd3DBD0ee319B2d753b23'],
   },
   [ChainId.ZytronLineaSepoliaTestnet]: {
-    multicall: ["0xF3e4AEe14224a0231f80eFaB003Ecb3c00377DE2"],
+    multicall: ['0xF3e4AEe14224a0231f80eFaB003Ecb3c00377DE2'],
   },
   [ChainId.ZytronB2Testnet]: {
-    multicall: ["0x103002767d102ACe6174Eb00f7a54830B9917797"],
+    multicall: ['0x103002767d102ACe6174Eb00f7a54830B9917797'],
   },
   [ChainId.Taiko]: {
-    multicall: ["0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9"],
+    multicall: ['0xE1515C54DAA99D9CD8097Be046A009539aa2a2B9'],
   },
   [ChainId.SagaMainnet]: {
-    multicall: ["0xA8712E98aeDF7d4D7AA140c50D4E33F3a4712B68"],
+    multicall: ['0xA8712E98aeDF7d4D7AA140c50D4E33F3a4712B68'],
   },
   [ChainId.B3Mainnet]: {
     multicall: [MulticallV3],
   },
   [ChainId.EXPTestnet]: {
-    multicall: ["0x0859A1F20d5A92168CFF9D0db858E03b0920F908"],
+    multicall: ['0x0859A1F20d5A92168CFF9D0db858E03b0920F908'],
+  },
+  [ChainId.BaseSepolia]: {
+    multicall: [MulticallV3],
   },
 };
 
 export enum IContractName {
-  Lobby = "lobby",
-  Card = "card",
-  Points = "points", // 卖代币的逻辑
-  ZypherGameToken = "ZypherGameToken", // 代币
-  Reward = "reward",
-  Fee = "ZkBingoFee", // 收费逻辑
-  Monster = "Monster",
-  Z2048SBT = "Z2048SBT",
-  ZkGame2048 = "ZkGame2048",
-  ZkGame2048API = "ZkGame2048API",
+  Lobby = 'lobby',
+  Card = 'card',
+  Points = 'points', // 卖代币的逻辑
+  ZypherGameToken = 'ZypherGameToken', // 代币
+  Reward = 'reward',
+  Fee = 'ZkBingoFee', // 收费逻辑
+  Monster = 'Monster',
+  Z2048SBT = 'Z2048SBT',
+  ZkGame2048 = 'ZkGame2048',
+  ZkGame2048API = 'ZkGame2048API',
 }
-export const zkBingoV0 = (
+export const zkBingoBeta = (
   chainId: ChainId | undefined,
-  name: IContractName
+  name: IContractName,
 ): Address => {
   if (!chainId) {
     throw Error(`Invalid V0 'chainId' parameter '${chainId}'.`);
@@ -520,8 +541,8 @@ export const zkBingoV0 = (
   try {
     const _repo =
       isTestnet[chainId] && ChainId.EXPTestnet !== chainId
-        ? "develop"
-        : "release";
+        ? 'develop'
+        : 'release';
     // @ts-ignore
     const address = zkBingoContracts?.[chainId]?.[_repo];
     let returnAddress = AddressZero;
@@ -541,45 +562,48 @@ export const zkBingoV0 = (
     return (returnAddress ? returnAddress : AddressZero) as Address;
   } catch (e) {
     throw Error(
-      `zkBingo V0 Invalid 'chainId' parameter '${chainId}', name: ${name}`
+      `zkBingo V0 Invalid 'chainId' parameter '${chainId}', name: ${name}`,
     );
   }
 };
-export const zkBingo = (
+export const zkBingoV1 = (
   chainId: ChainId | number | undefined,
-  name: IContractName
+  name: IContractName,
 ): Address => {
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
-  if (typeof chainId === "number") {
+  if (chainId === ChainId.BaseSepolia) {
+    chainId = ChainId.LineaSepolia;
+  }
+  if (typeof chainId === 'number') {
     chainId = `${chainId}` as ChainId;
   }
   try {
-    const _repo = isTestnet[chainId] ? "develop" : "release";
+    const _repo = isTestnet[chainId] ? 'develop' : 'release';
     // @ts-ignore
     let address = zkBingoContractsV1?.[chainId]?.[_repo];
     if (chainId === ChainId.ZytronLineaSepoliaTestnet) {
       address = {
-        date: "2024-08-01T07:49:19.451Z",
+        date: '2024-08-01T07:49:19.451Z',
         chainId: 50098,
-        deployer: "0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE",
-        ZypherGameToken: "0xF37D91f603F8E72648249b3D4D555cE26F8612C8",
-        ZkBingoCard: "0xF5b60bb4Da816b98Ef69cd0B811b51Cc73D29647",
-        ZkBingoLobby: "0x4961661f732e995133fDAa7881481BB10e424f78",
-        ZkBingoFee: "0xE33C000C23D6712319Fe2BF8FA873E62AdE2fa01",
-        ZkBingoPoints: "0xc7A8cbA2982228C00089226cf1C5cF5b253BBb58",
+        deployer: '0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE',
+        ZypherGameToken: '0xF37D91f603F8E72648249b3D4D555cE26F8612C8',
+        ZkBingoCard: '0xF5b60bb4Da816b98Ef69cd0B811b51Cc73D29647',
+        ZkBingoLobby: '0x4961661f732e995133fDAa7881481BB10e424f78',
+        ZkBingoFee: '0xE33C000C23D6712319Fe2BF8FA873E62AdE2fa01',
+        ZkBingoPoints: '0xc7A8cbA2982228C00089226cf1C5cF5b253BBb58',
       };
     } else if (chainId === ChainId.ZytronLineaMain) {
       address = {
-        date: "2024-09-18T07:29:26.176Z",
+        date: '2024-09-18T07:29:26.176Z',
         chainId: 9901,
-        deployer: "0x27863BeD6A09f73D4a02b4eDA99f65167Ecd04F4",
-        ZypherGameToken: "0x9aa0e7639e385437236686797d4210d60C9b9E1E",
-        ZkBingoCard: "0xFd77c5621a42Ea80576E6f0eC93766F86772E7D9",
-        ZkBingoLobby: "0x9Ddb32Cf25B374D0581CFE76114B88804507c86D",
-        ZkBingoFee: "0xa2BC76a002FBE3E86Ffa444eB4f6f4c59e752bfe",
-        ZkBingoPoints: "0x7BE15946c0F8655f8d29B2D19DA54006DF65A7fc",
+        deployer: '0x27863BeD6A09f73D4a02b4eDA99f65167Ecd04F4',
+        ZypherGameToken: '0x9aa0e7639e385437236686797d4210d60C9b9E1E',
+        ZkBingoCard: '0xFd77c5621a42Ea80576E6f0eC93766F86772E7D9',
+        ZkBingoLobby: '0x9Ddb32Cf25B374D0581CFE76114B88804507c86D',
+        ZkBingoFee: '0xa2BC76a002FBE3E86Ffa444eB4f6f4c59e752bfe',
+        ZkBingoPoints: '0x7BE15946c0F8655f8d29B2D19DA54006DF65A7fc',
       };
     }
     let returnAddress = AddressZero;
@@ -606,22 +630,66 @@ export const zkBingo = (
     return (returnAddress ? returnAddress : AddressZero) as Address;
   } catch (e) {
     throw Error(
-      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`
+      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`,
     );
   }
 };
-
+export const zkBingoChampion = (
+  chainId: ChainId | number | undefined,
+  name: IContractName,
+): Address => {
+  if (!chainId) {
+    throw Error(`Invalid Champion 'chainId' parameter '${chainId}'.`);
+  }
+  if (chainId === ChainId.BaseSepolia) {
+    chainId = ChainId.LineaSepolia;
+  }
+  if (typeof chainId === 'number') {
+    chainId = `${chainId}` as ChainId;
+  }
+  try {
+    const _repo = isTestnet[chainId] ? 'develop' : 'release';
+    // @ts-ignore
+    let address = zkBingoContractsChampion?.[chainId]?.[_repo];
+    let returnAddress = AddressZero;
+    if (name === IContractName.Lobby) {
+      returnAddress = address.ZkBingoLobby;
+    } else if (name === IContractName.Card) {
+      returnAddress = address.ZkBingoCard;
+    } else if (name === IContractName.Points) {
+      returnAddress = address.ZkBingoPoints;
+    } else if (name === IContractName.ZypherGameToken) {
+      // GP
+      if (DPSupportChainId.includes(chainId)) {
+        returnAddress = address.ZypherGameToken
+          ? address.ZypherGameToken
+          : address.ZkBingoToken;
+      }
+    } else if (name === IContractName.Reward) {
+      returnAddress = address.Reward;
+    } else if (name === IContractName.Fee) {
+      returnAddress = address.ZkBingoFee;
+    } else if (name === IContractName.Monster) {
+      returnAddress = contract[5611].contracts.MonsterSlayer202310.address;
+    }
+    return (returnAddress ? returnAddress : AddressZero) as Address;
+  } catch (e) {
+    throw Error(
+      `zkBingo Champion Invalid 'chainId' parameter '${chainId}', name: ${name}`,
+    );
+  }
+};
 export const defaultRankChainId = ChainId.ArbitrumGoerli;
 export const TG_BOT_URL = isLocalhost()
-  ? "http://192.168.0.11:4000"
-  : "https://bingo-api.zypher.game";
+  ? 'http://192.168.0.11:4000'
+  : 'https://bingo-api.zypher.game';
 export const targetDate = new Date(2024, 9, 1); // 2024年9月1日
 // "https://bingo-api.zypher.game";
-export const TaskTelegramBot = "https://t.me/zBingoBot";
-export const TaskJoinTelegramGroup = "https://t.me/zyphernetwork"; // location.protocol === 'http:' ? 'https://t.me/tt3434' :
-export const TaskFollowZypher = "https://twitter.com/Zypher_Network";
+export const TaskTelegramBot = 'https://t.me/zBingoBot';
+export const TaskJoinTelegramGroup = 'https://t.me/zyphernetwork'; // location.protocol === 'http:' ? 'https://t.me/tt3434' :
+export const TaskFollowZypher = 'https://twitter.com/Zypher_Network';
 export const TaskReweet1 =
-  "https://x.com/Zypher_Network/status/1830911872473932208";
+  'https://x.com/Zypher_Network/status/1830911872473932208';
 
 type IAAWallet = {
   dispatch: (arg: any) => any;
