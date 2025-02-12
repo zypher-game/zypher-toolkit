@@ -77,20 +77,15 @@ export const bingoChampionSupportedChainId = !isPro
   : [];
 export const DPSupportChainId = !isPro
   ? [
-      ...bingoChampionSupportedChainId,
       ChainId.LineaMainnet,
       ChainId.LineaSepolia,
       ChainId.OPBNBTEST,
       ChainId.OPBNB,
       ChainId.ZytronLineaSepoliaTestnet,
       ChainId.ZytronLineaMain,
-    ]
-  : [
       ...bingoChampionSupportedChainId,
-      ChainId.LineaMainnet,
-      ChainId.ZytronLineaMain,
-      ChainId.OPBNB,
-    ];
+    ]
+  : [ChainId.LineaMainnet, ChainId.ZytronLineaMain, ChainId.OPBNB];
 export const bingoV1SupportedChainId = DPSupportChainId;
 
 export const bingoBetaSupportedChainId = TGChainId
@@ -117,9 +112,9 @@ export const bingoBetaSupportedChainId = TGChainId
       ChainId.B3Mainnet,
     ];
 export const bingoSupportedChainId = TGChainId || [
-  ...bingoChampionSupportedChainId,
   ...bingoV1SupportedChainId,
   ...bingoBetaSupportedChainId,
+  ...bingoChampionSupportedChainId,
 ];
 export const supportedChainIds = (
   env?: string,
@@ -337,7 +332,7 @@ export const ChainNetworkName: Record<ChainId, string> = {
   [ChainId.SagaMainnet]: 'Saga Zypher',
   [ChainId.B3Mainnet]: 'B3',
   [ChainId.EXPTestnet]: 'EXP Testnet',
-  [ChainId.BaseSepolia]: 'ETH',
+  [ChainId.BaseSepolia]: 'Base Sepolia',
 };
 
 export const isTestnet: Record<ChainId, boolean> = {

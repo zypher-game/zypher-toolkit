@@ -108,19 +108,14 @@ var ChainId = /* @__PURE__ */ ((ChainId12) => {
 var TGChainId = window.IS_TELEGRAM ? ["2717465680371000" /* SagaMainnet */] : void 0;
 var bingoChampionSupportedChainId = !isPro ? ["84532" /* BaseSepolia */] : [];
 var DPSupportChainId = !isPro ? [
-  ...bingoChampionSupportedChainId,
   "59144" /* LineaMainnet */,
   "59141" /* LineaSepolia */,
   "5611" /* OPBNBTEST */,
   "204" /* OPBNB */,
   "50098" /* ZytronLineaSepoliaTestnet */,
-  "9901" /* ZytronLineaMain */
-] : [
-  ...bingoChampionSupportedChainId,
-  "59144" /* LineaMainnet */,
   "9901" /* ZytronLineaMain */,
-  "204" /* OPBNB */
-];
+  ...bingoChampionSupportedChainId
+] : ["59144" /* LineaMainnet */, "9901" /* ZytronLineaMain */, "204" /* OPBNB */];
 var bingoV1SupportedChainId = DPSupportChainId;
 var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro ? [
   "42161" /* Arbitrum */,
@@ -137,9 +132,9 @@ var bingoBetaSupportedChainId = TGChainId ? TGChainId : !isPro ? [
   "8333" /* B3Mainnet */
 ];
 var bingoSupportedChainId = TGChainId || [
-  ...bingoChampionSupportedChainId,
   ...bingoV1SupportedChainId,
-  ...bingoBetaSupportedChainId
+  ...bingoBetaSupportedChainId,
+  ...bingoChampionSupportedChainId
 ];
 var supportedChainIds = (env, chainList) => {
   return TGChainId ? TGChainId : chainList ? chainList : !isPro || env === "develop" ? [
@@ -336,7 +331,7 @@ var ChainNetworkName = {
   ["2717465680371000" /* SagaMainnet */]: "Saga Zypher",
   ["8333" /* B3Mainnet */]: "B3",
   ["18880" /* EXPTestnet */]: "EXP Testnet",
-  ["84532" /* BaseSepolia */]: "ETH"
+  ["84532" /* BaseSepolia */]: "Base Sepolia"
 };
 var isTestnet = {
   ["56" /* Bsc */]: false,
