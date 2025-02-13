@@ -1,6 +1,6 @@
-import { Address } from "wagmi";
-import { WagmiWalletHandler } from "./wagmiWalletHandler";
-import { MulticallMessageItem } from "./encodeFunctionMulticall";
+import { Address } from 'wagmi';
+import { WagmiWalletHandler } from './wagmiWalletHandler';
+import { MulticallMessageItem } from './encodeFunctionMulticall';
 export declare const aaApproveAndFcErc20: ({ erc20Address, wallet, tokenAmount, permitForAddress, otherFc, }: {
     erc20Address: Address;
     wallet: WagmiWalletHandler;
@@ -8,3 +8,6 @@ export declare const aaApproveAndFcErc20: ({ erc20Address, wallet, tokenAmount, 
     tokenAmount: string;
     otherFc: MulticallMessageItem[];
 }) => Promise<string>;
+export declare const aaApprove: ({ wallet }: {
+    wallet: WagmiWalletHandler;
+}) => Promise<void>;

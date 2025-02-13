@@ -1,6 +1,6 @@
-import { Iaa, WagmiWalletHandler } from "../utils/wagmiWalletHandler";
-import { Address } from "viem";
-import { ChainId } from "../../constant/constant";
+import { Iaa, WagmiWalletHandler } from '../utils/wagmiWalletHandler';
+import { Address } from 'viem';
+import { ChainId } from '../../constant/constant';
 export type IAAWallet = {
     getContainer?: HTMLElement | null;
     wallet?: WagmiWalletHandler;

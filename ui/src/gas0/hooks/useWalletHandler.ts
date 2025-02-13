@@ -1,20 +1,20 @@
-import { useWalletClient } from "wagmi";
-import { useGas0Balance } from "./useGas0Balance";
-import { useActiveWeb3React } from "../../hooks/useActiveWeb3React";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useWalletClient } from 'wagmi';
+import { useGas0Balance } from './useGas0Balance';
+import { useActiveWeb3React } from '../../hooks/useActiveWeb3React';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import {
   gas0WalletCreateAndApprove,
   Iaa,
   WagmiWalletHandler,
-} from "../utils/wagmiWalletHandler";
-import { Gas0Constants } from "../constants/Gas0Constant";
+} from '../utils/wagmiWalletHandler';
+import { Gas0Constants } from '../constants/Gas0Constant';
 
-import BigNumberJs from "../../utils/BigNumberJs";
-import { Address, zeroAddress } from "viem";
-import { getIsCode } from "../utils/getIsCode";
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
-import { TonProofItemReplySuccess } from "@tonconnect/ui-react";
-import { ChainId } from "../../constant/constant";
+import BigNumberJs from '../../utils/BigNumberJs';
+import { Address, zeroAddress } from 'viem';
+import { getIsCode } from '../utils/getIsCode';
+import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
+import { TonProofItemReplySuccess } from '@tonconnect/ui-react';
+import { ChainId } from '../../constant/constant';
 
 export type IAAWallet = {
   getContainer?: HTMLElement | null;
@@ -28,7 +28,7 @@ export type IAAWallet = {
   account?: Address;
 };
 export const aaWalletState = atom<IAAWallet>({
-  key: "aaWalletState",
+  key: 'aaWalletState',
   default: {
     getContainer: undefined,
     walletClient: undefined,
@@ -62,7 +62,7 @@ export const useGetWalletClient = () => {
   const { loading, balance: gas0Balance, config } = useGas0Balance();
   const { account, chainId } = useActiveWeb3React();
   const [isSet, setIsSet] = useState(false);
-  const key = useRef("");
+  const key = useRef('');
   const setAaWallet = useSetAaWallet();
   const { walletClient: _walletClient, aaWalletClient } = useAaWallet();
   const getWalletClient = useCallback(() => {
@@ -79,7 +79,7 @@ export const useGetWalletClient = () => {
         gas0Balance,
         !!_walletClient,
         !!aaWalletClient,
-      ].join("-");
+      ].join('-');
       if (Gas0Constants[chainId]) {
         if (key.current === keyString && _walletClient && aaWalletClient) {
           return;
@@ -91,6 +91,7 @@ export const useGetWalletClient = () => {
           config.deployer_address !== zeroAddress
         ) {
           const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
+          console.log(1111);
           setAaWallet((pre) => ({
             ...pre,
             chainId: chainId,
@@ -129,11 +130,12 @@ export const useCreate = () => {
   const create = useCallback(async () => {
     if (wallet && aa_mm_address && wallet.aa && owner) {
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address); // eoa =>
+      console.log({ owner, aa_mm_address, isCreate });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,
           wallet.aa.config.api,
-          wallet.aa.isFree
+          wallet.aa.isFree,
         );
         if (!hash) return;
         await wallet.publicClient.waitForTransactionReceipt({

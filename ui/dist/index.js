@@ -1432,6 +1432,7 @@ var useGetWalletClient = () => {
         key.current = keyString;
         if (new BigNumberJs_default(gas0Balance).gt(0) && config.deployer_address !== zeroAddress2) {
           const WH = new WagmiWalletHandler(walletClient, gas0Balance, config);
+          console.log(1111);
           setAaWallet((pre) => ({
             ...pre,
             chainId,
@@ -1470,6 +1471,7 @@ var useCreate = () => {
   const create = useCallback(async () => {
     if (wallet && aa_mm_address && wallet.aa && owner) {
       const isCreate = await getIsCode(wallet.publicClient, aa_mm_address);
+      console.log({ owner, aa_mm_address, isCreate });
       if (!isCreate) {
         const hash = await gas0WalletCreateAndApprove(
           owner,
@@ -3343,7 +3345,7 @@ var ERC20PermitAbi = [
 ];
 
 // src/gas0/utils/encodeFunctionMulticall.ts
-import { hexToSignature as hexToSignature2 } from "viem";
+import { hexToSignature as hexToSignature2, toHex as toHex2 } from "viem";
 var encodeFunctionMulticall = async (wallet, items) => {
   if (!wallet.aa)
     throw new Error("aa empty!");
