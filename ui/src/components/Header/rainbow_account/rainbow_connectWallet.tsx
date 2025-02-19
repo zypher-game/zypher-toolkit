@@ -1,21 +1,20 @@
-import { isEqual } from "../../../utils/lodash";
-import React, { memo } from "react";
+import { isEqual } from '../../../utils/lodash';
+import React, { memo } from 'react';
 
-import { ChainId, supportedChainIds } from "../../../constant/constant";
+import { ChainId, supportedChainIds } from '../../../constant/constant';
 
-import AccountInfo from "./rainbow_account";
-import "./rainbow_connectWallet.stylus";
-import WrongNetwork from "./WrongNetwork";
-import { useCustomTranslation } from "../../../hooks/useCustomTranslation";
-import { LngNs } from "../../../utils/i18n";
-import Language from "../../SideBar/component/Language";
-import IsPixelWidget from "./IsPixelWidget";
-import { ConnectButton } from "../../../rainbowkit/src/components/ConnectButton/ConnectButton";
-import { UIType } from "../header";
+import AccountInfo from './rainbow_account';
+import './rainbow_connectWallet.stylus';
+import WrongNetwork from './WrongNetwork';
+import { useCustomTranslation } from '../../../hooks/useCustomTranslation';
+import { LngNs } from '../../../utils/i18n';
+import Language from '../../SideBar/component/Language';
+import IsPixelWidget from './IsPixelWidget';
+import { ConnectButton } from '../../../rainbowkit/src/components/ConnectButton/ConnectButton';
+import { UIType } from '../header';
 interface IProps {
   useLocation: any;
   env: string;
-  dispatch: any;
   setSuccessToast: any;
   setErrorToast: any;
   className?: string;
@@ -34,7 +33,6 @@ const RainbowConnectWallet = memo((props: IProps) => {
     className,
     env,
     copy,
-    dispatch,
     setSuccessToast,
     setErrorToast,
     CountUpNumber,
@@ -44,7 +42,7 @@ const RainbowConnectWallet = memo((props: IProps) => {
   return (
     <div
       className={`connect_pixel_connectWallet
-        ${className ?? ""}`}
+        ${className ?? ''}`}
     >
       <ConnectButton.Custom>
         {({ chain, openConnectModal, mounted }: any) => {
@@ -53,14 +51,14 @@ const RainbowConnectWallet = memo((props: IProps) => {
               {!mounted || !chain ? (
                 <IsPixelWidget
                   onClick={openConnectModal}
-                  className={"connect_connect"}
+                  className={'connect_connect'}
                 >
-                  <p>{t("Connect Wallet")}</p>
+                  <p>{t('Connect Wallet')}</p>
                 </IsPixelWidget>
               ) : chain &&
                 (chain.unsupported ||
                   !supportedChainIds(env, supportedChainList).includes(
-                    `${chain.id}` as ChainId
+                    `${chain.id}` as ChainId,
                   )) ? (
                 <WrongNetwork />
               ) : (
@@ -71,14 +69,13 @@ const RainbowConnectWallet = memo((props: IProps) => {
                   setErrorToast={setErrorToast}
                   CountUpNumber={CountUpNumber}
                   isMiddleWidth={isMiddleWidth}
-                  supportedChainList={supportedChainList}
                 />
               )}
             </>
           );
         }}
       </ConnectButton.Custom>
-      {isBigWidth ? <Language type={type === "pixel" ? type : "top"} /> : null}
+      {isBigWidth ? <Language type={type === 'pixel' ? type : 'top'} /> : null}
     </div>
   );
 }, isEqual);

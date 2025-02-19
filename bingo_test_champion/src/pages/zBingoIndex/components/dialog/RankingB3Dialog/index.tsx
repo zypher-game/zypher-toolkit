@@ -24,11 +24,11 @@ const RankingB3Dialog = memo(() => {
           className={css.rankingInner}
           style={{
             padding: myItem ? (isMobile ? '100px 0 83px' : '100px 0px 111px') : '100px 0 60px',
-            backgroundImage: `url(${preStaticUrl}/img/bingo/${myItem ? 'ranking_bg' : 'ranking_bg_01'}${isMobile ? '_m' : ''}.png)`
+            backgroundImage: `url(${preStaticUrl}/img/bingo/${myItem ? 'ranking_bg' : 'ranking_bg_01'}${isMobile ? '_m' : ''}.webp)`
           }}
         >
           <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/close.svg`} alt="close" className={css.close} onClick={handleCancel} />
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/ranking_title.png'} alt="ranking" className={css.title} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/ranking_title.webp'} alt="ranking" className={css.title} />
           <RankingB3 rankingList={rankingList} tab={tab} setTab={setTab} loading={loading} myItem={myItem} />
         </DialogContent>
       </DialogOverlay>

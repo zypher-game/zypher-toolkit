@@ -3,7 +3,7 @@ import {
   useTonAddress,
   useTonConnectUI,
   useTonWallet,
-} from "@tonconnect/ui-react";
+} from '@tonconnect/ui-react';
 export { toUserFriendlyAddress, useTonAddress, useTonConnectUI, useTonWallet };
 import {
   useSetRecoilState,
@@ -13,7 +13,7 @@ import {
   useRecoilState,
   useRecoilValue,
   useResetRecoilState,
-} from "recoil";
+} from 'recoil';
 import {
   motion,
   AnimatePresence,
@@ -21,7 +21,7 @@ import {
   animate,
   useTransform,
   useSpring,
-} from "framer-motion";
+} from 'framer-motion';
 export {
   motion,
   AnimatePresence,
@@ -30,18 +30,18 @@ export {
   useTransform,
   useSpring,
 };
-export { dialogVariants } from "./constant/motionConstant";
+export { dialogVariants } from './constant/motionConstant';
 
-export { AllChainInfo } from "./constant/chains";
+export { AllChainInfo } from './constant/chains';
 
-export { IPointsItem } from "./components/ConnectWallet/components/PointsDialog/PointsDialog.type";
-export { INavLink, INavLinkType } from "./hooks/useNavItem.type";
-export { useTonWalletProofMounted } from "./hooks/useTonWalletProofMounted";
+export { IPointsItem } from './components/ConnectWallet/components/PointsDialog/PointsDialog.type';
+export { INavLink, INavLinkType } from './hooks/useNavItem.type';
+export { useTonWalletProofMounted } from './hooks/useTonWalletProofMounted';
 
-export { useIsTelegram } from "./hooks/useIsTelegram";
-export { useGetTgName, tgNameListState } from "./hooks/useGetTgName";
-export { useGetOwnAddress, ownerListState } from "./hooks/useGetOwnAddress";
-export { IConnectorState } from "./components/ConnectWallet/state/connectWalletState.type";
+export { useIsTelegram } from './hooks/useIsTelegram';
+export { useGetTgName, tgNameListState } from './hooks/useGetTgName';
+export { useGetOwnAddress, ownerListState } from './hooks/useGetOwnAddress';
+export { IConnectorState } from './components/ConnectWallet/state/connectWalletState.type';
 export {
   IGameStatus,
   IGameName,
@@ -49,7 +49,7 @@ export {
   IPlayer,
   IRecentGame,
   IGameList,
-} from "./types/gameList.types";
+} from './types/gameList.types';
 import {
   useWalletClient,
   useSwitchNetwork,
@@ -57,7 +57,7 @@ import {
   useAccount,
   usePublicClient,
   useContractReads,
-} from "wagmi";
+} from 'wagmi';
 export {
   useWalletClient,
   useSwitchNetwork,
@@ -94,8 +94,10 @@ export {
   CurrencyLogo,
   CurrencyContract,
   IContractName,
-  zkBingoV0,
-  zkBingo,
+  zkBingoBeta,
+  zkBingoV1,
+  zkBingoChampion,
+  bingoChampionSupportedChainId,
   bingoV1SupportedChainId,
   bingoBetaSupportedChainId,
   bingoSupportedChainId,
@@ -108,18 +110,18 @@ export {
   TaskReweet1,
   targetDate,
   GlobalVar,
-} from "./constant/constant";
+} from './constant/constant';
 export {
   useAaWallet,
   useSetAaWallet,
   useWalletHandler,
   useCreate,
   useGetWalletClient,
-} from "./gas0/hooks/useWalletHandler";
-export { aaApproveAndFcErc20 } from "./gas0/utils/aaApproveAndFcErc20";
-export { MulticallMessageItem } from "./gas0/utils/encodeFunctionMulticall";
-export { Gas0Constants } from "./gas0/constants/Gas0Constant";
-export { getIsCode } from "./gas0/utils/getIsCode";
+} from './gas0/hooks/useWalletHandler';
+export { aaApproveAndFcErc20 } from './gas0/utils/aaApproveAndFcErc20';
+export { MulticallMessageItem } from './gas0/utils/encodeFunctionMulticall';
+export { Gas0Constants } from './gas0/constants/Gas0Constant';
+export { getIsCode } from './gas0/utils/getIsCode';
 
 export {
   TVL_API,
@@ -139,20 +141,20 @@ export {
   CODELENGTH,
   ITvlHero,
   L3ChainId,
-} from "./constant/tvlConstant";
+} from './constant/tvlConstant';
 export {
   TelegramUserInfoState,
   useTelegramUser,
   useWebAppData,
-} from "./hooks/useTelegramUser";
-export { IGamesItem, IGames, Games } from "./constant/gamesList";
-export { localStorageEffect } from "./utils/localStorageEffect";
-export { default as BigNumberJs, FORMAT, BM } from "./utils/BigNumberJs";
-export { default as cn } from "./utils/cn";
-export { default as sleep, timeoutPromise } from "./utils/sleep";
-export { default as ListWithMotion } from "./components/List/ListWithMotion/ListWithMotion";
-export { default as Icon } from "./components/icons";
-export { default as TokenWithChain } from "./components/Token/TokenWithChain/TokenWithChain";
+} from './hooks/useTelegramUser';
+export { IGamesItem, IGames, Games } from './constant/gamesList';
+export { localStorageEffect } from './utils/localStorageEffect';
+export { default as BigNumberJs, FORMAT, BM } from './utils/BigNumberJs';
+export { default as cn } from './utils/cn';
+export { default as sleep, timeoutPromise } from './utils/sleep';
+export { default as ListWithMotion } from './components/List/ListWithMotion/ListWithMotion';
+export { default as Icon } from './components/icons';
+export { default as TokenWithChain } from './components/Token/TokenWithChain/TokenWithChain';
 
 export {
   LinkList,
@@ -160,14 +162,14 @@ export {
   useNavItem,
   zAceLink,
   crLink,
-} from "./hooks/useNavItem";
-export { useGetHero, useGetUserInfo } from "./hooks/useGetActiveCall";
+} from './hooks/useNavItem';
+export { useGetHero, useGetUserInfo } from './hooks/useGetActiveCall';
 export {
   useTelegramAccountInit,
   TelegramUserInfoDto,
   RefreshState,
-} from "./hooks/useTelegramUser";
-export { usePointsDialogState } from "./hooks/usePointsDialogState";
+} from './hooks/useTelegramUser';
+export { usePointsDialogState } from './hooks/usePointsDialogState';
 export {
   connectorState,
   walletModalOpenState,
@@ -183,57 +185,57 @@ export {
   linkToBetaDialogChainIdState,
   nativeBalanceState,
   pointsBalanceState,
-} from "./components/ConnectWallet/state/connectWalletState";
-export { default as PointsDialog } from "./components/ConnectWallet/components/PointsDialog/PointsDialog";
-export { default as SideBar } from "./components/SideBar/SideBar";
-export { default as DivWrap } from "./components/DivWrap/DivWrap";
-export { NavKey } from "./components/Header/Navigation/Navigation";
-export { default as IsPixelWidget } from "./components/Header/rainbow_account/IsPixelWidget";
-export { default as Account } from "./components/Header/rainbow_account/rainbow_account";
+} from './components/ConnectWallet/state/connectWalletState';
+export { default as PointsDialog } from './components/ConnectWallet/components/PointsDialog/PointsDialog';
+export { default as SideBar } from './components/SideBar/SideBar';
+export { default as DivWrap } from './components/DivWrap/DivWrap';
+export { NavKey } from './components/Header/Navigation/Navigation';
+export { default as IsPixelWidget } from './components/Header/rainbow_account/IsPixelWidget';
+export { default as Account } from './components/Header/rainbow_account/rainbow_account';
 export {
   useNativeBalanceStr,
   usePointsBalanceStr,
-} from "./components/ConnectWallet/hooks/connectWalletHooks";
-export { default as CurrencyLogoComp } from "./components/CurrencyLogo";
+} from './components/ConnectWallet/hooks/connectWalletHooks';
+export { default as CurrencyLogoComp } from './components/CurrencyLogo';
 export {
   ILocalPathUrl,
   localPathUrl,
   getChainNameText,
-} from "./components/ConnectWallet/components/linkToBetaDialog/localPathUrl";
-export { default as LinkToBetaDialog } from "./components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog";
-export { Header } from "./components/Header";
-export { default as Footer } from "./components/Footer/Footer";
-export { sideCollapseState, pathnameState } from "./components/Header/state";
+} from './components/ConnectWallet/components/linkToBetaDialog/localPathUrl';
+export { default as LinkToBetaDialog } from './components/ConnectWallet/components/linkToBetaDialog/LinkToBetaDialog';
+export { Header } from './components/Header';
+export { default as Footer } from './components/Footer/Footer';
+export { sideCollapseState, pathnameState } from './components/Header/state';
 export {
   default as PlayerAvatar,
   IPlayerAvatar,
   PlayerAvatarList,
-} from "./components/PlayerAvatar";
+} from './components/PlayerAvatar';
 // export { default as AccountInfoDialog } from "./components/ConnectWallet/components/AccountInfoDialog";
-export { default as Balance } from "./components/ConnectWallet/components/Balance/Balance";
-export { default as ChainSelectorWidget } from "./components/ConnectWallet/components/ChainSelector/ChainSelectorWidget";
-export { PointsIcon } from "./components/icons/PointsIcon/PointsIcon";
-export { default as SvgComponent } from "./components/SvgComponent/SvgComponent";
+export { default as Balance } from './components/ConnectWallet/components/Balance/Balance';
+export { default as ChainSelectorWidget } from './components/ConnectWallet/components/ChainSelector/ChainSelectorWidget';
+export { PointsIcon } from './components/icons/PointsIcon/PointsIcon';
+export { default as SvgComponent } from './components/SvgComponent/SvgComponent';
 
-export { default as PointsRuleDialog } from "./components/ConnectWallet/components/PointsDialog/PointsRuleDialog";
+export { default as PointsRuleDialog } from './components/ConnectWallet/components/PointsDialog/PointsRuleDialog';
 
 export {
   IsMdProvider,
   IsW768Provider,
   IsW1100Provider,
   IsW1220Provider,
-} from "./provider/IsMobileProvider";
-export { default as RainbowKitWithThemeProvider } from "./provider/RainbowKitWithThemeProvider";
-export { default as TonConnectUIProvider } from "./provider/TonConnectUIProvider";
+} from './provider/IsMobileProvider';
+export { default as RainbowKitWithThemeProvider } from './provider/RainbowKitWithThemeProvider';
+export { default as TonConnectUIProvider } from './provider/TonConnectUIProvider';
 
-export { useAccountInvitation } from "./hooks/useAccountInvitation";
-export { useAvatar } from "./hooks/useAvatar";
+export { useAccountInvitation } from './hooks/useAccountInvitation';
+export { useAvatar } from './hooks/useAvatar';
 
-export { useCurrentLanguage } from "./hooks/useCurrentLanguage";
-export { useActiveWeb3React } from "./hooks/useActiveWeb3React";
-export { useCustomTranslation } from "./hooks/useCustomTranslation";
-export { useInitRainbowFn } from "./hooks/useInitRainbowFn";
-export { useGetInvitationAddress } from "./hooks/useGetInvitationAddress";
+export { useCurrentLanguage } from './hooks/useCurrentLanguage';
+export { useActiveWeb3React } from './hooks/useActiveWeb3React';
+export { useCustomTranslation } from './hooks/useCustomTranslation';
+export { useInitRainbowFn } from './hooks/useInitRainbowFn';
+export { useGetInvitationAddress } from './hooks/useGetInvitationAddress';
 export {
   useRecentGamesFromGraph,
   graphqlApiUrl,
@@ -241,33 +243,34 @@ export {
   getStatus,
   formatDataFromGraph,
   getRecentGameById,
-} from "./hooks/useRecentGamesFromGraph";
-export { useInterval } from "./hooks/useInterval";
+} from './hooks/useRecentGamesFromGraph';
+export { useInterval } from './hooks/useInterval';
 
-export { useSwapPoint, ChainPointPrice } from "./hooks/usePoint";
-export { usePublicNodeWaitForTransaction } from "./hooks/usePublicNodeWaitForTransaction";
+export { useSwapPoint, ChainPointPrice } from './hooks/usePoint';
+export { usePublicNodeWaitForTransaction } from './hooks/usePublicNodeWaitForTransaction';
 export {
   default as useWindowSize,
   useIsW768,
   useIsMd,
   useIsW1100,
   useIsW1220,
-} from "./hooks/useWindowSize";
-import { changeLanguage } from "i18next";
+} from './hooks/useWindowSize';
+import { changeLanguage } from 'i18next';
 export { changeLanguage };
-export { LngNs } from "./utils/i18n";
-export { addressIsEqual } from "./utils/addressIsEqual";
-export { getWeb3Sign } from "./utils/getSign";
+export { LngNs } from './utils/i18n';
+export { addressIsEqual } from './utils/addressIsEqual';
+export { getWeb3Sign } from './utils/getSign';
 export {
   getContract,
   getContractFromRpc,
   getProvider,
-} from "./connectors/contractV2";
-export { setupNetwork } from "./connectors/setupNetwork";
-export { default as erc20Contract, erc20Abi } from "./contract/erc20";
-export { default as erc721Contract, erc721Abi } from "./contract/erc721";
-export { default as ZkBingoPointsContract } from "./contract/bingoPoints";
-export { default as MulticallContract } from "./contract/multicall";
+} from './connectors/contractV2';
+export { setupNetwork } from './connectors/setupNetwork';
+export { default as erc20Contract, erc20Abi } from './contract/erc20';
+export { default as erc721Contract, erc721Abi } from './contract/erc721';
+export { default as ZkBingoPointsContract } from './contract/bingoPoints';
+export { default as MulticallContract } from './contract/multicall';
+export { IBingoVersion, getBingoConfig } from './contract/getBingoConfig';
 
 export {
   pow10,
@@ -282,18 +285,18 @@ export {
   formatMoney,
   convertToLargeNumberRepresentation,
   splitArrByLen,
-} from "./utils/tool";
-export { getLocalTime } from "./utils/time";
-export { request, httpPost, httpGet } from "./utils/request";
+} from './utils/tool';
+export { getLocalTime } from './utils/time';
+export { request, httpPost, httpGet } from './utils/request';
 export {
   getUTCSeconds,
   timestampToDateStr,
   getFormattedTime,
   isTimeout,
   getFormattedTimeMobile,
-} from "./utils/data";
-export { getChainId } from "./utils/getChainId";
-export { languageList } from "./components/SideBar/component/Language";
+} from './utils/data';
+export { getChainId } from './utils/getChainId';
+export { languageList } from './components/SideBar/component/Language';
 export {
   IPixelProps,
   IPixelButtonTheme,
@@ -306,59 +309,59 @@ export {
   ActivePixelButton,
   ActivePixelButtonColor,
   PixelBorderCardButton,
-} from "./components/PixelBtn/ActivePixelButton";
+} from './components/PixelBtn/ActivePixelButton';
 
-export { default as PixelTab } from "./components/PixelTab/PixelTab";
-export { default as PixelTabBorder } from "./components/PixelTab/PixelTabBorder";
+export { default as PixelTab } from './components/PixelTab/PixelTab';
+export { default as PixelTabBorder } from './components/PixelTab/PixelTabBorder';
 export {
   PixelTableBorder,
   PixelTable,
   IsTablePixelWidget,
-} from "./components/PixelTable/PixelTable";
-export { default as LoadingButton } from "./components/LoadingSvg/LoadingButton";
-export { default as DialogClose } from "./components/DialogClose/DialogClose";
+} from './components/PixelTable/PixelTable';
+export { default as LoadingButton } from './components/LoadingSvg/LoadingButton';
+export { default as DialogClose } from './components/DialogClose/DialogClose';
 
-export { default as CommunityLink } from "./components/SideBar/component/CommunityLink";
+export { default as CommunityLink } from './components/SideBar/component/CommunityLink';
 
-export { __private__ } from "./rainbowkit/src/__private__/index";
-export * from "./rainbowkit/src/components/index";
-export { useAsyncImage } from "./rainbowkit/src/components/AsyncImage/useAsyncImage";
-export { DisclaimerComponent } from "./rainbowkit/src/components/RainbowKitProvider/AppContext";
+export { __private__ } from './rainbowkit/src/__private__/index';
+export * from './rainbowkit/src/components/index';
+export { useAsyncImage } from './rainbowkit/src/components/AsyncImage/useAsyncImage';
+export { DisclaimerComponent } from './rainbowkit/src/components/RainbowKitProvider/AppContext';
 export {
   AuthenticationConfig,
   AuthenticationStatus,
-} from "./rainbowkit/src/components/RainbowKitProvider/AuthenticationContext";
-export { CopiedIcon } from "./rainbowkit/src/components/Icons/Copied";
-export { CopyIcon } from "./rainbowkit/src/components/Icons/Copy";
+} from './rainbowkit/src/components/RainbowKitProvider/AuthenticationContext';
+export { CopiedIcon } from './rainbowkit/src/components/Icons/Copied';
+export { CopyIcon } from './rainbowkit/src/components/Icons/Copy';
 export {
   createAuthenticationAdapter,
   RainbowKitAuthenticationProvider,
-} from "./rainbowkit/src/components/RainbowKitProvider/AuthenticationContext";
-export { AvatarComponent } from "./rainbowkit/src/components/RainbowKitProvider/AvatarContext";
+} from './rainbowkit/src/components/RainbowKitProvider/AuthenticationContext';
+export { AvatarComponent } from './rainbowkit/src/components/RainbowKitProvider/AvatarContext';
 export {
   useAccountModal,
   useChainModal,
   useConnectModal,
-} from "./rainbowkit/src/components/RainbowKitProvider/ModalContext";
-export { Chain } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext";
-export { Theme } from "./rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider";
-export { default as ModalWithMotion } from "./components/Modal/ModalWithMotion/ModalWithMotion";
-export { cssObjectFromTheme } from "./rainbowkit/src/css/cssObjectFromTheme";
-export { cssStringFromTheme } from "./rainbowkit/src/css/cssStringFromTheme";
-export { useChainId } from "./rainbowkit/src/hooks/useChainId";
-export { useConnectionStatus } from "./rainbowkit/src/hooks/useConnectionStatus";
-export { darkTheme } from "./rainbowkit/src/themes/darkTheme";
-export { lightTheme } from "./rainbowkit/src/themes/lightTheme";
-export { midnightTheme } from "./rainbowkit/src/themes/midnightTheme";
-export { useAddRecentTransaction } from "./rainbowkit/src/transactions/useAddRecentTransaction";
-export { connectorsForWallets } from "./rainbowkit/src/wallets/connectorsForWallets";
-export { getDefaultWallets } from "./rainbowkit/src/wallets/getDefaultWallets";
-export { getWalletConnectConnector } from "./rainbowkit/src/wallets/getWalletConnectConnector";
+} from './rainbowkit/src/components/RainbowKitProvider/ModalContext';
+export { Chain } from './rainbowkit/src/components/RainbowKitProvider/RainbowKitChainContext';
+export { Theme } from './rainbowkit/src/components/RainbowKitProvider/RainbowKitProvider';
+export { default as ModalWithMotion } from './components/Modal/ModalWithMotion/ModalWithMotion';
+export { cssObjectFromTheme } from './rainbowkit/src/css/cssObjectFromTheme';
+export { cssStringFromTheme } from './rainbowkit/src/css/cssStringFromTheme';
+export { useChainId } from './rainbowkit/src/hooks/useChainId';
+export { useConnectionStatus } from './rainbowkit/src/hooks/useConnectionStatus';
+export { darkTheme } from './rainbowkit/src/themes/darkTheme';
+export { lightTheme } from './rainbowkit/src/themes/lightTheme';
+export { midnightTheme } from './rainbowkit/src/themes/midnightTheme';
+export { useAddRecentTransaction } from './rainbowkit/src/transactions/useAddRecentTransaction';
+export { connectorsForWallets } from './rainbowkit/src/wallets/connectorsForWallets';
+export { getDefaultWallets } from './rainbowkit/src/wallets/getDefaultWallets';
+export { getWalletConnectConnector } from './rainbowkit/src/wallets/getWalletConnectConnector';
 export {
   useWalletConnectors,
   WalletConnector,
-} from "./rainbowkit/src/wallets/useWalletConnectors";
-export { Wallet, WalletList } from "./rainbowkit/src/wallets/Wallet";
+} from './rainbowkit/src/wallets/useWalletConnectors';
+export { Wallet, WalletList } from './rainbowkit/src/wallets/Wallet';
 export {
   argentWallet,
   bifrostWallet,
@@ -395,4 +398,4 @@ export {
   walletConnectWallet,
   xdefiWallet,
   zerionWallet,
-} from "./rainbowkit/src/wallets/walletConnectors/index";
+} from './rainbowkit/src/wallets/walletConnectors/index';

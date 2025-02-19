@@ -1,9 +1,7 @@
-import { divisorBigNumber, IGameStatus, IPlayer } from '@ui/src'
+import { divisorBigNumber, IBingoVersion, IGameStatus, IPlayer } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useState } from 'react'
 import { formatEther } from 'viem'
-
-import { IBingoVersion } from '@/pages/state/state'
 
 import bingoLobby from '../contract/bingoLobby'
 import { env } from '../utils/config'

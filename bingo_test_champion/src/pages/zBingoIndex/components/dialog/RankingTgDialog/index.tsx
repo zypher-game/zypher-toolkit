@@ -28,7 +28,7 @@ const RankingTgDialog = memo(() => {
           }}
         >
           <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/close.svg`} alt="close" className={css.close} onClick={handleCancel} />
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/ranking_title.png'} alt="ranking" className={css.title} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/ranking_title.webp'} alt="ranking" className={css.title} />
           <RankingTg rankingList={rankingList} tab={tab} setTab={setTab} loading={loading} myItem={myItem} />
         </DialogContent>
       </DialogOverlay>

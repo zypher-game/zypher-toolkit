@@ -2,6 +2,7 @@ import { LoadingOutlined } from '@ant-design/icons'
 import {
   ChainRpcUrls,
   getProvider,
+  IBingoVersion,
   LngNs,
   ownerListState,
   preStaticUrl,
@@ -34,7 +35,7 @@ import { useChainIdParams } from '@/hooks/useChainIdParams'
 import useIntervalAsync from '@/hooks/useIntervalAsync'
 import useRestoreGame from '@/hooks/useRestoreGame'
 import { ButtonPrimary } from '@/pages/components/Button'
-import { gameRoomState, IBingoVersion, joinGameState } from '@/pages/state/state'
+import { gameRoomState, joinGameState } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { toBingoPlayHref } from '@/utils/toBingoHref'

@@ -1,7 +1,5 @@
-import { LngNs, useCustomTranslation, useIsW768 } from '@ui/src'
+import { IBingoVersion, LngNs, useCustomTranslation, useIsW768 } from '@ui/src'
 import React, { ReactElement, useMemo } from 'react'
-
-import { IBingoVersion } from '@/pages/state/state'
 
 import css from './steps.module.stylus'
 

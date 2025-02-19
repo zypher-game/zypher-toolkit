@@ -1,8 +1,8 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
-import { useAaWallet } from "../../../../gas0/hooks/useWalletHandler";
-import ZgClientContract from "../contract/ZgClient";
-import { Address, TransactionReceipt, zeroAddress } from "viem";
-import { usePublicNodeWaitForTransaction } from "../../../../hooks/usePublicNodeWaitForTransaction";
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useAaWallet } from '../../../../gas0/hooks/useWalletHandler';
+import ZgClientContract from '../contract/ZgClient';
+import { Address, TransactionReceipt, zeroAddress } from 'viem';
+import { usePublicNodeWaitForTransaction } from '../../../../hooks/usePublicNodeWaitForTransaction';
 import {
   ChainId,
   Currency,
@@ -11,22 +11,22 @@ import {
   IContractName,
   isPro,
   txStatus,
-  zkBingo,
-} from "../../../../constant/constant";
-import { useAccountInvitation } from "../../../../hooks/useAccountInvitation";
-import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
+  zkBingoV1,
+} from '../../../../constant/constant';
+import { useAccountInvitation } from '../../../../hooks/useAccountInvitation';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import {
   nativeBalanceState,
   pointsBalanceState,
   pointsV2DialogState,
   refreshBalanceState,
-} from "../../../../components/ConnectWallet/state/connectWalletState";
-import BigNumberJs from "../../../../utils/BigNumberJs";
-import { IToken } from "../../../../constant/tvlConstant";
-import erc20Contract from "../../../../contract/erc20";
-import { GPAddress, GPV2SupportChainId } from "../constant/GPConstant";
-import { formatMoney } from "../../../../utils/tool";
-import { useSwitchNetwork } from "wagmi";
+} from '../../../../components/ConnectWallet/state/connectWalletState';
+import BigNumberJs from '../../../../utils/BigNumberJs';
+import { IToken } from '../../../../constant/tvlConstant';
+import erc20Contract from '../../../../contract/erc20';
+import { GPAddress, GPV2SupportChainId } from '../constant/GPConstant';
+import { formatMoney } from '../../../../utils/tool';
+import { useSwitchNetwork } from 'wagmi';
 
 export interface IHealth {
   gp: Address;
@@ -94,7 +94,7 @@ export const useGPDeposit = ({
     useRecoilState(refreshBalanceState);
   const [loadingDeposit, setIsLoadingDeposit] = useState(false);
   const [loadingWithdraw, setIsLoadingWithdraw] = useState(false);
-  const [allowance, setAllowance] = useState("");
+  const [allowance, setAllowance] = useState('');
   const [health, setHealth] = useState<IHealth>();
   const nativeBalance = useRecoilValue(nativeBalanceState);
   const pointBalance = useRecoilValue(pointsBalanceState);
@@ -107,13 +107,13 @@ export const useGPDeposit = ({
           index: 1,
           address: zeroAddress,
           symbol: currency,
-          logoPath: getCryptoImg("token", currency),
+          logoPath: getCryptoImg('token', currency),
         },
         GPToken: {
           index: 2,
-          address: zkBingo(chainId, IContractName.ZypherGameToken),
-          symbol: "GP",
-          logoPath: getCryptoImg("token", "GP"),
+          address: zkBingoV1(chainId, IContractName.ZypherGameToken),
+          symbol: 'GP',
+          logoPath: getCryptoImg('token', 'GP'),
         },
       };
     }
@@ -125,12 +125,12 @@ export const useGPDeposit = ({
   const getData = useCallback(async () => {
     if (chainId && GPV2SupportChainId.includes(chainId) && account) {
       const { Store } = GPAddress[chainId];
-      const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken);
+      const pointsAddress = zkBingoV1(chainId, IContractName.ZypherGameToken);
       const pointsContract = erc20Contract(
         chainId,
         env,
         pointsAddress,
-        walletClient
+        walletClient,
       );
       const allowance = await pointsContract.read.allowance([account, Store]);
       const zgClient = ZgClientContract({ chainId, env });
@@ -138,35 +138,35 @@ export const useGPDeposit = ({
         const health = await zgClient.read.health();
         setHealth({
           ...health,
-          accumulatedFee: health["accumulatedFee"].toString(),
-          ethLiquidity: health["ethLiquidity"].toString(),
-          exchangeRate: health["exchangeRate"].toString(),
-          feeWithdraw: health["feeWithdraw"].toString(),
-          gpHandling: health["gpHandling"].toString(),
-          gpLiquidity: health["gpLiquidity"].toString(),
-          liquidityRatio: health["liquidityRatio"].toString(),
-          maxWithdraw: health["maxWithdraw"].toString(),
-          minDeposit: health["minDeposit"].toString(),
+          accumulatedFee: health['accumulatedFee'].toString(),
+          ethLiquidity: health['ethLiquidity'].toString(),
+          exchangeRate: health['exchangeRate'].toString(),
+          feeWithdraw: health['feeWithdraw'].toString(),
+          gpHandling: health['gpHandling'].toString(),
+          gpLiquidity: health['gpLiquidity'].toString(),
+          liquidityRatio: health['liquidityRatio'].toString(),
+          maxWithdraw: health['maxWithdraw'].toString(),
+          minDeposit: health['minDeposit'].toString(),
           minDepositStr: formatMoney(
-            new BigNumberJs(health["minDeposit"].toString())
+            new BigNumberJs(health['minDeposit'].toString())
               .dividedBy(divisorBigNumber)
               .toFixed(),
-            8
+            8,
           ),
-          minWithdraw: health["minWithdraw"].toString(),
+          minWithdraw: health['minWithdraw'].toString(),
           minWithdrawStr: formatMoney(
-            new BigNumberJs(health["minWithdraw"].toString())
+            new BigNumberJs(health['minWithdraw'].toString())
               .dividedBy(divisorBigNumber)
               .toFixed(),
-            8
+            8,
           ),
           maxWithdrawStr: formatMoney(
-            new BigNumberJs(health["maxWithdraw"].toString())
+            new BigNumberJs(health['maxWithdraw'].toString())
               .dividedBy(divisorBigNumber)
               .toFixed(),
-            8
+            8,
           ),
-          timestamp: health["timestamp"].toString(),
+          timestamp: health['timestamp'].toString(),
         });
       }
       setAllowance(allowance.toString());
@@ -181,18 +181,18 @@ export const useGPDeposit = ({
       GPValue: string;
     }) => {
       if (!chainId || !walletClient) {
-        setErrorToast("walletClient is not ready");
+        setErrorToast('walletClient is not ready');
         return;
       }
       const zgClient = ZgClientContract({ chainId, env, signer: walletClient });
       if (!zgClient) {
-        setErrorToast("ZgClientContract is not ready");
+        setErrorToast('ZgClientContract is not ready');
         return;
       }
       setIsLoadingDeposit(true);
       try {
         if (new BigNumberJs(nativeValue).gt(nativeBalance)) {
-          throw new Error("Amount is not enough");
+          throw new Error('Amount is not enough');
         }
         const tokenAmount = new BigNumberJs(nativeValue)
           .times(divisorBigNumber)
@@ -200,7 +200,7 @@ export const useGPDeposit = ({
         if (health) {
           if (new BigNumberJs(health.minDeposit).gt(tokenAmount)) {
             throw new Error(
-              `Deposit value is below the minimum required amount (${health.minDepositStr}${Currency[chainId]}).`
+              `Deposit value is below the minimum required amount (${health.minDepositStr}${Currency[chainId]}).`,
             );
           }
         }
@@ -209,12 +209,12 @@ export const useGPDeposit = ({
           value: tokenAmount,
           account: account,
         });
-        const hash = typeof res === "string" ? res : res.hash;
+        const hash = typeof res === 'string' ? res : res.hash;
         const nativeSwapTx: TransactionReceipt | undefined =
           await waitForTransaction({ confirmations: 1, hash });
         if (nativeSwapTx && nativeSwapTx.status === txStatus) {
           setSuccessToast({
-            title: "",
+            title: '',
             message: `Deposit ${GPValue}GP successful`,
           });
           setTimeout(() => {
@@ -223,18 +223,18 @@ export const useGPDeposit = ({
             setRefreshBalanceState(refreshBalance + 1);
           }, 500);
         } else {
-          throw Object.assign(new Error("NativeSwap Transaction Failed"), {
-            name: "NativeSwap",
+          throw Object.assign(new Error('NativeSwap Transaction Failed'), {
+            name: 'NativeSwap',
           });
         }
       } catch (e) {
         setErrorToast(e);
-        console.error("swapPointL2Handle: ", e);
+        console.error('swapPointL2Handle: ', e);
       } finally {
         setIsLoadingDeposit(false);
       }
     },
-    [chainId, nativeBalance, account, JSON.stringify(health)]
+    [chainId, nativeBalance, account, JSON.stringify(health)],
   );
   const withdraw = useCallback(
     async ({
@@ -247,7 +247,7 @@ export const useGPDeposit = ({
       isL2: boolean;
     }) => {
       if (!chainId || !walletClient) {
-        setErrorToast("walletClient is not ready");
+        setErrorToast('walletClient is not ready');
         return;
       }
       if (isL2) {
@@ -258,14 +258,14 @@ export const useGPDeposit = ({
             : ChainId.ZytronLineaSepoliaTestnet;
           await switchNetworkAsync(parseInt(chain, 10));
         } else {
-          setErrorToast("switchNetwork is not ready");
+          setErrorToast('switchNetwork is not ready');
         }
         setIsLoadingWithdraw(false);
         return;
       }
       const zgClient = ZgClientContract({ chainId, env, signer: walletClient });
       if (!zgClient) {
-        setErrorToast("ZgClientContract is not ready");
+        setErrorToast('ZgClientContract is not ready');
         return;
       }
       setIsLoadingWithdraw(true);
@@ -274,7 +274,7 @@ export const useGPDeposit = ({
         // const storeContract = erc20Contract(chainId, env, Store, walletClient)
         // const _nativeBalance = storeContract.read.balanceOf()
         if (new BigNumberJs(GPValue).gt(pointBalance)) {
-          throw new Error("Amount is not enough");
+          throw new Error('Amount is not enough');
         }
         const { Store, GP } = GPAddress[chainId];
         const pointsContract = erc20Contract(chainId, env, GP, walletClient);
@@ -286,13 +286,13 @@ export const useGPDeposit = ({
           // >
           if (new BigNumberJs(health.minWithdraw).gt(tokenAmount)) {
             throw new Error(
-              `Withdraw value is below the minimum required amount (${health.minWithdrawStr}) GP.`
+              `Withdraw value is below the minimum required amount (${health.minWithdrawStr}) GP.`,
             );
           }
           // <
           if (new BigNumberJs(health.maxWithdraw).lt(tokenAmount)) {
             throw new Error(
-              `Withdraw value is below the maxWithdraw required amount (${health.maxWithdrawStr}) GP.`
+              `Withdraw value is below the maxWithdraw required amount (${health.maxWithdrawStr}) GP.`,
             );
           }
         }
@@ -301,12 +301,12 @@ export const useGPDeposit = ({
             [Store, tokenAmount],
             {
               account: account,
-            }
+            },
           );
           const approveTxnHash =
-            typeof approveTxn === "string" ? approveTxn : approveTxn.hash;
+            typeof approveTxn === 'string' ? approveTxn : approveTxn.hash;
           await waitForTransaction({ confirmations: 2, hash: approveTxnHash });
-          setSuccessToast({ title: "", message: "Approve successful" });
+          setSuccessToast({ title: '', message: 'Approve successful' });
           await getData();
           return;
         }
@@ -314,12 +314,12 @@ export const useGPDeposit = ({
           account: account,
         });
         // const Store = GPAddress[chainId].Store
-        const hash = typeof res === "string" ? res : res.hash;
+        const hash = typeof res === 'string' ? res : res.hash;
         const nativeSwapTx: TransactionReceipt | undefined =
           await waitForTransaction({ confirmations: 1, hash });
         if (nativeSwapTx && nativeSwapTx.status === txStatus) {
           setSuccessToast({
-            title: "",
+            title: '',
             message: `Withdraw ${nativeValue}${Currency[chainId]} successful!`,
           });
           setTimeout(() => {
@@ -328,25 +328,31 @@ export const useGPDeposit = ({
             setRefreshBalanceState(refreshBalance + 1);
           }, 500);
         } else {
-          throw Object.assign(new Error("WithdrawSwap Transaction Failed"), {
-            name: "WithdrawSwap",
+          throw Object.assign(new Error('WithdrawSwap Transaction Failed'), {
+            name: 'WithdrawSwap',
           });
         }
       } catch (e) {
         setErrorToast(e);
-        console.error("Withdraw swapPointL2Handle: ", e);
+        console.error('Withdraw swapPointL2Handle: ', e);
       } finally {
         setIsLoadingWithdraw(false);
       }
     },
-    [chainId, switchNetworkAsync, pointBalance, account, JSON.stringify(health)]
+    [
+      chainId,
+      switchNetworkAsync,
+      pointBalance,
+      account,
+      JSON.stringify(health),
+    ],
   );
   const getWithdrawETH = useCallback(
     async (GPValue: string) => {
       if (chainId) {
         const zgClient = ZgClientContract({ chainId, env });
         if (!zgClient) {
-          setErrorToast("ZgClientContract is not ready");
+          setErrorToast('ZgClientContract is not ready');
         } else {
           try {
             const tokenAmount = new BigNumberJs(GPValue)
@@ -355,12 +361,12 @@ export const useGPDeposit = ({
             // console.log({ tokenAmount });
             const value = await zgClient.read.queryWithdraw([tokenAmount]);
             // console.log({ value });
-            if (value && value["receivedETH"]) {
+            if (value && value['receivedETH']) {
               return formatMoney(
-                new BigNumberJs(value["receivedETH"].toString())
+                new BigNumberJs(value['receivedETH'].toString())
                   .dividedBy(divisorBigNumber)
                   .toFixed(),
-                8
+                8,
               );
             }
           } catch (err: any) {
@@ -368,9 +374,9 @@ export const useGPDeposit = ({
           }
         }
       }
-      return "-";
+      return '-';
     },
-    [chainId]
+    [chainId],
   );
   return {
     NativeToken,

@@ -1,6 +1,6 @@
 .startGameWrapper
   border-radius: 32px
-  background:url($preStaticUrl + '/img/bingo/pannel.png')  no-repeat;
+  background:url($preStaticUrl + '/img/bingo/pannel.webp')  no-repeat;
   width: 1165px
   background-size: 100% 100%;
   box-shadow: 0px -2px 2px 0px rgba(0, 0, 0, 0.25) inset, 0px 2px 1px 0px rgba(255, 255, 255, 0.3) inset,
@@ -13,14 +13,9 @@
     border-radius: 12px
     width: 355px
     height: 621px
+    background-image: url($preStaticUrl + '/img/bingo/pannel_m_en_US.webp')
     &.tg
-      background-image: url($preStaticUrl + '/img/bingo/pannel_m_tg.png')
-    &.en_US
-      background-image: url($preStaticUrl + '/img/bingo/pannel_m_en_US.png')
-    &.ko_KR
-      background-image: url($preStaticUrl + '/img/bingo/pannel_m_ko_KR.png')
-    &.zh_TW
-      background-image: url($preStaticUrl + '/img/bingo/pannel_m_zh_TW.png')
+      background-image: url($preStaticUrl + '/img/bingo/pannel_m_tg.webp')
 .startGameHead
   lemonFont()
   padding-left: 40px;

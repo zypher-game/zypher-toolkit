@@ -3,12 +3,12 @@
     background: transparent!important
 body [data-reach-dialog-content].gameList
   position relative
-  background: url($preStaticUrl + "/img/bingo/bingoindexbg02.png") no-repeat
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg02.webp") no-repeat
   background-size: 100% 100%
   width: 1200px
   padding: 0 20px 20px
   @media screen and (max-width: 830px)
-    background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.png") no-repeat
+    background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.webp") no-repeat
     width: 90%;
     padding: 0 3px 10px;
     background-size: 100% 100%
@@ -24,10 +24,10 @@ body [data-reach-dialog-content].gameList
       top: 10px;
 .inner
   padding: 90px 50px 60px 40px
-  background: url($preStaticUrl + "/img/bingo/bingoindexbg01.png") no-repeat
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg01.webp") no-repeat
   background-size: 100% 100%
   @media screen and (max-width: 830px)
-    background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.png") no-repeat
+    background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.webp") no-repeat
     background-size: 100% 100%
     padding: 20px 20px 40px 15px;
 .title

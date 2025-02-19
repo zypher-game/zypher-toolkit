@@ -19,7 +19,7 @@ const RankB3Col: FC<IProp> = memo(({ rank, account, name, isMobile, otherStr }: 
   const rankId = useMemo(() => {
     if (rank && rank !== 'undefined') {
       if (`${rank}` !== '0' && new BigNumber(rank).isLessThan(4)) {
-        return <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/bingo/ranking${rank}.png`} title="ranking" />
+        return <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/bingo/ranking${rank}.webp`} title="ranking" />
       }
       return <p className={css.p}>{`${rank}` !== '0' ? rank : '+99'}</p>
     }

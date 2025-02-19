@@ -2,7 +2,7 @@
   "compilerOptions": {
     "outDir": "dist",
     "module": "esnext",
-    "target": "ES2019",
+    "target": "ES2020",
     "lib": ["esnext", "dom"],
     "sourceMap": true,
     "baseUrl": ".",
@@ -23,12 +23,7 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": [
-    "src/**/*",
-    ".eslintrc.js",
-    ".stylelintrc.js",
-    ".prettierrc.js"
-  ],
+  "include": ["src/**/*", ".eslintrc.js", ".stylelintrc.js", ".prettierrc.js"],
   "exclude": ["node_modules", "dist", "webpack"],
-  "types": ["@types/gtag.js"],
+  "types": ["@types/gtag.js"]
 }

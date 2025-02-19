@@ -22,19 +22,30 @@ import { toBingoPlayHref } from '@/utils/toBingoHref'
 import { ILevels, useLevels } from '../../hooks/usePoints'
 import CarouselList from '../carouselList/carouselList'
 import css from './Inner.module.stylus'
-const Inner = memo(({ bingoMapList, bingoHasError }: { bingoMapList: Map<ChainId, IGameList[]> | undefined; bingoHasError: boolean }) => {
-  const { activeLevels } = useLevels()
-  return (
-    <div className={css.inner}>
-      <CarouselList bingoMapList={bingoMapList} bingoHasError={bingoHasError} />
-      <div className={css.innerItemWrap}>
-        {activeLevels.map(v => (
-          <InnerItem key={v.amount} v={v} />
-        ))}
+const Inner = memo(
+  ({
+    bingoMapList,
+    bingoHasError,
+    className
+  }: {
+    bingoMapList: Map<ChainId, IGameList[]> | undefined
+    bingoHasError: boolean
+    className?: string
+  }) => {
+    const { activeLevels } = useLevels()
+    return (
+      <div className={className ? className : css.inner}>
+        <CarouselList bingoMapList={bingoMapList} bingoHasError={bingoHasError} />
+        <div className={css.innerItemWrap}>
+          {activeLevels.map(v => (
+            <InnerItem key={v.amount} v={v} />
+          ))}
+        </div>
       </div>
-    </div>
-  )
-}, isEqual)
+    )
+  },
+  isEqual
+)
 const InnerItem = memo(({ v }: { v: ILevels }) => {
   const chainIdParams = useChainIdParams()
   const { account, chainId } = useActiveWeb3React()
@@ -130,7 +141,7 @@ const InnerItem = memo(({ v }: { v: ILevels }) => {
     }
     return (
       <>
-        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/level_banner' + v.index + '.png'} className={css.level_banner} />
+        <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/level_banner' + v.index + '.webp'} className={css.level_banner} />
         {NumberItem}
       </>
     )
@@ -144,7 +155,7 @@ const InnerItem = memo(({ v }: { v: ILevels }) => {
       })}
       onClick={handleOnClick}
     >
-      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/point_bg0' + v.index + '.png'} className={css.point_bg} />
+      <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/point_bg0' + v.index + '.webp'} className={css.point_bg} />
       <div className={css.innerItemBg}>
         <div className={css.level}>
           <img decoding="async" loading="lazy" src={preStaticUrl + '/img/profile/level' + v.index + '.svg'} className={css.levelImg} />

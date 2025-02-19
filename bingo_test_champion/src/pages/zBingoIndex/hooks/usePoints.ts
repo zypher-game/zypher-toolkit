@@ -1,11 +1,10 @@
-import { ChainRpcUrls, getProvider, IContractName, zkBingo } from '@ui/src'
+import { ChainRpcUrls, getProvider, IBingoVersion } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { sample } from 'lodash'
 import { useEffect, useState } from 'react'
 
 import { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { IBingoVersion } from '@/pages/state/state'
 export type ILevels = {
   amount: string
   index: number

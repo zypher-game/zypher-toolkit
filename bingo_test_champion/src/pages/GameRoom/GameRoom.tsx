@@ -9,6 +9,7 @@ import {
   getProvider,
   getShortenAddress,
   httpPost,
+  IBingoVersion,
   IPlayer,
   LngNs,
   PlayerAvatarList as PlayerAvatar,
@@ -44,7 +45,7 @@ import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
 import useGetGameInfoV1 from '@/hooks/useGetGameInfoV1'
 import { IRoomInfo } from '@/hooks/useGetGameInfoV1.types'
-import { gameRoomState, IBingoVersion, joinGameState, startGameStep } from '@/pages/state/state'
+import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import getBingoLines from '@/utils/getBingoLines'
@@ -53,7 +54,6 @@ import { toBingoHref, toBingoPlayHref } from '@/utils/toBingoHref'
 import { ButtonPrimary } from '../components/Button'
 import InputValue from '../components/GameRules/inputValue'
 import { GradeModal, OvertimeModal } from '../components/Modal'
-import ControllerMenu from './components/ControllerMenu'
 import AvatarGroup from './components/MAvatarGroup'
 import PlayersAvatar from './components/PlayersAvatar'
 import RoundTitle from './components/roundTitle'
@@ -170,7 +170,7 @@ const PlayerTurn = styled.div<{ lang: string }>`
   max-height: 133px;
   padding: 20px;
   z-index: 1;
-  background: url(${preStaticUrl + `/img/bingo/player-turn`}_${({ lang }) => lang}.png) no-repeat center;
+  background: url(${preStaticUrl + `/img/bingo/player-turn_en_US.webp`}.png) no-repeat center;
   background-size: 100% auto;
   @media (max-width: 830px) {
     padding: 40px;
@@ -179,7 +179,6 @@ const PlayerTurn = styled.div<{ lang: string }>`
 `
 
 const GameRoom: React.FC = () => {
-  const IS_TELEGRAM = useIsTelegram()
   useBingoVersion()
   const { account: owner, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const navigate = useNavigate()

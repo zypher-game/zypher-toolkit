@@ -191,7 +191,14 @@ const TaskTgDialog = memo(() => {
     <>
       <DialogOverlay isOpen={isModalOpen} onDismiss={handleCancel} className={css.bg}>
         <DialogContent className={css.taskBg}>
-          <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/close.png`} alt="close" className={css.close} onClick={handleCancel} />
+          <img
+            decoding="async"
+            loading="lazy"
+            src={preStaticUrl + `/img/bingo/close.webp`}
+            alt="close"
+            className={css.close}
+            onClick={handleCancel}
+          />
           <div className={css.title}>Task List</div>
           <div className={css.taskInnerBg}>
             <div className={css.taskInner}>
@@ -312,7 +319,7 @@ const TaskItemCpt: React.FC<{
       </div>
       <div className={css.action}>
         {props.checked ? (
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/check.png'} width={24} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/check.webp'} width={24} />
         ) : (
           <ButtonPrimary className={css.btn} onClick={props.action}>
             {props.btn ?? 'Go'}

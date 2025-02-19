@@ -19,7 +19,7 @@ const RankTgCol: FC<IProp> = memo(({ rank, account, isMobile, name, otherStr }: 
   const rankId = useMemo(() => {
     if (rank && rank !== 'undefined') {
       if (new BigNumber(rank).isLessThan(4)) {
-        return <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/bingo/ranking${rank}.png`} title="ranking" />
+        return <img decoding="async" loading="lazy" className={css.img} src={preStaticUrl + `/img/bingo/ranking${rank}.webp`} title="ranking" />
       }
       return <p className={css.p}>{rank}</p>
     }

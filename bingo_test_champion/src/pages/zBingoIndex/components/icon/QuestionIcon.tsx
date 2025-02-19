@@ -10,7 +10,7 @@ const QuestionIcon = memo(() => {
   const setIsModalOpen = useSetRecoilState(bingoRuleDialogState)
   return (
     <>
-      <img src={preStaticUrl + `/img/bingo/question.png`} alt="" onClick={() => setIsModalOpen(true)} />
+      <img src={preStaticUrl + `/img/bingo/question.webp`} alt="" onClick={() => setIsModalOpen(true)} />
       <BingoRulesDialog />
     </>
   )

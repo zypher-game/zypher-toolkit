@@ -1,6 +1,7 @@
 import {
   ChainRpcUrls,
   getProvider,
+  IBingoVersion,
   txStatus,
   useAaWallet,
   useAccountInvitation,
@@ -18,15 +19,7 @@ import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
 import useRestoreGame from '@/hooks/useRestoreGame'
-import {
-  gameRoomState,
-  IBingoVersion,
-  showCloseModalState,
-  showModalState,
-  showTipModalState,
-  showTipOkModalState,
-  startGameStep
-} from '@/pages/state/state'
+import { gameRoomState, showCloseModalState, showModalState, showTipModalState, showTipOkModalState, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import { toBingoHref, toBingoPlayHref } from '@/utils/toBingoHref'

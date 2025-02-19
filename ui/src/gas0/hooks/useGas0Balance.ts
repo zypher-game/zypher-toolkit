@@ -1,11 +1,11 @@
-import { useEffect, useRef, useState } from "react";
-import { useActiveWeb3React } from "../../hooks/useActiveWeb3React";
-import { Gas0Constants, IGas0Config } from "../constants/Gas0Constant";
-import { httpGetOnce } from "../../utils/request";
-import BigNumberJs from "../../utils/BigNumberJs";
-import { Address } from "wagmi";
-import { Hash } from "@wagmi/core";
-import { zeroAddress } from "viem";
+import { useEffect, useRef, useState } from 'react';
+import { useActiveWeb3React } from '../../hooks/useActiveWeb3React';
+import { Gas0Constants, IGas0Config } from '../constants/Gas0Constant';
+import { httpGetOnce } from '../../utils/request';
+import BigNumberJs from '../../utils/BigNumberJs';
+import { Address } from 'wagmi';
+import { Hash } from '@wagmi/core';
+import { zeroAddress } from 'viem';
 export interface IGas0ApiConfig extends IGas0Config {
   deployer_address: Address;
   function_call_tip: string;
@@ -16,47 +16,47 @@ export interface IGas0ApiConfig extends IGas0Config {
 export const useGas0Balance = () => {
   const [loading, setLoading] = useState(false);
   const { account, chainId } = useActiveWeb3React();
-  const [balance, _balance] = useState("0");
+  const [balance, _balance] = useState('0');
   const [config, _config] = useState<IGas0ApiConfig>({
-    api: "",
+    api: '',
     deployer_address: zeroAddress,
-    function_call_tip: "",
-    function_multicall_tip: "",
-    wallet_bytecode: "0x",
+    function_call_tip: '',
+    function_multicall_tip: '',
+    wallet_bytecode: '0x',
     token_proxy: zeroAddress,
   });
-  const key = useRef("");
+  const key = useRef('');
   useEffect(() => {
     if (!account) {
-      key.current = "";
-      _balance("0");
+      key.current = '';
+      _balance('0');
       return;
     }
     const chainConf = Gas0Constants[chainId];
     if (!chainConf) {
-      key.current = "";
-      _balance("0");
+      key.current = '';
+      _balance('0');
       return;
     }
-    const keyString = [account, chainId].join("-");
+    const keyString = [account, chainId].join('-');
     if (key.current === keyString) return;
     key.current = keyString;
     setLoading(true);
     httpGetOnce(`${chainConf.api}/balanceof/${account}`).then(
       ({ data: res }) => {
         // console.log(`${chainConf.Gas0.api}/balanceof/${acc.address}`, res);
-        if (!res || res.status === "failure") {
-          _balance("0");
-          key.current = "";
+        if (!res || res.status === 'failure') {
+          _balance('0');
+          key.current = '';
           return;
         }
         const gas0Balance = res.amount;
         if (new BigNumberJs(gas0Balance).gt(0)) {
           httpGetOnce(`${chainConf.api}/config`).then(({ data: configRes }) => {
             setLoading(false);
-            if (!configRes || configRes.status === "failure") {
-              _balance("0");
-              key.current = "";
+            if (!configRes || configRes.status === 'failure') {
+              _balance('0');
+              key.current = '';
               return;
             }
             _balance(gas0Balance);
@@ -65,14 +65,15 @@ export const useGas0Balance = () => {
               deployer_address: configRes.deployer_address,
               function_call_tip: configRes.function_call_tip,
               function_multicall_tip: configRes.function_multicall_tip,
-              token_proxy: configRes.token_proxy,
+              // token_proxy: configRes.token_proxy,
               wallet_bytecode: configRes.wallet_bytecode,
+              token_proxy: '0x5888A6c977B8a4CA64BB4Fb662996c7afd6A7288',
             });
           });
         } else {
           setLoading(false);
         }
-      }
+      },
     );
   }, [account, chainId]);
   return { balance, config, loading };

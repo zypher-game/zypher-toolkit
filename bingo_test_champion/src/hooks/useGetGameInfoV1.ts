@@ -1,14 +1,12 @@
 import {
-  addressIsEqual,
   AllChainInfo,
   ChainRpcUrls,
   divisorBigNumber,
-  httpGet,
+  getBingoConfig,
+  IBingoVersion,
+  IContractName,
   IPlayer,
-  MulticallContract,
   pathnameState,
-  TG_BOT_URL,
-  useAaWallet,
   useGetOwnAddress,
   useGetTgName,
   useIsTelegram,
@@ -21,10 +19,9 @@ import { sample } from 'lodash'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Address, createPublicClient, http } from 'viem'
 
-import { IBingoVersion } from '@/pages/state/state'
 import { setIntervalAwait } from '@/utils/setIntervalAwait'
 
-import { getBingoLobbyAbi, getBingoLobbyAddress } from '../contract/bingoLobby'
+// import { getBingoLobbyAbi, getBingoLobbyAddress } from '../contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'
 import { useChainIdParamsAsChainId } from './useChainIdParams'
 import { IGameIdInfoBeta, IGameIdInfoV1, IRoomInfo } from './useGetGameInfoV1.types'
@@ -119,11 +116,16 @@ const useGetGameInfoV1 = (gameId: string | number | undefined) => {
       chain: AllChainInfo[_chainId],
       transport: http(sample(ChainRpcUrls[_chainId]), { timeout: 4000 })
     })
-    const address = getBingoLobbyAddress({
+    const [abi, address] = getBingoConfig({
       bingoVersion,
-      chainId: _chainId
+      chainId: _chainId,
+      contractName: IContractName.Lobby
     })
-    const abi = getBingoLobbyAbi({ bingoVersion })
+    // const address = getBingoLobbyAddress({
+    //   bingoVersion,
+    //   chainId: _chainId
+    // })
+    // const abi = getBingoLobbyAbi({ bingoVersion })
     const res = await publicClient.multicall({
       contracts: [
         { address, abi, functionName: 'getCurrentRound', args: [gameId] },

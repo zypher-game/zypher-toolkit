@@ -4,6 +4,7 @@ import {
   BigNumberJs,
   ChainRpcUrls,
   erc20Contract,
+  getBingoConfig,
   getProvider,
   IContractName,
   LngNs,
@@ -22,7 +23,7 @@ import {
   useRecoilState,
   useRecoilValue,
   useSetRecoilState,
-  zkBingo
+  zkBingoV1
 } from '@ui/src'
 import { Col, message, Row, Space } from 'antd'
 import BigNumber from 'bignumber.js'
@@ -33,7 +34,7 @@ import { TransactionReceipt } from 'viem'
 
 import BingoBoardView from '@/components/BingoBoardView'
 import { gasPrice } from '@/constants/constants'
-import bingoLobby, { bingoLobbyFromRpc, getBingoLobbyAbi } from '@/contract/bingoLobby'
+import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { ButtonPrimary } from '@/pages/components/Button'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
@@ -77,8 +78,8 @@ const SubmitCardV1 = () => {
   }, [chainId, account, walletClient, activeLevels, level])
   const getApprove = useCallback(async () => {
     if (chainId && aa_mm_address && walletClient && activeLevels) {
-      const GPAddress = zkBingo(chainId, IContractName.ZypherGameToken)
-      const FeeAddress = zkBingo(chainId, IContractName.Fee)
+      const GPAddress = zkBingoV1(chainId, IContractName.ZypherGameToken)
+      const FeeAddress = zkBingoV1(chainId, IContractName.Fee)
       const GpContract = erc20Contract(chainId, env, GPAddress, walletClient)
       const allowance = await GpContract.read.allowance([aa_mm_address, FeeAddress])
       const { betSize: tokenAmount } = activeLevels[level] as any
@@ -120,8 +121,8 @@ const SubmitCardV1 = () => {
       walletClient
     })
     try {
-      const GPAddress = zkBingo(chainId, IContractName.ZypherGameToken)
-      const ZkBingoFee = zkBingo(chainId, IContractName.Fee)
+      const GPAddress = zkBingoV1(chainId, IContractName.ZypherGameToken)
+      const ZkBingoFee = zkBingoV1(chainId, IContractName.Fee)
       // const lineupUsers = await lobbyContract.read.lineupUsers()
       const provider = await getProvider(sample(ChainRpcUrls[chainId]))
       const bingoLobbyContract = await bingoLobbyFromRpc({
@@ -150,15 +151,16 @@ const SubmitCardV1 = () => {
       const GpContract = erc20Contract(chainId, env, GPAddress, walletClient)
       const { betSize: tokenAmount, level: realLevel } = activeLevels[level] as any
       const donationFee = await bingoLobbyContract.functions.donationFee()
-      // console.log({ donationFee: new BigNumberJs(donationFee).toString() })
+      console.log({ donationFee: new BigNumberJs(donationFee).toString() })
       let hash = ''
-      // console.log({ aa, wallet })
+      console.log({ account, aa, wallet })
       if (account && aa && wallet) {
-        const lobbyAddress = zkBingo(chainId, IContractName.Lobby)
+        const lobbyAddress = zkBingoV1(chainId, IContractName.Lobby)
         const joinData = await (async () => {
-          const lobbyAbi = getBingoLobbyAbi({ bingoVersion })
+          const [lobbyAbi] = getBingoConfig({ contractName: IContractName.Lobby, chainId, bingoVersion })
           return encodeFunctionData({ abi: lobbyAbi, args: [realLevel, joinGame.signedCard], functionName: 'join' })
         })()
+        console.log({ joinData })
         const donationFeeBig = new BigNumberJs(donationFee)
         const otherFc: MulticallMessageItem[] = []
         if (!donationFeeBig.eq(0)) {

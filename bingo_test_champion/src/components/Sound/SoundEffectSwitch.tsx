@@ -26,7 +26,7 @@ const SoundEffectSwitch = memo(() => {
   return (
     <Switch onClick={toggleMusic}>
       {isSoundOn ? (
-        <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/close.png`} alt="" />
+        <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/close.webp`} alt="" />
       ) : (
         <img decoding="async" loading="lazy" src={preStaticUrl + `/audio/open.png`} alt="" />
       )}

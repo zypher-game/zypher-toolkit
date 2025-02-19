@@ -2,10 +2,11 @@ import './index.styl'
 
 import {
   bingoBetaSupportedChainId,
+  bingoChampionSupportedChainId,
   bingoV1SupportedChainId,
   Header,
+  IBingoVersion,
   motion,
-  NavKey,
   SideBar,
   sideCollapseState,
   useIsTelegram,
@@ -23,14 +24,14 @@ import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 import ControllerMenu from '@/pages/GameRoom/components/ControllerMenu'
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
-import { useAppDispatch } from '@/store/hooks'
+import { bingoVersionState } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import copy from '@/utils/copy'
 import { setErrorToast, setSuccessToast } from '@/utils/Error/setErrorToast'
 
 import Butterfly from '../Butterfly/Butterfly'
 import CountUpNumber from '../CountUpNumber/CountUpNumber'
+import Ribbon from '../Ribbon/Ribbon'
 
 const { Sider, Content } = LayoutAntd
 
@@ -52,7 +53,6 @@ const LayoutPage = memo((props: IProps) => {
   const [sideCollapse, setSideCollapse] = useRecoilState(sideCollapseState)
   const isW768 = useIsW768()
   const [zIndex, setZIndex] = useState(21)
-  const dispatch = useAppDispatch()
 
   useEffect(() => {
     const arr = location.pathname.split('/')
@@ -70,7 +70,11 @@ const LayoutPage = memo((props: IProps) => {
     }
   }, [isW768, sideCollapse])
   const supportedChainList = useMemo(() => {
-    return bingoVersion === IBingoVersion.beta ? bingoBetaSupportedChainId : bingoV1SupportedChainId
+    return bingoVersion === IBingoVersion.champion
+      ? bingoChampionSupportedChainId
+      : bingoVersion === IBingoVersion.beta
+      ? bingoBetaSupportedChainId
+      : bingoV1SupportedChainId
   }, [bingoVersion])
   const IS_TELEGRAM = useIsTelegram()
   const isPlay = useMemo(() => {
@@ -86,7 +90,6 @@ const LayoutPage = memo((props: IProps) => {
       <Header
         className="lt-header"
         env={env}
-        dispatch={dispatch}
         setSuccessToast={setSuccessToast}
         setErrorToast={setErrorToast}
         copy={copy}
@@ -122,7 +125,7 @@ const LayoutPage = memo((props: IProps) => {
       ) : null}
       {isW768 && !sideCollapse && <div className="lt-sidebar-layer" onClick={() => setSideCollapse(true)} />}
       {/* <div id="snow" /> */}
-      <Butterfly />
+      {bingoVersion === IBingoVersion.champion ? <Ribbon /> : <Butterfly />}
     </LayoutAntd>
   )
 }, isEqual)

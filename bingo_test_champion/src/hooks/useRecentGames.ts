@@ -4,6 +4,7 @@ import {
   ChainId,
   chainIdPre,
   IBingoInfo,
+  IBingoVersion,
   IContractName,
   IGameList,
   IGameStatus,
@@ -12,13 +13,13 @@ import {
   useInterval,
   useIsTelegram,
   useRecoilValue,
-  zkBingoV0
+  zkBingoBeta
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import ZkBingoLobbyAbiV0 from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
 import { useCallback, useEffect, useState } from 'react'
 
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
 import { batchRequestFromGraph } from './useRecentGamesFromGraph'
@@ -98,7 +99,7 @@ const batchRequestFromGraphBeta = async () => {
       multicall.call([
         {
           reference: 'recentGames',
-          contractAddress: zkBingoV0(chainIdConfig, IContractName.Lobby),
+          contractAddress: zkBingoBeta(chainIdConfig, IContractName.Lobby),
           abi: ZkBingoLobbyAbiV0,
           calls: [
             {

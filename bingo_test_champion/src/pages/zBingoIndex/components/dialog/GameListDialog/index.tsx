@@ -1,12 +1,12 @@
 import './antd.stylus'
 
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { ChainId, IGameList, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ChainId, IBingoVersion, IGameList, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo, useCallback } from 'react'
 
 import { IGameListBeta } from '@/hooks/useRecentGames'
-import { bingoVersionState, gameListDialogState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState, gameListDialogState } from '@/pages/state/state'
 
 import GameList from './GameList'
 import GameListBeta from './GameListBeta'
@@ -35,7 +35,7 @@ const GameListDialog = memo(
             <img
               decoding="async"
               loading="lazy"
-              src={preStaticUrl + `/img/bingo/close.png`}
+              src={preStaticUrl + `/img/bingo/close.webp`}
               alt="close"
               className={css.close}
               onClick={handleCancel}

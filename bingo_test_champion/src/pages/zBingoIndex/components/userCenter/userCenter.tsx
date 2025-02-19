@@ -1,9 +1,8 @@
-import { getShortenAddress, TelegramUserInfoState, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
+import { getShortenAddress, IBingoVersion, TelegramUserInfoState, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import BingoPlayerAvatar from '@/components/BingoPlayerAvatar/BingoPlayerAvatar'
-import { IBingoVersion } from '@/pages/state/state'
 
 import { useGetProfileFromGraph } from '../../hooks/useGetProfileFromGraph'
 import LevelIcon from '../icon/LevelIcon'

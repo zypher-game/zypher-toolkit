@@ -1,4 +1,4 @@
-import { useIsTelegram, useRecoilValue } from '@ui/src'
+import { IBingoVersion, useIsTelegram, useRecoilValue } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
@@ -6,9 +6,11 @@ import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useRecentGames } from '@/hooks/useRecentGames'
 
 import StartGameDialog from '../components/StartGameDialog/StartGameDialog'
-import { bingoVersionState, IBingoVersion } from '../state/state'
+import { bingoVersionState } from '../state/state'
 import Inner from './components/Inner/Inner'
 import InnerBeta from './components/InnerBeta/InnerBeta'
+import InnerChampion from './components/InnerChampion/InnerChampion'
+import RewardBar from './components/RewardBar/RewardBar'
 import RightBar from './components/rightBar/rightBar'
 import SideBar from './components/sideBar'
 import UserCenter from './components/userCenter/userCenter'
@@ -27,6 +29,8 @@ const zBingoIndex = memo(() => {
       <UserCenter />
       <SideBar bingoMapList={bingoMapList} listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} />
       <RightBar />
+      <RewardBar />
+      {bingoVersion === IBingoVersion.champion ? <InnerChampion bingoMapList={bingoMapList} bingoHasError={bingoHasError} /> : null}
       {bingoVersion === IBingoVersion.beta ? <InnerBeta listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} /> : null}
       {bingoVersion === IBingoVersion.v1 ? <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} /> : null}
       {IS_TELEGRAM ? <StartGameDialog isFromIndex={true} /> : null}

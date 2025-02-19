@@ -1,16 +1,13 @@
 import { LoadingOutlined } from '@ant-design/icons'
 import { Dialog, DialogContent, DialogOverlay } from '@reach/dialog'
-import { preStaticUrl, useRecoilValue } from '@ui/src'
-import { useCustomTranslation } from '@ui/src'
-import { useIsW768 } from '@ui/src'
-import { LngNs } from '@ui/src'
+import { IBingoVersion, LngNs, preStaticUrl, useCustomTranslation, useIsW768, useRecoilValue } from '@ui/src'
 import { Space } from 'antd'
 import React, { ReactNode } from 'react'
 import { Any } from 'react-spring'
 import styled from 'styled-components'
 
 import { ButtonHover, ButtonPrimary } from '@/pages/components/Button'
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState } from '@/pages/state/state'
 
 import LoadingSpinner from '../LoadingSpinner'
 
@@ -331,7 +328,7 @@ export function GradeModal(props: CustomDialogProps) {
         <GradeBorder>
           <ConfirmTip style={{ fontSize: '14px' }}>{content}</ConfirmTip>
           <div className="grade-img">
-            <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/' + `${garde === 2 ? 'boss.png' : 'baron.png'}`} alt="" />
+            <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/' + `${garde === 2 ? 'boss.webp' : 'baron.webp'}`} alt="" />
           </div>
         </GradeBorder>
         <ConfirmButton>

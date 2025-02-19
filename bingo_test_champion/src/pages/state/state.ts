@@ -1,12 +1,8 @@
-import { atom } from '@ui/src'
+import { atom, IBingoVersion } from '@ui/src'
 import { localStorageEffect } from '@ui/src'
 
 import { CardNumbersType } from '@/utils/generateCardNumbers'
 
-export enum IBingoVersion {
-  'v1' = 'v1',
-  'beta' = 'beta'
-}
 export const bingoVersionState = atom({
   key: 'bingoVersionState',
   default: IBingoVersion.v1

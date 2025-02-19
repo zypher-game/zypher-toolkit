@@ -18,6 +18,7 @@ import store from '@/store'
 
 import { ThemeProvider } from './theme'
 import { env } from './utils/config'
+
 render(
   <Provider store={store}>
     <RecoilRoot>

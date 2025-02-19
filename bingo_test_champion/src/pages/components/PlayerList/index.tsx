@@ -4,6 +4,7 @@ import {
   ChainId,
   getShortenAddress,
   graphqlApiUrl,
+  IBingoVersion,
   IPlayer,
   LngNs,
   ownerListState,
@@ -28,7 +29,7 @@ import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import { GetGameListBoxImg } from '@/hooks/useMText'
 import { usePrice } from '@/hooks/usePrice'
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
 import TgPointImg from '../TgPointImg/TgPointImg'

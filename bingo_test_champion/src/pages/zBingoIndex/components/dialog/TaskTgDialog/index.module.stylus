@@ -3,7 +3,7 @@
     background: transparent!important
 body [data-reach-dialog-content].taskBg
   position relative
-  background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.png") no-repeat
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg02_m.webp") no-repeat
   width: 90%;
   padding: 0 3px 10px;
   background-size: 100% 100%
@@ -19,7 +19,7 @@ body [data-reach-dialog-content].taskBg
 .taskInnerBg
   position relative
   width: 97%
-  background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.png") no-repeat
+  background: url($preStaticUrl + "/img/bingo/bingoindexbg01_m.webp") no-repeat
   padding: 30px 25px
   background-size: 100% 100%
   overflow: hidden
@@ -39,7 +39,7 @@ body [data-reach-dialog-content].taskBg
   gap: 6px
   align-items: center;
   justify-content: center;
-  background: url($preStaticUrl + '/img/bingo/title.png') no-repeat
+  background: url($preStaticUrl + '/img/bingo/title.webp') no-repeat
   background-size: 100% 100%
   // border: 1px solid #613C17;
   // padding: 10px 20px;

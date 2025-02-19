@@ -14,8 +14,8 @@ const SideBarTelegram = memo(() => {
 
   return (
     <div className={css.sidebar}>
-      <SideBarItem label="Ranking" theme="green" img="ranking.png" onClick={() => setIsRankingTgModalOpen(true)} />
-      <SideBarItem label="Task" theme="brown" img="task.png" onClick={() => setIsTaskTgModalOpen(true)} />
+      <SideBarItem label="Ranking" theme="green" img="ranking.webp" onClick={() => setIsRankingTgModalOpen(true)} />
+      <SideBarItem label="Task" theme="brown" img="task.webp" onClick={() => setIsTaskTgModalOpen(true)} />
       <RankingTgDialog />
       <TaskTgDialog />
     </div>

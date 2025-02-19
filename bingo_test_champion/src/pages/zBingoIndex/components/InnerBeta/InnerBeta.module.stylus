@@ -1,7 +1,7 @@
 .inner
   width: 690px
   height: 680px
-  background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta.png') no-repeat
+  background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta.webp') no-repeat
   background-size: 100% 100%
   background-position: center
   position fixed
@@ -14,14 +14,14 @@
     max-width: 360px
     width: 70%
     height: 400px
-    background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m.png') no-repeat
+    background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m.webp') no-repeat
     background-size: 100% 100%
     top: 58%
     &.tgInner
       top: 60%
       width: 70%
       height: 450px
-      background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m_TG.png') no-repeat
+      background: url($preStaticUrl + '/img/bingo/bingo_inner_bg_beta_m_TG.webp') no-repeat
       background-size: 100% 100%
     h3
       font-size: 18px

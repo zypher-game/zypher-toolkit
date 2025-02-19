@@ -1,22 +1,8 @@
 import { JsonRpcProvider } from '@ethersproject/providers'
-import { ChainId, IContractName, zkBingo, zkBingoV0 } from '@ui/src'
+import { ChainId, getBingoConfig, IBingoVersion, IContractName } from '@ui/src'
 import { getContract, getContractFromRpc } from '@ui/src'
-import abiV0 from '@zypher-game/bingo-periphery/abi/ZkBingoLobby.json'
-import abiV1 from '@zypher-game/bingo-periphery-v1/abi/ZkBingoLobby.json'
 import * as ethers from 'ethers'
-import { Address, WalletClient } from 'wagmi'
-
-import { IBingoVersion } from '@/pages/state/state'
-
-export const getBingoLobbyAbi = ({ bingoVersion }: { bingoVersion: IBingoVersion }): any => {
-  if (bingoVersion === IBingoVersion.v1) {
-    return abiV1
-  }
-  return abiV0
-}
-export const getBingoLobbyAddress = ({ bingoVersion, chainId }: { bingoVersion: IBingoVersion; chainId: ChainId }) => {
-  return bingoVersion === IBingoVersion.v1 ? zkBingo(chainId, IContractName.Lobby) : zkBingoV0(chainId, IContractName.Lobby)
-}
+import { Address } from 'wagmi'
 
 const bingoLobby = ({
   chainId,
@@ -30,11 +16,8 @@ const bingoLobby = ({
   address?: Address
   walletClient?: any
 }): ethers.ethers.Contract => {
-  const address = getBingoLobbyAddress({
-    bingoVersion,
-    chainId
-  })
-  const abi = getBingoLobbyAbi({ bingoVersion })
+  const [abi, address] = getBingoConfig({ contractName: IContractName.Lobby, bingoVersion, chainId })
+
   return getContract({
     env,
     abi: abi,
@@ -54,11 +37,7 @@ export const bingoLobbyFromRpc = ({
   library: JsonRpcProvider
   account?: string | null | undefined
 }): Promise<ethers.Contract> => {
-  const address = getBingoLobbyAddress({
-    bingoVersion,
-    chainId
-  })
-  const abi = getBingoLobbyAbi({ bingoVersion })
+  const [abi, address] = getBingoConfig({ contractName: IContractName.Lobby, bingoVersion, chainId })
   return getContractFromRpc({
     address,
     abi,

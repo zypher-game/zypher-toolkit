@@ -1,5 +1,5 @@
 import { ExclamationCircleOutlined } from '@ant-design/icons'
-import { ChainId, formatMoney, LngNs, preStaticUrl, useAaWallet, useCustomTranslation, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
+import { ChainId, formatMoney, IBingoVersion, LngNs, preStaticUrl, useCustomTranslation, useIsTelegram, useIsW768, useRecoilValue } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { Space, Tooltip } from 'antd'
 import React, { useCallback, useMemo, useState } from 'react'
@@ -10,7 +10,7 @@ import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import useIntervalAsync from '@/hooks/useIntervalAsync'
 import { GetGameListBoxImg } from '@/hooks/useMText'
 import { usePrice } from '@/hooks/usePrice'
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
 import TgPointImg from '../TgPointImg/TgPointImg'
@@ -104,6 +104,7 @@ const InputValue: React.FC<InputValueProps> = ({ color, playersNumber, room, bet
   )
 }
 const InputValueBeta: React.FC<InputValueProps> = ({ color, playersNumber, room, betSize }) => {
+  const bingoVersion = useRecoilValue(bingoVersionState)
   const { chainId } = useActiveWeb3ReactForBingo()
   const isMobile = useIsW768()
   const [gameRate, setGameRate] = useState(0)
@@ -130,7 +131,11 @@ const InputValueBeta: React.FC<InputValueProps> = ({ color, playersNumber, room,
       // DefaultChainId = supportedChainIds[0]
       DefaultChainId = ChainId.OPBNB //因为合约不全 这里暂时默认opbnb testnet
     }
-    const Contract = bingoLobbyFee(DefaultChainId, env)
+    const Contract = bingoLobbyFee({
+      chainId: DefaultChainId,
+      env,
+      bingoVersion
+    })
     const txnReceipt = await Contract.read.getGameFeeRatio()
     const Rate = new BigNumberJs(txnReceipt)
     const divisor = new BigNumberJs('1000000')

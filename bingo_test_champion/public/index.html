@@ -10,6 +10,11 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
   <link rel="shortcut icon " type="images/x-icon" href="https://static.zypher.game/img/layout/zBingo.png">
   <link rel="dns-prefetch" href="//static.zypher.game/">
+  <link rel="stylesheet" href="https://static-dev.zypher.game/css/bingo/init-v3.css">
+  <link rel="preload" href="https://static-dev.zypher.game/img/bingo/classic_bg.webp" as="image">
+  <link rel="preload" href="https://static-dev.zypher.game/img/bingo/champion_bg_green.webp" as="image">
+  <link rel="preload" href="https://static-dev.zypher.game/img/bingo/champion_bg_orange.webp" as="image">
+  <link rel="preload" href="https://static-dev.zypher.game/img/bingo/champion_bg_grey.webp" as="image">
   <meta name="description" content="Zypher Games, Portal for Revolutionary Fully-on-Chain Games using ZKP & AI" />
   <meta name="theme-color" content="#10253e" />
 
@@ -32,14 +37,6 @@
   <meta name="twitter:creator" content="@Zypher_Games" />
   <meta name="twitter:image:alt" content="zBingo" />
 
-  <link
-      rel="preload"
-      href="<%= htmlWebpackPlugin.options.preLink %>/fonts/Lemon-Regular.ttf"
-      as="font"
-      type="font/tff"
-    />
-
-  <link rel="stylesheet" href="https://static-dev.zypher.game/css/bingo/init-v3.css" />
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-L0QHB6VSZV"></script>
   <% if (htmlWebpackPlugin.options.isTg === "true" && htmlWebpackPlugin.options.env === "development") { %>
   <script src="https://fastly.jsdelivr.net/npm/eruda"></script><script>eruda.init()</script>
@@ -50,6 +47,8 @@
     function gtag() { dataLayer.push(arguments); }
     gtag('js', new Date());
     gtag('config', 'G-L0QHB6VSZV');
+
+
     <% if (htmlWebpackPlugin.options.isTg === "true") { %>
     const tgKey = "TelegramWebviewProxy"
     function isRecord(value) {

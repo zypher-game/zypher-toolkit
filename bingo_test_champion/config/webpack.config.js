@@ -103,7 +103,11 @@ module.exports = {
       ...cssLoader('stylus', {
         webpackImporter: false,
         stylusOptions: {
-          import: [path.resolve(__dirname, '../src/assets/stylus/lib/mixin.styl'), path.resolve(__dirname, '../src/assets/stylus/lib/env.styl')]
+          import: [
+            path.resolve(__dirname, '../src/assets/stylus/core/default.styl'),
+            path.resolve(__dirname, '../src/assets/stylus/lib/mixin.styl'),
+            path.resolve(__dirname, '../src/assets/stylus/lib/env.styl')
+          ]
         }
       }),
 

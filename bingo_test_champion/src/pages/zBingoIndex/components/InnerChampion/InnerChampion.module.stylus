@@ -1,0 +1,56 @@
+.innerChampion
+  width: 1170px
+  margin: 0 auto
+  background-size: 100%
+  background-position: top center
+  background-repeat: no-repeat
+  position fixed
+  left: 50%
+  top: 55%
+  transform: translate(-50%, -50%)
+  height: 790px
+  // &.classic_bg
+  //   height: 680px
+  // &.champion_bg_green,
+  // &.champion_bg_orange,
+  // &.champion_bg_grey
+  //   height: 783px
+.tabHeader
+  padding-left: 78px
+  display: inline-flex
+  align-items: flex-start
+  justify-content: center
+  height: 90px
+  .tabItem
+    height: 100%;
+    width: 320px
+    display: flex
+    align-items: center
+    justify-content: center
+    font-family: Lemon
+    font-size: 28px
+    color: #FFEDCE
+    cursor: pointer
+    &.on
+      color: #613C17
+    &.off
+      color: #FFEDCE
+      padding-top: 16px
+    &.tabItem1
+      margin-left: -10px
+
+.innerFromChampion
+  width: 1170px
+  height: 680px
+  padding-top: 80px;
+  margin: 0 auto
+  background-position: center
+  position fixed
+  left: 50%
+  top: 55%
+  transform: translate(-50%, -50%)
+  @media screen and (max-width: 830px)
+    padding-top: 0;
+    max-width: 360px
+    width: 80%
+    height: 500px

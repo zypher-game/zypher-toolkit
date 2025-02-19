@@ -11,8 +11,8 @@ import {
   useActiveWeb3React,
   useRecoilState,
   useRecoilValue,
-  zkBingo,
-  zkBingoV0
+  zkBingoBeta,
+  zkBingoV1
 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { Address } from '@wagmi/core'
@@ -48,8 +48,8 @@ export const useDataInfo = () => {
     }
     batchRequestContracts({
       addressList: Object.fromEntries([
-        ...bingoBetaSupportedChainId.map(v => [v, zkBingoV0(v, IContractName.Lobby)]),
-        ...bingoV1SupportedChainId.map(v => [v, zkBingo(v, IContractName.Lobby)])
+        ...bingoBetaSupportedChainId.map(v => [v, zkBingoBeta(v, IContractName.Lobby)]),
+        ...bingoV1SupportedChainId.map(v => [v, zkBingoV1(v, IContractName.Lobby)])
       ]),
       chainIdList: bingoSupportedChainId,
       contractFun: bingoLobby,
@@ -108,7 +108,7 @@ export const useDataInfo = () => {
         // 金币消耗数量
         const goldPointsTotal = await batchRequestContracts({
           chainIdList: bingoV1SupportedChainId,
-          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingo(v, IContractName.ZypherGameToken)])),
+          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingoV1(v, IContractName.ZypherGameToken)])),
           contractFun: erc20Contract,
           contracts: {
             contractName: IContractName.ZypherGameToken,
@@ -122,7 +122,7 @@ export const useDataInfo = () => {
         // 收取的手续fee
         const bingoPlatformRevenue = await batchRequestContracts({
           chainIdList: bingoV1SupportedChainId,
-          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingo(v, IContractName.Fee)])),
+          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingoV1(v, IContractName.Fee)])),
           contractFun: bingoLobbyFee,
           contracts: {
             contractName: IContractName.Fee,
@@ -156,7 +156,7 @@ export const useDataInfo = () => {
         // 负债
         const debtObligation = await batchRequestContracts({
           chainIdList: bingoV1SupportedChainId,
-          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingo(v, IContractName.ZypherGameToken)])),
+          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingoV1(v, IContractName.ZypherGameToken)])),
           contractFun: bingoToken,
           contracts: {
             contractName: IContractName.ZypherGameToken,
@@ -170,7 +170,7 @@ export const useDataInfo = () => {
 
         const gpBurned = await batchRequestContracts({
           chainIdList: bingoV1SupportedChainId,
-          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingo(v, IContractName.ZypherGameToken)])),
+          addressList: Object.fromEntries(bingoV1SupportedChainId.map(v => [v, zkBingoV1(v, IContractName.ZypherGameToken)])),
           contractFun: bingoToken,
           contracts: {
             contractName: IContractName.ZypherGameToken,

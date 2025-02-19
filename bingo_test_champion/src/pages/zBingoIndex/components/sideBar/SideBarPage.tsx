@@ -1,10 +1,10 @@
-import { ChainId, IGameList, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
+import { ChainId, IBingoVersion, IGameList, preStaticUrl, useRecoilValue, useSetRecoilState } from '@ui/src'
 import classnames from 'classnames'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
 
 import { IGameListBeta } from '@/hooks/useRecentGames'
-import { bingoVersionState, gameListDialogState, IBingoVersion, rankingDialogState } from '@/pages/state/state'
+import { bingoVersionState, gameListDialogState, rankingDialogState } from '@/pages/state/state'
 
 import GameListDialog from '../dialog/GameListDialog'
 import RankingDialog from '../dialog/RankingDialog'
@@ -22,10 +22,10 @@ const SideBarPage = memo(({ bingoMapList, listBetaMapList, bingoHasError }: ISid
   return (
     <div className={css.sidebar}>
       {/* <SideBarItem label="Tutorial" theme="blue" img="tutorial.png" onClick={() => setIsVideoModalOpen(true)} /> */}
-      <SideBarItem label="Game list" theme="red" img="gamelist.png" onClick={() => setIsGameListModalOpen(true)} />
+      <SideBarItem label="Game list" theme="red" img="gamelist.webp" onClick={() => setIsGameListModalOpen(true)} />
       {bingoVersion === IBingoVersion.beta ? null : (
         <>
-          <SideBarItem label="Ranking" theme="green" img="ranking.png" onClick={() => setIsRankingModalOpen(true)} />
+          <SideBarItem label="Ranking" theme="green" img="ranking.webp" onClick={() => setIsRankingModalOpen(true)} />
           <RankingDialog />
         </>
       )}

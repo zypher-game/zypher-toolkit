@@ -1,7 +1,4 @@
-import { useAaWallet } from '@ui/src'
 import { useEffect, useState } from 'react'
-
-import { IBingoVersion } from '@/pages/state/state'
 
 import bingoLobby from '../contract/bingoLobby'
 import { env } from '../utils/config'

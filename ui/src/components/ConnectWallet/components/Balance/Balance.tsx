@@ -1,14 +1,14 @@
-import { SyncOutlined } from "@ant-design/icons";
+import { SyncOutlined } from '@ant-design/icons';
 
-import { isEqual } from "../../../../utils/lodash";
-import React, { memo, useCallback, useEffect, useMemo, useState } from "react";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import styled from "styled-components";
+import { isEqual } from '../../../../utils/lodash';
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import styled from 'styled-components';
 
-import CurrencyLogo from "../../../../components/CurrencyLogo";
-import { useActiveWeb3React } from "../../../../hooks/useActiveWeb3React";
-import { PointsIcon } from "../../../../components/icons/PointsIcon/PointsIcon";
-import Icon from "../../../../components/icons";
+import CurrencyLogo from '../../../../components/CurrencyLogo';
+import { useActiveWeb3React } from '../../../../hooks/useActiveWeb3React';
+import { PointsIcon } from '../../../../components/icons/PointsIcon/PointsIcon';
+import Icon from '../../../../components/icons';
 import {
   ChainId,
   CurrencyLogo as CurrencyLogoUrl,
@@ -16,32 +16,32 @@ import {
   DPSupportChainId,
   IContractName,
   preStaticUrl,
-  zkBingo,
-} from "../../../../constant/constant";
+  zkBingoV1,
+} from '../../../../constant/constant';
 
 import {
   useNativeBalanceStr,
   usePointsBalanceStr,
-} from "../../hooks/connectWalletHooks";
+} from '../../hooks/connectWalletHooks';
 import {
   nativeBalanceState,
   pointsBalanceState,
   refreshBalanceState,
-} from "../../state/connectWalletState";
-import "./balance.stylus";
-import BalanceItem, { BalanceCountUpItem } from "./balanceItem";
-import IsPixelWidget from "../../../Header/rainbow_account/IsPixelWidget";
-import BigNumberJs from "../../../../utils/BigNumberJs";
-import { erc20ABI, useWalletClient } from "wagmi";
-import MulticallContract from "../../../../contract/multicall";
-import { zeroAddress } from "viem";
-import { GPV2SupportChainId } from "../../../../components/Staking/GP/constant/GPConstant";
-import { useToFaucet } from "../../hooks/useToFaucet";
+} from '../../state/connectWalletState';
+import './balance.stylus';
+import BalanceItem, { BalanceCountUpItem } from './balanceItem';
+import IsPixelWidget from '../../../Header/rainbow_account/IsPixelWidget';
+import BigNumberJs from '../../../../utils/BigNumberJs';
+import { erc20ABI, useWalletClient } from 'wagmi';
+import MulticallContract from '../../../../contract/multicall';
+import { zeroAddress } from 'viem';
+import { GPV2SupportChainId } from '../../../../components/Staking/GP/constant/GPConstant';
+import { useToFaucet } from '../../hooks/useToFaucet';
 
 const AddIcon = styled(Icon)<{ isMobile: boolean }>`
-  margin-right: ${({ isMobile }) => (isMobile ? "4px" : "10px")};
+  margin-right: ${({ isMobile }) => (isMobile ? '4px' : '10px')};
   margin-left: 0 !important;
-  width: ${({ isMobile }) => (isMobile ? "20px" : "24px")};
+  width: ${({ isMobile }) => (isMobile ? '20px' : '24px')};
 `;
 interface IProps {
   env: string;
@@ -64,15 +64,15 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
       return;
     }
     try {
-      const pointsAddress = zkBingo(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
+      const pointsAddress = zkBingoV1(chainId, IContractName.ZypherGameToken); // CurrencyContract[chainId].pointsAddress
       if (!pointsAddress || pointsAddress === zeroAddress) {
         setPointsBalance(0);
       } else {
         try {
           const staticStr = [
             {
-              name: "balance",
-              methodName: "balanceOf",
+              name: 'balance',
+              methodName: 'balanceOf',
               params: [account],
             },
           ];
@@ -93,19 +93,19 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
             const { results } = await multicall.call(params);
             setPointsBalance(
               new BigNumberJs(
-                results["balance"]["callsReturnContext"][0][
-                  "returnValues"
-                ][0].hex
+                results['balance']['callsReturnContext'][0][
+                  'returnValues'
+                ][0].hex,
               )
                 .dividedBy(divisorBigNumber)
-                .toNumber()
+                .toNumber(),
             );
           } else {
-            throw new Error("No multicall address");
+            throw new Error('No multicall address');
           }
           return undefined;
         } catch (e: any) {
-          console.error("pointsAddress: ", e);
+          console.error('pointsAddress: ', e);
           return undefined;
         }
       }
@@ -120,7 +120,9 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     setLoading(true);
     const balance = await provider.getBalance({ address: account });
     setNativeBalance(
-      new BigNumberJs(balance.toString()).dividedBy(divisorBigNumber).toNumber()
+      new BigNumberJs(balance.toString())
+        .dividedBy(divisorBigNumber)
+        .toNumber(),
     );
     await fetchErc20Balance();
     setLoading(false);
@@ -146,7 +148,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
     <>
       {isMiddleWidth ? null : (
         <IsPixelWidget
-          className="refresh_balance  refresh_balance_pixel"
+          className='refresh_balance  refresh_balance_pixel'
           onClick={fetchBalanceOf}
         >
           <SyncOutlined />
@@ -162,7 +164,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           CountUpNumber={CountUpNumber}
           preChild={
             <AddIcon
-              name={PointV2 ? "pixel_switch_02" : "pixel_add"}
+              name={PointV2 ? 'pixel_switch_02' : 'pixel_add'}
               isMobile={isMiddleWidth}
             />
           }
@@ -174,7 +176,7 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
           <BalanceItem
             logo={
               <CurrencyLogo
-                className={"balance_item_img"}
+                className={'balance_item_img'}
                 src={CurrencyLogoUrl[chainId || 97]}
               />
             }
@@ -186,11 +188,11 @@ const Balance = memo((props: IProps): React.ReactElement | null => {
             <BalanceItem
               logo={
                 <CurrencyLogo
-                  className={"balance_item_faucet"}
+                  className={'balance_item_faucet'}
                   src={`${preStaticUrl}/img/icon/faucet.svg`}
                 />
               }
-              balanceStr="Faucet"
+              balanceStr='Faucet'
               loading={false}
               className={props.className}
               onClick={toPath}

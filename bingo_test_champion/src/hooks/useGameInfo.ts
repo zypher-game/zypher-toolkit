@@ -1,8 +1,6 @@
-import { ChainRpcUrls, getProvider } from '@ui/src'
+import { ChainRpcUrls, getProvider, IBingoVersion } from '@ui/src'
 import { sample } from 'lodash'
 import { useCallback, useEffect, useState } from 'react'
-
-import { IBingoVersion } from '@/pages/state/state'
 
 import { bingoLobbyFromRpc } from '../contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from './useActiveWeb3ReactForBingo'

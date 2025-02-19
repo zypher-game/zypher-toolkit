@@ -1,10 +1,9 @@
-import { addressIsEqual, formatMoney, graphqlApiUrl, request } from '@ui/src'
+import { addressIsEqual, formatMoney, graphqlApiUrl, IBingoVersion, request } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 
 import { defaultRankChainId } from '@/constants/constants'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { IBingoVersion } from '@/pages/state/state'
 
 import { IPlayerRankingItem } from '../Ranking'
 

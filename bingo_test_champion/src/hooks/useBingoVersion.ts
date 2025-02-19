@@ -1,26 +1,27 @@
 import {
   bingoBetaSupportedChainId,
-  bingoSupportedChainId,
+  bingoChampionSupportedChainId,
   ChainId,
+  IBingoVersion,
   setupNetwork,
-  supportedChainIds,
   timeoutPromise,
-  useActiveWeb3React,
   useChainId,
   useIsTelegram,
+  useRecoilValue,
   useSetRecoilState,
   useSwitchNetwork
 } from '@ui/src'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState } from '@/pages/state/state'
 import { toBingoHref } from '@/utils/toBingoHref'
 
 import { useChainIdParams } from './useChainIdParams'
 
 export const useBingoVersion = () => {
   // page init
+  const bingoVersion = useRecoilValue(bingoVersionState)
   const IS_TELEGRAM = useIsTelegram()
   const navigate = useNavigate()
   const chainId = useChainId()
@@ -68,6 +69,8 @@ export const useBingoVersion = () => {
     } else {
       if (chainIdParams && bingoBetaSupportedChainId.includes(chainIdParams as ChainId)) {
         setBingoVersion(IBingoVersion.beta)
+      } else if (chainIdParams && bingoChampionSupportedChainId.includes(chainIdParams as ChainId)) {
+        setBingoVersion(IBingoVersion.champion)
       } else {
         setBingoVersion(IBingoVersion.v1)
       }

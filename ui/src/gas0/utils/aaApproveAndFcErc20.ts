@@ -1,13 +1,14 @@
-import { Address } from "wagmi";
-import { WagmiWalletHandler } from "./wagmiWalletHandler";
-import { hexToSignature, encodeFunctionData, getContract } from "viem";
-import { ZytronPermitTypedData } from "../constants/typedData";
-import { PermitProxyAbi } from "../abis/PermitProxy";
-import { ERC20PermitAbi } from "../abis/ERC20Permit";
+import { Address } from 'wagmi';
+import { WagmiWalletHandler } from './wagmiWalletHandler';
+import { hexToSignature, encodeFunctionData, getContract } from 'viem';
+import { ZytronPermitTypedData } from '../constants/typedData';
+import { PermitProxyAbi } from '../abis/PermitProxy';
+import { ERC20PermitAbi } from '../abis/ERC20Permit';
 import {
+  encodeFunction,
   encodeFunctionMulticall,
   MulticallMessageItem,
-} from "./encodeFunctionMulticall";
+} from './encodeFunctionMulticall';
 export const aaApproveAndFcErc20 = async ({
   erc20Address,
   wallet,
@@ -51,7 +52,7 @@ export const aaApproveAndFcErc20 = async ({
   });
   const { v, r, s } = hexToSignature(Permit);
   // 2. transfer GP => PermitProxy => aa
-  const functionName = "transferTokenToProxyContract" as const;
+  const functionName = 'transferTokenToProxyContract' as const;
   const Transfer2aa = encodeFunctionData({
     abi: PermitProxyAbi,
     args: [
@@ -70,7 +71,7 @@ export const aaApproveAndFcErc20 = async ({
   const Approve2game = encodeFunctionData({
     abi: ERC20PermitAbi,
     args: [permitForAddress, BigInt(tokenAmount)],
-    functionName: "approve",
+    functionName: 'approve',
   });
   const tx = await encodeFunctionMulticall(wallet, [
     // 2. transfer GP => PermitProxy => aa
@@ -80,4 +81,58 @@ export const aaApproveAndFcErc20 = async ({
     ...otherFc,
   ]);
   return tx;
+};
+
+export const aaApprove = async ({ wallet }: { wallet: WagmiWalletHandler }) => {
+  const owner = wallet.account.address;
+  const chainId = wallet.chainId;
+  const walletClient = wallet.getWalletClient();
+  const aa = wallet.aa;
+  const tokenAmount = 2;
+  if (!aa) {
+    throw Error(`${owner} has no aa wallet`);
+  }
+  const erc20 = '0x9aa0e7639e385437236686797d4210d60C9b9E1E'; // GP
+  const ERC20 = getContract({
+    abi: ERC20PermitAbi,
+    address: erc20,
+    publicClient: wallet.publicClient,
+  });
+  const nonce = await ERC20.read.nonces([owner]);
+  const deadline = BigInt(Math.floor(Date.now() / 1000) + 10 * 60);
+  const gpName = await ERC20.read.name();
+  const from = aa.address;
+  const Permit = await walletClient.signTypedData({
+    ...ZytronPermitTypedData(gpName, chainId, erc20),
+    message: {
+      owner,
+      spender: aa.config.token_proxy,
+      value: BigInt(tokenAmount),
+      nonce,
+      deadline,
+    },
+  });
+  const { v, r, s } = hexToSignature(Permit);
+  const functionName = 'transferTokenToProxyContract' as const;
+  const Transfer2aa = encodeFunctionData({
+    abi: PermitProxyAbi,
+    args: [
+      erc20, // usdt
+      owner,
+      aa.address,
+      BigInt(tokenAmount),
+      deadline,
+      Number(v),
+      r,
+      s,
+    ],
+    functionName,
+  });
+  encodeFunction(wallet, {
+    from,
+    to: aa.config.token_proxy,
+    data: Transfer2aa,
+    value: BigInt(0),
+    function_call_tip: aa.config.function_call_tip,
+  });
 };

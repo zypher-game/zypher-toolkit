@@ -21,8 +21,8 @@ const SideBarPageB3 = memo(({ bingoMapList, listBetaMapList, bingoHasError }: IS
   return (
     <div className={css.sidebar}>
       {/* <SideBarItem label="Tutorial" theme="blue" img="tutorial.png" onClick={() => setIsVideoModalOpen(true)} /> */}
-      <SideBarItem label="Game list" theme="red" img="gamelist.png" onClick={() => setIsGameListModalOpen(true)} />
-      <SideBarItem label="Ranking" theme="green" img="ranking.png" onClick={() => setIsRankingModalOpen(true)} />
+      <SideBarItem label="Game list" theme="red" img="gamelist.webp" onClick={() => setIsGameListModalOpen(true)} />
+      <SideBarItem label="Ranking" theme="green" img="ranking.webp" onClick={() => setIsRankingModalOpen(true)} />
       <RankingB3Dialog />
       <VideoDialog />
       <GameListDialog bingoMapList={bingoMapList} listBetaMapList={listBetaMapList} bingoHasError={bingoHasError} />

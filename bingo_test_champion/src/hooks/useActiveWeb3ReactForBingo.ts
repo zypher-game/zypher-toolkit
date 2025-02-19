@@ -1,7 +1,9 @@
 import {
   bingoBetaSupportedChainId,
+  bingoChampionSupportedChainId,
   bingoV1SupportedChainId,
   ChainId,
+  IBingoVersion,
   useAaWallet,
   useAccount,
   useChainId,
@@ -11,7 +13,7 @@ import {
 import { useMemo } from 'react'
 import { PublicClient } from 'wagmi'
 
-import { bingoVersionState, IBingoVersion } from '@/pages/state/state'
+import { bingoVersionState } from '@/pages/state/state'
 
 export function useActiveWeb3ReactForBingo(): {
   chainId: ChainId
@@ -27,7 +29,12 @@ export function useActiveWeb3ReactForBingo(): {
   return useMemo(() => {
     // const chainId = provider.chain.id as ChainId
     const chainId = `${_chainId}` as ChainId
-    const supportedChainId = bingoVersion === IBingoVersion.v1 ? bingoV1SupportedChainId : bingoBetaSupportedChainId
+    const supportedChainId =
+      bingoVersion === IBingoVersion.champion
+        ? bingoChampionSupportedChainId
+        : bingoVersion === IBingoVersion.beta
+        ? bingoBetaSupportedChainId
+        : bingoV1SupportedChainId
     return {
       chainId: (chainId && supportedChainId.includes(chainId) ? chainId : undefined) as ChainId,
       account: walletClient ? walletClient.account.address : chainId && supportedChainId.includes(chainId) ? address : undefined,

@@ -1,13 +1,22 @@
-import abi from '@zypher-game/bingo-periphery-v1/abi/ZkBingoFee.json'
-import { ChainId, getContract, IContractName, zkBingo } from '@ui/src'
+import { ChainId, getBingoConfig, getContract, IBingoVersion, IContractName } from '@ui/src'
 import * as ethers from 'ethers'
-import { Address, WalletClient } from 'wagmi'
 
-const bingoLobbyFee = (chainId: ChainId, env: string, address?: Address, signer?: any): ethers.ethers.Contract => {
+const bingoLobbyFee = ({
+  chainId,
+  env,
+  bingoVersion,
+  signer
+}: {
+  chainId: ChainId
+  env: string
+  bingoVersion: IBingoVersion
+  signer?: any
+}): ethers.ethers.Contract => {
+  const [abi, address] = getBingoConfig({ contractName: IContractName.Fee, bingoVersion, chainId })
   return getContract({
     env,
     abi,
-    address: address ?? zkBingo(chainId, IContractName.Fee),
+    address: address,
     signer,
     chainId
   })

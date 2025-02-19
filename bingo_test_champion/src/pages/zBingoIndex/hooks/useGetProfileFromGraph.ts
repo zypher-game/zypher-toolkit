@@ -1,11 +1,10 @@
-import { formatMoney, graphqlApiUrl, request } from '@ui/src'
+import { formatMoney, graphqlApiUrl, IBingoVersion, request } from '@ui/src'
 import { ethers } from 'ethers'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { defaultRankChainId } from '@/constants/constants'
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { IBingoVersion } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
 export const useGetProfileFromGraph = () => {

@@ -9,7 +9,7 @@ import RulesModal from '@/components/RulesModal'
 import SoundEffectSwitch from '@/components/Sound/SoundEffectSwitch'
 import bingoLobby from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { gameRoomState, IBingoVersion, joinGameState } from '@/pages/state/state'
+import { gameRoomState, joinGameState } from '@/pages/state/state'
 import { env } from '@/utils/config'
 
 import GameExit from '../../components/GameExit'
@@ -138,7 +138,7 @@ const ControllerMenu: React.FC = memo(() => {
                 decoding="async"
                 className="bingo_question"
                 loading="lazy"
-                src={preStaticUrl + `/img/bingo/question.png`}
+                src={preStaticUrl + `/img/bingo/question.webp`}
                 alt=""
                 onClick={() => setRulesModalOpen(true)}
               />

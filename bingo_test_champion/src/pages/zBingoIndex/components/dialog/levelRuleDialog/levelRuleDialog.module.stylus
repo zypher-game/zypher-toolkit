@@ -2,7 +2,7 @@
   z-index: 1001 !important
 body [data-reach-dialog-content].levelRule
   width 700px
-  background: url($preStaticUrl + '/img/bingo/dialog_bg.png') no-repeat
+  background: url($preStaticUrl + '/img/bingo/dialog_bg.webp') no-repeat
   position relative
   padding: 60px 70px 100px
   background-size: 100% 100%

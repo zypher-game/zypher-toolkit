@@ -1,0 +1,45 @@
+.rewardBar
+  position: fixed
+  top: 18%
+  right: 20px
+  display: flex
+  justify-content: right 
+  align-items: center
+  gap: 40px
+  z-index: 9;
+  @media screen and (max-width: 830px)
+    top: auto
+    right: 6px
+    gap: 16px
+    bottom: 5%
+  img 
+    cursor: pointer
+    animation: floatAndGlow 0.4s ease-in-out infinite
+    transform-origin: center center
+    width: 120px!important;
+    height: 120px!important;
+    @media screen and (max-width: 830px) 
+      width: 100px!important;
+      height: 100px!important;
+    @media screen and (max-width: 375px) 
+      width: 90px!important;
+      height: 90px!important;
+    &:hover
+      animation-play-state: paused
+  
+@keyframes floatAndGlow
+  0%
+    transform: rotate(0deg)
+    filter: brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))
+  25%
+    transform:  rotate(1.5deg)
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5))
+  50%
+    transform: rotate(0deg)
+    filter: brightness(1.1) drop-shadow(0 0 12px rgba(255, 255, 255, 0.4))
+  75%
+    transform:  rotate(-1.5deg)
+    filter: brightness(1.2) drop-shadow(0 0 15px rgba(255, 255, 255, 0.5))
+  100%
+    transform: rotate(0deg)
+    filter: brightness(1) drop-shadow(0 0 10px rgba(255, 255, 255, 0.3))

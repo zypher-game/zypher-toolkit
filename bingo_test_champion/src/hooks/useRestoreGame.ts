@@ -1,4 +1,4 @@
-import { IContractName, useAaWallet, useRecoilState, zkBingo } from '@ui/src'
+import { IContractName, useAaWallet, useRecoilState, zkBingoV1 } from '@ui/src'
 import { BigNumberJs } from '@ui/src'
 import { useCallback, useEffect, useState } from 'react'
 

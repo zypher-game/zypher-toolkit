@@ -1,6 +1,6 @@
 import '../index.stylus'
 
-import { LngNs, preStaticUrl, useCurrentLanguage, useCustomTranslation, useIsTelegram, useIsW768, useRecoilState } from '@ui/src'
+import { IBingoVersion, LngNs, preStaticUrl, useCurrentLanguage, useCustomTranslation, useIsTelegram, useIsW768, useRecoilState } from '@ui/src'
 import React, { useEffect, useRef } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import styled from 'styled-components'
@@ -17,7 +17,7 @@ import StartGameDialog from '../components/StartGameDialog/StartGameDialog'
 import Steps from '../components/Steps'
 import SubmitCardBeta from '../components/SubmitCard/SubmitCardBeta'
 import SubmitCardV1 from '../components/SubmitCard/SubmitCardV1'
-import { IBingoVersion, showCloseModalState, startGameStep } from '../state/state'
+import { showCloseModalState, startGameStep } from '../state/state'
 import css from './StartGame.module.stylus'
 
 const StepsWrapper = styled.div<{ isMobile: boolean }>`
@@ -83,7 +83,7 @@ const StartGame: React.FC = () => {
               decoding="async"
               loading="lazy"
               className={css.close}
-              src={preStaticUrl + `/img/bingo/close.png`}
+              src={preStaticUrl + `/img/bingo/close.webp`}
               alt=""
               onClick={() => setShowCloseModal(true)}
             />
@@ -92,7 +92,7 @@ const StartGame: React.FC = () => {
                 <div>
                   <div className={css.title}>{t('Setup')}</div>
                   <div className={css.subtitle}>
-                    <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/note.png`} alt="" />
+                    <img decoding="async" loading="lazy" src={preStaticUrl + `/img/bingo/note.webp`} alt="" />
                     {t('setup tip')}
                   </div>
                 </div>

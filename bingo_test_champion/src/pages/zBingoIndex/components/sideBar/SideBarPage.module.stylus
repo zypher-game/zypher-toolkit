@@ -16,15 +16,15 @@
       width: 48px
       height: 48px
       margin-bottom: 26px
-    &:nth-child(1) 
-      .imageContainerWaves::before 
-        animation-delay: -0.4s;
-    &:nth-child(2) 
-      .imageContainerWaves::before 
-        animation-delay: -0.8s;
-    &:nth-child(3) 
-      .imageContainerWaves::before 
-        animation-delay: -1.2s;
+    // &:nth-child(1) 
+    //   .imageContainerWaves::before 
+    //     animation-delay: -0.4s;
+    // &:nth-child(2) 
+    //   .imageContainerWaves::before 
+    //     animation-delay: -0.8s;
+    // &:nth-child(3) 
+    //   .imageContainerWaves::before 
+    //     animation-delay: -1.2s;
     &.blue
       .sidebarItemBg
         .sidebarItemBgInner

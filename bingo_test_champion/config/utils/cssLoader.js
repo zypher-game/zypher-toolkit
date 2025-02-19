@@ -86,6 +86,20 @@ exports.cssLoader = (type = 'css', options = {}, global) => {
         {
           loader: 'postcss-loader'
         },
+        {
+          loader: 'less-loader',
+          options: {
+            lessOptions: {
+              modifyVars: {
+                'primary-color': '#00b96b',
+                'border-radius-base': '2px',
+                'btn-primary-bg': '#00b96b'
+                // 更多变量...
+              },
+              javascriptEnabled: true
+            }
+          }
+        },
         ...(type === 'css' ? [] : preParseLoader),
         ...(type === 'css' || type === 'stylus' ? [] : globalLoader)
       ]

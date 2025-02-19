@@ -21,7 +21,7 @@ const RoundTitle = memo(({ round, roomInfo }: IProps) => {
       <img
         decoding="async"
         loading="lazy"
-        src={preStaticUrl + `/img/bingo/game-title${isMobile ? '-m' : ''}.png`}
+        src={preStaticUrl + `/img/bingo/game-title${isMobile ? '-m' : ''}.webp`}
         className={css.game_title_img}
         alt="game"
       />

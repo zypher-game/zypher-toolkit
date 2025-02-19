@@ -1,14 +1,12 @@
-body section.ant-layout
-  background-image: url($preStaticUrl + '/img/bingo/bg.jpg')
+body section.ant-layout.bingo.tg
+  background-image: url($preStaticUrl + '/img/bingo/bg_m.webp')
+body section.ant-layout.beta,body section.ant-layout.champion
+  background-image: url($preStaticUrl + '/img/bingo/bg_champion.webp')
   background-repeat: no-repeat
   background-size: cover;
   background-position: center;
-
-
-body section.ant-layout.bingo.tg
-  background-image: url($preStaticUrl + '/img/bingo/bg_m.png')
-body section.ant-layout.beta
-  background-image: url($preStaticUrl + '/img/bingo/bg.jpg')
+body section.ant-layout.beta,body section.ant-layout.v1
+  background-image: url($preStaticUrl + '/img/bingo/bg.webp')
   background-repeat: no-repeat
   background-size: cover;
   background-position: center;
