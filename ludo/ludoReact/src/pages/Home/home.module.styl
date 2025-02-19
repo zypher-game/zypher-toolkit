@@ -1,0 +1,81 @@
+/* Container 设置 */
+.container
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+
+.background
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+
+
+/* 游戏容器 */
+.gameContainer
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1; /* 游戏位于最底层 */
+  overflow: hidden; /* 确保内容不超出边界 */
+  display: flex;
+  justify-content: center; /* 居中对齐 */
+  align-items: center; /* 居中对齐 */
+
+  iframe
+    width: 100%;
+    height: 100%;
+    border: none; /* 移除边框 */
+    display: block; /* 移除默认的内边距 */
+
+
+/* 移动端适配： */
+@media (max-width: 768px)
+  .iframeWrapper
+    width: 100%;
+    height: 100%;
+  
+/* 蒙版样式 */
+.overlay
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* 黑色透明蒙版 */
+  z-index: 9999; /* 确保在最高层 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+/* 居中提示消息 */
+.centerContainer
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+/* 提示消息 */
+.connectWalletMessage 
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-align: center;
+
+
+.connectButtonImage 
+  width: 86px; /* 设置按钮宽度 */
+  height: auto; /* 保持比例 */
+  cursor: pointer; /* 鼠标悬停时显示手型 */
+  transition: transform 0.2s; /* 鼠标悬停动画 */
+
+
+.connectButtonImage:hover 
+  transform: scale(1.1); /* 鼠标悬停时放大 */
