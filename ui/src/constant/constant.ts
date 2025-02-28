@@ -525,6 +525,7 @@ export enum IContractName {
   Z2048SBT = 'Z2048SBT',
   ZkGame2048 = 'ZkGame2048',
   ZkGame2048API = 'ZkGame2048API',
+  ZypherBingoChampionship = 'ZypherBingoChampionship',
 }
 export const zkBingoBeta = (
   chainId: ChainId | undefined,
@@ -568,9 +569,6 @@ export const zkBingoV1 = (
   if (!chainId) {
     throw Error(`Invalid V1 'chainId' parameter '${chainId}'.`);
   }
-  if (chainId === ChainId.BaseSepolia) {
-    chainId = ChainId.LineaSepolia;
-  }
   if (typeof chainId === 'number') {
     chainId = `${chainId}` as ChainId;
   }
@@ -600,20 +598,28 @@ export const zkBingoV1 = (
         ZkBingoFee: '0xa2BC76a002FBE3E86Ffa444eB4f6f4c59e752bfe',
         ZkBingoPoints: '0x7BE15946c0F8655f8d29B2D19DA54006DF65A7fc',
       };
+    } else if (chainId === ChainId.BaseSepolia) {
+      address = {
+        chainId: 84532,
+        deployer: '0xe4BbC6740C91360234826a87Eb9a9C65cB8ec0aE',
+        ZypherGameToken: '0xA1E3E8ec5731FDE73B574e784602C057AC64949b',
+        ZkBingoCard: '0x91D416d939baA3Aa822DD1B776fC5e9610b952C2',
+        ZkBingoLobby: '0x6F36BF53bE9be182599CD7E937E5F32152cEAf41',
+        ZkBingoFee: '0x159879B72B1bE7007aC56c4DcbbC31545F8D57bb',
+        ZkBingoPoints: '0x70c7e4fF12F4f7a89B63444b0b2dDa84a9aDa86A',
+      };
     }
     let returnAddress = AddressZero;
     if (name === IContractName.Lobby) {
       returnAddress = address.ZkBingoLobby;
     } else if (name === IContractName.Card) {
+      console.log({ name });
       returnAddress = address.ZkBingoCard;
     } else if (name === IContractName.Points) {
       returnAddress = address.ZkBingoPoints;
     } else if (name === IContractName.ZypherGameToken) {
-      // GP
       if (DPSupportChainId.includes(chainId)) {
-        returnAddress = address.ZypherGameToken
-          ? address.ZypherGameToken
-          : address.ZkBingoToken;
+        returnAddress = address.ZypherGameToken || address.ZkBingoToken;
       }
     } else if (name === IContractName.Reward) {
       returnAddress = address.Reward;
@@ -634,43 +640,36 @@ export const zkBingoChampion = (
   name: IContractName,
 ): Address => {
   if (!chainId) {
-    throw Error(`Invalid Champion 'chainId' parameter '${chainId}'.`);
-  }
-  if (chainId === ChainId.BaseSepolia) {
-    chainId = ChainId.LineaSepolia;
+    throw Error(`Invalid zkBingoChampion 'chainId' parameter '${chainId}'.`);
   }
   if (typeof chainId === 'number') {
     chainId = `${chainId}` as ChainId;
   }
   try {
-    const _repo = isTestnet[chainId] ? 'develop' : 'release';
-    // @ts-ignore
-    let address = zkBingoContractsChampion?.[chainId]?.[_repo];
-    let returnAddress = AddressZero;
-    if (name === IContractName.Lobby) {
-      returnAddress = address.ZkBingoLobby;
-    } else if (name === IContractName.Card) {
-      returnAddress = address.ZkBingoCard;
-    } else if (name === IContractName.Points) {
-      returnAddress = address.ZkBingoPoints;
-    } else if (name === IContractName.ZypherGameToken) {
-      // GP
-      if (DPSupportChainId.includes(chainId)) {
-        returnAddress = address.ZypherGameToken
-          ? address.ZypherGameToken
-          : address.ZkBingoToken;
+    if (chainId === ChainId.BaseSepolia) {
+      const address = {
+        chainId: 84532,
+        ZkBingoLobby: '0x7f1113Bb335CF87704606A3D33AA05a2dE9FFd76',
+        ZypherGameToken: '0xA1E3E8ec5731FDE73B574e784602C057AC64949b',
+        ZkBingoCard: '0x29c01DD2c2ebD8D0cE6D086De5f50bF900E9d347',
+        ZypherBingoChampionship: '0x72c8438Df0e6787311C0fa8c40Ab697D1f034bec',
+      };
+      let returnAddress = AddressZero;
+      if (name === IContractName.Lobby) {
+        returnAddress = address.ZkBingoLobby;
+      } else if (name === IContractName.ZypherGameToken) {
+        returnAddress = address.ZypherGameToken;
+      } else if (name === IContractName.Card) {
+        returnAddress = address.ZkBingoCard;
+      } else if (name === IContractName.ZypherBingoChampionship) {
+        returnAddress = address.ZypherBingoChampionship;
       }
-    } else if (name === IContractName.Reward) {
-      returnAddress = address.Reward;
-    } else if (name === IContractName.Fee) {
-      returnAddress = address.ZkBingoFee;
-    } else if (name === IContractName.Monster) {
-      returnAddress = contract[5611].contracts.MonsterSlayer202310.address;
+      return returnAddress as Address;
     }
-    return (returnAddress ? returnAddress : AddressZero) as Address;
+    return AddressZero;
   } catch (e) {
     throw Error(
-      `zkBingo Champion Invalid 'chainId' parameter '${chainId}', name: ${name}`,
+      `zkBingo V1 Invalid 'chainId' parameter '${chainId}', name: ${name}`,
     );
   }
 };

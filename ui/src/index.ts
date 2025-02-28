@@ -271,6 +271,7 @@ export { default as erc721Contract, erc721Abi } from './contract/erc721';
 export { default as ZkBingoPointsContract } from './contract/bingoPoints';
 export { default as MulticallContract } from './contract/multicall';
 export { IBingoVersion, getBingoConfig } from './contract/getBingoConfig';
+export { formatContractData } from './contract/formatContractData';
 
 export {
   pow10,

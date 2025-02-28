@@ -1,6 +1,6 @@
-import { IGas0Config } from "../constants/Gas0Constant";
-import { Address } from "wagmi";
-import { Hash } from "@wagmi/core";
+import { IGas0Config } from '../constants/Gas0Constant';
+import { Address } from 'wagmi';
+import { Hash } from '@wagmi/core';
 export interface IGas0ApiConfig extends IGas0Config {
     deployer_address: Address;
     function_call_tip: string;

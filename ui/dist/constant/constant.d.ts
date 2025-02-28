@@ -70,7 +70,8 @@ export declare enum IContractName {
     Monster = "Monster",
     Z2048SBT = "Z2048SBT",
     ZkGame2048 = "ZkGame2048",
-    ZkGame2048API = "ZkGame2048API"
+    ZkGame2048API = "ZkGame2048API",
+    ZypherBingoChampionship = "ZypherBingoChampionship"
 }
 export declare const zkBingoBeta: (chainId: ChainId | undefined, name: IContractName) => Address;
 export declare const zkBingoV1: (chainId: ChainId | number | undefined, name: IContractName) => Address;
