@@ -51,6 +51,7 @@ const GenerateKey: React.FC<IGenerateKey> = ({ disabled }) => {
     resetJoinGame()
     resetGameRoom()
     const lobbyContract = bingoLobby({ chainId, env, bingoVersion, walletClient })
+    console.log({ lobbyContract })
     await create()
     try {
       await Promise.race([

@@ -26,6 +26,24 @@ export const toBingoPlayHref = ({
     isOpen: false
   })
 }
+export const toChampionPlayHref = ({
+  chainIdParams,
+  navigate,
+  path,
+  pathname
+}: {
+  chainIdParams: string
+  navigate: any
+  path?: string
+  pathname?: string
+}): any => {
+  return toHref({
+    link: `/${BASE_URL}/${chainIdParams}/champion${path ?? ''}`,
+    navigate,
+    pathname,
+    isOpen: false
+  })
+}
 
 const toHref = ({ link, navigate, isOpen, pathname }: { link: string; navigate?: any; isOpen?: boolean; pathname?: string }) => {
   setTimeout(() => {

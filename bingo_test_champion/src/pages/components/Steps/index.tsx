@@ -20,7 +20,8 @@ const Steps = ({ currentStep, bingoVersion }: { currentStep: number; bingoVersio
       {
         stepIdx: 2,
         stepNum: '3',
-        label: bingoVersion === IBingoVersion.v1 ? t('Submit gird card and Gold points') : 'Submit grid card'
+        label:
+          bingoVersion === IBingoVersion.champion || bingoVersion === IBingoVersion.v1 ? t('Submit gird card and Gold points') : 'Submit grid card'
       },
       {
         stepIdx: 3,

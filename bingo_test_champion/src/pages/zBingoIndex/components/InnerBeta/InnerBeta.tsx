@@ -84,7 +84,7 @@ const InnerBeta = memo(
       <div className={`${css.inner} ${IS_TELEGRAM ? css.tgInner : ''}`}>
         <CarouselList bingoMapList={listBetaMapList} bingoHasError={bingoHasError} />
         <div className={css.innerItemWrap}>
-          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/bingo_title.png'} alt="bingo" className={css.title} />
+          <img decoding="async" loading="lazy" src={preStaticUrl + '/img/bingo/bingo_title.webp'} alt="bingo" className={css.title} />
           <h3 className={css.textMM}>{IS_TELEGRAM ? 'Play to earn reward points!' : `Prize: ${getChainNameText(chainId)} zBox`}</h3>
           <div className={css.border}>
             <GetGameListBoxImg />

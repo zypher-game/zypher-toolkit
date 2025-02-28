@@ -286,12 +286,13 @@ export const ButtonPrimary = (props: any) => {
 }
 
 export const ButtonHover = (props: any) => {
-  const { children, size, height, width, disabled, borderWidth, borderColor, onClick } = props
+  const { children, size, height, width, disabled, borderWidth, borderColor, onClick, className } = props
   const playButtonSound = () => {
     onClick()
   }
   return (
     <ButtonWrapHover
+      className={className}
       width={width}
       height={height}
       disabled={disabled}

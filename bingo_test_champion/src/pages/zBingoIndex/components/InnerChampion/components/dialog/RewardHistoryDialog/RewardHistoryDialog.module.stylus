@@ -1,30 +1,123 @@
-body [data-reach-dialog-content].championRule
-  width 700px
-  background: url($preStaticUrl + '/img/bingo/dialog_bg.webp') no-repeat
-  position relative
-  padding: 60px 80px 100px
-  background-size: 100% 100%
-  @media screen and (max-width: 830px)
-    width: 100%
-    padding: 47px 50px 80px 50px
-    max-height 500px
-    overflow: hidden
-  .inner
-    @media screen and (max-width: 830px)
-      height: 367px
-      overflow-y: scroll
-      &::-webkit-scrollbar 
-        display: none;
+.zindex
+  z-index: 1000
 
-      &::-webkit-scrollbar-thumb 
-        background-color: rgba(143, 72, 0, 0.5); 
-        border-radius: 8px; 
+.championRule
+  background: transparent
+  padding: 0
+  width: 400px
+  border-radius: 16px
+  outline: none
+
+.inner
+  padding: 20px 50px
+  color: #4A2511
+  background-image: url($preStaticUrl + '/img/bingo/dialog_bg01.webp')
+  background-repeat: no-repeat
+  background-size: cover;
+  background-position: center;
+  width 540px
+  height: 720px
+  .header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    margin-bottom: 20px
+
+    h2
+      margin: 0 auto
+      color: #62380C
+      font-size: 28px
+      font-family: "Lemon"
+
   .close
-    position absolute
-    top 40px
-    right 40px
-    @media screen and (max-width: 830px)
-      width 34px
-      height 34px
-      right 20px
-  
+    cursor: pointer
+    width: 40px
+    height: 40px
+    margin-right: -28px;
+    opacity: 1
+    transition: opacity 0.3 ease
+    &:hover
+      opacity 0.9
+.totalRewards
+  padding: 12px
+  border-radius: 8px
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 10px
+  margin-bottom: 20px
+  img
+    width: 24px
+    height: 24px
+  span
+    font-family: "Lemon"
+    font-size: 16px
+    color: #62380C
+
+
+.unclaimedSection
+  background: #FDE8C8
+  padding: 16px
+  border-radius: 20px
+  display: flex
+  justify-content: space-between
+  align-items: center
+  margin-top: 30px
+  .unclaimedInfo
+    .title
+      color: #613C17
+      font-size: 16px
+    .amount
+      color: #DB5F16
+      font-size: 20px
+      font-weight: bold
+
+  .claimButton
+    text-shadow: -1px -1.5px 0px #208001
+    background: url($preStaticUrl + '/img/bingo/btn_02.webp') no-repeat
+    background-size: 100% 100%
+    width: 110px
+    height: 42px
+    color: white
+    cursor: pointer
+    font-weight: bold
+    font-size: 14px
+    font-family: "Lemon"
+    border: none
+
+.rewardsList
+  border-radius: 8px
+  padding: 16px 0
+  max-height: 400px
+  overflow-y: scroll
+
+  .listHeader
+    display: grid
+    grid-template-columns: 2fr 1fr 1fr
+    padding: 8px 0
+    color: #613C17
+    font-weight: 400
+    border-bottom: none
+    opacity: 0.7
+
+  .listItem
+    display: grid
+    grid-template-columns: 2fr 1fr 1fr
+    border-bottom: none
+    font-size: 16px
+    color: #62380C
+    font-weight: 600
+    height: 46px
+    line-height: 46px
+    .ranking,.reward
+      font-family: "Pacifico"
+      font-size: 20px
+      margin-top: -3px
+
+    .reward
+      display: flex
+      align-items: center
+      gap: 4px
+      img
+        width: 30px
+        height: 30px

@@ -1,0 +1,47 @@
+.dialogContent
+  background: transparent
+  width: 100vw
+  display: flex
+  justify-content: center
+
+.wrapper
+  position: relative
+  max-width: 565px
+  width: 80vw
+
+.wrapperMobile
+  composes: wrapper
+  width: 80vw
+
+.resultM
+  position: absolute
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center
+  z-index: 1
+  
+  img
+    position: absolute
+    top: -40%
+    transform: translateY(-64%)
+  
+.loseImg
+  width: 100%
+
+.loseImgMobile
+  composes: loseImg
+  width: 90%
+  
+.winnerImg
+  max-width: 355px
+  width: 80%
+
+.footer
+  height: 58px
+  position: absolute
+  bottom: -29px
+  width: 100%
+  display: flex
+  align-items: center
+  justify-content: center 

@@ -26,6 +26,7 @@ export const ChainPointPrice = {
   [ChainId.OPBNBTEST]: 1 / 250_000,
   [ChainId.ZytronLineaSepoliaTestnet]: 1 / 2_000_000,
   [ChainId.ZytronLineaMain]: 1 / 2_000_000,
+  [ChainId.BaseSepolia]: 1 / 2_000_000,
 } as unknown as Record<ChainId, number>;
 export const pointsListDefault = (
   chainId: ChainId,

@@ -16,25 +16,28 @@ import { BrowserRouter } from 'react-router-dom'
 import AppRouter from '@/router'
 import store from '@/store'
 
+import ScaleProvider from './pages/components/ScaleProvider/ScaleProvider'
 import { ThemeProvider } from './theme'
 import { env } from './utils/config'
 
 render(
   <Provider store={store}>
     <RecoilRoot>
-      <TonConnectUIProvider>
-        <RainbowKitWithThemeProvider env={env} chainIdList={bingoSupportedChainId}>
-          <ConfigProvider locale={enGB}>
-            <BrowserRouter>
-              <ThemeProvider>
-                <IsW768Provider>
-                  <AppRouter />
-                </IsW768Provider>
-              </ThemeProvider>
-            </BrowserRouter>
-          </ConfigProvider>
-        </RainbowKitWithThemeProvider>
-      </TonConnectUIProvider>
+      <ScaleProvider>
+        <TonConnectUIProvider>
+          <RainbowKitWithThemeProvider env={env} chainIdList={bingoSupportedChainId}>
+            <ConfigProvider locale={enGB}>
+              <BrowserRouter>
+                <ThemeProvider>
+                  <IsW768Provider>
+                    <AppRouter />
+                  </IsW768Provider>
+                </ThemeProvider>
+              </BrowserRouter>
+            </ConfigProvider>
+          </RainbowKitWithThemeProvider>
+        </TonConnectUIProvider>
+      </ScaleProvider>
     </RecoilRoot>
   </Provider>,
   document.getElementById('root')

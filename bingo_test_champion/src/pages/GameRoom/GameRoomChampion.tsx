@@ -5,15 +5,11 @@ import {
   addressIsEqual,
   ChainRpcUrls,
   getProvider,
-  httpPost,
-  IBingoVersion,
   LngNs,
   RefreshState,
-  TG_BOT_URL,
   txStatus,
   useAaWallet,
   useAccountInvitation,
-  useCurrentLanguage,
   useCustomTranslation,
   useIsW768,
   usePublicNodeWaitForTransaction,
@@ -28,51 +24,46 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { TransactionReceipt } from 'viem'
 
-import { gasPrice, gradeData } from '@/constants/constants'
+import { gasPrice } from '@/constants/constants'
 import bingoLobby, { bingoLobbyFromRpc } from '@/contract/bingoLobby'
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
 import useAudioManager from '@/hooks/useAudioManager'
 import { useBingoVersion } from '@/hooks/useBingoVersion'
 import { useChainIdParams } from '@/hooks/useChainIdParams'
-import useGetGameInfoV1 from '@/hooks/useGetGameInfoV1'
+import useGetGameInfoChampion from '@/hooks/useGetGameInfoChampion'
 import { gameRoomState, joinGameState, startGameStep } from '@/pages/state/state'
 import { env } from '@/utils/config'
 import { setErrorToast } from '@/utils/Error/setErrorToast'
 import getBingoLines from '@/utils/getBingoLines'
 import { toBingoHref, toBingoPlayHref } from '@/utils/toBingoHref'
 
-import { GradeModal, OvertimeModal } from '../components/Modal'
+import { OvertimeModal } from '../components/Modal'
 import GameBoard from './components/GameBoard'
 import GameRules from './components/GameRules'
 import Loading from './components/Loading'
 import PlayersAvatar from './components/PlayersAvatar'
 import { useGameLogic } from './hooks/useGameLogic'
 import css from './index.module.stylus'
-import ResultModal from './resultModal'
+import ResultModalChampion from './resultModalChampion'
 
 const GameRoom: React.FC = () => {
   useBingoVersion()
-  const { account: owner, chainId, bingoVersion } = useActiveWeb3ReactForBingo()
+  const { chainId, bingoVersion } = useActiveWeb3ReactForBingo()
   const navigate = useNavigate()
-  const lang = useCurrentLanguage()
   const [{ cardNumbers }] = useRecoilState(gameRoomState)
   const { id: gameId } = useParams()
   const isMobile = useIsW768()
   const joinGame = useRecoilValue(joinGameState)
-  const { roomInfo, fetchGameInfo } = useGetGameInfoV1(gameId)
+  const { roomInfo } = useGetGameInfoChampion(gameId)
   const resetGameRoom = useResetRecoilState(gameRoomState)
-  const resetJoinGame = useResetRecoilState(joinGameState)
-  const resetGameStep = useResetRecoilState(startGameStep)
   const [winner, setWinner] = useState('') //
   const [percent, setPercent] = useState(0)
   const { turnSound, playLoseSound, playWinSound, buttonClickSound, backgroundMusic, colseBackgroundMusic } = useAudioManager()
-  const [ispercent, setIsPercent] = useState(false)
+  const [isPercent, setIsPercent] = useState(false)
   const [showTurn, setShowTurn] = useState(false)
   const { postAccountUpdate } = useAccountInvitation(env)
-  const [pending, setPending] = useState(false)
   const { waitForTransaction } = usePublicNodeWaitForTransaction(env)
   const { aa_mm_address: account, aaWalletClient: walletClient } = useAaWallet()
-  const [gamesWon, setWinRate] = useState(0)
   const { t } = useCustomTranslation([LngNs.zBingo])
   const chainIdParams = useChainIdParams()
   const setRefreshState = useSetRecoilState(RefreshState)
@@ -80,24 +71,11 @@ const GameRoom: React.FC = () => {
   const selectedNumbers = useMemo(() => roomInfo.selectedNumbers, [JSON.stringify(roomInfo)])
   const isOvertime = useMemo(() => roomInfo.status, [JSON.stringify(roomInfo)])
   const isControllerEnabled = useMemo<boolean>(() => addressIsEqual(roomInfo.player, account ?? ''), [roomInfo.player, account])
-  const Garde = useMemo(() => {
-    if (gamesWon < gradeData[1].minWinCounts) {
-      return 1
-    } else if (gamesWon < gradeData[2].minWinCounts) {
-      return 2
-    } else {
-      return 3
-    }
-  }, [gamesWon, gamesWon])
-  const [gradeModalOpen, setGradeModalOpen] = useState(false)
-  const { matchLines, cardNums, handleBingo } = useGameLogic(gameId, cardNumbers, selectedNumbers, env)
+  const { pending, matchLines, cardNums, handleBingo } = useGameLogic(gameId, cardNumbers, selectedNumbers, env)
 
   const Win = useCallback(async () => {
     try {
       if (!!winner) {
-        if (window.IS_TELEGRAM) {
-          await httpPost(`${TG_BOT_URL}/bingo/${gameId}/result`)
-        }
         setRefreshState(pre => pre + 1)
         colseBackgroundMusic()
         if (addressIsEqual(account, winner)) {
@@ -257,25 +235,10 @@ const GameRoom: React.FC = () => {
       const gameInfo = await lobbyContract.functions.getGameInfo(gameId)
       if (gameInfo.status === 'end') {
         setWinner(gameInfo.winner)
-        if (bingoVersion === IBingoVersion.v1) {
-          const [wRate] = await lobbyContract.functions.activeLevels()
-          const activeLevels = wRate.toNumber()
-          setWinRate(activeLevels)
-          if (addressIsEqual(gameInfo.winner, account)) {
-            if (activeLevels === gradeData[1].minWinCounts || activeLevels === gradeData[2].minWinCounts) {
-              setGradeModalOpen(true)
-            }
-          }
-        }
         bingoRef.current && clearInterval(bingoRef.current)
       }
     }, 1000)
   }, [account, chainId])
-  const handleReset = useCallback(() => {
-    resetJoinGame()
-    resetGameRoom()
-    resetGameStep()
-  }, [])
 
   useEffect(() => {
     handleGameEnd()
@@ -285,14 +248,14 @@ const GameRoom: React.FC = () => {
     }
   }, [handleGameEnd])
   useEffect(() => {
-    if (isControllerEnabled && ispercent) {
+    if (isControllerEnabled && isPercent) {
       setShowTurn(true)
       turnSound()
       setTimeout(() => {
         setShowTurn(false)
       }, 1500)
     }
-  }, [isControllerEnabled, ispercent])
+  }, [isControllerEnabled, isPercent])
   if (percent < 100) {
     return <Loading percent={percent} isMobile={isMobile} />
   }
@@ -330,32 +293,7 @@ const GameRoom: React.FC = () => {
 
       <OvertimeModal open={isOvertime === 'overtime'} onCancel={toBingoPage} onClose={toBingoPage} />
 
-      <ResultModal
-        players={roomInfo.players}
-        winner={winner}
-        open={!!winner}
-        winAmount={roomInfo.winAmount}
-        loseAmount={roomInfo.betSize}
-        onCancel={() => {
-          handleReset()
-          toBingoPage()
-        }}
-        onSubmit={() => {
-          handleReset()
-          setTimeout(() => toBingoPlayPage(), 0)
-        }}
-      />
-      <GradeModal
-        title={t('Congratulations!')}
-        content={
-          <div>
-            <div>{Garde === 2 ? t('CongratulationsRule1') : t('CongratulationsRule2')}</div>
-          </div>
-        }
-        open={gradeModalOpen}
-        garde={Garde}
-        onCancel={() => setGradeModalOpen(false)}
-      />
+      <ResultModalChampion winner={winner} open={!!winner} />
     </div>
   )
 }

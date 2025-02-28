@@ -42,11 +42,11 @@ import { toBingoPlayHref } from '@/utils/toBingoHref'
 
 import css from './index.module.stylus'
 
-interface IMatchmarking {
+interface IMatchmarkingChampion {
   disabled?: boolean
 }
 
-const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
+const MatchmarkingChampion: React.FC<IMatchmarkingChampion> = ({ disabled }) => {
   const { t } = useCustomTranslation([LngNs.zBingo])
   const navigate = useNavigate()
   const isMobile = useIsW768()
@@ -187,9 +187,8 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
             {/* <Counter start={!disabled} /> */}
           </div>
           <div className={css.title}>
-            {IS_TELEGRAM
-              ? 'Games can start with as few as two players. You are free to start as soon as you have a single other player matched. Please do not quit during the matchmaking process.'
-              : t('MatchmarkingText1')}
+            Games can start with as few as two players. You are free to start as soon as you have a single other player matched. Please do not quit
+            during the matchmaking process.
           </div>
           <div className={css['lineup-users-wrapper']}>
             {lineupUsers.concat(new Array(5 - lineupUsers.length).fill('')).map((player, idx) => (
@@ -211,19 +210,10 @@ const Matchmarking: React.FC<IMatchmarking> = ({ disabled }) => {
           >
             {t('View Card')}
           </div>
-          <Space>
-            <ButtonPrimary width="250px" onClick={handleStartGame} disabled={[0, 1, 6].includes(lineupUsers.length) || pending}>
-              <Space size={10}>
-                <span>{t('Start')}</span>
-                {pending && <LoadingOutlined />}
-              </Space>
-            </ButtonPrimary>
-          </Space>
-          {IS_TELEGRAM ? <></> : <div className={css.tip}>{t('SubmitCardText4')}</div>}
         </div>
       )}
     </>
   )
 }
 
-export default Matchmarking
+export default MatchmarkingChampion

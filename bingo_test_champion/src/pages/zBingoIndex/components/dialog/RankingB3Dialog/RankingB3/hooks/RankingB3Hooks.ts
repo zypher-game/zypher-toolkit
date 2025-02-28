@@ -145,20 +145,6 @@ export const usePostResult = () => {
           isWin: isWin,
           address: address
         })
-
-        // const formData = new FormData()
-        // formData.append('address', address!)
-        // formData.append('gameId', gameId)
-        // formData.append('gameName', 'Bingo')
-        // formData.append('isWin', `${isWin}`)
-        // await request(`${B3Api}/insertRecord`, {
-        //   method: 'POST',
-        //   data: formData,
-        //   headers: {
-        //     accept: 'application/json; charset=utf-8',
-        //     'Content-Type': 'multipart/form-data'
-        //   }
-        // })
       }
     },
     []

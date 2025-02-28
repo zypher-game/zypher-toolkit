@@ -1,5 +1,5 @@
 import { DialogContent, DialogOverlay } from '@reach/dialog'
-import { addressIsEqual, preStaticUrl, useAaWallet, useCurrentLanguage } from '@ui/src'
+import { addressIsEqual, preStaticUrl, useAaWallet } from '@ui/src'
 import { useCustomTranslation } from '@ui/src'
 import { useIsW768 } from '@ui/src'
 import { LngNs } from '@ui/src'
@@ -7,58 +7,14 @@ import { Space } from 'antd'
 import { isEqual } from 'lodash'
 import React, { memo, useEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
-import styled, { css } from 'styled-components'
 
 import { useActiveWeb3ReactForBingo } from '@/hooks/useActiveWeb3ReactForBingo'
-import { useChainIdParams } from '@/hooks/useChainIdParams'
 import { IPlayer } from '@/hooks/useGetGameInfoV1.types'
 
 import { ButtonHover, ButtonPrimary } from '../components/Button'
 import PlayerList from '../components/PlayerList'
 import { usePostResult } from '../zBingoIndex/components/dialog/RankingB3Dialog/RankingB3/hooks/RankingB3Hooks'
-
-const Wrapper = styled.div<{ isMobile: boolean }>`
-  position: relative;
-  max-width: 565px;
-  width: 80vw;
-  ${({ isMobile }) =>
-    isMobile
-      ? css`
-          width: 80vw;
-        `
-      : null}
-`
-
-const ResultM = styled.div<{ isMobile: boolean }>`
-  position: absolute;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-  img {
-    position: absolute;
-    top: -40%;
-    transform: translateY(-64%);
-  }
-  .loseImg {
-    width: ${({ isMobile }) => (isMobile ? '90%' : '100%')};
-  }
-  .winnerImg {
-    max-width: 355px;
-    width: 80%;
-  }
-`
-
-const Footer = styled.div`
-  height: 58px;
-  position: absolute;
-  bottom: -29px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`
+import styles from './resultModal.module.styl'
 
 interface IResultModalProps {
   players: IPlayer[]
@@ -75,7 +31,6 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
   const { account, chainId } = useActiveWeb3ReactForBingo()
   const { id: gameId } = useParams()
   const { aa_mm_address } = useAaWallet()
-  const lang = useCurrentLanguage()
   const isMobile = useIsW768()
   const updateResult = usePostResult()
   useEffect(() => {
@@ -93,24 +48,22 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
   }, [winner, account, aa_mm_address])
   return (
     <DialogOverlay isOpen={open}>
-      <DialogContent
-        style={{
-          background: 'transparent',
-          width: '100vw',
-          display: 'flex',
-          justifyContent: 'center'
-        }}
-      >
-        <Wrapper isMobile={isMobile}>
-          <ResultM isMobile={isMobile}>
+      <DialogContent className={styles.dialogContent}>
+        <div className={isMobile ? styles.wrapperMobile : styles.wrapper}>
+          <div className={styles.resultM}>
             {isWinner ? (
-              <img decoding="async" loading="lazy" className="winnerImg" src={preStaticUrl + `/img/bingo/winerBingo.webp`} />
+              <img decoding="async" loading="lazy" className={styles.winnerImg} src={preStaticUrl + `/img/bingo/winerBingo.webp`} />
             ) : (
-              <img decoding="async" loading="lazy" className="loseImg" src={preStaticUrl + `/img/bingo/your-lose_${lang}.webp`} />
+              <img
+                decoding="async"
+                loading="lazy"
+                className={isMobile ? styles.loseImgMobile : styles.loseImg}
+                src={preStaticUrl + `/img/bingo/your-lose_en_US.webp`}
+              />
             )}
-          </ResultM>
+          </div>
           <PlayerList data={players} winner={winner} isWinner={isWinner} winAmount={winAmount} loseAmount={loseAmount} />
-          <Footer>
+          <div className={styles.footer}>
             <Space size={30}>
               <ButtonHover
                 width={isMobile ? '140px' : '186px'}
@@ -129,8 +82,8 @@ const ResultModal: React.FC<IResultModalProps> = memo(({ players, winner, onCanc
                 {t('Play again')}
               </ButtonPrimary>
             </Space>
-          </Footer>
-        </Wrapper>
+          </div>
+        </div>
       </DialogContent>
     </DialogOverlay>
   )

@@ -1,6 +1,7 @@
 import {
   bingoBetaSupportedChainId,
   bingoChampionSupportedChainId,
+  bingoV1SupportedChainId,
   ChainId,
   IBingoVersion,
   setupNetwork,
@@ -21,7 +22,6 @@ import { useChainIdParams } from './useChainIdParams'
 
 export const useBingoVersion = () => {
   // page init
-  const bingoVersion = useRecoilValue(bingoVersionState)
   const IS_TELEGRAM = useIsTelegram()
   const navigate = useNavigate()
   const chainId = useChainId()
@@ -71,9 +71,9 @@ export const useBingoVersion = () => {
         setBingoVersion(IBingoVersion.beta)
       } else if (chainIdParams && bingoChampionSupportedChainId.includes(chainIdParams as ChainId)) {
         setBingoVersion(IBingoVersion.champion)
-      } else {
+      } else if (chainIdParams && bingoV1SupportedChainId.includes(chainIdParams as ChainId)) {
         setBingoVersion(IBingoVersion.v1)
       }
     }
-  }, [chainIdParams])
+  }, [chainIdParams, chainId])
 }

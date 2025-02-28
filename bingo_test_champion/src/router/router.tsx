@@ -8,7 +8,9 @@ import { useInitRainbowFn } from '@/hooks/useInitRainbowFn'
 import { useToastMessage } from '@/hooks/useToastMessage'
 import Bingo from '@/pages/'
 import GameRoom from '@/pages/GameRoom'
+import GameRoomChampion from '@/pages/GameRoom/GameRoomChampion'
 import StartGame from '@/pages/StartGame/StartGame'
+import StartGameChampion from '@/pages/StartGameChampion/StartGameChampion'
 import { BASE_URL } from '@/utils/config'
 
 import Layout from '../components/Layout'
@@ -35,6 +37,8 @@ export default (): JSX.Element => {
             <Route path={`/${BASE_URL}/:chainIdParams/`} element={<Bingo />} />
             <Route path={`/${BASE_URL}/:chainIdParams/play`} element={<StartGame />} />
             <Route path={`/${BASE_URL}/:chainIdParams/play/:id/gameRoom`} element={<GameRoom />} />
+            <Route path={`/${BASE_URL}/:chainIdParams/champion`} element={<StartGameChampion />} />
+            <Route path={`/${BASE_URL}/:chainIdParams/champion/:id/gameRoom`} element={<GameRoomChampion />} />
             {/* 404页面 */}
             <Route path="*" element={<Bingo />} />
           </Routes>

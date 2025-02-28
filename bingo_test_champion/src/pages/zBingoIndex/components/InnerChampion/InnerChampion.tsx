@@ -1,24 +1,27 @@
 import { ChainId, IGameList, preStaticUrl } from '@ui/src'
 import { isEqual } from 'lodash'
 import React, { memo } from 'react'
+import { zeroAddress } from 'viem'
+
+import { useScale } from '@/pages/components/ScaleProvider/ScaleProvider'
+import ResultModalChampion from '@/pages/GameRoom/resultModalChampion'
 
 import Inner from '../Inner/Inner'
 import ChampionBoard from './components/ChampionBoard'
 import { useChampion } from './hooks/useChampion'
-import { useScale } from './hooks/useScale'
 import css from './InnerChampion.module.stylus'
 import { TabTextList } from './state/championState'
 
 const InnerChampion = memo(({ bingoMapList, bingoHasError }: { bingoMapList: Map<ChainId, IGameList[]> | undefined; bingoHasError: boolean }) => {
-  const { tab, setTabHandle, bg, btnLabe } = useChampion()
-  const scale = useScale()
+  const { tab, setTabHandle, bg } = useChampion()
+  const { scale } = useScale()
 
   if (!bg) {
     return <></>
   }
   return (
     <div
-      className={`${css.innerChampion} ${css[bg]}`}
+      className={`${css.innerChampion} ${bg || ''}`}
       style={{
         backgroundImage: `url(${preStaticUrl}/img/bingo/${bg}.webp)`,
         transform: `translate(-50%, -50%) scale(${scale})`
@@ -35,11 +38,7 @@ const InnerChampion = memo(({ bingoMapList, bingoHasError }: { bingoMapList: Map
           </p>
         ))}
       </div>
-      {tab.key ? (
-        <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} className={css.innerFromChampion} />
-      ) : (
-        <ChampionBoard btnLabe={btnLabe} />
-      )}
+      {tab.key ? <Inner bingoMapList={bingoMapList} bingoHasError={bingoHasError} className={css.innerFromChampion} /> : <ChampionBoard />}
     </div>
   )
 }, isEqual)

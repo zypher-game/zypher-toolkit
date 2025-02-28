@@ -34,6 +34,9 @@
     font-family: Lemon;
     font-size: 25px
     font-weight: 600;
+    display: flex
+    justify-content: center
+    align-items: center
     @media screen and (max-width: 830px)
       font-size: 18px
   .subtitle 
@@ -69,3 +72,56 @@
     top: 15px
     right: 15px
     width: 24px
+.cardsWrap
+  height: 423px
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-left: 29px
+  padding-right: 29px
+  @media screen and (max-width: 830px)
+    height: 438px
+    padding-left: 15px
+    padding-right: 15px
+
+.content
+  height: 503px
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  @media screen and (max-width: 830px)
+    height: 503px
+.stepsWrapper
+  margin-left: 79px
+  margin-right: 79px
+  height: 102px
+  @media screen and (max-width: 830px)
+    margin-left: 19px
+    margin-right: 19px
+    height: 46px
+.startGameHead .titleChampion
+  font-size: 32px
+.titleSmall
+  display: flex
+  justify-content: center
+  align-items: center
+  background-image: url($preStaticUrl + "/img/bingo/btn_bg.webp");
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  font-size: 20px
+  font-family: "Poppins"
+  font-weight: 600
+  color: #FFF0CF
+  padding: 2px 30px 0
+  margin-left: 20px
+  height: 40px
+.spanTime
+  display: inline-block
+  text-align: center 
+.spanLast
+  width: 30px          
+  text-align: right 
+.spanPoint
+  display: inline-block
+  width: 8px         
+  text-align: center

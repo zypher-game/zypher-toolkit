@@ -1,0 +1,246 @@
+.dialogContent
+  background: transparent
+  width: 100vw
+  display: flex
+  justify-content: center
+.bg
+  background: url($preStaticUrl + '/img/bingo/light.webp') no-repeat center
+  background-size: contain
+  width: 90%
+  height: 90%
+  animation: rotate 3s linear infinite
+  position: absolute;
+  top: -50px;
+  left: 5%
+  &.bgEnd
+    top: 0;
+.wrapper
+  position: relative
+  background: #f8e9c8
+  display: flex
+  flex-direction: column
+  align-items: center
+  border: 6px solid #ac6513;
+  width: 546px;
+  height: 520px
+  margin: 0 10px;
+  border-radius: 60px;
+  filter: drop-shadow(0px 0px 41px rgba(84, 40, 0, 0.7));
+  box-shadow: 0 0 0 4px #D38816 inset
+  &::before 
+    content: '';
+    position: absolute;
+    top: 19px;
+    right: 19px;
+    width: 68px;
+    height: 53px;
+    background: url($preStaticUrl + '/img/bingo/confirm-right.svg') no-repeat;
+  &::after 
+    content: '';
+    position: absolute;
+    bottom: 20px;
+    left: 17px;
+    width: 68px;
+    height: 53px;
+    background: url($preStaticUrl + '/img/bingo/confirm-left.svg') no-repeat;
+.wrapperMobile
+  composes: wrapper
+
+.header
+  position: relative
+  width: 100%
+  text-align: center
+  height: 210px
+
+  &::before
+    content: ''
+    position: absolute
+    top: -110px
+    left: 50%
+    transform: translateX(-50%)
+    width: 100%
+    height: 210px
+    background: url($preStaticUrl + '/img/bingo/title-light.webp') no-repeat center
+    background-size: contain
+.titleC
+  color: #864802
+  font-family: "Lemon"
+  font-size: 24px
+  margin-top: 80px
+.title
+  color: #864802
+  font-family: "Lemon"
+  font-size: 36px
+  margin-top: 100px
+
+.subtitle
+  color: #864802
+  font-family: "Lemon"
+  font-size: 18px
+  margin-top: 20px
+.col
+  position: relative
+  background: #f1dcb6
+  width: 90%
+  border-radius: 20px
+  padding: 10px 20px
+  margin: 70px 0 27px
+  display: flex
+  align-items: center
+  justify-content: space-between
+  &.colEnd
+    margin-top: 20px
+.playerInfo
+  display: flex
+  align-items: center
+  justify-content: flex-start
+  gap: 10px
+  font-size: 14px
+  color: #5F3204
+  .account
+    font-family: "Lemon"
+.countdown
+  color: rgba(95,50,4,0.7)
+  font-size: 12px
+  margin: 10px 0
+.orange
+  color: #DB5F16
+  font-size: 20px;
+  font-weight: 800
+  font-family: "Poppins"
+  text-align: right 
+  display: flex
+  justify-content: flex-end
+  align-items: center
+.spanTime
+  display: inline-block
+  text-align: center 
+.spanLast
+  width: 40px          
+  text-align: right 
+.spanPoint
+  display: inline-block
+  width: 22px         
+  text-align: center
+.wrapper button.startButton
+  color: white
+  font-size: 22px
+  cursor: pointer
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2)
+  transition: transform 0.2s
+  width: 390px
+  height: 58px
+  min-height: 58px
+  margin: 0 auto
+  padding: 0
+  display: flex
+  gap: 4px
+  &:hover
+    transform: translateY(-2px)
+.box
+  position: relative
+  display flex
+  justify-content: center
+  flex-direction: column
+  min-height: 200px
+  img
+    width 180px
+  p
+    font-size: 40px
+    color: #DB5F16
+    font-family: "Pacifico"
+    text-align: center
+    font-weight: 400
+    margin-top: -10px
+
+
+
+
+
+
+
+
+.wrapperLoss
+  position: relative
+  max-width: 1120px
+  height: 45vh
+  width: 90vw
+  max-height: 563px
+  background: linear-gradient(
+    90.2deg,
+    rgba(0, 0, 0, 0) 0.65%,
+    rgba(0, 0, 0, 0.4) 30.31%,
+    rgba(0, 0, 0, 0.5) 51.58%,
+    rgba(0, 0, 0, 0.43) 67.53%,
+    rgba(0, 0, 0, 0) 99.83%
+  );
+  display: flex
+  flex-direction: column
+  align-items: center
+  text-align: center
+  justify-content: space-between;
+  &::before,
+  &::after 
+    content: '';
+    height: 1px;
+    width: 90vw;
+    max-width: 1120px;
+    min-width: 355px;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+   &::before 
+    content: '';
+    top: 0px;
+    background: linear-gradient(90deg, rgba(209, 209, 209, 0.00) 0%, rgba(215, 215, 215, 0.69) 29.97%, #D8D8D8 49.20%, rgba(193, 193, 193, 0.73) 70.13%, rgba(207, 207, 207, 0.00) 100%)
+  &::after 
+    position: absolute;
+    bottom: 0px;
+    content: '';
+    background: linear-gradient(90deg, rgba(209, 209, 209, 0.00) 0%, rgba(215, 215, 215, 0.69) 29.97%, #D8D8D8 49.20%, rgba(193, 193, 193, 0.73) 70.13%, rgba(207, 207, 207, 0.00) 100%)
+  .box
+    min-height: 180px;
+    max-height: 180px;
+    p
+      margin-top: -20px
+      color: #FFD64E
+.loseImg
+  width: 50%
+  margin-top: -30px
+  position relative
+.loseEmoji
+  font-size: 80px
+  margin: 40px 0 0
+.loseMessage
+  color: white
+  font-size: 32px
+  font-family: "Lemon"
+  margin-top: -30px
+
+button.backButton
+  position relative
+  color: white
+  font-size: 32px
+  cursor: pointer
+  transition: transform 0.2s
+  font-family: "Lemon"
+  width: 40%
+  margin-bottom: -29px
+  max-height: 58px
+  z-index: 9;
+  &:hover
+    transform: translateY(-2px)
+.normalLabel
+  font-family: "Lemon"
+  font-size: 32px
+  color: #fff
+.smallLabel
+  font-family: "Lemon"
+  font-size: 20px
+  color: #fff
+  // margin-top: -10px
+@keyframes rotate
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)

@@ -1,0 +1,108 @@
+.championBoard
+  padding: 50px 70px
+  p
+    color: #613C17
+.col1
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  font-family: "Lemon"
+  .greyLink
+    color: #613C17
+    font-size: 20px
+    opacity 0.6
+    cursor pointer
+    transition: opacity 0.3s ease
+    margin-top: 4px
+    &:hover
+      opacity 1
+.col2
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  font-family: "Lemon"
+  margin-top: 50px
+.col3
+  display: flex
+  justify-content: space-between
+  align-items: flex-start
+  margin-top: 64px
+  padding: 30px
+  border-radius: 24px
+  background-color: #F7D199
+  .title
+    font-size: 20px;
+    font-weight: 600
+    font-family: "Poppins"
+  .orange
+    color: #DB5F16
+    font-size: 28px;
+    font-weight: 800
+    font-family: "Poppins"
+    &.orangeRight
+      text-align: right 
+      display: flex
+      justify-content: flex-end
+      align-items: center
+.spanTime
+  display: inline-block
+  text-align: center 
+.spanLast
+  width: 40px          
+  text-align: right 
+.spanPoint
+  display: inline-block
+  width: 22px         
+  text-align: center
+.prizeCol
+  text-align: center
+  color: #613C17
+  font-size: 28px
+  .amount
+    text-align: center
+    color: #FFA600
+    font-size: 60px
+    text-shadow: 0 2px 2px #59534B
+.item
+  text-align: center
+  .title
+    display: flex
+    justify-content: center
+    align-items: center
+    gap: 6px
+  &:nth-child(3)
+    img
+      height 20px
+
+  img
+    height 24px
+  .title_p
+    color: #613C17
+    font-size: 20px
+  .amount
+    font-size: 32px
+    margin-top: 10px
+    display: flex
+    justify-content: center
+    align-items: center
+  .state
+    color: #666666
+    &.in
+      color: #59B407
+p.btn
+  width 80%
+  margin: 50px auto 0
+  padding: 24px 0
+  font-family: "Lemon"
+  text-align: center
+  cursor: pointer
+  font-size: 36px
+  color: #FFF5E1
+  text-shadow: 0 2px 2px #208001
+:global(.champion_bg_orange)
+  p.btn
+    text-shadow: 0 2px 2px #892702
+:global(.champion_bg_grey)
+  p.btn
+    text-shadow: 0 2px 2px #3F3F3F
+    color: #E2E2E2

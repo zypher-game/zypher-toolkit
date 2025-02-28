@@ -29,7 +29,7 @@
     font-size: 24px
     color: #FFF5E1
     text-shadow: -1px -1.5px 0px #208001
-    background: url($preStaticUrl + '/img/bingo//btn.svg') no-repeat
+    background: url($preStaticUrl + '/img/bingo/btn.svg') no-repeat
     background-size: 100% auto
     width: 258px
     height: 67px
@@ -78,4 +78,76 @@
     padding: 34px 84px
     font-size: 16px;
     color:#613C17;
+
+
+// 定义移动端断点
+$mobile = 830px
+
+// 旋转动画
+@keyframes rotate
+  from
+    transform: rotate(0deg)
+  to
+    transform: rotate(360deg)
+
+.card-back
+  cursor: pointer
+  width: 350px
+  padding: 34px 84px
+  font-size: 16px
+  color: #613c17
+  font-family: Lemon
+  font-weight: 400
+  
+  @media screen and (max-width: $mobile)
+    padding-left: 25px
+    padding-bottom: 0
+
+.flex-center
+  width: 100%
+  display: flex
+  justify-content: left
+  
+  @media screen and (max-width: $mobile)
+    justify-content: center
+
+.icon-rotate
+  animation: rotate 3s linear infinite
+
+.lineup-users-wrapper
+  display: flex
+  align-items: center
+  justify-content: center
+  gap: 30px
+  flex-wrap: wrap
+  
+  @media screen and (max-width: $mobile)
+    gap: 5px
+  
+  .lineup-users-item
+    width: 100px
     
+    @media screen and (max-width: $mobile)
+      width: 79px
+    
+    img
+      border: 1px solid #62380c
+    
+    p
+      color: #62380c
+      font-weight: 400
+      font-family: Lemon
+      
+      @media screen and (max-width: $mobile)
+        font-size: 12px
+
+.bingo-card-view
+  width: 356px
+  height: 399px
+  padding: 20px
+  margin-top: 15px
+  
+  @media screen and (max-width: $mobile)
+    width: 200px
+    height: 250px
+    padding: 15px

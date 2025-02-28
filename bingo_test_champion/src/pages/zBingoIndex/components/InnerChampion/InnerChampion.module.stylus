@@ -9,6 +9,7 @@
   top: 55%
   transform: translate(-50%, -50%)
   height: 790px
+  z-index 9
   // &.classic_bg
   //   height: 680px
   // &.champion_bg_green,
@@ -42,7 +43,7 @@
 .innerFromChampion
   width: 1170px
   height: 680px
-  padding-top: 80px;
+  padding-top: 40px;
   margin: 0 auto
   background-position: center
   position fixed

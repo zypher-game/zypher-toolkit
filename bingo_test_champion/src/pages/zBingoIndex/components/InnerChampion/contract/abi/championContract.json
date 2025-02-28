@@ -1,0 +1,1232 @@
+[
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "AlreadyClaimed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      }
+    ],
+    "name": "AlreadyRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      }
+    ],
+    "name": "Full",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint8",
+        "name": "round",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "table",
+        "type": "uint8"
+      }
+    ],
+    "name": "GameNotEnd",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint8",
+        "name": "round",
+        "type": "uint8"
+      }
+    ],
+    "name": "GameNotStarted",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "current",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "required",
+        "type": "uint256"
+      }
+    ],
+    "name": "InsufficientGpAllowance",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "current",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "required",
+        "type": "uint256"
+      }
+    ],
+    "name": "InsufficientGpBalance",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "InvalidTicketOperation",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotAllowed",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      }
+    ],
+    "name": "NotEnabled",
+    "type": "error"
+  },
+  {
+    "inputs": [],
+    "name": "NotInChampionshipPeriod",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "NotRegistered",
+    "type": "error"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "current",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "start",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint64",
+        "name": "end",
+        "type": "uint64"
+      }
+    ],
+    "name": "NotRegistrationPeriod",
+    "type": "error"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "previousAdmin",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "newAdmin",
+        "type": "address"
+      }
+    ],
+    "name": "AdminChanged",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "approved",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Approval",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "operator",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "bool",
+        "name": "approved",
+        "type": "bool"
+      }
+    ],
+    "name": "ApprovalForAll",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "beacon",
+        "type": "address"
+      }
+    ],
+    "name": "BeaconUpgraded",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "wonRounds",
+        "type": "uint8"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "rewardAmount",
+        "type": "uint256"
+      }
+    ],
+    "name": "Claimed",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "uint8",
+        "name": "version",
+        "type": "uint8"
+      }
+    ],
+    "name": "Initialized",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "OwnershipTransferred",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "ticketId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Registered",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "Transfer",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "internalType": "address",
+        "name": "implementation",
+        "type": "address"
+      }
+    ],
+    "name": "Upgraded",
+    "type": "event"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "registTime_",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint32",
+        "name": "players_",
+        "type": "uint32"
+      },
+      {
+        "internalType": "uint256",
+        "name": "entryFee_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "prizePool_",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bool",
+        "name": "enabled_",
+        "type": "bool"
+      },
+      {
+        "components": [
+          {
+            "internalType": "string",
+            "name": "title",
+            "type": "string"
+          },
+          {
+            "internalType": "uint256",
+            "name": "winnerReward",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint256",
+            "name": "loserReward",
+            "type": "uint256"
+          },
+          {
+            "internalType": "uint32",
+            "name": "startTime",
+            "type": "uint32"
+          },
+          {
+            "internalType": "uint8",
+            "name": "tables",
+            "type": "uint8"
+          }
+        ],
+        "internalType": "struct StorageMetadata.GameRound[]",
+        "name": "rounds_",
+        "type": "tuple[]"
+      }
+    ],
+    "name": "addSchedule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "afterPlayerJoin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "gameId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "winner",
+        "type": "address"
+      }
+    ],
+    "name": "afterPlayerWin",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "approve",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "owner",
+        "type": "address"
+      }
+    ],
+    "name": "balanceOf",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      },
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      }
+    ],
+    "name": "claim",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "currentGame",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "gameId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "uint8",
+        "name": "round",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint8",
+        "name": "table",
+        "type": "uint8"
+      },
+      {
+        "internalType": "uint32",
+        "name": "startAt",
+        "type": "uint32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "scheduleId",
+        "type": "uint8"
+      }
+    ],
+    "name": "disableSchedule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "scheduleId",
+        "type": "uint8"
+      }
+    ],
+    "name": "enableSchedule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "getApproved",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "gp_",
+        "type": "address"
+      },
+      {
+        "internalType": "string",
+        "name": "nftName_",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "nftSymbol_",
+        "type": "string"
+      }
+    ],
+    "name": "initialize",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "name": "isApprovedForAll",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "name",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "owner",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "ownerOf",
+    "outputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "proxiableUUID",
+    "outputs": [
+      {
+        "internalType": "bytes32",
+        "name": "",
+        "type": "bytes32"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint64",
+        "name": "champId",
+        "type": "uint64"
+      },
+      {
+        "internalType": "address",
+        "name": "player",
+        "type": "address"
+      }
+    ],
+    "name": "register",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint8",
+        "name": "scheduleId",
+        "type": "uint8"
+      }
+    ],
+    "name": "removeSchedule",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "from",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      },
+      {
+        "internalType": "bytes",
+        "name": "",
+        "type": "bytes"
+      }
+    ],
+    "name": "safeTransferFrom",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "name": "setApprovalForAll",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "gameManager_",
+        "type": "address"
+      }
+    ],
+    "name": "setBingoGameManager",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "unixTimestamp",
+        "type": "uint32"
+      }
+    ],
+    "name": "setEndDate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint32",
+        "name": "unixTimestamp",
+        "type": "uint32"
+      }
+    ],
+    "name": "setStartDate",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "stats",
+    "outputs": [
+      {
+        "components": [
+          {
+            "components": [
+              {
+                "internalType": "uint64",
+                "name": "champId",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint32",
+                "name": "registerAt",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint256",
+                "name": "entryFee",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "prizePool",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint32",
+                "name": "regPlayers",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "maxPlayers",
+                "type": "uint32"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "uint8",
+                    "name": "tables",
+                    "type": "uint8"
+                  },
+                  {
+                    "internalType": "uint32",
+                    "name": "startTime",
+                    "type": "uint32"
+                  }
+                ],
+                "internalType": "struct ChampionshipClient.ChampionshipRoundInfo[]",
+                "name": "rounds",
+                "type": "tuple[]"
+              },
+              {
+                "internalType": "address",
+                "name": "winner",
+                "type": "address"
+              }
+            ],
+            "internalType": "struct ChampionshipClient.ChampionshipInfo",
+            "name": "last",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint64",
+                "name": "champId",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint32",
+                "name": "registerAt",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint256",
+                "name": "entryFee",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "prizePool",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint32",
+                "name": "regPlayers",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "maxPlayers",
+                "type": "uint32"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "uint8",
+                    "name": "tables",
+                    "type": "uint8"
+                  },
+                  {
+                    "internalType": "uint32",
+                    "name": "startTime",
+                    "type": "uint32"
+                  }
+                ],
+                "internalType": "struct ChampionshipClient.ChampionshipRoundInfo[]",
+                "name": "rounds",
+                "type": "tuple[]"
+              },
+              {
+                "internalType": "address",
+                "name": "winner",
+                "type": "address"
+              }
+            ],
+            "internalType": "struct ChampionshipClient.ChampionshipInfo",
+            "name": "current",
+            "type": "tuple"
+          },
+          {
+            "components": [
+              {
+                "internalType": "uint64",
+                "name": "champId",
+                "type": "uint64"
+              },
+              {
+                "internalType": "uint32",
+                "name": "registerAt",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint256",
+                "name": "entryFee",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint256",
+                "name": "prizePool",
+                "type": "uint256"
+              },
+              {
+                "internalType": "uint32",
+                "name": "regPlayers",
+                "type": "uint32"
+              },
+              {
+                "internalType": "uint32",
+                "name": "maxPlayers",
+                "type": "uint32"
+              },
+              {
+                "components": [
+                  {
+                    "internalType": "uint8",
+                    "name": "round",
+                    "type": "uint8"
+                  },
+                  {
+                    "internalType": "string",
+                    "name": "title",
+                    "type": "string"
+                  },
+                  {
+                    "internalType": "uint8",
+                    "name": "tables",
+                    "type": "uint8"
+                  },
+                  {
+                    "internalType": "uint32",
+                    "name": "startTime",
+                    "type": "uint32"
+                  }
+                ],
+                "internalType": "struct ChampionshipClient.ChampionshipRoundInfo[]",
+                "name": "rounds",
+                "type": "tuple[]"
+              },
+              {
+                "internalType": "address",
+                "name": "winner",
+                "type": "address"
+              }
+            ],
+            "internalType": "struct ChampionshipClient.ChampionshipInfo",
+            "name": "next",
+            "type": "tuple"
+          }
+        ],
+        "internalType": "struct ChampionshipClient.ChampionshipStatus",
+        "name": "status",
+        "type": "tuple"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "bytes4",
+        "name": "interfaceId",
+        "type": "bytes4"
+      }
+    ],
+    "name": "supportsInterface",
+    "outputs": [
+      {
+        "internalType": "bool",
+        "name": "",
+        "type": "bool"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "symbol",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "tokenId",
+        "type": "uint256"
+      }
+    ],
+    "name": "tokenURI",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "address",
+        "name": "",
+        "type": "address"
+      },
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "transferFrom",
+    "outputs": [],
+    "stateMutability": "pure",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "transferOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      }
+    ],
+    "name": "upgradeTo",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "newImplementation",
+        "type": "address"
+      },
+      {
+        "internalType": "bytes",
+        "name": "data",
+        "type": "bytes"
+      }
+    ],
+    "name": "upgradeToAndCall",
+    "outputs": [],
+    "stateMutability": "payable",
+    "type": "function"
+  }
+]
