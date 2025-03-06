@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "icon_checked",
+    "texture": "c80e4076-9739-4301-8111-8432a5aee3e4",
+    "atlas": "",
+    "rect": [
+      23,
+      20,
+      200,
+      65
+    ],
+    "offset": [
+      3,
+      -1.5
+    ],
+    "originalSize": [
+      240,
+      102
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

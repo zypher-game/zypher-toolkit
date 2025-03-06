@@ -52,7 +52,19 @@ var battleResultCtrl = UIResources_1.Res.gameOverCtrl;
 exports.JXWinInfo = new UIMgr_1.WinInfos(Object.keys(exports.VIEW_ID).map(function (v, k) { return exports.VIEW_ID[v]; }), new ES5Ex_1.MapWrap([
     [exports.VIEW_ID.mapCtrl, new UIMgr_1.WinInfo(UIResources_1.Res.mapCtrl, ComFullWin)],
     [exports.VIEW_ID.load, new UIMgr_1.WinInfo(load, ComFullWin)],
-    [exports.VIEW_ID.home, new UIMgr_1.WinInfo(home.homeCtrl, ComFullWin)],
+    /**
+     * 首页
+     */
+    [exports.VIEW_ID.home, new UIMgr_1.WinInfo(home.homeCtrl, ComFullStackWin)],
+    [
+        exports.VIEW_ID.aiPlayerSetting,
+        new UIMgr_1.WinInfo(home.AIPlayerSetting, ComFullStackWin),
+    ],
+    [exports.VIEW_ID.DailyTasks, new UIMgr_1.WinInfo(home.DailyTasks, ComSecFullWinow)],
+    [exports.VIEW_ID.Help, new UIMgr_1.WinInfo(home.Help, ComFullStackWin)],
+    [exports.VIEW_ID.LeaderBoard, new UIMgr_1.WinInfo(home.LeaderBoard, ComFullStackWin)],
+    [exports.VIEW_ID.setting, new UIMgr_1.WinInfo(home.Settings, ComFullStackWin)],
+    /*----- 首页  end*/
     [exports.VIEW_ID.fight, new UIMgr_1.WinInfo(fight.fightCtrl, ComFullStackWin)],
     [
         exports.VIEW_ID.battleResultCtrl,

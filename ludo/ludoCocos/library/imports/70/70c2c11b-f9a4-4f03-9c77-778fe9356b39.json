@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "sfx_on",
+    "texture": "80a8f276-405e-4996-afb5-5dc9d6ca9103",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      76,
+      82
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      76,
+      82
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

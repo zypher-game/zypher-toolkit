@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "learderboard",
+    "texture": "54efddd9-5b40-437d-9f03-654c8f545fd5",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      255,
+      35
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      255,
+      35
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

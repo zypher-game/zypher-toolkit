@@ -92,7 +92,19 @@ export const JXWinInfo = new WinInfos(
   new MapWrap([
     [VIEW_ID.mapCtrl, new WinInfo(Res.mapCtrl, ComFullWin)],
     [VIEW_ID.load, new WinInfo(load, ComFullWin)],
-    [VIEW_ID.home, new WinInfo(home.homeCtrl, ComFullWin)],
+    /**
+     * 首页
+     */
+    [VIEW_ID.home, new WinInfo(home.homeCtrl, ComFullStackWin)],
+    [
+      VIEW_ID.aiPlayerSetting,
+      new WinInfo(home.AIPlayerSetting, ComFullStackWin),
+    ],
+    [VIEW_ID.DailyTasks, new WinInfo(home.DailyTasks, ComSecFullWinow)],
+    [VIEW_ID.Help, new WinInfo(home.Help, ComFullStackWin)],
+    [VIEW_ID.LeaderBoard, new WinInfo(home.LeaderBoard, ComFullStackWin)],
+    [VIEW_ID.setting, new WinInfo(home.Settings, ComFullStackWin)],
+    /*----- 首页  end*/
     [VIEW_ID.fight, new WinInfo(fight.fightCtrl, ComFullStackWin)],
     [
       VIEW_ID.battleResultCtrl,

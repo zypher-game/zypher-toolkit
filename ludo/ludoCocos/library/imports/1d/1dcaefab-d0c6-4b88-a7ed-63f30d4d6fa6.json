@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "ai agent play",
+    "texture": "38407af7-02af-4e0e-bb6a-7a6d1e736e4e",
+    "atlas": "",
+    "rect": [
+      1,
+      0,
+      243,
+      35
+    ],
+    "offset": [
+      0.5,
+      0
+    ],
+    "originalSize": [
+      244,
+      35
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

@@ -45,6 +45,11 @@ export const Res = {
   /**主界面模块 */
   homeCtrl: {
     homeCtrl: "homeCtrl/HomeCtrl",
+    AIPlayerSetting: "homeCtrl/dialog/AIPlayerSetting",
+    DailyTasks: "homeCtrl/dialog/DailyTasks",
+    Help: "homeCtrl/dialog/Help",
+    LeaderBoard: "homeCtrl/dialog/LeaderBoard",
+    Settings: "homeCtrl/dialog/Settings",
   },
   /**公共模块 */
   common: {

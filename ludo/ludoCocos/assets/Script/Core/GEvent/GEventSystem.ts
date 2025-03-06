@@ -6,6 +6,7 @@
  */
 const Default_PRIORITY = 99999; // 默认优先级, 数值越大，级别越低
 
+import { StringOrNumber } from "../../../../d.ts/game/JXCLBtl";
 import { MapWrap, ObjectWrap } from "../FrameEx/ES5Ex";
 
 declare type EventObject = ObjectWrap | cc.Node | cc.Component;

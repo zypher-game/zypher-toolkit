@@ -40,6 +40,11 @@ var AppStart = /** @class */ (function (_super) {
     }
     AppStart.prototype.__onLoad = function () {
         var _this = this;
+        cc.view.setFrameSize(window.innerWidth, window.innerHeight);
+        cc.view.setDesignResolutionSize(1920, 1080, cc.ResolutionPolicy.SHOW_ALL);
+        cc.view.resizeWithBrowserSize(true);
+        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+        cc.view.enableAutoFullScreen(true);
         // @ts-ignore
         i18n.init("zh_CN", function () {
             cc.Button.comAudio = UIResources_1.Res.common.audio.button;
@@ -50,9 +55,7 @@ var AppStart = /** @class */ (function (_super) {
             _this.onGameStart();
         });
     };
-    AppStart.prototype.start = function () {
-        cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
-    };
+    AppStart.prototype.start = function () { };
     AppStart.prototype.onGameStart = function () {
         var node = cc.director.getScene().getChildByName(APP_CTRL);
         if (!node) {

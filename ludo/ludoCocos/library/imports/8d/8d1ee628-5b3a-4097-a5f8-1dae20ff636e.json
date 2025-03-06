@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "dialog_bg",
+    "texture": "63365779-1e28-4ca8-9a17-7b2d606dc6a0",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      640,
+      992
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      640,
+      992
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

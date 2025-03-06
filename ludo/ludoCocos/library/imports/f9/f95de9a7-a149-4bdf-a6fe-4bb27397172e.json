@@ -1,0 +1,28 @@
+{
+  "__type__": "cc.SpriteFrame",
+  "content": {
+    "name": "tab_bg",
+    "texture": "a5255b81-28a5-4bc3-a014-aa6ea58c2998",
+    "atlas": "",
+    "rect": [
+      0,
+      0,
+      464,
+      72
+    ],
+    "offset": [
+      0,
+      0
+    ],
+    "originalSize": [
+      464,
+      72
+    ],
+    "capInsets": [
+      0,
+      0,
+      0,
+      0
+    ]
+  }
+}

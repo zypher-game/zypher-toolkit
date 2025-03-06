@@ -6,7 +6,6 @@ import {
 } from "../../../../d.ts/game/JXCLBtl";
 import { JXDef } from "../../conventions/JXCommon";
 import { INVALID_VALUE } from "../../Core/CoreDefine";
-import ColorLog from "../../Core/FrameEx/ColorLog";
 import { ObjectWrap } from "../../Core/FrameEx/ES5Ex";
 import GTimerMgr from "../../Core/Manager/GTimerMgr";
 import { RedPointLogicMgr } from "../../Core/Manager/RedPointLogicMgr";

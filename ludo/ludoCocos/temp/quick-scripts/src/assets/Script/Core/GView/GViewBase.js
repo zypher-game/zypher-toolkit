@@ -216,7 +216,9 @@ var GViewBase = /** @class */ (function (_super) {
         for (var _i = 0; _i < arguments.length; _i++) {
             args[_i] = arguments[_i];
         }
-        setBgFit_1.setBgFit(this.bgImage);
+        if (this.bgImage) {
+            setBgFit_1.setBgFit(this.bgImage);
+        }
     };
     GViewBase.prototype.emitEvent = function () {
         GCtrl_1.GCtrl.ES.emit(GCtrl_1.GCtrl.GClientWinOpenEventAfterMsg, this.win.winId);

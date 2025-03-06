@@ -13,6 +13,11 @@ const { ccclass, property, menu } = cc._decorator;
 @menu("AppStart")
 export default class AppStart extends GComponent {
   protected __onLoad() {
+    cc.view.setFrameSize(window.innerWidth, window.innerHeight);
+    cc.view.setDesignResolutionSize(1920, 1080, cc.ResolutionPolicy.SHOW_ALL);
+    cc.view.resizeWithBrowserSize(true);
+    cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
+    cc.view.enableAutoFullScreen(true);
     // @ts-ignore
     i18n.init("zh_CN", () => {
       cc.Button.comAudio = Res.common.audio.button;
@@ -24,9 +29,7 @@ export default class AppStart extends GComponent {
     });
   }
 
-  start() {
-    cc.view.setOrientation(cc.macro.ORIENTATION_LANDSCAPE);
-  }
+  start() {}
 
   public onGameStart() {
     let node = cc.director.getScene().getChildByName(APP_CTRL);

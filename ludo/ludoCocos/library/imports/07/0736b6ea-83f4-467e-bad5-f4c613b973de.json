@@ -248,8 +248,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        15.031,
-        -29.198000000000093,
+        0,
+        0,
         0,
         0,
         0,
@@ -289,7 +289,7 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_spriteFrame": {
-      "__uuid__": "87d4ee89-b215-4245-adf3-641ec959ab68"
+      "__uuid__": "ccfc1fc8-bc13-4273-9ad4-6f31a6a0807b"
     },
     "_type": 0,
     "_sizeMode": 0,
@@ -318,10 +318,10 @@
     "_alignFlags": 21,
     "_left": 20.819000000000017,
     "_right": -20.81900000000006,
-    "_top": 19.19800000000001,
-    "_bottom": -39.19800000000004,
+    "_top": -10.000000000000082,
+    "_bottom": -9.99999999999995,
     "_verticalCenter": 0,
-    "_horizontalCenter": 15.031,
+    "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -382,8 +382,8 @@
       "__type__": "TypedArray",
       "ctor": "Float64Array",
       "array": [
-        15.031,
-        -29.198000000000093,
+        0,
+        0,
         0,
         0,
         0,
@@ -420,10 +420,10 @@
     "_alignFlags": 21,
     "_left": 20.819000000000017,
     "_right": -20.81900000000006,
-    "_top": 19.19800000000001,
-    "_bottom": -39.19800000000004,
+    "_top": -10.000000000000082,
+    "_bottom": -9.99999999999995,
     "_verticalCenter": 0,
-    "_horizontalCenter": 15.031,
+    "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,
     "_isAbsTop": true,
@@ -660,9 +660,7 @@
     "root": {
       "__id__": 14
     },
-    "asset": {
-      "__uuid__": "f2796a47-40aa-406d-9d63-09fb107b2c36"
-    },
+    "asset": null,
     "fileId": "8evRFTXEFD1JuDT4PO/EtN",
     "sync": false
   },
@@ -800,9 +798,7 @@
     "root": {
       "__id__": 18
     },
-    "asset": {
-      "__uuid__": "f2796a47-40aa-406d-9d63-09fb107b2c36"
-    },
+    "asset": null,
     "fileId": "430kPBfxFNCaRxnRj0SHlv",
     "sync": false
   },
@@ -871,9 +867,7 @@
     "root": {
       "__id__": 20
     },
-    "asset": {
-      "__uuid__": "f2796a47-40aa-406d-9d63-09fb107b2c36"
-    },
+    "asset": null,
     "fileId": "43NqxsJitMbpWh6QCOOwSz",
     "sync": false
   },
@@ -981,9 +975,7 @@
     "_headAniInfo": null,
     "_playTimes": 1,
     "_isAniComplete": true,
-    "_N$skeletonData": {
-      "__uuid__": "1db5de8b-e03a-46bd-a05e-3eabce1fbe1f"
-    },
+    "_N$skeletonData": null,
     "_N$_defaultCacheMode": 0,
     "_N$debugSlots": false,
     "_N$debugBones": false,

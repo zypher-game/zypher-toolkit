@@ -1,7 +1,7 @@
 [
   {
     "__type__": "cc.Prefab",
-    "_name": "Player",
+    "_name": "PlayerBlue",
     "_objFlags": 0,
     "_native": "",
     "data": {
@@ -267,7 +267,7 @@
         "__id__": 10
       }
     ],
-    "_active": false,
+    "_active": true,
     "_components": [
       {
         "__id__": 14
@@ -460,7 +460,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 47.2,
+      "width": 48.49,
       "height": 54.4
     },
     "_anchorPoint": {

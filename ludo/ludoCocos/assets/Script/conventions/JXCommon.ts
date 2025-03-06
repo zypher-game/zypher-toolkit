@@ -75,6 +75,11 @@ export const JXDef = {
     setting: 100011,
     /**结算界面 */
     battleResultCtrl: 100012,
+
+    aiPlayerSetting: 100013,
+    DailyTasks: 100014,
+    Help: 100015,
+    LeaderBoard: 100016,
   },
 };
 

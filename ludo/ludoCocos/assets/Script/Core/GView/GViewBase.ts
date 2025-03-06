@@ -89,6 +89,7 @@ export default class GViewBase extends GComponent {
   /////////////////////////////////////////////////////////////////////////
   protected __onLoad() {
     this.preDestroy = false;
+
     if (this.widgetNodes.length > 0) {
       let winSize = GCtrl.winSize;
       for (let i = 0; i < this.widgetNodes.length; i++) {
@@ -184,7 +185,9 @@ export default class GViewBase extends GComponent {
    * @param args 参数列表
    */
   public onGStart(...args) {
-    setBgFit(this.bgImage);
+    if (this.bgImage) {
+      setBgFit(this.bgImage);
+    }
   }
 
   public emitEvent() {
