@@ -26,7 +26,7 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
         />
       </a>
       <a
-        href="https://discord.com/invite/MKJZhS4p2T"
+        href="https://discord.gg/muWwuPb8zz"
         target="_blank"
         rel="noreferrer"
       >
@@ -52,7 +52,7 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
         />
       </a>
       <a
-        href="https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e"
+        href="https://docs.zypher.network"
         target="_blank"
         rel="noreferrer"
       >
