@@ -6362,7 +6362,7 @@ var CommunityLink = memo15(({ className }) => {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/twitter.svg"
   })), /* @__PURE__ */ React19.createElement("a", {
-    href: "https://discord.com/invite/MKJZhS4p2T",
+    href: "https://discord.gg/muWwuPb8zz",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React19.createElement(SvgComponent_default, {
@@ -6383,7 +6383,7 @@ var CommunityLink = memo15(({ className }) => {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/github.svg"
   })), /* @__PURE__ */ React19.createElement("a", {
-    href: "https://zyphergames.notion.site/Zypher-Games-101-58f3fc6362dc473db187dcec0b63e74e",
+    href: "https://docs.zypher.network",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React19.createElement(SvgComponent_default, {
@@ -15093,20 +15093,26 @@ var SolutionsList = [
   },
   {
     show: true,
-    title: "Secret Engine",
-    content: "A suite of zk-as-a-service SDKs, enabling information asymmetry essential for strategic gaming mechanisms, offering fully on-chain secrets and randomness with guaranteed fairness. Soon to be supported as AVSes.",
-    link: "https://docs.zypher.network/zk/secret/overview/"
+    title: "Proof of Prompt",
+    content: "Zypher's cryptographic verification protocol for prompt integrity. It enables AI agents to commit to prompts on-chain using zero-knowledge proofs, ensuring that prompts remain tamper-proof and verifiable without leaking sensitive inputs. Through standardized RESTful APIs and SDKs, Proof of Prompt provides a foundational trust interface for any AI system.",
+    link: "https://wiki.zypher.network/zypher-ai-agent/zypher-ai-agent/zkprompt"
   },
   {
     show: false,
-    title: "AW Engine",
-    content: "A scalable, modular framework designed to support vertical hyper-scaling. Programmable through circuits or zkVM, with the z4 SDK specifically crafted for real-time multiplayer events, including PvP scenarios.",
-    link: "https://docs.zypher.network/zk/aw/overview/"
+    title: "Security Browser",
+    content: "A real-time browser designed for end users to audit AI agent interactions. It verifies the integrity of prompts and responses, displays risk labels, and flags anomalies. Users can actively contribute feedback and ratings through the embedded community trust panel, earning incentives for strengthening the AI audit network.",
+    link: "https://wiki.zypher.network/"
   },
   {
     show: false,
-    title: "Zytron Kit",
-    content: "A Sovereign Rollup Stack engineered for the seamless deployment of dedicated gaming infrastructure, featuring 0 gas, 0.1s blocktime, zk pre-compiles and more. Optimized for highly interactive games such as MMOs and FOCGs.",
+    title: "Proof Mining",
+    content: "Zypher's decentralized validation network powered by a cryptoeconomic incentive mechanism. Community-operated Prover nodes and individual users collaborate to verify agent outputs and generate scalable ZK proofs. This ensures tamper-proof AI execution without relying on centralized validators\u2014fully aligned with Web3's trustless design.",
+    link: "https://docs.zypher.network/mining/overview/"
+  },
+  {
+    show: true,
+    title: "Zytron",
+    content: "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher's scalable, decentralized infrastructure.",
     link: "https://zytron.zypher.network/"
   },
   {
@@ -15154,7 +15160,7 @@ var Footer = memo41(
       href: "https://wiki.zypher.network/",
       target: "_blank",
       rel: "noreferrer"
-    }, /* @__PURE__ */ React102.createElement("h4", null, "Wiki"))), /* @__PURE__ */ React102.createElement("div", {
+    }, /* @__PURE__ */ React102.createElement("h4", null, "User Docs"))), /* @__PURE__ */ React102.createElement("div", {
       className: "footer_item"
     }, /* @__PURE__ */ React102.createElement("h4", null, "Product"), /* @__PURE__ */ React102.createElement("ul", {
       className: "product_item"
