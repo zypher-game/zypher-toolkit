@@ -34,23 +34,30 @@ const SolutionsList: ISolutionsItem[] = [
   },
   {
     show: true,
-    title: "Secret Engine",
+    title: "Proof of Prompt",
     content:
-      "A suite of zk-as-a-service SDKs, enabling information asymmetry essential for strategic gaming mechanisms, offering fully on-chain secrets and randomness with guaranteed fairness. Soon to be supported as AVSes.",
-    link: "https://docs.zypher.network/zk/secret/overview/",
+      "Zypher\'s cryptographic verification protocol for prompt integrity. It enables AI agents to commit to prompts on-chain using zero-knowledge proofs, ensuring that prompts remain tamper-proof and verifiable without leaking sensitive inputs. Through standardized RESTful APIs and SDKs, Proof of Prompt provides a foundational trust interface for any AI system.",
+    link: "https://wiki.zypher.network/zypher-ai-agent/zypher-ai-agent/zkprompt",
   },
   {
     show: false,
-    title: "AW Engine",
+    title: "Security Browser",
     content:
-      "A scalable, modular framework designed to support vertical hyper-scaling. Programmable through circuits or zkVM, with the z4 SDK specifically crafted for real-time multiplayer events, including PvP scenarios.",
-    link: "https://docs.zypher.network/zk/aw/overview/",
+      "A real-time browser designed for end users to audit AI agent interactions. It verifies the integrity of prompts and responses, displays risk labels, and flags anomalies. Users can actively contribute feedback and ratings through the embedded community trust panel, earning incentives for strengthening the AI audit network.",
+    link: "https://wiki.zypher.network/",
   },
   {
     show: false,
-    title: "Zytron Kit",
+    title: "Proof Mining",
     content:
-      "A Sovereign Rollup Stack engineered for the seamless deployment of dedicated gaming infrastructure, featuring 0 gas, 0.1s blocktime, zk pre-compiles and more. Optimized for highly interactive games such as MMOs and FOCGs.",
+      "Zypher\'s decentralized validation network powered by a cryptoeconomic incentive mechanism. Community-operated Prover nodes and individual users collaborate to verify agent outputs and generate scalable ZK proofs. This ensures tamper-proof AI execution without relying on centralized validators—fully aligned with Web3\'s trustless design.",
+    link: "https://docs.zypher.network/mining/overview/",
+  },
+  {
+    show: true,
+    title: "Zytron",
+    content:
+      "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher\'s scalable, decentralized infrastructure.",
     link: "https://zytron.zypher.network/",
   },
   {
@@ -97,7 +104,7 @@ const Footer = memo(
                 target="_blank"
                 rel="noreferrer"
               >
-                <h4>Wiki</h4>
+                <h4>User Docs</h4>
               </a>
             </div>
             <div className="footer_item">
