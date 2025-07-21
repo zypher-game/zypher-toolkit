@@ -55,10 +55,17 @@ const SolutionsList: ISolutionsItem[] = [
   },
   {
     show: true,
-    title: "Zytron",
+    title: "Zytron Chain",
     content:
       "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher\'s scalable, decentralized infrastructure.",
-    link: "https://zytron.zypher.network/",
+    link: "/zytron",
+  },
+  {
+    show: true,
+    title: "Ecosystem",
+    content:
+      "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher\'s scalable, decentralized infrastructure.",
+    link: "/ecosystem",
   },
   {
     show: false,
@@ -108,6 +115,14 @@ const Footer = memo(
               </a>
             </div>
             <div className="footer_item">
+              <a
+                className="product_item_white"
+                href="https://drive.google.com/drive/folders/1hEpEikETzoxAMEFwZk7S5nksO1bdsrxh"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <h4>Brand Kit</h4>
+              </a>
               <h4>Product</h4>
               <ul className="product_item">
                 {SolutionsList.filter((v) => v.link).map((v) => (
@@ -117,16 +132,6 @@ const Footer = memo(
                     </a>
                   </li>
                 ))}
-                <li>
-                  <a
-                    className="product_item_white"
-                    href="https://drive.google.com/drive/folders/1hEpEikETzoxAMEFwZk7S5nksO1bdsrxh"
-                    target="_blank"
-                    rel="noreferrer"
-                  >
-                    <h4>Brand Kit</h4>
-                  </a>
-                </li>
               </ul>
             </div>
             <div className="footer_item">

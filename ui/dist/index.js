@@ -15111,9 +15111,15 @@ var SolutionsList = [
   },
   {
     show: true,
-    title: "Zytron",
+    title: "Zytron Chain",
     content: "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher's scalable, decentralized infrastructure.",
-    link: "https://zytron.zypher.network/"
+    link: "/zytron"
+  },
+  {
+    show: true,
+    title: "Ecosystem",
+    content: "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher's scalable, decentralized infrastructure.",
+    link: "/ecosystem"
   },
   {
     show: false,
@@ -15162,7 +15168,12 @@ var Footer = memo41(
       rel: "noreferrer"
     }, /* @__PURE__ */ React102.createElement("h4", null, "User Docs"))), /* @__PURE__ */ React102.createElement("div", {
       className: "footer_item"
-    }, /* @__PURE__ */ React102.createElement("h4", null, "Product"), /* @__PURE__ */ React102.createElement("ul", {
+    }, /* @__PURE__ */ React102.createElement("a", {
+      className: "product_item_white",
+      href: "https://drive.google.com/drive/folders/1hEpEikETzoxAMEFwZk7S5nksO1bdsrxh",
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Brand Kit")), /* @__PURE__ */ React102.createElement("h4", null, "Product"), /* @__PURE__ */ React102.createElement("ul", {
       className: "product_item"
     }, SolutionsList.filter((v) => v.link).map((v) => /* @__PURE__ */ React102.createElement("li", {
       key: v.title
@@ -15170,12 +15181,7 @@ var Footer = memo41(
       href: v.link,
       target: "_blank",
       rel: "noreferrer"
-    }, v.title))), /* @__PURE__ */ React102.createElement("li", null, /* @__PURE__ */ React102.createElement("a", {
-      className: "product_item_white",
-      href: "https://drive.google.com/drive/folders/1hEpEikETzoxAMEFwZk7S5nksO1bdsrxh",
-      target: "_blank",
-      rel: "noreferrer"
-    }, /* @__PURE__ */ React102.createElement("h4", null, "Brand Kit"))))), /* @__PURE__ */ React102.createElement("div", {
+    }, v.title))))), /* @__PURE__ */ React102.createElement("div", {
       className: "footer_item"
     }, /* @__PURE__ */ React102.createElement("h4", null, "Social"), /* @__PURE__ */ React102.createElement(CommunityLink_default, {
       className: "footer_community"
