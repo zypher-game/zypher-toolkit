@@ -5453,6 +5453,16 @@ var Games = (chainId) => {
           label: "Cellula",
           icon: "Cellula.png",
           link: "https://factory.cellula.life/welcome"
+        },
+        {
+          label: "SURVIVOR",
+          icon: "/img/games/SURVIVOR.png",
+          link: "https://outerverse.games/games/"
+        },
+        {
+          label: "TapPop",
+          icon: "/img/games/TapPop.png",
+          link: "https://x.com/TapPop_AI"
         }
       ]
     }
