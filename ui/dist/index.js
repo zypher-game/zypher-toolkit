@@ -6386,7 +6386,7 @@ var CommunityLink = memo15(({ className }) => {
     className: "community_svg",
     src: preStaticUrl + "/img/layout/medium.svg"
   })), /* @__PURE__ */ React19.createElement("a", {
-    href: "https://github.com/zypher-game",
+    href: "https://github.com/zypher-network",
     target: "_blank",
     rel: "noreferrer"
   }, /* @__PURE__ */ React19.createElement(SvgComponent_default, {
