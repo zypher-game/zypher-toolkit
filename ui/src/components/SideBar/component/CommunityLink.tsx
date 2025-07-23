@@ -45,7 +45,7 @@ const CommunityLink: FC<IProps> = memo(({ className }: IProps) => {
           src={preStaticUrl + "/img/layout/medium.svg"}
         />
       </a>
-      <a href="https://github.com/zypher-game" target="_blank" rel="noreferrer">
+      <a href="https://github.com/zypher-network" target="_blank" rel="noreferrer">
         <SvgComponent
           className="community_svg"
           src={preStaticUrl + "/img/layout/github.svg"}
