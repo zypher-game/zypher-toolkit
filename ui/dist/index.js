@@ -15126,12 +15126,6 @@ var SolutionsList = [
     link: "/zytron"
   },
   {
-    show: true,
-    title: "Ecosystem",
-    content: "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher's scalable, decentralized infrastructure.",
-    link: "/ecosystem"
-  },
-  {
     show: false,
     title: "Redacted",
     content: "Deploy large-scale multiplayer games on [redacted] using your preferred programming languages (RUST, Solidity, WASM) and game engines (Bevy, Unity, Unreal). Pre-registration will be available soon."
@@ -15176,7 +15170,13 @@ var Footer = memo41(
       href: "https://wiki.zypher.network/",
       target: "_blank",
       rel: "noreferrer"
-    }, /* @__PURE__ */ React102.createElement("h4", null, "User Docs"))), /* @__PURE__ */ React102.createElement("div", {
+    }, /* @__PURE__ */ React102.createElement("h4", null, "User Docs")), /* @__PURE__ */ React102.createElement("a", {
+      href: "/ecosystem"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Ecosystem")), /* @__PURE__ */ React102.createElement("a", {
+      href: "https://zypher.network/audit",
+      target: "_blank",
+      rel: "noreferrer"
+    }, /* @__PURE__ */ React102.createElement("h4", null, "Audit Report"))), /* @__PURE__ */ React102.createElement("div", {
       className: "footer_item"
     }, /* @__PURE__ */ React102.createElement("a", {
       className: "product_item_white",

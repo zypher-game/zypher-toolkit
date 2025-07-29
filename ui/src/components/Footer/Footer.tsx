@@ -60,13 +60,13 @@ const SolutionsList: ISolutionsItem[] = [
       "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher\'s scalable, decentralized infrastructure.",
     link: "/zytron",
   },
-  {
-    show: true,
-    title: "Ecosystem",
-    content:
-      "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher\'s scalable, decentralized infrastructure.",
-    link: "/ecosystem",
-  },
+  // {
+  //   show: true,
+  //   title: "Ecosystem",
+  //   content:
+  //     "A gasless AI rollup chain built on BNB Chain, optimized for zero-knowledge agent computation. Zytron supports high-frequency inference, ZK proof generation, and AI-specific workloads, serving as the on-chain backbone for Proof of Prompt and Proof of Inference. With over 3 million wallets interacting in pre-mainnet, it anchors Zypher\'s scalable, decentralized infrastructure.",
+  //   link: "/ecosystem",
+  // },
   {
     show: false,
     title: "Redacted",
@@ -112,6 +112,16 @@ const Footer = memo(
                 rel="noreferrer"
               >
                 <h4>User Docs</h4>
+              </a>
+              <a href="/ecosystem">
+                <h4>Ecosystem</h4>
+              </a>
+              <a
+                href="https://zypher.network/audit"
+                target="_blank"
+                rel="noreferrer"
+              >
+                <h4>Audit Report</h4>
               </a>
             </div>
             <div className="footer_item">
